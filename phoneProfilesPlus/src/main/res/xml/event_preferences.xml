@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus" >
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventidentification"
+        android:title="@string/event_preferences_category_eventidentification" >
+		<CheckBoxPreference 
+		    android:key="eventEnabled"
+		    android:title="@string/event_preferences_eventEnabled"
+		    android:defaultValue="false" />
+        <EditTextPreference
+            android:key="eventName"
+            android:summary="@string/event_preferences_eventName"
+            android:title="@string/event_preferences_eventName"
+            android:selectAllOnFocus="true" /> 
+		<ListPreference android:title="@string/event_preferences_priority"
+            android:summary="@string/array_event_pref_priorityMedium"
+            android:key="eventPriority"
+            android:defaultValue="0"
+            android:entries="@array/eventPriorityArray"
+            android:entryValues="@array/eventPriorityValues" />        
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_startofevent"
+        android:title="@string/event_preferences_category_startofevent" >
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
+            android:defaultValue="0"
+            android:key="eventProfileStart"
+            android:title="@string/event_preferences_eventProfileStart"
+            henrichg:addNoActivateItem="0" />
+   		<CheckBoxPreference 
+		    android:key="eventForceRun"
+		    android:title="@string/event_preferences_ForceRun"
+		    android:defaultValue="false"
+		    android:summary="@string/event_preferences_ForceRun_summary" />
+ 		<sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="eventDelayStart"
+            android:summary="@string/event_preferences_delayStart"
+            android:title="@string/event_preferences_delayStart" 
+            android:defaultValue="0"
+            henrichg:min="0"
+            henrichg:max="68400" />
+		<RingtonePreference
+            android:key="eventNotificationSound"
+            android:summary="@string/array_pref_no_change"
+            android:title="@string/event_preferences_notificationSound"
+            android:ringtoneType="notification" 
+            android:showSilent="true"
+            android:showDefault="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_endofevent"
+        android:title="@string/event_preferences_category_endofevent" >
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
+            android:defaultValue="-999"
+            android:key="eventProfileEnd"
+            android:title="@string/event_preferences_eventProfileEnd"
+            henrichg:addNoActivateItem="1" />
+   		<CheckBoxPreference 
+		    android:key="eventUndoneProfile"
+		    android:title="@string/event_preferences_undoneProfile"
+		    android:defaultValue="true"
+		    android:summary="@string/event_preferences_undoneProfile_summary" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventTimeParameters"
+        android:title="@string/event_preferences_category_eventTimeParameters" >
+		<CheckBoxPreference 
+		    android:key="eventTimeEnabled"
+		    android:title="@string/event_preferences_time_enabled"
+		    android:defaultValue="false" />
+        <sk.henrichg.phoneprofilesplus.DaysOfWeekPreference
+            android:defaultValue="#ALL#"
+            android:key="eventTimeDays"
+            android:title="@string/event_preferences_time_timeDays"
+            android:entries="@array/daysOfWeekArray"
+            android:entryValues="@array/daysOfWeekValues"
+            android:dependency="eventTimeEnabled" />
+        <sk.henrichg.phoneprofilesplus.TimePreference
+            android:key="eventTimeStartTime"
+            android:defaultValue="0"
+            android:title="@string/event_preferences_time_startTime"
+            android:dependency="eventTimeEnabled" />
+		<CheckBoxPreference 
+		    android:key="eventTimeUseEndTime"
+		    android:title="@string/event_preferences_time_useEndTime"
+		    android:defaultValue="false"
+            android:dependency="eventTimeEnabled" />
+        <sk.henrichg.phoneprofilesplus.TimePreference
+            android:key="eventTimeEndTime"
+            android:defaultValue="0"
+            android:title="@string/event_preferences_time_endTime"
+            android:dependency="eventTimeUseEndTime" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventCalendarParameters"
+        android:title="@string/event_preferences_category_eventCalendarParameters" >
+		<CheckBoxPreference 
+		    android:key="eventCalendarEnabled"
+		    android:title="@string/event_preferences_calendar_enabled"
+		    android:defaultValue="false" />
+		<sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreference
+            android:key="eventCalendarCalendars"
+            android:defaultValue=""
+            android:title="@string/event_preferences_calendar_calendars"
+            android:dependency="eventCalendarEnabled" />
+		<ListPreference android:title="@string/event_preferences_calendar_search_field"
+            android:summary="@string/array_event_pref_calendarSearchField_eventName"
+            android:key="eventCalendarSearchField"
+            android:defaultValue="0"
+            android:entries="@array/eventCalendarSearchFieldArray"
+            android:entryValues="@array/eventCalendarSearchFieldValues"
+            android:dependency="eventCalendarEnabled" />     
+        <EditTextPreference
+            android:key="eventCalendarSearchString"
+            android:summary="@string/event_preferences_calendar_search_string"
+            android:title="@string/event_preferences_calendar_search_string"
+            android:selectAllOnFocus="true"
+            android:dependency="eventCalendarEnabled" />
+	</PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventBatteryParameters"
+        android:title="@string/event_preferences_category_eventBatteryParameters" >
+		<CheckBoxPreference 
+		    android:key="eventBatteryEnabled"
+		    android:title="@string/event_preferences_battery_enabled"
+		    android:defaultValue="false" />
+ 		<sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="eventBatteryLevelLow"
+            android:summary="@string/event_preferences_battery_level_low"
+            android:title="@string/event_preferences_battery_level_low" 
+            android:defaultValue="0"
+            henrichg:min="0"
+            henrichg:max="100"
+            android:dependency="eventBatteryEnabled" />
+ 		<sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="eventBatteryLevelHight"
+            android:summary="@string/event_preferences_battery_level_hight"
+            android:title="@string/event_preferences_battery_level_hight" 
+            android:defaultValue="100"
+            henrichg:min="0"
+            henrichg:max="100"
+            android:dependency="eventBatteryEnabled" />
+   		<CheckBoxPreference 
+		    android:key="eventBatteryCharging"
+		    android:title="@string/event_preferences_battery_charging"
+		    android:defaultValue="false"
+            android:dependency="eventBatteryEnabled" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventCallParameters"
+        android:title="@string/event_preferences_category_eventCallParameters" >
+		<CheckBoxPreference 
+		    android:key="eventCallEnabled"
+		    android:title="@string/event_preferences_call_enabled"
+		    android:defaultValue="false" />
+		<ListPreference android:title="@string/event_preferences_call_event"
+            android:summary="@string/array_event_pref_ringing"
+            android:key="eventCallEvent"
+            android:defaultValue="0"
+            android:entries="@array/eventCallEventsArray"
+            android:entryValues="@array/eventCallEventsValues"
+            android:dependency="eventCallEnabled" />        
+		<sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
+            android:key="eventCallContacts"
+            android:defaultValue=""
+            android:title="@string/event_preferences_call_contacts"
+            android:dependency="eventCallEnabled" />
+		<ListPreference android:title="@string/event_preferences_ccontactListType"
+            android:summary="@string/array_event_pref_contact_list_type_white_list"
+            android:key="eventCallContactListType"
+            android:defaultValue="0"
+            android:entries="@array/eventCallContactListTypeArray"
+            android:entryValues="@array/eventCallContactListTypeValues"
+            android:dependency="eventCallEnabled" />        
+	</PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventSMSParameters"
+        android:title="@string/event_preferences_category_eventSMSParameters" >
+		<CheckBoxPreference 
+		    android:key="eventSMSEnabled"
+		    android:title="@string/event_preferences_sms_enabled"
+		    android:defaultValue="false" />
+<!-- 		<ListPreference android:title="@string/event_preferences_sms_event"
+            android:summary="@string/array_event_pref_incoming_sms"
+            android:key="eventSMSEvent"
+            android:defaultValue="0"
+            android:entries="@array/eventSMSEventsArray"
+            android:entryValues="@array/eventSMSEventsValues"
+            android:dependency="eventSMSEnabled" />  -->        
+		<sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
+            android:key="eventSMSContacts"
+            android:defaultValue=""
+            android:title="@string/event_preferences_sms_contacts"
+            android:dependency="eventSMSEnabled" />
+		<ListPreference android:title="@string/event_preferences_ccontactListType"
+            android:summary="@string/array_event_pref_contact_list_type_white_list"
+            android:key="eventSMSContactListType"
+            android:defaultValue="0"
+            android:entries="@array/eventCallContactListTypeArray"
+            android:entryValues="@array/eventCallContactListTypeValues"
+            android:dependency="eventSMSEnabled" />        
+	</PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventWifiParameters"
+        android:title="@string/event_preferences_category_eventWifiParameters" >
+		<CheckBoxPreference 
+		    android:key="eventWiFiEnabled"
+		    android:title="@string/event_preferences_wifi_enabled"
+		    android:defaultValue="false" />
+		<ListPreference android:title="@string/event_preferences_wifi_connection_type"
+            android:summary="@string/array_event_pref_wifiConnectionType_connected"
+            android:key="eventWiFiConnectionType"
+            android:defaultValue="1"
+            android:entries="@array/eventWifiConnectionTypeArray"
+            android:entryValues="@array/eventWifiConnectionTypeValues"
+            android:dependency="eventWiFiEnabled" />
+		<sk.henrichg.phoneprofilesplus.WifiSSIDPreference
+            android:key="eventWiFiSSID"
+            android:summary="@string/event_preferences_wifi_ssid"
+            android:title="@string/event_preferences_wifi_ssid"
+            android:dependency="eventWiFiEnabled" />
+	</PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventBluetoothParameters"
+        android:title="@string/event_preferences_category_eventBluetoothParameters" >
+		<CheckBoxPreference 
+		    android:key="eventBluetoothEnabled"
+		    android:title="@string/event_preferences_bluetooth_enabled"
+		    android:defaultValue="false" />
+		<ListPreference android:title="@string/event_preferences_bluetooth_connection_type"
+            android:summary="@string/array_event_pref_bluetoothConnectionType_connected"
+            android:key="eventBluetoothConnectionType"
+            android:defaultValue="0"
+            android:entries="@array/eventBluetoothConnectionTypeArray"
+            android:entryValues="@array/eventBluetoothConnectionTypeValues"
+            android:dependency="eventBluetoothEnabled" />
+		<sk.henrichg.phoneprofilesplus.BluetoothNamePreference
+            android:key="eventBluetoothAdapterNAME"
+            android:summary="@string/event_preferences_bluetooth_adapter_name"
+            android:title="@string/event_preferences_bluetooth_adapter_name"
+            android:dependency="eventBluetoothEnabled" />
+	</PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventPeripheralParameters"
+        android:title="@string/event_preferences_category_eventPeripheralParameters" >
+		<CheckBoxPreference 
+		    android:key="eventPeripheralEnabled"
+		    android:title="@string/event_preferences_peripheral_enabled"
+		    android:defaultValue="false" />
+		<ListPreference android:title="@string/event_preferences_peripheral_type"
+            android:summary="@string/array_event_pref_peripheralType_deskDock"
+            android:key="eventPeripheralType"
+            android:defaultValue="0"
+            android:entries="@array/eventPeripheralTypeArray"
+            android:entryValues="@array/eventPeripheralTypeValues"
+            android:dependency="eventPeripheralEnabled" />        
+	</PreferenceCategory>
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventScreenParameters"
+        android:title="@string/event_preferences_category_eventScreenParameters" >
+		<CheckBoxPreference 
+		    android:key="eventScreenEnabled"
+		    android:title="@string/event_preferences_screen_enabled"
+		    android:defaultValue="false" />
+		<ListPreference android:title="@string/event_preferences_screen_event_type"
+            android:summary="@string/array_event_pref_eventScreenEventType_screenOff"
+            android:key="eventScreenEventType"
+            android:defaultValue="1"
+            android:entries="@array/eventScreenEventTypeArray"
+            android:entryValues="@array/eventScreenEventTypeValues"
+            android:dependency="eventScreenEnabled" />        
+		<CheckBoxPreference 
+		    android:key="eventScreenWhenUnlocked"
+		    android:title="@string/event_preferences_screen_start_when_unlocked"
+		    android:defaultValue="false"
+            android:dependency="eventScreenEnabled" />
+	</PreferenceCategory>
+</PreferenceScreen>    

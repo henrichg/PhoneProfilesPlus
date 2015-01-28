@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus" >
+
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_activation"
+        android:summary="@string/phone_profiles_pref_category_activation" >
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
+            android:defaultValue="-999"
+            android:key="applicationBackgroundProfile"
+            android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
+            henrichg:addNoActivateItem="1" />
+   		<CheckBoxPreference 
+		    android:key="applicationAlert"
+		    android:title="@string/phone_profiles_pref_applicationAlert"
+		    android:defaultValue="true" />
+	</PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_event"
+        android:summary="@string/phone_profiles_pref_category_event" >
+		<CheckBoxPreference 
+		    android:key="applicationEventWifiEnableWifi"
+		    android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"
+		    android:defaultValue="true" />
+ 		<sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="applicationEventWifiScanInterval"
+            android:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+            android:title="@string/phone_profiles_pref_applicationEventWifiScanInterval" 
+            android:defaultValue="10"
+            henrichg:min="1"
+            henrichg:max="300" />
+		<ListPreference android:title="@string/phone_profiles_pref_applicationEventWifiRescan"
+	           android:summary="@string/phone_profiles_pref_applicationEventRescan_none"
+	           android:key="applicationEventWifiRescan"
+	           android:defaultValue="0"
+	           android:entries="@array/applicationEventRescanArray"
+	           android:entryValues="@array/applicationEventRescanValues" />        
+		<CheckBoxPreference 
+		    android:key="applicationEventBluetoothEnableBluetooth"
+		    android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"
+		    android:defaultValue="true" />
+ 		<sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="applicationEventBluetoothScanInterval"
+            android:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
+            android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval" 
+            android:defaultValue="10"
+            henrichg:min="1"
+            henrichg:max="300" />
+		<ListPreference android:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
+	           android:summary="@string/phone_profiles_pref_applicationEventRescan_none"
+	           android:key="applicationEventBluetoothRescan"
+	           android:defaultValue="0"
+	           android:entries="@array/applicationEventRescanArray"
+	           android:entryValues="@array/applicationEventRescanValues" />        
+ 	</PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_notifications"
+        android:summary="@string/phone_profiles_pref_category_notifications"
+        android:key="categoryNotifications" >
+		<CheckBoxPreference 
+		    android:key="notificationsToast"
+		    android:title="@string/phone_profiles_pref_notificationsToast"
+		    android:defaultValue="false" />
+		<CheckBoxPreference 
+		    android:key="notificationStatusBar"
+		    android:title="@string/phone_profiles_pref_notificationStatusBar"
+		    android:defaultValue="true" />
+		<CheckBoxPreference 
+		    android:key="notificationStatusBarPermanent"
+		    android:title="@string/phone_profiles_pref_notificationStatusBarPermanent"
+		    android:defaultValue="true"
+            android:disableDependentsState="true" />
+ 		<sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="notificationStatusBarCancel"
+            android:summary="@string/phone_profiles_pref_notificationStatusBarCancel"
+            android:title="@string/phone_profiles_pref_notificationStatusBarCancel" 
+            android:defaultValue="10"
+            henrichg:min="0"
+            henrichg:max="300"
+            android:dependency="notificationStatusBarPermanent" />
+		<ListPreference android:title="@string/phone_profiles_pref_notificationStatusBarStyle"
+	           android:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
+	           android:key="notificationStatusBarStyle"
+	           android:defaultValue="1"
+	           android:entries="@array/notificationIconStyleArray"
+	           android:entryValues="@array/notificationIconStyleValues" />        
+		<CheckBoxPreference 
+		    android:key="notificationPrefIndicator"
+		    android:title="@string/phone_profiles_pref_notificationPrefIndicator"
+		    android:defaultValue="true" />
+	</PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_start"
+        android:summary="@string/phone_profiles_pref_category_start" >
+		<CheckBoxPreference 
+		    android:key="applicationStartOnBoot"
+		    android:title="@string/phone_profiles_pref_applicationStartOnBoot"
+		    android:defaultValue="true" />
+		<CheckBoxPreference 
+		    android:key="applicationActivate"
+		    android:title="@string/phone_profiles_pref_applicationActivate"
+		    android:defaultValue="true" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_activator"
+        android:summary="@string/phone_profiles_pref_category_activator" >
+		<CheckBoxPreference 
+		    android:key="applicationActivatorPrefIndicator"
+		    android:title="@string/phone_profiles_pref_applicationPrefIndicator"
+		    android:defaultValue="true" />
+		<CheckBoxPreference 
+		    android:key="applicationActivatorHeader"
+		    android:title="@string/phone_profiles_pref_applicationHeader"
+		    android:defaultValue="true" />
+		<CheckBoxPreference 
+		    android:key="applicationLongClickActivation"
+		    android:title="@string/phone_profiles_pref_applicationLongClickActivation"
+		    android:defaultValue="false" />
+		<CheckBoxPreference 
+		    android:key="applicationClose"
+		    android:title="@string/phone_profiles_pref_applicationClose"
+		    android:defaultValue="true" />
+		<CheckBoxPreference 
+		    android:key="applicationActivatorGridLayout"
+		    android:title="@string/phone_profiles_pref_applicationGridLayout"
+		    android:defaultValue="false" />
+	</PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_editor"
+        android:summary="@string/phone_profiles_pref_category_editor" >
+		<CheckBoxPreference 
+		    android:key="applicationEditorPrefIndicator"
+		    android:title="@string/phone_profiles_pref_applicationPrefIndicator"
+		    android:defaultValue="true" />
+		<CheckBoxPreference 
+		    android:key="applicationEditorHeader"
+		    android:title="@string/phone_profiles_pref_applicationHeader"
+		    android:defaultValue="true" />
+		<CheckBoxPreference 
+		    android:key="applicationEditorSaveEditorState"
+		    android:title="@string/phone_profiles_pref_applicationEditorSaveEditorState"
+		    android:defaultValue="false" />
+		<CheckBoxPreference 
+		    android:key="applicationEditorAutoCloseDrawer"
+		    android:title="@string/phone_profiles_pref_applicationAutoCloseDrawer"
+		    android:defaultValue="true" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_gui"
+        android:summary="@string/phone_profiles_pref_category_gui" >
+		<ListPreference android:title="@string/phone_profiles_pref_applicationHomeLauncher"
+	           android:summary="@string/array_pref_launcher_activator"
+	           android:key="applicationHomeLauncher"
+	           android:defaultValue="activator"
+	           android:entries="@array/laucherArray"
+	           android:entryValues="@array/launcherValues" />        
+		<ListPreference android:title="@string/phone_profiles_pref_applicationWidgetLauncher"
+	           android:summary="@string/array_pref_launcher_activator"
+	           android:key="applicationWidgetLauncher"
+	           android:defaultValue="activator"
+	           android:entries="@array/laucherArray"
+	           android:entryValues="@array/launcherValues" />        
+		<ListPreference android:title="@string/phone_profiles_pref_notificationLauncher"
+	           android:summary="@string/array_pref_launcher_activator"
+	           android:key="applicationNotificationLauncher"
+	           android:defaultValue="activator"
+	           android:entries="@array/laucherArray"
+	           android:entryValues="@array/launcherValues" />        
+		<ListPreference android:title="@string/phone_profiles_pref_applicationTheme"
+	           android:summary="@string/phone_profiles_pref_applicationTheme_dlight"
+	           android:key="applicationTheme"
+	           android:defaultValue="material"
+	           android:entries="@array/themeArray"
+	           android:entryValues="@array/themeValues" />        
+		<ListPreference android:title="@string/phone_profiles_pref_applicationLanguage"
+	           android:summary="@string/phone_profiles_pref_applicationLanguage_system"
+	           android:key="applicationLanguage"
+	           android:icon="?attr/applicationSettingsLanguageIcon"
+	           android:defaultValue="system"
+	           android:entries="@array/languageArray"
+	           android:entryValues="@array/languageValues" />        
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_widget_list"
+        android:summary="@string/phone_profiles_pref_category_widget_list" >
+		<CheckBoxPreference 
+		    android:key="applicationWidgetListPrefIndicator"
+		    android:title="@string/phone_profiles_pref_applicationPrefIndicator"
+		    android:defaultValue="true" />
+		<CheckBoxPreference 
+		    android:key="applicationWidgetListHeader"
+		    android:title="@string/phone_profiles_pref_applicationHeader"
+		    android:defaultValue="true" />
+		<CheckBoxPreference 
+		    android:key="applicationWidgetListGridLayout"
+		    android:title="@string/phone_profiles_pref_applicationGridLayout"
+		    android:defaultValue="false" />
+		<ListPreference android:title="@string/phone_profiles_pref_applicationWidgetBackground"
+	           android:summary="25%"
+	           android:key="applicationWidgetListBackground"
+	           android:defaultValue="25"
+	           android:entries="@array/widgetBackgroundArray"
+	           android:entryValues="@array/widgetBackgroundValues" />        
+		<ListPreference android:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
+	           android:summary="0"
+	           android:key="applicationWidgetListLightnessB"
+	           android:defaultValue="0"
+	           android:entries="@array/widgetLightnessArray"
+	           android:entryValues="@array/widgetLightnessValues" />        
+		<ListPreference android:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
+	           android:summary="100"
+	           android:key="applicationWidgetListLightnessT"
+	           android:defaultValue="100"
+	           android:entries="@array/widgetLightnessArray"
+	           android:entryValues="@array/widgetLightnessValues" />        
+		<ListPreference android:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+	           android:summary="0"
+	           android:key="applicationWidgetListIconColor"
+	           android:defaultValue="0"
+	           android:entries="@array/widgetColorArray"
+	           android:entryValues="@array/widgetColorValues" />        
+	    <ListPreference android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
+	           android:summary="100"
+	           android:key="applicationWidgetListIconLightness"
+	           android:defaultValue="100"
+	           android:entries="@array/widgetLightnessArray"
+	           android:entryValues="@array/widgetLightnessValues" />        
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_widget_icon_shortcut"
+        android:summary="@string/phone_profiles_pref_category_widget_icon_shortcut" >
+		<CheckBoxPreference 
+		    android:key="applicationWidgetIconHideProfileName"
+		    android:title="@string/phone_profiles_pref_applicationWidgetIconHideProfileName"
+		    android:defaultValue="false" />
+		<ListPreference android:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+	           android:summary="0"
+	           android:key="applicationWidgetIconColor"
+	           android:defaultValue="0"
+	           android:entries="@array/widgetColorArray"
+	           android:entryValues="@array/widgetColorValues" />        
+	    <ListPreference android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
+	           android:summary="100"
+	           android:key="applicationWidgetIconLightness"
+	           android:defaultValue="100"
+	           android:entries="@array/widgetLightnessArray"
+	           android:entryValues="@array/widgetLightnessValues" />        
+	</PreferenceCategory>
+
+</PreferenceScreen>    

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" 
+    android:id="@+id/editor_list_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" > 
+     
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical" >
+ 	
+	    <LinearLayout 
+	   		android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	        android:paddingBottom="3dp"
+	    	android:orientation="vertical"
+	        android:background="?attr/toolbarBackground"
+	        android:elevation="8dp" >
+		    	    
+		    <android.support.v7.widget.Toolbar
+		        android:id="@+id/editor_tollbar"
+		        android:layout_width="match_parent"
+		        android:layout_height="?attr/actionBarSize"
+		        app:theme="?attr/toolbarTheme"
+	    		app:popupTheme="?attr/toolbarPopupMenu" />
+		    	    
+		    <android.support.v7.widget.Toolbar
+		        android:id="@+id/editor_subtollbar"
+		        android:layout_width="match_parent"
+		        android:layout_height="25dp"
+		        android:layout_marginTop="1dp" >
+		
+				<RelativeLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent" >
+		        
+				 	<TextView
+				        android:id="@+id/editor_filter_title"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_alignParentLeft="true"
+				        android:layout_centerVertical="true"
+				        android:ellipsize="end"
+				        android:singleLine="true"
+				        android:textAppearance="?android:attr/textAppearanceSmall"
+				        android:textColor="@android:color/white" />    
+				    			    
+				    <ImageView
+				        android:id="@+id/editor_list_run_stop_indicator"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_alignParentRight="true"
+				        android:layout_centerVertical="true"
+				        android:layout_marginRight="10dp"
+				        android:adjustViewBounds="true"
+				        android:contentDescription="@string/empty_string"
+				        android:maxHeight="15dp"
+				        android:maxWidth="50dp"
+				        android:scaleType="centerCrop"
+				        android:src="@drawable/ic_run_events_indicator_stoppped" />
+				    
+				</RelativeLayout>
+		        
+		    </android.support.v7.widget.Toolbar>
+	    
+	    </LinearLayout>
+	
+		<FrameLayout 
+		    android:id="@+id/editor_list_container"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:background="?attr/activityPopupBackground"
+		    tools:context=".EditorProfileListActivity"  />
+	
+	</LinearLayout>	        
+    
+    <RelativeLayout 
+	    android:id="@+id/editor_drawer_root"
+        android:layout_width="240dp"
+        android:layout_height="match_parent" 
+	    android:layout_gravity="start"
+	    android:background="?attr/navigationDrawerBackground" >
+		
+		<LinearLayout 
+	        android:id="@+id/editor_drawer_order_root"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+        	android:layout_alignParentBottom="true"
+	        android:layout_marginBottom="5dp"
+        	android:orientation="vertical" >
+
+		    <TextView
+		        android:id="@+id/editor_drawer_order_title"
+		        android:textColor="?attr/navigationDrawerText"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:ellipsize="end"
+		        android:singleLine="true"
+		        android:textSize="15sp"
+		        android:text="@string/editor_drawer_order_label" />
+		    
+			<Spinner
+	        	android:id="@+id/editor_drawer_order"
+	        	android:layout_width="match_parent"
+	        	android:layout_height="wrap_content"
+		        android:layout_marginLeft="5dp"
+	        	style="?attr/actionDropDownStyle"
+	        	android:entries="@array/drawerOrderEvents" />
+		
+		</LinearLayout>
+
+		<ListView
+		    android:id="@+id/editor_drawer_list"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_above="@+id/editor_drawer_order_root"
+        	android:layout_alignParentTop="true"
+		    android:choiceMode="singleChoice"
+		    android:divider="@android:color/transparent"
+		    android:dividerHeight="0dp" />
+				
+	</RelativeLayout>
+    
+</android.support.v4.widget.DrawerLayout>    

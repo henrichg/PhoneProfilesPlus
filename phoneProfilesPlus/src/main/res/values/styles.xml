@@ -1,0 +1,25 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="EmptyActivity" parent="android:Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorForeground">#000</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="NoCloseButton" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:visibility">gone</item>
+    </style>
+
+<!--     
+	<style name="editorDrawerSpinnerStyle" parent="@android:TextAppearance.Widget.TextView.SpinnerItem">
+    	<item name="android:textColor">?attr/navigationDrawerText</item>
+  		<item name="android:textSize">17sp</item>
+    </style>
+ -->    
+    
+</resources>

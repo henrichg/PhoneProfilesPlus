@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- size = (74 x n) - 2 --> 
+<!-- old size (70 x n) - 30 --> 
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:minWidth="250dp" 
+    android:minHeight="40dp" 
+    android:minResizeWidth="110dp" 
+    android:minResizeHeight="40dp"
+    android:initialLayout="@layout/one_row_widget" 
+    android:resizeMode="horizontal" 
+    android:updatePeriodMillis="1800000">
+</appwidget-provider>

@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus">
+	<item android:id="@+id/menu_restart_events"
+	    android:title="@string/menu_restart_events"
+	    android:orderInCategory="100"
+	    henrichg:showAsAction="ifRoom|withText"
+	    android:icon="?attr/actionEventsRestartIcon" />
+   	<item android:id="@+id/menu_edit_profiles"
+	    android:title="@string/menu_edit_profiles"
+	    android:orderInCategory="110"
+	    henrichg:showAsAction="ifRoom|withText"
+	    android:icon="?attr/actionEditProfilesIcon" />
+</menu>

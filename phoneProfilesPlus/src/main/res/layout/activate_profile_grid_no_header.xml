@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/activityPopupBackground"
+    android:orientation="vertical"
+    tools:context=".ShortcutCreatorActivity" >
+
+    <LinearLayout 
+        android:id="@+id/act_prof_run_stop_indicator"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#00FFFFFF"
+        />
+    
+	<GridView 
+	    android:id="@+id/act_prof_profiles_grid"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:padding="10dp"
+        android:columnWidth="100dp"
+	    android:gravity="center"
+	    android:horizontalSpacing="5dp"
+	    android:verticalSpacing="5dp"
+	    android:numColumns="3"
+	    android:stretchMode="columnWidth"
+	    android:clipToPadding="false"
+    	android:scrollbarStyle="outsideOverlay"
+        android:drawSelectorOnTop="true" />
+    
+
+</LinearLayout>

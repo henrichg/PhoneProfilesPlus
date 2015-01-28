@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+ Copyright CMW Mobile.com, 2010. 
+ -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:padding="6dip"
+	android:orientation="vertical">
+
+	<TextView
+	    android:id="@+id/seekbarPrefDialogValueText"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal"
+	    android:text="1"
+	    android:textSize="32sp" />
+
+	<SeekBar android:id="@+id/seekbarPrefDialogSeekbar"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/activityPopupBackground"
+    tools:context=".ShortcutCreatorActivity" >
+
+    <ListView
+        android:id="@+id/act_prof_profiles_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent" 
+        android:padding="10dip"
+        android:dividerHeight="5dp"
+        android:drawSelectorOnTop="true"
+	    android:clipToPadding="false"
+    	android:scrollbarStyle="outsideOverlay" />
+
+</LinearLayout>

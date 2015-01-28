@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<string-array name="phoneProfilesNavigator">
+    <item>@string/array_phone_profiles_navigator_profiles</item>
+    <item>@string/array_phone_profiles_navigator_events</item>
+</string-array>
+<string-array name="ringerModeArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_ringerModeArray_ring</item>
+	<item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
+	<item>@string/array_pref_ringerModeArray_vibrate</item>
+	<item>@string/array_pref_ringerModeArray_silent</item>
+</string-array>
+<string-array name="ringerModeValues">
+    <item>0</item>
+    <item>99</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+</string-array>
+<string-array name="hardwareModeArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_hardwareModeArray_on</item>
+	<item>@string/array_pref_hardwareModeArray_off</item>
+	<item>@string/array_pref_hardwareModeArray_toggle</item>
+</string-array>
+<string-array name="hardwareModeValues">
+    <item>0</item>
+    <item>99</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</string-array>
+<string-array name="screenTimeoutArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_screenTimeoutArray_15seconds</item>
+	<item>@string/array_pref_screenTimeoutArray_30seconds</item>
+	<item>@string/array_pref_screenTimeoutArray_1minute</item>
+	<item>@string/array_pref_screenTimeoutArray_2minutes</item>
+	<item>@string/array_pref_screenTimeoutArray_10minutes</item>
+	<item>@string/array_pref_screenTimeoutArray_never_timeout</item>
+</string-array>
+<string-array name="screenTimeoutValues">
+    <item>0</item>
+    <item>99</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>6</item>
+</string-array>
+<string-array name="languageArray">
+	<item>@string/phone_profiles_pref_applicationLanguage_system</item>
+	<item>@string/phone_profiles_pref_applicationLanguage_en</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_ca</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_cs</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_de</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_es_ES</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_fr</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_it</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_pl</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_ru</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_sk</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_uk</item>
+</string-array>
+<string-array name="languageValues">
+    <item>@string/array_pref_value_system</item>
+    <item>@string/array_pref_value_en</item>
+    <item>@string/array_pref_value_ca</item>
+    <item>@string/array_pref_value_cs</item>
+    <item>@string/array_pref_value_de</item>
+    <item>@string/array_pref_value_es_ES</item>
+    <item>@string/array_pref_value_fr</item>
+    <item>@string/array_pref_value_it</item>
+    <item>@string/array_pref_value_pl</item>
+    <item>@string/array_pref_value_ru</item>
+    <item>@string/array_pref_value_sk</item>
+    <item>@string/array_pref_value_uk</item>
+</string-array>
+<string-array name="notificationIconStyleArray">
+	<item>@string/phone_profiles_pref_notificationStatusBarStyle_color</item>
+	<item>@string/phone_profiles_pref_notificationStatusBarStyle_android</item>
+</string-array>
+<string-array name="notificationIconStyleValues">
+    <item>0</item>
+    <item>1</item>
+</string-array>
+<string-array name="themeArray">
+ 	<item>@string/phone_profiles_pref_applicationTheme_material</item>
+	<item>@string/phone_profiles_pref_applicationTheme_dlight</item>
+	<item>@string/phone_profiles_pref_applicationTheme_dark</item>
+</string-array>
+<string-array name="themeValues">
+    <item>@string/array_pref_value_material</item>
+    <item>@string/array_pref_value_dlight</item>
+    <item>@string/array_pref_value_dark</item>
+</string-array>
+<string-array name="widgetBackgroundArray">
+	<item>@string/array_pref_value_0_percent</item>
+	<item>@string/array_pref_value_25_percent</item>
+	<item>@string/array_pref_value_50_percent</item>
+	<item>@string/array_pref_value_75_percent</item>
+	<item>@string/array_pref_value_100_percent</item>
+</string-array>
+<string-array name="widgetBackgroundValues">
+	<item>0</item>
+	<item>25</item>
+	<item>50</item>
+	<item>75</item>
+	<item>100</item>
+</string-array>
+<string-array name="widgetLightnessArray">
+	<item>@string/array_pref_value_0_percent</item>
+	<item>@string/array_pref_value_25_percent</item>
+	<item>@string/array_pref_value_50_percent</item>
+	<item>@string/array_pref_value_75_percent</item>
+	<item>@string/array_pref_value_100_percent</item>
+</string-array>
+<string-array name="widgetLightnessValues">
+	<item>0</item>
+	<item>25</item>
+	<item>50</item>
+	<item>75</item>
+	<item>100</item>
+</string-array>
+<string-array name="widgetColorArray">
+	<item>@string/array_pref_widgetColor_colorful</item>
+	<item>@string/array_pref_widgetColor_monochrome</item>
+</string-array>
+<string-array name="widgetColorValues">
+	<item>0</item>
+	<item>1</item>
+</string-array>
+<string-array name="daysOfWeekArray">
+    <item>@string/array_pref_event_all</item>
+	<item>@string/array_pref_event_sunday</item>
+	<item>@string/array_pref_event_monday</item>
+	<item>@string/array_pref_event_tuesday</item>
+	<item>@string/array_pref_event_wendesday</item>
+	<item>@string/array_pref_event_thursday</item>
+	<item>@string/array_pref_event_friday</item>
+	<item>@string/array_pref_event_saturday</item>
+</string-array>
+<string-array name="daysOfWeekValues">
+    <item>#ALL#</item>
+	<item>0</item>
+	<item>1</item>
+	<item>2</item>
+	<item>3</item>
+	<item>4</item>
+	<item>5</item>
+	<item>6</item>
+</string-array>
+<string-array name="drawerOrderEvents">
+    <item>@string/editor_drawer_order_event_name</item>
+    <item>@string/editor_drawer_order_profile_name</item>
+    <item>@string/editor_drawer_order_priority</item>
+</string-array>
+<string-array name="displayRotationArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_value_auto_rotate_on</item>
+	<item>@string/array_pref_value_auto_rotate_off</item>
+</string-array>
+<string-array name="displayRotationValues">
+	<item>0</item>
+    <item>99</item>
+	<item>1</item>
+	<item>2</item>
+</string-array>
+<string-array name="displayRotationArray11">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_value_auto_rotate</item>
+	<item>@string/array_pref_value_0_degrees</item>
+	<item>@string/array_pref_value_90_degrees</item>
+	<item>@string/array_pref_value_180_degrees</item>
+	<item>@string/array_pref_value_270_degrees</item>
+</string-array>
+<string-array name="displayRotationValues11">
+	<item>0</item>
+    <item>99</item>
+	<item>1</item>
+	<item>2</item>
+	<item>3</item>
+	<item>4</item>
+	<item>5</item>
+</string-array>
+<string-array name="soundChangeArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_change</item>
+</string-array>
+<string-array name="soundChangeValues">
+	<item>0</item>
+    <item>99</item>
+	<item>1</item>
+</string-array>
+<string-array name="mobileDataPrefsArray">
+	<item>@string/array_pref_no_show</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_show</item>
+</string-array>
+<string-array name="mobileDataPrefsValues">
+	<item>0</item>
+    <item>99</item>
+	<item>1</item>
+</string-array>
+<string-array name="runApplicationArray">
+	<item>@string/array_pref_no_run</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_run</item>
+</string-array>
+<string-array name="runApplicationValues">
+	<item>0</item>
+    <item>99</item>
+	<item>1</item>
+</string-array>
+<string-array name="changeWallpaperArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_change</item>
+</string-array>
+<string-array name="changeWallpaperValues">
+	<item>0</item>
+    <item>99</item>
+	<item>1</item>
+</string-array>
+
+<string-array name="ringerModeDPArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_ringerModeArray_ring</item>
+	<item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
+	<item>@string/array_pref_ringerModeArray_vibrate</item>
+	<item>@string/array_pref_ringerModeArray_silent</item>
+</string-array>
+<string-array name="ringerModeDPValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+</string-array>
+<string-array name="hardwareModeDPArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_hardwareModeArray_on</item>
+	<item>@string/array_pref_hardwareModeArray_off</item>
+	<item>@string/array_pref_hardwareModeArray_toggle</item>
+</string-array>
+<string-array name="hardwareModeDPValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</string-array>
+<string-array name="screenTimeoutDPArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_screenTimeoutArray_15seconds</item>
+	<item>@string/array_pref_screenTimeoutArray_30seconds</item>
+	<item>@string/array_pref_screenTimeoutArray_1minute</item>
+	<item>@string/array_pref_screenTimeoutArray_2minutes</item>
+	<item>@string/array_pref_screenTimeoutArray_10minutes</item>
+	<item>@string/array_pref_screenTimeoutArray_never_timeout</item>
+</string-array>
+<string-array name="screenTimeoutDPValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>6</item>
+</string-array>
+<string-array name="displayRotationDPArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_value_auto_rotate_on</item>
+	<item>@string/array_pref_value_auto_rotate_off</item>
+</string-array>
+<string-array name="displayRotationDPValues">
+	<item>0</item>
+	<item>1</item>
+	<item>2</item>
+</string-array>
+<string-array name="displayRotationDPArray11">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_value_auto_rotate</item>
+	<item>@string/array_pref_value_0_degrees</item>
+	<item>@string/array_pref_value_90_degrees</item>
+	<item>@string/array_pref_value_180_degrees</item>
+	<item>@string/array_pref_value_270_degrees</item>
+</string-array>
+<string-array name="displayRotationDPValues11">
+	<item>0</item>
+	<item>1</item>
+	<item>2</item>
+	<item>3</item>
+	<item>4</item>
+	<item>5</item>
+</string-array>
+<string-array name="soundChangeDPArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_change</item>
+</string-array>
+<string-array name="soundChangeDPValues">
+	<item>0</item>
+	<item>1</item>
+</string-array>
+<string-array name="mobileDataPrefsDPArray">
+	<item>@string/array_pref_no_show</item>
+	<item>@string/array_pref_show</item>
+</string-array>
+<string-array name="mobileDataPrefsDPValues">
+	<item>0</item>
+	<item>1</item>
+</string-array>
+<string-array name="runApplicationDPArray">
+	<item>@string/array_pref_no_run</item>
+	<item>@string/array_pref_run</item>
+</string-array>
+<string-array name="runApplicationDPValues">
+	<item>0</item>
+	<item>1</item>
+</string-array>
+<string-array name="changeWallpaperDPArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_change</item>
+</string-array>
+<string-array name="changeWallpaperDPValues">
+	<item>0</item>
+	<item>1</item>
+</string-array>
+<string-array name="laucherArray">
+	<item>@string/array_pref_launcher_activator</item>
+	<item>@string/array_pref_launcher_editor</item>
+</string-array>
+<string-array name="launcherValues">
+	<item>activator</item>
+	<item>editor</item>
+</string-array>
+<string-array name="locationServicePrefsArray">
+	<item>@string/array_pref_no_show</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_show</item>
+</string-array>
+<string-array name="locationServicePrefsValues">
+	<item>0</item>
+    <item>99</item>
+	<item>1</item>
+</string-array>
+<string-array name="locationServicePrefsDPArray">
+	<item>@string/array_pref_no_show</item>
+	<item>@string/array_pref_show</item>
+</string-array>
+<string-array name="locationServicePrefsDPValues">
+	<item>0</item>
+	<item>1</item>
+</string-array>
+<string-array name="volumeSpeakerPhoneArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_hardwareModeArray_on</item>
+	<item>@string/array_pref_hardwareModeArray_off</item>
+</string-array>
+<string-array name="volumeSpeakerPhoneValues">
+    <item>0</item>
+    <item>99</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+<string-array name="volumeSpeakerPhoneDPArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_hardwareModeArray_on</item>
+	<item>@string/array_pref_hardwareModeArray_off</item>
+</string-array>
+<string-array name="volumeSpeakerPhoneDPValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+<string-array name="eventCallEventsArray">
+	<item>@string/array_event_pref_ringing</item>    
+	<item>@string/array_event_pref_incall_started</item>    
+	<item>@string/array_event_pref_outcall_answered</item>    
+</string-array>
+<string-array name="eventCallEventsValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+<string-array name="eventCallContactListTypeArray">
+	<item>@string/array_event_pref_contact_list_type_white_list</item>    
+	<item>@string/array_event_pref_contact_list_type_black_list</item>    
+	<item>@string/array_event_pref_contact_list_type_not_use</item>    
+</string-array>
+<string-array name="eventCallContactListTypeValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+<string-array name="eventPriorityArray">
+    <item>@string/array_event_pref_priorityHighest</item>
+    <item>@string/array_event_pref_priorityVeryHigh</item>
+    <item>@string/array_event_pref_priorityHigher</item>
+    <item>@string/array_event_pref_priorityHigh</item>
+    <item>@string/array_event_pref_priorityUpperMedium</item>
+    <item>@string/array_event_pref_priorityMedium</item>
+    <item>@string/array_event_pref_priorityLowerMedium</item>
+    <item>@string/array_event_pref_priorityLow</item>
+    <item>@string/array_event_pref_priorityLower</item>
+    <item>@string/array_event_pref_priorityVeryLow</item>
+    <item>@string/array_event_pref_priorityLowest</item>
+</string-array>
+<string-array name="eventPriorityValues">
+    <item>5</item>
+    <item>4</item>
+    <item>3</item>
+    <item>2</item>
+    <item>1</item>
+    <item>0</item>
+    <item>-1</item>
+    <item>-2</item>
+    <item>-3</item>
+    <item>-4</item>
+    <item>-5</item>
+</string-array>
+<string-array name="eventPeripheralTypeArray">
+	<item>@string/array_event_pref_peripheralType_deskDock</item>    
+	<item>@string/array_event_pref_peripheralType_carDock</item>    
+	<item>@string/array_event_pref_peripheralType_wired_headset</item>    
+	<item>@string/array_event_pref_peripheralType_bluetooth_headset</item>    
+	<item>@string/array_event_pref_peripheralType_headphones</item>    
+</string-array>
+<string-array name="eventPeripheralTypeValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+</string-array>
+<string-array name="eventCalendarSearchFieldArray">
+	<item>@string/array_event_pref_calendarSearchField_eventName</item>    
+	<item>@string/array_event_pref_calendarSearchField_description</item>    
+</string-array>
+<string-array name="eventCalendarSearchFieldValues">
+    <item>0</item>
+    <item>1</item>
+</string-array>
+<string-array name="eventWifiConnectionTypeArray">
+	<item>@string/array_event_pref_wifiConnectionType_inFront</item>    
+	<item>@string/array_event_pref_wifiConnectionType_connected</item>    
+</string-array>
+<string-array name="eventWifiConnectionTypeValues">
+    <item>1</item>
+    <item>0</item>
+</string-array>
+<string-array name="eventScreenEventTypeArray">
+	<item>@string/array_event_pref_eventScreenEventType_screenOff</item>    
+   	<item>@string/array_event_pref_eventScreenEventType_screenOn</item>    
+</string-array>
+<string-array name="eventScreenEventTypeValues">
+    <item>1</item>
+    <item>0</item>
+</string-array>
+<string-array name="afterProfileDurationDoArray">
+	<item>@string/array_pref_afterProfileDurationDo_nothing</item>
+	<item>@string/array_pref_afterProfileDurationDo_undoProfile</item>
+	<item>@string/array_pref_afterProfileDurationDo_backgroundProfile</item>
+	<item>@string/array_pref_afterProfileDurationDo_restartEvents</item>
+</string-array>
+<string-array name="afterProfileDurationDoValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</string-array>
+<string-array name="eventBluetoothConnectionTypeArray">
+	<item>@string/array_event_pref_bluetoothConnectionType_connected</item>    
+	<item>@string/array_event_pref_bluetoothConnectionType_inFront</item>    
+</string-array>
+<string-array name="eventBluetoothConnectionTypeValues">
+    <item>0</item>
+    <item>1</item>
+</string-array>
+<!-- <string-array name="eventSMSEventsArray">
+	<item>@string/array_event_pref_incoming_sms</item>    
+	<item>@string/array_event_pref_outgoing_sms</item>    
+</string-array>
+<string-array name="eventSMSEventsValues">
+    <item>0</item>
+    <item>1</item>
+</string-array>  -->
+<string-array name="eventSMSContactListTypeArray">
+	<item>@string/array_event_pref_contact_list_type_white_list</item>    
+	<item>@string/array_event_pref_contact_list_type_black_list</item>    
+	<item>@string/array_event_pref_contact_list_type_not_use</item>    
+</string-array>
+<string-array name="eventSMSContactListTypeValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+<string-array name="applicationEventRescanArray">
+	<item>@string/phone_profiles_pref_applicationEventRescan_none</item>    
+	<item>@string/phone_profiles_pref_applicationEventRescan_screenOn</item>    
+	<item>@string/phone_profiles_pref_applicationEventRescan_restartEvents</item>    
+	<item>@string/phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents</item>    
+</string-array>
+<string-array name="applicationEventRescanValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</string-array>        
+<string-array name="zenModeArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_zenModeArray_all</item>
+	<item>@string/array_pref_zenModeArray_priority</item>
+	<item>@string/array_pref_zenModeArray_none</item>
+</string-array>
+<string-array name="zenModeValues">
+    <item>0</item>
+    <item>99</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</string-array>
+<string-array name="zenModeDPArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_zenModeArray_all</item>
+	<item>@string/array_pref_zenModeArray_priority</item>
+	<item>@string/array_pref_zenModeArray_none</item>
+</string-array>
+<string-array name="zenModeDPValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</string-array>
+<string-array name="keyguardArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_hardwareModeArray_on</item>
+	<item>@string/array_pref_hardwareModeArray_off</item>
+</string-array>
+<string-array name="keyguardValues">
+    <item>0</item>
+    <item>99</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+<string-array name="keyguardDPArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_hardwareModeArray_on</item>
+	<item>@string/array_pref_hardwareModeArray_off</item>
+</string-array>
+<string-array name="keyguardDPValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+
+</resources>

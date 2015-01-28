@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+ Copyright CMW Mobile.com, 2010. 
+ -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:padding="6dip"
+	android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/brightnessPrefDialogNoChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brightness_pref_dialog_no_change_chb" />
+
+    <CheckBox
+        android:id="@+id/brightnessPrefDialogDefaultProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brightness_pref_dialog_default_profile_chb" />
+    
+    <CheckBox
+        android:id="@+id/brightnessPrefDialogAutomatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brightness_pref_dialog_automatic_chb" />
+
+	<TextView
+	    android:id="@+id/brightnessPrefDialogValueText"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal"
+	    android:text="0"
+	    android:textSize="32sp" />
+
+	<SeekBar
+	    android:id="@+id/brightnessPrefDialogSeekbar"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" />
+
+</LinearLayout>

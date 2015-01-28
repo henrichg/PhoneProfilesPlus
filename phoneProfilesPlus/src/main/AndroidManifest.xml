@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="sk.henrichg.phoneprofilesplus"
+    android:versionCode="1560"
+    android:versionName="3.0.2" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="21" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+<!-- 	<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" /> -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!--
+      Podpora pre Froyo skoncena, tato permission uz nie je potrebna 
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"/>
+    -->
+    <!--
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    -->
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    
+    
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="false" />
+    
+    <application
+        android:name=".GlobalData"
+        android:allowBackup="true"
+        android:configChanges="locale|layoutDirection"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".LauncherActivity"
+            android:label="@string/title_activity_phone_profiles"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus"
+            android:theme="@style/EmptyActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActivateProfileActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/title_activity_activator"
+            android:launchMode="singleTask"
+            android:theme="@style/PopupTheme_withToolbar_material" >
+        </activity>
+        <activity
+            android:name=".EditorProfilesActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/title_activity_editor"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name=".ProfilePreferencesFragmentActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/title_activity_profile_preferences" >
+        </activity>
+        <activity
+            android:name=".EventPreferencesFragmentActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/title_activity_event_preferences" >
+        </activity>
+        <activity
+            android:name=".PhoneProfilesPreferencesActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/title_activity_phone_profiles_preferences" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ShortcutCreatorActivity"
+            android:configChanges="locale|layoutDirection"
+            android:icon="@drawable/ic_shortcut"
+            android:label="@string/title_activity_shortcut_creator"
+            android:theme="@style/PopupTheme_material" >
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".BackgroundActivateProfileActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".UpgradePPHelperActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyActivity" >
+        </activity>
+        <activity
+            android:name=".RemoteExportDataActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyActivity" >
+            <intent-filter>
+                <action android:name="phoneprofilesplus.intent.action.EXPORTDATA" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RestartEventsFromNotificationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyActivity" >
+        </activity>
+
+        <receiver
+            android:name=".IconWidgetProvider"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/widget_label_icon" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/icon_widget_info" />
+        </receiver>
+        <receiver
+            android:name=".OneRowWidgetProvider"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/widget_label_one_row" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/one_row_widget_info" />
+        </receiver>
+        <receiver
+            android:name=".ProfileListWidgetProvider"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/widget_label_list" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/profile_list_widget_info" />
+        </receiver>
+        <service
+            android:name=".ProfileListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver
+            android:name=".LocaleChangedReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".BootUpReceiver"
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".PackageReplacedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data
+                    android:path="sk.henrichg.phoneprofilesplus"
+                    android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".PhoneProfilesDashClockExtension"
+            android:icon="@drawable/ic_dashclock"
+            android:label="@string/app_name"
+            android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA" >
+            <intent-filter>
+                <action android:name="com.google.android.apps.dashclock.Extension" />
+            </intent-filter>
+
+            <meta-data
+                android:name="protocolVersion"
+                android:value="2" />
+            <meta-data
+                android:name="worldReadable"
+                android:value="true" />
+            <meta-data
+                android:name="description"
+                android:value="@string/dashclock_extension_description" />
+        </service>
+
+        <receiver
+            android:name=".DashClockBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_DASHCLOCK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".ExecuteRadioProfilePrefsService"
+            android:exported="false" >
+        </service>
+
+        <receiver
+            android:name=".SetRadioPrefsForProfileBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter android:priority="1000" >
+                <action android:name="sk.henrichg.phoneprofilesplus.SetRadiosForProfile.ACTION" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".ExecuteVolumeProfilePrefsService"
+            android:exported="false" >
+        </service>
+        <service android:name=".ReceiversService"
+            android:exported="false"
+    		android:stopWithTask="false" >
+        </service>
+        <service android:name=".EventsService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".ScannerService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".FirstStartService"
+            android:exported="false" >
+        </service>
+        <service android:name=".KeyguardService"
+            android:exported="false" >
+        </service>
+        
+        <receiver
+            android:name=".RestartEventsBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.RESTART_EVENTS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".EventsTimeBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver
+            android:name=".RefreshGUIBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_GUI" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".PhoneCallBroadcastReceiver" >
+            <intent-filter android:priority="1" >
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+            <intent-filter android:priority="2" >
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".DockConnectionBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_DOCK_EVENT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".EventsCalendarBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver
+            android:name=".CalendarProviderChangedBroadcastReceiver"
+            android:priority="1000" >
+            <intent-filter>
+                <action android:name="android.intent.action.PROVIDER_CHANGED" />
+
+                <data android:scheme="content" />
+                <data android:host="com.android.calendar" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".SearchCalendarEventsBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver
+            android:name=".WifiScanAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver
+            android:name=".EventDelayBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver
+            android:name=".ProfileDurationAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver android:name=".BluetoothConnectionBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.bluetooth.device.action.ACL_CONNECTED" />
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" />
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECT_REQUESTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".BluetoothScanAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <!--
+     		<receiver android:name=".SMSBroadcastReceiver"  android:enabled="true">
+			<intent-filter android:priority="1000">
+			    <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+			    <action android:name="android.provider.Telephony.SMS_SENT"/>
+			</intent-filter>
+		</receiver>
+        -->
+        <receiver
+            android:name=".SMSBroadcastReceiver"
+            android:enabled="true" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+            <intent-filter android:priority="1000" >
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" />
+                <data android:mimeType="application/vnd.wap.mms-message" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".EventsSMSBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver
+            android:name=".NotificationCancelAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver
+            android:name=".RemoveBrightnessViewBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        
+    </application>
+
+</manifest>

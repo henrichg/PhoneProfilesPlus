@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="74dp"
+    android:layout_height="74dp" >
+
+    <TextView
+        android:id="@+id/icon_widget_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       	android:layout_alignParentBottom="true"
+       	android:layout_centerHorizontal="true"
+        android:shadowColor="#ff000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="3"
+        android:text="@string/profile_name_default"
+        android:textColor="#ffffffff"
+        android:textSize="12sp"
+		android:singleLine="true" />
+
+    <ImageView
+        android:id="@+id/icon_widget_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+       	android:layout_centerHorizontal="true"
+	    android:layout_above="@+id/icon_widget_name"
+       	android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_profile_default" 
+        android:contentDescription="@string/empty_string"/>
+ 
+</RelativeLayout>

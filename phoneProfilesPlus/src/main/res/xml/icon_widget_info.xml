@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- size = (74 x n) - 2 -->
+<!-- old size (70 x n) - 30 --> 
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="40dp" 
+    android:minHeight="40dp" 
+    android:initialLayout="@layout/icon_widget" 
+    android:resizeMode="none" 
+    android:updatePeriodMillis="1800000">
+</appwidget-provider>

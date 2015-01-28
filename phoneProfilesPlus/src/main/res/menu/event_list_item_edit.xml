@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/event_list_item_menu_run_stop"
+        android:title="@string/event_list_item_menu_run"
+        android:orderInCategory="100" />
+    <item android:id="@+id/event_list_item_menu_duplicate"
+        android:title="@string/event_list_item_menu_duplicate"
+        android:orderInCategory="101" />
+    <item android:id="@+id/event_list_item_menu_delete"
+        android:title="@string/event_list_item_menu_delete"
+        android:orderInCategory="102" />
+</menu>
