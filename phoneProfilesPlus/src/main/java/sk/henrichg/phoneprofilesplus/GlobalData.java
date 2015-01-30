@@ -285,7 +285,7 @@ public class GlobalData extends Application {
     public static String applicationEventBluetoothRescan;
     public static boolean applicationWidgetIconHideProfileName;
     
-    public static RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
+    public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     
 	public void onCreate()
 	{

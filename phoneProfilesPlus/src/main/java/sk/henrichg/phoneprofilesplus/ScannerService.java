@@ -62,9 +62,9 @@ public class ScannerService extends IntentService
 	
 				dataWrapper = new DataWrapper(context, false, false, 0);
 				
-				//if (WifiScanAlarmBroadcastReceiver.wifi == null)
-				//	WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-				WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+				if (WifiScanAlarmBroadcastReceiver.wifi == null)
+					WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+				//WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 	
 				// start scan
 				if (GlobalData.getEventsBlocked(context) && (!GlobalData.getForceOneWifiScan(context)))
@@ -81,10 +81,10 @@ public class ScannerService extends IntentService
 					
 					// enable wifi
 					int wifiState;
-					if ((android.os.Build.VERSION.SDK_INT >= 18) && wifi.isScanAlwaysAvailable())
+					if ((android.os.Build.VERSION.SDK_INT >= 18) && WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable())
 						wifiState = WifiManager.WIFI_STATE_ENABLED;
 					else
-						wifiState = enableWifi(dataWrapper, wifi);
+						wifiState = enableWifi(dataWrapper, WifiScanAlarmBroadcastReceiver.wifi);
 					
 					if (wifiState == WifiManager.WIFI_STATE_ENABLED)
 						WifiScanAlarmBroadcastReceiver.startScan(context);
@@ -115,7 +115,7 @@ public class ScannerService extends IntentService
 					try {
 			        	Thread.sleep(200);
 				    } catch (InterruptedException e) {
-				        System.out.println(e);
+                        e.printStackTrace();
 				    }
 					
 				}
@@ -133,7 +133,7 @@ public class ScannerService extends IntentService
 				dataWrapper = new DataWrapper(context, false, false, 0);
 				
 				if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
-					BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+					BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothAdapter.getDefaultAdapter();
 	
 				// start scan
 				if (GlobalData.getEventsBlocked(context) && (!GlobalData.getForceOneBluetoothScan(context)))
@@ -301,7 +301,7 @@ public class ScannerService extends IntentService
 	        try {
 	        	Thread.sleep(200);
 		    } catch (InterruptedException e) {
-		        System.out.println(e);
+                e.printStackTrace();
 		    }
     	}
     }
@@ -321,7 +321,7 @@ public class ScannerService extends IntentService
 	        try {
 	        	Thread.sleep(200);
 		    } catch (InterruptedException e) {
-		        System.out.println(e);
+                e.printStackTrace();
 		    }
     	}
     }
