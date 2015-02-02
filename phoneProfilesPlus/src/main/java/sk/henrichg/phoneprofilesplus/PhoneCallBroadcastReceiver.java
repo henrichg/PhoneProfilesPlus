@@ -1,11 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.Date;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
+
+import java.util.Date;
 
 public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
@@ -68,6 +69,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 			audioManager = (AudioManager)savedContext.getSystemService(Context.AUDIO_SERVICE);
 
 		savedMode = audioManager.getMode();
+
+        //Log.e("PhoneCallBroadcastReceiver.callStarted", "getMode="+savedMode);
 		
 		DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 		if (incoming)
