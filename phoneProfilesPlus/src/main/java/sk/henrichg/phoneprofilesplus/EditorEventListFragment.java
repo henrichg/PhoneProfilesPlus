@@ -367,7 +367,7 @@ public class EditorEventListFragment extends Fragment {
 		{
 			// pause event
 			List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-			event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false); //no activate return profile
+			event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false); // activate return profile
 			// redraw event list
 			updateListView(event, false);
 			// restart events
@@ -451,9 +451,9 @@ public class EditorEventListFragment extends Fragment {
 		final Event event = (Event)view.getTag();
 		
 		MenuItem menuItem = menu.findItem(R.id.event_list_item_menu_run_stop);
-        if (GlobalData.getGlobalEventsRuning(dataWrapper.context))
-        {
-        	menuItem.setVisible(true);
+        //if (GlobalData.getGlobalEventsRuning(dataWrapper.context))
+        //{
+        	//menuItem.setVisible(true);
         	
 	        if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP)
 	        {
@@ -463,9 +463,9 @@ public class EditorEventListFragment extends Fragment {
 	        {
 	        	menuItem.setTitle(R.string.event_list_item_menu_stop);
 	        }
-        }
-        else
-        	menuItem.setVisible(false);
+        //}
+        //else
+        //	menuItem.setVisible(false);
 		
 		popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
