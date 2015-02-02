@@ -363,26 +363,46 @@ public class EditorEventListFragment extends Fragment {
 	
 	public void runStopEvent(Event event)
 	{
-		if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP)
-		{
-			// pause event
-			List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-			event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false); // activate return profile
-			// redraw event list
-			updateListView(event, false);
-			// restart events
-			dataWrapper.restartEvents(false, false);
-		}
-		else
-		{
-			// stop event
-			List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-			event.stopEvent(dataWrapper, eventTimelineList, true, false, true); // activate return profile
-			// redraw event list
-			updateListView(event, false);
-			// restart events
-			dataWrapper.restartEvents(false, false);
-		}
+        if (GlobalData.getGlobalEventsRuning(dataWrapper.context)) {
+            // events are not globally stopped
+
+            if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
+                // pause event
+                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false); // activate return profile
+                // redraw event list
+                updateListView(event, false);
+                // restart events
+                dataWrapper.restartEvents(false, false);
+            } else {
+                // stop event
+                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+                event.stopEvent(dataWrapper, eventTimelineList, true, false, true); // activate return profile
+                // redraw event list
+                updateListView(event, false);
+                // restart events
+                dataWrapper.restartEvents(false, false);
+            }
+        }
+        else
+        {
+            if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
+                // pause event
+                event.setStatus(Event.ESTATUS_PAUSE);
+                // udate event in DB
+                dataWrapper.getDatabaseHandler().updateEvent(event);
+                // redraw event list
+                updateListView(event, false);
+            } else {
+                // stop event
+                // pause event
+                event.setStatus(Event.ESTATUS_STOP);
+                // udate event in DB
+                dataWrapper.getDatabaseHandler().updateEvent(event);
+                // redraw event list
+                updateListView(event, false);
+            }
+        }
 	}
 
 	public void duplicateEvent(Event origEvent)
