@@ -32,19 +32,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 		{
 			AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
-                // simulate silent mode for Android 5.0
-                if (profile._volumeRingerMode == 4) {
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        //System.out.println(e);
-                    }
-
-                    aph.setRingerMode(profile, audioManager);
-                }
-            }
-
+            // set ringer mode for proper volume change
+            aph.setRingerMode(profile, audioManager);
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
@@ -53,22 +42,9 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
             aph.setVolumes(profile, audioManager);
 
+		    // set ringer mode becouse volumes change silent/vibrate
+			aph.setRingerMode(profile, audioManager);
 
-            /*
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                //System.out.println(e);
-            }
-            */
-
-
-			//if (!aph.setVolumes(profile, audioManager))
-			//{
-				// nahodenie ringer modu - hlasitosti zmenia silent/vibrate
-				aph.setRingerMode(profile, audioManager);
-			//}
-			
 		/*	if (intent.getBooleanExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, false))
 			{
 				// run service for execute volumes - second set
