@@ -75,7 +75,7 @@ public class EditorEventListFragment extends Fragment {
 	}
 
 	/**
-	 * A dummy implementation of the {@link Callbacks} interface that does
+	 * A dummy implementation of the Callbacks interface that does
 	 * nothing. Used only when this fragment is not attached to an activity.
 	 */
 	private static OnStartEventPreferences sDummyOnStartEventPreferencesCallback = new OnStartEventPreferences() {
@@ -395,7 +395,6 @@ public class EditorEventListFragment extends Fragment {
                 updateListView(event, false);
             } else {
                 // stop event
-                // pause event
                 event.setStatus(Event.ESTATUS_STOP);
                 // udate event in DB
                 dataWrapper.getDatabaseHandler().updateEvent(event);
