@@ -336,10 +336,10 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".PhoneCallBroadcastReceiver" >
-            <intent-filter android:priority="1" >
+            <intent-filter >
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
-            <intent-filter android:priority="2" >
+            <intent-filter >
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
