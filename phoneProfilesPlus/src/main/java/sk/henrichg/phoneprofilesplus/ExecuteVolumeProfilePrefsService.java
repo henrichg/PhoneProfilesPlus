@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 
-public class ExecuteVolumeProfilePrefsService extends IntentService //WakefulIntentService 
+public class ExecuteVolumeProfilePrefsService extends IntentService
 {
 	
 	public ExecuteVolumeProfilePrefsService() {
@@ -13,7 +13,6 @@ public class ExecuteVolumeProfilePrefsService extends IntentService //WakefulInt
 	}
 
 	//@Override
-	//protected void doWakefulWork(Intent intent) {
 	protected void onHandleIntent(Intent intent) {
 		
 		//Log.e("ExecuteVolumeProfilePrefsService.onHandleIntent","---- start");
