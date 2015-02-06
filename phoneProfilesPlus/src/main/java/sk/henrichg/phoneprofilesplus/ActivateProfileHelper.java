@@ -57,7 +57,7 @@ public class ActivateProfileHelper {
 	public static boolean lockRefresh = false; 
 	
 	public static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
-	
+
 	public ActivateProfileHelper()
 	{
 		
@@ -379,11 +379,11 @@ public class ActivateProfileHelper {
 		return priorityMode;
 	}
 
-	private static final int ZENMODE_ALL = 0;
-	private static final int ZENMODE_PRIORITY = 1;
-	private static final int ZENMODE_NONE = 2;
-	
-	private void setZenMode(int mode)
+    private static final int ZENMODE_ALL = 0;
+    private static final int ZENMODE_PRIORITY = 1;
+    private static final int ZENMODE_NONE = 2;
+
+    private void setZenMode(int mode)
 	{
     	if (android.os.Build.VERSION.SDK_INT >= 21)
     	{

@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.util.Log;
 
 public class ExecuteVolumeProfilePrefsService extends IntentService
 {
@@ -45,12 +46,49 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 		    // set ringer mode because volumes change silent/vibrate
 			//aph.setRingerMode(profile, audioManager);
 
-            if (android.os.Build.VERSION.SDK_INT >= 21)
+            boolean rechangeRingerMode = false;
+            int savedProfileRingerMode = profile._volumeRingerMode;
+
+            if ((android.os.Build.VERSION.SDK_INT >= 21))
             {
-                // for Android 5.0 set ringer mode again for simulate silent mode
-                if (profile._volumeRingerMode == 4)   // Silent
-                    aph.setRingerMode(profile, audioManager);
+                // for Android 5.0 set ringer mode again
+                rechangeRingerMode = true;
             }
+
+            // when volume is set to 0, ringer mode is changed to VIBRATE
+            if ((profile._volumeRingerMode == 1) ||  // ring
+                (profile._volumeRingerMode == 4))    // silent
+            {
+                if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE)
+                {
+                    // ringer mode is changed to VIBRATE, set it to SILENT
+                    profile._volumeRingerMode = 4;
+                    rechangeRingerMode = true;
+                }
+            }
+
+            if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                if ((profile._volumeRingerMode == 5) && (profile._volumeZenMode != 3)) // NONE
+                {
+                    if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
+                        profile._volumeRingerMode = 4;
+                        rechangeRingerMode = true;
+                        aph.setRingerMode(profile, audioManager);
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            //System.out.println(e);
+                        }
+                        aph.setVolumes(profile, audioManager);
+                    }
+                }
+            }
+
+            if (rechangeRingerMode) {
+                aph.setRingerMode(profile, audioManager);
+                profile._volumeRingerMode = savedProfileRingerMode;
+            }
+
 
 		/*	if (intent.getBooleanExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, false))
 			{

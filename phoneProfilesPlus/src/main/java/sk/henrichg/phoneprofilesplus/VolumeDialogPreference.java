@@ -212,6 +212,9 @@ public class VolumeDialogPreference extends
 	 * {@inheritDoc}
 	 */
 	public void onStopTrackingTouch(SeekBar seek) {
+
+        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+
 		if (volumeType.equalsIgnoreCase("RINGTONE")) 
 			audioManager.setStreamVolume(AudioManager.STREAM_RING, value, AudioManager.FLAG_PLAY_SOUND);
 		else
@@ -317,6 +320,7 @@ public class VolumeDialogPreference extends
 	public void onDismiss(DialogInterface dialog)
 	{
 	    audioManager.setRingerMode(defaultRingerMode);
+
 		if (volumeType.equalsIgnoreCase("RINGTONE"))
 			audioManager.setStreamVolume(AudioManager.STREAM_RING, defaultValue, 0);
 		else
@@ -334,10 +338,27 @@ public class VolumeDialogPreference extends
 		else
 		if (volumeType.equalsIgnoreCase("VOICE")) 
 			audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, defaultValue, 0);
+
+        boolean rechangeRingerMode = false;
+
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             if (defaultRingerMode == AudioManager.RINGER_MODE_SILENT)
-                audioManager.setRingerMode(defaultRingerMode);
+                rechangeRingerMode = true;
         }
+
+        // when volume is set to 0, ringer mode is changed to VIBRATE
+        if ((defaultRingerMode == AudioManager.RINGER_MODE_SILENT) && (defaultValue == 0))
+        {
+            if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE)
+            {
+                // ringer mode changed to vibrate
+                defaultRingerMode = AudioManager.RINGER_MODE_SILENT;
+                rechangeRingerMode = true;
+            }
+        }
+
+        if (rechangeRingerMode)
+            audioManager.setRingerMode(defaultRingerMode);
 	}
 	
 }
