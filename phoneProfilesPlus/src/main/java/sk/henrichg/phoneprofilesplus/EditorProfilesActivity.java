@@ -769,7 +769,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	    		fragment = new EditorEventListFragment();
 	    	    arguments = new Bundle();
 	   		    arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-	   		    arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
 	   		    fragment.setArguments(arguments);
 	    		getFragmentManager().beginTransaction()
 	    			.replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
