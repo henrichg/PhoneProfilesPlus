@@ -43,7 +43,14 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
             aph.setVolumes(profile, audioManager);
 
 		    // set ringer mode because volumes change silent/vibrate
-			aph.setRingerMode(profile, audioManager);
+			//aph.setRingerMode(profile, audioManager);
+
+            if (android.os.Build.VERSION.SDK_INT >= 21)
+            {
+                // for Android 5.0 set ringer mode again for simulate silent mode
+                if (profile._volumeRingerMode == 4)   // Silent
+                    aph.setRingerMode(profile, audioManager);
+            }
 
 		/*	if (intent.getBooleanExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, false))
 			{

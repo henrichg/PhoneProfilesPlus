@@ -334,7 +334,10 @@ public class VolumeDialogPreference extends
 		else
 		if (volumeType.equalsIgnoreCase("VOICE")) 
 			audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, defaultValue, 0);
-		audioManager.setRingerMode(defaultRingerMode);
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            if (defaultRingerMode == AudioManager.RINGER_MODE_SILENT)
+                audioManager.setRingerMode(defaultRingerMode);
+        }
 	}
 	
 }
