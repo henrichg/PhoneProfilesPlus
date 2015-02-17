@@ -319,8 +319,10 @@ public class VolumeDialogPreference extends
 	@Override
 	public void onDismiss(DialogInterface dialog)
 	{
+        // set default ringer mode for proper volume change
 	    audioManager.setRingerMode(defaultRingerMode);
 
+        // set default volumes
 		if (volumeType.equalsIgnoreCase("RINGTONE"))
 			audioManager.setStreamVolume(AudioManager.STREAM_RING, defaultValue, 0);
 		else
@@ -341,13 +343,14 @@ public class VolumeDialogPreference extends
 
         boolean rechangeRingerMode = false;
 
+        // for Android 5.0 set ringer mode again
         if (android.os.Build.VERSION.SDK_INT >= 21) {
-            if (defaultRingerMode == AudioManager.RINGER_MODE_SILENT)
-                rechangeRingerMode = true;
+            rechangeRingerMode = true;
         }
 
-        // when volume is set to 0, ringer mode is changed to VIBRATE
-        if ((defaultRingerMode == AudioManager.RINGER_MODE_SILENT) && (defaultValue == 0))
+        // when default ringer mode is SILENT or NORMAL and changed to VIBRATE,
+        // set it to SILENT
+        if ((defaultRingerMode == AudioManager.RINGER_MODE_SILENT) || (defaultRingerMode == AudioManager.RINGER_MODE_NORMAL))
         {
             if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE)
             {
