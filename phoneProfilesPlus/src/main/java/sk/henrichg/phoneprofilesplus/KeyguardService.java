@@ -26,8 +26,9 @@ public class KeyguardService extends Service {
 		Context context = getApplicationContext();
 		
 		KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-		if (!kgMgr.inKeyguardRestrictedInputMode())
-		{
+		//if (!kgMgr.inKeyguardRestrictedInputMode())
+        //if (!kgMgr.isKeyguardSecure())
+		//{
 			DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 			Profile profile = dataWrapper.getActivatedProfile();
 			profile = GlobalData.getMappedProfile(profile, context);
@@ -47,7 +48,7 @@ public class KeyguardService extends Service {
 				        return START_STICKY;
 				}
 			}
-		}
+		//}
 
 		stopSelf();
 		return START_NOT_STICKY;
