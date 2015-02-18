@@ -6,7 +6,10 @@ import java.util.List;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.content.WakefulBroadcastReceiver;
+
+import com.google.gson.Gson;
 
 public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 
@@ -18,8 +21,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 	public void onReceive(Context context, Intent intent) {
 		GlobalData.logE("#### BluetoothConnectionBroadcastReceiver.onReceive","xxx");
 
-		if (connectedDevices == null)
-			connectedDevices = new ArrayList<BluetoothDeviceData>();
+        getConnectedDevices(context);
 		
 		String action = intent.getAction();
 		BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
@@ -31,36 +33,12 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 			boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
 		
 			if (connected) 
-			{
-				boolean found = false;
-				for (BluetoothDeviceData _device : connectedDevices)
-				{
-					if (_device.address.equals(device.getAddress()))
-					{
-						found = true;
-						break;
-					}
-				}
-				if (!found)
-					connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress()));
-		    }
+                addConnectedDevice(device);
 			else
-		    {
-		    	int index = 0;
-		    	boolean found = false;
-				for (BluetoothDeviceData _device : connectedDevices)
-				{
-					if (_device.address.equals(device.getAddress()))
-					{
-						found = true;
-						break;
-					}
-					++index;
-				}
-				if (found)
-					connectedDevices.remove(index);
-		    }
-		
+                removeConnectedDevice(device);
+
+            saveConnectedDevices(context);
+
 			if (!GlobalData.getApplicationStarted(context))
 				// application is not started
 				return;
@@ -106,16 +84,99 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 			}
 			
 			//if ((!connected) && (lastState != currState))
-			if (!connected)
+			/*if (!connected)
 			{
 				BluetoothScanAlarmBroadcastReceiver.stopScan(context);
-			}
+			}*/
 			
 		}
 	}
 
-	public static boolean isBluetoothConnected(String adapterName)
+    private static final String CONNECTED_DEVICES_COUNT_PREF = "count";
+    private static final String CONNECTED_DEVICES_DEVICE_PREF = "device";
+
+    private static void getConnectedDevices(Context context)
+    {
+        if (connectedDevices == null)
+            connectedDevices = new ArrayList<BluetoothDeviceData>();
+
+        connectedDevices.clear();
+
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
+
+        int count = preferences.getInt(CONNECTED_DEVICES_COUNT_PREF, 0);
+
+        Gson gson = new Gson();
+
+        for (int i = 0; i < count; i++)
+        {
+            String json = preferences.getString(CONNECTED_DEVICES_DEVICE_PREF+i, "");
+            if (!json.isEmpty()) {
+                BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
+                connectedDevices.add(device);
+            }
+        }
+    }
+
+    private static void saveConnectedDevices(Context context)
+    {
+        if (connectedDevices == null)
+            connectedDevices = new ArrayList<BluetoothDeviceData>();
+
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.clear();
+
+        editor.putInt(CONNECTED_DEVICES_COUNT_PREF, connectedDevices.size());
+
+        Gson gson = new Gson();
+
+        for (int i = 0; i < connectedDevices.size(); i++)
+        {
+            String json = gson.toJson(connectedDevices.get(i));
+            editor.putString(CONNECTED_DEVICES_DEVICE_PREF+i, json);
+        }
+
+        editor.commit();
+    }
+
+    private void addConnectedDevice(BluetoothDevice device)
+    {
+        boolean found = false;
+        for (BluetoothDeviceData _device : connectedDevices)
+        {
+            if (_device.address.equals(device.getAddress()))
+            {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+            connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress()));
+    }
+
+    private void removeConnectedDevice(BluetoothDevice device)
+    {
+        int index = 0;
+        boolean found = false;
+        for (BluetoothDeviceData _device : connectedDevices)
+        {
+            if (_device.address.equals(device.getAddress()))
+            {
+                found = true;
+                break;
+            }
+            ++index;
+        }
+        if (found)
+            connectedDevices.remove(index);
+    }
+
+	public static boolean isBluetoothConnected(Context context, String adapterName)
 	{
+        getConnectedDevices(context);
+
 		if (adapterName.isEmpty())
 			return (connectedDevices != null) && (connectedDevices.size() > 0);
 		else
@@ -134,13 +195,12 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 	
 	public static boolean isAdapterNameScanned(DataWrapper dataWrapper)
 	{
-		if (isBluetoothConnected(""))
+		if (isBluetoothConnected(dataWrapper.context, ""))
 		{
 			if (connectedDevices != null)
 			{
 				for (BluetoothDeviceData _device : connectedDevices)
 				{
-					//TODO dorob isBluetoothAdapterNameNameScanned ked budu polozky
 					if (dataWrapper.getDatabaseHandler().isBluetoothAdapterNameScanned(_device.name))
 						return true;
 				}

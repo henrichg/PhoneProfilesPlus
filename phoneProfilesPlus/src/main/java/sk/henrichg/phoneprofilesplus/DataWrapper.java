@@ -1727,7 +1727,7 @@ public class DataWrapper {
 
 				GlobalData.logE("@@@ DataWrapper.doEventService","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
 
-				if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(event._eventPreferencesBluetooth._adapterName))
+				if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, event._eventPreferencesBluetooth._adapterName))
 				{
 					bluetoothPassed = true;
 					GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth connected");
