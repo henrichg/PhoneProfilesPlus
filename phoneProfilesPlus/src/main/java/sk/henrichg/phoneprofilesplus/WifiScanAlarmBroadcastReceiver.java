@@ -292,12 +292,12 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
       	GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.startScan","scanStarted="+startScan);
 		if (!startScan)
 		{
-			unlock();
 			if (getWifiEnabledForScan(context))
 			{
 				GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.startScan","disable wifi");
 				wifi.setWifiEnabled(false);
 			}
+            unlock();
 		}
 		setStartScan(context, startScan);
 	}

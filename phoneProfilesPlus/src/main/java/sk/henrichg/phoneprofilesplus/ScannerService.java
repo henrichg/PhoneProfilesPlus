@@ -241,9 +241,10 @@ public class ScannerService extends IntentService
 						{
 							WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(dataWrapper.context, true);
 							WifiScanAlarmBroadcastReceiver.setStartScan(dataWrapper.context, true);
+                            WifiScanAlarmBroadcastReceiver.lock(dataWrapper.context);
 							wifi.setWifiEnabled(true);
 				        	GlobalData.logE("@@@ ScannerService.enableWifi","set enabled");
-							return WifiManager.WIFI_STATE_ENABLING;
+							return WifiManager.WIFI_STATE_ENABLED;
 						}
 		        	}
 		    	}
