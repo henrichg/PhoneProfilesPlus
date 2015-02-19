@@ -35,7 +35,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
 				WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
 				WifiScanAlarmBroadcastReceiver.fillScanResults(context);
-				WifiScanAlarmBroadcastReceiver.unlock();
+				//WifiScanAlarmBroadcastReceiver.unlock();
 
 				
 				if (WifiScanAlarmBroadcastReceiver.scanResults != null)
@@ -45,7 +45,8 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 						GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive","result.SSID="+result.ssid);
 					}
 				}
-				
+
+                /*
 				if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
 				{
 					GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive","disable wifi");
@@ -53,6 +54,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 					// not call this, due WifiConnectionBroadcastReceiver
 					//WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
 				}
+				*/
 
 				WifiScanAlarmBroadcastReceiver.setStartScan(context, false);
 				
