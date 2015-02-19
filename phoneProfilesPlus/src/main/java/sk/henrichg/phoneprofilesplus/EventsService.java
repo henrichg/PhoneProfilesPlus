@@ -91,7 +91,7 @@ public class EventsService extends IntentService
 		
 		if (isRestart)
 		{
-			// 1. pause events
+			/*// 1. pause events
 			dataWrapper.sortEventsByPriorityDesc();
 			for (Event _event : eventList)
 			{
@@ -133,7 +133,23 @@ public class EventsService extends IntentService
 					// len spustaj eventy
 					// spustaj len ak este nebezi
 					dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm);
-			}
+			}*/
+
+            // 1. pause all events
+            dataWrapper.pauseAllEvents(false, false, false);
+            // 2. start events
+            dataWrapper.sortEventsByPriorityAsc();
+            for (Event _event : eventList)
+            {
+                GlobalData.logE("EventsService.onHandleIntent","state RUNNING");
+                GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
+                GlobalData.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
+
+                if (_event.getStatus() != Event.ESTATUS_STOP)
+                    // len spustaj eventy
+                    // spustaj len ak este nebezi
+                    dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm);
+            }
 		}
 		else
 		{

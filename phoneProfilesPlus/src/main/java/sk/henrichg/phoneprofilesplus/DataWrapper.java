@@ -649,7 +649,7 @@ public class DataWrapper {
 	}
 	
 	// pauses all events
-	public void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents, boolean activateRetirnProfile)
+	public void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents, boolean activateReturnProfile)
 	{
 		List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -665,7 +665,7 @@ public class DataWrapper {
 				{
 					int status = event.getStatusFromDB(this);
 					if (status != Event.ESTATUS_STOP)
-						event.pauseEvent(this, eventTimelineList, activateRetirnProfile, true, noSetSystemEvent, blockEvents);
+						event.pauseEvent(this, eventTimelineList, activateReturnProfile, true, noSetSystemEvent, blockEvents);
 					if (status == Event.ESTATUS_RUNNING)
 					{
 						// block only running events
@@ -1010,7 +1010,7 @@ public class DataWrapper {
 		
 		if (profile != null)
 		{
-			if (GlobalData.notificationsToast)
+			if (GlobalData.notificationsToast && (!ActivateProfileHelper.lockRefresh))
 			{	
 				// toast notification
 				//Context _context = activity;
