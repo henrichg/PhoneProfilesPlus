@@ -132,8 +132,8 @@ public class LauncherActivity extends Activity {
 	{
 		//Log.e("LauncherActivity.endOnStart","xxx");
 
-		//  aplikacia uz je 1. krat spustena
-		GlobalData.setApplicationStarted(getBaseContext(), true);
+		//  aplikacia uz je 1. krat spustena - is in FirstStartService
+		//GlobalData.setApplicationStarted(getBaseContext(), true);
 		
 		Intent intentLaunch;
 		

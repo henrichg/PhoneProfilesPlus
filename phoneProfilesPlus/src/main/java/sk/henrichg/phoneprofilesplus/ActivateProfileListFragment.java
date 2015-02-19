@@ -253,8 +253,8 @@ public class ActivateProfileListFragment extends Fragment {
 	{
 		//Log.e("ActivateProfileActivity.endOnStart","xxx");
 
-		//  aplikacia uz je 1. krat spustena
-		GlobalData.setApplicationStarted(getActivity().getBaseContext(), true);
+		//  aplikacia uz je 1. krat spustena - is in FirstStartService
+		//GlobalData.setApplicationStarted(getActivity().getBaseContext(), true);
 	}
 	
 	
