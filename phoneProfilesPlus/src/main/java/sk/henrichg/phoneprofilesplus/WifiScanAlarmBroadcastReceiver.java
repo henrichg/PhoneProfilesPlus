@@ -79,15 +79,19 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
 						WifiInfo wifiInfo = wifi.getConnectionInfo();
 		    			String SSID = DataWrapper.getSSID(wifiInfo);
-		    			boolean isSSIDScanned = dataWrapper.getDatabaseHandler().isSSIDScanned(SSID); 
 
-						GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive","connected SSID="+SSID);
+                        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive","connected SSID="+SSID);
 
-						boolean noScanData = scanResults.size() == 0;
-						
-		    			if ((isSSIDScanned) && (!noScanData))
+                        // search for events with connected SSID and connection type INFRONT
+		    			boolean isSSIDScannedInFront = dataWrapper.getDatabaseHandler().isSSIDScanned(SSID, EventPreferencesWifi.CTYPE_INFRONT);
+                        // search for events with connected SSID and connection type NOTINFRONT
+                        boolean isSSIDScannedNotInFront = dataWrapper.getDatabaseHandler().isSSIDScanned(SSID, EventPreferencesWifi.CTYPE_NOTINFRONT);
+
+		    			if ((isSSIDScannedInFront) && (!isSSIDScannedNotInFront) && (scanResults.size() != 0))
 		    			{
-		    				// connected SSID is scanned
+                            // INFRONT events exists for connected SSID and
+                            // NOTINFRONT events not exists for connected SSID and
+                            // scan data exists, then
 		    				// no scan
 		    				
 		        			setWifiEnabledForScan(context, false);

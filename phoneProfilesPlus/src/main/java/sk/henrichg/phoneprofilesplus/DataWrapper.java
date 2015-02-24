@@ -1616,58 +1616,61 @@ public class DataWrapper {
 				GlobalData.logE("@@@ DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
 				if (networkInfo.isConnected())
 				{
+                    GlobalData.logE("@@@ DataWrapper.doEventService","wifi connected");
+
 					WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-					
+
 					GlobalData.logE("@@@ DataWrapper.doEventService","wifiSSID="+getSSID(wifiInfo));
 					GlobalData.logE("@@@ DataWrapper.doEventService","wifiBSSID="+wifiInfo.getBSSID());
-					
+
 					wifiPassed = compareSSID(wifiInfo, event._eventPreferencesWifi._SSID);
-					if (wifiPassed)
-						GlobalData.logE("@@@ DataWrapper.doEventService","wifi connected");
-					else
-						GlobalData.logE("@@@ DataWrapper.doEventService","wifi not connected");
-						
-				}
+
+                    if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) ||
+                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
+                        // if wifi is not connected to event SSID, then passed
+                        wifiPassed = !wifiPassed;
+                }
 				else
-					GlobalData.logE("@@@ DataWrapper.doEventService","wifi not connected");
+                    GlobalData.logE("@@@ DataWrapper.doEventService", "wifi not connected");
+
 			}
-			if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT)
+            else
+                GlobalData.logE("DataWrapper.doEventService","wifiStateEnabled=false");
+
+            if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
+                (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
 			{
 				if (!wifiPassed)
 				{	
-					/*
-					isWifiEnabled = isWifiEnabled || WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context);
-			    	if (android.os.Build.VERSION.SDK_INT >= 18)
-			    		isWifiEnabled = isWifiEnabled || (wifiManager.isScanAlwaysAvailable());
-					if (isWifiEnabled)
-					{
-					*/
-						GlobalData.logE("DataWrapper.doEventService","wifiStateEnabled=false");
-	
-						
-						if (WifiScanAlarmBroadcastReceiver.scanResults != null)
-						{
-							//GlobalData.logE("@@@x DataWrapper.doEventService","scanResults != null");
-							//GlobalData.logE("@@@x DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
-	
-							for (WifiSSIDData result : WifiScanAlarmBroadcastReceiver.scanResults)
-					        {
-								//GlobalData.logE("@@@x DataWrapper.doEventService","wifiSSID="+getSSID(result));
-								//GlobalData.logE("@@@x DataWrapper.doEventService","wifiBSSID="+result.BSSID);
-								if (compareSSID(result, event._eventPreferencesWifi._SSID))
-								{
-									GlobalData.logE("@@@x DataWrapper.doEventService","wifi found");
-									wifiPassed = true;
-									break;
-								}
-					        }
-						}
-						else
-							GlobalData.logE("@@@x DataWrapper.doEventService","scanResults == null");
-						if (!wifiPassed)
-							GlobalData.logE("@@@x DataWrapper.doEventService","wifi not found");
-						
-					//}
+
+                    if (WifiScanAlarmBroadcastReceiver.scanResults != null)
+                    {
+                        //GlobalData.logE("@@@x DataWrapper.doEventService","scanResults != null");
+                        //GlobalData.logE("@@@x DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
+
+                        for (WifiSSIDData result : WifiScanAlarmBroadcastReceiver.scanResults)
+                        {
+                            //GlobalData.logE("@@@x DataWrapper.doEventService","wifiSSID="+getSSID(result));
+                            //GlobalData.logE("@@@x DataWrapper.doEventService","wifiBSSID="+result.BSSID);
+                            if (compareSSID(result, event._eventPreferencesWifi._SSID))
+                            {
+                                GlobalData.logE("@@@x DataWrapper.doEventService","wifi found");
+                                wifiPassed = true;
+                                break;
+                            }
+                        }
+
+                        if (!wifiPassed)
+                            GlobalData.logE("@@@x DataWrapper.doEventService","wifi not found");
+
+                        if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)
+                            // if wifi is not in front of event SSID, then passed
+                            wifiPassed = !wifiPassed;
+
+                    }
+                    else
+                        GlobalData.logE("@@@x DataWrapper.doEventService","scanResults == null");
+
 				}
 			}
 
@@ -1727,46 +1730,56 @@ public class DataWrapper {
 
 				GlobalData.logE("@@@ DataWrapper.doEventService","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
 
-				if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, event._eventPreferencesBluetooth._adapterName))
-				{
-					bluetoothPassed = true;
-					GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth connected");
-				}
+                if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, "")) {
+
+                    GlobalData.logE("@@@ DataWrapper.doEventService", "bluetooth connected");
+
+                    if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, event._eventPreferencesBluetooth._adapterName)) {
+                        bluetoothPassed = true;
+                    }
+
+                    if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) ||
+                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
+                        // if bluetooth is not connected to event BT adapter name, then passed
+                        bluetoothPassed = !bluetoothPassed;
+                }
 				else
 					GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth not connected");
-			}
-			if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT)
+            }
+            else
+                GlobalData.logE("DataWrapper.doEventService","bluetoothEnabled=true");
+
+			if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
+                (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
 			{
 				if (!bluetoothPassed)
 				{	
-					/*
-					isBluetoothEnabled = isBluetoothEnabled || BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context);
-					if (isBluetoothEnabled)
-					{
-					*/
-						GlobalData.logE("DataWrapper.doEventService","bluetoothEnabled=true");
-	
-						
-						if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
-						{
-							//GlobalData.logE("@@@ DataWrapper.doEventService","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
-	
-							for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)
-					        {
-								if (device.name.equals(event._eventPreferencesBluetooth._adapterName))
-								{
-									GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth found");
-									//GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
-									//GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
-									bluetoothPassed = true;
-									break;
-								}
-					        }
-						}
-						if (!bluetoothPassed)
-							GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth not found");
-						
-					//}
+                    if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
+                    {
+                        //GlobalData.logE("@@@ DataWrapper.doEventService","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
+
+                        for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)
+                        {
+                            if (device.name.equals(event._eventPreferencesBluetooth._adapterName))
+                            {
+                                GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth found");
+                                //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
+                                //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
+                                bluetoothPassed = true;
+                                break;
+                            }
+                        }
+
+                        if (!bluetoothPassed)
+                            GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth not found");
+
+                        if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)
+                            // if bluetooth is not in front of event BT adapter name, then passed
+                            bluetoothPassed = !bluetoothPassed;
+                    }
+                    else
+                        GlobalData.logE("@@@x DataWrapper.doEventService","scanResults == null");
+
 				}
 			}
 

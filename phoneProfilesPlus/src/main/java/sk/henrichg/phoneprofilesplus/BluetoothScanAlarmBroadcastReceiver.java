@@ -68,13 +68,20 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
 						// bluetooth is connected
 
-		    			boolean isBluetoothNameScanned = BluetoothConnectionBroadcastReceiver.isAdapterNameScanned(dataWrapper);  
+                        // search for events with connected bluetooth adapter and connection type INFRONT
+		    			boolean isBluetoothNameScannedInFront =
+                                BluetoothConnectionBroadcastReceiver.isAdapterNameScanned(dataWrapper, EventPreferencesBluetooth.CTYPE_INFRONT);
+                        // search for events with connected bluetooth adapter and connection type NOTINFRONT
+                        boolean isBluetoothNameScannedNotInFront =
+                                BluetoothConnectionBroadcastReceiver.isAdapterNameScanned(dataWrapper, EventPreferencesBluetooth.CTYPE_NOTINFRONT);
+
+                        boolean noScanData = scanResults.size() == 0;
 		    			
-						boolean noScanData = scanResults.size() == 0;
-		    			
-		    			if ((isBluetoothNameScanned) && (!noScanData))
+		    			if ((isBluetoothNameScannedInFront) && (isBluetoothNameScannedNotInFront) && (scanResults.size() != 0))
 		    			{
-		    				// connected bluetooth name is scanned
+                            // INFRONT events exists for connected BT adapter and
+                            // NOTINFRONT events not exists for connected BT adapter and
+                            // scan data exists, then
 		    				// no scan
 		    				
 		        			setBluetoothEnabledForScan(context, false);

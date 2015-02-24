@@ -194,7 +194,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 		}
 	}
 	
-	public static boolean isAdapterNameScanned(DataWrapper dataWrapper)
+	public static boolean isAdapterNameScanned(DataWrapper dataWrapper, int connectionType)
 	{
 		if (isBluetoothConnected(dataWrapper.context, ""))
 		{
@@ -202,7 +202,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 			{
 				for (BluetoothDeviceData _device : connectedDevices)
 				{
-					if (dataWrapper.getDatabaseHandler().isBluetoothAdapterNameScanned(_device.name))
+					if (dataWrapper.getDatabaseHandler().isBluetoothAdapterNameScanned(_device.name, connectionType))
 						return true;
 				}
 			}

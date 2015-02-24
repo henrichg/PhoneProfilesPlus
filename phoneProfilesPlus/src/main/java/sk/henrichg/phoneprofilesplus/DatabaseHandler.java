@@ -53,7 +53,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final int ETYPE_BLUETOOTHCONNECTED = 9;
 	public static final int ETYPE_BLUETOOTHINFRONT = 10;
 	public static final int ETYPE_SMS = 11;
-	
+
 	// Profiles Table Columns names
 	private static final String KEY_ID = "id";
 	private static final String KEY_NAME = "name";
@@ -2955,19 +2955,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			eventTypeChecked = eventTypeChecked + KEY_E_CALENDAR_ENABLED + "=1";
 		else
 		if (eventType == ETYPE_WIFICONNECTED)
-			eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " + KEY_E_WIFI_CONNECTION_TYPE + "=0";
+			eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
+                    "(" + KEY_E_WIFI_CONNECTION_TYPE + "=0 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=2)";
 		else
 		if (eventType == ETYPE_WIFIINFRONT)
-			eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " + KEY_E_WIFI_CONNECTION_TYPE + "=1";
+			eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
+                    "(" + KEY_E_WIFI_CONNECTION_TYPE + "=1 OR " + KEY_E_WIFI_CONNECTION_TYPE + "=3)";
 		else
 		if (eventType == ETYPE_SCREEN)
 			eventTypeChecked = eventTypeChecked + KEY_E_SCREEN_ENABLED + "=1";
 		else
 		if (eventType == ETYPE_BLUETOOTHCONNECTED)
-			eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=0";
+			eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
+                    "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=0 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=2)";
 		else
 		if (eventType == ETYPE_BLUETOOTHINFRONT)
-			eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1";
+			eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
+                    "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3)";
 		else
 		if (eventType == ETYPE_SMS)
 			eventTypeChecked = eventTypeChecked + KEY_E_SMS_ENABLED + "=1";
@@ -3062,12 +3066,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 	
-	public boolean isSSIDScanned(String SSID)
+	public boolean isSSIDScanned(String SSID, int connectionType)
 	{
 		final String countQuery;
 		String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-		eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " + 
-												KEY_E_WIFI_CONNECTION_TYPE + "=1" + " AND " +
+		eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
+												KEY_E_WIFI_CONNECTION_TYPE + "=" + connectionType+ " AND " +
 												KEY_E_WIFI_SSID + "=\"" + SSID + "\"";
 		
 		countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS + 
@@ -3190,13 +3194,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 	}
 	
-	public boolean isBluetoothAdapterNameScanned(String adapterName)
+	public boolean isBluetoothAdapterNameScanned(String adapterName, int connectionType)
 	{
 		final String countQuery;
 		String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
 
 		eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " + 
-												KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1" + " AND " +
+												KEY_E_BLUETOOTH_CONNECTION_TYPE + "=" + connectionType + " AND " +
 												KEY_E_BLUETOOTH_ADAPTER_NAME + "=\"" + adapterName + "\"";
 
 		

@@ -452,11 +452,15 @@
 </string-array>
 <string-array name="eventWifiConnectionTypeArray">
 	<item>@string/array_event_pref_wifiConnectionType_inFront</item>    
-	<item>@string/array_event_pref_wifiConnectionType_connected</item>    
+	<item>@string/array_event_pref_wifiConnectionType_connected</item>
+    <item>@string/array_event_pref_wifiConnectionType_notInFront</item>
+    <item>@string/array_event_pref_wifiConnectionType_notConnected</item>
 </string-array>
 <string-array name="eventWifiConnectionTypeValues">
     <item>1</item>
     <item>0</item>
+    <item>3</item>
+    <item>2</item>
 </string-array>
 <string-array name="eventScreenEventTypeArray">
 	<item>@string/array_event_pref_eventScreenEventType_screenOff</item>    
@@ -480,11 +484,15 @@
 </string-array>
 <string-array name="eventBluetoothConnectionTypeArray">
 	<item>@string/array_event_pref_bluetoothConnectionType_connected</item>    
-	<item>@string/array_event_pref_bluetoothConnectionType_inFront</item>    
+	<item>@string/array_event_pref_bluetoothConnectionType_inFront</item>
+    <item>@string/array_event_pref_bluetoothConnectionType_notConnected</item>
+    <item>@string/array_event_pref_bluetoothConnectionType_notInFront</item>
 </string-array>
 <string-array name="eventBluetoothConnectionTypeValues">
     <item>0</item>
     <item>1</item>
+    <item>2</item>
+    <item>3</item>
 </string-array>
 <!-- <string-array name="eventSMSEventsArray">
 	<item>@string/array_event_pref_incoming_sms</item>    

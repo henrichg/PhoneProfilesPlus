@@ -16,7 +16,9 @@ public class EventPreferencesWifi extends EventPreferences {
 
 	static final int CTYPE_CONNECTED = 0;
 	static final int CTYPE_INFRONT = 1;
-	
+    static final int CTYPE_NOTCONNECTED = 2;
+    static final int CTYPE_NOTINFRONT = 3;
+
 	static final String PREF_EVENT_WIFI_ENABLED = "eventWiFiEnabled";
 	static final String PREF_EVENT_WIFI_SSID = "eventWiFiSSID";
 	static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
