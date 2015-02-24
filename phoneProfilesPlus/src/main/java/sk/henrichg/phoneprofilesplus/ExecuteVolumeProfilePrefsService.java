@@ -18,7 +18,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 		
 		//Log.e("ExecuteVolumeProfilePrefsService.onHandleIntent","---- start");
 		
-		Context context = getBaseContext();
+		Context context = getApplicationContext();
 		
 		GlobalData.loadPreferences(context);
 		
