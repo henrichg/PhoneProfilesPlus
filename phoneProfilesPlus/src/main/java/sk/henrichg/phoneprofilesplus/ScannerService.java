@@ -121,7 +121,7 @@ public class ScannerService extends IntentService
 					unregisterReceiver(wifiScanReceiver);
 					
 					try {
-			        	Thread.sleep(200);
+			        	Thread.sleep(500);
 				    } catch (InterruptedException e) {
                         e.printStackTrace();
 				    }
@@ -244,6 +244,13 @@ public class ScannerService extends IntentService
                             WifiScanAlarmBroadcastReceiver.lock(dataWrapper.context);
 							wifi.setWifiEnabled(true);
 				        	GlobalData.logE("@@@ ScannerService.enableWifi","set enabled");
+
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
 							return WifiManager.WIFI_STATE_ENABLED;
 						}
 		        	}
