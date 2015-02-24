@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PhoneProfilesPlus.iml" filepath="$PROJECT_DIR$/PhoneProfilesPlus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dragSortListView/dragSortListView.iml" filepath="$PROJECT_DIR$/dragSortListView/dragSortListView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" filepath="$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" />
+    </modules>
+  </component>
+</project>
+
