@@ -1625,13 +1625,24 @@ public class DataWrapper {
 
 					wifiPassed = compareSSID(wifiInfo, event._eventPreferencesWifi._SSID);
 
-                    if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) ||
-                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
-                        // if wifi is not connected to event SSID, then passed
-                        wifiPassed = !wifiPassed;
+                    if (wifiPassed)
+                    {
+                        // event SSID is connected
+
+                        if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)
+                            // for this connectionTypes, wifi must not be connected to event SSID
+                            wifiPassed = false;
+                    }
+
                 }
 				else
+                {
                     GlobalData.logE("@@@ DataWrapper.doEventService", "wifi not connected");
+
+                    if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)
+                        // for this connectionTypes, wifi must not be connected to event SSID
+                        wifiPassed = true;
+                }
 
 			}
             else
@@ -1735,16 +1746,24 @@ public class DataWrapper {
                     GlobalData.logE("@@@ DataWrapper.doEventService", "bluetooth connected");
 
                     if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, event._eventPreferencesBluetooth._adapterName)) {
-                        bluetoothPassed = true;
-                    }
+                        // event BT adapter is connected
 
-                    if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) ||
-                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
-                        // if bluetooth is not connected to event BT adapter name, then passed
-                        bluetoothPassed = !bluetoothPassed;
+                        bluetoothPassed = true;
+
+                        if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)
+                            // for this connectionTypes, BT must not be connected to event BT adapter
+                            bluetoothPassed = false;
+                    }
                 }
 				else
-					GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth not connected");
+                {
+                    GlobalData.logE("@@@ DataWrapper.doEventService", "bluetooth not connected");
+
+                    if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)
+                        // for this connectionTypes, BT must not be connected to event BT adapter
+                        bluetoothPassed = true;
+
+                }
             }
             else
                 GlobalData.logE("DataWrapper.doEventService","bluetoothEnabled=true");

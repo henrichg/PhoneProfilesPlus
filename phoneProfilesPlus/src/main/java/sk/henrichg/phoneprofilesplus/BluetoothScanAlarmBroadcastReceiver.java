@@ -75,9 +75,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                         boolean isBluetoothNameScannedNotInFront =
                                 BluetoothConnectionBroadcastReceiver.isAdapterNameScanned(dataWrapper, EventPreferencesBluetooth.CTYPE_NOTINFRONT);
 
-                        boolean noScanData = scanResults.size() == 0;
-		    			
-		    			if ((isBluetoothNameScannedInFront) && (isBluetoothNameScannedNotInFront) && (scanResults.size() != 0))
+		    			if ((isBluetoothNameScannedInFront) && (!isBluetoothNameScannedNotInFront) && (scanResults.size() != 0))
 		    			{
                             // INFRONT events exists for connected BT adapter and
                             // NOTINFRONT events not exists for connected BT adapter and
