@@ -24,7 +24,7 @@ public class FirstStartService extends IntentService {
 		super("FirstStartService");
 	}
 
-	@Override
+    @Override
 	protected void onHandleIntent(Intent intent)
 	{
 		Context context = getBaseContext();
@@ -38,8 +38,8 @@ public class FirstStartService extends IntentService {
 				//GlobalData.getSUVersion();
 			}
 		//}
-		
-		if (GlobalData.getApplicationStarted(context))
+
+        if (GlobalData.getApplicationStarted(context))
 			return;
 		
 		//int startType = intent.getStringExtra(GlobalData.EXTRA_FIRST_START_TYPE);
@@ -118,7 +118,7 @@ public class FirstStartService extends IntentService {
 
     private boolean installTone(int resID, String title, Context context) {
 
-        Log.e("FirstStartService.copyRawFile", " --- start");
+        Log.e("FirstStartService", "copyRawFile: --- start");
 
         // Make sure the shared storage is currently writable
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
@@ -186,11 +186,11 @@ public class FirstStartService extends IntentService {
                 System.out.println(e);
             }
 
-            Log.e("FirstStartService.copyRawFile", "Copied alarm tone " + title + " to " + outAbsPath);
-            Log.e("FirstStartService.copyRawFile", "ID is " + newUri.toString());
+            Log.e("FirstStartService", "copyRawFile: Copied alarm tone " + title + " to " + outAbsPath);
+            Log.e("FirstStartService", "copyRawFile: ID is " + newUri.toString());
 
         } catch (Exception e) {
-            Log.e("FirstStartService.copyRawFile", "Error writing " + filename, e);
+            Log.e("FirstStartService", "copyRawFile: Error writing " + filename, e);
             isError = true;
         } finally {
             // Close the streams
