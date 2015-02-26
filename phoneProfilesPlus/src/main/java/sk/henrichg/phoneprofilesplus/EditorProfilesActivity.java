@@ -85,6 +85,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	
 	private static ApplicationsCache applicationsCache;
 	private static ContactsCache contactsCache;
+    private static ContactGroupsCache contactGroupsCache;
 
 	
 	private int editModeProfile;
@@ -142,7 +143,8 @@ public class EditorProfilesActivity extends ActionBarActivity
 		
 		createApplicationsCache();
 		createContactsCache();
-		
+        createContactGroupsCache();
+
 		setContentView(R.layout.activity_editor_list_onepane);
 		
     	//if (android.os.Build.VERSION.SDK_INT >= 21)
@@ -1859,11 +1861,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 		}
 	}
 
-	public static ContactsCache getContactsCache()
-	{
-		return contactsCache;
-	}
-
 	public static void createContactsCache()
 	{
 		if ((!savedInstanceStateChanged) || (contactsCache == null))
@@ -1873,8 +1870,28 @@ public class EditorProfilesActivity extends ActionBarActivity
 			contactsCache =  new ContactsCache();
 		}
 	}
-	
-	private DataWrapper getDataWrapper()
+
+    public static ContactsCache getContactsCache()
+    {
+        return contactsCache;
+    }
+
+    public static void createContactGroupsCache()
+    {
+        if ((!savedInstanceStateChanged) || (contactGroupsCache == null))
+        {
+            if (contactGroupsCache != null)
+                contactGroupsCache.clearCache(true);
+            contactGroupsCache =  new ContactGroupsCache();
+        }
+    }
+
+    public static ContactGroupsCache getContactGroupsCache()
+    {
+        return contactGroupsCache;
+    }
+
+    private DataWrapper getDataWrapper()
 	{
 		Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
 		if (fragment != null)
