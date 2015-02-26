@@ -452,4 +452,6 @@
   <string name="array_event_pref_wifiConnectionType_notInFront">Not in front</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Not in front</string>
+  <string name="event_preferences_call_contact_groups">Contact groups</string>
+  <string name="event_preferences_sms_contact_groups">Contact groups</string>
 </resources>

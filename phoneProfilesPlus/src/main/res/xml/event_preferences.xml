@@ -160,7 +160,12 @@
             android:defaultValue="0"
             android:entries="@array/eventCallEventsArray"
             android:entryValues="@array/eventCallEventsValues"
-            android:dependency="eventCallEnabled" />        
+            android:dependency="eventCallEnabled" />
+        <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
+            android:key="eventCallContactGroups"
+            android:defaultValue=""
+            android:title="@string/event_preferences_call_contact_groups"
+            android:dependency="eventCallEnabled" />
 		<sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
             android:key="eventCallContacts"
             android:defaultValue=""
@@ -188,7 +193,12 @@
             android:entries="@array/eventSMSEventsArray"
             android:entryValues="@array/eventSMSEventsValues"
             android:dependency="eventSMSEnabled" />  -->        
-		<sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
+		<sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
+            android:key="eventSMSContactGroups"
+            android:defaultValue=""
+            android:title="@string/event_preferences_sms_contact_groups"
+            android:dependency="eventSMSEnabled" />
+        <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
             android:key="eventSMSContacts"
             android:defaultValue=""
             android:title="@string/event_preferences_sms_contacts"
