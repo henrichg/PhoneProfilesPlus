@@ -44,9 +44,13 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 		
 		GlobalData.setRadioChangeState(context, true);
 		*/
-		
+
+        GlobalData.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "before synchronized block");
+
 		synchronized (GlobalData.radioChangeStateMutex) {
-			
+
+            GlobalData.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "in synchronized block - start");
+
 		if (PhoneProfilesHelper.isPPHelperInstalled(context, 0))
 		{
 			// broadcast PPHelper
@@ -81,9 +85,13 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 				aph = null;
 			}
 		}
-		
+
+            GlobalData.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "in synchronized block - end");
+
 		}
-		
+
+        GlobalData.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "after synchronized block");
+
 		//GlobalData.setRadioChangeState(context, false);
 		
 		dataWrapper.invalidateDataWrapper();

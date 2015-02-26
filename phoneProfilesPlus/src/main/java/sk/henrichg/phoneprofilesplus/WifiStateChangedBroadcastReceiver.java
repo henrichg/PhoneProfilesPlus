@@ -26,6 +26,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
 		if (GlobalData.getGlobalEventsRuning(context))
 		{
+            GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","state="+wifiState);
     		GlobalData.logE("@@@ WifiStateChangedBroadcastReceiver.onReceive","state="+wifiState);
 
     		if (wifiState == WifiManager.WIFI_STATE_ENABLED)
