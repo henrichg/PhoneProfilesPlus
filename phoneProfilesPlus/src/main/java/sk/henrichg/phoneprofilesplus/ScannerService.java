@@ -42,9 +42,13 @@ public class ScannerService extends IntentService
 		
 		GlobalData.setRadioChangeState(context, true);
 		*/
-		
+
+        GlobalData.logE("$$$ ScannerService.onHandleIntent", "before synchronized block");
+
 		synchronized (GlobalData.radioChangeStateMutex) {
-			
+
+            GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - start");
+
       	// send broadcast about radio change state to PPHelper
 		Intent ppHelperIntent1 = new Intent();
 		ppHelperIntent1.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
@@ -204,9 +208,13 @@ public class ScannerService extends IntentService
 		ppHelperIntent2.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
 		ppHelperIntent2.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, false);
 	    context.sendBroadcast(ppHelperIntent2);
-	    
+
+            GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - end");
+
 		}
-		
+
+        GlobalData.logE("$$$ ScannerService.onHandleIntent", "after synchronized block");
+
 		//GlobalData.setRadioChangeState(context, false);
 		
 		GlobalData.logE("### ScannerService.onHandleIntent", "-- END ------------");
