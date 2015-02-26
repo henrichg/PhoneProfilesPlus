@@ -30,9 +30,9 @@ public class ContactGroupsCache {
 		String[] projection = new String[] {
                 ContactsContract.Groups._ID,
                 ContactsContract.Groups.TITLE,
-                ContactsContract.Groups.SUMMARY_WITH_PHONES  };
-		String selection = ContactsContract.Groups.DELETED+"!='1' AND "+
-                           ContactsContract.Groups.GROUP_VISIBLE+"!='0' ";
+                ContactsContract.Groups.SUMMARY_COUNT };
+		String selection = ContactsContract.Groups.DELETED+"!='1'";// + " AND "+
+                           //ContactsContract.Groups.GROUP_VISIBLE+"!='0' ";
 		String order = ContactsContract.Groups.TITLE + " ASC";
 		
 		Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, order);
@@ -41,12 +41,16 @@ public class ContactGroupsCache {
 		{
             long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
             String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+            int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
 
-            ContactGroup aContactGroup = new ContactGroup();
-            aContactGroup.groupId = contactGroupId;
-            aContactGroup.name = name;
+            if (count > 0) {
+                ContactGroup aContactGroup = new ContactGroup();
+                aContactGroup.groupId = contactGroupId;
+                aContactGroup.name = name;
+                aContactGroup.count = count;
 
-            contactGroupList.add(aContactGroup);
+                contactGroupList.add(aContactGroup);
+            }
 
             if (cancelled)
                 break;

@@ -87,7 +87,7 @@ public class ContactGroupsMultiselectPreferenceAdapter extends BaseAdapter
         checkBox.setTag(contactGroup);
 
         // Display ContactGroup data
-        textViewDisplayName.setText(contactGroup.name);
+        textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
 
         checkBox.setChecked(contactGroup.checked);
 
