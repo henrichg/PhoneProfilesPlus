@@ -320,11 +320,11 @@
   <string name="menu_restart_events">Перезапустити події</string>
   <string name="event_preferences_ForceRun">Ігнорувати ручну активацію</string>
   <string name="manual_profile_activation_forceRun_title">Активувати профіль</string>
-  <string name="manual_profile_activation_forceRun_message">Зараз активна подія з опцією \"Ігнорувати ручну активацію\". Продовжувати?</string>
+  <string name="manual_profile_activation_forceRun_message">Будь-яка подія з опцією \"Ігнорувати ручну активацію\" працює. Активувати в любому випадку?</string>
   <string name="restart_events_alert_title">Перезавантаження подій</string>
   <string name="restart_events_alert_message">Ви впевнені?</string>
   <string name="event_preferences_ForceRun_summary">Розпочати подію, незважаючи на те, що діє вручну активований профіль</string>
-  <string name="event_preferences_category_startofevent">Початок події</string>
+  <string name="event_preferences_category_startofevent">Розпічніть події</string>
   <string name="event_preferences_category_endofevent">Завершення події</string>
   <string name="event_preferences_undoneProfile">Анулювати профіль</string>
   <string name="event_preferences_undoneProfile_summary">Активувати профіль, який був активним до початку події</string>
@@ -402,7 +402,7 @@
   <string name="array_event_pref_eventScreenEventType_screenOn">Увімкнення</string>
   <string name="array_event_pref_eventScreenEventType_screenOff">Вимкнення</string>
   <string name="pref_event_screen_startWhenUnlocked">Запустити при розблокуванні</string>
-  <string name="pref_event_screen_endWhenUnlocked">Завершити при блокуванні</string>
+  <string name="pref_event_screen_endWhenUnlocked">Завершити при розблокуванні</string>
   <string name="event_preferences_screen_start_when_unlocked">Запустити при розблокуванні</string>
   <string name="event_preferences_screen_end_when_unlocked">Завершити при блокуванні</string>
   <string name="event_type_bluetooth">Bluetooth</string>
@@ -424,8 +424,8 @@
   <string name="event_preferences_sms_enabled">Увімкнути SMS</string>
   <string name="event_preferences_sms_contacts">Контакти</string>
   <string name="toast_events_restarted">Події перезавантажено</string>
-  <string name="phone_profiles_pref_notificationStatusBarPermanent">Сповіщення що продовжується</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">Відмінити (сек.)</string>
+  <string name="phone_profiles_pref_notificationStatusBarPermanent">Триваючі сповіщення</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">Скасувати (сек.)</string>
   <string name="event_name_background_profile">Профіль за замовчуванням</string>
   <string name="phoneprofilehepler_install_error_no_root">Щоб встановити PPHelper, необхідний ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">Щоб деінсталювати PPHelper, необхідний ROOT</string>
@@ -445,6 +445,12 @@
   <string name="profile_preferences_deviceMobileData_21">(H) Передача даних</string>
   <string name="preference_profile_adaptiveBrightness">Адаптивна</string>
   <string name="profile_preferences_deviceKeyguard">Заблокувати екран</string>
-  <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Приховати ім\'я профілю (віджет)</string>
+  <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Приховати назву профілю (віджет)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Перезапустити події</string>
+  <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Not in front</string>
+  <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Not in front</string>
+  <string name="event_preferences_call_contact_groups">Contact groups</string>
+  <string name="event_preferences_sms_contact_groups">Contact groups</string>
 </resources>

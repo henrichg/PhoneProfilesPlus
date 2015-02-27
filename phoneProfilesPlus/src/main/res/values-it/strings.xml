@@ -447,4 +447,10 @@
   <string name="profile_preferences_deviceKeyguard">Schermata di blocco</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Nascondi il nome del profilo (widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Riavvia eventi</string>
+  <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Not in front</string>
+  <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Not in front</string>
+  <string name="event_preferences_call_contact_groups">Contact groups</string>
+  <string name="event_preferences_sms_contact_groups">Contact groups</string>
 </resources>
