@@ -24,6 +24,7 @@ import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRedrawProfileL
 import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRestartProfilePreferences;
 import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnShowActionModeInProfilePreferences;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,7 +35,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -114,7 +117,10 @@ public class EditorProfilesActivity extends ActionBarActivity
 	TextView filterStatusbarTitle;
 	TextView orderLabel;
 	Spinner orderSpinner;
-	
+    ImageView drawerHeaderFilterImage;
+    TextView drawerHeaderFilterTitle;
+    TextView drawerHeaderFilterSubtitle;
+
 	String[] drawerItemsTitle;
 	String[] drawerItemsSubtitle;
 	Integer[] drawerItemsIcon;
@@ -242,9 +248,16 @@ public class EditorProfilesActivity extends ActionBarActivity
 		
 		drawerLayout = (DrawerLayout) findViewById(R.id.editor_list_drawer_layout);
 		drawerRoot = (RelativeLayout) findViewById(R.id.editor_drawer_root);
+
+
 		drawerListView = (ListView) findViewById(R.id.editor_drawer_list);
-		
-		int drawerShadowId;
+        View headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.editor_drawer_list_header, null, false);
+        drawerListView.addHeaderView(headerView);
+        drawerHeaderFilterImage = (ImageView) findViewById(R.id.editor_drawer_list_header_icon);
+        drawerHeaderFilterTitle = (TextView) findViewById(R.id.editor_drawer_list_header_title);
+        drawerHeaderFilterSubtitle = (TextView) findViewById(R.id.editor_drawer_list_header_subtitle);
+
+        int drawerShadowId;
         if (GlobalData.applicationTheme.equals("dark"))
         	drawerShadowId = R.drawable.drawer_shadow_dark;
         else
@@ -676,7 +689,8 @@ public class EditorProfilesActivity extends ActionBarActivity
 
         public void onItemClick(AdapterView<?> parent, View view, int position,
                 long id) {
-            selectDrawerItem(position+1, true);
+            // header is position=0
+            selectDrawerItem(position, true);
         }
     }
  
@@ -780,13 +794,15 @@ public class EditorProfilesActivity extends ActionBarActivity
 				break;	
 	        }
     	}
-    	
-        drawerListView.setItemChecked(drawerSelectedItem-1, true);
- 
+
+        // header is position=0
+        drawerListView.setItemChecked(drawerSelectedItem, true);
         // Get the title and icon followed by the position
         setTitle(drawerItemsTitle[drawerSelectedItem-1]);
         //setIcon(drawerItemsIcon[drawerSelectedItem-1]);
-        
+        drawerHeaderFilterImage.setImageResource(drawerItemsIcon[drawerSelectedItem-1]);
+        drawerHeaderFilterTitle.setText(drawerItemsTitle[drawerSelectedItem-1]);
+
         // show/hide order
         if (drawerSelectedItem <= COUNT_DRAWER_PROFILE_ITEMS)
         {
@@ -1492,6 +1508,7 @@ public class EditorProfilesActivity extends ActionBarActivity
         			orderItems[orderSelectedItem];
         }
         filterStatusbarTitle.setText(text);
+        drawerHeaderFilterSubtitle.setText(text);
 	 }
 
 	public void onStartProfilePreferences(Profile profile, int editMode, int filterType) {

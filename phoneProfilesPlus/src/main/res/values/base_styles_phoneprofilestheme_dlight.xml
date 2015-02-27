@@ -51,7 +51,10 @@
 	    <item name="actionModeBackground">?attr/colorPrimary</item>
 	    <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
         <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>
-        
+
+        <item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background</item>
+        <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor</item>
+
     </style>
 
 </resources>

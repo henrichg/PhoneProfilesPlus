@@ -10,4 +10,6 @@
     <color name="navigationDrawerTextColor_phoneprofiletheme_dark">#ffffffff</color>
     <color name="navigationDrawerSubTextColor_phoneprofiletheme_dark">#80ffffff</color>
     <color name="preferenceDialogBackgroud_dark">#FF000000</color>
+    <color name="editorDrawerListHeaderTitleColor_dark">#FFFFFFFF</color>
+
 </resources>

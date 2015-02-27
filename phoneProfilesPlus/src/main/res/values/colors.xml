@@ -14,4 +14,6 @@
     <color name="navigationDrawerTextColor_phoneprofiletheme">#ff000000</color>
     <color name="navigationDrawerSubTextColor_phoneprofiletheme">#80000000</color>
     <color name="preferenceDialogBackgroud">#FFFFFFFF</color>
+    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>
+
 </resources>

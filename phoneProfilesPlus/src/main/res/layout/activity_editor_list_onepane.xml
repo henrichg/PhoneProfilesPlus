@@ -113,16 +113,16 @@
 		
 		</LinearLayout>
 
-		<ListView
-		    android:id="@+id/editor_drawer_list"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_above="@+id/editor_drawer_order_root"
-        	android:layout_alignParentTop="true"
-		    android:choiceMode="singleChoice"
-		    android:divider="@android:color/transparent"
-		    android:dividerHeight="0dp" />
-				
+        <ListView
+            android:id="@+id/editor_drawer_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/editor_drawer_order_root"
+            android:layout_alignParentTop="true"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+
 	</RelativeLayout>
     
 </android.support.v4.widget.DrawerLayout>    

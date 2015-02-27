@@ -63,5 +63,7 @@
     <attr name="toolbarBackground" format="reference" />
 	<attr name="toolbarTheme" format="reference" />
 	<attr name="toolbarPopupMenu" format="reference" />
+    <attr name="editorDrawerListHeaderBackground" format="reference" />
+    <attr name="editorDrawerListHeaderTitle" format="reference" />
     
 </resources>
