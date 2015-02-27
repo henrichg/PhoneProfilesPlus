@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -173,6 +174,18 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 					}
 				}
 			}
+            // move checked on top
+            int i = 0;
+            int ich = 0;
+            while (i < contactList.size()) {
+                Contact contact = contactList.get(i);
+                if (contact.checked) {
+                    contactList.remove(i);
+                    contactList.add(ich, contact);
+                    ich++;
+                }
+                i++;
+            }
 		}
 	}
 	

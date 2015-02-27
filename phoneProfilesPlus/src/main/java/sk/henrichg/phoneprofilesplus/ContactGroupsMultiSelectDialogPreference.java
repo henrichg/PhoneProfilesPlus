@@ -170,6 +170,18 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 					}
 				}
 			}
+            // move checked on top
+            int i = 0;
+            int ich = 0;
+            while (i < contactGroupList.size()) {
+                ContactGroup contactGroup = contactGroupList.get(i);
+                if (contactGroup.checked) {
+                    contactGroupList.remove(i);
+                    contactGroupList.add(ich, contactGroup);
+                    ich++;
+                }
+                i++;
+            }
 		}
 	}
 	
