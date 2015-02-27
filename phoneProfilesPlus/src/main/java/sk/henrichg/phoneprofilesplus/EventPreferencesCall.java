@@ -150,7 +150,7 @@ public class EventPreferencesCall extends EventPreferences {
 		boolean runable = super.isRunable();
 
 		runable = runable && ((_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||
-                              (!(_contacts.isEmpty() || _contactGroups.isEmpty())));
+                              (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
 
 		return runable;
 	}
