@@ -164,7 +164,7 @@ public class Event {
 	
 	private void createEventPreferencesCall()
 	{
-       	this._eventPreferencesCall = new EventPreferencesCall(this, false, 0, "", 0);
+       	this._eventPreferencesCall = new EventPreferencesCall(this, false, 0, "", "", 0);
 	}
 
 	private void createEventPreferencesPeripherals()
@@ -194,7 +194,7 @@ public class Event {
 
 	private void createEventPreferencesSMS()
 	{
-       	this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", 0);
+       	this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0);
 	}
 	
 	public void createEventPreferences()

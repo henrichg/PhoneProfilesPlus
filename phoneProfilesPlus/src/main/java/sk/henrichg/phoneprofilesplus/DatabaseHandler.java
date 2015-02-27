@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1175;
+	private static final int DATABASE_VERSION = 1180;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -148,7 +148,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_E_SMS_CONTACTS = "smsContacts";
 	private static final String KEY_E_SMS_CONTACT_LIST_TYPE = "smsContactListType";
 	private static final String KEY_E_SMS_START_TIME = "smsStartTime";
-	
+    private static final String KEY_E_CALL_CONTACT_GROUPS = "callContactGroups";
+    private static final String KEY_E_SMS_CONTACT_GROUPS = "smsContactGroups";
+
 	private static final String KEY_ET_ID = "id";
 	private static final String KEY_ET_EORDER = "eorder";
 	private static final String KEY_ET_FK_EVENT = "fkEvent";
@@ -311,7 +313,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	            //+ KEY_E_SMS_EVENT + " INTEGER,"
 	            + KEY_E_SMS_CONTACTS + " TEXT,"
 	            + KEY_E_SMS_CONTACT_LIST_TYPE + " INTEGER,"
-	            + KEY_E_SMS_START_TIME + " INTEGER"
+	            + KEY_E_SMS_START_TIME + " INTEGER,"
+                + KEY_E_CALL_CONTACT_GROUPS + " TEXT,"
+                + KEY_E_SMS_CONTACT_GROUPS + " TEXT"
 				+ ")";
 		db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1038,7 +1042,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		        }
 			}
 		}
-		
+
+        if (oldVersion < 1180)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALL_CONTACT_GROUPS + " TEXT");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_CONTACT_GROUPS + " TEXT");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_CONTACT_GROUPS + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_CONTACT_GROUPS + "=\"\"");
+        }
+
 	}
 	
 
@@ -2383,8 +2398,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				                 new String[] { KEY_E_CALL_ENABLED,
 												KEY_E_CALL_EVENT, 
 												KEY_E_CALL_CONTACTS,
-												KEY_E_CALL_CONTACT_LIST_TYPE
-												}, 
+												KEY_E_CALL_CONTACT_LIST_TYPE,
+                                                KEY_E_CALL_CONTACT_GROUPS
+												},
 				                 KEY_E_ID + "=?",
 				                 new String[] { String.valueOf(event._id) }, null, null, null, null);
 		if (cursor != null)
@@ -2399,6 +2415,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				eventPreferences._callEvent = Integer.parseInt(cursor.getString(1));
 				eventPreferences._contacts = cursor.getString(2);
 				eventPreferences._contactListType = Integer.parseInt(cursor.getString(3));
+                eventPreferences._contactGroups = cursor.getString(4);
 			}
 			cursor.close();
 		}
@@ -2536,7 +2553,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 												//KEY_E_SMS_EVENT, 
 												KEY_E_SMS_CONTACTS,
 												KEY_E_SMS_CONTACT_LIST_TYPE,
-												KEY_E_SMS_START_TIME
+												KEY_E_SMS_START_TIME,
+                                                KEY_E_SMS_CONTACT_GROUPS
 												}, 
 				                 KEY_E_ID + "=?",
 				                 new String[] { String.valueOf(event._id) }, null, null, null, null);
@@ -2553,6 +2571,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				eventPreferences._contacts = cursor.getString(1);
 				eventPreferences._contactListType = Integer.parseInt(cursor.getString(2));
 				eventPreferences._startTime = Long.parseLong(cursor.getString(3));
+                eventPreferences._contactGroups = cursor.getString(4);
 			}
 			cursor.close();
 		}
@@ -2652,6 +2671,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_CALL_EVENT, eventPreferences._callEvent);
 		values.put(KEY_E_CALL_CONTACTS, eventPreferences._contacts);
 		values.put(KEY_E_CALL_CONTACT_LIST_TYPE, eventPreferences._contactListType);
+        values.put(KEY_E_CALL_CONTACT_GROUPS, eventPreferences._contactGroups);
 
 		// updating row
 		int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -2765,6 +2785,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_SMS_CONTACTS, eventPreferences._contacts);
 		values.put(KEY_E_SMS_CONTACT_LIST_TYPE, eventPreferences._contactListType);
 		values.put(KEY_E_SMS_START_TIME, eventPreferences._startTime);
+        values.put(KEY_E_SMS_CONTACT_GROUPS, eventPreferences._contactGroups);
 
 		// updating row
 		int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4008,7 +4029,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 										{
 											values.put(KEY_E_DELAY_START, delayStart * 60); // conversion to seconds
 										}
-										
+
+                                        if (exportedDBObj.getVersion() < 1180)
+                                        {
+                                            values.put(KEY_E_CALL_CONTACT_GROUPS, "");
+                                            values.put(KEY_E_SMS_CONTACT_GROUPS, "");
+                                        }
+
 										// Inserting Row do db z SQLiteOpenHelper
 										db.insert(TABLE_EVENTS, null, values);
 										

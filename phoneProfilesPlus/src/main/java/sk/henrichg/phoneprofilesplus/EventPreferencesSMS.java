@@ -20,12 +20,14 @@ public class EventPreferencesSMS extends EventPreferences {
 
 	//public int _smsEvent;
 	public String _contacts;
+    public String _contactGroups;
 	public int _contactListType;
 	public long _startTime;
 	
 	static final String PREF_EVENT_SMS_ENABLED = "eventSMSEnabled";
 	//static final String PREF_EVENT_SMS_EVENT = "eventSMSEvent";
 	static final String PREF_EVENT_SMS_CONTACTS = "eventSMSContacts";
+    static final String PREF_EVENT_SMS_CONTACT_GROUPS = "eventSMSContactGroups";
 	static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
 	
 	//static final int SMS_EVENT_UNDEFINED = -1; 
@@ -40,12 +42,14 @@ public class EventPreferencesSMS extends EventPreferences {
 									boolean enabled,
 									//int smsEvent,
 									String contacts,
+                                    String contactGroups,
 									int contactListType)
 	{
 		super(event, enabled);
 		
 		//this._smsEvent = smsEvent;
 		this._contacts = contacts;
+        this._contactGroups = contactGroups;
 		this._contactListType = contactListType;
 		
 		this._startTime = 0;
@@ -57,6 +61,7 @@ public class EventPreferencesSMS extends EventPreferences {
 		this._enabled = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._enabled;
 		//this._smsEvent = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._smsEvent;
 		this._contacts = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contacts;
+        this._contactGroups = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contactGroups;
 		this._contactListType = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contactListType;
 		
 		this._startTime = 0;
@@ -69,6 +74,7 @@ public class EventPreferencesSMS extends EventPreferences {
         editor.putBoolean(PREF_EVENT_SMS_ENABLED, _enabled);
 		//editor.putString(PREF_EVENT_SMS_EVENT, String.valueOf(this._smsEvent));
 		editor.putString(PREF_EVENT_SMS_CONTACTS, this._contacts);
+        editor.putString(PREF_EVENT_SMS_CONTACT_GROUPS, this._contactGroups);
 		editor.putString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
 		editor.commit();
 	}
@@ -78,8 +84,9 @@ public class EventPreferencesSMS extends EventPreferences {
 	{
 		this._enabled = preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
 		//this._smsEvent = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_EVENT, "0"));
-		this._contacts = preferences.getString(PREF_EVENT_SMS_CONTACTS, ""); 
-		this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, "0"));
+		this._contacts = preferences.getString(PREF_EVENT_SMS_CONTACTS, "");
+        this._contactGroups = preferences.getString(PREF_EVENT_SMS_CONTACT_GROUPS, "");
+        this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, "0"));
 	}
 	
 	@Override
@@ -122,6 +129,11 @@ public class EventPreferencesSMS extends EventPreferences {
 			Preference preference = prefMng.findPreference(key);
 	    	GUIData.setPreferenceTitleStyle(preference, false, true);
 		}
+        if (key.equals(PREF_EVENT_SMS_CONTACT_GROUPS))
+        {
+            Preference preference = prefMng.findPreference(key);
+            GUIData.setPreferenceTitleStyle(preference, false, true);
+        }
 	}
 	
 	@Override
@@ -129,7 +141,8 @@ public class EventPreferencesSMS extends EventPreferences {
 	{
 		if (/*key.equals(PREF_EVENT_SMS_EVENT) ||*/ 
 			key.equals(PREF_EVENT_SMS_CONTACT_LIST_TYPE) ||
-			key.equals(PREF_EVENT_SMS_CONTACTS))
+			key.equals(PREF_EVENT_SMS_CONTACTS) ||
+            key.equals(PREF_EVENT_SMS_CONTACT_GROUPS))
 		{
 			setSummary(prefMng, key, preferences.getString(key, ""), context);
 		}
@@ -141,6 +154,7 @@ public class EventPreferencesSMS extends EventPreferences {
 		//setSummary(prefMng, PREF_EVENT_SMS_EVENT, Integer.toString(_smsEvent), context);
 		setSummary(prefMng, PREF_EVENT_SMS_CONTACT_LIST_TYPE, Integer.toString(_contactListType), context);
 		setSummary(prefMng, PREF_EVENT_SMS_CONTACTS, _contacts, context);
+        setSummary(prefMng, PREF_EVENT_SMS_CONTACT_GROUPS, _contactGroups, context);
 	}
 	
 	@Override
@@ -149,7 +163,8 @@ public class EventPreferencesSMS extends EventPreferences {
 		
 		boolean runable = super.isRunable();
 
-		runable = runable && (_contactListType == CONTACT_LIST_TYPE_NOT_USE || (!_contacts.isEmpty()));
+        runable = runable && ((_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||
+                              (!(_contacts.isEmpty() || _contactGroups.isEmpty())));
 
 		return runable;
 	}

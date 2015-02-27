@@ -11,11 +11,13 @@ public class EventPreferencesCall extends EventPreferences {
 
 	public int _callEvent;
 	public String _contacts;
+    public String _contactGroups;
 	public int _contactListType;
 	
 	static final String PREF_EVENT_CALL_ENABLED = "eventCallEnabled";
 	static final String PREF_EVENT_CALL_EVENT = "eventCallEvent";
 	static final String PREF_EVENT_CALL_CONTACTS = "eventCallContacts";
+    static final String PREF_EVENT_CALL_CONTACT_GROUPS = "eventCallContactGroups";
 	static final String PREF_EVENT_CALL_CONTACT_LIST_TYPE = "eventCallContactListType";
 	
 	static final int CALL_EVENT_RINGING = 0;
@@ -30,12 +32,14 @@ public class EventPreferencesCall extends EventPreferences {
 									boolean enabled,
 									int callEvent,
 									String contacts,
+                                    String contactGroups,
 									int contactListType)
 	{
 		super(event, enabled);
 		
 		this._callEvent = callEvent;
 		this._contacts = contacts;
+        this._contactGroups = contactGroups;
 		this._contactListType = contactListType;
 	}
 	
@@ -45,6 +49,7 @@ public class EventPreferencesCall extends EventPreferences {
 		this._enabled = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._enabled;
 		this._callEvent = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._callEvent;
 		this._contacts = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._contacts;
+        this._contactGroups = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._contactGroups;
 		this._contactListType = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._contactListType;
 	}
 	
@@ -55,6 +60,7 @@ public class EventPreferencesCall extends EventPreferences {
         editor.putBoolean(PREF_EVENT_CALL_ENABLED, _enabled);
 		editor.putString(PREF_EVENT_CALL_EVENT, String.valueOf(this._callEvent));
 		editor.putString(PREF_EVENT_CALL_CONTACTS, this._contacts);
+        editor.putString(PREF_EVENT_CALL_CONTACT_GROUPS, this._contactGroups);
 		editor.putString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
 		editor.commit();
 	}
@@ -64,8 +70,9 @@ public class EventPreferencesCall extends EventPreferences {
 	{
 		this._enabled = preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
 		this._callEvent = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_EVENT, "0"));
-		this._contacts = preferences.getString(PREF_EVENT_CALL_CONTACTS, ""); 
-		this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, "0"));
+		this._contacts = preferences.getString(PREF_EVENT_CALL_CONTACTS, "");
+        this._contactGroups = preferences.getString(PREF_EVENT_CALL_CONTACT_GROUPS, "");
+        this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, "0"));
 	}
 	
 	@Override
@@ -108,6 +115,11 @@ public class EventPreferencesCall extends EventPreferences {
 			Preference preference = prefMng.findPreference(key);
 	    	GUIData.setPreferenceTitleStyle(preference, false, true);
 		}
+        if (key.equals(PREF_EVENT_CALL_CONTACT_GROUPS))
+        {
+            Preference preference = prefMng.findPreference(key);
+            GUIData.setPreferenceTitleStyle(preference, false, true);
+        }
 	}
 	
 	@Override
@@ -115,7 +127,8 @@ public class EventPreferencesCall extends EventPreferences {
 	{
 		if (key.equals(PREF_EVENT_CALL_EVENT) || 
 			key.equals(PREF_EVENT_CALL_CONTACT_LIST_TYPE) || 
-			key.equals(PREF_EVENT_CALL_CONTACTS))
+			key.equals(PREF_EVENT_CALL_CONTACTS) ||
+            key.equals(PREF_EVENT_CALL_CONTACT_GROUPS))
 		{
 			setSummary(prefMng, key, preferences.getString(key, ""), context);
 		}
@@ -127,6 +140,7 @@ public class EventPreferencesCall extends EventPreferences {
 		setSummary(prefMng, PREF_EVENT_CALL_EVENT, Integer.toString(_callEvent), context);
 		setSummary(prefMng, PREF_EVENT_CALL_CONTACT_LIST_TYPE, Integer.toString(_contactListType), context);
 		setSummary(prefMng, PREF_EVENT_CALL_CONTACTS, _contacts, context);
+        setSummary(prefMng, PREF_EVENT_CALL_CONTACT_GROUPS, _contactGroups, context);
 	}
 	
 	@Override
@@ -135,7 +149,8 @@ public class EventPreferencesCall extends EventPreferences {
 		
 		boolean runable = super.isRunable();
 
-		runable = runable && (_contactListType == CONTACT_LIST_TYPE_NOT_USE || (!_contacts.isEmpty()));
+		runable = runable && ((_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||
+                              (!(_contacts.isEmpty() || _contactGroups.isEmpty())));
 
 		return runable;
 	}
