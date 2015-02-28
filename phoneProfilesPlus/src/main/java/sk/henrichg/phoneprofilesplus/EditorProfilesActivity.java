@@ -690,7 +690,8 @@ public class EditorProfilesActivity extends ActionBarActivity
         public void onItemClick(AdapterView<?> parent, View view, int position,
                 long id) {
             // header is position=0
-            selectDrawerItem(position, true);
+            if (position > 0)
+                selectDrawerItem(position, true);
         }
     }
  
