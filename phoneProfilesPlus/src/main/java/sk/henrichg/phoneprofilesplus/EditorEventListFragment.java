@@ -183,7 +183,7 @@ public class EditorEventListFragment extends Fragment {
 		
 		View footerView =  ((LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 				.inflate(R.layout.editor_list_footer, null, false);
-        listView.addFooterView(footerView);		
+        listView.addFooterView(footerView, null, false);
 
         fabButton = (FloatingActionButton)view.findViewById(R.id.editor_events_list_fab);
         fabButton.attachToListView(listView);

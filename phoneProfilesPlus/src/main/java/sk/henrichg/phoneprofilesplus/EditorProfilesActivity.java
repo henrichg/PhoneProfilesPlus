@@ -252,7 +252,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 
 		drawerListView = (ListView) findViewById(R.id.editor_drawer_list);
         View headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.editor_drawer_list_header, null, false);
-        drawerListView.addHeaderView(headerView);
+        drawerListView.addHeaderView(headerView, null, false);
         drawerHeaderFilterImage = (ImageView) findViewById(R.id.editor_drawer_list_header_icon);
         drawerHeaderFilterTitle = (TextView) findViewById(R.id.editor_drawer_list_header_title);
         drawerHeaderFilterSubtitle = (TextView) findViewById(R.id.editor_drawer_list_header_subtitle);
