@@ -668,7 +668,8 @@ public class PhoneProfilesHelper {
         	.setContentText(context.getString(R.string.pphelper_upgrade_notification_text)) // message for notification
         	.setAutoCancel(true); // clear notification after click
 		Intent intent = new Intent(context, UpgradePPHelperActivity.class);
-		PendingIntent pi = PendingIntent.getActivity(context, 0, intent, Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(pi);
     	if (android.os.Build.VERSION.SDK_INT >= 16)
     		mBuilder.setPriority(Notification.PRIORITY_MAX);
