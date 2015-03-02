@@ -210,8 +210,8 @@ public class PhoneProfilesHelper {
 				Log.e("PhoneProfilesHelper.doInstallPPHelper", "chmod ERROR");
 			if (OK)
 				OK = RootTools.remount("/system", "RO");
-			if (!OK)
-				Log.e("PhoneProfilesHelper.doInstallPPHelper", "remount RO ERROR");
+			//if (!OK)
+			//	Log.e("PhoneProfilesHelper.doInstallPPHelper", "remount RO ERROR");
 			//try {
 			//	RootTools.closeAllShells();
 			//} catch (Exception e) {
