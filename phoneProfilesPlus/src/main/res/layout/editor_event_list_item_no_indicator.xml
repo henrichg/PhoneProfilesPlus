@@ -59,7 +59,9 @@
 	        android:paddingTop="5dp"
 	        android:text="@string/event_name_default"
 	        android:textSize="15sp"
-	        android:singleLine="true" />
+	        android:singleLine="false"
+            android:scrollHorizontally="true"
+            android:ellipsize="end" />
 	    
 	    <ImageView
 	        android:id="@+id/event_list_item_profile_start_icon"

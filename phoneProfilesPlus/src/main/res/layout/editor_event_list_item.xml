@@ -59,7 +59,9 @@
 	        android:paddingTop="3dp"
 	        android:text="@string/event_name_default"
 	        android:textSize="15sp"
-	        android:singleLine="true" />
+	        android:singleLine="false"
+            android:scrollHorizontally="true"
+            android:ellipsize="end" />
 	
 	    <TextView 
 	        android:id="@+id/event_list_item_preferences_description"

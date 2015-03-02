@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ public class EditorEventListAdapter extends BaseAdapter
 	private int filterType;
 	public List<Event> eventList;
 	public boolean released = false;
+    private int defaultColor;
 	
 	public EditorEventListAdapter(EditorEventListFragment f, DataWrapper pdw, int filterType)
 	{
@@ -248,7 +250,8 @@ public class EditorEventListAdapter extends BaseAdapter
   		    	holder.profileStartIndicator = (ImageView)vi.findViewById(R.id.event_list_item_profile_start_pref_indicator);
   		    	holder.profileEndIndicator = (ImageView)vi.findViewById(R.id.event_list_item_profile_end_pref_indicator);
   		    }
-            vi.setTag(holder);        
+            vi.setTag(holder);
+            defaultColor = holder.eventName.getTextColors().getDefaultColor();
         }
         else
         {
@@ -283,8 +286,9 @@ public class EditorEventListAdapter extends BaseAdapter
 	         	if (GlobalData.applicationTheme.equals("dlight"))
 	         		holder.listItemRoot.setBackgroundResource(R.drawable.card);
 	        }
-	        
-	       	int statusRes = Event.ESTATUS_STOP;
+
+            boolean isRunnable = event.isRunnable();
+	       	int statusRes = R.drawable.ic_event_status_stop_not_runnable;
 	       	switch (eventStatus)
 	       	{
 	       		case Event.ESTATUS_RUNNING:
@@ -297,30 +301,38 @@ public class EditorEventListAdapter extends BaseAdapter
 	       				statusRes = R.drawable.ic_event_status_pause;
 	       			break;
 	       		case Event.ESTATUS_STOP:
-	       			if (event.isRunnable())
+	       			if (isRunnable)
 	       				statusRes = R.drawable.ic_event_status_stop;
 	       			else
 	       				statusRes = R.drawable.ic_event_status_stop_not_runnable;
 	       			break;
 	       	}
 	   		holder.eventStatus.setImageResource(statusRes);
-	
-	   		if (eventStatus == Event.ESTATUS_RUNNING)
-	   			holder.eventName.setTypeface(null, Typeface.BOLD);
+
+	   		if (eventStatus == Event.ESTATUS_RUNNING) {
+                holder.eventName.setTypeface(null, Typeface.BOLD);
+                holder.eventName.setTextColor(defaultColor);
+            }
 	   		else
-	   			holder.eventName.setTypeface(null, Typeface.NORMAL);
-	   			
-	   		String eventPriority = "[" + (event._priority + Event.EPRIORITY_HIGHEST)  + "] ";
-	   		if (event._forceRun)
-	   		{
-	   			/*if (android.os.Build.VERSION.SDK_INT >= 16)
-	   				holder.eventName.setText("\u23E9 " + eventPriority + event._name);
-	   			else */
-	   				holder.eventName.setText("[\u00BB]" + eventPriority + event._name);
-	   		}
-	   		else
-	   			holder.eventName.setText(eventPriority + event._name);
-	   		
+            if (!isRunnable) {
+                holder.eventName.setTypeface(null, Typeface.NORMAL);
+                holder.eventName.setTextColor(Color.RED);
+            }
+            else {
+                holder.eventName.setTypeface(null, Typeface.NORMAL);
+                holder.eventName.setTextColor(defaultColor);
+            }
+
+            String eventName = event._name;
+            String eventPriority = "[" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            if (event._forceRun) {
+                eventName = "[\u00BB]" + eventPriority + eventName;
+            } else
+                eventName = eventPriority + eventName;
+            if (!isRunnable)
+                eventName = eventName + "\n" + vi.getResources().getString(R.string.event_preferences_error);
+            holder.eventName.setText(eventName);
+
 		    if (GlobalData.applicationEditorPrefIndicator)
 		    {
 		    	String eventPrefDescription = event.getPreferecesDescription(vi.getContext());
