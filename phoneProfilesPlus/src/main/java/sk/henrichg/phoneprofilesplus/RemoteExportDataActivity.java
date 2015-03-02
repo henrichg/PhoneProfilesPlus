@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -99,8 +101,11 @@ public class RemoteExportDataActivity extends Activity {
 			{
 				super.onPreExecute();
 
-			     this.dialog.setMessage(getResources().getString(R.string.export_profiles_alert_title));
-			     this.dialog.show();						
+                lockScreenOrientation();
+			    this.dialog.setMessage(getResources().getString(R.string.export_profiles_alert_title));
+                this.dialog.setCancelable(false);
+                this.dialog.setIndeterminate(false);
+			    this.dialog.show();
 			}
 			
 			@Override
@@ -123,6 +128,7 @@ public class RemoteExportDataActivity extends Activity {
 				
 			    if (dialog.isShowing())
 		            dialog.dismiss();
+                unlockScreenOrientation();
 				
 				//Log.e("RemoteExportDataActivity.onPostExecute","result="+result);
 			    
@@ -140,6 +146,20 @@ public class RemoteExportDataActivity extends Activity {
 					activity.finish();
 				}
 			}
+
+            private void lockScreenOrientation() {
+                int currentOrientation = activity.getResources().getConfiguration().orientation;
+                if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                } else {
+                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                }
+            }
+
+            private void unlockScreenOrientation() {
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+            }
+
 		}
 		
 		new ExportAsyncTask().execute();

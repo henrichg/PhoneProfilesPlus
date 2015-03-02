@@ -23,9 +23,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
@@ -293,9 +295,12 @@ public class PhoneProfilesHelper {
 					protected void onPreExecute()
 					{
 						super.onPreExecute();
-						
-					     this.dialog.setMessage(_activity.getResources().getString(R.string.phoneprofilehepler_install_title));
-					     this.dialog.show();						
+
+                        lockScreenOrientation();
+					    this.dialog.setMessage(_activity.getResources().getString(R.string.phoneprofilehepler_install_title));
+                        this.dialog.setCancelable(false);
+                        this.dialog.setIndeterminate(false);
+					    this.dialog.show() ;
 					}
 					
 					@Override
@@ -313,6 +318,7 @@ public class PhoneProfilesHelper {
 						
 					    if (dialog.isShowing())
 				            dialog.dismiss();
+                        unlockScreenOrientation();
 						
 						if (result)
 						{
@@ -321,6 +327,19 @@ public class PhoneProfilesHelper {
 						else
 							installUnInstallPPhelperErrorDialog(_activity, 1, _finishActivity);
 					}
+
+                    private void lockScreenOrientation() {
+                        int currentOrientation = _activity.getResources().getConfiguration().orientation;
+                        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                        } else {
+                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                        }
+                    }
+
+                    private void unlockScreenOrientation() {
+                        _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                    }
 					
 				}
 				
@@ -463,9 +482,12 @@ public class PhoneProfilesHelper {
 					protected void onPreExecute()
 					{
 						super.onPreExecute();
-						
-					     this.dialog.setMessage(_activity.getResources().getString(R.string.phoneprofilehepler_uninstall_title));
-					     this.dialog.show();						
+
+                        lockScreenOrientation();
+					    this.dialog.setMessage(_activity.getResources().getString(R.string.phoneprofilehepler_uninstall_title));
+                        this.dialog.setCancelable(false);
+                        this.dialog.setIndeterminate(false);
+					    this.dialog.show();
 					}
 					
 					@Override
@@ -483,6 +505,7 @@ public class PhoneProfilesHelper {
 						
 					    if (dialog.isShowing())
 				            dialog.dismiss();
+                        unlockScreenOrientation();
 						
 						if (result)
 						{
@@ -491,7 +514,20 @@ public class PhoneProfilesHelper {
 						else
 							installUnInstallPPhelperErrorDialog(_activity, 2, false);
 					}
-					
+
+                    private void lockScreenOrientation() {
+                        int currentOrientation = _activity.getResources().getConfiguration().orientation;
+                        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                        } else {
+                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                        }
+                    }
+
+                    private void unlockScreenOrientation() {
+                        _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                    }
+
 				}
 				
 				new UninstallAsyncTask().execute();
