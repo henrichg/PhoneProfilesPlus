@@ -112,7 +112,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	public static boolean mTwoPane;
 	
 	DrawerLayout drawerLayout;
-	RelativeLayout drawerRoot;
+	ScrimInsetsFrameLayout drawerRoot;
 	ListView drawerListView;
 	ActionBarDrawerToggle drawerToggle;
 	TextView filterStatusbarTitle;
@@ -248,8 +248,16 @@ public class EditorProfilesActivity extends ActionBarActivity
 		}
 		
 		drawerLayout = (DrawerLayout) findViewById(R.id.editor_list_drawer_layout);
-		drawerRoot = (RelativeLayout) findViewById(R.id.editor_drawer_root);
+		drawerRoot = (ScrimInsetsFrameLayout) findViewById(R.id.editor_drawer_root);
 
+        if (GlobalData.applicationTheme.equals("material"))
+            drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark);
+        else
+        if (GlobalData.applicationTheme.equals("dark"))
+            drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark_dark);
+        else
+        if (GlobalData.applicationTheme.equals("dlight"))
+            drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark_dark);
 
 		drawerListView = (ListView) findViewById(R.id.editor_drawer_list);
         View headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.editor_drawer_list_header, null, false);

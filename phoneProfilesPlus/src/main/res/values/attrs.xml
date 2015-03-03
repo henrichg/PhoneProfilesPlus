@@ -37,7 +37,11 @@
         <attr name="maxExternal" format="string" />
         <attr name="minExternal" format="string" />
     </declare-styleable>
-				
+
+    <declare-styleable name="ScrimInsetsView">
+        <attr format="reference|color" name="insetForeground" />
+    </declare-styleable>
+
 	<!-- theme dependent drawables -->
     <attr name="actionNewProfileIcon" format="reference" />
     <attr name="actionEditProfilesIcon" format="reference" />

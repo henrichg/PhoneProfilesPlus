@@ -5,12 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools" 
     android:id="@+id/editor_list_drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" > 
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true" >
      
 	<LinearLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:orientation="vertical" >
+	    android:orientation="vertical"
+        android:fitsSystemWindows="false" >
  	
 	    <LinearLayout 
 	   		android:layout_width="match_parent"
@@ -77,12 +79,15 @@
 	
 	</LinearLayout>	        
     
-    <RelativeLayout 
-	    android:id="@+id/editor_drawer_root"
+    <sk.henrichg.phoneprofilesplus.ScrimInsetsFrameLayout
+        android:id="@+id/editor_drawer_root"
         android:layout_width="240dp"
         android:layout_height="match_parent" 
 	    android:layout_gravity="start"
-	    android:background="?attr/navigationDrawerBackground" >
+	    android:background="?attr/navigationDrawerBackground"
+        android:fitsSystemWindows="true"
+        android:elevation="8dp"
+        app:insetForeground="#4000" >
 		
 		<LinearLayout 
 	        android:id="@+id/editor_drawer_order_root"
@@ -123,6 +128,6 @@
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp" />
 
-	</RelativeLayout>
+	</sk.henrichg.phoneprofilesplus.ScrimInsetsFrameLayout>
     
 </android.support.v4.widget.DrawerLayout>    
