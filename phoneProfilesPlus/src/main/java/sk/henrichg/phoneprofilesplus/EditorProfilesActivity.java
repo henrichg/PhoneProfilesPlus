@@ -43,6 +43,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -316,14 +318,15 @@ public class EditorProfilesActivity extends ActionBarActivity
  
         // Capture listview menu item click
         drawerListView.setOnItemClickListener(new DrawerItemClickListener());
-		
+
+
 		Toolbar toolbar = (Toolbar)findViewById(R.id.editor_tollbar);
 		setSupportActionBar(toolbar);
         
 		 // Enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
         /*int drawerIconId;
