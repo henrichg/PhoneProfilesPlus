@@ -453,4 +453,5 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Nie je v okolí</string>
   <string name="event_preferences_call_contact_groups">Skupiny kontaktov</string>
   <string name="event_preferences_sms_contact_groups">Skupiny kontaktov</string>
+  <string name="event_preferences_error">Not all underlined parameters are set!</string>
 </resources>

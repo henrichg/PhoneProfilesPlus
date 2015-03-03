@@ -453,4 +453,5 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Not in front</string>
   <string name="event_preferences_call_contact_groups">Contact groups</string>
   <string name="event_preferences_sms_contact_groups">Contact groups</string>
+  <string name="event_preferences_error">Not all underlined parameters are set!</string>
 </resources>
