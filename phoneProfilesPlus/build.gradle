@@ -28,6 +28,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.melnykov:floatingactionbutton:1.1.0'
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.google.code.gson:gson:2.3.1'
     compile files('libs/RootTools.jar')
 }

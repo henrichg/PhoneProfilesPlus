@@ -3,10 +3,16 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class PhoneProfilesPreferencesActivity extends ActionBarActivity
 {
@@ -34,7 +40,23 @@ public class PhoneProfilesPreferencesActivity extends ActionBarActivity
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_phone_profiles_preferences);
-		
+
+        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            // create our manager instance after the content view is set
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            // enable status bar tint
+            tintManager.setStatusBarTintEnabled(true);
+            // set a custom tint color for status bar
+            if (GlobalData.applicationTheme.equals("material"))
+                tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
+            else
+                tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
+        }
+
 		invalidateEditor = false;
 		
 		getSupportActionBar().setHomeButtonEnabled(true);

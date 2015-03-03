@@ -26,6 +26,7 @@ import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnShowActionMode
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -67,6 +68,8 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class EditorProfilesActivity extends ActionBarActivity
                                     implements OnStartProfilePreferences,
@@ -155,7 +158,23 @@ public class EditorProfilesActivity extends ActionBarActivity
         createContactGroupsCache();
 
 		setContentView(R.layout.activity_editor_list_onepane);
-		
+
+        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+            // create our manager instance after the content view is set
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            // enable status bar tint
+            tintManager.setStatusBarTintEnabled(true);
+            // set a custom tint color for status bar
+            if (GlobalData.applicationTheme.equals("material"))
+                tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
+            else
+                tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
+        }
+
     	//if (android.os.Build.VERSION.SDK_INT >= 21)
     	//	getWindow().setNavigationBarColor(R.attr.colorPrimary);
 
@@ -252,6 +271,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 		drawerLayout = (DrawerLayout) findViewById(R.id.editor_list_drawer_layout);
 		drawerRoot = (ScrimInsetsFrameLayout) findViewById(R.id.editor_drawer_root);
 
+        // set status bar background for Activity body layout
         if (GlobalData.applicationTheme.equals("material"))
             drawerLayout.setStatusBarBackground(R.color.profile_all_primaryDark);
         else
