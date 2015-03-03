@@ -90,8 +90,11 @@ public class ScannerService extends IntentService
 					else
 						wifiState = enableWifi(dataWrapper, WifiScanAlarmBroadcastReceiver.wifi);
 					
-					if (wifiState == WifiManager.WIFI_STATE_ENABLED)
-						WifiScanAlarmBroadcastReceiver.startScan(context);
+					if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                        GlobalData.logE("$$$ ScannerService.onHandleIntent", "before startScan");
+                        WifiScanAlarmBroadcastReceiver.startScan(context);
+                        GlobalData.logE("$$$ ScannerService.onHandleIntent", "after startScan");
+                    }
 					else
 					if (wifiState != WifiManager.WIFI_STATE_ENABLING)
 					{
@@ -112,7 +115,16 @@ public class ScannerService extends IntentService
                         if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
                         {
                             GlobalData.logE("@@@ ScannerService.onHandleIntent","disable wifi");
+
+                            try {
+                                Thread.sleep(700);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "before disable wifi");
                             WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "before disable wifi");
                         }
 
                         WifiScanAlarmBroadcastReceiver.unlock();
@@ -125,7 +137,7 @@ public class ScannerService extends IntentService
 					unregisterReceiver(wifiScanReceiver);
 					
 					try {
-			        	Thread.sleep(500);
+			        	Thread.sleep(700);
 				    } catch (InterruptedException e) {
                         e.printStackTrace();
 				    }
@@ -250,11 +262,13 @@ public class ScannerService extends IntentService
 							WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(dataWrapper.context, true);
 							WifiScanAlarmBroadcastReceiver.setStartScan(dataWrapper.context, true);
                             WifiScanAlarmBroadcastReceiver.lock(dataWrapper.context);
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "before enable wifi");
 							wifi.setWifiEnabled(true);
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "after enable wifi");
 				        	GlobalData.logE("@@@ ScannerService.enableWifi","set enabled");
 
                             try {
-                                Thread.sleep(500);
+                                Thread.sleep(700);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
