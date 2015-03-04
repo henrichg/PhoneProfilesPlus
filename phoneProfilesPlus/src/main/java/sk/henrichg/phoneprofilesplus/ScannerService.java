@@ -204,6 +204,8 @@ public class ScannerService extends IntentService
                             BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
                         }
 
+                        BluetoothScanAlarmBroadcastReceiver.unlock();
+
 				    	GlobalData.setForceOneBluetoothScan(context, false);
 				    	BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
 				    	BluetoothScanAlarmBroadcastReceiver.setStartScan(context, false);
@@ -277,7 +279,7 @@ public class ScannerService extends IntentService
                             }
                             */
 
-							return WifiManager.WIFI_STATE_ENABLED;
+							return WifiManager.WIFI_STATE_ENABLING;
 						}
 		        	}
 		    	}
@@ -336,7 +338,7 @@ public class ScannerService extends IntentService
 	
     public static void waitForWifiScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
-    	for (int i = 0; i < 5 * 60; i++) // 60 seconds for wifi scan (Android 5.0 bug, normally required 5 seconds :-/) 
+    	for (int i = 0; i < 5 * 60; i++) // 60 seconds for wifi scan (Android 5.0 bug, normally required 5 seconds :-/)
     	{
         	if (!WifiScanAlarmBroadcastReceiver.getStartScan(context))
         		break;

@@ -75,7 +75,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 	            }
 	            else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
 	            {
-					BluetoothScanAlarmBroadcastReceiver.unlock();
+					//BluetoothScanAlarmBroadcastReceiver.unlock();
 					
 					if (BluetoothScanAlarmBroadcastReceiver.scanResults == null)
 						BluetoothScanAlarmBroadcastReceiver.scanResults = new ArrayList<BluetoothDeviceData>();
