@@ -116,15 +116,17 @@ public class ScannerService extends IntentService
                         {
                             GlobalData.logE("@@@ ScannerService.onHandleIntent","disable wifi");
 
+                            /*
                             try {
                                 Thread.sleep(700);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            */
 
                             GlobalData.logE("$$$ ScannerService.onHandleIntent", "before disable wifi");
                             WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
-                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "before disable wifi");
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "after disable wifi");
                         }
 
                         WifiScanAlarmBroadcastReceiver.unlock();
@@ -267,11 +269,13 @@ public class ScannerService extends IntentService
                             GlobalData.logE("$$$ ScannerService.onHandleIntent", "after enable wifi");
 				        	GlobalData.logE("@@@ ScannerService.enableWifi","set enabled");
 
+                            /*
                             try {
                                 Thread.sleep(700);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            */
 
 							return WifiManager.WIFI_STATE_ENABLED;
 						}
