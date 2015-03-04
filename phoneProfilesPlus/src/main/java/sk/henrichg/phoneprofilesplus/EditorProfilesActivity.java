@@ -396,7 +396,8 @@ public class EditorProfilesActivity extends ActionBarActivity
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				changeEventOrder(position);
+                if (position != orderSelectedItem)
+                    changeEventOrder(position, false);
 			}
 
 			public void onNothingSelected(AdapterView<?> parent) {
@@ -455,8 +456,8 @@ public class EditorProfilesActivity extends ActionBarActivity
 
         //Log.e("EditorProfilesActivity.onCreate","orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
-    	changeEventOrder(orderSelectedItem);
-    	selectDrawerItem(drawerSelectedItem, false);
+    	changeEventOrder(orderSelectedItem, savedInstanceState != null);
+    	selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null);
 
 		refreshGUI();
     	
@@ -723,12 +724,15 @@ public class EditorProfilesActivity extends ActionBarActivity
                 long id) {
             // header is position=0
             if (position > 0)
-                selectDrawerItem(position, true);
+                selectDrawerItem(position, true, false);
         }
     }
  
-    private void selectDrawerItem(int position, boolean removePreferences) {
- 
+    private void selectDrawerItem(int position, boolean removePreferences, boolean orientationChange) {
+
+        Log.e("EditorProfilesActivity.selectDrawerItem","position="+position);
+        Log.e("EditorProfilesActivity.selectDrawerItem","orientationChange="+orientationChange);
+
 		Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
 		if (position == 0) position = 2;
     	if ((position != drawerSelectedItem) || (fragment == null))
@@ -853,16 +857,17 @@ public class EditorProfilesActivity extends ActionBarActivity
         
         
         // Close drawer
-		if (GlobalData.applicationEditorAutoCloseDrawer)
+		if (GlobalData.applicationEditorAutoCloseDrawer && (!orientationChange))
 			drawerLayout.closeDrawer(drawerRoot);
     }
     
-    private void changeEventOrder(int position)
+    private void changeEventOrder(int position, boolean orientationChange)
     {
     	orderSelectedItem = position;
     	
-        //Log.e("EditorProfilesActivity.changeEventOrder","orderSelectedItem="+orderSelectedItem);
-    	
+        Log.e("EditorProfilesActivity.changeEventOrder","orderSelectedItem="+orderSelectedItem);
+        Log.e("EditorProfilesActivity.changeEventOrder","orientationChange="+orientationChange);
+
     	// save into shared preferences
     	SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
     	Editor editor = preferences.edit();
@@ -888,7 +893,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 		orderSpinner.setSelection(orderSelectedItem);
 
         // Close drawer
-		if (GlobalData.applicationEditorAutoCloseDrawer)
+        if (GlobalData.applicationEditorAutoCloseDrawer && (!orientationChange))
 			drawerLayout.closeDrawer(drawerRoot);
 		
     }
