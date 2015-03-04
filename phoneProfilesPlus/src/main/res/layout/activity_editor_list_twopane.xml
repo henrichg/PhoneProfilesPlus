@@ -125,45 +125,51 @@
         android:fitsSystemWindows="true"
         android:elevation="8dp"
         app:insetForeground="#4000"  >
-		
-		<LinearLayout 
-	        android:id="@+id/editor_drawer_order_root"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-        	android:layout_alignParentBottom="true"
-	        android:layout_marginBottom="5dp"
-        	android:orientation="vertical" >
 
-		    <TextView
-		        android:id="@+id/editor_drawer_order_title"
-		        android:textColor="?attr/navigationDrawerText"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:paddingLeft="10dp"
-		        android:ellipsize="end"
-		        android:singleLine="true"
-		        android:textSize="15sp"
-		        android:text="@string/editor_drawer_order_label" />
-		    
-			<Spinner
-	        	android:id="@+id/editor_drawer_order"
-	        	android:layout_width="match_parent"
-	        	android:layout_height="wrap_content"
-		        android:layout_marginLeft="5dp"
-	        	style="?attr/actionDropDownStyle"
-	        	android:entries="@array/drawerOrderEvents" />
-		
-		</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-		<ListView
-		    android:id="@+id/editor_drawer_list"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_above="@+id/editor_drawer_order_root"
-        	android:layout_alignParentTop="true"
-		    android:choiceMode="singleChoice"
-		    android:divider="@android:color/transparent"
-		    android:dividerHeight="0dp" />
+            <LinearLayout
+                android:id="@+id/editor_drawer_order_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/editor_drawer_order_title"
+                    android:textColor="?attr/navigationDrawerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textSize="15sp"
+                    android:text="@string/editor_drawer_order_label" />
+
+                <Spinner
+                    android:id="@+id/editor_drawer_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    style="?attr/actionDropDownStyle"
+                    android:entries="@array/drawerOrderEvents" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/editor_drawer_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/editor_drawer_order_root"
+                android:layout_alignParentTop="true"
+                android:choiceMode="singleChoice"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp" />
+
+        </RelativeLayout>
 
     </sk.henrichg.phoneprofilesplus.ScrimInsetsFrameLayout>
     		
