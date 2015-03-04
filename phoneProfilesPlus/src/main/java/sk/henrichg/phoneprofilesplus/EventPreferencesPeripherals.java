@@ -63,7 +63,7 @@ public class EventPreferencesPeripherals extends EventPreferences {
 		}
 		else
 		{
-			descr = descr + context.getString(R.string.event_type_peripheral) + ": ";
+			descr = descr + "\u2022 " + context.getString(R.string.event_type_peripheral) + ": ";
 			
 			String[] peripheralTypes = context.getResources().getStringArray(R.array.eventPeripheralTypeArray);
 			descr = descr + peripheralTypes[this._peripheralType];

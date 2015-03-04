@@ -72,7 +72,7 @@ public class EventPreferencesWifi extends EventPreferences {
 		}
 		else
 		{
-			descr = descr + context.getString(R.string.event_type_wifi) + ": ";
+			descr = descr + "\u2022 " + context.getString(R.string.event_type_wifi) + ": ";
 			
 			descr = descr + context.getString(R.string.pref_event_wifi_connectionType);
 			String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);

@@ -246,7 +246,7 @@ public class EditorEventListAdapter extends BaseAdapter
   		    if (GlobalData.applicationEditorPrefIndicator)
   		    {
   		    	holder.eventPreferencesDescription  = (TextView)vi.findViewById(R.id.event_list_item_preferences_description);
-  		    	holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
+  		    	//holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
   		    	holder.profileStartIndicator = (ImageView)vi.findViewById(R.id.event_list_item_profile_start_pref_indicator);
   		    	holder.profileEndIndicator = (ImageView)vi.findViewById(R.id.event_list_item_profile_end_pref_indicator);
   		    }

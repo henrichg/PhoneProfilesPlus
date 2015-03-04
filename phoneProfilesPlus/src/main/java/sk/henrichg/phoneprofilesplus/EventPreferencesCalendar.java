@@ -107,7 +107,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 		}
 		else
 		{
-			descr = descr + context.getString(R.string.event_type_calendar) + ": ";
+			descr = descr + "\u2022 " + context.getString(R.string.event_type_calendar) + ": ";
 			
 			String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
 			descr = descr + searchFields[this._searchField] + "; ";
@@ -130,7 +130,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 		   	   		    alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
 		   	   		    			 " " + DateFormat.getTimeFormat(context).format(alarmTime);
 		   	   		    descr = descr + '\n';
-		   	   		    descr = descr + "-> " + alarmTimeS;
+		   	   		    descr = descr + "   -> " + alarmTimeS;
 		   			}
 		   			else
 		   			if (_event.getStatus() == Event.ESTATUS_RUNNING)
@@ -140,7 +140,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 		   	   		    alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
 		   	   		    			 " " + DateFormat.getTimeFormat(context).format(alarmTime);
 		   	   		    descr = descr + '\n';
-		   	   		    descr = descr + "-> " + alarmTimeS;
+		   	   		    descr = descr + "   -> " + alarmTimeS;
 		   			}
 	   			}
 	   			else

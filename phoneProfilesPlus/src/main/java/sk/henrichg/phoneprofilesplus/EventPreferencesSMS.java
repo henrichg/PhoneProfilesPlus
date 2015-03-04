@@ -101,7 +101,7 @@ public class EventPreferencesSMS extends EventPreferences {
 		}
 		else
 		{
-			descr = descr + context.getString(R.string.event_type_sms) + ": ";
+			descr = descr + "\u2022 " + context.getString(R.string.event_type_sms) + ": ";
 			
 			//descr = descr + context.getString(R.string.pref_event_sms_event);
 			//String[] smsEvents = context.getResources().getStringArray(R.array.eventSMSEventsArray);

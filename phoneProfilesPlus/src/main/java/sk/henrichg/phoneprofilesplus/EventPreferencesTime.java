@@ -162,7 +162,7 @@ public class EventPreferencesTime extends EventPreferences {
 		}
 		else
 		{
-			descr = descr + context.getString(R.string.event_type_time) + ": ";
+			descr = descr + "\u2022 " + context.getString(R.string.event_type_time) + ": ";
 			
 	    	boolean[] daySet = new boolean[7];
 			daySet[0] = this._sunday;
@@ -223,7 +223,7 @@ public class EventPreferencesTime extends EventPreferences {
 	   	   		    alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
 	   	   		    			 " " + DateFormat.getTimeFormat(context).format(alarmTime);
 	   	   		    descr = descr + '\n';
-	   	   		    descr = descr + "-> " + alarmTimeS;
+	   	   		    descr = descr + "   -> " + alarmTimeS;
 	   			}
 	   			else
 	   			if ((_event.getStatus() == Event.ESTATUS_RUNNING) && _useEndTime)
@@ -233,7 +233,7 @@ public class EventPreferencesTime extends EventPreferences {
 	   	   		    alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
 	   	   		    			 " " + DateFormat.getTimeFormat(context).format(alarmTime);
 	   	   		    descr = descr + '\n';
-	   	   		    descr = descr + "-> " + alarmTimeS;
+	   	   		    descr = descr + "   -> " + alarmTimeS;
 	   			}
 	   		}
 		}
