@@ -58,7 +58,7 @@ public class PhoneProfilesHelper {
 			PPHelperVersion = pinfo.versionCode;
 		} catch (NameNotFoundException e) {
 			GlobalData.logE("PhoneProfilesHelper.isPPHelperInstalled", "not found");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return PPHelperVersion >= minVersion;
 	}
