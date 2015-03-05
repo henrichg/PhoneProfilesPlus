@@ -31,7 +31,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 			
 			if (scanStarted)
 			{
-				GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive","xxx");
+				GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive","xxx");
 
 				WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
 				WifiScanAlarmBroadcastReceiver.fillScanResults(context);

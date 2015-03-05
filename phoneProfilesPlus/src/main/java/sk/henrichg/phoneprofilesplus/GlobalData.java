@@ -69,7 +69,8 @@ public class GlobalData extends Application {
 										 "$$$ ScannerService|"+
                                          "$$$ ExecuteRadioProfilePrefsService|"+
                                          "$$$ WifiStateChangedBroadcastReceiver|"+
-                                         "$$$ DataWrapper"
+                                         "$$$ DataWrapper|"+
+                                         "$$$ WifiScanBroadcastReceiver"
 			;
 	
 	
