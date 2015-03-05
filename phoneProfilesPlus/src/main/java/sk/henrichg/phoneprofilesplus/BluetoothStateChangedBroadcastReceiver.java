@@ -29,26 +29,27 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
     		{
 				if ((!GlobalData.getEventsBlocked(context)) || GlobalData.getForceOneBluetoothScan(context))
 				{
-					if (BluetoothScanAlarmBroadcastReceiver.getStartScan(context))
+					if (BluetoothScanAlarmBroadcastReceiver.getScanRequest(context))
 					{
 						GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive","startScan");
 						BluetoothScanAlarmBroadcastReceiver.startScan(context);
 					}
 					else
+                    if (!BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))
 					{
+                        // refresh bounded devices
 						BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
-		        		GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive","state=ON");
-		        		GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive","getStartScan="+BluetoothScanAlarmBroadcastReceiver.getStartScan(context));
-		        		GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive","getEventsBlocked="+GlobalData.getEventsBlocked(context));
 					}
 				}
     		}
         }
-		
+
+        /*
 		if (bluetoothState == BluetoothAdapter.STATE_OFF)
 		{
 			BluetoothScanAlarmBroadcastReceiver.stopScan(context);
 		}
+		*/
 		
 	}
 }

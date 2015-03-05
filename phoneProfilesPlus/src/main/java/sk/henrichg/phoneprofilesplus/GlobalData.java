@@ -242,10 +242,12 @@ public class GlobalData extends Application {
 	static final String PREF_EVENT_HEADSET_CONNECTED = "eventHeadsetConnected";
 	static final String PREF_EVENT_HEADSET_MICROPHONE = "eventHeadsetMicrophone";
 	static final String PREF_EVENT_HEADSET_BLUETOOTH = "eventHeadsetBluetooth";
-	static final String PREF_EVENT_WIFI_START_SCAN = "eventWifiStartScan";
+	static final String PREF_EVENT_WIFI_SCAN_REQUEST = "eventWifiScanRequest";
+    static final String PREF_EVENT_WIFI_WAIT_FOR_RESULTS = "eventWifiWaitForResults";
 	static final String PREF_EVENT_WIFI_ENABLED_FOR_SCAN = "eventWifiEnabledForScan"; 
-	static final String PREF_EVENT_BLUETOOTH_START_SCAN = "eventBluetoothStartScan";
-	static final String PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN = "eventBluetoothEnabledForScan"; 
+	static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
+    static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";
+	static final String PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN = "eventBluetoothEnabledForScan";
 	static final String PREF_EVENT_SMS_EVENT_TYPE = "eventSMSEventType";
 	static final String PREF_EVENT_SMS_PHONE_NUMBER = "eventSMSPhoneNumber";
 	static final String PREF_EVENT_SMS_DATE = "eventSMSDate";

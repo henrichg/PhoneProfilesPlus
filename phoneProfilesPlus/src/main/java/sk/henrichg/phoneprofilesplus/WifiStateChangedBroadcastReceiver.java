@@ -37,18 +37,13 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
     			// start scan
 				if ((!GlobalData.getEventsBlocked(context)) || GlobalData.getForceOneWifiScan(context))
 				{
-					if (WifiScanAlarmBroadcastReceiver.getStartScan(context))
+					if (WifiScanAlarmBroadcastReceiver.getScanRequest(context))
 						WifiScanAlarmBroadcastReceiver.startScan(context);
 					else
-					//if (!WifiScanAlarmBroadcastReceiver.getStartScan(context))
+					if (!WifiScanAlarmBroadcastReceiver.getWaitForResults(context))
 					{
 		    			// refresh configured networks list
 						WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
-						if (WifiScanAlarmBroadcastReceiver.wifiConfigurationList == null)
-							GlobalData.logE("@@@ WifiStateChangedBroadcastReceiver.onReceive","wifiConfigurationList=null");
-						else
-							GlobalData.logE("@@@ WifiStateChangedBroadcastReceiver.onReceive",
-													"wifiConfigurationList="+WifiScanAlarmBroadcastReceiver.wifiConfigurationList.size());
 					}
 				}
     		}

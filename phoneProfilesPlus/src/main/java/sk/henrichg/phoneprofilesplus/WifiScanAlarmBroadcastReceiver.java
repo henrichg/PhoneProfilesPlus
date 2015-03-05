@@ -101,7 +101,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		    				// no scan
 		    				
 		        			setWifiEnabledForScan(context, false);
-		        			setStartScan(context, false);
+		        			setScanRequest(context, false);
+                            setWaitForResults(context, false);
 		        			GlobalData.setForceOneWifiScan(context, false);
 
 		    				GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive","connected SSID is scanned, no start scan");
@@ -129,7 +130,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 			wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		
     	unlock();
-    	setStartScan(context, false);
+    	setScanRequest(context, false);
+        setWaitForResults(context, false);
     	setWifiEnabledForScan(context, false);
 
 		ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -279,22 +281,37 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		context.sendBroadcast(broadcastIntent);
     }
     
-	static public boolean getStartScan(Context context)
+	static public boolean getScanRequest(Context context)
 	{
 		SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-		return preferences.getBoolean(GlobalData.PREF_EVENT_WIFI_START_SCAN, false);
+		return preferences.getBoolean(GlobalData.PREF_EVENT_WIFI_SCAN_REQUEST, false);
 	}
 
-	static public void setStartScan(Context context, boolean startScan)
+	static public void setScanRequest(Context context, boolean scanRequest)
 	{
 		SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 		Editor editor = preferences.edit();
-		editor.putBoolean(GlobalData.PREF_EVENT_WIFI_START_SCAN, startScan);
+		editor.putBoolean(GlobalData.PREF_EVENT_WIFI_SCAN_REQUEST, scanRequest);
 		editor.commit();
-      	GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setStartScan","startScan="+startScan);
+      	GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setScanRequest","scanRequest="+scanRequest);
 	}
-	
-	static public void startScan(Context context)
+
+    static public boolean getWaitForResults(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(GlobalData.PREF_EVENT_WIFI_WAIT_FOR_RESULTS, false);
+    }
+
+    static public void setWaitForResults(Context context, boolean waitForResults)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putBoolean(GlobalData.PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
+        editor.commit();
+        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setWaitForResults","waitForResults="+waitForResults);
+    }
+
+    static public void startScan(Context context)
 	{
 		lock(context); // lock wakeLock and wifiLock, then scan.
         			// unlock() is then called at the end of the onReceive function of WifiScanBroadcastReceiver
@@ -309,7 +326,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 			}
             unlock();
 		}
-		setStartScan(context, startScan);
+		setScanRequest(context, false);
+        setWaitForResults(context, startScan);
 	}
 	
 	static public void startScanner(Context context)
@@ -319,6 +337,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		context.startService(scanServiceIntent);
 	}
 
+    /*
 	static public void stopScan(Context context)
 	{
       	GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.stopScan","xxx");
@@ -326,9 +345,11 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		if (getWifiEnabledForScan(context))
 			wifi.setWifiEnabled(false);
 		setWifiEnabledForScan(context, false);
-		setStartScan(context, false);
+		setScanRequest(context, false);
+        setWaitForResults(context, false);
 		GlobalData.setForceOneWifiScan(context, false);
 	}
+	*/
 	
 	static public boolean getWifiEnabledForScan(Context context)
 	{

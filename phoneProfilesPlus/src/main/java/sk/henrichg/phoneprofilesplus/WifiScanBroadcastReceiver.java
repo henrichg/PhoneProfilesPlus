@@ -27,7 +27,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 		if (GlobalData.getGlobalEventsRuning(context))
 		{
 
-			boolean scanStarted = (WifiScanAlarmBroadcastReceiver.getStartScan(context));
+			boolean scanStarted = (WifiScanAlarmBroadcastReceiver.getWaitForResults(context));
 			
 			if (scanStarted)
 			{
@@ -56,7 +56,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 				}
 				*/
 
-				WifiScanAlarmBroadcastReceiver.setStartScan(context, false);
+				WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 				
 				boolean forceOneScan = GlobalData.getForceOneWifiScan(context); 
 				GlobalData.setForceOneWifiScan(context, false);

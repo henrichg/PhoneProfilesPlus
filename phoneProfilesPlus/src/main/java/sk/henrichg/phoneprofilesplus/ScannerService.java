@@ -73,7 +73,8 @@ public class ScannerService extends IntentService
 				// start scan
 				if (GlobalData.getEventsBlocked(context) && (!GlobalData.getForceOneWifiScan(context)))
 				{
-					WifiScanAlarmBroadcastReceiver.setStartScan(context, false);
+					WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                    WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
 					WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
 				}
 				else
@@ -98,12 +99,13 @@ public class ScannerService extends IntentService
 					else
 					if (wifiState != WifiManager.WIFI_STATE_ENABLING)
 					{
-						WifiScanAlarmBroadcastReceiver.setStartScan(context, false);
+						WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                        WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 						WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
 		    			GlobalData.setForceOneWifiScan(context, false);
 				    }
 					
-					if (WifiScanAlarmBroadcastReceiver.getStartScan(context))
+					if (WifiScanAlarmBroadcastReceiver.getWaitForResults(context))
 					{
 						GlobalData.logE("@@@ ScannerService.onHandleIntent", "waiting for scan end");
 
@@ -133,7 +135,8 @@ public class ScannerService extends IntentService
 
 				    	GlobalData.setForceOneWifiScan(context, false);
 				    	WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-				    	WifiScanAlarmBroadcastReceiver.setStartScan(context, false);
+				    	WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                        WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
 					}
 					
 					unregisterReceiver(wifiScanReceiver);
@@ -164,7 +167,8 @@ public class ScannerService extends IntentService
 				// start scan
 				if (GlobalData.getEventsBlocked(context) && (!GlobalData.getForceOneBluetoothScan(context)))
 				{
-					BluetoothScanAlarmBroadcastReceiver.setStartScan(context, false);
+					BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                    BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 					BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
 				}
 				else
@@ -184,12 +188,13 @@ public class ScannerService extends IntentService
 					else
 					if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON)
 					{
-						BluetoothScanAlarmBroadcastReceiver.setStartScan(context, false);
+						BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                        BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 						BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
 	        			GlobalData.setForceOneBluetoothScan(context, false);
 				    }
 					
-					if (BluetoothScanAlarmBroadcastReceiver.getStartScan(context))
+					if (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))
 					{
 						GlobalData.logE("@@@ ScannerService.onHandleIntent", "waiting for scan end");
 						
@@ -208,7 +213,8 @@ public class ScannerService extends IntentService
 
 				    	GlobalData.setForceOneBluetoothScan(context, false);
 				    	BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-				    	BluetoothScanAlarmBroadcastReceiver.setStartScan(context, false);
+				    	BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                        BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
 					}
 					
 					unregisterReceiver(bluetoothScanReceiver);		
@@ -264,7 +270,7 @@ public class ScannerService extends IntentService
 						if (wifiEventsExists || forceScan)
 						{
 							WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(dataWrapper.context, true);
-							WifiScanAlarmBroadcastReceiver.setStartScan(dataWrapper.context, true);
+							WifiScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, true);
                             WifiScanAlarmBroadcastReceiver.lock(dataWrapper.context);
                             GlobalData.logE("$$$ ScannerService.onHandleIntent", "before enable wifi");
 							wifi.setWifiEnabled(true);
@@ -318,7 +324,7 @@ public class ScannerService extends IntentService
 					{
 			        	GlobalData.logE("@@@ ScannerService.enableBluetooth","set enabled");
 			        	BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(dataWrapper.context, true);
-						BluetoothScanAlarmBroadcastReceiver.setStartScan(dataWrapper.context, true);
+						BluetoothScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, true);
 			        	bluetooth.enable();
 						return BluetoothAdapter.STATE_TURNING_ON;
 					}
@@ -340,7 +346,7 @@ public class ScannerService extends IntentService
     {
     	for (int i = 0; i < 5 * 60; i++) // 60 seconds for wifi scan (Android 5.0 bug, normally required 5 seconds :-/)
     	{
-        	if (!WifiScanAlarmBroadcastReceiver.getStartScan(context))
+        	if (!WifiScanAlarmBroadcastReceiver.getWaitForResults(context))
         		break;
     		if (asyncTask != null)
     		{
@@ -360,7 +366,7 @@ public class ScannerService extends IntentService
     {
     	for (int i = 0; i < 5 * 20; i++) // 20 seconds for bluetooth scan
     	{
-        	if (!BluetoothScanAlarmBroadcastReceiver.getStartScan(context))
+        	if (!BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))
         		break;
     		if (asyncTask != null)
     		{

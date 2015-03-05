@@ -30,7 +30,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 		if (GlobalData.getGlobalEventsRuning(context))
 		{
 
-			boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getStartScan(context));
+			boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context));
 			
 			if (scanStarted)
 			{
@@ -110,7 +110,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 					}
 					*/
 
-					BluetoothScanAlarmBroadcastReceiver.setStartScan(context, false);
+					BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 					
 					boolean forceOneScan = GlobalData.getForceOneBluetoothScan(context); 
 					GlobalData.setForceOneBluetoothScan(context, false);

@@ -89,7 +89,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		    				// no scan
 		    				
 		        			setBluetoothEnabledForScan(context, false);
-		    				setStartScan(context, false);
+		    				setScanRequest(context, false);
+                            setWaitForResults(context, false);
 		        			GlobalData.setForceOneBluetoothScan(context, false);
 
 		    				GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive","connected SSID is scanned, no start scan");
@@ -117,7 +118,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 			bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
 		
     	unlock();
-    	setStartScan(context, false);
+    	setScanRequest(context, false);
+        setWaitForResults(context, false);
     	setBluetoothEnabledForScan(context, false);
 
     	SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -255,21 +257,35 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		context.sendBroadcast(broadcastIntent);
     }
     
-	static public boolean getStartScan(Context context)
+	static public boolean getScanRequest(Context context)
 	{
 		SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-		return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_START_SCAN, false);
+		return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_SCAN_REQUEST, false);
 	}
 
-	static public void setStartScan(Context context, boolean startScan)
+	static public void setScanRequest(Context context, boolean startScan)
 	{
 		SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 		Editor editor = preferences.edit();
-		editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_START_SCAN, startScan);
+		editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_SCAN_REQUEST, startScan);
 		editor.commit();
 	}
-	
-	static public void startScan(Context context)
+
+    static public boolean getWaitForResults(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, false);
+    }
+
+    static public void setWaitForResults(Context context, boolean startScan)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, startScan);
+        editor.commit();
+    }
+
+    static public void startScan(Context context)
 	{
 		initTmpScanResults();
 		lock(context); // lock wakeLock, then scan.
@@ -285,7 +301,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 				bluetooth.disable();
 			}
 		}
-		setStartScan(context, startScan);
+        setScanRequest(context, false);
+        setWaitForResults(context, startScan);
 	}
 	
 	static public void startScanner(Context context)
@@ -294,16 +311,19 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		scanServiceIntent.putExtra(GlobalData.EXTRA_SCANNER_TYPE, GlobalData.SCANNER_TYPE_BLUETOOTH);
 		context.startService(scanServiceIntent);
 	}
-	
+
+    /*
 	static public void stopScan(Context context)
 	{
 		unlock();
 		if (getBluetoothEnabledForScan(context)) 
 			bluetooth.disable();
 		setBluetoothEnabledForScan(context, false);
-		setStartScan(context, false);
+		setScanRequest(context, false);
+        setWaitForResults(context, false);
 		GlobalData.setForceOneBluetoothScan(context, false);
 	}
+	*/
 	
 	static public void initTmpScanResults()
 	{
