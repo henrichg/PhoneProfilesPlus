@@ -172,6 +172,7 @@ public class BluetoothNamePreference extends DialogPreference {
 		        	ScannerService.waitForBluetoothScanEnd(context, this);
 		        }
 
+                BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
 				if (BluetoothScanAlarmBroadcastReceiver.boundedDevicesList != null)
 				{
 			        for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.boundedDevicesList)
@@ -179,7 +180,8 @@ public class BluetoothNamePreference extends DialogPreference {
 			        	bluetoothList.add(new BluetoothDeviceData(device.name, device.address));
 			        }
 				}
-		        
+
+                BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
 		        if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
 		        {
 			        for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)

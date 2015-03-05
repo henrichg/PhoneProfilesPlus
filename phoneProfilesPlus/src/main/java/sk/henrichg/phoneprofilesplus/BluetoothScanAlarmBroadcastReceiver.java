@@ -17,6 +17,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
 	public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScanAlarm";
@@ -27,7 +29,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 	public static List<BluetoothDeviceData> tmpScanResults = null;
 	public static List<BluetoothDeviceData> scanResults = null;
 	public static List<BluetoothDeviceData> boundedDevicesList = null;
-	
+
 	public void onReceive(Context context, Intent intent) {
 		
 		GlobalData.logE("#### BluetoothScanAlarmBroadcastReceiver.onReceive","xxx");
@@ -37,7 +39,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		
 		if (scanResults == null)
 			scanResults = new ArrayList<BluetoothDeviceData>();
-		
+
+        if (boundedDevicesList == null)
+            boundedDevicesList = new ArrayList<BluetoothDeviceData>();
+
 		// disabled for firstStartEvents
 		//if (!GlobalData.getApplicationStarted(context))
 			// application is not started
@@ -75,6 +80,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                         boolean isBluetoothNameScannedNotInFront =
                                 BluetoothConnectionBroadcastReceiver.isAdapterNameScanned(dataWrapper, EventPreferencesBluetooth.CTYPE_NOTINFRONT);
 
+                        getScanResults(context);
 		    			if ((isBluetoothNameScannedInFront) && (!isBluetoothNameScannedNotInFront) && (scanResults.size() != 0))
 		    			{
                             // INFRONT events exists for connected BT adapter and
@@ -325,16 +331,115 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 	{
 		if (boundedDevicesList == null)
 			boundedDevicesList = new ArrayList<BluetoothDeviceData>();
-		
+
 		if (bluetooth == null)
 			bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
-		
+
         Set<BluetoothDevice> boundedDevices = BluetoothScanAlarmBroadcastReceiver.bluetooth.getBondedDevices();
         boundedDevicesList.clear();
         for (BluetoothDevice device : boundedDevices)
         {
         	boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress()));
         }
+        saveBoundedDevicesList(context);
 	}
-	
+
+    private static final String SCAN_RESULT_COUNT_PREF = "count";
+    private static final String SCAN_RESULT_DEVICE_PREF = "device";
+
+    public static void getBoundedDevicesList(Context context)
+    {
+        if (boundedDevicesList == null)
+            boundedDevicesList = new ArrayList<BluetoothDeviceData>();
+
+        boundedDevicesList.clear();
+
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
+
+        int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
+
+        Gson gson = new Gson();
+
+        for (int i = 0; i < count; i++)
+        {
+            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF+i, "");
+            if (!json.isEmpty()) {
+                BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
+                boundedDevicesList.add(device);
+            }
+        }
+
+    }
+
+    private static void saveBoundedDevicesList(Context context)
+    {
+        if (boundedDevicesList == null)
+            boundedDevicesList = new ArrayList<BluetoothDeviceData>();
+
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.clear();
+
+        editor.putInt(SCAN_RESULT_COUNT_PREF, boundedDevicesList.size());
+
+        Gson gson = new Gson();
+
+        for (int i = 0; i < boundedDevicesList.size(); i++)
+        {
+            String json = gson.toJson(boundedDevicesList.get(i));
+            editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
+        }
+
+        editor.commit();
+    }
+
+    public static void getScanResults(Context context)
+    {
+        if (scanResults == null)
+            scanResults = new ArrayList<BluetoothDeviceData>();
+
+        scanResults.clear();
+
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+
+        int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
+
+        Gson gson = new Gson();
+
+        for (int i = 0; i < count; i++)
+        {
+            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF+i, "");
+            if (!json.isEmpty()) {
+                BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
+                scanResults.add(device);
+            }
+        }
+
+    }
+
+    public static void saveScanResults(Context context)
+    {
+        if (scanResults == null)
+            scanResults = new ArrayList<BluetoothDeviceData>();
+
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.clear();
+
+        editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+
+        Gson gson = new Gson();
+
+        for (int i = 0; i < scanResults.size(); i++)
+        {
+            String json = gson.toJson(scanResults.get(i));
+            editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
+        }
+
+        editor.commit();
+    }
+
+
 }

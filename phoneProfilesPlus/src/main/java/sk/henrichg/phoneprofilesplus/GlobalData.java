@@ -161,7 +161,11 @@ public class GlobalData extends Application {
 	static final String DEFAULT_PROFILE_PREFS_NAME = "profile_preferences_default_profile"; 
 	// for synchronization between wifi/bluetooth scanner, local radio changes and PPHelper radio changes
 	static final String RADIO_CHANGE_PREFS_NAME = "sk.henrichg.phoneprofiles.radio_change";
+    static final String WIFI_CONFIGURATION_LIST_PREFS_NAME = "wifi_configuration_list";
+    static final String WIFI_SCAN_RESULTS_PREFS_NAME = "wifi_scan_results";
     static final String BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME = "bluetooth_connected_devices";
+    static final String BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME = "bluetooth_bounded_devices_list";
+    static final String BLUETOOTH_SCAN_RESULTS_PREFS_NAME = "bluetooth_scan_results";
 
 	static final String PREF_RADIO_CHANGE_STATE = "sk.henrichg.phoneprofiles.radioChangeState";
 	

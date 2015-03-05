@@ -37,7 +37,6 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 				WifiScanAlarmBroadcastReceiver.fillScanResults(context);
 				//WifiScanAlarmBroadcastReceiver.unlock();
 
-				
 				if (WifiScanAlarmBroadcastReceiver.scanResults != null)
 				{
 					for (WifiSSIDData result : WifiScanAlarmBroadcastReceiver.scanResults)
@@ -45,6 +44,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 						GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive","result.SSID="+result.ssid);
 					}
 				}
+
 
                 /*
 				if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))

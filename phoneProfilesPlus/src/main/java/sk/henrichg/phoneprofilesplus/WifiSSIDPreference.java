@@ -171,6 +171,7 @@ public class WifiSSIDPreference extends DialogPreference {
 		        	ScannerService.waitForWifiScanEnd(context, this);
 		        }
 
+                WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
 				if (WifiScanAlarmBroadcastReceiver.wifiConfigurationList != null)
 				{
 					for (WifiSSIDData wifiConfiguration : WifiScanAlarmBroadcastReceiver.wifiConfigurationList)
@@ -178,7 +179,8 @@ public class WifiSSIDPreference extends DialogPreference {
 			        	SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid));
 					}
 				}
-		        
+
+                WifiScanAlarmBroadcastReceiver.getScanResults(context);
 		        if (WifiScanAlarmBroadcastReceiver.scanResults != null)
 		        {
 			        for (WifiSSIDData scanResult : WifiScanAlarmBroadcastReceiver.scanResults)

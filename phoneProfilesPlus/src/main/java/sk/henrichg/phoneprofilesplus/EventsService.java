@@ -88,7 +88,12 @@ public class EventsService extends IntentService
 
 		// no refresh notification and widgets
 		ActivateProfileHelper.lockRefresh = true;
-		
+
+        WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
+        WifiScanAlarmBroadcastReceiver.getScanResults(context);
+        BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
+        BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
+
 		if (isRestart)
 		{
 			/*// 1. pause events

@@ -11,7 +11,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
 	public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScan";
-	
+
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		
@@ -88,6 +88,8 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 					//BluetoothScanAlarmBroadcastReceiver.scanResults.addAll(BluetoothScanAlarmBroadcastReceiver.tmpScanResults);
 					BluetoothScanAlarmBroadcastReceiver.tmpScanResults.clear();
 
+                    BluetoothScanAlarmBroadcastReceiver.saveScanResults(context);
+
 					/*
 					if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
 					{
@@ -130,5 +132,5 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 		GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- end");
 		
 	}
-	
+
 }
