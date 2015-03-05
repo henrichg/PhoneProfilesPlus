@@ -103,12 +103,13 @@
                 <TextView
                     android:id="@+id/editor_drawer_order_title"
                     android:textColor="?attr/navigationDrawerText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textSize="15sp"
+                    android:clickable="true"
                     android:text="@string/editor_drawer_order_label" />
 
                 <Spinner
