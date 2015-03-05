@@ -1710,7 +1710,7 @@ public class DataWrapper {
 
                     }
                     else
-                        GlobalData.logE("@@@x DataWrapper.doEventService","scanResults == null");
+                        GlobalData.logE("$$$ DataWrapper.doEventService","scanResults == null");
 
 				}
 			}
