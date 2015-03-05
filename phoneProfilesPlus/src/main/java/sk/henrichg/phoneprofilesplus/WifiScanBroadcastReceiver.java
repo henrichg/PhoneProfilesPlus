@@ -16,7 +16,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 		GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive","----- start");
 
 		if (WifiScanAlarmBroadcastReceiver.wifi == null)
-			WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+			WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		
 		if (!GlobalData.getApplicationStarted(context))
 			// application is not started

@@ -48,7 +48,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 			wifiConfigurationList = new ArrayList<WifiSSIDData>();
 		
 		if (wifi == null)
-			wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+			wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		
 		// disabled fro firstStartEvents
 		//if (!GlobalData.getApplicationStarted(context))
@@ -127,7 +127,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 	public static void initialize(Context context)
 	{
 		if (wifi == null)
-			wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+			wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		
     	unlock();
     	setScanRequest(context, false);
@@ -372,7 +372,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 			wifiConfigurationList = new ArrayList<WifiSSIDData>();
 		
 		if (wifi == null)
-			wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+			wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		
 		List<WifiConfiguration> _wifiConfigurationList = wifi.getConfiguredNetworks();
 		if (_wifiConfigurationList != null)
@@ -408,7 +408,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 			scanResults = new ArrayList<WifiSSIDData>();
 		
 		if (wifi == null)
-			wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+			wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		
 		List<ScanResult> _scanResults = wifi.getScanResults();
 		if (_scanResults != null)

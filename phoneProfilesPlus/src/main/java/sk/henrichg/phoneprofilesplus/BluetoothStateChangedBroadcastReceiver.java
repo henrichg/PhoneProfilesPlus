@@ -32,7 +32,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 					if (BluetoothScanAlarmBroadcastReceiver.getScanRequest(context))
 					{
 						GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive","startScan");
-						BluetoothScanAlarmBroadcastReceiver.startScan(context);
+						BluetoothScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
 					}
 					else
                     if (!BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))

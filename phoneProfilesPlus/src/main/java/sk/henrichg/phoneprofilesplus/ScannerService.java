@@ -30,7 +30,7 @@ public class ScannerService extends IntentService
 	@Override
 	protected void onHandleIntent(Intent intent)
 	{
-		context = getBaseContext();
+		context = getApplicationContext();
 
 		GlobalData.logE("### ScannerService.onHandleIntent", "-- START ------------");
 
@@ -67,7 +67,7 @@ public class ScannerService extends IntentService
 				dataWrapper = new DataWrapper(context, false, false, 0);
 				
 				if (WifiScanAlarmBroadcastReceiver.wifi == null)
-					WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+					WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 				//WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 	
 				// start scan
@@ -93,7 +93,7 @@ public class ScannerService extends IntentService
 					
 					if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                         GlobalData.logE("$$$ ScannerService.onHandleIntent", "before startScan");
-                        WifiScanAlarmBroadcastReceiver.startScan(context);
+                        WifiScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
                         GlobalData.logE("$$$ ScannerService.onHandleIntent", "after startScan");
                     }
 					else
@@ -184,7 +184,7 @@ public class ScannerService extends IntentService
 					int bluetoothState = enableBluetooth(dataWrapper, BluetoothScanAlarmBroadcastReceiver.bluetooth);
 
 					if (bluetoothState == BluetoothAdapter.STATE_ON)
-						BluetoothScanAlarmBroadcastReceiver.startScan(context);
+						BluetoothScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
 					else
 					if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON)
 					{
