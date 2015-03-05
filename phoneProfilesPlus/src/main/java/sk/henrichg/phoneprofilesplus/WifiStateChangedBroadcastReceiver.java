@@ -40,7 +40,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 					if (WifiScanAlarmBroadcastReceiver.getStartScan(context))
 						WifiScanAlarmBroadcastReceiver.startScan(context);
 					else
-					if (!WifiScanAlarmBroadcastReceiver.getStartScan(context))
+					//if (!WifiScanAlarmBroadcastReceiver.getStartScan(context))
 					{
 		    			// refresh configured networks list
 						WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
