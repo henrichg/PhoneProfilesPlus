@@ -63,8 +63,12 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 	        	//{
 					GlobalData.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","connected"+connected);
 					
-					if (!BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context))
+					//if (!BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context))
+                    if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                         (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))))
 					{
+                        // bluetooth is not scanned
+
 						DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 						boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
 						dataWrapper.invalidateDataWrapper();

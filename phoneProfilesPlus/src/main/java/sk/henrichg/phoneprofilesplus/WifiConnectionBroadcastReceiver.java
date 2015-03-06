@@ -56,8 +56,12 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 	        	{
 		    		GlobalData.logE("@@@ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
 
-	        		if (!WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
+	        		//if (!WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
+                    if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                         (WifiScanAlarmBroadcastReceiver.getWaitForResults(context))))
 	        		{
+                        // wifi is not scanned
+
 		    			DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 		    			boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
 		    			dataWrapper.invalidateDataWrapper();
