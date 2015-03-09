@@ -409,7 +409,7 @@
   <string name="event_preferences_category_eventBluetoothParameters">Параметри Bluetooth</string>
   <string name="event_preferences_bluetooth_enabled">Увімкнути Bluetooth</string>
   <string name="event_preferences_bluetooth_adapter_name">ім\'я Bluetooth</string>
-  <string name="pref_event_bluetooth_adapterName">Ім\'я BT</string>
+  <string name="pref_event_bluetooth_adapterName">Ім\'я Bluetooth</string>
   <string name="pref_event_bluetooth_connectionType">З\'єднання</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">З\'єднано</string>
   <string name="array_event_pref_bluetoothConnectionType_inFront">Попереду</string>
@@ -446,12 +446,12 @@
   <string name="preference_profile_adaptiveBrightness">Адаптивна</string>
   <string name="profile_preferences_deviceKeyguard">Заблокувати екран</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Приховати назву профілю (віджет)</string>
-  <string name="array_pref_afterProfileDurationDo_restartEvents">Перезапустити події</string>
-  <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Not in front</string>
-  <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Not in front</string>
-  <string name="event_preferences_call_contact_groups">Contact groups</string>
-  <string name="event_preferences_sms_contact_groups">Contact groups</string>
-  <string name="event_preferences_error">Not all underlined parameters are set!</string>
+  <string name="array_pref_afterProfileDurationDo_restartEvents">Перезавантаження подій</string>
+  <string name="array_event_pref_wifiConnectionType_notConnected">Не під’єднано</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Поза зоною досяжності</string>
+  <string name="array_event_pref_bluetoothConnectionType_notConnected">Не під’єднано</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Поза зоною досяжності</string>
+  <string name="event_preferences_call_contact_groups">Групи контактів</string>
+  <string name="event_preferences_sms_contact_groups">Групи контактів</string>
+  <string name="event_preferences_error">Не всі підкреслені параметри налаштовано!</string>
 </resources>

@@ -73,7 +73,7 @@
   <string name="profile_preferences_soundNotification">Suono di notifica</string>
   <string name="profile_preferences_soundAlarmChange">Modifica allarme</string>
   <string name="profile_preferences_soundAlarm">Suono allarme</string>
-  <string name="profile_preferences_deviceAirplaneMode">(R) modalità aereo</string>
+  <string name="profile_preferences_deviceAirplaneMode">(R) Modalità aereo</string>
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
   <string name="profile_preferences_deviceGPS">(R) GPS</string>
@@ -237,9 +237,9 @@
   <string name="array_pref_value_90_degrees" formatted="false">90°</string>
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
-  <string name="array_pref_value_auto_rotate">Automatico. ruota</string>
-  <string name="array_pref_value_auto_rotate_on">Auto.ruotare su ON</string>
-  <string name="array_pref_value_auto_rotate_off">Auto.ruotare su OFF</string>
+  <string name="array_pref_value_auto_rotate">Rotazione automatica</string>
+  <string name="array_pref_value_auto_rotate_on">Rotazione automatica su ON</string>
+  <string name="array_pref_value_auto_rotate_off">Rotazione automatica su OFF</string>
   <string name="default_profile_name">Profilo di origine</string>
   <string name="menu_default_profile">Profilo di origine</string>
   <string name="brightness_pref_dialog_default_profile_chb">Profilo di origine</string>
@@ -447,11 +447,11 @@
   <string name="profile_preferences_deviceKeyguard">Schermata di blocco</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Nascondi il nome del profilo (widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Riavvia eventi</string>
-  <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Not in front</string>
-  <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Not in front</string>
-  <string name="event_preferences_call_contact_groups">Contact groups</string>
-  <string name="event_preferences_sms_contact_groups">Contact groups</string>
-  <string name="event_preferences_error">Not all underlined parameters are set!</string>
+  <string name="array_event_pref_wifiConnectionType_notConnected">Non connesso</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Non è nelle vicinanze</string>
+  <string name="array_event_pref_bluetoothConnectionType_notConnected">Non connesso</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Non è nelle vicinanze</string>
+  <string name="event_preferences_call_contact_groups">Gruppi di contatti</string>
+  <string name="event_preferences_sms_contact_groups">Gruppi di contatti</string>
+  <string name="event_preferences_error">Non tutti i parametri sottolineati sono impostati!</string>
 </resources>

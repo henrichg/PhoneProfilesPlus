@@ -447,11 +447,11 @@
   <string name="profile_preferences_deviceKeyguard">Écran de verrouillage</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Cacher le nom du profil (widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Redémarrez les événements</string>
-  <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Not in front</string>
-  <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Not in front</string>
-  <string name="event_preferences_call_contact_groups">Contact groups</string>
-  <string name="event_preferences_sms_contact_groups">Contact groups</string>
-  <string name="event_preferences_error">Not all underlined parameters are set!</string>
+  <string name="array_event_pref_wifiConnectionType_notConnected">Non connecté</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Pas au premier plan</string>
+  <string name="array_event_pref_bluetoothConnectionType_notConnected">Non Connecté</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Pas au premier plan</string>
+  <string name="event_preferences_call_contact_groups">Groupes de contacts</string>
+  <string name="event_preferences_sms_contact_groups">Groupes de contacts</string>
+  <string name="event_preferences_error">Tous les paramètres soulignés ne sont pas définis !</string>
 </resources>
