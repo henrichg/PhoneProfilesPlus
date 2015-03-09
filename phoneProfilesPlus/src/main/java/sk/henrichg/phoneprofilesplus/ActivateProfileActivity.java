@@ -1,11 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
-
+import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -140,8 +139,6 @@ public class ActivateProfileActivity extends ActionBarActivity {
 		
     //-----------------------------------------------------------------------------------------		
 		
-		//Log.d("PhoneProfileActivity.onCreate", "xxxx");
-		
 	}
 	
 	public static ActivateProfileActivity getInstance()
@@ -214,8 +211,6 @@ public class ActivateProfileActivity extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_edit_profiles:
-			//Log.d("ActivateProfileActivity.onOptionsItemSelected", "menu_settings");
-			
 			Intent intent = new Intent(getBaseContext(), EditorProfilesActivity.class);
 			intent.putExtra(GlobalData.EXTRA_START_APP_SOURCE, GlobalData.STARTUP_SOURCE_ACTIVATOR);
 			startActivity(intent);

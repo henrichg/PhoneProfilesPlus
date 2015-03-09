@@ -17,9 +17,6 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 			NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 			notificationManager.cancel(GlobalData.NOTIFICATION_ID);
 		}
-		
-		//Log.d("LocaleChangedReceiver.onReceive", "xxxxx");
-
 	}
 
 }

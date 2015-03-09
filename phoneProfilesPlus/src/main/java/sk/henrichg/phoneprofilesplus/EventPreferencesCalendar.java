@@ -1,10 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -22,6 +17,11 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class EventPreferencesCalendar extends EventPreferences {
 
@@ -341,8 +341,6 @@ public class EventPreferencesCalendar extends EventPreferences {
 			return;
 		}
 
-	    //Log.e("EventPreferencesCalendar.searchEvent", "is runnable");
-		
 	    final String[] INSTANCE_PROJECTION = new String[] {
 	        Instances.BEGIN,         // 0
 	        Instances.END,			 // 1
@@ -374,9 +372,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 					selection = selection + 
 					        " AND (lower("+Instances.DESCRIPTION+")" + " LIKE lower(?))";
 		selection = selection + ")";
-	    //Log.e("EventPreferencesCalendar.searchEvent", "selection="+selection);
-		
-	    
+
 	    // Construct the query with the desired date range.
 		Calendar calendar = Calendar.getInstance();
 		long now = calendar.getTimeInMillis();
@@ -426,16 +422,11 @@ public class EventPreferencesCalendar extends EventPreferences {
 			        
 			        //title = cur.getString(PROJECTION_TITLE_INDEX);
 	
-				    //Log.e("EventPreferencesCalendar.searchEvent", "beginVal="+getDate(beginVal));
-				    //Log.e("EventPreferencesCalendar.searchEvent", "endVal="+getDate(endVal));
-				    //Log.e("EventPreferencesCalendar.searchEvent", "title="+title);
-	
 		    		int gmtOffset = TimeZone.getDefault().getRawOffset();
 				    
 				    if ((beginVal <= now) && (endVal > now))
 				    {
 				    	// event instance is found
-					    //Log.e("EventPreferencesCalendar.searchEvent", "found 1");
 				    	_eventFound = true;
 				    	_startTime = beginVal + gmtOffset;
 				    	_endTime = endVal + gmtOffset;
@@ -445,15 +436,12 @@ public class EventPreferencesCalendar extends EventPreferences {
 				    if (beginVal > now)
 				    {
 				    	// event instance is found
-					    //Log.e("EventPreferencesCalendar.searchEvent", "found 2");
 				    	_eventFound = true;
 				    	_startTime = beginVal + gmtOffset;
 				    	_endTime = endVal + gmtOffset;
 				    	break;
 				    }
-				    //else
-				    //	Log.e("EventPreferencesCalendar.searchEvent", "not found");
-				    
+
 			    }
 			    
 			    cur.close();

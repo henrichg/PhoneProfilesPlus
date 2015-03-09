@@ -1,17 +1,18 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 //import android.preference.Preference;
 //import android.preference.Preference.OnPreferenceChangeListener;
-import android.view.View;
 
 
 public class ProfilePreferenceDialog extends Dialog

@@ -6,9 +6,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-
 import android.content.res.TypedArray;
-
 import android.preference.DialogPreference;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -17,11 +15,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
-
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.CompoundButton;
 
 /**
  * The SeekBarDialogPreference class is a DialogPreference based and provides a
@@ -198,8 +195,6 @@ public class BrightnessDialogPreference extends
 	}
 
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-		//Log.d("SeekBarNoChangeDialogPreference.onCheckedChanged", Boolean.toString(isChecked));
 
 		/*
 		boolean isAutomatic = (automatic == 1);

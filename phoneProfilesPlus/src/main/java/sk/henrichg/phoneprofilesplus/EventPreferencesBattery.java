@@ -147,8 +147,6 @@ public class EventPreferencesBattery extends EventPreferences {
                 else
                 	iNewValue = Integer.parseInt(sNewValue);
                 
-                //Log.e("EventPreferencesBattery.checkPreferences.lowLevelPreference","iNewValue="+iNewValue);
-                
                 String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_HIGHT, "100");
                 int iHightLevelValue;
                 if (sHightLevelValue.isEmpty())
@@ -156,8 +154,6 @@ public class EventPreferencesBattery extends EventPreferences {
                 else
                 	iHightLevelValue = Integer.parseInt(sHightLevelValue);
 
-                //Log.e("EventPreferencesBattery.checkPreferences.lowLevelPreference","iHightLevelValue="+iHightLevelValue);
-                
                 boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
                 
                 if (!OK)
@@ -183,8 +179,6 @@ public class EventPreferencesBattery extends EventPreferences {
                 else
                 	iNewValue = Integer.parseInt(sNewValue);
                 
-                //Log.e("EventPreferencesBattery.checkPreferences.hightLevelPreference","iNewValue="+iNewValue);
-
                 String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_LOW, "0");
                 int iLowLevelValue;
                 if (sLowLevelValue.isEmpty())
@@ -192,8 +186,6 @@ public class EventPreferencesBattery extends EventPreferences {
                 else
                 	iLowLevelValue = Integer.parseInt(sLowLevelValue);
 
-                //Log.e("EventPreferencesBattery.checkPreferences.hightLevelPreference","iLowLevelValue="+iLowLevelValue);
-                
                 boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 100));
                 
                 if (!OK)

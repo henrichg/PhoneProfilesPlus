@@ -1,15 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Calendar;
-
-import com.stericson.RootTools.RootTools;
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -45,6 +35,16 @@ import android.view.Surface;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.RemoteViews;
+
+import com.stericson.RootShell.execution.Command;
+import com.stericson.RootShell.execution.Shell;
+import com.stericson.RootTools.RootTools;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Calendar;
 
 public class ActivateProfileHelper {
 
@@ -237,8 +237,6 @@ public class ActivateProfileHelper {
 		{
 			String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
-			//Log.d("ActivateProfileHelper.execute", provider);
-		    
 			switch (profile._deviceGPS) {
 				case 1 :
 					//if (!onlyCheckForScanning)
@@ -684,7 +682,6 @@ public class ActivateProfileHelper {
 		// nahodenie pozadia
 		if (profile._deviceWallpaperChange == 1)
 		{
-			//Log.d("ActivateProfileHelper.execute","set wallpaper");
 			DisplayMetrics displayMetrics = new DisplayMetrics();
 			WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 			Display display = wm.getDefaultDisplay();
@@ -1154,12 +1151,9 @@ public class ActivateProfileHelper {
 	{
 		boolean isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
 
-		//Log.d("ActivateProfileHelper.setGPS", isEnabled + "");
-	    
 	    //if(!provider.contains(LocationManager.GPS_PROVIDER) && enable)
 		if ((!isEnabled)  && enable)
 	    {
-    		//Log.d("ActivateProfileHelper.setGPS", "enable=true");
 	    	if (GlobalData.canExploitGPS(context))
 	    	{
 				GlobalData.logE("ActivateProfileHelper.setGPS", "exploit");
@@ -1191,7 +1185,6 @@ public class ActivateProfileHelper {
 				//if (GlobalData.isSELinuxEnforcing())
 				//	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
 				
-	    		//Log.e("ActivateProfileHelper.setGPS","command1="+command1);
 				//command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state true";
 				Command command = new Command(0, false, command1); //, command2);
 				try {
@@ -1224,7 +1217,6 @@ public class ActivateProfileHelper {
         //if(provider.contains(LocationManager.GPS_PROVIDER) && (!enable))
 		if (isEnabled && (!enable))
         {
-    		//Log.d("ActivateProfileHelper.setGPS", "enable=false");
     		if (GlobalData.canExploitGPS(context))
 	    	{
 				GlobalData.logE("ActivateProfileHelper.setGPS", "exploit");
@@ -1265,7 +1257,6 @@ public class ActivateProfileHelper {
 				command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
 				//if (GlobalData.isSELinuxEnforcing())
 				//	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-	    		//Log.e("ActivateProfileHelper.setGPS","command1="+command1);
 				//command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state false";
 				Command command = new Command(0, false, command1);//, command2);
 	    		try {

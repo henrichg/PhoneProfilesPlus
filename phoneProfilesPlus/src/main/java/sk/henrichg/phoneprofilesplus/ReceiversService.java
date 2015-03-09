@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
-import android.provider.Settings;
-import android.util.Log;
 
 
 public class ReceiversService extends Service {
@@ -101,7 +99,6 @@ public class ReceiversService extends Service {
 	public void onTaskRemoved(Intent rootIntent)
 	{
         GlobalData.setApplicationStarted(getApplicationContext(), false);
-        Log.e("ReceiversService.onTaskRemoved","xxx");
         super.onTaskRemoved(rootIntent);
 	}
 	

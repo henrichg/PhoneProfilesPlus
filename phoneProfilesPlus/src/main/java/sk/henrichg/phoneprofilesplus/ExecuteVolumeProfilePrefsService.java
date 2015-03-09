@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.provider.Settings;
-import android.util.Log;
 
 public class ExecuteVolumeProfilePrefsService extends IntentService
 {
@@ -16,8 +15,6 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
 	//@Override
 	protected void onHandleIntent(Intent intent) {
-		
-		//Log.e("ExecuteVolumeProfilePrefsService.onHandleIntent","---- start");
 		
 		Context context = getApplicationContext();
 		
@@ -118,8 +115,6 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 		dataWrapper.invalidateDataWrapper();
 		aph = null;
 		dataWrapper = null;
-		
-		//Log.e("ExecuteVolumeProfilePrefsService.onHandleIntent","---- end");
 		
 	}
 	

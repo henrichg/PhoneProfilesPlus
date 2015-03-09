@@ -1,13 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TimeZone;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,6 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.util.Log;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TimeZone;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -1496,7 +1496,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		if (cursor.getCount() == 0)
 		{
-			//Log.e("DatabaseHandler.getMaxPOrder","count=0");
 			r = 0;
 		}
 		else
@@ -1504,12 +1503,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			if (cursor.moveToFirst())
 			{
 				r = cursor.getInt(0);
-				//Log.e("DatabaseHandler.getMaxPOrder","porder="+r);
 			}
 			else
 			{
 				r = 0;
-				//Log.e("DatabaseHandler.getMaxPOrder","moveToFirst=false");
 			}
 		}
 
@@ -2021,8 +2018,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public List<Event> getAllEvents() {
 		List<Event> eventList = new ArrayList<Event>();
 		
-        //Log.e("DatabaseHandler.getAllEvents","filterType="+filterType);
-		
 		// Select All Query
 		final String selectQuery = "SELECT " + KEY_E_ID + "," +
 				                         KEY_E_NAME + "," +
@@ -2323,8 +2318,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1) ? true : false; 
 						
 				String daysOfWeek = cursor.getString(1);
-				//Log.e("DatabaseHandler.getEventPreferencesTime","daysOfWeek="+daysOfWeek);
-		
+
 				if (daysOfWeek != null)
 				{
 				String[] splits = daysOfWeek.split("\\|");
@@ -2587,8 +2581,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	public int updateEventPreferences(Event event, SQLiteDatabase db) {
 		int r;
-		//Log.e("DatabaseHandler.updateEventPreferences","type="+event._type);
-		
+
        	r = updateEventPreferencesTime(event, db);
        	if (r != 0)
        		r = updateEventPreferencesBattery(event, db);
@@ -2615,8 +2608,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		EventPreferencesTime eventPreferences = (EventPreferencesTime)event._eventPreferencesTime; 
 
-		//Log.e("DatabaseHandler.updateEventPreferencesTime","type="+event._type);
-		
     	String daysOfWeek = "";
     	if (eventPreferences._sunday) daysOfWeek = daysOfWeek + "0|";
     	if (eventPreferences._monday) daysOfWeek = daysOfWeek + "1|";
@@ -2626,8 +2617,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     	if (eventPreferences._friday) daysOfWeek = daysOfWeek + "5|";
     	if (eventPreferences._saturday) daysOfWeek = daysOfWeek + "6|";
 
-		//Log.e("DatabaseHandler.updateEventPreferencesTime","daysOfWeek="+daysOfWeek);
-    	
 		values.put(KEY_E_TIME_ENABLED, (eventPreferences._enabled) ? 1 : 0);
 		values.put(KEY_E_DAYS_OF_WEEK, daysOfWeek);
 		values.put(KEY_E_START_TIME, eventPreferences._startTime);
@@ -2646,8 +2635,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		EventPreferencesBattery eventPreferences = (EventPreferencesBattery)event._eventPreferencesBattery; 
 
-		//Log.e("DatabaseHandler.updateEventPreferencesBattery","type="+event._type);
-		
 		values.put(KEY_E_BATTERY_ENABLED, (eventPreferences._enabled) ? 1 : 0);
 		values.put(KEY_E_BATTERY_LEVEL_LOW, eventPreferences._levelLow);
 		values.put(KEY_E_BATTERY_LEVEL_HIGHT, eventPreferences._levelHight);
@@ -2665,8 +2652,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		EventPreferencesCall eventPreferences = (EventPreferencesCall)event._eventPreferencesCall; 
 
-		//Log.e("DatabaseHandler.updateEventPreferencesCall","type="+event._type);
-		
 		values.put(KEY_E_CALL_ENABLED, (eventPreferences._enabled) ? 1 : 0);
 		values.put(KEY_E_CALL_EVENT, eventPreferences._callEvent);
 		values.put(KEY_E_CALL_CONTACTS, eventPreferences._contacts);
@@ -2685,8 +2670,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		EventPreferencesPeripherals eventPreferences = (EventPreferencesPeripherals)event._eventPreferencesPeripherals; 
 
-		//Log.e("DatabaseHandler.updateEventPreferencesPeripheral","type="+event._type);
-		
 		values.put(KEY_E_PERIPHERAL_ENABLED, (eventPreferences._enabled) ? 1 : 0);
 		values.put(KEY_E_PERIPHERAL_TYPE, eventPreferences._peripheralType);
 
@@ -2702,8 +2685,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		EventPreferencesCalendar eventPreferences = (EventPreferencesCalendar)event._eventPreferencesCalendar; 
 
-		//Log.e("DatabaseHandler.updateEventPreferencesCalendar","type="+event._type);
-		
 		values.put(KEY_E_CALENDAR_ENABLED, (eventPreferences._enabled) ? 1 : 0);
 		values.put(KEY_E_CALENDAR_CALENDARS, eventPreferences._calendars);
 		values.put(KEY_E_CALENDAR_SEARCH_FIELD, eventPreferences._searchField);
@@ -2724,8 +2705,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		EventPreferencesWifi eventPreferences = (EventPreferencesWifi)event._eventPreferencesWifi; 
 
-		//Log.e("DatabaseHandler.updateEventPreferencesWifi","type="+event._type);
-		
 		values.put(KEY_E_WIFI_ENABLED, (eventPreferences._enabled) ? 1 : 0);
 		values.put(KEY_E_WIFI_SSID, eventPreferences._SSID);
 		values.put(KEY_E_WIFI_CONNECTION_TYPE, eventPreferences._connectionType);
@@ -2742,8 +2721,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		EventPreferencesScreen eventPreferences = (EventPreferencesScreen)event._eventPreferencesScreen; 
 
-		//Log.e("DatabaseHandler.updateEventPreferencesScreen","type="+event._type);
-		
 		values.put(KEY_E_SCREEN_ENABLED, (eventPreferences._enabled) ? 1 : 0);
 		values.put(KEY_E_SCREEN_EVENT_TYPE, eventPreferences._eventType);
 		values.put(KEY_E_SCREEN_WHEN_UNLOCKED, (eventPreferences._whenUnlocked) ? 1 : 0);
@@ -2760,8 +2737,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		EventPreferencesBluetooth eventPreferences = (EventPreferencesBluetooth)event._eventPreferencesBluetooth; 
 
-		//Log.e("DatabaseHandler.updateEventPreferencesBluetooth","type="+event._type);
-		
 		values.put(KEY_E_BLUETOOTH_ENABLED, (eventPreferences._enabled) ? 1 : 0);
 		values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, eventPreferences._adapterName);
 		values.put(KEY_E_BLUETOOTH_CONNECTION_TYPE, eventPreferences._connectionType);
@@ -2778,8 +2753,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		EventPreferencesSMS eventPreferences = (EventPreferencesSMS)event._eventPreferencesSMS; 
 
-		//Log.e("DatabaseHandler.updateEventPreferencesSMS","type="+event._type);
-		
 		values.put(KEY_E_SMS_ENABLED, (eventPreferences._enabled) ? 1 : 0);
 		//values.put(KEY_E_SMS_EVENT, eventPreferences._smsEvent);
 		values.put(KEY_E_SMS_CONTACTS, eventPreferences._contacts);
@@ -3352,7 +3325,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		if (cursor.getCount() == 0)
 		{
-			//Log.e("DatabaseHandler.getMaxPOrder","count=0");
 			r = 0;
 		}
 		else
@@ -3360,12 +3332,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			if (cursor.moveToFirst())
 			{
 				r = cursor.getInt(0);
-				//Log.e("DatabaseHandler.getMaxPOrder","porder="+r);
 			}
 			else
 			{
 				r = 0;
-				//Log.e("DatabaseHandler.getMaxPOrder","moveToFirst=false");
 			}
 		}
 
@@ -3379,8 +3349,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Getting all event timeline 
 	public List<EventTimeline> getAllEventTimelines() {
 		List<EventTimeline> eventTimelineList = new ArrayList<EventTimeline>();
-		
-        //Log.e("DatabaseHandler.getAllEvents","filterType="+filterType);
 		
 		// Select All Query
 		final String selectQuery = "SELECT " + KEY_ET_ID + "," +
@@ -3564,7 +3532,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			{
 				// zistenie verzie zalohy
 				SQLiteDatabase exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READONLY);
-				//Log.d("DatabaseHandler.importDB", "databaseVersion="+exportedDBObj.getVersion());
 				//if (exportedDBObj.getVersion() == DATABASE_VERSION)
 			//	if (exportedDBObj.getVersion() <= DATABASE_VERSION)
 			//	{	
@@ -3683,7 +3650,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 											
 											values.put(columnNamesExportedDB[i], value);
 										}
-										//Log.d("DatabaseHandler.importDB", "cn="+columnNames[i]+" val="+cursor.getString(i));
 									}
 									
 									// for non existent fields set default value
@@ -3829,7 +3795,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 											if (columnNamesExportedDB[i].equals(KEY_E_DELAY_START))
 												delayStart = cursorExportedDB.getInt(i);
 											
-											//Log.d("DatabaseHandler.importDB", "cn="+columnNames[i]+" val="+cursor.getString(i));
 										}
 										
 										// for non existent fields set default value
@@ -4097,9 +4062,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			File dataDB = new File(data, GUIData.DB_FILEPATH + "/" + DATABASE_NAME);
 			File exportedDB = new File(sd, GlobalData.EXPORT_PATH + "/" + EXPORT_DBFILENAME);
 			
-			//Log.d("DatabaseHandler.exportDB", "dataDB="+dataDB.getAbsolutePath());
-			//Log.d("DatabaseHandler.exportDB", "exportedDB="+exportedDB.getAbsolutePath());
-			
 			if (dataDB.exists())
 			{
 				// close db
@@ -4109,7 +4071,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				if (!(exportDir.exists() && exportDir.isDirectory()))
 				{
 					exportDir.mkdirs();
-					//Log.d("DatabaseHandler.exportDB", "mkdir="+exportDir.getAbsolutePath());
 				}
 				
 				FileChannel src = new FileInputStream(dataDB).getChannel();

@@ -1,9 +1,4 @@
 package sk.henrichg.phoneprofilesplus;
- 
-import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnHideActionModeInEventPreferences;
-import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnShowActionModeInEventPreferences;
-import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnRedrawEventListFragment;
-import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnRestartEventPreferences;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -18,6 +13,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnHideActionModeInEventPreferences;
+import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnRedrawEventListFragment;
+import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnRestartEventPreferences;
+import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnShowActionModeInEventPreferences;
 
 public class EventPreferencesFragmentActivity extends ActionBarActivity
 												implements OnRestartEventPreferences,
@@ -74,8 +74,6 @@ public class EventPreferencesFragmentActivity extends ActionBarActivity
 					.replace(R.id.activity_event_preferences_container, fragment, "EventPreferencesFragment").commit();
 		}
 		
-    	//Log.d("EventPreferencesFragmentActivity.onCreate", "xxxx");
-		
     }
 	
 	@Override
@@ -87,8 +85,6 @@ public class EventPreferencesFragmentActivity extends ActionBarActivity
 	@Override
 	public void finish() {
 		
-		//Log.e("EventPreferencesFragmentActivity.finish","xxx");
-
 		EventPreferencesFragment fragment = (EventPreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_event_preferences_container);
 		if (fragment != null)
 			event_id = fragment.event_id;
@@ -138,8 +134,6 @@ public class EventPreferencesFragmentActivity extends ActionBarActivity
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
             // handle your back button code here
         	EventPreferencesFragment fragment = (EventPreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_event_preferences_container);
-        	//Log.e("EventPreferencesFragmentActivity.dispatchKeyEvent","fragment="+fragment);
-        	//Log.e("EventPreferencesFragmentActivity.dispatchKeyEvent","isActionModeActive="+fragment.isActionModeActive());
     		if ((fragment != null) && (fragment.isActionModeActive()))
     		{
     			fragment.finishActionMode(EventPreferencesFragment.BUTTON_CANCEL);

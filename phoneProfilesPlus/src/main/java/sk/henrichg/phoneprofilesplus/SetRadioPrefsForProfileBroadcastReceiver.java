@@ -11,19 +11,13 @@ public class SetRadioPrefsForProfileBroadcastReceiver extends WakefulBroadcastRe
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-    	//Log.e("SetRadioPrefsForProfileBroadcastReceiver.onReceive","xxx");
-    	
-		
 		String action = intent.getAction();
 
-    	//Log.e("SetRadioPrefsForProfileBroadcastReceiver.onReceive","action="+action);
-		
 		if (action.equals (ACTION))
 		{
 			// start service
 			
 			long profileId = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
-	    	//Log.e("SetRadioPrefsForProfileBroadcastReceiver.onReceive","profileId="+profileId);
 			if (profileId != 0)
 			{
 				Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);

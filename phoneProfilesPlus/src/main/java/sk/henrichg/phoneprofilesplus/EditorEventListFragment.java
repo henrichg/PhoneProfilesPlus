@@ -1,31 +1,30 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.lang.ref.WeakReference;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import com.melnykov.fab.FloatingActionButton;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+
+import com.melnykov.fab.FloatingActionButton;
+
+import java.lang.ref.WeakReference;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class EditorEventListFragment extends Fragment {
 
@@ -137,9 +136,7 @@ public class EditorEventListFragment extends Fragment {
         orderType = getArguments() != null ? 
              	getArguments().getInt(ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_EVENT_NAME) : 
                 	EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
-        //Log.e("EditorEventListFragment.onCreate","filterType="+filterType);
-        //Log.e("EditorEventListFragment.onCreate","orderType="+orderType);
-		
+
    		dataWrapper = new DataWrapper(getActivity().getBaseContext(), true, false, 0);
     	dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getActivity(), getActivity().getBaseContext());
              	
@@ -149,8 +146,6 @@ public class EditorEventListFragment extends Fragment {
 		
 		setHasOptionsMenu(true);
 
-		//Log.e("EditorEventListFragment.onCreate", "xxxx");
-		
 	}
 	
 	@Override
@@ -159,8 +154,6 @@ public class EditorEventListFragment extends Fragment {
 		
 		rootView = inflater.inflate(R.layout.editor_event_list, container, false); 
 
-		//Log.e("EditorEventListFragment.onCreateView", "xxxx");
-		
 		return rootView;
 	}
 	
@@ -168,7 +161,6 @@ public class EditorEventListFragment extends Fragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		doOnViewCreated(view, savedInstanceState);
-		//Log.e("EditorEventListFragment.onViewCreated", "xxxx");
 	}
 
 	//@Override
@@ -191,11 +183,7 @@ public class EditorEventListFragment extends Fragment {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-				//Log.e("EditorEventListFragment.onItemClick", "xxxx");
-
 				startEventPreferencesActivity((Event)eventListAdapter.getItem(position));
-				
 			}
 			
 		}); 
@@ -217,9 +205,6 @@ public class EditorEventListFragment extends Fragment {
 		{
 			listView.setAdapter(eventListAdapter);
 		}
-		
-		//Log.d("EditorEventListFragment.onActivityCreated", "xxx");
-        
 	}
 	
 	private static class LoadEventListAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -238,7 +223,6 @@ public class EditorEventListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
         	List<Event> eventList = dataWrapper.getEventList();
         	
-        	//Log.e("EditorEventListFragment.LoadEventListAsyncTask.doInBackground","orderType="+orderType);
         	EditorEventListFragment.sortList(eventList, orderType, dataWrapper);
 			dataWrapper.getProfileList();
 
@@ -276,9 +260,6 @@ public class EditorEventListFragment extends Fragment {
 	public void onStart()
 	{
 		super.onStart();
-
-		//Log.d("EditorEventListFragment.onStart", "xxxx");
-		
 	}
 	
 	@Override
@@ -301,8 +282,6 @@ public class EditorEventListFragment extends Fragment {
 		
 		super.onDestroy();
 
-		//Log.e("EditorEventListFragment.onDestroy","xxx");
-		
 	}
 	
 	@Override
@@ -316,14 +295,10 @@ public class EditorEventListFragment extends Fragment {
 		
 		switch (item.getItemId()) {
 		/*case R.id.menu_new_event:
-			//Log.e("EditorEventListFragment.onOptionsItemSelected", "menu_new_event");
-
 			startEventPreferencesActivity(null);
 			
 			return true;*/
 		case R.id.menu_delete_all_events:
-			//Log.d("EditorEventListFragment.onOptionsItemSelected", "menu_delete_all_events");
-			
 			deleteAllEvents();
 			
 			return true;
@@ -354,8 +329,6 @@ public class EditorEventListFragment extends Fragment {
 
 		}
 
-		//Log.d("EditorEventListFragment.startProfilePreferencesActivity", profile.getID()+"");
-		
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) one must start profile preferences
 		onStartEventPreferencesCallback.onStartEventPreferences(_event, editMode, filterType, orderType);
@@ -599,7 +572,6 @@ public class EditorEventListFragment extends Fragment {
 	
 	public void changeListOrder(int orderType)
 	{
-		//Log.e("EditorEventListFragment.changeListOrder","orderType="+orderType);
 		this.orderType = orderType;
 		if (eventListAdapter != null)
 		{

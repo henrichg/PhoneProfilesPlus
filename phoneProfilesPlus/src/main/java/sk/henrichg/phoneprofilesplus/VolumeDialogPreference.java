@@ -6,20 +6,16 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-
 import android.content.res.TypedArray;
-
 import android.media.AudioManager;
 import android.preference.DialogPreference;
-
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.CompoundButton;
 
 /**
  * The SeekBarDialogPreference class is a DialogPreference based and provides a
@@ -178,8 +174,6 @@ public class VolumeDialogPreference extends
 
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-		//Log.d("VolumeDialogPreference.onCheckedChanged", Boolean.toString(isChecked));
-		
 		if (buttonView.getId() == R.id.volumePrefDialogNoChange)
 		{
 			noChange = (isChecked)? 1 : 0;
@@ -240,7 +234,6 @@ public class VolumeDialogPreference extends
 		// if the positive button is clicked, we persist the value.
 		if (which == DialogInterface.BUTTON_POSITIVE) {
 			if (shouldPersist()) {
-				//Log.d("VolumeDialogPreference.onClick","xxxx");
 				persistString(Integer.toString(value + minimumValue)
 						+ "|" + Integer.toString(noChange)
 						+ "|" + Integer.toString(defaultProfile));

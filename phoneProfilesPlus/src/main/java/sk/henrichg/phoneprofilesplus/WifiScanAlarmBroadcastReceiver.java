@@ -1,10 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -24,6 +19,11 @@ import android.net.wifi.WifiManager.WifiLock;
 import android.util.Log;
 
 import com.google.gson.Gson;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
@@ -380,9 +380,6 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 			wifiConfigurationList.clear();
 			for (WifiConfiguration device : _wifiConfigurationList)
 			{
-				//Log.e("WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList","ssid="+device.SSID);
-				//Log.e("WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList","bssid="+device.BSSID);
-				
 				boolean found = false;
 				for (WifiSSIDData _device : wifiConfigurationList)
 				{

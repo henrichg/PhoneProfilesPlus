@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.ArrayList;
-import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,12 +9,15 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.AdapterView.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BluetoothNamePreference extends DialogPreference {
 	

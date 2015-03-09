@@ -1,5 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
- 
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -13,10 +13,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.view.ActionMode;
@@ -187,8 +187,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 			new_profile_mode = getArguments().getInt(GlobalData.EXTRA_NEW_PROFILE_MODE);
 		if (getArguments().containsKey(GlobalData.EXTRA_PROFILE_ID))
 			profile_id = getArguments().getLong(GlobalData.EXTRA_PROFILE_ID);
-    	//Log.e("ProfilePreferencesFragment.onCreate", "profile_id=" + profile_id);
-		
+
 		if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
 		{
 			profile = GlobalData.getDefaultProfile(context);
@@ -346,7 +345,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
 		updateSharedPreference();
 		
-    	//Log.d("ProfilePreferencesFragment.onCreate", "xxxx");
     }
 	
 	@Override
@@ -365,10 +363,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         	&& (actionModeShowed == 0))
         	showActionMode();
 
-    	//Log.d("ProfilePreferencesFragment.onStart", preferences.getString(PREF_PROFILE_NAME, ""));
-
-    	//Log.d("ProfilePreferencesFragment.onStart", "profile activated="+profile.getChecked());
-
 	}
 	
 	@Override
@@ -381,8 +375,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 			restart = false; // nerestartovat fragment
 			actionMode.finish();
 		} */
-		
-    	//Log.d("ProfilePreferencesFragment.onPause", "xxxx");
 		
 	}
 
@@ -416,8 +408,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 			
 			cursor.close();
 			
-			//Log.d("ProfilePreferencesFragment.onActivityResult", picturePath);
-			
 			if (changedImageViewPreference != null)
 				// nastavime image identifikatoru na ziskanu cestu ku obrazku
 				changedImageViewPreference.setImageIdentifierAndType(picturePath, false);
@@ -450,8 +440,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     	{
 	    	//SharedPreferences preferences = getActivity().getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 	
-			//Log.e("ProfilePreferencesFragment.loadPreferences","profile="+profile);
-	    	
 	    	Editor editor = preferences.edit();
 			if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
 			{
@@ -588,16 +576,12 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     	profile._deviceNFC = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NFC, ""));
     	profile._deviceKeyguard = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, ""));
 
-    	//Log.d("ProfilePreferencesFragment.onPause", "profile activated="+profile.getChecked());
-    	
 		if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
 		{
 	    	// update bitmaps
 			profile.generateIconBitmap(context, false, 0);
 			profile.generatePreferencesIndicator(context, false, 0);
 	
-	    	//Log.d("ProfilePreferencesFragment.onPause", "profile activated="+profile.getChecked());
-			
 			if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
 			    (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))
 			{
@@ -605,16 +589,11 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 				dataWrapper.getDatabaseHandler().addProfile(profile);
 				profile_id = profile._id;
 	
-	        	//Log.d("ProfilePreferencesFragment.onPause", "addProfile");
-				
 			}
 			else
 	        if (profile_id > 0) 
 	        {
 				dataWrapper.getDatabaseHandler().updateProfile(profile);
-	        	
-	        	//Log.d("ProfilePreferencesFragment.onPause", "updateProfile");
-	
 	        }
 		}
 
@@ -632,8 +611,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 		if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE))
 		{
 			String sValue = value.toString();
-			//Log.e("ProfilePreferencesFragment.setSummary","key="+key);
-			//Log.e("ProfilePreferencesFragment.setSummary","value="+sValue);
 			ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
 			int index = listPreference.findIndexOfValue(sValue);
 			CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -655,8 +632,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 				else
 				{
 					String sValue = value.toString();
-					//Log.e("ProfilePreferencesFragment.setSummary","key="+key);
-					//Log.e("ProfilePreferencesFragment.setSummary","value="+sValue);
 					ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
 					int index = listPreference.findIndexOfValue(sValue);
 					CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -681,8 +656,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 			key.equals(GlobalData.PREF_PROFILE_SOUND_ALARM))
 		{
 			String ringtoneUri = value.toString();
-			
-			//Log.d("ProfilePreferencesFragment.setSummary", ringtoneUri);
 			
 			if (ringtoneUri.isEmpty())
 		        prefMng.findPreference(key).setSummary(R.string.preferences_notificationSound_None);
@@ -860,8 +833,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
 	    	// updating activity with selected profile preferences
 	    	
-        	//Log.d("PhonePreferencesActivity.updateSharedPreference", profile.getName());
-        	
     		if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
     		{
     			setSummary(GlobalData.PREF_PROFILE_NAME, profile._name);
@@ -992,8 +963,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         
         actionMode.getCustomView().findViewById(R.id.profile_preferences_action_menu_cancel).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				
-				//Log.d("actionMode.onClick", "cancel");
 				
 				finishActionMode(BUTTON_CANCEL);
 				

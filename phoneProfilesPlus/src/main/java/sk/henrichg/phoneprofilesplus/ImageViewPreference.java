@@ -53,9 +53,6 @@ public class ImageViewPreference extends Preference {
 		
 		preferenceTitle = getTitle();
 		
-		//Log.d("ImageViewPreference", "title="+preferenceTitle);
-		//Log.d("ImageViewPreference", "imageSource="+imageSource);
-		
 		setWidgetLayoutResource(R.layout.imageview_preference); // resource na layout custom preference - TextView-ImageView
 		//setLayoutResource(R.layout.imageview_preference); // resource na layout custom preference - TextView-ImageView
 		
@@ -68,9 +65,6 @@ public class ImageViewPreference extends Preference {
 	{
 		super.onBindView(view);
 
-		//Log.d("ImageViewPreference.onBindView", "imageIdentifier="+imageIdentifier);
-		//Log.d("ImageViewPreference.onBindView", "isImageResourceID="+isImageResourceID);
-		
 		//imageTitle = (TextView)view.findViewById(R.id.imageview_pref_label);  // resource na image title
 		//imageTitle.setText(preferenceTitle);
 		
@@ -82,14 +76,11 @@ public class ImageViewPreference extends Preference {
 	    	{
 	    		// je to resource id
 	    		int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.getPackageName());
-	    		//Log.d("ImageViewPreference.onBindView", "resource="+res);
 	    		imageView.setImageResource(res); // resource na ikonu
 	    	}
 	    	else
 	    	{
 	    		// je to file
-	    		//Log.d("ImageViewPreference.onBindView", "file="+imageIdentifier);
-
         		Resources resources = prefContext.getResources();
         		int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
         		int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
@@ -106,9 +97,6 @@ public class ImageViewPreference extends Preference {
 	{
 		// klik na preference
 
-		//Log.d("ImageViewPreference.onClick", "imageResourceID="+imageIdentifier);
-		//Log.d("ImageViewPreference.onClick", "imageSource="+imageSource);
-		
 		if (imageSource.equals("resource_file") || imageSource.equals("resource"))
 		{
 			final ImageViewPreferenceDialog dialog = new ImageViewPreferenceDialog(prefContext, this, imageSource,

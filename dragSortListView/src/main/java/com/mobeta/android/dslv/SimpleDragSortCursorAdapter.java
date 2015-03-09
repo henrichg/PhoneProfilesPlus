@@ -20,8 +20,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 // taken from sdk/sources/android-16/android/widget/SimpleCursorAdapter.java
 

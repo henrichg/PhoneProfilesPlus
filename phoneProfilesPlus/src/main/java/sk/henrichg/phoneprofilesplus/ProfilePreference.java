@@ -35,9 +35,6 @@ public class ProfilePreference extends Preference {
 		
 		dataWrapper = new DataWrapper(context, true, false, 0);
 		
-		//Log.d("ApplicationsPreference", "title="+preferenceTitle);
-		//Log.d("ApplicationsPreference", "imageSource="+imageSource);
-		
 		setWidgetLayoutResource(R.layout.profile_preference); // resource na layout custom preference - TextView-ImageView
 		
 		typedArray.recycle();
@@ -49,8 +46,6 @@ public class ProfilePreference extends Preference {
 	{
 		super.onBindView(view);
 
-		//Log.d("ApplicationsPreference.onBindView", "packageName="+packageName);
-		
 		//preferenceTitleView = (TextView)view.findViewById(R.id.applications_pref_label);  // resource na title
 		//preferenceTitleView.setText(preferenceTitle);
 		
@@ -88,8 +83,6 @@ public class ProfilePreference extends Preference {
 	protected void onClick()
 	{
 		// klik na preference
-
-		//Log.d("ApplicationsPreference.onClick", "packageName="+packageName);
 
 		final ProfilePreferenceDialog dialog = new ProfilePreferenceDialog(prefContext, this, profileId);
 		dialog.setTitle(R.string.title_activity_profile_preference_dialog);

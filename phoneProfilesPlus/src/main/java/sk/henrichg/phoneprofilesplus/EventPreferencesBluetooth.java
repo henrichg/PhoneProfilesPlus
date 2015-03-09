@@ -1,13 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.Arrays;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+
+import java.util.Arrays;
 
 public class EventPreferencesBluetooth extends EventPreferences {
 

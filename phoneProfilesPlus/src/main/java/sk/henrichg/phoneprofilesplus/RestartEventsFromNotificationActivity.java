@@ -16,15 +16,12 @@ public class RestartEventsFromNotificationActivity extends Activity
 		
 		dataWrapper = new DataWrapper(getBaseContext(), false, false, 0);
 	 
-		//Log.e("RestartEventsFromNotificationActivity,onCreate","xxx");
 	}
 
 	@Override
 	protected void onStart()
 	{
 		super.onStart();
-
-		//Log.e("RestartEventsFromNotificationActivity.onStart", "xxx");
 
 		// set theme and language for dialog alert ;-)
 		// not working on Android 2.3.x

@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.List;
-
 import android.app.Fragment;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -11,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class ActivateProfileListAdapter extends BaseAdapter
 {
@@ -205,16 +205,11 @@ public class ActivateProfileListAdapter extends BaseAdapter
 		profileItemEditMenu.setOnClickListener(new OnClickListener() {
 
 				public void onClick(View v) {
-					//Log.d("ActivateProfileListAdapter.onClick", "x");
 					activity.openContextMenu(v);
 				}
 			});
 */		
 			
-		//Log.d("ActivateProfileListAdapter.onGetView", "memory usage (after complete View)=" + Debug.getNativeHeapAllocatedSize());
-	
-      //Log.d("ProfileListAdapter.getView", profile.getName());
-
 		return vi;
 	}
 

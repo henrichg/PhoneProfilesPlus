@@ -70,8 +70,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
 		savedMode = audioManager.getMode();
 
-        //Log.e("PhoneCallBroadcastReceiver.callStarted", "getMode="+savedMode);
-		
 		DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 		if (incoming)
 			doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);

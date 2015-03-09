@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.List;
-
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class EditorProfileListAdapter extends BaseAdapter
 {
@@ -382,13 +382,11 @@ public class EditorProfileListAdapter extends BaseAdapter
 	        holder.profileItemEditMenu.setOnClickListener(new OnClickListener() {
 	
 					public void onClick(View v) {
-						//Log.d("EditorProfileListAdapter.onClick", "delete");
 						((EditorProfileListFragment)fragment).finishProfilePreferencesActionMode();
 						((EditorProfileListFragment)fragment).showEditMenu(profileItemEditMenu);
 					}
 				}); 
 			
-			//Log.d("ProfileListAdapter.getView", profile.getName());
         }
       
 		return vi;

@@ -1,8 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 public class LauncherActivity extends Activity {
 
@@ -82,7 +82,6 @@ public class LauncherActivity extends Activity {
 				}
 			}
 		//}
-		//Log.e("LauncherActivity.onStart", "actProfile="+String.valueOf(actProfile));
 
 		if (actProfile && (profile != null))
 		{
@@ -130,8 +129,6 @@ public class LauncherActivity extends Activity {
 
 	private void endOnStart()
 	{
-		//Log.e("LauncherActivity.endOnStart","xxx");
-
 		//  aplikacia uz je 1. krat spustena - is in FirstStartService
 		//GlobalData.setApplicationStarted(getBaseContext(), true);
 		

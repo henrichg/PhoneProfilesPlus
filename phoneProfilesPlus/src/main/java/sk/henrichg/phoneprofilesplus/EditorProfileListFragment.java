@@ -1,12 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.lang.ref.WeakReference;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,17 +7,15 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
-import com.melnykov.fab.FloatingActionButton;
-import com.mobeta.android.dslv.DragSortListView;
-
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -33,6 +24,14 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.melnykov.fab.FloatingActionButton;
+import com.mobeta.android.dslv.DragSortListView;
+
+import java.lang.ref.WeakReference;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class EditorProfileListFragment extends Fragment {
 
@@ -103,8 +102,6 @@ public class EditorProfileListFragment extends Fragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		
-		//Log.e("EditorProfileListFragment.onAttach","xxx");
-
 		// Activities containing this fragment must implement its callbacks.
 		if (!(activity instanceof OnStartProfilePreferences)) {
 			throw new IllegalStateException(
@@ -140,8 +137,6 @@ public class EditorProfileListFragment extends Fragment {
         		getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorProfileListFragment.FILTER_TYPE_ALL) : 
         			EditorProfileListFragment.FILTER_TYPE_ALL;
 
-		//Log.e("EditorProfileListFragment.onCreate","xxx");
-	
    		dataWrapper = new DataWrapper(getActivity().getBaseContext(), true, false, 0);
         		
     	databaseHandler = dataWrapper.getDatabaseHandler(); 
@@ -151,8 +146,6 @@ public class EditorProfileListFragment extends Fragment {
 		
 		setHasOptionsMenu(true);
 
-		//Log.e("EditorProfileListFragment.onCreate", "xxxx");
-		
 	}
 	
 	@Override
@@ -167,8 +160,6 @@ public class EditorProfileListFragment extends Fragment {
 		else
 			rootView = inflater.inflate(R.layout.editor_profile_list_no_header, container, false); 
 
-		//Log.e("EditorProfileListFragment.onCreateView", "xxxx");
-		
 		return rootView;
 	}
 	
@@ -176,7 +167,6 @@ public class EditorProfileListFragment extends Fragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		doOnViewCreated(view, savedInstanceState);
-		//Log.e("EditorProfileListFragment.onViewCreated", "xxxx");
 	}
 
 	//@Override
@@ -207,11 +197,7 @@ public class EditorProfileListFragment extends Fragment {
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-				//Log.d("EditorProfileListFragment.onItemClick", "xxxx");
-
 				startProfilePreferencesActivity((Profile)profileListAdapter.getItem(position));
-				
 			}
 			
 		}); 
@@ -219,11 +205,7 @@ public class EditorProfileListFragment extends Fragment {
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-				//Log.d("EditorProfileListFragment.onItemLongClick", "xxxx");
-				
 				activateProfile((Profile)profileListAdapter.getItem(position), true);
-				
 				return true;
 			}
 			
@@ -234,7 +216,6 @@ public class EditorProfileListFragment extends Fragment {
             	profileListAdapter.changeItemOrder(from, to); // swap profiles
             	databaseHandler.setPOrder(profileList);  // set profiles _porder and write it into db
 				activateProfileHelper.updateWidget();
-        		//Log.d("EditorProfileListFragment.drop", "xxxx");
             }
         });
 
@@ -247,7 +228,6 @@ public class EditorProfileListFragment extends Fragment {
         
 		if (profileList == null)
 		{
-			//Log.e("EditorProfileListFragment.doOnViewCreated", "getProfileList");
 			LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
 		    this.asyncTaskContext = new WeakReference<LoadProfileListAsyncTask >(asyncTask );
 		    asyncTask.execute();			
@@ -261,9 +241,7 @@ public class EditorProfileListFragment extends Fragment {
 			profile = dataWrapper.getActivatedProfile();
 			updateHeader(profile);
 		}
-		
-		//Log.e("EditorProfileListFragment.doOnViewCreated", "xxx");
-        
+
 	}
 	
 	private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -355,9 +333,6 @@ public class EditorProfileListFragment extends Fragment {
 	public void onStart()
 	{
 		super.onStart();
-
-		//Log.d("EditorProfileListFragment.onStart", "xxxx");
-		
 	}
 	
 	@Override
@@ -381,7 +356,6 @@ public class EditorProfileListFragment extends Fragment {
 		
 		super.onDestroy();
 		
-		//Log.e("EditorProfileListFragment.onDestroy","xxx");
 	}
 	
 	@Override
@@ -395,14 +369,10 @@ public class EditorProfileListFragment extends Fragment {
 		
 		switch (item.getItemId()) {
 		/*case R.id.menu_new_profile:
-			//Log.d("PhoneProfileActivity.onOptionsItemSelected", "menu_new_profile");
-
 			startProfilePreferencesActivity(null);
 			
 			return true;*/
 		case R.id.menu_delete_all_profiles:
-			//Log.d("EditorProfileListFragment.onOptionsItemSelected", "menu_delete_all_profiles");
-			
 			deleteAllProfiles();
 			
 			return true;
@@ -431,8 +401,6 @@ public class EditorProfileListFragment extends Fragment {
 			editMode = EDIT_MODE_INSERT;
 		}
 
-		//Log.d("EditorProfileListFragment.startProfilePreferencesActivity", profile.getID()+"");
-		
 		// Notify the active callbacks interface (the activity, if the
 		// fragment is attached to one) one must start profile preferences
 		onStartProfilePreferencesCallback.onStartProfilePreferences(_profile, editMode, filterType);
@@ -720,7 +688,6 @@ public class EditorProfileListFragment extends Fragment {
 		
 		if (GlobalData.applicationEditorPrefIndicator)
 		{
-			//Log.e("EditorProfileListFragment.updateHeader","indicator");
 			ImageView profilePrefIndicatorImageView = (ImageView)getActivity().findViewById(R.id.activated_profile_pref_indicator);
 			if (profilePrefIndicatorImageView != null)
 			{

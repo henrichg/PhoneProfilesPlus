@@ -2,12 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-
-import java.util.Date;
-
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+
+import java.util.Date;
 
 public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 
@@ -31,11 +30,8 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 	            listener = new PhonecallStartEndDetector();
 	        }
 
-        	//Log.e("PhoneCallReceiver.onReceive","action="+intent.getAction());
-	        
 	        //We listen to two intents.  The new outgoing call only tells us of an outgoing call.  We use it to get the number.
 	        if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
-            	//Log.e("PhoneCallReceiver.onReceive","outgoing call");
 	            listener.setOutgoingNumber(intent.getExtras().getString("android.intent.extra.PHONE_NUMBER"));
 	            return;
 	        }
@@ -88,7 +84,6 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
             }
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
-                	//Log.e("PhonecallStartEndDetector.onCallStateChanged","ringing");
                 	inCall = false;
                     isIncoming = true;
                     callStartTime = new Date();
@@ -96,10 +91,8 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
                     onIncomingCallStarted(incomingNumber, callStartTime);
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
-                	//Log.e("PhonecallStartEndDetector.onCallStateChanged","offhook");
                     //Transition of ringing->offhook are pickups of incoming calls.  Nothing donw on them
                     if(lastState != TelephonyManager.CALL_STATE_RINGING){
-                    	//Log.e("PhonecallStartEndDetector.onCallStateChanged","isincoming=false");
                     	inCall = true;
                         isIncoming = false;
                         callStartTime = new Date();
@@ -107,7 +100,6 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
                     }
                     else
                     {
-                    	//Log.e("PhonecallStartEndDetector.onCallStateChanged","isincoming=true");
                     	inCall = true;
                         isIncoming = true;
                         callStartTime = new Date();
@@ -115,22 +107,18 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
                     }
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
-                	//Log.e("PhonecallStartEndDetector.onCallStateChanged","idle");
                     //Went to idle-  this is the end of a call.  What type depends on previous state(s)
                     if(!inCall){
                         //Ring but no pickup-  a miss
-                    	//Log.e("PhonecallStartEndDetector.onCallStateChanged","missed call");
                         onMissedCall(savedNumber, callStartTime);
                     }
                     else 
                     {
 	                    if(isIncoming){
-	                    	//Log.e("PhonecallStartEndDetector.onCallStateChanged","isincoming=true");
-	                        onIncomingCallEnded(savedNumber, callStartTime, new Date());                        
+	                        onIncomingCallEnded(savedNumber, callStartTime, new Date());
 	                    }
 	                    else{
-	                    	//Log.e("PhonecallStartEndDetector.onCallStateChanged","isincoming=false");
-	                        onOutgoingCallEnded(savedNumber, callStartTime, new Date());                                                
+	                        onOutgoingCallEnded(savedNumber, callStartTime, new Date());
 	                    }
                     	inCall = false;
                     }

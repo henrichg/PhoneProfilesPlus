@@ -18,9 +18,9 @@ package com.mobeta.android.dslv;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
 
 // taken from v4 rev. 10 ResourceCursorAdapter.java
 

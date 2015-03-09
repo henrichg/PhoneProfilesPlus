@@ -1,13 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.Calendar;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
+
+import java.util.Calendar;
 
 public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 

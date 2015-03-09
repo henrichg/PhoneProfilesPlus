@@ -2,13 +2,14 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+
 //import android.preference.Preference;
 //import android.preference.Preference.OnPreferenceChangeListener;
-import android.view.View;
 
 
 public class ImageViewPreferenceDialog extends Dialog {
@@ -31,8 +32,6 @@ public class ImageViewPreferenceDialog extends Dialog {
 		final Context _context = context;
 		
 		GridView gridView;
-		
-		//Log.d("ImageViewPreferenceDialog", "imageSource="+imageSource);
 		
 		if (imageSource.equals("resource_file"))
 		{

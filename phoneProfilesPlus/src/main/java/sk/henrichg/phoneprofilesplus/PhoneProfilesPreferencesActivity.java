@@ -147,27 +147,23 @@ public class PhoneProfilesPreferencesActivity extends ActionBarActivity
 		
 		if (activeLanguage != GlobalData.applicationLanguage)
 		{
-    		//Log.d("PhoneProfilesPreferencesActivity.onPause","language changed");
 			GUIData.setLanguage(getBaseContext());
 			invalidateEditor = true;
 		}
 		else
 		if (activeTheme != GlobalData.applicationTheme)
 		{
-    		//Log.d("PhoneProfilesPreferencesActivity.onPause","theme changed");
     		//EditorProfilesActivity.setTheme(this, false);
 			invalidateEditor = true;
 		}
 		else
    		if (showEditorPrefIndicator != GlobalData.applicationEditorPrefIndicator)
    		{
-       		//Log.d("PhoneProfilesPreferencesActivity.onPause","invalidate");
    			invalidateEditor = true;
    		}
 		else
    		if (showEditorHeader != GlobalData.applicationEditorHeader)
    		{
-       		//Log.d("PhoneProfilesPreferencesActivity.onPause","invalidate");
    			invalidateEditor = true;
    		}
 		

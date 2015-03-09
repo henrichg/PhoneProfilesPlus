@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.io.File;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +11,8 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+
+import java.io.File;
 
 public class BitmapManipulator {
 	

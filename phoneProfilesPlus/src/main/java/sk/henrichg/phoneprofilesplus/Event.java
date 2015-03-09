@@ -1,9 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -18,6 +14,10 @@ import android.net.Uri;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 public class Event {
 	
@@ -199,7 +199,6 @@ public class Event {
 	
 	public void createEventPreferences()
 	{
-		//Log.e("Event.createEventPreferences","type="+_type);
 		createEventPreferencesTime();
 		createEventPreferencesBattery();
 		createEventPreferencesCall();

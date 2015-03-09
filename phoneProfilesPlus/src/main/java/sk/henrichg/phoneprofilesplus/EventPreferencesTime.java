@@ -1,11 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.sql.Date;
-import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.TimeZone;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -17,6 +11,12 @@ import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
+
+import java.sql.Date;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class EventPreferencesTime extends EventPreferences {
 
@@ -93,7 +93,6 @@ public class EventPreferencesTime extends EventPreferences {
     	if (this._thursday) sValue = sValue + "4|";
     	if (this._friday) sValue = sValue + "5|";
     	if (this._saturday) sValue = sValue + "6|";
-		//Log.e("EventPreferencesTime.loadSharedPreferences",sValue);
 
     	int gmtOffset = TimeZone.getDefault().getRawOffset();
     	
@@ -110,7 +109,6 @@ public class EventPreferencesTime extends EventPreferences {
 		this._enabled = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
 		
 		String sDays = preferences.getString(PREF_EVENT_TIME_DAYS, DaysOfWeekPreference.allValue);
-		//Log.e("EventPreferencesTime.saveSharedPreferences",sDays);
 		String[] splits = sDays.split("\\|");
 		if (splits[0].equals(DaysOfWeekPreference.allValue))
 		{
@@ -253,8 +251,6 @@ public class EventPreferencesTime extends EventPreferences {
     	if (resDayOfWeek > 6)
     		resDayOfWeek = resDayOfWeek - 7;
 
-    	//Log.e("DaysOfWeekPreference.getDayOfWeekByLocale","resDayOfWeek="+resDayOfWeek);
-    	
     	return resDayOfWeek;
     }
 

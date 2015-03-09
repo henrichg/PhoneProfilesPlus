@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.List;
-
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class ShortcutProfileListAdapter extends BaseAdapter {
 
@@ -97,8 +97,6 @@ public class ShortcutProfileListAdapter extends BaseAdapter {
 			//profilePrefIndicatorImageView.setImageBitmap(bitmap);
 			holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
 		}
-        
-        //Log.d("ShortcutProfileListAdapter.getView", profile.getName());
         
 		return vi;
 	}

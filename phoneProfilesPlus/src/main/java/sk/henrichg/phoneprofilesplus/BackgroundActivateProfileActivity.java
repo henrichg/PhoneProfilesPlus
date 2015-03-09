@@ -1,8 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 
 public class BackgroundActivateProfileActivity extends Activity {
 
@@ -16,8 +16,6 @@ public class BackgroundActivateProfileActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//Log.d("BackgroundActivateProfileActivity.onCreate","xxx");
-		
 		GlobalData.loadPreferences(getBaseContext());
 		
 		dataWrapper = new DataWrapper(getBaseContext(), true, false, 0);
@@ -25,7 +23,6 @@ public class BackgroundActivateProfileActivity extends Activity {
 		intent = getIntent();
 		startupSource = intent.getIntExtra(GlobalData.EXTRA_START_APP_SOURCE, 0);
 		profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
-		//Log.d("BackgroundActivateProfileActivity.onStart", "profile_id="+profile_id);
 
 		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getBaseContext());
 		
@@ -36,10 +33,7 @@ public class BackgroundActivateProfileActivity extends Activity {
 	{
 		super.onStart();
 
-		//Log.e("BackgroundActivateProfileActivity.onStart", "startupSource="+startupSource);
-
 		dataWrapper.activateProfile(profile_id, startupSource, this, "");
-		
 	}
 	
 	@Override

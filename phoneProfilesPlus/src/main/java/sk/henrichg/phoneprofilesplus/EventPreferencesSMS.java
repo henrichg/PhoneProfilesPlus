@@ -1,9 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.TimeZone;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -15,6 +11,10 @@ import android.content.SharedPreferences.Editor;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class EventPreferencesSMS extends EventPreferences {
 

@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -13,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class EditorEventListAdapter extends BaseAdapter
 {
@@ -436,13 +436,11 @@ public class EditorEventListAdapter extends BaseAdapter
 	        holder.eventItemEditMenu.setOnClickListener(new OnClickListener() {
 	
 					public void onClick(View v) {
-						//Log.d("EditorEventListAdapter.onClick", "delete");
 						((EditorEventListFragment)fragment).finishEventPreferencesActionMode();
 						((EditorEventListFragment)fragment).showEditMenu(eventItemEditMenu);
 					}
 				}); 
 			
-	        //Log.d("ProfileListAdapter.getView", profile.getName());
         }
         
 		return vi;

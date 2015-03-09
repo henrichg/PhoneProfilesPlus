@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.sql.Date;
-import java.util.Calendar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
@@ -9,6 +7,9 @@ import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
+
+import java.sql.Date;
+import java.util.Calendar;
 
 public class TimePreference extends DialogPreference {
     
@@ -41,8 +42,6 @@ public class TimePreference extends DialogPreference {
         //{
         //	 DateFormat.is24HourFormat(context);
         //}
-        //Log.e("TimePreference.onCreateDialogView", "clockType="+clockType);
-        //Log.e("TimePreference.onCreateDialogView", "is24Hour="+DateFormat.is24HourFormat(context));
         picker.setIs24HourView(DateFormat.is24HourFormat(context));
         return (picker);
     }

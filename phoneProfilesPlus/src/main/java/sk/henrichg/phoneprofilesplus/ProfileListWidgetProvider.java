@@ -271,8 +271,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
 	{
-		//Log.e("ProfileListWidgetProvider.onUpdate","xxx");
-		
 		createProfilesDataWrapper(context);
 
 		for (int i=0; i<appWidgetIds.length; i++)
@@ -294,8 +292,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
 		String action = intent.getAction();
 		
-		//Log.e("ProfileListWidgetProvider.onReceive","action="+action);
-
 		int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
 				AppWidgetManager.INVALID_APPWIDGET_ID);
 		
@@ -306,9 +302,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 		{
 			int spanX = intent.getIntExtra("spanX", 1);
 			int spanY = intent.getIntExtra("spanY", 1);
-			//Log.e("ProfileListWidgetProvider.onReceive","spanX="+spanX);
-			//Log.e("ProfileListWidgetProvider.onReceive","spanY="+spanY);
-			//Log.e("ProfileListWidgetProvider.onReceive","appWidgetId="+appWidgetId);
 
 			AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 	        setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
@@ -353,8 +346,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 				minHeight = appWidgetProviderInfo.minHeight;
 			}
 
-			//Log.e("ProfileListWidgetProvider.setLayoutParams","minHeight="+minHeight);
-			
 		}
 		else
 		{
@@ -363,7 +354,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 				minHeight = appWidgetProviderInfo.minHeight;
 			else
 				minHeight = 0;
-			//Log.e("ProfileListWidgetProvider.setLayoutParams"," null minHeight="+minHeight);
 
 			//if (minHeight == 0)
 			//	return;
@@ -418,8 +408,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager,
             int appWidgetId, Bundle newOptions) 
     {
-		//Log.e("ProfileListWidgetProvider.onAppWidgetOptionsChanged","xxx");
-
 		createProfilesDataWrapper(context);
 		
 		String preferenceKey = "isLargeLayout_"+appWidgetId;

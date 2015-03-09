@@ -43,9 +43,6 @@ public class ApplicationsPreference extends Preference {
 		
 		preferenceTitle = getTitle();
 		
-		//Log.d("ApplicationsPreference", "title="+preferenceTitle);
-		//Log.d("ApplicationsPreference", "imageSource="+imageSource);
-		
 		setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
 		
 		//pedArray.recycle();
@@ -57,8 +54,6 @@ public class ApplicationsPreference extends Preference {
 	{
 		super.onBindView(view);
 
-		//Log.d("ApplicationsPreference.onBindView", "packageName="+packageName);
-		
 		//preferenceTitleView = (TextView)view.findViewById(R.id.applications_pref_label);  // resource na title
 		//preferenceTitleView.setText(preferenceTitle);
 		
@@ -94,8 +89,6 @@ public class ApplicationsPreference extends Preference {
 	protected void onClick()
 	{
 		// klik na preference
-
-		//Log.d("ApplicationsPreference.onClick", "packageName="+packageName);
 
 		final ApplicationsPreferenceDialog dialog = new ApplicationsPreferenceDialog(prefContext, this, packageName);
 		dialog.setTitle(R.string.title_activity_applications_preference_dialog);

@@ -1,8 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.Calendar;
-import java.util.TimeZone;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +7,9 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.telephony.SmsMessage;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
 

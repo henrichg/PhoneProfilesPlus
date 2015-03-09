@@ -1,9 +1,4 @@
 package sk.henrichg.phoneprofilesplus;
- 
-import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnHideActionModeInProfilePreferences;
-import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRedrawProfileListFragment;
-import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRestartProfilePreferences;
-import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnShowActionModeInProfilePreferences;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +12,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnHideActionModeInProfilePreferences;
+import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRedrawProfileListFragment;
+import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRestartProfilePreferences;
+import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnShowActionModeInProfilePreferences;
 
 public class ProfilePreferencesFragmentActivity extends ActionBarActivity
 												implements OnRestartProfilePreferences,
@@ -65,8 +65,6 @@ public class ProfilePreferencesFragmentActivity extends ActionBarActivity
         else
         	getSupportActionBar().setTitle(R.string.title_activity_profile_preferences);
         
-        //Log.e("ProfilePreferencesFragmentActivity.onCreate","profile_id="+profile_id);
-        
 		if (savedInstanceState == null) {
 			Bundle arguments = new Bundle();
 			arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile_id);
@@ -81,8 +79,6 @@ public class ProfilePreferencesFragmentActivity extends ActionBarActivity
 					.replace(R.id.activity_profile_preferences_container, fragment, "ProfilePreferencesFragment").commit();
 		}
 		
-    	//Log.d("ProfilePreferencesFragmentActivity.onCreate", "xxxx");
-		
     }
 	
 	@Override
@@ -94,8 +90,6 @@ public class ProfilePreferencesFragmentActivity extends ActionBarActivity
 	@Override
 	public void finish() {
 		
-		//Log.e("ProfilePreferencesFragmentActivity.finish","xxx");
-
 		ProfilePreferencesFragment fragment = (ProfilePreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_profile_preferences_container);
 		if (fragment != null)
 			profile_id = fragment.profile_id;

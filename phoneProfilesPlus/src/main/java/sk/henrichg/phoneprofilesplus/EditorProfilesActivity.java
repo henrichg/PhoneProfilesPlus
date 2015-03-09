@@ -1,5 +1,50 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.preference.PreferenceScreen;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,53 +68,6 @@ import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnHideActionMode
 import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRedrawProfileListFragment;
 import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRestartProfilePreferences;
 import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnShowActionModeInProfilePreferences;
-
-import android.content.Context;
-import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.preference.PreferenceScreen;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.content.res.Configuration;
-
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class EditorProfilesActivity extends ActionBarActivity
                                     implements OnStartProfilePreferences,
@@ -446,7 +444,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 		eventsRunStopIndicator = (ImageView)findViewById(R.id.editor_list_run_stop_indicator);
         
 		// set drawer item and order
-        //Log.e("EditorProfilesActivity.onCreate","applicationEditorSaveEditorState="+GlobalData.applicationEditorSaveEditorState);
         if ((savedInstanceState != null) || (GlobalData.applicationEditorSaveEditorState))
         {
         	SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
@@ -454,16 +451,12 @@ public class EditorProfilesActivity extends ActionBarActivity
         	orderSelectedItem = preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 2); // priority
         }
 
-        //Log.e("EditorProfilesActivity.onCreate","orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
     	changeEventOrder(orderSelectedItem, savedInstanceState != null);
     	selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null);
 
 		refreshGUI();
     	
-        //Log.e("EditorProfilesActivity.onCreate", "drawerSelectedItem="+drawerSelectedItem);
-		
-		
 	}
 	
 	public static EditorProfilesActivity getInstance()
@@ -475,9 +468,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 	protected void onStart()
 	{
 		super.onStart();
-
-		//Log.d("EditorProfilesActivity.onStart", "xxxx");
-		
 	}
 
 	@Override
@@ -516,8 +506,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 
 		super.onDestroy();
 
-		//Log.e("EditorProfilesActivity.onDestroy","xxx");
-	
 	}
 	
 	@Override
@@ -629,8 +617,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 			
 			return true;
 		case R.id.menu_settings:
-			//Log.d("EditorProfilesActivity.onOptionsItemSelected", "menu_settings");
-			
 			intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
 
 			startActivityForResult(intent, GlobalData.REQUEST_CODE_APPLICATION_PREFERENCES);
@@ -643,14 +629,10 @@ public class EditorProfilesActivity extends ActionBarActivity
 			PhoneProfilesHelper.uninstallPPHelper(this);
 			return true;
 		case R.id.menu_export:
-			//Log.d("EditorProfilesActivity.onOptionsItemSelected", "menu_export");
-
 			exportData();
 			
 			return true;
 		case R.id.menu_import:
-			//Log.d("EditorProfilesActivity.onOptionsItemSelected", "menu_import");
-
 			importData();
 			
 			return true;
@@ -665,8 +647,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 			}			
 			return true;*/
 		case R.id.menu_exit:
-			//Log.d("EditorProfilesActivity.onOptionsItemSelected", "menu_exit");
-
 			GlobalData.setApplicationStarted(getBaseContext(), false);
 			
 			// stop all events
@@ -729,9 +709,6 @@ public class EditorProfilesActivity extends ActionBarActivity
     }
  
     private void selectDrawerItem(int position, boolean removePreferences, boolean orientationChange) {
-
-        Log.e("EditorProfilesActivity.selectDrawerItem","position="+position);
-        Log.e("EditorProfilesActivity.selectDrawerItem","orientationChange="+orientationChange);
 
 		Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
 		if (position == 0) position = 2;
@@ -865,16 +842,12 @@ public class EditorProfilesActivity extends ActionBarActivity
     {
     	orderSelectedItem = position;
     	
-        Log.e("EditorProfilesActivity.changeEventOrder","orderSelectedItem="+orderSelectedItem);
-        Log.e("EditorProfilesActivity.changeEventOrder","orientationChange="+orientationChange);
-
     	// save into shared preferences
     	SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
     	Editor editor = preferences.edit();
     	editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
 		editor.commit();
 
-		//Log.e("EditorProfilesActivity.changeEventOrder","xxx");
 		eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
 		switch (position)
 		{
@@ -943,15 +916,10 @@ public class EditorProfilesActivity extends ActionBarActivity
 				long event_id = data.getLongExtra(GlobalData.EXTRA_EVENT_ID, 0L);
 				int newEventMode = data.getIntExtra(GlobalData.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
 				
-				//Log.e("EditorProfilesActivity.onActivityResult","event_id="+event_id);
-				//Log.e("EditorProfilesActivity.onActivityResult","newEventMode="+newEventMode);
-				
 				if (event_id > 0)
 				{
 					Event event = getDataWrapper().getDatabaseHandler().getEvent(event_id);
 	
-					//Log.e("EditorProfilesActivity.onActivityResult","event._id="+event._id);
-		
 					// redraw list fragment , notifications, widgets after finish ProfilePreferencesFragmentActivity
 					onRedrawEventListFragment(event, newEventMode);
 				}
@@ -974,8 +942,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 		else
 		if (requestCode == GlobalData.REQUEST_CODE_REMOTE_EXPORT)
 		{
-			//Log.e("EditorProfilesActivity.onActivityResult","resultCode="+resultCode);
-
 			if (resultCode == RESULT_OK)
 			{
 				doImportData(GUIData.REMOTE_EXPORT_PATH);
@@ -1693,8 +1659,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 		EditorProfileListFragment fragment = (EditorProfileListFragment)getFragmentManager().findFragmentById(R.id.editor_list_container);
 		if (fragment != null)
 		{
-			//Log.e("EditorProfilesActivity.onRedrawProfileListFragment","profile._showInActivator="+profile._showInActivator);
-			
 			// update profile, this rewrite profile in profileList
 			fragment.dataWrapper.updateProfile(profile);
 
@@ -1984,9 +1948,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 		Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
 		if (fragment != null)
 		{
-			//Log.e("EditorProfilesActivity.getDataWrapper","COUNT_DRAWER_PROFILE_ITEMS="+COUNT_DRAWER_PROFILE_ITEMS);
-			//Log.e("EditorProfilesActivity.getDataWrapper","drawerSelectedItem="+drawerSelectedItem);
-			
 			if (fragment instanceof EditorProfileListFragment)
 				return ((EditorProfileListFragment)fragment).dataWrapper;
 			else
@@ -2016,9 +1977,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 		Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
 		if (fragment != null)
 		{
-			//Log.e("EditorProfilesActivity.getDataWrapper","COUNT_DRAWER_PROFILE_ITEMS="+COUNT_DRAWER_PROFILE_ITEMS);
-			//Log.e("EditorProfilesActivity.getDataWrapper","drawerSelectedItem="+drawerSelectedItem);
-			
 			if (fragment instanceof EditorProfileListFragment)
 				((EditorProfileListFragment)fragment).refreshGUI();
 			else

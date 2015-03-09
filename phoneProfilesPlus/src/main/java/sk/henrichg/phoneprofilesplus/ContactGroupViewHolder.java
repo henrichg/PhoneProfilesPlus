@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ContactGroupViewHolder {

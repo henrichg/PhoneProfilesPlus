@@ -1,15 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.Arrays;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceManager;
+
+import java.util.Arrays;
 
 public class EventPreferencesScreen extends EventPreferences {
 
@@ -134,8 +134,6 @@ public class EventPreferencesScreen extends EventPreferences {
                 	iNewValue = 100;
                 else
                 	iNewValue = Integer.parseInt(sNewValue);
-                
-                //Log.e("EventPreferencesScreen.checkPreferences.whenUnlockedPreference","iNewValue="+iNewValue);
                 
                 setWhenUnlockedTitle(_prefMng, iNewValue);
                 

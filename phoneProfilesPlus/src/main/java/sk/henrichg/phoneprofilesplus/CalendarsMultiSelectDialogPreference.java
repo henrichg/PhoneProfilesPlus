@@ -1,8 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,10 +11,12 @@ import android.provider.CalendarContract.Calendars;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalendarsMultiSelectDialogPreference extends DialogPreference
 {

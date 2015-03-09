@@ -1,21 +1,21 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Environment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class RemoteExportDataActivity extends Activity {
 
@@ -25,8 +25,6 @@ public class RemoteExportDataActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//Log.e("RemoteExportDataActivity.onCreate", "xxx");
-		
 		dataWrapper = new DataWrapper(getBaseContext(), false, false, 0);
 		
 	}
@@ -130,8 +128,6 @@ public class RemoteExportDataActivity extends Activity {
 		            dialog.dismiss();
                 unlockScreenOrientation();
 				
-				//Log.e("RemoteExportDataActivity.onPostExecute","result="+result);
-			    
 				if (result == 1)
 				{
 					Intent returnIntent = new Intent();

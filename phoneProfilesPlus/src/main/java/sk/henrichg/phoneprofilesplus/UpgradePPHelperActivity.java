@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 
 public class UpgradePPHelperActivity extends Activity {
 
@@ -9,8 +9,6 @@ public class UpgradePPHelperActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//Log.d("UpgradePPHelperActivity.onCreate","xxx");
-		
 		GlobalData.loadPreferences(getBaseContext());
 	}
 
@@ -19,8 +17,6 @@ public class UpgradePPHelperActivity extends Activity {
 	{
 		super.onStart();
 
-		//Log.e("UpgradePPHelperActivity.onStart", "startupSource="+startupSource);
-		
 		PhoneProfilesHelper.installPPHelper(this, true);
 	}
 	

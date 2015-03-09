@@ -1,26 +1,25 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.lang.ref.WeakReference;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Fragment;
 import android.content.Intent;
-
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.lang.ref.WeakReference;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class ActivateProfileListFragment extends Fragment {
 
@@ -106,11 +105,9 @@ public class ActivateProfileListFragment extends Fragment {
 
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-				//Log.d("ActivateProfilesActivity.onItemClick", "xxxx");
-
-				if (!GlobalData.applicationLongClickActivation)
-					//activateProfileWithAlert(position);
-					activateProfile((Profile)profileListAdapter.getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
+            if (!GlobalData.applicationLongClickActivation)
+                //activateProfileWithAlert(position);
+                activateProfile((Profile)profileListAdapter.getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
 
 			}
 			
@@ -120,13 +117,11 @@ public class ActivateProfileListFragment extends Fragment {
 
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-				//Log.d("ActivateProfilesActivity.onItemLongClick", "xxxx");
-				
-				if (GlobalData.applicationLongClickActivation)
-					//activateProfileWithAlert(position);
-					activateProfile((Profile)profileListAdapter.getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
+            if (GlobalData.applicationLongClickActivation)
+                //activateProfileWithAlert(position);
+                activateProfile((Profile)profileListAdapter.getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
 
-				return false;
+            return false;
 			}
 			
 		});
@@ -145,8 +140,6 @@ public class ActivateProfileListFragment extends Fragment {
 			doOnStart();
 		}
 		
-		//Log.d("EditorProfileListFragment.onActivityCreated", "xxx");
-        
 	}
 	
 	private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -236,23 +229,16 @@ public class ActivateProfileListFragment extends Fragment {
 	{
 		//long nanoTimeStart = GlobalData.startMeasuringRunTime();
 
-		//Log.d("ActivateProfilesActivity.onStart", "startupSource="+startupSource);
-
 		Profile profile = dataWrapper.getActivatedProfile();
 		
 		updateHeader(profile);
 		endOnStart();
 
 		//GlobalData.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onStart");
-		
-		//Log.d("PhoneProfileActivity.onStart", "xxxx");
-		
 	}
 	
 	private void endOnStart()
 	{
-		//Log.e("ActivateProfileActivity.endOnStart","xxx");
-
 		//  aplikacia uz je 1. krat spustena - is in FirstStartService
 		//GlobalData.setApplicationStarted(getActivity().getBaseContext(), true);
 	}
@@ -262,9 +248,6 @@ public class ActivateProfileListFragment extends Fragment {
 	public void onStart()
 	{
 		super.onStart();
-
-		//Log.d("EditorProfileListFragment.onStart", "xxxx");
-		
 	}
 	
 	@Override

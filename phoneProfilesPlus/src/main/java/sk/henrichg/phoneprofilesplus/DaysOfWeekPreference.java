@@ -1,13 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
 
-import java.text.DateFormatSymbols;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.util.AttributeSet;
+
+import java.text.DateFormatSymbols;
 
 /**
  * A {@link Preference} that displays a list of entries as
@@ -136,8 +137,6 @@ public class DaysOfWeekPreference extends ListPreference {
     	newEntryValues[0] = allValue;
     	
     	String[] namesOfDay = DateFormatSymbols.getInstance().getWeekdays();
-    	//for (int i = 1; i < 8; i++)
-    	//	Log.e("DaysOfWeekPreference.onPrepareDialogBuilder", "namesOfDay="+namesOfDay[i]);
 
     	int dayOfWeek;
     	for (int i = 1; i < 8; i++)

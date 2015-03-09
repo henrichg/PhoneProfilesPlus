@@ -1,10 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.lang.ref.WeakReference;
-import java.util.List;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -12,13 +7,17 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class ShortcutCreatorListFragment extends Fragment {
 
@@ -69,8 +68,6 @@ public class ShortcutCreatorListFragment extends Fragment {
 
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-				//Log.d("ShortcutCreatorActivity.onItemClick", "xxxx");
-				
 				createShortcut(position);
 
 			}
@@ -88,8 +85,6 @@ public class ShortcutCreatorListFragment extends Fragment {
 			listView.setAdapter(profileListAdapter);
 		}
 		
-		//Log.d("EditorProfileListFragment.onActivityCreated", "xxx");
-        
 	}
 	
 	private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -139,9 +134,6 @@ public class ShortcutCreatorListFragment extends Fragment {
 	public void onStart()
 	{
 		super.onStart();
-
-		//Log.d("EditorProfileListFragment.onStart", "xxxx");
-		
 	}
 	
 	@Override

@@ -1,6 +1,4 @@
 package sk.henrichg.phoneprofilesplus;
- 
-import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -22,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+
+import java.util.List;
  
 public class EventPreferencesFragment extends PreferenceFragment 
 										implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -176,7 +176,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 			new_event_mode = getArguments().getInt(GlobalData.EXTRA_NEW_EVENT_MODE);
 		if (getArguments().containsKey(GlobalData.EXTRA_EVENT_ID))
 			event_id = getArguments().getLong(GlobalData.EXTRA_EVENT_ID);
-    	//Log.e("EventPreferencesFragment.onCreate", "event_position=" + event_position);
 		if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT)
 		{
 			// create new event - default is TIME
@@ -207,8 +206,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 		else
 			event = dataWrapper.getEventById(event_id);
 
-    	//Log.e("EventPreferencesFragment.onCreate", "event_type_new="+event_type_new);
-    	
         preferences = prefMng.getSharedPreferences();
         
 		if (savedInstanceState == null)
@@ -244,7 +241,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 
 		updateSharedPreference();
        	
-    	//Log.d("EventPreferencesFragment.onCreate", "xxxx");
     }
 	
 	@Override
@@ -255,7 +251,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 		// must by in onStart(), in ocCreate() crashed
     	SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
     	int actionModeShowed = preferences.getInt(SP_ACTION_MODE_SHOWED, 0);
-		//Log.e("EventPreferencesFragment.onStart","actionModeShowed="+actionModeShowed);
         if (actionModeShowed == 2)
         	showActionMode();
         else
@@ -263,11 +258,6 @@ public class EventPreferencesFragment extends PreferenceFragment
             (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
         	&& (actionModeShowed == 0))
         	showActionMode();
-
-		//Log.e("EventPreferencesFragment.onStart","typeOld="+String.valueOf(event._typeOld));
-		
-    	//Log.d("EventPreferencesFragment.onStart", preferences.getString(PREF_EVENT_NAME, ""));
-
 	}
 	
 	@Override
@@ -282,8 +272,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 			actionMode.finish();
 		}
 		*/
-		
-    	//Log.d("EventPreferencesFragment.onPause", "xxxx");
 		
 	}
 	
@@ -336,8 +324,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 	
 	private void savePreferences()
 	{
-		//Log.e("EventPreferencesFragment.savePreferences","xxx");
-		
 		List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
 
 		if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
@@ -351,9 +337,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 
 			// restart Events
 			dataWrapper.restartEvents(false, false);
-			
-        	//Log.d("ProfilePreferencesFragment.savePreferences", "addEvent");
-			
 		}
 		else
     	if (event_id > 0) 
@@ -376,8 +359,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 			// restart Events
 			dataWrapper.restartEvents(false, false);
 			
-        	//Log.d("EventPreferencesFragment.savePreferences", "updateEvent");
-
         }
 
         onRedrawEventListFragmentCallback.onRedrawEventListFragment(event, new_event_mode);
@@ -390,7 +371,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 
 	    	// updating activity with selected event preferences
 	    	
-        	//Log.d("EventPreferencesActivity.updateSharedPreference", event.getName());
     		event.setAllSummary(prefMng, context);
 			
         }
@@ -477,11 +457,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         
         actionMode.getCustomView().findViewById(R.id.event_preferences_action_menu_cancel).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				
-				//Log.d("actionMode.onClick", "cancel");
-				
 				finishActionMode(BUTTON_CANCEL);
-				
 			}
        	});
 

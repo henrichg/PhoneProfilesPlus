@@ -1,11 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.List;
-
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+
+import java.util.List;
 
 public class EventsService extends IntentService
 {

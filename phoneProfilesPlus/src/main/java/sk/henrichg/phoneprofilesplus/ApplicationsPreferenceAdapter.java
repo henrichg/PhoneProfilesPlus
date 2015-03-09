@@ -64,9 +64,6 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter {
 			holder = (ViewHolder)vi.getTag();
 		}
 		
-		//Log.d("ApplicationsPreferenceAdapter.getView", EditorProfilesActivity.getApplicationsCache().getApplicationLabel(position).toString());
-		//Log.d("ApplicationsPreferenceAdapter.getView", EditorProfilesActivity.getApplicationsCache().getApplicationIcon(position).toString());
-		
 		ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
 		
 		holder.applicationLabel.setText(applicationsCahce.getApplicationLabel(position));

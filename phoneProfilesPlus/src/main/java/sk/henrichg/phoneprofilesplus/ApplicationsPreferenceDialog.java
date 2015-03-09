@@ -3,16 +3,17 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
+import android.content.DialogInterface.OnShowListener;
+import android.os.AsyncTask;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.os.AsyncTask;
+
 //import android.preference.Preference;
 //import android.preference.Preference.OnPreferenceChangeListener;
-import android.view.View;
-import android.content.DialogInterface.OnShowListener;
-import android.content.DialogInterface.OnDismissListener;
 
 
 public class ApplicationsPreferenceDialog extends Dialog 

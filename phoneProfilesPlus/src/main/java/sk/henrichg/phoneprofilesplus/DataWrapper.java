@@ -1,12 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.TimeZone;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,6 +27,13 @@ import android.text.format.DateFormat;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.TimeZone;
 
 public class DataWrapper {
 
@@ -270,7 +270,6 @@ public class DataWrapper {
 		Profile profile = getDatabaseHandler().getActivatedProfile();
 		if (forGUI && (profile != null))
 		{
-			//Log.d("ProfilesDataWrapper.getActivatedProfile","forGUI=true");
 			profile.generateIconBitmap(context, monochrome, monochromeValue);
 			profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
 		}
@@ -281,12 +280,10 @@ public class DataWrapper {
 	{
 		if (profileList == null)
 		{
-			//Log.d("ProfilesDataWrapper.getActivatedProfile","profileList=null");
 			return getActivatedProfileFromDB();
 		}
 		else
 		{
-			//Log.d("ProfilesDataWrapper.getActivatedProfile","profileList!=null");
 			Profile profile;
 			for (int i = 0; i < profileList.size(); i++)
 			{
@@ -367,7 +364,6 @@ public class DataWrapper {
 	
 	public void activateProfileFromEvent(long profile_id, boolean interactive, String eventNotificationSound)
 	{
-		//Log.d("PhoneProfilesService.activateProfile",profile_id+"");
 		getActivateProfileHelper().initialize(this, null, context);
 		_activateProfile(getProfileById(profile_id), GlobalData.STARTUP_SOURCE_SERVICE, interactive, null, eventNotificationSound);
 	}
@@ -1243,8 +1239,6 @@ public class DataWrapper {
 			}*/
 		}
 			
-		//Log.d("DataWrapper.activateProfile", "actProfile="+String.valueOf(actProfile));
-
 		if ((startupSource == GlobalData.STARTUP_SOURCE_SHORTCUT) ||
 			(startupSource == GlobalData.STARTUP_SOURCE_WIDGET) ||
 			(startupSource == GlobalData.STARTUP_SOURCE_ACTIVATOR) ||
@@ -1257,9 +1251,6 @@ public class DataWrapper {
 				profile = null;
 			else
 				profile = getProfileById(profile_id);
-
-			//Log.d("DataWrapper.activateProfile","_iconBitmap="+String.valueOf(profile._iconBitmap));
-			//Log.d("DataWrapper.activateProfile","_preferencesIndicator="+String.valueOf(profile._preferencesIndicator));
 		}
 
 		
@@ -1418,8 +1409,6 @@ public class DataWrapper {
                             Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
                             while (phones.moveToNext()) {
                                 String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                //Log.e("DataWrapper.doEventService","_phoneNumber="+_phoneNumber);
-                                //Log.e("DataWrapper.doEventService","phoneNumber="+phoneNumber);
                                 if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                     phoneNumberFinded = true;
                                     break;
@@ -1452,8 +1441,6 @@ public class DataWrapper {
                                 Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
                                 while (phones.moveToNext()) {
                                     String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                    //Log.e("DataWrapper.doEventService","_phoneNumber="+_phoneNumber);
-                                    //Log.e("DataWrapper.doEventService","phoneNumber="+phoneNumber);
                                     if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                         phoneNumberFinded = true;
                                         break;
@@ -1475,9 +1462,6 @@ public class DataWrapper {
 				else
 					phoneNumberFinded = true;
 
-				//Log.e("DataWrapper.doEventService","phoneNumberFinded="+phoneNumberFinded);
-				//Log.e("DataWrapper.doEventService","EventsService.callEventType="+EventsService.callEventType);
-				
 				if (phoneNumberFinded)
 				{
 					if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
@@ -1737,7 +1721,6 @@ public class DataWrapper {
 			{
 				KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 				keyguardShowing = kgMgr.inKeyguardRestrictedInputMode();
-				//Log.e("DataWrapper.doEventService", "keyguardShowing="+keyguardShowing);
 			}
 			
 			if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON)
@@ -1902,8 +1885,6 @@ public class DataWrapper {
                                 Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
                                 while (phones.moveToNext()) {
                                     String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                    //Log.e("DataWrapper.doEventService","_phoneNumber="+_phoneNumber);
-                                    //Log.e("DataWrapper.doEventService","phoneNumber="+phoneNumber);
                                     if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                         phoneNumberFinded = true;
                                         break;
@@ -1936,8 +1917,6 @@ public class DataWrapper {
                                     Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
                                     while (phones.moveToNext()) {
                                         String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                        //Log.e("DataWrapper.doEventService","_phoneNumber="+_phoneNumber);
-                                        //Log.e("DataWrapper.doEventService","phoneNumber="+phoneNumber);
                                         if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                             phoneNumberFinded = true;
                                             break;
@@ -1959,8 +1938,6 @@ public class DataWrapper {
 					else
 						phoneNumberFinded = true;
 	
-					//Log.e("DataWrapper.doEventService","phoneNumberFinded="+phoneNumberFinded);
-					
 					if (phoneNumberFinded)
 					{
 						//if (event._eventPreferencesSMS._smsEvent == smsEventType)

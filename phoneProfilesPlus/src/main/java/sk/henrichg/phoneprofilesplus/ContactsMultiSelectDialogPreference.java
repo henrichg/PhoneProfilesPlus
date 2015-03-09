@@ -1,8 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -10,10 +7,11 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import java.util.List;
 
 public class ContactsMultiSelectDialogPreference extends DialogPreference
 {
