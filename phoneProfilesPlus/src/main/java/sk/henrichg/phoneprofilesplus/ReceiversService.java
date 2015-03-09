@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 
 
@@ -22,6 +23,8 @@ public class ReceiversService extends Service {
 	@Override
     public void onCreate()
 	{
+        GlobalData.logE("ReceiversService.onCreate", "xxxxx");
+
 		// start service for first start
 		Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
 		getApplicationContext().startService(eventsServiceIntent);
@@ -69,6 +72,8 @@ public class ReceiversService extends Service {
 	@Override
     public void onDestroy()
 	{
+        GlobalData.logE("ReceiversService.onDestroy", "xxxxx");
+
 		unregisterReceiver(batteryEventReceiver);
 		unregisterReceiver(headsetPlugReceiver);
 		unregisterReceiver(wifiStateChangedReceiver);
@@ -85,6 +90,8 @@ public class ReceiversService extends Service {
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId)
 	{
+        GlobalData.logE("ReceiversService.onStartCommand", "xxxxx");
+
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
         return START_STICKY;

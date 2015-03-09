@@ -62,6 +62,8 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 	        		{
                         // wifi is not scanned
 
+                        GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","wifi is not scanned");
+
 		    			DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 		    			boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
 		    			dataWrapper.invalidateDataWrapper();

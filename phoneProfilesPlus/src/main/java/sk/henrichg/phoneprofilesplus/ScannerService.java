@@ -108,17 +108,15 @@ public class ScannerService extends IntentService
 					if ((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                         (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)))
 					{
-						GlobalData.logE("@@@ ScannerService.onHandleIntent", "waiting for scan end");
+						GlobalData.logE("$$$ ScannerService.onHandleIntent", "waiting for scan end");
 
 						// wait for scan end
 						waitForWifiScanEnd(context, null);
 		    		    
-						GlobalData.logE("@@@ ScannerService.onHandleIntent", "scan ended");
+						GlobalData.logE("$$$ ScannerService.onHandleIntent", "scan ended");
 
                         if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
                         {
-                            GlobalData.logE("@@@ ScannerService.onHandleIntent","disable wifi");
-
                             /*
                             try {
                                 Thread.sleep(700);

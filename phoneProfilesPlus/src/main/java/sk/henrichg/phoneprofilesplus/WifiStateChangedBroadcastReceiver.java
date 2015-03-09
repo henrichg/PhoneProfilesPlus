@@ -37,8 +37,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
     			// start scan
 				if ((!GlobalData.getEventsBlocked(context)) || GlobalData.getForceOneWifiScan(context))
 				{
-					if (WifiScanAlarmBroadcastReceiver.getScanRequest(context))
-						WifiScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
+					if (WifiScanAlarmBroadcastReceiver.getScanRequest(context)) {
+                        GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","before startScan");
+                        WifiScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
+                        GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","after startScan");
+                    }
 					else
 					if (!WifiScanAlarmBroadcastReceiver.getWaitForResults(context))
 					{
