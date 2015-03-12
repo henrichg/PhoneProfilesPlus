@@ -1170,18 +1170,14 @@ public class EditorProfilesActivity extends ActionBarActivity
 
 					dataWrapper.invalidateProfileList();
 					dataWrapper.invalidateEventList();
+
+                    dataWrapper.updateNotificationAndWidgets(null, "");
+					//dataWrapper.getActivateProfileHelper().showNotification(null, "");
+					//dataWrapper.getActivateProfileHelper().updateWidget();
 					
-					dataWrapper.getActivateProfileHelper().showNotification(null, "");
-					dataWrapper.getActivateProfileHelper().updateWidget();
-					
-					GlobalData.setEventsBlocked(getBaseContext(), false);
-					
-					// toast notification
-					Toast msg = Toast.makeText(getBaseContext(), 
-							getResources().getString(R.string.toast_import_ok), 
-							Toast.LENGTH_SHORT);
-					msg.show();
-					
+                    GlobalData.setEventsBlocked(getBaseContext(), false);
+                    dataWrapper.getDatabaseHandler().unblockAllEvents();
+                    GlobalData.setForceRunEventRunning(getBaseContext(), false);
 
 			    	SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
 			    	Editor editor = preferences.edit();
@@ -1200,6 +1196,12 @@ public class EditorProfilesActivity extends ActionBarActivity
 						*/
                         dataWrapper.restartEventsWithDelay();
 					}
+
+                    // toast notification
+                    Toast msg = Toast.makeText(getBaseContext(),
+                            getResources().getString(R.string.toast_import_ok),
+                            Toast.LENGTH_SHORT);
+                    msg.show();
 
                     // refresh activity
                     GUIData.reloadActivity(activity, true);

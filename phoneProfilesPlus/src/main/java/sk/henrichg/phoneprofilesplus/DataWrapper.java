@@ -727,13 +727,10 @@ public class DataWrapper {
 
 		GlobalData.setEventsBlocked(context, false);
 		getDatabaseHandler().unblockAllEvents();
-
 		GlobalData.setForceRunEventRunning(context, false);
 			
-        if (!GlobalData.getEventsBlocked(context))
-            // events is not blocked, deactivate profile
-            // profile will by activated in call of RestartEventsBroadcastReceiver
-            getDatabaseHandler().deactivateProfile();
+        // deactivate profile, profile will by activated in call of RestartEventsBroadcastReceiver
+        getDatabaseHandler().deactivateProfile();
 
         removeAllEventDelays();
 
