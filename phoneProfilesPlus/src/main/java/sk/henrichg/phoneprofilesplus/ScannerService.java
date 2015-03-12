@@ -71,7 +71,7 @@ public class ScannerService extends IntentService
 				//WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 	
 				// start scan
-				if (GlobalData.getEventsBlocked(context) && (!GlobalData.getForceOneWifiScan(context)))
+				if (dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneWifiScan(context)))
 				{
 					WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                     WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
@@ -164,7 +164,7 @@ public class ScannerService extends IntentService
 					BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothAdapter.getDefaultAdapter();
 	
 				// start scan
-				if (GlobalData.getEventsBlocked(context) && (!GlobalData.getForceOneBluetoothScan(context)))
+				if (dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneBluetoothScan(context)))
 				{
 					BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
                     BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
@@ -251,7 +251,7 @@ public class ScannerService extends IntentService
     	int wifiState = wifi.getWifiState();
     	boolean forceScan = GlobalData.getForceOneWifiScan(dataWrapper.context);
     	
-    	if ((!GlobalData.getEventsBlocked(dataWrapper.context)) || forceScan)
+    	if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
     	{
     		if (wifiState != WifiManager.WIFI_STATE_ENABLING)
     		{
@@ -311,7 +311,7 @@ public class ScannerService extends IntentService
     	int bluetoothState = bluetooth.getState();
     	boolean forceScan = GlobalData.getForceOneBluetoothScan(dataWrapper.context);
     	
-    	if ((!GlobalData.getEventsBlocked(dataWrapper.context)) || forceScan)
+    	if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
     	{
     		boolean isBluetoothEnabled = bluetoothState == BluetoothAdapter.STATE_ON;
 			if (!isBluetoothEnabled)

@@ -4,8 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
+public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
 
 	public static final String BROADCAST_RECEIVER_TYPE = "wifiState";
 	
@@ -29,27 +30,43 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
             GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","state="+wifiState);
     		GlobalData.logE("@@@ WifiStateChangedBroadcastReceiver.onReceive","state="+wifiState);
 
-    		if (wifiState == WifiManager.WIFI_STATE_ENABLED)
-    		{
-    			/*
-				*/
-    			
-    			// start scan
-				if ((!GlobalData.getEventsBlocked(context)) || GlobalData.getForceOneWifiScan(context))
-				{
-					if (WifiScanAlarmBroadcastReceiver.getScanRequest(context)) {
-                        GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","before startScan");
-                        WifiScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
-                        GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","after startScan");
+            if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED))
+            {
+                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+
+                if (wifiState == WifiManager.WIFI_STATE_ENABLED)
+                {
+                    // start scan
+                    if ((!dataWrapper.getIsManualProfileActivation()) || GlobalData.getForceOneWifiScan(context))
+                    {
+                        if (WifiScanAlarmBroadcastReceiver.getScanRequest(context)) {
+                            GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","before startScan");
+                            WifiScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
+                            GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","after startScan");
+                        }
+                        else
+                        if (!WifiScanAlarmBroadcastReceiver.getWaitForResults(context))
+                        {
+                            // refresh configured networks list
+                            WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
+                        }
                     }
-					else
-					if (!WifiScanAlarmBroadcastReceiver.getWaitForResults(context))
-					{
-		    			// refresh configured networks list
-						WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
-					}
-				}
-    		}
+                }
+
+
+                boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
+                dataWrapper.invalidateDataWrapper();
+
+                if (wifiEventsExists)
+                {
+                    GlobalData.logE("@@@ WifiStateChangedBroadcastReceiver.onReceive","wifiEventsExists="+wifiEventsExists);
+
+                    // start service
+                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                    eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                    startWakefulService(context, eventsServiceIntent);
+                }
+            }
         }
 		
 		/*if (wifiState == WifiManager.WIFI_STATE_DISABLED)
