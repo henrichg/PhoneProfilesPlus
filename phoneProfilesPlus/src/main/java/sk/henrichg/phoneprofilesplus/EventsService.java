@@ -196,10 +196,10 @@ public class EventsService extends IntentService
 		List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
 		int runningEventCountE = eventTimelineList.size();
 		
-		boolean profileActivated = false;
+		boolean backgroundProfileActivated = false;
 		Profile activatedProfile = dataWrapper.getActivatedProfile();
 		
-		if ((!GlobalData.getEventsBlocked(context)) || (GlobalData.getForceRunEventRunning(context)))
+		if (!dataWrapper.getIsManualProfileActivation())
 		{
 			GlobalData.logE("### EventsService.onHandleIntent", "no manual profile activation");
 			GlobalData.logE("### EventsService.onHandleIntent", "runningEventCountE="+runningEventCountE);
@@ -218,14 +218,14 @@ public class EventsService extends IntentService
 					if (activatedProfileId != profileId)
 					{
 						dataWrapper.activateProfileFromEvent(profileId, interactive, "");
-						profileActivated = true;
+                        backgroundProfileActivated = true;
 						GlobalData.logE("### EventsService.onHandleIntent", "activated default profile");
 					}
 				}
 				else
 				{
 					dataWrapper.activateProfileFromEvent(0, interactive, "");
-					profileActivated = true;
+                    backgroundProfileActivated = true;
 					GlobalData.logE("### EventsService.onHandleIntent", "not activated profile");
 				}
 			}
@@ -241,14 +241,14 @@ public class EventsService extends IntentService
 				{
 					// if not profile activated, activate Default profile
 					dataWrapper.activateProfileFromEvent(profileId, interactive, "");
-					profileActivated = true;
+                    backgroundProfileActivated = true;
 					GlobalData.logE("### EventsService.onHandleIntent", "not activated profile");
 				}
 			}
 		}
 		////////////////
 		
-		if (!profileActivated)
+		if (!backgroundProfileActivated)
 		{
 			// no background profile activated, refresh notification and widgets for activated profile
 			
