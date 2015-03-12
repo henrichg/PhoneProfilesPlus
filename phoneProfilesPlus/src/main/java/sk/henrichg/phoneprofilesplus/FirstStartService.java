@@ -91,7 +91,7 @@ public class FirstStartService extends IntentService {
 			// must by false for avoiding starts/pause events before restart events
 			GlobalData.setApplicationStarted(context, false); 
 			
-			dataWrapper.firstStartEvents(true, false);
+			dataWrapper.firstStartEvents(true);
 		}
 		else
 		{

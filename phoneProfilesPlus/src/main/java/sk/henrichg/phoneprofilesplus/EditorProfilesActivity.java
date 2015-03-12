@@ -611,7 +611,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 			{
 				GlobalData.setGlobalEventsRuning(getBaseContext(), true);
 				// setup for next start
-				dataWrapper.firstStartEvents(false, true);
+				dataWrapper.firstStartEvents(false);
 			}
 			invalidateOptionsMenu();
 			refreshGUI();

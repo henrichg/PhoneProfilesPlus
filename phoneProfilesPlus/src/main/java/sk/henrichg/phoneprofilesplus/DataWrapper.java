@@ -719,65 +719,34 @@ public class DataWrapper {
 		}
 	}
 	
-	// this is called in boot or start application
-	// or when restart alarm triggered (?)
-	public void firstStartEvents(boolean invalidateList, boolean unblockEventsRun)
+	// this is called in boot or first start application
+	public void firstStartEvents(boolean invalidateList)
 	{
 		if (invalidateList)
 			invalidateEventList();  // force load form db
 
-		boolean eventsBlocked = GlobalData.getEventsBlocked(context); 
-		
-		if (unblockEventsRun)
-		{
-			GlobalData.setEventsBlocked(context, false);
-			getDatabaseHandler().unblockAllEvents();
-		}
-		
-		if (eventsBlocked)
-		{
-			GlobalData.setApplicationStarted(context, true);
-			if (GlobalData.applicationActivate)
-			{
-				Profile profile = getDatabaseHandler().getActivatedProfile();
-				long profileId = 0;
-				if (profile != null)
-					profileId = profile._id;
-				else
-				{
-					profileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
-					if (profileId == GlobalData.PROFILE_NO_ACTIVATE)
-						profileId = 0;
-				}
-				activateProfile(profileId, GlobalData.STARTUP_SOURCE_BOOT, null, "");
-			}
-			else
-				activateProfile(0, GlobalData.STARTUP_SOURCE_BOOT, null, "");
-		}
-		else
-		{
-			//GlobalData.setForceRunEventRunning(context, false);
+		GlobalData.setEventsBlocked(context, false);
+		getDatabaseHandler().unblockAllEvents();
+
+		GlobalData.setForceRunEventRunning(context, false);
 			
-			//getDatabaseHandler().updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-			
-			if (!GlobalData.getEventsBlocked(context))
-				// events is not blocked, deactivate profile
-				// profile will by activated in call of RestartEventsBroadcastReceiver
-				getDatabaseHandler().deactivateProfile();
-	
-			removeAllEventDelays();
-			
-			WifiScanAlarmBroadcastReceiver.initialize(context);
-			WifiScanAlarmBroadcastReceiver.setAlarm(context, false);
-			BluetoothScanAlarmBroadcastReceiver.initialize(context);
-			BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false);
-			SearchCalendarEventsBroadcastReceiver.setAlarm(context);
-	
-			//restartEvents(true, unblockEventsRun);
-			Intent intent = new Intent();
-			intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
-			context.sendBroadcast(intent);
-		}
+        if (!GlobalData.getEventsBlocked(context))
+            // events is not blocked, deactivate profile
+            // profile will by activated in call of RestartEventsBroadcastReceiver
+            getDatabaseHandler().deactivateProfile();
+
+        removeAllEventDelays();
+
+        WifiScanAlarmBroadcastReceiver.initialize(context);
+        WifiScanAlarmBroadcastReceiver.setAlarm(context, false);
+        BluetoothScanAlarmBroadcastReceiver.initialize(context);
+        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false);
+        SearchCalendarEventsBroadcastReceiver.setAlarm(context);
+
+        //restartEvents(true, unblockEventsRun);
+        Intent intent = new Intent();
+        intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
+        context.sendBroadcast(intent);
 	}
 	
 	public Event getNoinitializedEvent(String name)
