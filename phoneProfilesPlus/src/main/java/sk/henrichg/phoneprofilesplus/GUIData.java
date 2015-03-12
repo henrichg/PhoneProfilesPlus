@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.preference.Preference;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -141,11 +142,21 @@ public class GUIData {
 	{
 		if (newIntent)
 		{
-		    Intent intent = activity.getIntent();
-		    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		    activity.finish();
-		    activity.startActivity(intent);
-		    activity.overridePendingTransition(0, 0);
+            final Activity _activity = activity;
+            new Handler().post(new Runnable() {
+
+                @Override
+                public void run()
+                {
+                    Intent intent = _activity.getIntent();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    _activity.overridePendingTransition(0, 0);
+                    _activity.finish();
+
+                    _activity.overridePendingTransition(0, 0);
+                    _activity.startActivity(intent);
+                }
+            });
 		}
 		else
 			activity.recreate();

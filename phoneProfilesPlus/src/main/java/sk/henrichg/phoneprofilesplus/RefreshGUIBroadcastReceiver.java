@@ -11,19 +11,19 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		
-		GlobalData.logE("### RefreshGUIBroadcastReceiver","xxx");
+		GlobalData.logE("$$$ RefreshGUIBroadcastReceiver","xxx");
 		
 		ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
 		if (activateProfileActivity != null)
 		{
-			GlobalData.logE("RefreshGUIBroadcastReceiver","ActivateProfileActivity");
+			GlobalData.logE("$$$ RefreshGUIBroadcastReceiver","ActivateProfileActivity");
 			activateProfileActivity.refreshGUI();
 		}
 
 		EditorProfilesActivity editorProfilesActivity = EditorProfilesActivity.getInstance();
 		if (editorProfilesActivity != null)
 		{
-			GlobalData.logE("RefreshGUIBroadcastReceiver","EditorProfilesActivity");
+			GlobalData.logE("$$$ RefreshGUIBroadcastReceiver","EditorProfilesActivity");
 			editorProfilesActivity.refreshGUI();
 		}
 		

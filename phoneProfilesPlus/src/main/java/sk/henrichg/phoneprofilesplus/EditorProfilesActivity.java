@@ -26,6 +26,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -141,6 +142,8 @@ public class EditorProfilesActivity extends ActionBarActivity
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
+        Log.e("$$$ PPP","EditorProfilesActivity.onCreate");
 
 		GUIData.setTheme(this, false, true);
 		GUIData.setLanguage(getBaseContext());
@@ -467,27 +470,32 @@ public class EditorProfilesActivity extends ActionBarActivity
 	@Override
 	protected void onStart()
 	{
-		super.onStart();
+        Log.e("$$$ PPP","EditorProfilesActivity.onStart");
+        super.onStart();
 	}
 
 	@Override
 	protected void onStop()
 	{
+        Log.e("$$$ PPP","EditorProfilesActivity.onStop");
 		super.onStop();
-		instance = null;
+        if (instance == this)
+		    instance = null;
 	}
 	
 	@Override 
 	protected void onResume()
 	{
+        Log.e("$$$ PPP","EditorProfilesActivity.onResume");
 		//Debug.stopMethodTracing();
 		super.onResume();
-		if (instance == null)
-		{
-			instance = this;
-			refreshGUI();
-		}
-	}
+
+        if (instance == null)
+        {
+            instance = this;
+            refreshGUI();
+        }
+    }
 	
 	
 	@Override
@@ -1180,20 +1188,22 @@ public class EditorProfilesActivity extends ActionBarActivity
 			    	editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
 			    	editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
 					editor.commit();
-			    	
-					// restart events
+
+                    // restart events
 					// startneme eventy
 					if (GlobalData.getGlobalEventsRuning(getBaseContext()))
 					{
+                        /*
 						Intent intent = new Intent();
 						intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
 						getBaseContext().sendBroadcast(intent);
+						*/
+                        dataWrapper.restartEventsWithDelay();
 					}
-					
-					// refresh activity
-					GUIData.reloadActivity(activity, true);
-				
-				}
+
+                    // refresh activity
+                    GUIData.reloadActivity(activity, true);
+                }
 				else
 				{
 					importExportErrorDialog(1);
@@ -1972,6 +1982,8 @@ public class EditorProfilesActivity extends ActionBarActivity
 	
 	public void refreshGUI()
 	{
+        Log.e("$$$ PPP", "RefreshGUI - start");
+
 		setEventsRunStopIndicator();
 		
 		Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);

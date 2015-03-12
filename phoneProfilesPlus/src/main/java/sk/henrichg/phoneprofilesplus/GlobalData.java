@@ -72,7 +72,8 @@ public class GlobalData extends Application {
                                          "$$$ DataWrapper|"+
                                          "$$$ WifiScanBroadcastReceiver|"+
                                          "$$$ ReceiversService|"+
-                                         "$$$ WifiConnectionBroadcastReceiver"
+                                         "$$$ WifiConnectionBroadcastReceiver|"+
+                                         "$$$ RefreshGUIBroadcastReceiver"
 			;
 	
 	

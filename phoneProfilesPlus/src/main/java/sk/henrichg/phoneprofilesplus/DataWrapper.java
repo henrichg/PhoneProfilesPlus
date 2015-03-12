@@ -2,8 +2,10 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.KeyguardManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -2295,7 +2297,23 @@ public class DataWrapper {
 				activity.finish();
 		}
 	}
-	
+
+    public void restartEventsWithDelay()
+    {
+        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.SECOND, 1);
+        long alarmTime = calendar.getTimeInMillis();
+
+        //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+        //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
+
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+    }
+
 	public void setEventBlocked(Event event, boolean blocked)
 	{
 		event._blocked = blocked;
