@@ -598,6 +598,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 			{
 				// no setup for next start
 				dataWrapper.removeAllEventDelays();
+                // no set system events, unblock all events, no activate return profile
 				dataWrapper.pauseAllEvents(true, false, false);
 				GlobalData.setGlobalEventsRuning(getBaseContext(), false);
 				// stop Wifi scanner

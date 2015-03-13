@@ -32,7 +32,7 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
 
                 if (bluetoothState == BluetoothAdapter.STATE_ON)
                 {
-                    if ((!GlobalData.getEventsBlocked(context)) || GlobalData.getForceOneBluetoothScan(context))
+                    if ((!dataWrapper.getIsManualProfileActivation()) || GlobalData.getForceOneBluetoothScan(context))
                     {
                         if (BluetoothScanAlarmBroadcastReceiver.getScanRequest(context))
                         {

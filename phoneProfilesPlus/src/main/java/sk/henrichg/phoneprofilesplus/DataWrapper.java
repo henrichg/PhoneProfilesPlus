@@ -627,7 +627,7 @@ public class DataWrapper {
 			//if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
 			//	(event._fkProfileStart == profile._id))
 			if (event._fkProfileStart == profile._id)
-				event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, false);
+				event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent);
 		}
 	}
 
@@ -651,29 +651,25 @@ public class DataWrapper {
 	{
 		List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-		//for (Event event : getEventList())
-		for (int i = eventTimelineList.size()-1; i >= 0; i--)
+		for (Event event : getEventList())
 		{
-			EventTimeline eventTimeline = eventTimelineList.get(i);
-			if (eventTimeline != null)
-			{
-				long eventId = eventTimeline._fkEvent;
-				Event event = getEventById(eventId);
-				if (event != null)
-				{
-					int status = event.getStatusFromDB(this);
-					if (status != Event.ESTATUS_STOP)
-						event.pauseEvent(this, eventTimelineList, activateReturnProfile, true, noSetSystemEvent, blockEvents);
-					if (status == Event.ESTATUS_RUNNING)
-					{
-						// block only running events
-						if (event._forceRun)
-							setEventBlocked(event, blockEvents);
-					}
-				}
-			}
+            if (event != null)
+            {
+                int status = event.getStatusFromDB(this);
+
+                if (status == Event.ESTATUS_RUNNING)
+                    event.pauseEvent(this, eventTimelineList, activateReturnProfile, true, noSetSystemEvent);
+
+                setEventBlocked(event, false);
+                if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun)
+                {
+                    // block only running forcerun events
+                    setEventBlocked(event, true);
+                }
+            }
 		}
 
+        // blockEvents == true -> manual profile activation is set
 		GlobalData.setEventsBlocked(context, blockEvents);
 	}
 	
@@ -936,7 +932,8 @@ public class DataWrapper {
 
 			ActivateProfileHelper.lockRefresh = true;
 
-			// pause all events, activate return profile
+			// pause all events
+            // for forcerun events set system events, block all events, activate return profile
 			pauseAllEvents(false, true, true);
 			
 			ActivateProfileHelper.lockRefresh = false;
@@ -1999,7 +1996,7 @@ public class DataWrapper {
 			{
 				GlobalData.logE("DataWrapper.doEventService","pause event");
 				
-				event.pauseEvent(this, eventTimelineList, true, false, false, false);
+				event.pauseEvent(this, eventTimelineList, true, false, false);
 			}
 		}
 
@@ -2158,7 +2155,7 @@ public class DataWrapper {
 		
 	}
 
-	public void restartEvents(boolean ignoreForceRun, boolean unblockEventsRun)
+	public void restartEvents(boolean ignoreEventsBlocking, boolean unblockEventsRun)
 	{
 		GlobalData.logE("DataWrapper.restartEvents","xxx");
 
@@ -2168,7 +2165,7 @@ public class DataWrapper {
 
 		GlobalData.logE("DataWrapper.restartEvents","events are not globbaly stopped");
 		
-		if (GlobalData.getEventsBlocked(context) && (!ignoreForceRun))
+		if (GlobalData.getEventsBlocked(context) && (!ignoreEventsBlocking))
 			return;
 
 		GlobalData.logE("DataWrapper.restartEvents","events are not blocked");

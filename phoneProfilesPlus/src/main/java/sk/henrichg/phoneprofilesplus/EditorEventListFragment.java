@@ -342,7 +342,7 @@ public class EditorEventListFragment extends Fragment {
             if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
                 // pause event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false); // activate return profile
+                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false); // activate return profile
                 // redraw event list
                 updateListView(event, false);
                 // restart events

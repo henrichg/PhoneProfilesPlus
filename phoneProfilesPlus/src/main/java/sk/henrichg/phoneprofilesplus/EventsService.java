@@ -141,6 +141,7 @@ public class EventsService extends IntentService
 			}*/
 
             // 1. pause all events
+            //  set system events for next run
             dataWrapper.pauseAllEvents(false, false, false);
             // 2. start events
             dataWrapper.sortEventsByPriorityAsc();
