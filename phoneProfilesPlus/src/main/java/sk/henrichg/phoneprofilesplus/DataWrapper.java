@@ -716,17 +716,21 @@ public class DataWrapper {
 	}
 	
 	// this is called in boot or first start application
-	public void firstStartEvents(boolean invalidateList)
+	public void firstStartEvents(boolean startedFromService)
 	{
-		if (invalidateList)
+		if (startedFromService)
 			invalidateEventList();  // force load form db
 
-		GlobalData.setEventsBlocked(context, false);
-		getDatabaseHandler().unblockAllEvents();
-		GlobalData.setForceRunEventRunning(context, false);
-			
-        // deactivate profile, profile will by activated in call of RestartEventsBroadcastReceiver
-        getDatabaseHandler().deactivateProfile();
+        if (!startedFromService) {
+            GlobalData.setEventsBlocked(context, false);
+            getDatabaseHandler().unblockAllEvents();
+            GlobalData.setForceRunEventRunning(context, false);
+        }
+
+        if (startedFromService) {
+            // deactivate profile, profile will by activated in call of RestartEventsBroadcastReceiver
+            getDatabaseHandler().deactivateProfile();
+        }
 
         removeAllEventDelays();
 
