@@ -204,7 +204,7 @@ public class EventsService extends IntentService
 			GlobalData.logE("### EventsService.onHandleIntent", "no manual profile activation");
 			GlobalData.logE("### EventsService.onHandleIntent", "runningEventCountE="+runningEventCountE);
 			// no manual profile activation
-			if (runningEventCountE == 0)
+			if ((runningEventCountE == 0) && (activatedProfile == null))
 			{
 				GlobalData.logE("### EventsService.onHandleIntent", "no events running");
 				// no events running
@@ -256,7 +256,7 @@ public class EventsService extends IntentService
 			
 			if ((!isRestart) && (runningEventCountE > runningEventCount0))
 			{
-				// only when not refresh events and running events is increased, play event notification sound
+				// only when not restart events and running events is increased, play event notification sound
 				
 				EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE-1);
 				Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
