@@ -643,7 +643,7 @@ public class DataWrapper {
 			if (event._fkProfileStart == profile._id)
 				event.stopEvent(this, eventTimelineList, false, true, saveEventStatus);
 		}
-		restartEvents(false, false);
+		restartEvents(false, false, true);
 	}
 	
 	// pauses all events
@@ -2155,7 +2155,7 @@ public class DataWrapper {
 		
 	}
 
-	public void restartEvents(boolean ignoreEventsBlocking, boolean unblockEventsRun)
+	public void restartEvents(boolean ignoreEventsBlocking, boolean unblockEventsRun, boolean keepActivatedProfile)
 	{
 		GlobalData.logE("DataWrapper.restartEvents","xxx");
 
@@ -2169,24 +2169,22 @@ public class DataWrapper {
 			return;
 
 		GlobalData.logE("DataWrapper.restartEvents","events are not blocked");
-		
+
+        Profile activatedProfile = getActivatedProfile();
+
 		if (unblockEventsRun)
 		{
 			GlobalData.setEventsBlocked(context, false);
 			getDatabaseHandler().unblockAllEvents();
 		}
-		
-		getDatabaseHandler().deactivateProfile();
-		//getDatabaseHandler().updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-		
-		// remove all events delays
-		//getDatabaseHandler().removeAllEventsInDelay();
-		
+
+        if (!keepActivatedProfile)
+		    getDatabaseHandler().deactivateProfile();
+
 		Intent intent = new Intent();
 		intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
 		context.sendBroadcast(intent);
-		
-		
+
 	}
 	
 	public void restartEventsWithRescan(boolean showToast)
@@ -2195,7 +2193,7 @@ public class DataWrapper {
 		removeAllEventDelays();
 		// ignoruj manualnu aktivaciu profilu
 		// a odblokuj forceRun eventy
-		restartEvents(true, true);
+		restartEvents(true, true, false);
 		
 		if (GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_RESTART_EVENTS) ||
 			GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))

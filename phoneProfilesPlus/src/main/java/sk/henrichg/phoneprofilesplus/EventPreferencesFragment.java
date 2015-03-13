@@ -336,7 +336,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 			event_id = event._id;
 
 			// restart Events
-			dataWrapper.restartEvents(false, false);
+			dataWrapper.restartEvents(false, false, true);
 		}
 		else
     	if (event_id > 0) 
@@ -357,7 +357,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 				// pause event
 				event.pauseEvent(dataWrapper, eventTimelineList, true, false, false);
 			// restart Events
-			dataWrapper.restartEvents(false, false);
+			dataWrapper.restartEvents(false, false, true);
 			
         }
 
