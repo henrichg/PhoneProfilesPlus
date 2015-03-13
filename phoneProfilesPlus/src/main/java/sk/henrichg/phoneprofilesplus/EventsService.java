@@ -208,7 +208,7 @@ public class EventsService extends IntentService
 			{
 				GlobalData.logE("### EventsService.onHandleIntent", "no events running");
 				// no events running
-				long profileId = Long.valueOf(GlobalData.applicationBackgroundProfile); 
+				long profileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
 				if (profileId != GlobalData.PROFILE_NO_ACTIVATE)
 				{
 					GlobalData.logE("### EventsService.onHandleIntent", "default profile is set");
@@ -234,7 +234,7 @@ public class EventsService extends IntentService
 		{
 			GlobalData.logE("### EventsService.onHandleIntent", "manual profile activation");
 			// manual profile activation
-			long profileId = Long.valueOf(GlobalData.applicationBackgroundProfile); 
+			long profileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
 			if (profileId != GlobalData.PROFILE_NO_ACTIVATE)
 			{
 				if (activatedProfile == null)
@@ -247,17 +247,17 @@ public class EventsService extends IntentService
 			}
 		}
 		////////////////
-		
+
 		if (!backgroundProfileActivated)
 		{
 			// no background profile activated, refresh notification and widgets for activated profile
-			
+
 			String eventNotificationSound = "";
-			
+
 			if ((!isRestart) && (runningEventCountE > runningEventCount0))
 			{
 				// only when not restart events and running events is increased, play event notification sound
-				
+
 				EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE-1);
 				Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
 				if (event != null)
@@ -265,18 +265,18 @@ public class EventsService extends IntentService
 			}
 			dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
 		}
-		
+
 		doEndService(intent);
 
 		// refresh GUI
 		Intent refreshIntent = new Intent();
 		refreshIntent.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
 		context.sendBroadcast(refreshIntent);
-		
+
 		dataWrapper.invalidateDataWrapper();
 
 		GlobalData.logE("@@@ EventsService.onHandleIntent","-- end --------------------------------");
-		
+
 	}
 
 	private void doEndService(Intent intent)
@@ -329,12 +329,6 @@ public class EventsService extends IntentService
 		else
 		if (broadcastReceiverType.equals(EventsSMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
 			EventsSMSBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(WifiStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            WifiStateChangedBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(BluetoothStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            BluetoothStateChangedBroadcastReceiver.completeWakefulIntent(intent);
 	}
 	
 }
