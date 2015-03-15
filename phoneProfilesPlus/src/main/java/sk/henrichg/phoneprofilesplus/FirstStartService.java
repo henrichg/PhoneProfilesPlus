@@ -28,7 +28,9 @@ public class FirstStartService extends IntentService {
 	protected void onHandleIntent(Intent intent)
 	{
 		Context context = getBaseContext();
-		
+
+        Log.e("$$$ PPP:","FirstStartService.onHandleIntent --- START");
+
 		// grant root
 		//if (GlobalData.isRooted(false))
 		//{
@@ -48,7 +50,7 @@ public class FirstStartService extends IntentService {
 		GUIData.setLanguage(context);
 
         // remove phoneprofiles_silent.mp3
-        removeTone("phoneprofiles_silent.mp3", context);
+        //removeTone("phoneprofiles_silent.mp3", context);
         // install phoneprofiles_silent.ogg
         installTone(R.raw.phoneprofiles_silent, "PhoneProfiles Silent", context);
 
@@ -96,23 +98,7 @@ public class FirstStartService extends IntentService {
 		else
 		{
 			GlobalData.setApplicationStarted(context, true);
-			
-			if (GlobalData.applicationActivate)
-			{
-				Profile profile = dataWrapper.getDatabaseHandler().getActivatedProfile();
-				long profileId = 0;
-				if (profile != null)
-					profileId = profile._id;
-				else
-				{
-					profileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
-					if (profileId == GlobalData.PROFILE_NO_ACTIVATE)
-						profileId = 0;
-				}
-				dataWrapper.activateProfile(profileId, GlobalData.STARTUP_SOURCE_BOOT, null, "");
-			}
-			else
-				dataWrapper.activateProfile(0, GlobalData.STARTUP_SOURCE_BOOT, null, "");
+            dataWrapper.activateProfileOnBoot();
 		}
 		
 		dataWrapper.invalidateDataWrapper();
@@ -204,6 +190,7 @@ public class FirstStartService extends IntentService {
         return !isError;
     }
 
+    /*
     private void removeTone(String voiceFile, Context context) {
 
         // Make sure the shared storage is currently writable
@@ -225,5 +212,6 @@ public class FirstStartService extends IntentService {
         // delete the file
         outFile.delete();
     }
+    */
 
 }

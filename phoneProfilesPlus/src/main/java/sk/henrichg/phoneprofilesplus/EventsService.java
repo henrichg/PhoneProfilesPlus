@@ -205,7 +205,7 @@ public class EventsService extends IntentService
 			GlobalData.logE("### EventsService.onHandleIntent", "no manual profile activation");
 			GlobalData.logE("### EventsService.onHandleIntent", "runningEventCountE="+runningEventCountE);
 			// no manual profile activation
-			if ((runningEventCountE == 0) && (activatedProfile == null))
+			if (runningEventCountE == 0)
 			{
 				GlobalData.logE("### EventsService.onHandleIntent", "no events running");
 				// no events running
@@ -224,6 +224,7 @@ public class EventsService extends IntentService
 					}
 				}
 				else
+				if (activatedProfile == null)
 				{
 					dataWrapper.activateProfileFromEvent(0, interactive, "");
                     backgroundProfileActivated = true;

@@ -714,7 +714,28 @@ public class DataWrapper {
 			event._fkProfileEnd = GlobalData.PROFILE_NO_ACTIVATE;
 		}
 	}
-	
+
+    public void activateProfileOnBoot()
+    {
+
+        if (GlobalData.applicationActivate)
+        {
+            Profile profile = getDatabaseHandler().getActivatedProfile();
+            long profileId = 0;
+            if (profile != null)
+                profileId = profile._id;
+            else
+            {
+                profileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
+                if (profileId == GlobalData.PROFILE_NO_ACTIVATE)
+                    profileId = 0;
+            }
+            activateProfile(profileId, GlobalData.STARTUP_SOURCE_BOOT, null, "");
+        }
+        else
+            activateProfile(0, GlobalData.STARTUP_SOURCE_BOOT, null, "");
+    }
+
 	// this is called in boot or first start application
 	public void firstStartEvents(boolean startedFromService)
 	{
@@ -727,10 +748,12 @@ public class DataWrapper {
             GlobalData.setForceRunEventRunning(context, false);
         }
 
+        /*
         if (startedFromService) {
             // deactivate profile, profile will by activated in call of RestartEventsBroadcastReceiver
             getDatabaseHandler().deactivateProfile();
         }
+        */
 
         removeAllEventDelays();
 
@@ -740,10 +763,16 @@ public class DataWrapper {
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false);
         SearchCalendarEventsBroadcastReceiver.setAlarm(context);
 
-        //restartEvents(true, unblockEventsRun);
-        Intent intent = new Intent();
-        intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
-        context.sendBroadcast(intent);
+        if (!getIsManualProfileActivation()) {
+            Intent intent = new Intent();
+            intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
+            context.sendBroadcast(intent);
+        }
+        else
+        {
+            GlobalData.setApplicationStarted(context, true);
+            activateProfileOnBoot();
+        }
 	}
 	
 	public Event getNoinitializedEvent(String name)
@@ -2341,7 +2370,7 @@ public class DataWrapper {
 				Event event = getEventById(event_id);
 				if (event != null)
 				{
-					if (!GlobalData.getEventsBlocked(context))
+					if ((!GlobalData.getEventsBlocked(context)) || (event._forceRun))
 					{
 						Profile profile = getActivatedProfile();
 						if ((profile != null) && (event._fkProfileStart == profile._id))
