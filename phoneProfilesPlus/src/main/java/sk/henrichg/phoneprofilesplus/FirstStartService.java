@@ -29,7 +29,7 @@ public class FirstStartService extends IntentService {
 	{
 		Context context = getBaseContext();
 
-        Log.e("$$$ PPP:","FirstStartService.onHandleIntent --- START");
+        GlobalData.logE("$$$ FirstStartService.onHandleIntent","--- START");
 
 		// grant root
 		//if (GlobalData.isRooted(false))
@@ -43,7 +43,9 @@ public class FirstStartService extends IntentService {
 
         if (GlobalData.getApplicationStarted(context))
 			return;
-		
+
+        GlobalData.logE("$$$ FirstStartService.onHandleIntent","application not started");
+
 		//int startType = intent.getStringExtra(GlobalData.EXTRA_FIRST_START_TYPE);
 		
 		GlobalData.loadPreferences(context);

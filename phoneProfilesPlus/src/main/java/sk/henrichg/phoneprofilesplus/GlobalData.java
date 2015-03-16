@@ -76,7 +76,8 @@ public class GlobalData extends Application {
                                          "$$$ RefreshGUIBroadcastReceiver"*/
                                          "$$$ EventsService|"+
                                          "$$$ ReceiversService|"+
-                                         "$$$ DataWrapper"
+                                         "$$$ DataWrapper|"+
+                                         "$$$ FirstStartService"
 			;
 	
 	
