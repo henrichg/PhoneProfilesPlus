@@ -2209,6 +2209,7 @@ public class DataWrapper {
 		{
 			GlobalData.setEventsBlocked(context, false);
 			getDatabaseHandler().unblockAllEvents();
+            GlobalData.setForceRunEventRunning(context, false);
 		}
 
         if (!keepActivatedProfile)
