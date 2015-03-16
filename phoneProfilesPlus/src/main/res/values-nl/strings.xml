@@ -294,8 +294,7 @@
   <string name="phoneprofilehepler_install_title">PPHelper installatie</string>
   <string name="phoneprofilehepler_install_message">Weet je het zeker?</string>
   <string name="phoneprofilehepler_reboot_title">PPHelper installatie</string>
-  <string name="phoneprofilehepler_reboot_message">Om PPHelper te gebruiken is een herstart vereist. 
-Nu herstarten?</string>
+  <string name="phoneprofilehepler_reboot_message">Om PPHelper te gebruiken is een herstart vereist. Nu herstarten?</string>
   <string name="phoneprofilehepler_uninstall_title">PPHelper verwijderen</string>
   <string name="phoneprofilehepler_uninstall_message">Weet je het zeker?</string>
   <string name="phoneprofilehepler_install_error">Fout bij het installeren van PPHelper</string>
