@@ -21,7 +21,7 @@ public class ReceiversService extends Service {
 	@Override
     public void onCreate()
 	{
-        GlobalData.logE("ReceiversService.onCreate", "xxxxx");
+        GlobalData.logE("$$$ ReceiversService.onCreate", "xxxxx");
 
 		// start service for first start
 		Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);

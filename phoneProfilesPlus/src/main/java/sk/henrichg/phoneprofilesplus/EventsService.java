@@ -22,7 +22,7 @@ public class EventsService extends IntentService
 
 		context = getBaseContext();
 
-		GlobalData.logE("@@@ EventsService.onHandleIntent","-- start --------------------------------");
+		GlobalData.logE("$$$ EventsService.onHandleIntent","-- start --------------------------------");
 
 		// disabled for firstStartEvents
 		//if (!GlobalData.getApplicationStarted(context))
@@ -49,7 +49,7 @@ public class EventsService extends IntentService
 		
 		broadcastReceiverType = intent.getStringExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE);
 		
-		GlobalData.logE("EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
+		GlobalData.logE("$$$ EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
 		
 		List<Event> eventList = dataWrapper.getEventList();
 		

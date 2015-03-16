@@ -949,9 +949,16 @@ public class DataWrapper {
 	private void _activateProfile(Profile _profile, int startupSource, boolean _interactive, 
 									Activity _activity, String eventNotificationSound)
 	{
+
+
 		Profile profile = GlobalData.getMappedProfile(_profile, context);
 		//profile = filterProfileWithBatteryEvents(profile);
-		
+
+        if (profile != null)
+            GlobalData.logE("$$$ DataWrapper._activateProfile","profileName="+profile._name);
+        else
+            GlobalData.logE("$$$ DataWrapper._activateProfile","profile=null");
+
 		boolean interactive = _interactive;
 		final Activity activity = _activity;
 
@@ -1692,7 +1699,7 @@ public class DataWrapper {
 
                     }
                     else
-                        GlobalData.logE("$$$ DataWrapper.doEventService","scanResults == null");
+                        GlobalData.logE("$$$x DataWrapper.doEventService","scanResults == null");
 
 				}
 			}
