@@ -98,7 +98,7 @@ public class ReceiversService extends Service {
 	@Override
 	public void onTaskRemoved(Intent rootIntent)
 	{
-        GlobalData.setApplicationStarted(getApplicationContext(), false);
+        //GlobalData.setApplicationStarted(getApplicationContext(), false);
         super.onTaskRemoved(rootIntent);
 	}
 	
