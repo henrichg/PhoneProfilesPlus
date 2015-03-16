@@ -85,7 +85,7 @@
         <activity
             android:name=".LauncherActivity"
             android:label="@string/title_activity_phone_profiles"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity"
             android:excludeFromRecents="true" >
             <intent-filter>
@@ -100,32 +100,29 @@
             android:label="@string/title_activity_activator"
             android:launchMode="singleTask"
             android:theme="@style/PopupTheme_withToolbar_material"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:excludeFromRecents="true" >
         </activity>
         <activity
             android:name=".EditorProfilesActivity"
             android:configChanges="locale|layoutDirection"
             android:label="@string/title_activity_editor"
-            android:launchMode="singleTask"
-            android:excludeFromRecents="true" >
+            android:launchMode="singleTask" >
         </activity>
         <activity
             android:name=".ProfilePreferencesFragmentActivity"
             android:configChanges="locale|layoutDirection"
-            android:label="@string/title_activity_profile_preferences"
-            android:excludeFromRecents="true" >
+            android:label="@string/title_activity_profile_preferences" >
         </activity>
         <activity
             android:name=".EventPreferencesFragmentActivity"
             android:configChanges="locale|layoutDirection"
-            android:label="@string/title_activity_event_preferences"
-            android:excludeFromRecents="true" >
+            android:label="@string/title_activity_event_preferences" >
         </activity>
         <activity
             android:name=".PhoneProfilesPreferencesActivity"
             android:configChanges="locale|layoutDirection"
-            android:label="@string/title_activity_phone_profiles_preferences"
-            android:excludeFromRecents="true" >
+            android:label="@string/title_activity_phone_profiles_preferences" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -138,6 +135,7 @@
             android:icon="@drawable/ic_shortcut"
             android:label="@string/title_activity_shortcut_creator"
             android:theme="@style/PopupTheme_material"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:excludeFromRecents="true" >
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
