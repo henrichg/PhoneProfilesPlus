@@ -63,9 +63,11 @@
     <item>@string/phone_profiles_pref_applicationLanguage_es_ES</item>
     <item>@string/phone_profiles_pref_applicationLanguage_fr</item>
     <item>@string/phone_profiles_pref_applicationLanguage_it</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_nl</item>
     <item>@string/phone_profiles_pref_applicationLanguage_pl</item>
     <item>@string/phone_profiles_pref_applicationLanguage_ru</item>
     <item>@string/phone_profiles_pref_applicationLanguage_sk</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_sv_SE</item>
     <item>@string/phone_profiles_pref_applicationLanguage_uk</item>
 </string-array>
 <string-array name="languageValues">
@@ -77,9 +79,11 @@
     <item>@string/array_pref_value_es_ES</item>
     <item>@string/array_pref_value_fr</item>
     <item>@string/array_pref_value_it</item>
+    <item>@string/array_pref_value_nl</item>
     <item>@string/array_pref_value_pl</item>
     <item>@string/array_pref_value_ru</item>
     <item>@string/array_pref_value_sk</item>
+    <item>@string/array_pref_value_sv_SE</item>
     <item>@string/array_pref_value_uk</item>
 </string-array>
 <string-array name="notificationIconStyleArray">
