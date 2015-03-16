@@ -47,7 +47,7 @@ public class KeyguardService extends Service {
 						stopSelf();
 						return START_NOT_STICKY;
 					case 2:
-						Keyguard.reenable();
+						//Keyguard.reenable();
 						Keyguard.disable();
 				        return START_STICKY;
 				}
