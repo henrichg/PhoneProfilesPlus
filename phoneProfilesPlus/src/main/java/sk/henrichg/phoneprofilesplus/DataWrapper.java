@@ -1718,7 +1718,10 @@ public class DataWrapper {
 			if (event._eventPreferencesScreen._whenUnlocked)
 			{
 				KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-				keyguardShowing = kgMgr.inKeyguardRestrictedInputMode();
+                if (android.os.Build.VERSION.SDK_INT >= 16)
+				    keyguardShowing = kgMgr.isKeyguardLocked();
+                else
+                    keyguardShowing = kgMgr.inKeyguardRestrictedInputMode();
 			}
 			
 			if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON)
