@@ -1321,12 +1321,16 @@ public class DataWrapper {
    		    String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
 	   		    	  		    " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
 			GlobalData.logE("DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
+
+            //startAlarmTime -= (1000 * 30); // decrease 30 seconds
 			
 			endAlarmTime = event._eventPreferencesTime.computeAlarm(false);
 
    		    alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
 	    	  		     " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
    		    GlobalData.logE("DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
+
+            //endAlarmTime += (1000 * 30); // increase 30 seconds
 			
 			Calendar now = Calendar.getInstance();
 			long nowAlarmTime = now.getTimeInMillis();
@@ -1597,12 +1601,16 @@ public class DataWrapper {
 	   		    String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
 		   		    	  		    " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
 				GlobalData.logE("DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
+
+                //startAlarmTime -= (1000 * 30); // decrease 30 seconds
 				
 				endAlarmTime = event._eventPreferencesCalendar.computeAlarm(false);
 	
 	   		    alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
 		    	  		     " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
 	   		    GlobalData.logE("DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
+
+                //endAlarmTime += (1000 * 30); // increase 30 seconds
 				
 				Calendar now = Calendar.getInstance();
 				long nowAlarmTime = now.getTimeInMillis();
