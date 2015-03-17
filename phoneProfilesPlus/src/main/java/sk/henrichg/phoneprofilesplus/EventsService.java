@@ -96,7 +96,7 @@ public class EventsService extends IntentService
 
 		if (isRestart)
 		{
-			/*// 1. pause events
+			// 1. pause events
 			dataWrapper.sortEventsByPriorityDesc();
 			for (Event _event : eventList)
 			{
@@ -109,7 +109,7 @@ public class EventsService extends IntentService
 					// pauzuj aj ked uz je zapauznuty
 					dataWrapper.doEventService(_event, true, true, interactive, forDelayAlarm);
 			}
-			// 2. start events in timeline order
+			/*// 2. start events in timeline order
 			List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
 			GlobalData.logE("EventsService.onHandleIntent","eventTimeLineList.size()="+eventTimelineList.size());
 			for (EventTimeline eventTimeline : eventTimelineList)
@@ -125,7 +125,7 @@ public class EventsService extends IntentService
 						// spusatj aj ked uz je spusteny
 						dataWrapper.doEventService(_event, false, true, interactive, forDelayAlarm); 
 				}
-			}
+			}*/
 			// 3. start no started events in point 2.
 			dataWrapper.sortEventsByPriorityAsc();
 			for (Event _event : eventList)
@@ -138,8 +138,9 @@ public class EventsService extends IntentService
 					// len spustaj eventy
 					// spustaj len ak este nebezi
 					dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm);
-			}*/
+			}
 
+            /*
             // 1. pause all events
             //  set system events for next run
             dataWrapper.pauseAllEvents(false, false, false);
@@ -156,6 +157,7 @@ public class EventsService extends IntentService
                     // spustaj len ak este nebezi
                     dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm);
             }
+            */
 		}
 		else
 		{
