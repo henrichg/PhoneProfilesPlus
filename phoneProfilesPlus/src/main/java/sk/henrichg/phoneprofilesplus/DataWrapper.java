@@ -1322,7 +1322,7 @@ public class DataWrapper {
 	   		    	  		    " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
 			GlobalData.logE("DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
-            startAlarmTime -= (1000 * 30); // decrease 30 seconds
+            //startAlarmTime -= (1000 * 30); // decrease 30 seconds
 			
 			endAlarmTime = event._eventPreferencesTime.computeAlarm(false);
 
@@ -1330,9 +1330,16 @@ public class DataWrapper {
 	    	  		     " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
    		    GlobalData.logE("DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
 
-            endAlarmTime -= (1000 * 30); // decrease 30 seconds
+            //endAlarmTime -= (1000 * 30); // decrease 30 seconds
 			
 			Calendar now = Calendar.getInstance();
+            // round time
+            if (now.get(Calendar.SECOND) > 0)
+            {
+                now.add(Calendar.MINUTE, 1);
+                now.set(Calendar.SECOND, 0);
+            }
+
 			long nowAlarmTime = now.getTimeInMillis();
    		    alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
    	  		     " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
@@ -1602,7 +1609,7 @@ public class DataWrapper {
 		   		    	  		    " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
 				GlobalData.logE("DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
-                startAlarmTime -= (1000 * 30); // decrease 30 seconds
+                //startAlarmTime -= (1000 * 30); // decrease 30 seconds
 				
 				endAlarmTime = event._eventPreferencesCalendar.computeAlarm(false);
 	
@@ -1610,9 +1617,16 @@ public class DataWrapper {
 		    	  		     " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
 	   		    GlobalData.logE("DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
 
-                endAlarmTime -= (1000 * 30); // decrease 30 seconds
+                //endAlarmTime -= (1000 * 30); // decrease 30 seconds
 				
 				Calendar now = Calendar.getInstance();
+                // round time
+                if (now.get(Calendar.SECOND) > 0)
+                {
+                    now.add(Calendar.MINUTE, 1);
+                    now.set(Calendar.SECOND, 0);
+                }
+
 				long nowAlarmTime = now.getTimeInMillis();
 	   		    alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
 	   	  		     " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
