@@ -35,14 +35,14 @@ public class LauncherActivity extends Activity {
 		}
 		else
 		{
-			if (startupSource == 0)
+            // start ReceiverService
+            startService(new Intent(getApplicationContext(), ReceiversService.class));
+
+            if (startupSource == 0)
 			{
 				// aktivita nebola spustena z notifikacie, ani z widgetu
 
-                // start ReceiverService
-                startService(new Intent(getApplicationContext(), ReceiversService.class));
-
-				// pre profil, ktory je prave aktivny, treba aktualizovat notifikaciu a widgety 
+				// pre profil, ktory je prave aktivny, treba aktualizovat notifikaciu a widgety
 				Profile profile = dataWrapper.getActivatedProfile();
 				dataWrapper.getActivateProfileHelper().showNotification(profile, "");
 				dataWrapper.getActivateProfileHelper().updateWidget();
