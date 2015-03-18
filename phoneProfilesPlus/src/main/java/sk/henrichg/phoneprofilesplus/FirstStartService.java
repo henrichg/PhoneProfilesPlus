@@ -56,7 +56,9 @@ public class FirstStartService extends IntentService {
         // install phoneprofiles_silent.ogg
         installTone(R.raw.phoneprofiles_silent, "PhoneProfiles Silent", context);
 
-		// start PPHelper
+        GlobalData.setLockscreenDisabled(context, false);
+
+        // start PPHelper
 		//PhoneProfilesHelper.startPPHelper(context);
 		
 		// show notification about upgrade PPHelper

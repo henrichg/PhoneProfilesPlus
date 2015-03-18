@@ -242,6 +242,7 @@ public class GlobalData extends Application {
 	private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
 	private static final String PREF_FORCE_ONE_BLUETOOTH_SCAN = "forceOneBluetoothScan";
 	private static final String PREF_FORCE_ONE_WIFI_SCAN = "forceOneWifiScan";
+    private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
 
 	// preferences for event - filled with broadcast receivers
 	static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
@@ -892,7 +893,23 @@ public class GlobalData extends Application {
     	}
 	}
 	*/
-	// ----- Hardware check -------------------------------------
+
+    static public boolean getLockscreenDisabled(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_LOCKSCREEN_DISABLED, false);
+    }
+
+    static public void setLockscreenDisabled(Context context, boolean disabled)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putBoolean(PREF_LOCKSCREEN_DISABLED, disabled);
+        editor.commit();
+    }
+
+
+    // ----- Hardware check -------------------------------------
 	
 	static int hardwareCheck(String preferenceKey, Context context)
 	{

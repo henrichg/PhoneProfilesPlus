@@ -24,7 +24,13 @@ public class KeyguardService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		Context context = getApplicationContext();
-		
+
+        if (!GlobalData.getApplicationStarted(context)) {
+            Keyguard.reenable();
+            stopSelf();
+            return START_NOT_STICKY;
+        }
+
 		KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         boolean secureKeyguard;
         if (android.os.Build.VERSION.SDK_INT >= 16)
@@ -33,25 +39,18 @@ public class KeyguardService extends Service {
 		    secureKeyguard = kgMgr.inKeyguardRestrictedInputMode();
         if (!secureKeyguard)
 		{
-			DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-			Profile profile = dataWrapper.getActivatedProfile();
-			profile = GlobalData.getMappedProfile(profile, context);
-
-			if (profile != null)
-			{
-				// zapnutie/vypnutie lockscreenu
-				//getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-				switch (profile._deviceKeyguard) {
-					case 1:
-						Keyguard.reenable();
-						stopSelf();
-						return START_NOT_STICKY;
-					case 2:
-						//Keyguard.reenable();
-						Keyguard.disable();
-				        return START_STICKY;
-				}
-			}
+            // zapnutie/vypnutie lockscreenu
+            //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            if (GlobalData.getLockscreenDisabled(context)) {
+                //Keyguard.reenable();
+                Keyguard.disable();
+                return START_STICKY;
+            }
+            else {
+                Keyguard.reenable();
+                stopSelf();
+                return START_NOT_STICKY;
+            }
 		}
 
 		stopSelf();

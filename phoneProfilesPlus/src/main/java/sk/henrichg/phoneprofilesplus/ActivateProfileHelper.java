@@ -598,9 +598,24 @@ public class ActivateProfileHelper {
 		}
 		
 		// zapnutie/vypnutie lockscreenu
-		if (Keyguard.keyguardService == null)
-			Keyguard.keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class); 
-		context.startService(Keyguard.keyguardService);
+        boolean setLockscreen = false;
+        switch (profile._deviceKeyguard) {
+            case 1:
+                // enable lockscreen
+                GlobalData.setLockscreenDisabled(context, false);
+                setLockscreen = true;
+                break;
+            case 2:
+                // disable lockscreen
+                GlobalData.setLockscreenDisabled(context, true);
+                setLockscreen = true;
+                break;
+        }
+        if (setLockscreen) {
+            if (Keyguard.keyguardService == null)
+                Keyguard.keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class);
+            context.startService(Keyguard.keyguardService);
+        }
 		
 		// nahodenie podsvietenia
 		if (profile.getDeviceBrightnessChange())
