@@ -39,6 +39,7 @@ public class KeyguardService extends Service {
 		    secureKeyguard = kgMgr.inKeyguardRestrictedInputMode();
         if (!secureKeyguard)
 		{
+            GlobalData.logE("$$$ KeyguardService.onStartCommand xxx","getLockscreenDisabled="+GlobalData.getLockscreenDisabled(context));
             // zapnutie/vypnutie lockscreenu
             //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
             if (GlobalData.getLockscreenDisabled(context)) {

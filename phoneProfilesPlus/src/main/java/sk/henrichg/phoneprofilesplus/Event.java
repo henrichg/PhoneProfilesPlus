@@ -554,7 +554,8 @@ public class Event {
 	public void startEvent(DataWrapper dataWrapper,
 							List<EventTimeline> eventTimelineList, 
 							boolean ignoreGlobalPref,
-							boolean interactive)
+							boolean interactive,
+                            boolean reactivate)
 	{
 		// remove delay alarm
 		removeDelayAlarm(dataWrapper, true); // for start delay
@@ -656,7 +657,7 @@ public class Event {
 		if (activatedProfile != null)
 			activatedProfileId = activatedProfile._id;
 		
-		if (this._fkProfileStart != activatedProfileId)
+		if ((this._fkProfileStart != activatedProfileId) || reactivate)
 		{
 			// no activate profile, when is already activated
 			GlobalData.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);

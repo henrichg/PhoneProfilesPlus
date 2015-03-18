@@ -1287,7 +1287,7 @@ public class DataWrapper {
 	@SuppressLint({ "NewApi", "SimpleDateFormat" })
 	public boolean doEventService(Event event, boolean statePause, 
 									boolean restartEvent, boolean interactive,
-									boolean forDelayAlarm)
+									boolean forDelayAlarm, boolean reactivate)
 	{
 		int newEventStatus = Event.ESTATUS_NONE;
 
@@ -2045,7 +2045,7 @@ public class DataWrapper {
 					{
 						// no delay alarm is set
 						// start event
-						event.startEvent(this, eventTimelineList, false, interactive);
+						event.startEvent(this, eventTimelineList, false, interactive, reactivate);
 					}
 				}
 				
@@ -2053,7 +2053,7 @@ public class DataWrapper {
 				{
 					// called for delay alarm
 					// start event
-					event.startEvent(this, eventTimelineList, false, interactive);
+					event.startEvent(this, eventTimelineList, false, interactive, reactivate);
 				}
 			}
 			else
