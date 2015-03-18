@@ -2029,11 +2029,11 @@ public class DataWrapper {
 		
 		if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelay)
 		{
-			//GlobalData.logE("@@@ DataWrapper.doEventService"," do new event status");
+			GlobalData.logE("DataWrapper.doEventService"," do new event status");
 			
 			if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause))
 			{
-				GlobalData.logE("DataWrapper.doEventService","start event");
+				GlobalData.logE("$$$ DataWrapper.doEventService","start event");
 				
 				if (!forDelayAlarm)
 				{
@@ -2057,8 +2057,10 @@ public class DataWrapper {
 				}
 			}
 			else
-			if ((newEventStatus == Event.ESTATUS_PAUSE) && statePause)
+			if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause)
 			{
+                // when pausing and it is for restart events, force pause
+
 				GlobalData.logE("DataWrapper.doEventService","pause event");
 				
 				event.pauseEvent(this, eventTimelineList, true, false, false);

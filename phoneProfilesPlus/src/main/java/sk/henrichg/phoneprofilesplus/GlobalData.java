@@ -66,18 +66,19 @@ public class GlobalData extends Application {
 										 //"@@@ ActivateProfileHelper|"+
 										 //"PhoneProfilesHelper.doInstallPPHelper"
 										 //"ExecuteRadioProfilePrefsService"
-										 /*"$$$ ScannerService|"+
+										 "$$$ ScannerService|"+
+                                         "$$$ EventsService|"+
                                          "$$$ ExecuteRadioProfilePrefsService|"+
                                          "$$$ WifiStateChangedBroadcastReceiver|"+
                                          "$$$ DataWrapper|"+
                                          "$$$ WifiScanBroadcastReceiver|"+
                                          "$$$ ReceiversService|"+
-                                         "$$$ WifiConnectionBroadcastReceiver|"+
-                                         "$$$ RefreshGUIBroadcastReceiver"*/
-                                         "$$$ EventsService|"+
+                                         "$$$ WifiConnectionBroadcastReceiver"
+                                         //"$$$ RefreshGUIBroadcastReceiver"
+                                         /*"$$$ EventsService|"+
                                          "$$$ ReceiversService|"+
                                          "$$$ DataWrapper|"+
-                                         "$$$ FirstStartService"
+                                         "$$$ FirstStartService"*/
 			;
 	
 	

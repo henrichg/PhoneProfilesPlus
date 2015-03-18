@@ -198,10 +198,10 @@ public class EventsService extends IntentService
 		// get running events count
 		List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
 		int runningEventCountE = eventTimelineList.size();
-		
+
 		boolean backgroundProfileActivated = false;
-		Profile activatedProfile = dataWrapper.getActivatedProfile();
-		
+		Profile activatedProfile = dataWrapper.getActivatedProfileFromDB();
+
 		if (!dataWrapper.getIsManualProfileActivation())
 		{
 			GlobalData.logE("### EventsService.onHandleIntent", "no manual profile activation");
