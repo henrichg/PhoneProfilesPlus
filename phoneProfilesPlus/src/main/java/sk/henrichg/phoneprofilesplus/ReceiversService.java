@@ -88,7 +88,7 @@ public class ReceiversService extends Service {
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId)
 	{
-        GlobalData.logE("ReceiversService.onStartCommand", "xxxxx");
+        GlobalData.logE("$$$ ReceiversService.onStartCommand", "xxxxx");
 
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
@@ -98,6 +98,8 @@ public class ReceiversService extends Service {
 	@Override
 	public void onTaskRemoved(Intent rootIntent)
 	{
+        GlobalData.logE("$$$ ReceiversService.onTaskRemoved", "xxxxx");
+
         //GlobalData.setApplicationStarted(getApplicationContext(), false);
         super.onTaskRemoved(rootIntent);
 	}
