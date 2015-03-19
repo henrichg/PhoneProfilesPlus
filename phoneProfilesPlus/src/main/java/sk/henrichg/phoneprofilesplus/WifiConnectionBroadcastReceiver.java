@@ -46,7 +46,7 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 
 			if (GlobalData.getGlobalEventsRuning(context))
 			{
-	    		//GlobalData.logE("@@@ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
+	    		GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
 	
 	        	/*if (((info.getState() == NetworkInfo.State.CONNECTED) ||
 	        		(info.getState() == NetworkInfo.State.DISCONNECTED)) &&
@@ -54,8 +54,6 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 	        	if ((info.getState() == NetworkInfo.State.CONNECTED) ||
 	        		(info.getState() == NetworkInfo.State.DISCONNECTED))
 	        	{
-		    		GlobalData.logE("@@@ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
-
 	        		//if (!WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
                     if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                          (WifiScanAlarmBroadcastReceiver.getWaitForResults(context))))
@@ -78,7 +76,9 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 		    				startWakefulService(context, eventsServiceIntent);
 		    			}
 	        		}
-	        		
+                    else
+                        GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","wifi is scanned");
+
 	        	}
 			}
 			
