@@ -1985,8 +1985,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 	
 	public void refreshGUI()
 	{
-        Log.e("$$$ PPP", "RefreshGUI - start");
-
 		setEventsRunStopIndicator();
 		
 		Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
