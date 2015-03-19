@@ -29,13 +29,13 @@ public class ReceiversService extends Service {
         
 		IntentFilter intentFilter1 = new IntentFilter();
 		intentFilter1.addAction(Intent.ACTION_BATTERY_CHANGED);
-		registerReceiver(batteryEventReceiver, intentFilter1);
+        getApplicationContext().registerReceiver(batteryEventReceiver, intentFilter1);
 		
 		IntentFilter intentFilter2 = new IntentFilter();
 		for (String action: HeadsetConnectionBroadcastReceiver.HEADPHONE_ACTIONS) {
 			intentFilter2.addAction(action);
-        }		
-		registerReceiver(headsetPlugReceiver, intentFilter2);
+        }
+        getApplicationContext().registerReceiver(headsetPlugReceiver, intentFilter2);
 
         /*
 		IntentFilter intentFilter7 = new IntentFilter();
@@ -51,7 +51,7 @@ public class ReceiversService extends Service {
 		intentFilter5.addAction(Intent.ACTION_SCREEN_ON);
 		intentFilter5.addAction(Intent.ACTION_SCREEN_OFF);
 		intentFilter5.addAction(Intent.ACTION_USER_PRESENT);
-		registerReceiver(screenOnOffReceiver, intentFilter5);
+        getApplicationContext().registerReceiver(screenOnOffReceiver, intentFilter5);
 
         /*
 		IntentFilter intentFilter8 = new IntentFilter();		
@@ -64,7 +64,7 @@ public class ReceiversService extends Service {
 		IntentFilter intentFilter99 = new IntentFilter();
 		intentFilter99.addAction(Intent.ACTION_TIMEZONE_CHANGED);
 		intentFilter99.addAction(Intent.ACTION_TIME_CHANGED);
-	    registerReceiver(restartEventsReceiver, intentFilter99);
+        getApplicationContext().registerReceiver(restartEventsReceiver, intentFilter99);
 		
 	    //SMSBroadcastReceiver.registerSMSContentObserver(this);
 	    //SMSBroadcastReceiver.registerMMSContentObserver(this);
@@ -76,14 +76,14 @@ public class ReceiversService extends Service {
 	{
         GlobalData.logE("ReceiversService.onDestroy", "xxxxx");
 
-		unregisterReceiver(batteryEventReceiver);
-		unregisterReceiver(headsetPlugReceiver);
+        getApplicationContext().unregisterReceiver(batteryEventReceiver);
+        getApplicationContext().unregisterReceiver(headsetPlugReceiver);
 		//unregisterReceiver(wifiStateChangedReceiver);
 		//unregisterReceiver(wifiConnectionReceiver);
-		unregisterReceiver(screenOnOffReceiver);
+        getApplicationContext().unregisterReceiver(screenOnOffReceiver);
 		//unregisterReceiver(bluetoothStateChangedReceiver);
-		
-		unregisterReceiver(restartEventsReceiver);
+
+        getApplicationContext().unregisterReceiver(restartEventsReceiver);
 		
 	    //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
 	    //SMSBroadcastReceiver.unregisterMMSContentObserver(this);
