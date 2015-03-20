@@ -8,12 +8,12 @@
 		    android:key="eventEnabled"
 		    android:title="@string/event_preferences_eventEnabled"
 		    android:defaultValue="false" />
-        <EditTextPreference
+        <com.afollestad.materialdialogs.prefs.MaterialEditTextPreference
             android:key="eventName"
             android:summary="@string/event_preferences_eventName"
             android:title="@string/event_preferences_eventName"
             android:selectAllOnFocus="true" /> 
-		<ListPreference android:title="@string/event_preferences_priority"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_priority"
             android:summary="@string/array_event_pref_priorityMedium"
             android:key="eventPriority"
             android:defaultValue="0"
@@ -104,14 +104,14 @@
             android:defaultValue=""
             android:title="@string/event_preferences_calendar_calendars"
             android:dependency="eventCalendarEnabled" />
-		<ListPreference android:title="@string/event_preferences_calendar_search_field"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_calendar_search_field"
             android:summary="@string/array_event_pref_calendarSearchField_eventName"
             android:key="eventCalendarSearchField"
             android:defaultValue="0"
             android:entries="@array/eventCalendarSearchFieldArray"
             android:entryValues="@array/eventCalendarSearchFieldValues"
             android:dependency="eventCalendarEnabled" />     
-        <EditTextPreference
+        <com.afollestad.materialdialogs.prefs.MaterialEditTextPreference
             android:key="eventCalendarSearchString"
             android:summary="@string/event_preferences_calendar_search_string"
             android:title="@string/event_preferences_calendar_search_string"
@@ -154,7 +154,7 @@
 		    android:key="eventCallEnabled"
 		    android:title="@string/event_preferences_call_enabled"
 		    android:defaultValue="false" />
-		<ListPreference android:title="@string/event_preferences_call_event"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_call_event"
             android:summary="@string/array_event_pref_ringing"
             android:key="eventCallEvent"
             android:defaultValue="0"
@@ -171,7 +171,7 @@
             android:defaultValue=""
             android:title="@string/event_preferences_call_contacts"
             android:dependency="eventCallEnabled" />
-		<ListPreference android:title="@string/event_preferences_ccontactListType"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_ccontactListType"
             android:summary="@string/array_event_pref_contact_list_type_white_list"
             android:key="eventCallContactListType"
             android:defaultValue="0"
@@ -203,7 +203,7 @@
             android:defaultValue=""
             android:title="@string/event_preferences_sms_contacts"
             android:dependency="eventSMSEnabled" />
-		<ListPreference android:title="@string/event_preferences_ccontactListType"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_ccontactListType"
             android:summary="@string/array_event_pref_contact_list_type_white_list"
             android:key="eventSMSContactListType"
             android:defaultValue="0"
@@ -218,7 +218,7 @@
 		    android:key="eventWiFiEnabled"
 		    android:title="@string/event_preferences_wifi_enabled"
 		    android:defaultValue="false" />
-		<ListPreference android:title="@string/event_preferences_wifi_connection_type"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_wifi_connection_type"
             android:summary="@string/array_event_pref_wifiConnectionType_connected"
             android:key="eventWiFiConnectionType"
             android:defaultValue="1"
@@ -238,7 +238,7 @@
 		    android:key="eventBluetoothEnabled"
 		    android:title="@string/event_preferences_bluetooth_enabled"
 		    android:defaultValue="false" />
-		<ListPreference android:title="@string/event_preferences_bluetooth_connection_type"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_bluetooth_connection_type"
             android:summary="@string/array_event_pref_bluetoothConnectionType_connected"
             android:key="eventBluetoothConnectionType"
             android:defaultValue="0"
@@ -258,7 +258,7 @@
 		    android:key="eventPeripheralEnabled"
 		    android:title="@string/event_preferences_peripheral_enabled"
 		    android:defaultValue="false" />
-		<ListPreference android:title="@string/event_preferences_peripheral_type"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_peripheral_type"
             android:summary="@string/array_event_pref_peripheralType_deskDock"
             android:key="eventPeripheralType"
             android:defaultValue="0"
@@ -273,7 +273,7 @@
 		    android:key="eventScreenEnabled"
 		    android:title="@string/event_preferences_screen_enabled"
 		    android:defaultValue="false" />
-		<ListPreference android:title="@string/event_preferences_screen_event_type"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_screen_event_type"
             android:summary="@string/array_event_pref_eventScreenEventType_screenOff"
             android:key="eventScreenEventType"
             android:defaultValue="1"
