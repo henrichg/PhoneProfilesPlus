@@ -431,11 +431,14 @@ public class EditorProfileListFragment extends Fragment {
 		/*
 		class DeleteAsyncTask extends AsyncTask<Void, Integer, Integer> 
 		{
-			private ProgressDialog dialog;
+			private MaterialDialog dialog;
 			
 			DeleteAsyncTask()
 			{
-		         this.dialog = new ProgressDialog(activity);
+                 this.dialog = new MaterialDialog.Builder(activity)
+                                 .content(getResources().getString(R.string.delete_profile_progress_title) + "...")
+                                 .progress(true, 0)
+                                 .build();
 			}
 			
 			@Override
@@ -444,8 +447,7 @@ public class EditorProfileListFragment extends Fragment {
 				super.onPreExecute();
 				
 				try {
-			        this.dialog.setMessage(getResources().getString(R.string.delete_profile_progress_title) + "...");
-			        this.dialog.show();						
+			        this.dialog.show();
 				} catch (Exception e) {
 				}
 			}
@@ -580,11 +582,14 @@ public class EditorProfileListFragment extends Fragment {
 				/*
 				class DeleteAsyncTask extends AsyncTask<Void, Integer, Integer> 
 				{
-					private ProgressDialog dialog;
+					private MaterialDialog dialog;
 					
 					DeleteAsyncTask()
 					{
-				         this.dialog = new ProgressDialog(activity);
+                         this.dialog = new MaterialDialog.Builder(activity)
+                                         .content(getResources().getString(R.string.delete_profiles_progress_title) + "...")
+                                         .progress(true, 0)
+                                         .build();
 					}
 					
 					@Override
@@ -592,8 +597,7 @@ public class EditorProfileListFragment extends Fragment {
 					{
 						super.onPreExecute();
 						
-					     this.dialog.setMessage(getResources().getString(R.string.delete_profiles_progress_title) + "...");
-					     this.dialog.show();						
+					    this.dialog.show();
 					}
 					
 					@Override

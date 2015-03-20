@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -23,6 +22,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.afollestad.materialdialogs.AlertDialogWrapper;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -274,11 +274,14 @@ public class PhoneProfilesHelper {
 				
 				class InstallAsyncTask extends AsyncTask<Void, Integer, Boolean> 
 				{
-					private ProgressDialog dialog;
+					private MaterialDialog dialog;
 					
 					InstallAsyncTask()
 					{
-				         this.dialog = new ProgressDialog(_activity);
+                        this.dialog = new MaterialDialog.Builder(_activity)
+                                .content(R.string.phoneprofilehepler_install_title)
+                                .progress(true, 0)
+                                .build();
 					}
 					
 					@Override
@@ -287,9 +290,7 @@ public class PhoneProfilesHelper {
 						super.onPreExecute();
 
                         lockScreenOrientation();
-					    this.dialog.setMessage(_activity.getResources().getString(R.string.phoneprofilehepler_install_title));
                         this.dialog.setCancelable(false);
-                        this.dialog.setIndeterminate(false);
 					    this.dialog.show() ;
 					}
 					
@@ -461,11 +462,14 @@ public class PhoneProfilesHelper {
 				
 				class UninstallAsyncTask extends AsyncTask<Void, Integer, Boolean> 
 				{
-					private ProgressDialog dialog;
+					private MaterialDialog dialog;
 					
 					UninstallAsyncTask()
 					{
-				         this.dialog = new ProgressDialog(_activity);
+                        this.dialog = new MaterialDialog.Builder(_activity)
+                                .content(R.string.phoneprofilehepler_uninstall_title)
+                                .progress(true, 0)
+                                .build();
 					}
 					
 					@Override
@@ -474,9 +478,7 @@ public class PhoneProfilesHelper {
 						super.onPreExecute();
 
                         lockScreenOrientation();
-					    this.dialog.setMessage(_activity.getResources().getString(R.string.phoneprofilehepler_uninstall_title));
                         this.dialog.setCancelable(false);
-                        this.dialog.setIndeterminate(false);
 					    this.dialog.show();
 					}
 					
