@@ -27,7 +27,6 @@ public class EventDelayBroadcastReceiver extends WakefulBroadcastReceiver {
 			Intent eventsServiceIntent = new Intent(context, EventsService.class);
 			eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
 			startWakefulService(context, eventsServiceIntent);
-			
 		}
 		
 	}

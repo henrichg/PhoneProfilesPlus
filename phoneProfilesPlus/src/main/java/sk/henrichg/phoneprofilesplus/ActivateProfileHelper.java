@@ -508,7 +508,6 @@ public class ActivateProfileHelper {
 		Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
 		volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
 		volumeServiceIntent.putExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, true);
-		//WakefulIntentService.sendWakefulWork(context, radioServiceIntent);
 		context.startService(volumeServiceIntent);
 		/*AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 		// nahodenie ringer modu - aby sa mohli nastavit hlasitosti

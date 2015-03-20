@@ -1,10 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Service;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.wifi.WifiManager;
 import android.os.IBinder;
 
 

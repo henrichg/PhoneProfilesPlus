@@ -1,10 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class SetRadioPrefsForProfileBroadcastReceiver extends WakefulBroadcastReceiver {
+public class SetRadioPrefsForProfileBroadcastReceiver extends BroadcastReceiver {
 
 	private static final String	ACTION = "sk.henrichg.phoneprofilesplus.SetRadiosForProfile.ACTION";
 	
@@ -22,7 +22,7 @@ public class SetRadioPrefsForProfileBroadcastReceiver extends WakefulBroadcastRe
 			{
 				Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
 				radioServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profileId);
-				startWakefulService(context, radioServiceIntent);
+				context.startService(radioServiceIntent);
 			}
 		}		
 		

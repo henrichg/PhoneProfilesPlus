@@ -330,9 +330,15 @@ public class EventsService extends IntentService
 		else
 		if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
 			SMSBroadcastReceiver.completeWakefulIntent(intent);
-		else
-		if (broadcastReceiverType.equals(EventsSMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-			EventsSMSBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(WifiStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            WifiStateChangedBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(BluetoothStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            BluetoothStateChangedBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(EventDelayBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            EventDelayBroadcastReceiver.completeWakefulIntent(intent);
 	}
 	
 }
