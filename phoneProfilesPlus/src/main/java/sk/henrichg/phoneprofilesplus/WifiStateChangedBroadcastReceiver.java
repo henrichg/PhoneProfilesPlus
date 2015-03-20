@@ -51,10 +51,9 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                     }
                 }
 
-
-                //if (!WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
                 if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                      (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)))) {
+                      (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                      (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
 
                     boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
                     dataWrapper.invalidateDataWrapper();

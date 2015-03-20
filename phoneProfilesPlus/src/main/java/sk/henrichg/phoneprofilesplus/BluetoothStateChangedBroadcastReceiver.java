@@ -47,9 +47,9 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                     }
                 }
 
-                //if (!BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context))
                 if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                      (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)))) {
+                      (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                      (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)))) {
                     boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
                     dataWrapper.invalidateDataWrapper();
 

@@ -54,9 +54,9 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 	        	if ((info.getState() == NetworkInfo.State.CONNECTED) ||
 	        		(info.getState() == NetworkInfo.State.DISCONNECTED))
 	        	{
-	        		//if (!WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
                     if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                         (WifiScanAlarmBroadcastReceiver.getWaitForResults(context))))
+                          (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                          (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))))
 	        		{
                         // wifi is not scanned
 
