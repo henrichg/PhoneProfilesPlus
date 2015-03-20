@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.lang.ref.WeakReference;
@@ -486,7 +486,7 @@ public class EditorEventListFragment extends Fragment {
 	{
 		final Event _event = event;
 
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(getActivity());
 		dialogBuilder.setTitle(getResources().getString(R.string.event_string_0) + ": " + event._name);
 		dialogBuilder.setMessage(getResources().getString(R.string.delete_event_alert_message));
 		//dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -502,7 +502,7 @@ public class EditorEventListFragment extends Fragment {
 
 	private void deleteAllEvents()
 	{
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(getActivity());
 		dialogBuilder.setTitle(getResources().getString(R.string.alert_title_delete_all_events));
 		dialogBuilder.setMessage(getResources().getString(R.string.alert_message_delete_all_events));
 		//dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);

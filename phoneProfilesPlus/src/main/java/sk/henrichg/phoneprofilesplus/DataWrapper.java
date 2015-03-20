@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
@@ -29,6 +28,8 @@ import android.text.format.DateFormat;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.AlertDialogWrapper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -1092,7 +1093,7 @@ public class DataWrapper {
 			final Activity _activity = activity;
 			final String _eventNotificationSound = eventNotificationSound;
 
-			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 			dialogBuilder.setTitle(activity.getResources().getString(R.string.profile_string_0) + ": " + profile._name);
 			if (isforceRunEvent)
 				dialogBuilder.setMessage(activity.getResources().getString(R.string.manual_profile_activation_forceRun_message));
@@ -2302,8 +2303,8 @@ public class DataWrapper {
 		if (GlobalData.applicationActivateWithAlert || (activity instanceof EditorProfilesActivity))
 		{
 			final Activity _activity = activity;
-			
-			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+
+            AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 			dialogBuilder.setTitle(activity.getResources().getString(R.string.restart_events_alert_title));
 			dialogBuilder.setMessage(activity.getResources().getString(R.string.restart_events_alert_message));
 			//dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);

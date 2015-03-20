@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
@@ -44,6 +43,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.File;
@@ -1020,7 +1020,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	
 	private void importExportErrorDialog(int importExport)
 	{
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(this);
 		String resString;
 		if (importExport == 1)
 			resString = getResources().getString(R.string.import_profiles_alert_title);
@@ -1235,7 +1235,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	private void importDataAlert(boolean remoteExport)
 	{
 		final boolean _remoteExport = remoteExport;
-		AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(this);
+        AlertDialogWrapper.Builder dialogBuilder2 = new AlertDialogWrapper.Builder(this);
 		if (remoteExport)
 		{
 			dialogBuilder2.setTitle(getResources().getString(R.string.import_profiles_from_phoneprofiles_alert_title2));
@@ -1280,7 +1280,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 		{
 			// PhoneProfiles is istalled
 
-			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(this);
 			dialogBuilder.setTitle(getResources().getString(R.string.import_profiles_from_phoneprofiles_alert_title));
 			dialogBuilder.setMessage(getResources().getString(R.string.import_profiles_from_phoneprofiles_alert_message));
 			//dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1335,7 +1335,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 
 	private void exportData()
 	{
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(this);
 		dialogBuilder.setTitle(getResources().getString(R.string.export_profiles_alert_title));
 		dialogBuilder.setMessage(getResources().getString(R.string.export_profiles_alert_message));
 		//dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);

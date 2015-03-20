@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -23,6 +22,7 @@ import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -264,8 +264,8 @@ public class PhoneProfilesHelper {
 		// not working on Android 2.3.x
 		GUIData.setTheme(activity, true, false);
 		GUIData.setLanguage(activity.getBaseContext());
-		
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+
+        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 		dialogBuilder.setTitle(activity.getResources().getString(R.string.phoneprofilehepler_install_title));
 		dialogBuilder.setMessage(activity.getResources().getString(R.string.phoneprofilehepler_install_message));
 		dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
@@ -452,8 +452,8 @@ public class PhoneProfilesHelper {
 	static public void uninstallPPHelper(Activity activity)
 	{
 		final Activity _activity = activity;
-		
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+
+        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 		dialogBuilder.setTitle(activity.getResources().getString(R.string.phoneprofilehepler_uninstall_title));
 		dialogBuilder.setMessage(activity.getResources().getString(R.string.phoneprofilehepler_uninstall_message));
 		dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
@@ -531,8 +531,8 @@ public class PhoneProfilesHelper {
 	{
 		final Activity _activity = activity;
 		final boolean _finishActivity = finishActivity;
-		
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+
+        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 		if (installUninstall == 1)
 		{
 			dialogBuilder.setTitle(activity.getResources().getString(R.string.phoneprofilehepler_reboot_title));
@@ -605,8 +605,8 @@ public class PhoneProfilesHelper {
 	{
 		final Activity _activity = activity;
 		final boolean _finishActivity = finishActivity;
-		
-		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+
+        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 		String resString;
 		if (installUninstall == 1)
 			resString = activity.getResources().getString(R.string.phoneprofilehepler_install_title);
