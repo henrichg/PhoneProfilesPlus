@@ -326,8 +326,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 			}
             unlock();
 		}
-		setScanRequest(context, false);
         setWaitForResults(context, startScan);
+        setScanRequest(context, false);
 	}
 	
 	static public void startScanner(Context context)
