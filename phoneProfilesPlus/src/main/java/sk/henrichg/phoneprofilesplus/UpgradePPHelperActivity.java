@@ -9,7 +9,7 @@ public class UpgradePPHelperActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		GlobalData.loadPreferences(getBaseContext());
+		GlobalData.loadPreferences(getApplicationContext());
 	}
 
 	@Override

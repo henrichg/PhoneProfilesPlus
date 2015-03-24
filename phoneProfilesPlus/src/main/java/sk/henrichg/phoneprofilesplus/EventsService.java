@@ -20,7 +20,7 @@ public class EventsService extends IntentService
 	@Override
 	protected void onHandleIntent(Intent intent) {
 
-		context = getBaseContext();
+		context = getApplicationContext();
 
 		GlobalData.logE("$$$ EventsService.onHandleIntent","-- start --------------------------------");
 

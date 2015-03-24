@@ -26,7 +26,7 @@ public class ShortcutCreatorActivity extends ActionBarActivity {
 		GUIData.setTheme(this, true, false);
 		GUIData.setLanguage(getBaseContext());
 
-		dataWrapper = new DataWrapper(getBaseContext(), true, false, 0);
+		dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
 	// set window dimensions ----------------------------------------------------------
 		

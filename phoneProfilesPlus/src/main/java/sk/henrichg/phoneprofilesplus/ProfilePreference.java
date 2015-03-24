@@ -33,7 +33,7 @@ public class ProfilePreference extends Preference {
 		prefContext = context;
 		//preferenceTitle = getTitle();
 		
-		dataWrapper = new DataWrapper(context, true, false, 0);
+		dataWrapper = new DataWrapper(context.getApplicationContext(), true, false, 0);
 		
 		setWidgetLayoutResource(R.layout.profile_preference); // resource na layout custom preference - TextView-ImageView
 		

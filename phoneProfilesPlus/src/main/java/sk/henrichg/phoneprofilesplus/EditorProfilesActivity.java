@@ -531,7 +531,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 		MenuItem menuItem = menu.findItem(R.id.menu_run_stop_events);
 		if (menuItem != null)
 		{
-			if (GlobalData.getGlobalEventsRuning(getBaseContext()))
+			if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
 			{
 				menuItem.setTitle(R.string.menu_stop_events);
 			}
@@ -541,7 +541,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 			}
 		}
 		
-		boolean isPPHInstalled = PhoneProfilesHelper.isPPHelperInstalled(getBaseContext(), PhoneProfilesHelper.PPHELPER_CURRENT_VERSION);
+		boolean isPPHInstalled = PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext(), PhoneProfilesHelper.PPHELPER_CURRENT_VERSION);
 		
 		menuItem = menu.findItem(R.id.menu_pphelper_install);
 		if (menuItem != null)
@@ -568,7 +568,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 		menuItem = menu.findItem(R.id.menu_restart_events);
 		if (menuItem != null)
 		{
-			menuItem.setVisible(GlobalData.getGlobalEventsRuning(getBaseContext()));
+			menuItem.setVisible(GlobalData.getGlobalEventsRuning(getApplicationContext()));
 		}
 		
 		return super.onPrepareOptionsMenu(menu);
@@ -594,23 +594,23 @@ public class EditorProfilesActivity extends ActionBarActivity
 			return true;
 		case R.id.menu_run_stop_events:
 			DataWrapper dataWrapper = getDataWrapper();
-			if (GlobalData.getGlobalEventsRuning(getBaseContext()))
+			if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
 			{
 				// no setup for next start
 				dataWrapper.removeAllEventDelays();
                 // no set system events, unblock all events, no activate return profile
 				dataWrapper.pauseAllEvents(true, false, false);
-				GlobalData.setGlobalEventsRuning(getBaseContext(), false);
+				GlobalData.setGlobalEventsRuning(getApplicationContext(), false);
 				// stop Wifi scanner
-				WifiScanAlarmBroadcastReceiver.initialize(getBaseContext());
-				WifiScanAlarmBroadcastReceiver.removeAlarm(getBaseContext(), false);
+				WifiScanAlarmBroadcastReceiver.initialize(getApplicationContext());
+				WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
 				// stop bluetooth scanner
-				BluetoothScanAlarmBroadcastReceiver.initialize(getBaseContext());
-				BluetoothScanAlarmBroadcastReceiver.removeAlarm(getBaseContext(), false);
+				BluetoothScanAlarmBroadcastReceiver.initialize(getApplicationContext());
+				BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
 			}
 			else
 			{
-				GlobalData.setGlobalEventsRuning(getBaseContext(), true);
+				GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
 				// setup for next start
 				dataWrapper.firstStartEvents(false);
 			}
@@ -656,7 +656,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 			}			
 			return true;*/
 		case R.id.menu_exit:
-			GlobalData.setApplicationStarted(getBaseContext(), false);
+			GlobalData.setApplicationStarted(getApplicationContext(), false);
 			
 			// stop all events
 			getDataWrapper().stopAllEvents(false, false);
@@ -1138,7 +1138,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 				if (ret == 1)
 				{
 					// check for hardware capability and update data
-					ret = this.dataWrapper.getDatabaseHandler().updateForHardware(getBaseContext());
+					ret = this.dataWrapper.getDatabaseHandler().updateForHardware(getApplicationContext());
 				}
 				if (ret == 1)
 				{
@@ -1168,7 +1168,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 			    
 				if (result == 1)
 				{
-					GlobalData.loadPreferences(getBaseContext());
+					GlobalData.loadPreferences(getApplicationContext());
 
 					dataWrapper.invalidateProfileList();
 					dataWrapper.invalidateEventList();
@@ -1177,9 +1177,9 @@ public class EditorProfilesActivity extends ActionBarActivity
 					//dataWrapper.getActivateProfileHelper().showNotification(null, "");
 					//dataWrapper.getActivateProfileHelper().updateWidget();
 					
-                    GlobalData.setEventsBlocked(getBaseContext(), false);
+                    GlobalData.setEventsBlocked(getApplicationContext(), false);
                     dataWrapper.getDatabaseHandler().unblockAllEvents();
-                    GlobalData.setForceRunEventRunning(getBaseContext(), false);
+                    GlobalData.setForceRunEventRunning(getApplicationContext(), false);
 
 			    	SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
 			    	Editor editor = preferences.edit();
@@ -1189,7 +1189,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 
                     // restart events
 					// startneme eventy
-					if (GlobalData.getGlobalEventsRuning(getBaseContext()))
+					if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
 					{
                         /*
 						Intent intent = new Intent();
@@ -1200,7 +1200,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 					}
 
                     // toast notification
-                    Toast msg = Toast.makeText(getBaseContext(),
+                    Toast msg = Toast.makeText(getApplicationContext(),
                             getResources().getString(R.string.toast_import_ok),
                             Toast.LENGTH_SHORT);
                     msg.show();
@@ -1275,7 +1275,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	private void importData()
 	{
 		// test whether the PhoneProfile is installed
-		PackageManager packageManager = getBaseContext().getPackageManager();
+		PackageManager packageManager = getApplicationContext().getPackageManager();
 		Intent phoneProfiles = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofiles");
 		if (phoneProfiles != null)
 		{
@@ -1405,7 +1405,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 						{
 
 							// toast notification
-							Toast msg = Toast.makeText(getBaseContext(), 
+							Toast msg = Toast.makeText(getApplicationContext(),
 									getResources().getString(R.string.toast_export_ok), 
 									Toast.LENGTH_SHORT);
 							msg.show();
@@ -1974,9 +1974,9 @@ public class EditorProfilesActivity extends ActionBarActivity
 
     public void setEventsRunStopIndicator()
     {
-		if (GlobalData.getGlobalEventsRuning(getBaseContext()))
+		if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
 		{
-			if (GlobalData.getEventsBlocked(getBaseContext()))
+			if (GlobalData.getEventsBlocked(getApplicationContext()))
 				eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
 			else
 				eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running);

@@ -219,8 +219,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 		intent.putExtra(GlobalData.EXTRA_START_APP_SOURCE, GlobalData.STARTUP_SOURCE_WIDGET);
 		
 		String status = "";
-		if (GlobalData.getEventsBlocked(getBaseContext()))
-			if (GlobalData.getForceRunEventRunning(getBaseContext()))
+		if (GlobalData.getEventsBlocked(getApplicationContext()))
+			if (GlobalData.getForceRunEventRunning(getApplicationContext()))
 			{
 	   			/*if (android.os.Build.VERSION.SDK_INT >= 16)
 	   				status = "\u23E9";

@@ -86,7 +86,7 @@ public class ActivateProfileActivity extends ActionBarActivity {
 		// add toolbar height
 		popupHeight = popupHeight + (25f + 1f + 3f) * scale;
 
-		DataWrapper dataWrapper = new DataWrapper(getBaseContext(), false, false, 0);
+		DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
 		int profileCount = dataWrapper.getDatabaseHandler().getProfilesCount(true);
 		dataWrapper.invalidateDataWrapper();
 
@@ -201,7 +201,7 @@ public class ActivateProfileActivity extends ActionBarActivity {
 		MenuItem menuItem = menu.findItem(R.id.menu_restart_events);
 		if (menuItem != null)
 		{
-			menuItem.setVisible(GlobalData.getGlobalEventsRuning(getBaseContext()));
+			menuItem.setVisible(GlobalData.getGlobalEventsRuning(getApplicationContext()));
 		}
 		
 		return super.onPrepareOptionsMenu(menu);
@@ -220,7 +220,7 @@ public class ActivateProfileActivity extends ActionBarActivity {
 
 			return true;
 		case R.id.menu_restart_events:
-			DataWrapper dataWrapper = new DataWrapper(getBaseContext(), false, false, 0);
+			DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
 			// ignoruj manualnu aktivaciu profilu
 			// a odblokuj forceRun eventy
 			dataWrapper.restartEventsWithAlert(this);
@@ -256,9 +256,9 @@ public class ActivateProfileActivity extends ActionBarActivity {
     {
 		ImageView eventsRunStopIndicator = (ImageView)findViewById(R.id.act_prof_run_stop_indicator);
     	
-		if (GlobalData.getGlobalEventsRuning(getBaseContext()))
+		if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
 		{
-			if (GlobalData.getEventsBlocked(getBaseContext()))
+			if (GlobalData.getEventsBlocked(getApplicationContext()))
 				eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
 			else
 				eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running);

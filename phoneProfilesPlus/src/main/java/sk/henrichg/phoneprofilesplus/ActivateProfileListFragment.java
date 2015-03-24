@@ -45,8 +45,8 @@ public class ActivateProfileListFragment extends Fragment {
 		// configuration changes for example
 		setRetainInstance(true);
 	
-		dataWrapper = new DataWrapper(getActivity().getBaseContext(), true, false, 0);
-		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getActivity(), getActivity().getBaseContext());		
+		dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getActivity(), getActivity().getApplicationContext());
 	}
 	
 	@Override
@@ -156,7 +156,7 @@ public class ActivateProfileListFragment extends Fragment {
 		
         private LoadProfileListAsyncTask (ActivateProfileListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<ActivateProfileListFragment>(fragment);
-	        this.dataWrapper = new DataWrapper(fragment.getActivity().getBaseContext(), true, false, 0);
+	        this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
 
         @Override
@@ -240,7 +240,7 @@ public class ActivateProfileListFragment extends Fragment {
 	private void endOnStart()
 	{
 		//  aplikacia uz je 1. krat spustena - is in FirstStartService
-		//GlobalData.setApplicationStarted(getActivity().getBaseContext(), true);
+		//GlobalData.setApplicationStarted(getActivity().getApplicationContext(), true);
 	}
 	
 	

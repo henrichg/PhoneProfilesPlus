@@ -137,12 +137,12 @@ public class EditorProfileListFragment extends Fragment {
         		getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorProfileListFragment.FILTER_TYPE_ALL) : 
         			EditorProfileListFragment.FILTER_TYPE_ALL;
 
-   		dataWrapper = new DataWrapper(getActivity().getBaseContext(), true, false, 0);
+   		dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
         		
     	databaseHandler = dataWrapper.getDatabaseHandler(); 
 	
     	activateProfileHelper = dataWrapper.getActivateProfileHelper();
-    	activateProfileHelper.initialize(dataWrapper, getActivity(), getActivity().getBaseContext());
+    	activateProfileHelper.initialize(dataWrapper, getActivity(), getActivity().getApplicationContext());
 		
 		setHasOptionsMenu(true);
 
@@ -255,7 +255,7 @@ public class EditorProfileListFragment extends Fragment {
         private LoadProfileListAsyncTask (EditorProfileListFragment fragment, int filterType) {
             this.fragmentWeakRef = new WeakReference<EditorProfileListFragment>(fragment);
             this.filterType = filterType;
-	        this.dataWrapper = new DataWrapper(fragment.getActivity().getBaseContext(), true, false, 0);
+	        this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
 
         @Override

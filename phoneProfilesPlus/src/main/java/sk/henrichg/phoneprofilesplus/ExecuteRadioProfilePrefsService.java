@@ -27,7 +27,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 		
 		GlobalData.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- START ----------");
 		
-		Context context = getBaseContext();
+		Context context = getApplicationContext();
 		
 		GlobalData.loadPreferences(context);
 		

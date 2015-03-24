@@ -40,7 +40,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 		// configuration changes for example
 		setRetainInstance(true);
 	
-		dataWrapper = new DataWrapper(getActivity().getBaseContext(), true, false, 0);
+		dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
 		
 	}
 	
@@ -94,7 +94,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         private LoadProfileListAsyncTask (ShortcutCreatorListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<ShortcutCreatorListFragment>(fragment);
-	        this.dataWrapper = new DataWrapper(fragment.getActivity().getBaseContext(), true, false, 0);
+	        this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
 
         @Override

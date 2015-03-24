@@ -110,7 +110,7 @@ public class PhoneProfilesHelper {
 			return false;
 		}
 		
-	    AssetManager assetManager = activity.getBaseContext().getAssets();
+	    AssetManager assetManager = activity.getApplicationContext().getAssets();
 	    String[] files = null;
 	    try {
 	        files = assetManager.list("");

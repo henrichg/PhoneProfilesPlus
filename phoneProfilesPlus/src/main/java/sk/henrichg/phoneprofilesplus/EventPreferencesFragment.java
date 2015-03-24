@@ -156,7 +156,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 		preferencesActivity = getActivity();
         context = getActivity().getBaseContext();
 
-        dataWrapper = new DataWrapper(context, true, false, 0);
+        dataWrapper = new DataWrapper(context.getApplicationContext(), true, false, 0);
 		
 	    startupSource = getArguments().getInt(GlobalData.EXTRA_PREFERENCES_STARTUP_SOURCE, GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT);
 	    if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)

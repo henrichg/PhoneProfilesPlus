@@ -137,8 +137,8 @@ public class EditorEventListFragment extends Fragment {
              	getArguments().getInt(ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_EVENT_NAME) : 
                 	EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
 
-   		dataWrapper = new DataWrapper(getActivity().getBaseContext(), true, false, 0);
-    	dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getActivity(), getActivity().getBaseContext());
+   		dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
+    	dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getActivity(), getActivity().getApplicationContext());
              	
        	databaseHandler = dataWrapper.getDatabaseHandler();
 		
@@ -216,7 +216,7 @@ public class EditorEventListFragment extends Fragment {
         private LoadEventListAsyncTask (EditorEventListFragment fragment, int orderType) {
             this.fragmentWeakRef = new WeakReference<EditorEventListFragment>(fragment);
             this.orderType = orderType;
-	        this.dataWrapper = new DataWrapper(fragment.getActivity().getBaseContext(), true, false, 0);
+	        this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
 
         @Override

@@ -162,7 +162,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 		setRetainInstance(false);
 		
 		preferencesActivity = getActivity();
-        context = getActivity().getBaseContext();
+        context = getActivity().getApplicationContext();
 		
         dataWrapper = new DataWrapper(context, true, false, 0);
         

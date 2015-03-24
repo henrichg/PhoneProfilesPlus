@@ -27,7 +27,7 @@ public class FirstStartService extends IntentService {
     @Override
 	protected void onHandleIntent(Intent intent)
 	{
-		Context context = getBaseContext();
+		Context context = getApplicationContext();
 
         GlobalData.logE("$$$ FirstStartService.onHandleIntent","--- START");
 

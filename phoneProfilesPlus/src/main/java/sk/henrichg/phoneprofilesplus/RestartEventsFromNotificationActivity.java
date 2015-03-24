@@ -12,9 +12,9 @@ public class RestartEventsFromNotificationActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 
-		GlobalData.loadPreferences(getBaseContext());
+		GlobalData.loadPreferences(getApplicationContext());
 		
-		dataWrapper = new DataWrapper(getBaseContext(), false, false, 0);
+		dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
 	 
 	}
 

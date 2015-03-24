@@ -26,7 +26,7 @@ public class RemoteExportDataActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		dataWrapper = new DataWrapper(getBaseContext(), false, false, 0);
+		dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
 		
 	}
 	
@@ -52,7 +52,7 @@ public class RemoteExportDataActivity extends Activity {
 	    ObjectOutputStream output = null;
 	    try {
 	        output = new ObjectOutputStream(new FileOutputStream(dst));
-	        SharedPreferences pref = getBaseContext().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+	        SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
 	        output.writeObject(pref.getAll());
 
 	        res = true;

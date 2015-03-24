@@ -15,8 +15,8 @@ public class LauncherActivity extends Activity {
 
 		overridePendingTransition(0, 0);
 		
-		dataWrapper = new DataWrapper(getBaseContext(), true, false, 0);
-		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getBaseContext());
+		dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
 		
 		Intent intent = getIntent();
 		startupSource = intent.getIntExtra(GlobalData.EXTRA_START_APP_SOURCE, 0);
@@ -27,7 +27,7 @@ public class LauncherActivity extends Activity {
 	{
 		super.onStart();
 
-		if (!GlobalData.getApplicationStarted(getBaseContext()))
+		if (!GlobalData.getApplicationStarted(getApplicationContext()))
 		{
 			// start service for first start
 			Intent firstStartServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);

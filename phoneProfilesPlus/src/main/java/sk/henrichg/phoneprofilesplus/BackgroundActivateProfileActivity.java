@@ -16,15 +16,15 @@ public class BackgroundActivateProfileActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		GlobalData.loadPreferences(getBaseContext());
+		GlobalData.loadPreferences(getApplicationContext());
 		
-		dataWrapper = new DataWrapper(getBaseContext(), true, false, 0);
+		dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 		
 		intent = getIntent();
 		startupSource = intent.getIntExtra(GlobalData.EXTRA_START_APP_SOURCE, 0);
 		profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
 
-		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getBaseContext());
+		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
 		
 	}
 
