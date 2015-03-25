@@ -17,7 +17,10 @@ public class Keyguard {
 
 	public static void initialize(Context context)
 	{
-	    if (keyguardManager == null)
+        GlobalData.logE("$$$ Keyguard.initialize","keyguardManager="+keyguardManager);
+        GlobalData.logE("$$$ Keyguard.initialize","keyguardLock="+keyguardLock);
+
+        if (keyguardManager == null)
 	    	keyguardManager = (KeyguardManager)context.getSystemService(Activity.KEYGUARD_SERVICE);
 	    if (keyguardLock == null)
 	    	keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
@@ -36,12 +39,14 @@ public class Keyguard {
 	
 	public static void disable()
 	{
+        GlobalData.logE("$$$ Keyguard.disable","keyguardLock="+keyguardLock);
 		if (keyguardLock != null)
 			keyguardLock.disableKeyguard();
 	}
 	
 	public static void reenable()
 	{
+        GlobalData.logE("$$$ Keyguard.reenable","keyguardLock="+keyguardLock);
 		if (keyguardLock != null)
 			keyguardLock.reenableKeyguard();
 	}

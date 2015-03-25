@@ -614,6 +614,7 @@ public class ActivateProfileHelper {
                 break;
         }
         if (setLockscreen) {
+            GlobalData.logE("$$$ ActivateProfileHelper.execute","keyguardService="+Keyguard.keyguardService);
             if (Keyguard.keyguardService == null)
                 Keyguard.keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class);
             context.startService(Keyguard.keyguardService);

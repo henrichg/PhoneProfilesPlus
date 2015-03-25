@@ -37,23 +37,27 @@ public class KeyguardService extends Service {
             secureKeyguard = kgMgr.isKeyguardSecure();
         else
 		    secureKeyguard = kgMgr.inKeyguardRestrictedInputMode();
+        GlobalData.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
         if (!secureKeyguard)
 		{
             GlobalData.logE("$$$ KeyguardService.onStartCommand xxx","getLockscreenDisabled="+GlobalData.getLockscreenDisabled(context));
             // zapnutie/vypnutie lockscreenu
             //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
             if (GlobalData.getLockscreenDisabled(context)) {
-                //Keyguard.reenable();
+                GlobalData.logE("$$$ KeyguardService.onStartCommand","Keyguard.disable(), START_STICKY");
+                Keyguard.reenable();
                 Keyguard.disable();
                 return START_STICKY;
             }
             else {
+                GlobalData.logE("$$$ KeyguardService.onStartCommand","Keyguard.reenable(), stopSelf(), START_NOT_STICKY");
                 Keyguard.reenable();
                 stopSelf();
                 return START_NOT_STICKY;
             }
 		}
 
+        GlobalData.logE("$$$ KeyguardService.onStartCommand"," secureKeyguard, stopSelf(), START_NOT_STICKY");
 		stopSelf();
 		return START_NOT_STICKY;
 	}
