@@ -1,10 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.provider.CalendarContract;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,30 +51,30 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                 .callback(callback)
                 .content(getDialogMessage());
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_calendars_multiselect_pref_dialog, null);
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_contact_groups_multiselect_pref_dialog, null);
         onBindDialogView(layout);
 
-        linlaProgress = (LinearLayout)layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
-        listView = (ListView)layout.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
+        linlaProgress = (LinearLayout)layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);
+        listView = (ListView)layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
             {
-                CalendarEvent calendar = (CalendarEvent)listAdapter.getItem(position);
-                calendar.toggleChecked();
-                CalendarViewHolder viewHolder = (CalendarViewHolder) item.getTag();
-                viewHolder.checkBox.setChecked(calendar.checked);
+                ContactGroup contactGroup = (ContactGroup)listAdapter.getItem(position);
+                contactGroup.toggleChecked();
+                ContactGroupViewHolder viewHolder = (ContactGroupViewHolder) item.getTag();
+                viewHolder.checkBox.setChecked(contactGroup.checked);
             }
         });
 
-        listAdapter = null;
+        listAdapter = new ContactGroupsMultiselectPreferenceAdapter(_context);
 
         mBuilder.customView(layout, false);
 
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                CalendarsMultiSelectDialogPreference.this.onShow(dialog);
+                ContactGroupsMultiSelectDialogPreference.this.onShow(dialog);
             }
         });
 
@@ -82,94 +86,68 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
+    public void onShow(DialogInterface dialog) {
 
-    protected View onCreateDialogView() {
-		LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        new AsyncTask<Void, Integer, Void>() {
 
-		View view = layoutInflater.inflate(
-			R.layout.activity_contact_groups_multiselect_pref_dialog, null);
-		
-		linlaProgress = (LinearLayout)view.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);
-		listView = (ListView)view.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
-		
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View item, int position, long id) 
+            @Override
+            protected void onPreExecute()
             {
-                ContactGroup contactGroup = (ContactGroup)listAdapter.getItem(position);
-                contactGroup.toggleChecked();
-                ContactGroupViewHolder viewHolder = (ContactGroupViewHolder) item.getTag();
-                viewHolder.checkBox.setChecked(contactGroup.checked);
+                super.onPreExecute();
+                linlaProgress.setVisibility(View.VISIBLE);
             }
-        });
-		
-	    listAdapter = new ContactGroupsMultiselectPreferenceAdapter(_context);
-		
-		new AsyncTask<Void, Integer, Void>() {
 
-			@Override
-			protected void onPreExecute()
-			{
-				super.onPreExecute();
-				linlaProgress.setVisibility(View.VISIBLE);
-			}
-			
-			@Override
-			protected Void doInBackground(Void... params) {
-				if (!EditorProfilesActivity.getContactGroupsCache().isCached())
-					EditorProfilesActivity.getContactGroupsCache().getContactGroupList(_context);
+            @Override
+            protected Void doInBackground(Void... params) {
+                if (!EditorProfilesActivity.getContactGroupsCache().isCached())
+                    EditorProfilesActivity.getContactGroupsCache().getContactGroupList(_context);
 
-				getValueCMSDP();
-				
-				return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Void result)
-			{
-				super.onPostExecute(result);
-				
-				if (!EditorProfilesActivity.getContactGroupsCache().isCached())
-					EditorProfilesActivity.getContactGroupsCache().clearCache(false);
-				
-			    listView.setAdapter(listAdapter);
-				linlaProgress.setVisibility(View.GONE);
-			}
-			
-		}.execute();
-		
-		return view;
-	}
+                getValueCMSDP();
 
-	public void onClick(DialogInterface dialog, int which) {
-		// if the positive button is clicked, we persist the value.
-		if (EditorProfilesActivity.getContactGroupsCache().isCached())
-		{
-			if (which == DialogInterface.BUTTON_POSITIVE) {
-				if (shouldPersist()) 
-				{
-					// sem narvi stringy skupin kontatkov oddelenych |
-					value = "";
-					List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
-					if (contactGroupList != null)
-					{
-						for (ContactGroup contactGroup : contactGroupList)
-						{
-							if (contactGroup.checked)
-							{
-								if (!value.isEmpty())
-									value = value + "|";
-								value = value + contactGroup.groupId;
-							}
-						}
-					}
-					persistString(value);
-					
-					setSummaryCMSDP();
-				}
-			}
-		}
-		super.onClick(dialog, which);
-	}
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                if (!EditorProfilesActivity.getContactGroupsCache().isCached())
+                    EditorProfilesActivity.getContactGroupsCache().clearCache(false);
+
+                listView.setAdapter(listAdapter);
+                linlaProgress.setVisibility(View.GONE);
+            }
+
+        }.execute();
+    }
+
+    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
+        @Override
+        public void onPositive(MaterialDialog dialog) {
+            if (shouldPersist())
+            {
+                // sem narvi stringy skupin kontatkov oddelenych |
+                value = "";
+                List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
+                if (contactGroupList != null)
+                {
+                    for (ContactGroup contactGroup : contactGroupList)
+                    {
+                        if (contactGroup.checked)
+                        {
+                            if (!value.isEmpty())
+                                value = value + "|";
+                            value = value + contactGroup.groupId;
+                        }
+                    }
+                }
+                persistString(value);
+
+                setSummaryCMSDP();
+            }
+        }
+    };
 
 	public void onDismiss (DialogInterface dialog)
 	{
