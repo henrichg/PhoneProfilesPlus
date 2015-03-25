@@ -12,10 +12,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-//import android.preference.Preference;
-//import android.preference.Preference.OnPreferenceChangeListener;
-
-
 public class ProfilePreferenceDialog
 {
 
