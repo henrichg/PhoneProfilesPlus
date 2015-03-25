@@ -3,24 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="48dp" >
 
-    <TextView
-        android:id="@+id/wifi_ssid_pref_dlg_item_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:paddingLeft="3dp"
-        android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-	<RadioButton
+    <RadioButton
         android:id="@+id/wifi_ssid_pref_dlg_item_radiobtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="3dp"
-        android:layout_alignParentRight="true"
+        android:layout_marginLeft="3dp"
         android:layout_centerVertical="true"
         android:checked="false"
         android:focusable="false"
         android:text="@string/empty_string" />
+
+    <TextView
+        android:id="@+id/wifi_ssid_pref_dlg_item_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/wifi_ssid_pref_dlg_item_radiobtn"
+        android:layout_centerVertical="true"
+        android:paddingLeft="3dp"
+        android:text="@string/empty_string"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

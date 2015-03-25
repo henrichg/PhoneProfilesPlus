@@ -2,14 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp" >
-	
+
+    <RadioButton
+        android:id="@+id/profile_pref_dlg_item_radiobtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:focusable="false"
+        android:text="@string/empty_string" />
+
     <ImageView
         android:id="@+id/profile_pref_dlg_item_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
         android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@+id/profile_pref_dlg_item_radiobtn"
         android:adjustViewBounds="true"
         android:maxHeight="40dp"
         android:maxWidth="40dp"
@@ -40,15 +50,5 @@
         android:src="@drawable/ic_profile_pref_volume_on"
         android:paddingLeft="10dp" />
 
-	<RadioButton
-        android:id="@+id/profile_pref_dlg_item_radiobtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="3dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
-    
+
 </RelativeLayout>

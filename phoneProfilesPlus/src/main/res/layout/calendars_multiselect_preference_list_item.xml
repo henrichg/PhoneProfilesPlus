@@ -4,13 +4,24 @@
     android:layout_height="48dp"
     android:padding="3dp" >
 
+    <CheckBox
+        android:id="@+id/calendars_multiselect_pref_dlg_item_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:focusable="false"
+        android:text="@string/empty_string" />
+
     <LinearLayout 
         android:id="@+id/calendars_multiselect_pref_dlg_item_color"
         android:orientation="vertical"
         android:layout_width="5dp"
         android:layout_height="20dp"
-        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
         android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/calendars_multiselect_pref_dlg_item_checkbox"
         android:background="#FFFF0000"
         />
     
@@ -25,15 +36,4 @@
         android:textSize="16sp"
         android:singleLine="true" />
 
-	<CheckBox
-        android:id="@+id/calendars_multiselect_pref_dlg_item_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="3dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
-    
 </RelativeLayout>

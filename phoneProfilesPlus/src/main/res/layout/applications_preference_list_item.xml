@@ -3,11 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="48dp" >
 
+    <RadioButton
+        android:id="@+id/applications_pref_dlg_item_radiobtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:focusable="false"
+        android:text="@string/empty_string" />
+
     <ImageView
         android:id="@+id/applications_pref_dlg_item_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/applications_pref_dlg_item_radiobtn"
         android:padding="3dp"
         android:src="@drawable/ic_launcher"
         android:contentDescription="@string/empty_string"
@@ -26,15 +37,4 @@
         android:text="@string/empty_string"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
-	<RadioButton
-        android:id="@+id/applications_pref_dlg_item_radiobtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="3dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
-
 </RelativeLayout>

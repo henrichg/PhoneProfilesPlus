@@ -4,13 +4,23 @@
     android:layout_height="48dp"
     android:padding="3dp" >
 
+    <CheckBox
+        android:id="@+id/contacts_multiselect_pref_dlg_item_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:focusable="false"
+        android:text="@string/empty_string" />
+
     <ImageView
         android:id="@+id/contacts_multiselect_pref_dlg_item_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_marginLeft="3dp"
+        android:layout_toRightOf="@+id/contacts_multiselect_pref_dlg_item_checkbox"
         android:contentDescription="@string/empty_string"
         android:padding="3dp"
         android:scaleType="fitCenter"
@@ -38,16 +48,5 @@
         android:text="@string/empty_string"
         android:textSize="13sp"
         android:singleLine="true" />
-    
-	<CheckBox
-        android:id="@+id/contacts_multiselect_pref_dlg_item_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="3dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
     
 </RelativeLayout>
