@@ -10,22 +10,15 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 public class ImageViewPreferenceDialog  {
 
-	private ImageViewPreference imageViewPreference;
-	private String imageSource;
-    private String imageIdentifier;
-    private boolean isImageResourceID;
-    private Context context;
+    private ImageViewPreference imageViewPreference;
+    private String imageSource;
     MaterialDialog dialog;
 
     public ImageViewPreferenceDialog(Context context, ImageViewPreference preference, String imgSource,
-										String imageIdentifier, boolean isImageResourceID)
-	{
-		this.imageViewPreference = preference;
-		this.imageSource = imgSource;
-        this.imageIdentifier = imageIdentifier;
-        this.isImageResourceID = isImageResourceID;
-
-		this.context = context;
+                                     String imageIdentifier, boolean isImageResourceID)
+    {
+        this.imageViewPreference = preference;
+        this.imageSource = imgSource;
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.title_activity_image_view_preference_dialog)
@@ -36,13 +29,13 @@ public class ImageViewPreferenceDialog  {
         {
             dialogBuilder.positiveText(R.string.imageview_resource_file_pref_dialog_gallery_btn);
             dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
-                                       @Override
-                                       public void onPositive(MaterialDialog dialog) {
-                                           // zavolat galeriu na vyzdvihnutie image
-                                           imageViewPreference.startGallery();
-                                           dialog.dismiss();
-                                       }
-                                   });
+                @Override
+                public void onPositive(MaterialDialog dialog) {
+                    // zavolat galeriu na vyzdvihnutie image
+                    imageViewPreference.startGallery();
+                    dialog.dismiss();
+                }
+            });
         }
 
         dialog = dialogBuilder.build();
