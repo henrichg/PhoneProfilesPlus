@@ -1,13 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.GridView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
