@@ -1,10 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
-import android.content.DialogInterface.OnShowListener;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,14 +9,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-//import android.preference.Preference;
-//import android.preference.Preference.OnPreferenceChangeListener;
+import com.afollestad.materialdialogs.MaterialDialog;
 
-
-public class ApplicationsPreferenceDialog extends Dialog 
-										 implements OnShowListener,
-													OnDismissListener
-{
+public class ApplicationsPreferenceDialog {
 
 	private ApplicationsPreference applicationsPreference;
 	private ApplicationsPreferenceAdapter applicationsPreferenceAdapter;
@@ -27,27 +19,45 @@ public class ApplicationsPreferenceDialog extends Dialog
 	private String packageName;
 	
 	private Context _context;
-	
+
+    private MaterialDialog mDialog;
 	private ListView listView;
 	private LinearLayout linlaProgress;
 	
-	public ApplicationsPreferenceDialog(Context context) {
-		super(context);
-	}
-	
 	public ApplicationsPreferenceDialog(Context context, ApplicationsPreference preference, String packageName)
 	{
-		super(context);
-		
 		applicationsPreference = preference;
 		this.packageName = packageName;
 
 		_context = context;
-		
-		setContentView(R.layout.activity_applications_pref_dialog);
-		
-		linlaProgress = (LinearLayout)findViewById(R.id.applications_pref_dlg_linla_progress);
-		listView = (ListView)findViewById(R.id.applications_pref_dlg_listview);
+
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
+                .title(R.string.title_activity_applications_preference_dialog)
+                .autoDismiss(false)
+                .customView(R.layout.activity_applications_pref_dialog, false);
+
+        dialogBuilder.showListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    ApplicationsPreferenceDialog.this.onShow(dialog);
+                }
+            })
+            /*.cancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                }
+            })*/
+            .dismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    ApplicationsPreferenceDialog.this.onDismiss(dialog);
+                }
+            });
+
+        mDialog = dialogBuilder.build();
+
+		linlaProgress = (LinearLayout)mDialog.getCustomView().findViewById(R.id.applications_pref_dlg_linla_progress);
+		listView = (ListView)mDialog.getCustomView().findViewById(R.id.applications_pref_dlg_listview);
 		
 		applicationsPreferenceAdapter = new ApplicationsPreferenceAdapter(this, _context, packageName); 
 	
@@ -58,12 +68,6 @@ public class ApplicationsPreferenceDialog extends Dialog
 
 		});
 
-/*		applicationPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-			public boolean onPreferenceChange(Preference preference, Object newValue) {
-			}	
-		}); */
-
-		setOnShowListener(this);
 	}
 
 	
@@ -140,14 +144,17 @@ public class ApplicationsPreferenceDialog extends Dialog
 	{
 		String packageName = applicationsPreferenceAdapter.getApplicationPackageName(position);
 		applicationsPreference.setPackageName(packageName);
-		ApplicationsPreferenceDialog.this.dismiss();
+		mDialog.dismiss();
 	}
 
-	@Override
 	public void onDismiss(DialogInterface dialog)
 	{
 		ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
 		applicationsCahce.cancelCaching();
 	}
+
+    public void show() {
+        mDialog.show();
+    }
 
 }

@@ -23,10 +23,12 @@
 	    android:id="@+id/applications_pref_dlg_listview"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
-	    android:padding="5dp"
+	    android:layout_margin="5dp"
+        android:padding="5dp"
 	    android:gravity="center"
 	    android:clipToPadding="false"
 	    android:choiceMode="singleChoice"
-    	android:scrollbarStyle="outsideOverlay" />
+    	android:scrollbarStyle="outsideOverlay"
+        android:divider="@android:color/transparent" />
 
 </LinearLayout>
