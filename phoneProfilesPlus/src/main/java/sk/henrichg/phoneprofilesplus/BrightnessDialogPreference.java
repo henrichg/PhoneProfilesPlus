@@ -1,12 +1,9 @@
-/**
- * Copyright CMW Mobile.com, 2010.
- */
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -20,11 +17,8 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-/**
- * The SeekBarDialogPreference class is a DialogPreference based and provides a
- * seekbar preference.
- * @author Casper Wakkers
- */
+import com.afollestad.materialdialogs.MaterialDialog;
+
 public class BrightnessDialogPreference extends
 		DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
@@ -56,11 +50,6 @@ public class BrightnessDialogPreference extends
 	private float savedAdaptiveBrightness;
 	private int savedBrightnessMode;
 	
-	/**
-	 * The SeekBarDialogPreference constructor.
-	 * @param context of this preference.
-	 * @param attrs custom xml attributes.
-	 */
 	public BrightnessDialogPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
@@ -88,47 +77,51 @@ public class BrightnessDialogPreference extends
 			savedAdaptiveBrightness = Settings.System.getFloat(_context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
 		
 	}
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressLint("InflateParams")
-	protected View onCreateDialogView() {
-		LayoutInflater layoutInflater = LayoutInflater.from(getContext());
 
-		View view = layoutInflater.inflate(
-			R.layout.activity_brightness_pref_dialog, null);
+    @Override
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .callback(callback)
+                .content(getDialogMessage());
 
-		seekBar = (SeekBar)view.findViewById(R.id.brightnessPrefDialogSeekbar);
-		valueText = (TextView)view.findViewById(R.id.brightnessPrefDialogValueText);
-		noChangeChBox = (CheckBox)view.findViewById(R.id.brightnessPrefDialogNoChange);
-		automaticChBox = (CheckBox)view.findViewById(R.id.brightnessPrefDialogAutomatic);
-		defaultProfileChBox = (CheckBox)view.findViewById(R.id.brightnessPrefDialogDefaultProfile);
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_brightness_pref_dialog, null);
+        onBindDialogView(layout);
 
-		if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-			automaticChBox.setText(R.string.preference_profile_adaptiveBrightness);
-		
-		seekBar.setOnSeekBarChangeListener(this);
-		seekBar.setKeyProgressIncrement(stepSize);
-		seekBar.setMax(maximumValue - minimumValue);
-		
-		getValueBDP();
-		
-		seekBar.setProgress(value);
-		
-		noChangeChBox.setOnCheckedChangeListener(this);
-		noChangeChBox.setChecked((noChange == 1));
+        seekBar = (SeekBar)layout.findViewById(R.id.brightnessPrefDialogSeekbar);
+        valueText = (TextView)layout.findViewById(R.id.brightnessPrefDialogValueText);
+        noChangeChBox = (CheckBox)layout.findViewById(R.id.brightnessPrefDialogNoChange);
+        automaticChBox = (CheckBox)layout.findViewById(R.id.brightnessPrefDialogAutomatic);
+        defaultProfileChBox = (CheckBox)layout.findViewById(R.id.brightnessPrefDialogDefaultProfile);
 
-		automaticChBox.setOnCheckedChangeListener(this);
-		automaticChBox.setChecked((automatic == 1));
-		
-		defaultProfileChBox.setOnCheckedChangeListener(this);
-		defaultProfileChBox.setChecked((defaultProfile == 1));
-		defaultProfileChBox.setEnabled(disableDefaultProfile == 0);
+        if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+            automaticChBox.setText(R.string.preference_profile_adaptiveBrightness);
 
-		if (noChange == 1)
-			defaultProfileChBox.setChecked(false);
-		if (defaultProfile == 1)
-			noChangeChBox.setChecked(false);
+        seekBar.setOnSeekBarChangeListener(this);
+        seekBar.setKeyProgressIncrement(stepSize);
+        seekBar.setMax(maximumValue - minimumValue);
+
+        getValueBDP();
+
+        seekBar.setProgress(value);
+
+        noChangeChBox.setOnCheckedChangeListener(this);
+        noChangeChBox.setChecked((noChange == 1));
+
+        automaticChBox.setOnCheckedChangeListener(this);
+        automaticChBox.setChecked((automatic == 1));
+
+        defaultProfileChBox.setOnCheckedChangeListener(this);
+        defaultProfileChBox.setChecked((defaultProfile == 1));
+        defaultProfileChBox.setEnabled(disableDefaultProfile == 0);
+
+        if (noChange == 1)
+            defaultProfileChBox.setChecked(false);
+        if (defaultProfile == 1)
+            noChangeChBox.setChecked(false);
 
 		/*
 		boolean isAutomatic = (automatic == 1);
@@ -137,14 +130,22 @@ public class BrightnessDialogPreference extends
 		valueText.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
 		seekBar.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
 		*/
-		valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
-		seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
-		automaticChBox.setEnabled((noChange == 0) && (defaultProfile == 0));
-		
-		return view;
-	}
+        valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
+        seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
+        automaticChBox.setEnabled((noChange == 0) && (defaultProfile == 0));
 
-	protected void onDialogClosed (boolean positiveResult)
+        mBuilder.customView(layout, false);
+
+        MaterialDialog mDialog = mBuilder.build();
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog)
 	{
 		Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
 		Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
@@ -157,9 +158,6 @@ public class BrightnessDialogPreference extends
 		win.setAttributes(layoutParams);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	public void onProgressChanged(SeekBar seek, int newValue,
 			boolean fromTouch) {
 		// Round the value to the closest integer value.
@@ -300,33 +298,24 @@ public class BrightnessDialogPreference extends
 		callChangeListener(noChange);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	public void onStartTrackingTouch(SeekBar seek) {
 	}
-	/**
-	 * {@inheritDoc}
-	 */
+
 	public void onStopTrackingTouch(SeekBar seek) {
 	}
-	/**
-	 * {@inheritDoc}
-	 */
-	public void onClick(DialogInterface dialog, int which) {
-		// if the positive button is clicked, we persist the value.
-		if (which == DialogInterface.BUTTON_POSITIVE) {
-			if (shouldPersist()) {
-				persistString(Integer.toString(value + minimumValue)
-						+ "|" + Integer.toString(noChange)
-						+ "|" + Integer.toString(automatic)
-						+ "|" + Integer.toString(defaultProfile));
-				setSummaryBDP();
-			}
-		}
 
-		super.onClick(dialog, which);
-	}
+    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
+        @Override
+        public void onPositive(MaterialDialog dialog) {
+            if (shouldPersist()) {
+                persistString(Integer.toString(value + minimumValue)
+                        + "|" + Integer.toString(noChange)
+                        + "|" + Integer.toString(automatic)
+                        + "|" + Integer.toString(defaultProfile));
+                setSummaryBDP();
+            }
+        }
+    };
 
 	@Override
 	protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
