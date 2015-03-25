@@ -1,187 +1,239 @@
 package sk.henrichg.phoneprofilesplus;
 
 
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.preference.ListPreference;
-import android.preference.Preference;
+import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A {@link Preference} that displays a list of entries as
- * a dialog and allows multiple selections
- * <p>
- * This preference will store a string into the SharedPreferences. This string will be the values selected
- * from the {@link #setEntryValues(CharSequence[])} array.
- * </p>
- */
-public class DaysOfWeekPreference extends ListPreference {
-	//Need to make sure the SEPARATOR is unique and weird enough that it doesn't match one of the entries.
-	//Not using any fancy symbols because this is interpreted as a regex for splitting strings.
-	private static final String SEPARATOR = "|";
-	
+public class DaysOfWeekPreference extends DialogPreference {
+
 	public static final String allValue = "#ALL#";
-	
-    private boolean[] mClickedDialogEntryIndices;
-    
-    Context context;
 
-    public DaysOfWeekPreference(Context context) {
-        super(context);
-        mClickedDialogEntryIndices = new boolean[8];
-        this.context = context; 
-    }
+    Context _context;
+    String value = "";
 
-    
+    List<DayOfWeek> daysOfWeekList = null;
+
+    // Layout widgets.
+    private ListView listView = null;
+
+    private DaysOfWeekPreferenceAdapter listAdapter;
+
+
     public DaysOfWeekPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mClickedDialogEntryIndices = new boolean[8];
-        this.context = context; 
-    }
- 
-    @Override
-    public void setEntries(CharSequence[] entries) {
-    	super.setEntries(entries);
-        mClickedDialogEntryIndices = new boolean[8];
-    }
-    
-    @Override
-    public void setEntryValues(CharSequence[] entries) {
-    	super.setEntryValues(entries);
-    }
-    
-    @Override
-    protected void onPrepareDialogBuilder(Builder builder) {
 
-    	
-    	CharSequence[] entries = getEntries();
-    	CharSequence[] entryValues = getEntryValues();
+        _context = context;
 
-        if (entries == null || entryValues == null || entries.length != entryValues.length ) {
-            throw new IllegalStateException(
-                    "ListPreference requires an entries array and an entryValues array which are both the same length");
+        daysOfWeekList = new ArrayList<DayOfWeek>();
+
+        CharSequence[] newEntries = new CharSequence[8];
+        CharSequence[] newEntryValues = new CharSequence[8];
+
+        /*
+        String[] newEntries = _context.getResources().getStringArray(R.array.daysOfWeekArray);
+        String[] newEntryValues = _context.getResources().getStringArray(R.array.daysOfWeekValues);
+        */
+
+        daysOfWeekList.clear();
+        DayOfWeek dayOfWeek = new DayOfWeek();
+        dayOfWeek.name = _context.getString(R.string.array_pref_event_all);
+        dayOfWeek.value = allValue;
+        daysOfWeekList.add(dayOfWeek);
+
+        String[] namesOfDay = DateFormatSymbols.getInstance().getWeekdays();
+
+        int _dayOfWeek;
+        for (int i = 1; i < 8; i++)
+        {
+            _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
+
+            dayOfWeek = new DayOfWeek();
+            dayOfWeek.name = namesOfDay[_dayOfWeek+1];
+            dayOfWeek.value = String.valueOf(_dayOfWeek);
+            daysOfWeekList.add(dayOfWeek);
         }
-        
-    	
-        //restoreCheckedEntries();
-        builder.setMultiChoiceItems(entries, mClickedDialogEntryIndices, 
-                new DialogInterface.OnMultiChoiceClickListener() {
-					public void onClick(DialogInterface dialog, int which, boolean val) {
-                    	mClickedDialogEntryIndices[which] = val;
-					}
-        });
+
     }
 
-    public static String[] parseStoredValue(CharSequence val) {
-		if ( "".equals(val) )
-			return null;
-		else
-			return ((String)val).split("\\"+SEPARATOR);
-    }
-    
-    private void restoreCheckedEntries(String value) {
-    	CharSequence[] entryValues = getEntryValues();
-    	
-    	//String[] vals = parseStoredValue(getValue());
-    	String[] vals = parseStoredValue(value);
-    	if ( vals != null ) {
-        	for ( int j=0; j<vals.length; j++ ) {
-        		String val = vals[j].trim();
-            	for ( int i=0; i<entryValues.length; i++ ) {
-            		CharSequence entry = entryValues[i];
-                	if ( entry.equals(val) ) {
-            			mClickedDialogEntryIndices[i] = true;
-            			break;
-            		}
-            	}
-        	}
-    	}
-    }
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .callback(callback)
+                .content(getDialogMessage());
 
-	@Override
-    protected void onDialogClosed(boolean positiveResult) {
-//        super.onDialogClosed(positiveResult);
-        
-    	CharSequence[] entryValues = getEntryValues();
-        if (positiveResult && entryValues != null) {
-        	StringBuffer value = new StringBuffer();
-        	for ( int i=0; i<entryValues.length; i++ ) {
-        		if ( mClickedDialogEntryIndices[i] ) {
-        			value.append(entryValues[i]).append(SEPARATOR);
-        		}
-        	}
-        	
-            if (callChangeListener(value)) {
-            	String val = value.toString();
-            	if ( val.length() > 0 )
-            		val = val.substring(0, val.length()-SEPARATOR.length());
-            	setValue(val);
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_days_of_week_pref_dialog, null);
+        onBindDialogView(layout);
+
+        listView = (ListView)layout.findViewById(R.id.days_of_week_pref_dlg_listview);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
+            {
+                DayOfWeek dayOfWeek = (DayOfWeek)listAdapter.getItem(position);
+                dayOfWeek.toggleChecked();
+                DayOfWeekViewHolder viewHolder = (DayOfWeekViewHolder) item.getTag();
+                viewHolder.checkBox.setChecked(dayOfWeek.checked);
             }
-            
-            setSummary(getSummary());
-            
-        }
+        });
+
+        listAdapter = new DaysOfWeekPreferenceAdapter(_context, daysOfWeekList);
+        listView.setAdapter(listAdapter);
+
+        mBuilder.customView(layout, false);
+
+        /*
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                DaysOfWeekMDPreference.this.onShow(dialog);
+            }
+        });
+        */
+
+        MaterialDialog mDialog = mBuilder.build();
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
     }
-	
+
+    /*
+    public void onShow(DialogInterface dialog) {
+
+        CharSequence[] newEntries = new CharSequence[8];
+        CharSequence[] newEntryValues = new CharSequence[8];
+
+        daysOfWeekList.clear();
+        DayOfWeek dayOfWeek = new DayOfWeek();
+        dayOfWeek.name = _context.getString(R.string.array_pref_event_all);
+        dayOfWeek.value = allValue;
+        daysOfWeekList.add(dayOfWeek);
+
+        String[] namesOfDay = DateFormatSymbols.getInstance().getWeekdays();
+
+        int _dayOfWeek;
+        for (int i = 1; i < 8; i++)
+        {
+            _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
+
+            dayOfWeek = new DayOfWeek();
+            dayOfWeek.name = namesOfDay[_dayOfWeek+1];
+            dayOfWeek.value = String.valueOf(_dayOfWeek);
+            daysOfWeekList.add(dayOfWeek);
+        }
+
+        getValueDOWMDP();
+
+        listAdapter = new DaysOfWeekPreferenceAdapter(_context, daysOfWeekList);
+        listView.setAdapter(listAdapter);
+
+    }
+    */
+
+    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
+        @Override
+        public void onPositive(MaterialDialog dialog) {
+        if (shouldPersist())
+        {
+            // sem narvi stringy skupin kontatkov oddelenych |
+            value = "";
+            if (daysOfWeekList != null)
+            {
+                for (DayOfWeek dayOfWeek : daysOfWeekList)
+                {
+                    if (dayOfWeek.checked)
+                    {
+                        if (!value.isEmpty())
+                            value = value + "|";
+                        value = value + dayOfWeek.value;
+                    }
+                }
+            }
+            persistString(value);
+
+            setSummaryDOWMDP();
+        }
+        }
+    };
+
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-    	
-    	// change entries order by firts day of week //////////////////
-    	CharSequence[] newEntries = new CharSequence[8];
-    	CharSequence[] newEntryValues = new CharSequence[8];
-    	
-    	newEntries[0] = context.getString(R.string.array_pref_event_all);
-    	newEntryValues[0] = allValue;
-    	
-    	String[] namesOfDay = DateFormatSymbols.getInstance().getWeekdays();
 
-    	int dayOfWeek;
-    	for (int i = 1; i < 8; i++)
-    	{
-    		dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
-    		newEntries[i] = namesOfDay[dayOfWeek+1];
-    		newEntryValues[i] = String.valueOf(dayOfWeek); 
-    	}
-    	setEntries(newEntries);
-    	setEntryValues(newEntryValues);
-    	/////////////////////////////////////////////////////
-    	
         if (restoreValue) {
-        	String sVal = getPersistedString((String)defaultValue);
-        	restoreCheckedEntries(sVal);
-        } else {
-        	restoreCheckedEntries((String)defaultValue);
+            // restore state
+            getValueDOWMDP();
         }
-    	
-        setSummary(getSummary());
+        else {
+            // set state
+            // sem narvi default string skupin kontaktov oddeleny |
+            value = "";
+            persistString("");
+        }
+        setSummaryDOWMDP();
     }
 
-    @Override
-    public CharSequence getSummary() {
-    	String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
-    	
-    	String summary = "";
-    	
-    	if (mClickedDialogEntryIndices[0])
-    	{
-	    	for ( int i=0; i<namesOfDay.length; i++ )
-    			summary = summary + namesOfDay[i] + " ";
-    	}
-    	else
-    	{
-    		
-	        for ( int i=1; i<mClickedDialogEntryIndices.length; i++ )
-	    		if (mClickedDialogEntryIndices[i])
-	    		{
-	    			summary = summary + namesOfDay[EventPreferencesTime.getDayOfWeekByLocale(i-1)+1] + " ";
-	    		}
-	    	
-    	}
-    	
-        return summary;
+    private void getValueDOWMDP()
+    {
+        // Get the persistent value
+        value = getPersistedString(value);
+
+        // change checked state by value
+        if (daysOfWeekList != null)
+        {
+            String[] splits = value.split("\\|");
+            for (DayOfWeek dayOfWeek : daysOfWeekList)
+            {
+                dayOfWeek.checked = false;
+                for (int i = 0; i < splits.length; i++)
+                {
+                    if (dayOfWeek.value.equals(splits[i]))
+                        dayOfWeek.checked = true;
+                }
+            }
+        }
     }
-    
+
+    private void setSummaryDOWMDP()
+    {
+        String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
+
+        String summary = "";
+
+        if ((daysOfWeekList != null) && (daysOfWeekList.size() > 0))
+        {
+            if (daysOfWeekList.get(0).checked)
+            {
+                for ( int i = 1; i <= namesOfDay.length; i++ )
+                    summary = summary + namesOfDay[EventPreferencesTime.getDayOfWeekByLocale(i-1)+1] + " ";
+            }
+            else
+            {
+                for ( int i = 1; i < daysOfWeekList.size(); i++ )
+                {
+                    DayOfWeek dayOfWeek = daysOfWeekList.get(i);
+                    if (dayOfWeek.checked)
+                        summary = summary + namesOfDay[EventPreferencesTime.getDayOfWeekByLocale(i-1)+1] + " ";
+                }
+            }
+        }
+
+        setSummary(summary);
+    }
+
 }

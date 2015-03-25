@@ -27,10 +27,6 @@
 	<declare-styleable name="ProfilePreference">
         <attr name="addNoActivateItem" format="integer" />
 	</declare-styleable>
-	<declare-styleable name="DaysOfWeekPreference">
-        <attr format="string" name="checkAll" />
-        <attr format="string" name="separator" />
-    </declare-styleable>
     <declare-styleable name="NumberPickerPreference">
         <attr name="max" format="integer" />
         <attr name="min" format="integer" />

@@ -70,11 +70,9 @@
 		    android:title="@string/event_preferences_time_enabled"
 		    android:defaultValue="false" />
         <sk.henrichg.phoneprofilesplus.DaysOfWeekPreference
-            android:defaultValue="#ALL#"
             android:key="eventTimeDays"
+            android:defaultValue=""
             android:title="@string/event_preferences_time_timeDays"
-            android:entries="@array/daysOfWeekArray"
-            android:entryValues="@array/daysOfWeekValues"
             android:dependency="eventTimeEnabled" />
         <sk.henrichg.phoneprofilesplus.TimePreference
             android:key="eventTimeStartTime"
