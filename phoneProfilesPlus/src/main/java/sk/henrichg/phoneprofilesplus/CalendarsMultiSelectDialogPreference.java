@@ -6,14 +6,18 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.CalendarContract.Calendars;
+import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,17 +56,23 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 
 	}
 
-	protected View onCreateDialogView() {
-		LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .callback(callback)
+                .content(getDialogMessage());
 
-		View view = layoutInflater.inflate(
-			R.layout.activity_calendars_multiselect_pref_dialog, null);
-		
-		linlaProgress = (LinearLayout)view.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
-		listView = (ListView)view.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
-		
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View item, int position, long id) 
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_calendars_multiselect_pref_dialog, null);
+        onBindDialogView(layout);
+
+        linlaProgress = (LinearLayout)layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
+        listView = (ListView)layout.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
             {
                 CalendarEvent calendar = (CalendarEvent)listAdapter.getItem(position);
                 calendar.toggleChecked();
@@ -70,102 +80,118 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 viewHolder.checkBox.setChecked(calendar.checked);
             }
         });
-		
-	    listAdapter = null; 
 
-		new AsyncTask<Void, Integer, Void>() {
+        listAdapter = null;
 
-			@Override
-			protected void onPreExecute()
-			{
-				super.onPreExecute();
-				linlaProgress.setVisibility(View.VISIBLE);
-			}
-			
-			@Override
-			protected Void doInBackground(Void... params) {
-				
-				calendarList.clear();
-				
-				Cursor cur = null;
-				ContentResolver cr = _context.getContentResolver();
-				Uri uri = Calendars.CONTENT_URI;
+        mBuilder.customView(layout, false);
+
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+            CalendarsMultiSelectDialogPreference.this.onShow(dialog);
+            }
+        });
+
+        MaterialDialog mDialog = mBuilder.build();
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
+    }
+
+    public void onShow(DialogInterface dialog) {
+
+        new AsyncTask<Void, Integer, Void>() {
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                linlaProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+
+                calendarList.clear();
+
+                Cursor cur = null;
+                ContentResolver cr = _context.getContentResolver();
+                Uri uri = Calendars.CONTENT_URI;
 				/*
-				String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND (" 
+				String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND ("
 				                        + Calendars.ACCOUNT_TYPE + " = ?) AND ("
 				                        + Calendars.OWNER_ACCOUNT + " = ?))";
 				String[] selectionArgs = new String[] {"sampleuser@gmail.com", "com.google",
 				        "sampleuser@gmail.com"};
-				*/ 
-				// Submit the query and get a Cursor object back. 
-				//cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
-				cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
-				while (cur.moveToNext()) {
-				    long calID = 0;
-				    String displayName = null;
-				    int color = 0;
-				      
-				    // Get the field values
-				    calID = cur.getLong(PROJECTION_ID_INDEX);
-				    displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
-				    color = cur.getInt(PROJECTION_COLOR_INDEX);
-				              
-					CalendarEvent aCalendar = new CalendarEvent();
-					aCalendar.calendarId = calID;
-					aCalendar.name = displayName;
-					aCalendar.color = color;
-					
-					calendarList.add(aCalendar);
+				*/
+                // Submit the query and get a Cursor object back.
+                //cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
+                cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
+                while (cur.moveToNext()) {
+                    long calID = 0;
+                    String displayName = null;
+                    int color = 0;
 
-				}
-				cur.close();
-				
-				getValueCMSDP();
-				
-				return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Void result)
-			{
-				super.onPostExecute(result);
-				
-				listAdapter = new CalendarsMultiselectPreferenceAdapter(_context, calendarList);
-			    listView.setAdapter(listAdapter);
-				linlaProgress.setVisibility(View.GONE);
-			}
-			
-		}.execute();
-		
-		return view;
-	}
+                    // Get the field values
+                    calID = cur.getLong(PROJECTION_ID_INDEX);
+                    displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
+                    color = cur.getInt(PROJECTION_COLOR_INDEX);
 
-	public void onClick(DialogInterface dialog, int which) {
-		// if the positive button is clicked, we persist the value.
-		if (which == DialogInterface.BUTTON_POSITIVE) {
-			if (shouldPersist()) 
-			{
-				// sem narvi stringy kontatkov oddelenych |
-				value = "";
-				if (calendarList != null)
-				{
-					for (CalendarEvent calendar : calendarList)
-					{
-						if (calendar.checked)
-						{
-							if (!value.isEmpty())
-								value = value + "|";
-							value = value + calendar.calendarId;
-						}
-					}
-				}
-				persistString(value);
-				
-				setSummaryCMSDP();
-			}
-		}
-		super.onClick(dialog, which);
-	}
+                    CalendarEvent aCalendar = new CalendarEvent();
+                    aCalendar.calendarId = calID;
+                    aCalendar.name = displayName;
+                    aCalendar.color = color;
+
+                    calendarList.add(aCalendar);
+
+                }
+                cur.close();
+
+                getValueCMSDP();
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                listAdapter = new CalendarsMultiselectPreferenceAdapter(_context, calendarList);
+                listView.setAdapter(listAdapter);
+                linlaProgress.setVisibility(View.GONE);
+            }
+
+        }.execute();
+    }
+
+    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
+        @Override
+        public void onPositive(MaterialDialog dialog) {
+        if (shouldPersist())
+        {
+            // sem narvi stringy kontatkov oddelenych |
+            value = "";
+            if (calendarList != null)
+            {
+                for (CalendarEvent calendar : calendarList)
+                {
+                    if (calendar.checked)
+                    {
+                        if (!value.isEmpty())
+                            value = value + "|";
+                        value = value + calendar.calendarId;
+                    }
+                }
+            }
+            persistString(value);
+
+            setSummaryCMSDP();
+        }
+        }
+    };
 
 	@Override
 	protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
