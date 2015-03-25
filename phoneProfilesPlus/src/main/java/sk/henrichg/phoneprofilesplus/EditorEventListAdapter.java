@@ -335,8 +335,10 @@ public class EditorEventListAdapter extends BaseAdapter
 
 		    if (GlobalData.applicationEditorPrefIndicator)
 		    {
-		    	String eventPrefDescription = event.getPreferecesDescription(vi.getContext());
-		    	holder.eventPreferencesDescription.setText(eventPrefDescription);
+                if (holder.eventPreferencesDescription != null) {
+                    String eventPrefDescription = event.getPreferecesDescription(vi.getContext());
+                    holder.eventPreferencesDescription.setText(eventPrefDescription);
+                }
 		    }
 	
 		    // profile start
@@ -364,7 +366,8 @@ public class EditorEventListAdapter extends BaseAdapter
 					//profilePrefIndicatorImageView.setImageBitmap(null);
 					//Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
 					//profilePrefIndicatorImageView.setImageBitmap(bitmap);
-					holder.profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
+                    if (holder.profileStartIndicator != null)
+					    holder.profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
 				}
 	        }
 	        else
@@ -376,7 +379,8 @@ public class EditorEventListAdapter extends BaseAdapter
 					//profilePrefIndicatorImageView.setImageBitmap(null);
 					//Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
 					//profilePrefIndicatorImageView.setImageBitmap(bitmap);
-					holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
+                    if (holder.profileStartIndicator != null)
+					    holder.profileStartIndicator.setImageResource(R.drawable.ic_empty);
 				}
 	        }
 	
@@ -405,7 +409,8 @@ public class EditorEventListAdapter extends BaseAdapter
 					//profilePrefIndicatorImageView.setImageBitmap(null);
 					//Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
 					//profilePrefIndicatorImageView.setImageBitmap(bitmap);
-					holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
+                    if (holder.profileEndIndicator != null)
+					    holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
 				}
 	        }
 	        else
@@ -427,7 +432,8 @@ public class EditorEventListAdapter extends BaseAdapter
 					//profilePrefIndicatorImageView.setImageBitmap(null);
 					//Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
 					//profilePrefIndicatorImageView.setImageBitmap(bitmap);
-					holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
+                    if (holder.profileEndIndicator != null)
+					    holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
 				}
 	        }
 	        
