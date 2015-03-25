@@ -1,11 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,7 +16,7 @@ import java.util.List;
 //import android.preference.Preference.OnPreferenceChangeListener;
 
 
-public class ProfilePreferenceDialog extends Dialog
+public class ProfilePreferenceDialog
 {
 
 	public ProfilePreference profilePreference;
@@ -26,17 +27,12 @@ public class ProfilePreferenceDialog extends Dialog
 	String profileId;
 	
 	private Context _context;
-	
+
+    private MaterialDialog mDialog;
 	private ListView listView;
 
-	public ProfilePreferenceDialog(Context context) {
-		super(context);
-	}
-	
 	public ProfilePreferenceDialog(Context context, ProfilePreference preference, String profileId)
 	{
-		super(context);
-		
 		profilePreference = preference;
 
 		this.profileId = profileId;
@@ -47,10 +43,15 @@ public class ProfilePreferenceDialog extends Dialog
 
 
 		_context = context;
-		
-		setContentView(R.layout.activity_profile_pref_dialog);
-		
-		listView = (ListView)findViewById(R.id.profile_pref_dlg_listview);
+
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
+                .title(R.string.title_activity_profile_preference_dialog)
+                .autoDismiss(false)
+                .customView(R.layout.activity_profile_pref_dialog, false);
+
+        mDialog = dialogBuilder.build();
+
+        listView = (ListView)mDialog.getCustomView().findViewById(R.id.profile_pref_dlg_listview);
 		
 		profileList = ProfilePreference.dataWrapper.getProfileList();
 	    Collections.sort(profileList, new AlphabeticallyComparator());
@@ -113,7 +114,7 @@ public class ProfilePreferenceDialog extends Dialog
 		}
 		else
 			profilePreference.setProfileId(profilePreferenceAdapter.profileList.get(position)._id);
-		ProfilePreferenceDialog.this.dismiss();
+		mDialog.dismiss();
 	}
 	
 	private class AlphabeticallyComparator implements Comparator<Profile> {
@@ -124,5 +125,9 @@ public class ProfilePreferenceDialog extends Dialog
 	        return res;
 	    }
 	}
-	
+
+    public void show() {
+        mDialog.show();
+    }
+
 }

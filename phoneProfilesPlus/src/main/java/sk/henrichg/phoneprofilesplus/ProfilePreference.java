@@ -85,7 +85,6 @@ public class ProfilePreference extends Preference {
 		// klik na preference
 
 		final ProfilePreferenceDialog dialog = new ProfilePreferenceDialog(prefContext, this, profileId);
-		dialog.setTitle(R.string.title_activity_profile_preference_dialog);
 		dialog.show();
 	}
 	
