@@ -6,11 +6,7 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.afollestad.materialdialogs.MaterialDialog;
