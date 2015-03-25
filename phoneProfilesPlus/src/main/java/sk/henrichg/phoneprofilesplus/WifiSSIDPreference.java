@@ -2,8 +2,10 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,10 +13,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +32,8 @@ public class WifiSSIDPreference extends DialogPreference {
 	public List<WifiSSIDData> SSIDList = null;
 	
 	Context context;
-	
+
+    private MaterialDialog mDialog;
 	private LinearLayout progressLinearLayout;
 	private RelativeLayout dataRelativeLayout;
 	private EditText SSIDName;
@@ -43,71 +51,85 @@ public class WifiSSIDPreference extends DialogPreference {
         SSIDList = new ArrayList<WifiSSIDData>();
     }
 
-    @SuppressLint("InflateParams")
-	@Override
-    protected View onCreateDialogView() {
+    @Override
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .neutralText(R.string.wifi_ssid_pref_dlg_rescan_button)
+                .callback(callback)
+                .autoDismiss(false)
+                .content(getDialogMessage());
 
-        LayoutInflater inflater =
-                (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.activity_wifi_ssid_pref_dialog, null);
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_wifi_ssid_pref_dialog, null);
+        onBindDialogView(layout);
 
-        progressLinearLayout = (LinearLayout) view.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
-        dataRelativeLayout = (RelativeLayout) view.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
-        
-        SSIDName = (EditText) view.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
+        progressLinearLayout = (LinearLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
+        dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
+
+        SSIDName = (EditText) layout.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
         SSIDName.setText(value);
-        
-    	if (android.os.Build.VERSION.SDK_INT >= 20)
-    	{
-	        View buttonSeparator = view.findViewById(R.id.wifi_ssid_pref_dlg_button_separator);
-	        buttonSeparator.setVisibility(View.GONE);
-    	}
-        
-        rescanButton = (Button) view.findViewById(R.id.wifi_ssid_pref_dlg_rescan);
-        rescanButton.setOnClickListener(new View.OnClickListener()
-    	{
-            public void onClick(View v) {
-                refreshListView(true);
-            }
-        });
-        
-        SSIDListView = (ListView) view.findViewById(R.id.wifi_ssid_pref_dlg_listview);
+
+        SSIDListView = (ListView) layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
         listAdapter = new WifiSSIDPreferenceAdapter(context, this);
         SSIDListView.setAdapter(listAdapter);
 
         refreshListView(false);
-        
-		SSIDListView.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-				WifiSSIDPreferenceAdapter.ViewHolder viewHolder = 
-						(WifiSSIDPreferenceAdapter.ViewHolder)v.getTag();
-				viewHolder.radioBtn.setChecked(true);
-            	setSSID(SSIDList.get(position).ssid);
-			}
 
-		});
-		
-        return view;
+        SSIDListView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                WifiSSIDPreferenceAdapter.ViewHolder viewHolder =
+                        (WifiSSIDPreferenceAdapter.ViewHolder) v.getTag();
+                viewHolder.radioBtn.setChecked(true);
+                setSSID(SSIDList.get(position).ssid);
+            }
+
+        });
+
+        mBuilder.customView(layout, false);
+
+        mDialog = mBuilder.build();
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
+    }
+
+    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
+        @Override
+        public void onPositive(MaterialDialog dialog) {
+            if (shouldPersist()) {
+                SSIDName.clearFocus();
+                value = SSIDName.getText().toString();
+
+                if (callChangeListener(value))
+                {
+                    persistString(value);
+                }
+            }
+            mDialog.dismiss();
+        }
+        @Override
+        public void onNegative(MaterialDialog dialog) {
+            mDialog.dismiss();
+        }
+        @Override
+        public void onNeutral(MaterialDialog dialog) {
+            refreshListView(true);
+        }
+    };
+
+    @Override
+    public void onDismiss(DialogInterface dialog)
+    {
+        if (!rescanAsyncTask.isCancelled())
+            rescanAsyncTask.cancel(true);
     }
 
     @Override
-    protected void onDialogClosed(boolean positiveResult) {
-    	if (!rescanAsyncTask.isCancelled())
-    		rescanAsyncTask.cancel(true);
-    	
-        if (positiveResult) {
-
-        	SSIDName.clearFocus();
-        	value = SSIDName.getText().toString();
-        	
-    		if (callChangeListener(value))
-    		{
-	            persistString(value);
-    		}
-        }
-    }
-    
-    @Override 
     protected Object onGetDefaultValue(TypedArray ta, int index)
     {
 		super.onGetDefaultValue(ta, index);

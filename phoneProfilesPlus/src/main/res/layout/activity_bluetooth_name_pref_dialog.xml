@@ -38,44 +38,20 @@
 	        	android:selectAllOnFocus="true"
 	        	android:inputType="textNoSuggestions" />
 	    
-			<View
-			    android:id="@+id/bluetooth_name_pref_dlg_button_separator"
-			    android:layout_width="fill_parent"
-			    android:layout_height="1dip"
-			    android:background="?android:attr/dividerHorizontal" />
-			<LinearLayout 
-			    style="?android:attr/buttonBarStyle"
-			    android:layout_width="fill_parent"
-			    android:layout_height="wrap_content"
-			    android:orientation="horizontal"
-			    android:paddingTop="0dip"
-			    android:paddingLeft="2dip"
-			    android:paddingRight="2dip"
-			    android:measureWithLargestChild="true">
-
-			    <Button
-			        android:id="@+id/bluetooth_name_pref_dlg_rescan"
-		        	android:layout_width="0dip"
-			        android:layout_height="wrap_content"
-		        	android:layout_weight="1"
-			        style="?android:attr/buttonBarButtonStyle"
-			        android:textSize="15sp"
-			        android:text="@string/bluetooth_name_pref_dlg_rescan_button" />
-
-			</LinearLayout>
-				    		    		    
 	    </LinearLayout>
         
 		<ListView 
 		    android:id="@+id/bluetooth_name_pref_dlg_listview"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
+            android:layout_margin="5dp"
 		    android:padding="5dp"
 		    android:layout_above="@+id/bluetooth_name_pref_dlg_et_btn"
 		    android:layout_alignParentTop="true"
 		    android:clipToPadding="false"
 		    android:choiceMode="singleChoice"
-	    	android:scrollbarStyle="outsideOverlay" />
+	    	android:scrollbarStyle="outsideOverlay"
+            android:divider="@android:color/transparent" />
 
     </RelativeLayout>
 
