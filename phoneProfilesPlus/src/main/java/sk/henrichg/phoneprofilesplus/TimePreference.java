@@ -2,11 +2,18 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -30,20 +37,27 @@ public class TimePreference extends DialogPreference {
         calendar = Calendar.getInstance();
     }
 
-    @Override
-    protected View onCreateDialogView() {
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .callback(callback)
+                .content(getDialogMessage());
+
         picker = new TimePicker(context, attributeSet);
-        //String clockType = android.provider.Settings.System.getString(
-        //						context.getContentResolver(), 
-        //						android.provider.Settings.System.TIME_12_24);
-        //String clockType  = Settings.System.getString(context.getContentResolver(), 
-        //		                           Settings.System.TIME_12_24);
-        //if (clockTtype = null)
-        //{
-        //	 DateFormat.is24HourFormat(context);
-        //}
         picker.setIs24HourView(DateFormat.is24HourFormat(context));
-        return (picker);
+        onBindDialogView(picker);
+
+        mBuilder.customView(picker, false);
+
+        MaterialDialog mDialog = mBuilder.build();
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
     }
 
     @Override
@@ -53,23 +67,23 @@ public class TimePreference extends DialogPreference {
         picker.setCurrentMinute(calendar.get(Calendar.MINUTE));
     }
 
-    @Override
-    protected void onDialogClosed(boolean positiveResult) {
-        super.onDialogClosed(positiveResult);
+    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
+        @Override
+        public void onPositive(MaterialDialog dialog) {
+            if (shouldPersist()) {
+                picker.clearFocus();
 
-        if (positiveResult) {
-        	picker.clearFocus();
-        	
-            calendar.set(Calendar.HOUR_OF_DAY, picker.getCurrentHour());
-            calendar.set(Calendar.MINUTE, picker.getCurrentMinute());
+                calendar.set(Calendar.HOUR_OF_DAY, picker.getCurrentHour());
+                calendar.set(Calendar.MINUTE, picker.getCurrentMinute());
 
-            setSummary(getSummary());
-            if (callChangeListener(calendar.getTimeInMillis())) {
-                persistLong(calendar.getTimeInMillis());
-                notifyChanged();
+                setSummary(getSummary());
+                if (callChangeListener(calendar.getTimeInMillis())) {
+                    persistLong(calendar.getTimeInMillis());
+                    notifyChanged();
+                }
             }
         }
-    }
+    };
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
