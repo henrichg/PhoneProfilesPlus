@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.List;
 
@@ -35,17 +38,23 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 		
 	}
 
-	protected View onCreateDialogView() {
-		LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .callback(callback)
+                .content(getDialogMessage());
 
-		View view = layoutInflater.inflate(
-			R.layout.activity_contacts_multiselect_pref_dialog, null);
-		
-		linlaProgress = (LinearLayout)view.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
-		listView = (ListView)view.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
-		
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View item, int position, long id) 
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_contacts_multiselect_pref_dialog, null);
+        onBindDialogView(layout);
+
+        linlaProgress = (LinearLayout)layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
+        listView = (ListView)layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
             {
                 Contact contact = (Contact)listAdapter.getItem(position);
                 contact.toggleChecked();
@@ -53,75 +62,89 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 viewHolder.checkBox.setChecked(contact.checked);
             }
         });
-		
-	    listAdapter = new ContactsMultiselectPreferenceAdapter(_context);
-		
-		new AsyncTask<Void, Integer, Void>() {
 
-			@Override
-			protected void onPreExecute()
-			{
-				super.onPreExecute();
-				linlaProgress.setVisibility(View.VISIBLE);
-			}
-			
-			@Override
-			protected Void doInBackground(Void... params) {
-				if (!EditorProfilesActivity.getContactsCache().isCached())
-					EditorProfilesActivity.getContactsCache().getContactList(_context);
+        listAdapter = new ContactsMultiselectPreferenceAdapter(_context);
 
-				getValueCMSDP();
-				
-				return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Void result)
-			{
-				super.onPostExecute(result);
-				
-				if (!EditorProfilesActivity.getContactsCache().isCached())
-					EditorProfilesActivity.getContactsCache().clearCache(false);
-				
-			    listView.setAdapter(listAdapter);
-				linlaProgress.setVisibility(View.GONE);
-			}
-			
-		}.execute();
-		
-		return view;
-	}
+        mBuilder.customView(layout, false);
 
-	public void onClick(DialogInterface dialog, int which) {
-		// if the positive button is clicked, we persist the value.
-		if (EditorProfilesActivity.getContactsCache().isCached())
-		{
-			if (which == DialogInterface.BUTTON_POSITIVE) {
-				if (shouldPersist()) 
-				{
-					// sem narvi stringy kontatkov oddelenych |
-					value = "";
-					List<Contact> contactList = EditorProfilesActivity.getContactsCache().getList();
-					if (contactList != null)
-					{
-						for (Contact contact : contactList)
-						{
-							if (contact.checked)
-							{
-								if (!value.isEmpty())
-									value = value + "|";
-								value = value + contact.contactId + "#" + contact.phoneId;
-							}
-						}
-					}
-					persistString(value);
-					
-					setSummaryCMSDP();
-				}
-			}
-		}
-		super.onClick(dialog, which);
-	}
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ContactsMultiSelectDialogPreference.this.onShow(dialog);
+            }
+        });
+
+        MaterialDialog mDialog = mBuilder.build();
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
+    }
+
+    public void onShow(DialogInterface dialog) {
+
+        new AsyncTask<Void, Integer, Void>() {
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                linlaProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                if (!EditorProfilesActivity.getContactsCache().isCached())
+                    EditorProfilesActivity.getContactsCache().getContactList(_context);
+
+                getValueCMSDP();
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                if (!EditorProfilesActivity.getContactsCache().isCached())
+                    EditorProfilesActivity.getContactsCache().clearCache(false);
+
+                listView.setAdapter(listAdapter);
+                linlaProgress.setVisibility(View.GONE);
+            }
+
+        }.execute();
+    }
+
+    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
+        @Override
+        public void onPositive(MaterialDialog dialog) {
+            if (shouldPersist())
+            {
+                // sem narvi stringy kontatkov oddelenych |
+                value = "";
+                List<Contact> contactList = EditorProfilesActivity.getContactsCache().getList();
+                if (contactList != null)
+                {
+                    for (Contact contact : contactList)
+                    {
+                        if (contact.checked)
+                        {
+                            if (!value.isEmpty())
+                                value = value + "|";
+                            value = value + contact.contactId + "#" + contact.phoneId;
+                        }
+                    }
+                }
+                persistString(value);
+
+                setSummaryCMSDP();
+            }
+        }
+    };
+
 
 	public void onDismiss (DialogInterface dialog)
 	{
