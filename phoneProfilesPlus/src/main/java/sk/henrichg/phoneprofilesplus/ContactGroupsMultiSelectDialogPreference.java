@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.List;
 
@@ -35,7 +38,52 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 		
 	}
 
-	protected View onCreateDialogView() {
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .callback(callback)
+                .content(getDialogMessage());
+
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_calendars_multiselect_pref_dialog, null);
+        onBindDialogView(layout);
+
+        linlaProgress = (LinearLayout)layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
+        listView = (ListView)layout.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
+            {
+                CalendarEvent calendar = (CalendarEvent)listAdapter.getItem(position);
+                calendar.toggleChecked();
+                CalendarViewHolder viewHolder = (CalendarViewHolder) item.getTag();
+                viewHolder.checkBox.setChecked(calendar.checked);
+            }
+        });
+
+        listAdapter = null;
+
+        mBuilder.customView(layout, false);
+
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                CalendarsMultiSelectDialogPreference.this.onShow(dialog);
+            }
+        });
+
+        MaterialDialog mDialog = mBuilder.build();
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
+    }
+
+
+    protected View onCreateDialogView() {
 		LayoutInflater layoutInflater = LayoutInflater.from(getContext());
 
 		View view = layoutInflater.inflate(
