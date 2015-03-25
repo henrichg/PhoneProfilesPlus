@@ -1,13 +1,10 @@
-/**
- * Copyright CMW Mobile.com, 2010.
- */
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.media.AudioManager;
+import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -17,11 +14,8 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-/**
- * The SeekBarDialogPreference class is a DialogPreference based and provides a
- * seekbar preference.
- * @author Casper Wakkers
- */
+import com.afollestad.materialdialogs.MaterialDialog;
+
 public class VolumeDialogPreference extends
 		DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 	// Layout widgets.
@@ -49,11 +43,6 @@ public class VolumeDialogPreference extends
 	private String sValue = "0|1";
 	private int value = 0;
 
-	/**
-	 * The SeekBarDialogPreference constructor.
-	 * @param context of this preference.
-	 * @param attrs custom xml attributes.
-	 */
 	public VolumeDialogPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
@@ -112,50 +101,58 @@ public class VolumeDialogPreference extends
 		
 		typedArray.recycle();
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressLint("InflateParams")
-	protected View onCreateDialogView() {
-		LayoutInflater layoutInflater = LayoutInflater.from(getContext());
 
-		View view = layoutInflater.inflate(
-			R.layout.activity_volume_pref_dialog, null);
+    @Override
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .callback(callback)
+                .content(getDialogMessage());
 
-		seekBar = (SeekBar)view.findViewById(R.id.volumePrefDialogSeekbar);
-		valueText = (TextView)view.findViewById(R.id.volumePrefDialogValueText);
-		noChangeChBox = (CheckBox)view.findViewById(R.id.volumePrefDialogNoChange);
-		defaultProfileChBox = (CheckBox)view.findViewById(R.id.volumePrefDialogDefaultProfile);
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_volume_pref_dialog, null);
+        onBindDialogView(layout);
 
-		seekBar.setOnSeekBarChangeListener(this);
-		seekBar.setKeyProgressIncrement(stepSize);
-		seekBar.setMax(maximumValue - minimumValue);
-		
-		getValueVDP();
+        seekBar = (SeekBar)layout.findViewById(R.id.volumePrefDialogSeekbar);
+        valueText = (TextView)layout.findViewById(R.id.volumePrefDialogValueText);
+        noChangeChBox = (CheckBox)layout.findViewById(R.id.volumePrefDialogNoChange);
+        defaultProfileChBox = (CheckBox)layout.findViewById(R.id.volumePrefDialogDefaultProfile);
 
-		seekBar.setProgress(value);
+        seekBar.setOnSeekBarChangeListener(this);
+        seekBar.setKeyProgressIncrement(stepSize);
+        seekBar.setMax(maximumValue - minimumValue);
 
-		noChangeChBox.setOnCheckedChangeListener(this);
-		noChangeChBox.setChecked((noChange == 1));
+        getValueVDP();
 
-		defaultProfileChBox.setOnCheckedChangeListener(this);
-		defaultProfileChBox.setChecked((defaultProfile == 1));
-		defaultProfileChBox.setEnabled(disableDefaultProfile == 0);
+        seekBar.setProgress(value);
 
-		if (noChange == 1)
-			defaultProfileChBox.setChecked(false);
-		if (defaultProfile == 1)
-			noChangeChBox.setChecked(false);
-		
-		valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
-		seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
-		
-		return view;
-	}
-	/**
-	 * {@inheritDoc}
-	 */
+        noChangeChBox.setOnCheckedChangeListener(this);
+        noChangeChBox.setChecked((noChange == 1));
+
+        defaultProfileChBox.setOnCheckedChangeListener(this);
+        defaultProfileChBox.setChecked((defaultProfile == 1));
+        defaultProfileChBox.setEnabled(disableDefaultProfile == 0);
+
+        if (noChange == 1)
+            defaultProfileChBox.setChecked(false);
+        if (defaultProfile == 1)
+            noChangeChBox.setChecked(false);
+
+        valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
+        seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
+
+        mBuilder.customView(layout, false);
+
+        MaterialDialog mDialog = mBuilder.build();
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
+    }
+
 	public void onProgressChanged(SeekBar seek, int newValue,
 			boolean fromTouch) {
 		// Round the value to the closest integer value.
@@ -197,14 +194,9 @@ public class VolumeDialogPreference extends
 		callChangeListener(noChange);
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	public void onStartTrackingTouch(SeekBar seek) {
 	}
-	/**
-	 * {@inheritDoc}
-	 */
+
 	public void onStopTrackingTouch(SeekBar seek) {
 
         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
@@ -227,22 +219,18 @@ public class VolumeDialogPreference extends
 		if (volumeType.equalsIgnoreCase("VOICE")) 
 			audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, value, AudioManager.FLAG_PLAY_SOUND);
 	}
-	/**
-	 * {@inheritDoc}
-	 */
-	public void onClick(DialogInterface dialog, int which) {
-		// if the positive button is clicked, we persist the value.
-		if (which == DialogInterface.BUTTON_POSITIVE) {
-			if (shouldPersist()) {
-				persistString(Integer.toString(value + minimumValue)
-						+ "|" + Integer.toString(noChange)
-						+ "|" + Integer.toString(defaultProfile));
-				setSummaryVDP();
-			}
-		}
 
-		super.onClick(dialog, which);
-	}
+    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
+        @Override
+        public void onPositive(MaterialDialog dialog) {
+            if (shouldPersist()) {
+                persistString(Integer.toString(value + minimumValue)
+                        + "|" + Integer.toString(noChange)
+                        + "|" + Integer.toString(defaultProfile));
+                setSummaryVDP();
+            }
+        }
+    };
 
 	@Override
 	protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
