@@ -374,7 +374,8 @@ public class EditorProfileListAdapter extends BaseAdapter
 				//profilePrefIndicatorImageView.setImageBitmap(null);
 				//Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
 				//profilePrefIndicatorImageView.setImageBitmap(bitmap);
-				holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+                if (holder.profileIndicator != null)
+				    holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
 			}
 			
 	        holder.profileItemEditMenu.setTag(profile);
