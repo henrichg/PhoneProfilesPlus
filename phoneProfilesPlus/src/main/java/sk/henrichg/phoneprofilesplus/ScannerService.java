@@ -347,8 +347,10 @@ public class ScannerService extends IntentService
     	for (int i = 0; i < 5 * 60; i++) // 60 seconds for wifi scan (Android 5.0 bug, normally required 5 seconds :-/)
     	{
         	if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                  (WifiScanAlarmBroadcastReceiver.getWaitForResults(context))))
-        		break;
+                  (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)))) {
+                GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "scan ended");
+                break;
+            }
     		if (asyncTask != null)
     		{
         		if (asyncTask.isCancelled())
@@ -356,9 +358,12 @@ public class ScannerService extends IntentService
     		}
     		
 	        try {
+                GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "before sleep");
 	        	Thread.sleep(200);
+                GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "after sleep");
 		    } catch (InterruptedException e) {
                 e.printStackTrace();
+                GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "InterruptedException");
 		    }
     	}
     }
