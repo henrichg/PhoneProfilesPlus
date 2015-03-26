@@ -6,23 +6,29 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 
 public class KeyguardService extends Service {
 
     static final String KEYGUARD_LOCK = "phoneProfilesPlus.keyguardLock";
 
+    private KeyguardManager keyguardManager;
+    private KeyguardManager.KeyguardLock keyguardLock;
+
+    @SuppressWarnings("deprecation")
 	@Override
     public void onCreate()
 	{
+        keyguardManager = (KeyguardManager)getApplicationContext().getSystemService(Activity.KEYGUARD_SERVICE);
+        keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
 	}
 
     @SuppressWarnings("deprecation")
 	@Override
     public void onDestroy()
 	{
-        KeyguardManager keyguardManager = (KeyguardManager)getApplicationContext().getSystemService(Activity.KEYGUARD_SERVICE);
-        KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
+        Log.e("---- KeyguardService", "onDeastroy");
         Keyguard.reenable(keyguardLock);
     }
 
@@ -31,9 +37,6 @@ public class KeyguardService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		Context context = getApplicationContext();
-
-        KeyguardManager keyguardManager = (KeyguardManager)context.getSystemService(Activity.KEYGUARD_SERVICE);
-        KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
 
         if (!GlobalData.getApplicationStarted(context)) {
             Keyguard.reenable(keyguardLock);
