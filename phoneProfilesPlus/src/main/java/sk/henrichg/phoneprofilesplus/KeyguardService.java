@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
-import android.app.KeyguardManager.KeyguardLock;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
