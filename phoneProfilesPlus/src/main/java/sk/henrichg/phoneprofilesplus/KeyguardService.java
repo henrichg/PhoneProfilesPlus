@@ -73,7 +73,7 @@ public class KeyguardService extends Service {
 
                 if (GlobalData.getLockscreenDisabled(context)) {
                     GlobalData.logE("$$$ KeyguardService.onStartCommand", "Keyguard.disable(), START_STICKY");
-                    //    Keyguard.reenable(keyguardLock);
+                    Keyguard.reenable(keyguardLock);
                     Keyguard.disable(keyguardLock);
                     return START_STICKY;
                 } else {
@@ -83,7 +83,7 @@ public class KeyguardService extends Service {
                     return START_NOT_STICKY;
                 }
             }
-            else {
+            /*else {
                 GlobalData.logE("$$$ KeyguardService.onStartCommand", "screen off");
 
                 if (GlobalData.getLockscreenDisabled(context)) {
@@ -98,7 +98,7 @@ public class KeyguardService extends Service {
                     stopSelf();
                     return START_NOT_STICKY;
                 }
-            }
+            }*/
 		}
 
         GlobalData.logE("$$$ KeyguardService.onStartCommand"," secureKeyguard, stopSelf(), START_NOT_STICKY");

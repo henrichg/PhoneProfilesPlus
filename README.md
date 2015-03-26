@@ -14,3 +14,4 @@ Required
 - FloatingActionButton - https://github.com/makovkastar/FloatingActionButton
 - SystemBarTint - https://github.com/jgilfelt/SystemBarTint
 - GSon - https://code.google.com/p/google-gson/
+- Material Dialogs - https://github.com/afollestad/material-dialogs
