@@ -24,7 +24,6 @@ public class KeyguardService extends Service {
         keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
 	}
 
-    @SuppressWarnings("deprecation")
 	@Override
     public void onDestroy()
 	{
@@ -32,7 +31,6 @@ public class KeyguardService extends Service {
         Keyguard.reenable(keyguardLock);
     }
 
-    @SuppressWarnings("deprecation")
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId)
 	{
