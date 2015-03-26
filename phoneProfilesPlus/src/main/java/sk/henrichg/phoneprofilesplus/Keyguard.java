@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.KeyguardManager.KeyguardLock;
 
-@SuppressWarnings("deprecation")
 public class Keyguard {
 
 	//public static Intent keyguardService = null;
