@@ -15,7 +15,6 @@ public class KeyguardService extends Service {
 	@Override
     public void onCreate()
 	{
-        Context context = getApplicationContext();
 	}
 
     @SuppressWarnings("deprecation")
