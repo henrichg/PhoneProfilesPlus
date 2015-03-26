@@ -20,6 +20,7 @@ public class KeyguardService extends Service {
 	@Override
     public void onCreate()
 	{
+        GlobalData.logE("$$$ KeyguardService.onStartCommand","onCreate");
         keyguardManager = (KeyguardManager)getApplicationContext().getSystemService(Activity.KEYGUARD_SERVICE);
         keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
 	}
@@ -27,7 +28,7 @@ public class KeyguardService extends Service {
 	@Override
     public void onDestroy()
 	{
-        Log.e("---- KeyguardService", "onDeastroy");
+        GlobalData.logE("$$$ KeyguardService.onStartCommand","onDestroy");
         Keyguard.reenable(keyguardLock);
     }
 
