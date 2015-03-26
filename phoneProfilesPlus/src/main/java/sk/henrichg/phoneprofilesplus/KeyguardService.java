@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.app.KeyguardManager;
+import android.app.KeyguardManager.KeyguardLock;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -9,34 +11,43 @@ import android.os.IBinder;
 
 public class KeyguardService extends Service {
 
+    static final String KEYGUARD_LOCK = "phoneProfilesPlus.keyguardLock";
+
 	@Override
     public void onCreate()
 	{
-		Keyguard.initialize(getApplicationContext());
+        Context context = getApplicationContext();
 	}
-	 
+
+    @SuppressWarnings("deprecation")
 	@Override
     public void onDestroy()
 	{
+        KeyguardManager keyguardManager = (KeyguardManager)getApplicationContext().getSystemService(Activity.KEYGUARD_SERVICE);
+        KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
+        Keyguard.reenable(keyguardLock);
     }
-	 
+
+    @SuppressWarnings("deprecation")
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		Context context = getApplicationContext();
 
+        KeyguardManager keyguardManager = (KeyguardManager)context.getSystemService(Activity.KEYGUARD_SERVICE);
+        KeyguardManager.KeyguardLock keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
+
         if (!GlobalData.getApplicationStarted(context)) {
-            Keyguard.reenable();
+            Keyguard.reenable(keyguardLock);
             stopSelf();
             return START_NOT_STICKY;
         }
 
-		KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         boolean secureKeyguard;
         if (android.os.Build.VERSION.SDK_INT >= 16)
-            secureKeyguard = kgMgr.isKeyguardSecure();
+            secureKeyguard = keyguardManager.isKeyguardSecure();
         else
-		    secureKeyguard = kgMgr.inKeyguardRestrictedInputMode();
+		    secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
         GlobalData.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
         if (!secureKeyguard)
 		{
@@ -45,13 +56,13 @@ public class KeyguardService extends Service {
             //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
             if (GlobalData.getLockscreenDisabled(context)) {
                 GlobalData.logE("$$$ KeyguardService.onStartCommand","Keyguard.disable(), START_STICKY");
-                Keyguard.reenable();
-                Keyguard.disable();
+                //Keyguard.reenable(keyguardLock);
+                Keyguard.disable(keyguardLock);
                 return START_STICKY;
             }
             else {
                 GlobalData.logE("$$$ KeyguardService.onStartCommand","Keyguard.reenable(), stopSelf(), START_NOT_STICKY");
-                Keyguard.reenable();
+                Keyguard.reenable(keyguardLock);
                 stopSelf();
                 return START_NOT_STICKY;
             }

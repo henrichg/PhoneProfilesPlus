@@ -9,12 +9,13 @@ import android.content.Intent;
 @SuppressWarnings("deprecation")
 public class Keyguard {
 
-	public static Intent keyguardService = null;
-	private static KeyguardManager keyguardManager = null;
-	private static KeyguardLock keyguardLock = null;
+	//public static Intent keyguardService = null;
+	//private static KeyguardManager keyguardManager = null;
+	//private static KeyguardLock keyguardLock = null;
 	
-	static final String KEYGUARD_LOCK = "phoneProfilesPlus.keyguardLock";
+	//static final String KEYGUARD_LOCK = "phoneProfilesPlus.keyguardLock";
 
+    /*
 	public static void initialize(Context context)
 	{
         GlobalData.logE("$$$ Keyguard.initialize","keyguardManager="+keyguardManager);
@@ -25,7 +26,9 @@ public class Keyguard {
 	    if (keyguardLock == null)
 	    	keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
 	}
-	
+	*/
+
+    /*
 	public static void destroy()
 	{
 		if (keyguardLock != null)
@@ -36,15 +39,16 @@ public class Keyguard {
 		if (keyguardManager != null)
 			keyguardManager = null;
 	}
+	*/
 	
-	public static void disable()
+	public static void disable(KeyguardLock keyguardLock)
 	{
         GlobalData.logE("$$$ Keyguard.disable","keyguardLock="+keyguardLock);
 		if (keyguardLock != null)
 			keyguardLock.disableKeyguard();
 	}
 	
-	public static void reenable()
+	public static void reenable(KeyguardLock keyguardLock)
 	{
         GlobalData.logE("$$$ Keyguard.reenable","keyguardLock="+keyguardLock);
 		if (keyguardLock != null)

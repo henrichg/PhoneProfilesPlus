@@ -23,10 +23,9 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
 			intent.getAction().equals(Intent.ACTION_USER_PRESENT)*/)
 		{
 			// enable/disable keyguard
-            GlobalData.logE("$$$ ScreenOnOffBroadcastReceiver.onReceive","keyguardService="+Keyguard.keyguardService);
-			if (Keyguard.keyguardService == null)
-				Keyguard.keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class); 
-			context.startService(Keyguard.keyguardService);
+            //GlobalData.logE("$$$ ScreenOnOffBroadcastReceiver.onReceive","keyguardService="+Keyguard.keyguardService);
+            Intent keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class);
+			context.startService(keyguardService);
 		}
 		
 		if (GlobalData.getGlobalEventsRuning(context))
