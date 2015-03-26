@@ -1733,16 +1733,16 @@ public class DataWrapper {
 		if (event._eventPreferencesScreen._enabled)
 		{
 			boolean isScreenOn;
-	    	if (android.os.Build.VERSION.SDK_INT >= 20)
-	    	{
-	    		Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-	    		isScreenOn = display.getState() != Display.STATE_OFF;
-	    	}
-	    	else
-	    	{
+	    	//if (android.os.Build.VERSION.SDK_INT >= 20)
+	    	//{
+	    	//	Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+	    	//	isScreenOn = display.getState() != Display.STATE_OFF;
+	    	//}
+	    	//else
+	    	//{
 				PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 	    		isScreenOn = pm.isScreenOn();
-	    	}
+	    	//}
 			boolean keyguardShowing = false;
 
 			if (event._eventPreferencesScreen._whenUnlocked)

@@ -909,7 +909,6 @@ public class GlobalData extends Application {
         editor.commit();
     }
 
-
     // ----- Hardware check -------------------------------------
 	
 	static int hardwareCheck(String preferenceKey, Context context)
