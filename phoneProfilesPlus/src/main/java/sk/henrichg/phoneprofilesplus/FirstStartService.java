@@ -4,7 +4,9 @@ import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.media.MediaScannerConnection;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
@@ -122,25 +124,46 @@ public class FirstStartService extends IntentService {
         String filename = context.getResources().getResourceEntryName(resID) + ".ogg";
         File outFile = new File(path, filename);
 
-        String mimeType = "audio/ogg";
-
         boolean isError = false;
 
-        // Write the file
-        InputStream inputStream = null;
-        FileOutputStream outputStream = null;
-        try {
-            inputStream = context.getResources().openRawResource(resID);
-            outputStream = new FileOutputStream(outFile);
+        if (!outFile.exists()) {
 
-            // Write in 1024-byte chunks
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            // Keep writing until `inputStream.read()` returns -1, which means we reached the
-            //  end of the stream
-            while ((bytesRead = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, bytesRead);
+            // Write the file
+            InputStream inputStream = null;
+            FileOutputStream outputStream = null;
+            try {
+                inputStream = context.getResources().openRawResource(resID);
+                outputStream = new FileOutputStream(outFile);
+
+
+                // Write in 1024-byte chunks
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                // Keep writing until `inputStream.read()` returns -1, which means we reached the
+                //  end of the stream
+                while ((bytesRead = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+
+            } catch (Exception e) {
+                Log.e("FirstStartService", "installTone: Error writing " + filename, e);
+                isError = true;
+            } finally {
+                // Close the streams
+                try {
+                    if (inputStream != null)
+                        inputStream.close();
+                    if (outputStream != null)
+                        outputStream.close();
+                } catch (IOException e) {
+                    // Means there was an error trying to close the streams, so do nothing
+                }
             }
+        }
+
+        if (!isError) {
+
+            String mimeType = "audio/ogg";
 
             // Set the file metadata
             String outAbsPath = outFile.getAbsolutePath();
@@ -155,41 +178,36 @@ public class FirstStartService extends IntentService {
 
             Uri contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
 
-            // If the ringtone already exists in the database, delete it first
-            context.getContentResolver().delete(contentUri,
-                    MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null);
+            Cursor cursor = context.getContentResolver().query(contentUri,
+                    new String[]{MediaStore.MediaColumns.DATA},
+                    MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
+            if (!cursor.moveToFirst()) {
 
-            // Add the metadata to the file in the database
-            Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
+                // not exists content
 
-            // Tell the media scanner about the new ringtone
-            MediaScannerConnection.scanFile(
-                    context,
-                    new String[]{newUri.toString()},
-                    new String[]{mimeType},
-                    null
-            );
+                //// If the ringtone already exists in the database, delete it first
+                //context.getContentResolver().delete(contentUri,
+                //        MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null);
 
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                System.out.println(e);
-            }
+                // Add the metadata to the file in the database
+                Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
 
-        } catch (Exception e) {
-            Log.e("FirstStartService", "installTone: Error writing " + filename, e);
-            isError = true;
-        } finally {
-            // Close the streams
-            try {
-                if (inputStream != null)
-                    inputStream.close();
-                if (outputStream != null)
-                    outputStream.close();
-            } catch (IOException e) {
-                // Means there was an error trying to close the streams, so do nothing
+                // Tell the media scanner about the new ringtone
+                MediaScannerConnection.scanFile(
+                        context,
+                        new String[]{newUri.toString()},
+                        new String[]{mimeType},
+                        null
+                );
+
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    System.out.println(e);
+                }
             }
         }
+
 
         return !isError;
     }
