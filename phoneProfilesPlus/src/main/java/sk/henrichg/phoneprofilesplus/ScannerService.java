@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 public class ScannerService extends IntentService
 {
@@ -356,15 +357,15 @@ public class ScannerService extends IntentService
         		if (asyncTask.isCancelled())
         			break;
     		}
-    		
-	        try {
+
+            try {
                 GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "before sleep");
-	        	Thread.sleep(200);
+                Thread.sleep(200);
                 GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "after sleep");
-		    } catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
                 GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "InterruptedException");
-		    }
+            }
     	}
     }
     

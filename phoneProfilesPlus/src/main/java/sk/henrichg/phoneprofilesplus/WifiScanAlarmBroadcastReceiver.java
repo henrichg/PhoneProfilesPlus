@@ -16,6 +16,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -31,7 +32,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
 	public static WifiManager wifi = null;
 	private static WifiLock wifiLock = null;
-    //private static WakeLock wakeLock = null;
+    private static PowerManager.WakeLock wakeLock = null;
 
 	public static List<WifiSSIDData> scanResults = null;
 	public static List<WifiSSIDData> wifiConfigurationList = null;
@@ -251,13 +252,13 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		 // initialise the locks
 		if (wifiLock == null)
 	        wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
-		/*if (wakeLock == null)
+		if (wakeLock == null)
 	        wakeLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE))
-	                        .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiScanWakeLock");*/			
+	                        .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiScanWakeLock");
 
     	try {
-    		/*if (!wakeLock.isHeld())
-    			wakeLock.acquire();*/
+    		if (!wakeLock.isHeld())
+    			wakeLock.acquire();
     		if (!wifiLock.isHeld())
     			wifiLock.acquire();
 			GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.lock","xxx");
@@ -268,8 +269,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
  
     public static void unlock()
     {
-        /*if ((wakeLock != null) && (wakeLock.isHeld()))
-            wakeLock.release();*/
+        if ((wakeLock != null) && (wakeLock.isHeld()))
+            wakeLock.release();
         if ((wifiLock != null) && (wifiLock.isHeld()))
             wifiLock.release();
 		GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.unlock","xxx");
