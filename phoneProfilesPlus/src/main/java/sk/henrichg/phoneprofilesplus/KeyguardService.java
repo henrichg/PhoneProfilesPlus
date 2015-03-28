@@ -22,7 +22,7 @@ public class KeyguardService extends Service {
     public void onCreate()
 	{
         GlobalData.logE("$$$ KeyguardService.onStartCommand","onCreate");
-        keyguardManager = (KeyguardManager)getApplicationContext().getSystemService(Activity.KEYGUARD_SERVICE);
+        keyguardManager = (KeyguardManager)getBaseContext().getSystemService(Activity.KEYGUARD_SERVICE);
         keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
 	}
 
@@ -30,17 +30,17 @@ public class KeyguardService extends Service {
     public void onDestroy()
 	{
         GlobalData.logE("$$$ KeyguardService.onStartCommand", "onDestroy");
-        Keyguard.reenable(keyguardLock);
+        reenableKeyguard();
     }
 
     @SuppressWarnings("deprecation")
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		Context context = getApplicationContext();
+		Context context = getBaseContext();
 
         if (!GlobalData.getApplicationStarted(context)) {
-            Keyguard.reenable(keyguardLock);
+            reenableKeyguard();
             stopSelf();
             return START_NOT_STICKY;
         }
@@ -73,12 +73,12 @@ public class KeyguardService extends Service {
 
                 if (GlobalData.getLockscreenDisabled(context)) {
                     GlobalData.logE("$$$ KeyguardService.onStartCommand", "Keyguard.disable(), START_STICKY");
-                    Keyguard.reenable(keyguardLock);
-                    Keyguard.disable(keyguardLock);
+                    reenableKeyguard();
+                    disableKeyguard();
                     return START_STICKY;
                 } else {
                     GlobalData.logE("$$$ KeyguardService.onStartCommand", "Keyguard.reenable(), stopSelf(), START_NOT_STICKY");
-                    Keyguard.reenable(keyguardLock);
+                    reenableKeyguard();
                     stopSelf();
                     return START_NOT_STICKY;
                 }
@@ -111,5 +111,19 @@ public class KeyguardService extends Service {
 	{
 		return null;
 	}
+
+    public void disableKeyguard()
+    {
+        GlobalData.logE("$$$ Keyguard.disable","keyguardLock="+keyguardLock);
+        if (keyguardLock != null)
+            keyguardLock.disableKeyguard();
+    }
+
+    public void reenableKeyguard()
+    {
+        GlobalData.logE("$$$ Keyguard.reenable","keyguardLock="+keyguardLock);
+        if (keyguardLock != null)
+            keyguardLock.reenableKeyguard();
+    }
 
 }
