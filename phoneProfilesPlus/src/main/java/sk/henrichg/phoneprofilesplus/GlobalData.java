@@ -177,8 +177,6 @@ public class GlobalData extends Application {
     static final String BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME = "bluetooth_bounded_devices_list";
     static final String BLUETOOTH_SCAN_RESULTS_PREFS_NAME = "bluetooth_scan_results";
 
-	static final String PREF_RADIO_CHANGE_STATE = "sk.henrichg.phoneprofiles.radioChangeState";
-	
     public static final String PREF_APPLICATION_START_ON_BOOT = "applicationStartOnBoot";
     public static final String PREF_APPLICATION_ACTIVATE = "applicationActivate";
     public static final String PREF_APPLICATION_ALERT = "applicationAlert";
@@ -863,37 +861,6 @@ public class GlobalData extends Application {
 		editor.putBoolean(PREF_FORCE_ONE_WIFI_SCAN, forceScan);
 		editor.commit();
 	}
-
-	/*
-	static public boolean getRadioChangeState(Context context)
-	{
-		SharedPreferences preferences = context.getSharedPreferences(GlobalData.RADIO_CHANGE_PREFS_NAME, Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
-		return preferences.getBoolean(GlobalData.PREF_RADIO_CHANGE_STATE, false);
-	}
-
-	static public void setRadioChangeState(Context context, boolean state)
-	{
-		SharedPreferences preferences = context.getSharedPreferences(GlobalData.RADIO_CHANGE_PREFS_NAME, Context.MODE_PRIVATE | Context.MODE_MULTI_PROCESS);
-		Editor editor = preferences.edit();
-		editor.putBoolean(GlobalData.PREF_RADIO_CHANGE_STATE, state);
-		editor.commit();
-      	GlobalData.logE("@@@ GlobalData.setRadioChangeState","state="+state);
-	}
-	
-	static public void waitForRadioChangeState(Context context)
-	{
-    	for (int i = 0; i < 5 * 60; i++) // 60 seconds for wifi scan (Android 5.0 bug, normally required 5 seconds :-/) 
-    	{
-        	if (!getRadioChangeState(context))
-        		break;
-	        try {
-	        	Thread.sleep(200);
-		    } catch (InterruptedException e) {
-		        System.out.println(e);
-		    }
-    	}
-	}
-	*/
 
     static public boolean getLockscreenDisabled(Context context)
     {

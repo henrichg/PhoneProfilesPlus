@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -24,7 +25,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 	public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScanAlarm";
 
 	public static BluetoothAdapter bluetooth = null;
-//    private static WakeLock wakeLock = null;
+    private static PowerManager.WakeLock wakeLock = null;
 
 	public static List<BluetoothDeviceData> tmpScanResults = null;
 	public static List<BluetoothDeviceData> scanResults = null;
@@ -230,13 +231,13 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     public static void lock(Context context)
     {
 		 // initialise the locks
-		/*if (wakeLock == null)
+		if (wakeLock == null)
 	        wakeLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE))
-	                        .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanWakeLock");*/			
+	                        .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanWakeLock");
 
     	try {
-    		//if (!wakeLock.isHeld())
-            //	wakeLock.acquire();
+    		if (!wakeLock.isHeld())
+            	wakeLock.acquire();
 		//	GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.lock","xxx");
         } catch(Exception e) {
             Log.e("BluetoothScanAlarmBroadcastReceiver.lock", "Error getting Lock: "+e.getMessage());
@@ -245,9 +246,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
  
     public static void unlock()
     {
-    	
-        /*if ((wakeLock != null) && (wakeLock.isHeld()))
-            wakeLock.release();*/
+        if ((wakeLock != null) && (wakeLock.isHeld()))
+            wakeLock.release();
 		//GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.unlock","xxx");
     }
     

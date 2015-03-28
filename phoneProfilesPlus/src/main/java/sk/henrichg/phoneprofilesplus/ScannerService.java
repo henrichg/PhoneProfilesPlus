@@ -35,14 +35,11 @@ public class ScannerService extends IntentService
 
 		GlobalData.logE("### ScannerService.onHandleIntent", "-- START ------------");
 
-		/*
-		// synchronization, wait for end of radio state change
-		GlobalData.logE("@@@ ScannerService.onHandleIntent", "start waiting for radio change");
-		GlobalData.waitForRadioChangeState(context);
-		GlobalData.logE("@@@ ScannerService.onHandleIntent", "end waiting for radio change");
-		
-		GlobalData.setRadioChangeState(context, true);
-		*/
+        // f enabled is true, onStartCommand(Intent, int, int) will return START_REDELIVER_INTENT,
+        // so if this process dies before onHandleIntent(Intent) returns, the process will be restarted
+        // and the intent redelivered. If multiple Intents have been sent, only the most recent one
+        // is guaranteed to be redelivered.
+        setIntentRedelivery (true);
 
         GlobalData.logE("$$$ ScannerService.onHandleIntent", "before synchronized block");
 
@@ -70,16 +67,21 @@ public class ScannerService extends IntentService
 				if (WifiScanAlarmBroadcastReceiver.wifi == null)
 					WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 				//WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-	
+
+                WifiScanAlarmBroadcastReceiver.unlock();
+                WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
+
 				// start scan
-				if (dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneWifiScan(context)))
+				if (!(dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneWifiScan(context))))
 				{
-					WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-                    WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
-					WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-				}
-				else
-				{
+				//	WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                //    WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
+				//	WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
+				//}
+				//else
+				//{
 					// register scan result receiver
 					IntentFilter intentFilter4 = new IntentFilter();
 					intentFilter4.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
@@ -118,17 +120,14 @@ public class ScannerService extends IntentService
 
                         if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
                         {
-                            /*
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "before disable wifi");
+                            WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "after disable wifi");
                             try {
                                 Thread.sleep(700);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            */
-
-                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "before disable wifi");
-                            WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
-                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "after disable wifi");
                         }
 
                         WifiScanAlarmBroadcastReceiver.unlock();
@@ -140,12 +139,6 @@ public class ScannerService extends IntentService
 					}
 					
 					unregisterReceiver(wifiScanReceiver);
-					
-					try {
-			        	Thread.sleep(700);
-				    } catch (InterruptedException e) {
-                        e.printStackTrace();
-				    }
 					
 				}
 			//}
@@ -163,16 +156,21 @@ public class ScannerService extends IntentService
 				
 				if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
 					BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothAdapter.getDefaultAdapter();
-	
+
+                BluetoothScanAlarmBroadcastReceiver.unlock();
+                BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+
 				// start scan
-				if (dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneBluetoothScan(context)))
+				if (!(dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneBluetoothScan(context))))
 				{
-					BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
-                    BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-					BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-				}
-				else
-				{
+				//	BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                //    BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+				//	BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+				//}
+				//else
+				//{
 					// register scan result receiver
 					IntentFilter intentFilter6 = new IntentFilter();		
 					intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
@@ -208,6 +206,11 @@ public class ScannerService extends IntentService
                         {
                             GlobalData.logE("@@@ ScannerService.onHandleIntent","disable bluetooth");
                             BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
+                            try {
+                                Thread.sleep(700);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         BluetoothScanAlarmBroadcastReceiver.unlock();
@@ -218,8 +221,8 @@ public class ScannerService extends IntentService
                         BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
 					}
 					
-					unregisterReceiver(bluetoothScanReceiver);		
-					
+					unregisterReceiver(bluetoothScanReceiver);
+
 				}
 			//}
 			//else
