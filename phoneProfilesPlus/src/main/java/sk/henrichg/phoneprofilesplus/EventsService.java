@@ -218,7 +218,7 @@ public class EventsService extends IntentService
 					long activatedProfileId = 0;
 					if (activatedProfile != null)
 						activatedProfileId = activatedProfile._id;
-					if (activatedProfileId != profileId)
+					if ((activatedProfileId != profileId) || isRestart)
 					{
 						dataWrapper.activateProfileFromEvent(profileId, interactive, "");
                         backgroundProfileActivated = true;
