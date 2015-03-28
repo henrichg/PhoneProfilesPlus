@@ -352,7 +352,6 @@ public class ScannerService extends IntentService
     	{
         	if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                   (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)))) {
-                GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "scan ended");
                 break;
             }
     		if (asyncTask != null)
@@ -362,12 +361,9 @@ public class ScannerService extends IntentService
     		}
 
             try {
-                GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "before sleep");
                 Thread.sleep(200);
-                GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "after sleep");
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                GlobalData.logE("$$$ ScannerService.waitForWifiScanEnd", "InterruptedException");
             }
     	}
     }
