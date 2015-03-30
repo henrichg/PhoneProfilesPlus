@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.PowerManager;
 import android.util.Log;
+import android.view.ViewTreeObserver;
 
 import com.google.gson.Gson;
 
@@ -35,16 +36,23 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		
 		GlobalData.logE("#### BluetoothScanAlarmBroadcastReceiver.onReceive","xxx");
 
-		if (bluetooth == null)
-			bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
-		
 		if (scanResults == null)
 			scanResults = new ArrayList<BluetoothDeviceData>();
 
         if (boundedDevicesList == null)
             boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
-		// disabled for firstStartEvents
+        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
+                GlobalData.HARDWARE_CHECK_ALLOWED) {
+            removeAlarm(context, false);
+            removeAlarm(context, true);
+            return;
+        }
+
+        if (bluetooth == null)
+            bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+
+        // disabled for firstStartEvents
 		//if (!GlobalData.getApplicationStarted(context))
 			// application is not started
 		//	return;
@@ -105,8 +113,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 				
 				startScanner(context);
 			}
-			else
-				removeAlarm(context, false);
+			else {
+                removeAlarm(context, false);
+                removeAlarm(context, true);
+            }
 			
 			dataWrapper.invalidateDataWrapper();
 		}
@@ -115,13 +125,18 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 	
 	public static void initialize(Context context)
 	{
+        setScanRequest(context, false);
+        setWaitForResults(context, false);
+        setBluetoothEnabledForScan(context, false);
+
+        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
+                GlobalData.HARDWARE_CHECK_ALLOWED)
+            return;
+
 		if (bluetooth == null)
 			bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
 		
     	unlock();
-    	setScanRequest(context, false);
-        setWaitForResults(context, false);
-    	setBluetoothEnabledForScan(context, false);
 
     	SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 		Editor editor = preferences.edit();

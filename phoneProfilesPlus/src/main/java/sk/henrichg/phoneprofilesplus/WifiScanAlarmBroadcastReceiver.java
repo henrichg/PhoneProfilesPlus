@@ -47,8 +47,15 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
 		if (wifiConfigurationList == null)
 			wifiConfigurationList = new ArrayList<WifiSSIDData>();
-		
-		if (wifi == null)
+
+        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) !=
+                GlobalData.HARDWARE_CHECK_ALLOWED) {
+            removeAlarm(context, false);
+            removeAlarm(context, true);
+            return;
+        }
+
+        if (wifi == null)
 			wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		
 		// disabled fro firstStartEvents
@@ -117,8 +124,10 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 				
 				startScanner(context);
 			}
-			else
-				removeAlarm(context, false);
+            else {
+                removeAlarm(context, false);
+                removeAlarm(context, true);
+            }
 			
 			dataWrapper.invalidateDataWrapper();
 		}
@@ -127,13 +136,18 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 	
 	public static void initialize(Context context)
 	{
+        setScanRequest(context, false);
+        setWaitForResults(context, false);
+        setWifiEnabledForScan(context, false);
+
+        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) !=
+                GlobalData.HARDWARE_CHECK_ALLOWED)
+            return;
+
 		if (wifi == null)
 			wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		
     	unlock();
-    	setScanRequest(context, false);
-        setWaitForResults(context, false);
-    	setWifiEnabledForScan(context, false);
 
 		ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
