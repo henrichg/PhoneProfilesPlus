@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -24,6 +25,7 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.support.v4.app.NotificationCompat;
@@ -614,8 +616,30 @@ public class ActivateProfileHelper {
                 break;
         }
         if (setLockscreen) {
-            Intent keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class);
-            context.startService(keyguardService);
+            boolean isScreenOn;
+            //if (android.os.Build.VERSION.SDK_INT >= 20)
+            //{
+            //	Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+            //	isScreenOn = display.getState() != Display.STATE_OFF;
+            //}
+            //else
+            //{
+            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            isScreenOn = pm.isScreenOn();
+            //}
+            GlobalData.logE("$$$ ActivateProfileHelper.execute","isScreenOn="+isScreenOn);
+            boolean keyguardShowing = false;
+            KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+            if (android.os.Build.VERSION.SDK_INT >= 16)
+                keyguardShowing = kgMgr.isKeyguardLocked();
+            else
+                keyguardShowing = kgMgr.inKeyguardRestrictedInputMode();
+            GlobalData.logE("$$$ ActivateProfileHelper.execute","keyguardShowing="+keyguardShowing);
+
+            if (isScreenOn && !keyguardShowing) {
+                Intent keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class);
+                context.startService(keyguardService);
+            }
         }
 		
 		// nahodenie podsvietenia
