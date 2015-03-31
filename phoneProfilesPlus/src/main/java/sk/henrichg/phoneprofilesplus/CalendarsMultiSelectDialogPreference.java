@@ -32,6 +32,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 	// Layout widgets.
 	private ListView listView = null;
 	private LinearLayout linlaProgress;
+    private LinearLayout linlaLisView;
 
 	private CalendarsMultiselectPreferenceAdapter listAdapter;
 
@@ -68,6 +69,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         onBindDialogView(layout);
 
         linlaProgress = (LinearLayout)layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
+        linlaLisView = (LinearLayout)layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_listview);
         listView = (ListView)layout.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -107,6 +109,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
             protected void onPreExecute()
             {
                 super.onPreExecute();
+                linlaLisView.setVisibility(View.GONE);
                 linlaProgress.setVisibility(View.VISIBLE);
             }
 
@@ -160,6 +163,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 
                 listAdapter = new CalendarsMultiselectPreferenceAdapter(_context, calendarList);
                 listView.setAdapter(listAdapter);
+                linlaLisView.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
             }
 

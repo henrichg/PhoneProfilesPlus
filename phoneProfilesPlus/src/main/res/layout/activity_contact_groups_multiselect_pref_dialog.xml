@@ -17,16 +17,37 @@
             android:layout_height="wrap_content" />
         
     </LinearLayout>
-    
-	<ListView 
-	    android:id="@+id/contact_groups_multiselect_pref_dlg_listview"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-        android:layout_margin="5dp"
-	    android:padding="5dp"
-	    android:gravity="center"
-	    android:clipToPadding="false"
-    	android:scrollbarStyle="outsideOverlay"
-        android:divider="@android:color/transparent" />
+
+    <LinearLayout
+        android:id="@+id/contact_groups_multiselect_pref_dlg_linla_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <View
+            android:id="@+id/contact_groups_pref_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/dialogDivider" />
+
+        <ListView
+            android:id="@+id/contact_groups_multiselect_pref_dlg_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:gravity="center"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:divider="@android:color/transparent" />
+
+        <View
+            android:id="@+id/contact_groups_multiselect_pref_dlg_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/dialogDivider" />
+
+    </LinearLayout>
 
 </LinearLayout>

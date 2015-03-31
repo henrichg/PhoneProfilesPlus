@@ -65,5 +65,6 @@
 	<attr name="toolbarPopupMenu" format="reference" />
     <attr name="editorDrawerListHeaderBackground" format="reference" />
     <attr name="editorDrawerListHeaderTitle" format="reference" />
+    <attr name="dialogDivider" format="reference" />
     
 </resources>

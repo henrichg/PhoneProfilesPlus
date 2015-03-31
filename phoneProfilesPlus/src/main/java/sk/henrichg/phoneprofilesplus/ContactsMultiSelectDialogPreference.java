@@ -25,6 +25,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 	// Layout widgets.
 	private ListView listView = null;
 	private LinearLayout linlaProgress;
+    private LinearLayout linlaListView;
 
 	private ContactsMultiselectPreferenceAdapter listAdapter;
 	
@@ -51,6 +52,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         onBindDialogView(layout);
 
         linlaProgress = (LinearLayout)layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
+        linlaListView = (LinearLayout)layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_listview);
         listView = (ListView)layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,6 +92,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             protected void onPreExecute()
             {
                 super.onPreExecute();
+                linlaListView.setVisibility(View.GONE);
                 linlaProgress.setVisibility(View.VISIBLE);
             }
 
@@ -112,6 +115,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     EditorProfilesActivity.getContactsCache().clearCache(false);
 
                 listView.setAdapter(listAdapter);
+                linlaListView.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
             }
 

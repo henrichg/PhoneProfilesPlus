@@ -23,7 +23,8 @@ public class ApplicationsPreferenceDialog {
     private MaterialDialog mDialog;
 	private ListView listView;
 	private LinearLayout linlaProgress;
-	
+    private LinearLayout linlaListView;
+
 	public ApplicationsPreferenceDialog(Context context, ApplicationsPreference preference, String packageName)
 	{
 		applicationsPreference = preference;
@@ -57,6 +58,7 @@ public class ApplicationsPreferenceDialog {
         mDialog = dialogBuilder.build();
 
 		linlaProgress = (LinearLayout)mDialog.getCustomView().findViewById(R.id.applications_pref_dlg_linla_progress);
+        linlaListView = (LinearLayout)mDialog.getCustomView().findViewById(R.id.applications_pref_dlg_linla_listview);
 		listView = (ListView)mDialog.getCustomView().findViewById(R.id.applications_pref_dlg_listview);
 		
 		applicationsPreferenceAdapter = new ApplicationsPreferenceAdapter(this, _context, packageName); 
@@ -84,6 +86,7 @@ public class ApplicationsPreferenceDialog {
 				protected void onPreExecute()
 				{
 					super.onPreExecute();
+                    linlaListView.setVisibility(View.GONE);
 					linlaProgress.setVisibility(View.VISIBLE);
 				}
 				
@@ -100,6 +103,7 @@ public class ApplicationsPreferenceDialog {
 					super.onPostExecute(result);
 					
 					listView.setAdapter(applicationsPreferenceAdapter);
+                    linlaListView.setVisibility(View.VISIBLE);
 					linlaProgress.setVisibility(View.GONE);
 					ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
 					if (applicationsCahce.isCached())

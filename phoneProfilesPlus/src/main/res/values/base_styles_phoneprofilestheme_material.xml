@@ -38,6 +38,8 @@
         <item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background</item>
         <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor</item>
 
+        <item name="dialogDivider">@color/dialog_divider</item>
+
     </style>
 
 </resources>
