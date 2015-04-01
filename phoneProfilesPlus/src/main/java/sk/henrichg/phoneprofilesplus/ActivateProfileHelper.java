@@ -91,56 +91,51 @@ public class ActivateProfileHelper {
 	}
 	
 	@SuppressWarnings("deprecation")
-	private void doExecuteForRadios(Profile profile/*, boolean onlyCheckForScanning*/)
+	private void doExecuteForRadios(Profile profile, boolean onlyCheckForPPHelper)
 	{
 		
-		//if (!onlyCheckForScanning)
-		//{
+		if (!onlyCheckForPPHelper)
+		{
 			try {
 	        	Thread.sleep(300);
 		    } catch (InterruptedException e) {
 		        System.out.println(e);
 		    }
-		//}
+		}
 		
 		// nahodenie mobilnych dat
-		if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
-		{
-			boolean _isMobileData = isMobileData(context);
-			boolean _setMobileData = false;
-			switch (profile._deviceMobileData) {
-				case 1:
-					if (!_isMobileData)
-					{
-						_isMobileData = true;
-						_setMobileData = true;
-					}
-					break;
-				case 2:
-					if (_isMobileData)
-					{
-						_isMobileData = false;
-						_setMobileData = true;
-					}
-					break;
-				case 3:
-					_isMobileData = !_isMobileData;
-					_setMobileData = true;
-					break;
-			}
-			if (_setMobileData)
-			{
-				//if (!onlyCheckForScanning)
-				//{
-					setMobileData(context, _isMobileData);
-					try {
-			        	Thread.sleep(200);
-				    } catch (InterruptedException e) {
-				        System.out.println(e);
-				    }
-				//}
-			}
-		}
+        if (!onlyCheckForPPHelper) {
+            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.HARDWARE_CHECK_ALLOWED) {
+                boolean _isMobileData = isMobileData(context);
+                boolean _setMobileData = false;
+                switch (profile._deviceMobileData) {
+                    case 1:
+                        if (!_isMobileData) {
+                            _isMobileData = true;
+                            _setMobileData = true;
+                        }
+                        break;
+                    case 2:
+                        if (_isMobileData) {
+                            _isMobileData = false;
+                            _setMobileData = true;
+                        }
+                        break;
+                    case 3:
+                        _isMobileData = !_isMobileData;
+                        _setMobileData = true;
+                        break;
+                }
+                if (_setMobileData) {
+                    setMobileData(context, _isMobileData);
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }
+                }
+            }
+        }
 
 		// nahodenie WiFi
 		if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
@@ -171,25 +166,21 @@ public class ActivateProfileHelper {
 			}
 			if (setWifiState)
 			{
-				try {
-					//if (!onlyCheckForScanning)
-						wifiManager.setWifiEnabled(isWifiEnabled);
-					//else
-					//if (isWifiEnabled)
-					//	WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-				} catch (Exception e) {
-					// barla pre security exception INTERACT_ACROSS_USERS - chyba ROM 
-					//if (!onlyCheckForScanning)
-						wifiManager.setWifiEnabled(isWifiEnabled);
-					//else
-					//if (isWifiEnabled)
-					//	WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-				}
-				try {
-		        	Thread.sleep(200);
-			    } catch (InterruptedException e) {
-			        System.out.println(e);
-			    }
+                if (!onlyCheckForPPHelper) {
+                    try {
+                        wifiManager.setWifiEnabled(isWifiEnabled);
+                    } catch (Exception e) {
+                        wifiManager.setWifiEnabled(isWifiEnabled);
+                    }
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }
+                }
+                if (isWifiEnabled)
+                    // when wifi is enabled from profile, no disable wifi after scan
+                 	WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
 			}
 		}
 		
@@ -221,54 +212,48 @@ public class ActivateProfileHelper {
 			}
 			if (setBluetoothState)
 			{
-				//if (!onlyCheckForScanning)
-				//{
+				if (!onlyCheckForPPHelper)
+				{
 					if (isBluetoothEnabled)
 						bluetoothAdapter.enable();
 					else
 						bluetoothAdapter.disable();
-				//}
-				//else
-				//if (isBluetoothEnabled)
-				//	BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+				}
+                if (isBluetoothEnabled)
+                    // when bluetooth is enabled from profile, no disable bluetooth after scan
+                   	BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
 			}
 		}
 
 		// nahodenie GPS
-		if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_GPS, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
-		{
-			String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        if (!onlyCheckForPPHelper) {
+            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_GPS, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
+            {
+                String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
-			switch (profile._deviceGPS) {
-				case 1 :
-					//if (!onlyCheckForScanning)
-						setGPS(context, true);
-					break;
-				case 2 : 
-					//if (!onlyCheckForScanning)
-						setGPS(context, false);
-					break;
-				case 3 :
-				    if (!provider.contains("gps"))
-					{
-						//if (!onlyCheckForScanning)
-							setGPS(context, true);
-					}
-					else
-				    if (provider.contains("gps"))
-					{
-						//if (!onlyCheckForScanning)
-							setGPS(context, false);
-					}
-					break;
-			}
+                switch (profile._deviceGPS) {
+                    case 1:
+                        setGPS(context, true);
+                        break;
+                    case 2:
+                        setGPS(context, false);
+                        break;
+                    case 3:
+                        if (!provider.contains("gps")) {
+                            setGPS(context, true);
+                        } else if (provider.contains("gps")) {
+                            setGPS(context, false);
+                        }
+                        break;
+                }
+            }
 		}
 		
 		// nahodenie NFC - len v PPHelper
 		
 	}
 	
-	public void executeForRadios(Profile profile)
+	public void executeForRadios(Profile profile, boolean onlyCheckForPPHelper)
 	{
 		boolean _isAirplaneMode = false;
 		boolean _setAirplaneMode = false;
@@ -301,7 +286,7 @@ public class ActivateProfileHelper {
 			// switch ON airplane mode, set it before executeForRadios
 			setAirplaneMode(context, _isAirplaneMode);
 		
-		doExecuteForRadios(profile/*, false*/);
+		doExecuteForRadios(profile, onlyCheckForPPHelper);
 
 		if (_setAirplaneMode && !(_isAirplaneMode))
 			// switch OFF airplane mode, set if after executeForRadios
@@ -502,8 +487,6 @@ public class ActivateProfileHelper {
 		//profile = dataWrapper.filterProfileWithBatteryEvents(profile);
 		
 		boolean interactive = _interactive;
-		
-		//boolean radiosExecuted = false;
 		
 		// nahodenie volume
 		// run service for execute volumes

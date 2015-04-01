@@ -64,8 +64,18 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 			ppHelperIntent.putExtra(PPHELPER_BLUETOOTH_CHANGE, profile._deviceBluetooth);
 			ppHelperIntent.putExtra(PPHELPER_MOBILE_DATA_CHANGE, profile._deviceMobileData);
 		    context.sendBroadcast(ppHelperIntent);
-		    
-		    // wait for PPHelper
+
+            // run execute radios from ActivateProfileHelper - only check
+            profile = GlobalData.getMappedProfile(profile, context);
+            //profile = dataWrapper.filterProfileWithBatteryEvents(profile);
+            if (profile != null)
+            {
+                ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
+                aph.initialize(dataWrapper, null, context);
+                aph.executeForRadios(profile, true);
+            }
+
+            // wait for PPHelper
 			try {
 	        	Thread.sleep(500);
 		    } catch (InterruptedException e) {
@@ -81,8 +91,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 			{
 				ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
 				aph.initialize(dataWrapper, null, context);
-				aph.executeForRadios(profile);
-				aph = null;
+				aph.executeForRadios(profile, false);
 			}
 		}
 
@@ -95,8 +104,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 		//GlobalData.setRadioChangeState(context, false);
 		
 		dataWrapper.invalidateDataWrapper();
-		dataWrapper = null;
-		
+
 		GlobalData.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- END ----------");
 		
 	}
