@@ -952,8 +952,6 @@ public class DataWrapper {
 	private void _activateProfile(Profile _profile, int startupSource, boolean _interactive, 
 									Activity _activity, String eventNotificationSound)
 	{
-
-
 		Profile profile = GlobalData.getMappedProfile(_profile, context);
 		//profile = filterProfileWithBatteryEvents(profile);
 
@@ -985,9 +983,18 @@ public class DataWrapper {
 			
 		databaseHandler.activateProfile(profile);
 		setProfileActive(profile);
-		
+
+        String profileIcon = "";
+        int profileDuration = 0;
+
 		if (profile != null)
 		{
+            profileIcon = profile._icon;
+
+            if ((profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
+                    (profile._duration > 0))
+                profileDuration = profile._duration;
+
 			activateProfileHelper.execute(profile, interactive, eventNotificationSound);
 			
 			if ((startupSource != GlobalData.STARTUP_SOURCE_SERVICE) && 
@@ -1011,7 +1018,11 @@ public class DataWrapper {
 
 		activateProfileHelper.showNotification(profile, eventNotificationSound);
 		activateProfileHelper.updateWidget();
-		
+
+        getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
+                                                getProfileNameWithManualIndicator(profile, true),
+                                                profileIcon, profileDuration);
+
 		if (profile != null)
 		{
 			if (GlobalData.notificationsToast && (!ActivateProfileHelper.lockRefresh))
@@ -2041,12 +2052,17 @@ public class DataWrapper {
 				if (!forDelayAlarm)
 				{
 					// called not for delay alarm
-					if (!event._isInDelay)
-						// if not delay alarm is set, set it
-						event.setDelayAlarm(this, true, false); // for start delay
+					if (!event._isInDelay) {
+                        // if not delay alarm is set, set it
+                        getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, event._name, null, null, event._delayStart);
+
+                        event.setDelayAlarm(this, true, false); // for start delay
+                    }
 					if (!event._isInDelay)
 					{
 						// no delay alarm is set
+                        getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, event._name, null, null, 0);
+
 						// start event
 						event.startEvent(this, eventTimelineList, false, interactive, reactivate);
 					}
@@ -2055,6 +2071,8 @@ public class DataWrapper {
 				if (forDelayAlarm && event._isInDelay)
 				{
 					// called for delay alarm
+                    getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, event._name, null, null, 0);
+
 					// start event
 					event.startEvent(this, eventTimelineList, false, interactive, reactivate);
 				}
@@ -2065,7 +2083,19 @@ public class DataWrapper {
                 // when pausing and it is for restart events, force pause
 
 				GlobalData.logE("DataWrapper.doEventService","pause event");
-				
+
+                int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
+                if (event._undoneProfile && (event._fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE))
+                    alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
+                else
+                if (event._undoneProfile)
+                    alType = DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE;
+                else
+                if (event._fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE)
+                    alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
+
+                getDatabaseHandler().addActivityLog(alType, event._name, null, null, 0);
+
 				event.pauseEvent(this, eventTimelineList, true, false, false);
 			}
 		}

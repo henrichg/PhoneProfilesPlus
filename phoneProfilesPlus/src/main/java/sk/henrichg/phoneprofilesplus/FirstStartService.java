@@ -100,6 +100,7 @@ public class FirstStartService extends IntentService {
 			GlobalData.setApplicationStarted(context, false); 
 			
 			dataWrapper.firstStartEvents(true);
+            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 		}
 		else
 		{

@@ -588,6 +588,8 @@ public class EditorProfilesActivity extends ActionBarActivity
             }	
 			return super.onOptionsItemSelected(item);
 		case R.id.menu_restart_events:
+            getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+
 			// ignoruj manualnu aktivaciu profilu
 			// a odblokuj forceRun eventy
 			getDataWrapper().restartEventsWithAlert(this);
@@ -596,6 +598,8 @@ public class EditorProfilesActivity extends ActionBarActivity
 			DataWrapper dataWrapper = getDataWrapper();
 			if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
 			{
+                dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
+
 				// no setup for next start
 				dataWrapper.removeAllEventDelays();
                 // no set system events, unblock all events, no activate return profile
@@ -610,7 +614,10 @@ public class EditorProfilesActivity extends ActionBarActivity
 			}
 			else
 			{
-				GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
+                dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
+
+                GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
+
 				// setup for next start
 				dataWrapper.firstStartEvents(false);
 			}
@@ -669,7 +676,9 @@ public class EditorProfilesActivity extends ActionBarActivity
 			stopService(new Intent(getApplicationContext(), ReceiversService.class));
 			stopService(new Intent(getApplicationContext(), KeyguardService.class));
 
-			finish();
+            getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
+
+            finish();
 
 			return true;
 		default:
@@ -1195,6 +1204,8 @@ public class EditorProfilesActivity extends ActionBarActivity
 						*/
                         dataWrapper.restartEventsWithDelay();
 					}
+
+                    dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
 
                     // toast notification
                     Toast msg = Toast.makeText(getApplicationContext(),

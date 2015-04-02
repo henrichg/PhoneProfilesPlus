@@ -39,13 +39,27 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 							activateProfileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
 							if (activateProfileId == GlobalData.PROFILE_NO_ACTIVATE)
 								activateProfileId = 0;
+
+                            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, null,
+                                                                            dataWrapper.getProfileNameWithManualIndicator(profile, true),
+                                                                            profile._icon, 0);
 						}
 						if (profile._afterDurationDo == Profile.AFTERDURATIONDO_UNDOPROFILE)
 						{
 							activateProfileId = GlobalData.getActivatedProfileForDuration(context);
+
+                            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, null,
+                                    dataWrapper.getProfileNameWithManualIndicator(profile, true),
+                                    profile._icon, 0);
 						}
 						if (profile._afterDurationDo == Profile.AFTERDURATIONDO_RESTARTEVENTS)
 						{
+                            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
+                                    dataWrapper.getProfileNameWithManualIndicator(profile, true),
+                                    profile._icon, 0);
+
+                            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+
 							dataWrapper.restartEventsWithRescan(false);
 						}
 						else

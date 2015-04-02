@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1180;
+	private static final int DATABASE_VERSION = 1200;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -37,6 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String TABLE_PROFILES = "profiles";
 	private static final String TABLE_EVENTS = "events";
 	private static final String TABLE_EVENT_TIMELINE = "event_timeline";
+    private static final String TABLE_ACTIVITY_LOG = "activity_log";
 
 	// import/export
 	private final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
@@ -53,6 +54,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public static final int ETYPE_BLUETOOTHCONNECTED = 9;
 	public static final int ETYPE_BLUETOOTHINFRONT = 10;
 	public static final int ETYPE_SMS = 11;
+
+    // activity log types
+    public static final int ALTYPE_PROFILEACTIVATION = 1;
+    public static final int ALTYPE_AFTERDURATION_UNDOPROFILE = 21;
+    public static final int ALTYPE_AFTERDURATION_BACKGROUNDPROFILE = 22;
+    public static final int ALTYPE_AFTERDURATION_RESTARTEVENTS = 23;
+    public static final int ALTYPE_EVENTSTART = 3;
+    public static final int ALTYPE_EVENTSTARTDELAY = 4;
+    public static final int ALTYPE_EVENTEND_NONE = 51;
+    public static final int ALTYPE_EVENTEND_ACTIVATEPROFILE = 52;
+    public static final int ALTYPE_EVENTEND_UNDOPROFILE = 53;
+    public static final int ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE = 54;
+    public static final int ALTYPE_RESTARTEVENTS = 6;
+    public static final int ALTYPE_RUNEVENTS_DISABLE = 7;
+    public static final int ALTYPE_RUNEVENTS_ENABLE = 8;
+    public static final int ALTYPE_APPLICATIONSTART = 9;
+    public static final int ALTYPE_APPLICATIONEXIT = 10;
+    public static final int ALTYPE_DATAIMPORT = 11;
 
 	// Profiles Table Columns names
 	private static final String KEY_ID = "id";
@@ -96,6 +115,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_AFTER_DURATION_DO = "afterDurationDo";
 	private static final String KEY_DEVICE_KEYGUARD = "deviceKeyguard";
 
+    // Events Table Columns names
 	private static final String KEY_E_ID = "id";
 	private static final String KEY_E_NAME = "name";
 	private static final String KEY_E_TYPE = "type";
@@ -151,11 +171,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALL_CONTACT_GROUPS = "callContactGroups";
     private static final String KEY_E_SMS_CONTACT_GROUPS = "smsContactGroups";
 
+    // EventTimeLine Table Columns names
 	private static final String KEY_ET_ID = "id";
 	private static final String KEY_ET_EORDER = "eorder";
 	private static final String KEY_ET_FK_EVENT = "fkEvent";
 	private static final String KEY_ET_FK_PROFILE_RETURN = "fkProfileReturn";
-	
+
+    // ActivityLog Columns names
+    private static final String KEY_AL_ID = "id";
+    private static final String KEY_AL_LOG_TYPE = "logType";
+    private static final String KEY_AL_LOG_DATE_TIME = "logDateTime";
+    private static final String KEY_AL_EVENT_NAME = "eventName";
+    private static final String KEY_AL_PROFILE_NAME = "profileName";
+    private static final String KEY_AL_PROFILE_ICON = "profileIcon";
+    private static final String KEY_AL_DURATION_DELAY = "durationDelay";
+
 	/**
      * Constructor takes and keeps a reference of the passed context in order to
      * access to the application assets and resources.
@@ -333,7 +363,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.execSQL(CREATE_EVENTTIME_TABLE);
 
 		db.execSQL("CREATE INDEX IDX_ET_PORDER ON " + TABLE_EVENT_TIMELINE + " (" + KEY_ET_EORDER + ")");
-		
+
+        final String CREATE_ACTIVITYLOG_TABLE = "CREATE TABLE " + TABLE_ACTIVITY_LOG + "("
+                + KEY_AL_ID + " INTEGER PRIMARY KEY,"
+                + KEY_AL_LOG_DATE_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                + KEY_AL_LOG_TYPE + " INTEGER,"
+                + KEY_AL_EVENT_NAME + " TEXT,"
+                + KEY_AL_PROFILE_NAME + " TEXT,"
+                + KEY_AL_PROFILE_ICON + " TEXT,"
+                + KEY_AL_DURATION_DELAY + " INTEGER"
+                + ")";
+        db.execSQL(CREATE_ACTIVITYLOG_TABLE);
+
+        db.execSQL("CREATE INDEX IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
+
 	}
 
 	@Override
@@ -3285,7 +3328,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 // EVENT TIMELINE ------------------------------------------------------------------
 	
-	// Adding new event
+	// Adding time line
 	void addEventTimeline(EventTimeline eventTimeline) {
 		
 		//SQLiteDatabase db = this.getWritableDatabase();
@@ -3484,7 +3527,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         
 	}
 	
-	
+// ACTIVITY LOG -------------------------------------------------------------------
+
+    // Adding activity log
+    public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,
+                        int durationDelay) {
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_AL_LOG_TYPE, logType);
+        values.put(KEY_AL_EVENT_NAME, eventName);
+        values.put(KEY_AL_PROFILE_NAME, profileName);
+        values.put(KEY_AL_PROFILE_ICON, profileIcon);
+        if (durationDelay > 0)
+            values.put(KEY_AL_DURATION_DELAY, durationDelay);
+
+        db.beginTransaction();
+
+        try {
+            // delete older than 7 days old records
+            db.delete(TABLE_ACTIVITY_LOG, KEY_AL_LOG_DATE_TIME + " < date('now','-7 days')", null);
+
+            // Inserting Row
+            db.insert(TABLE_ACTIVITY_LOG, null, values);
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close(); // Closing database connection
+    }
+
+    public Cursor getActivityLogCursor() {
+
+        final String selectQuery = "SELECT " + KEY_AL_ID + "," +
+                                               KEY_AL_LOG_DATE_TIME + "," +
+                                               KEY_AL_LOG_TYPE + "," +
+                                               KEY_AL_EVENT_NAME + "," +
+                                               KEY_AL_PROFILE_NAME + "," +
+                                               KEY_AL_PROFILE_ICON + "," +
+                                               KEY_AL_DURATION_DELAY +
+                                    " FROM " + TABLE_EVENT_TIMELINE +
+                                " ORDER BY " + KEY_AL_LOG_DATE_TIME + " DESC";
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        return db.rawQuery(selectQuery, null);
+    }
+
 // OTHERS -------------------------------------------------------------------------
 	
 	public boolean tableExists(String tableName, SQLiteDatabase db)

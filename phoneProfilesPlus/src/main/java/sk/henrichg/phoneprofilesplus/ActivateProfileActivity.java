@@ -221,6 +221,9 @@ public class ActivateProfileActivity extends ActionBarActivity {
 			return true;
 		case R.id.menu_restart_events:
 			DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+
+            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+
 			// ignoruj manualnu aktivaciu profilu
 			// a odblokuj forceRun eventy
 			dataWrapper.restartEventsWithAlert(this);

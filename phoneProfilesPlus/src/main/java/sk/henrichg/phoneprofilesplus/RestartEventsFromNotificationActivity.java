@@ -27,7 +27,9 @@ public class RestartEventsFromNotificationActivity extends Activity
 		// not working on Android 2.3.x
 		GUIData.setTheme(this, true, false);
 		GUIData.setLanguage(getBaseContext());
-		
+
+        dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+
 		dataWrapper.restartEventsWithAlert(this);
 	}
 	
