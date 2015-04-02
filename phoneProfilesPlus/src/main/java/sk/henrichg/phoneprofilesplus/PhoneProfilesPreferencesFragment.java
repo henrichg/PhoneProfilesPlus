@@ -200,6 +200,10 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 		{
 			prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
 			prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI).setEnabled(false);
+            prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_RESCAN).setEnabled(false);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(GlobalData.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, false);
+            editor.commit();
 		}
 
 		if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, preferencesActivity.getApplicationContext())
@@ -207,6 +211,10 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 		{
 			prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
 			prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH).setEnabled(false);
+            prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN).setEnabled(false);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, false);
+            editor.commit();
 		}
 		
 	}
