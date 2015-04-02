@@ -482,5 +482,34 @@ Ako disablovat lockscreen, 2 kroky:
   len je otazka, ci toto existuje aj na starsich androidoch ako 5.0
 2. nastavit lockscreen timeout 
   Settings.Secure - lock_screen_lock_after_timeout (milisekundy)
-  
-  
+
+----------------------
+
+Activity log:
+- spravit tabulku, do ktrej budeme logovat aktivitu:
+- typ aktivity:
+  1. aktivaciu profilu
+  2. ukoncenie trvania aktivacie profilu - nerobit nic
+  2. ukoncenie trvania aktivacie profilu - vratit spat profil
+  2. ukoncenie trvania aktivacie profilu - aktivovat predvoleny profil
+  2. ukoncenie trvania aktivacie profilu - restartovat udalosti
+  3. start eventu
+  4. start eventu po delay
+  5. end eventu - nerobit nic
+  5. end eventu - aktivovat profil
+  5. end eventu - vratit spat profil
+  5. end eventu - aktivovat profil a vratit spat profil
+  6. restart eventov
+  7. globalny stop eventov
+  8. globalny start eventov
+  9. start aplikacie
+  10. exit aplikacie
+  11. import dat
+- v zazname bude:
+  1. datum a cas
+  2. typ aktivity - vid vyssie
+  3. nazov udalosti - udalost ktora sa startla/pauzla
+  4. resource_id ikony profilu
+  5. nazov profilu - nazov profilu, ktory sa aktivoval - tu dame nazov tak ako pri notifikacii (profil [udalost])
+  6. trvanie/delay
+- budeme drzat maximalne tyzden stare zaznamy
