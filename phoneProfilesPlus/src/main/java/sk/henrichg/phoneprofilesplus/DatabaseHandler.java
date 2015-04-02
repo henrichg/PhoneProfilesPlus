@@ -178,13 +178,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_ET_FK_PROFILE_RETURN = "fkProfileReturn";
 
     // ActivityLog Columns names
-    private static final String KEY_AL_ID = "id";
-    private static final String KEY_AL_LOG_TYPE = "logType";
-    private static final String KEY_AL_LOG_DATE_TIME = "logDateTime";
-    private static final String KEY_AL_EVENT_NAME = "eventName";
-    private static final String KEY_AL_PROFILE_NAME = "profileName";
-    private static final String KEY_AL_PROFILE_ICON = "profileIcon";
-    private static final String KEY_AL_DURATION_DELAY = "durationDelay";
+    public static final String KEY_AL_ID = "id";
+    public static final String KEY_AL_LOG_TYPE = "logType";
+    public static final String KEY_AL_LOG_DATE_TIME = "logDateTime";
+    public static final String KEY_AL_EVENT_NAME = "eventName";
+    public static final String KEY_AL_PROFILE_NAME = "profileName";
+    public static final String KEY_AL_PROFILE_ICON = "profileIcon";
+    public static final String KEY_AL_DURATION_DELAY = "durationDelay";
 
 	/**
      * Constructor takes and keeps a reference of the passed context in order to
