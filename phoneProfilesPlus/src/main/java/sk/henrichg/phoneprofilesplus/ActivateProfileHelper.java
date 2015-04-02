@@ -726,9 +726,11 @@ public class ActivateProfileHelper {
 		}
 		
 		// nahodenie pozadia
-        Intent wallpaperServiceIntent = new Intent(context, ExecuteWallpaperProfilePrefsService.class);
-        wallpaperServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-        context.startService(wallpaperServiceIntent);
+        if (profile._deviceWallpaperChange == 1) {
+            Intent wallpaperServiceIntent = new Intent(context, ExecuteWallpaperProfilePrefsService.class);
+            wallpaperServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+            context.startService(wallpaperServiceIntent);
+        }
 
 		if (interactive)
 		{
