@@ -15,7 +15,7 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-<!-- 	<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" /> -->
+    <!-- <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" /> -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -46,8 +46,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    
-    
+
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
@@ -75,7 +74,11 @@
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="false" />
-    
+
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:name=".GlobalData"
         android:allowBackup="true"
@@ -84,10 +87,10 @@
         android:label="@string/app_name" >
         <activity
             android:name=".LauncherActivity"
+            android:excludeFromRecents="true"
             android:label="@string/title_activity_phone_profiles"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyActivity"
-            android:excludeFromRecents="true" >
+            android:theme="@style/EmptyActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -97,11 +100,11 @@
         <activity
             android:name=".ActivateProfileActivity"
             android:configChanges="locale|layoutDirection"
+            android:excludeFromRecents="true"
             android:label="@string/title_activity_activator"
             android:launchMode="singleTask"
-            android:theme="@style/PopupTheme_withToolbar_material"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:excludeFromRecents="true" >
+            android:theme="@style/PopupTheme_withToolbar_material" >
         </activity>
         <activity
             android:name=".EditorProfilesActivity"
@@ -132,13 +135,14 @@
         <activity
             android:name=".ShortcutCreatorActivity"
             android:configChanges="locale|layoutDirection"
+            android:excludeFromRecents="true"
             android:icon="@drawable/ic_shortcut"
             android:label="@string/title_activity_shortcut_creator"
-            android:theme="@style/PopupTheme_material"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:excludeFromRecents="true" >
+            android:theme="@style/PopupTheme_material" >
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -150,6 +154,7 @@
             android:theme="@style/EmptyActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -178,6 +183,11 @@
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity" >
+        </activity>
+        <activity
+            android:name=".ActivityLogActivity"
+            android:label="@string/title_activity_activity_log"
+            android:configChanges="locale|layoutDirection" >
         </activity>
 
         <receiver
@@ -216,6 +226,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/profile_list_widget_info" />
         </receiver>
+
         <service
             android:name=".ProfileListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
@@ -280,7 +291,8 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".ExecuteRadioProfilePrefsService"
+        <service
+            android:name=".ExecuteRadioProfilePrefsService"
             android:exported="false" >
         </service>
 
@@ -293,17 +305,21 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".ExecuteVolumeProfilePrefsService"
+        <service
+            android:name=".ExecuteVolumeProfilePrefsService"
             android:exported="false" >
         </service>
-        <service android:name=".ExecuteWallpaperProfilePrefsService"
-            android:exported="false">
+        <service
+            android:name=".ExecuteWallpaperProfilePrefsService"
+            android:exported="false" >
         </service>
-        <service android:name=".ReceiversService"
+        <service
+            android:name=".ReceiversService"
             android:exported="false"
-    		android:stopWithTask="false" >
+            android:stopWithTask="false" >
         </service>
-        <service android:name=".EventsService"
+        <service
+            android:name=".EventsService"
             android:exported="false" >
         </service>
         <service
@@ -314,10 +330,11 @@
             android:name=".FirstStartService"
             android:exported="false" >
         </service>
-        <service android:name=".KeyguardService"
+        <service
+            android:name=".KeyguardService"
             android:exported="false" >
         </service>
-        
+
         <receiver
             android:name=".RestartEventsBroadcastReceiver"
             android:enabled="true"
@@ -344,10 +361,10 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".PhoneCallBroadcastReceiver" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
-            <intent-filter >
+            <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
@@ -440,6 +457,7 @@
             </intent-filter>
             <intent-filter android:priority="1000" >
                 <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVED" />
+
                 <data android:mimeType="application/vnd.wap.mms-message" />
             </intent-filter>
         </receiver>
@@ -458,7 +476,7 @@
             android:enabled="true"
             android:exported="false" >
         </receiver>
-        
+
     </application>
 
 </manifest>

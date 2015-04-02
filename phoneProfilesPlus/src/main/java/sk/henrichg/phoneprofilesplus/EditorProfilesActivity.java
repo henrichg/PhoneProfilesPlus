@@ -624,6 +624,11 @@ public class EditorProfilesActivity extends ActionBarActivity
 			invalidateOptionsMenu();
 			refreshGUI();
 			return true;
+        case R.id.menu_activity_log:
+            intent = new Intent(getBaseContext(), ActivityLogActivity.class);
+            startActivity(intent);
+
+            return true;
 		case R.id.menu_default_profile:
 			// start preferences activity for default profile
 			intent = new Intent(getBaseContext(), ProfilePreferencesFragmentActivity.class);

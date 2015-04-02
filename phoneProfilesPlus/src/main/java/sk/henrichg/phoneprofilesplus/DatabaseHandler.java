@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1200;
+	private static final int DATABASE_VERSION = 1202;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -178,7 +178,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_ET_FK_PROFILE_RETURN = "fkProfileReturn";
 
     // ActivityLog Columns names
-    public static final String KEY_AL_ID = "id";
+    public static final String KEY_AL_ID = "_id";  // for CursorAdapter must by this name
     public static final String KEY_AL_LOG_TYPE = "logType";
     public static final String KEY_AL_LOG_DATE_TIME = "logDateTime";
     public static final String KEY_AL_EVENT_NAME = "eventName";
@@ -1095,6 +1095,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_CONTACT_GROUPS + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_CONTACT_GROUPS + "=\"\"");
+        }
+
+
+        if (oldVersion < 1202) {
+
+            db.execSQL("drop table " + TABLE_ACTIVITY_LOG);
+
+            final String CREATE_ACTIVITYLOG_TABLE = "CREATE TABLE " + TABLE_ACTIVITY_LOG + "("
+                    + KEY_AL_ID + " INTEGER PRIMARY KEY,"
+                    + KEY_AL_LOG_DATE_TIME + " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                    + KEY_AL_LOG_TYPE + " INTEGER,"
+                    + KEY_AL_EVENT_NAME + " TEXT,"
+                    + KEY_AL_PROFILE_NAME + " TEXT,"
+                    + KEY_AL_PROFILE_ICON + " TEXT,"
+                    + KEY_AL_DURATION_DELAY + " INTEGER"
+                    + ")";
+            db.execSQL(CREATE_ACTIVITYLOG_TABLE);
+
+            db.execSQL("CREATE INDEX IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
         }
 
 	}
@@ -3573,7 +3592,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                KEY_AL_PROFILE_NAME + "," +
                                                KEY_AL_PROFILE_ICON + "," +
                                                KEY_AL_DURATION_DELAY +
-                                    " FROM " + TABLE_EVENT_TIMELINE +
+                                    " FROM " + TABLE_ACTIVITY_LOG +
                                 " ORDER BY " + KEY_AL_LOG_DATE_TIME + " DESC";
 
         //SQLiteDatabase db = this.getWritableDatabase();

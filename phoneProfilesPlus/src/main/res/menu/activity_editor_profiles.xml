@@ -9,6 +9,10 @@
         android:title="@string/menu_run_events"
         android:orderInCategory="101"
         henrichg:showAsAction="never" />
+    <item android:id="@+id/menu_activity_log"
+        android:title="@string/menu_activity_log"
+        android:orderInCategory="205"
+        henrichg:showAsAction="never" />
 	<item android:id="@+id/menu_default_profile"
         android:title="@string/menu_default_profile"
         android:orderInCategory="210"
