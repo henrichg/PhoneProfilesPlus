@@ -37,7 +37,7 @@ public class PhoneProfilesHelper {
 
 	public static int PPHelperVersion = -1;
 
-	public static final int PPHELPER_CURRENT_VERSION = 37;
+	public static final int PPHELPER_CURRENT_VERSION = 38;
 	
 	private static boolean errorNoRoot = false;
 	private static boolean nowPPHelperUninstalled = false; 
