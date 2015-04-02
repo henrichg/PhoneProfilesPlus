@@ -76,7 +76,8 @@ public class GlobalData extends Application {
                                          "$$$ WifiConnectionBroadcastReceiver|"+
                                          "$$$ ActivateProfileHelper|"+
                                          "$$$ Keyguard|"+
-                                         "$$$ ScreenOnOffBroadcastReceiver"
+                                         "$$$ ScreenOnOffBroadcastReceiver|"+
+                                         "$$$ ExecuteWallpaperProfilePrefsService"
                                          /*"$$$ EventsService|"+
                                          "$$$ ReceiversService|"+
                                          "$$$ DataWrapper|"+

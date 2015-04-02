@@ -296,6 +296,9 @@
         <service android:name=".ExecuteVolumeProfilePrefsService"
             android:exported="false" >
         </service>
+        <service android:name=".ExecuteWallpaperProfilePrefsService"
+            android:exported="false">
+        </service>
         <service android:name=".ReceiversService"
             android:exported="false"
     		android:stopWithTask="false" >

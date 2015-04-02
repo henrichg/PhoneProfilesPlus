@@ -477,7 +477,30 @@ public class ActivateProfileHelper {
 			break;
 		}
 	}
-	
+
+    public void executeForWallpaper(Profile profile) {
+        if (profile._deviceWallpaperChange == 1)
+        {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            display.getMetrics(displayMetrics);
+            int height = displayMetrics.heightPixels;
+            int width = displayMetrics.widthPixels << 1; // best wallpaper width is twice screen width
+            Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmap(profile.getDeviceWallpaperIdentifier(), width, height);
+            if (decodedSampleBitmap != null)
+            {
+                // set wallpaper
+                WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
+                try {
+                    wallpaperManager.setBitmap(decodedSampleBitmap);
+                } catch (IOException e) {
+                    Log.e("ActivateProfileHelper.executeForWallpaper", "Cannot set wallpaper. Image="+profile.getDeviceWallpaperIdentifier());
+                }
+            }
+        }
+    }
+
 	public void execute(Profile _profile, boolean _interactive, String eventNotificationSound)
 	{
 		// rozdelit zvonenie a notifikacie - zial je to oznacene ako @Hide :-(
@@ -703,27 +726,10 @@ public class ActivateProfileHelper {
 		}
 		
 		// nahodenie pozadia
-		if (profile._deviceWallpaperChange == 1)
-		{
-			DisplayMetrics displayMetrics = new DisplayMetrics();
-			WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-			Display display = wm.getDefaultDisplay();
-			display.getMetrics(displayMetrics);
-			int height = displayMetrics.heightPixels;
-			int width = displayMetrics.widthPixels << 1; // best wallpaper width is twice screen width
-			Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmap(profile.getDeviceWallpaperIdentifier(), width, height);
-			if (decodedSampleBitmap != null)
-			{
-				// set wallpaper
-				WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
-				try {
-					wallpaperManager.setBitmap(decodedSampleBitmap);
-				} catch (IOException e) {
-					Log.e("ActivateProfileHelper.execute", "Cannot set wallpaper. Image="+profile.getDeviceWallpaperIdentifier());
-				}
-			}
-		}
-		
+        Intent wallpaperServiceIntent = new Intent(context, ExecuteWallpaperProfilePrefsService.class);
+        wallpaperServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+        context.startService(wallpaperServiceIntent);
+
 		if (interactive)
 		{
 			// preferences, ktore vyzaduju interakciu uzivatela
