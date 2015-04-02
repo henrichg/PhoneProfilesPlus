@@ -551,8 +551,9 @@ public class DataWrapper {
 	{
 		class PriorityComparator implements Comparator<Event> {
 			public int compare(Event lhs, Event rhs) {
-
-			    int res =  lhs._priority - rhs._priority;
+                int res = 0;
+                if ((lhs != null) && (rhs != null))
+			        res =  lhs._priority - rhs._priority;
 		        return res;
 		    }
 		}
@@ -568,8 +569,9 @@ public class DataWrapper {
 	{
 		class PriorityComparator implements Comparator<Event> {
 			public int compare(Event lhs, Event rhs) {
-
-			    int res =  rhs._priority - lhs._priority;
+                int res = 0;
+                if ((lhs != null) && (rhs != null))
+			        res =  rhs._priority - lhs._priority;
 		        return res;
 		    }
 		}

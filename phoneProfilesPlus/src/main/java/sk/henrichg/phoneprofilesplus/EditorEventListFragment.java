@@ -606,9 +606,10 @@ public class EditorEventListFragment extends Fragment {
 
 		class PriorityComparator implements Comparator<Event> {
 			public int compare(Event lhs, Event rhs) {
-
-			    //int res =  lhs._priority - rhs._priority;
-			    int res =  rhs._priority - lhs._priority;
+                int res = 0;
+                if ((lhs != null) && (rhs != null))
+			        //res =  lhs._priority - rhs._priority;
+			        res =  rhs._priority - lhs._priority;
 		        return res;
 		    }
 		}

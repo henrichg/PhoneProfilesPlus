@@ -221,7 +221,9 @@ public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsF
 	private class ProfileComparator implements Comparator<Profile> {
 
 		public int compare(Profile lhs, Profile rhs) {
-		    int res = lhs._porder - rhs._porder;
+            int res = 0;
+            if ((lhs != null) && (rhs != null))
+		        res = lhs._porder - rhs._porder;
 	        return res;
 	    }
 	}
