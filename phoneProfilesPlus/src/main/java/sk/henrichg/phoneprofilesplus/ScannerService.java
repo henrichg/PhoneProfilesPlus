@@ -62,7 +62,7 @@ public class ScannerService extends IntentService
 
             dataWrapper = new DataWrapper(context, false, false, 0);
 
-            if (!WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
+            if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
                 // service restarted during scanning, disable wifi
                 if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) ==
                         GlobalData.HARDWARE_CHECK_ALLOWED) {
@@ -154,7 +154,7 @@ public class ScannerService extends IntentService
 
             dataWrapper = new DataWrapper(context, false, false, 0);
 
-            if (!BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
+            if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
                 // service restarted during scanning, disable Bluetooth
                 if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) ==
                         GlobalData.HARDWARE_CHECK_ALLOWED) {
