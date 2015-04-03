@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1202;
+	private static final int DATABASE_VERSION = 1203;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -1098,9 +1098,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
 
-        if (oldVersion < 1202) {
+        if (oldVersion < 1203) {
 
-            db.execSQL("drop table " + TABLE_ACTIVITY_LOG);
+            //db.execSQL("drop table " + TABLE_ACTIVITY_LOG);
 
             final String CREATE_ACTIVITYLOG_TABLE = "CREATE TABLE " + TABLE_ACTIVITY_LOG + "("
                     + KEY_AL_ID + " INTEGER PRIMARY KEY,"
