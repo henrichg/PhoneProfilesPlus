@@ -9,9 +9,7 @@
         android:id="@+id/activity_log_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
         android:padding="5dip"
-        android:dividerHeight="5dp"
         android:choiceMode="singleChoice"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay" />

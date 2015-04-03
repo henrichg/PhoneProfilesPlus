@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.TimeZone;
 
 public class ActivityLogAdapter extends CursorAdapter {
@@ -23,6 +26,8 @@ public class ActivityLogAdapter extends CursorAdapter {
     private final int KEY_AL_PROFILE_ICON;
     private final int KEY_AL_DURATION_DELAY;
 
+    HashMap<Integer, Integer> activityTypeStrings = new HashMap<Integer, Integer>();
+
     public ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
 
@@ -32,6 +37,24 @@ public class ActivityLogAdapter extends CursorAdapter {
         KEY_AL_PROFILE_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_NAME);
         KEY_AL_PROFILE_ICON = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_ICON);
         KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
+
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_PROFILEACTIVATION, R.string.altype_profileActivation);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, R.string.altype_afterDuration_undoProfile);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, R.string.altype_afterDuration_backgroundProfile);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, R.string.altype_afterDuration_restartEvents);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_EVENTSTART, R.string.altype_eventStart);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, R.string.altype_eventStartDelay);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_EVENTEND_NONE, R.string.altype_eventEnd_none);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE, R.string.altype_eventEnd_activateProfile);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE, R.string.altype_eventEnd_undoProfile);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE, R.string.altype_eventEnd_activateProfile_undoProfile);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_RESTARTEVENTS, R.string.altype_restartEvents);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, R.string.altype_runEvents_disable);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, R.string.altype_runEvents_enable);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_APPLICATIONSTART, R.string.altype_applicationStart);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_APPLICATIONEXIT, R.string.altype_applicationExit);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_DATAIMPORT, R.string.altype_dataImport);
+
     }
 
     @Override
@@ -49,7 +72,7 @@ public class ActivityLogAdapter extends CursorAdapter {
         rowData.durationDelay  = (TextView) view.findViewById(R.id.activity_log_row_duration_delay);
 
         rowData.logDateTime.setText(formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
-        rowData.logType.setText(cursor.getString(KEY_AL_LOG_TYPE));
+        rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
         rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
         rowData.durationDelay.setText(cursor.getString(KEY_AL_DURATION_DELAY));
@@ -65,7 +88,7 @@ public class ActivityLogAdapter extends CursorAdapter {
         MyRowViewHolder rowData = (MyRowViewHolder) view.getTag();
 
         rowData.logDateTime.setText(formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
-        rowData.logType.setText(cursor.getString(KEY_AL_LOG_TYPE));
+        rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
         rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
         rowData.durationDelay.setText(cursor.getString(KEY_AL_DURATION_DELAY));
@@ -97,14 +120,25 @@ public class ActivityLogAdapter extends CursorAdapter {
 
             if (date != null) {
                 long when = date.getTime();
+                when += TimeZone.getDefault().getOffset(when);
+
+                /*
                 int flags = 0;
-                flags |= android.text.format.DateUtils.FORMAT_SHOW_TIME;
-                flags |= android.text.format.DateUtils.FORMAT_SHOW_DATE;
-                flags |= android.text.format.DateUtils.FORMAT_ABBREV_MONTH;
-                flags |= android.text.format.DateUtils.FORMAT_SHOW_YEAR;
+                flags |= DateUtils.FORMAT_SHOW_TIME;
+                flags |= DateUtils.FORMAT_SHOW_DATE;
+                flags |= DateUtils.FORMAT_NUMERIC_DATE;
+                flags |= DateUtils.FORMAT_SHOW_YEAR;
 
                 finalDateTime = android.text.format.DateUtils.formatDateTime(context,
-                        when + TimeZone.getDefault().getOffset(when), flags);
+                        when, flags);
+
+                finalDateTime = DateFormat.getDateFormat(context).format(when) +
+                        " " + DateFormat.getTimeFormat(context).format(when);
+                */
+
+                SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss");
+                finalDateTime = sdf.format(when);
+
             }
         }
         return finalDateTime;
