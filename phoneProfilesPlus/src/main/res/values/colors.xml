@@ -17,4 +17,9 @@
     <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>
     <color name="dialog_divider">#10000000</color>
 
+    <color name="altype_profile">#FF0000FF</color>
+    <color name="altype_eventStart">#FF00C000</color>
+    <color name="altype_eventEnd">#FFFF0000</color>
+    <color name="altype_other">#FFC0C000</color>
+
 </resources>

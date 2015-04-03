@@ -6,6 +6,18 @@
     android:paddingTop="3dp"
     android:paddingBottom="3dp">
 
+    <FrameLayout
+        android:id="@+id/activity_log_row_color"
+        android:orientation="vertical"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="5dp"
+        android:background="#FFFF0000" >
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/activity_log_row_log_date_time"
         android:layout_weight="0.21"
@@ -15,28 +27,28 @@
 
     <TextView
         android:id="@+id/activity_log_row_log_type"
-        android:layout_weight="0.21"
+        android:layout_weight="0.22"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp" />
 
     <TextView
         android:id="@+id/activity_log_row_event_name"
-        android:layout_weight="0.21"
+        android:layout_weight="0.22"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp" />
 
     <TextView
         android:id="@+id/activity_log_row_profile_name"
-        android:layout_weight="0.26"
+        android:layout_weight="0.27"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp" />
 
     <TextView
         android:id="@+id/activity_log_row_duration_delay"
-        android:layout_weight="0.05"
+        android:layout_weight="0.07"
         android:layout_width="0dp"
         android:layout_height="wrap_content" />
 

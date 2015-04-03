@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class ActivityLogAdapter extends CursorAdapter {
     private final int KEY_AL_DURATION_DELAY;
 
     HashMap<Integer, Integer> activityTypeStrings = new HashMap<Integer, Integer>();
+    HashMap<Integer, Integer> activityTypeColors = new HashMap<Integer, Integer>();
 
     public ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
@@ -55,6 +57,23 @@ public class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(DatabaseHandler.ALTYPE_APPLICATIONEXIT, R.string.altype_applicationExit);
         activityTypeStrings.put(DatabaseHandler.ALTYPE_DATAIMPORT, R.string.altype_dataImport);
 
+        activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEACTIVATION, R.color.altype_profile);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, R.color.altype_profile);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, R.color.altype_profile);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, R.color.altype_profile);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTSTART, R.color.altype_eventStart);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, R.color.altype_eventStart);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_NONE, R.color.altype_eventEnd);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE, R.color.altype_eventEnd);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE, R.color.altype_eventEnd);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE, R.color.altype_eventEnd);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_RESTARTEVENTS, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONSTART, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONEXIT, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_DATAIMPORT, R.color.altype_other);
+
     }
 
     @Override
@@ -64,6 +83,7 @@ public class ActivityLogAdapter extends CursorAdapter {
 
         MyRowViewHolder rowData  = new MyRowViewHolder();
 
+        rowData.logTypeColor = (FrameLayout) view.findViewById(R.id.activity_log_row_color);
         rowData.logDateTime  = (TextView) view.findViewById(R.id.activity_log_row_log_date_time);
         rowData.logType  = (TextView) view.findViewById(R.id.activity_log_row_log_type);
         rowData.eventName  = (TextView) view.findViewById(R.id.activity_log_row_event_name);
@@ -71,6 +91,7 @@ public class ActivityLogAdapter extends CursorAdapter {
         //rowData.profileIcon  = (ImageView) view.findViewById(R.id.activity_log_row_profile_icon);
         rowData.durationDelay  = (TextView) view.findViewById(R.id.activity_log_row_duration_delay);
 
+        rowData.logTypeColor.setBackgroundColor(context.getResources().getColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
@@ -87,6 +108,7 @@ public class ActivityLogAdapter extends CursorAdapter {
 
         MyRowViewHolder rowData = (MyRowViewHolder) view.getTag();
 
+        rowData.logTypeColor.setBackgroundColor(context.getResources().getColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
@@ -95,6 +117,7 @@ public class ActivityLogAdapter extends CursorAdapter {
     }
 
     public static class MyRowViewHolder {
+        FrameLayout logTypeColor;
         TextView logDateTime;
         TextView logType;
         TextView eventName;
