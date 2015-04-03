@@ -555,7 +555,8 @@ public class Event {
 							List<EventTimeline> eventTimelineList, 
 							boolean ignoreGlobalPref,
 							boolean interactive,
-                            boolean reactivate)
+                            boolean reactivate,
+                            boolean log)
 	{
 		// remove delay alarm
 		removeDelayAlarm(dataWrapper, true); // for start delay
@@ -651,6 +652,10 @@ public class Event {
 		setSystemEvent(dataWrapper.context, ESTATUS_RUNNING);
 		this._status = ESTATUS_RUNNING;
 		dataWrapper.getDatabaseHandler().updateEventStatus(this);
+
+        if (log ) {
+            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, _name, null, null, 0);
+        }
 		
 		long activatedProfileId = 0;
 		Profile activatedProfile = dataWrapper.getActivatedProfile();
@@ -744,7 +749,8 @@ public class Event {
 							List<EventTimeline> eventTimelineList,
 							boolean activateReturnProfile, 
 							boolean ignoreGlobalPref,
-							boolean noSetSystemEvent)
+							boolean noSetSystemEvent,
+                            boolean log)
 	{
 		// remove delay alarm
 		removeDelayAlarm(dataWrapper, true); // for start delay
@@ -820,6 +826,19 @@ public class Event {
 		this._status = ESTATUS_PAUSE;
 		dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
+        if (log) {
+            int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
+            if (_undoneProfile && (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE))
+                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
+            else if (_undoneProfile)
+                alType = DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE;
+            else if (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE)
+                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
+
+            dataWrapper.getDatabaseHandler().addActivityLog(alType, _name, null, null, 0);
+        }
+
+
 		//if (_forceRun)
 		//{ look for forcerun events always, not only when forcerun event is paused
 			boolean forceRunRunning = false;
@@ -852,7 +871,8 @@ public class Event {
 							List<EventTimeline> eventTimelineList,
 							boolean activateReturnProfile, 
 							boolean ignoreGlobalPref,
-							boolean saveEventStatus)
+							boolean saveEventStatus,
+                            boolean log)
 	{
 		// remove delay alarm
 		removeDelayAlarm(dataWrapper, true); // for start delay
@@ -866,7 +886,7 @@ public class Event {
 		
 		if (this._status != ESTATUS_STOP)
 		{
-			pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true);
+			pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false);
 		}
 	
 		setSystemEvent(dataWrapper.context, ESTATUS_STOP);
@@ -943,7 +963,8 @@ public class Event {
 	@SuppressLint("SimpleDateFormat")
 	public void setDelayAlarm(DataWrapper dataWrapper, 
 							  boolean forStart,
-							  boolean ignoreGlobalPref)
+							  boolean ignoreGlobalPref,
+                              boolean log)
 	{
 		removeDelayAlarm(dataWrapper, forStart);
 
@@ -1006,7 +1027,11 @@ public class Event {
 			this._isInDelay = false;
 			
 		dataWrapper.getDatabaseHandler().updateEventInDelay(this);
-		
+
+        if (log && _isInDelay) {
+            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, _name, null, null, _delayStart);
+        }
+
 		return;
 	}
 	

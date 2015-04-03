@@ -630,7 +630,7 @@ public class DataWrapper {
 			//if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
 			//	(event._fkProfileStart == profile._id))
 			if (event._fkProfileStart == profile._id)
-				event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent);
+				event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, false);
 		}
 	}
 
@@ -644,7 +644,7 @@ public class DataWrapper {
 			//if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
 			//	(event._fkProfileStart == profile._id))
 			if (event._fkProfileStart == profile._id)
-				event.stopEvent(this, eventTimelineList, false, true, saveEventStatus);
+				event.stopEvent(this, eventTimelineList, false, true, saveEventStatus, false);
 		}
 		restartEvents(false, false, true);
 	}
@@ -661,7 +661,7 @@ public class DataWrapper {
                 int status = event.getStatusFromDB(this);
 
                 if (status == Event.ESTATUS_RUNNING)
-                    event.pauseEvent(this, eventTimelineList, activateReturnProfile, true, noSetSystemEvent);
+                    event.pauseEvent(this, eventTimelineList, activateReturnProfile, true, noSetSystemEvent, false);
 
                 setEventBlocked(event, false);
                 if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun)
@@ -692,7 +692,7 @@ public class DataWrapper {
 				if (event != null)
 				{
 				//if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
-					event.stopEvent(this, eventTimelineList, activateRetirnProfile, true, saveEventStatus);
+					event.stopEvent(this, eventTimelineList, activateRetirnProfile, true, saveEventStatus, false);
 				}
 			}
 		}
@@ -2054,27 +2054,21 @@ public class DataWrapper {
 					// called not for delay alarm
 					if (!event._isInDelay) {
                         // if not delay alarm is set, set it
-                        getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, event._name, null, null, event._delayStart);
-
-                        event.setDelayAlarm(this, true, false); // for start delay
+                        event.setDelayAlarm(this, true, false, true); // for start delay
                     }
 					if (!event._isInDelay)
 					{
 						// no delay alarm is set
-                        getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, event._name, null, null, 0);
-
 						// start event
-						event.startEvent(this, eventTimelineList, false, interactive, reactivate);
+						event.startEvent(this, eventTimelineList, false, interactive, reactivate, true);
 					}
 				}
 				
 				if (forDelayAlarm && event._isInDelay)
 				{
 					// called for delay alarm
-                    getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, event._name, null, null, 0);
-
 					// start event
-					event.startEvent(this, eventTimelineList, false, interactive, reactivate);
+					event.startEvent(this, eventTimelineList, false, interactive, reactivate, true);
 				}
 			}
 			else
@@ -2084,19 +2078,7 @@ public class DataWrapper {
 
 				GlobalData.logE("DataWrapper.doEventService","pause event");
 
-                int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
-                if (event._undoneProfile && (event._fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE))
-                    alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
-                else
-                if (event._undoneProfile)
-                    alType = DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE;
-                else
-                if (event._fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE)
-                    alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
-
-                getDatabaseHandler().addActivityLog(alType, event._name, null, null, 0);
-
-				event.pauseEvent(this, eventTimelineList, true, false, false);
+				event.pauseEvent(this, eventTimelineList, true, false, false, true);
 			}
 		}
 

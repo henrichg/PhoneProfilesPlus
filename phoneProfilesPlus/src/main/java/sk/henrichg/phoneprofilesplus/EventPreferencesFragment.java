@@ -349,13 +349,13 @@ public class EventPreferencesFragment extends PreferenceFragment
 			if (event.getStatus() == Event.ESTATUS_STOP)
 			{
 				// pause event
-				event.pauseEvent(dataWrapper, eventTimelineList, true, false, false);
+				event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false);
 				// stop event
-				event.stopEvent(dataWrapper, eventTimelineList, true, false, true);
+				event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false);
 			}
 			else
 				// pause event
-				event.pauseEvent(dataWrapper, eventTimelineList, true, false, false);
+				event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false);
 			// restart Events
 			dataWrapper.restartEvents(false, false, true);
 			
