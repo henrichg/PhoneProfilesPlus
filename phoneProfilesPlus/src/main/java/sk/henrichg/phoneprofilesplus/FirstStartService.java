@@ -83,7 +83,7 @@ public class FirstStartService extends IntentService {
 		DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
 		dataWrapper.getDatabaseHandler().deleteAllEventTimelines(true);
-		
+
 		// create a handler to post messages to the main thread
 	    Handler toastHandler = new Handler(getMainLooper());
 	    dataWrapper.setToastHandler(toastHandler);
@@ -93,14 +93,14 @@ public class FirstStartService extends IntentService {
 		// zrusenie notifikacie
 		dataWrapper.getActivateProfileHelper().removeNotification();
 
-		// startneme eventy
+        dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
+
+        // startneme eventy
 		if (GlobalData.getGlobalEventsRuning(context))
 		{
 			// must by false for avoiding starts/pause events before restart events
-			GlobalData.setApplicationStarted(context, false); 
-			
+			GlobalData.setApplicationStarted(context, false);
 			dataWrapper.firstStartEvents(true);
-            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 		}
 		else
 		{
