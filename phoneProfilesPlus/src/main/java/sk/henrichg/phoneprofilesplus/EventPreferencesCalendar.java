@@ -40,7 +40,8 @@ public class EventPreferencesCalendar extends EventPreferences {
 	
 	static final int SEARCH_FIELD_TITLE = 0;
 	static final int SEARCH_FIELD_DESCRIPTION = 1;
-	
+    static final int SEARCH_FIELD_LOCATION = 2;
+
 	public EventPreferencesCalendar(Event event,
 			                    boolean enabled,
 								String calendars,
@@ -371,6 +372,10 @@ public class EventPreferencesCalendar extends EventPreferences {
 		if (_searchField == SEARCH_FIELD_DESCRIPTION)
 					selection = selection + 
 					        " AND (lower("+Instances.DESCRIPTION+")" + " LIKE lower(?))";
+        else
+        if (_searchField == SEARCH_FIELD_LOCATION)
+            selection = selection +
+                    " AND (lower("+Instances.EVENT_LOCATION+")" + " LIKE lower(?))";
 		selection = selection + ")";
 
 	    // Construct the query with the desired date range.

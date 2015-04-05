@@ -449,11 +449,13 @@
 </string-array>
 <string-array name="eventCalendarSearchFieldArray">
 	<item>@string/array_event_pref_calendarSearchField_eventName</item>    
-	<item>@string/array_event_pref_calendarSearchField_description</item>    
+	<item>@string/array_event_pref_calendarSearchField_description</item>
+    <item>@string/array_event_pref_calendarSearchField_location</item>
 </string-array>
 <string-array name="eventCalendarSearchFieldValues">
     <item>0</item>
     <item>1</item>
+    <item>2</item>
 </string-array>
 <string-array name="eventWifiConnectionTypeArray">
 	<item>@string/array_event_pref_wifiConnectionType_inFront</item>    

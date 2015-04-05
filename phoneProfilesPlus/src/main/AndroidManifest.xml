@@ -4,10 +4,11 @@
     android:versionCode="1611"
     android:versionName="3.0.4b" >
 
+<!--
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="22" />
-
+-->
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
