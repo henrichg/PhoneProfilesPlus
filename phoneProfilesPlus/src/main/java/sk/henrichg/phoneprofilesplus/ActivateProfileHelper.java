@@ -507,8 +507,7 @@ public class ActivateProfileHelper {
 		//Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
 
 		Profile profile = GlobalData.getMappedProfile(_profile, context);
-		//profile = dataWrapper.filterProfileWithBatteryEvents(profile);
-		
+
 		boolean interactive = _interactive;
 		
 		// nahodenie volume
@@ -523,6 +522,16 @@ public class ActivateProfileHelper {
 		setVolumes(profile, audioManager);
 		// nahodenie ringer modu - hlasitosti zmenia silent/vibrate
 		setRingerMode(profile, audioManager);*/
+
+        // set vibration on touch
+        switch (profile._vibrationOnTouch) {
+            case 1:
+                Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
+                break;
+            case 2:
+                Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
+                break;
+        }
 
 		// nahodenie  tonov
 		if (profile._soundRingtoneChange == 1)

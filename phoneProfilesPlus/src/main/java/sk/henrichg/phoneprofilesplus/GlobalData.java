@@ -165,7 +165,8 @@ public class GlobalData extends Application {
 	static final String PREF_PROFILE_DURATION = "prf_pref_duration";
 	static final String PREF_PROFILE_AFTER_DURATION_DO = "prf_pref_afterDurationDo";
 	static final String PREF_PROFILE_DEVICE_KEYGUARD = "prf_pref_deviceKeyguard";
-	
+    static final String PREF_PROFILE_VIBRATION_ON_TOUCH = "prf_pref_vibrationOnTouch";
+
 	static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
 	
 	static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
@@ -564,7 +565,8 @@ public class GlobalData extends Application {
 				x.getKey().equals(PREF_PROFILE_DEVICE_NFC) ||
 				x.getKey().equals(PREF_PROFILE_DURATION) ||
 				x.getKey().equals(PREF_PROFILE_AFTER_DURATION_DO) ||
-				x.getKey().equals(PREF_PROFILE_DEVICE_KEYGUARD))
+				x.getKey().equals(PREF_PROFILE_DEVICE_KEYGUARD) ||
+                x.getKey().equals(PREF_PROFILE_VIBRATION_ON_TOUCH))
 			{
 			    if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
 			    else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
@@ -634,7 +636,8 @@ public class GlobalData extends Application {
     	profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
     	profile._deviceNFC = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NFC, "0"));
     	profile._deviceKeyguard = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, "0"));
-    	
+        profile._vibrationOnTouch = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
+
     	return profile;
 	}
 	
@@ -684,7 +687,8 @@ public class GlobalData extends Application {
 							   profile._duration,
 							   profile._afterDurationDo,
 							   profile._volumeZenMode,
-							   profile._deviceKeyguard);
+							   profile._deviceKeyguard,
+                               profile._vibrationOnTouch);
 		
 			if (profile._volumeRingerMode == 99)
 				mappedProfile._volumeRingerMode = defaultProfile._volumeRingerMode;
@@ -755,7 +759,9 @@ public class GlobalData extends Application {
 				mappedProfile._deviceNFC = defaultProfile._deviceNFC;
 			if (profile._deviceKeyguard == 99)
 				mappedProfile._deviceKeyguard = defaultProfile._deviceKeyguard;
-			
+            if (profile._vibrationOnTouch == 99)
+                mappedProfile._vibrationOnTouch = defaultProfile._vibrationOnTouch;
+
 			mappedProfile._iconBitmap = profile._iconBitmap;
 			mappedProfile._preferencesIndicator = profile._preferencesIndicator;
 			

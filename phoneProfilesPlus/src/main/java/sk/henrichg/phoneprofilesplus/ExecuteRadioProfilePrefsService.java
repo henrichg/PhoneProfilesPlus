@@ -67,7 +67,6 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 
             // run execute radios from ActivateProfileHelper - only check
             profile = GlobalData.getMappedProfile(profile, context);
-            //profile = dataWrapper.filterProfileWithBatteryEvents(profile);
             if (profile != null)
             {
                 ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
@@ -86,7 +85,6 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 		{
 			// run execute radios from ActivateProfileHelper
 			profile = GlobalData.getMappedProfile(profile, context);
-			//profile = dataWrapper.filterProfileWithBatteryEvents(profile);
 			if (profile != null)
 			{
 				ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();

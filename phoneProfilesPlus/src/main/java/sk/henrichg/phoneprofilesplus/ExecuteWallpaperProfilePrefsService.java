@@ -26,7 +26,6 @@ public class ExecuteWallpaperProfilePrefsService extends IntentService
 		
         // run execute radios from ActivateProfileHelper
         profile = GlobalData.getMappedProfile(profile, context);
-        //profile = dataWrapper.filterProfileWithBatteryEvents(profile);
         if (profile != null)
         {
             ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();

@@ -247,7 +247,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 						   origProfile._duration,
 						   origProfile._afterDurationDo,
 						   origProfile._volumeZenMode,
-						   origProfile._deviceKeyguard);
+						   origProfile._deviceKeyguard,
+                           origProfile._vibrationOnTouch);
 			profile_id = 0;
 		}
 		else
@@ -456,40 +457,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 		        editor.putString(GlobalData.PREF_PROFILE_DURATION, Integer.toString(profile._duration));
 		        editor.putString(GlobalData.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(profile._afterDurationDo));
 			}
-			/*
-	        editor.remove(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE).putString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(profile._volumeRingerMode));
-	        editor.remove(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE).putString(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(profile._volumeZenMode));
-	        editor.remove(GlobalData.PREF_PROFILE_VOLUME_RINGTONE).putString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
-	        editor.remove(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION).putString(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, profile._volumeNotification);
-	        editor.remove(GlobalData.PREF_PROFILE_VOLUME_MEDIA).putString(GlobalData.PREF_PROFILE_VOLUME_MEDIA, profile._volumeMedia);
-	        editor.remove(GlobalData.PREF_PROFILE_VOLUME_ALARM).putString(GlobalData.PREF_PROFILE_VOLUME_ALARM, profile._volumeAlarm);
-	        editor.remove(GlobalData.PREF_PROFILE_VOLUME_SYSTEM).putString(GlobalData.PREF_PROFILE_VOLUME_SYSTEM, profile._volumeSystem);
-	        editor.remove(GlobalData.PREF_PROFILE_VOLUME_VOICE).putString(GlobalData.PREF_PROFILE_VOLUME_VOICE, profile._volumeVoice);
-	        editor.remove(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE).putString(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(profile._soundRingtoneChange));
-	        editor.remove(GlobalData.PREF_PROFILE_SOUND_RINGTONE).putString(GlobalData.PREF_PROFILE_SOUND_RINGTONE, profile._soundRingtone);
-	        editor.remove(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE).putString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(profile._soundNotificationChange));
-	        editor.remove(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION).putString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, profile._soundNotification);
-	        editor.remove(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE).putString(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(profile._soundAlarmChange));
-	        editor.remove(GlobalData.PREF_PROFILE_SOUND_ALARM).putString(GlobalData.PREF_PROFILE_SOUND_ALARM, profile._soundAlarm);
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE).putString(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(profile._deviceAirplaneMode));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_WIFI).putString(GlobalData.PREF_PROFILE_DEVICE_WIFI, Integer.toString(profile._deviceWiFi));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH).putString(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, Integer.toString(profile._deviceBluetooth));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT).putString(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, Integer.toString(profile._deviceScreenTimeout));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS).putString(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE).putString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, Integer.toString(profile._deviceWallpaperChange));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER).putString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER, profile._deviceWallpaper);
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA).putString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, Integer.toString(profile._deviceMobileData));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS).putString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, Integer.toString(profile._deviceMobileDataPrefs));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_GPS).putString(GlobalData.PREF_PROFILE_DEVICE_GPS, Integer.toString(profile._deviceGPS));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE).putString(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, Integer.toString(profile._deviceRunApplicationChange));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME).putString(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC).putString(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC, Integer.toString(profile._deviceAutosync));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE).putString(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE, Integer.toString(profile._deviceAutoRotate));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS).editor.putString(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, Integer.toString(profile._deviceLocationServicePrefs));
-	        editor.remove(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE).editor.putString(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, Integer.toString(profile._speakerPhone));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_NFC).editor.putString(GlobalData.PREF_PROFILE_DEVICE_NFC, Integer.toString(profile._deviceNFC));
-	        editor.remove(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD).editor.putString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, Integer.toString(profile._deviceKeyguard));
-	        */
 	        editor.putString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(profile._volumeRingerMode));
 	        editor.putString(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(profile._volumeZenMode));
 	        editor.putString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
@@ -522,6 +489,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 	        editor.putString(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, Integer.toString(profile._volumeSpeakerPhone));
 	        editor.putString(GlobalData.PREF_PROFILE_DEVICE_NFC, Integer.toString(profile._deviceNFC));
 	        editor.putString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, Integer.toString(profile._deviceKeyguard));
+            editor.putString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, Integer.toString(profile._vibrationOnTouch));
 			editor.commit();
     	}
 		
@@ -575,6 +543,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     	profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, ""));
     	profile._deviceNFC = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NFC, ""));
     	profile._deviceKeyguard = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, ""));
+        profile._vibrationOnTouch = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, ""));
 
 		if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
 		{
@@ -729,7 +698,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 	    	key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) || 
 	    	key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
 	    	key.equals(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
-	    	key.equals(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE))
+	    	key.equals(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
+            key.equals(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH))
     	{
 			String sValue = value.toString();
 			ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -861,16 +831,19 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 	        setSummary(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs); 
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone); 
 	        setSummary(GlobalData.PREF_PROFILE_DEVICE_NFC, profile._deviceNFC); 
-	        setSummary(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, profile._deviceKeyguard); 
-			
-	        setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
+	        setSummary(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, profile._deviceKeyguard);
+
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, profile._volumeNotification);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_MEDIA, profile._volumeMedia);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_ALARM, profile._volumeAlarm);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_SYSTEM, profile._volumeSystem);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_VOICE, profile._volumeVoice);
+
 	        setSummary(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-	        
+
+            setSummary(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, profile._vibrationOnTouch);
+
 		    // disable depended preferences
 		    disableDependedPref(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
 		    disableDependedPref(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);

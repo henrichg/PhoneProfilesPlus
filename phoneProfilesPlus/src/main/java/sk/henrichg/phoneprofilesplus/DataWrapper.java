@@ -166,7 +166,8 @@ public class DataWrapper {
 				  0,
 				  Profile.AFTERDURATIONDO_NOTHING,
 				  0,
-				  0
+				  0,
+                  0
 			);
 	}
 	
@@ -2095,148 +2096,6 @@ public class DataWrapper {
 				smsPassed);
 	}
 	
-	public Profile filterProfileWithBatteryEvents(Profile profile)
-	{
-		if (profile != null)
-		{
-			Profile filteredProfile = new Profile(
-					           profile._id,
-							   profile._name, 
-							   profile._icon, 
-							   profile._checked, 
-							   profile._porder,
-							   profile._volumeRingerMode,
-							   profile._volumeRingtone,
-							   profile._volumeNotification,
-							   profile._volumeMedia,
-							   profile._volumeAlarm,
-							   profile._volumeSystem,
-							   profile._volumeVoice,
-							   profile._soundRingtoneChange,
-							   profile._soundRingtone,
-							   profile._soundNotificationChange,
-							   profile._soundNotification,
-							   profile._soundAlarmChange,
-							   profile._soundAlarm,
-							   profile._deviceAirplaneMode,
-							   profile._deviceWiFi,
-							   profile._deviceBluetooth,
-							   profile._deviceScreenTimeout,
-							   profile._deviceBrightness,
-							   profile._deviceWallpaperChange,
-							   profile._deviceWallpaper,
-							   profile._deviceMobileData,
-							   profile._deviceMobileDataPrefs,
-							   profile._deviceGPS,
-							   profile._deviceRunApplicationChange,
-							   profile._deviceRunApplicationPackageName,
-							   profile._deviceAutosync,
-							   profile._showInActivator,
-							   profile._deviceAutoRotate,
-							   profile._deviceLocationServicePrefs,
-							   profile._volumeSpeakerPhone,
-							   profile._deviceNFC,
-							   profile._duration,
-							   profile._afterDurationDo,
-							   profile._volumeZenMode,
-							   profile._deviceKeyguard);
-		
-			List<EventTimeline> eventTimelineList = getEventTimelineList();
-			
-			// search from last events in timeline
-			for (int i = eventTimelineList.size()-1; i >= 0; i--)
-			{
-				EventTimeline eventTimeline = eventTimelineList.get(i);
-				
-				Event event = getEventById(eventTimeline._fkEvent);
-
-				if ((event != null) && event._eventPreferencesBattery._enabled)
-				{
-					EventPreferencesBattery eventPreferences = event._eventPreferencesBattery;
-					if (!eventPreferences._charging)
-					{
-						Profile eventProfile = getProfileById(event._fkProfileStart);
-						
-						if (filteredProfile._id == eventProfile._id)
-							break;
-						
-						// preferences which event profile change, must by set as "no change" for filtered profile 
-						
-						if (eventProfile._volumeRingerMode != 0)
-							filteredProfile._volumeRingerMode = 0;
-						if (eventProfile._volumeZenMode != 0)
-							filteredProfile._volumeZenMode = 0;
-						if (eventProfile.getVolumeRingtoneChange())
-							filteredProfile._volumeRingtone = "0|1|0";
-						if (eventProfile.getVolumeNotificationChange())
-							filteredProfile._volumeNotification = "0|1|0";
-						if (eventProfile.getVolumeAlarmChange())
-							filteredProfile._volumeAlarm = "0|1|0";
-						if (eventProfile.getVolumeMediaChange())
-							filteredProfile._volumeMedia = "0|1|0";
-						if (eventProfile.getVolumeSystemChange())
-							filteredProfile._volumeSystem = "0|1|0";
-						if (eventProfile.getVolumeVoiceChange())
-							filteredProfile._volumeVoice = "0|1|0";
-						if (eventProfile._soundRingtoneChange != 0)
-							filteredProfile._soundRingtoneChange = 0;
-						if (eventProfile._soundNotificationChange != 0)
-							filteredProfile._soundNotificationChange = 0;
-						if (eventProfile._soundAlarmChange != 0)
-							filteredProfile._soundAlarmChange = 0;
-						if (eventProfile._deviceAirplaneMode != 0)
-							filteredProfile._deviceAirplaneMode = 0;
-						if (eventProfile._deviceAutosync != 0)
-							filteredProfile._deviceAutosync = 0;
-						if (eventProfile._deviceMobileData != 0)
-							filteredProfile._deviceMobileData = 0;
-						if (eventProfile._deviceMobileDataPrefs != 0)
-							filteredProfile._deviceMobileDataPrefs = 0;
-						if (eventProfile._deviceWiFi != 0)
-							filteredProfile._deviceWiFi = 0;
-						if (eventProfile._deviceBluetooth != 0)
-							filteredProfile._deviceBluetooth = 0;
-						if (eventProfile._deviceGPS != 0)
-							filteredProfile._deviceGPS = 0;
-						if (eventProfile._deviceLocationServicePrefs != 0)
-							filteredProfile._deviceLocationServicePrefs = 0;
-						if (eventProfile._deviceScreenTimeout != 0)
-							filteredProfile._deviceScreenTimeout = 0;
-						if (eventProfile.getDeviceBrightnessChange() || eventProfile.getDeviceBrightnessAutomatic())
-							filteredProfile._deviceBrightness = "0|1|0|0";
-						if (eventProfile._deviceAutoRotate != 0)
-							filteredProfile._deviceAutoRotate = 0;
-						if (eventProfile._deviceRunApplicationChange != 0)
-							filteredProfile._deviceRunApplicationChange = 0;
-						if (eventProfile._deviceWallpaperChange != 0)
-							filteredProfile._deviceWallpaperChange = 0;
-						if (eventProfile._volumeSpeakerPhone != 0)
-							filteredProfile._volumeSpeakerPhone = 0;
-						if (eventProfile._deviceNFC != 0)
-							filteredProfile._deviceNFC = 0;
-						if (eventProfile._duration != 0)
-							filteredProfile._duration = 0;
-						if (eventProfile._afterDurationDo != 0)
-							filteredProfile._afterDurationDo = 0;
-						if (eventProfile._deviceKeyguard != 0)
-							filteredProfile._deviceKeyguard = 0;
-						
-						// last event finded
-						break;
-					}
-				}
-			}
-			
-			filteredProfile._iconBitmap = profile._iconBitmap;
-			filteredProfile._preferencesIndicator = profile._preferencesIndicator;
-			
-			return filteredProfile;
-		}
-		else 
-			return profile;
-		
-	}
-
 	public void restartEvents(boolean ignoreEventsBlocking, boolean unblockEventsRun, boolean keepActivatedProfile)
 	{
 		GlobalData.logE("DataWrapper.restartEvents","xxx");
