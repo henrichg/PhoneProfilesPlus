@@ -459,10 +459,8 @@
   <string name="event_preferences_call_contact_groups">Contact groups</string>
   <string name="event_preferences_sms_contact_groups">Contact groups</string>
   <string name="event_preferences_error">Not all underlined parameters are set!</string>
-
   <string name="title_activity_activity_log">Activity Log</string>
   <string name="menu_activity_log">Activity Log</string>
-
   <string name="altype_profileActivation">profile activation</string>
   <string name="altype_afterDuration_undoProfile">after duration - undo profile</string>
   <string name="altype_afterDuration_backgroundProfile">after duration - default profile</string>
@@ -479,5 +477,4 @@
   <string name="altype_applicationStart">application start</string>
   <string name="altype_applicationExit">application exit</string>
   <string name="altype_dataImport">import data</string>
-
 </resources>

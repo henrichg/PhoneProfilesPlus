@@ -458,4 +458,22 @@
   <string name="event_preferences_call_contact_groups">Skupiny kontaktov</string>
   <string name="event_preferences_sms_contact_groups">Skupiny kontaktov</string>
   <string name="event_preferences_error">Nie všetky podčiarknuté parametre sú nastavené!</string>
+  <string name="title_activity_activity_log">Activity Log</string>
+  <string name="menu_activity_log">Activity Log</string>
+  <string name="altype_profileActivation">profile activation</string>
+  <string name="altype_afterDuration_undoProfile">after duration - undo profile</string>
+  <string name="altype_afterDuration_backgroundProfile">after duration - default profile</string>
+  <string name="altype_afterDuration_restartEvents">after duration - restart events</string>
+  <string name="altype_eventStart">event start</string>
+  <string name="altype_eventStartDelay">event start with delay</string>
+  <string name="altype_eventEnd_none">event pause</string>
+  <string name="altype_eventEnd_activateProfile">event pause - activate profile</string>
+  <string name="altype_eventEnd_undoProfile">event pause - undo profile</string>
+  <string name="altype_eventEnd_activateProfile_undoProfile">event pause - activate and undo profile</string>
+  <string name="altype_restartEvents">restart events</string>
+  <string name="altype_runEvents_disable">stop events</string>
+  <string name="altype_runEvents_enable">enable run events</string>
+  <string name="altype_applicationStart">application start</string>
+  <string name="altype_applicationExit">application exit</string>
+  <string name="altype_dataImport">import data</string>
 </resources>
