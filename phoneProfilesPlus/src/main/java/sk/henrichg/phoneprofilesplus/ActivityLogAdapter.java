@@ -2,8 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +10,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.TimeZone;
@@ -159,11 +159,37 @@ public class ActivityLogAdapter extends CursorAdapter {
                         " " + DateFormat.getTimeFormat(context).format(when);
                 */
 
+                /*
                 SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss");
                 finalDateTime = sdf.format(when);
+                */
 
+                finalDateTime = timeDateStringFromTimestamp(context, when);
             }
         }
         return finalDateTime;
+    }
+
+    private static String timeDateStringFromTimestamp(Context applicationContext,long timestamp){
+        String timeDate;
+        String androidDateTime=android.text.format.DateFormat.getDateFormat(applicationContext).format(new Date(timestamp))+" "+
+                android.text.format.DateFormat.getTimeFormat(applicationContext).format(new Date(timestamp));
+        String javaDateTime = DateFormat.getDateTimeInstance().format(new Date(timestamp));
+        String AmPm="";
+        if(!Character.isDigit(androidDateTime.charAt(androidDateTime.length()-1))) {
+            if(androidDateTime.contains(new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM])){
+                AmPm=" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM];
+            }else{
+                AmPm=" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.PM];
+            }
+            androidDateTime=androidDateTime.replace(AmPm, "");
+        }
+        if(!Character.isDigit(javaDateTime.charAt(javaDateTime.length()-1))){
+            javaDateTime=javaDateTime.replace(" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM], "");
+            javaDateTime=javaDateTime.replace(" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.PM], "");
+        }
+        javaDateTime=javaDateTime.substring(javaDateTime.length()-3);
+        timeDate=androidDateTime.concat(javaDateTime);
+        return timeDate.concat(AmPm);
     }
 }
