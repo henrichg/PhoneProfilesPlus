@@ -212,9 +212,9 @@
   <string name="editor_drawer_list_item_events_paused">Приостановленные</string>
   <string name="editor_drawer_list_item_events_stopped">Неактивные</string>
   <string name="profile_preferences_deviceAutosync">Автосинхронизация</string>
-  <string name="editor_drawer_order_label">Сортировать события по:</string>
-  <string name="editor_drawer_order_event_name">названию события</string>
-  <string name="editor_drawer_order_profile_name">названию профиля</string>
+  <string name="editor_drawer_order_label">Сортировать события:</string>
+  <string name="editor_drawer_order_event_name">по названию события</string>
+  <string name="editor_drawer_order_profile_name">по названию профиля</string>
   <string name="toast_default_profiles_generated">Профили по умолчанию сгенерированы</string>
   <string name="default_profile_name_home">Дом</string>
   <string name="default_profile_name_outdoor">Улица</string>
@@ -337,9 +337,9 @@
   <string name="array_event_pref_priorityVeryHigh">Очень высокий</string>
   <string name="array_event_pref_priorityHigh">Высокий</string>
   <string name="array_event_pref_priorityMedium">Средний</string>
-  <string name="array_event_pref_priorityLow">низкий</string>
+  <string name="array_event_pref_priorityLow">Низкий</string>
   <string name="array_event_pref_priorityVeryLow">Очень низкий</string>
-  <string name="editor_drawer_order_priority">Приоритет</string>
+  <string name="editor_drawer_order_priority">по приоритету</string>
   <string name="event_type_peripheral">Аксессуары</string>
   <string name="array_event_pref_peripheralType_deskDock">Док-станция</string>
   <string name="array_event_pref_peripheralType_carDock">Автомобильный комплект</string>
@@ -358,7 +358,7 @@
   <string name="default_profile_name_battery_low">Низкий заряд батареи</string>
   <string name="calendars_multiselect_summary_text_selected">Выбрано</string>
   <string name="calendars_multiselect_summary_text_not_selected">Не выбрано</string>
-  <string name="event_preferences_category_eventCalendarParameters">Параметры календарю</string>
+  <string name="event_preferences_category_eventCalendarParameters">Параметры календаря</string>
   <string name="event_preferences_calendar_enabled">Активировать</string>
   <string name="event_preferences_calendar_calendars">Календари</string>
   <string name="event_type_calendar">Календарь</string>
@@ -369,11 +369,11 @@
   <string name="event_preferences_calendar_no_event">Нет мероприятия</string>
   <string name="pphelper_upgrade_notification_title">Нужно обновить PPHelper.</string>
   <string name="pphelper_upgrade_notification_text">Пожалуйста, нажмите здесь, чтобы начать обновление.</string>
-  <string name="array_event_pref_priorityLowest">Низкая</string>
+  <string name="array_event_pref_priorityLowest">Наименьший</string>
   <string name="array_event_pref_priorityLower">Ниже</string>
-  <string name="array_event_pref_priorityLowerMedium">Умеренно низким</string>
-  <string name="array_event_pref_priorityUpperMedium">Умеренно высокой</string>
-  <string name="array_event_pref_priorityHigher">Высшее</string>
+  <string name="array_event_pref_priorityLowerMedium">Ниже среднего</string>
+  <string name="array_event_pref_priorityUpperMedium">Выше среднего</string>
+  <string name="array_event_pref_priorityHigher">Выше</string>
   <string name="array_event_pref_priorityHighest">Наивысший</string>
   <string name="event_type_wifi">Wi-Fi</string>
   <string name="event_preferences_category_eventWifiParameters">Параметры Wi-Fi</string>
@@ -395,7 +395,7 @@
   <string name="event_preferences_category_eventScreenParameters">Параметры экрана</string>
   <string name="event_preferences_screen_enabled">Активировать</string>
   <string name="event_preferences_screen_event_type">Тип события</string>
-  <string name="event_preferences_delayStart">задержка (сек.)</string>
+  <string name="event_preferences_delayStart">Задержка (сек.)</string>
   <string name="profile_preferences_duration">Продолжительность (минут)</string>
   <string name="profile_preferences_afterDurationDo">По окончанию сделать</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Ничего</string>
@@ -476,4 +476,5 @@
   <string name="altype_applicationStart">application start</string>
   <string name="altype_applicationExit">application exit</string>
   <string name="altype_dataImport">import data</string>
+  <string name="array_event_pref_calendarSearchField_location">Location</string>
 </resources>
