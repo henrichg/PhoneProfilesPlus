@@ -71,46 +71,6 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
 			if (bluetoothEventsExists || GlobalData.getForceOneBluetoothScan(context))
 			{
-				int bluetoothState = bluetooth.getState();
-				if (bluetoothState == BluetoothAdapter.STATE_ON)
-			    {
-
-					boolean connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, "");
-					if (connected && (!GlobalData.getForceOneBluetoothScan(context)))
-					{
-						GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive","bluetooth is connected");
-
-						// bluetooth is connected
-
-                        // search for events with connected bluetooth adapter and connection type INFRONT
-		    			boolean isBluetoothNameScannedInFront =
-                                BluetoothConnectionBroadcastReceiver.isAdapterNameScanned(dataWrapper, EventPreferencesBluetooth.CTYPE_INFRONT);
-                        // search for events with connected bluetooth adapter and connection type NOTINFRONT
-                        boolean isBluetoothNameScannedNotInFront =
-                                BluetoothConnectionBroadcastReceiver.isAdapterNameScanned(dataWrapper, EventPreferencesBluetooth.CTYPE_NOTINFRONT);
-
-                        getScanResults(context);
-		    			if ((isBluetoothNameScannedInFront) && (!isBluetoothNameScannedNotInFront) && (scanResults.size() != 0))
-		    			{
-                            // INFRONT events exists for connected BT adapter and
-                            // NOTINFRONT events not exists for connected BT adapter and
-                            // scan data exists, then
-		    				// no scan
-		    				
-		        			setBluetoothEnabledForScan(context, false);
-		    				setScanRequest(context, false);
-                            setWaitForResults(context, false);
-		        			GlobalData.setForceOneBluetoothScan(context, false);
-
-		    				GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive","connected SSID is scanned, no start scan");
-
-		    				dataWrapper.invalidateDataWrapper();
-		    				
-		    				return;
-		    			}
-					}
-			    }	
-				
 				startScanner(context);
 			}
 			else {

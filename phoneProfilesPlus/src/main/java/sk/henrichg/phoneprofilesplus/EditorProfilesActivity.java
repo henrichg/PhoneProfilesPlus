@@ -143,7 +143,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
-        Log.e("$$$ PPP","EditorProfilesActivity.onCreate");
+        //Log.e("$$$ PPP","EditorProfilesActivity.onCreate");
 
 		GUIData.setTheme(this, false, true);
 		GUIData.setLanguage(getBaseContext());
@@ -470,14 +470,14 @@ public class EditorProfilesActivity extends ActionBarActivity
 	@Override
 	protected void onStart()
 	{
-        Log.e("$$$ PPP","EditorProfilesActivity.onStart");
+        //Log.e("$$$ PPP","EditorProfilesActivity.onStart");
         super.onStart();
 	}
 
 	@Override
 	protected void onStop()
 	{
-        Log.e("$$$ PPP","EditorProfilesActivity.onStop");
+        //Log.e("$$$ PPP","EditorProfilesActivity.onStop");
 		super.onStop();
         if (instance == this)
 		    instance = null;
@@ -486,7 +486,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	@Override 
 	protected void onResume()
 	{
-        Log.e("$$$ PPP","EditorProfilesActivity.onResume");
+        //Log.e("$$$ PPP","EditorProfilesActivity.onResume");
 		//Debug.stopMethodTracing();
 		super.onResume();
 

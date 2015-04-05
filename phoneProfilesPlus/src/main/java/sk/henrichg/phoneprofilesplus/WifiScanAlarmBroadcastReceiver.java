@@ -77,51 +77,6 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
 			if (wifiEventsExists || GlobalData.getForceOneWifiScan(context))
 			{
-				int wifiState = wifi.getWifiState();
-				if (wifiState == WifiManager.WIFI_STATE_ENABLED)
-			    {
-					ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-					NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-					if (networkInfo.isConnected() && (!GlobalData.getForceOneWifiScan(context)))
-					{
-						GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive","wifi is connected");
-
-						// wifi is connected
-
-                        getWifiConfigurationList(context);
-                        getScanResults(context);
-
-						WifiInfo wifiInfo = wifi.getConnectionInfo();
-		    			String SSID = DataWrapper.getSSID(wifiInfo);
-
-                        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive","connected SSID="+SSID);
-
-                        // search for events with connected SSID and connection type INFRONT
-		    			boolean isSSIDScannedInFront = dataWrapper.getDatabaseHandler().isSSIDScanned(SSID, EventPreferencesWifi.CTYPE_INFRONT);
-                        // search for events with connected SSID and connection type NOTINFRONT
-                        boolean isSSIDScannedNotInFront = dataWrapper.getDatabaseHandler().isSSIDScanned(SSID, EventPreferencesWifi.CTYPE_NOTINFRONT);
-
-		    			if ((isSSIDScannedInFront) && (!isSSIDScannedNotInFront) && (scanResults.size() != 0))
-		    			{
-                            // INFRONT events exists for connected SSID and
-                            // NOTINFRONT events not exists for connected SSID and
-                            // scan data exists, then
-		    				// no scan
-		    				
-		        			setWifiEnabledForScan(context, false);
-		        			setScanRequest(context, false);
-                            setWaitForResults(context, false);
-		        			GlobalData.setForceOneWifiScan(context, false);
-
-		    				GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive","connected SSID is scanned, no start scan");
-
-		    				dataWrapper.invalidateDataWrapper();
-		    				
-		    				return;
-		    			}
-					}
-			    }
-				
 				startScanner(context);
 			}
             else {
