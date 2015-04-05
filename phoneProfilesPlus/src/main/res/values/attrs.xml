@@ -66,5 +66,6 @@
     <attr name="editorDrawerListHeaderBackground" format="reference" />
     <attr name="editorDrawerListHeaderTitle" format="reference" />
     <attr name="dialogDivider" format="reference" />
+    <attr name="actionActivityLogIcon" format="reference" />
     
 </resources>
