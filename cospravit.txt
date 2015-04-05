@@ -513,3 +513,7 @@ Activity log:
   5. nazov profilu - nazov profilu, ktory sa aktivoval - tu dame nazov tak ako pri notifikacii (profil [udalost])
   6. trvanie/delay
 - budeme drzat maximalne tyzden stare zaznamy
+
+---------------------------
+
+povolenie/zakazanie vybrovania pri dotyku: Settings.System.HAPTIC_FEEDBACK_ENABLED (0,1)
