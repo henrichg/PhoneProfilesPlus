@@ -86,29 +86,32 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 			doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
 		else
 			doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber, dataWrapper);
-		
-		int speakerPhone = dataWrapper.getDatabaseHandler().getActiveProfileSpeakerphone();
 
-		if (speakerPhone != 0)
-		{
+        Profile profile = dataWrapper.getActivatedProfile();
+        profile = GlobalData.getMappedProfile(profile, savedContext);
 
-			if (audioManager == null )
-				audioManager = (AudioManager)savedContext.getSystemService(Context.AUDIO_SERVICE);
-			
-	        try {
-	            Thread.sleep(500); // Delay 0,5 seconds to handle better turning on loudspeaker
-	        } catch (InterruptedException e) {
-	        }
-		
-	        //Activate loudspeaker
-	        audioManager.setMode(AudioManager.MODE_IN_CALL);
+        if (profile != null) {
 
-	        savedSpeakerphone = audioManager.isSpeakerphoneOn();
-	        audioManager.setSpeakerphoneOn(speakerPhone == 1);
-	        
-	        speakerphoneSelected = true;
-	        
-		}
+            if (profile._volumeSpeakerPhone != 0) {
+
+                if (audioManager == null)
+                    audioManager = (AudioManager) savedContext.getSystemService(Context.AUDIO_SERVICE);
+
+                try {
+                    Thread.sleep(500); // Delay 0,5 seconds to handle better turning on loudspeaker
+                } catch (InterruptedException e) {
+                }
+
+                //Activate loudspeaker
+                audioManager.setMode(AudioManager.MODE_IN_CALL);
+
+                savedSpeakerphone = audioManager.isSpeakerphoneOn();
+                audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
+
+                speakerphoneSelected = true;
+
+            }
+        }
 		
 		dataWrapper.invalidateDataWrapper();
 	}
