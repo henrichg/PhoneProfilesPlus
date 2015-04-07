@@ -18,7 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
-import com.afollestad.materialdialogs.AlertDialogWrapper;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.lang.ref.WeakReference;
@@ -486,6 +486,20 @@ public class EditorEventListFragment extends Fragment {
 	{
 		final Event _event = event;
 
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(getActivity())
+                .title(getResources().getString(R.string.event_string_0) + ": " + event._name)
+                .content(R.string.delete_event_alert_message)
+                .positiveText(R.string.alert_button_yes)
+                .negativeText(R.string.alert_button_no)
+                .disableDefaultFonts();
+        dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
+            @Override
+            public void onPositive(MaterialDialog dialog) {
+                deleteEvent(_event);
+            }
+        });
+        dialogBuilder.show();
+        /*
         AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(getActivity());
 		dialogBuilder.setTitle(getResources().getString(R.string.event_string_0) + ": " + event._name);
 		dialogBuilder.setMessage(getResources().getString(R.string.delete_event_alert_message));
@@ -498,10 +512,30 @@ public class EditorEventListFragment extends Fragment {
 		});
 		dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
 		dialogBuilder.show();
+		*/
 	}
 
 	private void deleteAllEvents()
 	{
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(getActivity())
+                .title(R.string.alert_title_delete_all_events)
+                .content(R.string.alert_message_delete_all_events)
+                .positiveText(R.string.alert_button_yes)
+                .negativeText(R.string.alert_button_no)
+                .disableDefaultFonts();
+        dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
+            @Override
+            public void onPositive(MaterialDialog dialog) {
+                dataWrapper.stopAllEvents(true, false);
+
+                databaseHandler.deleteAllEvents();
+                eventListAdapter.clear();
+
+                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, filterType, orderType);
+            }
+        });
+        dialogBuilder.show();
+        /*
         AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(getActivity());
 		dialogBuilder.setTitle(getResources().getString(R.string.alert_title_delete_all_events));
 		dialogBuilder.setMessage(getResources().getString(R.string.alert_message_delete_all_events));
@@ -521,6 +555,7 @@ public class EditorEventListFragment extends Fragment {
 		});
 		dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
 		dialogBuilder.show();
+		*/
 	}
 	
 	// called from event list adapter

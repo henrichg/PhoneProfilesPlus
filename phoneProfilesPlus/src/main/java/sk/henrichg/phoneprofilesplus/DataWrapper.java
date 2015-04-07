@@ -25,11 +25,9 @@ import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
-import android.view.Display;
-import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.AlertDialogWrapper;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -1107,6 +1105,42 @@ public class DataWrapper {
 			final Activity _activity = activity;
 			final String _eventNotificationSound = eventNotificationSound;
 
+            MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(activity)
+                    .title(activity.getResources().getString(R.string.profile_string_0) + ": " + profile._name);
+            if (isforceRunEvent)
+                dialogBuilder.content(R.string.manual_profile_activation_forceRun_message);
+            else
+                dialogBuilder.content(R.string.activate_profile_alert_message);
+            dialogBuilder.positiveText(R.string.alert_button_yes)
+                    .negativeText(R.string.alert_button_no)
+                    .disableDefaultFonts();
+            dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
+                @Override
+                public void onPositive(MaterialDialog dialog) {
+                    _activateProfile(_profile, _startupSource, _interactive, _activity, _eventNotificationSound);
+                }
+
+                @Override
+                public void onNegative(MaterialDialog dialog) {
+                    // for startActivityForResult
+                    Intent returnIntent = new Intent();
+                    _activity.setResult(Activity.RESULT_CANCELED,returnIntent);
+
+                    finishActivity(_startupSource, false, _activity);
+                }
+            });
+            dialogBuilder.cancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    // for startActivityForResult
+                    Intent returnIntent = new Intent();
+                    _activity.setResult(Activity.RESULT_CANCELED,returnIntent);
+
+                    finishActivity(_startupSource, false, _activity);
+                }
+            });
+            dialogBuilder.show();
+            /*
             AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 			dialogBuilder.setTitle(activity.getResources().getString(R.string.profile_string_0) + ": " + profile._name);
 			if (isforceRunEvent)
@@ -1139,6 +1173,7 @@ public class DataWrapper {
 				}
 			});
 			dialogBuilder.show();
+			*/
 		}
 		else
 		{
@@ -2177,6 +2212,23 @@ public class DataWrapper {
 		{
 			final Activity _activity = activity;
 
+            MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(activity)
+                    .title(R.string.restart_events_alert_title)
+                    .content(R.string.restart_events_alert_message)
+                    .positiveText(R.string.alert_button_yes)
+                    .negativeText(R.string.alert_button_no)
+                    .disableDefaultFonts();
+            dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
+                @Override
+                public void onPositive(MaterialDialog dialog) {
+                    restartEventsWithRescan(true);
+
+                    if (GlobalData.applicationClose && (!(_activity instanceof EditorProfilesActivity)))
+                        _activity.finish();
+                }
+            });
+            dialogBuilder.show();
+            /*
             AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 			dialogBuilder.setTitle(activity.getResources().getString(R.string.restart_events_alert_title));
 			dialogBuilder.setMessage(activity.getResources().getString(R.string.restart_events_alert_message));
@@ -2191,6 +2243,7 @@ public class DataWrapper {
 			});
 			dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
 			dialogBuilder.show();
+			*/
 		}
 		else
 		{

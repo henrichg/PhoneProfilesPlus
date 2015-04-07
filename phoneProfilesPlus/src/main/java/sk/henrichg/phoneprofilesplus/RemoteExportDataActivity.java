@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 
-import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.io.File;
@@ -167,6 +166,13 @@ public class RemoteExportDataActivity extends Activity {
 	
 	private void exportErrorDialog()
 	{
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(this)
+                .title(R.string.export_profiles_alert_title)
+                .content(R.string.export_profiles_alert_error)
+                .positiveText(android.R.string.ok)
+                .disableDefaultFonts();
+        dialogBuilder.show();
+        /*
         AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(this);
 		dialogBuilder.setTitle(getResources().getString(R.string.export_profiles_alert_title));
 		String resMessage;
@@ -175,6 +181,7 @@ public class RemoteExportDataActivity extends Activity {
 		//dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 		dialogBuilder.setPositiveButton(android.R.string.ok, null);
 		dialogBuilder.show();
+		*/
 	}
 	
 	

@@ -21,7 +21,6 @@ import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
@@ -265,6 +264,96 @@ public class PhoneProfilesHelper {
 		GUIData.setTheme(activity, true, false);
 		GUIData.setLanguage(activity.getBaseContext());
 
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(activity)
+                .title(R.string.phoneprofilehepler_install_title)
+                .content(R.string.phoneprofilehepler_install_message)
+                .positiveText(R.string.alert_button_yes)
+                .negativeText(R.string.alert_button_no)
+                .disableDefaultFonts();
+        dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
+            @Override
+            public void onPositive(MaterialDialog dialog) {
+                class InstallAsyncTask extends AsyncTask<Void, Integer, Boolean>
+                {
+                    private MaterialDialog dialog;
+
+                    InstallAsyncTask()
+                    {
+                        this.dialog = new MaterialDialog.Builder(_activity)
+                                .content(R.string.phoneprofilehepler_install_title)
+                                .disableDefaultFonts()
+                                .progress(true, 0)
+                                .build();
+                    }
+
+                    @Override
+                    protected void onPreExecute()
+                    {
+                        super.onPreExecute();
+
+                        lockScreenOrientation();
+                        this.dialog.setCancelable(false);
+                        this.dialog.show() ;
+                    }
+
+                    @Override
+                    protected Boolean doInBackground(Void... params) {
+
+                        boolean OK = doInstallPPHelper(_activity);
+
+                        return OK;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Boolean result)
+                    {
+                        super.onPostExecute(result);
+
+                        if (dialog.isShowing())
+                            dialog.dismiss();
+                        unlockScreenOrientation();
+
+                        if (result)
+                        {
+                            restartAndroid(_activity, 1, _finishActivity);
+                        }
+                        else
+                            installUnInstallPPhelperErrorDialog(_activity, 1, _finishActivity);
+                    }
+
+                    private void lockScreenOrientation() {
+                        int currentOrientation = _activity.getResources().getConfiguration().orientation;
+                        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                        } else {
+                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                        }
+                    }
+
+                    private void unlockScreenOrientation() {
+                        _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                    }
+
+                }
+
+                new InstallAsyncTask().execute();
+            }
+
+            @Override
+            public void onNegative(MaterialDialog dialog) {
+                if (_finishActivity)
+                    _activity.finish();
+            }
+        });
+        dialogBuilder.cancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (_finishActivity)
+                    _activity.finish();
+            }
+        });
+        dialogBuilder.show();
+        /*
         AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 		dialogBuilder.setTitle(activity.getResources().getString(R.string.phoneprofilehepler_install_title));
 		dialogBuilder.setMessage(activity.getResources().getString(R.string.phoneprofilehepler_install_message));
@@ -353,6 +442,7 @@ public class PhoneProfilesHelper {
 			}
 		});
 		dialogBuilder.show();
+		*/
 	}
 	
 	static private void copyFile(InputStream in, OutputStream out) throws IOException
@@ -455,6 +545,83 @@ public class PhoneProfilesHelper {
 	{
 		final Activity _activity = activity;
 
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(activity)
+                .title(R.string.phoneprofilehepler_uninstall_title)
+                .content(R.string.phoneprofilehepler_uninstall_message)
+                .positiveText(R.string.alert_button_yes)
+                .negativeText(R.string.alert_button_no)
+                .disableDefaultFonts();
+        dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
+            @Override
+            public void onPositive(MaterialDialog dialog) {
+                class UninstallAsyncTask extends AsyncTask<Void, Integer, Boolean>
+                {
+                    private MaterialDialog dialog;
+
+                    UninstallAsyncTask()
+                    {
+                        this.dialog = new MaterialDialog.Builder(_activity)
+                                .content(R.string.phoneprofilehepler_uninstall_title)
+                                .disableDefaultFonts()
+                                .progress(true, 0)
+                                .build();
+                    }
+
+                    @Override
+                    protected void onPreExecute()
+                    {
+                        super.onPreExecute();
+
+                        lockScreenOrientation();
+                        this.dialog.setCancelable(false);
+                        this.dialog.show();
+                    }
+
+                    @Override
+                    protected Boolean doInBackground(Void... params) {
+
+                        boolean OK = doUninstallPPHelper(_activity);
+
+                        return OK;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Boolean result)
+                    {
+                        super.onPostExecute(result);
+
+                        if (dialog.isShowing())
+                            dialog.dismiss();
+                        unlockScreenOrientation();
+
+                        if (result)
+                        {
+                            restartAndroid(_activity, 2, false);
+                        }
+                        else
+                            installUnInstallPPhelperErrorDialog(_activity, 2, false);
+                    }
+
+                    private void lockScreenOrientation() {
+                        int currentOrientation = _activity.getResources().getConfiguration().orientation;
+                        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                        } else {
+                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                        }
+                    }
+
+                    private void unlockScreenOrientation() {
+                        _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                    }
+
+                }
+
+                new UninstallAsyncTask().execute();
+            }
+        });
+        dialogBuilder.show();
+        /*
         AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 		dialogBuilder.setTitle(activity.getResources().getString(R.string.phoneprofilehepler_uninstall_title));
 		dialogBuilder.setMessage(activity.getResources().getString(R.string.phoneprofilehepler_uninstall_message));
@@ -529,6 +696,7 @@ public class PhoneProfilesHelper {
 		});
 		dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
 		dialogBuilder.show();
+		*/
 	}
 	
 	static private void restartAndroid(Activity activity, int installUninstall, boolean finishActivity)
@@ -536,6 +704,41 @@ public class PhoneProfilesHelper {
 		final Activity _activity = activity;
 		final boolean _finishActivity = finishActivity;
 
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(activity);
+        if (installUninstall == 1) {
+            dialogBuilder.title(R.string.phoneprofilehepler_reboot_title)
+                    .content(R.string.phoneprofilehepler_reboot_message);
+        }
+        else {
+            dialogBuilder.title(R.string.phoneprofilehepler_reboot_title_uninstall)
+                    .content(R.string.phoneprofilehepler_reboot_message_uninstall);
+
+        }
+        dialogBuilder.positiveText(R.string.alert_button_yes)
+                .negativeText(R.string.alert_button_no)
+                .disableDefaultFonts();
+        dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
+            @Override
+            public void onPositive(MaterialDialog dialog) {
+                // restart device
+                RootTools.restartAndroid();
+            }
+
+            @Override
+            public void onNegative(MaterialDialog dialog) {
+                if (_finishActivity)
+                    _activity.finish();
+            }
+        });
+        dialogBuilder.cancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (_finishActivity)
+                    _activity.finish();
+            }
+        });
+        dialogBuilder.show();
+        /*
         AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 		if (installUninstall == 1)
 		{
@@ -572,6 +775,7 @@ public class PhoneProfilesHelper {
 		});
 		
 		dialogBuilder.show();
+		*/
 	}
 	
 	static private boolean commandWait(Command cmd) throws Exception {
@@ -610,6 +814,39 @@ public class PhoneProfilesHelper {
 		final Activity _activity = activity;
 		final boolean _finishActivity = finishActivity;
 
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(activity);
+        if (installUninstall == 1) {
+            dialogBuilder.title(R.string.phoneprofilehepler_install_title);
+            if (!errorNoRoot)
+                dialogBuilder.content(R.string.phoneprofilehepler_install_error);
+            else
+                dialogBuilder.content(R.string.phoneprofilehepler_install_error_no_root);
+        }
+        else {
+            dialogBuilder.title(R.string.phoneprofilehepler_uninstall_title);
+            if (!errorNoRoot)
+                dialogBuilder.content(R.string.phoneprofilehepler_uninstall_error);
+            else
+                dialogBuilder.content(R.string.phoneprofilehepler_uninstall_error_no_root);
+        }
+        dialogBuilder.positiveText(android.R.string.ok)
+                .disableDefaultFonts();
+        dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
+            @Override
+            public void onPositive(MaterialDialog dialog) {
+                if (_finishActivity)
+                    _activity.finish();
+            }
+        });
+        dialogBuilder.cancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (_finishActivity)
+                    _activity.finish();
+            }
+        });
+        dialogBuilder.show();
+        /*
         AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(activity);
 		String resString;
 		if (installUninstall == 1)
@@ -650,6 +887,7 @@ public class PhoneProfilesHelper {
 		});
 		
 		dialogBuilder.show();
+		*/
 	}
 
 	@SuppressLint("InlinedApi")
