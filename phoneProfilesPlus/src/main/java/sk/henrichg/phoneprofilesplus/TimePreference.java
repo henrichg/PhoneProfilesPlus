@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -43,7 +44,10 @@ public class TimePreference extends DialogPreference {
                 .callback(callback)
                 .content(getDialogMessage());
 
-        picker = new TimePicker(context, attributeSet);
+        if (GlobalData.applicationTheme.equals("dark"))
+            picker = new TimePicker(context, attributeSet, TimePickerDialog.THEME_HOLO_DARK);
+        else
+            picker = new TimePicker(context, attributeSet, TimePickerDialog.THEME_HOLO_LIGHT);
         picker.setIs24HourView(DateFormat.is24HourFormat(context));
         onBindDialogView(picker);
 
