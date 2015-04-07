@@ -44,10 +44,13 @@ public class TimePreference extends DialogPreference {
                 .callback(callback)
                 .content(getDialogMessage());
 
+        /*
         if (GlobalData.applicationTheme.equals("dark"))
             picker = new TimePicker(context, attributeSet, TimePickerDialog.THEME_HOLO_DARK);
         else
             picker = new TimePicker(context, attributeSet, TimePickerDialog.THEME_HOLO_LIGHT);
+        */
+        picker = new TimePicker(context, attributeSet);
         picker.setIs24HourView(DateFormat.is24HourFormat(context));
         onBindDialogView(picker);
 
