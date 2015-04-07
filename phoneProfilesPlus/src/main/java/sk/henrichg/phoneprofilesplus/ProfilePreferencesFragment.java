@@ -398,21 +398,12 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 		
 		if (requestCode == ImageViewPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
 		{
-			Uri selectedImage = data.getData();
-			String[] filePathColumn = { MediaStore.Images.Media.DATA };
-			
-			Cursor cursor = context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-			cursor.moveToFirst();
-			
-			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-			String picturePath = cursor.getString(columnIndex);
-			
-			cursor.close();
-			
-			if (changedImageViewPreference != null)
-				// nastavime image identifikatoru na ziskanu cestu ku obrazku
-				changedImageViewPreference.setImageIdentifierAndType(picturePath, false);
-			
+            Uri selectedImage = data.getData();
+            String picturePath = ImageViewPreference.getPath(context, selectedImage);
+
+            if (changedImageViewPreference != null)
+                // nastavime image identifikatoru na ziskanu cestu ku obrazku
+                changedImageViewPreference.setImageIdentifierAndType(picturePath, false);
 		}
 	}
 	
