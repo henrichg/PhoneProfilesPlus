@@ -479,4 +479,5 @@ Toch activeren?</string>
   <string name="altype_applicationExit">application exit</string>
   <string name="altype_dataImport">import data</string>
   <string name="array_event_pref_calendarSearchField_location">Location</string>
+  <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
 </resources>

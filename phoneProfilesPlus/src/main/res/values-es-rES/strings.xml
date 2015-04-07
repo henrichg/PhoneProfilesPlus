@@ -477,4 +477,5 @@
   <string name="altype_applicationExit">salir de aplicación</string>
   <string name="altype_dataImport">importar datos</string>
   <string name="array_event_pref_calendarSearchField_location">Localización</string>
+  <string name="profile_preferences_vibrationOnTouch">Vibrar al tocar</string>
 </resources>

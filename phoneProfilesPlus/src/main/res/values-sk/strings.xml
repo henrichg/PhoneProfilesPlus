@@ -477,4 +477,5 @@
   <string name="altype_applicationExit">ukončenie aplikácie</string>
   <string name="altype_dataImport">import dát</string>
   <string name="array_event_pref_calendarSearchField_location">Poloha</string>
+  <string name="profile_preferences_vibrationOnTouch">Vibrovanie pri klepntí</string>
 </resources>
