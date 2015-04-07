@@ -1121,6 +1121,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 			{
 		         this.dialog = new MaterialDialog.Builder(activity)
                                      .content(R.string.import_profiles_alert_title)
+                                     .disableDefaultFonts()
                                      .progress(true, 0)
                                      .build();
 		         this.dataWrapper = getDataWrapper();
@@ -1369,6 +1370,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 					{
                         this.dialog = new MaterialDialog.Builder(activity)
                                 .content(R.string.export_profiles_alert_title)
+                                .disableDefaultFonts()
                                 .progress(true, 0)
                                 .build();
 				         this.dataWrapper = getDataWrapper();

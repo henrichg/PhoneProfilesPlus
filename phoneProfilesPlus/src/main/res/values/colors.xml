@@ -2,7 +2,7 @@
 <resources>
 	<color name="profile_all_primary">#237e9f</color>      <!-- 700(500) -->
 	<color name="profile_all_primaryDark">#1d6681</color> <!-- 900(700) -->   
-	<color name="profile_all_accent">#536dfe</color>       <!-- A400(A200) -->    
+	<color name="profile_all_accent">#00BFA5</color>       <!-- A400(A200) -->
 
     <color name="fabPrimary">#237e9f</color>
     <color name="fabPressed">#34bced</color>

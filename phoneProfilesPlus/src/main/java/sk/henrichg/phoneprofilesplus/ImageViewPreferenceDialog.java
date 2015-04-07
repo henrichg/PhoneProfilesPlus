@@ -22,6 +22,7 @@ public class ImageViewPreferenceDialog  {
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.title_activity_image_view_preference_dialog)
+                .disableDefaultFonts()
                 .autoDismiss(false)
                 .customView(R.layout.activity_imageview_resource_pref_dialog, false);
 

@@ -437,6 +437,7 @@ public class EditorProfileListFragment extends Fragment {
 			{
                  this.dialog = new MaterialDialog.Builder(activity)
                                  .content(getResources().getString(R.string.delete_profile_progress_title) + "...")
+                                 .disableDefaultFonts()
                                  .progress(true, 0)
                                  .build();
 			}
@@ -588,6 +589,7 @@ public class EditorProfileListFragment extends Fragment {
 					{
                          this.dialog = new MaterialDialog.Builder(activity)
                                          .content(getResources().getString(R.string.delete_profiles_progress_title) + "...")
+                                         .disableDefaultFonts()
                                          .progress(true, 0)
                                          .build();
 					}

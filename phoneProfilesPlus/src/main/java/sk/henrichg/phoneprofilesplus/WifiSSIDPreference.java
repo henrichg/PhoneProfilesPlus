@@ -56,6 +56,7 @@ public class WifiSSIDPreference extends DialogPreference {
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
+                .disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .neutralText(R.string.wifi_ssid_pref_dlg_rescan_button)

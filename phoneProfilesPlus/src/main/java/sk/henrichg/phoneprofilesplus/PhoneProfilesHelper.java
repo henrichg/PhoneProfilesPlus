@@ -280,6 +280,7 @@ public class PhoneProfilesHelper {
 					{
                         this.dialog = new MaterialDialog.Builder(_activity)
                                 .content(R.string.phoneprofilehepler_install_title)
+                                .disableDefaultFonts()
                                 .progress(true, 0)
                                 .build();
 					}
@@ -468,6 +469,7 @@ public class PhoneProfilesHelper {
 					{
                         this.dialog = new MaterialDialog.Builder(_activity)
                                 .content(R.string.phoneprofilehepler_uninstall_title)
+                                .disableDefaultFonts()
                                 .progress(true, 0)
                                 .build();
 					}
