@@ -837,6 +837,7 @@ public class ActivateProfileHelper {
 
 			// vytvorenie intentu na aktivitu, ktora sa otvori na kliknutie na notifikaciu
 			Intent intent = new Intent(context, LauncherActivity.class);
+            // clear all opened activities
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
 			// nastavime, ze aktivita sa spusti z notifikacnej listy
 			intent.putExtra(GlobalData.EXTRA_START_APP_SOURCE, GlobalData.STARTUP_SOURCE_NOTIFICATION);
