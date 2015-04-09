@@ -713,7 +713,10 @@ public class EditorProfileListFragment extends Fragment {
 	{
 		if (!GlobalData.applicationEditorHeader)
 			return;
-		
+
+        if ((activeProfileName == null) || (activeProfileIcon == null))
+            return;
+
 		if (profile == null)
 		{
 			activeProfileName.setText(getResources().getString(R.string.profiles_header_profile_name_no_activated));
