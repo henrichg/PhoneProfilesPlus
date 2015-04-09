@@ -60,9 +60,9 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 			return;
 		}
 
-		String stringValue = preferences.getString(key, "");
+        String stringValue = preferences.getString(key, "");
 
-		if (key.equals(GlobalData.PREF_APPLICATION_BACKGROUND_PROFILE))
+        if (key.equals(GlobalData.PREF_APPLICATION_BACKGROUND_PROFILE))
 		{
 			String sProfileId = stringValue;
 			long lProfileId;
@@ -160,7 +160,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 	    setSummary(GlobalData.PREF_NOTIFICATION_TOAST);
 	    setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR);
 	    setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
-	    setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_CANCEL);
+        setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_CANCEL);
 	    
     	if (android.os.Build.VERSION.SDK_INT >= 21)
     	{
