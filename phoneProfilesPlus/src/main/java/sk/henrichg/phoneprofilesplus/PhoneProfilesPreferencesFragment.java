@@ -159,6 +159,15 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 	    setSummary(GlobalData.PREF_APPLICATION_EDITOR_HEADER);
 	    setSummary(GlobalData.PREF_NOTIFICATION_TOAST);
 	    setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR);
+
+        setSummary(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Preference preference = prefMng.findPreference(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
+            if (preference != null) {
+                preference.setTitle(R.string.phone_profiles_pref_notificationShowInStatusBarAndLockscreen);
+            }
+        }
+
 	    setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
         setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_CANCEL);
 	    

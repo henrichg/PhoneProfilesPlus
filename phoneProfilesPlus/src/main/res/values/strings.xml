@@ -479,5 +479,6 @@
   <string name="altype_dataImport">import data</string>
   <string name="array_event_pref_calendarSearchField_location">Location</string>
   <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
-  <string name="phone_profiles_pref_notificationShowInStatusBar">Show icon in status bar</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBar">Show icon</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Show icon and in lockscreen</string>
 </resources>
