@@ -160,11 +160,22 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 	    setSummary(GlobalData.PREF_NOTIFICATION_TOAST);
 	    setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR);
 
-        setSummary(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        if (android.os.Build.VERSION.SDK_INT >= 16) {
+            setSummary(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                Preference preference = prefMng.findPreference(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
+                if (preference != null) {
+                    preference.setTitle(R.string.phone_profiles_pref_notificationShowInStatusBarAndLockscreen);
+                }
+            }
+        }
+        else {
             Preference preference = prefMng.findPreference(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
             if (preference != null) {
-                preference.setTitle(R.string.phone_profiles_pref_notificationShowInStatusBarAndLockscreen);
+                preference.setEnabled(false);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, true);
+                editor.commit();
             }
         }
 
