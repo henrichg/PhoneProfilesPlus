@@ -1149,8 +1149,17 @@ public class EditorProfilesActivity extends ActionBarActivity
                 lockScreenOrientation();
                 this.dialog.setCancelable(false);
 			    this.dialog.show();
-				
-				// check root, this set GlobalData.rooted for doInBackgroud()
+
+                Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment != null)
+                {
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment)fragment).removeAdapter();
+                    else
+                        ((EditorEventListFragment)fragment).removeAdapter();
+                }
+
+                // check root, this set GlobalData.rooted for doInBackgroud()
 				GlobalData.isRooted(false);
 			}
 			
@@ -1195,15 +1204,6 @@ public class EditorProfilesActivity extends ActionBarActivity
 				if (result == 1)
 				{
 					GlobalData.loadPreferences(getApplicationContext());
-
-                    Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-                    if (fragment != null)
-                    {
-                        if (fragment instanceof EditorProfileListFragment)
-                            ((EditorProfileListFragment)fragment).removeAdapter();
-                        else
-                            ((EditorEventListFragment)fragment).removeAdapter();
-                    }
 
 					dataWrapper.invalidateProfileList();
 					dataWrapper.invalidateEventList();
