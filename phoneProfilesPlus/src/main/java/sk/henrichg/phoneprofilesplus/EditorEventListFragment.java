@@ -678,5 +678,10 @@ public class EditorEventListFragment extends Fragment {
 		}
 		updateListView(null, false);
 	}
-    
+
+    public void removeAdapter() {
+        if (listView != null)
+            listView.setAdapter(null);
+    }
+
 }

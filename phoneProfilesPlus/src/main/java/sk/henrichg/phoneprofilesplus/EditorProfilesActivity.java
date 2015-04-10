@@ -1196,6 +1196,15 @@ public class EditorProfilesActivity extends ActionBarActivity
 				{
 					GlobalData.loadPreferences(getApplicationContext());
 
+                    Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+                    if (fragment != null)
+                    {
+                        if (fragment instanceof EditorProfileListFragment)
+                            ((EditorProfileListFragment)fragment).removeAdapter();
+                        else
+                            ((EditorEventListFragment)fragment).removeAdapter();
+                    }
+
 					dataWrapper.invalidateProfileList();
 					dataWrapper.invalidateEventList();
 
