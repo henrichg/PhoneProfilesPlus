@@ -517,3 +517,30 @@ Activity log:
 ---------------------------
 
 povolenie/zakazanie vybrovania pri dotyku: Settings.System.HAPTIC_FEEDBACK_ENABLED (0,1)
+
+---------------------------
+
+Pridanie priznaku pristupnosti do kalaendar event nastaveni
+
+String	AVAILABILITY	If this event counts as busy time or is still free time that can be scheduled over.
+int	AVAILABILITY_BUSY	Indicates that this event takes up time and will conflict with other events.
+int	AVAILABILITY_FREE	Indicates that this event is free time and will not conflict with other events.
+int	AVAILABILITY_TENTATIVE	Indicates that the owner's availability may change, but should be considered busy time that will conflict.
+
+Toto je INTEGER polozka, cize sa tu neda pouzit vyhladavanie retazca.
+Preto navrhujem prerobit EventPreferencesCalendar
+
+	public String _calendars;
+	public boolean _searchTitle;        // checkbox
+	public String _titleString;         // EditText
+	public boolean _searchDescription;  // checkbox
+	public String _descriptionString;   // EditText
+	public boolean _searchLocation;     // checkbox
+	public String _locationString;      // EditText
+	public boolean _searchAvailability; // checkbox
+	public int _availabilityType;       // listselector
+
+Medzi jednotlivymi polozkami bude AND
+
+----------------------------------------------
+

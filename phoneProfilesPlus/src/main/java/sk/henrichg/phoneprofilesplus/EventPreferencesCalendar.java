@@ -343,13 +343,15 @@ public class EventPreferencesCalendar extends EventPreferences {
 		}
 
 	    final String[] INSTANCE_PROJECTION = new String[] {
-	        Instances.BEGIN,         // 0
-	        Instances.END,			 // 1
-	        Instances.TITLE,         // 2
-	        Instances.DESCRIPTION,   // 3
-	        Instances.CALENDAR_ID,   // 4
-	        Instances.ALL_DAY/*,       // 5
-	        Instances.EVENT_TIMEZONE // 6 */
+	        Instances.BEGIN,           // 0
+	        Instances.END,			   // 1
+	        Instances.TITLE,           // 2
+	        Instances.DESCRIPTION,     // 3
+	        Instances.CALENDAR_ID,     // 4
+	        Instances.ALL_DAY,         // 5
+            Instances.EVENT_LOCATION,  // 6
+	        Instances.AVAILABILITY/*,  // 7
+	        Instances.EVENT_TIMEZONE   // 8 */
 	    };
 	      
 	    // The indices for the projection array above.
