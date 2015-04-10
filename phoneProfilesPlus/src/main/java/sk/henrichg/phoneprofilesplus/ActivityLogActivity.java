@@ -16,6 +16,8 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 public class ActivityLogActivity extends ActionBarActivity {
 
     DataWrapper dataWrapper;
+    ListView listView;
+    ActivityLogAdapter activityLogAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +52,10 @@ public class ActivityLogActivity extends ActionBarActivity {
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
-        ListView listView = (ListView) findViewById(R.id.activity_log_list);
+        listView = (ListView) findViewById(R.id.activity_log_list);
 
         // Setup cursor adapter using cursor from last step
-        ActivityLogAdapter activityLogAdapter = new ActivityLogAdapter(getBaseContext(), dataWrapper.getDatabaseHandler().getActivityLogCursor());
+        activityLogAdapter = new ActivityLogAdapter(getBaseContext(), dataWrapper.getDatabaseHandler().getActivityLogCursor());
 
         // Attach cursor adapter to the ListView
         listView.setAdapter(activityLogAdapter);
@@ -74,6 +76,10 @@ public class ActivityLogActivity extends ActionBarActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+            case R.id.menu_activity_log_reload:
+                activityLogAdapter.reload(dataWrapper);
+                listView.smoothScrollToPosition(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -192,4 +192,8 @@ public class ActivityLogAdapter extends CursorAdapter {
         timeDate=androidDateTime.concat(javaDateTime);
         return timeDate.concat(AmPm);
     }
+
+    public void reload(DataWrapper dataWrapper) {
+        changeCursor(dataWrapper.getDatabaseHandler().getActivityLogCursor());
+    }
 }

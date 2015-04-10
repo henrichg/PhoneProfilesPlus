@@ -37,7 +37,7 @@
     <item android:id="@+id/menu_import"
         android:title="@string/menu_import"
         android:orderInCategory="240"
-        android:showAsAction="never" />
+        henrichg:showAsAction="never" />
 <!-- 	<item android:id="@+id/menu_help"
         android:title="@string/menu_help"
         android:orderInCategory="250"

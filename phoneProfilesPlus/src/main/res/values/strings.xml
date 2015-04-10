@@ -481,4 +481,5 @@
   <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">Show icon</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Show icon and in lockscreen</string>
+  <string name="menu_activity_log_reload">Reload</string>
 </resources>

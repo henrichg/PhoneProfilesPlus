@@ -43,6 +43,7 @@
         <item name="dialogDivider">@color/dialog_divider</item>
 
         <item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item>
+        <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload</item>
 
     </style>
 
