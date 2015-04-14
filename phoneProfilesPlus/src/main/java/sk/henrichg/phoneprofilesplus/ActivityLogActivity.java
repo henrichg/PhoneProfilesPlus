@@ -79,7 +79,8 @@ public class ActivityLogActivity extends ActionBarActivity {
                 return true;
             case R.id.menu_activity_log_reload:
                 activityLogAdapter.reload(dataWrapper);
-                listView.smoothScrollToPosition(0);
+                //listView.smoothScrollToPosition(0);
+                listView.setSelection(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
