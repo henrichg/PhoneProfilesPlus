@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sk.henrichg.phoneprofilesplus"
-    android:versionCode="1611"
-    android:versionName="3.0.4b" >
+    android:versionCode="1620"
+    android:versionName="3.0.4" >
 
 <!--
     <uses-sdk
