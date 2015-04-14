@@ -111,6 +111,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pl">Polski</string>
   <string name="phone_profiles_pref_applicationLanguage_nl">Nederlands</string>
   <string name="phone_profiles_pref_applicationLanguage_sv_SE">Svenska</string>
+  <string name="phone_profiles_pref_applicationLanguage_hu">Magyar</string>
   <string name="title_activity_shortcut_creator">Acceso directo a PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Iniciar al arrancar teléfono</string>
   <string name="array_pref_value_system">system</string>
@@ -127,6 +128,7 @@
   <string name="array_pref_value_pl">pl</string>
   <string name="array_pref_value_nl">nl</string>
   <string name="array_pref_value_sv_SE">sv-SE</string>
+  <string name="array_pref_value_hu">hu</string>
   <string name="profile_preferences_device_not_allowed">No permitido</string>
   <string name="menu_export">Exportar datos app.</string>
   <string name="menu_import">Importar datos app.</string>
@@ -478,4 +480,7 @@
   <string name="altype_dataImport">importar datos</string>
   <string name="array_event_pref_calendarSearchField_location">Localización</string>
   <string name="profile_preferences_vibrationOnTouch">Vibrar al tocar</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBar">Mostrar en la barra de estado</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Mostrar en barra de estado y pantalla de bloqueo</string>
+  <string name="menu_activity_log_reload">Recargar</string>
 </resources>

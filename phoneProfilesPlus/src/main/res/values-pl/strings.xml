@@ -111,6 +111,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pl">Polski</string>
   <string name="phone_profiles_pref_applicationLanguage_nl">Nederlands</string>
   <string name="phone_profiles_pref_applicationLanguage_sv_SE">Svenska</string>
+  <string name="phone_profiles_pref_applicationLanguage_hu">Magyar</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus skrót</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Uruchom przy starcie telefonu</string>
   <string name="array_pref_value_system">system</string>
@@ -127,6 +128,7 @@
   <string name="array_pref_value_pl">pl</string>
   <string name="array_pref_value_nl">nl</string>
   <string name="array_pref_value_sv_SE">sv-SE</string>
+  <string name="array_pref_value_hu">hu</string>
   <string name="profile_preferences_device_not_allowed">Nie dozwolone</string>
   <string name="menu_export">Eksport danych</string>
   <string name="menu_import">Import danych</string>
@@ -477,5 +479,8 @@
   <string name="altype_applicationExit">wyjście z aplikacji</string>
   <string name="altype_dataImport">importuj dane</string>
   <string name="array_event_pref_calendarSearchField_location">Lokacja</string>
-  <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
+  <string name="profile_preferences_vibrationOnTouch">Wibracje przy dotknięciu</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBar">Pokaż na pasku powiadomień</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Pokaż na pasku powiadomień i ekranie blokady</string>
+  <string name="menu_activity_log_reload">Przeładuj</string>
 </resources>

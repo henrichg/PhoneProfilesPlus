@@ -111,6 +111,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pl">Polski</string>
   <string name="phone_profiles_pref_applicationLanguage_nl">Nederlands</string>
   <string name="phone_profiles_pref_applicationLanguage_sv_SE">Svenska</string>
+  <string name="phone_profiles_pref_applicationLanguage_hu">Magyar</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-genväg</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Starta med telefonstart</string>
   <string name="array_pref_value_system">system</string>
@@ -127,6 +128,7 @@
   <string name="array_pref_value_pl">pl</string>
   <string name="array_pref_value_nl">nl</string>
   <string name="array_pref_value_sv_SE">sv-SE</string>
+  <string name="array_pref_value_hu">hu</string>
   <string name="profile_preferences_device_not_allowed">Ej tillåtet</string>
   <string name="menu_export">Exportera app. data</string>
   <string name="menu_import">Importera app. data</string>
@@ -478,4 +480,7 @@
   <string name="altype_dataImport">importera data</string>
   <string name="array_event_pref_calendarSearchField_location">Plats</string>
   <string name="profile_preferences_vibrationOnTouch">Vibrera vid beröring</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBar">Visa i statusfältet</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Visa i statusfältet och på låsskärmen</string>
+  <string name="menu_activity_log_reload">Ladda om</string>
 </resources>

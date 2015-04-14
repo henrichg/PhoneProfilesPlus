@@ -111,6 +111,7 @@
   <string name="phone_profiles_pref_applicationLanguage_pl">Polski</string>
   <string name="phone_profiles_pref_applicationLanguage_nl">Nederlands</string>
   <string name="phone_profiles_pref_applicationLanguage_sv_SE">Svenska</string>
+  <string name="phone_profiles_pref_applicationLanguage_hu">Magyar</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-odkaz</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Spusti pri štarte telefónu</string>
   <string name="array_pref_value_system">system</string>
@@ -127,6 +128,7 @@
   <string name="array_pref_value_pl">pl</string>
   <string name="array_pref_value_nl">nl</string>
   <string name="array_pref_value_sv_SE">sv-SE</string>
+  <string name="array_pref_value_hu">hu</string>
   <string name="profile_preferences_device_not_allowed">Nie je možné</string>
   <string name="menu_export">Export apl. dát</string>
   <string name="menu_import">Import apl. dát</string>
@@ -478,4 +480,7 @@
   <string name="altype_dataImport">import dát</string>
   <string name="array_event_pref_calendarSearchField_location">Poloha</string>
   <string name="profile_preferences_vibrationOnTouch">Vibrovanie pri klepntí</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBar">Zobraziť v stavovom riadku</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Zobraziť v stav. riadku a uzamykacej obr.</string>
+  <string name="menu_activity_log_reload">Znovu načítať</string>
 </resources>
