@@ -17,6 +17,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -357,7 +358,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 	    // The indices for the projection array above.
 	    final int PROJECTION_BEGIN_INDEX = 0;
 	    final int PROJECTION_END_INDEX = 1;
-	    //final int PROJECTION_TITLE_INDEX = 2;	    
+	    final int PROJECTION_TITLE_INDEX = 2;
 	    //final int PROJECTION_DESCRIPTION_INDEX = 3;	    
 	    //final int PROJECTION_CALENDAR_ID_INDEX = 4;
 	    final int PROJECTION_ALL_DAY_INDEX = 5;
@@ -380,6 +381,9 @@ public class EventPreferencesCalendar extends EventPreferences {
                     " AND (lower("+Instances.EVENT_LOCATION+")" + " LIKE lower(?))";
 		selection = selection + ")";
 
+        Log.e("** EventPrefCalendar", "_searchField="+_searchField);
+        Log.e("** EventPrefCalendar", "selection="+selection);
+
 	    // Construct the query with the desired date range.
 		Calendar calendar = Calendar.getInstance();
 		long now = calendar.getTimeInMillis();
@@ -401,8 +405,10 @@ public class EventPreferencesCalendar extends EventPreferences {
 		{
 			long calendarId = Long.parseLong(splits[i]);
 
+            Log.e("** EventPrefCalendar", "calendarId="+calendarId);
+
 			String[] selectionArgs = new String[] { String.valueOf(calendarId), "%"+_searchString+"%" };
-		    
+
 		    // Submit the query
 		    cur =  cr.query(builder.build(), INSTANCE_PROJECTION, selection, selectionArgs, Instances.BEGIN + " ASC");
 		    
@@ -412,7 +418,9 @@ public class EventPreferencesCalendar extends EventPreferences {
 			        long beginVal = 0;
 			        long endVal = 0;
 			        //String title = null;
-			        
+
+                    Log.e("** EventPrefCalendar", "title="+cur.getString(PROJECTION_TITLE_INDEX));
+
 			        // Get the field values
 			        beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
 			        endVal = cur.getLong(PROJECTION_END_INDEX);
@@ -426,7 +434,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 			    		beginVal -= utcOffset;
 			    		endVal -= utcOffset;
 			        }
-			        
+
 			        //title = cur.getString(PROJECTION_TITLE_INDEX);
 	
 		    		int gmtOffset = TimeZone.getDefault().getRawOffset();
@@ -437,6 +445,8 @@ public class EventPreferencesCalendar extends EventPreferences {
 				    	_eventFound = true;
 				    	_startTime = beginVal + gmtOffset;
 				    	_endTime = endVal + gmtOffset;
+                        Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
+                        Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
 				    	break;
 				    }
 				    else
@@ -446,6 +456,8 @@ public class EventPreferencesCalendar extends EventPreferences {
 				    	_eventFound = true;
 				    	_startTime = beginVal + gmtOffset;
 				    	_endTime = endVal + gmtOffset;
+                        Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
+                        Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
 				    	break;
 				    }
 
