@@ -185,6 +185,8 @@ public class FirstStartService extends IntentService {
                     MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
             if (!cursor.moveToFirst()) {
 
+                //Log.e("FirstStartService","not exists in resolver");
+
                 // not exists content
 
                 //// If the ringtone already exists in the database, delete it first
@@ -195,6 +197,8 @@ public class FirstStartService extends IntentService {
                 Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
 
                 if (newUri != null) {
+                    //Log.e("FirstStartService","inserted to resolver");
+
                     // Tell the media scanner about the new ringtone
                     MediaScannerConnection.scanFile(
                             context,
@@ -210,6 +214,8 @@ public class FirstStartService extends IntentService {
                     }
                 }
             }
+            //else
+            //    Log.e("FirstStartService","exists in resolver");
         }
 
 
