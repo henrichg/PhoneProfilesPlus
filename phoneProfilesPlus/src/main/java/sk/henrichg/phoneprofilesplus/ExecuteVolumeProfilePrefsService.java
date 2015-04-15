@@ -31,7 +31,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 		{
 			AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-            int oldNURM = Settings.System.getInt(context.getContentResolver(), "notifications_use_ring_volume", -10);
+            //int oldNURM = Settings.System.getInt(context.getContentResolver(), "notifications_use_ring_volume", -10);
 
             // set ringer mode for proper volume change
             Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
@@ -49,8 +49,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
             Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
 			aph.setRingerMode(profile, audioManager);
 
-            if (oldNURM != -10)
-                Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", oldNURM);
+            //if (oldNURM != -10)
+            //    Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", oldNURM);
 
             /*
             boolean rechangeRingerMode = false;
