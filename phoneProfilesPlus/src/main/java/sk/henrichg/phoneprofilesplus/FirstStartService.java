@@ -172,6 +172,7 @@ public class FirstStartService extends IntentService {
             contentValues.put(MediaStore.MediaColumns.DATA, outAbsPath);
             contentValues.put(MediaStore.MediaColumns.TITLE, title);
             contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+            contentValues.put(MediaStore.MediaColumns.SIZE, outFile.length());
             contentValues.put(MediaStore.Audio.Media.IS_ALARM, true);
             contentValues.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
             contentValues.put(MediaStore.Audio.Media.IS_RINGTONE, true);
