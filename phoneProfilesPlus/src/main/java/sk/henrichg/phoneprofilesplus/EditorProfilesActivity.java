@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceScreen;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -129,7 +130,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	String[] drawerItemsSubtitle;
 	Integer[] drawerItemsIcon;
 	EditorDrawerListAdapter drawerAdapter;
-	
+
 	private int drawerSelectedItem = 2;
 	private int orderSelectedItem = 2; // priority
 	private int profilesFilterType = EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR;
@@ -343,7 +344,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 		Toolbar toolbar = (Toolbar)findViewById(R.id.editor_tollbar);
 		setSupportActionBar(toolbar);
         
-		 // Enable ActionBar app icon to behave as action to toggle nav drawer
+		// Enable ActionBar app icon to behave as action to toggle nav drawer
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -526,7 +527,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 
-		// change global events run/stop menu item title 
+		// change global events run/stop menu item title
 		MenuItem menuItem = menu.findItem(R.id.menu_run_stop_events);
 		if (menuItem != null)
 		{
@@ -689,17 +690,18 @@ public class EditorProfilesActivity extends ActionBarActivity
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	// fix for bug in LG stock ROM Android <= 4.1
 	// https://code.google.com/p/android/issues/detail?id=78154
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+         Log.e("*** EditorPrActivity","keyCode="+keyCode);
 	     if ((keyCode == KeyEvent.KEYCODE_MENU) &&
 		      (Build.VERSION.SDK_INT <= 16) &&
 		      (Build.MANUFACTURER.compareTo("LGE") == 0)) {
 		   return true;
-	    }
-	    return super.onKeyDown(keyCode, event);
+	     }
+	     return super.onKeyDown(keyCode, event);
 	}
 
 	@Override
@@ -713,8 +715,7 @@ public class EditorProfilesActivity extends ActionBarActivity
 	    return super.onKeyUp(keyCode, event);
 	}
 	/////
-	
-	
+
     // ListView click listener in the navigation drawer
     private class DrawerItemClickListener implements
             ListView.OnItemClickListener {
@@ -1015,6 +1016,12 @@ public class EditorProfilesActivity extends ActionBarActivity
     		else
     		    return super.dispatchKeyEvent(event);
         }
+        /*else
+        if (event.getKeyCode() == KeyEvent.KEYCODE_MENU && event.getAction() == KeyEvent.ACTION_UP) {
+            openOptionsMenu();
+
+            return true;
+        }*/
 
 	    return super.dispatchKeyEvent(event);
 	}
@@ -1027,7 +1034,22 @@ public class EditorProfilesActivity extends ActionBarActivity
         else
         	super.onBackPressed();
 	}
-	
+
+    /*
+    @Override
+    public void openOptionsMenu() {
+        Configuration config = getResources().getConfiguration();
+        if ((config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) > Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            int originalScreenLayout = config.screenLayout;
+            config.screenLayout = Configuration.SCREENLAYOUT_SIZE_LARGE;
+            super.openOptionsMenu();
+            config.screenLayout = originalScreenLayout;
+        } else {
+            super.openOptionsMenu();
+        }
+    }
+    */
+
 	private void importExportErrorDialog(int importExport)
 	{
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(this);

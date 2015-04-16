@@ -48,6 +48,12 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
+<!--
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+-->
+
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
@@ -75,10 +81,6 @@
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="false" />
-
-    <android:uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
 
     <application
         android:name=".GlobalData"
