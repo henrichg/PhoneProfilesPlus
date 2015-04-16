@@ -544,3 +544,55 @@ Medzi jednotlivymi polozkami bude AND
 
 ----------------------------------------------
 
+Co sa deje ked konci udalosti
+
+1. rusi sa Delay alarm - uz nema vyznam, lebo sa event pauzuje
+2. odblokuje sa event, ak bol forceRun event bloknuty manualnou aktivaciou profilu - uz nesmie byt
+   bloknuty, aby sa pri dalsom spustani aj spustil
+3. event sa odmazava z timeline listu - v timeline liste maju byt len beziace eventy
+4. nastavi sa system event pre dalsi start eventu
+5. updatne sa status eventu v db (status PAUSE)
+6. zaloguje sa do Activity logu, ze sa event pauzuje
+7. hlada sa v eventtimeline liste, ci este bezia dake forcerun eventy a ak nebezia, nastavi sa
+   shared preference PREF_FORCE_RUN_EVENT_RUNNING na false
+8. ak event bezal, aktivuje sa End profile podla parametrov eventu
+
+Ako sa aktivuje profil, ked event startuje
+1. profil sa aktivuje, len ak este nie je aktivovany
+2. je mozna vynimka, ak je parameter reactivate true, tak sa aktivuje vzdy
+3. ak sa neaktivoval profil v bodoch 1 a 2, updatne sa notifikacia a widgety na aktualne aktivovany
+   profil
+Vysledkom je, ze sa nic nezmeni (ak je reactivate false), zostane aktivovane to, co prave aktivovane
+je. Cize event profile nedeaktivuje.
+Aj ak sa prida moznost zadat, ze sa nema nic aktivovat (bude nutne pre event type "Profile"),
+tak sa nic nedeaktivuje.
+
+Ako sa aktivuje end profile, ked event konci
+1. ak event nebol na konci timeline listu, nerobi sa nic - ani nesmie, lebo musi zostat aktivny
+   profil, ktory bol aktivovany posledne startnutou udalostou
+2. end profile sa moze aktivovat len, ak to udalost dovoli. Napriklad EventPreferencesTime dovoli
+   aktivovat end profile len ak ma nastaveny _useEndTime. A toto je zatial jediny typ, kde to
+   nie je natvrdo true
+3. najprv sa aktivuje _fkProfileEnd, ak je nastaveny a to len ak uz nie je aktivovany
+4. potom sa robi undo profile, aktivuje sa _fkProfileEndActivated z prislusneho event timeline
+   a to len aku uz nie jej aktivovany
+5. ak sa neaktivoval profil v bodoch 3 a 4, updatne sa notifikacia a widgety na aktualne aktivovany
+   profil
+Vysledkom je, ze ak nie je nastaveny _fkProfileEnd ani _undoneProfile, nic sa nezmeni,
+zostane aktivovane to, co prave aktivovane je. Cize event profil nedeaktivuje.
+
+Ako sa spustaju, zastavuju eventy v EventsService
+a) na restart eventov
+   1. najprv sa eventy pauzuju, pauzuju sa aj tie, co uz su zapauzovane, aktivuju sa end profily
+   2. potom sa event spustaju, spustaju sa len tie, co este nebezia, ignoruje sa tu, ze profil je
+      uz aktivovany, cize sa reaktivuje
+   Cize vysledkom je, ze sa postupne vsetky profily aktivuju. Nie je mozne, aby nezostal daky
+   profil aktivovany, vid "Ako sa profil aktivuje na start a end eventu".
+b) na ostatne systemove udalosti
+   1. najprv sa udalosti pauzuju, a to len tie, ktore bezia, aktivuju sa end profily
+   2. potom sa udalosti spustaju, a to len tie, ktore este nebezia, aktivuju sa start profily
+   Cize vysledkom je, ze sa postupne vsetky profily aktivuju. Nie je mozne, aby nezostal daky
+   profil aktivovany, vid "Ako sa profil aktivuje na start a end eventu".
+
+Co sa deje v EventsService po spusteni, pauznuti eventov
+
