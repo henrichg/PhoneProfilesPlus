@@ -225,13 +225,13 @@ public class EventsService extends IntentService
 						GlobalData.logE("### EventsService.onHandleIntent", "activated default profile");
 					}
 				}
-				else
+				/*else
 				if (activatedProfile == null)
 				{
 					dataWrapper.activateProfileFromEvent(0, interactive, "");
                     backgroundProfileActivated = true;
 					GlobalData.logE("### EventsService.onHandleIntent", "not activated profile");
-				}
+				}*/
 			}
 		}
 		else

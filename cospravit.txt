@@ -595,16 +595,16 @@ b) na ostatne systemove udalosti
    profil aktivovany, vid "Ako sa profil aktivuje na start a end eventu".
 
 Co sa deje v EventsService po spusteni, pauznuti eventov
-a) ak nie je manualne aktivovany profil
-   1. ak uz nebezi ziadna udalost
+a) ak nie je manualne aktivovany profil a uz nebezi ziadna udalost
+   1. ak je nastaveny background profil
       1.1 ak aktualne aktivovany profil nie je background profil, aktivuje sa background profil !!!!
       1.2 na restart udalosti sa vzdy aktivuje background profil !!!
-   2. ak nie je nastaveny background profil, deaktivuje sa akualne aktivovany profil !!!
 b) ak je manualne aktivovany profil (getEventsBlocked = true a getForceRunEventRunning = false)
    1. aktivuje sa background profil, ale len ak nie je ziaden profil aktivovany
 Vysledkom je, ze sa aktivuje background profil, ak nebezi ziadna udalost.
 !!! To ale znamena, ze pre EventPreferencesTime, ak nie je endTime, nezostane aktivovany start profil !!!!
 Vo vseobecnosti - nie je podpora pre nerozsahove eventy !!!
+
 Co tak spravit pre nerozsahove eventy toto:
 1. event sa spusti - nechame ho bezat donekonecna
 2. ak sa startne dalsi event, pauzneme vsetky beziace nerozsahove enety
