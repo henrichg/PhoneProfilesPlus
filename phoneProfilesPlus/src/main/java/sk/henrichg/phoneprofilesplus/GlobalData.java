@@ -310,7 +310,8 @@ public class GlobalData extends Application {
     public static boolean applicationWidgetIconHideProfileName;
     
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
-    
+    public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
+
 	public void onCreate()
 	{
 	//	Debug.startMethodTracing("phoneprofiles");

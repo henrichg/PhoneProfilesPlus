@@ -104,10 +104,10 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private static void getConnectedDevices(Context context)
     {
-        if (connectedDevices == null)
-            connectedDevices = new ArrayList<BluetoothDeviceData>();
+        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
 
-        synchronized (connectedDevices) {
+            if (connectedDevices == null)
+            connectedDevices = new ArrayList<BluetoothDeviceData>();
 
             connectedDevices.clear();
 
@@ -129,10 +129,10 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private static void saveConnectedDevices(Context context)
     {
+        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
+
         if (connectedDevices == null)
             connectedDevices = new ArrayList<BluetoothDeviceData>();
-
-        synchronized (connectedDevices) {
 
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
@@ -154,7 +154,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private void addConnectedDevice(BluetoothDevice device)
     {
-        synchronized (connectedDevices) {
+        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
                 if (_device.address.equals(device.getAddress())) {
@@ -169,7 +169,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private void removeConnectedDevice(BluetoothDevice device)
     {
-        synchronized (connectedDevices) {
+        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
             int index = 0;
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
@@ -186,7 +186,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private void changeDeviceName(BluetoothDevice device, String deviceNme)
     {
-        synchronized (connectedDevices) {
+        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
             for (BluetoothDeviceData _device : connectedDevices) {
                 if (_device.address.equals(device.getAddress())) {
                     _device.setName(deviceNme);
@@ -200,7 +200,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 	{
         getConnectedDevices(context);
 
-        synchronized (connectedDevices) {
+        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
             if (adapterName.isEmpty())
                 return (connectedDevices != null) && (connectedDevices.size() > 0);
             else {
@@ -219,7 +219,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 	{
 		if (isBluetoothConnected(dataWrapper.context, ""))
 		{
-            synchronized (connectedDevices) {
+            synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
                 if (connectedDevices != null) {
                     for (BluetoothDeviceData _device : connectedDevices) {
                         if (dataWrapper.getDatabaseHandler().isBluetoothAdapterNameScanned(_device.getName(), connectionType))
