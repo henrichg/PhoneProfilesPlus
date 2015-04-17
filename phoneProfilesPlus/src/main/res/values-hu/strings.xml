@@ -40,7 +40,7 @@
   <string name="volume_pref_dialog_no_change_chb">Nincs változás</string>
   <string name="imageview_preference_profile_icon_label">Profil ikonja</string>
   <string name="applications_preference_profile_icon_label">Alkalmazás futtatása</string>
-  <string name="phone_profiles_pref_category_activator">Aktivátor</string>
+  <string name="phone_profiles_pref_category_activator">Profilok</string>
   <string name="phone_profiles_pref_category_editor">Szerkesztő</string>
   <string name="phone_profiles_pref_category_gui">Alkalmazás kinézete</string>
   <string name="phone_profiles_pref_category_activation">Profil aktiválása</string>
@@ -73,7 +73,7 @@
   <string name="profile_preferences_soundNotification">Értesítések hangja</string>
   <string name="profile_preferences_soundAlarmChange">Ébresztési hang cseréje</string>
   <string name="profile_preferences_soundAlarm">Ébresztési hang</string>
-  <string name="profile_preferences_deviceAirplaneMode">(R) Repülési mód</string>
+  <string name="profile_preferences_deviceAirplaneMode">(R) Repülőgép üzemmód</string>
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
   <string name="profile_preferences_deviceGPS">(R) GPS</string>
@@ -160,7 +160,7 @@
   <string name="array_pref_value_dlight">dlight</string>
   <string name="phone_preferences_actionmode_save">Mentés</string>
   <string name="phone_preferences_actionmode_cancel">Mégse</string>
-  <string name="profile_preferences_showInActivator">Megjelenítés az aktiváló ablakban</string>
+  <string name="profile_preferences_showInActivator">Jelenjen meg a profilok között</string>
   <string name="array_phone_profiles_navigator_profiles">Profilok</string>
   <string name="array_phone_profiles_navigator_events">Események</string>
   <string name="event_type_time">Idő</string>
@@ -207,8 +207,8 @@
   <string name="editor_drawer_title_profiles">Profilok</string>
   <string name="editor_drawer_title_events">Események</string>
   <string name="editor_drawer_list_item_profiles_all">Összes</string>
-  <string name="editor_drawer_list_item_profiles_show_in_activator">Aktívátorban mutatás</string>
-  <string name="editor_drawer_list_item_profiles_no_show_in_activator">Aktívátorban elrejtés</string>
+  <string name="editor_drawer_list_item_profiles_show_in_activator">Jelenjen meg a profilok között</string>
+  <string name="editor_drawer_list_item_profiles_no_show_in_activator">Profilok között nem jelenik meg</string>
   <string name="editor_drawer_list_item_events_all">Összes</string>
   <string name="editor_drawer_list_item_events_running">Futtatás</string>
   <string name="editor_drawer_list_item_events_paused">Szünet</string>
@@ -230,7 +230,7 @@
   <string name="alert_button_yes">Igen</string>
   <string name="alert_button_no">nem</string>
   <string name="profile_preferences_deviceAutoRotation">Kijelző elforgatás</string>
-  <string name="title_activity_activator">Aktivátor</string>
+  <string name="title_activity_activator">Profilok</string>
   <string name="title_activity_editor">Szerkesztő</string>
   <string name="menu_run_events">Futó események engedélyezése</string>
   <string name="menu_stop_events">Események leállítása</string>
@@ -272,7 +272,7 @@
   <string name="phone_profiles_pref_applicationHomeLauncher">Indítás a kezdő képernyőről</string>
   <string name="phone_profiles_pref_applicationWidgetLauncher">Indítás widget-ből</string>
   <string name="phone_profiles_pref_notificationLauncher">Indítás az értesítésből</string>
-  <string name="array_pref_launcher_activator">Aktivátor</string>
+  <string name="array_pref_launcher_activator">Profilok</string>
   <string name="array_pref_launcher_editor">Szerkesztő</string>
   <string name="profile_preferences_deviceLocationServicePrefs">(I) Hely beállításai</string>
   <string name="event_type_battery">Akkumulátor</string>

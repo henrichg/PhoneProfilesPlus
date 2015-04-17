@@ -207,8 +207,8 @@
   <string name="editor_drawer_title_profiles">Профили</string>
   <string name="editor_drawer_title_events">События</string>
   <string name="editor_drawer_list_item_profiles_all">Все</string>
-  <string name="editor_drawer_list_item_profiles_show_in_activator">Показываемые в Активаторе</string>
-  <string name="editor_drawer_list_item_profiles_no_show_in_activator">Непоказываемые в Активаторе</string>
+  <string name="editor_drawer_list_item_profiles_show_in_activator">Показываемые в активаторе</string>
+  <string name="editor_drawer_list_item_profiles_no_show_in_activator">Не показываемые в активаторе</string>
   <string name="editor_drawer_list_item_events_all">Все</string>
   <string name="editor_drawer_list_item_events_running">Активные</string>
   <string name="editor_drawer_list_item_events_paused">Приостановленные</string>
@@ -267,7 +267,7 @@
   <string name="event_list_item_menu_stop">Деактивировать</string>
   <string name="event_list_item_menu_duplicate">Создать копию</string>
   <string name="event_list_item_menu_delete">Удалить</string>
-  <string name="phone_profiles_pref_applicationEditorSaveEditorState">Сохранять состояние Редактора</string>
+  <string name="phone_profiles_pref_applicationEditorSaveEditorState">Сохранять состояние редактора</string>
   <string name="phone_profiles_pref_notificationPrefIndicator">Показывать индикатор настроек</string>
   <string name="phone_profiles_pref_applicationHomeLauncher">Запуск с домашнего экрана</string>
   <string name="phone_profiles_pref_applicationWidgetLauncher">Запуск из виджета</string>
