@@ -29,13 +29,13 @@ public class EventPreferencesTime extends EventPreferences {
 	public boolean _saturday;
 	public long _startTime;
 	public long _endTime;
-	public boolean _useEndTime;
+	//public boolean _useEndTime;
 	
 	static final String PREF_EVENT_TIME_ENABLED = "eventTimeEnabled";
 	static final String PREF_EVENT_TIME_DAYS = "eventTimeDays";
 	static final String PREF_EVENT_TIME_START_TIME = "eventTimeStartTime";
 	static final String PREF_EVENT_TIME_END_TIME = "eventTimeEndTime";
-	static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
+	//static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
 	
 	public EventPreferencesTime(Event event,
 			                    boolean enabled,
@@ -47,8 +47,9 @@ public class EventPreferencesTime extends EventPreferences {
 								boolean friday,
 								boolean saturday,
 								long startTime,
-								long endTime,
-								boolean useEndTime)
+								long endTime//,
+								//boolean useEndTime
+                                )
 	{
 		super(event, enabled);
 
@@ -61,7 +62,7 @@ public class EventPreferencesTime extends EventPreferences {
 		this._saturday = saturday;
 		this._startTime = startTime;
 		this._endTime = endTime;
-		this._useEndTime = useEndTime;
+		//this._useEndTime = useEndTime;
 	}
 	
 	@Override
@@ -77,7 +78,7 @@ public class EventPreferencesTime extends EventPreferences {
 		this._saturday = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._saturday;
 		this._startTime = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._startTime;
 		this._endTime = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._endTime;
-		this._useEndTime = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._useEndTime;
+		//this._useEndTime = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._useEndTime;
 	}
 	
 	@Override
@@ -99,7 +100,7 @@ public class EventPreferencesTime extends EventPreferences {
         editor.putString(PREF_EVENT_TIME_DAYS, sValue);
         editor.putLong(PREF_EVENT_TIME_START_TIME, this._startTime - gmtOffset);
         editor.putLong(PREF_EVENT_TIME_END_TIME, this._endTime - gmtOffset);
-        editor.putBoolean(PREF_EVENT_TIME_USE_END_TIME, this._useEndTime);
+        //editor.putBoolean(PREF_EVENT_TIME_USE_END_TIME, this._useEndTime);
 		editor.commit();
 	}
 
@@ -145,7 +146,7 @@ public class EventPreferencesTime extends EventPreferences {
 		
 		this._startTime = preferences.getLong(PREF_EVENT_TIME_START_TIME, System.currentTimeMillis()) + gmtOffset;
 		this._endTime = preferences.getLong(PREF_EVENT_TIME_END_TIME, System.currentTimeMillis()) + gmtOffset;
-		this._useEndTime = preferences.getBoolean(PREF_EVENT_TIME_USE_END_TIME, false);
+		//this._useEndTime = preferences.getBoolean(PREF_EVENT_TIME_USE_END_TIME, false);
 	}
 	
 	@Override
@@ -201,12 +202,12 @@ public class EventPreferencesTime extends EventPreferences {
 	        calendar.setTimeInMillis(this._startTime - gmtOffset);
 			descr = descr + "- ";
 			descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-			if (this._useEndTime)
-			{
+			//if (this._useEndTime)
+			//{
 		        calendar.setTimeInMillis(this._endTime - gmtOffset);
 				descr = descr + "-";
 				descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-			}
+			//}
 			
 			
 	   		if (GlobalData.getGlobalEventsRuning(context))
@@ -224,7 +225,7 @@ public class EventPreferencesTime extends EventPreferences {
 	   	   		    descr = descr + "   -> " + alarmTimeS;
 	   			}
 	   			else
-	   			if ((_event.getStatus() == Event.ESTATUS_RUNNING) && _useEndTime)
+	   			if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/)
 	   			{
 	   				alarmTime = computeAlarm(false);
 	   				// date and time format by user system settings configuration
@@ -297,13 +298,13 @@ public class EventPreferencesTime extends EventPreferences {
 
 		return runable;
 	}
-	
+
 	@Override
 	public boolean activateReturnProfile()
 	{
-		return _useEndTime;
+		return true; //_useEndTime;
 	}
-	
+
 	public long computeAlarm(boolean startEvent)
 	{
 		GlobalData.logE("EventPreferencesTime.computeAlarm","startEvent="+startEvent);
@@ -333,8 +334,8 @@ public class EventPreferencesTime extends EventPreferences {
 		calStartTime.set(Calendar.MILLISECOND, 0);
 
 		long computedEndTime = _endTime - gmtOffset;
-		if (!_useEndTime)
-			computedEndTime = (_startTime - gmtOffset) + (5 * 1000);
+		//if (!_useEndTime)
+		//	computedEndTime = (_startTime - gmtOffset) + (5 * 1000);
 		calEndTime.setTimeInMillis(computedEndTime);
 		calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
 		calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH)); 

@@ -845,7 +845,7 @@ public class DataWrapper {
 		//calendar.set(Calendar.SECOND, 0);
 		//calendar.set(Calendar.MILLISECOND, 0);
 		event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
-		event._eventPreferencesTime._useEndTime = true;
+		//event._eventPreferencesTime._useEndTime = true;
 		getDatabaseHandler().addEvent(event);
 		event = getNoinitializedEvent(context.getString(R.string.default_event_name_weekend));
 		event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
@@ -865,7 +865,7 @@ public class DataWrapper {
 		//calendar.set(Calendar.SECOND, 0);
 		//calendar.set(Calendar.MILLISECOND, 0);
 		event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
-		event._eventPreferencesTime._useEndTime = true;
+		//event._eventPreferencesTime._useEndTime = true;
 		getDatabaseHandler().addEvent(event);
 		event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_work));
 		event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_work));
@@ -889,7 +889,7 @@ public class DataWrapper {
 		//calendar.set(Calendar.SECOND, 0);
 		//calendar.set(Calendar.MILLISECOND, 0);
 		event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
-		event._eventPreferencesTime._useEndTime = true;
+		//event._eventPreferencesTime._useEndTime = true;
 		getDatabaseHandler().addEvent(event);
 		event = getNoinitializedEvent(context.getString(R.string.default_event_name_overnight));
 		event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_sleep));
@@ -914,7 +914,7 @@ public class DataWrapper {
 		//calendar.set(Calendar.SECOND, 0);
 		//calendar.set(Calendar.MILLISECOND, 0);
 		event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
-		event._eventPreferencesTime._useEndTime = true;
+		//event._eventPreferencesTime._useEndTime = true;
 		getDatabaseHandler().addEvent(event);
 		event = getNoinitializedEvent(context.getString(R.string.default_event_name_low_battery));
 		event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_battery_low));

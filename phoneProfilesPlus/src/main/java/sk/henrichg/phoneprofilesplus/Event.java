@@ -154,7 +154,7 @@ public class Event {
 	
 	private void createEventPreferencesTime()
 	{
-       	this._eventPreferencesTime = new EventPreferencesTime(this, false, false, false, false, false, false, false, false, 0, 0, false);
+       	this._eventPreferencesTime = new EventPreferencesTime(this, false, false, false, false, false, false, false, false, 0, 0/*, false*/);
 	}
 	
 	private void createEventPreferencesBattery()
@@ -474,8 +474,9 @@ public class Event {
 	
 	private boolean canActivateReturnProfile()
 	{
+        /*
 		boolean canActivate = false;
-		
+
 		if (this._eventPreferencesTime._enabled)
 			canActivate = canActivate || this._eventPreferencesTime.activateReturnProfile();
 		if (this._eventPreferencesBattery._enabled)
@@ -496,6 +497,8 @@ public class Event {
 			canActivate = canActivate || this._eventPreferencesSMS.activateReturnProfile();
 		
 		return canActivate;
+		*/
+        return true;
 	}
 	
 	private int getEventTimelinePosition(List<EventTimeline> eventTimelineList)

@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1210;
+	private static final int DATABASE_VERSION = 1220;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -525,7 +525,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			// updatneme zaznamy
 			db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_USE_END_TIME + "=0");
 		}
-		
+
 		if (oldVersion < 32)
 		{
 			// pridame nove stlpce
@@ -1125,6 +1125,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VIBRATE_ON_TOUCH + "=0");
+        }
+
+        if (oldVersion < 1220)
+        {
+            final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                                                   KEY_E_USE_END_TIME + "," +
+                                                   KEY_E_START_TIME +
+                                        " FROM " + TABLE_EVENTS;
+
+            db.beginTransaction();
+            try {
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        long id = Long.parseLong(cursor.getString(0));
+                        long startTime = cursor.getLong(2);
+
+                        if (cursor.getInt(1) != 1)
+                            db.execSQL("UPDATE " + TABLE_EVENTS +
+                                         " SET " + KEY_E_END_TIME + "=" + (startTime+5000) + ", "
+                                                 + KEY_E_USE_END_TIME + "=1" +
+                                        "WHERE " + KEY_E_ID + "=" + id);
+
+                    } while (cursor.moveToNext());
+                }
+
+                db.setTransactionSuccessful();
+            } catch (Exception e){
+                //Error in between database transaction
+            } finally {
+                db.endTransaction();
+            }
         }
 
 	}
@@ -2382,8 +2416,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				                 new String[] { KEY_E_TIME_ENABLED,
 												KEY_E_DAYS_OF_WEEK,
 				         						KEY_E_START_TIME,
-				         						KEY_E_END_TIME,
-				         						KEY_E_USE_END_TIME
+				         						KEY_E_END_TIME//,
+				         						//KEY_E_USE_END_TIME
 												}, 
 				                 KEY_E_ID + "=?",
 				                 new String[] { String.valueOf(event._id) }, null, null, null, null);
@@ -2436,7 +2470,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				}
 				eventPreferences._startTime = Long.parseLong(cursor.getString(2));
 				eventPreferences._endTime = Long.parseLong(cursor.getString(3));
-				eventPreferences._useEndTime = (Integer.parseInt(cursor.getString(4)) == 1) ? true : false;
+				//eventPreferences._useEndTime = (Integer.parseInt(cursor.getString(4)) == 1) ? true : false;
 			}
 			cursor.close();
 		}
@@ -2702,7 +2736,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_DAYS_OF_WEEK, daysOfWeek);
 		values.put(KEY_E_START_TIME, eventPreferences._startTime);
 		values.put(KEY_E_END_TIME, eventPreferences._endTime);
-		values.put(KEY_E_USE_END_TIME, (eventPreferences._useEndTime) ? 1 : 0);
+		//values.put(KEY_E_USE_END_TIME, (eventPreferences._useEndTime) ? 1 : 0);
 
 		// updating row
 		int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4138,6 +4172,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         {
                                             values.put(KEY_E_CALL_CONTACT_GROUPS, "");
                                             values.put(KEY_E_SMS_CONTACT_GROUPS, "");
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1220)
+                                        {
+                                            values.put(KEY_E_DELAY_START, startTime + 5000); // add 5 seconds
+                                            values.put(KEY_E_USE_END_TIME, 1);
                                         }
 
 										// Inserting Row do db z SQLiteOpenHelper

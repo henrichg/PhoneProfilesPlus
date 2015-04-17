@@ -79,7 +79,8 @@
             android:defaultValue="0"
             android:title="@string/event_preferences_time_startTime"
             android:dependency="eventTimeEnabled" />
-		<CheckBoxPreference 
+<!--
+		<CheckBoxPreference
 		    android:key="eventTimeUseEndTime"
 		    android:title="@string/event_preferences_time_useEndTime"
 		    android:defaultValue="false"
@@ -89,6 +90,11 @@
             android:defaultValue="0"
             android:title="@string/event_preferences_time_endTime"
             android:dependency="eventTimeUseEndTime" />
+-->
+        <sk.henrichg.phoneprofilesplus.TimePreference
+            android:key="eventTimeEndTime"
+            android:defaultValue="0"
+            android:title="@string/event_preferences_time_endTime" />
     </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventCalendarParameters"

@@ -28,12 +28,12 @@ public class EventPreferences {
 	{
 		return true;
 	}
-	
+
 	public boolean activateReturnProfile()
 	{
 		return true;
 	}
-	
+
 	public void loadSharedPrefereces(SharedPreferences preferences)
 	{
 	}
