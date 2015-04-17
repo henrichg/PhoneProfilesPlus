@@ -611,6 +611,9 @@ Co tak spravit pre nerozsahove eventy toto:
 
 OK, takze ak nebezi udalost, aktivuje sa background profil.
 
+Aha? a co udalost SMS? Ta trva len 5 sekund a hned skonci. Ze by aj tu nebol problem, lebo vsak ide
+len o to, aby to (ne)notifikovalo? Asi hej.
+
 ----------------------------------------------------
 
 Pridaj do udalosti do "Koniec udalosti" moznost si nastavit "Restart udalosti".
@@ -624,4 +627,16 @@ Pridat "A urobit" ("And do") ako ListPreference  s polozkami:
 3. "Restartovat udalosti" (Restart events)
 
 -----------------------------------------------------
+
+Co tak specialna kategoria udalosti - One shot event
+Ta by robila manualnu aktivaciu na jednorazovu udalost.
+Cize taketo udalosti by nemali "End event" a profil by aktivovali manualne
+Podla mna mi toto tam chyba.
+Mozno by sa to dalo dat do uz existujucich udalosti:
+Cize vsetko co udalost startuje by vlastne manualne aktivovalo profil
+
+Tak dajme do udalosti parameter: "One shot".
+Ak to bude zaskrtnute, "End event" kategoria sa zakaze
+
+------------------------------------------------------
 
