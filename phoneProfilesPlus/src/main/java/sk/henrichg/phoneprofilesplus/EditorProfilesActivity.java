@@ -651,8 +651,8 @@ public class EditorProfilesActivity extends ActionBarActivity
 			return true;
 		case R.id.menu_export:
 			exportData();
-			
-			return true;
+
+            return true;
 		case R.id.menu_import:
 			importData();
 			
@@ -1018,8 +1018,11 @@ public class EditorProfilesActivity extends ActionBarActivity
         }
         /*else
         if (event.getKeyCode() == KeyEvent.KEYCODE_MENU && event.getAction() == KeyEvent.ACTION_UP) {
-            openOptionsMenu();
-
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    openOptionsMenu();
+                }
+            }, 1000);
             return true;
         }*/
 
