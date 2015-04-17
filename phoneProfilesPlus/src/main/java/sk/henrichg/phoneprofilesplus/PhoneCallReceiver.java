@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
-import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
 import java.util.Date;
@@ -37,9 +36,6 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 	            return;
 	        }
 	
-	        //The other intent tells us the phone state changed.  Here we set a listener to deal with it
-	        //telephony.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
-
             listener.onCallStateChanged(intent);
 
         }
@@ -59,7 +55,7 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
     protected abstract void onEndReceive();
 
     //Deals with actual events
-    public class PhonecallStartEndDetector /*extends PhoneStateListener*/ {
+    public class PhonecallStartEndDetector {
         int lastState = TelephonyManager.CALL_STATE_IDLE;
         Date callStartTime;
         boolean inCall;
@@ -79,9 +75,6 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 
         //Incoming call-  goes from IDLE to RINGING when it rings, to OFFHOOK when it's answered, to IDLE when its hung up
         //Outgoing call-  goes from IDLE to OFFHOOK when it dials out, to IDLE when hung up
-        //@Override
-        //public void onCallStateChanged(int state, String incomingNumber) {
-        //   super.onCallStateChanged(state, incomingNumber);
         public void onCallStateChanged(Intent intent) {
             int state = telephony.getCallState();
             if(lastState == state){
@@ -132,8 +125,6 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
                     break;
             }
             lastState = state;
-
-	        //telephony.listen(listener, PhoneStateListener.LISTEN_NONE);
         }
 
     }
