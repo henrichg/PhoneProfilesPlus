@@ -39,39 +39,27 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
             //int oldNURM = Settings.System.getInt(context.getContentResolver(), "notifications_use_ring_volume", -10);
 
-            // set ringer mode for proper volume change
             audioChangeHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    // set ringer mode for proper volume change
                     Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
                     aph.setRingerMode(_profile, audioManager);
-                }
-            });
 
-            audioChangeHandler.post(new Runnable() {
-                @Override
-                public void run() {
                     Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
                     aph.setVolumes(_profile, audioManager);
-                }
-            });
 
-		    // set ringer mode because volumes change silent/vibrate
-            audioChangeHandler.post(new Runnable() {
-                @Override
-                public void run() {
+                    // set ringer mode because volumes change silent/vibrate
                     Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
                     aph.setRingerMode(_profile, audioManager);
                 }
             });
 
-            /*
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 //System.out.println(e);
             }
-            */
 
             //if (oldNURM != -10)
             //    Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", oldNURM);
