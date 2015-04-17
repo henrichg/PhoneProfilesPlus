@@ -55,23 +55,24 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
 	            	BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
-	            	if (device.getName() != null)
-	            	{
-						boolean found = false;
-						for (BluetoothDeviceData _device : BluetoothScanAlarmBroadcastReceiver.tmpScanResults)
-						{
-							if (_device.address.equals(device.getAddress()))
-							{
-								found = true;
-								break;
-							}
-						}
-						if (!found)
-						{
-							BluetoothScanAlarmBroadcastReceiver.tmpScanResults.add(new BluetoothDeviceData(device.getName(), device.getAddress()));
-							GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName="+device.getName());
-						}
-	            	}
+                    String btName = device.getName();
+                    if (intent.hasExtra(BluetoothDevice.EXTRA_NAME))
+                        btName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+
+                    boolean found = false;
+                    for (BluetoothDeviceData _device : BluetoothScanAlarmBroadcastReceiver.tmpScanResults)
+                    {
+                        if (_device.address.equals(device.getAddress()))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        BluetoothScanAlarmBroadcastReceiver.tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress()));
+                        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName="+btName);
+                    }
 	            }
 	            else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
 	            {
@@ -83,7 +84,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 					BluetoothScanAlarmBroadcastReceiver.scanResults.clear();
 					for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.tmpScanResults)
 					{
-						BluetoothScanAlarmBroadcastReceiver.scanResults.add(new BluetoothDeviceData(device.name, device.address));
+						BluetoothScanAlarmBroadcastReceiver.scanResults.add(new BluetoothDeviceData(device.getName(), device.address));
 					}
 					//BluetoothScanAlarmBroadcastReceiver.scanResults.addAll(BluetoothScanAlarmBroadcastReceiver.tmpScanResults);
 					BluetoothScanAlarmBroadcastReceiver.tmpScanResults.clear();

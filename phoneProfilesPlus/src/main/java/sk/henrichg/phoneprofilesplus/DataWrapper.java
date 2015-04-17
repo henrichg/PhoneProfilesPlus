@@ -1872,7 +1872,7 @@ public class DataWrapper {
 
                         for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)
                         {
-                            if (device.name.equals(event._eventPreferencesBluetooth._adapterName))
+                            if (device.getName().equals(event._eventPreferencesBluetooth._adapterName))
                             {
                                 GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth found");
                                 //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());

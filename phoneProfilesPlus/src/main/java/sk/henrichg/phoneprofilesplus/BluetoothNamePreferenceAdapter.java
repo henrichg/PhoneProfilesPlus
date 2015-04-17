@@ -64,17 +64,17 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
 			holder = (ViewHolder)vi.getTag();
 		}
 		
-		holder.bluetoothName.setText(bluetoothDevice.name);
+		holder.bluetoothName.setText(bluetoothDevice.getName());
 
 		holder.radioBtn.setTag(position);
-		holder.radioBtn.setChecked(bluetoothDevice.name.equalsIgnoreCase(preference.getBluetoothName()));
+		holder.radioBtn.setChecked(bluetoothDevice.getName().equalsIgnoreCase(preference.getBluetoothName()));
     	holder.radioBtn.setOnClickListener(new View.OnClickListener()
     	{
             public void onClick(View v) {
             	RadioButton rb = (RadioButton) v;
             	
             	int index = (Integer)rb.getTag();
-            	String bluetoothName = preference.bluetoothList.get(index).name;
+            	String bluetoothName = preference.bluetoothList.get(index).getName();
             	preference.setBluetoothName(bluetoothName);
             }
         });

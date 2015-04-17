@@ -15,7 +15,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
 	public static final String BROADCAST_RECEIVER_TYPE = "bluetoothConnection";
 	
-	public static List<BluetoothDeviceData> connectedDevices = null;
+	private static List<BluetoothDeviceData> connectedDevices = null;
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -27,14 +27,17 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 		BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
 		if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
-			action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)/* ||
+			action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) ||
+			action.equals(BluetoothDevice.ACTION_NAME_CHANGED)/* ||
 		    action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)*/)
 		{
 			boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
 		
-			if (connected) 
+			if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
                 addConnectedDevice(device);
-			else
+            if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED))
+                changeDeviceName(device, intent.getStringExtra(BluetoothDevice.EXTRA_NAME));
+            else
                 removeConnectedDevice(device);
 
             saveConnectedDevices(context);
@@ -104,23 +107,24 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         if (connectedDevices == null)
             connectedDevices = new ArrayList<BluetoothDeviceData>();
 
-        connectedDevices.clear();
+        synchronized (connectedDevices) {
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
+            connectedDevices.clear();
 
-        int count = preferences.getInt(CONNECTED_DEVICES_COUNT_PREF, 0);
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
 
-        Gson gson = new Gson();
+            int count = preferences.getInt(CONNECTED_DEVICES_COUNT_PREF, 0);
 
-        for (int i = 0; i < count; i++)
-        {
-            String json = preferences.getString(CONNECTED_DEVICES_DEVICE_PREF+i, "");
-            if (!json.isEmpty()) {
-                BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
-                connectedDevices.add(device);
+            Gson gson = new Gson();
+
+            for (int i = 0; i < count; i++) {
+                String json = preferences.getString(CONNECTED_DEVICES_DEVICE_PREF + i, "");
+                if (!json.isEmpty()) {
+                    BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
+                    connectedDevices.add(device);
+                }
             }
         }
-
     }
 
     private static void saveConnectedDevices(Context context)
@@ -128,89 +132,102 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         if (connectedDevices == null)
             connectedDevices = new ArrayList<BluetoothDeviceData>();
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        synchronized (connectedDevices) {
 
-        editor.clear();
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putInt(CONNECTED_DEVICES_COUNT_PREF, connectedDevices.size());
+            editor.clear();
 
-        Gson gson = new Gson();
+            editor.putInt(CONNECTED_DEVICES_COUNT_PREF, connectedDevices.size());
 
-        for (int i = 0; i < connectedDevices.size(); i++)
-        {
-            String json = gson.toJson(connectedDevices.get(i));
-            editor.putString(CONNECTED_DEVICES_DEVICE_PREF+i, json);
+            Gson gson = new Gson();
+
+            for (int i = 0; i < connectedDevices.size(); i++) {
+                String json = gson.toJson(connectedDevices.get(i));
+                editor.putString(CONNECTED_DEVICES_DEVICE_PREF + i, json);
+            }
+
+            editor.commit();
         }
-
-        editor.commit();
     }
 
     private void addConnectedDevice(BluetoothDevice device)
     {
-        boolean found = false;
-        for (BluetoothDeviceData _device : connectedDevices)
-        {
-            if (_device.address.equals(device.getAddress()))
-            {
-                found = true;
-                break;
+        synchronized (connectedDevices) {
+            boolean found = false;
+            for (BluetoothDeviceData _device : connectedDevices) {
+                if (_device.address.equals(device.getAddress())) {
+                    found = true;
+                    break;
+                }
             }
+            if (!found)
+                connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress()));
         }
-        if ((!found) && (!device.getName().isEmpty()))
-            connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress()));
     }
 
     private void removeConnectedDevice(BluetoothDevice device)
     {
-        int index = 0;
-        boolean found = false;
-        for (BluetoothDeviceData _device : connectedDevices)
-        {
-            if (_device.address.equals(device.getAddress()))
-            {
-                found = true;
-                break;
+        synchronized (connectedDevices) {
+            int index = 0;
+            boolean found = false;
+            for (BluetoothDeviceData _device : connectedDevices) {
+                if (_device.address.equals(device.getAddress())) {
+                    found = true;
+                    break;
+                }
+                ++index;
             }
-            ++index;
+            if (found)
+                connectedDevices.remove(index);
         }
-        if (found)
-            connectedDevices.remove(index);
+    }
+
+    private void changeDeviceName(BluetoothDevice device, String deviceNme)
+    {
+        synchronized (connectedDevices) {
+            for (BluetoothDeviceData _device : connectedDevices) {
+                if (_device.address.equals(device.getAddress())) {
+                    _device.setName(deviceNme);
+                    break;
+                }
+            }
+        }
     }
 
 	public static boolean isBluetoothConnected(Context context, String adapterName)
 	{
         getConnectedDevices(context);
 
-		if (adapterName.isEmpty())
-			return (connectedDevices != null) && (connectedDevices.size() > 0);
-		else
-		{
-			if (connectedDevices != null)
-			{
-				for (BluetoothDeviceData _device : connectedDevices)
-				{
-					if (_device.name.equalsIgnoreCase(adapterName))
-						return true;
-				}
-			}
-			return false;
-		}
+        synchronized (connectedDevices) {
+            if (adapterName.isEmpty())
+                return (connectedDevices != null) && (connectedDevices.size() > 0);
+            else {
+                if (connectedDevices != null) {
+                    for (BluetoothDeviceData _device : connectedDevices) {
+                        if (_device.getName().equalsIgnoreCase(adapterName))
+                            return true;
+                    }
+                }
+                return false;
+            }
+        }
 	}
 	
 	public static boolean isAdapterNameScanned(DataWrapper dataWrapper, int connectionType)
 	{
 		if (isBluetoothConnected(dataWrapper.context, ""))
 		{
-			if (connectedDevices != null)
-			{
-				for (BluetoothDeviceData _device : connectedDevices)
-				{
-					if (dataWrapper.getDatabaseHandler().isBluetoothAdapterNameScanned(_device.name, connectionType))
-						return true;
-				}
-			}
-			return false;
+            synchronized (connectedDevices) {
+                if (connectedDevices != null) {
+                    for (BluetoothDeviceData _device : connectedDevices) {
+                        if (dataWrapper.getDatabaseHandler().isBluetoothAdapterNameScanned(_device.getName(), connectionType))
+                            return true;
+                    }
+                }
+                return false;
+            }
 		}
 		else
 			return false;

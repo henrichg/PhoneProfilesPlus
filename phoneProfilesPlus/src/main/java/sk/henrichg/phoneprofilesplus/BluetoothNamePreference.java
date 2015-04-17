@@ -81,7 +81,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 BluetoothNamePreferenceAdapter.ViewHolder viewHolder =
                         (BluetoothNamePreferenceAdapter.ViewHolder)v.getTag();
                 viewHolder.radioBtn.setChecked(true);
-                setBluetoothName(bluetoothList.get(position).name);
+                setBluetoothName(bluetoothList.get(position).getName());
             }
 
         });
@@ -197,7 +197,7 @@ public class BluetoothNamePreference extends DialogPreference {
 				{
 			        for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.boundedDevicesList)
 			        {
-			        	bluetoothList.add(new BluetoothDeviceData(device.name, device.address));
+			        	bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address));
 			        }
 				}
 
@@ -206,19 +206,19 @@ public class BluetoothNamePreference extends DialogPreference {
 		        {
 			        for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)
 			        {
-			        	if (!device.name.isEmpty())
+			        	if (!device.getName().isEmpty())
 			        	{
 				        	boolean exists = false;
 				        	for (BluetoothDeviceData _device : bluetoothList)
 				        	{
-				        		if (_device.name.equalsIgnoreCase(device.name))
+				        		if (_device.getName().equalsIgnoreCase(device.getName()))
 				        		{
 				        			exists = true;
 				        			break;
 				        		}
 				        	}
 				        	if (!exists)
-				        		bluetoothList.add(new BluetoothDeviceData(device.name, device.address));
+				        		bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address));
 			        	}
 			        }
 		        }
@@ -237,7 +237,7 @@ public class BluetoothNamePreference extends DialogPreference {
 				
 				for (int position = 0; position < bluetoothList.size()-1; position++)
 				{
-					if (bluetoothList.get(position).name.equalsIgnoreCase(value))
+					if (bluetoothList.get(position).getName().equalsIgnoreCase(value))
 					{
 						bluetoothListView.setSelection(position);
 						bluetoothListView.setItemChecked(position, true);
