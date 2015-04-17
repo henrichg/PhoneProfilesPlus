@@ -520,7 +520,7 @@ povolenie/zakazanie vybrovania pri dotyku: Settings.System.HAPTIC_FEEDBACK_ENABL
 
 ---------------------------
 
-Pridanie priznaku pristupnosti do kalaendar event nastaveni
+Pridanie priznaku pristupnosti do kalendar event nastaveni
 
 String	AVAILABILITY	If this event counts as busy time or is still free time that can be scheduled over.
 int	AVAILABILITY_BUSY	Indicates that this event takes up time and will conflict with other events.
@@ -531,20 +531,16 @@ Toto je INTEGER polozka, cize sa tu neda pouzit vyhladavanie retazca.
 Preto navrhujem prerobit EventPreferencesCalendar
 
 	public String _calendars;
-	public boolean _searchTitle;        // checkbox
 	public String _titleString;         // EditText
-	public boolean _searchDescription;  // checkbox
 	public String _descriptionString;   // EditText
-	public boolean _searchLocation;     // checkbox
 	public String _locationString;      // EditText
-	public boolean _searchAvailability; // checkbox
 	public int _availabilityType;       // listselector
 
 Medzi jednotlivymi polozkami bude AND
 
 ----------------------------------------------
 
-Co sa deje ked konci udalosti
+Co sa deje ked konci udalost
 
 1. rusi sa Delay alarm - uz nema vyznam, lebo sa event pauzuje
 2. odblokuje sa event, ak bol forceRun event bloknuty manualnou aktivaciou profilu - uz nesmie byt
@@ -572,14 +568,14 @@ Ako sa aktivuje end profile, ked event konci
    profil, ktory bol aktivovany posledne startnutou udalostou
 2. end profile sa moze aktivovat len, ak to udalost dovoli. Napriklad EventPreferencesTime dovoli
    aktivovat end profile len ak ma nastaveny _useEndTime. A toto je zatial jediny typ, kde to
-   nie je natvrdo true
+   nie je natvrdo true - TOTO UZ NEPLATI, BOLO TO VYHODENE
 3. najprv sa aktivuje _fkProfileEnd, ak je nastaveny a to len ak uz nie je aktivovany
 4. potom sa robi undo profile, aktivuje sa _fkProfileEndActivated z prislusneho event timeline
    a to len aku uz nie jej aktivovany
 5. ak sa neaktivoval profil v bodoch 3 a 4, updatne sa notifikacia a widgety na aktualne aktivovany
    profil
-Vysledkom je, ze ak nie je nastaveny _fkProfileEnd ani _undoneProfile, nic sa nezmeni,
-zostane aktivovane to, co prave aktivovane je. Cize event profil nedeaktivuje.
+Vysledkom je, nic sa nezmeni, zostane aktivovane to, co prave aktivovane je. Cize event profil
+nedeaktivuje.
 
 Ako sa spustaju, zastavuju eventy v EventsService
 a) na restart eventov
@@ -605,8 +601,27 @@ Vysledkom je, ze sa aktivuje background profil, ak nebezi ziadna udalost.
 !!! To ale znamena, ze pre EventPreferencesTime, ak nie je endTime, nezostane aktivovany start profil !!!!
 Vo vseobecnosti - nie je podpora pre nerozsahove eventy !!!
 
+/* Netreba, zrusil som "Use end profile" z time event preferences a taktiez komplet podporu na
+   nerozsahove enety
 Co tak spravit pre nerozsahove eventy toto:
 1. event sa spusti - nechame ho bezat donekonecna
 2. ak sa startne dalsi event, pauzneme vsetky beziace nerozsahove enety
 3. potom by sa nestalo, ze by sa aktivoval background profil, ak bezi nerozsahovy event
+*/
+
+OK, takze ak nebezi udalost, aktivuje sa background profil.
+
+----------------------------------------------------
+
+Pridaj do udalosti do "Koniec udalosti" moznost si nastavit "Restart udalosti".
+Mame tam:
+- "Aktivovat profil"
+- "Vrat spat profil"
+
+Pridat "A urobit" ("And do") ako ListPreference  s polozkami:
+1. "Nic" (None)
+2. "Vratit spat profil"
+3. "Restartovat udalosti" (Restart events)
+
+-----------------------------------------------------
 
