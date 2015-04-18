@@ -630,7 +630,7 @@ Pridat "A urobit" ("And do") ako ListPreference  s polozkami:
 -----------------------------------------------------
 
 Pridat do eventu do "Start event" kategorie checkbox "Aktivuj manualne".
-Ta by robila manualnu aktivaciu na jednorazovu udalost.
+Ta by robila manualnu aktivaciu na start udalosti.
 Cize taketo udalosti by nemali "End event" a profil by aktivovali manualne
 Ak to bude zaskrtnute, "End event" kategoria sa zakaze
 
