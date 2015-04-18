@@ -641,7 +641,7 @@ Cize "Ignoruj manualnu aktivaciu" by som mohol dat dokopy s "One shot" do ListPr
 Tak dajme do udalosti parameter: "One shot".
 Ak to bude zaskrtnute, "End event" kategoria sa zakaze
 
-Time event je specialita, takze ak bude One shot, nebude povoleny End time.
+Time a battery event je specialita, takze ak bude One shot, nebude povolena druha hranica.
 
 A pridat do navigation panelu novy filter na One shot eventy
 
