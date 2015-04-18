@@ -637,8 +637,6 @@ Cize taketo udalosti by nemali "End event" a profil by aktivovali manualne
 Podla mna mi toto tam chyba.
 Mozno by sa to dalo dat do uz existujucich udalosti:
 Cize vsetko co udalost startuje by vlastne manualne aktivovalo profil.
-One shot eventy budu vzdy forceRun. Cize "Ignoruj manualnu aktivaciu" by som mohol dat dokopy
-s "One shot" do ListPreference?
 
 Tak dajme do udalosti parameter: "One shot".
 Ak to bude zaskrtnute, "End event" kategoria sa zakaze
