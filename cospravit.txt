@@ -629,23 +629,14 @@ Pridat "A urobit" ("And do") ako ListPreference  s polozkami:
 
 -----------------------------------------------------
 
-Co tak specialna kategoria udalosti - One shot event
-Ze by ten checkbox bol ze do "Start event" kategorie pridat checkbox "Aktivuj manualne"?
-To uz poznaju, co to znamena. Ze im to zapauzuje eventy.
+Pridat do eventu do "Start event" kategorie checkbox "Aktivuj manualne".
 Ta by robila manualnu aktivaciu na jednorazovu udalost.
 Cize taketo udalosti by nemali "End event" a profil by aktivovali manualne
-Podla mna mi toto tam chyba.
-Mozno by sa to dalo dat do uz existujucich udalosti:
-Cize vsetko co udalost startuje by vlastne manualne aktivovalo profil.
-
-Tak dajme do udalosti parameter: "One shot".
 Ak to bude zaskrtnute, "End event" kategoria sa zakaze
 
-Time a battery event je specialita, takze ak bude One shot, nebude povolena druha hranica.
+A pridat do navigation panelu novy filter na One shot eventy (?)
 
-A pridat do navigation panelu novy filter na One shot eventy
-
-A daj to aj do Activity logu, ze bol spusteny One shot
+A daj to aj do Activity logu, ze bol spusteny event s manualnou aktivaciou
 
 ------------------------------------------------------
 
