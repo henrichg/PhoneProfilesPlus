@@ -634,12 +634,16 @@ Ta by robila manualnu aktivaciu na jednorazovu udalost.
 Cize taketo udalosti by nemali "End event" a profil by aktivovali manualne
 Podla mna mi toto tam chyba.
 Mozno by sa to dalo dat do uz existujucich udalosti:
-Cize vsetko co udalost startuje by vlastne manualne aktivovalo profil
+Cize vsetko co udalost startuje by vlastne manualne aktivovalo profil.
+One shot eventy budu vzdy forceRun a budu ignorovat prioritu (priorita je otazna).
+Cize "Ignoruj manualnu aktivaciu" by som mohol dat dokopy s "One shot" do ListPreference?
 
 Tak dajme do udalosti parameter: "One shot".
 Ak to bude zaskrtnute, "End event" kategoria sa zakaze
 
-Time event je specialita, takze ak bude One shot, nebude povoleny End time
+Time event je specialita, takze ak bude One shot, nebude povoleny End time.
+
+A pridat do navigation panelu novy filter na One shot eventy
 
 ------------------------------------------------------
 
