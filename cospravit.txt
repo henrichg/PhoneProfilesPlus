@@ -633,6 +633,8 @@ Pridat do eventu do "Start event" kategorie checkbox "Aktivuj manualne".
 Ta by robila manualnu aktivaciu na start udalosti.
 Cize taketo udalosti by nemali "End event" a profil by aktivovali manualne
 Ak to bude zaskrtnute, "End event" kategoria sa zakaze
+Potom este treba zmenit zobrazovanie, profilu, aby tam bolo aj pre
+manualnu aktivaciu, ze ktory event to nastavil.
 
 A pridat do navigation panelu novy filter na One shot eventy (?)
 
