@@ -2,7 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 public class BluetoothDeviceData {
 	
-	private String name;
+	public String name;
 	public String address;
 	
     public BluetoothDeviceData() {
