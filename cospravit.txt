@@ -610,7 +610,7 @@ Co tak spravit pre nerozsahove eventy toto:
 3. potom by sa nestalo, ze by sa aktivoval background profil, ak bezi nerozsahovy event
 */
 
-OK, takze ak nebezi udalost, aktivuje sa background profil.
+OK, takze ak nebezi udalost, aktivuje sa background profil ak je nastaveny.
 
 Aha? a co udalost SMS? Ta trva len 5 sekund a hned skonci. Ze by aj tu nebol problem, lebo vsak ide
 len o to, aby to (ne)notifikovalo? Asi hej.
