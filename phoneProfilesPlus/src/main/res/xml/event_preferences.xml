@@ -94,7 +94,8 @@
         <sk.henrichg.phoneprofilesplus.TimePreference
             android:key="eventTimeEndTime"
             android:defaultValue="0"
-            android:title="@string/event_preferences_time_endTime" />
+            android:title="@string/event_preferences_time_endTime"
+            android:dependency="eventTimeEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventCalendarParameters"
