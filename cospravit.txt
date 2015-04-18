@@ -645,5 +645,7 @@ Time a battery event je specialita, takze ak bude One shot, nebude povolena druh
 
 A pridat do navigation panelu novy filter na One shot eventy
 
+A daj to aj do Activity logu, ze bol spusteny One shot
+
 ------------------------------------------------------
 
