@@ -2,8 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -13,7 +13,7 @@ import android.widget.ListView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 
-public class ActivityLogActivity extends ActionBarActivity {
+public class ActivityLogActivity extends AppCompatActivity {
 
     DataWrapper dataWrapper;
     ListView listView;

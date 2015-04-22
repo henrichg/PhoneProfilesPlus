@@ -518,7 +518,7 @@ public class EditorProfileListFragment extends Fragment {
 
 	public void showEditMenu(View view)
 	{
-		//Context context = ((ActionBarActivity)getActivity()).getSupportActionBar().getThemedContext();
+		//Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
 		Context context = view.getContext();
 		PopupMenu popup = new PopupMenu(context, view);
 		getActivity().getMenuInflater().inflate(R.menu.profile_list_item_edit, popup.getMenu());

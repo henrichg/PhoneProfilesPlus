@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.view.ActionMode.Callback;
 import android.view.LayoutInflater;
@@ -450,7 +450,7 @@ public class EventPreferencesFragment extends PreferenceFragment
     	TextView title = (TextView)actionView.findViewById(R.id.event_preferences_action_menu_title);
        	title.setText(R.string.title_activity_event_preferences);		
 
-        actionMode = ((ActionBarActivity)getActivity()).startSupportActionMode(actionModeCallback);
+        actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(actionModeCallback);
         actionMode.setCustomView(actionView);
         
         onShowActionModeInEventPreferencesCallback.onShowActionModeInEventPreferences();        

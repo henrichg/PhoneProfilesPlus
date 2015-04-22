@@ -18,7 +18,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.view.ActionMode.Callback;
 import android.view.LayoutInflater;
@@ -920,7 +920,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     	
        	title.setText(R.string.title_activity_profile_preferences);		
 
-        actionMode = ((ActionBarActivity)getActivity()).startSupportActionMode(actionModeCallback);
+        actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(actionModeCallback);
         actionMode.setCustomView(actionView); 
         
         onShowActionModeInProfilePreferencesCallback.onShowActionModeInProfilePreferences();        

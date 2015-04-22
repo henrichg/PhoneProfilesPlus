@@ -2,13 +2,13 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
-public class ShortcutCreatorActivity extends ActionBarActivity {
+public class ShortcutCreatorActivity extends AppCompatActivity {
 
 	private DataWrapper dataWrapper;
 	

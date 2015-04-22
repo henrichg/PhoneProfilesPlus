@@ -22,8 +22,8 @@ import android.os.Handler;
 import android.preference.PreferenceScreen;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -70,7 +70,7 @@ import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRedrawProfileL
 import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRestartProfilePreferences;
 import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnShowActionModeInProfilePreferences;
 
-public class EditorProfilesActivity extends ActionBarActivity
+public class EditorProfilesActivity extends AppCompatActivity
                                     implements OnStartProfilePreferences,
                                                OnRestartProfilePreferences,
                                                OnRedrawProfileListFragment,

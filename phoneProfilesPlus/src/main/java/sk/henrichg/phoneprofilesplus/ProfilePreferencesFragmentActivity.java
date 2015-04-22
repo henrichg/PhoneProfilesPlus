@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceScreen;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
@@ -18,7 +18,7 @@ import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRedrawProfileL
 import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRestartProfilePreferences;
 import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnShowActionModeInProfilePreferences;
 
-public class ProfilePreferencesFragmentActivity extends ActionBarActivity
+public class ProfilePreferencesFragmentActivity extends AppCompatActivity
 												implements OnRestartProfilePreferences,
 	                                                       OnRedrawProfileListFragment,
 	                                                       OnShowActionModeInProfilePreferences,

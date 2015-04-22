@@ -434,7 +434,7 @@ public class EditorEventListFragment extends Fragment {
 	
 	public void showEditMenu(View view)
 	{
-		//Context context = ((ActionBarActivity)getActivity()).getSupportActionBar().getThemedContext();
+		//Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
 		Context context = view.getContext();
 		PopupMenu popup = new PopupMenu(context, view);
 		Menu menu = popup.getMenu();

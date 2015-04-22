@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceScreen;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.Window;
@@ -19,7 +19,7 @@ import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnRedrawEventListF
 import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnRestartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnShowActionModeInEventPreferences;
 
-public class EventPreferencesFragmentActivity extends ActionBarActivity
+public class EventPreferencesFragmentActivity extends AppCompatActivity
 												implements OnRestartEventPreferences,
 	                                                       OnRedrawEventListFragment,
 	                                                       OnShowActionModeInEventPreferences,

@@ -7,14 +7,14 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceScreen;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class PhoneProfilesPreferencesActivity extends ActionBarActivity
+public class PhoneProfilesPreferencesActivity extends AppCompatActivity
 {
 
 	private SharedPreferences preferences;
