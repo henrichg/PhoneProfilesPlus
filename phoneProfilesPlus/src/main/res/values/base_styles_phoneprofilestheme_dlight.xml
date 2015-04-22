@@ -7,6 +7,8 @@
     	<item name="colorPrimaryDark">@color/profile_all_primaryDark_dark</item>
 <!--      	<item name="colorAccent">@color/profile_all_accent_dark</item>  -->
 
+        <item name="md_widget_color">?attr/colorAccent</item>
+
         <item name="actionNewProfileIcon">@drawable/ic_action_new_profile_dark</item>
         <item name="actionEditProfilesIcon">@drawable/ic_action_edit_profiles_dark</item>
         <item name="activityPopupBackground">@color/activityPopupBackground_phoneprofilestheme</item>
