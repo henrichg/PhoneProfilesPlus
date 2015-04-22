@@ -95,6 +95,9 @@ public class FirstStartService extends IntentService {
 
         dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
+        WifiScanAlarmBroadcastReceiver.initialize(context);
+        BluetoothScanAlarmBroadcastReceiver.initialize(context);
+
         // startneme eventy
 		if (GlobalData.getGlobalEventsRuning(context))
 		{

@@ -69,6 +69,9 @@ public class ScannerService extends IntentService
 
             dataWrapper = new DataWrapper(context, false, false, 0);
 
+            if (WifiScanAlarmBroadcastReceiver.wifi == null)
+                WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
             if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
                 // service restarted during scanning, disable wifi
                 if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) ==
@@ -173,6 +176,9 @@ public class ScannerService extends IntentService
             GlobalData.logE("@@@ ScannerService.onHandleIntent", "getStartScan=false");
 
             dataWrapper = new DataWrapper(context, false, false, 0);
+
+            if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
+                BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
 
             if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
                 // service restarted during scanning, disable Bluetooth

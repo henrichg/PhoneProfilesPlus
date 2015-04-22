@@ -760,9 +760,7 @@ public class DataWrapper {
 
         removeAllEventDelays();
 
-        WifiScanAlarmBroadcastReceiver.initialize(context);
         WifiScanAlarmBroadcastReceiver.setAlarm(context, false);
-        BluetoothScanAlarmBroadcastReceiver.initialize(context);
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false);
         SearchCalendarEventsBroadcastReceiver.setAlarm(context);
 
