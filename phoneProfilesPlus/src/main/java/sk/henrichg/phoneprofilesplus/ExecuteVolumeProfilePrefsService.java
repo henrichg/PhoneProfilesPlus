@@ -33,15 +33,15 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 		{
             final Profile _profile = profile;
 
-            Handler audioChangeHandler = new Handler(getMainLooper());
+            //Handler audioChangeHandler = new Handler(getMainLooper());
 
 			final AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
             //int oldNURM = Settings.System.getInt(context.getContentResolver(), "notifications_use_ring_volume", -10);
 
-            audioChangeHandler.post(new Runnable() {
-                @Override
-                public void run() {
+            //audioChangeHandler.post(new Runnable() {
+            //    @Override
+            //    public void run() {
                     // set ringer mode for proper volume change
                     Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
                     aph.setRingerMode(_profile, audioManager);
@@ -52,8 +52,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                     // set ringer mode because volumes change silent/vibrate
                     Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
                     aph.setRingerMode(_profile, audioManager);
-                }
-            });
+            //    }
+            //});
 
             try {
                 Thread.sleep(500);
