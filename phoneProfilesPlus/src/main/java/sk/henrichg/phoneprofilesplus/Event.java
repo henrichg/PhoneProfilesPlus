@@ -25,7 +25,8 @@ public class Event {
 	public String _name;
 	public long _fkProfileStart;
 	public long _fkProfileEnd;
-	public boolean _undoneProfile;
+	//public boolean _undoneProfile;
+    public int _atEndDo;
 	private int _status;  
 	public String _notificationSound;
 	public boolean _forceRun;
@@ -59,17 +60,22 @@ public class Event {
 	public static final int EPRIORITY_HIGH = 2;
 	public static final int EPRIORITY_HIGHER = 3;
 	public static final int EPRIORITY_VERY_HIGH = 4;
-	public static final int EPRIORITY_HIGHEST = 5; 
-	
+	public static final int EPRIORITY_HIGHEST = 5;
+
+    public static final int EATENDDO_NONE = 0;
+    public static final int EATENDDO_UNDONE_PROFILE = 1;
+    public static final int EATENDDO_RESTART_EVENTS = 2;
+
     static final String PREF_EVENT_ENABLED = "eventEnabled";
     static final String PREF_EVENT_NAME = "eventName";
     static final String PREF_EVENT_PROFILE_START = "eventProfileStart";
     static final String PREF_EVENT_PROFILE_END = "eventProfileEnd";
     static final String PREF_EVENT_NOTIFICATION_SOUND = "eventNotificationSound";
     static final String PREF_EVENT_FORCE_RUN = "eventForceRun";
-    static final String PREF_EVENT_UNDONE_PROFILE = "eventUndoneProfile";
+    //static final String PREF_EVENT_UNDONE_PROFILE = "eventUndoneProfile";
     static final String PREF_EVENT_PRIORITY = "eventPriority";
     static final String PREF_EVENT_DELAY_START = "eventDelayStart";
+    static final String PREF_EVENT_AT_END_DO = "eventAtEndDo";
 	
 	// Empty constructor
 	public Event(){
@@ -85,10 +91,11 @@ public class Event {
 		         String notificationSound,
 		         boolean forceRun,
 		         boolean blocked,
-		         boolean undoneProfile,
+		         //boolean undoneProfile,
 		         int priority,
 		         int delayStart,
-		         boolean isInDelay)
+		         boolean isInDelay,
+                 int atEndDo)
 	{
 		this._id = id;
 		this._name = name;
@@ -98,10 +105,11 @@ public class Event {
         this._notificationSound = notificationSound;
         this._forceRun = forceRun;
         this._blocked = blocked;
-        this._undoneProfile = undoneProfile;
+        //this._undoneProfile = undoneProfile;
         this._priority = priority;
         this._delayStart = delayStart;
         this._isInDelay = isInDelay;
+        this._atEndDo = atEndDo;
         
         createEventPreferences();
 	}
@@ -114,10 +122,11 @@ public class Event {
 	         	 String notificationSound,
 	         	 boolean forceRun,
 	         	 boolean blocked,
-	         	 boolean undoneProfile,
+	         	 //boolean undoneProfile,
 	         	 int priority,
 	         	 int delayStart,
-	         	 boolean isInDelay)
+	         	 boolean isInDelay,
+                 int atEndDo)
 	{
 		this._name = name;
 	    this._fkProfileStart = fkProfileStart;
@@ -126,10 +135,11 @@ public class Event {
         this._notificationSound = notificationSound;
         this._forceRun = forceRun;
         this._blocked = blocked;
-        this._undoneProfile = undoneProfile;
+        //this._undoneProfile = undoneProfile;
         this._priority = priority;
         this._delayStart = delayStart;
         this._isInDelay = isInDelay;
+        this._atEndDo = atEndDo;
         
 	    createEventPreferences();
 	}
@@ -144,10 +154,11 @@ public class Event {
         this._notificationSound = event._notificationSound;
         this._forceRun = event._forceRun;
         this._blocked = event._blocked;
-        this._undoneProfile = event._undoneProfile;
+        //this._undoneProfile = event._undoneProfile;
         this._priority = event._priority;
         this._delayStart = event._delayStart;
         this._isInDelay = event._isInDelay;
+        this._atEndDo = event._atEndDo;
         
         copyEventPreferences(event);
 	}
@@ -284,9 +295,10 @@ public class Event {
    		editor.putBoolean(PREF_EVENT_ENABLED, this._status != ESTATUS_STOP);
    		editor.putString(PREF_EVENT_NOTIFICATION_SOUND, this._notificationSound);
    		editor.putBoolean(PREF_EVENT_FORCE_RUN, this._forceRun);
-   		editor.putBoolean(PREF_EVENT_UNDONE_PROFILE, this._undoneProfile);
+   		//editor.putBoolean(PREF_EVENT_UNDONE_PROFILE, this._undoneProfile);
    		editor.putString(PREF_EVENT_PRIORITY, Integer.toString(this._priority));
    		editor.putString(PREF_EVENT_DELAY_START, Integer.toString(this._delayStart));
+        editor.putString(PREF_EVENT_AT_END_DO, Integer.toString(this._atEndDo));
         this._eventPreferencesTime.loadSharedPrefereces(preferences);
         this._eventPreferencesBattery.loadSharedPrefereces(preferences);
         this._eventPreferencesCall.loadSharedPrefereces(preferences);
@@ -307,8 +319,9 @@ public class Event {
 		this._status = (preferences.getBoolean(PREF_EVENT_ENABLED, false)) ? ESTATUS_PAUSE : ESTATUS_STOP;
 		this._notificationSound = preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "");
 		this._forceRun = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
-		this._undoneProfile = preferences.getBoolean(PREF_EVENT_UNDONE_PROFILE, true);
+		//this._undoneProfile = preferences.getBoolean(PREF_EVENT_UNDONE_PROFILE, true);
 		this._priority = Integer.parseInt(preferences.getString(PREF_EVENT_PRIORITY, Integer.toString(EPRIORITY_MEDIUM)));
+        this._atEndDo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_DO, Integer.toString(EATENDDO_UNDONE_PROFILE)));
 
 		String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
 		if (sDelayStart.isEmpty()) sDelayStart = "0";
@@ -390,6 +403,13 @@ public class Event {
 			CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
 			listPreference.setSummary(summary);
 		}
+        if (key.equals(PREF_EVENT_AT_END_DO))
+        {
+            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            int index = listPreference.findIndexOfValue(value);
+            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+            listPreference.setSummary(summary);
+        }
 		if (key.equals(PREF_EVENT_DELAY_START))
 		{	
 	        prefMng.findPreference(key).setSummary(value);
@@ -403,7 +423,8 @@ public class Event {
 			key.equals(PREF_EVENT_PROFILE_END) ||
 			key.equals(PREF_EVENT_NOTIFICATION_SOUND) ||
 			key.equals(PREF_EVENT_PRIORITY) ||
-			key.equals(PREF_EVENT_DELAY_START))
+			key.equals(PREF_EVENT_DELAY_START) ||
+            key.equals(PREF_EVENT_AT_END_DO))
 			setSummary(prefMng, key, preferences.getString(key, ""), context);
 		_eventPreferencesTime.setSummary(prefMng, key, preferences, context);
 		_eventPreferencesBattery.setSummary(prefMng, key, preferences, context);
@@ -424,6 +445,7 @@ public class Event {
 		setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND, this._notificationSound, context);
 		setSummary(prefMng, PREF_EVENT_PRIORITY, Integer.toString(this._priority), context);
 		setSummary(prefMng, PREF_EVENT_DELAY_START, Integer.toString(this._delayStart), context);
+        setSummary(prefMng, PREF_EVENT_AT_END_DO, Integer.toString(this._atEndDo), context);
 		_eventPreferencesTime.setAllSummary(prefMng, context);
 		_eventPreferencesBattery.setAllSummary(prefMng, context);
 		_eventPreferencesCall.setAllSummary(prefMng, context);
@@ -726,8 +748,8 @@ public class Event {
 					profileActivated = true;
 				}
 			}
-			// second activate when undoneProfile is set
-			if (_undoneProfile)
+			// second activate when undone profile is set
+			if (_atEndDo == EATENDDO_UNDONE_PROFILE)
 			{
 				if (eventTimeline._fkProfileEndActivated != activatedProfileId)
 				{
@@ -740,7 +762,15 @@ public class Event {
 					}
 				}
 			}
+            // restart events when is set
+            if (_atEndDo == EATENDDO_RESTART_EVENTS) {
+                GlobalData.logE("Event.pauseEvent","restart events");
+                dataWrapper.restartEventsWithDelay(3);
+                profileActivated = true;
+            }
+
 		}
+
 		if (!profileActivated)
 		{
 			dataWrapper.updateNotificationAndWidgets(activatedProfile, "");
@@ -831,10 +861,14 @@ public class Event {
 
         if (log) {
             int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
-            if (_undoneProfile && (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE))
+            if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE))
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
-            else if (_undoneProfile)
+            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE))
+                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS;
+            else if (_atEndDo == EATENDDO_UNDONE_PROFILE)
                 alType = DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE;
+            else if (_atEndDo == EATENDDO_RESTART_EVENTS)
+                alType = DatabaseHandler.ALTYPE_EVENTEND_RESTARTEVENTS;
             else if (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE)
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
 

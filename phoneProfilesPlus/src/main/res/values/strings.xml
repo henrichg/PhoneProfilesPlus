@@ -484,4 +484,11 @@
   <string name="phone_profiles_pref_notificationShowInStatusBar">Show in status bar</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Show in status bar and lockscreen</string>
   <string name="menu_activity_log_reload">Reload</string>
+  <string name="event_preferences_atEndDo">And do</string>
+  <string name="array_pref_atEndDo_none">None</string>
+  <string name="array_pref_atEndDo_undoneProfile">Undo the profile</string>
+  <string name="array_pref_atEndDo_restartEvents">Restart events</string>
+  <string name="event_preference_profile_restartEvents">Restart</string>
+  <string name="altype_eventEnd_restartEvents">event pause - restart events</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">event pause - activate and restart events</string>
 </resources>

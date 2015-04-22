@@ -1242,7 +1242,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 						intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
 						getBaseContext().sendBroadcast(intent);
 						*/
-                        dataWrapper.restartEventsWithDelay();
+                        dataWrapper.restartEventsWithDelay(1);
 					}
 
                     dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);

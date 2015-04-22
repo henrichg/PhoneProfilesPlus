@@ -785,10 +785,10 @@ public class DataWrapper {
 				"",
 				false,
 				false,
-				true,
 				Event.EPRIORITY_MEDIUM,
 				0,
-				false
+				false,
+                Event.EATENDDO_UNDONE_PROFILE
          );
 	}
 	
@@ -825,7 +825,8 @@ public class DataWrapper {
 		
 		event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_week));
 		event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
-		event._undoneProfile = false;
+		//event._undoneProfile = false;
+        event._atEndDo = Event.EATENDDO_NONE;
 		event._eventPreferencesTime._enabled = true;
 		event._eventPreferencesTime._monday = true;
 		event._eventPreferencesTime._tuesday = true;
@@ -848,7 +849,8 @@ public class DataWrapper {
 		getDatabaseHandler().addEvent(event);
 		event = getNoinitializedEvent(context.getString(R.string.default_event_name_weekend));
 		event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
-		event._undoneProfile = false;
+		//event._undoneProfile = false;
+        event._atEndDo = Event.EATENDDO_NONE;
 		event._eventPreferencesTime._enabled = true;
 		event._eventPreferencesTime._saturday = true;
 		event._eventPreferencesTime._sunday = true;
@@ -868,7 +870,8 @@ public class DataWrapper {
 		getDatabaseHandler().addEvent(event);
 		event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_work));
 		event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_work));
-		event._undoneProfile = true;
+		//event._undoneProfile = true;
+        event._atEndDo = Event.EATENDDO_NONE;
 		event._priority = Event.EPRIORITY_HIGHER;
 		event._eventPreferencesTime._enabled = true;
 		event._eventPreferencesTime._monday = true;
@@ -892,7 +895,8 @@ public class DataWrapper {
 		getDatabaseHandler().addEvent(event);
 		event = getNoinitializedEvent(context.getString(R.string.default_event_name_overnight));
 		event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_sleep));
-		event._undoneProfile = false;
+		//event._undoneProfile = false;
+        event._atEndDo = Event.EATENDDO_NONE;
 		event._eventPreferencesTime._enabled = true;
 		event._eventPreferencesTime._monday = true;
 		event._eventPreferencesTime._tuesday = true;
@@ -917,7 +921,8 @@ public class DataWrapper {
 		getDatabaseHandler().addEvent(event);
 		event = getNoinitializedEvent(context.getString(R.string.default_event_name_low_battery));
 		event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_battery_low));
-		event._undoneProfile = false;
+		//event._undoneProfile = false;
+        event._atEndDo = Event.EATENDDO_NONE;
 		event._priority = Event.EPRIORITY_HIGHEST;
 		event._forceRun = true;
 		event._eventPreferencesBattery._enabled = true;
@@ -2198,13 +2203,13 @@ public class DataWrapper {
 		}
 	}
 
-    public void restartEventsWithDelay()
+    public void restartEventsWithDelay(int delay)
     {
         AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, 1);
+        calendar.add(Calendar.SECOND, delay);
         long alarmTime = calendar.getTimeInMillis();
 
         //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");

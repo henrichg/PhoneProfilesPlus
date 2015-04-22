@@ -195,10 +195,11 @@ public class EventPreferencesFragment extends PreferenceFragment
 						   origEvent._notificationSound,
 						   origEvent._forceRun,
 						   origEvent._blocked,
-						   origEvent._undoneProfile,
+						   //origEvent._undoneProfile,
 						   origEvent._priority,
 						   origEvent._delayStart,
-						   origEvent._isInDelay
+						   origEvent._isInDelay,
+                           origEvent._atEndDo
 							);
 			event.copyEventPreferences(origEvent);
 			event_id = 0;

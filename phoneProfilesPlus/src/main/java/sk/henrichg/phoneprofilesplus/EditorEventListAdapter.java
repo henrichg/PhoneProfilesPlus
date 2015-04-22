@@ -389,8 +389,11 @@ public class EditorEventListAdapter extends BaseAdapter
 	        if (profile != null)
 	        {
 	        	String profileName = profile._name;
-	        	if (event._undoneProfile)
+	        	if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
 	        		profileName = profileName + " + " + vi.getResources().getString(R.string.event_prefernce_profile_undone);
+                else
+                if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+                    profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
 	        	holder.profileEndName.setText(profileName);
 			    if (profile.getIsIconResourceID())
 			    {
@@ -416,8 +419,11 @@ public class EditorEventListAdapter extends BaseAdapter
 	        else
 	        {
 	        	String profileName;
-	        	if (event._undoneProfile)
+	        	if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
 	        		profileName = vi.getResources().getString(R.string.event_prefernce_profile_undone);
+                else
+                if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+                    profileName = vi.getResources().getString(R.string.event_preference_profile_restartEvents);
 	        	else
 	        	{
 		        	if (event._fkProfileEnd == GlobalData.PROFILE_NO_ACTIVATE)

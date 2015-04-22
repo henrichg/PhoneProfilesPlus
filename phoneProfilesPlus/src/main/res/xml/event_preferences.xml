@@ -13,7 +13,8 @@
             android:summary="@string/event_preferences_eventName"
             android:title="@string/event_preferences_eventName"
             android:selectAllOnFocus="true" /> 
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_priority"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/event_preferences_priority"
             android:summary="@string/array_event_pref_priorityMedium"
             android:key="eventPriority"
             android:defaultValue="0"
@@ -56,11 +57,13 @@
             android:key="eventProfileEnd"
             android:title="@string/event_preferences_eventProfileEnd"
             henrichg:addNoActivateItem="1" />
-   		<CheckBoxPreference 
-		    android:key="eventUndoneProfile"
-		    android:title="@string/event_preferences_undoneProfile"
-		    android:defaultValue="true"
-		    android:summary="@string/event_preferences_undoneProfile_summary" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/event_preferences_atEndDo"
+            android:summary="@string/event_preferences_undoneProfile"
+            android:key="eventAtEndDo"
+            android:defaultValue="1"
+            android:entries="@array/eventAtEndDoArray"
+            android:entryValues="@array/eventAtEndDoValues" />
     </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventTimeParameters"

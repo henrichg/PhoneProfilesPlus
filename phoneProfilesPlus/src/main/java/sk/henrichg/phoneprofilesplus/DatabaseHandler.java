@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1220;
+	private static final int DATABASE_VERSION = 1295;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -66,6 +66,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int ALTYPE_EVENTEND_ACTIVATEPROFILE = 52;
     public static final int ALTYPE_EVENTEND_UNDOPROFILE = 53;
     public static final int ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE = 54;
+    public static final int ALTYPE_EVENTEND_RESTARTEVENTS = 55;
+    public static final int ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS = 56;
     public static final int ALTYPE_RESTARTEVENTS = 6;
     public static final int ALTYPE_RUNEVENTS_DISABLE = 7;
     public static final int ALTYPE_RUNEVENTS_ENABLE = 8;
@@ -171,6 +173,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_E_SMS_START_TIME = "smsStartTime";
     private static final String KEY_E_CALL_CONTACT_GROUPS = "callContactGroups";
     private static final String KEY_E_SMS_CONTACT_GROUPS = "smsContactGroups";
+    private static final String KEY_E_AT_END_DO = "atEndDo";
 
     // EventTimeLine Table Columns names
 	private static final String KEY_ET_ID = "id";
@@ -319,7 +322,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				+ KEY_E_FK_PROFILE_END + " INTEGER,"
 				+ KEY_E_FORCE_RUN + " INTEGER,"
 				+ KEY_E_BLOCKED + " INTEGER,"
-				+ KEY_E_UNDONE_PROFILE + " INTEGER,"
+				//+ KEY_E_UNDONE_PROFILE + " INTEGER,"
 				+ KEY_E_PRIORITY + " INTEGER,"
 				+ KEY_E_PERIPHERAL_ENABLED + " INTEGER,"
 				+ KEY_E_PERIPHERAL_TYPE + " INTEGER,"
@@ -347,7 +350,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	            + KEY_E_SMS_CONTACT_LIST_TYPE + " INTEGER,"
 	            + KEY_E_SMS_START_TIME + " INTEGER,"
                 + KEY_E_CALL_CONTACT_GROUPS + " TEXT,"
-                + KEY_E_SMS_CONTACT_GROUPS + " TEXT"
+                + KEY_E_SMS_CONTACT_GROUPS + " TEXT,"
+                + KEY_E_AT_END_DO + " INTEGER"
 				+ ")";
 		db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1159,6 +1163,47 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } finally {
                 db.endTransaction();
             }
+        }
+
+        if (oldVersion < 1295)
+        {
+            // pridame nove stlpce
+            //db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_AT_END_DO + " INTEGER");
+
+            final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                                                   KEY_E_UNDONE_PROFILE +
+                                        " FROM " + TABLE_EVENTS;
+
+            db.beginTransaction();
+            try {
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        long id = Long.parseLong(cursor.getString(0));
+                        int atEndDo;
+
+                        if (cursor.getInt(1) == 0)
+                            atEndDo = Event.EATENDDO_NONE;
+                        else
+                            atEndDo = Event.EATENDDO_UNDONE_PROFILE;
+
+                        db.execSQL("UPDATE " + TABLE_EVENTS +
+                                     " SET " + KEY_E_AT_END_DO + "=" + atEndDo + " " +
+                                    "WHERE " + KEY_E_ID + "=" + id);
+
+                    } while (cursor.moveToNext());
+                }
+
+                db.setTransactionSuccessful();
+            } catch (Exception e){
+                //Error in between database transaction
+                //Log.e("DatabaseHandler.--- ERROR --- ", e.toString());
+            } finally {
+                db.endTransaction();
+            }
+
         }
 
 	}
@@ -2048,10 +2093,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound); // Event Name
 		values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0); // force run when manual profile activation
 		values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
-		values.put(KEY_E_UNDONE_PROFILE, event._undoneProfile ? 1 : 0); // undone profile after event end
+		//values.put(KEY_E_UNDONE_PROFILE, event._undoneProfile ? 1 : 0); // undone profile after event end
 		values.put(KEY_E_PRIORITY, event._priority); // priority
 		values.put(KEY_E_DELAY_START, event._delayStart); // delay for start
 		values.put(KEY_E_IS_IN_DELAY, event._isInDelay ? 1 : 0); // event is in delay before start/pause
+        values.put(KEY_E_AT_END_DO, event._atEndDo); //at end of event do
 		
 		db.beginTransaction();
 		
@@ -2085,10 +2131,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 												KEY_E_NOTIFICATION_SOUND,
 												KEY_E_FORCE_RUN,
 												KEY_E_BLOCKED,
-												KEY_E_UNDONE_PROFILE,
+												//KEY_E_UNDONE_PROFILE,
 												KEY_E_PRIORITY,
 												KEY_E_DELAY_START,
-												KEY_E_IS_IN_DELAY
+												KEY_E_IS_IN_DELAY,
+                                                KEY_E_AT_END_DO,
 												}, 
 				                 KEY_E_ID + "=?",
 				                 new String[] { String.valueOf(event_id) }, null, null, null, null);
@@ -2110,10 +2157,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 					                      cursor.getString(5),
 					                      Integer.parseInt(cursor.getString(6)) == 1,
 					                      Integer.parseInt(cursor.getString(7)) == 1,
-					                      Integer.parseInt(cursor.getString(8)) == 1,
+					                      //Integer.parseInt(cursor.getString(8)) == 1,
+					                      Integer.parseInt(cursor.getString(8)),
 					                      Integer.parseInt(cursor.getString(9)),
-					                      Integer.parseInt(cursor.getString(10)),
-					                      Integer.parseInt(cursor.getString(11)) == 1
+					                      Integer.parseInt(cursor.getString(10)) == 1,
+                                          Integer.parseInt(cursor.getString(11))
 					                      );
 			}
 	
@@ -2142,10 +2190,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 						                 KEY_E_NOTIFICATION_SOUND + "," +
 				                         KEY_E_FORCE_RUN + "," +
 						                 KEY_E_BLOCKED + "," +
-						                 KEY_E_UNDONE_PROFILE + "," + 
+						                 //KEY_E_UNDONE_PROFILE + "," +
 						                 KEY_E_PRIORITY + "," +
 						                 KEY_E_DELAY_START + "," +
-						                 KEY_E_IS_IN_DELAY +
+						                 KEY_E_IS_IN_DELAY + "," +
+                                         KEY_E_AT_END_DO +
 		                     " FROM " + TABLE_EVENTS +
 		                     " ORDER BY " + KEY_E_ID;
 
@@ -2166,10 +2215,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				event._notificationSound = cursor.getString(5);
 				event._forceRun = Integer.parseInt(cursor.getString(6)) == 1;
 				event._blocked = Integer.parseInt(cursor.getString(7)) == 1;
-				event._undoneProfile = Integer.parseInt(cursor.getString(8)) == 1;
-				event._priority = Integer.parseInt(cursor.getString(9));
-				event._delayStart = Integer.parseInt(cursor.getString(10));
-				event._isInDelay = Integer.parseInt(cursor.getString(11)) == 1;
+				//event._undoneProfile = Integer.parseInt(cursor.getString(8)) == 1;
+				event._priority = Integer.parseInt(cursor.getString(8));
+				event._delayStart = Integer.parseInt(cursor.getString(9));
+				event._isInDelay = Integer.parseInt(cursor.getString(10)) == 1;
+                event._atEndDo = Integer.parseInt(cursor.getString(11));
 				event.createEventPreferences();
 				getEventPreferences(event, db);
 				// Adding contact to list
@@ -2197,10 +2247,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound);
 		values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0);
 		values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
-		values.put(KEY_E_UNDONE_PROFILE, event._undoneProfile ? 1 : 0);
+		//values.put(KEY_E_UNDONE_PROFILE, event._undoneProfile ? 1 : 0);
 		values.put(KEY_E_PRIORITY, event._priority);
 		values.put(KEY_E_DELAY_START, event._delayStart);
 		values.put(KEY_E_IS_IN_DELAY, event._isInDelay ? 1 : 0);
+        values.put(KEY_E_AT_END_DO, event._atEndDo);
 
 		int r = 0;
 		
@@ -3921,6 +3972,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 							long endTime = 0;
 							int priority = 0;
 							int delayStart = 0;
+                            int useEndTime = 0;
+                            int undoneProfile = 0;
 							
 							if (cursorExportedDB.moveToFirst()) {
 								do {
@@ -3967,7 +4020,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 												priority = cursorExportedDB.getInt(i);
 											if (columnNamesExportedDB[i].equals(KEY_E_DELAY_START))
 												delayStart = cursorExportedDB.getInt(i);
-											
+                                            if (columnNamesExportedDB[i].equals(KEY_E_USE_END_TIME))
+                                                useEndTime = cursorExportedDB.getInt(i);
+                                            if (columnNamesExportedDB[i].equals(KEY_E_UNDONE_PROFILE))
+                                                undoneProfile = cursorExportedDB.getInt(i);
+
 										}
 										
 										// for non existent fields set default value
@@ -4176,8 +4233,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                         if (exportedDBObj.getVersion() < 1220)
                                         {
-                                            values.put(KEY_E_DELAY_START, startTime + 5000); // add 5 seconds
-                                            values.put(KEY_E_USE_END_TIME, 1);
+                                            if (useEndTime != 1) {
+                                                values.put(KEY_E_END_TIME, startTime + 5000); // add 5 seconds
+                                                values.put(KEY_E_USE_END_TIME, 1);
+                                            }
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1295)
+                                        {
+                                            if (undoneProfile == 0)
+                                                values.put(KEY_E_AT_END_DO, Event.EATENDDO_NONE);
+                                            else
+                                                values.put(KEY_E_AT_END_DO, Event.EATENDDO_UNDONE_PROFILE);
                                         }
 
 										// Inserting Row do db z SQLiteOpenHelper
