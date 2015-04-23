@@ -751,6 +751,17 @@ public class Event {
 			// second activate when undone profile is set
 			if (_atEndDo == EATENDDO_UNDONE_PROFILE)
 			{
+                // when in timeline list is event, get start profile from last event in tlimeline list
+                // because last event in timeline list may be changed
+                if (eventTimelineList.size() > 0) {
+                    EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
+                    if (_eventTimeline != null) {
+                        Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                        if (event != null)
+                            eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                    }
+                }
+
 				if (eventTimeline._fkProfileEndActivated != activatedProfileId)
 				{
 					GlobalData.logE("Event.pauseEvent","undone profile");
