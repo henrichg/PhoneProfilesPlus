@@ -642,3 +642,14 @@ A daj to aj do Activity logu, ze bol spusteny event s manualnou aktivaciou
 
 ------------------------------------------------------
 
+1. Bezi udalost Doma a Spanok.
+2. Zastrcim sluchatka, spusti sa udalost Diskoteka
+3. Necham sluchatka zastrcene a vysuniem ich az po tom, co skonci udalost Spanok
+4. Spravi to to, ze bezi uz len udalost Doma, ale zostane aktivny profil Spanok, lebo Diskoteka
+   ma "Undo"
+5. podla spravnosti ma byt aktivovany profil Doma.
+Cize "Undo" by vlastne malo vratit profil udalosti, ktora je ako posledna v timeline.
+To sice mam, ale pamatam si profil pri jeho starte.
+Musim teda zistovat, profil udalosti v timeline pri jej ukoncovani, nie pri jej starte.
+
+
