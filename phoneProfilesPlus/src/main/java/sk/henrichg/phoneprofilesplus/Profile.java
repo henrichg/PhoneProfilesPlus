@@ -290,8 +290,144 @@ public class Profile {
 		this._iconBitmap = profile._iconBitmap;
 		this._preferencesIndicator = profile._preferencesIndicator;
 	}
-	
-	// getting icon identifier
+
+    public void mergeProfiles(long withProfileId, DataWrapper dataWrapper)
+    {
+        Profile withProfile = dataWrapper.getProfileById(withProfileId);
+
+        if (withProfile != null) {
+            this._id = withProfile._id;
+            this._name = withProfile._name;
+            this._icon = withProfile._icon;
+            this._iconBitmap = withProfile._iconBitmap;
+            this._preferencesIndicator = withProfile._preferencesIndicator;
+
+            if (withProfile._volumeRingerMode != 0)
+                this._volumeRingerMode = withProfile._volumeRingerMode;
+            if (withProfile._volumeZenMode != 0)
+                this._volumeZenMode = withProfile._volumeZenMode;
+            if (withProfile.getVolumeRingtoneChange())
+                this._volumeRingtone = withProfile._volumeRingtone;
+            if (withProfile.getVolumeNotificationChange())
+                this._volumeNotification = withProfile._volumeNotification;
+            if (withProfile.getVolumeAlarmChange())
+                this._volumeAlarm = withProfile._volumeAlarm;
+            if (withProfile.getVolumeMediaChange())
+                this._volumeMedia = withProfile._volumeMedia;
+            if (withProfile.getVolumeSystemChange())
+                this._volumeSystem = withProfile._volumeSystem;
+            if (withProfile.getVolumeVoiceChange())
+                this._volumeVoice = withProfile._volumeVoice;
+            if (withProfile._soundRingtoneChange != 0) {
+                this._soundRingtoneChange = 1;
+                this._soundRingtone = withProfile._soundRingtone;
+            }
+            if (withProfile._soundNotificationChange != 0) {
+                this._soundNotificationChange = 1;
+                this._soundNotification = withProfile._soundNotification;
+            }
+            if (withProfile._soundAlarmChange != 0) {
+                this._soundAlarmChange = 1;
+                this._soundAlarm = withProfile._soundAlarm;
+            }
+            if (withProfile._deviceAirplaneMode != 0) {
+                if (withProfile._deviceAirplaneMode != 3) // toggle
+                    this._deviceAirplaneMode = withProfile._deviceAirplaneMode;
+                else {
+                    if (this._deviceAirplaneMode == 1)
+                        this._deviceAirplaneMode = 2;
+                    else if (this._deviceAirplaneMode == 2)
+                        this._deviceAirplaneMode = 1;
+                }
+            }
+            if (withProfile._deviceAutosync != 0) {
+                if (withProfile._deviceAutosync != 3) // toggle
+                    this._deviceAutosync = withProfile._deviceAutosync;
+                else {
+                    if (this._deviceAutosync == 1)
+                        this._deviceAutosync = 2;
+                    else if (this._deviceAutosync == 2)
+                        this._deviceAutosync = 1;
+                }
+            }
+            if (withProfile._deviceMobileData != 0) {
+                if (withProfile._deviceMobileData != 3) // toggle
+                    this._deviceMobileData = withProfile._deviceMobileData;
+                else {
+                    if (this._deviceMobileData == 1)
+                        this._deviceMobileData = 2;
+                    else if (this._deviceMobileData == 2)
+                        this._deviceMobileData = 1;
+                }
+            }
+            if (withProfile._deviceMobileDataPrefs != 0)
+                this._deviceMobileDataPrefs = withProfile._deviceMobileDataPrefs;
+            if (withProfile._deviceWiFi != 0) {
+                if (withProfile._deviceWiFi != 3) // toggle
+                    this._deviceWiFi = withProfile._deviceWiFi;
+                else {
+                    if (this._deviceWiFi == 1)
+                        this._deviceWiFi = 2;
+                    else if (this._deviceWiFi == 2)
+                        this._deviceWiFi = 1;
+                }
+            }
+            if (withProfile._deviceBluetooth != 0) {
+                if (withProfile._deviceBluetooth != 3) // toggle
+                    this._deviceBluetooth = withProfile._deviceBluetooth;
+                else {
+                    if (this._deviceBluetooth == 1)
+                        this._deviceBluetooth = 2;
+                    else if (this._deviceBluetooth == 2)
+                        this._deviceBluetooth = 1;
+                }
+            }
+            if (withProfile._deviceGPS != 0) {
+                if (withProfile._deviceGPS != 3) // toggle
+                    this._deviceGPS = withProfile._deviceGPS;
+                else {
+                    if (this._deviceGPS == 1)
+                        this._deviceGPS = 2;
+                    else if (this._deviceGPS == 2)
+                        this._deviceGPS = 1;
+                }
+            }
+            if (withProfile._deviceLocationServicePrefs != 0)
+                this._deviceLocationServicePrefs = withProfile._deviceLocationServicePrefs;
+            if (withProfile._deviceScreenTimeout != 0)
+                this._deviceScreenTimeout = withProfile._deviceScreenTimeout;
+            if (withProfile.getDeviceBrightnessChange())
+                this._deviceBrightness = withProfile._deviceBrightness;
+            if (withProfile._deviceAutoRotate != 0)
+                this._deviceAutoRotate = withProfile._deviceAutoRotate;
+            if (withProfile._deviceRunApplicationChange != 0) {
+                this._deviceRunApplicationChange = 1;
+                this._deviceRunApplicationPackageName = withProfile._deviceRunApplicationPackageName;
+            }
+            if (withProfile._deviceWallpaperChange != 0) {
+                this._deviceWallpaperChange = 1;
+                this._deviceWallpaper = withProfile._deviceWallpaper;
+            }
+            if (withProfile._volumeSpeakerPhone != 0)
+                this._volumeSpeakerPhone = withProfile._volumeSpeakerPhone;
+            if (withProfile._deviceNFC != 0) {
+                if (withProfile._deviceNFC != 3) // toggle
+                    this._deviceNFC = withProfile._deviceNFC;
+                else {
+                    if (this._deviceNFC == 1)
+                        this._deviceNFC = 2;
+                    else if (this._deviceNFC == 2)
+                        this._deviceNFC = 1;
+                }
+            }
+            if (withProfile._deviceKeyguard != 0)
+                this._deviceKeyguard = withProfile._deviceKeyguard;
+            if (withProfile._vibrationOnTouch != 0)
+                this._vibrationOnTouch = withProfile._vibrationOnTouch;
+        }
+    }
+
+    // getting icon identifier
 	public String getIconIdentifier()
 	{
 		String value;

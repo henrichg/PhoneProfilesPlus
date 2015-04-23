@@ -2113,7 +2113,7 @@ public class DataWrapper {
 
 		GlobalData.logE("DataWrapper.restartEvents","events are not blocked");
 
-        Profile activatedProfile = getActivatedProfile();
+        //Profile activatedProfile = getActivatedProfile();
 
 		if (unblockEventsRun)
 		{

@@ -789,7 +789,7 @@ public class GlobalData extends Application {
 		else 
 			return profile;
 	}
-	
+
 	static public boolean getGlobalEventsRuning(Context context)
 	{
 		SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);

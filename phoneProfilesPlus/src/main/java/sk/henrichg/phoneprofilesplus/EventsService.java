@@ -94,6 +94,8 @@ public class EventsService extends IntentService
         BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
         BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
 
+        Profile mergedProfile = null; //dataWrapper.getNoinitializedProfile("", "", 0);
+
 		if (isRestart)
 		{
 			// 1. pause events
@@ -200,7 +202,12 @@ public class EventsService extends IntentService
 		int runningEventCountE = eventTimelineList.size();
 
 		boolean backgroundProfileActivated = false;
-		Profile activatedProfile = dataWrapper.getActivatedProfileFromDB();
+        Profile activatedProfile = dataWrapper.getActivatedProfileFromDB();
+
+        if (mergedProfile != null) {
+            if ((mergedProfile._id == 0) && (activatedProfile != null))
+                mergedProfile._id = activatedProfile._id;
+        }
 
 		if (!dataWrapper.getIsManualProfileActivation())
 		{
@@ -220,16 +227,24 @@ public class EventsService extends IntentService
 						activatedProfileId = activatedProfile._id;
 					if ((activatedProfileId != profileId) || isRestart)
 					{
-						dataWrapper.activateProfileFromEvent(profileId, interactive, "");
-                        backgroundProfileActivated = true;
+                        if (mergedProfile == null) {
+                            dataWrapper.activateProfileFromEvent(profileId, interactive, "");
+                            backgroundProfileActivated = true;
+                        }
+                        else
+                            mergedProfile.mergeProfiles(profileId, dataWrapper);
 						GlobalData.logE("### EventsService.onHandleIntent", "activated default profile");
 					}
 				}
 				/*else
 				if (activatedProfile == null)
 				{
-					dataWrapper.activateProfileFromEvent(0, interactive, "");
-                    backgroundProfileActivated = true;
+                    if (mergedProfile == null) {
+					    dataWrapper.activateProfileFromEvent(0, interactive, "");
+                        backgroundProfileActivated = true;
+					}
+					else
+                        mergedProfile.mergeProfiles(0, dataWrapper);
 					GlobalData.logE("### EventsService.onHandleIntent", "not activated profile");
 				}*/
 			}
@@ -244,8 +259,12 @@ public class EventsService extends IntentService
 				if (activatedProfile == null)
 				{
 					// if not profile activated, activate Default profile
-					dataWrapper.activateProfileFromEvent(profileId, interactive, "");
-                    backgroundProfileActivated = true;
+                    if (mergedProfile == null) {
+                        dataWrapper.activateProfileFromEvent(profileId, interactive, "");
+                        backgroundProfileActivated = true;
+                    }
+                    else
+                        mergedProfile.mergeProfiles(profileId, dataWrapper);
 					GlobalData.logE("### EventsService.onHandleIntent", "not activated profile");
 				}
 			}
@@ -267,7 +286,11 @@ public class EventsService extends IntentService
 				if (event != null)
 					eventNotificationSound = event._notificationSound;
 			}
-			dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
+
+            if (mergedProfile == null)
+			    dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
+            else
+                dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, eventNotificationSound);
 		}
 
 		doEndService(intent);
