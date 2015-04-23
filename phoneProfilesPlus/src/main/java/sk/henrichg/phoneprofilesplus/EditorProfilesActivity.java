@@ -604,7 +604,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 				// no setup for next start
 				dataWrapper.removeAllEventDelays();
                 // no set system events, unblock all events, no activate return profile
-				dataWrapper.pauseAllEvents(true, false, false);
+				dataWrapper.pauseAllEvents(true, false/*, false*/);
 				GlobalData.setGlobalEventsRuning(getApplicationContext(), false);
 				// stop Wifi scanner
 				WifiScanAlarmBroadcastReceiver.initialize(getApplicationContext());

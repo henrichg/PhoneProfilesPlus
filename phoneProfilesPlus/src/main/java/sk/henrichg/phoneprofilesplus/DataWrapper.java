@@ -620,20 +620,6 @@ public class DataWrapper {
 		getEventList();
 	}
 	
-	// pause all events associated with profile
-	public void pauseEventsForProfile(Profile profile, boolean noSetSystemEvent)
-	{
-		List<EventTimeline> eventTimelineList = getEventTimelineList();
-		
-		for (Event event : getEventList())
-		{
-			//if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
-			//	(event._fkProfileStart == profile._id))
-			if (event._fkProfileStart == profile._id)
-				event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, false);
-		}
-	}
-
 	// stops all events associated with profile
 	public void stopEventsForProfile(Profile profile, boolean saveEventStatus)
 	{
@@ -650,7 +636,7 @@ public class DataWrapper {
 	}
 	
 	// pauses all events
-	public void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents, boolean activateReturnProfile)
+	public void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
 	{
 		List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -661,7 +647,8 @@ public class DataWrapper {
                 int status = event.getStatusFromDB(this);
 
                 if (status == Event.ESTATUS_RUNNING)
-                    event.pauseEvent(this, eventTimelineList, activateReturnProfile, true, noSetSystemEvent, false);
+                    event.pauseEvent(this, eventTimelineList, false, true,
+                                        noSetSystemEvent, false, null);
 
                 setEventBlocked(event, false);
                 if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun)
@@ -977,8 +964,8 @@ public class DataWrapper {
 			ActivateProfileHelper.lockRefresh = true;
 
 			// pause all events
-            // for forcerun events set system events, block all events, activate return profile
-			pauseAllEvents(false, true, true);
+            // for forcerRun events set system events and block all events
+			pauseAllEvents(false, true/*, true*/);
 			
 			ActivateProfileHelper.lockRefresh = false;
 			
@@ -1304,7 +1291,8 @@ public class DataWrapper {
 	@SuppressLint({ "NewApi", "SimpleDateFormat" })
 	public boolean doEventService(Event event, boolean statePause, 
 									boolean restartEvent, boolean interactive,
-									boolean forDelayAlarm, boolean reactivate)
+									boolean forDelayAlarm, boolean reactivate,
+                                    Profile mergedProfile)
 	{
 		int newEventStatus = Event.ESTATUS_NONE;
 
@@ -2063,7 +2051,7 @@ public class DataWrapper {
 					{
 						// no delay alarm is set
 						// start event
-						event.startEvent(this, eventTimelineList, false, interactive, reactivate, true);
+						event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
 					}
 				}
 				
@@ -2071,7 +2059,7 @@ public class DataWrapper {
 				{
 					// called for delay alarm
 					// start event
-					event.startEvent(this, eventTimelineList, false, interactive, reactivate, true);
+					event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
 				}
 			}
 			else
@@ -2081,7 +2069,7 @@ public class DataWrapper {
 
 				GlobalData.logE("DataWrapper.doEventService","pause event");
 
-				event.pauseEvent(this, eventTimelineList, true, false, false, true);
+				event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile);
 			}
 		}
 

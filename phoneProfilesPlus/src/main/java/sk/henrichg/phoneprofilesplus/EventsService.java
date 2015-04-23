@@ -109,7 +109,7 @@ public class EventsService extends IntentService
 				if (_event.getStatus() != Event.ESTATUS_STOP)
 					// len pauzuj eventy
 					// pauzuj aj ked uz je zapauznuty
-					dataWrapper.doEventService(_event, true, true, interactive, forDelayAlarm, true);
+					dataWrapper.doEventService(_event, true, true, interactive, forDelayAlarm, true, mergedProfile);
 			}
 			/*// 2. start events in timeline order
 			List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
@@ -125,7 +125,7 @@ public class EventsService extends IntentService
 					if (_event.getStatus() != Event.ESTATUS_STOP)
 						// len spustaj eventy
 						// spusatj aj ked uz je spusteny
-						dataWrapper.doEventService(_event, false, true, interactive, forDelayAlarm, true);
+						dataWrapper.doEventService(_event, false, true, interactive, forDelayAlarm, true, mergedProfile);
 				}
 			}*/
 			// 3. start no started events in point 2.
@@ -139,7 +139,7 @@ public class EventsService extends IntentService
 				if (_event.getStatus() != Event.ESTATUS_STOP)
 					// len spustaj eventy
 					// spustaj len ak este nebezi
-					dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm, true);
+					dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm, true, mergedProfile);
 			}
 
             /*
@@ -157,7 +157,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
                     // spustaj len ak este nebezi
-                    dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm);
+                    dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm, mergedProfile);
             }
             */
 		}
@@ -174,7 +174,7 @@ public class EventsService extends IntentService
 				if (_event.getStatus() != Event.ESTATUS_STOP)
 					// len pauzuj eventy
 					// pauzuj len ak este nie je zapauznuty
-					dataWrapper.doEventService(_event, true, false, interactive, forDelayAlarm, false);
+					dataWrapper.doEventService(_event, true, false, interactive, forDelayAlarm, false, mergedProfile);
 			}
 			//2. start events
 			dataWrapper.sortEventsByPriorityAsc();
@@ -187,7 +187,7 @@ public class EventsService extends IntentService
 				if (_event.getStatus() != Event.ESTATUS_STOP)
 					// len spustaj eventy
 					// spustaj len ak este nebezi
-					dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm, false);
+					dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm, false, mergedProfile);
 			}
 		}
 

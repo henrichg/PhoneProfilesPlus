@@ -543,7 +543,8 @@ public class Event {
 	}
 	
 	private EventTimeline addEventTimeline(DataWrapper dataWrapper, 
-											List<EventTimeline> eventTimelineList)
+											List<EventTimeline> eventTimelineList,
+                                            Profile mergedProfile)
 	{
 		EventTimeline eventTimeline = new EventTimeline();
 		eventTimeline._fkEvent = this._id;
@@ -581,7 +582,8 @@ public class Event {
 							boolean ignoreGlobalPref,
 							boolean interactive,
                             boolean reactivate,
-                            boolean log)
+                            boolean log,
+                            Profile mergedProfile)
 	{
 		// remove delay alarm
 		removeDelayAlarm(dataWrapper, true); // for start delay
@@ -672,7 +674,7 @@ public class Event {
 		}
 	//////////////////////////////////
 
-		eventTimeline = addEventTimeline(dataWrapper, eventTimelineList);
+		eventTimeline = addEventTimeline(dataWrapper, eventTimelineList, mergedProfile);
 
 		setSystemEvent(dataWrapper.context, ESTATUS_RUNNING);
 		this._status = ESTATUS_RUNNING;
@@ -692,10 +694,18 @@ public class Event {
 			// no activate profile, when is already activated
 			GlobalData.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
 			
-			if (interactive)
-				dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, _notificationSound);
-			else
-				dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, "");
+			if (interactive) {
+                if (mergedProfile == null)
+                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, _notificationSound);
+                else
+                    mergedProfile.mergeProfiles(this._id, dataWrapper);
+            }
+			else {
+                if (mergedProfile == null)
+                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, "");
+                else
+                    mergedProfile.mergeProfiles(this._id, dataWrapper);
+            }
 		}
 		else
 		{
@@ -710,7 +720,8 @@ public class Event {
             							int timeLineSize,
 										List<EventTimeline> eventTimelineList,
 										EventTimeline eventTimeline,
-										boolean activateReturnProfile)
+										boolean activateReturnProfile,
+                                        Profile mergedProfile)
 	{
 		
 		if (!(eventPosition == (timeLineSize-1)))
@@ -743,7 +754,10 @@ public class Event {
 				if (_fkProfileEnd != activatedProfileId)
 				{
 					GlobalData.logE("Event.pauseEvent","activate end porfile");
-					dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, "");
+                    if (mergedProfile == null)
+					    dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, "");
+                    else
+                        mergedProfile.mergeProfiles(this._id, dataWrapper);
 					activatedProfileId = _fkProfileEnd;
 					profileActivated = true;
 				}
@@ -768,7 +782,10 @@ public class Event {
 					GlobalData.logE("Event.pauseEvent","_fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
 					if (eventTimeline._fkProfileEndActivated != 0)
 					{
-						dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, "");
+                        if (mergedProfile == null)
+						    dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, "");
+                        else
+                            mergedProfile.mergeProfiles(this._id, dataWrapper);
 						profileActivated = true;
 					}
 				}
@@ -794,7 +811,8 @@ public class Event {
 							boolean activateReturnProfile, 
 							boolean ignoreGlobalPref,
 							boolean noSetSystemEvent,
-                            boolean log)
+                            boolean log,
+                            Profile mergedProfile)
 	{
 		// remove delay alarm
 		removeDelayAlarm(dataWrapper, true); // for start delay
@@ -908,7 +926,7 @@ public class Event {
 		{
 			doActivateEndProfile(dataWrapper, eventPosition, timeLineSize, 
 					eventTimelineList, eventTimeline, 
-					activateReturnProfile);				
+					activateReturnProfile, mergedProfile);
 
 		}
 		
@@ -934,7 +952,7 @@ public class Event {
 		
 		if (this._status != ESTATUS_STOP)
 		{
-			pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false);
+			pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null);
 		}
 	
 		setSystemEvent(dataWrapper.context, ESTATUS_STOP);
