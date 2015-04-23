@@ -30,7 +30,14 @@ public class ScannerService extends IntentService
 	public ScannerService()
 	{
 		super("ScannerService");
-	}
+
+        // if enabled is true, onStartCommand(Intent, int, int) will return START_REDELIVER_INTENT,
+        // so if this process dies before onHandleIntent(Intent) returns, the process will be restarted
+        // and the intent redelivered. If multiple Intents have been sent, only the most recent one
+        // is guaranteed to be redelivered.
+        setIntentRedelivery (true);
+
+    }
 
 	@SuppressLint("NewApi")
 	@Override
@@ -40,28 +47,22 @@ public class ScannerService extends IntentService
 
 		GlobalData.logE("### ScannerService.onHandleIntent", "-- START ------------");
 
-        // if enabled is true, onStartCommand(Intent, int, int) will return START_REDELIVER_INTENT,
-        // so if this process dies before onHandleIntent(Intent) returns, the process will be restarted
-        // and the intent redelivered. If multiple Intents have been sent, only the most recent one
-        // is guaranteed to be redelivered.
-        setIntentRedelivery (true);
+        String scanType = intent.getStringExtra(GlobalData.EXTRA_SCANNER_TYPE);
+        GlobalData.logE("### ScannerService.onHandleIntent", "scanType="+scanType);
 
         wifiBluetoothChangeHandler = new Handler(getMainLooper());
 
-        GlobalData.logE("$$$ ScannerService.onHandleIntent", "before synchronized block");
+        GlobalData.logE("$$$ ScannerService.onHandleIntent", "before synchronized block - scanType="+scanType);
 
 		synchronized (GlobalData.radioChangeStateMutex) {
 
-            GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - start");
+            GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - start - scanType="+scanType);
 
       	// send broadcast about radio change state to PPHelper
 		Intent ppHelperIntent1 = new Intent();
 		ppHelperIntent1.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
 		ppHelperIntent1.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, true);
 	    context.sendBroadcast(ppHelperIntent1);
-		
-		String scanType = intent.getStringExtra(GlobalData.EXTRA_SCANNER_TYPE);
-		GlobalData.logE("### ScannerService.onHandleIntent", "scanType="+scanType);
 		
 		if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI))
 		{
@@ -278,11 +279,11 @@ public class ScannerService extends IntentService
 		ppHelperIntent2.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, false);
 	    context.sendBroadcast(ppHelperIntent2);
 
-            GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - end");
+            GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - end - scanType="+scanType);
 
 		}
 
-        GlobalData.logE("$$$ ScannerService.onHandleIntent", "after synchronized block");
+        GlobalData.logE("$$$ ScannerService.onHandleIntent", "after synchronized block - scanType="+scanType);
 
 		//GlobalData.setRadioChangeState(context, false);
 		
