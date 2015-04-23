@@ -94,7 +94,7 @@ public class EventsService extends IntentService
         BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
         BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
 
-        Profile mergedProfile = null; //dataWrapper.getNoinitializedProfile("", "", 0);
+        Profile mergedProfile = dataWrapper.getNoinitializedProfile("", "", 0);
 
 		if (isRestart)
 		{
@@ -192,7 +192,9 @@ public class EventsService extends IntentService
 		}
 
 		ActivateProfileHelper.lockRefresh = false;
-		
+
+        GlobalData.logE("$$$ EventsService.profile for activation","profileName="+mergedProfile._name);
+
 		//////////////////
 		//// when no events are running or manual activation, 
 		//// activate background profile when no profile is activated
@@ -203,11 +205,6 @@ public class EventsService extends IntentService
 
 		boolean backgroundProfileActivated = false;
         Profile activatedProfile = dataWrapper.getActivatedProfileFromDB();
-
-        if (mergedProfile != null) {
-            if ((mergedProfile._id == 0) && (activatedProfile != null))
-                mergedProfile._id = activatedProfile._id;
-        }
 
 		if (!dataWrapper.getIsManualProfileActivation())
 		{
@@ -289,8 +286,12 @@ public class EventsService extends IntentService
 
             if (mergedProfile == null)
 			    dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
-            else
-                dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, eventNotificationSound);
+            else {
+                GlobalData.logE("$$$ EventsService.activateProfileFromEvent","profileName="+mergedProfile._name);
+                GlobalData.logE("$$$ EventsService.activateProfileFromEvent","profileId="+mergedProfile._id);
+                if (mergedProfile._id != 0)
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, eventNotificationSound);
+            }
 		}
 
 		doEndService(intent);

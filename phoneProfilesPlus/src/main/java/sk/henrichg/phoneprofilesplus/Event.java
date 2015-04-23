@@ -698,13 +698,13 @@ public class Event {
                 if (mergedProfile == null)
                     dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, _notificationSound);
                 else
-                    mergedProfile.mergeProfiles(this._id, dataWrapper);
+                    mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
             }
 			else {
                 if (mergedProfile == null)
                     dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, "");
                 else
-                    mergedProfile.mergeProfiles(this._id, dataWrapper);
+                    mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
             }
 		}
 		else
@@ -757,7 +757,7 @@ public class Event {
                     if (mergedProfile == null)
 					    dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, "");
                     else
-                        mergedProfile.mergeProfiles(this._id, dataWrapper);
+                        mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper);
 					activatedProfileId = _fkProfileEnd;
 					profileActivated = true;
 				}
@@ -785,7 +785,7 @@ public class Event {
                         if (mergedProfile == null)
 						    dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, "");
                         else
-                            mergedProfile.mergeProfiles(this._id, dataWrapper);
+                            mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper);
 						profileActivated = true;
 					}
 				}

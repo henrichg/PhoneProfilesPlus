@@ -79,7 +79,8 @@ public class GlobalData extends Application {
                                          "$$$ ActivateProfileHelper|"+
                                          "$$$ Keyguard|"+
                                          "$$$ ScreenOnOffBroadcastReceiver|"+
-                                         "$$$ ExecuteWallpaperProfilePrefsService"
+                                         "$$$ ExecuteWallpaperProfilePrefsService|"+
+                                         "$$$ Profile"
                                          /*"$$$ EventsService|"+
                                          "$$$ ReceiversService|"+
                                          "$$$ DataWrapper|"+

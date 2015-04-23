@@ -293,6 +293,8 @@ public class Profile {
 
     public void mergeProfiles(long withProfileId, DataWrapper dataWrapper)
     {
+        GlobalData.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
+
         Profile withProfile = dataWrapper.getProfileById(withProfileId);
 
         if (withProfile != null) {
@@ -424,6 +426,9 @@ public class Profile {
                 this._deviceKeyguard = withProfile._deviceKeyguard;
             if (withProfile._vibrationOnTouch != 0)
                 this._vibrationOnTouch = withProfile._vibrationOnTouch;
+
+            dataWrapper.getDatabaseHandler().activateProfile(withProfile);
+            dataWrapper.setProfileActive(withProfile);
         }
     }
 
