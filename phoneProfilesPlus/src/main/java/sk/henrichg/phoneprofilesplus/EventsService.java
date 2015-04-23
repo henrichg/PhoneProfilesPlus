@@ -290,8 +290,12 @@ public class EventsService extends IntentService
                 GlobalData.logE("$$$ EventsService.activateProfileFromEvent","profileName="+mergedProfile._name);
                 GlobalData.logE("$$$ EventsService.activateProfileFromEvent","profileId="+mergedProfile._id);
                 GlobalData.logE("$$$ EventsService.activateProfileFromEvent","notificationSound="+eventNotificationSound);
-                if (mergedProfile._id != 0)
+                if (mergedProfile._id != 0) {
+                    //ActivateProfileHelper.lockRefresh = true;
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, eventNotificationSound);
+                    //ActivateProfileHelper.lockRefresh = false;
+                    //dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
+                }
             }
 		}
 
