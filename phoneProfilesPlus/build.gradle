@@ -34,6 +34,3 @@ dependencies {
     compile files('libs/RootTools.jar')
 }
 
-repositories {
-    maven { url 'https://dl.bintray.com/drummer-aidan/maven' }
-}
