@@ -433,6 +433,20 @@ public class Profile {
 
             dataWrapper.getDatabaseHandler().activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
+
+            String profileIcon = "";
+            int profileDuration = 0;
+
+            profileIcon = withProfile._icon;
+
+            if ((withProfile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
+                    (withProfile._duration > 0))
+                profileDuration = withProfile._duration;
+
+            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
+                                    dataWrapper.getProfileNameWithManualIndicator(withProfile, true),
+                                    profileIcon, profileDuration);
+
         }
     }
 

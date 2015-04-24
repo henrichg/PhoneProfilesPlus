@@ -365,10 +365,12 @@ public class DataWrapper {
 		} */
 	}
 	
-	public void activateProfileFromEvent(long profile_id, boolean interactive, String eventNotificationSound)
+	public void activateProfileFromEvent(long profile_id, boolean interactive,
+                                         String eventNotificationSound, boolean log)
 	{
 		getActivateProfileHelper().initialize(this, null, context);
-		_activateProfile(getProfileById(profile_id), GlobalData.STARTUP_SOURCE_SERVICE, interactive, null, eventNotificationSound);
+		_activateProfile(getProfileById(profile_id), GlobalData.STARTUP_SOURCE_SERVICE, interactive,
+                        null, eventNotificationSound, log);
 	}
 	
 	public void updateNotificationAndWidgets(Profile profile, String eventNotificationSound)
@@ -940,7 +942,8 @@ public class DataWrapper {
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
 	private void _activateProfile(Profile _profile, int startupSource, boolean _interactive, 
-									Activity _activity, String eventNotificationSound)
+									Activity _activity, String eventNotificationSound,
+                                    boolean log)
 	{
 		Profile profile = GlobalData.getMappedProfile(_profile, context);
 		//profile = filterProfileWithBatteryEvents(profile);
@@ -1009,7 +1012,8 @@ public class DataWrapper {
 		activateProfileHelper.showNotification(profile, eventNotificationSound);
 		activateProfileHelper.updateWidget();
 
-        getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
+        if (log)
+            getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                                                 getProfileNameWithManualIndicator(profile, true),
                                                 profileIcon, profileDuration);
 
@@ -1105,7 +1109,8 @@ public class DataWrapper {
 			//dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 			dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    _activateProfile(_profile, _startupSource, _interactive, _activity, _eventNotificationSound);
+                    _activateProfile(_profile, _startupSource, _interactive, _activity,
+                                        _eventNotificationSound, true);
                 }
             });
 			dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
@@ -1131,7 +1136,7 @@ public class DataWrapper {
 		}
 		else
 		{
-			_activateProfile(profile, startupSource, interactive, activity, eventNotificationSound);
+			_activateProfile(profile, startupSource, interactive, activity, eventNotificationSound, true);
 		}
 	}
 
