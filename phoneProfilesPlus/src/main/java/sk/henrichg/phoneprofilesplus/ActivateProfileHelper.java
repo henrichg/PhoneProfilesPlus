@@ -774,15 +774,18 @@ public class ActivateProfileHelper {
 
 			if (profile._deviceRunApplicationChange == 1)
 			{
+                String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
 				Intent intent;
 				PackageManager packageManager = context.getPackageManager();
-				intent = packageManager.getLaunchIntentForPackage(profile._deviceRunApplicationPackageName);
-				if (intent != null)
-				{
-					intent.addCategory(Intent.CATEGORY_LAUNCHER);
-		    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					context.startActivity(intent);
-				}
+
+                for (int i = 0; i < splits.length; i++) {
+                    intent = packageManager.getLaunchIntentForPackage(splits[i]);
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    }
+                }
 			}
 		}
 		

@@ -404,7 +404,11 @@ public class Profile {
                 this._deviceAutoRotate = withProfile._deviceAutoRotate;
             if (withProfile._deviceRunApplicationChange != 0) {
                 this._deviceRunApplicationChange = 1;
-                this._deviceRunApplicationPackageName = withProfile._deviceRunApplicationPackageName;
+                if (this._deviceRunApplicationPackageName.isEmpty())
+                    this._deviceRunApplicationPackageName = withProfile._deviceRunApplicationPackageName;
+                else
+                    this._deviceRunApplicationPackageName = this._deviceRunApplicationPackageName + "|" +
+                        withProfile._deviceRunApplicationPackageName;
             }
             if (withProfile._deviceWallpaperChange != 0) {
                 this._deviceWallpaperChange = 1;
