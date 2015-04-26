@@ -62,13 +62,13 @@ public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsF
 	}
 
 	public int getCount() {
-
-		int count = 0;
-		for (Profile profile : profileList)
-		{
-			if (profile._showInActivator)
-				++count;
-		}
+        int count = 0;
+        if (profileList != null) {
+            for (Profile profile : profileList) {
+                if (profile._showInActivator)
+                    ++count;
+            }
+        }
 		return count;
 	}
 
