@@ -483,4 +483,11 @@
   <string name="phone_profiles_pref_notificationShowInStatusBar">Zobrazit ve stavovém řádku</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Zobrazit ve stavovém řádku a zamčené obrazovce</string>
   <string name="menu_activity_log_reload">Znovu načíst</string>
+  <string name="event_preferences_atEndDo">A udělat</string>
+  <string name="array_pref_atEndDo_none">Žádné</string>
+  <string name="array_pref_atEndDo_undoneProfile">Vrať zpět profil</string>
+  <string name="array_pref_atEndDo_restartEvents">Restart událostí</string>
+  <string name="event_preference_profile_restartEvents">Restart</string>
+  <string name="altype_eventEnd_restartEvents">pozastavení události - restart události</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">pozastavení události - aktivace profilu a restart události</string>
 </resources>

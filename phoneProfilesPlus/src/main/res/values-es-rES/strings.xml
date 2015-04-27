@@ -483,4 +483,11 @@
   <string name="phone_profiles_pref_notificationShowInStatusBar">Mostrar en la barra de estado</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Mostrar en barra de estado y pantalla de bloqueo</string>
   <string name="menu_activity_log_reload">Recargar</string>
+  <string name="event_preferences_atEndDo">Después hacer</string>
+  <string name="array_pref_atEndDo_none">Nada</string>
+  <string name="array_pref_atEndDo_undoneProfile">Deshacer el perfil</string>
+  <string name="array_pref_atEndDo_restartEvents">Reiniciar eventos</string>
+  <string name="event_preference_profile_restartEvents">Reiniciar</string>
+  <string name="altype_eventEnd_restartEvents">pausar evento - reiniciar eventos</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">pausar evento - activar y reiniciar eventos</string>
 </resources>

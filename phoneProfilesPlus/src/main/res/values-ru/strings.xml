@@ -483,4 +483,11 @@
   <string name="phone_profiles_pref_notificationShowInStatusBar">Показывать в статус-баре</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показывать в статус-баре и на экране блокировки</string>
   <string name="menu_activity_log_reload">Перезагрузка</string>
+  <string name="event_preferences_atEndDo">И сделать</string>
+  <string name="array_pref_atEndDo_none">Ничего</string>
+  <string name="array_pref_atEndDo_undoneProfile">Аннулировать профиль</string>
+  <string name="array_pref_atEndDo_restartEvents">Перезапуск события</string>
+  <string name="event_preference_profile_restartEvents">Перезапуск</string>
+  <string name="altype_eventEnd_restartEvents">Приостановить событие - перезапустить событие</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">Конец события - активация профиля и перезапуск события</string>
 </resources>

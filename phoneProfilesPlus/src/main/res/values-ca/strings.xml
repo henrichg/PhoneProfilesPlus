@@ -483,4 +483,11 @@
   <string name="phone_profiles_pref_notificationShowInStatusBar">Mostrar a la barra d\'estat</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Mostrar a la barra d\'estat i bloquejar pantalla</string>
   <string name="menu_activity_log_reload">Torna a carregar</string>
+  <string name="event_preferences_atEndDo">I fer</string>
+  <string name="array_pref_atEndDo_none">Cap</string>
+  <string name="array_pref_atEndDo_undoneProfile">Desfer el perfil</string>
+  <string name="array_pref_atEndDo_restartEvents">Reiniciar esdeveniments</string>
+  <string name="event_preference_profile_restartEvents">Reinicia</string>
+  <string name="altype_eventEnd_restartEvents">pausa esdeveniment - fets de reiniciar</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">esdeveniment pausa - activar i fets de reiniciar</string>
 </resources>

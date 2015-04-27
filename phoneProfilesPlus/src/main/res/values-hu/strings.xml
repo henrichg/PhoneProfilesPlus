@@ -50,7 +50,7 @@
   <string name="phone_profiles_pref_applicationClose">Bezárás profil aktiválása után</string>
   <string name="phone_profiles_pref_applicationPrefIndicator">Kijelző beállításai</string>
   <string name="phone_profiles_pref_applicationHeader">Aktív profil mutatása</string>
-  <string name="phone_profiles_pref_applicationAlert">Profil aktiválási jelzés</string>
+  <string name="phone_profiles_pref_applicationAlert">Profil aktiválás előtt engedély kérés</string>
   <string name="phone_profiles_pref_notificationsToast">Felugró értesítések megjelenítése</string>
   <string name="phone_profiles_pref_notificationStatusBar">Állapotsáv-értesítések megjelenítése</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Értesítési ikon stílusa</string>
@@ -483,4 +483,11 @@
   <string name="phone_profiles_pref_notificationShowInStatusBar">Megjelenítés az állapotsoron</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Mutassa a állapotsoron és a zár képernyőn</string>
   <string name="menu_activity_log_reload">Újratöltés</string>
+  <string name="event_preferences_atEndDo">És csinálja</string>
+  <string name="array_pref_atEndDo_none">Egyik sem</string>
+  <string name="array_pref_atEndDo_undoneProfile">A profil visszavonása</string>
+  <string name="array_pref_atEndDo_restartEvents">Eseményt újra indít</string>
+  <string name="event_preference_profile_restartEvents">Újraindítás</string>
+  <string name="altype_eventEnd_restartEvents">esemény szünet - esemény újraindít</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">esemény szünet - aktivál és eseményt újra indít</string>
 </resources>

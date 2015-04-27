@@ -483,4 +483,11 @@
   <string name="phone_profiles_pref_notificationShowInStatusBar">Visa i statusfältet</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Visa i statusfältet och på låsskärmen</string>
   <string name="menu_activity_log_reload">Ladda om</string>
+  <string name="event_preferences_atEndDo">Och göra</string>
+  <string name="array_pref_atEndDo_none">Ingen</string>
+  <string name="array_pref_atEndDo_undoneProfile">Ångra profilen</string>
+  <string name="array_pref_atEndDo_restartEvents">Starta om händelser</string>
+  <string name="event_preference_profile_restartEvents">Starta om</string>
+  <string name="altype_eventEnd_restartEvents">pausa händelsen - starta om händelser</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">pausa händelsen - aktivera och starta om händelser</string>
 </resources>

@@ -52,7 +52,7 @@
   <string name="phone_profiles_pref_applicationHeader">Aktiviertes Profil anzeigen</string>
   <string name="phone_profiles_pref_applicationAlert">Popup beim Aktivieren</string>
   <string name="phone_profiles_pref_notificationsToast">Toast-Nachricht anzeigen</string>
-  <string name="phone_profiles_pref_notificationStatusBar">In Statusleiste anzeigen</string>
+  <string name="phone_profiles_pref_notificationStatusBar">Benachrichtigung anzeigen</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Symbol-Stil</string>
   <string name="profile_preferences_category_profileidenification">Allgemein</string>
   <string name="profile_preferences_category_volumes">Lautstärke</string>
@@ -483,4 +483,11 @@
   <string name="phone_profiles_pref_notificationShowInStatusBar">In Statusleiste anzeigen</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">In der Statusleiste und auf dem Sperrbildschirm anzeigen</string>
   <string name="menu_activity_log_reload">Neu laden</string>
+  <string name="event_preferences_atEndDo">Und tue</string>
+  <string name="array_pref_atEndDo_none">Nichts</string>
+  <string name="array_pref_atEndDo_undoneProfile">Profil rückgängig machen</string>
+  <string name="array_pref_atEndDo_restartEvents">Ereignisse neu starten</string>
+  <string name="event_preference_profile_restartEvents">Neu starten</string>
+  <string name="altype_eventEnd_restartEvents">Ereignis-Pause - Ereignisse neu starten</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">Ereignis-Pause - Aktivieren und Ereignisse neu starten</string>
 </resources>
