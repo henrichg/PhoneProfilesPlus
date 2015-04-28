@@ -652,4 +652,13 @@ Cize "Undo" by vlastne malo vratit profil udalosti, ktora je ako posledna v time
 To sice mam, ale pamatam si profil pri jeho starte.
 Musim teda zistovat, profil udalosti v timeline pri jej ukoncovani, nie pri jej starte.
 
+------------------------------------------------------
+
+Napadla ma sialena myslienka.
+Kedze viem odchytit, ze zvoni, co tak spravit toto pre oddelenie hlasitosti zvonenia a notifikacii:
+1. nastavit najprv zvonenie, potom notifikacie
+2. cize hlasitost bude nastavena pre notifikacie
+3. viem zachytit, ze zvoni
+4. ak zachytim, ze zvoni, nastavim hlasitost zvonenia aj notifikacii na hlasitost zvonenia v profile
+5. po ukonceni hovoru nastavim hlasitost zvonenia a notifikacii spat podla profilu
 
