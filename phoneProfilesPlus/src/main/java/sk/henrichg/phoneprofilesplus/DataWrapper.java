@@ -747,7 +747,7 @@ public class DataWrapper {
         }
         */
 
-        removeAllEventDelays();
+        removeAllEventDelays(true);
 
         WifiScanAlarmBroadcastReceiver.setAlarm(context, false);
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false);
@@ -2127,7 +2127,7 @@ public class DataWrapper {
 	public void restartEventsWithRescan(boolean showToast)
 	{
 		// remove all event delay alarms
-		removeAllEventDelays();
+		removeAllEventDelays(false);
 		// ignoruj manualnu aktivaciu profilu
 		// a odblokuj forceRun eventy
 		restartEvents(true, true, false);
@@ -2367,13 +2367,14 @@ public class DataWrapper {
 	}
 	
 	
-	public void removeAllEventDelays()
+	public void removeAllEventDelays(boolean onlyFromDb)
 	{
-		for (Event event : getEventList())
-		{
-			event.removeDelayAlarm(this, true);
-			event.removeDelayAlarm(this, false);
-		}
+        if (!onlyFromDb) {
+            for (Event event : getEventList()) {
+                event.removeDelayAlarm(this, true);
+                event.removeDelayAlarm(this, false);
+            }
+        }
 		getDatabaseHandler().removeAllEventsInDelay();
 	}
 

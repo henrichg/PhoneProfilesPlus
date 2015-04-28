@@ -602,7 +602,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
 
 				// no setup for next start
-				dataWrapper.removeAllEventDelays();
+				dataWrapper.removeAllEventDelays(false);
                 // no set system events, unblock all events, no activate return profile
 				dataWrapper.pauseAllEvents(true, false/*, false*/);
 				GlobalData.setGlobalEventsRuning(getApplicationContext(), false);

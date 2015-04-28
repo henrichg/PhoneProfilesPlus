@@ -208,7 +208,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param context
      *            the application context
      */
-    public static DatabaseHandler getInstance(Context context) {
+    public static synchronized DatabaseHandler getInstance(Context context) {
         if (instance == null) {
             instance = new DatabaseHandler(context);
         }
@@ -390,7 +390,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		GlobalData.logE("DatabaseHandler.onUpgrade", "oldVersion="+oldVersion);
 		GlobalData.logE("DatabaseHandler.onUpgrade", "newVersion="+newVersion);
-		
+        Log.e("DatabaseHandler.onUpgrade", "oldVersion="+oldVersion);
+        Log.e("DatabaseHandler.onUpgrade", "newVersion="+newVersion);
+
 		/*
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
@@ -1138,8 +1140,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                    KEY_E_START_TIME +
                                         " FROM " + TABLE_EVENTS;
 
-            db.beginTransaction();
-            try {
+            //db.beginTransaction();
+            //try {
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -1152,30 +1154,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.execSQL("UPDATE " + TABLE_EVENTS +
                                          " SET " + KEY_E_END_TIME + "=" + (startTime+5000) + ", "
                                                  + KEY_E_USE_END_TIME + "=1" +
-                                        "WHERE " + KEY_E_ID + "=" + id);
+                                       " WHERE " + KEY_E_ID + "=" + id);
 
                     } while (cursor.moveToNext());
                 }
 
-                db.setTransactionSuccessful();
-            } catch (Exception e){
+                //db.setTransactionSuccessful();
+            //} catch (Exception e){
                 //Error in between database transaction
-            } finally {
-                db.endTransaction();
-            }
+            //} finally {
+                //db.endTransaction();
+           // }
         }
 
         if (oldVersion < 1295)
         {
-            // pridame nove stlpce
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_AT_END_DO + " INTEGER");
+            //db.beginTransaction();
 
-            final String selectQuery = "SELECT " + KEY_E_ID + "," +
-                                                   KEY_E_UNDONE_PROFILE +
-                                        " FROM " + TABLE_EVENTS;
+           // try {
 
-            db.beginTransaction();
-            try {
+                // pridame nove stlpce
+                db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_AT_END_DO + " INTEGER");
+
+                final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                                                       KEY_E_UNDONE_PROFILE +
+                                            " FROM " + TABLE_EVENTS;
 
                 Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -1190,21 +1193,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             atEndDo = Event.EATENDDO_UNDONE_PROFILE;
 
                         db.execSQL("UPDATE " + TABLE_EVENTS +
-                                     " SET " + KEY_E_AT_END_DO + "=" + atEndDo + " " +
-                                    "WHERE " + KEY_E_ID + "=" + id);
+                                     " SET " + KEY_E_AT_END_DO + "=" + atEndDo +
+                                   " WHERE " + KEY_E_ID + "=" + id);
 
                     } while (cursor.moveToNext());
                 }
 
-                db.setTransactionSuccessful();
-            } catch (Exception e){
+                //db.setTransactionSuccessful();
+            //} catch (Exception e){
                 //Error in between database transaction
-                //Log.e("DatabaseHandler.--- ERROR --- ", e.toString());
-            } finally {
-                db.endTransaction();
-            }
-
+            //    Log.e("DatabaseHandler.--- ERROR --- ", "xxxx");
+           // } finally {
+                //db.endTransaction();
+            //}
         }
+
+        Log.e("DatabaseHandler.onUpgrade", "END");
 
 	}
 	
