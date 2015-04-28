@@ -12,7 +12,7 @@
     	android:layout_height="wrap_content"
         android:paddingBottom="3dp"
     	android:orientation="vertical"
-        android:background="?attr/toolbarBackground"
+        android:background="?attr/colorPrimary"
         android:elevation="8dp" >
 
 	    <android.support.v7.widget.Toolbar
@@ -52,11 +52,18 @@
     
 	</LinearLayout>
 
-	<fragment 
-	    android:id="@+id/activate_profile_list"
-	    android:name="sk.henrichg.phoneprofilesplus.ActivateProfileListFragment"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    tools:context=".ActivateProfileActivity" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="?android:windowContentOverlay">
+
+        <fragment
+            android:id="@+id/activate_profile_list"
+            android:name="sk.henrichg.phoneprofilesplus.ActivateProfileListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ActivateProfileActivity" />
+
+    </FrameLayout>
 
 </LinearLayout>	    

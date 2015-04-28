@@ -2,8 +2,6 @@
 <resources>
 
     <style name="Theme.Phoneprofilestheme_withToolbar_material" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_material">
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="toolbarBackground">@drawable/toolbar_background_material</item>
 	</style>
 
 </resources>

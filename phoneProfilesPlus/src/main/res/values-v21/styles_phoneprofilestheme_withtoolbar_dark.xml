@@ -4,7 +4,6 @@
     <style name="Theme.Phoneprofilestheme_withToolbar_dark" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_dark">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-  		<item name="toolbarBackground">?attr/colorPrimary</item>
     </style>
 
 </resources>

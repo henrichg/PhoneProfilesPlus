@@ -24,7 +24,7 @@
 	    	android:layout_height="wrap_content"
 	        android:paddingBottom="3dp"
 	    	android:orientation="vertical"
-	        android:background="?attr/toolbarBackground"
+            android:background="?attr/colorPrimary"
 	        android:elevation="8dp" >
 		    	    
 		    <android.support.v7.widget.Toolbar
@@ -74,15 +74,16 @@
 		    </android.support.v7.widget.Toolbar>
 	    
 	    </LinearLayout>
-	
-		<FrameLayout 
-		    android:id="@+id/editor_list_container"
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:background="?attr/activityPopupBackground"
-		    tools:context=".EditorProfileListActivity"  />
-	
-	</LinearLayout>	        
+
+        <FrameLayout
+            android:id="@+id/editor_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/activityPopupBackground"
+            android:foreground="?android:windowContentOverlay"
+            tools:context=".EditorProfileListActivity"  />
+
+	</LinearLayout>
     
     <sk.henrichg.phoneprofilesplus.ScrimInsetsFrameLayout
         android:id="@+id/editor_drawer_root"
