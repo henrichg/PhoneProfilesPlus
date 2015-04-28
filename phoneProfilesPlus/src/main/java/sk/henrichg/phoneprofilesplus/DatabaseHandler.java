@@ -1168,7 +1168,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 1295)
         {
             // pridame nove stlpce
-            //db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_AT_END_DO + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_AT_END_DO + " INTEGER");
 
             final String selectQuery = "SELECT " + KEY_E_ID + "," +
                                                    KEY_E_UNDONE_PROFILE +
