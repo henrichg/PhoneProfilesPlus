@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "sk.henrichg.phoneprofilesplus"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 22
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7

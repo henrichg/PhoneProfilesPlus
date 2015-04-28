@@ -613,5 +613,17 @@
     <item>1</item>
     <item>2</item>
 </string-array>
+<string-array name="eventCalendarAvailabilityArray">
+    <item>@string/array_event_pref_calendarAvailability_noCheck</item>
+    <item>@string/array_event_pref_calendarAvailability_busy</item>
+    <item>@string/array_event_pref_calendarAvailability_free</item>
+    <item>@string/array_event_pref_calendarAvailability_tentative</item>
+</string-array>
+<string-array name="eventCalendarAvailabilityValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</string-array>
 
 </resources>

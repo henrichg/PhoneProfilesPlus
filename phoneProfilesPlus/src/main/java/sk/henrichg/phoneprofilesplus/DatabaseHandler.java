@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1295;
+	private static final int DATABASE_VERSION = 1300;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -174,6 +174,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALL_CONTACT_GROUPS = "callContactGroups";
     private static final String KEY_E_SMS_CONTACT_GROUPS = "smsContactGroups";
     private static final String KEY_E_AT_END_DO = "atEndDo";
+    private static final String KEY_E_CALENDAR_AVAILABILITY = "calendarAvailability";
 
     // EventTimeLine Table Columns names
 	private static final String KEY_ET_ID = "id";
@@ -351,7 +352,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	            + KEY_E_SMS_START_TIME + " INTEGER,"
                 + KEY_E_CALL_CONTACT_GROUPS + " TEXT,"
                 + KEY_E_SMS_CONTACT_GROUPS + " TEXT,"
-                + KEY_E_AT_END_DO + " INTEGER"
+                + KEY_E_AT_END_DO + " INTEGER,"
+                + KEY_E_CALENDAR_AVAILABILITY + " INTEGER"
 				+ ")";
 		db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1145,7 +1147,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
         }
 
-        Log.e("DatabaseHandler.onUpgrade", "END");
+        if (oldVersion < 1300)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_AVAILABILITY + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_AVAILABILITY + "=0");
+        }
+
+        GlobalData.logE("DatabaseHandler.onUpgrade", "END");
 
 	}
 	
@@ -2552,7 +2563,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 												KEY_E_CALENDAR_SEARCH_STRING,
 												KEY_E_CALENDAR_EVENT_START_TIME,
 												KEY_E_CALENDAR_EVENT_END_TIME,
-												KEY_E_CALENDAR_EVENT_FOUND
+												KEY_E_CALENDAR_EVENT_FOUND,
+                                                KEY_E_CALENDAR_AVAILABILITY
 												}, 
 				                 KEY_E_ID + "=?",
 				                 new String[] { String.valueOf(event._id) }, null, null, null, null);
@@ -2571,6 +2583,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				eventPreferences._startTime = Long.parseLong(cursor.getString(4));
 				eventPreferences._endTime = Long.parseLong(cursor.getString(5));
 				eventPreferences._eventFound = (Integer.parseInt(cursor.getString(6)) == 1);
+                eventPreferences._availability = Integer.parseInt(cursor.getString(7));
 			}
 			cursor.close();
 		}
@@ -2799,6 +2812,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_CALENDAR_EVENT_START_TIME, eventPreferences._startTime);
 		values.put(KEY_E_CALENDAR_EVENT_END_TIME, eventPreferences._endTime);
 		values.put(KEY_E_CALENDAR_EVENT_FOUND, (eventPreferences._eventFound) ? 1 : 0);
+        values.put(KEY_E_CALENDAR_AVAILABILITY, eventPreferences._availability);
 
 		// updating row
 		int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",

@@ -112,7 +112,8 @@
             android:defaultValue=""
             android:title="@string/event_preferences_calendar_calendars"
             android:dependency="eventCalendarEnabled" />
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_calendar_search_field"
+		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/event_preferences_calendar_search_field"
             android:summary="@string/array_event_pref_calendarSearchField_eventName"
             android:key="eventCalendarSearchField"
             android:defaultValue="0"
@@ -125,7 +126,15 @@
             android:title="@string/event_preferences_calendar_search_string"
             android:selectAllOnFocus="true"
             android:dependency="eventCalendarEnabled" />
-	</PreferenceCategory>
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/event_preference_calendar_availability"
+            android:summary="@string/array_event_pref_calendarSearchField_eventName"
+            android:key="eventCalendarAvailability"
+            android:defaultValue="0"
+            android:entries="@array/eventCalendarAvailabilityArray"
+            android:entryValues="@array/eventCalendarAvailabilityValues"
+            android:dependency="eventCalendarEnabled" />
+    </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventBatteryParameters"
         android:title="@string/event_preferences_category_eventBatteryParameters" >

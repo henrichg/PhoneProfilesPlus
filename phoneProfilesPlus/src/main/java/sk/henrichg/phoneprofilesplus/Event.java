@@ -185,7 +185,7 @@ public class Event {
 
 	private void createEventPreferencesCalendar()
 	{
-       	this._eventPreferencesCalendar = new EventPreferencesCalendar(this, false, "", 0, "");
+       	this._eventPreferencesCalendar = new EventPreferencesCalendar(this, false, "", 0, "", 0);
 	}
 
 	private void createEventPreferencesWiFi()

@@ -29,6 +29,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 	public String _calendars;
 	public int _searchField;
 	public String _searchString;
+    public int _availability;
 	
 	public long _startTime;
 	public long _endTime;
@@ -38,22 +39,30 @@ public class EventPreferencesCalendar extends EventPreferences {
 	static final String PREF_EVENT_CALENDAR_CALENDARS = "eventCalendarCalendars";
 	static final String PREF_EVENT_CALENDAR_SEARCH_FIELD = "eventCalendarSearchField";
 	static final String PREF_EVENT_CALENDAR_SEARCH_STRING = "eventCalendarSearchString";
+    static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";
 	
 	static final int SEARCH_FIELD_TITLE = 0;
 	static final int SEARCH_FIELD_DESCRIPTION = 1;
     static final int SEARCH_FIELD_LOCATION = 2;
 
+    static final int AVAILABILITY_NO_CHECK = 0;
+    static final int AVAILABILITY_BUSY = 1;
+    static final int AVAILABILITY_FREE = 2;
+    static final int AVAILABILITY_TENTATIVE = 3;
+
 	public EventPreferencesCalendar(Event event,
 			                    boolean enabled,
 								String calendars,
 								int searchField,
-								String searchString)
+								String searchString,
+                                int availability)
 	{
 		super(event, enabled);
 
 		this._calendars = calendars;
 		this._searchField = searchField;
 		this._searchString = searchString;
+        this._availability = availability;
 		
 		this._startTime = 0;
 		this._endTime = 0;
@@ -67,7 +76,8 @@ public class EventPreferencesCalendar extends EventPreferences {
 		this._calendars = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._calendars;
 		this._searchField = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._searchField;
 		this._searchString = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._searchString;
-		
+        this._availability = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._availability;
+
 		this._startTime = 0;
 		this._endTime = 0;
 		this._eventFound = false;
@@ -81,6 +91,7 @@ public class EventPreferencesCalendar extends EventPreferences {
         editor.putString(PREF_EVENT_CALENDAR_CALENDARS, _calendars);
         editor.putString(PREF_EVENT_CALENDAR_SEARCH_FIELD, String.valueOf(_searchField));
         editor.putString(PREF_EVENT_CALENDAR_SEARCH_STRING, _searchString);
+        editor.putString(PREF_EVENT_CALENDAR_AVAILABILITY, String.valueOf(_availability));
 		editor.commit();
 	}
 
@@ -91,7 +102,8 @@ public class EventPreferencesCalendar extends EventPreferences {
 		this._calendars = preferences.getString(PREF_EVENT_CALENDAR_CALENDARS, "");
 		this._searchField = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_SEARCH_FIELD, "0"));
 		this._searchString = preferences.getString(PREF_EVENT_CALENDAR_SEARCH_STRING, "");
-		
+        this._availability = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_AVAILABILITY, "0"));
+
 		this._startTime = 0;
 		this._endTime = 0;
 		this._eventFound = false;
@@ -114,8 +126,11 @@ public class EventPreferencesCalendar extends EventPreferences {
 			String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
 			descr = descr + searchFields[this._searchField] + "; ";
 			
-			descr = descr + "\"" + this._searchString + "\""; 
-			
+			descr = descr + "\"" + this._searchString + "\""  + "; ";
+
+            String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
+            descr = descr + availabilities[this._availability];
+
 	        //Calendar calendar = Calendar.getInstance();
 	
 	   		if (GlobalData.getGlobalEventsRuning(context))
@@ -164,7 +179,8 @@ public class EventPreferencesCalendar extends EventPreferences {
 			Preference preference = prefMng.findPreference(key);
 	    	GUIData.setPreferenceTitleStyle(preference, false, true);
 		}
-		if (key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD))
+		if (key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
+            key.equals(PREF_EVENT_CALENDAR_AVAILABILITY))
 		{	
 			ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
 			int index = listPreference.findIndexOfValue(value);
@@ -184,7 +200,8 @@ public class EventPreferencesCalendar extends EventPreferences {
 	{
 		if (key.equals(PREF_EVENT_CALENDAR_CALENDARS) ||
 			key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) || 
-			key.equals(PREF_EVENT_CALENDAR_SEARCH_STRING))
+			key.equals(PREF_EVENT_CALENDAR_SEARCH_STRING) ||
+            key.equals(PREF_EVENT_CALENDAR_AVAILABILITY))
 		{
 			setSummary(prefMng, key, preferences.getString(key, ""), context);
 		}
@@ -196,6 +213,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 		setSummary(prefMng, PREF_EVENT_CALENDAR_CALENDARS, _calendars, context);
 		setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_FIELD, Integer.toString(_searchField), context);
 		setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_STRING, _searchString, context);
+        setSummary(prefMng, PREF_EVENT_CALENDAR_AVAILABILITY, Integer.toString(_availability), context);
 	}
 	
 	@Override
@@ -368,17 +386,36 @@ public class EventPreferencesCalendar extends EventPreferences {
 	    ContentResolver cr = context.getContentResolver();
 
 		String selection =  "(    (" + Instances.CALENDAR_ID + " = ?)"; 
-		if (_searchField == SEARCH_FIELD_TITLE)
-			selection = selection + 
-							" AND (lower("+Instances.TITLE+")" + " LIKE lower(?))";
-		else
-		if (_searchField == SEARCH_FIELD_DESCRIPTION)
-					selection = selection + 
-					        " AND (lower("+Instances.DESCRIPTION+")" + " LIKE lower(?))";
-        else
-        if (_searchField == SEARCH_FIELD_LOCATION)
-            selection = selection +
-                    " AND (lower("+Instances.EVENT_LOCATION+")" + " LIKE lower(?))";
+
+        switch (_searchField) {
+            case SEARCH_FIELD_TITLE:
+                selection = selection +
+                        " AND (lower(" + Instances.TITLE + ")" + " LIKE lower(?))";
+                break;
+            case SEARCH_FIELD_DESCRIPTION:
+                selection = selection +
+                        " AND (lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?))";
+                break;
+            case SEARCH_FIELD_LOCATION:
+                selection = selection +
+                        " AND (lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?))";
+                break;
+        }
+
+        switch (_availability) {
+            case AVAILABILITY_BUSY:
+                selection = selection +
+                            " AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_BUSY + ")";
+                break;
+            case AVAILABILITY_FREE:
+                selection = selection +
+                        " AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_FREE + ")";
+                break;
+            case AVAILABILITY_TENTATIVE:
+                selection = selection +
+                        " AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_TENTATIVE + ")";
+                break;
+        }
 		selection = selection + ")";
 
         Log.e("** EventPrefCalendar", "_searchField="+_searchField);
