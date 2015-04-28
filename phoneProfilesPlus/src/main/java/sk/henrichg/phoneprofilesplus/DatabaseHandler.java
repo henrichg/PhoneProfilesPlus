@@ -390,8 +390,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		GlobalData.logE("DatabaseHandler.onUpgrade", "oldVersion="+oldVersion);
 		GlobalData.logE("DatabaseHandler.onUpgrade", "newVersion="+newVersion);
-        Log.e("DatabaseHandler.onUpgrade", "oldVersion="+oldVersion);
-        Log.e("DatabaseHandler.onUpgrade", "newVersion="+newVersion);
 
 		/*
 		// Drop older table if existed
@@ -917,47 +915,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		         		 						KEY_DEVICE_BRIGHTNESS +
 		         		 					" FROM " + TABLE_PROFILES;
 
-				db.beginTransaction();
-				try {
-					
-					Cursor cursor = db.rawQuery(selectQuery, null);
+                Cursor cursor = db.rawQuery(selectQuery, null);
 
-					if (cursor.moveToFirst()) {
-						do {
-							long id = Long.parseLong(cursor.getString(0));
-							String brightness = cursor.getString(1);
-							
-							//value|noChange|automatic|defaultProfile
-							String[] splits = brightness.split("\\|");
-							
-							if (splits[2].equals("1")) // automatic is set
-							{
-								// hm, found brightness values without default profile :-/
-								/*
-								if (splits.length == 4)
-									brightness = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
-								else
-									brightness = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|0";
-								*/
-								if (splits.length == 4)
-									brightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
-								else
-									brightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|"+splits[1]+"|"+splits[2]+"|0";
-								
-								db.execSQL("UPDATE " + TABLE_PROFILES + 
-										     " SET " + KEY_DEVICE_BRIGHTNESS + "=\"" + brightness +"\" " +
-											"WHERE " + KEY_ID + "=" + id);
-							}
-							
-						} while (cursor.moveToNext());
-					}
-					
-					db.setTransactionSuccessful();
-			    } catch (Exception e){
-			        //Error in between database transaction 
-			    } finally {
-			    	db.endTransaction();
-		        }	
+                if (cursor.moveToFirst()) {
+                    do {
+                        long id = Long.parseLong(cursor.getString(0));
+                        String brightness = cursor.getString(1);
+
+                        //value|noChange|automatic|defaultProfile
+                        String[] splits = brightness.split("\\|");
+
+                        if (splits[2].equals("1")) // automatic is set
+                        {
+                            // hm, found brightness values without default profile :-/
+                            /*
+                            if (splits.length == 4)
+                                brightness = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
+                            else
+                                brightness = adaptiveBrightnessValue+"|"+splits[1]+"|"+splits[2]+"|0";
+                            */
+                            if (splits.length == 4)
+                                brightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
+                            else
+                                brightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|"+splits[1]+"|"+splits[2]+"|0";
+
+                            db.execSQL("UPDATE " + TABLE_PROFILES +
+                                         " SET " + KEY_DEVICE_BRIGHTNESS + "=\"" + brightness +"\" " +
+                                        "WHERE " + KEY_ID + "=" + id);
+                        }
+
+                    } while (cursor.moveToNext());
+                }
 			}
 		}
 
@@ -976,41 +964,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	         		 						KEY_DEVICE_BRIGHTNESS +
 	         		 					" FROM " + TABLE_PROFILES;
 
-			db.beginTransaction();
-			try {
-				
-				Cursor cursor = db.rawQuery(selectQuery, null);
+            Cursor cursor = db.rawQuery(selectQuery, null);
 
-				if (cursor.moveToFirst()) {
-					do {
-						long id = Long.parseLong(cursor.getString(0));
-						String brightness = cursor.getString(1);
-						
-						//value|noChange|automatic|defaultProfile
-						String[] splits = brightness.split("\\|");
-						
-						int perc = Integer.parseInt(splits[0]);
-						perc = (int)Profile.convertBrightnessToPercents(perc, 255, 1, context);
-						
-						// hm, found brightness values without default profile :-/ 
-						if (splits.length == 4)
-							brightness = perc+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
-						else
-							brightness = perc+"|"+splits[1]+"|"+splits[2]+"|0";
-						
-						db.execSQL("UPDATE " + TABLE_PROFILES + 
-								     " SET " + KEY_DEVICE_BRIGHTNESS + "=\"" + brightness +"\" " +
-									"WHERE " + KEY_ID + "=" + id);
-						
-					} while (cursor.moveToNext());
-				}
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(0));
+                    String brightness = cursor.getString(1);
+
+                    //value|noChange|automatic|defaultProfile
+                    String[] splits = brightness.split("\\|");
+
+                    int perc = Integer.parseInt(splits[0]);
+                    perc = (int)Profile.convertBrightnessToPercents(perc, 255, 1, context);
+
+                    // hm, found brightness values without default profile :-/
+                    if (splits.length == 4)
+                        brightness = perc+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
+                    else
+                        brightness = perc+"|"+splits[1]+"|"+splits[2]+"|0";
+
+                    db.execSQL("UPDATE " + TABLE_PROFILES +
+                                 " SET " + KEY_DEVICE_BRIGHTNESS + "=\"" + brightness +"\" " +
+                                "WHERE " + KEY_ID + "=" + id);
+
+                } while (cursor.moveToNext());
+            }
 				
-				db.setTransactionSuccessful();
-		    } catch (Exception e){
-		        //Error in between database transaction 
-		    } finally {
-		    	db.endTransaction();
-	        }	
 		}
 		
 		if (oldVersion < 1170)
@@ -1019,29 +998,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	         		 						KEY_E_DELAY_START +
 	         		 					" FROM " + TABLE_EVENTS;
 
-			db.beginTransaction();
-			try {
-				
-				Cursor cursor = db.rawQuery(selectQuery, null);
+            Cursor cursor = db.rawQuery(selectQuery, null);
 
-				if (cursor.moveToFirst()) {
-					do {
-						long id = Long.parseLong(cursor.getString(0));
-						int delayStart = cursor.getInt(1) * 60;  // conversiont to seconds
-						
-						db.execSQL("UPDATE " + TABLE_EVENTS + 
-								     " SET " + KEY_E_DELAY_START + "=" + delayStart + " " +
-									"WHERE " + KEY_E_ID + "=" + id);
-						
-					} while (cursor.moveToNext());
-				}
-				
-				db.setTransactionSuccessful();
-		    } catch (Exception e){
-		        //Error in between database transaction 
-		    } finally {
-		    	db.endTransaction();
-	        }	
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(0));
+                    int delayStart = cursor.getInt(1) * 60;  // conversiont to seconds
+
+                    db.execSQL("UPDATE " + TABLE_EVENTS +
+                                 " SET " + KEY_E_DELAY_START + "=" + delayStart + " " +
+                                "WHERE " + KEY_E_ID + "=" + id);
+
+                } while (cursor.moveToNext());
+            }
 		}
 		
 		if (oldVersion < 1175)
@@ -1053,44 +1022,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		         		 						KEY_DEVICE_BRIGHTNESS +
 		         		 					" FROM " + TABLE_PROFILES;
 	
-				db.beginTransaction();
-				try {
-					
-					Cursor cursor = db.rawQuery(selectQuery, null);
-	
-					// looping through all rows and adding to list
-					if (cursor.moveToFirst()) {
-						do {
-							long id = Long.parseLong(cursor.getString(0));
-							String brightness = cursor.getString(1);
-							
-							//value|noChange|automatic|defaultProfile
-							String[] splits = brightness.split("\\|");
-							
-							if (splits[2].equals("1")) // automatic is set
-							{
-								int perc = 50;
-								
-								// hm, found brightness values without default profile :-/ 
-								if (splits.length == 4)
-									brightness = perc+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
-								else
-									brightness = perc+"|"+splits[1]+"|"+splits[2]+"|0";
-								
-								db.execSQL("UPDATE " + TABLE_PROFILES + 
-										     " SET " + KEY_DEVICE_BRIGHTNESS + "=\"" + brightness +"\"" +
-											"WHERE " + KEY_ID + "=" + id);
-							}
-							
-						} while (cursor.moveToNext());
-					}
-					
-					db.setTransactionSuccessful();
-			    } catch (Exception e){
-			        //Error in between database transaction 
-			    } finally {
-			    	db.endTransaction();
-		        }
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        long id = Long.parseLong(cursor.getString(0));
+                        String brightness = cursor.getString(1);
+
+                        //value|noChange|automatic|defaultProfile
+                        String[] splits = brightness.split("\\|");
+
+                        if (splits[2].equals("1")) // automatic is set
+                        {
+                            int perc = 50;
+
+                            // hm, found brightness values without default profile :-/
+                            if (splits.length == 4)
+                                brightness = perc+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
+                            else
+                                brightness = perc+"|"+splits[1]+"|"+splits[2]+"|0";
+
+                            db.execSQL("UPDATE " + TABLE_PROFILES +
+                                         " SET " + KEY_DEVICE_BRIGHTNESS + "=\"" + brightness +"\"" +
+                                        "WHERE " + KEY_ID + "=" + id);
+                        }
+
+                    } while (cursor.moveToNext());
+                }
 			}
 		}
 
@@ -1140,72 +1099,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                    KEY_E_START_TIME +
                                         " FROM " + TABLE_EVENTS;
 
-            //db.beginTransaction();
-            //try {
+            Cursor cursor = db.rawQuery(selectQuery, null);
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(0));
+                    long startTime = cursor.getLong(2);
 
-                if (cursor.moveToFirst()) {
-                    do {
-                        long id = Long.parseLong(cursor.getString(0));
-                        long startTime = cursor.getLong(2);
+                    if (cursor.getInt(1) != 1)
+                        db.execSQL("UPDATE " + TABLE_EVENTS +
+                                     " SET " + KEY_E_END_TIME + "=" + (startTime+5000) + ", "
+                                             + KEY_E_USE_END_TIME + "=1" +
+                                   " WHERE " + KEY_E_ID + "=" + id);
 
-                        if (cursor.getInt(1) != 1)
-                            db.execSQL("UPDATE " + TABLE_EVENTS +
-                                         " SET " + KEY_E_END_TIME + "=" + (startTime+5000) + ", "
-                                                 + KEY_E_USE_END_TIME + "=1" +
-                                       " WHERE " + KEY_E_ID + "=" + id);
-
-                    } while (cursor.moveToNext());
-                }
-
-                //db.setTransactionSuccessful();
-            //} catch (Exception e){
-                //Error in between database transaction
-            //} finally {
-                //db.endTransaction();
-           // }
+                } while (cursor.moveToNext());
+            }
         }
 
         if (oldVersion < 1295)
         {
-            //db.beginTransaction();
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_AT_END_DO + " INTEGER");
 
-           // try {
+            final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                                                   KEY_E_UNDONE_PROFILE +
+                                        " FROM " + TABLE_EVENTS;
 
-                // pridame nove stlpce
-                db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_AT_END_DO + " INTEGER");
+            Cursor cursor = db.rawQuery(selectQuery, null);
 
-                final String selectQuery = "SELECT " + KEY_E_ID + "," +
-                                                       KEY_E_UNDONE_PROFILE +
-                                            " FROM " + TABLE_EVENTS;
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(0));
+                    int atEndDo;
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
+                    if (cursor.getInt(1) == 0)
+                        atEndDo = Event.EATENDDO_NONE;
+                    else
+                        atEndDo = Event.EATENDDO_UNDONE_PROFILE;
 
-                if (cursor.moveToFirst()) {
-                    do {
-                        long id = Long.parseLong(cursor.getString(0));
-                        int atEndDo;
+                    db.execSQL("UPDATE " + TABLE_EVENTS +
+                                 " SET " + KEY_E_AT_END_DO + "=" + atEndDo +
+                               " WHERE " + KEY_E_ID + "=" + id);
 
-                        if (cursor.getInt(1) == 0)
-                            atEndDo = Event.EATENDDO_NONE;
-                        else
-                            atEndDo = Event.EATENDDO_UNDONE_PROFILE;
-
-                        db.execSQL("UPDATE " + TABLE_EVENTS +
-                                     " SET " + KEY_E_AT_END_DO + "=" + atEndDo +
-                                   " WHERE " + KEY_E_ID + "=" + id);
-
-                    } while (cursor.moveToNext());
-                }
-
-                //db.setTransactionSuccessful();
-            //} catch (Exception e){
-                //Error in between database transaction
-            //    Log.e("DatabaseHandler.--- ERROR --- ", "xxxx");
-           // } finally {
-                //db.endTransaction();
-            //}
+                } while (cursor.moveToNext());
+            }
         }
 
         Log.e("DatabaseHandler.onUpgrade", "END");
