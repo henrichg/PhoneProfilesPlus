@@ -335,11 +335,20 @@ public class ActivateProfileHelper {
 		if (profile.getVolumeNotificationChange())
 		{
 			int volume = profile.getVolumeNotificationValue();
-			audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-			waitForVolumeChange();
-			//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
-			if (volume > 0)
-				priorityMode = true;
+
+            if (PhoneCallBroadcastReceiver.separateVolumes) {
+                // separateVolumes is true only during incomming call
+                // therefore notification volume is not needed to change
+                // and for linked ringer and notification volumes must not by set
+                PhoneCallBroadcastReceiver.notificationVolume = volume;
+            }
+            else {
+                audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
+                waitForVolumeChange();
+                //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
+                if (volume > 0)
+                    priorityMode = true;
+            }
 		}
 		if (profile.getVolumeMediaChange())
 		{
