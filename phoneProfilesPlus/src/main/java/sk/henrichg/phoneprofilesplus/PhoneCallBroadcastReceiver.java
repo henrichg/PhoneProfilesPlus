@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
+import android.provider.ContactsContract;
 
 import java.util.Date;
 
@@ -81,18 +82,12 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
             separateVolumes = true;
 
-            notificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-
             Profile profile = dataWrapper.getActivatedProfile();
-            profile = GlobalData.getMappedProfile(profile, savedContext);
-
             if (profile != null) {
-                if (profile.getVolumeRingtoneChange())
-                {
-                    int volume = profile.getVolumeRingtoneValue();
-                    audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-                }
+                Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
+                volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                volumeServiceIntent.putExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, true);
+                savedContext.startService(volumeServiceIntent);
             }
         }
 
@@ -143,14 +138,15 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 		dataWrapper.invalidateDataWrapper();
 	}
 
-    private void setBackNotificationVolume() {
+    private void setBackNotificationVolume(DataWrapper dataWrapper) {
         if (notificationVolume != -999) {
-            if (audioManager == null )
-                audioManager = (AudioManager)savedContext.getSystemService(Context.AUDIO_SERVICE);
-
-            audioManager.setMode(savedMode);
-            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, notificationVolume, 0);
-            //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
+            Profile profile = dataWrapper.getActivatedProfile();
+            if (profile != null) {
+                Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
+                volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                volumeServiceIntent.putExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, true);
+                savedContext.startService(volumeServiceIntent);
+            }
 
             notificationVolume = -999;
         }
@@ -173,11 +169,12 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     		speakerphoneSelected = false;
         }
 
+        DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
+
         if (incoming)
-            setBackNotificationVolume();
+            setBackNotificationVolume(dataWrapper);
 
         audioManager.setMode(savedMode);
-        DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 		if (incoming)
 			doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, dataWrapper);
 		else
