@@ -38,7 +38,7 @@ public class TimePreference extends DialogPreference {
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
-                .disableDefaultFonts()
+                //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .callback(callback)

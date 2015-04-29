@@ -42,7 +42,7 @@ public class ProfilePreferenceDialog
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.title_activity_profile_preference_dialog)
-                .disableDefaultFonts()
+                //.disableDefaultFonts()
                 .autoDismiss(false)
                 .customView(R.layout.activity_profile_pref_dialog, false);
 

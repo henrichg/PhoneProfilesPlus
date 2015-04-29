@@ -53,7 +53,7 @@ public class BluetoothNamePreference extends DialogPreference {
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
-                .disableDefaultFonts()
+                //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .neutralText(R.string.bluetooth_name_pref_dlg_rescan_button)

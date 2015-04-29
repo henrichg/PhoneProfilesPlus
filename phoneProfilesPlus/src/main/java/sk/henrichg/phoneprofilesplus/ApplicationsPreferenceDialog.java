@@ -34,7 +34,7 @@ public class ApplicationsPreferenceDialog {
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.title_activity_applications_preference_dialog)
-                .disableDefaultFonts()
+                //.disableDefaultFonts()
                 .autoDismiss(false)
                 .customView(R.layout.activity_applications_pref_dialog, false);
 
