@@ -490,4 +490,9 @@
   <string name="event_preference_profile_restartEvents">Neu starten</string>
   <string name="altype_eventEnd_restartEvents">Ereignis-Pause - Ereignisse neu starten</string>
   <string name="altype_eventEnd_activateProfile_restartEvents">Ereignis-Pause - Aktivieren und Ereignisse neu starten</string>
+  <string name="event_preference_calendar_availability">Verfügbarkeit</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">Keine Prüfung</string>
+  <string name="array_event_pref_calendarAvailability_busy">Beschäftigt</string>
+  <string name="array_event_pref_calendarAvailability_free">Verfügbar</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Tentative</string>
 </resources>

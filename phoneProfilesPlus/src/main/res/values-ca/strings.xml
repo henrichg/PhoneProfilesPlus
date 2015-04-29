@@ -490,4 +490,9 @@
   <string name="event_preference_profile_restartEvents">Reinicia</string>
   <string name="altype_eventEnd_restartEvents">pausa esdeveniment - fets de reiniciar</string>
   <string name="altype_eventEnd_activateProfile_restartEvents">esdeveniment pausa - activar i fets de reiniciar</string>
+  <string name="event_preference_calendar_availability">Disponibilitat</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">No hi ha entrada</string>
+  <string name="array_event_pref_calendarAvailability_busy">Ocupat</string>
+  <string name="array_event_pref_calendarAvailability_free">Lliure</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Provisional</string>
 </resources>

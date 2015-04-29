@@ -490,4 +490,9 @@
   <string name="event_preference_profile_restartEvents">Reštart</string>
   <string name="altype_eventEnd_restartEvents">koniec udalosti - reštart udalostí</string>
   <string name="altype_eventEnd_activateProfile_restartEvents">koniec udalosti - aktivácia profilu a reštart udalostí</string>
+  <string name="event_preference_calendar_availability">Dostupnosť</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">Netestovať</string>
+  <string name="array_event_pref_calendarAvailability_busy">Zaneprázdnený</string>
+  <string name="array_event_pref_calendarAvailability_free">K dispozícii</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Nezáväzný</string>
 </resources>

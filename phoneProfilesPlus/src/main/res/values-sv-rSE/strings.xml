@@ -490,4 +490,9 @@
   <string name="event_preference_profile_restartEvents">Starta om</string>
   <string name="altype_eventEnd_restartEvents">pausa händelsen - starta om händelser</string>
   <string name="altype_eventEnd_activateProfile_restartEvents">pausa händelsen - aktivera och starta om händelser</string>
+  <string name="event_preference_calendar_availability">Tillgänglighet</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">Ingen kontroll</string>
+  <string name="array_event_pref_calendarAvailability_busy">Upptagen</string>
+  <string name="array_event_pref_calendarAvailability_free">Ledigt</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Preliminärt</string>
 </resources>

@@ -323,11 +323,11 @@
   <string name="pref_event_call_contacts_selected">Выбранные контакты</string>
   <string name="event_preferences_battery_level_bad_value">Неверное значение</string>
   <string name="event_preferences_eventProfileEnd">Активировать профиль</string>
-  <string name="menu_restart_events">Перезапуск событий</string>
+  <string name="menu_restart_events">Перезапустить события</string>
   <string name="event_preferences_ForceRun">Игнорировать ручную активацию</string>
   <string name="manual_profile_activation_forceRun_title">Активировать профиль</string>
   <string name="manual_profile_activation_forceRun_message">Работает событие с опцией \"Игнорировать ручную активацию\". Активировать в любом случае?</string>
-  <string name="restart_events_alert_title">Перезапуск событий</string>
+  <string name="restart_events_alert_title">Перезапустить события</string>
   <string name="restart_events_alert_message">Вы уверены?</string>
   <string name="event_preferences_ForceRun_summary">Запустить событие, игнорируя ручную активацию профиля</string>
   <string name="event_preferences_category_startofevent">Начало события</string>
@@ -441,7 +441,7 @@
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">Пересканировать Bluetooth</string>
   <string name="phone_profiles_pref_applicationEventRescan_none">Никогда</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Включение экрана</string>
-  <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Перезапуск событий</string>
+  <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Перезапустить события</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Включение экрана &amp; Перезапуск событий</string>
   <string name="array_pref_ringerModeArray_ZenMode">Режимы оповещения</string>
   <string name="profile_preferences_volumeZenMode">(R) Типы режима оповещения</string>
@@ -486,8 +486,13 @@
   <string name="event_preferences_atEndDo">И сделать</string>
   <string name="array_pref_atEndDo_none">Ничего</string>
   <string name="array_pref_atEndDo_undoneProfile">Аннулировать профиль</string>
-  <string name="array_pref_atEndDo_restartEvents">Перезапуск события</string>
-  <string name="event_preference_profile_restartEvents">Перезапуск</string>
-  <string name="altype_eventEnd_restartEvents">Приостановить событие - перезапустить событие</string>
+  <string name="array_pref_atEndDo_restartEvents">Перезапустить события</string>
+  <string name="event_preference_profile_restartEvents">Перезапустить</string>
+  <string name="altype_eventEnd_restartEvents">Приостановить событие - перезапустить события</string>
   <string name="altype_eventEnd_activateProfile_restartEvents">Конец события - активация профиля и перезапуск события</string>
+  <string name="event_preference_calendar_availability">Доступность</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">Не проверять</string>
+  <string name="array_event_pref_calendarAvailability_busy">Занят</string>
+  <string name="array_event_pref_calendarAvailability_free">Свободен</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Не ясно</string>
 </resources>

@@ -483,11 +483,16 @@
   <string name="phone_profiles_pref_notificationShowInStatusBar">Показувати в статус-барі</string>
   <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показувати в статус-барі та на екрані блокування</string>
   <string name="menu_activity_log_reload">Перезавантаження</string>
-  <string name="event_preferences_atEndDo">And do</string>
-  <string name="array_pref_atEndDo_none">None</string>
-  <string name="array_pref_atEndDo_undoneProfile">Undo the profile</string>
-  <string name="array_pref_atEndDo_restartEvents">Restart events</string>
-  <string name="event_preference_profile_restartEvents">Restart</string>
-  <string name="altype_eventEnd_restartEvents">event pause - restart events</string>
-  <string name="altype_eventEnd_activateProfile_restartEvents">event pause - activate and restart events</string>
+  <string name="event_preferences_atEndDo">І зробити</string>
+  <string name="array_pref_atEndDo_none">Нічого</string>
+  <string name="array_pref_atEndDo_undoneProfile">Анулювати профіль</string>
+  <string name="array_pref_atEndDo_restartEvents">Перезавантажити події</string>
+  <string name="event_preference_profile_restartEvents">Перезавантажити</string>
+  <string name="altype_eventEnd_restartEvents">призупинити подію - перезавантажити подію</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">призупинити подію - активувати та перезавантажити подію</string>
+  <string name="event_preference_calendar_availability">Доступність</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">Не перевіряти</string>
+  <string name="array_event_pref_calendarAvailability_busy">Зайнятий</string>
+  <string name="array_event_pref_calendarAvailability_free">Безкоштовно</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Сумнівно</string>
 </resources>

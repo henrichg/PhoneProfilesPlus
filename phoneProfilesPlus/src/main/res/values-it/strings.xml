@@ -490,4 +490,9 @@
   <string name="event_preference_profile_restartEvents">Restart</string>
   <string name="altype_eventEnd_restartEvents">event pause - restart events</string>
   <string name="altype_eventEnd_activateProfile_restartEvents">event pause - activate and restart events</string>
+  <string name="event_preference_calendar_availability">Availability</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">No check</string>
+  <string name="array_event_pref_calendarAvailability_busy">Busy</string>
+  <string name="array_event_pref_calendarAvailability_free">Free</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Tentative</string>
 </resources>

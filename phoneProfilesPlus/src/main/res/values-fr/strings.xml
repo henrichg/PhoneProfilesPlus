@@ -490,4 +490,9 @@
   <string name="event_preference_profile_restartEvents">Redémarrer</string>
   <string name="altype_eventEnd_restartEvents">pause de l\'événement - événements de redémarrage</string>
   <string name="altype_eventEnd_activateProfile_restartEvents">événement pause - activer et redémarrer les événements</string>
+  <string name="event_preference_calendar_availability">Disponibilité</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">Aucune vérification</string>
+  <string name="array_event_pref_calendarAvailability_busy">Occupé</string>
+  <string name="array_event_pref_calendarAvailability_free">Gratuit</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Provisoire</string>
 </resources>
