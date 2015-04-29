@@ -164,17 +164,16 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
        	if (speakerphoneSelected)
     	{
     	    audioManager.setSpeakerphoneOn(savedSpeakerphone);
-    		audioManager.setMode(savedMode);
-    		
     		speakerphoneSelected = false;
         }
+
+        audioManager.setMode(savedMode);
 
         DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
         if (incoming)
             setBackNotificationVolume(dataWrapper);
 
-        audioManager.setMode(savedMode);
 		if (incoming)
 			doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, dataWrapper);
 		else
