@@ -199,7 +199,8 @@ public class EventPreferencesFragment extends PreferenceFragment
 						   origEvent._priority,
 						   origEvent._delayStart,
 						   origEvent._isInDelay,
-                           origEvent._atEndDo
+                           origEvent._atEndDo,
+                           origEvent._manualProfileActivation
 							);
 			event.copyEventPreferences(origEvent);
 			event_id = 0;

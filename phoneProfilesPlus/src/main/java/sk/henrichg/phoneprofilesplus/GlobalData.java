@@ -113,6 +113,7 @@ public class GlobalData extends Application {
 	static final int STARTUP_SOURCE_ACTIVATOR_START = 9;
 	static final int STARTUP_SOURCE_LAUNCHER_START = 10;
 	static final int STARTUP_SOURCE_LAUNCHER = 11;
+    static final int STARTUP_SOURCE_SERVICE_MANUAL = 12;
 
 	static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
 	static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;

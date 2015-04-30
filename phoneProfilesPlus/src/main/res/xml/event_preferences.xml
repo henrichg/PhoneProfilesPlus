@@ -34,6 +34,11 @@
 		    android:title="@string/event_preferences_ForceRun"
 		    android:defaultValue="false"
 		    android:summary="@string/event_preferences_ForceRun_summary" />
+        <CheckBoxPreference
+            android:key="manualProfileActivation"
+            android:title="@string/event_preferences_manualProfileActivation"
+            android:defaultValue="false"
+            android:disableDependentsState="true"/>
  		<sk.henrichg.phoneprofilesplus.NumberPickerPreference
             android:key="eventDelayStart"
             android:summary="@string/event_preferences_delayStart"
@@ -51,7 +56,8 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/event_preferences_category_endofevent"
-        android:title="@string/event_preferences_category_endofevent" >
+        android:title="@string/event_preferences_category_endofevent"
+        android:dependency="manualProfileActivation">
         <sk.henrichg.phoneprofilesplus.ProfilePreference
             android:defaultValue="-999"
             android:key="eventProfileEnd"

@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1300;
+	private static final int DATABASE_VERSION = 1310;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -175,6 +175,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_SMS_CONTACT_GROUPS = "smsContactGroups";
     private static final String KEY_E_AT_END_DO = "atEndDo";
     private static final String KEY_E_CALENDAR_AVAILABILITY = "calendarAvailability";
+    private static final String KEY_E_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
 
     // EventTimeLine Table Columns names
 	private static final String KEY_ET_ID = "id";
@@ -353,7 +354,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_CALL_CONTACT_GROUPS + " TEXT,"
                 + KEY_E_SMS_CONTACT_GROUPS + " TEXT,"
                 + KEY_E_AT_END_DO + " INTEGER,"
-                + KEY_E_CALENDAR_AVAILABILITY + " INTEGER"
+                + KEY_E_CALENDAR_AVAILABILITY + " INTEGER,"
+                + KEY_E_MANUAL_PROFILE_ACTIVATION + " INTEGER"
 				+ ")";
 		db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1154,6 +1156,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_AVAILABILITY + "=0");
+        }
+
+        if (oldVersion < 1310)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MANUAL_PROFILE_ACTIVATION + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MANUAL_PROFILE_ACTIVATION + "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -2050,7 +2061,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_DELAY_START, event._delayStart); // delay for start
 		values.put(KEY_E_IS_IN_DELAY, event._isInDelay ? 1 : 0); // event is in delay before start/pause
         values.put(KEY_E_AT_END_DO, event._atEndDo); //at end of event do
-		
+        values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation
+
 		db.beginTransaction();
 		
 		try {
@@ -2088,6 +2100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 												KEY_E_DELAY_START,
 												KEY_E_IS_IN_DELAY,
                                                 KEY_E_AT_END_DO,
+                                                KEY_E_MANUAL_PROFILE_ACTIVATION
 												}, 
 				                 KEY_E_ID + "=?",
 				                 new String[] { String.valueOf(event_id) }, null, null, null, null);
@@ -2113,7 +2126,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 					                      Integer.parseInt(cursor.getString(8)),
 					                      Integer.parseInt(cursor.getString(9)),
 					                      Integer.parseInt(cursor.getString(10)) == 1,
-                                          Integer.parseInt(cursor.getString(11))
+                                          Integer.parseInt(cursor.getString(11)),
+                                          Integer.parseInt(cursor.getString(12)) == 1
 					                      );
 			}
 	
@@ -2146,7 +2160,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 						                 KEY_E_PRIORITY + "," +
 						                 KEY_E_DELAY_START + "," +
 						                 KEY_E_IS_IN_DELAY + "," +
-                                         KEY_E_AT_END_DO +
+                                         KEY_E_AT_END_DO + "," +
+                                         KEY_E_MANUAL_PROFILE_ACTIVATION +
 		                     " FROM " + TABLE_EVENTS +
 		                     " ORDER BY " + KEY_E_ID;
 
@@ -2172,6 +2187,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				event._delayStart = Integer.parseInt(cursor.getString(9));
 				event._isInDelay = Integer.parseInt(cursor.getString(10)) == 1;
                 event._atEndDo = Integer.parseInt(cursor.getString(11));
+                event._manualProfileActivation = Integer.parseInt(cursor.getString(12)) == 1;
 				event.createEventPreferences();
 				getEventPreferences(event, db);
 				// Adding contact to list
@@ -2204,6 +2220,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_DELAY_START, event._delayStart);
 		values.put(KEY_E_IS_IN_DELAY, event._isInDelay ? 1 : 0);
         values.put(KEY_E_AT_END_DO, event._atEndDo);
+        values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0);
 
 		int r = 0;
 		
@@ -2314,87 +2331,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
         //db.close();
 	}
-/*	
-	public Event getFirstEvent()
-	{
-		final String selectQuery = "SELECT " + KEY_E_ID + "," +
-						                 KEY_E_NAME + "," +
-						                 KEY_E_FK_PROFILE_START + "," +
-						                 KEY_E_FK_PROFILE_END + "," +
-						                 KEY_E_STATUS + "," +
-						                 KEY_E_NOTIFICATION_SOUND + "," +
-						                 KEY_E_FORCE_RUN + "," +
-						                 KEY_E_BLOCKED + "," +
-						                 KEY_E_UNDONE_PROFILE + "," +
-						                 KEY_E_PRIORITY + "," +
-						                 KEY_E_DELAY_START + "," +
-						                 KEY_E_IS_IN_DELAY +
-						    " FROM " + TABLE_EVENTS;
-						    
 
-		//SQLiteDatabase db = this.getReadableDatabase();
-		SQLiteDatabase db = getMyWritableDatabase();
-		
-		Cursor cursor = db.rawQuery(selectQuery, null);
-
-		Event event = null; 
-		
-		// looping through all rows and adding to list
-		if (cursor.moveToFirst()) {
-			event = new Event();
-			event._id = Long.parseLong(cursor.getString(0));
-			event._name = cursor.getString(1);
-			event._fkProfileStart = Long.parseLong(cursor.getString(2));
-			event._fkProfileEnd = Long.parseLong(cursor.getString(3));
-			event.setStatus(Integer.parseInt(cursor.getString(4)));
-			event._notificationSound = cursor.getString(5);
-			event._forceRun = Integer.parseInt(cursor.getString(6)) == 1;
-			event._blocked = Integer.parseInt(cursor.getString(7)) == 1;
-			event._undoneProfile = Integer.parseInt(cursor.getString(8)) == 1;
-			event._priority = Integer.parseInt(cursor.getString(9));
-			event._delayStart = Integer.parseInt(cursor.getString(10));
-			event._isInDelay = Integer.parseInt(cursor.getString(11)) == 1;
-		}
-		
-		cursor.close();
-		//db.close();
-		
-		// return profile list
-		return event;
-		
-	}
-*/	
-/*
-	public int getEventPosition(Event event)
-	{
-		String selectQuery = "SELECT " + KEY_E_ID +
-							   " FROM " + TABLE_EVENTS;
-
-		//SQLiteDatabase db = this.getReadableDatabase();
-		SQLiteDatabase db = getMyWritableDatabase();
-		
-		Cursor cursor = db.rawQuery(selectQuery, null);
-		
-		// looping through all rows and adding to list
-		long lid;
-		int position = 0;
-		if (cursor.moveToFirst()) {
-			do {
-				lid = Long.parseLong(cursor.getString(0));
-				if (lid == event._id)
-					return position;
-				position++;
-			} while (cursor.moveToNext());
-		}
-		
-		cursor.close();
-		//db.close();
-		
-		// return profile list
-		return -1;
-		
-	}
-*/	
 	public void getEventPreferences(Event event) {
 		//SQLiteDatabase db = this.getReadableDatabase();
 		SQLiteDatabase db = getMyWritableDatabase();
@@ -2433,7 +2370,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			{
 				EventPreferencesTime eventPreferences = (EventPreferencesTime)event._eventPreferencesTime;
 				
-				eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1) ? true : false; 
+				eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
 						
 				String daysOfWeek = cursor.getString(1);
 
@@ -4202,7 +4139,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_E_AT_END_DO, Event.EATENDDO_UNDONE_PROFILE);
                                         }
 
-										// Inserting Row do db z SQLiteOpenHelper
+                                        if (exportedDBObj.getVersion() < 1310)
+                                        {
+                                            values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, 0);
+                                        }
+
+
+                                    // Inserting Row do db z SQLiteOpenHelper
 										db.insert(TABLE_EVENTS, null, values);
 										
 								} while (cursorExportedDB.moveToNext());

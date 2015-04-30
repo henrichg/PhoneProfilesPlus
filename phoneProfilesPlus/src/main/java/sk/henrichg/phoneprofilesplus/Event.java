@@ -34,6 +34,7 @@ public class Event {
 	public int _priority;
 	public int _delayStart;
 	public boolean _isInDelay;
+    public boolean _manualProfileActivation;
 
 	public EventPreferencesTime _eventPreferencesTime;
 	public EventPreferencesBattery _eventPreferencesBattery;
@@ -76,6 +77,7 @@ public class Event {
     static final String PREF_EVENT_PRIORITY = "eventPriority";
     static final String PREF_EVENT_DELAY_START = "eventDelayStart";
     static final String PREF_EVENT_AT_END_DO = "eventAtEndDo";
+    static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
 	
 	// Empty constructor
 	public Event(){
@@ -95,7 +97,8 @@ public class Event {
 		         int priority,
 		         int delayStart,
 		         boolean isInDelay,
-                 int atEndDo)
+                 int atEndDo,
+                 boolean manualProfileActivation)
 	{
 		this._id = id;
 		this._name = name;
@@ -110,6 +113,7 @@ public class Event {
         this._delayStart = delayStart;
         this._isInDelay = isInDelay;
         this._atEndDo = atEndDo;
+        this._manualProfileActivation = manualProfileActivation;
         
         createEventPreferences();
 	}
@@ -126,7 +130,8 @@ public class Event {
 	         	 int priority,
 	         	 int delayStart,
 	         	 boolean isInDelay,
-                 int atEndDo)
+                 int atEndDo,
+                 boolean manualProfileActivation)
 	{
 		this._name = name;
 	    this._fkProfileStart = fkProfileStart;
@@ -140,6 +145,7 @@ public class Event {
         this._delayStart = delayStart;
         this._isInDelay = isInDelay;
         this._atEndDo = atEndDo;
+        this._manualProfileActivation = manualProfileActivation;
         
 	    createEventPreferences();
 	}
@@ -159,6 +165,7 @@ public class Event {
         this._delayStart = event._delayStart;
         this._isInDelay = event._isInDelay;
         this._atEndDo = event._atEndDo;
+        this._manualProfileActivation = event._manualProfileActivation;
         
         copyEventPreferences(event);
 	}
@@ -299,6 +306,7 @@ public class Event {
    		editor.putString(PREF_EVENT_PRIORITY, Integer.toString(this._priority));
    		editor.putString(PREF_EVENT_DELAY_START, Integer.toString(this._delayStart));
         editor.putString(PREF_EVENT_AT_END_DO, Integer.toString(this._atEndDo));
+        editor.putBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, this._manualProfileActivation);
         this._eventPreferencesTime.loadSharedPrefereces(preferences);
         this._eventPreferencesBattery.loadSharedPrefereces(preferences);
         this._eventPreferencesCall.loadSharedPrefereces(preferences);
@@ -322,6 +330,7 @@ public class Event {
 		//this._undoneProfile = preferences.getBoolean(PREF_EVENT_UNDONE_PROFILE, true);
 		this._priority = Integer.parseInt(preferences.getString(PREF_EVENT_PRIORITY, Integer.toString(EPRIORITY_MEDIUM)));
         this._atEndDo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_DO, Integer.toString(EATENDDO_UNDONE_PROFILE)));
+        this._manualProfileActivation = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
 
 		String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
 		if (sDelayStart.isEmpty()) sDelayStart = "0";
