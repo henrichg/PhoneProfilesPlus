@@ -646,6 +646,8 @@ ktora ma manualnu aktivaciu nastavenu, tak profil nemergnem (nezavolam Profile.m
 ale ho aktivujem manualne a mergedProfile._id nastavim na 0. V EventsService mam test na _id = 0,
 cize sa nebude robit aktivacia mergedProfile.
 
+Otazka je, co s restartom eventov.
+
 ------------------------------------------------------
 
 1. Bezi udalost Doma a Spanok.
