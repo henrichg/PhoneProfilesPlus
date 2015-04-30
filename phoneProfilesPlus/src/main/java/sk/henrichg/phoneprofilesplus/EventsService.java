@@ -111,24 +111,7 @@ public class EventsService extends IntentService
 					// pauzuj aj ked uz je zapauznuty
 					dataWrapper.doEventService(_event, true, true, interactive, forDelayAlarm, true, mergedProfile);
 			}
-			/*// 2. start events in timeline order
-			List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-			GlobalData.logE("EventsService.onHandleIntent","eventTimeLineList.size()="+eventTimelineList.size());
-			for (EventTimeline eventTimeline : eventTimelineList)
-			{
-				Event _event = dataWrapper.getEventById(eventTimeline._fkEvent);
-				if (_event != null)
-				{
-					GlobalData.logE("EventsService.onHandleIntent","state RUNNING from eventTimeLine");
-					GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
-					GlobalData.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
-					if (_event.getStatus() != Event.ESTATUS_STOP)
-						// len spustaj eventy
-						// spusatj aj ked uz je spusteny
-						dataWrapper.doEventService(_event, false, true, interactive, forDelayAlarm, true, mergedProfile);
-				}
-			}*/
-			// 3. start no started events in point 2.
+			// 2. start events
 			dataWrapper.sortEventsByPriorityAsc();
 			for (Event _event : eventList)
 			{
@@ -141,25 +124,6 @@ public class EventsService extends IntentService
 					// spustaj len ak este nebezi
 					dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm, true, mergedProfile);
 			}
-
-            /*
-            // 1. pause all events
-            //  set system events for next run
-            dataWrapper.pauseAllEvents(false, false, false);
-            // 2. start events
-            dataWrapper.sortEventsByPriorityAsc();
-            for (Event _event : eventList)
-            {
-                GlobalData.logE("EventsService.onHandleIntent","state RUNNING");
-                GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
-                GlobalData.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
-
-                if (_event.getStatus() != Event.ESTATUS_STOP)
-                    // len spustaj eventy
-                    // spustaj len ak este nebezi
-                    dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm, mergedProfile);
-            }
-            */
 		}
 		else
 		{
