@@ -640,6 +640,12 @@ A pridat do navigation panelu novy filter na One shot eventy (?)
 
 A daj to aj do Activity logu, ze bol spusteny event s manualnou aktivaciou
 
+Problem, je ze mam spraveny mergeProfile.
+Musi to teda fungovat tak, ze ak robim merge, ak nadabim na udalost
+ktora ma manualnu aktivaciu nastavenu, tak profil nemergnem (nezavolam Profile.mergeProfile()),
+ale ho aktivujem manualne a mergedProfile._id nastavim na 0. V EventsService mam test na _id = 0,
+cize sa nebude robit aktivacia mergedProfile.
+
 ------------------------------------------------------
 
 1. Bezi udalost Doma a Spanok.
