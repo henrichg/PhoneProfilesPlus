@@ -705,15 +705,23 @@ public class Event {
 			
 			if (interactive) {
                 if (mergedProfile == null)
-                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, _notificationSound, true);
-                else
-                    mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
+                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, _notificationSound, true);
+                else {
+					if (this._manualProfileActivation)
+						dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, true, _notificationSound, true);
+					else
+						mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
+				}
             }
 			else {
                 if (mergedProfile == null)
-                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, "", true);
-                else
-                    mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
+                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, "", true);
+                else {
+					if (this._manualProfileActivation)
+						dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, true, "", true);
+					else
+						mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
+				}
             }
 		}
 		else
@@ -764,7 +772,7 @@ public class Event {
 				{
 					GlobalData.logE("Event.pauseEvent","activate end porfile");
                     if (mergedProfile == null)
-					    dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, "", true);
+					    dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, "", true);
                     else
                         mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper);
 					activatedProfileId = _fkProfileEnd;
@@ -792,7 +800,7 @@ public class Event {
 					if (eventTimeline._fkProfileEndActivated != 0)
 					{
                         if (mergedProfile == null)
-						    dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, "", true);
+						    dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, "", true);
                         else
                             mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper);
 						profileActivated = true;

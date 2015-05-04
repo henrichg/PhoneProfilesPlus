@@ -365,12 +365,14 @@ public class DataWrapper {
 		} */
 	}
 	
-	public void activateProfileFromEvent(long profile_id, boolean interactive,
+	public void activateProfileFromEvent(long profile_id, boolean interactive, boolean manual,
                                          String eventNotificationSound, boolean log)
 	{
+		int startupSource = GlobalData.STARTUP_SOURCE_SERVICE;
+		if (manual)
+			startupSource = GlobalData.STARTUP_SOURCE_SERVICE_MANUAL;
 		getActivateProfileHelper().initialize(this, null, context);
-		_activateProfile(getProfileById(profile_id), GlobalData.STARTUP_SOURCE_SERVICE, interactive,
-                        null, eventNotificationSound, log);
+		_activateProfile(getProfileById(profile_id), startupSource, interactive, null, eventNotificationSound, log);
 	}
 	
 	public void updateNotificationAndWidgets(Profile profile, String eventNotificationSound)
