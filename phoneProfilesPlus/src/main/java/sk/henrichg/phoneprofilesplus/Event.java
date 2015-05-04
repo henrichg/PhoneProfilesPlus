@@ -707,8 +707,10 @@ public class Event {
                 if (mergedProfile == null)
                     dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, _notificationSound, true);
                 else {
-					if (this._manualProfileActivation)
+					if (this._manualProfileActivation) {
+						mergedProfile._id = 0;
 						dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, true, _notificationSound, true);
+					}
 					else
 						mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
 				}
@@ -717,8 +719,10 @@ public class Event {
                 if (mergedProfile == null)
                     dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, "", true);
                 else {
-					if (this._manualProfileActivation)
+					if (this._manualProfileActivation) {
+						mergedProfile._id = 0;
 						dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, true, "", true);
+					}
 					else
 						mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
 				}
