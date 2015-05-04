@@ -94,7 +94,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             return;
 
 		if (bluetooth == null)
-			bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+			bluetooth = BluetoothAdapter.getDefaultAdapter();
 		
     	unlock();
 
@@ -328,7 +328,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 			boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
 		if (bluetooth == null)
-			bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+			bluetooth = BluetoothAdapter.getDefaultAdapter();
 
         Set<BluetoothDevice> boundedDevices = BluetoothScanAlarmBroadcastReceiver.bluetooth.getBondedDevices();
         boundedDevicesList.clear();
