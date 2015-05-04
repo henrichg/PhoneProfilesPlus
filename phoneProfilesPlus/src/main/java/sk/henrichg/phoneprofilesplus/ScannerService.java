@@ -98,9 +98,6 @@ public class ScannerService extends IntentService
                     WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                     WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
 
-                    if (WifiScanAlarmBroadcastReceiver.wifi == null)
-                        WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
                     WifiScanAlarmBroadcastReceiver.unlock();
 
                     // start scan
@@ -181,7 +178,7 @@ public class ScannerService extends IntentService
                 dataWrapper = new DataWrapper(context, false, false, 0);
 
                 if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
-                    BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+                    BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothAdapter.getDefaultAdapter();
 
                 if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
                     // service restarted during scanning, disable Bluetooth
@@ -203,9 +200,6 @@ public class ScannerService extends IntentService
                     BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
                     BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                     BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-
-                    if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
-                        BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothAdapter.getDefaultAdapter();
 
                     BluetoothScanAlarmBroadcastReceiver.unlock();
 

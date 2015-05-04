@@ -50,7 +50,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (bluetooth == null)
-            bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+            bluetooth = BluetoothAdapter.getDefaultAdapter();
 
         // disabled for firstStartEvents
 		//if (!GlobalData.getApplicationStarted(context))
