@@ -189,7 +189,7 @@ public class EventsService extends IntentService
 					if ((activatedProfileId != profileId) || isRestart)
 					{
                         if (mergedProfile == null) {
-                            dataWrapper.activateProfileFromEvent(profileId, interactive, false, "", true);
+                            dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, "", true);
                             backgroundProfileActivated = true;
                         }
                         else
@@ -221,7 +221,7 @@ public class EventsService extends IntentService
 				{
 					// if not profile activated, activate Default profile
                     if (mergedProfile == null) {
-                        dataWrapper.activateProfileFromEvent(profileId, interactive, false, "", true);
+                        dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, "", true);
                         backgroundProfileActivated = true;
                     }
                     else
@@ -256,7 +256,8 @@ public class EventsService extends IntentService
                 GlobalData.logE("$$$ EventsService.activateProfileFromEvent","notificationSound="+eventNotificationSound);
                 if (mergedProfile._id != 0) {
                     //ActivateProfileHelper.lockRefresh = true;
-                    dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, eventNotificationSound, false);
+					dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, eventNotificationSound, false);
                     //ActivateProfileHelper.lockRefresh = false;
                     //dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
                 }

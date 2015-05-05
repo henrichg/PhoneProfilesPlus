@@ -53,7 +53,7 @@ public class ProfilePreference extends Preference {
 
 	    if (profileIcon != null)
 	    {
-		    Profile profile = dataWrapper.getProfileById(Long.parseLong(profileId));
+		    Profile profile = dataWrapper.getProfileById(Long.parseLong(profileId), false);
 		    if (profile != null)
 		    {
 			    if (profile.getIsIconResourceID())
@@ -189,7 +189,7 @@ public class ProfilePreference extends Preference {
 	
 	private void setSummary(long profileId)
 	{
-	    Profile profile = dataWrapper.getProfileById(profileId);
+	    Profile profile = dataWrapper.getProfileById(profileId, false);
 	    if (profile != null)
 	    {
 	    	setSummary(profile._name);

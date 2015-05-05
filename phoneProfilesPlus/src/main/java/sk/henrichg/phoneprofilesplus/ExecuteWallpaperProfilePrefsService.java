@@ -13,7 +13,7 @@ public class ExecuteWallpaperProfilePrefsService extends IntentService
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		
-		GlobalData.logE("$$$ ExecuteWallpaperProfilePrefsService.onHandleIntent","-- START ----------");
+		GlobalData.logE("$$$ ExecuteWallpaperProfilePrefsService.onHandleIntent", "-- START ----------");
 		
 		Context context = getApplicationContext();
 		
@@ -22,7 +22,8 @@ public class ExecuteWallpaperProfilePrefsService extends IntentService
 		DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 		
 		long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
-		Profile profile = dataWrapper.getProfileById(profile_id);
+		boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
+		Profile profile = dataWrapper.getProfileById(profile_id, merged);
 		
         // run execute radios from ActivateProfileHelper
         profile = GlobalData.getMappedProfile(profile, context);

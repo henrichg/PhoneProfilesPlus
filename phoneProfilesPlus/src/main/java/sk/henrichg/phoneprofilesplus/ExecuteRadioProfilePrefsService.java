@@ -34,7 +34,8 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 		DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 		
 		long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
-		Profile profile = dataWrapper.getProfileById(profile_id);
+		boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
+		Profile profile = dataWrapper.getProfileById(profile_id, merged);
 		
 		/*
 		// synchronization, wait for end of radio state change

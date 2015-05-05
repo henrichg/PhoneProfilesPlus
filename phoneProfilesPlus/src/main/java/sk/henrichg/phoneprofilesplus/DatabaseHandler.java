@@ -28,13 +28,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1310;
+	private static final int DATABASE_VERSION = 1320;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
 
 	// Profiles table name
 	private static final String TABLE_PROFILES = "profiles";
+	private static final String TABLE_MERGED_PROFILE = "merged_profile";
 	private static final String TABLE_EVENTS = "events";
 	private static final String TABLE_EVENT_TIMELINE = "event_timeline";
     private static final String TABLE_ACTIVITY_LOG = "activity_log";
@@ -243,22 +244,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // be sure to call this method by: DatabaseHandler.getInstance().closeConnecion() 
     // when application is closed by somemeans most likely
     // onDestroy method of application
-    public synchronized void closeConnecion() {
+    public synchronized void closeConnection() {
     	if (instance != null)
     	{
     		instance.close();
             instance = null;
         }
     }    
-    
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		final String CREATE_PROFILES_TABLE = "CREATE TABLE " + TABLE_PROFILES + "("
-				+ KEY_ID + " INTEGER PRIMARY KEY,"
+
+	private String profileTableCreationString(String tableName) {
+		String idField = KEY_ID + " INTEGER PRIMARY KEY,";
+		if (tableName.equals(TABLE_MERGED_PROFILE))
+			idField = KEY_ID + " INTEGER,";
+		return "CREATE TABLE " + tableName + "("
+				+ idField
 				+ KEY_NAME + " TEXT,"
-				+ KEY_ICON + " TEXT," 
-				+ KEY_CHECKED + " INTEGER," 
-				+ KEY_PORDER + " INTEGER," 
+				+ KEY_ICON + " TEXT,"
+				+ KEY_CHECKED + " INTEGER,"
+				+ KEY_PORDER + " INTEGER,"
 				+ KEY_VOLUME_RINGER_MODE + " INTEGER,"
 				+ KEY_VOLUME_RINGTONE + " TEXT,"
 				+ KEY_VOLUME_NOTIFICATION + " TEXT,"
@@ -294,13 +297,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				+ KEY_AFTER_DURATION_DO + " INTEGER,"
 				+ KEY_VOLUME_ZEN_MODE + " INTEGER,"
 				+ KEY_DEVICE_KEYGUARD + " INTEGER,"
-                + KEY_VIBRATE_ON_TOUCH + " INTEGER"
+				+ KEY_VIBRATE_ON_TOUCH + " INTEGER"
 				+ ")";
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		final String CREATE_PROFILES_TABLE = profileTableCreationString(TABLE_PROFILES);
 		db.execSQL(CREATE_PROFILES_TABLE);
-		
+
 		db.execSQL("CREATE INDEX IDX_PORDER ON " + TABLE_PROFILES + " (" + KEY_PORDER + ")");
 		db.execSQL("CREATE INDEX IDX_SHOW_IN_ACTIVATOR ON " + TABLE_PROFILES + " (" + KEY_SHOW_IN_ACTIVATOR + ")");
 		db.execSQL("CREATE INDEX IDX_P_NAME ON " + TABLE_PROFILES + " (" + KEY_NAME + ")");
+
+		final String CREATE_MERGED_PROFILE_TABLE = profileTableCreationString(TABLE_MERGED_PROFILE);
+		db.execSQL(CREATE_MERGED_PROFILE_TABLE);
 
 		final String CREATE_EVENTS_TABLE = "CREATE TABLE " + TABLE_EVENTS + "("
 				+ KEY_E_ID + " INTEGER PRIMARY KEY,"
@@ -1167,6 +1178,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MANUAL_PROFILE_ACTIVATION + "=0");
         }
 
+		if (oldVersion < 1320) {
+			final String CREATE_MERGED_PROFILE_TABLE = profileTableCreationString(TABLE_MERGED_PROFILE);
+			db.execSQL(CREATE_MERGED_PROFILE_TABLE);
+		}
+
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
 
 	}
@@ -1175,7 +1191,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 // PROFILES --------------------------------------------------------------------------------
 	
 	// Adding new profile
-	void addProfile(Profile profile) {
+	void addProfile(Profile profile, boolean merged) {
 	
 		int porder = getMaxPOrder() + 1;
 
@@ -1226,19 +1242,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
 
 		// Inserting Row
-		long id = db.insert(TABLE_PROFILES, null, values);
+		if (!merged) {
+			profile._id = db.insert(TABLE_PROFILES, null, values);
+			profile._porder = porder;
+		}
+		else {
+			values.put(KEY_ID, profile._id);
+			db.insert(TABLE_MERGED_PROFILE, null, values);
+		}
 		//db.close(); // Closing database connection
-		
-		profile._id = id;
-		profile._porder = porder;
 	}
 
 	// Getting single profile
-	Profile getProfile(long profile_id) {
+	Profile getProfile(long profile_id, boolean merged) {
 		//SQLiteDatabase db = this.getReadableDatabase();
 		SQLiteDatabase db = getMyWritableDatabase();
 
-		Cursor cursor = db.query(TABLE_PROFILES, 
+		String tableName = TABLE_PROFILES;
+		if (merged)
+			tableName = TABLE_MERGED_PROFILE;
+		Cursor cursor = db.query(tableName,
 				                 new String[] { KEY_ID, 
 												KEY_NAME, 
 												KEY_ICON, 
@@ -1549,7 +1572,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.beginTransaction();
 
 		try {
-			db.delete(TABLE_PROFILES, null,	null);
+			db.delete(TABLE_PROFILES, null, null);
 			
 			// unlink profiles from events
 			ContentValues values = new ContentValues();
@@ -2038,6 +2061,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
        //db.close();
 		
        return ret;
+	}
+
+	public void saveMergedProfile(Profile profile) {
+		//SQLiteDatabase db = this.getWritableDatabase();
+		SQLiteDatabase db = getMyWritableDatabase();
+
+		db.beginTransaction();
+
+		try {
+			db.delete(TABLE_MERGED_PROFILE, null, null);
+
+			addProfile(profile, true);
+
+			db.setTransactionSuccessful();
+		} catch (Exception e){
+			//Error in between database transaction
+		} finally {
+			db.endTransaction();
+		}
+
+		//db.close();
+
 	}
 	
 // EVENTS --------------------------------------------------------------------------------

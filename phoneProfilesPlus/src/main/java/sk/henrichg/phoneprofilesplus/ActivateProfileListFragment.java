@@ -338,7 +338,7 @@ public class ActivateProfileListFragment extends Fragment {
 		Profile profileFromDB = dataWrapper.getDatabaseHandler().getActivatedProfile();
 		if (profileFromDB != null)
 		{
-			Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id);
+			Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, false);
 			if (profileFromDataWrapper != null)
 				profileFromDataWrapper._checked = true;
 			updateHeader(profileFromDataWrapper);

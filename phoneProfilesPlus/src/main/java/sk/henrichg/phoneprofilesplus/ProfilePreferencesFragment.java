@@ -207,7 +207,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 		if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)
 		{
 			// duplicate profile
-			Profile origProfile = dataWrapper.getProfileById(profile_id);
+			Profile origProfile = dataWrapper.getProfileById(profile_id, false);
 			profile = new Profile(
 						   origProfile._name+"_d", 
 						   origProfile._icon, 
@@ -252,7 +252,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 			profile_id = 0;
 		}
 		else
-			profile = dataWrapper.getProfileById(profile_id);
+			profile = dataWrapper.getProfileById(profile_id, false);
 
 		preferences = prefMng.getSharedPreferences();
 
@@ -546,7 +546,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 			    (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))
 			{
 				// add profile into DB
-				dataWrapper.getDatabaseHandler().addProfile(profile);
+				dataWrapper.getDatabaseHandler().addProfile(profile, false);
 				profile_id = profile._id;
 	
 			}

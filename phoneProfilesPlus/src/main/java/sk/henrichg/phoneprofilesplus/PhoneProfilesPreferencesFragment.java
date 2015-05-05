@@ -72,7 +72,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 				lProfileId = 0;
 			}
 			DataWrapper dataWrapper = new DataWrapper(preferencesActivity.getApplicationContext(), false, false, 0);
-		    Profile profile = dataWrapper.getProfileById(lProfileId);
+		    Profile profile = dataWrapper.getProfileById(lProfileId, false);
 		    if (profile != null)
 		    {
     	        prefMng.findPreference(key).setSummary(profile._name);

@@ -425,7 +425,7 @@ public class EditorProfileListFragment extends Fragment {
 		//final Profile _profile = profile;
 		//final Activity activity = getActivity();
 
-		if (dataWrapper.getProfileById(profile._id) == null)
+		if (dataWrapper.getProfileById(profile._id, false) == null)
 			// profile not exists
 			return;
 		
@@ -716,7 +716,7 @@ public class EditorProfileListFragment extends Fragment {
 			if(resultCode == Activity.RESULT_OK)
 			{      
 		    	long profile_id = data.getLongExtra(GlobalData.EXTRA_PROFILE_ID, -1);
-		    	Profile profile = dataWrapper.getProfileById(profile_id);
+		    	Profile profile = dataWrapper.getProfileById(profile_id, false);
 		    	
 		    	if (profileListAdapter != null)
 		    		profileListAdapter.activateProfile(profile);
@@ -821,7 +821,7 @@ public class EditorProfileListFragment extends Fragment {
 		Profile profileFromDB = dataWrapper.getDatabaseHandler().getActivatedProfile();
 		if (profileFromDB != null)
 		{
-			Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id);
+			Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, false);
 			if (profileFromDataWrapper != null)
 				profileFromDataWrapper._checked = true;
 			updateHeader(profileFromDataWrapper);

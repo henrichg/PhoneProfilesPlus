@@ -26,7 +26,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 		aph.initialize(dataWrapper, null, context);
 		
 		long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
-		Profile profile = dataWrapper.getProfileById(profile_id);
+        boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
+		Profile profile = dataWrapper.getProfileById(profile_id, merged);
 		profile = GlobalData.getMappedProfile(profile, context);
 
 		if (profile != null)

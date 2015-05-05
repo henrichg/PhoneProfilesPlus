@@ -201,7 +201,7 @@ public class DataWrapper {
 		profile._volumeMedia = getVolumeLevelString(80, maximumValueMusic)+"|0|0";
 		profile._deviceWiFi = 1;
 		//profile._deviceBrightness = "60|0|0|0";
-		getDatabaseHandler().addProfile(profile);
+		getDatabaseHandler().addProfile(profile, false);
 		profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", 2);
 		profile._showInActivator = true;
 		profile._volumeRingerMode = 2;
@@ -211,7 +211,7 @@ public class DataWrapper {
 		profile._volumeMedia = getVolumeLevelString(93, maximumValueMusic)+"|0|0";
 		profile._deviceWiFi = 2;
 		//profile._deviceBrightness = "255|0|0|0";
-		getDatabaseHandler().addProfile(profile);
+		getDatabaseHandler().addProfile(profile, false);
 		profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_work), "ic_profile_work_5", 3);
 		profile._showInActivator = true;
 		profile._volumeRingerMode = 1;
@@ -221,7 +221,7 @@ public class DataWrapper {
 		profile._volumeMedia = getVolumeLevelString(80, maximumValueMusic)+"|0|0";
 		profile._deviceWiFi = 2;
 		//profile._deviceBrightness = "60|0|0|0";
-		getDatabaseHandler().addProfile(profile);
+		getDatabaseHandler().addProfile(profile, false);
 		profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", 4);
 		profile._showInActivator = true;
 		profile._volumeRingerMode = 4;
@@ -231,7 +231,7 @@ public class DataWrapper {
 		profile._volumeMedia = getVolumeLevelString(0, maximumValueMusic)+"|0|0";
 		profile._deviceWiFi = 0;
 		//profile._deviceBrightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|1|1|0";
-		getDatabaseHandler().addProfile(profile);
+		getDatabaseHandler().addProfile(profile, false);
 		profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", 5);
 		profile._showInActivator = true;
 		profile._volumeRingerMode = 4;
@@ -241,7 +241,7 @@ public class DataWrapper {
 		profile._volumeMedia = getVolumeLevelString(0, maximumValueMusic)+"|0|0";
 		profile._deviceWiFi = 0;
 		//profile._deviceBrightness = "10|0|0|0";
-		getDatabaseHandler().addProfile(profile);
+		getDatabaseHandler().addProfile(profile, false);
 		profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", 6);
 		profile._showInActivator = false;
 		profile._deviceAutosync = 2;
@@ -249,7 +249,7 @@ public class DataWrapper {
 		profile._deviceWiFi = 2;
 		profile._deviceBluetooth = 2;
 		profile._deviceGPS = 2;
-		getDatabaseHandler().addProfile(profile);
+		getDatabaseHandler().addProfile(profile, false);
 		
 		return getProfileList();
 	}
@@ -366,13 +366,13 @@ public class DataWrapper {
 	}
 	
 	public void activateProfileFromEvent(long profile_id, boolean interactive, boolean manual,
-                                         String eventNotificationSound, boolean log)
+                                         boolean merged, String eventNotificationSound, boolean log)
 	{
 		int startupSource = GlobalData.STARTUP_SOURCE_SERVICE;
 		if (manual)
 			startupSource = GlobalData.STARTUP_SOURCE_SERVICE_MANUAL;
 		getActivateProfileHelper().initialize(this, null, context);
-		_activateProfile(getProfileById(profile_id), startupSource, interactive, null, eventNotificationSound, log);
+		_activateProfile(getProfileById(profile_id, merged), merged, startupSource, interactive, null, eventNotificationSound, log);
 	}
 	
 	public void updateNotificationAndWidgets(Profile profile, String eventNotificationSound)
@@ -381,7 +381,6 @@ public class DataWrapper {
 		getActivateProfileHelper().showNotification(profile, eventNotificationSound);
 		getActivateProfileHelper().updateWidget();
 	}
-	
 	
 	public void deactivateProfile()
 	{
@@ -393,10 +392,10 @@ public class DataWrapper {
 			p._checked = false;
 		}
 	}
-	
-	private Profile getProfileByIdFromDB(long id)
+
+	private Profile getProfileByIdFromDB(long id, boolean merged)
 	{
-		Profile profile = getDatabaseHandler().getProfile(id);
+		Profile profile = getDatabaseHandler().getProfile(id, merged);
 		if (forGUI && (profile != null))
 		{
 			profile.generateIconBitmap(context, monochrome, monochromeValue);
@@ -405,11 +404,11 @@ public class DataWrapper {
 		return profile;
 	}
 	
-	public Profile getProfileById(long id)
+	public Profile getProfileById(long id, boolean merged)
 	{
-		if (profileList == null)
+		if ((profileList == null) || merged)
 		{
-			return getProfileByIdFromDB(id);
+			return getProfileByIdFromDB(id, merged);
 		}
 		else
 		{
@@ -422,7 +421,7 @@ public class DataWrapper {
 			}
 			
 			// when filter is set and profile not found, get profile from db
-			return getProfileByIdFromDB(id);
+			return getProfileByIdFromDB(id, false);
 		}
 	}
 	
@@ -430,7 +429,7 @@ public class DataWrapper {
 	{
 		if (profile != null)
 		{
-			Profile origProfile = getProfileById(profile._id);
+			Profile origProfile = getProfileById(profile._id, false);
 			if (origProfile != null)
 				origProfile.copyProfile(profile);
 		}
@@ -944,9 +943,9 @@ public class DataWrapper {
 
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
-	private void _activateProfile(Profile _profile, int startupSource, boolean _interactive, 
-									Activity _activity, String eventNotificationSound,
-                                    boolean log)
+	private void _activateProfile(Profile _profile, boolean merged, int startupSource,
+								  	boolean _interactive, Activity _activity,
+								  	String eventNotificationSound, boolean log)
 	{
 		Profile profile = GlobalData.getMappedProfile(_profile, context);
 		//profile = filterProfileWithBatteryEvents(profile);
@@ -991,7 +990,7 @@ public class DataWrapper {
                     (profile._duration > 0))
                 profileDuration = profile._duration;
 
-			activateProfileHelper.execute(profile, interactive, eventNotificationSound);
+			activateProfileHelper.execute(profile, merged, interactive, eventNotificationSound);
 			
 			if ((startupSource != GlobalData.STARTUP_SOURCE_SERVICE) && 
 				(startupSource != GlobalData.STARTUP_SOURCE_BOOT) &&
@@ -1112,7 +1111,7 @@ public class DataWrapper {
 			//dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 			dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    _activateProfile(_profile, _startupSource, _interactive, _activity,
+                    _activateProfile(_profile, false, _startupSource, _interactive, _activity,
                                         _eventNotificationSound, true);
                 }
             });
@@ -1139,7 +1138,7 @@ public class DataWrapper {
 		}
 		else
 		{
-			_activateProfile(profile, startupSource, interactive, activity, eventNotificationSound, true);
+			_activateProfile(profile, false, startupSource, interactive, activity, eventNotificationSound, true);
 		}
 	}
 
@@ -1267,7 +1266,7 @@ public class DataWrapper {
 			if (profile_id == 0)
 				profile = null;
 			else
-				profile = getProfileById(profile_id);
+				profile = getProfileById(profile_id, false);
 		}
 
 		

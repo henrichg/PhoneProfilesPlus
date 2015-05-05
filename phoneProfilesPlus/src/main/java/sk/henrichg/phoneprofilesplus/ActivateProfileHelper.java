@@ -510,7 +510,7 @@ public class ActivateProfileHelper {
         }
     }
 
-	public void execute(Profile _profile, boolean _interactive, String eventNotificationSound)
+	public void execute(Profile _profile, boolean merged, boolean _interactive, String eventNotificationSound)
 	{
 		// rozdelit zvonenie a notifikacie - zial je to oznacene ako @Hide :-(
 		//Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
@@ -523,6 +523,7 @@ public class ActivateProfileHelper {
 		// run service for execute volumes
 		Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
 		volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+		volumeServiceIntent.putExtra(GlobalData.EXTRA_MERGED_PROFILE, merged);
 		volumeServiceIntent.putExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, true);
 		context.startService(volumeServiceIntent);
 		/*AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -569,6 +570,7 @@ public class ActivateProfileHelper {
 		// run service for execute radios
 		Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
 		radioServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+		radioServiceIntent.putExtra(GlobalData.EXTRA_MERGED_PROFILE, merged);
 		context.startService(radioServiceIntent);
 		
 		// nahodenie auto-sync
@@ -747,6 +749,7 @@ public class ActivateProfileHelper {
         if (profile._deviceWallpaperChange == 1) {
             Intent wallpaperServiceIntent = new Intent(context, ExecuteWallpaperProfilePrefsService.class);
             wallpaperServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+			wallpaperServiceIntent.putExtra(GlobalData.EXTRA_MERGED_PROFILE, merged);
             context.startService(wallpaperServiceIntent);
         }
 

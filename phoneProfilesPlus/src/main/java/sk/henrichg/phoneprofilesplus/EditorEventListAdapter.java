@@ -342,7 +342,7 @@ public class EditorEventListAdapter extends BaseAdapter
 		    }
 	
 		    // profile start
-	        Profile profile =  dataWrapper.getProfileById(event._fkProfileStart);
+	        Profile profile =  dataWrapper.getProfileById(event._fkProfileStart, false);
 	        if (profile != null)
 	        {
 	        	String profileName = profile._name;
@@ -385,7 +385,7 @@ public class EditorEventListAdapter extends BaseAdapter
 	        }
 	
 		    // profile end
-	        profile =  dataWrapper.getProfileById(event._fkProfileEnd);
+	        profile =  dataWrapper.getProfileById(event._fkProfileEnd, false);
 	        if (profile != null)
 	        {
 	        	String profileName = profile._name;

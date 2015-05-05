@@ -92,6 +92,7 @@ public class GlobalData extends Application {
 	public static final String LOG_FILENAME = "log.txt";
 
 	static final String EXTRA_PROFILE_ID = "profile_id";
+	static final String EXTRA_MERGED_PROFILE = "merged_profile";
 	static final String EXTRA_EVENT_ID = "event_id";
 	static final String EXTRA_START_APP_SOURCE = "start_app_source";
 	static final String EXTRA_RESET_EDITOR = "reset_editor";
@@ -350,7 +351,7 @@ public class GlobalData extends Application {
 	
 	public void onTerminate ()
 	{
-		DatabaseHandler.getInstance(this).closeConnecion();
+		DatabaseHandler.getInstance(this).closeConnection();
 	}
 	
 	//--------------------------------------------------------------

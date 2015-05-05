@@ -912,7 +912,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 				
 				if (profile_id > 0)
 				{
-					Profile profile = getDataWrapper().getDatabaseHandler().getProfile(profile_id);
+					Profile profile = getDataWrapper().getDatabaseHandler().getProfile(profile_id, false);
 					// generate bitmaps
 					profile.generateIconBitmap(getBaseContext(), false, 0);
 					profile.generatePreferencesIndicator(getBaseContext(), false, 0);

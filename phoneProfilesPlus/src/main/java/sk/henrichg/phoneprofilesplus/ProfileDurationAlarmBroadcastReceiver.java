@@ -25,7 +25,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 				
 				if (dataWrapper.getIsManualProfileActivation())
 				{
-					Profile profile = dataWrapper.getProfileById(profileId);
+					Profile profile = dataWrapper.getProfileById(profileId, false);
 					Profile activatedProfile = dataWrapper.getActivatedProfile();
 					
 					if ((activatedProfile._id == profile._id) && 
