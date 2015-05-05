@@ -495,4 +495,5 @@
   <string name="array_event_pref_calendarAvailability_busy">Zaneprázdnený</string>
   <string name="array_event_pref_calendarAvailability_free">K dispozícii</string>
   <string name="array_event_pref_calendarAvailability_tentative">Nezáväzný</string>
+  <string name="event_preferences_manualProfileActivation">Manuálne aktivovať profil</string>
 </resources>

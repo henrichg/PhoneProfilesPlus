@@ -495,4 +495,5 @@
   <string name="array_event_pref_calendarAvailability_busy">Ocupat</string>
   <string name="array_event_pref_calendarAvailability_free">Lliure</string>
   <string name="array_event_pref_calendarAvailability_tentative">Provisional</string>
+  <string name="event_preferences_manualProfileActivation">Manual profile activation</string>
 </resources>
