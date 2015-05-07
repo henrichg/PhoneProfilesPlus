@@ -321,15 +321,15 @@ public class Profile {
             if (withProfile.getVolumeVoiceChange())
                 this._volumeVoice = withProfile._volumeVoice;
             if (withProfile._soundRingtoneChange != 0) {
-                this._soundRingtoneChange = 1;
+                this._soundRingtoneChange = withProfile._soundRingtoneChange;
                 this._soundRingtone = withProfile._soundRingtone;
             }
             if (withProfile._soundNotificationChange != 0) {
-                this._soundNotificationChange = 1;
+                this._soundNotificationChange = withProfile._soundNotificationChange;
                 this._soundNotification = withProfile._soundNotification;
             }
             if (withProfile._soundAlarmChange != 0) {
-                this._soundAlarmChange = 1;
+                this._soundAlarmChange = withProfile._soundAlarmChange;
                 this._soundAlarm = withProfile._soundAlarm;
             }
             if (withProfile._deviceAirplaneMode != 0) {
