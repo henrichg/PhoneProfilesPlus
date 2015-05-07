@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/activityPopupBackground"
-    tools:context=".ShortcutCreatorActivity" >
+    tools:context=".ActivateProfileActivity" >
 
     <LinearLayout
 		android:id="@+id/act_prof_linlayout_header"

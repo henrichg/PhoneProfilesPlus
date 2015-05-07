@@ -5,16 +5,8 @@
     android:layout_height="match_parent"
     android:background="?attr/activityPopupBackground"
     android:orientation="vertical"
-    tools:context=".ShortcutCreatorActivity" >
+    tools:context=".ActivateProfileActivity" >
 
-    <LinearLayout 
-        android:id="@+id/act_prof_run_stop_indicator"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#00FFFFFF"
-        />
-    
     <LinearLayout
 		android:id="@+id/act_prof_linlayout_header"
         android:layout_width="match_parent"
