@@ -958,6 +958,7 @@ public class DataWrapper {
 		boolean interactive = _interactive;
 		final Activity activity = _activity;
 
+		// get currently activated profile
 		Profile activatedProfile = getActivatedProfile();
 		
 		if ((startupSource != GlobalData.STARTUP_SOURCE_SERVICE) && 
@@ -998,12 +999,16 @@ public class DataWrapper {
 			{
 				// manual profile activation 
 	
-				// set profile duration alarm
+				//// set profile duration alarm
+
+				// save before activated profile
 				long profileId = 0;
 				if (activatedProfile != null)
 					profileId = activatedProfile._id;
 				GlobalData.setActivatedProfileForDuration(context, profileId);
+
 				ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
+				///////////
 			}
 			else
 				ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -1011,7 +1016,8 @@ public class DataWrapper {
 		else
 			ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
 
-		activateProfileHelper.showNotification(profile, eventNotificationSound);
+		activatedProfile = getActivatedProfile();
+		activateProfileHelper.showNotification(activatedProfile, eventNotificationSound);
 		activateProfileHelper.updateWidget();
 
         if (log)
