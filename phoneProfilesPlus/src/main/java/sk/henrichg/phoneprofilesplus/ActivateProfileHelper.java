@@ -625,7 +625,7 @@ public class ActivateProfileHelper {
 		}
 		
 		// zapnutie/vypnutie lockscreenu
-        GlobalData.logE("$$$ ActivateProfileHelper.execute","keyguard");
+        //GlobalData.logE("$$$ ActivateProfileHelper.execute","keyguard");
         boolean setLockscreen = false;
         switch (profile._deviceKeyguard) {
             case 1:

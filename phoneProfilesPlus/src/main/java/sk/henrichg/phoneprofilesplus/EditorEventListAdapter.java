@@ -346,7 +346,9 @@ public class EditorEventListAdapter extends BaseAdapter
 	        if (profile != null)
 	        {
 	        	String profileName = profile._name;
-	        	if (event._delayStart > 0)
+				if (event._manualProfileActivation)
+					profileName = "[M] " + profileName;
+				if (event._delayStart > 0)
 	        		profileName = "[" + event._delayStart + "] " + profileName;
 	        	holder.profileStartName.setText(profileName);
 			    if (profile.getIsIconResourceID())
@@ -385,63 +387,63 @@ public class EditorEventListAdapter extends BaseAdapter
 	        }
 	
 		    // profile end
-	        profile =  dataWrapper.getProfileById(event._fkProfileEnd, false);
-	        if (profile != null)
-	        {
-	        	String profileName = profile._name;
-	        	if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-	        		profileName = profileName + " + " + vi.getResources().getString(R.string.event_prefernce_profile_undone);
-                else
-                if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                    profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
-	        	holder.profileEndName.setText(profileName);
-			    if (profile.getIsIconResourceID())
-			    {
-			    	holder.profileEndIcon.setImageResource(0);
-			      	int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", 
-			      				vi.getContext().getPackageName());
-			      	holder.profileEndIcon.setImageResource(res); // resource na ikonu
-			    }
-			    else
-			    {
-			      	holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
-			    }
-			    
-				if (GlobalData.applicationEditorPrefIndicator)
-				{
-					//profilePrefIndicatorImageView.setImageBitmap(null);
-					//Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-					//profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                    if (holder.profileEndIndicator != null)
-					    holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
+			if (event._manualProfileActivation) {
+				holder.profileEndIcon.setVisibility(View.GONE);
+				holder.profileEndName.setVisibility(View.GONE);
+				holder.profileEndIndicator.setVisibility(View.GONE);
+			}
+			else {
+				holder.profileEndIcon.setVisibility(View.VISIBLE);
+				holder.profileEndName.setVisibility(View.VISIBLE);
+				holder.profileEndIndicator.setVisibility(View.VISIBLE);
+
+				profile = dataWrapper.getProfileById(event._fkProfileEnd, false);
+				if (profile != null) {
+					String profileName = profile._name;
+					if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
+						profileName = profileName + " + " + vi.getResources().getString(R.string.event_prefernce_profile_undone);
+					else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+						profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
+					holder.profileEndName.setText(profileName);
+					if (profile.getIsIconResourceID()) {
+						holder.profileEndIcon.setImageResource(0);
+						int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+								vi.getContext().getPackageName());
+						holder.profileEndIcon.setImageResource(res); // resource na ikonu
+					} else {
+						holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
+					}
+
+					if (GlobalData.applicationEditorPrefIndicator) {
+						//profilePrefIndicatorImageView.setImageBitmap(null);
+						//Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
+						//profilePrefIndicatorImageView.setImageBitmap(bitmap);
+						if (holder.profileEndIndicator != null)
+							holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
+					}
+				} else {
+					String profileName;
+					if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
+						profileName = vi.getResources().getString(R.string.event_prefernce_profile_undone);
+					else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
+						profileName = vi.getResources().getString(R.string.event_preference_profile_restartEvents);
+					else {
+						if (event._fkProfileEnd == GlobalData.PROFILE_NO_ACTIVATE)
+							profileName = vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
+						else
+							profileName = vi.getResources().getString(R.string.profile_preference_profile_not_set);
+					}
+					holder.profileEndName.setText(profileName);
+					holder.profileEndIcon.setImageResource(R.drawable.ic_profile_default);
+					if (GlobalData.applicationEditorPrefIndicator) {
+						//profilePrefIndicatorImageView.setImageBitmap(null);
+						//Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
+						//profilePrefIndicatorImageView.setImageBitmap(bitmap);
+						if (holder.profileEndIndicator != null)
+							holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
+					}
 				}
-	        }
-	        else
-	        {
-	        	String profileName;
-	        	if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-	        		profileName = vi.getResources().getString(R.string.event_prefernce_profile_undone);
-                else
-                if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                    profileName = vi.getResources().getString(R.string.event_preference_profile_restartEvents);
-	        	else
-	        	{
-		        	if (event._fkProfileEnd == GlobalData.PROFILE_NO_ACTIVATE)
-		        		profileName = vi.getResources().getString(R.string.profile_preference_profile_end_no_activate); 
-		        	else
-		        		profileName = vi.getResources().getString(R.string.profile_preference_profile_not_set);
-	        	}
-	    		holder.profileEndName.setText(profileName);
-	        	holder.profileEndIcon.setImageResource(R.drawable.ic_profile_default);
-				if (GlobalData.applicationEditorPrefIndicator)
-				{
-					//profilePrefIndicatorImageView.setImageBitmap(null);
-					//Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-					//profilePrefIndicatorImageView.setImageBitmap(bitmap);
-                    if (holder.profileEndIndicator != null)
-					    holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
-				}
-	        }
+			}
 	        
 	        holder.eventItemEditMenu.setTag(event);
 	        final ImageView eventItemEditMenu = holder.eventItemEditMenu;

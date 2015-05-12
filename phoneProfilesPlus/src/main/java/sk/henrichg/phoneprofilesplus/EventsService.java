@@ -12,7 +12,7 @@ public class EventsService extends IntentService
 	Context context;
 	DataWrapper dataWrapper;
 	String broadcastReceiverType;
-	
+
 	public EventsService() {
 		super("EventsService");
 	}
@@ -254,12 +254,9 @@ public class EventsService extends IntentService
                 GlobalData.logE("$$$ EventsService.activateProfileFromEvent","profileName="+mergedProfile._name);
                 GlobalData.logE("$$$ EventsService.activateProfileFromEvent","profileId="+mergedProfile._id);
                 GlobalData.logE("$$$ EventsService.activateProfileFromEvent","notificationSound="+eventNotificationSound);
-                if (mergedProfile._id != 0) {
-                    //ActivateProfileHelper.lockRefresh = true;
+				if (mergedProfile._id != 0) {
 					dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, eventNotificationSound, false);
-                    //ActivateProfileHelper.lockRefresh = false;
-                    //dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
                 }
             }
 		}

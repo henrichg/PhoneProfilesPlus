@@ -698,7 +698,7 @@ public class Event {
 		if (activatedProfile != null)
 			activatedProfileId = activatedProfile._id;
 		
-		if ((this._fkProfileStart != activatedProfileId) || reactivate)
+		if ((this._fkProfileStart != activatedProfileId) || this._manualProfileActivation || reactivate)
 		{
 			// no activate profile, when is already activated
 			GlobalData.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
@@ -709,6 +709,7 @@ public class Event {
                 else {
 					mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
 					if (this._manualProfileActivation) {
+						dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
 						dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, _notificationSound, true);
 						mergedProfile._id = 0;
 					}
@@ -720,6 +721,7 @@ public class Event {
                 else {
 					mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
 					if (this._manualProfileActivation) {
+						dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
 						dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, "", true);
 						mergedProfile._id = 0;
 					}
