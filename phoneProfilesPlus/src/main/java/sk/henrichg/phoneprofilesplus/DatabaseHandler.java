@@ -4197,8 +4197,46 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 							}
 							cursorExportedDB.close();
 							cursorImportDB.close();
+
 						}
-						
+
+                        db.execSQL("DELETE FROM " + TABLE_ACTIVITY_LOG);
+
+                        if (tableExists(TABLE_ACTIVITY_LOG, exportedDBObj)) {
+                            // cusor for events exportedDB
+                            cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_ACTIVITY_LOG, null);
+                            columnNamesExportedDB = cursorExportedDB.getColumnNames();
+
+                            // cursor for profiles of destination db
+                            cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_ACTIVITY_LOG, null);
+
+                            if (cursorExportedDB.moveToFirst()) {
+                                do {
+                                    values.clear();
+                                    for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                        // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                        if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                            values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                        }
+                                    }
+
+                                    // for non existent fields set default value
+										/*if (exportedDBObj.getVersion() < 30)
+										{
+											values.put(KEY_E_USE_END_TIME, 0);
+										}*/
+
+                                    // Inserting Row do db z SQLiteOpenHelper
+                                    db.insert(TABLE_ACTIVITY_LOG, null, values);
+
+                                } while (cursorExportedDB.moveToNext());
+                            }
+
+                            cursorExportedDB.close();
+                            cursorImportDB.close();
+
+                        }
+
 						db.setTransactionSuccessful();
 						
 						ret = 1;
