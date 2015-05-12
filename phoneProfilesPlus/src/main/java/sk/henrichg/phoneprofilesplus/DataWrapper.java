@@ -1020,7 +1020,7 @@ public class DataWrapper {
 		activateProfileHelper.showNotification(activatedProfile, eventNotificationSound);
 		activateProfileHelper.updateWidget();
 
-        if (log)
+        if (log && (profile != null))
             getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                                                 getProfileNameWithManualIndicator(profile, true),
                                                 profileIcon, profileDuration);
