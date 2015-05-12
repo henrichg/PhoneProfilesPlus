@@ -494,6 +494,6 @@
   <string name="array_event_pref_calendarAvailability_noCheck">Keine Prüfung</string>
   <string name="array_event_pref_calendarAvailability_busy">Beschäftigt</string>
   <string name="array_event_pref_calendarAvailability_free">Verfügbar</string>
-  <string name="array_event_pref_calendarAvailability_tentative">Tentative</string>
-  <string name="event_preferences_manualProfileActivation">Manual profile activation</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Mit Vorbehalt</string>
+  <string name="event_preferences_manualProfileActivation">Manuelle Profilaktivierung</string>
 </resources>
