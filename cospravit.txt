@@ -648,6 +648,7 @@ cize sa nebude robit aktivacia mergedProfile.
 
 Do Editora dat indikator ku nazvu profilu, ze sa aktivuje manualne: [M]
 Nezobrazovat End profil
+
 ------------------------------------------------------
 
 1. Bezi udalost Doma a Spanok.
