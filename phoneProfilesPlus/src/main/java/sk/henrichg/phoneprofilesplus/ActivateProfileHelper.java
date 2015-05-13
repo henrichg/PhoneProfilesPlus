@@ -24,6 +24,7 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -823,12 +824,15 @@ public class ActivateProfileHelper {
 						PixelFormat.TRANSLUCENT
 					);
 			params.gravity = Gravity.RIGHT | Gravity.TOP;
-			/*if (profile.getDeviceBrightnessAutomatic())
+			if (Build.VERSION.SDK_INT <= 16) {
+				if (profile.getDeviceBrightnessAutomatic())
+					params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+				else
+					params.screenBrightness = profile.getDeviceBrightnessManualValue(context) / (float) 255;
+			}
+			else {
 				params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-			else
-				params.screenBrightness = profile.getDeviceBrightnessValue() / 255.0f;*/
-			//params.screenBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 128) / 255.0f;
-			params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+			}
 			GUIData.brightneesView = new BrightnessView(context);
 			windowManager.addView(GUIData.brightneesView, params);
 
