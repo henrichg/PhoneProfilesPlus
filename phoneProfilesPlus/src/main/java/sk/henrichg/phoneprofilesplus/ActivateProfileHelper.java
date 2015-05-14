@@ -824,15 +824,10 @@ public class ActivateProfileHelper {
 						PixelFormat.TRANSLUCENT
 					);
 			params.gravity = Gravity.RIGHT | Gravity.TOP;
-			if (Build.VERSION.SDK_INT <= 16) {
-				if (profile.getDeviceBrightnessAutomatic())
-					params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-				else
-					params.screenBrightness = profile.getDeviceBrightnessManualValue(context) / (float) 255;
-			}
-			else {
+			if (profile.getDeviceBrightnessAutomatic())
 				params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-			}
+			else
+				params.screenBrightness = profile.getDeviceBrightnessManualValue(context) / (float) 255;
 			GUIData.brightneesView = new BrightnessView(context);
 			windowManager.addView(GUIData.brightneesView, params);
 

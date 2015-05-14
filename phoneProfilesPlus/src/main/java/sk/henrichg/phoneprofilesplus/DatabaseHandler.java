@@ -4184,6 +4184,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_E_AT_END_DO, Event.EATENDDO_UNDONE_PROFILE);
                                         }
 
+                                        if (exportedDBObj.getVersion() < 1300)
+                                        {
+                                            values.put(KEY_E_CALENDAR_AVAILABILITY, 0);
+                                        }
+
                                         if (exportedDBObj.getVersion() < 1310)
                                         {
                                             values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, 0);
