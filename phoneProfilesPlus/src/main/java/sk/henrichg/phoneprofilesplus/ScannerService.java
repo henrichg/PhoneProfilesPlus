@@ -13,6 +13,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.util.Log;
 
 public class ScannerService extends IntentService
 {
@@ -68,7 +69,21 @@ public class ScannerService extends IntentService
 		{
             GlobalData.logE("@@@ ScannerService.onHandleIntent", "getStartScan=false");
 
-            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.HARDWARE_CHECK_ALLOWED) {
+            boolean canScan = GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.HARDWARE_CHECK_ALLOWED;
+            if (canScan) {
+                try {
+                    WifiApManager wifiApManager = new WifiApManager(context);
+                    int wifiApState = wifiApManager.getWifiApState();
+                    // 11 => AP OFF
+                    // 13 => AP ON
+                    Log.e("&&&& ScannerService", "wifiApState=" + wifiApState);
+                    canScan = wifiApState == 11;
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (canScan) {
 
                 dataWrapper = new DataWrapper(context, false, false, 0);
 
