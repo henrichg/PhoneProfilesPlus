@@ -2101,7 +2101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound); // Event Name
 		values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0); // force run when manual profile activation
 		values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0); // temporary blocked
-		values.put(KEY_E_UNDONE_PROFILE, 0); // undone profile after event end
+		//values.put(KEY_E_UNDONE_PROFILE, 0); // undone profile after event end
 		values.put(KEY_E_PRIORITY, event._priority); // priority
 		values.put(KEY_E_DELAY_START, event._delayStart); // delay for start
 		values.put(KEY_E_IS_IN_DELAY, event._isInDelay ? 1 : 0); // event is in delay before start/pause
@@ -2260,7 +2260,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_E_NOTIFICATION_SOUND, event._notificationSound);
 		values.put(KEY_E_FORCE_RUN, event._forceRun ? 1 : 0);
 		values.put(KEY_E_BLOCKED, event._blocked ? 1 : 0);
-		values.put(KEY_E_UNDONE_PROFILE, 0);
+		//values.put(KEY_E_UNDONE_PROFILE, 0);
 		values.put(KEY_E_PRIORITY, event._priority);
 		values.put(KEY_E_DELAY_START, event._delayStart);
 		values.put(KEY_E_IS_IN_DELAY, event._isInDelay ? 1 : 0);
