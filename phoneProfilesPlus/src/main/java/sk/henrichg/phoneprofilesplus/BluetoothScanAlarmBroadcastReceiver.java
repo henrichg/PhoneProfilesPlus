@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.PowerManager;
 import android.util.Log;
-import android.view.ViewTreeObserver;
 
 import com.google.gson.Gson;
 

@@ -4,7 +4,6 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.os.Handler;
 import android.provider.Settings;
 
 public class ExecuteVolumeProfilePrefsService extends IntentService

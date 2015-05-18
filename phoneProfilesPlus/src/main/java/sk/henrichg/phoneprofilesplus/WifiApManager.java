@@ -1,10 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
-import java.lang.reflect.Method;
 import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.util.Log;
+
+import java.lang.reflect.Method;
 
 public final class WifiApManager {
     private static final int WIFI_AP_STATE_FAILED = 4;

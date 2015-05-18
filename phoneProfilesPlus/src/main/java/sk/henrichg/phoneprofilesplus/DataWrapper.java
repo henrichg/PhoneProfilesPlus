@@ -28,8 +28,6 @@ import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;

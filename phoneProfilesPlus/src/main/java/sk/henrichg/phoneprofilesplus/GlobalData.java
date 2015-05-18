@@ -14,7 +14,6 @@ import android.net.ConnectivityManager;
 import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.ViewConfiguration;
 
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootTools.RootTools;
@@ -25,7 +24,6 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
