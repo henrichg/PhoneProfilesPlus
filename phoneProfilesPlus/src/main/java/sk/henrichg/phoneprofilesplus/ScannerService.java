@@ -73,11 +73,14 @@ public class ScannerService extends IntentService
             if (canScan) {
                 try {
                     WifiApManager wifiApManager = new WifiApManager(context);
+                    /*
                     int wifiApState = wifiApManager.getWifiApState();
                     // 11 => AP OFF
                     // 13 => AP ON
                     Log.e("&&&& ScannerService", "wifiApState=" + wifiApState);
-                    canScan = wifiApState == 11;
+                    canScan = wifiApState == 11;*/
+                    canScan = !wifiApManager.isWifiAPEnabled();
+                    Log.e("&&&& ScannerService", "canScan=" + canScan);
                 } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 }
