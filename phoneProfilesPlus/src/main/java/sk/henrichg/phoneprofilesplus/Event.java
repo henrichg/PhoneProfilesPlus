@@ -683,13 +683,15 @@ public class Event {
 		}
 	//////////////////////////////////
 
-		eventTimeline = addEventTimeline(dataWrapper, eventTimelineList, mergedProfile);
+		//eventTimeline = addEventTimeline(dataWrapper, eventTimelineList, mergedProfile);
+
 
 		setSystemEvent(dataWrapper.context, ESTATUS_RUNNING);
+        int status = this._status;
 		this._status = ESTATUS_RUNNING;
 		dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
-        if (log ) {
+        if (log && (status != this._status)) {
             dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, _name, null, null, 0);
         }
 		
@@ -906,10 +908,11 @@ public class Event {
 
 		if (!noSetSystemEvent)
 			setSystemEvent(dataWrapper.context, ESTATUS_PAUSE);
+        int status = this._status;
 		this._status = ESTATUS_PAUSE;
 		dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
-        if (log) {
+        if (log && (status != this._status)) {
             int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
             if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE))
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
@@ -969,7 +972,7 @@ public class Event {
 			return;
 
 		GlobalData.logE("@@@ Event.stopEvent","event_id="+this._id+"-----------------------------------");
-		GlobalData.logE("@@@ Event.stopEvent","-- event_name="+this._name);
+		GlobalData.logE("@@@ Event.stopEvent", "-- event_name=" + this._name);
 		
 		if (this._status != ESTATUS_STOP)
 		{
@@ -977,10 +980,16 @@ public class Event {
 		}
 	
 		setSystemEvent(dataWrapper.context, ESTATUS_STOP);
+        //int status = this._status;
 		this._status = ESTATUS_STOP;
 		if (saveEventStatus)
 			dataWrapper.getDatabaseHandler().updateEventStatus(this);
-		
+
+        /*
+        if (log && (status != this._status)) {
+            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTOP, _name, null, null, 0);
+        }*/
+
 		return;
 	}
 	
