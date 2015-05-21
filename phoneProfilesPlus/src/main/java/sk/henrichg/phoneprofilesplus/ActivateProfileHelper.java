@@ -683,7 +683,7 @@ public class ActivateProfileHelper {
 					Settings.System.putFloat(context.getContentResolver(), 
 							ADAPTIVE_BRIGHTNESS_SETTING_NAME, 
 							profile.getDeviceBrightnessAdaptiveValue(context));
-				else
+				//else
 					Settings.System.putInt(context.getContentResolver(), 
 							Settings.System.SCREEN_BRIGHTNESS, 
 							profile.getDeviceBrightnessManualValue(context));
