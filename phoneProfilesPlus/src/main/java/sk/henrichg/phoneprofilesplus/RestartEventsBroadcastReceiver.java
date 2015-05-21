@@ -18,6 +18,19 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 		
 		if (GlobalData.getGlobalEventsRuning(context))
 		{
+			boolean unblockEventsRun = intent.getBooleanExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, true);
+
+			if (unblockEventsRun)
+			{
+				DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+
+				GlobalData.setEventsBlocked(context, false);
+				dataWrapper.getDatabaseHandler().unblockAllEvents();
+				GlobalData.setForceRunEventRunning(context, false);
+
+				dataWrapper.invalidateDataWrapper();
+			}
+
 			// start service
 			Intent eventsServiceIntent = new Intent(context, EventsService.class);
 			eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);

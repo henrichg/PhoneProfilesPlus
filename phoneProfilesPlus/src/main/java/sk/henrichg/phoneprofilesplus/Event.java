@@ -816,7 +816,8 @@ public class Event {
             // restart events when is set
             if (_atEndDo == EATENDDO_RESTART_EVENTS) {
                 GlobalData.logE("Event.pauseEvent","restart events");
-                dataWrapper.restartEventsWithDelay(3);
+
+                dataWrapper.restartEventsWithDelay(3, true);
                 profileActivated = true;
             }
 

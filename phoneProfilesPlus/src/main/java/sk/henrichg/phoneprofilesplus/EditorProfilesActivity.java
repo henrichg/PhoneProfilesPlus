@@ -1221,7 +1221,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     dataWrapper.updateNotificationAndWidgets(null, "");
 					//dataWrapper.getActivateProfileHelper().showNotification(null, "");
 					//dataWrapper.getActivateProfileHelper().updateWidget();
-					
+
                     GlobalData.setEventsBlocked(getApplicationContext(), false);
                     dataWrapper.getDatabaseHandler().unblockAllEvents();
                     GlobalData.setForceRunEventRunning(getApplicationContext(), false);
@@ -1241,7 +1241,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 						intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
 						getBaseContext().sendBroadcast(intent);
 						*/
-                        dataWrapper.restartEventsWithDelay(1);
+                        dataWrapper.restartEventsWithDelay(1, false);
 					}
 
                     dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);

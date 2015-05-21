@@ -101,6 +101,7 @@ public class GlobalData extends Application {
 	static final String EXTRA_SECOND_SET_VOLUMES = "second_set_volumes";
 	static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
 	static final String EXTRA_SCANNER_TYPE = "scanner_type";
+	static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
 
 	static final int STARTUP_SOURCE_NOTIFICATION = 1;
 	static final int STARTUP_SOURCE_WIDGET = 2;

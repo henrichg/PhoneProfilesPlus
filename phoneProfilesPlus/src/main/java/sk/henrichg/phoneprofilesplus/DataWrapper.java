@@ -2202,10 +2202,11 @@ public class DataWrapper {
 		}
 	}
 
-    public void restartEventsWithDelay(int delay)
+    public void restartEventsWithDelay(int delay, boolean unblockEventsRun)
     {
         AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
+		intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, delay);
