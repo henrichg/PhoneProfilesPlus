@@ -683,7 +683,7 @@ public class Event {
 		}
 	//////////////////////////////////
 
-		//eventTimeline = addEventTimeline(dataWrapper, eventTimelineList, mergedProfile);
+		addEventTimeline(dataWrapper, eventTimelineList, mergedProfile);
 
 
 		setSystemEvent(dataWrapper.context, ESTATUS_RUNNING);
