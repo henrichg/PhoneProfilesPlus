@@ -22,8 +22,9 @@ public class ProfilePreferencesIndicator {
 	private static void addIndicator(Bitmap indicatorBitmap, int preferenceBitmapResourceID, int index, Context context, Canvas canvas)
 	{
 		Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
-		
-		canvas.drawBitmap(preferenceBitmap, preferenceBitmap.getWidth() * index, 0, null);
+
+		if (preferenceBitmap != null)
+			canvas.drawBitmap(preferenceBitmap, preferenceBitmap.getWidth() * index, 0, null);
 		//canvas.save();
 		
 	}
