@@ -679,14 +679,13 @@ public class ActivateProfileHelper {
 				Settings.System.putInt(context.getContentResolver(), 
 							Settings.System.SCREEN_BRIGHTNESS_MODE, 
 							Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+				Settings.System.putInt(context.getContentResolver(),
+						Settings.System.SCREEN_BRIGHTNESS,
+						profile.getDeviceBrightnessManualValue(context));
 				if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
 					Settings.System.putFloat(context.getContentResolver(), 
 							ADAPTIVE_BRIGHTNESS_SETTING_NAME, 
 							profile.getDeviceBrightnessAdaptiveValue(context));
-				//else
-					Settings.System.putInt(context.getContentResolver(), 
-							Settings.System.SCREEN_BRIGHTNESS, 
-							profile.getDeviceBrightnessManualValue(context));
 			}
 			else
 			{
