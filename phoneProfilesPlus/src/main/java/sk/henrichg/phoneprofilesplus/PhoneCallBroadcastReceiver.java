@@ -72,6 +72,11 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
+		if (incoming)
+			doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
+		else
+			doCallEvent(CALL_EVENT_OUTGOING_CALL_STARTED, phoneNumber, dataWrapper);
+
         if (incoming) {
             /// for linked ringer and notification volume:
             //    notification volume in profile activation is set after ringer volume
@@ -85,10 +90,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             }
         }
 
-		if (incoming)
-			doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
-		else
-			doCallEvent(CALL_EVENT_OUTGOING_CALL_STARTED, phoneNumber, dataWrapper);
 		dataWrapper.invalidateDataWrapper();
 	}
 	
