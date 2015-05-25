@@ -72,23 +72,16 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
-		if (incoming)
-			doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
-		else
-			doCallEvent(CALL_EVENT_OUTGOING_CALL_STARTED, phoneNumber, dataWrapper);
-
-        if (incoming) {
+        GlobalData.setSeparateVolumes(savedContext, 0);
+		if (incoming) {
             /// for linked ringer and notification volume:
             //    notification volume in profile activation is set after ringer volume
             //    therefore reset ringer volume
-            Profile profile = dataWrapper.getActivatedProfile();
-            if (profile != null) {
-                Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
-                volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-				volumeServiceIntent.putExtra(GlobalData.EXTRA_SEPARATE_VOLUMES, 1);
-                savedContext.startService(volumeServiceIntent);
-            }
+            GlobalData.setSeparateVolumes(savedContext, 1);
+            doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
         }
+		else
+			doCallEvent(CALL_EVENT_OUTGOING_CALL_STARTED, phoneNumber, dataWrapper);
 
 		dataWrapper.invalidateDataWrapper();
 	}
@@ -97,6 +90,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 	{
 		DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
+        GlobalData.setSeparateVolumes(savedContext, 0);
 		if (incoming)
 			doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
 		else
@@ -158,6 +152,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
+        GlobalData.setSeparateVolumes(savedContext, 0);
         if (incoming)
             setBackNotificationVolume(dataWrapper);
 

@@ -27,6 +27,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 		long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
         boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
 		int separateVolumes = intent.getIntExtra(GlobalData.EXTRA_SEPARATE_VOLUMES, 0);
+        if (separateVolumes == 0)
+            separateVolumes = GlobalData.getSeparateVolumes(context);
 		Profile profile = dataWrapper.getProfileById(profile_id, merged);
 		profile = GlobalData.getMappedProfile(profile, context);
 
