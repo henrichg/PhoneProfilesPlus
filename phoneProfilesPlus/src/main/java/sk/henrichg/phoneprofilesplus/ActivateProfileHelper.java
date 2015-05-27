@@ -313,7 +313,7 @@ public class ActivateProfileHelper {
         }*/
 	}
 	
-	public boolean setVolumes(Profile profile, AudioManager audioManager)
+	public boolean setVolumes(Profile profile, AudioManager audioManager, int separateVolumes)
 	{
 		boolean priorityMode = false;
 
@@ -323,31 +323,33 @@ public class ActivateProfileHelper {
 			waitForVolumeChange();
 			//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
 		}
-		if (profile.getVolumeRingtoneChange())
-		{
-			int volume = profile.getVolumeRingtoneValue();
-			audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-			waitForVolumeChange();
-			//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-			if (volume > 0)
-				priorityMode = true;
+		// separateVolumes is true only during incomming call
+		// therefore notification volume is not needed to change
+		// and for linked ringer and notification volumes must not by set
+		if (profile.getVolumeRingtoneChange() || (separateVolumes == 1)) {
+			if (profile.getVolumeRingtoneChange())
+				GlobalData.setRingerVolume(context, profile.getVolumeRingtoneValue());
+			int volume = GlobalData.getRingerVolume(context);
+			if (volume != -999) {
+				audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+				waitForVolumeChange();
+				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
+				if (volume > 0)
+					priorityMode = true;
+			}
 		}
-		if (profile.getVolumeNotificationChange())
-		{
-			int volume = profile.getVolumeNotificationValue();
-
-            if (PhoneCallBroadcastReceiver.separateVolumes) {
-                // separateVolumes is true only during incomming call
-                // therefore notification volume is not needed to change
-                // and for linked ringer and notification volumes must not by set
-                PhoneCallBroadcastReceiver.notificationVolume = volume;
-            }
-            else {
-                audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-                waitForVolumeChange();
-                //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
-                if (volume > 0)
-                    priorityMode = true;
+		if (profile.getVolumeNotificationChange() || (separateVolumes == 2)) {
+			if (profile.getVolumeNotificationChange())
+				GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
+            if (separateVolumes != 1) {
+                int volume = GlobalData.getNotificationVolume(context);
+                if (volume != -999) {
+                    audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
+                    waitForVolumeChange();
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
+                    if (volume > 0)
+                        priorityMode = true;
+                }
             }
 		}
 		if (profile.getVolumeMediaChange())
@@ -524,7 +526,6 @@ public class ActivateProfileHelper {
 		Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
 		volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
 		volumeServiceIntent.putExtra(GlobalData.EXTRA_MERGED_PROFILE, merged);
-		volumeServiceIntent.putExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, true);
 		context.startService(volumeServiceIntent);
 		/*AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 		// nahodenie ringer modu - aby sa mohli nastavit hlasitosti

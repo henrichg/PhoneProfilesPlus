@@ -58,6 +58,9 @@ public class FirstStartService extends IntentService {
         installTone(R.raw.phoneprofiles_silent, "PhoneProfiles Silent", context);
 
         GlobalData.setLockscreenDisabled(context, false);
+        GlobalData.setRingerVolume(context, -999);
+        GlobalData.setNotificationVolume(context, -999);
+        GlobalData.setSeparateVolumes(context, 0);
 
         // start PPHelper
 		//PhoneProfilesHelper.startPPHelper(context);

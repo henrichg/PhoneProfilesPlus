@@ -15,8 +15,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 	private static int savedMode = AudioManager.MODE_NORMAL;
 	private static boolean savedSpeakerphone = false;
 	private static boolean speakerphoneSelected = false;
-    public static boolean separateVolumes = false;
-    public static int notificationVolume = -999;
 
 	public static final String BROADCAST_RECEIVER_TYPE = "phoneCall";
 	
@@ -74,35 +72,25 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
-        if (incoming) {
+        GlobalData.setSeparateVolumes(savedContext, 0);
+		if (incoming) {
             /// for linked ringer and notification volume:
             //    notification volume in profile activation is set after ringer volume
             //    therefore reset ringer volume
-
-            separateVolumes = true;
-
-            Profile profile = dataWrapper.getActivatedProfile();
-            if (profile != null) {
-                Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
-                volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-                volumeServiceIntent.putExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, true);
-                savedContext.startService(volumeServiceIntent);
-            }
+            GlobalData.setSeparateVolumes(savedContext, 1);
+            doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
         }
-
-		if (incoming)
-			doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
 		else
 			doCallEvent(CALL_EVENT_OUTGOING_CALL_STARTED, phoneNumber, dataWrapper);
+
 		dataWrapper.invalidateDataWrapper();
 	}
 	
 	private void callAnswered(boolean incoming, String phoneNumber)
 	{
-        separateVolumes = false;
-
 		DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
+        GlobalData.setSeparateVolumes(savedContext, 0);
 		if (incoming)
 			doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
 		else
@@ -138,23 +126,17 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 	}
 
     private void setBackNotificationVolume(DataWrapper dataWrapper) {
-        if (notificationVolume != -999) {
-            Profile profile = dataWrapper.getActivatedProfile();
-            if (profile != null) {
-                Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
-                volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-                volumeServiceIntent.putExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, true);
-                savedContext.startService(volumeServiceIntent);
-            }
-
-            notificationVolume = -999;
-        }
+		Profile profile = dataWrapper.getActivatedProfile();
+		if (profile != null) {
+			Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
+			volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+			volumeServiceIntent.putExtra(GlobalData.EXTRA_SEPARATE_VOLUMES, 2);
+			savedContext.startService(volumeServiceIntent);
+		}
     }
 
 	private void callEnded(boolean incoming, String phoneNumber)
 	{
-        separateVolumes = false;
-
     	//Deactivate loudspeaker
 		if (audioManager == null )
 			audioManager = (AudioManager)savedContext.getSystemService(Context.AUDIO_SERVICE);
@@ -170,6 +152,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
+        GlobalData.setSeparateVolumes(savedContext, 0);
         if (incoming)
             setBackNotificationVolume(dataWrapper);
 
