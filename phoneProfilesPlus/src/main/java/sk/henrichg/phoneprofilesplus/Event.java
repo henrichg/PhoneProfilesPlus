@@ -744,7 +744,8 @@ public class Event {
 										List<EventTimeline> eventTimelineList,
 										EventTimeline eventTimeline,
 										boolean activateReturnProfile,
-                                        Profile mergedProfile)
+                                        Profile mergedProfile,
+									  	boolean allowRestart)
 	{
 		
 		if (!(eventPosition == (timeLineSize-1)))
@@ -814,7 +815,7 @@ public class Event {
 				}
 			}
             // restart events when is set
-            if (_atEndDo == EATENDDO_RESTART_EVENTS) {
+            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
                 GlobalData.logE("Event.pauseEvent","restart events");
 
                 dataWrapper.restartEventsWithDelay(3, true);
@@ -836,7 +837,8 @@ public class Event {
 							boolean ignoreGlobalPref,
 							boolean noSetSystemEvent,
                             boolean log,
-                            Profile mergedProfile)
+                            Profile mergedProfile,
+                            boolean allowRestart)
 	{
 		// remove delay alarm
 		removeDelayAlarm(dataWrapper, true); // for start delay
@@ -951,7 +953,7 @@ public class Event {
 		{
 			doActivateEndProfile(dataWrapper, eventPosition, timeLineSize, 
 					eventTimelineList, eventTimeline, 
-					activateReturnProfile, mergedProfile);
+					activateReturnProfile, mergedProfile, allowRestart);
 
 		}
 		
@@ -963,7 +965,8 @@ public class Event {
 							boolean activateReturnProfile, 
 							boolean ignoreGlobalPref,
 							boolean saveEventStatus,
-                            boolean log)
+                            boolean log,
+                            boolean allowRestart)
 	{
 		// remove delay alarm
 		removeDelayAlarm(dataWrapper, true); // for start delay
@@ -977,7 +980,7 @@ public class Event {
 		
 		if (this._status != ESTATUS_STOP)
 		{
-			pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null);
+			pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, allowRestart);
 		}
 	
 		setSystemEvent(dataWrapper.context, ESTATUS_STOP);

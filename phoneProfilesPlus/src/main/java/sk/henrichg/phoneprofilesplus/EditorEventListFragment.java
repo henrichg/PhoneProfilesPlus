@@ -342,7 +342,7 @@ public class EditorEventListFragment extends Fragment {
             if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
                 // pause event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null); // activate return profile
+                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false); // activate return profile
                 // redraw event list
                 updateListView(event, false);
                 // restart events
@@ -350,7 +350,7 @@ public class EditorEventListFragment extends Fragment {
             } else {
                 // stop event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-                event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false); // activate return profile
+                event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false, false); // activate return profile
                 // redraw event list
                 updateListView(event, false);
                 // restart events
@@ -417,7 +417,7 @@ public class EditorEventListFragment extends Fragment {
 			return;
 
 		List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-		event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false);
+		event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false, false);
 		// restart events
 		dataWrapper.restartEvents(false, false, true);
 		

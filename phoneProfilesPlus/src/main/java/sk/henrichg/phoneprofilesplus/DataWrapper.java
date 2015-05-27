@@ -631,7 +631,7 @@ public class DataWrapper {
 			//if ((event.getStatusFromDB(this) == Event.ESTATUS_RUNNING) &&
 			//	(event._fkProfileStart == profile._id))
 			if (event._fkProfileStart == profile._id)
-				event.stopEvent(this, eventTimelineList, false, true, saveEventStatus, false);
+				event.stopEvent(this, eventTimelineList, false, true, saveEventStatus, false, false);
 		}
 		restartEvents(false, false, true);
 	}
@@ -648,8 +648,7 @@ public class DataWrapper {
                 int status = event.getStatusFromDB(this);
 
                 if (status == Event.ESTATUS_RUNNING)
-                    event.pauseEvent(this, eventTimelineList, false, true,
-                                        noSetSystemEvent, false, null);
+                    event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, false, null, false);
 
                 setEventBlocked(event, false);
                 if (blockEvents && (status == Event.ESTATUS_RUNNING) && event._forceRun)
@@ -680,7 +679,7 @@ public class DataWrapper {
 				if (event != null)
 				{
 				//if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
-					event.stopEvent(this, eventTimelineList, activateRetirnProfile, true, saveEventStatus, false);
+					event.stopEvent(this, eventTimelineList, activateRetirnProfile, true, saveEventStatus, false, false);
 				}
 			}
 		}
@@ -2080,7 +2079,7 @@ public class DataWrapper {
 
 				GlobalData.logE("DataWrapper.doEventService","pause event");
 
-				event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile);
+				event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
 			}
 		}
 
