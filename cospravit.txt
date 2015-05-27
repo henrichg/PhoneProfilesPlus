@@ -671,3 +671,21 @@ Kedze viem odchytit, ze zvoni, co tak spravit toto pre oddelenie hlasitosti zvon
 4. ak zachytim, ze zvoni, nastavim hlasitost zvonenia aj notifikacii na hlasitost zvonenia v profile
 5. po ukonceni hovoru nastavim hlasitost zvonenia a notifikacii spat podla profilu
 
+-------------------------------------------------------
+
+Blokovanie udalosti, ak po manualnej aktivacii bezi force run event a znova dam manualnu aktivaciu.
+
+1. Musim vediet, doslo k manualnej aktivacii.
+   Na to je priznak PREF_EVENTS_BLOCKED, ktory sa nastavi na true, ak sa manualne
+   aktivuje profil. PASSED
+2. Ak sa spusti event, testujem PREF_EVENTS_BLOCKED a ak je true, pustim len forceRun event.
+   PASSED.
+3. Ak znova dojde k manualnej aktivacii profilu, musim zablokovat beziace forceRun eventy. Ziadne
+   ine nesmiem blokovat. PASSED
+4. Blokovany event nesmiem spustit. PASSED
+5. Eventy sa oblokuju restartom udalosti a ked sa event pauzne. Restart moze nastat:
+   a) manualne - odblokovat - PASSED
+   b) po zmene parametrov udalosti - PASSED
+   c) po skonceni trvania profilu - odblokovat - PASSED
+   d) po skonceni udalosti - odblokovat - PASSED
+   e) na prvy start aplikacie - odblokovat - PASSED

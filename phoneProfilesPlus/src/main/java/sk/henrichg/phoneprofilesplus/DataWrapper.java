@@ -734,6 +734,11 @@ public class DataWrapper {
 
         if (!startedFromService) {
             GlobalData.setEventsBlocked(context, false);
+			for (Event event : getEventList())
+			{
+				if (event != null)
+					event._blocked = false;
+			}
             getDatabaseHandler().unblockAllEvents();
             GlobalData.setForceRunEventRunning(context, false);
         }
@@ -2116,6 +2121,11 @@ public class DataWrapper {
 		if (unblockEventsRun)
 		{
 			GlobalData.setEventsBlocked(context, false);
+			for (Event event : getEventList())
+			{
+				if (event != null)
+					event._blocked = false;
+			}
 			getDatabaseHandler().unblockAllEvents();
             GlobalData.setForceRunEventRunning(context, false);
 		}
