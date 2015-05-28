@@ -1030,7 +1030,7 @@ public class DataWrapper {
 
         if (log && (profile != null)) {
             getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                    getProfileNameWithManualIndicator(profile, true),
+                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0),
                     profileIcon, profileDuration);
         }
 
@@ -2252,12 +2252,17 @@ public class DataWrapper {
 			return true;
 	}
 	
-	public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators)
+	public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration)
 	{
 		if (profile == null)
 			return "";
-		
-		String name = profile._name;
+
+
+		String name;
+        if (addDuration)
+            name = profile.getProfileNameWithDuration();
+        else
+            name = profile._name;
 		
 		if (GlobalData.getEventsBlocked(context))
 		{

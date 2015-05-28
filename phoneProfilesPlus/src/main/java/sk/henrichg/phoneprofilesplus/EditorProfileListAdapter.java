@@ -343,9 +343,7 @@ public class EditorProfileListAdapter extends BaseAdapter
 	      
 			String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, 
 					profile._checked &&
-					(!GlobalData.applicationEditorHeader));
-			if ((profile._duration > 0) && (profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING))
-				profileName = "[" + profile._duration + "] " + profileName;
+					(!GlobalData.applicationEditorHeader), true);
 			holder.profileName.setText(profileName);
 			
 	        if (profile.getIsIconResourceID())

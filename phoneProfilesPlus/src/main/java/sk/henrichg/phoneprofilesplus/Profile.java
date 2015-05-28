@@ -446,7 +446,7 @@ public class Profile {
             */
 
             dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                                    dataWrapper.getProfileNameWithManualIndicator(withProfile, true),
+                                    dataWrapper.getProfileNameWithManualIndicator(withProfile, true, profileDuration > 0),
                                     profileIcon, profileDuration);
 
         }
@@ -916,5 +916,11 @@ public class Profile {
     		_preferencesIndicator = null;
     	}
 	}
-	
+
+    public String getProfileNameWithDuration() {
+        String profileName = _name;
+        if ((_duration > 0) && (_afterDurationDo != Profile.AFTERDURATIONDO_NOTHING))
+            profileName = "[" + _duration + "] " + profileName;
+        return profileName;
+    }
 }

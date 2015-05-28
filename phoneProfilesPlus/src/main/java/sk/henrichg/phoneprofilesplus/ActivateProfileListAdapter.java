@@ -167,12 +167,10 @@ public class ActivateProfileListAdapter extends BaseAdapter
 			holder.profileName.setTypeface(null, Typeface.NORMAL);
 		}
       
-		String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, 
+		String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
 									(!GlobalData.applicationActivatorGridLayout) && 
 									profile._checked &&
-									(!GlobalData.applicationActivatorHeader));
-		if ((profile._duration > 0) && (profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING))
-            profileName = "[" + profile._duration + "] " + profileName;
+									(!GlobalData.applicationActivatorHeader), true);
 		holder.profileName.setText(profileName);
 		
 		
