@@ -1010,6 +1010,8 @@ public class DataWrapper {
 				long profileId = 0;
 				if (activatedProfile != null)
 					profileId = activatedProfile._id;
+                GlobalData.logE("$$$ DataWrapper._activateProfile","profileId="+profileId);
+
 				GlobalData.setActivatedProfileForDuration(context, profileId);
 
 				ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
@@ -1018,11 +1020,14 @@ public class DataWrapper {
 			else {
                 GlobalData.logE("$$$ DataWrapper._activateProfile","NO manual profile activation");
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+                GlobalData.setActivatedProfileForDuration(context, 0);
                 profileDuration = 0;
             }
 		}
-		else
-			ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+		else {
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            GlobalData.setActivatedProfileForDuration(context, 0);
+        }
 
 		activatedProfile = getActivatedProfile();
 		activateProfileHelper.showNotification(activatedProfile, eventNotificationSound);
@@ -1215,7 +1220,8 @@ public class DataWrapper {
 			// aktivacia bola spustena po boote telefonu
 			
 			ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-			
+            GlobalData.setActivatedProfileForDuration(context, 0);
+
 			if (GlobalData.applicationActivate)
 			{
 				// je nastavene, ze pri starte sa ma aktivita aktivovat
@@ -1253,7 +1259,8 @@ public class DataWrapper {
 			// aktivacia bola spustena z lauchera 
 			
 			ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-			
+            GlobalData.setActivatedProfileForDuration(context, 0);
+
 			if (GlobalData.applicationActivate)
 			{
 				// je nastavene, ze pri starte sa ma aktivita aktivovat
@@ -2061,7 +2068,8 @@ public class DataWrapper {
 			if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause))
 			{
 				GlobalData.logE("$$$ DataWrapper.doEventService","start event");
-				
+                GlobalData.logE("$$$ DataWrapper.doEventService","event._name="+event._name);
+
 				if (!forDelayAlarm)
 				{
 					// called not for delay alarm
@@ -2089,7 +2097,8 @@ public class DataWrapper {
 			{
                 // when pausing and it is for restart events, force pause
 
-				GlobalData.logE("DataWrapper.doEventService","pause event");
+				GlobalData.logE("$$$ DataWrapper.doEventService","pause event");
+                GlobalData.logE("$$$ DataWrapper.doEventService","event._name="+event._name);
 
 				event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
 			}
@@ -2297,7 +2306,7 @@ public class DataWrapper {
     public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators) {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        boolean addDuration = GlobalData.getActivatedProfileForDuration(context) != 0;
+        boolean addDuration = (GlobalData.getActivatedProfileForDuration(context) != 0);
 
         return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration);
     }

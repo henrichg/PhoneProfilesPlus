@@ -262,6 +262,8 @@ public class EventsService extends IntentService
 					dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, eventNotificationSound, false);
                 }
+				else
+					dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
             }
 		}
 
