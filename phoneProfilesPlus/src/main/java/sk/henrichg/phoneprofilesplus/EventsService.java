@@ -98,6 +98,8 @@ public class EventsService extends IntentService
 
 		if (isRestart)
 		{
+			GlobalData.logE("$$$ EventsService.onHandleIntent","restart events");
+
 			// 1. pause events
 			dataWrapper.sortEventsByPriorityDesc();
 			for (Event _event : eventList)
@@ -127,6 +129,8 @@ public class EventsService extends IntentService
 		}
 		else
 		{
+			GlobalData.logE("$$$ EventsService.onHandleIntent","NO restart events");
+
 			//1. pause events
 			dataWrapper.sortEventsByPriorityDesc();
 			for (Event _event : eventList)
@@ -251,9 +255,9 @@ public class EventsService extends IntentService
             if (mergedProfile == null)
 			    dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
             else {
-                GlobalData.logE("$$$ EventsService.activateProfileFromEvent","profileName="+mergedProfile._name);
-                GlobalData.logE("$$$ EventsService.activateProfileFromEvent","profileId="+mergedProfile._id);
-                GlobalData.logE("$$$ EventsService.activateProfileFromEvent","notificationSound="+eventNotificationSound);
+                GlobalData.logE("$$$ EventsService.onHandleIntent","profileName="+mergedProfile._name);
+                GlobalData.logE("$$$ EventsService.onHandleIntent","profileId="+mergedProfile._id);
+                GlobalData.logE("$$$ EventsService.onHandleIntent","notificationSound="+eventNotificationSound);
 				if (mergedProfile._id != 0) {
 					dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, eventNotificationSound, false);

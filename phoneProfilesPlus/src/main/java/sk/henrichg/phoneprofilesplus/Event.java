@@ -818,6 +818,8 @@ public class Event {
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
                 GlobalData.logE("Event.pauseEvent","restart events");
 
+				dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+
                 dataWrapper.restartEventsWithDelay(3, true);
                 profileActivated = true;
             }

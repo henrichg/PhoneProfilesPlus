@@ -957,6 +957,8 @@ public class DataWrapper {
         else
             GlobalData.logE("$$$ DataWrapper._activateProfile","profile=null");
 
+        GlobalData.logE("$$$ DataWrapper._activateProfile","startupSource="+startupSource);
+
 		boolean interactive = _interactive;
 		final Activity activity = _activity;
 
@@ -1000,7 +1002,8 @@ public class DataWrapper {
 				(startupSource != GlobalData.STARTUP_SOURCE_LAUNCHER_START))
 			{
 				// manual profile activation 
-	
+                GlobalData.logE("$$$ DataWrapper._activateProfile","manual profile activation");
+
 				//// set profile duration alarm
 
 				// save before activated profile
@@ -1012,8 +1015,11 @@ public class DataWrapper {
 				ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
 				///////////
 			}
-			else
-				ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+			else {
+                GlobalData.logE("$$$ DataWrapper._activateProfile","NO manual profile activation");
+                ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+                profileDuration = 0;
+            }
 		}
 		else
 			ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -1022,10 +1028,11 @@ public class DataWrapper {
 		activateProfileHelper.showNotification(activatedProfile, eventNotificationSound);
 		activateProfileHelper.updateWidget();
 
-        if (log && (profile != null))
+        if (log && (profile != null)) {
             getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                                                getProfileNameWithManualIndicator(profile, true),
-                                                profileIcon, profileDuration);
+                    getProfileNameWithManualIndicator(profile, true),
+                    profileIcon, profileDuration);
+        }
 
 		if (profile != null)
 		{

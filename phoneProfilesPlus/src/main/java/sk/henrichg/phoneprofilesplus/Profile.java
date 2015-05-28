@@ -439,9 +439,11 @@ public class Profile {
 
             profileIcon = withProfile._icon;
 
+			/* mergeProfiles is lauched from Event or EventsService and for this, profile duration is ignored
             if ((withProfile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
                     (withProfile._duration > 0))
                 profileDuration = withProfile._duration;
+            */
 
             dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                                     dataWrapper.getProfileNameWithManualIndicator(withProfile, true),
