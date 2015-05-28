@@ -24,8 +24,8 @@ public class ActivityLogAdapter extends CursorAdapter {
     private final int KEY_AL_LOG_TYPE;
     private final int KEY_AL_EVENT_NAME;
     private final int KEY_AL_PROFILE_NAME;
-    private final int KEY_AL_PROFILE_ICON;
-    private final int KEY_AL_DURATION_DELAY;
+    //private final int KEY_AL_PROFILE_ICON;
+    //private final int KEY_AL_DURATION_DELAY;
 
     HashMap<Integer, Integer> activityTypeStrings = new HashMap<Integer, Integer>();
     HashMap<Integer, Integer> activityTypeColors = new HashMap<Integer, Integer>();
@@ -37,8 +37,8 @@ public class ActivityLogAdapter extends CursorAdapter {
         KEY_AL_LOG_TYPE = cursor.getColumnIndex(DatabaseHandler.KEY_AL_LOG_TYPE);
         KEY_AL_EVENT_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_EVENT_NAME);
         KEY_AL_PROFILE_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_NAME);
-        KEY_AL_PROFILE_ICON = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_ICON);
-        KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
+        //KEY_AL_PROFILE_ICON = cursor.getColumnIndex(DatabaseHandler.KEY_AL_PROFILE_ICON);
+        //KEY_AL_DURATION_DELAY = cursor.getColumnIndex(DatabaseHandler.KEY_AL_DURATION_DELAY);
 
         activityTypeStrings.put(DatabaseHandler.ALTYPE_PROFILEACTIVATION, R.string.altype_profileActivation);
         activityTypeStrings.put(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, R.string.altype_afterDuration_undoProfile);
@@ -93,14 +93,14 @@ public class ActivityLogAdapter extends CursorAdapter {
         rowData.eventName  = (TextView) view.findViewById(R.id.activity_log_row_event_name);
         rowData.profileName  = (TextView) view.findViewById(R.id.activity_log_row_profile_name);
         //rowData.profileIcon  = (ImageView) view.findViewById(R.id.activity_log_row_profile_icon);
-        rowData.durationDelay  = (TextView) view.findViewById(R.id.activity_log_row_duration_delay);
+        //rowData.durationDelay  = (TextView) view.findViewById(R.id.activity_log_row_duration_delay);
 
         rowData.logTypeColor.setBackgroundColor(context.getResources().getColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
         rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
-        rowData.durationDelay.setText(cursor.getString(KEY_AL_DURATION_DELAY));
+        //rowData.durationDelay.setText(cursor.getString(KEY_AL_DURATION_DELAY));
 
         view.setTag(rowData);
 
@@ -117,7 +117,7 @@ public class ActivityLogAdapter extends CursorAdapter {
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
         rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
-        rowData.durationDelay.setText(cursor.getString(KEY_AL_DURATION_DELAY));
+        //rowData.durationDelay.setText(cursor.getString(KEY_AL_DURATION_DELAY));
     }
 
     public static class MyRowViewHolder {
@@ -126,8 +126,8 @@ public class ActivityLogAdapter extends CursorAdapter {
         TextView logType;
         TextView eventName;
         TextView profileName;
-        ImageView profileIcon;
-        TextView durationDelay;
+        //ImageView profileIcon;
+        //TextView durationDelay;
     }
 
     public static String formatDateTime(Context context, String timeToFormat) {

@@ -20,7 +20,7 @@
 
     <TextView
         android:id="@+id/activity_log_row_log_date_time"
-        android:layout_weight="0.21"
+        android:layout_weight="0.25"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"/>
@@ -45,11 +45,5 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp" />
-
-    <TextView
-        android:id="@+id/activity_log_row_duration_delay"
-        android:layout_weight="0.07"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>
