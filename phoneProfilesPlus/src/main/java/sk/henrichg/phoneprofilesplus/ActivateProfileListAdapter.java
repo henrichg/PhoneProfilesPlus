@@ -171,6 +171,8 @@ public class ActivateProfileListAdapter extends BaseAdapter
 									(!GlobalData.applicationActivatorGridLayout) && 
 									profile._checked &&
 									(!GlobalData.applicationActivatorHeader));
+		if ((profile._duration > 0) && (profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING))
+            profileName = "[" + profile._duration + "] " + profileName;
 		holder.profileName.setText(profileName);
 		
 		
