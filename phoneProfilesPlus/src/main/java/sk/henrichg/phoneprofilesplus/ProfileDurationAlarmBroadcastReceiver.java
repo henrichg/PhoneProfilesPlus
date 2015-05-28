@@ -80,7 +80,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 	static public void setAlarm(Profile profile, Context context)
 	{
 		removeAlarm(context);
-		
+		GlobalData.setActivatedProfileForDuration(context, 0);
+
 		if (profile == null)
 			return;
 		

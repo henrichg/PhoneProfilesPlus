@@ -2252,11 +2252,10 @@ public class DataWrapper {
 			return true;
 	}
 	
-	public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration)
+	public String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration)
 	{
 		if (profile == null)
 			return "";
-
 
 		String name;
         if (addDuration)
@@ -2281,18 +2280,31 @@ public class DataWrapper {
 
 		if (addIndicators)
 		{
-			String eventName = getLastStartedEventName();
+			String eventName = getLastStartedEventName(eventTimelineList);
 			if (!eventName.isEmpty())
 				name = name + " [" + eventName + "]";
 		}
 		
 		return name;
 	}
-	
-	public String getLastStartedEventName()
+
+    public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration) {
+        List<EventTimeline> eventTimelineList = getEventTimelineList();
+
+        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration);
+    }
+
+    public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators) {
+        List<EventTimeline> eventTimelineList = getEventTimelineList();
+
+        boolean addDuration = GlobalData.getActivatedProfileForDuration(context) != 0;
+
+        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration);
+    }
+
+	private String getLastStartedEventName(List<EventTimeline> eventTimelineList)
 	{
-		List<EventTimeline> eventTimelineList = getEventTimelineList();
-		
+
 		if (GlobalData.getGlobalEventsRuning(context) && GlobalData.getApplicationStarted(context))
 		{
 			if (eventTimelineList.size() > 0)

@@ -677,7 +677,7 @@ public class EditorProfileListFragment extends Fragment {
 		}
 		else
 		{
-			activeProfileName.setText(dataWrapper.getProfileNameWithManualIndicator(profile, true, GlobalData.getEventsBlocked(dataWrapper.context)));
+			activeProfileName.setText(dataWrapper.getProfileNameWithManualIndicator(profile, true));
 	        if (profile.getIsIconResourceID())
 	        {
 				int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());

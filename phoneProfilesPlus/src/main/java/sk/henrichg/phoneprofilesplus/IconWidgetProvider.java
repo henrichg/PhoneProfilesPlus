@@ -45,7 +45,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 			{
 				isIconResourceID = profile.getIsIconResourceID();
 				iconIdentifier = profile.getIconIdentifier();
-				profileName = dataWrapper.getProfileNameWithManualIndicator(profile, false, GlobalData.getEventsBlocked(dataWrapper.context));
+				profileName = dataWrapper.getProfileNameWithManualIndicator(profile, false);
 			}
 			else
 			{

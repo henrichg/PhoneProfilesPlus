@@ -872,7 +872,7 @@ public class ActivateProfileHelper {
 			{
 				isIconResourceID = profile.getIsIconResourceID();
 				iconIdentifier = profile.getIconIdentifier();
-				profileName = dataWrapper.getProfileNameWithManualIndicator(profile, true, GlobalData.getEventsBlocked(dataWrapper.context));
+				profileName = dataWrapper.getProfileNameWithManualIndicator(profile, true);
 				iconBitmap = profile._iconBitmap;
 				preferencesIndicator = profile._preferencesIndicator;
 			}
