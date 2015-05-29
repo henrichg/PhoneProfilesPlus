@@ -338,7 +338,8 @@ public class ActivateProfileHelper {
 					priorityMode = true;
 			}
 		}
-		if (profile.getVolumeNotificationChange() || (separateVolumes == 2)) {
+		if (profile.getVolumeNotificationChange() || (separateVolumes == 2) ||
+				profile.getVolumeSystemChange()) { // system volume is linked to notification volume (Nexus 5)
 			if (profile.getVolumeNotificationChange())
 				GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
             if (separateVolumes != 1) {
