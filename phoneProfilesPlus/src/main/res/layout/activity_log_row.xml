@@ -20,14 +20,14 @@
 
     <TextView
         android:id="@+id/activity_log_row_log_date_time"
-        android:layout_weight="0.25"
+        android:layout_weight="0.27"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"/>
 
     <TextView
         android:id="@+id/activity_log_row_log_type"
-        android:layout_weight="0.22"
+        android:layout_weight="0.24"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp" />
@@ -41,7 +41,7 @@
 
     <TextView
         android:id="@+id/activity_log_row_profile_name"
-        android:layout_weight="0.27"
+        android:layout_weight="0.34"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp" />
