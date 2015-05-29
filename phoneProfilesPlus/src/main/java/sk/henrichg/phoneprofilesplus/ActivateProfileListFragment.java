@@ -289,7 +289,7 @@ public class ActivateProfileListFragment extends Fragment {
 		}
 		else
 		{
-			activeProfileName.setText(dataWrapper.getProfileNameWithManualIndicator(profile, true));
+			activeProfileName.setText(dataWrapper.getProfileNameWithManualIndicator(profile, true, false));
 	        if (profile.getIsIconResourceID())
 	        {
 				int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
