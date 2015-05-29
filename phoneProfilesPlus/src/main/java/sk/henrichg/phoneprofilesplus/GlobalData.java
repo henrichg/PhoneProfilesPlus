@@ -66,7 +66,7 @@ public class GlobalData extends Application {
 										 //"@@@ ActivateProfileHelper|"+
 										 //"PhoneProfilesHelper.doInstallPPHelper"
 										 //"ExecuteRadioProfilePrefsService"
-										 //"$$$ ScannerService|"+
+										 "$$$ ScannerService|"+
                                          "$$$ EventsService|"+
                                          //"$$$ ExecuteRadioProfilePrefsService|"+
                                          //"$$$ WifiStateChangedBroadcastReceiver|"+
