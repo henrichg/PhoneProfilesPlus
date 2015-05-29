@@ -2303,6 +2303,7 @@ public class DataWrapper {
         return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration);
     }
 
+	/*
     public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators) {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -2310,6 +2311,7 @@ public class DataWrapper {
 
         return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration);
     }
+    */
 
 	private String getLastStartedEventName(List<EventTimeline> eventTimelineList)
 	{
