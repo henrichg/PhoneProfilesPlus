@@ -70,20 +70,25 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
 		savedMode = audioManager.getMode();
 
-        DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
+        if (incoming) {
+            DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
-        GlobalData.setSeparateVolumes(savedContext, 0);
-		if (incoming) {
             /// for linked ringer and notification volume:
             //    notification volume in profile activation is set after ringer volume
             //    therefore reset ringer volume
             GlobalData.setSeparateVolumes(savedContext, 1);
             doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
-        }
-		else
-			doCallEvent(CALL_EVENT_OUTGOING_CALL_STARTED, phoneNumber, dataWrapper);
 
-		dataWrapper.invalidateDataWrapper();
+            dataWrapper.invalidateDataWrapper();
+        }
+        /*else {
+            DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
+
+            GlobalData.setSeparateVolumes(savedContext, 0);
+            doCallEvent(CALL_EVENT_OUTGOING_CALL_STARTED, phoneNumber, dataWrapper);
+
+            dataWrapper.invalidateDataWrapper();
+        }*/
 	}
 	
 	private void callAnswered(boolean incoming, String phoneNumber)
@@ -170,7 +175,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     protected void onOutgoingCallStarted(String number, Date start)
     {
-    	//callStarted(false, number);
+    	callStarted(false, number);
     }
     
     protected void onIncomingCallAnswered(String number, Date start)
