@@ -52,7 +52,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 		{
 			boolean callEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALL) > 0;
 			
-			if (callEventsExists)
+			if (callEventsExists || (GlobalData.getSeparateVolumes(savedContext) != 0))
 			{
 				// start service
 				Intent eventsServiceIntent = new Intent(savedContext, EventsService.class);
