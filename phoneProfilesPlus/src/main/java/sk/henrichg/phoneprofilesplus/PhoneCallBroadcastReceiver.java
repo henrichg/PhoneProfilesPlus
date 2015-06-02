@@ -12,7 +12,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
 	private static AudioManager audioManager = null;
 	
-	private static int savedMode = AudioManager.MODE_NORMAL;
 	private static boolean savedSpeakerphone = false;
 	private static boolean speakerphoneSelected = false;
 
@@ -48,9 +47,11 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 		editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
 		editor.commit();
 
-		if (GlobalData.getGlobalEventsRuning(savedContext))
+        boolean callEventsExists = false;
+
+        if (GlobalData.getGlobalEventsRuning(savedContext))
 		{
-			boolean callEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALL) > 0;
+			callEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALL) > 0;
 			
 			if (callEventsExists)
 			{
@@ -60,32 +61,34 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 				startWakefulService(savedContext, eventsServiceIntent);
 			}
 		}
-	}
+
+        if (((eventType == CALL_EVENT_INCOMING_CALL_RINGING) || (eventType == CALL_EVENT_INCOMING_CALL_ENDED))
+                && (!callEventsExists)) {
+            /// for linked ringer and notification volume:
+            //    notification volume in profile activation is set after ringer volume
+            //    therefore reset ringer volume
+            Profile profile = dataWrapper.getActivatedProfile();
+            if (profile != null) {
+                Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
+                volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                savedContext.startService(volumeServiceIntent);
+            }
+            ///
+        }
+
+    }
 	
 	private void callStarted(boolean incoming, String phoneNumber)
 	{
 		if (audioManager == null )
 			audioManager = (AudioManager)savedContext.getSystemService(Context.AUDIO_SERVICE);
 
-		savedMode = audioManager.getMode();
-
         if (incoming) {
             DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
-			/// for linked ringer and notification volume:
-			//    notification volume in profile activation is set after ringer volume
-			//    therefore reset ringer volume
-			Profile profile = dataWrapper.getActivatedProfile();
-			if (profile != null) {
-				Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
-				volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-				savedContext.startService(volumeServiceIntent);
-			}
-			///
-
             doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
 
-            dataWrapper.invalidateDataWrapper();
+			dataWrapper.invalidateDataWrapper();
         }
         /*else {
             DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
@@ -135,15 +138,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 		dataWrapper.invalidateDataWrapper();
 	}
 
-    private void setBackNotificationVolume(DataWrapper dataWrapper) {
-		Profile profile = dataWrapper.getActivatedProfile();
-		if (profile != null) {
-			Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
-			volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-			savedContext.startService(volumeServiceIntent);
-		}
-    }
-
 	private void callEnded(boolean incoming, String phoneNumber)
 	{
     	//Deactivate loudspeaker
@@ -155,17 +149,15 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     	{
     	    audioManager.setSpeakerphoneOn(savedSpeakerphone);
     		speakerphoneSelected = false;
+			audioManager.setMode(AudioManager.MODE_NORMAL);
         }
 
-        audioManager.setMode(savedMode);
 
         DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
 
-		if (incoming) {
+		if (incoming)
             doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, dataWrapper);
-            setBackNotificationVolume(dataWrapper);
-        }
 		else
 			doCallEvent(CALL_EVENT_OUTGOING_CALL_ENDED, phoneNumber, dataWrapper);
 

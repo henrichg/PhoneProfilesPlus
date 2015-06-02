@@ -314,49 +314,47 @@ public class ActivateProfileHelper {
         }*/
 	}
 	
-	public boolean setVolumes(Profile profile, AudioManager audioManager)
+	public void setVolumes(Profile profile, AudioManager audioManager)
 	{
-		boolean priorityMode = false;
-
 		if (profile.getVolumeSystemChange())
 		{
 			audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, profile.getVolumeSystemValue(), 0);
 			waitForVolumeChange();
 			//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
 		}
-		// separateVolumes is true only during incomming call
-		// therefore notification volume is not needed to change
-		// and for linked ringer and notification volumes must not by set
+		if (profile.getVolumeRingtoneChange()) {
+			GlobalData.setRingerVolume(context, profile.getVolumeRingtoneValue());
+		}
+		if (profile.getVolumeNotificationChange()) {
+			GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
+		}
 		TelephonyManager telephony = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
 		int callState = telephony.getCallState();
-		if (profile.getVolumeRingtoneChange() || (callState == TelephonyManager.CALL_STATE_RINGING)) {
-			if (profile.getVolumeRingtoneChange())
-				GlobalData.setRingerVolume(context, profile.getVolumeRingtoneValue());
+		if (callState == TelephonyManager.CALL_STATE_RINGING) {
+			// for separating ringing and notification
+			// in ringing state ringer volumes must by set
+			// and notification volumes must not by set
 			int volume = GlobalData.getRingerVolume(context);
 			if (volume != -999) {
 				audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-				waitForVolumeChange();
 				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-				if (volume > 0)
-					priorityMode = true;
+				audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
+				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
 			}
 		}
-		if (profile.getVolumeNotificationChange() ||
-			profile.getVolumeSystemChange() ||  // system volume is linked to notification volume (Nexus 5)
-			(callState != TelephonyManager.CALL_STATE_RINGING))
-		{
-			if (profile.getVolumeNotificationChange())
-				GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
-            if (callState != TelephonyManager.CALL_STATE_RINGING) {
-                int volume = GlobalData.getNotificationVolume(context);
-                if (volume != -999) {
-                    audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-                    waitForVolumeChange();
-                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
-                    if (volume > 0)
-                        priorityMode = true;
-                }
-            }
+		else {
+			// for separating ringing and notification
+			// in not ringing state ringer and notification volume must by change
+			int volume = GlobalData.getRingerVolume(context);
+			if (volume != -999) {
+				audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
+			}
+			volume = GlobalData.getNotificationVolume(context);
+			if (volume != -999) {
+				audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
+				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
+			}
 		}
 		if (profile.getVolumeMediaChange())
 		{
@@ -373,12 +371,6 @@ public class ActivateProfileHelper {
 		if (profile.getVolumeVoiceChange())
 			audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, profile.getVolumeVoiceValue(), 0);
 			//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
-
-		// priority mode is for Android 5.0+ 
-    	if (android.os.Build.VERSION.SDK_INT < 21)
-    		priorityMode = false;
-		
-		return priorityMode;
 	}
 
     private static final int ZENMODE_ALL = 0;

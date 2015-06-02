@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -58,8 +59,11 @@ public class FirstStartService extends IntentService {
         installTone(R.raw.phoneprofiles_silent, "PhoneProfiles Silent", context);
 
         GlobalData.setLockscreenDisabled(context, false);
-        GlobalData.setRingerVolume(context, -999);
-        GlobalData.setNotificationVolume(context, -999);
+
+        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        GlobalData.setRingerVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_RING));
+        GlobalData.setNotificationVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
+
         GlobalData.setActivatedProfileForDuration(context, 0);
 
         // start PPHelper
