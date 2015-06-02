@@ -52,14 +52,13 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 		{
 			boolean callEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALL) > 0;
 			
-			if (callEventsExists || (GlobalData.getSeparateVolumes(savedContext) != 0))
+			if (callEventsExists)
 			{
 				// start service
 				Intent eventsServiceIntent = new Intent(savedContext, EventsService.class);
 				eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
 				startWakefulService(savedContext, eventsServiceIntent);
 			}
-			
 		}
 	}
 	
@@ -73,10 +72,17 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         if (incoming) {
             DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
-            /// for linked ringer and notification volume:
-            //    notification volume in profile activation is set after ringer volume
-            //    therefore reset ringer volume
-            GlobalData.setSeparateVolumes(savedContext, 1);
+			/// for linked ringer and notification volume:
+			//    notification volume in profile activation is set after ringer volume
+			//    therefore reset ringer volume
+			Profile profile = dataWrapper.getActivatedProfile();
+			if (profile != null) {
+				Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
+				volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+				savedContext.startService(volumeServiceIntent);
+			}
+			///
+
             doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
 
             dataWrapper.invalidateDataWrapper();
@@ -95,7 +101,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 	{
 		DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
-        GlobalData.setSeparateVolumes(savedContext, 0);
 		if (incoming)
 			doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
 		else
@@ -135,7 +140,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 		if (profile != null) {
 			Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
 			volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-			volumeServiceIntent.putExtra(GlobalData.EXTRA_SEPARATE_VOLUMES, 2);
 			savedContext.startService(volumeServiceIntent);
 		}
     }
@@ -157,14 +161,14 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
-        GlobalData.setSeparateVolumes(savedContext, 0);
-        if (incoming)
-            setBackNotificationVolume(dataWrapper);
 
-		if (incoming)
-			doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, dataWrapper);
+		if (incoming) {
+            doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, dataWrapper);
+            setBackNotificationVolume(dataWrapper);
+        }
 		else
 			doCallEvent(CALL_EVENT_OUTGOING_CALL_ENDED, phoneNumber, dataWrapper);
+
 		dataWrapper.invalidateDataWrapper();
 	}
 	

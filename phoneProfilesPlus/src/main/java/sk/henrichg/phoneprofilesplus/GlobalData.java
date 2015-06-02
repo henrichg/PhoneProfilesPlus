@@ -101,7 +101,6 @@ public class GlobalData extends Application {
 	static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
 	static final String EXTRA_SCANNER_TYPE = "scanner_type";
 	static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
-    static final String EXTRA_SEPARATE_VOLUMES = "separate_volumes";
 
 	static final int STARTUP_SOURCE_NOTIFICATION = 1;
 	static final int STARTUP_SOURCE_WIDGET = 2;
@@ -253,7 +252,6 @@ public class GlobalData extends Application {
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
 	private static final String PREF_RINGER_VOLUME = "ringer_volume";
 	private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
-    private static final String PREF_SEPARATE_VOLUMES = "separate_volumes";
 
 	// preferences for event - filled with broadcast receivers
 	static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
@@ -934,20 +932,6 @@ public class GlobalData extends Application {
 		editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
 		editor.commit();
 	}
-
-    static public int getSeparateVolumes(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getInt(PREF_SEPARATE_VOLUMES, 0);
-    }
-
-    static public void setSeparateVolumes(Context context, int volume)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putInt(PREF_SEPARATE_VOLUMES, volume);
-        editor.commit();
-    }
 
     // ----- Hardware check -------------------------------------
 	
