@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 
 public class ExecuteVolumeProfilePrefsService extends IntentService
 {
@@ -50,13 +51,16 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                         _profile._volumeRingerMode = ringerMode;
                     }
 
-                    //if (separateVolumes == 0) {
+			        /*
+					TelephonyManager telephony = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+					if (telephony.getCallState() != TelephonyManager.CALL_STATE_RINGING) {
                         try {
                             Thread.sleep(200);
                         } catch (InterruptedException e) {
                             //System.out.println(e);
                         }
-                    //}
+                    }
+                    */
 
                     Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
                     aph.setVolumes(_profile, audioManager);//, separateVolumes);
