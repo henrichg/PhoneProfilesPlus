@@ -389,9 +389,9 @@ public class PhoneProfilesHelper {
 		//if (!OK)
 		//	Log.e("PhoneProfilesHelper.doUninstallPPHelper", "remount RW ERROR");
 		//if (OK)
-		Log.e("PhoneProfilesHelper.doUninstallPPHelper", "before delete file");
+		//Log.e("PhoneProfilesHelper.doUninstallPPHelper", "before delete file");
 		RootTools.deleteFileOrDirectory(destinationFile, true);
-		Log.e("PhoneProfilesHelper.doUninstallPPHelper", "after delete file");
+		//Log.e("PhoneProfilesHelper.doUninstallPPHelper", "after delete file");
 		OK = true;
 		//if (!OK)
 		//	Log.e("PhoneProfilesHelper.doUninstallPPHelper", "delete file ERROR");

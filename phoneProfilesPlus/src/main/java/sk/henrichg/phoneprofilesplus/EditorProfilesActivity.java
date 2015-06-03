@@ -25,7 +25,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -695,7 +694,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 	// https://code.google.com/p/android/issues/detail?id=78154
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-         Log.e("*** EditorPrActivity","keyCode="+keyCode);
+         //Log.e("*** EditorPrActivity","keyCode="+keyCode);
 	     if ((keyCode == KeyEvent.KEYCODE_MENU) &&
 		      (Build.VERSION.SDK_INT <= 16) &&
 		      (Build.MANUFACTURER.compareTo("LGE") == 0)) {

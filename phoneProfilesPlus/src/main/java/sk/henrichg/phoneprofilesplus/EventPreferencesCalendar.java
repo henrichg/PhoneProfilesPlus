@@ -17,7 +17,6 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -418,8 +417,8 @@ public class EventPreferencesCalendar extends EventPreferences {
         }
 		selection = selection + ")";
 
-        Log.e("** EventPrefCalendar", "_searchField="+_searchField);
-        Log.e("** EventPrefCalendar", "selection="+selection);
+        //Log.e("** EventPrefCalendar", "_searchField="+_searchField);
+        //Log.e("** EventPrefCalendar", "selection="+selection);
 
 	    // Construct the query with the desired date range.
 		Calendar calendar = Calendar.getInstance();
@@ -442,7 +441,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 		{
 			long calendarId = Long.parseLong(splits[i]);
 
-            Log.e("** EventPrefCalendar", "calendarId="+calendarId);
+            //Log.e("** EventPrefCalendar", "calendarId="+calendarId);
 
 			String[] selectionArgs = new String[] { String.valueOf(calendarId), "%"+_searchString+"%" };
 
@@ -456,7 +455,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 			        long endVal = 0;
 			        //String title = null;
 
-                    Log.e("** EventPrefCalendar", "title="+cur.getString(PROJECTION_TITLE_INDEX));
+                    //Log.e("** EventPrefCalendar", "title="+cur.getString(PROJECTION_TITLE_INDEX));
 
 			        // Get the field values
 			        beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
@@ -482,8 +481,8 @@ public class EventPreferencesCalendar extends EventPreferences {
 				    	_eventFound = true;
 				    	_startTime = beginVal + gmtOffset;
 				    	_endTime = endVal + gmtOffset;
-                        Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
-                        Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
+                        //Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
+                        //Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
 				    	break;
 				    }
 				    else
@@ -493,8 +492,8 @@ public class EventPreferencesCalendar extends EventPreferences {
 				    	_eventFound = true;
 				    	_startTime = beginVal + gmtOffset;
 				    	_endTime = endVal + gmtOffset;
-                        Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
-                        Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
+                        //Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
+                        //Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
 				    	break;
 				    }
 
