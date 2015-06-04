@@ -11,6 +11,10 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 
 import java.io.File;
 
@@ -36,7 +40,7 @@ public class BitmapManipulator {
 		else
 			return null;
 	}
-	
+
 	public static Bitmap monochromeBitmap(Bitmap bitmap, int value, Context context)
 	{
 		if (bitmap == null)
@@ -62,6 +66,31 @@ public class BitmapManipulator {
 		
 		return monochromeBitmap;
 	}
+
+    public static Drawable tintDrawableByColor(Drawable drawable, int color) {
+        Drawable wrapDrawable = DrawableCompat.wrap(drawable);
+        //DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
+        DrawableCompat.setTint(wrapDrawable, color);
+        return wrapDrawable;
+    }
+
+    public static Drawable tintDrawableByValue(Drawable drawable, int value) {
+        int color  = Color.argb(0xFF, value, value, value);
+        return tintDrawableByColor(drawable, color);
+    }
+
+    public static Bitmap getBitmapFromDrawable(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
 
 	public static Bitmap grayscaleBitmap(Bitmap bitmap)
 	{
