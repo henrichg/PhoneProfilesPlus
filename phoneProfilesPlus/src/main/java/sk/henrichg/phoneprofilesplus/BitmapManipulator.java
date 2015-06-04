@@ -71,7 +71,7 @@ public class BitmapManipulator {
         Drawable wrapDrawable = DrawableCompat.wrap(drawable);
         //DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
         DrawableCompat.setTint(wrapDrawable, color);
-        return wrapDrawable;
+        return DrawableCompat.unwrap(wrapDrawable);
     }
 
     public static Drawable tintDrawableByValue(Drawable drawable, int value) {
