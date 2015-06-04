@@ -128,9 +128,15 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 audioManager.setMode(AudioManager.MODE_IN_CALL);
 
                 savedSpeakerphone = audioManager.isSpeakerphoneOn();
-                audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
-
-                speakerphoneSelected = true;
+				boolean changeSpeakerphone = false;
+				if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2))
+					changeSpeakerphone = true;
+				if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1))
+					changeSpeakerphone = true;
+				if (changeSpeakerphone) {
+                    audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
+                    speakerphoneSelected = true;
+                }
 
             }
         }
