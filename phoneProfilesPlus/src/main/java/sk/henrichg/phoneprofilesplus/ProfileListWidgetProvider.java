@@ -134,6 +134,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 				profile = new Profile();
 				profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 				profile._icon = GlobalData.PROFILE_ICON_DEFAULT+"|1";
+				profile._useCustomColor = false;
+				profile._customColor = 0;
 
 				profile.generateIconBitmap(context, 
 						GlobalData.applicationWidgetListIconColor.equals("1"), 
@@ -147,9 +149,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 			}
 	        if (isIconResourceID)
 	        {
-	        	int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
-	        	
-	        	widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
+                if (profile._iconBitmap != null)
+					widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
+				else {
+					int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+					widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
+				}
 	        }
 	        else
 	        {

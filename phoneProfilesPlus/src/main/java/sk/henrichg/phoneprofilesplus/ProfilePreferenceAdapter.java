@@ -120,10 +120,14 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
 	    	holder.profileLabel.setText(profile._name);
 		    if (profile.getIsIconResourceID())
 		    {
-		      	holder.profileIcon.setImageResource(0);
-		      	int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", 
-		      				vi.getContext().getPackageName());
-		      	holder.profileIcon.setImageResource(res); // resource na ikonu
+                if (profile._iconBitmap != null)
+					holder.profileIcon.setImageBitmap(profile._iconBitmap);
+				else {
+					holder.profileIcon.setImageResource(0);
+					int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+							vi.getContext().getPackageName());
+					holder.profileIcon.setImageResource(res); // resource na ikonu
+				}
 		    }
 		    else
 		      	holder.profileIcon.setImageBitmap(profile._iconBitmap);

@@ -109,8 +109,12 @@ public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsF
 
 		if (profile.getIsIconResourceID())
 		{
-			row.setImageViewResource(R.id.widget_profile_list_item_profile_icon, 
-					context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.getPackageName()));
+            if (profile._iconBitmap != null)
+				row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+			else {
+				row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
+						context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.getPackageName()));
+			}
 		}
 		else
 		{

@@ -100,7 +100,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-			dataWrapper.getProfileList();
+			this.dataWrapper.getProfileList();
             return null;
         }
 
@@ -113,7 +113,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
             	
     	        // get local profileList
-    	    	List<Profile> profileList = dataWrapper.getProfileList();
+    	    	List<Profile> profileList = this.dataWrapper.getProfileList();
     	    	// set copy local profile list into activity profilesDataWrapper
     	        fragment.dataWrapper.setProfileList(profileList, false);
     	        // set reference of profile list from profilesDataWrapper
@@ -162,23 +162,25 @@ public class ShortcutCreatorListFragment extends Fragment {
 		Profile profile = profileList.get(position);
 		boolean isIconResourceID;
 		String iconIdentifier;
-        Drawable profileDrawable = null;
 		Bitmap profileBitmap = null;
 		Bitmap shortcutOverlayBitmap;
 		Bitmap profileShortcutBitmap;
 		String profileName;
+		boolean useCustomColor;
 
 		if (profile != null)
 		{
 			isIconResourceID = profile.getIsIconResourceID();
 			iconIdentifier = profile.getIconIdentifier();
 			profileName = profile._name;
+            useCustomColor = profile._useCustomColor;
 		}
 		else
 		{
 			isIconResourceID = true;
 			iconIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
 			profileName = getResources().getString(R.string.profile_name_default);
+            useCustomColor = false;
 		}
 
 		Intent shortcutIntent = new Intent(getActivity().getApplicationContext(), BackgroundActivateProfileActivity.class);
@@ -192,23 +194,19 @@ public class ShortcutCreatorListFragment extends Fragment {
 		
         if (isIconResourceID)
         {
-        	int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", getActivity().getPackageName());
-            /*if (GlobalData.applicationWidgetIconColor.equals("1")) {
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    profileDrawable = getResources().getDrawable(iconResource, getActivity().getTheme());
-                } else {
-                    profileDrawable = getResources().getDrawable(iconResource);
-                }
-            }
-            else*/
+            if (profile._iconBitmap != null)
+                profileBitmap = profile._iconBitmap;
+            else {
+                int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", getActivity().getPackageName());
                 profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
+            }
         }
         else
         {
-    		Resources resources = getResources();
-    		int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-    		int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-    		profileBitmap = BitmapManipulator.resampleBitmap(iconIdentifier, width, height);
+            Resources resources = getResources();
+            int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+            profileBitmap = BitmapManipulator.resampleBitmap(iconIdentifier, width, height);
         }
         
         if (GlobalData.applicationWidgetIconColor.equals("1"))
@@ -220,13 +218,12 @@ public class ShortcutCreatorListFragment extends Fragment {
     		if (GlobalData.applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
     		if (GlobalData.applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
             
-        	if (isIconResourceID) {
+        	if (isIconResourceID || useCustomColor) {
+                // icon is from resource or colored by custom color
                 profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue, getActivity().getBaseContext());
-                //Drawable tintedProfileDrawable = BitmapManipulator.tintDrawableByValue(profileDrawable, monochromeValue);
-                //profileBitmap = BitmapManipulator.getBitmapFromDrawable(tintedProfileDrawable);
             }
             else
-            	profileBitmap = BitmapManipulator.grayscaleBitmap(profileBitmap);
+                profileBitmap = BitmapManipulator.grayscaleBitmap(profileBitmap);
         }
 
     	shortcutOverlayBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shortcut_overlay);

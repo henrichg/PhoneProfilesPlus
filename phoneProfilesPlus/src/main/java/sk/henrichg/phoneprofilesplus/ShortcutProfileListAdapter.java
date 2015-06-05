@@ -76,19 +76,17 @@ public class ShortcutProfileListAdapter extends BaseAdapter {
 
         if (profile.getIsIconResourceID())
         {
-        	holder.profileIcon.setImageResource(0);
-        	int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", 
-        				vi.getContext().getPackageName());
-        	holder.profileIcon.setImageResource(res); // resource na ikonu
+            if (profile._iconBitmap != null)
+				holder.profileIcon.setImageBitmap(profile._iconBitmap);
+            else {
+                holder.profileIcon.setImageResource(0);
+                int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                        vi.getContext().getPackageName());
+                holder.profileIcon.setImageResource(res); // resource na ikonu
+            }
         }
         else
         {
-        	//profileIcon.setImageBitmap(null);
-    		//Resources resources = vi.getResources();
-    		//int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-    		//int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-    		//Bitmap bitmap = BitmapResampler.resample(profile.getIconIdentifier(), width, height);
-        	//profileIcon.setImageBitmap(bitmap);
         	holder.profileIcon.setImageBitmap(profile._iconBitmap);
         }
         

@@ -58,10 +58,14 @@ public class ProfilePreference extends Preference {
 		    {
 			    if (profile.getIsIconResourceID())
 			    {
-			      	profileIcon.setImageResource(0);
-			      	int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", 
-			      				prefContext.getPackageName());
-			      	profileIcon.setImageResource(res); // resource na ikonu
+                    if (profile._iconBitmap != null)
+						profileIcon.setImageBitmap(profile._iconBitmap);
+					else {
+						profileIcon.setImageResource(0);
+						int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+								prefContext.getPackageName());
+						profileIcon.setImageResource(res); // resource na ikonu
+					}
 			    }
 			    else
 			    {

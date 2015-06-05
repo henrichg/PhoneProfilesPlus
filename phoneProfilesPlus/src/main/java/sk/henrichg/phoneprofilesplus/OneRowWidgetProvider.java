@@ -54,6 +54,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 				profile = new Profile();
 				profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 				profile._icon = GlobalData.PROFILE_ICON_DEFAULT+"|1";
+				profile._useCustomColor = false;
+				profile._customColor = 0;
 
 				profile.generateIconBitmap(context, 
 						GlobalData.applicationWidgetListIconColor.equals("1"), 
@@ -90,18 +92,16 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 			
 			if (isIconResourceID)
 	        {
-	        	//remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
-	        	int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
-	        	remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
+                if (profile._iconBitmap != null)
+					remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
+				else {
+					//remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
+					int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+					remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
+				}
 	        }
 	        else
 	        {
-	    		//Resources resources = context.getResources();
-	        	//remoteViews.setImageViewBitmap(R.id.activate_profile_widget_icon, null);
-	    		//int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-	    		//int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-	    		//Bitmap bitmap = BitmapResampler.resample(iconIdentifier, width, height);
-	        	//remoteViews.setImageViewBitmap(R.id.activate_profile_widget_icon, bitmap);
 	        	remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
 	        }
 	        //if (GlobalData.applicationWidgetListIconColor.equals("1"))

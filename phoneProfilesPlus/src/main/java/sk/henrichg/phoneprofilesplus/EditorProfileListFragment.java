@@ -680,8 +680,12 @@ public class EditorProfileListFragment extends Fragment {
 			activeProfileName.setText(dataWrapper.getProfileNameWithManualIndicator(profile, true, false));
 	        if (profile.getIsIconResourceID())
 	        {
-				int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
-				activeProfileIcon.setImageResource(res); // resource na ikonu
+                if (profile._iconBitmap != null)
+					activeProfileIcon.setImageBitmap(profile._iconBitmap);
+				else {
+					int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
+					activeProfileIcon.setImageResource(res); // resource na ikonu
+				}
 	        }
 	        else
 	        {

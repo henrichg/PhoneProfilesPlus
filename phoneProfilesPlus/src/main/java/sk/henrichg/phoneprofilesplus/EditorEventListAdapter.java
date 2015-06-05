@@ -353,10 +353,14 @@ public class EditorEventListAdapter extends BaseAdapter
 	        	holder.profileStartName.setText(profileName);
 			    if (profile.getIsIconResourceID())
 			    {
-			    	holder.profileStartIcon.setImageResource(0);
-			      	int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", 
-			      				vi.getContext().getPackageName());
-			      	holder.profileStartIcon.setImageResource(res); // resource na ikonu
+                    if (profile._iconBitmap != null)
+						holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
+                    else {
+                        holder.profileStartIcon.setImageResource(0);
+                        int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                vi.getContext().getPackageName());
+                        holder.profileStartIcon.setImageResource(res); // resource na ikonu
+                    }
 			    }
 			    else
 			    {
@@ -406,10 +410,14 @@ public class EditorEventListAdapter extends BaseAdapter
 						profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
 					holder.profileEndName.setText(profileName);
 					if (profile.getIsIconResourceID()) {
-						holder.profileEndIcon.setImageResource(0);
-						int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-								vi.getContext().getPackageName());
-						holder.profileEndIcon.setImageResource(res); // resource na ikonu
+                        if (profile._iconBitmap != null)
+                            holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
+                        else {
+                            holder.profileEndIcon.setImageResource(0);
+                            int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                    vi.getContext().getPackageName());
+                            holder.profileEndIcon.setImageResource(res); // resource na ikonu
+                        }
 					} else {
 						holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
 					}
