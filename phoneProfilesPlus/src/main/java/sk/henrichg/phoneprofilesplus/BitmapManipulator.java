@@ -12,6 +12,7 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -54,17 +55,13 @@ public class BitmapManipulator {
 		Canvas canvas = new Canvas(monochromeBitmap);
 		Paint paint = new Paint();
 		Matrix matrix = new Matrix();
-		
-		ColorFilter filter = new LightingColorFilter(0xFFFFFFFF, 0x00FFFFFF);
-		paint.setColorFilter(filter);
-		canvas.drawBitmap(bitmap, matrix, paint);
-		
+
 		int color = Color.argb(0xFF, value, value, value);
-		ColorFilter filter2 = new LightingColorFilter(color, 0x00000000);
-		paint.setColorFilter(filter2);
-		canvas.drawBitmap(monochromeBitmap, matrix, paint); 
-		
-		return monochromeBitmap;
+        ColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+		paint.setColorFilter(filter);
+        canvas.drawBitmap(bitmap, matrix, paint);
+
+        return monochromeBitmap;
 	}
 
     public static Drawable tintDrawableByColor(Drawable drawable, int color) {
