@@ -95,21 +95,44 @@ public class BitmapManipulator {
 
 	public static Bitmap grayscaleBitmap(Bitmap bitmap)
 	{
-		if (bitmap == null)
-			return null;
-    
-		Bitmap monochromeBitmap = Bitmap.createBitmap(bitmap.getWidth(),
-													bitmap.getHeight(),
-													bitmap.getConfig());
-    	Canvas canvas = new Canvas(monochromeBitmap);
-    	Paint paint = new Paint();
-    	ColorMatrix colorMatrix = new ColorMatrix();
-    	colorMatrix.setSaturation(0.0f);
-    	paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
-    	Matrix matrix = new Matrix();
-    	canvas.drawBitmap(bitmap, matrix, paint);
+        if (bitmap == null)
+            return null;
 
-    	return monochromeBitmap;
+        Bitmap monochromeBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(),
+                bitmap.getConfig());
+        Canvas canvas = new Canvas(monochromeBitmap);
+        Paint paint = new Paint();
+        ColorMatrix colorMatrix = new ColorMatrix();
+        colorMatrix.setSaturation(0.0f);
+        paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
+        Matrix matrix = new Matrix();
+        canvas.drawBitmap(bitmap, matrix, paint);
+        //ColorFilter filter = new PorterDuffColorFilter(Color.YELLOW, PorterDuff.Mode.MULTIPLY);
+        //paint.setColorFilter(filter);
+        //canvas.drawBitmap(monochromeBitmap, matrix, paint);
+
+        /*
+        float[] colorTransform = {
+                0, 1f, 0, 0, 0,
+                0, 0, 0f, 0, 0,
+                0, 0, 0, 0f, 0,
+                0, 0, 0, 1f, 0};
+
+        ColorMatrix colorMatrix = new ColorMatrix();
+        colorMatrix.setSaturation(0f); //Remove Colour
+        colorMatrix.set(colorTransform); //Apply the Red
+
+        ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
+        Paint paint = new Paint();
+        paint.setColorFilter(colorFilter);
+
+        Canvas canvas = new Canvas(monochromeBitmap);
+        Matrix matrix = new Matrix();
+        canvas.drawBitmap(bitmap, matrix, paint);
+        */
+
+        return monochromeBitmap;
 	}
 	
 	private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight)
