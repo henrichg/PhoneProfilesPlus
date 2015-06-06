@@ -9,8 +9,8 @@
             android:summary="@string/profile_preferences_profileName"
             android:title="@string/profile_preferences_profileName"
             android:selectAllOnFocus="true" /> 
-        <sk.henrichg.phoneprofilesplus.ImageViewPreference
-            android:defaultValue="ic_profile_default|1"
+        <sk.henrichg.phoneprofilesplus.ProfileIocnPreference
+            android:defaultValue="ic_profile_default|1|0|0"
             android:key="prf_pref_profileIcon"
             android:title="@string/profile_preferences_profileIcon"
             henrichg:imageSource="resource_file" />

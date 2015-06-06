@@ -4,6 +4,9 @@
 	<declare-styleable name="ImageViewPreference">
 		<attr name="imageSource" format="string" />
 	</declare-styleable>
+    <declare-styleable name="ProfileIconPreference">
+        <attr name="imageSource" format="string" />
+    </declare-styleable>
    	<declare-styleable name="SeekBarDialogPreference">
 		<attr name="maximumValue" format="integer" />
 		<attr name="minimumValue" format="integer" />
