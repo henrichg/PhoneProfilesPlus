@@ -621,9 +621,7 @@ public class GlobalData extends Application {
 		Profile profile = new Profile();
 		profile._id = DEFAULT_PROFILE_ID;
 		profile._name = context.getResources().getString(R.string.default_profile_name);
-		profile._icon = PROFILE_ICON_DEFAULT;
-		profile._useCustomColor = false;
-		profile._customColor = 0;
+		profile._icon = PROFILE_ICON_DEFAULT+"1|0|0";
 		profile._checked = false;
 		profile._porder = 0;
 		profile._duration = 0;

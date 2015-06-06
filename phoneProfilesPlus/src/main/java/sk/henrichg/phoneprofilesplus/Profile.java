@@ -50,8 +50,6 @@ public class Profile {
 	public int _deviceNFC;
 	public int _deviceKeyguard;
     public int _vibrationOnTouch;
-    public boolean _useCustomColor;
-    public int _customColor;
 
     public Bitmap _iconBitmap;
 	public Bitmap _preferencesIndicator;
@@ -158,9 +156,6 @@ public class Profile {
         this._deviceKeyguard = deviceKeyguard;
         this._vibrationOnTouch = vibrationOnTouch;
 
-        //this._useCustomColor = true;
-        //this._customColor = Color.YELLOW;
-
 		this._iconBitmap = null;
 		this._preferencesIndicator = null;
 	}
@@ -248,9 +243,6 @@ public class Profile {
 		this._deviceKeyguard = deviceKeyguard;
         this._vibrationOnTouch = vibrationOnTouch;
 
-        //this._useCustomColor = true;
-        //this._customColor = Color.YELLOW;
-
 		this._iconBitmap = null;
 		this._preferencesIndicator = null;
 	}
@@ -298,9 +290,7 @@ public class Profile {
 		this._afterDurationDo = profile._afterDurationDo;
 		this._deviceKeyguard = profile._deviceKeyguard;
         this._vibrationOnTouch = profile._vibrationOnTouch;
-        this._useCustomColor = profile._useCustomColor;
-        this._customColor = profile._customColor;
-		
+
 		this._iconBitmap = profile._iconBitmap;
 		this._preferencesIndicator = profile._preferencesIndicator;
 	}
@@ -315,8 +305,6 @@ public class Profile {
             this._id = withProfile._id;
             this._name = withProfile._name;
             this._icon = withProfile._icon;
-            this._useCustomColor = withProfile._useCustomColor;
-            this._customColor = withProfile._customColor;
             this._iconBitmap = withProfile._iconBitmap;
             this._preferencesIndicator = withProfile._preferencesIndicator;
 
@@ -487,14 +475,39 @@ public class Profile {
 		boolean value;
 		try {
 			String[] splits = _icon.split("\\|");
-			value = (splits[1].equals("1")) ? true : false;
+			value = splits[1].equals("1");
 
 		} catch (Exception e) {
 			value = true;
 		}
 		return value;
 	}
-	
+
+	//gettig where icon has custom color
+	public boolean getUseCustomColorForIcon() {
+		boolean value;
+		try {
+			String[] splits = _icon.split("\\|");
+			value = splits[2].equals("1");
+
+		} catch (Exception e) {
+			value = true;
+		}
+		return value;
+	}
+
+	// geting icon custom color
+	public int getIconCustomColor() {
+		int value;
+		try {
+			String[] splits = _icon.split("\\|");
+			value = Integer.valueOf(splits[3]);
+		} catch (Exception e) {
+			value = 0;
+		}
+		return value;
+	}
+
 	public int getVolumeRingtoneValue()
 	{
 		int value;
@@ -516,7 +529,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 1;
 		}
-		return (value == 0) ? true : false;
+		return value == 0; // in preference dialog is checked=No change
 	}
 	
 	public boolean getVolumeRingtoneDefaultProfile()
@@ -528,7 +541,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 0;
 		}
-		return (value == 1) ? true : false;
+		return value == 1;
 	}
 	
 	public int getVolumeNotificationValue()
@@ -552,7 +565,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 1;
 		}
-		return (value == 0) ? true : false;
+		return value == 0; // in preference dialog is checked=No change
 	}
 	
 	public boolean getVolumeNotificationDefaultProfile()
@@ -564,7 +577,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 0;
 		}
-		return (value == 1) ? true : false;
+		return value == 1;
 	}
 	
 	public int getVolumeMediaValue()
@@ -588,7 +601,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 1;
 		}
-		return (value == 0) ? true : false;
+		return value == 0; // in preference dialog is checked=No change
 	}
 	
 	public boolean getVolumeMediaDefaultProfile()
@@ -600,7 +613,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 0;
 		}
-		return (value == 1) ? true : false;
+		return value == 1;
 	}
 	
 	public int getVolumeAlarmValue()
@@ -624,7 +637,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 1;
 		}
-		return (value == 0) ? true : false;
+		return value == 0; // in preference dialog is checked=No change
 	}
 	
 	public boolean getVolumeAlarmDefaultProfile()
@@ -636,7 +649,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 0;
 		}
-		return (value == 1) ? true : false;
+		return value == 1;
 	}
 	
 	public int getVolumeSystemValue()
@@ -660,7 +673,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 1;
 		}
-		return (value == 0) ? true : false;
+		return value == 0; // in preference dialog is checked=No change
 	}
 	
 	public boolean getVolumeSystemDefaultProfile()
@@ -672,7 +685,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 0;
 		}
-		return (value == 1) ? true : false;
+		return value == 1;
 	}
 	
 	public int getVolumeVoiceValue()
@@ -696,7 +709,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 1;
 		}
-		return (value == 0) ? true : false;
+		return value == 0; // in preference dialog is checked=No change
 	}
 	
 	public boolean getVolumeVoiceDefaultProfile()
@@ -708,7 +721,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 0;
 		}
-		return (value == 1) ? true : false;
+		return value == 1;
 	}
 	
 	public int getDeviceBrightnessValue()
@@ -732,7 +745,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 1;
 		}
-		return (value == 0) ? true : false;
+		return value == 0; // in preference dialog is checked=No change
 	}
 
 	public boolean getDeviceBrightnessDefaultProfile()
@@ -744,7 +757,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 0;
 		}
-		return (value == 1) ? true : false;
+		return value == 1;
 	}
 
 	public boolean getDeviceBrightnessAutomatic()
@@ -756,7 +769,7 @@ public class Profile {
 		} catch (Exception e) {
 			value = 1;
 		}
-		return (value == 1) ? true : false;
+		return value == 1;
 	}
 	
 	public static int convertPercentsToBrightnessManualValue(int perc, Context context)
@@ -877,8 +890,7 @@ public class Profile {
     		if (_iconBitmap == null)
     		{
     			// no icon found, set default icon
-				_icon = "ic_profile_default|1";
-                _useCustomColor = false;
+				_icon = "ic_profile_default|1|0|0";
     			if (monochrome)
     			{
     	        	int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
@@ -911,10 +923,10 @@ public class Profile {
             _iconBitmap = null;*/
         }
         else
-        if (_useCustomColor) {
+        if (getUseCustomColorForIcon()) {
             int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
-            _iconBitmap = BitmapManipulator.recolorBitmap(bitmap, _customColor, context);
+            _iconBitmap = BitmapManipulator.recolorBitmap(bitmap, getIconCustomColor(), context);
             // getIsIconResourceID must return false
             //_icon = getIconIdentifier() + "|0";
         }

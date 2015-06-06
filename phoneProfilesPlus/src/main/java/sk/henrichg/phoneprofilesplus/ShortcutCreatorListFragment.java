@@ -173,7 +173,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 			isIconResourceID = profile.getIsIconResourceID();
 			iconIdentifier = profile.getIconIdentifier();
 			profileName = profile._name;
-            useCustomColor = profile._useCustomColor;
+            useCustomColor = profile.getUseCustomColorForIcon();
 		}
 		else
 		{

@@ -861,7 +861,6 @@ public class ActivateProfileHelper {
 	        RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_drawer);
 
 			boolean isIconResourceID;
-            boolean useCustomColor;
 			String iconIdentifier;
 			String profileName;
 			Bitmap iconBitmap;
@@ -870,7 +869,6 @@ public class ActivateProfileHelper {
 			if (profile != null)
 			{
 				isIconResourceID = profile.getIsIconResourceID();
-                useCustomColor = profile._useCustomColor;
 				iconIdentifier = profile.getIconIdentifier();
 				profileName = dataWrapper.getProfileNameWithManualIndicator(profile, true, false);
 				iconBitmap = profile._iconBitmap;
@@ -880,7 +878,6 @@ public class ActivateProfileHelper {
 			{
 				isIconResourceID = true;
 				iconIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
-                useCustomColor = false;
 				profileName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
 				iconBitmap = null;
 				preferencesIndicator = null;
