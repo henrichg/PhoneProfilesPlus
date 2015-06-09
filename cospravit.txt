@@ -689,3 +689,33 @@ Blokovanie udalosti, ak po manualnej aktivacii bezi force run event a znova dam 
    c) po skonceni trvania profilu - odblokovat - PASSED
    d) po skonceni udalosti - odblokovat - PASSED
    e) na prvy start aplikacie - odblokovat - PASSED
+
+------------------------------------------------------------
+
+Kedy sa odblokovavaju udalosti po restarte
+- restartEventsWithAlert
+  - vola restartEventsWithRescan
+    - vola restartEvents s unblockEventsRun = true
+      - vola RestartEventsBroadcastReceiver s unblockEventsRun = true
+- ProfileDurationAlarmBroadcastReceiver
+  - vola restartEventsWithRescan
+    - vola restartEvents s unblockEventsRun = true
+      - vola RestartEventsBroadcastReceiver s unblockEventsRun = true
+- restartEventsWithRescan
+  - vola restartEvents s unblockEventsRun = true
+    - - vola RestartEventsBroadcastReceiver s unblockEventsRun = true
+- firstStartEvents
+  - vola RestartEventsBroadcastReceiver s unblockEventsRun = true
+- pauseEvent
+  - restartEventsWithDelay s unblockEventsRun = true
+
+Cize udalosti sa odblokuju
+1. na manualny restart udalosti (Aktivator, Editor, notifikacia)
+2. pri prvom starte aplikacie
+3. po vyprsani trvania aktivacie profilu
+4. po pauznuti udalosti
+
+Problem nie je ani pri pause eventov po manualnej ativacii profilu. Event.pauseEvent ma na to parameter
+allowRestart a ten je pri pauseAllEvents = false.
+
+--------------------------------------------------------------------
