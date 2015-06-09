@@ -5,7 +5,7 @@
 		<attr name="imageSource" format="string" />
 	</declare-styleable>
     <declare-styleable name="ProfileIconPreference">
-        <attr name="imageSource" format="string" />
+        <attr name="iconSource" format="string" />
     </declare-styleable>
    	<declare-styleable name="SeekBarDialogPreference">
 		<attr name="maximumValue" format="integer" />
