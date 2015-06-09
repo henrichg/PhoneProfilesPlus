@@ -2151,6 +2151,7 @@ public class DataWrapper {
 
 		Intent intent = new Intent();
 		intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
+		intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
 		context.sendBroadcast(intent);
 
 	}
