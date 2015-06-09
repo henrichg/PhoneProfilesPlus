@@ -43,7 +43,7 @@ public class ProfileIconPreference extends Preference {
 
 		// resource, resource_file, file
 		imageSource = typedArray.getString(
-			R.styleable.ProfileIconPreference_imageSource);
+			R.styleable.ProfileIconPreference_iconSource);
 
 
 		if (imageSource.equals("file"))
