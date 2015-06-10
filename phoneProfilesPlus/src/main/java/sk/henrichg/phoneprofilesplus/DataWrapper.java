@@ -1453,25 +1453,29 @@ public class DataWrapper {
                                                 + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
                         String[] selectionArgs = new String[]{splits[i]};
                         Cursor mCursor = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
-                        while (mCursor.moveToNext()) {
-                            String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                            String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
-                            String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " +
-                                                ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER + "=1";
-                            String[] selection2Args = new String[]{contactId};
-                            Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                            while (phones.moveToNext()) {
-                                String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                    phoneNumberFinded = true;
-                                    break;
+                        if (mCursor != null) {
+                            while (mCursor.moveToNext()) {
+                                String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                                String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
+                                String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " +
+                                        ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER + "=1";
+                                String[] selection2Args = new String[]{contactId};
+                                Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                                if (phones != null) {
+                                    while (phones.moveToNext()) {
+                                        String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                            phoneNumberFinded = true;
+                                            break;
+                                        }
+                                    }
+                                    phones.close();
                                 }
+                                if (phoneNumberFinded)
+                                    break;
                             }
-                            phones.close();
-                            if (phoneNumberFinded)
-                                break;
+                            mCursor.close();
                         }
-                        mCursor.close();
                         if (phoneNumberFinded)
                             break;
                     }
@@ -1487,23 +1491,27 @@ public class DataWrapper {
                             String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1' and " + ContactsContract.Contacts._ID + "=?";
                             String[] selectionArgs = new String[]{splits2[0]};
                             Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
-                            while (mCursor.moveToNext()) {
-                                String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER};
-                                String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
-                                String[] selection2Args = new String[]{splits2[0], splits2[1]};
-                                Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                                while (phones.moveToNext()) {
-                                    String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                        phoneNumberFinded = true;
-                                        break;
+                            if (mCursor != null) {
+                                while (mCursor.moveToNext()) {
+                                    String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER};
+                                    String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
+                                    String[] selection2Args = new String[]{splits2[0], splits2[1]};
+                                    Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                                    if (phones != null) {
+                                        while (phones.moveToNext()) {
+                                            String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                phoneNumberFinded = true;
+                                                break;
+                                            }
+                                        }
+                                        phones.close();
                                     }
+                                    if (phoneNumberFinded)
+                                        break;
                                 }
-                                phones.close();
-                                if (phoneNumberFinded)
-                                    break;
+                                mCursor.close();
                             }
-                            mCursor.close();
                             if (phoneNumberFinded)
                                 break;
                         }
@@ -1943,25 +1951,29 @@ public class DataWrapper {
                                                 + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
                             String[] selectionArgs = new String[]{splits[i]};
                             Cursor mCursor = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
-                            while (mCursor.moveToNext()) {
-                                String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                                String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
-                                String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " +
-                                        ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER + "=1";
-                                String[] selection2Args = new String[]{contactId};
-                                Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                                while (phones.moveToNext()) {
-                                    String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                        phoneNumberFinded = true;
-                                        break;
+                            if (mCursor != null) {
+                                while (mCursor.moveToNext()) {
+                                    String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                                    String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
+                                    String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " +
+                                            ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER + "=1";
+                                    String[] selection2Args = new String[]{contactId};
+                                    Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                                    if (phones != null) {
+                                        while (phones.moveToNext()) {
+                                            String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                phoneNumberFinded = true;
+                                                break;
+                                            }
+                                        }
+                                        phones.close();
                                     }
+                                    if (phoneNumberFinded)
+                                        break;
                                 }
-                                phones.close();
-                                if (phoneNumberFinded)
-                                    break;
+                                mCursor.close();
                             }
-                            mCursor.close();
                             if (phoneNumberFinded)
                                 break;
                         }
@@ -1977,23 +1989,27 @@ public class DataWrapper {
                                 String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1' and " + ContactsContract.Contacts._ID + "=?";
                                 String[] selectionArgs = new String[]{splits2[0]};
                                 Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
-                                while (mCursor.moveToNext()) {
-                                    String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER};
-                                    String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
-                                    String[] selection2Args = new String[]{splits2[0], splits2[1]};
-                                    Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                                    while (phones.moveToNext()) {
-                                        String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                            phoneNumberFinded = true;
-                                            break;
+                                if (mCursor != null) {
+                                    while (mCursor.moveToNext()) {
+                                        String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER};
+                                        String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
+                                        String[] selection2Args = new String[]{splits2[0], splits2[1]};
+                                        Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                                        if (phones != null) {
+                                            while (phones.moveToNext()) {
+                                                String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                                    phoneNumberFinded = true;
+                                                    break;
+                                                }
+                                            }
+                                            phones.close();
                                         }
+                                        if (phoneNumberFinded)
+                                            break;
                                     }
-                                    phones.close();
-                                    if (phoneNumberFinded)
-                                        break;
+                                    mCursor.close();
                                 }
-                                mCursor.close();
                                 if (phoneNumberFinded)
                                     break;
                             }

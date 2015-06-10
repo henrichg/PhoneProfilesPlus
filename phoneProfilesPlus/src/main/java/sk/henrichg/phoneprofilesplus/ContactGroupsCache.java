@@ -36,27 +36,28 @@ public class ContactGroupsCache {
 		String order = ContactsContract.Groups.TITLE + " ASC";
 		
 		Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, order);
-		
-		while (mCursor.moveToNext()) 
-		{
-            long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
-            String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
-            int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
 
-            if (count > 0) {
-                ContactGroup aContactGroup = new ContactGroup();
-                aContactGroup.groupId = contactGroupId;
-                aContactGroup.name = name;
-                aContactGroup.count = count;
+		if (mCursor != null) {
+            while (mCursor.moveToNext()) {
+                long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
+                String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
 
-                contactGroupList.add(aContactGroup);
+                if (count > 0) {
+                    ContactGroup aContactGroup = new ContactGroup();
+                    aContactGroup.groupId = contactGroupId;
+                    aContactGroup.name = name;
+                    aContactGroup.count = count;
+
+                    contactGroupList.add(aContactGroup);
+                }
+
+                if (cancelled)
+                    break;
+
             }
-
-            if (cancelled)
-                break;
-
-		}
-		mCursor.close();
+            mCursor.close();
+        }
 		
 		if(cancelled)
 			return;

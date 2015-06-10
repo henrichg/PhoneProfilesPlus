@@ -35,44 +35,45 @@ public class ContactsCache {
 		String order = ContactsContract.Contacts.DISPLAY_NAME + " ASC";
 		
 		Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, order);
-		
-		while (mCursor.moveToNext()) 
-		{
-			//try{
-				long contactId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Contacts._ID)); 
+
+		if (mCursor != null) {
+			while (mCursor.moveToNext()) {
+				//try{
+				long contactId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Contacts._ID));
 				String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 				//String hasPhone = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 				String photoId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
-				if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) 
-				{
-					Cursor phones = context.getContentResolver().query( ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ contactId, null, null);
-					while (phones.moveToNext()) 
-					{ 
-						long phoneId = phones.getLong(phones.getColumnIndex( ContactsContract.CommonDataKinds.Phone._ID));
-						String phoneNumber = phones.getString(phones.getColumnIndex( ContactsContract.CommonDataKinds.Phone.NUMBER));
-						Contact aContact = new Contact();
-						aContact.contactId = contactId;
-						aContact.name = name;
-						aContact.phoneId = phoneId;
-						aContact.phoneNumber = phoneNumber;
-						try {
-							aContact.photoId = Long.parseLong(photoId);
-						} catch (Exception e) {
-							aContact.photoId = 0;
-						}
-						contactList.add(aContact);
-						
-						if (cancelled)
-							break;
-					} 
-					phones.close(); 
+				if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+					Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                    if (phones != null) {
+                        while (phones.moveToNext()) {
+                            long phoneId = phones.getLong(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
+                            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                            Contact aContact = new Contact();
+                            aContact.contactId = contactId;
+                            aContact.name = name;
+                            aContact.phoneId = phoneId;
+                            aContact.phoneNumber = phoneNumber;
+                            try {
+                                aContact.photoId = Long.parseLong(photoId);
+                            } catch (Exception e) {
+                                aContact.photoId = 0;
+                            }
+                            contactList.add(aContact);
+
+                            if (cancelled)
+                                break;
+                        }
+                        phones.close();
+                    }
 				}
-			//}catch(Exception e){}
-				
-			if (cancelled)
-				break;
+				//}catch(Exception e){}
+
+				if (cancelled)
+					break;
+			}
+			mCursor.close();
 		}
-		mCursor.close();
 		
 		if(cancelled)
 			return;

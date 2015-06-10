@@ -132,25 +132,27 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 // Submit the query and get a Cursor object back.
                 //cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
                 cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
-                while (cur.moveToNext()) {
-                    long calID = 0;
-                    String displayName = null;
-                    int color = 0;
+                if (cur != null) {
+                    while (cur.moveToNext()) {
+                        long calID = 0;
+                        String displayName = null;
+                        int color = 0;
 
-                    // Get the field values
-                    calID = cur.getLong(PROJECTION_ID_INDEX);
-                    displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
-                    color = cur.getInt(PROJECTION_COLOR_INDEX);
+                        // Get the field values
+                        calID = cur.getLong(PROJECTION_ID_INDEX);
+                        displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
+                        color = cur.getInt(PROJECTION_COLOR_INDEX);
 
-                    CalendarEvent aCalendar = new CalendarEvent();
-                    aCalendar.calendarId = calID;
-                    aCalendar.name = displayName;
-                    aCalendar.color = color;
+                        CalendarEvent aCalendar = new CalendarEvent();
+                        aCalendar.calendarId = calID;
+                        aCalendar.name = displayName;
+                        aCalendar.color = color;
 
-                    calendarList.add(aCalendar);
+                        calendarList.add(aCalendar);
 
+                    }
+                    cur.close();
                 }
-                cur.close();
 
                 getValueCMSDP();
 
