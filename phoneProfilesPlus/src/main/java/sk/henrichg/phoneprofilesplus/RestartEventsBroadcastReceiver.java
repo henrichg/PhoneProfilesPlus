@@ -24,6 +24,7 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 			{
 				DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
+				GlobalData.logE("$$$ setEventsBlocked", "RestartEventsBroadcastReceiver.onReceive, false");
 				GlobalData.setEventsBlocked(context, false);
 				dataWrapper.getDatabaseHandler().unblockAllEvents();
 				GlobalData.setForceRunEventRunning(context, false);

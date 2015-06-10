@@ -1221,6 +1221,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 					//dataWrapper.getActivateProfileHelper().showNotification(null, "");
 					//dataWrapper.getActivateProfileHelper().updateWidget();
 
+					GlobalData.logE("$$$ setEventsBlocked", "EditorProfilesActivity.doImportData.onPostExecute, false");
                     GlobalData.setEventsBlocked(getApplicationContext(), false);
                     dataWrapper.getDatabaseHandler().unblockAllEvents();
                     GlobalData.setForceRunEventRunning(getApplicationContext(), false);

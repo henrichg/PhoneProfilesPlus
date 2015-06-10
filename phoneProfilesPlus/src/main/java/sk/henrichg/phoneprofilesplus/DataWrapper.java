@@ -660,6 +660,7 @@ public class DataWrapper {
 		}
 
         // blockEvents == true -> manual profile activation is set
+        GlobalData.logE("$$$ setEventsBlocked", "DataWrapper.pauseAllEvents, "+blockEvents);
 		GlobalData.setEventsBlocked(context, blockEvents);
 	}
 	
@@ -733,6 +734,7 @@ public class DataWrapper {
 			invalidateEventList();  // force load form db
 
         if (!startedFromService) {
+			GlobalData.logE("$$$ setEventsBlocked", "DataWrapper.FirstStartEvents, false");
             GlobalData.setEventsBlocked(context, false);
 			for (Event event : getEventList())
 			{
@@ -2137,6 +2139,7 @@ public class DataWrapper {
 
 		if (unblockEventsRun)
 		{
+            GlobalData.logE("$$$ setEventsBlocked", "DataWrapper.restartEvents, false");
 			GlobalData.setEventsBlocked(context, false);
 			for (Event event : getEventList())
 			{
