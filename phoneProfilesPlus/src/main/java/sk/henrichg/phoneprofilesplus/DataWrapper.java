@@ -759,6 +759,7 @@ public class DataWrapper {
         if (!getIsManualProfileActivation()) {
             Intent intent = new Intent();
             intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
+			intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false);
             context.sendBroadcast(intent);
         }
         else
@@ -2151,7 +2152,7 @@ public class DataWrapper {
 
 		Intent intent = new Intent();
 		intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
-		intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
+		intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false);
 		context.sendBroadcast(intent);
 
 	}

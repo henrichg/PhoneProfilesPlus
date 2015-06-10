@@ -718,4 +718,28 @@ Cize udalosti sa odblokuju
 Problem nie je ani pri pause eventov po manualnej ativacii profilu. Event.pauseEvent ma na to parameter
 allowRestart a ten je pri pauseAllEvents = false.
 
+Kde sa vola GlobalData.setEventsBlocked()
+- DataWrapper.firstStartEvents() - false (unblock)
+  - volane je z EditorProfilesActivity.onOptionsItemSelected() - zapnutie udalosti
+  - volane je z FirstStartService.onHandleIntent()
+- DataWrapper.pauseAllEvents() - parameter
+  - volane je z DataWrapper._activateProfile() - true (block)
+  - volane je z EditorProfilesActivity.onOptionsItemSelected() - vypnutie udalosti - false (unblock)
+- DataWrapper.restartEvents() - false (unblock)
+  - volane je z DataWrapper.restartEventsWithRescan() - unblockAllEvents=true
+  - volane je z DataWrapper.stopEventsForProfile() - unblockAllEvents=false
+  - volane je z EditorEventListFragment.deleteEvent() - unblockAllEvents=false
+  - volane je z EditorEventListFragment.runStopEvent() - unblockAllEvents=false
+  - volane je z EventPreferencesFragment.savePreferences() - unblockAllEvents=false
+- EditorProfilesActivity.doImportData() - false (unblock)
+  - volane je z EditorProfilesActivity.importDataAlert()
+  - volane je z EditorProfilesActivity.onActivityResult()
+- RestartEventsBroadcastReceiver.onReceive() - false (unblock) - ak GlobalData.EXTRA_UNBLOCKEVENTSRUN=true
+  - volane z DataWrapper.firstStartEvents() - GlobalData.EXTRA_UNBLOCKEVENTSRUN=false
+  - volane z DataWrapper.restartEvents () - GlobalData.EXTRA_UNBLOCKEVENTSRUN=false
+  - volane z DataWrapper.restartEventsWithDelay() - GlobalData.EXTRA_UNBLOCKEVENTSRUN=unblockAllEvents
+- DataWrapper.restartEventsWithDelay() - parameter
+  - volane z EditorProfilesActivity.doImportData() - unblockEventsRun=false
+  - volane z Event.doActivateEndProfile()  - unblockEventsRun=true
+
 --------------------------------------------------------------------
