@@ -718,7 +718,7 @@ Cize udalosti sa odblokuju
 Problem nie je ani pri pause eventov po manualnej ativacii profilu. Event.pauseEvent ma na to parameter
 allowRestart a ten je pri pauseAllEvents = false.
 
-Kde sa vola GlobalData.setEventsBlocked()
+Kde sa vola GlobalData.setEventsBlocked():
 
 ***
 - DataWrapper.firstStartEvents() - false (unblock)
