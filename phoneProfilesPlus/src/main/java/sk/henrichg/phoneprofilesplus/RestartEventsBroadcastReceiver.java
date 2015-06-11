@@ -22,6 +22,10 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
 			if (unblockEventsRun)
 			{
+				// remove alarm for profile duration
+				ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+				GlobalData.setActivatedProfileForDuration(context, 0);
+
 				DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
 				GlobalData.logE("$$$ setEventsBlocked", "RestartEventsBroadcastReceiver.onReceive, false");
