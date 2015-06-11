@@ -952,6 +952,10 @@ public class DataWrapper {
 								  	boolean _interactive, Activity _activity,
 								  	String eventNotificationSound, boolean log)
 	{
+		// remove last configured profile duration alarm
+        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+        GlobalData.setActivatedProfileForDuration(context, 0);
+
 		Profile profile = GlobalData.getMappedProfile(_profile, context);
 		//profile = filterProfileWithBatteryEvents(profile);
 
@@ -1022,15 +1026,9 @@ public class DataWrapper {
 			}
 			else {
                 GlobalData.logE("$$$ DataWrapper._activateProfile","NO manual profile activation");
-                ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                GlobalData.setActivatedProfileForDuration(context, 0);
                 profileDuration = 0;
             }
 		}
-		else {
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-            GlobalData.setActivatedProfileForDuration(context, 0);
-        }
 
 		activatedProfile = getActivatedProfile();
 		activateProfileHelper.showNotification(activatedProfile, eventNotificationSound);

@@ -497,7 +497,14 @@ public class EditorProfileListFragment extends Fragment {
 		
 		new DeleteAsyncTask().execute();
 		*/
-		
+
+		Profile activatedProfile = dataWrapper.getActivatedProfile();
+		if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+			// remove alarm for profile duration
+			ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
+			GlobalData.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+		}
+
 		dataWrapper.stopEventsForProfile(profile, true);
 		dataWrapper.unlinkEventsFromProfile(profile);
 		profileListAdapter.deleteItemNoNotify(profile);
@@ -640,6 +647,11 @@ public class EditorProfileListFragment extends Fragment {
 				
 				new DeleteAsyncTask().execute();
 				*/
+
+                // remove alarm for profile duration
+                ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
+                GlobalData.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+
 				dataWrapper.stopAllEvents(true, false);
 				dataWrapper.unlinkAllEvents();
 				profileListAdapter.clearNoNotify();

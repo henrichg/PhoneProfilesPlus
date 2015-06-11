@@ -86,6 +86,9 @@ public class FirstStartService extends IntentService {
 		// start ReceiverService
 		context.startService(new Intent(context.getApplicationContext(), ReceiversService.class));
 
+        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+        GlobalData.setActivatedProfileForDuration(context, 0);
+
 		DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
 		dataWrapper.getDatabaseHandler().deleteAllEventTimelines(true);

@@ -668,7 +668,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 			return true;*/
 		case R.id.menu_exit:
 			GlobalData.setApplicationStarted(getApplicationContext(), false);
-			
+
 			// stop all events
 			getDataWrapper().stopAllEvents(false, false);
 			
@@ -677,6 +677,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 			
 			SearchCalendarEventsBroadcastReceiver.removeAlarm(getApplicationContext());
 			WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
+
+            // remove alarm for profile duration
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(getApplicationContext());
+            GlobalData.setActivatedProfileForDuration(getApplicationContext(), 0);
+
 			stopService(new Intent(getApplicationContext(), ReceiversService.class));
 			stopService(new Intent(getApplicationContext(), KeyguardService.class));
 

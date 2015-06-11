@@ -501,8 +501,16 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 			profile._name = preferences.getString(GlobalData.PREF_PROFILE_NAME, "");
 			profile._icon = preferences.getString(GlobalData.PREF_PROFILE_ICON, "");
 	    	profile._showInActivator = preferences.getBoolean(GlobalData.PREF_PROFILE_SHOW_IN_ACTIVATOR, true);
-	    	profile._duration = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DURATION, ""));
+
+            profile._duration = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DURATION, ""));
 	    	profile._afterDurationDo = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_AFTER_DURATION_DO, ""));
+
+            Profile activatedProfile = dataWrapper.getActivatedProfile();
+            if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                // remove alarm for profile duration
+                ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
+                GlobalData.setActivatedProfileForDuration(context, profile._id);
+            }
 		}
     	profile._volumeRingerMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, ""));
     	profile._volumeZenMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, ""));
