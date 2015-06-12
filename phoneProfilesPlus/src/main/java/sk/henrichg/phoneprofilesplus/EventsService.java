@@ -96,6 +96,8 @@ public class EventsService extends IntentService
 
         Profile mergedProfile = dataWrapper.getNoinitializedProfile("", "", 0);
 
+        Profile activatedProfile0 = null;
+
 		if (isRestart)
 		{
 			GlobalData.logE("$$$ EventsService.onHandleIntent","restart events");
@@ -130,6 +132,8 @@ public class EventsService extends IntentService
 		else
 		{
 			GlobalData.logE("$$$ EventsService.onHandleIntent","NO restart events");
+
+            activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
 			//1. pause events
 			dataWrapper.sortEventsByPriorityDesc();
@@ -264,8 +268,14 @@ public class EventsService extends IntentService
 					dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, eventNotificationSound, false);
                 }
-				else
-					dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
+				else {
+                    long prId0 = 0;
+                    long prId = 0;
+                    if (activatedProfile0 != null) prId0 = activatedProfile0._id;
+                    if (activatedProfile != null) prId = activatedProfile._id;
+                    if ((prId0 != prId) || (prId == 0))
+					    dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
+				}
             }
 		}
 
