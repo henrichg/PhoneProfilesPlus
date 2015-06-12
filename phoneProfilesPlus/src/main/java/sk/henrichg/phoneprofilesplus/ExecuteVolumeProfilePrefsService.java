@@ -43,12 +43,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
                     // set ringer mode to Ring for proper change ringer mode to Silent
                     Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
-                    if (_profile._volumeRingerMode == 4) {
-                        int ringerMode = _profile._volumeRingerMode;
-                        _profile._volumeRingerMode = 1;
-                        aph.setRingerMode(_profile, audioManager);
-                        _profile._volumeRingerMode = ringerMode;
-                    }
+                    aph.setRingerMode(_profile, audioManager, true);
 
 			        /*
 					TelephonyManager telephony = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -66,7 +61,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
                     // set ringer mode after volume because volumes change silent/vibrate
                     Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
-                    aph.setRingerMode(_profile, audioManager);
+                    aph.setRingerMode(_profile, audioManager, false);
             //    }
             //});
 

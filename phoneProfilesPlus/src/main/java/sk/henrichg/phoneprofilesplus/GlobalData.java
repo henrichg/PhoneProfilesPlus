@@ -250,6 +250,7 @@ public class GlobalData extends Application {
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
 	private static final String PREF_RINGER_VOLUME = "ringer_volume";
 	private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
+	private static final String PREF_RINGER_MODE = "ringer_mode";
 
 	// preferences for event - filled with broadcast receivers
 	static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
@@ -928,6 +929,20 @@ public class GlobalData extends Application {
 		SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 		Editor editor = preferences.edit();
 		editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
+		editor.commit();
+	}
+
+	static public int getRingerMode(Context context)
+	{
+		SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+		return preferences.getInt(PREF_RINGER_MODE, 0);
+	}
+
+	static public void setRingerMode(Context context, int volume)
+	{
+		SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+		Editor editor = preferences.edit();
+		editor.putInt(PREF_RINGER_MODE, volume);
 		editor.commit();
 	}
 

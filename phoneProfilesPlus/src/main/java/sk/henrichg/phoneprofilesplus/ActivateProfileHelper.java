@@ -399,92 +399,97 @@ public class ActivateProfileHelper {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void setRingerMode(Profile profile, AudioManager audioManager)
+	public void setRingerMode(Profile profile, AudioManager audioManager, boolean forSilent)
 	{
 		GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "ringerMode="+audioManager.getRingerMode());
-		switch (profile._volumeRingerMode) {
-		case 1:  // Ring
-			audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-			try
-			{
-				audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			try
-			{
-				audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
-			//setZenMode(ZENMODE_ALL);
-			break;
-		case 2:  // Ring & Vibrate
-			audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-			try
-			{
-				audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			try
-			{
-				audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
-			//setZenMode(ZENMODE_ALL);
-			break;
-		case 3:  // Vibrate
-			audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-			try
-			{
-				audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			try
-			{
-				audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
-			//setZenMode(ZENMODE_ALL);
-			break;
-		case 4:  // Silent
-			audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-			try
-			{
-				audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			try
-			{
-				audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
-			//setZenMode(ZENMODE_PRIORITY);
-			break;
-		case 5: // Zen mode
-			switch (profile._volumeZenMode) {
-				case 1:
-					setZenMode(ZENMODE_ALL);
-					break;
-				case 2:
-					setZenMode(ZENMODE_PRIORITY);
-					break;
-				case 3:
-					setZenMode(ZENMODE_NONE);
-					break;
-			}
-			break;
-		}
+
+        if (!forSilent) {
+            if (profile._volumeRingerMode != 0)
+                GlobalData.setRingerMode(context, profile._volumeRingerMode);
+        }
+        int ringerMode = GlobalData.getRingerMode(context);
+        if (forSilent) {
+            if (ringerMode != 4)
+                return;
+            else
+                ringerMode = 1;
+        }
+
+        switch (ringerMode) {
+            case 1:  // Ring
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                try {
+                    audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
+                //setZenMode(ZENMODE_ALL);
+                break;
+            case 2:  // Ring & Vibrate
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                try {
+                    audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
+                //setZenMode(ZENMODE_ALL);
+                break;
+            case 3:  // Vibrate
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                try {
+                    audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
+                //setZenMode(ZENMODE_ALL);
+                break;
+            case 4:  // Silent
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                try {
+                    audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
+                //setZenMode(ZENMODE_PRIORITY);
+                break;
+            case 5: // Zen mode
+                switch (profile._volumeZenMode) {
+                    case 1:
+                        setZenMode(ZENMODE_ALL);
+                        break;
+                    case 2:
+                        setZenMode(ZENMODE_PRIORITY);
+                        break;
+                    case 3:
+                        setZenMode(ZENMODE_NONE);
+                        break;
+                }
+                break;
+        }
 	}
 
     public void executeForWallpaper(Profile profile) {

@@ -179,7 +179,7 @@ public class EventsService extends IntentService
 
 		if (!dataWrapper.getIsManualProfileActivation())
 		{
-			GlobalData.logE("$$$ EventsService.onHandleIntent", "active profile is activated manually");
+			GlobalData.logE("$$$ EventsService.onHandleIntent", "active profile is NOT activated manually");
 			GlobalData.logE("$$$ EventsService.onHandleIntent", "runningEventCountE="+runningEventCountE);
 			// no manual profile activation
 			if (runningEventCountE == 0)
@@ -219,7 +219,7 @@ public class EventsService extends IntentService
 		}
 		else
 		{
-			GlobalData.logE("$$$ EventsService.onHandleIntent", "active profile is NOT activated manually");
+			GlobalData.logE("$$$ EventsService.onHandleIntent", "active profile is activated manually");
 			// manual profile activation
 			long profileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
 			if (profileId != GlobalData.PROFILE_NO_ACTIVATE)
