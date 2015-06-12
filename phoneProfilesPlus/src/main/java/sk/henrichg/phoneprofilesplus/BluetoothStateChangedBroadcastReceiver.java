@@ -31,8 +31,8 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
 
                 if (bluetoothState == BluetoothAdapter.STATE_ON)
                 {
-                    if ((!dataWrapper.getIsManualProfileActivation()) || GlobalData.getForceOneBluetoothScan(context))
-                    {
+                    //if ((!dataWrapper.getIsManualProfileActivation()) || GlobalData.getForceOneBluetoothScan(context))
+                    //{
                         if (BluetoothScanAlarmBroadcastReceiver.getScanRequest(context))
                         {
                             GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "startScan");
@@ -44,7 +44,7 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                             // refresh bounded devices
                             BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
                         }
-                    }
+                    //}
                 }
 
                 if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||

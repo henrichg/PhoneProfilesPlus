@@ -35,8 +35,8 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                 if (wifiState == WifiManager.WIFI_STATE_ENABLED)
                 {
                     // start scan
-                    if ((!dataWrapper.getIsManualProfileActivation()) || GlobalData.getForceOneWifiScan(context))
-                    {
+                    //if ((!dataWrapper.getIsManualProfileActivation()) || GlobalData.getForceOneWifiScan(context))
+                    //{
                         if (WifiScanAlarmBroadcastReceiver.getScanRequest(context)) {
                             GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","before startScan");
                             WifiScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
@@ -48,7 +48,7 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                             // refresh configured networks list
                             WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
                         }
-                    }
+                    //}
                 }
 
                 if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||

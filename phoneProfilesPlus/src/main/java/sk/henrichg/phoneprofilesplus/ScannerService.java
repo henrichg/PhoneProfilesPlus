@@ -117,7 +117,7 @@ public class ScannerService extends IntentService
                     WifiScanAlarmBroadcastReceiver.unlock();
 
                     // start scan
-                    if (!(dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneWifiScan(context)))) {
+                    //if (!(dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneWifiScan(context)))) {
                         // register scan result receiver
                         IntentFilter intentFilter4 = new IntentFilter();
                         intentFilter4.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
@@ -173,7 +173,7 @@ public class ScannerService extends IntentService
                         }
 
                         unregisterReceiver(wifiScanReceiver);
-                    }
+                    //}
                 }
             }
             else {
@@ -218,7 +218,7 @@ public class ScannerService extends IntentService
                     BluetoothScanAlarmBroadcastReceiver.unlock();
 
                     // start scan
-                    if (!(dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneBluetoothScan(context)))) {
+                    //if (!(dataWrapper.getIsManualProfileActivation() && (!GlobalData.getForceOneBluetoothScan(context)))) {
                         // register scan result receiver
                         IntentFilter intentFilter6 = new IntentFilter();
                         intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
@@ -273,7 +273,7 @@ public class ScannerService extends IntentService
                         }
 
                         unregisterReceiver(bluetoothScanReceiver);
-                    }
+                    //}
                 }
             }
             else {
@@ -360,8 +360,8 @@ public class ScannerService extends IntentService
     	int wifiState = wifi.getWifiState();
     	boolean forceScan = GlobalData.getForceOneWifiScan(dataWrapper.context);
     	
-    	if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
-    	{
+    	//if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
+    	//{
     		if (wifiState != WifiManager.WIFI_STATE_ENABLING)
     		{
 				boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
@@ -410,7 +410,7 @@ public class ScannerService extends IntentService
 		    		return wifiState;
 		    	}
     		}
-    	}
+    	//}
 
     	return wifiState;
     }
@@ -468,8 +468,8 @@ public class ScannerService extends IntentService
     	int bluetoothState = bluetooth.getState();
     	boolean forceScan = GlobalData.getForceOneBluetoothScan(dataWrapper.context);
     	
-    	if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
-    	{
+    	//if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
+    	//{
     		boolean isBluetoothEnabled = bluetoothState == BluetoothAdapter.STATE_ON;
 			if (!isBluetoothEnabled)
 	    	{
@@ -498,7 +498,7 @@ public class ScannerService extends IntentService
 	        	GlobalData.logE("@@@ ScannerService.enableBluetooth","already enabled");
 	    		return bluetoothState;
 	    	}
-    	}
+    	//}
 
     	return bluetoothState;
     }
