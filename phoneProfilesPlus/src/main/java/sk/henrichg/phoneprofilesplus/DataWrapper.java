@@ -634,7 +634,7 @@ public class DataWrapper {
 				event.stopEvent(this, eventTimelineList, false, true, saveEventStatus, false, false);
 		}
         GlobalData.logE("$$$ restartEvents","from DataWrapper.stopEventsForProfile");
-		restartEvents(false, false, true);
+		restartEvents(false, true);
 	}
 	
 	// pauses all events
@@ -2134,7 +2134,7 @@ public class DataWrapper {
 				smsPassed);
 	}
 	
-	public void restartEvents(boolean ignoreEventsBlocking, boolean unblockEventsRun, boolean keepActivatedProfile)
+	public void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile)
 	{
 		if (!GlobalData.getGlobalEventsRuning(context))
 			// events are globally stopped
@@ -2142,7 +2142,7 @@ public class DataWrapper {
 
         GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEvents");
 
-        if (GlobalData.getEventsBlocked(context) && (!ignoreEventsBlocking))
+        if (GlobalData.getEventsBlocked(context) && (!unblockEventsRun))
 			return;
 
 		GlobalData.logE("DataWrapper.restartEvents","events are not blocked");
@@ -2181,7 +2181,7 @@ public class DataWrapper {
 		// ignoruj manualnu aktivaciu profilu
 		// a odblokuj forceRun eventy
         GlobalData.logE("$$$ restartEvents","from DataWrapper.restartEventsWithRescan");
-		restartEvents(true, true, false);
+		restartEvents(true, false);
 		
 		if (GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_RESTART_EVENTS) ||
 			GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))

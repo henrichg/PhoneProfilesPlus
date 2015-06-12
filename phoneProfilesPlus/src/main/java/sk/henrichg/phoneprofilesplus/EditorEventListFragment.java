@@ -347,7 +347,7 @@ public class EditorEventListFragment extends Fragment {
                 updateListView(event, false);
                 // restart events
 				GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
-                dataWrapper.restartEvents(false, false, true);
+                dataWrapper.restartEvents(false, true);
             } else {
                 // stop event
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
@@ -356,7 +356,7 @@ public class EditorEventListFragment extends Fragment {
                 updateListView(event, false);
                 // restart events
 				GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
-                dataWrapper.restartEvents(false, false, true);
+                dataWrapper.restartEvents(false, true);
             }
         }
         else
@@ -422,7 +422,7 @@ public class EditorEventListFragment extends Fragment {
 		event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false, false);
 		// restart events
 		GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.deleteEvent");
-		dataWrapper.restartEvents(false, false, true);
+		dataWrapper.restartEvents(false, true);
 		
 		eventListAdapter.deleteItemNoNotify(event);
 		databaseHandler.deleteEvent(event);
