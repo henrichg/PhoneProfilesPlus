@@ -1103,7 +1103,8 @@ public class Event {
 			// set alarm
 
 			Calendar now = Calendar.getInstance();
-			long alarmTime = now.getTimeInMillis() + 1000 * /* 60 * */ this._delayStart;
+			now.add(Calendar.SECOND, this._delayStart);
+			long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayStart;
 					
 		    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 		    String result = sdf.format(alarmTime);

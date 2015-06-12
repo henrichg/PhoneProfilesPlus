@@ -93,7 +93,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 			// set alarm
 			
 			Calendar now = Calendar.getInstance();
-			long alarmTime = now.getTimeInMillis() + 1000 * 60 * profile._duration;
+			now.add(Calendar.MINUTE, profile._duration);
+			long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
 					
 		    //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 		    //String result = sdf.format(alarmTime);
