@@ -226,6 +226,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
 			// ignoruj manualnu aktivaciu profilu
 			// a odblokuj forceRun eventy
+			GlobalData.logE("$$$ restartEvents","from ActivateProfileActivity.onOptionsItemSelected menu_restart_events");
 			dataWrapper.restartEventsWithAlert(this);
 			dataWrapper.invalidateDataWrapper();
 			return true;

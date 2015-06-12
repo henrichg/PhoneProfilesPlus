@@ -20,6 +20,8 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 		{
 			boolean unblockEventsRun = intent.getBooleanExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, true);
 
+			GlobalData.logE("$$$ restartEvents","in RestartEventsBroadcastReceiver, unblockEventsRun="+unblockEventsRun);
+
 			if (unblockEventsRun)
 			{
 				// remove alarm for profile duration
@@ -28,7 +30,6 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
 				DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
-				GlobalData.logE("$$$ setEventsBlocked", "RestartEventsBroadcastReceiver.onReceive, false");
 				GlobalData.setEventsBlocked(context, false);
 				dataWrapper.getDatabaseHandler().unblockAllEvents();
 				GlobalData.setForceRunEventRunning(context, false);

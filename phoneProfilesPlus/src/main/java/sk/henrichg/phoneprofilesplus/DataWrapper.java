@@ -633,6 +633,7 @@ public class DataWrapper {
 			if (event._fkProfileStart == profile._id)
 				event.stopEvent(this, eventTimelineList, false, true, saveEventStatus, false, false);
 		}
+        GlobalData.logE("$$$ restartEvents","from DataWrapper.stopEventsForProfile");
 		restartEvents(false, false, true);
 	}
 	
@@ -1017,8 +1018,7 @@ public class DataWrapper {
 				long profileId = 0;
 				if (activatedProfile != null)
 					profileId = activatedProfile._id;
-                GlobalData.logE("$$$ DataWrapper._activateProfile","profileId="+profileId);
-
+                GlobalData.logE("$$$ DataWrapper._activateProfile","setActivatedProfileForDuration profileId="+profileId);
 				GlobalData.setActivatedProfileForDuration(context, profileId);
 
 				ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
@@ -2136,15 +2136,13 @@ public class DataWrapper {
 	
 	public void restartEvents(boolean ignoreEventsBlocking, boolean unblockEventsRun, boolean keepActivatedProfile)
 	{
-		GlobalData.logE("DataWrapper.restartEvents","xxx");
-
 		if (!GlobalData.getGlobalEventsRuning(context))
 			// events are globally stopped
 			return;
 
-		GlobalData.logE("DataWrapper.restartEvents","events are not globbaly stopped");
-		
-		if (GlobalData.getEventsBlocked(context) && (!ignoreEventsBlocking))
+        GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEvents");
+
+        if (GlobalData.getEventsBlocked(context) && (!ignoreEventsBlocking))
 			return;
 
 		GlobalData.logE("DataWrapper.restartEvents","events are not blocked");
@@ -2176,10 +2174,13 @@ public class DataWrapper {
 	
 	public void restartEventsWithRescan(boolean showToast)
 	{
+		GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithRescan");
+
 		// remove all event delay alarms
 		removeAllEventDelays(false);
 		// ignoruj manualnu aktivaciu profilu
 		// a odblokuj forceRun eventy
+        GlobalData.logE("$$$ restartEvents","from DataWrapper.restartEventsWithRescan");
 		restartEvents(true, true, false);
 		
 		if (GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_RESTART_EVENTS) ||
@@ -2218,6 +2219,8 @@ public class DataWrapper {
 			return;
 		*/
 
+        GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithAlert");
+
 		if (GlobalData.applicationActivateWithAlert || (activity instanceof EditorProfilesActivity))
 		{
 			final Activity _activity = activity;
@@ -2228,8 +2231,9 @@ public class DataWrapper {
 			//dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 			dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					restartEventsWithRescan(true);
-					
+                    GlobalData.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
+                    restartEventsWithRescan(true);
+
 					if (GlobalData.applicationClose && (!(_activity instanceof EditorProfilesActivity)))
 						_activity.finish();
 				}
@@ -2239,6 +2243,7 @@ public class DataWrapper {
 		}
 		else
 		{
+            GlobalData.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
 			restartEventsWithRescan(true);
 			
 			if (GlobalData.applicationClose)
@@ -2248,6 +2253,8 @@ public class DataWrapper {
 
     public void restartEventsWithDelay(int delay, boolean unblockEventsRun)
     {
+        GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithDelay");
+
         AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
 		intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);

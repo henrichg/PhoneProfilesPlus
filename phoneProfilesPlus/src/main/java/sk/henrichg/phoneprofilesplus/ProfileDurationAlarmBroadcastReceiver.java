@@ -61,6 +61,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                             dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
+							GlobalData.logE("$$$ restartEvents", "from ProfileDurationAlarmBroadcastReceiver");
 							dataWrapper.restartEventsWithRescan(false);
 						}
 						else
@@ -85,7 +86,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 		if (profile == null)
 			return;
 		
-		if ((profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) && 
+		if ((profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
 			(profile._duration > 0))
 		{
 			// duration for start is > 0

@@ -591,6 +591,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
 			// ignoruj manualnu aktivaciu profilu
 			// a odblokuj forceRun eventy
+			GlobalData.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
 			getDataWrapper().restartEventsWithAlert(this);
 			return true;
 		case R.id.menu_run_stop_events:
@@ -1246,6 +1247,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 						intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
 						getBaseContext().sendBroadcast(intent);
 						*/
+						GlobalData.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
                         dataWrapper.restartEventsWithDelay(1, false);
 					}
 

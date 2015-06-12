@@ -79,7 +79,8 @@ public class GlobalData extends Application {
                                          //"$$$ ScreenOnOffBroadcastReceiver|"+
                                          //"$$$ ExecuteWallpaperProfilePrefsService|"+
                                          "$$$ Profile|"+
-                                         "$$$ setEventsBlocked"
+                                         "$$$ setEventsBlocked|"+
+										 "$$$ restartEvents"
 			;
 	
 	

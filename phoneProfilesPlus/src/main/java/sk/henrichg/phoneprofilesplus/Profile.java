@@ -307,8 +307,11 @@ public class Profile {
             this._icon = withProfile._icon;
             this._iconBitmap = withProfile._iconBitmap;
             this._preferencesIndicator = withProfile._preferencesIndicator;
+            this._duration = 0;
+			this._afterDurationDo = AFTERDURATIONDO_NOTHING;
 
-            if (withProfile._volumeRingerMode != 0)
+
+			if (withProfile._volumeRingerMode != 0)
                 this._volumeRingerMode = withProfile._volumeRingerMode;
             if (withProfile._volumeZenMode != 0)
                 this._volumeZenMode = withProfile._volumeZenMode;

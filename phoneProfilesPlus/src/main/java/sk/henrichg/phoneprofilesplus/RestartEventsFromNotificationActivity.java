@@ -30,6 +30,7 @@ public class RestartEventsFromNotificationActivity extends Activity
 
         dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
+		GlobalData.logE("$$$ restartEvents", "from RestartEventsFromNotificationActivity.onStart");
 		dataWrapper.restartEventsWithAlert(this);
 
         finish();

@@ -161,7 +161,10 @@ public class EventsService extends IntentService
 
 		ActivateProfileHelper.lockRefresh = false;
 
-        GlobalData.logE("$$$ EventsService.profile for activation","profileName="+mergedProfile._name);
+		if (mergedProfile._id == 0)
+			GlobalData.logE("$$$ EventsService.profile for activation","no profile for activation");
+		else
+			GlobalData.logE("$$$ EventsService.profile for activation","profileName="+mergedProfile._name);
 
 		//////////////////
 		//// when no events are running or manual activation, 
@@ -176,7 +179,7 @@ public class EventsService extends IntentService
 
 		if (!dataWrapper.getIsManualProfileActivation())
 		{
-			GlobalData.logE("$$$ EventsService.onHandleIntent", "no manual profile activation");
+			GlobalData.logE("$$$ EventsService.onHandleIntent", "active profile is activated manually");
 			GlobalData.logE("$$$ EventsService.onHandleIntent", "runningEventCountE="+runningEventCountE);
 			// no manual profile activation
 			if (runningEventCountE == 0)
@@ -216,7 +219,7 @@ public class EventsService extends IntentService
 		}
 		else
 		{
-			GlobalData.logE("$$$ EventsService.onHandleIntent", "manual profile activation");
+			GlobalData.logE("$$$ EventsService.onHandleIntent", "active profile is NOT activated manually");
 			// manual profile activation
 			long profileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
 			if (profileId != GlobalData.PROFILE_NO_ACTIVATE)
@@ -255,10 +258,9 @@ public class EventsService extends IntentService
             if (mergedProfile == null)
 			    dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
             else {
-                GlobalData.logE("$$$ EventsService.onHandleIntent","profileName="+mergedProfile._name);
-                GlobalData.logE("$$$ EventsService.onHandleIntent","profileId="+mergedProfile._id);
-                GlobalData.logE("$$$ EventsService.onHandleIntent","notificationSound="+eventNotificationSound);
 				if (mergedProfile._id != 0) {
+                    GlobalData.logE("$$$ EventsService.onHandleIntent","profileName="+mergedProfile._name);
+                    GlobalData.logE("$$$ EventsService.onHandleIntent","profileId="+mergedProfile._id);
 					dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, eventNotificationSound, false);
                 }
