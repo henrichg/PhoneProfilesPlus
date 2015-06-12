@@ -56,14 +56,16 @@ public class ReceiversService extends Service {
 		intentFilter8.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
 		registerReceiver(bluetoothStateChangedReceiver, intentFilter8);
 		*/
-		
+
+		/*
 		// receivers for system date and time change
 		// events must by restarted
 		IntentFilter intentFilter99 = new IntentFilter();
 		intentFilter99.addAction(Intent.ACTION_TIMEZONE_CHANGED);
 		intentFilter99.addAction(Intent.ACTION_TIME_CHANGED);
         getApplicationContext().registerReceiver(restartEventsReceiver, intentFilter99);
-		
+		*/
+
 	    //SMSBroadcastReceiver.registerSMSContentObserver(this);
 	    //SMSBroadcastReceiver.registerMMSContentObserver(this);
 	    
@@ -81,7 +83,7 @@ public class ReceiversService extends Service {
         getApplicationContext().unregisterReceiver(screenOnOffReceiver);
 		//unregisterReceiver(bluetoothStateChangedReceiver);
 
-        getApplicationContext().unregisterReceiver(restartEventsReceiver);
+        //getApplicationContext().unregisterReceiver(restartEventsReceiver);
 		
 	    //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
 	    //SMSBroadcastReceiver.unregisterMMSContentObserver(this);
