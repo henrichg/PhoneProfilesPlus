@@ -494,7 +494,7 @@ public class Profile {
 			value = splits[2].equals("1");
 
 		} catch (Exception e) {
-			value = true;
+			value = false;
 		}
 		return value;
 	}

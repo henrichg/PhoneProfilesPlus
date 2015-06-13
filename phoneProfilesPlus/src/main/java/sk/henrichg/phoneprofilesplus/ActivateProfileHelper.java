@@ -918,7 +918,7 @@ public class ActivateProfileHelper {
                 else {
                     if (GlobalData.notificationStatusBarStyle.equals("0") && (android.os.Build.VERSION.SDK_INT < 21)) {
                         //notificationBuilder.setSmallIcon(0);
-                        iconSmallResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                        iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", context.getPackageName());
                         notificationBuilder.setSmallIcon(iconSmallResource);
                         //contentView.setImageViewResource(R.id.notification_activated_profile_icon, 0);
                         contentView.setImageViewResource(R.id.notification_activated_profile_icon, iconSmallResource);
