@@ -113,6 +113,7 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
         if (v.getTag() != null) {
             Integer index = (Integer) v.getTag();
             //mCallback.onColorSelection(index, mColors[index], shiftColor(mColors[index]));
+            profileIconPreference.setCustomColor(true, mColors[index]);
             mDialog.dismiss();
         }
     }

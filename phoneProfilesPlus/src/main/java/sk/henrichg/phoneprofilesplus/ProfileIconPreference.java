@@ -36,7 +36,8 @@ public class ProfileIconPreference extends DialogPreference {
 
 	private String imageIdentifier;
 	private boolean isImageResourceID;
-    private int selectedColorIndex;
+    private boolean useCustomColor;
+    private int customColor;
 
 	private MaterialDialog mDialog;
 
@@ -64,6 +65,8 @@ public class ProfileIconPreference extends DialogPreference {
 
 	    imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
 		isImageResourceID = true;
+        useCustomColor = false;
+        customColor = 0;
 
 		prefContext = context;
 
@@ -182,7 +185,7 @@ public class ProfileIconPreference extends DialogPreference {
 	{
 		if (restoreValue) {
 			// restore state
-			String value = getPersistedString(imageIdentifier+"|"+((isImageResourceID) ? "1" : "0"));
+			String value = getPersistedString(imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor);
 			String[] splits = value.split("\\|");
 			try {
 				imageIdentifier = splits[0];
@@ -194,6 +197,16 @@ public class ProfileIconPreference extends DialogPreference {
 			} catch (Exception e) {
 				isImageResourceID = true;
 			}
+            try {
+                useCustomColor = splits[2].equals("2");
+            } catch (Exception e) {
+                useCustomColor = false;
+            }
+            try {
+                customColor = Integer.valueOf(splits[3]);
+            } catch (Exception e) {
+                customColor = 0; //TODO farba vyseparovana z ikony
+            }
 		}
 		else {
 			// set state
@@ -209,6 +222,16 @@ public class ProfileIconPreference extends DialogPreference {
 			} catch (Exception e) {
 				isImageResourceID = true;
 			}
+            try {
+                useCustomColor = splits[2].equals("2");
+            } catch (Exception e) {
+                useCustomColor = false;
+            }
+            try {
+                customColor = Integer.valueOf(splits[3]);
+            } catch (Exception e) {
+                customColor = 0; //TODO farba vyseparovana z ikony
+            }
 			persistString(value);
 		}
     }
@@ -293,7 +316,7 @@ public class ProfileIconPreference extends DialogPreference {
                 imageIdentifier = newImageIdentifier;
                 isImageResourceID = false;
             }
-            newValue = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0");
+            newValue = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor;
             if (callChangeListener(newValue)) {
                 persistString(newValue);
                 // Data sa zmenili,notifikujeme
@@ -302,6 +325,11 @@ public class ProfileIconPreference extends DialogPreference {
         }
 
 	}
+
+    public void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
+        useCustomColor = newUseCustomColor;
+        customColor = newCustomColor;
+    }
 
 	public void startGallery()
 	{
@@ -317,7 +345,7 @@ public class ProfileIconPreference extends DialogPreference {
 	}
 
     private void showCustomColorChooser() {
-        final ProfileIconColorChooserDialog dialog = new ProfileIconColorChooserDialog(prefContext, this, selectedColorIndex);
+        final ProfileIconColorChooserDialog dialog = new ProfileIconColorChooserDialog(prefContext, this, customColor);
         dialog.show();
     }
 

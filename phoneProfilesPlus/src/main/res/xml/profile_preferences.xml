@@ -10,7 +10,7 @@
             android:title="@string/profile_preferences_profileName"
             android:selectAllOnFocus="true" /> 
         <sk.henrichg.phoneprofilesplus.ProfileIconPreference
-            android:defaultValue="ic_profile_default|1"
+            android:defaultValue="ic_profile_default|1|0|0"
             android:key="prf_pref_profileIcon"
             android:title="@string/profile_preferences_profileIcon" />
 		<CheckBoxPreference 
