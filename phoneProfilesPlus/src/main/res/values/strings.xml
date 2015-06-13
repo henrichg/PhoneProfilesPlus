@@ -497,5 +497,6 @@
   <string name="array_event_pref_calendarAvailability_free">Free</string>
   <string name="array_event_pref_calendarAvailability_tentative">Tentative</string>
   <string name="event_preferences_manualProfileActivation">Manual profile activation</string>
-  <string name="profileicon_pref_dialog_customColor">Change color</string>
+  <string name="profileicon_pref_dialog_customColor_button">Change color</string>
+  <string name="colorChooser_pref_dialog_title">Set color</string>
 </resources>
