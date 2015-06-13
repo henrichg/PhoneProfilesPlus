@@ -19,7 +19,7 @@
 
         <Button
             android:id="@+id/profileicon_pref_dlg_change_color"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/profileicon_pref_dialog_customColor_button"
             android:layout_gravity="center_horizontal"

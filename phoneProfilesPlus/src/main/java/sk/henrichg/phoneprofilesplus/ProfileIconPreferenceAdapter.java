@@ -45,6 +45,33 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
 		"ic_profile_culture_1", "ic_profile_culture_2", "ic_profile_culture_3", "ic_profile_culture_4"
 	};
 
+    static final int[] ThumbsColors = {
+            0xff1c9cd7,
+
+            0xff99cc00, 0xff99cc00,
+
+            0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
+            0xffffbc33,
+
+            0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000,
+            0xffcc0000, 0xffcc0000, 0xffcc0000,
+
+            0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
+            0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
+            0xffa801ff, 0xffa801ff,
+
+            0xff0099cc, 0xff0099cc, 0xff0099cc,
+            0xff0099cc,
+
+            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
+            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
+            0xff28a174, 0xff28a174, 0xff28a174,
+
+            0xffdb3514, 0xffdb9714, 0xff2aa561,
+
+            0xff38d043, 0xff38d043, 0xff38d043, 0xff38d043
+    };
+
 	public ProfileIconPreferenceAdapter(Context c, String imageIdentifier, boolean isImageResourceID, boolean useCustomColor, int customColor)
 	{
 		context = c;
@@ -117,7 +144,7 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 
-    public int getImageResourcePosition(String imageIdentifier) {
+    public static int getImageResourcePosition(String imageIdentifier) {
         for (int pos = 0; pos < ThumbsIds.length; pos++) {
             if (ThumbsIds[pos].equals(imageIdentifier))
                 return pos;
@@ -129,6 +156,10 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
         useCustomColor = newUseCustomColor;
         customColor = newCustomColor;
         notifyDataSetChanged();
+    }
+
+    public static int getIconColor(String imageIdentifier) {
+        return ThumbsColors[getImageResourcePosition(imageIdentifier)];
     }
 
 }

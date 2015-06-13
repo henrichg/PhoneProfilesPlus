@@ -213,7 +213,7 @@ public class ProfileIconPreference extends DialogPreference {
             try {
                 customColor = Integer.valueOf(splits[3]);
             } catch (Exception e) {
-                customColor = 0; //TODO farba vyseparovana z ikony
+                customColor = ProfileIconPreferenceAdapter.getIconColor(imageIdentifier);
             }
 		}
 		else {
@@ -238,7 +238,7 @@ public class ProfileIconPreference extends DialogPreference {
             try {
                 customColor = Integer.valueOf(splits[3]);
             } catch (Exception e) {
-                customColor = 0; //TODO farba vyseparovana z ikony
+                customColor = ProfileIconPreferenceAdapter.getIconColor(imageIdentifier);
             }
 			persistString(value);
 		}
@@ -356,7 +356,8 @@ public class ProfileIconPreference extends DialogPreference {
 	}
 
     private void showCustomColorChooser() {
-        final ProfileIconColorChooserDialog dialog = new ProfileIconColorChooserDialog(prefContext, this, customColor);
+        final ProfileIconColorChooserDialog dialog = new ProfileIconColorChooserDialog(prefContext, this, useCustomColor, customColor,
+                                                            ProfileIconPreferenceAdapter.getIconColor(imageIdentifier));
         dialog.show();
     }
 

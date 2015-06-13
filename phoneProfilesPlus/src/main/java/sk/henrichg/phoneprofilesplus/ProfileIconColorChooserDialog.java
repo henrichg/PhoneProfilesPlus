@@ -36,7 +36,7 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
 
     private int[] mColors;
 
-    public ProfileIconColorChooserDialog(Context context, ProfileIconPreference preference, int selectedColor)
+    public ProfileIconColorChooserDialog(Context context, ProfileIconPreference preference, boolean useCustomColor, int selectedColor, int defaultColor)
     {
         profileIconPreference = preference;
 
@@ -72,9 +72,13 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
         mColors = new int[ta.length()];
         int preselect = 0;
         for (int i = 0; i < ta.length(); i++) {
-            mColors[i] = ta.getColor(i, 0);
-            if (mColors[i] == selectedColor)
-                preselect = i;
+            if (i == 0)
+                mColors[i] = defaultColor;
+            else {
+                mColors[i] = ta.getColor(i, 0);
+                if (useCustomColor && (mColors[i] == selectedColor))
+                    preselect = i;
+            }
         }
         ta.recycle();
         final GridLayout list = (GridLayout) mDialog.getCustomView().findViewById(R.id.dialog_color_chooser_grid);
@@ -113,7 +117,8 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
         if (v.getTag() != null) {
             Integer index = (Integer) v.getTag();
             //mCallback.onColorSelection(index, mColors[index], shiftColor(mColors[index]));
-            profileIconPreference.setCustomColor(true, mColors[index]);
+            boolean custom = index > 0;
+            profileIconPreference.setCustomColor(custom, mColors[index]);
             mDialog.dismiss();
         }
     }
