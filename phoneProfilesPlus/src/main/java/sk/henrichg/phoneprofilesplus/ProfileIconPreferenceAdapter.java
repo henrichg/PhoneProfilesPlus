@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
 	private LayoutInflater inflater = null;
 	String imageIdentifier;
 	boolean isImageResourceID;
+    private boolean useCustomColor;
+    private int customColor;
 
 	static final String[] ThumbsIds = {
 		"ic_profile_default",
@@ -41,7 +45,7 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
 		"ic_profile_culture_1", "ic_profile_culture_2", "ic_profile_culture_3", "ic_profile_culture_4"
 	};
 
-	public ProfileIconPreferenceAdapter(Context c, String imageIdentifier, boolean isImageResourceID)
+	public ProfileIconPreferenceAdapter(Context c, String imageIdentifier, boolean isImageResourceID, boolean useCustomColor, int customColor)
 	{
 		context = c;
 		
@@ -49,6 +53,8 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
 		
 		this.imageIdentifier = imageIdentifier; 
 		this.isImageResourceID = isImageResourceID;
+        this.useCustomColor = useCustomColor;
+        this.customColor = customColor;
 	}
 	
 	public int getCount() {
@@ -90,8 +96,15 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
         }
 		else
 			holder.icon.setBackgroundResource(0);
-		
-		holder.icon.setImageResource(context.getResources().getIdentifier(ThumbsIds[position], "drawable", context.getPackageName()));
+
+        int res = context.getResources().getIdentifier(ThumbsIds[position], "drawable", context.getPackageName());
+        if (ThumbsIds[position].equals(imageIdentifier) && isImageResourceID && useCustomColor) {
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);
+            bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor, context);
+            holder.icon.setImageBitmap(bitmap);
+        }
+        else
+		    holder.icon.setImageResource(res);
 		
 		return vi;
 	}
@@ -99,6 +112,8 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
 	public void imageIdentifierAndTypeChanged(String imageIdentifier, boolean isImageResourceID) {
 		this.imageIdentifier = imageIdentifier;
 		this.isImageResourceID = isImageResourceID;
+        this.useCustomColor = false;
+        this.customColor = 0;
 		notifyDataSetChanged();
 	}
 
@@ -109,4 +124,11 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
         }
         return 0;
     }
+
+    public void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
+        useCustomColor = newUseCustomColor;
+        customColor = newCustomColor;
+        notifyDataSetChanged();
+    }
+
 }

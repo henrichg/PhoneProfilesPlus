@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -90,8 +91,15 @@ public class ProfileIconPreference extends DialogPreference {
 	    	if (isImageResourceID)
 	    	{
 	    		// je to resource id
-	    		int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.getPackageName());
-	    		imageView.setImageResource(res); // resource na ikonu
+                int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.getPackageName());
+
+                if (useCustomColor) {
+                    Bitmap bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
+                    bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor, prefContext);
+                    imageView.setImageBitmap(bitmap);
+                }
+                else
+	    		    imageView.setImageResource(res); // resource na ikonu
 	    	}
 	    	else
 	    	{
@@ -124,7 +132,7 @@ public class ProfileIconPreference extends DialogPreference {
         onBindDialogView(layout);
 
         GridView gridView = (GridView)layout.findViewById(R.id.profileicon_pref_dlg_gridview);
-        adapter = new ProfileIconPreferenceAdapter(prefContext, imageIdentifier, isImageResourceID);
+        adapter = new ProfileIconPreferenceAdapter(prefContext, imageIdentifier, isImageResourceID, useCustomColor, customColor);
         gridView.setAdapter(adapter);
         gridView.setSelection(adapter.getImageResourcePosition(imageIdentifier));
 
@@ -198,7 +206,7 @@ public class ProfileIconPreference extends DialogPreference {
 				isImageResourceID = true;
 			}
             try {
-                useCustomColor = splits[2].equals("2");
+                useCustomColor = splits[2].equals("1");
             } catch (Exception e) {
                 useCustomColor = false;
             }
@@ -223,7 +231,7 @@ public class ProfileIconPreference extends DialogPreference {
 				isImageResourceID = true;
 			}
             try {
-                useCustomColor = splits[2].equals("2");
+                useCustomColor = splits[2].equals("1");
             } catch (Exception e) {
                 useCustomColor = false;
             }
@@ -315,6 +323,8 @@ public class ProfileIconPreference extends DialogPreference {
             if (!newIsImageResourceID) {
                 imageIdentifier = newImageIdentifier;
                 isImageResourceID = false;
+                useCustomColor = false;
+                customColor = 0;
             }
             newValue = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor;
             if (callChangeListener(newValue)) {
@@ -329,6 +339,7 @@ public class ProfileIconPreference extends DialogPreference {
     public void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
         useCustomColor = newUseCustomColor;
         customColor = newCustomColor;
+        adapter.setCustomColor(useCustomColor, customColor);
     }
 
 	public void startGallery()
