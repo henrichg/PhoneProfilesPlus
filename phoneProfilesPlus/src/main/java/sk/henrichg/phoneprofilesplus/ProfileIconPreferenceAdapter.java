@@ -85,8 +85,9 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
 			holder = (ViewHolder)vi.getTag();
 		}
 
-		if (ThumbsIds[position].equals(imageIdentifier) && isImageResourceID)
-			holder.icon.setBackgroundResource(R.color.activityCardSelected_phoneprofilestheme);
+		if (ThumbsIds[position].equals(imageIdentifier) && isImageResourceID) {
+            holder.icon.setBackgroundResource(R.color.activityCardSelected_phoneprofilestheme);
+        }
 		else
 			holder.icon.setBackgroundResource(0);
 		
@@ -95,4 +96,17 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
 		return vi;
 	}
 
+	public void imageIdentifierAndTypeChanged(String imageIdentifier, boolean isImageResourceID) {
+		this.imageIdentifier = imageIdentifier;
+		this.isImageResourceID = isImageResourceID;
+		notifyDataSetChanged();
+	}
+
+    public int getImageResourcePosition(String imageIdentifier) {
+        for (int pos = 0; pos < ThumbsIds.length; pos++) {
+            if (ThumbsIds[pos].equals(imageIdentifier))
+                return pos;
+        }
+        return 0;
+    }
 }

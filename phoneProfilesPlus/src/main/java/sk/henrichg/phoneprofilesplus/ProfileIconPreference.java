@@ -10,24 +10,38 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.DialogPreference;
 import android.preference.Preference;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
-public class ProfileIconPreference extends Preference {
+import com.afollestad.materialdialogs.MaterialDialog;
+
+public class ProfileIconPreference extends DialogPreference {
 
 	private String imageIdentifier;
 	private boolean isImageResourceID;
 
 	private String imageSource;
 
+	private MaterialDialog mDialog;
+
 	private ImageView imageView;
+    ProfileIconPreferenceAdapter adapter;
 	private Context prefContext;
 
 	CharSequence preferenceTitle;
@@ -38,24 +52,18 @@ public class ProfileIconPreference extends Preference {
 	{
 		super(context, attrs);
 
+        /*
 		TypedArray typedArray = context.obtainStyledAttributes(attrs,
 				R.styleable.ProfileIconPreference);
 
 		// resource, resource_file, file
 		imageSource = typedArray.getString(
 			R.styleable.ProfileIconPreference_iconSource);
+		*/
 
 
-		if (imageSource.equals("file"))
-		{
-			imageIdentifier = "-";
-			isImageResourceID = false;
-		}
-		else
-		{
-			imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
-			isImageResourceID = true;
-		}
+	    imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
+		isImageResourceID = true;
 
 		prefContext = context;
 
@@ -63,7 +71,7 @@ public class ProfileIconPreference extends Preference {
 
 		setWidgetLayoutResource(R.layout.profileicon_preference); // resource na layout custom preference - TextView-ImageView
 
-		typedArray.recycle();
+		//typedArray.recycle();
 
 	}
 
@@ -96,24 +104,63 @@ public class ProfileIconPreference extends Preference {
 	    }
 	}
 
-	@Override
-	protected void onClick()
-	{
-		// klik na preference
+    @Override
+    protected void showDialog(Bundle state) {
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
+                .title(getDialogTitle())
+                .icon(getDialogIcon())
+                        //.disableDefaultFonts()
+                .positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText())
+                .neutralText(R.string.imageview_resource_file_pref_dialog_gallery_btn)
+                .callback(callback)
+                .autoDismiss(false)
+                .content(getDialogMessage());
 
-		if (imageSource.equals("resource_file") || imageSource.equals("resource"))
-		{
-			final ProfileIconPreferenceDialog dialog = new ProfileIconPreferenceDialog(prefContext, this, imageSource,
-																					imageIdentifier, isImageResourceID);
-			dialog.show();
-		}
-		else
-		{
-			// zavolat galeriu na vyzdvihnutie image
-			startGallery();
-		}
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_profileicon_pref_dialog, null);
+        onBindDialogView(layout);
 
-	}
+        GridView gridView = (GridView)layout.findViewById(R.id.profileicon_pref_dlg_gridview);
+        adapter = new ProfileIconPreferenceAdapter(prefContext, imageIdentifier, isImageResourceID);
+        gridView.setAdapter(adapter);
+        gridView.setSelection(adapter.getImageResourcePosition(imageIdentifier));
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                setImageIdentifierAndType(ImageViewPreferenceAdapter.ThumbsIds[position], true, false);
+                adapter.imageIdentifierAndTypeChanged(imageIdentifier, isImageResourceID);
+            }
+        });
+
+        mBuilder.customView(layout, false);
+
+        mDialog = mBuilder.build();
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
+        mDialog.setOnDismissListener(this);
+        mDialog.show();
+    }
+
+    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
+        @Override
+        public void onPositive(MaterialDialog dialog) {
+            if (shouldPersist()) {
+                setImageIdentifierAndType("", true, true);
+            }
+            mDialog.dismiss();
+        }
+        @Override
+        public void onNegative(MaterialDialog dialog) {
+            mDialog.dismiss();
+        }
+        @Override
+        public void onNeutral(MaterialDialog dialog) {
+            // zavolat galeriu na vyzdvihnutie image
+            startGallery();
+            dialog.dismiss();
+        }
+    };
 
 	@Override
 	protected Object onGetDefaultValue(TypedArray a, int index)
@@ -157,8 +204,9 @@ public class ProfileIconPreference extends Preference {
 			}
 			persistString(value);
 		}
-	}
+    }
 
+    /*
 	@Override
 	protected Parcelable onSaveInstanceState()
 	{
@@ -203,6 +251,7 @@ public class ProfileIconPreference extends Preference {
 		}
 		notifyChanged();
 	}
+    */
 
 	public String getImageIdentifier()
 	{
@@ -214,32 +263,36 @@ public class ProfileIconPreference extends Preference {
 		return isImageResourceID;
 	}
 
-	public void setImageIdentifierAndType(String newImageIdentifier, boolean newIsImageResourceID)
+	public void setImageIdentifierAndType(String newImageIdentifier, boolean newIsImageResourceID, boolean saveToPreference)
 	{
 		String newValue = newImageIdentifier+"|"+((newIsImageResourceID) ? "1" : "0");
 
-		if (!callChangeListener(newValue)) {
-			// nema sa nova hodnota zapisat
-			return;
-		}
+        if (!saveToPreference) {
+            String[] splits = newValue.split("\\|");
+            try {
+                imageIdentifier = splits[0];
+            } catch (Exception e) {
+                imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
+            }
+            try {
+                isImageResourceID = splits[1].equals("1");
+            } catch (Exception e) {
+                isImageResourceID = true;
+            }
+        }
 
-		String[] splits = newValue.split("\\|");
-		try {
-			imageIdentifier = splits[0];
-		} catch (Exception e) {
-			imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
-		}
-		try {
-			isImageResourceID = splits[1].equals("1");
-		} catch (Exception e) {
-			isImageResourceID = true;
-		}
-
-		// zapis do preferences
-		persistString(newValue);
-
-		// Data sa zmenili,notifikujeme
-		notifyChanged();
+        if (saveToPreference) {
+            if (!newIsImageResourceID) {
+                imageIdentifier = newImageIdentifier;
+                isImageResourceID = false;
+            }
+            newValue = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0");
+            if (callChangeListener(newValue)) {
+                persistString(newValue);
+                // Data sa zmenili,notifikujeme
+                notifyChanged();
+            }
+        }
 
 	}
 
@@ -256,7 +309,7 @@ public class ProfileIconPreference extends Preference {
         ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
 	}
 
-
+    /*
 	// SavedState class
 	private static class SavedState extends BaseSavedState
 	{
@@ -299,6 +352,7 @@ public class ProfileIconPreference extends Preference {
 		};
 	
 	}
+	*/
 
 //---------------------------------------------------------------------------------------------
 

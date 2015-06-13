@@ -17,6 +17,7 @@
 	    android:verticalSpacing="0dp"
 	    android:choiceMode="singleChoice"
 	    android:clipToPadding="false"
-    	android:scrollbarStyle="outsideOverlay" />
+    	android:scrollbarStyle="outsideOverlay"
+		android:listSelector="#00000000" />
 
 </LinearLayout>

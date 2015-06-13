@@ -407,11 +407,11 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 		if (requestCode == ProfileIconPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
 		{
 			Uri selectedImage = data.getData();
-			String picturePath = ImageViewPreference.getPath(context, selectedImage);
+			String picturePath = ProfileIconPreference.getPath(context, selectedImage);
 
 			if (changedProfileIconPreference != null)
 				// nastavime image identifikatoru na ziskanu cestu ku obrazku
-				changedProfileIconPreference.setImageIdentifierAndType(picturePath, false);
+				changedProfileIconPreference.setImageIdentifierAndType(picturePath, false, true);
 		}
 	}
 	
