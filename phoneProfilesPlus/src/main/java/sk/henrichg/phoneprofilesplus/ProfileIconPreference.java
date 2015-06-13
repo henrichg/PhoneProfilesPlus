@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -35,8 +36,7 @@ public class ProfileIconPreference extends DialogPreference {
 
 	private String imageIdentifier;
 	private boolean isImageResourceID;
-
-	private String imageSource;
+    private int selectedColorIndex;
 
 	private MaterialDialog mDialog;
 
@@ -132,6 +132,13 @@ public class ProfileIconPreference extends DialogPreference {
             }
         });
 
+        Button colorChooserButton = (Button)layout.findViewById(R.id.profileicon_pref_dlg_change_color);
+        colorChooserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCustomColorChooser();
+            }
+        });
         mBuilder.customView(layout, false);
 
         mDialog = mBuilder.build();
@@ -308,6 +315,11 @@ public class ProfileIconPreference extends DialogPreference {
         ProfilePreferencesFragment.setChangedProfileIconPreference(this);
         ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
 	}
+
+    private void showCustomColorChooser() {
+        final ProfileIconColorChooserDialog dialog = new ProfileIconColorChooserDialog(prefContext, this, selectedColorIndex);
+        dialog.show();
+    }
 
     /*
 	// SavedState class

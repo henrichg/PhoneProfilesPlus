@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -10,55 +12,72 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayout;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-/**
- * @author Aidan Follestad (afollestad)
- */
-public class ColorChooserDialog extends DialogFragment implements View.OnClickListener {
+public class ProfileIconColorChooserDialog implements View.OnClickListener {
 
-    private Callback mCallback;
+    int selectedColor;
+
+    private ProfileIconPreference profileIconPreference;
+    private Context _context;
+    private MaterialDialog mDialog;
+
     private int[] mColors;
 
-    @Override
-    public void onClick(View v) {
-        if (v.getTag() != null) {
-            Integer index = (Integer) v.getTag();
-            mCallback.onColorSelection(index, mColors[index], shiftColor(mColors[index]));
-            dismiss();
-        }
-    }
+    public ProfileIconColorChooserDialog(Context context, ProfileIconPreference preference, int selectedColor)
+    {
+        profileIconPreference = preference;
 
-    public interface Callback {
-        void onColorSelection(int index, int color, int darker);
-    }
+        _context = context;
 
-    public ColorChooserDialog() {
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.colorChooser_pref_dialog_title)
+                        //.disableDefaultFonts()
                 .autoDismiss(false)
-                .customView(R.layout.dialog_color_chooser, false)
-                .build();
+                .customView(R.layout.dialog_color_chooser, false);
 
-        final TypedArray ta = getActivity().getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
+        dialogBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                ProfileIconColorChooserDialog.this.onShow(dialog);
+            }
+        })
+            /*.cancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                }
+            })*/
+            .dismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    ProfileIconColorChooserDialog.this.onDismiss(dialog);
+                }
+            });
+
+        mDialog = dialogBuilder.build();
+
+        final TypedArray ta = context.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
         mColors = new int[ta.length()];
-        for (int i = 0; i < ta.length(); i++)
+        int preselect = 0;
+        for (int i = 0; i < ta.length(); i++) {
             mColors[i] = ta.getColor(i, 0);
+            if (mColors[i] == selectedColor)
+                preselect = i;
+        }
         ta.recycle();
-        final GridLayout list = (GridLayout) dialog.getCustomView().findViewById(R.id.dialog_color_chooser_grid);
-        final int preselect = getArguments().getInt("preselect", -1);
+        final GridLayout list = (GridLayout) mDialog.getCustomView().findViewById(R.id.dialog_color_chooser_grid);
 
         for (int i = 0; i < list.getChildCount(); i++) {
             FrameLayout child = (FrameLayout) list.getChildAt(i);
@@ -81,10 +100,21 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
             } else {
                 setBackgroundCompat(child, selector);
             }
-
-
         }
-        return dialog;
+
+    }
+
+    public void onShow(DialogInterface dialog) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getTag() != null) {
+            Integer index = (Integer) v.getTag();
+            //mCallback.onColorSelection(index, mColors[index], shiftColor(mColors[index]));
+            mDialog.dismiss();
+        }
     }
 
     private void setBackgroundCompat(View view, Drawable d) {
@@ -115,18 +145,14 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
         return stateListDrawable;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (!(activity instanceof Callback))
-            throw new RuntimeException("The Activity must implement Callback to be used by ColorChooserDialog.");
-        mCallback = (Callback) activity;
+    public void onDismiss(DialogInterface dialog)
+    {
+        ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
+        applicationsCahce.cancelCaching();
     }
 
-    public void show(AppCompatActivity context, int preselect) {
-        Bundle args = new Bundle();
-        args.putInt("preselect", preselect);
-        setArguments(args);
-        show(context.getSupportFragmentManager(), "COLOR_SELECTOR");
+    public void show() {
+        mDialog.show();
     }
+
 }
