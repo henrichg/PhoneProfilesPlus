@@ -18,6 +18,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import java.lang.ref.WeakReference;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ShortcutCreatorListFragment extends Fragment {
@@ -91,7 +93,14 @@ public class ShortcutCreatorListFragment extends Fragment {
 	private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private WeakReference<ShortcutCreatorListFragment> fragmentWeakRef;
-		private DataWrapper dataWrapper; 
+		private DataWrapper dataWrapper;
+
+		private class ProfileComparator implements Comparator<Profile> {
+			public int compare(Profile lhs, Profile rhs) {
+                int res = GUIData.collator.compare(lhs._name, rhs._name);
+                return res;
+			}
+		}
 
         private LoadProfileListAsyncTask (ShortcutCreatorListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<ShortcutCreatorListFragment>(fragment);
@@ -100,7 +109,9 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-			this.dataWrapper.getProfileList();
+			List<Profile> profileList = this.dataWrapper.getProfileList();
+			Collections.sort(profileList, new ProfileComparator());
+
             return null;
         }
 
