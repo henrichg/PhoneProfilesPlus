@@ -490,10 +490,10 @@
   <string name="event_preference_profile_restartEvents">Újraindítás</string>
   <string name="altype_eventEnd_restartEvents">esemény szünet - esemény újraindít</string>
   <string name="altype_eventEnd_activateProfile_restartEvents">esemény szünet - aktivál és eseményt újra indít</string>
-  <string name="event_preference_calendar_availability">Availability</string>
-  <string name="array_event_pref_calendarAvailability_noCheck">No check</string>
-  <string name="array_event_pref_calendarAvailability_busy">Busy</string>
-  <string name="array_event_pref_calendarAvailability_free">Free</string>
-  <string name="array_event_pref_calendarAvailability_tentative">Tentative</string>
-  <string name="event_preferences_manualProfileActivation">Manual profile activation</string>
+  <string name="event_preference_calendar_availability">Elérhetőség</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">Nincs ellenőrzés</string>
+  <string name="array_event_pref_calendarAvailability_busy">Elfoglalt</string>
+  <string name="array_event_pref_calendarAvailability_free">Szabad</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Feltételes</string>
+  <string name="event_preferences_manualProfileActivation">Manuális profil aktiválás</string>
 </resources>

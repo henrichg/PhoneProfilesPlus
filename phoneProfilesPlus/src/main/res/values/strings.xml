@@ -51,7 +51,7 @@
   <string name="phone_profiles_pref_applicationClose">Close after activating profile</string>
   <string name="phone_profiles_pref_applicationPrefIndicator">Preferences indicator</string>
   <string name="phone_profiles_pref_applicationHeader">Show activated profile</string>
-  <string name="phone_profiles_pref_applicationAlert">Alert activating profile</string>
+  <string name="phone_profiles_pref_applicationAlert">Confirm activating profile</string>
   <string name="phone_profiles_pref_notificationsToast">Show toast notification</string>
   <string name="phone_profiles_pref_notificationStatusBar">Show status bar notification</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Notification icon style</string>
