@@ -151,10 +151,7 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
         return stateListDrawable;
     }
 
-    public void onDismiss(DialogInterface dialog)
-    {
-        ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
-        applicationsCahce.cancelCaching();
+    public void onDismiss(DialogInterface dialog) {
     }
 
     public void show() {
