@@ -24,7 +24,7 @@
   <string name="delete_profile_alert_message">Удалить профиль?</string>
   <string name="delete_event_alert_message">Удалить событие?</string>
   <string name="toast_profile_activated_0">Профиль</string>
-  <string name="toast_profile_activated_1">активирован</string>
+  <string name="toast_profile_activated_1">активирован(о)</string>
   <string name="title_activity_image_view_preference_dialog">Изменить иконку</string>
   <string name="title_activity_applications_preference_dialog">Выберите приложение</string>
   <string name="preference_profile_no_change">Не изменять</string>
@@ -496,4 +496,9 @@
   <string name="array_event_pref_calendarAvailability_free">Свободен</string>
   <string name="array_event_pref_calendarAvailability_tentative">Не ясно</string>
   <string name="event_preferences_manualProfileActivation">Активация профиля вручную</string>
+  <string name="profileicon_pref_dialog_customColor_button">Change color</string>
+  <string name="colorChooser_pref_dialog_title">Set color</string>
+  <string name="phone_profiles_pref_category_system">System</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Unlink ringer and notif. volumes</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uncheck when your device has separated volume for ringer and notifications</string>
 </resources>

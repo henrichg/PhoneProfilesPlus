@@ -496,4 +496,9 @@
   <string name="array_event_pref_calendarAvailability_free">K dispozici</string>
   <string name="array_event_pref_calendarAvailability_tentative">Nezávazný</string>
   <string name="event_preferences_manualProfileActivation">Manuálně aktivovat profil</string>
+  <string name="profileicon_pref_dialog_customColor_button">Změna barvy</string>
+  <string name="colorChooser_pref_dialog_title">Nastavit barvu</string>
+  <string name="phone_profiles_pref_category_system">System</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Unlink ringer and notif. volumes</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uncheck when your device has separated volume for ringer and notifications</string>
 </resources>
