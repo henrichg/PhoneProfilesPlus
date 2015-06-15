@@ -96,7 +96,7 @@ public class EventsService extends IntentService
 
         Profile mergedProfile = dataWrapper.getNoinitializedProfile("", "", 0);
 
-        Profile activatedProfile0 = null;
+        //Profile activatedProfile0 = null;
 
 		if (isRestart)
 		{
@@ -269,11 +269,11 @@ public class EventsService extends IntentService
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, eventNotificationSound, false);
                 }
 				else {
-                    long prId0 = 0;
+                    /*long prId0 = 0;
                     long prId = 0;
                     if (activatedProfile0 != null) prId0 = activatedProfile0._id;
                     if (activatedProfile != null) prId = activatedProfile._id;
-                    if ((prId0 != prId) || (prId == 0))
+                    if ((prId0 != prId) || (prId == 0))*/
 					    dataWrapper.updateNotificationAndWidgets(activatedProfile, eventNotificationSound);
 				}
             }
