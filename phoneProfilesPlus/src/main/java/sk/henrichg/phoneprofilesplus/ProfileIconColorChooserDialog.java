@@ -135,7 +135,13 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
         coloredCircle.getPaint().setColor(color);
         ShapeDrawable darkerCircle = new ShapeDrawable(new OvalShape());
         darkerCircle.getPaint().setColor(shiftColor(color));
-
+        /*
+            GradientDrawable drawable = new GradientDrawable();
+            drawable.setColor(Color.TRANSPARENT);
+            drawable.setShape(GradientDrawable.OVAL);
+            drawable.setStroke((int)cET.dpToPx(2), Color.parseColor("#EEEEEE"));
+            drawable.setSize((int)cET.dpToPx(240), (int)cET.dpToPx(240));
+        */
         StateListDrawable stateListDrawable = new StateListDrawable();
         stateListDrawable.addState(new int[]{-android.R.attr.state_pressed}, coloredCircle);
         stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, darkerCircle);
