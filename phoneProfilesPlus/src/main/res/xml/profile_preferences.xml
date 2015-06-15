@@ -31,7 +31,7 @@
             android:defaultValue="0"
             android:entries="@array/afterProfileDurationDoArray"
             android:entryValues="@array/afterProfileDurationDoValues" />        
-		</PreferenceCategory>
+	</PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/profile_preferences_category_volumes"
         android:title="@string/profile_preferences_category_volumes"

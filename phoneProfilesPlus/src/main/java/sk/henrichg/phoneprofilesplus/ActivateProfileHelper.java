@@ -324,36 +324,45 @@ public class ActivateProfileHelper {
 		}
 		if (profile.getVolumeRingtoneChange()) {
 			GlobalData.setRingerVolume(context, profile.getVolumeRingtoneValue());
+            if (!GlobalData.applicationUnlinkRingerNotificationVolumes) {
+                audioManager.setStreamVolume(AudioManager.STREAM_RING, profile.getVolumeRingtoneValue(), 0);
+                //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
+            }
 		}
 		if (profile.getVolumeNotificationChange()) {
 			GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
+            if (!GlobalData.applicationUnlinkRingerNotificationVolumes) {
+                audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, profile.getVolumeNotificationValue(), 0);
+                //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
+            }
 		}
-		TelephonyManager telephony = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-		int callState = telephony.getCallState();
-		if (callState == TelephonyManager.CALL_STATE_RINGING) {
-			// for separating ringing and notification
-			// in ringing state ringer volumes must by set
-			// and notification volumes must not by set
-			int volume = GlobalData.getRingerVolume(context);
-			if (volume != -999) {
-				audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-				audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
-			}
-		}
-		else {
-			// for separating ringing and notification
-			// in not ringing state ringer and notification volume must by change
-			int volume = GlobalData.getRingerVolume(context);
-			if (volume != -999) {
-				audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-			}
-			volume = GlobalData.getNotificationVolume(context);
-			if (volume != -999) {
-				audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
+		if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
+			TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			int callState = telephony.getCallState();
+			if (callState == TelephonyManager.CALL_STATE_RINGING) {
+				// for separating ringing and notification
+				// in ringing state ringer volumes must by set
+				// and notification volumes must not by set
+				int volume = GlobalData.getRingerVolume(context);
+				if (volume != -999) {
+					audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+					//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
+					audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
+					//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
+				}
+			} else {
+				// for separating ringing and notification
+				// in not ringing state ringer and notification volume must by change
+				int volume = GlobalData.getRingerVolume(context);
+				if (volume != -999) {
+					audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+					//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
+				}
+				volume = GlobalData.getNotificationVolume(context);
+				if (volume != -999) {
+					audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
+					//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
+				}
 			}
 		}
 		if (profile.getVolumeMediaChange())

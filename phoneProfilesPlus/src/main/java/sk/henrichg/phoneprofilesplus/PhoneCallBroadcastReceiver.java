@@ -62,19 +62,21 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 			}
 		}
 
-        if (((eventType == CALL_EVENT_INCOMING_CALL_RINGING) || (eventType == CALL_EVENT_INCOMING_CALL_ENDED))
-                && (!callEventsExists)) {
-            /// for linked ringer and notification volume:
-            //    notification volume in profile activation is set after ringer volume
-            //    therefore reset ringer volume
-            Profile profile = dataWrapper.getActivatedProfile();
-            if (profile != null) {
-                Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
-                volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-                savedContext.startService(volumeServiceIntent);
-            }
-            ///
-        }
+		if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
+			if (((eventType == CALL_EVENT_INCOMING_CALL_RINGING) || (eventType == CALL_EVENT_INCOMING_CALL_ENDED))
+					&& (!callEventsExists)) {
+				/// for linked ringer and notification volume:
+				//    notification volume in profile activation is set after ringer volume
+				//    therefore reset ringer volume
+				Profile profile = dataWrapper.getActivatedProfile();
+				if (profile != null) {
+					Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
+					volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+					savedContext.startService(volumeServiceIntent);
+				}
+				///
+			}
+		}
 
     }
 	
