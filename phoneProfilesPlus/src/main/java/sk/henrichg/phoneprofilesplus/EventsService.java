@@ -133,7 +133,7 @@ public class EventsService extends IntentService
 		{
 			GlobalData.logE("$$$ EventsService.onHandleIntent","NO restart events");
 
-            activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
+            //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
 			//1. pause events
 			dataWrapper.sortEventsByPriorityDesc();
