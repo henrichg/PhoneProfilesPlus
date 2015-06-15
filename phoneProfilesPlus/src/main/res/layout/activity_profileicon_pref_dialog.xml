@@ -42,7 +42,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"
 				android:text="@string/profileicon_pref_dialog_customColor_button"
-				android:background="?android:attr/selectableItemBackground" />
+                android:textColor="?attr/colorAccent"
+				android:background="?attr/selectableItemBackground" />
 
 		</LinearLayout>
 
