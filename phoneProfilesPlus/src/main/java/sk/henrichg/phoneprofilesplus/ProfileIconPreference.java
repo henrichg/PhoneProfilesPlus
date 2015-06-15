@@ -44,6 +44,7 @@ public class ProfileIconPreference extends DialogPreference {
 
 	private ImageView imageView;
     ProfileIconPreferenceAdapter adapter;
+    ImageView dialogIcon;
 	private Context prefContext;
 
 	CharSequence preferenceTitle;
@@ -85,34 +86,7 @@ public class ProfileIconPreference extends DialogPreference {
 		super.onBindView(view);
 
 		imageView = (ImageView)view.findViewById(R.id.profileicon_pref_imageview); // resource na Textview v custom preference layoute
-
-	    if (imageView != null)
-	    {
-	    	if (isImageResourceID)
-	    	{
-	    		// je to resource id
-                int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.getPackageName());
-
-                if (useCustomColor) {
-                    Bitmap bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
-                    bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor, prefContext);
-                    imageView.setImageBitmap(bitmap);
-                }
-                else
-	    		    imageView.setImageResource(res); // resource na ikonu
-	    	}
-	    	else
-	    	{
-	    		// je to file
-        		Resources resources = prefContext.getResources();
-        		int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
-        		int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-        		Bitmap bitmap = BitmapManipulator.resampleBitmap(imageIdentifier, width, height);
-
-        		//if (bitmap != null)
-        			imageView.setImageBitmap(bitmap);
-	    	}
-	    }
+        updateIcon(false);
 	}
 
     @Override
@@ -140,8 +114,12 @@ public class ProfileIconPreference extends DialogPreference {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 setImageIdentifierAndType(ImageViewPreferenceAdapter.ThumbsIds[position], true, false);
                 adapter.imageIdentifierAndTypeChanged(imageIdentifier, isImageResourceID);
+                updateIcon(true);
             }
         });
+
+        dialogIcon = (ImageView)layout.findViewById(R.id.profileicon_pref_dlg_icon);
+        updateIcon(true);
 
         Button colorChooserButton = (Button)layout.findViewById(R.id.profileicon_pref_dlg_change_color);
         colorChooserButton.setOnClickListener(new View.OnClickListener() {
@@ -308,6 +286,10 @@ public class ProfileIconPreference extends DialogPreference {
 		String newValue = newImageIdentifier+"|"+((newIsImageResourceID) ? "1" : "0");
 
         if (!saveToPreference) {
+            if (!imageIdentifier.equals(newImageIdentifier)) {
+                useCustomColor = false;
+                customColor = 0;
+            }
             String[] splits = newValue.split("\\|");
             try {
                 imageIdentifier = splits[0];
@@ -342,6 +324,7 @@ public class ProfileIconPreference extends DialogPreference {
         useCustomColor = newUseCustomColor;
         customColor = newCustomColor;
         adapter.setCustomColor(useCustomColor, customColor);
+        updateIcon(true);
     }
 
 	public void startGallery()
@@ -361,6 +344,42 @@ public class ProfileIconPreference extends DialogPreference {
         final ProfileIconColorChooserDialog dialog = new ProfileIconColorChooserDialog(prefContext, this, useCustomColor, customColor,
                                                             ProfileIconPreferenceAdapter.getIconColor(imageIdentifier));
         dialog.show();
+    }
+
+    public void updateIcon(boolean inDialog) {
+        ImageView imageView;
+        if (inDialog)
+            imageView = this.dialogIcon;
+        else
+            imageView = this.imageView;
+
+        if (imageView != null)
+        {
+            if (isImageResourceID)
+            {
+                // je to resource id
+                int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.getPackageName());
+
+                if (useCustomColor) {
+                    Bitmap bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
+                    bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor, prefContext);
+                    imageView.setImageBitmap(bitmap);
+                }
+                else
+                    imageView.setImageResource(res); // resource na ikonu
+            }
+            else
+            {
+                // je to file
+                Resources resources = prefContext.getResources();
+                int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
+                int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+                Bitmap bitmap = BitmapManipulator.resampleBitmap(imageIdentifier, width, height);
+
+                //if (bitmap != null)
+                imageView.setImageBitmap(bitmap);
+            }
+        }
     }
 
     /*
@@ -407,150 +426,5 @@ public class ProfileIconPreference extends DialogPreference {
 	
 	}
 	*/
-
-//---------------------------------------------------------------------------------------------
-
-    // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-
-    /**
-     * Get a file path from a Uri. This will get the the path for Storage Access
-     * Framework Documents, as well as the _data field for the MediaStore and
-     * other file-based ContentProviders.
-     *
-     * @param context The context.
-     * @param uri The Uri to query.
-     * @author paulburke
-     */
-    @SuppressLint("NewApi")
-    public static String getPath(final Context context, final Uri uri) {
-
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
-        // DocumentProvider
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
-            // ExternalStorageProvider
-            if (isExternalStorageDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-                }
-            }
-            // DownloadsProvider
-            else if (isDownloadsDocument(uri)) {
-
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
-            }
-            // MediaProvider
-            else if (isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
-
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
-                        split[1]
-                };
-
-                return getDataColumn(context, contentUri, selection, selectionArgs);
-            }
-        }
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-
-            // Return the remote address
-            if (isGooglePhotosUri(uri))
-                return uri.getLastPathSegment();
-
-            return getDataColumn(context, uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-
-        return null;
-    }
-
-    /**
-     * Get the value of the data column for this Uri. This is useful for
-     * MediaStore Uris, and other file-based ContentProviders.
-     *
-     * @param context The context.
-     * @param uri The Uri to query.
-     * @param selection (Optional) Filter used in the query.
-     * @param selectionArgs (Optional) Selection arguments used in the query.
-     * @return The value of the _data column, which is typically a file path.
-     */
-    public static String getDataColumn(Context context, Uri uri, String selection,
-                                       String[] selectionArgs) {
-
-        Cursor cursor = null;
-        final String column = "_data";
-        final String[] projection = {
-                column
-        };
-
-        try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-                    null);
-            if (cursor != null && cursor.moveToFirst()) {
-                final int index = cursor.getColumnIndexOrThrow(column);
-                return cursor.getString(index);
-            }
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-        return null;
-    }
-
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is ExternalStorageProvider.
-     */
-    public static boolean isExternalStorageDocument(Uri uri) {
-        return "com.android.externalstorage.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     */
-    public static boolean isDownloadsDocument(Uri uri) {
-        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     */
-    public static boolean isMediaDocument(Uri uri) {
-        return "com.android.providers.media.documents".equals(uri.getAuthority());
-    }
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is Google Photos.
-     */
-    public static boolean isGooglePhotosUri(Uri uri) {
-        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
-    }
 
 }
