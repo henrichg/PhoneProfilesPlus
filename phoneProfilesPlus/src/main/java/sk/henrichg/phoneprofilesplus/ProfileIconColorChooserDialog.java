@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
@@ -12,17 +10,10 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayout;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
