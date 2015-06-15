@@ -137,10 +137,12 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
 	}
 
 	public void imageIdentifierAndTypeChanged(String imageIdentifier, boolean isImageResourceID) {
+		if (!this.imageIdentifier.equals(imageIdentifier)) {
+			this.useCustomColor = false;
+			this.customColor = 0;
+		}
 		this.imageIdentifier = imageIdentifier;
 		this.isImageResourceID = isImageResourceID;
-        this.useCustomColor = false;
-        this.customColor = 0;
 		notifyDataSetChanged();
 	}
 

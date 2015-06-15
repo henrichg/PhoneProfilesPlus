@@ -291,6 +291,7 @@ public class ProfileIconPreference extends DialogPreference {
 	}
     */
 
+    /*
 	public String getImageIdentifier()
 	{
 		return imageIdentifier;
@@ -300,6 +301,7 @@ public class ProfileIconPreference extends DialogPreference {
 	{
 		return isImageResourceID;
 	}
+	*/
 
 	public void setImageIdentifierAndType(String newImageIdentifier, boolean newIsImageResourceID, boolean saveToPreference)
 	{
