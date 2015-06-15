@@ -627,8 +627,8 @@
 </string-array>
 <array name="colorChooserDialog_colors">
 	<item>#3F51B5</item>
-	<item>#9E9E9E</item>
-	<item>#424242</item>
+	<item>#FFFFFF</item>
+	<item>#AEAEAE</item>
 	<item>#1F1F1F</item>
 	<item>#607D8B</item>
 	<item>#795548</item>

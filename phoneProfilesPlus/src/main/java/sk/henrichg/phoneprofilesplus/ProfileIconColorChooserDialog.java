@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
@@ -131,17 +132,19 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
     }
 
     private Drawable createSelector(int color) {
-        ShapeDrawable coloredCircle = new ShapeDrawable(new OvalShape());
+        /*ShapeDrawable coloredCircle = new ShapeDrawable(new OvalShape());
         coloredCircle.getPaint().setColor(color);
         ShapeDrawable darkerCircle = new ShapeDrawable(new OvalShape());
-        darkerCircle.getPaint().setColor(shiftColor(color));
-        /*
-            GradientDrawable drawable = new GradientDrawable();
-            drawable.setColor(Color.TRANSPARENT);
-            drawable.setShape(GradientDrawable.OVAL);
-            drawable.setStroke((int)cET.dpToPx(2), Color.parseColor("#EEEEEE"));
-            drawable.setSize((int)cET.dpToPx(240), (int)cET.dpToPx(240));
-        */
+        darkerCircle.getPaint().setColor(shiftColor(color));*/
+        GradientDrawable coloredCircle = new GradientDrawable();
+        coloredCircle.setColor(color);
+        coloredCircle.setShape(GradientDrawable.OVAL);
+        coloredCircle.setStroke(2, Color.parseColor("#000000"));
+        GradientDrawable darkerCircle = new GradientDrawable();
+        darkerCircle.setColor(shiftColor(color));
+        darkerCircle.setShape(GradientDrawable.OVAL);
+        darkerCircle.setStroke(2, Color.parseColor("#000000"));
+
         StateListDrawable stateListDrawable = new StateListDrawable();
         stateListDrawable.addState(new int[]{-android.R.attr.state_pressed}, coloredCircle);
         stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, darkerCircle);

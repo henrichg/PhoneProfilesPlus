@@ -41,7 +41,21 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_check"
+                android:src="@drawable/ic_check_dark"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_margin="4dp"
+            tools:background="#000">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_check_dark"
                 android:layout_gravity="center" />
 
         </FrameLayout>
@@ -237,7 +251,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_check"
+                android:src="@drawable/ic_check_dark"
                 android:layout_gravity="center" />
 
         </FrameLayout>
@@ -251,21 +265,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_check"
-                android:layout_gravity="center" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_margin="4dp"
-            tools:background="#000">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_check"
+                android:src="@drawable/ic_check_dark"
                 android:layout_gravity="center" />
 
         </FrameLayout>
