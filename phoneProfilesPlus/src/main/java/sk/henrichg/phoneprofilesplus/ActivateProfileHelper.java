@@ -295,46 +295,29 @@ public class ActivateProfileHelper {
 		
 	}
 	
-	private void waitForVolumeChange()
-	{
-		/*Thread t = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    System.out.println(e);
-                }
-            }
-        });
-		t.start();*/			
-        /*try {
-            Thread.sleep(200);
-        } catch (InterruptedException e) {
-            System.out.println(e);
-        }*/
-	}
-	
 	public void setVolumes(Profile profile, AudioManager audioManager)
 	{
 		if (profile.getVolumeSystemChange())
 		{
 			audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, profile.getVolumeSystemValue(), 0);
-			waitForVolumeChange();
 			//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
 		}
-		if (profile.getVolumeRingtoneChange()) {
-			GlobalData.setRingerVolume(context, profile.getVolumeRingtoneValue());
-            if (!GlobalData.applicationUnlinkRingerNotificationVolumes) {
-                audioManager.setStreamVolume(AudioManager.STREAM_RING, profile.getVolumeRingtoneValue(), 0);
-                //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-            }
+		// when system volume changed, also set the ringer and notification volume
+		if (profile.getVolumeRingtoneChange() || profile.getVolumeSystemChange()) {
+			if (profile.getVolumeRingtoneChange())
+				GlobalData.setRingerVolume(context, profile.getVolumeRingtoneValue());
+			if (!GlobalData.applicationUnlinkRingerNotificationVolumes) {
+				audioManager.setStreamVolume(AudioManager.STREAM_RING, GlobalData.getRingerVolume(context), 0);
+				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
+			}
 		}
-		if (profile.getVolumeNotificationChange()) {
-			GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
-            if (!GlobalData.applicationUnlinkRingerNotificationVolumes) {
-                audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, profile.getVolumeNotificationValue(), 0);
-                //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
-            }
+		if (profile.getVolumeNotificationChange() || profile.getVolumeSystemChange()) {
+			if (profile.getVolumeNotificationChange())
+				GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
+			if (!GlobalData.applicationUnlinkRingerNotificationVolumes) {
+				audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, GlobalData.getNotificationVolume(context), 0);
+				//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
+			}
 		}
 		if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
 			TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -368,13 +351,11 @@ public class ActivateProfileHelper {
 		if (profile.getVolumeMediaChange())
 		{
 			audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
-			waitForVolumeChange();
 			//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
 		}
 		if (profile.getVolumeAlarmChange())
 		{
 			audioManager.setStreamVolume(AudioManager.STREAM_ALARM, profile.getVolumeAlarmValue(), 0);
-			waitForVolumeChange();
 			//Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
 		}
 		if (profile.getVolumeVoiceChange())
