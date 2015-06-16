@@ -1269,18 +1269,18 @@ public class EditorProfilesActivity extends AppCompatActivity
 				
 			}
 
-            private void lockScreenOrientation() {
-                int currentOrientation = activity.getResources().getConfiguration().orientation;
-                if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                } else {
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                }
-            }
+			private void lockScreenOrientation() {
+				int currentOrientation = activity.getResources().getConfiguration().orientation;
+				if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+					activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+				} else {
+					activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+				}
+			}
 
-            private void unlockScreenOrientation() {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-            }
+			private void unlockScreenOrientation() {
+				activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+			}
 
 		}
 		
@@ -1476,14 +1476,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                     private void lockScreenOrientation() {
                         int currentOrientation = activity.getResources().getConfiguration().orientation;
                         if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
                         } else {
-                            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
                         }
                     }
 
                     private void unlockScreenOrientation() {
-                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
                     }
 
 				}

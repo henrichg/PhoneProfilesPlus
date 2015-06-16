@@ -314,18 +314,18 @@ public class PhoneProfilesHelper {
                             installUnInstallPPhelperErrorDialog(_activity, 1, _finishActivity);
                     }
 
-                    private void lockScreenOrientation() {
-                        int currentOrientation = _activity.getResources().getConfiguration().orientation;
-                        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                        } else {
-                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                        }
-                    }
+					private void lockScreenOrientation() {
+						int currentOrientation = _activity.getResources().getConfiguration().orientation;
+						if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+							_activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+						} else {
+							_activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+						}
+					}
 
-                    private void unlockScreenOrientation() {
-                        _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-                    }
+					private void unlockScreenOrientation() {
+						_activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+					}
 
                 }
 
@@ -503,18 +503,18 @@ public class PhoneProfilesHelper {
 							installUnInstallPPhelperErrorDialog(_activity, 2, false);
 					}
 
-                    private void lockScreenOrientation() {
-                        int currentOrientation = _activity.getResources().getConfiguration().orientation;
-                        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                        } else {
-                            _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                        }
-                    }
+					private void lockScreenOrientation() {
+						int currentOrientation = _activity.getResources().getConfiguration().orientation;
+						if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+							_activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+						} else {
+							_activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+						}
+					}
 
-                    private void unlockScreenOrientation() {
-                        _activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-                    }
+					private void unlockScreenOrientation() {
+						_activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+					}
 
 				}
 				
