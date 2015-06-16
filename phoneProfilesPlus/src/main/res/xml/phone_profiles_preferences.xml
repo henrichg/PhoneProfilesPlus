@@ -17,6 +17,7 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory
+		android:key="categorySystem"
 		android:title="@string/phone_profiles_pref_category_system"
 		android:summary="@string/phone_profiles_pref_category_system" >
 		<CheckBoxPreference
