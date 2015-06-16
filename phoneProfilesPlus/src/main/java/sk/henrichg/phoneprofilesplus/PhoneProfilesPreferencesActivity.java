@@ -30,6 +30,7 @@ public class PhoneProfilesPreferencesActivity extends AppCompatActivity
 	private boolean invalidateEditor = false;
 
 	public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
+    public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
 
 	@Override 
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class PhoneProfilesPreferencesActivity extends AppCompatActivity
 		setContentView(R.layout.activity_phone_profiles_preferences);
 
 		String extraScrollTo = getIntent().getStringExtra(EXTRA_SCROLL_TO);
+        String extraScrollToType = getIntent().getStringExtra(EXTRA_SCROLL_TO_TYPE);
 
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
             Window w = getWindow(); // in Activity's onCreate() for instance
@@ -79,6 +81,7 @@ public class PhoneProfilesPreferencesActivity extends AppCompatActivity
 			PhoneProfilesPreferencesFragment fragment = new PhoneProfilesPreferencesFragment();
             Bundle args = new Bundle();
             args.putString(EXTRA_SCROLL_TO, extraScrollTo);
+            args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
             fragment.setArguments(args);
 			getFragmentManager().beginTransaction()
 					.replace(R.id.activity_phone_profiles_preferences_container, fragment, "PhoneProfilesPreferencesFragment").commit();

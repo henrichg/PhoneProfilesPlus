@@ -19,6 +19,7 @@ public class EventPreferencesWifi extends EventPreferences {
     static final int CTYPE_NOTCONNECTED = 2;
     static final int CTYPE_NOTINFRONT = 3;
 
+    static final String PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
 	static final String PREF_EVENT_WIFI_ENABLED = "eventWiFiEnabled";
 	static final String PREF_EVENT_WIFI_SSID = "eventWiFiSSID";
 	static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
@@ -89,6 +90,11 @@ public class EventPreferencesWifi extends EventPreferences {
 	@Override
 	public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
 	{
+        if (key.equals(PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            preference.setSummary(context.getResources().getString(R.string.menu_settings)+": "+
+                    context.getResources().getString(R.string.phone_profiles_pref_applicationEventWifiEnableWifi));
+        }
 		if (key.equals(PREF_EVENT_WIFI_SSID))
 		{	
 	        Preference preference = prefMng.findPreference(key);
@@ -117,6 +123,7 @@ public class EventPreferencesWifi extends EventPreferences {
 	@Override
 	public void setAllSummary(PreferenceManager prefMng, Context context)
 	{
+		setSummary(prefMng, PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS, "", context);
 		setSummary(prefMng, PREF_EVENT_WIFI_SSID, _SSID, context);
 		setSummary(prefMng, PREF_EVENT_WIFI_CONNECTION_TYPE, Integer.toString(_connectionType), context);
 

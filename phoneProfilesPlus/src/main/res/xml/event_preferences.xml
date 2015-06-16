@@ -241,6 +241,17 @@
 		    android:key="eventWiFiEnabled"
 		    android:title="@string/event_preferences_wifi_enabled"
 		    android:defaultValue="false" />
+        <PreferenceScreen
+            android:key="eventEnableWiFiScaningAppSettings"
+            android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"
+            android:summary="@string/menu_settings"
+            android:dependency="eventWiFiEnabled" >
+            <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
+                android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
+                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="applicationEventWifiEnableWifi" />
+                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="checkbox" />
+            </intent>
+        </PreferenceScreen>
 		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_wifi_connection_type"
             android:summary="@string/array_event_pref_wifiConnectionType_connected"
             android:key="eventWiFiConnectionType"
@@ -261,6 +272,17 @@
 		    android:key="eventBluetoothEnabled"
 		    android:title="@string/event_preferences_bluetooth_enabled"
 		    android:defaultValue="false" />
+        <PreferenceScreen
+            android:key="eventEnableBluetoothScaningAppSettings"
+            android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"
+            android:summary="@string/menu_settings"
+            android:dependency="eventBluetoothEnabled" >
+            <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
+                android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
+                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="applicationEventBluetoothEnableBluetooth" />
+                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="checkbox" />
+            </intent>
+        </PreferenceScreen>
 		<com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_bluetooth_connection_type"
             android:summary="@string/array_event_pref_bluetoothConnectionType_connected"
             android:key="eventBluetoothConnectionType"

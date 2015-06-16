@@ -23,6 +23,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 	private SharedPreferences preferences;
 	private static Activity preferencesActivity = null;
 	private String extraScrollTo;
+    private String extraScrollToType;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         preferences.registerOnSharedPreferenceChangeListener(this);
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
-
-        Log.e("PhoneProfilesPreferencesFragment", "onCreate - extraScrollTo="+extraScrollTo);
+        extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
 
     }
 	
@@ -253,18 +253,25 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 
 		updateSharedPreference();
 
-        PreferenceCategory scrollCategory = (PreferenceCategory) findPreference(extraScrollTo);
-        if (scrollCategory != null) {
-            // scroll to category
-            for (int i = 0; i <  getPreferenceScreen().getRootAdapter().getCount(); i++){
+        // scroll to preference
+        ListView listView = (ListView) getActivity().findViewById(android.R.id.list);
+        if (listView != null) {
+            PreferenceCategory scrollCategory = null;
+            CheckBoxPreference scrollCheckBox = null;
+            if (extraScrollToType.equals("category"))
+                scrollCategory = (PreferenceCategory) findPreference(extraScrollTo);
+            else
+            if (extraScrollToType.equals("checkbox"))
+                scrollCheckBox = (CheckBoxPreference) findPreference(extraScrollTo);
+            for (int i = 0; i < getPreferenceScreen().getRootAdapter().getCount(); i++) {
                 Object o = getPreferenceScreen().getRootAdapter().getItem(i);
-                if (o instanceof PreferenceCategory ){
-                    if (o.equals(scrollCategory)){
-                        ListView listView = (ListView) getActivity().findViewById(android.R.id.list);
-                        if (listView != null)
-                            listView.setSelection(i);
-                    }
-                }
+                if ((scrollCategory != null) &&
+                        (o instanceof PreferenceCategory) && (o.equals(scrollCategory)))
+                    listView.setSelection(i);
+                else
+                if ((scrollCheckBox != null) &&
+                        (o instanceof CheckBoxPreference) && (o.equals(scrollCheckBox)))
+                    listView.setSelection(i);
             }
         }
 	}

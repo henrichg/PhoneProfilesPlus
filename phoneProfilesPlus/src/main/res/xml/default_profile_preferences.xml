@@ -32,7 +32,8 @@
             android:summary="@string/menu_settings" >
             <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
                 android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
-                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="categorySystem" />
+                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="applicationUnlinkRingerNotificationVolumes" />
+                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="checkbox" />
             </intent>
         </PreferenceScreen>
 		<sk.henrichg.phoneprofilesplus.VolumeDialogPreference

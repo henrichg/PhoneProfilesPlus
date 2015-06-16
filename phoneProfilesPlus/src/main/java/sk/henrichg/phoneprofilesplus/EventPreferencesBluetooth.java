@@ -19,6 +19,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
     static final int CTYPE_NOTCONNECTED = 2;
     static final int CTYPE_NOTINFRONT = 3;
 
+	static final String PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
 	static final String PREF_EVENT_BLUETOOTH_ENABLED = "eventBluetoothEnabled";
 	static final String PREF_EVENT_BLUETOOTH_ADAPTER_NAME = "eventBluetoothAdapterNAME";
 	static final String PREF_EVENT_BLUETOOTH_CONNECTION_TYPE = "eventBluetoothConnectionType";
@@ -89,6 +90,11 @@ public class EventPreferencesBluetooth extends EventPreferences {
 	@Override
 	public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
 	{
+		if (key.equals(PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS)) {
+			Preference preference = prefMng.findPreference(key);
+			preference.setSummary(context.getResources().getString(R.string.menu_settings)+": "+
+					context.getResources().getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableBluetooth));
+		}
 		if (key.equals(PREF_EVENT_BLUETOOTH_ADAPTER_NAME))
 		{	
 	        Preference preference = prefMng.findPreference(key);
@@ -117,6 +123,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
 	@Override
 	public void setAllSummary(PreferenceManager prefMng, Context context)
 	{
+		setSummary(prefMng, PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS, "", context);
 		setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, _adapterName, context);
 		setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, Integer.toString(_connectionType), context);
 
