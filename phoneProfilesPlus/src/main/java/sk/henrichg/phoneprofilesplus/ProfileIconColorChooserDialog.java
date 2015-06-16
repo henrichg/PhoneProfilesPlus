@@ -81,7 +81,7 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
             child.setOnClickListener(this);
             child.getChildAt(0).setVisibility(preselect == i ? View.VISIBLE : View.GONE);
 
-            Drawable selector = createSelector(mColors[i]);
+            Drawable selector = createSelector(mColors[i], i);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 int[][] states = new int[][]{
                         new int[]{-android.R.attr.state_pressed},
@@ -131,7 +131,7 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
         return Color.HSVToColor(hsv);
     }
 
-    private Drawable createSelector(int color) {
+    private Drawable createSelector(int color, int position) {
         /*ShapeDrawable coloredCircle = new ShapeDrawable(new OvalShape());
         coloredCircle.getPaint().setColor(color);
         ShapeDrawable darkerCircle = new ShapeDrawable(new OvalShape());
@@ -139,11 +139,25 @@ public class ProfileIconColorChooserDialog implements View.OnClickListener {
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        coloredCircle.setStroke(2, Color.parseColor("#000000"));
+        if (GlobalData.applicationTheme.equals("dark")) {
+            if (position == 3) // dark gray color
+                coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+        }
+        else {
+            if (position == 1) // white color
+                coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
+        }
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
         darkerCircle.setShape(GradientDrawable.OVAL);
-        darkerCircle.setStroke(2, Color.parseColor("#000000"));
+        if (GlobalData.applicationTheme.equals("dark")) {
+            if (position == 3) // dark gray color
+                coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+        }
+        else {
+            if (position == 1) // white color
+                darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
+        }
 
         StateListDrawable stateListDrawable = new StateListDrawable();
         stateListDrawable.addState(new int[]{-android.R.attr.state_pressed}, coloredCircle);
