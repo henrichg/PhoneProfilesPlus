@@ -90,6 +90,8 @@ public class ProfileIconPreference extends DialogPreference {
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_profileicon_pref_dialog, null);
         onBindDialogView(layout);
 
+        getValuePIDP();
+
         GridView gridView = (GridView)layout.findViewById(R.id.profileicon_pref_dlg_gridview);
         adapter = new ProfileIconPreferenceAdapter(prefContext, imageIdentifier, isImageResourceID, useCustomColor, customColor);
         gridView.setAdapter(adapter);
@@ -151,33 +153,37 @@ public class ProfileIconPreference extends DialogPreference {
 		return a.getString(index);  // ikona bude vratena ako retazec
 	}
 
-	@Override
+    private void getValuePIDP() {
+        String value = getPersistedString(imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor);
+        String[] splits = value.split("\\|");
+        try {
+            imageIdentifier = splits[0];
+        } catch (Exception e) {
+            imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
+        }
+        try {
+            isImageResourceID = splits[1].equals("1");
+        } catch (Exception e) {
+            isImageResourceID = true;
+        }
+        try {
+            useCustomColor = splits[2].equals("1");
+        } catch (Exception e) {
+            useCustomColor = false;
+        }
+        try {
+            customColor = Integer.valueOf(splits[3]);
+        } catch (Exception e) {
+            customColor = ProfileIconPreferenceAdapter.getIconColor(imageIdentifier);
+        }
+    }
+
+    @Override
 	protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
 	{
 		if (restoreValue) {
 			// restore state
-			String value = getPersistedString(imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor);
-			String[] splits = value.split("\\|");
-			try {
-				imageIdentifier = splits[0];
-			} catch (Exception e) {
-				imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
-			}
-			try {
-				isImageResourceID = splits[1].equals("1");
-			} catch (Exception e) {
-				isImageResourceID = true;
-			}
-            try {
-                useCustomColor = splits[2].equals("1");
-            } catch (Exception e) {
-                useCustomColor = false;
-            }
-            try {
-                customColor = Integer.valueOf(splits[3]);
-            } catch (Exception e) {
-                customColor = ProfileIconPreferenceAdapter.getIconColor(imageIdentifier);
-            }
+            getValuePIDP();
 		}
 		else {
 			// set state
