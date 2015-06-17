@@ -17,6 +17,13 @@
 			android:layout_marginBottom="5dp"
 			android:background="?attr/dialogDivider" />
 
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+			android:text="@string/profileicon_pref_dialog_info_about_status_bar_icon"/>
+
 		<LinearLayout
 			android:id="@+id/profileicon_pref_dlg_et_btn2"
 			android:layout_width="match_parent"
