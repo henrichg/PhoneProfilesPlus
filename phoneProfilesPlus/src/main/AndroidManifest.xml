@@ -188,6 +188,13 @@
             android:label="@string/title_activity_activity_log"
             android:configChanges="locale|layoutDirection" >
         </activity>
+        <activity
+            android:name=".InfoNotificationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity" >
+        </activity>
 
         <receiver
             android:name=".IconWidgetProvider"
@@ -249,6 +256,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+        <!--
         <receiver android:name=".PackageReplacedReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
@@ -258,7 +266,12 @@
                     android:scheme="package" />
             </intent-filter>
         </receiver>
-
+        -->
+        <receiver android:name=".PackageReplacedReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
         <service
             android:name=".PhoneProfilesDashClockExtension"
             android:icon="@drawable/ic_dashclock"

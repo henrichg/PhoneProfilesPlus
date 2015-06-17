@@ -649,24 +649,35 @@ public class PhoneProfilesHelper {
 	@SuppressLint("InlinedApi")
 	static public void showPPHelperUpgradeNotification(Context context)
 	{
-		NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
-        	.setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
-        	.setContentTitle(context.getString(R.string.pphelper_upgrade_notification_title)) // title for notification
-        	.setContentText(context.getString(R.string.pphelper_upgrade_notification_text)) // message for notification
-        	.setAutoCancel(true); // clear notification after click
-		Intent intent = new Intent(context, UpgradePPHelperActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		mBuilder.setContentIntent(pi);
-    	if (android.os.Build.VERSION.SDK_INT >= 16)
-    		mBuilder.setPriority(Notification.PRIORITY_MAX);
-    	if (android.os.Build.VERSION.SDK_INT >= 21)
-    	{
-    		mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-    		mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-    	}
-		NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotificationManager.notify(0, mBuilder.build());		
+		//if (GlobalData.isRooted(false))
+		//{
+		if (!PhoneProfilesHelper.isPPHelperInstalled(context, PhoneProfilesHelper.PPHELPER_CURRENT_VERSION))
+		{
+			// proper PPHelper version is not installed
+			if (PhoneProfilesHelper.PPHelperVersion != -1)
+			{
+				// PPHelper is installed, show notification
+				NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
+						.setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+						.setContentTitle(context.getString(R.string.pphelper_upgrade_notification_title)) // title for notification
+						.setContentText(context.getString(R.string.pphelper_upgrade_notification_text)) // message for notification
+						.setAutoCancel(true); // clear notification after click
+				Intent intent = new Intent(context, UpgradePPHelperActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+				mBuilder.setContentIntent(pi);
+				if (android.os.Build.VERSION.SDK_INT >= 16)
+					mBuilder.setPriority(Notification.PRIORITY_MAX);
+				if (android.os.Build.VERSION.SDK_INT >= 21)
+				{
+					mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
+					mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+				}
+				NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+				mNotificationManager.notify(0, mBuilder.build());
+			}
+		}
+		//}
 	}
 	
 }

@@ -253,6 +253,7 @@ public class GlobalData extends Application {
 	private static final String PREF_RINGER_VOLUME = "ringer_volume";
 	private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
 	private static final String PREF_RINGER_MODE = "ringer_mode";
+	private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
 
 	// preferences for event - filled with broadcast receivers
 	static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
@@ -949,6 +950,20 @@ public class GlobalData extends Application {
 		editor.putInt(PREF_RINGER_MODE, volume);
 		editor.commit();
 	}
+
+    static public boolean getShowInfoNotificationOnStart(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, true);
+    }
+
+    static public void setShowInfoNotificationOnStart(Context context, boolean volume)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, volume);
+        editor.commit();
+    }
 
     // ----- Hardware check -------------------------------------
 	

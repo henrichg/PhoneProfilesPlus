@@ -66,23 +66,11 @@ public class FirstStartService extends IntentService {
 
         GlobalData.setActivatedProfileForDuration(context, 0);
 
-        // start PPHelper
-		//PhoneProfilesHelper.startPPHelper(context);
-		
 		// show notification about upgrade PPHelper
-		//if (GlobalData.isRooted(false))
-		//{
-			if (!PhoneProfilesHelper.isPPHelperInstalled(context, PhoneProfilesHelper.PPHELPER_CURRENT_VERSION))
-			{
-				// proper PPHelper version is not installed
-				if (PhoneProfilesHelper.PPHelperVersion != -1)
-				{
-					// PPHelper is installed, show notification 
-					PhoneProfilesHelper.showPPHelperUpgradeNotification(context);							
-				}
-			}
-		//}
-		
+        PhoneProfilesHelper.showPPHelperUpgradeNotification(context);
+        // show info notification
+        InfoNotificationOnStart.showInfoNotification(context);
+
 		// start ReceiverService
 		context.startService(new Intent(context.getApplicationContext(), ReceiversService.class));
 

@@ -768,5 +768,3 @@ Kde sa vola GlobalData.setEventsBlocked():
 
 --------------------------------------------------------------------
 
-
-Ak zmeníte farbu ikony, ikona v stavovom riadku byť biela. Ak zvolíte vlastný ikonu, v stavovom riadku bude ikona aplikácie.

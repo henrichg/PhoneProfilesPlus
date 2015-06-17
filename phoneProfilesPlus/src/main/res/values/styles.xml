@@ -10,6 +10,16 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+    <style name="EmptyAppCompatActivity" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorForeground">#000</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 
     <style name="NoCloseButton" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
         <item name="android:visibility">gone</item>

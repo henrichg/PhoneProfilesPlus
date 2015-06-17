@@ -503,4 +503,7 @@
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Unlink ringer and notif. volumes</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uncheck when your device has separated volume for ringer and notifications</string>
   <string name="profileicon_pref_dialog_info_about_status_bar_icon">If you change the color of the icon, the icon in the status bar will be white. If you select custom icon, in status bar will be application icon.</string>
+  <string name="info_notification_title">Important info</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">If your device has separated volume for ringer and notifications, click here for disable uncheck volumes separation.</string>
+  <string name="info_notification_text">Click here for show important info</string>
 </resources>
