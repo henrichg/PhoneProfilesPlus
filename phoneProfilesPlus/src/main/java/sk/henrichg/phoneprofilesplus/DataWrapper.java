@@ -1043,12 +1043,8 @@ public class DataWrapper {
 		if (profile != null)
 		{
 			if (GlobalData.notificationsToast && (!ActivateProfileHelper.lockRefresh))
-			{	
+			{
 				// toast notification
-				//Context _context = activity;
-				//if (_context == null)
-				//	_context = context.getApplicationContext();
-				// create a handler to post messages to the main thread
 				if (toastHandler != null)
 				{
 					final Profile __profile = profile;
