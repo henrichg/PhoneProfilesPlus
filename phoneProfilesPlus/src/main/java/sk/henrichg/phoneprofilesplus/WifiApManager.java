@@ -69,4 +69,21 @@ public final class WifiApManager {
         }
 
     }
+
+    public static boolean isWifiAPEnabled(Context context) {
+        try {
+            WifiApManager wifiApManager = new WifiApManager(context);
+                    /*
+                    int wifiApState = wifiApManager.getWifiApState();
+                    // 11 => AP OFF
+                    // 13 => AP ON
+                    Log.e("&&&& ScannerService", "wifiApState=" + wifiApState);
+                    canScan = wifiApState == 11;*/
+            return wifiApManager.isWifiAPEnabled();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

@@ -70,19 +70,8 @@ public class ScannerService extends IntentService
 
             boolean canScan = GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.HARDWARE_CHECK_ALLOWED;
             if (canScan) {
-                try {
-                    WifiApManager wifiApManager = new WifiApManager(context);
-                    /*
-                    int wifiApState = wifiApManager.getWifiApState();
-                    // 11 => AP OFF
-                    // 13 => AP ON
-                    Log.e("&&&& ScannerService", "wifiApState=" + wifiApState);
-                    canScan = wifiApState == 11;*/
-                    canScan = !wifiApManager.isWifiAPEnabled();
-                    GlobalData.logE("$$$ ScannerService.onHandleIntent", "canScan=" + canScan);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
+                canScan = !WifiApManager.isWifiAPEnabled(context);
+                GlobalData.logE("$$$ ScannerService.onHandleIntent", "canScan=" + canScan);
             }
 
             if (canScan) {

@@ -141,48 +141,47 @@ public class ActivateProfileHelper {
 		// nahodenie WiFi
 		if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
 		{
-			WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-			int wifiState = wifiManager.getWifiState();
-			boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-			boolean setWifiState = false;
-			switch (profile._deviceWiFi) {
-				case 1 :
-					if (!isWifiEnabled)
-					{
-						isWifiEnabled = true;
-						setWifiState = true;
-					}
-					break;
-				case 2 : 
-					if (isWifiEnabled)
-					{
-						isWifiEnabled = false;
-						setWifiState = true;
-					}
-					break;
-				case 3 :
-					isWifiEnabled = !isWifiEnabled;
-					setWifiState = true;
-					break;
-			}
-			if (setWifiState)
-			{
-                if (!onlyCheckForPPHelper) {
-                    try {
-                        wifiManager.setWifiEnabled(isWifiEnabled);
-                    } catch (Exception e) {
-                        wifiManager.setWifiEnabled(isWifiEnabled);
-                    }
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
-                    }
+            if (!WifiApManager.isWifiAPEnabled(context)) { // only when wifi AP is not enabled, change wifi
+                WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                int wifiState = wifiManager.getWifiState();
+                boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                boolean setWifiState = false;
+                switch (profile._deviceWiFi) {
+                    case 1:
+                        if (!isWifiEnabled) {
+                            isWifiEnabled = true;
+                            setWifiState = true;
+                        }
+                        break;
+                    case 2:
+                        if (isWifiEnabled) {
+                            isWifiEnabled = false;
+                            setWifiState = true;
+                        }
+                        break;
+                    case 3:
+                        isWifiEnabled = !isWifiEnabled;
+                        setWifiState = true;
+                        break;
                 }
-                if (isWifiEnabled)
-                    // when wifi is enabled from profile, no disable wifi after scan
-                 	WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-			}
+                if (setWifiState) {
+                    if (!onlyCheckForPPHelper) {
+                        try {
+                            wifiManager.setWifiEnabled(isWifiEnabled);
+                        } catch (Exception e) {
+                            wifiManager.setWifiEnabled(isWifiEnabled);
+                        }
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            System.out.println(e);
+                        }
+                    }
+                    if (isWifiEnabled)
+                        // when wifi is enabled from profile, no disable wifi after scan
+                        WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
+                }
+            }
 		}
 		
 		// nahodenie bluetooth
