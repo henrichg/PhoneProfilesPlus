@@ -660,7 +660,8 @@ public class PhoneProfilesHelper {
 				NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
 						.setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
 						.setContentTitle(context.getString(R.string.pphelper_upgrade_notification_title)) // title for notification
-						.setContentText(context.getString(R.string.pphelper_upgrade_notification_text)) // message for notification
+						.setContentText(context.getString(R.string.app_name) + ": " +
+                                context.getString(R.string.pphelper_upgrade_notification_text)) // message for notification
 						.setAutoCancel(true); // clear notification after click
 				Intent intent = new Intent(context, UpgradePPHelperActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
