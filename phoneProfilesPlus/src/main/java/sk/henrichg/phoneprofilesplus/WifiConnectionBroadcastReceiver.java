@@ -24,73 +24,43 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (info != null)
         {
-		    //int lastState = -1;
-		    //int currState = -1;
-		    
-	    	if ((info.getState() == NetworkInfo.State.CONNECTED) ||
-	        	(info.getState() == NetworkInfo.State.DISCONNECTED))
-	    	{
-				/*SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-				lastState = preferences.getInt(GlobalData.PREF_EVENT_WIFI_LAST_STATE, -1);
-				currState = -1;
-		    	if (info.getState() == NetworkInfo.State.CONNECTED)
-		    		currState = 1;
-		    	if (info.getState() == NetworkInfo.State.DISCONNECTED)
-		    		currState = 0;
-				Editor editor = preferences.edit();
-				editor.putInt(GlobalData.PREF_EVENT_WIFI_LAST_STATE, currState);
-				editor.commit();*/
-	    	}
-	    	else
-	    		return;
 
 			if (GlobalData.getGlobalEventsRuning(context))
 			{
 	    		GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
 
-				boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
-				GlobalData.logE("$$$ WifiAP", "WifiConnectionBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
-
-	        	/*if (((info.getState() == NetworkInfo.State.CONNECTED) ||
-	        		(info.getState() == NetworkInfo.State.DISCONNECTED)) &&
-	        		(lastState != currState))*/
 	        	if ((info.getState() == NetworkInfo.State.CONNECTED) ||
 	        		(info.getState() == NetworkInfo.State.DISCONNECTED))
 	        	{
-                    if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                          (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
-                          (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))))
-	        		{
-                        // wifi is not scanned
+                    boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
+                    GlobalData.logE("$$$ WifiAP", "WifiConnectionBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
 
-                        GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","wifi is not scanned");
+                    //if (!isWifiAPEnabled) {
+                        if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                                (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                                (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
+                            // wifi is not scanned
 
-		    			DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-		    			boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
-		    			dataWrapper.invalidateDataWrapper();
-		    	
-		    			if (wifiEventsExists)
-		    			{
-			        		GlobalData.logE("@@@ WifiConnectionBroadcastReceiver.onReceive","wifiEventsExists="+wifiEventsExists);
-	
-		    				// start service
-		    				Intent eventsServiceIntent = new Intent(context, EventsService.class);
-		    				eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-		    				startWakefulService(context, eventsServiceIntent);
-		    			}
-	        		}
-                    else
-                        GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","wifi is scanned");
+                            GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
+
+                            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                            boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
+                            dataWrapper.invalidateDataWrapper();
+
+                            if (wifiEventsExists) {
+                                GlobalData.logE("@@@ WifiConnectionBroadcastReceiver.onReceive", "wifiEventsExists=" + wifiEventsExists);
+
+                                // start service
+                                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                                startWakefulService(context, eventsServiceIntent);
+                            }
+                        } else
+                            GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
+                    //}
 
 	        	}
 			}
-			
-    		/*if ((info.getState() == NetworkInfo.State.DISCONNECTED) &&
-    			(lastState != currState))*/
-       		/*if (info.getState() == NetworkInfo.State.DISCONNECTED)
-    		{
-    			WifiScanAlarmBroadcastReceiver.stopScan(context);
-    		}*/
 			
         }
 	}

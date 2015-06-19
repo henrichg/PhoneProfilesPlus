@@ -289,6 +289,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         			// unlock() is then called at the end of the onReceive function of WifiScanBroadcastReceiver
 		boolean startScan = wifi.startScan();
       	GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.startScan","scanStarted="+startScan);
+        GlobalData.logE("$$$ WifiAP", "WifiScanAlarmBroadcastReceiver.startScan-startScan="+startScan);
 		if (!startScan)
 		{
 			if (getWifiEnabledForScan(context))

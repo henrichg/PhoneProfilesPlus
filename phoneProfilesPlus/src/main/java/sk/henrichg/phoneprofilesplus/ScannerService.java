@@ -115,9 +115,9 @@ public class ScannerService extends IntentService
 
                         // enable wifi
                         int wifiState;
-                        if ((android.os.Build.VERSION.SDK_INT >= 18) && WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable())
-                            wifiState = WifiManager.WIFI_STATE_ENABLED;
-                        else
+                        //if ((android.os.Build.VERSION.SDK_INT >= 18) && WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable())
+                        //    wifiState = WifiManager.WIFI_STATE_ENABLED;
+                        //else
                             wifiState = enableWifi(dataWrapper, WifiScanAlarmBroadcastReceiver.wifi, wifiBluetoothChangeHandler);
 
                         if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
@@ -355,11 +355,11 @@ public class ScannerService extends IntentService
     		if (wifiState != WifiManager.WIFI_STATE_ENABLING)
     		{
 				boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
-				boolean isScanAlwaisAvailable = false;
-		    	if (android.os.Build.VERSION.SDK_INT >= 18)
-		    		isScanAlwaisAvailable = wifi.isScanAlwaysAvailable();
-	        	GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaisAvailable="+isScanAlwaisAvailable);
-	    		isWifiEnabled = isWifiEnabled || isScanAlwaisAvailable;
+				boolean isScanAlwaysAvailable = false;
+		    	//if (android.os.Build.VERSION.SDK_INT >= 18)
+		    	//	isScanAlwaisAvailable = wifi.isScanAlwaysAvailable();
+	        	GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaisAvailable="+isScanAlwaysAvailable);
+	    		isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
 		    	if (!isWifiEnabled)
 		    	{
 		        	if (GlobalData.applicationEventWifiEnableWifi || forceScan)
@@ -497,6 +497,9 @@ public class ScannerService extends IntentService
     {
     	for (int i = 0; i < 5 * 60; i++) // 60 seconds for wifi scan (Android 5.0 bug, normally required 5 seconds :-/)
     	{
+            //GlobalData.logE("$$$ WifiAP", "ScannerService.waitForWifiScanEnd-getScanRequest="+WifiScanAlarmBroadcastReceiver.getScanRequest(context));
+            //GlobalData.logE("$$$ WifiAP", "ScannerService.waitForWifiScanEnd-getWaitForResults="+WifiScanAlarmBroadcastReceiver.getWaitForResults(context));
+
         	if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                   (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)))) {
                 break;
