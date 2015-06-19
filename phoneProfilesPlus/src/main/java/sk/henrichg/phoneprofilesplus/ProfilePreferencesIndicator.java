@@ -111,6 +111,11 @@ public class ProfilePreferencesIndicator {
 				drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi;
 			if (profile._deviceWiFi == 2)
 				drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off;
+			// wifi AP
+			if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3))
+				drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap;
+			if (profile._deviceWiFiAP == 2)
+				drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
 			// bluetooth
 			if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3))
 				drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth;

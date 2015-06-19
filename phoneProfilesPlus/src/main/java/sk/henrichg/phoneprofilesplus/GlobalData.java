@@ -169,6 +169,7 @@ public class GlobalData extends Application {
 	static final String PREF_PROFILE_DEVICE_KEYGUARD = "prf_pref_deviceKeyguard";
     static final String PREF_PROFILE_VIBRATION_ON_TOUCH = "prf_pref_vibrationOnTouch";
     static final String PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS = "prf_pref_volumeUnlinkVolumesAppSettings";
+    static final String PREF_PROFILE_DEVICE_WIFI_AP = "prf_pref_deviceWiFiAP";
 
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
 	
@@ -593,7 +594,8 @@ public class GlobalData extends Application {
 				x.getKey().equals(PREF_PROFILE_DURATION) ||
 				x.getKey().equals(PREF_PROFILE_AFTER_DURATION_DO) ||
 				x.getKey().equals(PREF_PROFILE_DEVICE_KEYGUARD) ||
-                x.getKey().equals(PREF_PROFILE_VIBRATION_ON_TOUCH))
+                x.getKey().equals(PREF_PROFILE_VIBRATION_ON_TOUCH) ||
+                x.getKey().equals(PREF_PROFILE_DEVICE_WIFI_AP))
 			{
 			    if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
 			    else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
@@ -633,7 +635,7 @@ public class GlobalData extends Application {
 		profile._afterDurationDo = Profile.AFTERDURATIONDO_NOTHING;
     	profile._volumeRingerMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, "1")); // ring
     	profile._volumeZenMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, "1")); // all
-    	profile._volumeRingtone = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, getVolumeLevelString(71, maximumValueRing)+"|0|0");
+    	profile._volumeRingtone = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, getVolumeLevelString(71, maximumValueRing) + "|0|0");
     	profile._volumeNotification = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, getVolumeLevelString(86, maximumValueNotification)+"|0|0");
     	profile._volumeMedia = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_MEDIA, getVolumeLevelString(80, maximumValueMusic)+"|0|0");
     	profile._volumeAlarm = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_ALARM, getVolumeLevelString(100, maximumValueAlarm)+"|0|0");
@@ -649,7 +651,7 @@ public class GlobalData extends Application {
     	profile._deviceWiFi = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WIFI, "2")); // OFF
     	profile._deviceBluetooth = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, "2")); //OFF
     	profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "2")); // 30 seconds
-    	profile._deviceBrightness = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|0|1|0");  // automatic on
+    	profile._deviceBrightness = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|0|1|0");  // automatic on
     	profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
    		profile._deviceWallpaper = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER, "-|0");
     	profile._deviceMobileData = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, "1")); //ON
@@ -664,6 +666,7 @@ public class GlobalData extends Application {
     	profile._deviceNFC = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NFC, "0"));
     	profile._deviceKeyguard = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, "0"));
         profile._vibrationOnTouch = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
+        profile._deviceWiFiAP = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, "2")); // OFF
 
     	return profile;
 	}
@@ -715,7 +718,8 @@ public class GlobalData extends Application {
 							   profile._afterDurationDo,
 							   profile._volumeZenMode,
 							   profile._deviceKeyguard,
-                               profile._vibrationOnTouch);
+                               profile._vibrationOnTouch,
+					           profile._deviceWiFiAP);
 		
 			if (profile._volumeRingerMode == 99)
 				mappedProfile._volumeRingerMode = defaultProfile._volumeRingerMode;
@@ -788,6 +792,8 @@ public class GlobalData extends Application {
 				mappedProfile._deviceKeyguard = defaultProfile._deviceKeyguard;
             if (profile._vibrationOnTouch == 99)
                 mappedProfile._vibrationOnTouch = defaultProfile._vibrationOnTouch;
+            if (profile._deviceWiFiAP == 99)
+                mappedProfile._deviceWiFiAP = defaultProfile._deviceWiFiAP;
 
 			mappedProfile._iconBitmap = profile._iconBitmap;
 			mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -1133,6 +1139,13 @@ public class GlobalData extends Application {
 				logE("GlobalData.hardwareCheck","NFC=not presented");
 			}
 		}
+        else
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_WIFI_AP))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+                // device ma Wifi
+                featurePresented = HARDWARE_CHECK_ALLOWED;
+        }
 		else
 			featurePresented = HARDWARE_CHECK_ALLOWED;
 		

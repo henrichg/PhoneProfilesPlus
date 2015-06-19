@@ -247,7 +247,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 						   origProfile._afterDurationDo,
 						   origProfile._volumeZenMode,
 						   origProfile._deviceKeyguard,
-                           origProfile._vibrationOnTouch);
+                           origProfile._vibrationOnTouch,
+						   origProfile._deviceWiFiAP);
 			profile_id = 0;
 		}
 		else
@@ -489,6 +490,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 	        editor.putString(GlobalData.PREF_PROFILE_DEVICE_NFC, Integer.toString(profile._deviceNFC));
 	        editor.putString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, Integer.toString(profile._deviceKeyguard));
             editor.putString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, Integer.toString(profile._vibrationOnTouch));
+			editor.putString(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, Integer.toString(profile._deviceWiFiAP));
 			editor.commit();
     	}
 		
@@ -551,6 +553,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     	profile._deviceNFC = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NFC, ""));
     	profile._deviceKeyguard = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, ""));
         profile._vibrationOnTouch = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, ""));
+		profile._deviceWiFiAP = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, ""));
 
 		if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
 		{
@@ -659,7 +662,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 			key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
 			key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
 			key.equals(GlobalData.PREF_PROFILE_DEVICE_GPS) ||
-			key.equals(GlobalData.PREF_PROFILE_DEVICE_NFC))
+			key.equals(GlobalData.PREF_PROFILE_DEVICE_NFC) ||
+			key.equals(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP))
 		{
 			int canChange = GlobalData.hardwareCheck(key, context);
 			if (canChange != GlobalData.HARDWARE_CHECK_ALLOWED)
@@ -846,17 +850,15 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone); 
 	        setSummary(GlobalData.PREF_PROFILE_DEVICE_NFC, profile._deviceNFC); 
 	        setSummary(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, profile._deviceKeyguard);
-
             setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, profile._volumeNotification);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_MEDIA, profile._volumeMedia);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_ALARM, profile._volumeAlarm);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_SYSTEM, profile._volumeSystem);
 	        setSummary(GlobalData.PREF_PROFILE_VOLUME_VOICE, profile._volumeVoice);
-
 	        setSummary(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-
             setSummary(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, profile._vibrationOnTouch);
+			setSummary(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, profile._deviceWiFiAP);
 
 		    // disable depended preferences
 		    disableDependedPref(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);

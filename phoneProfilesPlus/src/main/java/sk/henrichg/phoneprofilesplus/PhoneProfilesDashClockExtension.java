@@ -165,6 +165,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 				indicator1 = addIntoIndicator(indicator1, "wf1");
 			if (profile._deviceWiFi == 2)
 				indicator1 = addIntoIndicator(indicator1, "wf0");
+			// wifi AP
+			if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3))
+				indicator1 = addIntoIndicator(indicator1, "wp1");
+			if (profile._deviceWiFiAP == 2)
+				indicator1 = addIntoIndicator(indicator1, "wp0");
 			// bluetooth
 			if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3))
 				indicator1 = addIntoIndicator(indicator1, "bt1");

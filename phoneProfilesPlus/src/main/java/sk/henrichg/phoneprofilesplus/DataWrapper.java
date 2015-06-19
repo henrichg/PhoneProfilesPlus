@@ -164,7 +164,8 @@ public class DataWrapper {
 				  Profile.AFTERDURATIONDO_NOTHING,
 				  0,
 				  0,
-                  0
+                  0,
+				  0
 			);
 	}
 	
