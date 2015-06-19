@@ -178,8 +178,15 @@
             android:key="prf_pref_deviceWiFi"
             android:defaultValue="0"
             android:entries="@array/hardwareModeDPArray"
-            android:entryValues="@array/hardwareModeDPValues" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:entryValues="@array/hardwareModeDPValues" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/profile_preferences_deviceWiFiAP"
+            android:summary="@string/array_pref_no_change"
+            android:key="prf_pref_deviceWiFiAP"
+            android:defaultValue="0"
+            android:entries="@array/hardwareModeDPArray"
+            android:entryValues="@array/hardwareModeDPValues" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceBluetooth"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceBluetooth"

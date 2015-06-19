@@ -506,4 +506,5 @@
   <string name="info_notification_title">Important info</string>
   <string name="info_notification_unlink_ringer_notification_volumes">If your device has separated volume for ringer and notifications, click here for disabling volumes separation.</string>
   <string name="info_notification_text">Click here for show important info</string>
+  <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
 </resources>
