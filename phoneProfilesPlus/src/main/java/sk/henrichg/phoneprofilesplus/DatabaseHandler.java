@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
 	// Database Version
-	private static final int DATABASE_VERSION = 1330;
+	private static final int DATABASE_VERSION = 1340;
 
 	// Database Name
 	private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -1193,6 +1193,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			// updatneme zaznamy
 			db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WIFI_AP + "=0");
 		}
+
+        if (oldVersion < 1340)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_WIFI_AP + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WIFI_AP + "=0");
+        }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
 
