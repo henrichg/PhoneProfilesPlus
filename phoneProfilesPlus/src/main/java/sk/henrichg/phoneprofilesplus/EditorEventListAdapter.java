@@ -394,12 +394,14 @@ public class EditorEventListAdapter extends BaseAdapter
 			if (event._manualProfileActivation) {
 				holder.profileEndIcon.setVisibility(View.GONE);
 				holder.profileEndName.setVisibility(View.GONE);
-				holder.profileEndIndicator.setVisibility(View.GONE);
+				if (holder.profileEndIndicator != null)
+					holder.profileEndIndicator.setVisibility(View.GONE);
 			}
 			else {
 				holder.profileEndIcon.setVisibility(View.VISIBLE);
 				holder.profileEndName.setVisibility(View.VISIBLE);
-				holder.profileEndIndicator.setVisibility(View.VISIBLE);
+				if (holder.profileEndIndicator != null)
+					holder.profileEndIndicator.setVisibility(View.VISIBLE);
 
 				profile = dataWrapper.getProfileById(event._fkProfileEnd, false);
 				if (profile != null) {
