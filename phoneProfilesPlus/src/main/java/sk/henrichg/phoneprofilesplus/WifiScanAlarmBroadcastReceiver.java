@@ -68,6 +68,9 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 		{
 			GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive","xxx");
 
+			boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
+			GlobalData.logE("$$$ WifiAP", "WifiScanAlarmBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
+
 			boolean wifiEventsExists = false;
 			
 			DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);

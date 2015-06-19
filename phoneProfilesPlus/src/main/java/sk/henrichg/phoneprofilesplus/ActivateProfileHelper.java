@@ -141,7 +141,9 @@ public class ActivateProfileHelper {
 		// nahodenie WiFi
 		if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
 		{
-            if (!WifiApManager.isWifiAPEnabled(context)) { // only when wifi AP is not enabled, change wifi
+            boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
+            if (!isWifiAPEnabled) { // only when wifi AP is not enabled, change wifi
+                GlobalData.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled="+isWifiAPEnabled);
                 WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
                 int wifiState = wifiManager.getWifiState();
                 boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));

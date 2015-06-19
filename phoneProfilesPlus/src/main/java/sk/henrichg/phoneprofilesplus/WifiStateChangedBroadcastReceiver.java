@@ -30,6 +30,10 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
 
             if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED))
             {
+                boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
+                GlobalData.logE("$$$ WifiAP", "WifiStateChangedBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
+
+
                 DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
                 if (wifiState == WifiManager.WIFI_STATE_ENABLED)

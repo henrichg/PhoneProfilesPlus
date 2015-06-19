@@ -27,6 +27,9 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 		if (GlobalData.getGlobalEventsRuning(context))
 		{
 
+			boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
+			GlobalData.logE("$$$ WifiAP", "WifiScanBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
+
 			boolean scanStarted = (WifiScanAlarmBroadcastReceiver.getWaitForResults(context));
 			
 			if (scanStarted)

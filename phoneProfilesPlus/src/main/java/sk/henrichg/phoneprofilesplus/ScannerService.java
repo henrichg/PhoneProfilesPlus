@@ -72,6 +72,7 @@ public class ScannerService extends IntentService
             if (canScan) {
                 canScan = !WifiApManager.isWifiAPEnabled(context);
                 GlobalData.logE("$$$ ScannerService.onHandleIntent", "canScan=" + canScan);
+                GlobalData.logE("$$$ WifiAP", "ScannerService.onHandleIntent-isWifiAPEnabled="+!canScan);
             }
 
             if (canScan) {

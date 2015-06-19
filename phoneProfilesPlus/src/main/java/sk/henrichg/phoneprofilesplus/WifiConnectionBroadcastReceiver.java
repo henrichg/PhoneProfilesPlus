@@ -47,7 +47,10 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 			if (GlobalData.getGlobalEventsRuning(context))
 			{
 	    		GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
-	
+
+				boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
+				GlobalData.logE("$$$ WifiAP", "WifiConnectionBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
+
 	        	/*if (((info.getState() == NetworkInfo.State.CONNECTED) ||
 	        		(info.getState() == NetworkInfo.State.DISCONNECTED)) &&
 	        		(lastState != currState))*/
