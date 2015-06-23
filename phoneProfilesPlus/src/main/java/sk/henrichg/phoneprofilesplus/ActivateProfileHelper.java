@@ -1021,17 +1021,17 @@ public class ActivateProfileHelper {
             {
                 setAlarmForNotificationCancel();
             }
-            notificationManager.notify(GlobalData.NOTIFICATION_ID, notification);
+            notificationManager.notify(GlobalData.PROFILE_NOTIFICATION_ID, notification);
         }
         else
         {
-            notificationManager.cancel(GlobalData.NOTIFICATION_ID);
+            notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
         }
     }
 
     public void removeNotification()
     {
-        notificationManager.cancel(GlobalData.NOTIFICATION_ID);
+        notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
     }
 
     private void setAlarmForNotificationCancel()

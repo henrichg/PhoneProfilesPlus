@@ -64,7 +64,7 @@ public class InfoNotificationOnStart {
             mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
         }
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(0, mBuilder.build());
+        mNotificationManager.notify(GlobalData.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
     }
 
 }
