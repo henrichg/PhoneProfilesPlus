@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<string-array name="ringerModeArray">
+	<item>@string/array_pref_no_change</item>
+	<item>@string/array_pref_default_profile</item>
+	<item>@string/array_pref_ringerModeArray_ring</item>
+	<item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
+	<item>@string/array_pref_ringerModeArray_vibrate</item>
+	<item>@string/array_pref_ringerModeArray_silentL</item>
+</string-array>
+</resources>

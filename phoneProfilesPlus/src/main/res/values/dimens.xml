@@ -8,4 +8,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="important_info_top_margin">0dp</dimen>
+    <dimen name="important_info_left_margin">16dp</dimen>
+    <dimen name="important_info_right_margin">16dp</dimen>
+
 </resources>
