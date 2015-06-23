@@ -7,14 +7,14 @@ import android.content.Intent;
 
 public class NotificationCancelAlarmBroadcastReceiver extends BroadcastReceiver {
 
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		
-		GlobalData.logE("### NotificationCancelAlarmBroadcastReceiver","xxx");
-		
-		NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.cancel(GlobalData.NOTIFICATION_ID);
-		
-	}
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        GlobalData.logE("### NotificationCancelAlarmBroadcastReceiver","xxx");
+
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
+        
+    }
 
 }

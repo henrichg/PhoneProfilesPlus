@@ -7,16 +7,16 @@ import android.content.Intent;
 
 public class LocaleChangedReceiver extends BroadcastReceiver {
 
-	@Override
-	public void onReceive(Context context, Intent intent) {
+    @Override
+    public void onReceive(Context context, Intent intent) {
 
-		GlobalData.loadPreferences(context);
-		
-		if (GlobalData.applicationLanguage.equals("system"))
-		{	
-			NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-			notificationManager.cancel(GlobalData.NOTIFICATION_ID);
-		}
-	}
+        GlobalData.loadPreferences(context);
+
+        if (GlobalData.applicationLanguage.equals("system"))
+        {
+            NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
+        }
+    }
 
 }
