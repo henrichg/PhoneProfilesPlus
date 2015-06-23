@@ -501,4 +501,9 @@
   <string name="phone_profiles_pref_category_system">Systém</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Oddeľ hlasitosť zvonenia a notif.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Zrušte začiarknutie políčka ak Vaše zariadenie má oddelenú hlasitosť zvonenia a notifikácií</string>
+  <string name="profileicon_pref_dialog_info_about_status_bar_icon">Ak zmeníte farbu ikony, ikona v stavovom riadku byť biela. Ak zvolíte vlastný ikonu, v stavovom riadku bude ikona aplikácie.</string>
+  <string name="info_notification_title">Dôležité informácie</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Pre zakázanie oddeľovania hlasitostí, ak váš prístroj má oddelenú hlasitosť vyzváňania a upozornení, kliknite sem.</string>
+  <string name="info_notification_text">Kliknite sem pre zobrazenie dôležitých informácií</string>
+  <string name="profile_preferences_deviceWiFiAP">Wi-Fi prístupový bod</string>
 </resources>

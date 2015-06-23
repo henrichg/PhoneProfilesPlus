@@ -499,6 +499,11 @@
   <string name="profileicon_pref_dialog_customColor_button">Changer de couleur</string>
   <string name="colorChooser_pref_dialog_title">Définir la couleur</string>
   <string name="phone_profiles_pref_category_system">System</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Unlink ringer and notif. volumes</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uncheck when your device has separated volume for ringer and notifications</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Délier volumes et sonnerie de notification</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Décochez lorsque votre appareil a le volume de la sonnerie et des notifications séparé</string>
+  <string name="profileicon_pref_dialog_info_about_status_bar_icon">Si vous modifiez la couleur de l\'icône, l\'icône dans la barre d\'état sera blanche. Si vous sélectionnez une icône personnalisée, l\'icône de la barre d\'état sera l\'icône de l\'application.</string>
+  <string name="info_notification_title">Info importante</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Si votre appareil a le volume de la sonnerie et des notifications séparé, cliquez ici pour désactiver la séparation des volumes.</string>
+  <string name="info_notification_text">Cliquez ici pour afficher les infos importantes</string>
+  <string name="profile_preferences_deviceWiFiAP">Point d\'accès Wi-Fi</string>
 </resources>

@@ -498,7 +498,12 @@
   <string name="event_preferences_manualProfileActivation">Manuálně aktivovat profil</string>
   <string name="profileicon_pref_dialog_customColor_button">Změna barvy</string>
   <string name="colorChooser_pref_dialog_title">Nastavit barvu</string>
-  <string name="phone_profiles_pref_category_system">System</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Unlink ringer and notif. volumes</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uncheck when your device has separated volume for ringer and notifications</string>
+  <string name="phone_profiles_pref_category_system">Systém</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Odděl hlasitost vyzvánění a notify.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Zrušte zaškrtnutí políčka pokud Vaše zařízení má oddělenou hlasitost vyzvánění a notifikací</string>
+  <string name="profileicon_pref_dialog_info_about_status_bar_icon">Pokud změníte barvu ikony, ikona ve stavovém řádku bude bílá. Pokud zvolíte vlastní ikonu, ve stavovém řádku bude ikona aplikace.</string>
+  <string name="info_notification_title">Důležité informace</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Pro zakázání oddělování hlasitostí, pokud váš přístroj má oddělenou hlasitost vyzvánění a upozornění, klikněte sem.</string>
+  <string name="info_notification_text">Klepnutím sem zobrazíte důležité informace</string>
+  <string name="profile_preferences_deviceWiFiAP">Wi-Fi přístupový bod</string>
 </resources>

@@ -189,7 +189,7 @@
   <string name="phone_profiles_pref_category_widget_one_row">Виджет «Один ряд»</string>
   <string name="profile_list_empty">Нет профилей</string>
   <string name="event_list_empty">Нет событий</string>
-  <string name="event_preferences_category_eventParameters">Параметры события</string>
+  <string name="event_preferences_category_eventParameters">Настройки события</string>
   <string name="event_preferences_time_timeDays">Дни недели</string>
   <string name="event_preferences_time_startTime">Время начала</string>
   <string name="event_preferences_time_useEndTime">Использовать время окончания</string>
@@ -332,7 +332,7 @@
   <string name="event_preferences_ForceRun_summary">Запуск события несмотря на то, что профиль был активирован вручную</string>
   <string name="event_preferences_category_startofevent">Начало события</string>
   <string name="event_preferences_category_endofevent">Завершение события</string>
-  <string name="event_preferences_undoneProfile">Аннулировать профиль</string>
+  <string name="event_preferences_undoneProfile">Отменить данный профиль</string>
   <string name="event_preferences_undoneProfile_summary">Активировать профиль, который был активен до начала события</string>
   <string name="event_prefernce_profile_undone">Аннулировать</string>
   <string name="event_preferences_priority">Приоритет</string>
@@ -378,7 +378,7 @@
   <string name="array_event_pref_priorityHigher">Выше</string>
   <string name="array_event_pref_priorityHighest">Наивысший</string>
   <string name="event_type_wifi">Wi-Fi</string>
-  <string name="event_preferences_category_eventWifiParameters">Параметры Wi-Fi</string>
+  <string name="event_preferences_category_eventWifiParameters">Настройки Wi-Fi</string>
   <string name="event_preferences_wifi_enabled">Активировать</string>
   <string name="event_preferences_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_ssid">SSID</string>
@@ -401,7 +401,7 @@
   <string name="profile_preferences_duration">Продолжительность (минут)</string>
   <string name="profile_preferences_afterDurationDo">По окончанию действия профиля</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Ничего</string>
-  <string name="array_pref_afterProfileDurationDo_undoProfile">Аннулировать профиль</string>
+  <string name="array_pref_afterProfileDurationDo_undoProfile">Отменить данный профиль</string>
   <string name="array_pref_afterProfileDurationDo_backgroundProfile">Активировать профиль по умолчанию</string>
   <string name="phone_profiles_pref_applicationGridLayout">В виде сетки</string>
   <string name="menu_help">Помощь</string>
@@ -442,7 +442,7 @@
   <string name="phone_profiles_pref_applicationEventRescan_none">Никогда</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Включение экрана</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Перезапустить события</string>
-  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Включение экрана &amp; Перезапуск событий</string>
+  <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Включение экрана и Перезапуск событий</string>
   <string name="array_pref_ringerModeArray_ZenMode">Режимы оповещения</string>
   <string name="profile_preferences_volumeZenMode">(R) Типы режима оповещения</string>
   <string name="array_pref_zenModeArray_all">Все</string>
@@ -481,11 +481,11 @@
   <string name="array_event_pref_calendarSearchField_location">Местоположение</string>
   <string name="profile_preferences_vibrationOnTouch">Вибрация при нажатии</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">Показывать в строке состояния</string>
-  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показать в строке состояния и на экране блокировки</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показать в строке состояния и  и на экране блокировки</string>
   <string name="menu_activity_log_reload">Перезагрузка</string>
   <string name="event_preferences_atEndDo">И выполнить</string>
   <string name="array_pref_atEndDo_none">Ничего</string>
-  <string name="array_pref_atEndDo_undoneProfile">Аннулировать профиль</string>
+  <string name="array_pref_atEndDo_undoneProfile">Отменить данный профиль</string>
   <string name="array_pref_atEndDo_restartEvents">Перезапустить события</string>
   <string name="event_preference_profile_restartEvents">Перезапустить</string>
   <string name="altype_eventEnd_restartEvents">Приостановить событие - перезапустить события</string>
@@ -496,9 +496,14 @@
   <string name="array_event_pref_calendarAvailability_free">Свободен</string>
   <string name="array_event_pref_calendarAvailability_tentative">Не ясно</string>
   <string name="event_preferences_manualProfileActivation">Активация профиля вручную</string>
-  <string name="profileicon_pref_dialog_customColor_button">Change color</string>
-  <string name="colorChooser_pref_dialog_title">Set color</string>
-  <string name="phone_profiles_pref_category_system">System</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Unlink ringer and notif. volumes</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uncheck when your device has separated volume for ringer and notifications</string>
+  <string name="profileicon_pref_dialog_customColor_button">Изменить цвет</string>
+  <string name="colorChooser_pref_dialog_title">Выбрать цвет</string>
+  <string name="phone_profiles_pref_category_system">Системные</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Отдельные громкости для звонка и уведомлений</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Снимите флажок, если настроены отдельные громкости для звонка и уведомлений</string>
+  <string name="profileicon_pref_dialog_info_about_status_bar_icon">Если вы измените цвет иконки профиля, то значок профиля в строке состояния будет белого цвета. Если выбрать пользовательскую иконку, то в строке состояния будет показан значок приложения.</string>
+  <string name="info_notification_title">Важная информация</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Если у Вашего устройства раздельная регулировка громкости для звонка и уведомлений, нажмите здесь чтобы отменить разделение громкости.</string>
+  <string name="info_notification_text">Нажмите для просмотра важной информации</string>
+  <string name="profile_preferences_deviceWiFiAP">Точка доступа Wi-Fi</string>
 </resources>

@@ -450,7 +450,7 @@
   <string name="array_pref_zenModeArray_none">None</string>
   <string name="profile_preferences_deviceMobileData_21">(H) Mobile adat</string>
   <string name="preference_profile_adaptiveBrightness">Adaptív</string>
-  <string name="profile_preferences_deviceKeyguard">Képernyő zárás</string>
+  <string name="profile_preferences_deviceKeyguard">Képernyőzár</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profil név elrejtés (Widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Eseményt újra indít</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">Nincs csatlakozva</string>
@@ -496,9 +496,14 @@
   <string name="array_event_pref_calendarAvailability_free">Szabad</string>
   <string name="array_event_pref_calendarAvailability_tentative">Feltételes</string>
   <string name="event_preferences_manualProfileActivation">Manuális profil aktiválás</string>
-  <string name="profileicon_pref_dialog_customColor_button">Change color</string>
-  <string name="colorChooser_pref_dialog_title">Set color</string>
-  <string name="phone_profiles_pref_category_system">System</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Unlink ringer and notif. volumes</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uncheck when your device has separated volume for ringer and notifications</string>
+  <string name="profileicon_pref_dialog_customColor_button">Színének módosítása</string>
+  <string name="colorChooser_pref_dialog_title">Szín beállítása</string>
+  <string name="phone_profiles_pref_category_system">Rendszer</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Csengőhang és értesítés hangerő szétválasztása</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Jelölés törlés, akkor ha az eszközön szét van választva a csengő és értesítés hangerő</string>
+  <string name="profileicon_pref_dialog_info_about_status_bar_icon">Az ikon színének változtatásakor, a státusz soron az ikon fehér marad. Ha az egyéni ikont választod  akkor lesz alkalmazás ikonja.</string>
+  <string name="info_notification_title">Fontos információk</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Ha a készüléked külön kezeli a csengő illetve az értesítések hangerejét, kattints ide hangerő szétválasztás megszüntetéséhez.</string>
+  <string name="info_notification_text">Kattints ide ha látni akarod a fontos információt</string>
+  <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
 </resources>

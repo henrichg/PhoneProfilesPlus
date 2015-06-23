@@ -52,7 +52,7 @@
   <string name="phone_profiles_pref_applicationHeader">Mostra el perfil activat</string>
   <string name="phone_profiles_pref_applicationAlert">Activant el perfil d\'alerta</string>
   <string name="phone_profiles_pref_notificationsToast">Mostrar notificació de prova</string>
-  <string name="phone_profiles_pref_notificationStatusBar">Mostrar notificació en barra d\'estat</string>
+  <string name="phone_profiles_pref_notificationStatusBar">Mostrar estat en la barra d\'estat</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Estil de la icona de notificació</string>
   <string name="profile_preferences_category_profileidenification">Identificació del perfil</string>
   <string name="profile_preferences_category_volumes">Volums</string>
@@ -498,7 +498,12 @@
   <string name="event_preferences_manualProfileActivation">Activació manual del perfil</string>
   <string name="profileicon_pref_dialog_customColor_button">Canviar color</string>
   <string name="colorChooser_pref_dialog_title">Establir color</string>
-  <string name="phone_profiles_pref_category_system">System</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Unlink ringer and notif. volumes</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uncheck when your device has separated volume for ringer and notifications</string>
+  <string name="phone_profiles_pref_category_system">Sistema</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Desenllaçar só i notif. volums</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Desmarca quan el dispositiu hagi separat el volum del só i notificacions</string>
+  <string name="profileicon_pref_dialog_info_about_status_bar_icon">Si canvies el color de la icona, la icona de la barra d\'estat serà blanca. Si selecciones una altre icona, en la barra d\'estat es veurà una icona d\'aplicació.</string>
+  <string name="info_notification_title">Informació important</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Si el teu dispositiu ha separat el volum de so i notificacions, feu clic aquí per impossibilitar la separació de volums.</string>
+  <string name="info_notification_text">Feu clic aquí per mostrar la informació important</string>
+  <string name="profile_preferences_deviceWiFiAP">Punt d\'accés Wi-Fi</string>
 </resources>
