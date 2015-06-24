@@ -55,8 +55,15 @@ public class InfoNotificationActivity extends AppCompatActivity {
             View view = inflater.inflate(R.layout.activity_info_notification_dialog, container);
             getDialog().setTitle(R.string.info_notification_title);
 
-            TextView infoText = (TextView)view.findViewById(R.id.activity_info_notification_dialog_info_text3);
-            infoText.setOnClickListener(new View.OnClickListener() {
+            if (android.os.Build.VERSION.SDK_INT < 21) {
+                TextView infoText1 = (TextView)view.findViewById(R.id.activity_info_notification_dialog_info_text1);
+                infoText1.setVisibility(View.GONE);
+                TextView infoText11 = (TextView)view.findViewById(R.id.activity_info_notification_dialog_info_text11);
+                infoText11.setVisibility(View.GONE);
+            }
+
+            TextView infoText3 = (TextView)view.findViewById(R.id.activity_info_notification_dialog_info_text3);
+            infoText3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PhoneProfilesPreferencesActivity.class);
