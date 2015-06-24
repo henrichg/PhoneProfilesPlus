@@ -509,6 +509,6 @@
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
   <string name="array_pref_ringerModeArray_silentL">Priority mode</string>
   <string name="info_notification_silent_mode_lollipop_rename">Silent ringer mode is renamed to Priority mode.</string>
-  <string name="info_notification_silent_mode_lollipop">Priority mode: If you want silent volumes, change volumes in profile to minimal (0).</string>
+  <string name="info_notification_silent_mode_lollipop">Priority mode: For simulating silent mode, change volume for ringer and notifications in profile to minimal (0).</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">When your device sets vibrate for minimal ringer or notification volume (0), application sets volume to 1. You can use ringer and notification tone \"PhoneProfiles Silent\" for full silence.</string>
 </resources>
