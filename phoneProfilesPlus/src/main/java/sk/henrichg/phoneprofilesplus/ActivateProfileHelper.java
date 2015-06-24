@@ -342,6 +342,11 @@ public class ActivateProfileHelper {
 
     }
 
+    private static final int ZENMODE_ALL = 0;
+    private static final int ZENMODE_PRIORITY = 1;
+    private static final int ZENMODE_NONE = 2;
+
+    @SuppressLint("NewApi")
     public void setVolumes(Profile profile, AudioManager audioManager)
     {
         if (profile.getVolumeSystemChange())
@@ -367,7 +372,12 @@ public class ActivateProfileHelper {
             }
         }
         if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
-            if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
+            boolean doUnlink = audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
+            if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                    (Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_ALL) == ZENMODE_PRIORITY))
+                doUnlink = true;
+
+            if (doUnlink) {
                 TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 int callState = telephony.getCallState();
                 if (callState == TelephonyManager.CALL_STATE_RINGING) {
@@ -411,10 +421,6 @@ public class ActivateProfileHelper {
             audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, profile.getVolumeVoiceValue(), 0);
             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
     }
-
-    private static final int ZENMODE_ALL = 0;
-    private static final int ZENMODE_PRIORITY = 1;
-    private static final int ZENMODE_NONE = 2;
 
     private void setZenMode(int mode)
     {
