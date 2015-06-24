@@ -140,44 +140,45 @@ public class ActivateProfileHelper {
 
         // nahodenie WiFi AP
         boolean canChangeWifi = true;
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
-        {
-            WifiApManager wifiApManager = null;
-            try {
-                wifiApManager = new WifiApManager(context);
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-            if (wifiApManager != null) {
-                boolean setWifiAPState = false;
-                boolean isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
-                switch (profile._deviceWiFiAP) {
-                    case 1:
-                        if (!isWifiAPEnabled) {
-                            isWifiAPEnabled = true;
-                            setWifiAPState = true;
-                            canChangeWifi = false;
-                        }
-                        break;
-                    case 2:
-                        if (isWifiAPEnabled) {
-                            isWifiAPEnabled = false;
-                            setWifiAPState = true;
-                            canChangeWifi = true;
-                        }
-                        break;
-                    case 3:
-                        isWifiAPEnabled = !isWifiAPEnabled;
-                        setWifiAPState = true;
-                        canChangeWifi = !isWifiAPEnabled;
-                        break;
+        if (!onlyCheckForPPHelper) {
+            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, context) == GlobalData.HARDWARE_CHECK_ALLOWED) {
+                WifiApManager wifiApManager = null;
+                try {
+                    wifiApManager = new WifiApManager(context);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
                 }
-                if (setWifiAPState) {
-                    wifiApManager.setWifiApState(isWifiAPEnabled);
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
+                if (wifiApManager != null) {
+                    boolean setWifiAPState = false;
+                    boolean isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
+                    switch (profile._deviceWiFiAP) {
+                        case 1:
+                            if (!isWifiAPEnabled) {
+                                isWifiAPEnabled = true;
+                                setWifiAPState = true;
+                                canChangeWifi = false;
+                            }
+                            break;
+                        case 2:
+                            if (isWifiAPEnabled) {
+                                isWifiAPEnabled = false;
+                                setWifiAPState = true;
+                                canChangeWifi = true;
+                            }
+                            break;
+                        case 3:
+                            isWifiAPEnabled = !isWifiAPEnabled;
+                            setWifiAPState = true;
+                            canChangeWifi = !isWifiAPEnabled;
+                            break;
+                    }
+                    if (setWifiAPState) {
+                        wifiApManager.setWifiApState(isWifiAPEnabled);
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            System.out.println(e);
+                        }
                     }
                 }
             }
