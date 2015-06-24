@@ -169,7 +169,7 @@ public class ActivateProfileHelper {
                     case 3:
                         isWifiAPEnabled = !isWifiAPEnabled;
                         setWifiAPState = true;
-                        canChangeWifi = false;
+                        canChangeWifi = !isWifiAPEnabled;
                         break;
                 }
                 if (setWifiAPState) {
