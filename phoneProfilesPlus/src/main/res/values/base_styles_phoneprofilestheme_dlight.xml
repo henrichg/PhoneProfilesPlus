@@ -44,6 +44,9 @@
         <item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item>
         <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload</item>
 
+        <item name="alertDialogTheme">@style/AlertDialogStyle</item>
+        <item name="dialogTheme">@style/DialogStyle</item>
+
     </style>
 
 </resources>

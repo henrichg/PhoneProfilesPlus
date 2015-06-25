@@ -26,9 +26,9 @@
     </style>
 
 <!--     
-	<style name="editorDrawerSpinnerStyle" parent="@android:TextAppearance.Widget.TextView.SpinnerItem">
-    	<item name="android:textColor">?attr/navigationDrawerText</item>
-  		<item name="android:textSize">17sp</item>
+    <style name="editorDrawerSpinnerStyle" parent="@android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">?attr/navigationDrawerText</item>
+        <item name="android:textSize">17sp</item>
     </style>
  -->
 
@@ -36,5 +36,18 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginRight">@dimen/naw_drawer_margin_offset</item>
     </style>
-    
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/profile_all_accent</item>
+    </style>
+    <style name="AlertDialogStyleDark" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/profile_all_accent_dark</item>
+    </style>
+    <style name="DialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/profile_all_accent</item>
+    </style>
+    <style name="DialogStyleDark" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/profile_all_accent_dark</item>
+    </style>
+
 </resources>
