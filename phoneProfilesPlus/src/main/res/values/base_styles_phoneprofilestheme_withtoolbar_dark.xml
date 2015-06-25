@@ -3,9 +3,9 @@
 
     <style name="Base.Theme.Phoneprofilestheme_withToolbar_dark" parent="@style/Theme.AppCompat.NoActionBar">
         
-     	<item name="colorPrimary">@color/profile_all_primary_dark</item>
-    	<item name="colorPrimaryDark">@color/profile_all_primaryDark_dark</item> 
-<!--      	<item name="colorAccent">@color/profile_all_accent_dark</item>  -->
+        <item name="colorPrimary">@color/profile_all_primary_dark</item>
+        <item name="colorPrimaryDark">@color/profile_all_primaryDark_dark</item>
+        <item name="colorAccent">@color/profile_all_accent_dark</item>
 
         <item name="md_dark_theme">true</item>
         <item name="md_widget_color">?attr/colorAccent</item>
@@ -30,13 +30,13 @@
         <item name="preferenceDialogBackground">@color/preferenceDialogBackgroud_dark</item>
         <item name="editItemMenuIcon">@drawable/ic_profile_item_edit_menu_dark</item> 
         <item name="applicationSettingsLanguageIcon">@drawable/ic_settings_language_dark</item> 
-	    <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_dark</item>
-	    <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-	    <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>
-	    	    	    	    
-	    <item name="android:actionModeBackground">?attr/colorPrimary</item>
-	    <item name="actionModeBackground">?attr/colorPrimary</item>
-	    <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
+        <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_dark</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>
+
+        <item name="android:actionModeBackground">?attr/colorPrimary</item>
+        <item name="actionModeBackground">?attr/colorPrimary</item>
+        <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
         <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>
         <item name="windowActionModeOverlay">true</item>
 

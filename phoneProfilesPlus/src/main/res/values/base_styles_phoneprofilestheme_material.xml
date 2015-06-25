@@ -3,10 +3,10 @@
 
     <style name="Base.Theme.Phoneprofilestheme_material" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         
- 		<!-- customize the color palette -->
-    	<item name="colorPrimary">@color/profile_all_primary</item>
-    	<item name="colorPrimaryDark">@color/profile_all_primaryDark</item>
-<!--      	<item name="colorAccent">@color/profile_all_accent</item> -->
+        <!-- customize the color palette -->
+        <item name="colorPrimary">@color/profile_all_primary</item>
+        <item name="colorPrimaryDark">@color/profile_all_primaryDark</item>
+        <item name="colorAccent">@color/profile_all_accent</item>
 
         <item name="md_widget_color">?attr/colorAccent</item>
 
@@ -14,7 +14,7 @@
         <item name="actionEditProfilesIcon">@drawable/ic_action_edit_profiles_dark</item>
         <item name="activityPopupBackground">@color/activityPopupBackground_phoneprofilestheme</item>
         <item name="cardShape">@drawable/card</item>
-        <item name="headerCardShape">@drawable/header_card</item>
+        <item name="headerCardShape">@drawable/header_card_dlight</item>
         <item name="cardSelector">@drawable/abc_item_background_holo_light</item>
         <item name="dragHandleIcon">@drawable/ic_drag_handle</item>
         <item name="actionProfilePrefSave">@drawable/ic_action_profile_pref_save_dark</item>
@@ -30,11 +30,11 @@
         <item name="preferenceDialogBackground">@color/preferenceDialogBackgroud</item>
         <item name="editItemMenuIcon">@drawable/ic_profile_item_edit_menu</item> 
         <item name="applicationSettingsLanguageIcon">@drawable/ic_settings_language</item> 
-	    <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_dark</item>
-	    	    	    
-	    <item name="android:actionModeBackground">?attr/colorPrimary</item>
-	    <item name="actionModeBackground">?attr/colorPrimary</item>
-	    <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
+        <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_dark</item>
+
+        <item name="android:actionModeBackground">?attr/colorPrimary</item>
+        <item name="actionModeBackground">?attr/colorPrimary</item>
+        <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
         <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>
 
         <item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background</item>
