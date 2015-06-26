@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -116,6 +117,21 @@ public class ProfileIconPreference extends DialogPreference {
             }
         });
         mBuilder.customView(layout, false);
+
+        final TextView helpText = (TextView)layout.findViewById(R.id.profileicon_pref_dlg_helpText);
+
+        ImageView helpIcon = (ImageView)layout.findViewById(R.id.profileicon_pref_dlg_helpIcon);
+        helpIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int visibility = helpText.getVisibility();
+                if (visibility == View.VISIBLE)
+                    visibility = View.GONE;
+                else
+                    visibility = View.VISIBLE;
+                helpText.setVisibility(visibility);
+            }
+        });
 
         mDialog = mBuilder.build();
         if (state != null)
