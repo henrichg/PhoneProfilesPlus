@@ -16,20 +16,20 @@ import android.os.Handler;
 
 public class ScannerService extends IntentService
 {
-	Context context;
-	DataWrapper dataWrapper;
-	
-	private final WifiScanBroadcastReceiver wifiScanReceiver = new WifiScanBroadcastReceiver();
-	private final BluetoothScanBroadcastReceiver bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
+    Context context;
+    DataWrapper dataWrapper;
 
-	public static final String PPHELPER_ACTION_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.ACTION_RADIOCHANGESTATE";
-	public static final String PPHELPER_EXTRA_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.EXTRA_RADIOCHANGESTATE";
+    private final WifiScanBroadcastReceiver wifiScanReceiver = new WifiScanBroadcastReceiver();
+    private final BluetoothScanBroadcastReceiver bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
+
+    public static final String PPHELPER_ACTION_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.ACTION_RADIOCHANGESTATE";
+    public static final String PPHELPER_EXTRA_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.EXTRA_RADIOCHANGESTATE";
 
     Handler wifiBluetoothChangeHandler;
 
-	public ScannerService()
-	{
-		super("ScannerService");
+    public ScannerService()
+    {
+        super("ScannerService");
 
         // if enabled is true, onStartCommand(Intent, int, int) will return START_REDELIVER_INTENT,
         // so if this process dies before onHandleIntent(Intent) returns, the process will be restarted
@@ -39,13 +39,13 @@ public class ScannerService extends IntentService
 
     }
 
-	@SuppressLint("NewApi")
-	@Override
-	protected void onHandleIntent(Intent intent)
-	{
-		context = getApplicationContext();
+    @SuppressLint("NewApi")
+    @Override
+    protected void onHandleIntent(Intent intent)
+    {
+        context = getApplicationContext();
 
-		GlobalData.logE("### ScannerService.onHandleIntent", "-- START ------------");
+        GlobalData.logE("### ScannerService.onHandleIntent", "-- START ------------");
 
         String scanType = intent.getStringExtra(GlobalData.EXTRA_SCANNER_TYPE);
         GlobalData.logE("### ScannerService.onHandleIntent", "scanType="+scanType);
@@ -54,18 +54,18 @@ public class ScannerService extends IntentService
 
         GlobalData.logE("$$$ ScannerService.onHandleIntent", "before synchronized block - scanType=" + scanType);
 
-		synchronized (GlobalData.radioChangeStateMutex) {
+        synchronized (GlobalData.radioChangeStateMutex) {
 
             GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - start - scanType=" + scanType);
 
-      	// send broadcast about radio change state to PPHelper
-		Intent ppHelperIntent1 = new Intent();
-		ppHelperIntent1.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
-		ppHelperIntent1.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, true);
-	    context.sendBroadcast(ppHelperIntent1);
-		
-		if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI))
-		{
+        // send broadcast about radio change state to PPHelper
+        Intent ppHelperIntent1 = new Intent();
+        ppHelperIntent1.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
+        ppHelperIntent1.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, true);
+        context.sendBroadcast(ppHelperIntent1);
+
+        if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI))
+        {
             GlobalData.logE("@@@ ScannerService.onHandleIntent", "getStartScan=false");
 
             boolean canScan = GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.HARDWARE_CHECK_ALLOWED;
@@ -89,6 +89,9 @@ public class ScannerService extends IntentService
                         @Override
                         public void run() {
                             WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
+                            WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                            WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                            WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                         }
                     });
                     try {
@@ -172,9 +175,9 @@ public class ScannerService extends IntentService
                 WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                 WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
             }
-		}
-		else
-		if (scanType.equals(GlobalData.SCANNER_TYPE_BLUETOOTH)) {
+        }
+        else
+        if (scanType.equals(GlobalData.SCANNER_TYPE_BLUETOOTH)) {
             GlobalData.logE("@@@ ScannerService.onHandleIntent", "getStartScan=false");
 
             if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.HARDWARE_CHECK_ALLOWED) {
@@ -190,7 +193,10 @@ public class ScannerService extends IntentService
                     wifiBluetoothChangeHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                        BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
+                            BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
+                            BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                            BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                            BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
                         }
                     });
                     try {
@@ -272,25 +278,25 @@ public class ScannerService extends IntentService
                 BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                 BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
             }
-		}
+        }
 
-      	// send broadcast about radio change state to PPHelper
-		Intent ppHelperIntent2 = new Intent();
-		ppHelperIntent2.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
-		ppHelperIntent2.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, false);
-	    context.sendBroadcast(ppHelperIntent2);
+        // send broadcast about radio change state to PPHelper
+        Intent ppHelperIntent2 = new Intent();
+        ppHelperIntent2.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
+        ppHelperIntent2.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, false);
+        context.sendBroadcast(ppHelperIntent2);
 
             GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - end - scanType="+scanType);
 
-		}
+        }
 
         GlobalData.logE("$$$ ScannerService.onHandleIntent", "after synchronized block - scanType=" + scanType);
 
-		//GlobalData.setRadioChangeState(context, false);
-		
-		GlobalData.logE("### ScannerService.onHandleIntent", "-- END ------------");
-		
-	}
+        //GlobalData.setRadioChangeState(context, false);
+
+        GlobalData.logE("### ScannerService.onHandleIntent", "-- END ------------");
+
+    }
 
     private static boolean canScanWifi(DataWrapper dataWrapper)
     {
@@ -343,33 +349,33 @@ public class ScannerService extends IntentService
     }
 
     @SuppressLint("NewApi")
-	private static int enableWifi(DataWrapper dataWrapper, WifiManager wifi, Handler wifiBluetoothChangeHandler)
+    private static int enableWifi(DataWrapper dataWrapper, WifiManager wifi, Handler wifiBluetoothChangeHandler)
     {
-    	GlobalData.logE("@@@ ScannerService.enableWifi","xxx");
+        GlobalData.logE("@@@ ScannerService.enableWifi","xxx");
 
-    	int wifiState = wifi.getWifiState();
-    	boolean forceScan = GlobalData.getForceOneWifiScan(dataWrapper.context);
-    	
-    	//if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
-    	//{
-    		if (wifiState != WifiManager.WIFI_STATE_ENABLING)
-    		{
-				boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
-				boolean isScanAlwaysAvailable = false;
-		    	//if (android.os.Build.VERSION.SDK_INT >= 18)
-		    	//	isScanAlwaisAvailable = wifi.isScanAlwaysAvailable();
-	        	GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaisAvailable="+isScanAlwaysAvailable);
-	    		isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
-		    	if (!isWifiEnabled)
-		    	{
-		        	if (GlobalData.applicationEventWifiEnableWifi || forceScan)
-		        	{
-						boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
-		
-						if (wifiEventsExists || forceScan)
-						{
-							WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(dataWrapper.context, true);
-							WifiScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, true);
+        int wifiState = wifi.getWifiState();
+        boolean forceScan = GlobalData.getForceOneWifiScan(dataWrapper.context);
+
+        //if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
+        //{
+            if (wifiState != WifiManager.WIFI_STATE_ENABLING)
+            {
+                boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
+                boolean isScanAlwaysAvailable = false;
+                //if (android.os.Build.VERSION.SDK_INT >= 18)
+                //	isScanAlwaisAvailable = wifi.isScanAlwaysAvailable();
+                GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaisAvailable="+isScanAlwaysAvailable);
+                isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
+                if (!isWifiEnabled)
+                {
+                    if (GlobalData.applicationEventWifiEnableWifi || forceScan)
+                    {
+                        boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
+
+                        if (wifiEventsExists || forceScan)
+                        {
+                            WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(dataWrapper.context, true);
+                            WifiScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, true);
                             WifiScanAlarmBroadcastReceiver.lock(dataWrapper.context);
                             final WifiManager _wifi = wifi;
                             wifiBluetoothChangeHandler.post(new Runnable() {
@@ -380,7 +386,7 @@ public class ScannerService extends IntentService
                                     GlobalData.logE("$$$ ScannerService.onHandleIntent", "after enable wifi");
                                 }
                             });
-				        	GlobalData.logE("@@@ ScannerService.enableWifi","set enabled");
+                            GlobalData.logE("@@@ ScannerService.enableWifi","set enabled");
 
                             /*
                             try {
@@ -390,19 +396,19 @@ public class ScannerService extends IntentService
                             }
                             */
 
-							return WifiManager.WIFI_STATE_ENABLING;
-						}
-		        	}
-		    	}
-		    	else
-		    	{
-		        	GlobalData.logE("@@@ ScannerService.enableWifi","already enabled");
-		    		return wifiState;
-		    	}
-    		}
-    	//}
+                            return WifiManager.WIFI_STATE_ENABLING;
+                        }
+                    }
+                }
+                else
+                {
+                    GlobalData.logE("@@@ ScannerService.enableWifi","already enabled");
+                    return wifiState;
+                }
+            }
+        //}
 
-    	return wifiState;
+        return wifiState;
     }
 
     private static boolean canScanBluetooth(DataWrapper dataWrapper)
@@ -451,27 +457,27 @@ public class ScannerService extends IntentService
     }
 
     @SuppressLint("NewApi")
-	private static int enableBluetooth(DataWrapper dataWrapper, BluetoothAdapter bluetooth, Handler wifiBluetoothChangeHandler)
+    private static int enableBluetooth(DataWrapper dataWrapper, BluetoothAdapter bluetooth, Handler wifiBluetoothChangeHandler)
     {
-    	GlobalData.logE("@@@ ScannerService.enableBluetooth","xxx");
+        GlobalData.logE("@@@ ScannerService.enableBluetooth","xxx");
 
-    	int bluetoothState = bluetooth.getState();
-    	boolean forceScan = GlobalData.getForceOneBluetoothScan(dataWrapper.context);
-    	
-    	//if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
-    	//{
-    		boolean isBluetoothEnabled = bluetoothState == BluetoothAdapter.STATE_ON;
-			if (!isBluetoothEnabled)
-	    	{
-	        	if (GlobalData.applicationEventBluetoothEnableBluetooth || forceScan)
-	        	{
-					boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
-	
-					if (bluetoothEventsExists || forceScan)
-					{
-			        	GlobalData.logE("@@@ ScannerService.enableBluetooth","set enabled");
-			        	BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(dataWrapper.context, true);
-						BluetoothScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, true);
+        int bluetoothState = bluetooth.getState();
+        boolean forceScan = GlobalData.getForceOneBluetoothScan(dataWrapper.context);
+
+        //if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
+        //{
+            boolean isBluetoothEnabled = bluetoothState == BluetoothAdapter.STATE_ON;
+            if (!isBluetoothEnabled)
+            {
+                if (GlobalData.applicationEventBluetoothEnableBluetooth || forceScan)
+                {
+                    boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
+
+                    if (bluetoothEventsExists || forceScan)
+                    {
+                        GlobalData.logE("@@@ ScannerService.enableBluetooth","set enabled");
+                        BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(dataWrapper.context, true);
+                        BluetoothScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, true);
                         final BluetoothAdapter _bluetooth = bluetooth;
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
@@ -479,64 +485,64 @@ public class ScannerService extends IntentService
                                 _bluetooth.enable();
                             }
                         });
-						return BluetoothAdapter.STATE_TURNING_ON;
-					}
-	        	}
-	    	}
-	    	else
-	    	{
-	        	GlobalData.logE("@@@ ScannerService.enableBluetooth","already enabled");
-	    		return bluetoothState;
-	    	}
-    	//}
+                        return BluetoothAdapter.STATE_TURNING_ON;
+                    }
+                }
+            }
+            else
+            {
+                GlobalData.logE("@@@ ScannerService.enableBluetooth","already enabled");
+                return bluetoothState;
+            }
+        //}
 
-    	return bluetoothState;
+        return bluetoothState;
     }
-	
+
     public static void waitForWifiScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
-    	for (int i = 0; i < 5 * 60; i++) // 60 seconds for wifi scan (Android 5.0 bug, normally required 5 seconds :-/)
-    	{
+        for (int i = 0; i < 5 * 60; i++) // 60 seconds for wifi scan (Android 5.0 bug, normally required 5 seconds :-/)
+        {
             //GlobalData.logE("$$$ WifiAP", "ScannerService.waitForWifiScanEnd-getScanRequest="+WifiScanAlarmBroadcastReceiver.getScanRequest(context));
             //GlobalData.logE("$$$ WifiAP", "ScannerService.waitForWifiScanEnd-getWaitForResults="+WifiScanAlarmBroadcastReceiver.getWaitForResults(context));
 
-        	if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+            if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                   (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)))) {
                 break;
             }
-    		if (asyncTask != null)
-    		{
-        		if (asyncTask.isCancelled())
-        			break;
-    		}
+            if (asyncTask != null)
+            {
+                if (asyncTask.isCancelled())
+                    break;
+            }
 
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-    	}
+        }
     }
     
     public static void waitForBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
-    	for (int i = 0; i < 5 * 20; i++) // 20 seconds for bluetooth scan
-    	{
+        for (int i = 0; i < 5 * 20; i++) // 20 seconds for bluetooth scan
+        {
             if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                   (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))))
-        		break;
-    		if (asyncTask != null)
-    		{
-        		if (asyncTask.isCancelled())
-        			break;
-    		}
-    		
-	        try {
-	        	Thread.sleep(200);
-		    } catch (InterruptedException e) {
+                break;
+            if (asyncTask != null)
+            {
+                if (asyncTask.isCancelled())
+                    break;
+            }
+
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
                 e.printStackTrace();
-		    }
-    	}
+            }
+        }
     }
     
 }
