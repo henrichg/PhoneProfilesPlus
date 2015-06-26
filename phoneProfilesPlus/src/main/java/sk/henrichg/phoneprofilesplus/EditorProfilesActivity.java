@@ -526,8 +526,13 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
+        MenuItem menuItem = menu.findItem(R.id.menu_settingsX);
+        menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");
+        menuItem = menu.findItem(R.id.menu_import_export);
+        menuItem.setTitle(getResources().getString(R.string.menu_import_export) + "  >");
+
         // change global events run/stop menu item title
-        MenuItem menuItem = menu.findItem(R.id.menu_run_stop_events);
+        menuItem = menu.findItem(R.id.menu_run_stop_events);
         if (menuItem != null)
         {
             if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
