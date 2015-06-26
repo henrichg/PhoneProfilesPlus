@@ -20,59 +20,59 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 public class ProfileIconPreference extends DialogPreference {
 
-	private String imageIdentifier;
-	private boolean isImageResourceID;
+    private String imageIdentifier;
+    private boolean isImageResourceID;
     private boolean useCustomColor;
     private int customColor;
 
-	private MaterialDialog mDialog;
+    private MaterialDialog mDialog;
 
-	private ImageView imageView;
+    private ImageView imageView;
     ProfileIconPreferenceAdapter adapter;
     ImageView dialogIcon;
-	private Context prefContext;
+    private Context prefContext;
 
-	CharSequence preferenceTitle;
+    CharSequence preferenceTitle;
 
-	public static int RESULT_LOAD_IMAGE = 1971;
+    public static int RESULT_LOAD_IMAGE = 1971;
 
-	public ProfileIconPreference(Context context, AttributeSet attrs)
-	{
-		super(context, attrs);
+    public ProfileIconPreference(Context context, AttributeSet attrs)
+    {
+        super(context, attrs);
 
         /*
-		TypedArray typedArray = context.obtainStyledAttributes(attrs,
-				R.styleable.ProfileIconPreference);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs,
+                R.styleable.ProfileIconPreference);
 
-		// resource, resource_file, file
-		imageSource = typedArray.getString(
-			R.styleable.ProfileIconPreference_iconSource);
-		*/
+        // resource, resource_file, file
+        imageSource = typedArray.getString(
+            R.styleable.ProfileIconPreference_iconSource);
+        */
 
 
-	    imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
-		isImageResourceID = true;
+        imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
+        isImageResourceID = true;
         useCustomColor = false;
         customColor = 0;
 
-		prefContext = context;
+        prefContext = context;
 
-		preferenceTitle = getTitle();
+        preferenceTitle = getTitle();
 
-		setWidgetLayoutResource(R.layout.profileicon_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.profileicon_preference); // resource na layout custom preference - TextView-ImageView
 
-		//typedArray.recycle();
+        //typedArray.recycle();
 
-	}
+    }
 
-	//@Override
-	protected void onBindView(View view)
-	{
-		super.onBindView(view);
+    //@Override
+    protected void onBindView(View view)
+    {
+        super.onBindView(view);
 
-		imageView = (ImageView)view.findViewById(R.id.profileicon_pref_imageview); // resource na Textview v custom preference layoute
+        imageView = (ImageView)view.findViewById(R.id.profileicon_pref_imageview); // resource na Textview v custom preference layoute
         updateIcon(false);
-	}
+    }
 
     @Override
     protected void showDialog(Bundle state) {
@@ -145,13 +145,13 @@ public class ProfileIconPreference extends DialogPreference {
         }
     };
 
-	@Override
-	protected Object onGetDefaultValue(TypedArray a, int index)
-	{
-		super.onGetDefaultValue(a, index);
+    @Override
+    protected Object onGetDefaultValue(TypedArray a, int index)
+    {
+        super.onGetDefaultValue(a, index);
 
-		return a.getString(index);  // ikona bude vratena ako retazec
-	}
+        return a.getString(index);  // ikona bude vratena ako retazec
+    }
 
     private void getValuePIDP() {
         String value = getPersistedString(imageIdentifier+"|"+((isImageResourceID) ? "1" : "0")+"|"+((useCustomColor) ? "1" : "0")+"|"+customColor);
@@ -179,26 +179,26 @@ public class ProfileIconPreference extends DialogPreference {
     }
 
     @Override
-	protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
-	{
-		if (restoreValue) {
-			// restore state
+    protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
+    {
+        if (restoreValue) {
+            // restore state
             getValuePIDP();
-		}
-		else {
-			// set state
-			String value = (String) defaultValue;
-			String[] splits = value.split("\\|");
-			try {
-				imageIdentifier = splits[0];
-			} catch (Exception e) {
-				imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
-			}
-			try {
-				isImageResourceID = splits[1].equals("1");
-			} catch (Exception e) {
-				isImageResourceID = true;
-			}
+        }
+        else {
+            // set state
+            String value = (String) defaultValue;
+            String[] splits = value.split("\\|");
+            try {
+                imageIdentifier = splits[0];
+            } catch (Exception e) {
+                imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
+            }
+            try {
+                isImageResourceID = splits[1].equals("1");
+            } catch (Exception e) {
+                isImageResourceID = true;
+            }
             try {
                 useCustomColor = splits[2].equals("1");
             } catch (Exception e) {
@@ -209,72 +209,72 @@ public class ProfileIconPreference extends DialogPreference {
             } catch (Exception e) {
                 customColor = ProfileIconPreferenceAdapter.getIconColor(imageIdentifier);
             }
-			persistString(value);
-		}
+            persistString(value);
+        }
     }
 
     /*
-	@Override
-	protected Parcelable onSaveInstanceState()
-	{
-		// ulozime instance state - napriklad kvoli zmene orientacie
+    @Override
+    protected Parcelable onSaveInstanceState()
+    {
+        // ulozime instance state - napriklad kvoli zmene orientacie
 
-		final Parcelable superState = super.onSaveInstanceState();
-		if (isPersistent()) {
-			// netreba ukladat, je ulozene persistentne
-			return superState;
-		}
+        final Parcelable superState = super.onSaveInstanceState();
+        if (isPersistent()) {
+            // netreba ukladat, je ulozene persistentne
+            return superState;
+        }
 
-		// ulozenie istance state
-		final SavedState myState = new SavedState(superState);
-		myState.imageIdentifierAndType = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0");
-		return myState;
+        // ulozenie istance state
+        final SavedState myState = new SavedState(superState);
+        myState.imageIdentifierAndType = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0");
+        return myState;
 
-	}
+    }
 
-	@Override
-	protected void onRestoreInstanceState(Parcelable state)
-	{
-		if (!state.getClass().equals(SavedState.class)) {
-			// Didn't save state for us in onSaveInstanceState
-			super.onRestoreInstanceState(state);
-			return;
-		}
+    @Override
+    protected void onRestoreInstanceState(Parcelable state)
+    {
+        if (!state.getClass().equals(SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            return;
+        }
 
-		// restore instance state
-		SavedState myState = (SavedState)state;
-		super.onRestoreInstanceState(myState.getSuperState());
-		String value = (String) myState.imageIdentifierAndType;
-		String[] splits = value.split("\\|");
-		try {
-			imageIdentifier = splits[0];
-		} catch (Exception e) {
-			imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
-		}
-		try {
-			isImageResourceID = splits[1].equals("1");
-		} catch (Exception e) {
-			isImageResourceID = true;
-		}
-		notifyChanged();
-	}
+        // restore instance state
+        SavedState myState = (SavedState)state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        String value = (String) myState.imageIdentifierAndType;
+        String[] splits = value.split("\\|");
+        try {
+            imageIdentifier = splits[0];
+        } catch (Exception e) {
+            imageIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
+        }
+        try {
+            isImageResourceID = splits[1].equals("1");
+        } catch (Exception e) {
+            isImageResourceID = true;
+        }
+        notifyChanged();
+    }
     */
 
     /*
-	public String getImageIdentifier()
-	{
-		return imageIdentifier;
-	}
+    public String getImageIdentifier()
+    {
+        return imageIdentifier;
+    }
 
-	public boolean getIsImageResourceID()
-	{
-		return isImageResourceID;
-	}
-	*/
+    public boolean getIsImageResourceID()
+    {
+        return isImageResourceID;
+    }
+    */
 
-	public void setImageIdentifierAndType(String newImageIdentifier, boolean newIsImageResourceID, boolean saveToPreference)
-	{
-		String newValue = newImageIdentifier+"|"+((newIsImageResourceID) ? "1" : "0");
+    public void setImageIdentifierAndType(String newImageIdentifier, boolean newIsImageResourceID, boolean saveToPreference)
+    {
+        String newValue = newImageIdentifier+"|"+((newIsImageResourceID) ? "1" : "0");
 
         if (!saveToPreference) {
             if (!imageIdentifier.equals(newImageIdentifier)) {
@@ -309,7 +309,7 @@ public class ProfileIconPreference extends DialogPreference {
             }
         }
 
-	}
+    }
 
     public void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
         useCustomColor = newUseCustomColor;
@@ -318,8 +318,8 @@ public class ProfileIconPreference extends DialogPreference {
         updateIcon(true);
     }
 
-	public void startGallery()
-	{
+    public void startGallery()
+    {
         //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -329,7 +329,7 @@ public class ProfileIconPreference extends DialogPreference {
         // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
         ProfilePreferencesFragment.setChangedProfileIconPreference(this);
         ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
-	}
+    }
 
     private void showCustomColorChooser() {
         final ProfileIconColorChooserDialog dialog = new ProfileIconColorChooserDialog(prefContext, this, useCustomColor, customColor,
@@ -374,48 +374,48 @@ public class ProfileIconPreference extends DialogPreference {
     }
 
     /*
-	// SavedState class
-	private static class SavedState extends BaseSavedState
-	{
-		String imageIdentifierAndType;
+    // SavedState class
+    private static class SavedState extends BaseSavedState
+    {
+        String imageIdentifierAndType;
 
-		public SavedState(Parcel source)
-		{
-			super(source);
+        public SavedState(Parcel source)
+        {
+            super(source);
 
-			// restore image identifier and type
-			imageIdentifierAndType = source.readString();
-		}
+            // restore image identifier and type
+            imageIdentifierAndType = source.readString();
+        }
 
-		@Override
-		public void writeToParcel(Parcel dest, int flags)
-		{
-			super.writeToParcel(dest, flags);
+        @Override
+        public void writeToParcel(Parcel dest, int flags)
+        {
+            super.writeToParcel(dest, flags);
 
-			// save image identifier and type
-			dest.writeString(imageIdentifierAndType);
-		}
+            // save image identifier and type
+            dest.writeString(imageIdentifierAndType);
+        }
 
-		public SavedState(Parcelable superState)
-		{
-			super(superState);
-		}
+        public SavedState(Parcelable superState)
+        {
+            super(superState);
+        }
 
-		@SuppressWarnings("unused")
-		public static final Creator<SavedState> CREATOR =
-				new Creator<SavedState>() {
-			public SavedState createFromParcel(Parcel in) 
-			{
-				return new SavedState(in);
-			}
-			public SavedState[] newArray(int size)
-			{
-				return new SavedState[size];
-			}
-				
-		};
-	
-	}
-	*/
+        @SuppressWarnings("unused")
+        public static final Creator<SavedState> CREATOR =
+                new Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in)
+            {
+                return new SavedState(in);
+            }
+            public SavedState[] newArray(int size)
+            {
+                return new SavedState[size];
+            }
+
+        };
+
+    }
+    */
 
 }
