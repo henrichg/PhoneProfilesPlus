@@ -510,4 +510,5 @@
   <string name="info_notification_silent_mode_lollipop_rename">Режим \"Без звука\" переименован в режим \"Приоритет\".</string>
   <string name="info_notification_silent_mode_lollipop">Режим \"Приоритет\": для имитации режима \"Без звука\", установите минимальную громкость звонка и уведомлений в профиле (0).</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">Когда ваше устройство настроено вибрировать при минимальной громкости звонков и уведомлений (0), приложение устанавливает громкость 1. Для настройки полностью беззвучного режима, используйте режим звонка и уведомлений «PhoneProfiles Silent».</string>
+  <string name="menu_import_export">Import/Export</string>
 </resources>

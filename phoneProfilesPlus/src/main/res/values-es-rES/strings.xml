@@ -510,4 +510,5 @@
   <string name="info_notification_silent_mode_lollipop_rename">El modo de silencio de llamadas ahora se llama modo Prioritario.</string>
   <string name="info_notification_silent_mode_lollipop">Modo de Prioridad: para simular el modo de silencio, pon al mínimo (0) el volumen de las llamadas y notificaciones en el perfil.</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">Cuando tu dispositivo activa la vibración en el volumen mínimo (0) de llamada o notificación, la aplicación activa el volumen a 1. Puedes usar el tono de llamada y notificación \"PhoneProfiles Silencio\" para silencio total.</string>
+  <string name="menu_import_export">Import/Export</string>
 </resources>

@@ -510,4 +510,5 @@
   <string name="info_notification_silent_mode_lollipop_rename">Ljudlöst ringsignalläge är omdöpt till prioriterat läge.</string>
   <string name="info_notification_silent_mode_lollipop">Prioriterat läge: för att simulera tyst läge, ändrar volymen för ring- och meddelandesignaler i profil till minimal (0).</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">När din enhet sätter vibration till minimal volym (0), anges volym 1. Du kan använda \"PhoneProfiles Silent\" för fullständig tystnad.</string>
+  <string name="menu_import_export">Import/Export</string>
 </resources>

@@ -510,4 +510,5 @@
   <string name="info_notification_silent_mode_lollipop_rename">Tichý režim zvonění je přejmenován na Prioritní režim.</string>
   <string name="info_notification_silent_mode_lollipop">Prioritní režim: Pro simulaci tichého režimu, změňte hlasitost vyzvánění a notifikací v profilu na minimální(0).</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">Když vaše zařízení nastaví vibrování při minimální hodnotě (0), hlasitosti vyzvánění nebo oznámení, aplikace nastaví hlasitost na 1. Můžete použít tón \"PhoneProfiles Silent\" pro vyzvánění a oznámení pro nastavení úplného ticha.</string>
+  <string name="menu_import_export">Import/Export</string>
 </resources>

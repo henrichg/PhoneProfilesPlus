@@ -510,4 +510,5 @@
   <string name="info_notification_silent_mode_lollipop_rename">Mode en silenci es re-nombrat al  mode prioritat.</string>
   <string name="info_notification_silent_mode_lollipop">Mode de prioritat: per simular mode silenciós, canviar el volum, del so i de les notificacions, en el perfil pel mínim (0).</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">Quan el seu dispositiu estableix la vibració al mínim, volum (0), l\'aplicació defineix el volum a 1. Pot utilitzar so i notificació \"PhoneProfiles silenci\" per silenci absolut.</string>
+  <string name="menu_import_export">Import/Export</string>
 </resources>

@@ -510,4 +510,5 @@
   <string name="info_notification_silent_mode_lollipop_rename">Le mode silencieux est renommé en mode priorité.</string>
   <string name="info_notification_silent_mode_lollipop">Mode priorité : pour simuler le mode silencieux, modifier le volume de sonnerie et de notification à la valeur minimale (0) dans profil.</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">Lorsque votre appareil met le mode vibration quand le volmue de sonnerie ou de notification est à (0), l\'application met le volume à 1. Vous pouvez mettre la sonnerie « PhoneProfiles silencieux » pour obtenir le silence complet.</string>
+  <string name="menu_import_export">Import/Export</string>
 </resources>

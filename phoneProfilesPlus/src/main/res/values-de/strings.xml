@@ -510,4 +510,5 @@
   <string name="info_notification_silent_mode_lollipop_rename">Der stille Tonmodus wurde in \"Prioritätsmodus\" umbenannt.</string>
   <string name="info_notification_silent_mode_lollipop">Prioritätsmodus: Um Anrufe und Benachrichtigungen still zu bekommen, setze sie beide im Profil auf 0.</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">Wenn dein Telefon Vibration als Lautstärke 0 wählt, wird PPP die Lautstärke auf 1 setzen. Verwende die Tondatei \"PhoneProfiles Silent\" als Anrufton oder Benachrichtigungston, um sie wirklich leise zu bekommen.</string>
+  <string name="menu_import_export">Import/Export</string>
 </resources>
