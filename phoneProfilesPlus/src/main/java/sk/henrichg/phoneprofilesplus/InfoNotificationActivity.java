@@ -72,15 +72,14 @@ public class InfoNotificationActivity extends AppCompatActivity {
                     intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, GlobalData.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
                     intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "checkbox");
                     getActivity().startActivity(intent);
-
-                    getActivity().finish();
+                    getDialog().dismiss();
                 }
             });
             Button okButton = (Button)view.findViewById(R.id.activity_info_notification_dialog_ok_button);
             okButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getActivity().finish();
+                    getDialog().dismiss();
                 }
             });
 
