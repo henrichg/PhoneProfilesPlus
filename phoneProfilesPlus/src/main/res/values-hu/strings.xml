@@ -506,4 +506,8 @@
   <string name="info_notification_unlink_ringer_notification_volumes">Ha a készüléked külön kezeli a csengő illetve az értesítések hangerejét, kattints ide hangerő szétválasztás megszüntetéséhez.</string>
   <string name="info_notification_text">Kattints ide ha látni akarod a fontos információt</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
+  <string name="array_pref_ringerModeArray_silentL">Priority mode</string>
+  <string name="info_notification_silent_mode_lollipop_rename">Silent ringer mode is renamed to Priority mode.</string>
+  <string name="info_notification_silent_mode_lollipop">Priority mode: For simulating silent mode, change volume for ringer and notifications in profile to minimal (0).</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">When your device sets vibrate for minimal ringer or notification volume (0), application sets volume to 1. You can use ringer and notification tone \"PhoneProfiles Silent\" for full silence.</string>
 </resources>

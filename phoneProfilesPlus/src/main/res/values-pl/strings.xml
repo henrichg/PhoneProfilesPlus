@@ -502,8 +502,12 @@
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Rozłącz ustawienia głośności dzwonka i powiadomień</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Usuń zaznaczenie gdy urządzenie ma oddzielne ustawienia głośności dla dzwonka i powiadomień</string>
   <string name="profileicon_pref_dialog_info_about_status_bar_icon">If you change the color of the icon, the icon in the status bar will be white. If you select custom icon, in status bar will be application icon.</string>
-  <string name="info_notification_title">Important info</string>
+  <string name="info_notification_title">Ważne informacje</string>
   <string name="info_notification_unlink_ringer_notification_volumes">If your device has separated volume for ringer and notifications, click here for disabling volumes separation.</string>
-  <string name="info_notification_text">Click here for show important info</string>
+  <string name="info_notification_text">Kliknij tutaj, aby pokazać ważne informacje</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
+  <string name="array_pref_ringerModeArray_silentL">Tryb priorytetu</string>
+  <string name="info_notification_silent_mode_lollipop_rename">Silent ringer mode is renamed to Priority mode.</string>
+  <string name="info_notification_silent_mode_lollipop">Priority mode: For simulating silent mode, change volume for ringer and notifications in profile to minimal (0).</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">When your device sets vibrate for minimal ringer or notification volume (0), application sets volume to 1. You can use ringer and notification tone \"PhoneProfiles Silent\" for full silence.</string>
 </resources>

@@ -506,4 +506,8 @@
   <string name="info_notification_unlink_ringer_notification_volumes">Якщо в Вашому пристрої роздільне регулювання гучності для дзвінка та сповіщень, натисніть тут щоб скасувати розділення гучності.</string>
   <string name="info_notification_text">Натисніть тут щоб відобразити важливу інформацію</string>
   <string name="profile_preferences_deviceWiFiAP">Точка доступу Wi-Fi</string>
+  <string name="array_pref_ringerModeArray_silentL">Режим пріоритету</string>
+  <string name="info_notification_silent_mode_lollipop_rename">Режим тихого дзвінка перейменовано в Режим пріоритетності.</string>
+  <string name="info_notification_silent_mode_lollipop">Режим пріоритетності: Для симуляції режиму тиші, встановіть мінімальну гучність (0) для дзвінків та сповіщень.</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">Коли на вашому пристрої встановлено режим вібрації для мінімальної гучності дзвінків або сповіщень (0), додаток встановить гучність на 1. Ви можете використовувати тип дзвінків та сповіщень \"PhoneProfiles Silent\" для повної тиші.</string>
 </resources>

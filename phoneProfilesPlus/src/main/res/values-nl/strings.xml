@@ -296,8 +296,7 @@
   <string name="phoneprofilehepler_install_title">PPHelper installatie</string>
   <string name="phoneprofilehepler_install_message">Weet je het zeker?</string>
   <string name="phoneprofilehepler_reboot_title">PPHelper installatie</string>
-  <string name="phoneprofilehepler_reboot_message">Om PPHelper te gebruiken is een herstart vereist. 
-Nu herstarten?</string>
+  <string name="phoneprofilehepler_reboot_message">Om PPHelper te gebruiken is een herstart vereist. Nu herstarten?</string>
   <string name="phoneprofilehepler_uninstall_title">PPHelper verwijderen</string>
   <string name="phoneprofilehepler_uninstall_message">Weet je het zeker?</string>
   <string name="phoneprofilehepler_install_error">Fout bij het installeren van PPHelper</string>
@@ -508,4 +507,8 @@ Toch activeren?</string>
   <string name="info_notification_unlink_ringer_notification_volumes">If your device has separated volume for ringer and notifications, click here for disabling volumes separation.</string>
   <string name="info_notification_text">Click here for show important info</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
+  <string name="array_pref_ringerModeArray_silentL">Priority mode</string>
+  <string name="info_notification_silent_mode_lollipop_rename">Silent ringer mode is renamed to Priority mode.</string>
+  <string name="info_notification_silent_mode_lollipop">Priority mode: For simulating silent mode, change volume for ringer and notifications in profile to minimal (0).</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">When your device sets vibrate for minimal ringer or notification volume (0), application sets volume to 1. You can use ringer and notification tone \"PhoneProfiles Silent\" for full silence.</string>
 </resources>

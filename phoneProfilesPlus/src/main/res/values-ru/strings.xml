@@ -481,7 +481,7 @@
   <string name="array_event_pref_calendarSearchField_location">Местоположение</string>
   <string name="profile_preferences_vibrationOnTouch">Вибрация при нажатии</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">Показывать в строке состояния</string>
-  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показать в строке состояния и  и на экране блокировки</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показать в строке состояния и на экране блокировки</string>
   <string name="menu_activity_log_reload">Перезагрузка</string>
   <string name="event_preferences_atEndDo">И выполнить</string>
   <string name="array_pref_atEndDo_none">Ничего</string>
@@ -506,4 +506,8 @@
   <string name="info_notification_unlink_ringer_notification_volumes">Если у Вашего устройства раздельная регулировка громкости для звонка и уведомлений, нажмите здесь чтобы отменить разделение громкости.</string>
   <string name="info_notification_text">Нажмите для просмотра важной информации</string>
   <string name="profile_preferences_deviceWiFiAP">Точка доступа Wi-Fi</string>
+  <string name="array_pref_ringerModeArray_silentL">Режим приоритета</string>
+  <string name="info_notification_silent_mode_lollipop_rename">Режим \"Без звука\" переименован в режим \"Приоритет\".</string>
+  <string name="info_notification_silent_mode_lollipop">Режим \"Приоритет\": для имитации режима \"Без звука\", установите минимальную громкость звонка и уведомлений в профиле (0).</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">Когда ваше устройство настроено вибрировать при минимальной громкости звонков и уведомлений (0), приложение устанавливает громкость 1. Для настройки полностью беззвучного режима, используйте режим звонка и уведомлений «PhoneProfiles Silent».</string>
 </resources>

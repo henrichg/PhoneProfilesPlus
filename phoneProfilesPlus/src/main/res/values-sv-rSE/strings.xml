@@ -506,4 +506,8 @@
   <string name="info_notification_unlink_ringer_notification_volumes">Om din enhet har separerat volym för ringsignal och meddelanden, klicka här för att inaktivera volymseparation.</string>
   <string name="info_notification_text">Klicka här för att visa viktig info</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi-hotspot</string>
+  <string name="array_pref_ringerModeArray_silentL">Prioriterat läge</string>
+  <string name="info_notification_silent_mode_lollipop_rename">Ljudlöst ringsignalläge är omdöpt till prioriterat läge.</string>
+  <string name="info_notification_silent_mode_lollipop">Prioriterat läge: för att simulera tyst läge, ändrar volymen för ring- och meddelandesignaler i profil till minimal (0).</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">När din enhet sätter vibration till minimal volym (0), anges volym 1. Du kan använda \"PhoneProfiles Silent\" för fullständig tystnad.</string>
 </resources>

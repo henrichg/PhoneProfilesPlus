@@ -497,7 +497,7 @@
   <string name="array_event_pref_calendarAvailability_tentative">Nezáväzný</string>
   <string name="event_preferences_manualProfileActivation">Manuálne aktivovať profil</string>
   <string name="profileicon_pref_dialog_customColor_button">Zmena farby</string>
-  <string name="colorChooser_pref_dialog_title">Výber  farby</string>
+  <string name="colorChooser_pref_dialog_title">Výber farby</string>
   <string name="phone_profiles_pref_category_system">Systém</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Oddeľ hlasitosť zvonenia a notif.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Zrušte začiarknutie políčka ak Vaše zariadenie má oddelenú hlasitosť zvonenia a notifikácií</string>
@@ -506,4 +506,8 @@
   <string name="info_notification_unlink_ringer_notification_volumes">Pre zakázanie oddeľovania hlasitostí, ak váš prístroj má oddelenú hlasitosť vyzváňania a upozornení, kliknite sem.</string>
   <string name="info_notification_text">Kliknite sem pre zobrazenie dôležitých informácií</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi prístupový bod</string>
+  <string name="array_pref_ringerModeArray_silentL">Prioritný mód</string>
+  <string name="info_notification_silent_mode_lollipop_rename">Tichý mód zvonenia je premenovaný na Prioritný mód.</string>
+  <string name="info_notification_silent_mode_lollipop">Prioritný mód: Pre simuláciu tichého režimu, zmente hlasitosť zvonenia a notifikácií v profile na minimálnu (0).</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">Keď vaše zariadenie nastaví vibrovanie pri minimálnej hodnote (0) hlasitosti zvonenia alebo notifikácie, aplikácia nastaví hlasitosť na 1. Môžete použiť tón \"PhoneProfiles Silent\" pre zvonenia a notifikácie pre nastavenie úplného ticha.</string>
 </resources>
