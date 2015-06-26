@@ -37,7 +37,8 @@
         android:paddingBottom="5dp"
         android:paddingRight="@dimen/important_info_right_margin"
         android:text="@string/info_notification_unlink_ringer_notification_volumes"
-        android:id="@+id/activity_info_notification_dialog_info_text3" />
+        android:id="@+id/activity_info_notification_dialog_info_text3"
+        android:textColor="?attr/colorAccent"/>
 
     <Button
         android:layout_width="wrap_content"
