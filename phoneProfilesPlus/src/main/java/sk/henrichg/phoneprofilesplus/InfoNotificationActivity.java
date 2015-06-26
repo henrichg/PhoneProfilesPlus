@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -27,14 +28,18 @@ public class InfoNotificationActivity extends AppCompatActivity {
     {
         super.onStart();
 
+        /*
         // set theme and language for dialog alert ;-)
         // not working on Android 2.3.x
-        GUIData.setTheme(this, true, false);
+        GUIData.setTheme(this, false, false);
         GUIData.setLanguage(this.getBaseContext());
+        */
 
         FragmentManager fm = getSupportFragmentManager();
         InfoNotificationDialog infoNotificationDialog = new InfoNotificationDialog();
+        infoNotificationDialog.setStyle( DialogFragment.STYLE_NO_TITLE, GUIData.getDialogTheme(true));
         infoNotificationDialog.show(fm, "info_notification_dialog");
+
     }
 
     @Override

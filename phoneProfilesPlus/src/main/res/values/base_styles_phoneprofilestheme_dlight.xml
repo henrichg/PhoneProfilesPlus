@@ -46,6 +46,8 @@
 
         <item name="alertDialogTheme">@style/AlertDialogStyle</item>
         <item name="dialogTheme">@style/DialogStyle</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogStyle</item>
+        <item name="android:dialogTheme">@style/DialogStyle</item>
 
     </style>
 
