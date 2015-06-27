@@ -697,6 +697,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
+            ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+
             finish();
 
             return true;

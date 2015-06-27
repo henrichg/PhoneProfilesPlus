@@ -667,25 +667,36 @@ public class ActivateProfileHelper {
         // screen timeout
         switch (profile._deviceScreenTimeout) {
             case 1:
+                screenTimeoutUnlock(context);
                 Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                 break;
             case 2:
+                screenTimeoutUnlock(context);
                 Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
                 break;
             case 3:
+                screenTimeoutUnlock(context);
                 Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
                 break;
             case 4:
+                screenTimeoutUnlock(context);
                 Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
                 break;
             case 5:
+                screenTimeoutUnlock(context);
                 Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
                 break;
             case 6:
+                screenTimeoutUnlock(context);
                 if (android.os.Build.VERSION.SDK_INT < 19)
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
                 else
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 18000000);
+                    screenTimeoutLock(context);
+                    //Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 18000000);
+                break;
+            case 7:
+                screenTimeoutUnlock(context);
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
                 break;
         }
 
@@ -865,6 +876,38 @@ public class ActivateProfileHelper {
             }
         }
 
+    }
+
+    private static void screenTimeoutLock(Context context)
+    {
+        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        if (GUIData.keepScreenOnView != null)
+        {
+            windowManager.removeView(GUIData.keepScreenOnView);
+            GUIData.keepScreenOnView = null;
+        }
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                1, 1,
+                WindowManager.LayoutParams.TYPE_TOAST,
+                //TYPE_SYSTEM_ALERT,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                PixelFormat.TRANSLUCENT
+        );
+        params.gravity = Gravity.RIGHT | Gravity.TOP;
+        GUIData.keepScreenOnView = new BrightnessView(context);
+        windowManager.addView(GUIData.keepScreenOnView, params);
+    }
+
+    public static void screenTimeoutUnlock(Context context)
+    {
+        if (GUIData.keepScreenOnView != null)
+        {
+            WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+            windowManager.removeView(GUIData.keepScreenOnView);
+            GUIData.keepScreenOnView = null;
+        }
+
+        GlobalData.logE("@@@ screenTimeoutLock.unlock","xxx");
     }
 
     @SuppressLint("RtlHardcoded")
