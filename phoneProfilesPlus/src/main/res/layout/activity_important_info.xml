@@ -21,15 +21,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/info_notification_silent_mode_lollipop_rename"
-                android:id="@+id/activity_info_notification_dialog_info_text1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/info_notification_silent_mode_lollipop"
-                android:id="@+id/activity_info_notification_dialog_info_text11" />
+                android:text="@string/array_phone_profiles_navigator_profiles"
+                android:id="@+id/activity_info_notification_dialog_profiles"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,6 +39,28 @@
                 android:text="@string/info_notification_unlink_ringer_notification_volumes"
                 android:id="@+id/activity_info_notification_dialog_info_text3"
                 android:textColor="?attr/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/info_notification_silent_mode_lollipop_rename"
+                android:id="@+id/activity_info_notification_dialog_info_text1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/info_notification_silent_mode_lollipop"
+                android:id="@+id/activity_info_notification_dialog_info_text11" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/array_phone_profiles_navigator_events"
+                android:id="@+id/activity_info_notification_dialog_events"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
