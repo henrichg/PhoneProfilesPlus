@@ -399,7 +399,7 @@
   <string name="event_preferences_screen_enabled">Enable screen</string>
   <string name="event_preferences_screen_event_type">Event type</string>
   <string name="event_preferences_delayStart">Delay (sec)</string>
-  <string name="profile_preferences_duration">Duration (min)</string>
+  <string name="profile_preferences_duration">Duration (sec)</string>
   <string name="profile_preferences_afterDurationDo">After duration do</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Nothing</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Undo the profile</string>

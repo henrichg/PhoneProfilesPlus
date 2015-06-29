@@ -23,7 +23,7 @@
             android:title="@string/profile_preferences_duration" 
             android:defaultValue="0"
             henrichg:min="0"
-            henrichg:max="1440" />
+            henrichg:max="68400" />
 		<com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_afterDurationDo"
             android:summary="@string/array_pref_afterProfileDurationDo_nothing"

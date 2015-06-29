@@ -398,7 +398,7 @@
   <string name="event_preferences_screen_enabled">Použi obrazovku</string>
   <string name="event_preferences_screen_event_type">Typ udalosti</string>
   <string name="event_preferences_delayStart">Pozdržanie (sek.)</string>
-  <string name="profile_preferences_duration">Trvanie (min.)</string>
+  <string name="profile_preferences_duration">Trvanie (sek.)</string>
   <string name="profile_preferences_afterDurationDo">Po uplynutí trvania urob</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Nič</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Vráť späť profil</string>
