@@ -510,5 +510,13 @@
   <string name="info_notification_silent_mode_lollipop_rename">El modo de silencio de llamadas ahora se llama modo Prioritario.</string>
   <string name="info_notification_silent_mode_lollipop">Modo de Prioridad: para simular el modo de silencio, pon al mínimo (0) el volumen de las llamadas y notificaciones en el perfil.</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">Cuando tu dispositivo activa la vibración en el volumen mínimo (0) de llamada o notificación, la aplicación activa el volumen a 1. Puedes usar el tono de llamada y notificación \"PhoneProfiles Silencio\" para silencio total.</string>
-  <string name="menu_import_export">Import/Export</string>
+  <string name="menu_import_export">Importar/Exportar</string>
+  <string name="array_pref_screenTimeoutArray_5minutes">5 minutos</string>
+  <string name="info_notification_event_not_started">Event is not started when:\n1. You have disabled global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".\n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
+  <string name="important_info_profiles">Profiles</string>
+  <string name="important_info_events">Events</string>
+  <string name="important_info_system">System</string>
+  <string name="important_info_profile_root">Same profile preferences requires ROOT privileges. These preferences are marked with \"(R)\".</string>
+  <string name="important_info_profile_pphelper">Same profile preferences requires installed PPHelper. These preferences are marked with \"(H)\".</string>
+  <string name="important_info_pphelper_installation">PPHelper installation requires ROOT privileges. You can invoke PPHelper installation in Editor, via menu item \"Install PPHelper\".</string>
 </resources>
