@@ -768,3 +768,9 @@ Kde sa vola GlobalData.setEventsBlocked():
 
 --------------------------------------------------------------------
 
+Event not started when:
+1. You have disabled global events run (red "traffic light") - enable it in Editor menu with item "Enable events run".
+2. You have manually activated profile (orange "traffic light") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with "[M]" before the profile name.
+Exception from this is, when event has checked preference "Ignore manual activation".
+3. You have disabled event run in event preferences - event preference "Enable run" must by checked.
+Note: "Traffic light" is in title of Activator and Editor.
