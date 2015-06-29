@@ -7,38 +7,59 @@
     android:paddingTop="@dimen/important_info_top_margin"
     android:paddingBottom="5dp" >
 
-    <TextView
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingRight="@dimen/important_info_right_margin"
-        android:text="@string/info_notification_silent_mode_lollipop_rename"
-        android:id="@+id/activity_info_notification_dialog_info_text1" />
+        android:layout_height="350dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingRight="@dimen/important_info_right_margin"
-        android:text="@string/info_notification_silent_mode_lollipop"
-        android:id="@+id/activity_info_notification_dialog_info_text11" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingRight="@dimen/important_info_right_margin"
-        android:text="@string/info_notification_minimal_ringer_and_notification_volumes"
-        android:id="@+id/activity_info_notification_dialog_info_text2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingRight="@dimen/important_info_right_margin"
+                android:text="@string/info_notification_silent_mode_lollipop_rename"
+                android:id="@+id/activity_info_notification_dialog_info_text1" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingRight="@dimen/important_info_right_margin"
-        android:text="@string/info_notification_unlink_ringer_notification_volumes"
-        android:id="@+id/activity_info_notification_dialog_info_text3"
-        android:textColor="?attr/colorAccent"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingRight="@dimen/important_info_right_margin"
+                android:text="@string/info_notification_silent_mode_lollipop"
+                android:id="@+id/activity_info_notification_dialog_info_text11" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingRight="@dimen/important_info_right_margin"
+                android:text="@string/info_notification_minimal_ringer_and_notification_volumes"
+                android:id="@+id/activity_info_notification_dialog_info_text2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingRight="@dimen/important_info_right_margin"
+                android:text="@string/info_notification_unlink_ringer_notification_volumes"
+                android:id="@+id/activity_info_notification_dialog_info_text3"
+                android:textColor="?attr/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingRight="@dimen/important_info_right_margin"
+                android:text="@string/info_notification_event_not_started"
+                android:id="@+id/activity_info_notification_dialog_info_text4" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <Button
         android:layout_width="wrap_content"
