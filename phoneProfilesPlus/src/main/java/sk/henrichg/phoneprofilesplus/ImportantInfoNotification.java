@@ -1,26 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
-public class InfoNotificationOnStart {
+public class ImportantInfoNotification {
 
     static public void showInfoNotification(Context context) {
 
@@ -52,7 +39,7 @@ public class InfoNotificationOnStart {
                 .setContentText(context.getString(R.string.app_name) + ": " +
                         text) // message for notification
                 .setAutoCancel(true); // clear notification after click
-        Intent intent = new Intent(context, InfoNotificationActivity.class);
+        Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);

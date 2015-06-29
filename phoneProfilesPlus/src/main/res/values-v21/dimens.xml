@@ -3,4 +3,5 @@
     <dimen name="important_info_top_margin">25dp</dimen>
     <dimen name="important_info_left_margin">25dp</dimen>
     <dimen name="important_info_right_margin">25dp</dimen>
+    <dimen name="important_info_bottom_margin">25dp</dimen>
 </resources>

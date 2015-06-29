@@ -21,37 +21,37 @@ import java.io.InputStream;
 
 public class FirstStartService extends IntentService {
 
-	public FirstStartService()
-	{
-		super("FirstStartService");
-	}
+    public FirstStartService()
+    {
+        super("FirstStartService");
+    }
 
     @Override
-	protected void onHandleIntent(Intent intent)
-	{
-		Context context = getApplicationContext();
+    protected void onHandleIntent(Intent intent)
+    {
+        Context context = getApplicationContext();
 
         GlobalData.logE("$$$ FirstStartService.onHandleIntent","--- START");
 
-		// grant root
-		//if (GlobalData.isRooted(false))
-		//{
-			if (GlobalData.grantRoot(true))
-			{
-				GlobalData.settingsBinaryExists();
-				//GlobalData.getSUVersion();
-			}
-		//}
+        // grant root
+        //if (GlobalData.isRooted(false))
+        //{
+            if (GlobalData.grantRoot(true))
+            {
+                GlobalData.settingsBinaryExists();
+                //GlobalData.getSUVersion();
+            }
+        //}
 
         if (GlobalData.getApplicationStarted(context))
-			return;
+            return;
 
         GlobalData.logE("$$$ FirstStartService.onHandleIntent","application not started");
 
-		//int startType = intent.getStringExtra(GlobalData.EXTRA_FIRST_START_TYPE);
-		
-		GlobalData.loadPreferences(context);
-		GUIData.setLanguage(context);
+        //int startType = intent.getStringExtra(GlobalData.EXTRA_FIRST_START_TYPE);
+
+        GlobalData.loadPreferences(context);
+        GUIData.setLanguage(context);
 
         // remove phoneprofiles_silent.mp3
         //removeTone("phoneprofiles_silent.mp3", context);
@@ -66,29 +66,29 @@ public class FirstStartService extends IntentService {
 
         GlobalData.setActivatedProfileForDuration(context, 0);
 
-		// show notification about upgrade PPHelper
+        // show notification about upgrade PPHelper
         PhoneProfilesHelper.showPPHelperUpgradeNotification(context);
         // show info notification
-        InfoNotificationOnStart.showInfoNotification(context);
+        ImportantInfoNotification.showInfoNotification(context);
 
-		// start ReceiverService
-		context.startService(new Intent(context.getApplicationContext(), ReceiversService.class));
+        // start ReceiverService
+        context.startService(new Intent(context.getApplicationContext(), ReceiversService.class));
 
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         GlobalData.setActivatedProfileForDuration(context, 0);
 
-		DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
-		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
-		dataWrapper.getDatabaseHandler().deleteAllEventTimelines(true);
+        DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
+        dataWrapper.getDatabaseHandler().deleteAllEventTimelines(true);
 
-		// create a handler to post messages to the main thread
-	    Handler toastHandler = new Handler(getMainLooper());
-	    dataWrapper.setToastHandler(toastHandler);
-	    Handler brightnessHandler = new Handler(getMainLooper());
-	    dataWrapper.getActivateProfileHelper().setBrightnessHandler(brightnessHandler);
-		
-		// zrusenie notifikacie
-		dataWrapper.getActivateProfileHelper().removeNotification();
+        // create a handler to post messages to the main thread
+        Handler toastHandler = new Handler(getMainLooper());
+        dataWrapper.setToastHandler(toastHandler);
+        Handler brightnessHandler = new Handler(getMainLooper());
+        dataWrapper.getActivateProfileHelper().setBrightnessHandler(brightnessHandler);
+
+        // zrusenie notifikacie
+        dataWrapper.getActivateProfileHelper().removeNotification();
 
         dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
@@ -96,20 +96,20 @@ public class FirstStartService extends IntentService {
         BluetoothScanAlarmBroadcastReceiver.initialize(context);
 
         // startneme eventy
-		if (GlobalData.getGlobalEventsRuning(context))
-		{
-			// must by false for avoiding starts/pause events from receivers before restart events
-			GlobalData.setApplicationStarted(context, false);
-			dataWrapper.firstStartEvents(true);
-		}
-		else
-		{
-			GlobalData.setApplicationStarted(context, true);
+        if (GlobalData.getGlobalEventsRuning(context))
+        {
+            // must by false for avoiding starts/pause events from receivers before restart events
+            GlobalData.setApplicationStarted(context, false);
+            dataWrapper.firstStartEvents(true);
+        }
+        else
+        {
+            GlobalData.setApplicationStarted(context, true);
             dataWrapper.activateProfileOnBoot();
-		}
-		
-		dataWrapper.invalidateDataWrapper();
-	}
+        }
+
+        dataWrapper.invalidateDataWrapper();
+    }
 
     private boolean installTone(int resID, String title, Context context) {
 

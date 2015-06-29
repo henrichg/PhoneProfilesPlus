@@ -663,7 +663,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             return true;
         case R.id.important_info:
-            intent = new Intent(getBaseContext(), InfoNotificationActivity.class);
+            intent = new Intent(getBaseContext(), ImportantInfoActivity.class);
             startActivity(intent);
             return true;
         /*case R.id.menu_help:

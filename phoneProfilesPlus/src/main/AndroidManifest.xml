@@ -189,11 +189,9 @@
             android:configChanges="locale|layoutDirection" >
         </activity>
         <activity
-            android:name=".InfoNotificationActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity" >
+            android:name=".ImportantInfoActivity"
+            android:label="@string/info_notification_title"
+            android:configChanges="locale|layoutDirection" >
         </activity>
 
         <receiver
