@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/array_phone_profiles_navigator_profiles"
+                android:text="@string/important_info_profiles"
                 android:id="@+id/activity_info_notification_dialog_profiles"
                 android:textStyle="bold" />
 
@@ -58,15 +58,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/array_phone_profiles_navigator_events"
+                android:text="@string/important_info_events"
                 android:id="@+id/activity_info_notification_dialog_events"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:text="@string/info_notification_event_not_started"
                 android:id="@+id/activity_info_notification_dialog_info_text4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_system"
+                android:id="@+id/activity_info_notification_dialog_system"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_root"
+                android:id="@+id/activity_info_notification_dialog_info_text5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_pphelper"
+                android:id="@+id/activity_info_notification_dialog_info_text6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_pphelper_installation"
+                android:id="@+id/activity_info_notification_dialog_info_text7" />
 
         </LinearLayout>
 
