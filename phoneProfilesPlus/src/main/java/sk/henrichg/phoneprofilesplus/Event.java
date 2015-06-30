@@ -362,6 +362,7 @@ public class Event {
         this._eventPreferencesScreen.saveSharedPreferences(preferences);
         this._eventPreferencesBluetooth.saveSharedPreferences(preferences);
         this._eventPreferencesSMS.saveSharedPreferences(preferences);
+        this._eventPreferencesProfile.saveSharedPreferences(preferences);
 
         if (!this.isRunnable())
             this._status = ESTATUS_STOP;

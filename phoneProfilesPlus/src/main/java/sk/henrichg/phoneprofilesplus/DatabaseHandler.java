@@ -1237,7 +1237,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PROFILE_ENABLED + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PROFILE_FK_PROFILE + "=" + GlobalData.PROFILE_NO_ACTIVATE);
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PROFILE_FK_PROFILE + "=0");
 
             // pridame index
             db.execSQL("CREATE INDEX IDX_PROFILE_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_PROFILE_FK_PROFILE + ")");
@@ -1621,7 +1621,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     new String[] { String.valueOf(profile._id) });
 
             ContentValues values3 = new ContentValues();
-            values3.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
+            values3.put(KEY_E_PROFILE_FK_PROFILE, 0);
             db.update(TABLE_EVENTS, values3, KEY_E_PROFILE_FK_PROFILE + " = ?",
                     new String[] { String.valueOf(profile._id) });
 
@@ -1649,7 +1649,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_FK_PROFILE_START, 0);
             values.put(KEY_E_FK_PROFILE_END, GlobalData.PROFILE_NO_ACTIVATE);
-            values.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
+            values.put(KEY_E_PROFILE_FK_PROFILE, 0);
             db.update(TABLE_EVENTS, values, null, null);
 
             db.setTransactionSuccessful();
@@ -2444,7 +2444,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         new String[] { String.valueOf(profile._id) });
 
             ContentValues values3 = new ContentValues();
-            values3.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
+            values3.put(KEY_E_PROFILE_FK_PROFILE, 0);
             // updating row
             db.update(TABLE_EVENTS, values3, KEY_E_PROFILE_FK_PROFILE + " = ?",
                     new String[] { String.valueOf(profile._id) });
@@ -2467,7 +2467,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_E_FK_PROFILE_START, 0);
         values.put(KEY_E_FK_PROFILE_END, GlobalData.PROFILE_NO_ACTIVATE);
-        values.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
+        values.put(KEY_E_PROFILE_FK_PROFILE, 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, null, null);
@@ -4087,8 +4087,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     {
                                                         if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) && (cursorExportedDB.getLong(i) == GlobalData.PROFILE_NO_ACTIVATE))
                                                             values.put(columnNamesExportedDB[i], GlobalData.PROFILE_NO_ACTIVATE);
-                                                        if (columnNamesExportedDB[i].equals(KEY_E_PROFILE_FK_PROFILE) && (cursorExportedDB.getLong(i) == GlobalData.PROFILE_NO_ACTIVATE))
-                                                            values.put(columnNamesExportedDB[i], GlobalData.PROFILE_NO_ACTIVATE);
                                                         else
                                                             values.put(columnNamesExportedDB[i], 0);
                                                     }
@@ -4356,7 +4354,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                         if (exportedDBObj.getVersion() < 1360) {
                                             values.put(KEY_E_PROFILE_ENABLED, 0);
-                                            values.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
+                                            values.put(KEY_E_PROFILE_FK_PROFILE, 0);
                                         }
 
                                     // Inserting Row do db z SQLiteOpenHelper

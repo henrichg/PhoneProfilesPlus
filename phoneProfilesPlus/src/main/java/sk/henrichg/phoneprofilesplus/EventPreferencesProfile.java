@@ -39,7 +39,7 @@ public class EventPreferencesProfile extends EventPreferences {
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_PROFILE_ENABLED, _enabled);
-        editor.putLong(PREF_EVENT_PROFILE_PROFILE_ID, this._profileId);
+        editor.putString(PREF_EVENT_PROFILE_PROFILE_ID, Long.toString(this._profileId));
         editor.commit();
     }
 
@@ -47,7 +47,7 @@ public class EventPreferencesProfile extends EventPreferences {
     public void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_PROFILE_ENABLED, false);
-        this._profileId = preferences.getLong(PREF_EVENT_PROFILE_PROFILE_ID, 0);
+        this._profileId = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_PROFILE_ID, "0"));
     }
 
     @Override
@@ -77,16 +77,47 @@ public class EventPreferencesProfile extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_PROFILE_PROFILE_ID))
+        {
+            Preference preference = prefMng.findPreference(key);
+
+            String sProfileId = value;
+            long lProfileId;
+            try {
+                lProfileId = Long.parseLong(sProfileId);
+            } catch (Exception e) {
+                lProfileId = 0;
+            }
+            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+            Profile profile = dataWrapper.getProfileById(lProfileId, false);
+            if (profile != null)
+            {
+                preference.setSummary(profile._name);
+            }
+            else
+            {
+                if (lProfileId == GlobalData.PROFILE_NO_ACTIVATE)
+                    preference.setSummary(context.getResources().getString(R.string.profile_preference_profile_end_no_activate));
+                else
+                    preference.setSummary(context.getResources().getString(R.string.profile_preference_profile_not_set));
+            }
+            GUIData.setPreferenceTitleStyle(preference, false, true);
+        }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (key.equals(PREF_EVENT_PROFILE_PROFILE_ID))
+        {
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
+        }
     }
 
     @Override
     public void setAllSummary(PreferenceManager prefMng, Context context)
     {
+        setSummary(prefMng, PREF_EVENT_PROFILE_PROFILE_ID, Long.toString(this._profileId), context);
     }
 
     @Override
@@ -95,9 +126,14 @@ public class EventPreferencesProfile extends EventPreferences {
     }
 
     @Override
+    public boolean isRunable(){
+        return _profileId > 0;
+    }
+
+    @Override
     public boolean activateReturnProfile()
     {
-        return _profileId > 0;
+        return true;
     }
 
     @Override

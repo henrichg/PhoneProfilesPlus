@@ -152,7 +152,8 @@
             android:defaultValue="-999"
             android:key="eventProfileProfileId"
             android:title="@string/event_preferences_profile_profile"
-            henrichg:addNoActivateItem="1" />
+            henrichg:addNoActivateItem="0"
+            android:dependency="eventProfileEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventBatteryParameters"
