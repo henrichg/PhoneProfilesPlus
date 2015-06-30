@@ -336,7 +336,7 @@ public class EditorEventListAdapter extends BaseAdapter
             if (GlobalData.applicationEditorPrefIndicator)
             {
                 if (holder.eventPreferencesDescription != null) {
-                    String eventPrefDescription = event.getPreferecesDescription(vi.getContext());
+                    String eventPrefDescription = event.getPreferencesDescription(vi.getContext());
                     holder.eventPreferencesDescription.setText(eventPrefDescription);
                 }
             }

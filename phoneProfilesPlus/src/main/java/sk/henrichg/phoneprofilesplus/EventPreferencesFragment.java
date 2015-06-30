@@ -319,7 +319,7 @@ public class EventPreferencesFragment extends PreferenceFragment
     	if (event != null)
     	{
 	    	//SharedPreferences preferences = getActivity().getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
-	    	event.loadSharedPrefereces(preferences);
+	    	event.loadSharedPreferences(preferences);
     	}
 		
 	}
@@ -331,7 +331,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 		if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
 		    (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
 		{
-	    	event.saveSharedPrefereces(preferences);
+	    	event.saveSharedPreferences(preferences);
 			
 			// add event into DB
 			dataWrapper.getDatabaseHandler().addEvent(event);
@@ -344,7 +344,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 		else
     	if (event_id > 0) 
         {
-	    	event.saveSharedPrefereces(preferences);
+	    	event.saveSharedPreferences(preferences);
 	    	
     		// udate event in DB
 			dataWrapper.getDatabaseHandler().updateEvent(event);
