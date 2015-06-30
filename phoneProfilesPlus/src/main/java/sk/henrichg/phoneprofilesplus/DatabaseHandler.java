@@ -23,12 +23,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // singleton fields
     private static DatabaseHandler instance;
-    private static SQLiteDatabase writableDb;	
+    private static SQLiteDatabase writableDb;
     
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1350;
+    private static final int DATABASE_VERSION = 1360;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -55,6 +55,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int ETYPE_BLUETOOTHCONNECTED = 9;
     public static final int ETYPE_BLUETOOTHINFRONT = 10;
     public static final int ETYPE_SMS = 11;
+    public static final int ETYPE_PROFILE = 12;
 
     // activity log types
     public static final int ALTYPE_PROFILEACTIVATION = 1;
@@ -178,6 +179,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_AT_END_DO = "atEndDo";
     private static final String KEY_E_CALENDAR_AVAILABILITY = "calendarAvailability";
     private static final String KEY_E_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
+    private static final String KEY_E_PROFILE_ENABLED = "profileEnabled";
+    private static final String KEY_E_PROFILE_FK_PROFILE = "profileFkProfile";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -368,7 +371,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_SMS_CONTACT_GROUPS + " TEXT,"
                 + KEY_E_AT_END_DO + " INTEGER,"
                 + KEY_E_CALENDAR_AVAILABILITY + " INTEGER,"
-                + KEY_E_MANUAL_PROFILE_ACTIVATION + " INTEGER"
+                + KEY_E_MANUAL_PROFILE_ACTIVATION + " INTEGER,"
+                + KEY_E_PROFILE_ENABLED + " INTEGER,"
+                + KEY_E_PROFILE_FK_PROFILE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1224,6 +1229,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
         }
 
+        if (oldVersion < 1360)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_PROFILE_ENABLED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_PROFILE_FK_PROFILE + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PROFILE_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PROFILE_FK_PROFILE + "=" + GlobalData.PROFILE_NO_ACTIVATE);
+
+            // pridame index
+            db.execSQL("CREATE INDEX IDX_PROFILE_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_PROFILE_FK_PROFILE + ")");
+        }
+
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -1594,11 +1613,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_FK_PROFILE_START, 0);
             db.update(TABLE_EVENTS, values, KEY_E_FK_PROFILE_START + " = ?",
-                    new String[] { String.valueOf(profile._id) });
+                    new String[]{String.valueOf(profile._id)});
 
             ContentValues values2 = new ContentValues();
             values2.put(KEY_E_FK_PROFILE_END, GlobalData.PROFILE_NO_ACTIVATE);
             db.update(TABLE_EVENTS, values2, KEY_E_FK_PROFILE_END + " = ?",
+                    new String[] { String.valueOf(profile._id) });
+
+            ContentValues values3 = new ContentValues();
+            values3.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
+            db.update(TABLE_EVENTS, values3, KEY_E_PROFILE_FK_PROFILE + " = ?",
                     new String[] { String.valueOf(profile._id) });
 
             db.setTransactionSuccessful();
@@ -1625,6 +1649,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_FK_PROFILE_START, 0);
             values.put(KEY_E_FK_PROFILE_END, GlobalData.PROFILE_NO_ACTIVATE);
+            values.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
             db.update(TABLE_EVENTS, values, null, null);
 
             db.setTransactionSuccessful();
@@ -2418,6 +2443,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.update(TABLE_EVENTS, values2, KEY_E_FK_PROFILE_END + " = ?",
                         new String[] { String.valueOf(profile._id) });
 
+            ContentValues values3 = new ContentValues();
+            values3.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
+            // updating row
+            db.update(TABLE_EVENTS, values3, KEY_E_PROFILE_FK_PROFILE + " = ?",
+                    new String[] { String.valueOf(profile._id) });
+
             db.setTransactionSuccessful();
 
         } catch (Exception e){
@@ -2436,6 +2467,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_E_FK_PROFILE_START, 0);
         values.put(KEY_E_FK_PROFILE_END, GlobalData.PROFILE_NO_ACTIVATE);
+        values.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
 
         // updating row
         db.update(TABLE_EVENTS, values, null, null);
@@ -2460,6 +2492,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesScreen(event, db);
         getEventPreferencesBluetooth(event, db);
         getEventPreferencesSMS(event, db);
+        getEventPreferencesProfile(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -2479,7 +2512,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesTime eventPreferences = (EventPreferencesTime)event._eventPreferencesTime;
+                EventPreferencesTime eventPreferences = event._eventPreferencesTime;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
 
@@ -2542,7 +2575,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesBattery eventPreferences = (EventPreferencesBattery)event._eventPreferencesBattery;
+                EventPreferencesBattery eventPreferences = event._eventPreferencesBattery;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._levelLow = Integer.parseInt(cursor.getString(1));
@@ -2569,7 +2602,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesCall eventPreferences = (EventPreferencesCall)event._eventPreferencesCall;
+                EventPreferencesCall eventPreferences = event._eventPreferencesCall;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._callEvent = Integer.parseInt(cursor.getString(1));
@@ -2594,7 +2627,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesPeripherals eventPreferences = (EventPreferencesPeripherals)event._eventPreferencesPeripherals;
+                EventPreferencesPeripherals eventPreferences = event._eventPreferencesPeripherals;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._peripheralType = Integer.parseInt(cursor.getString(1));
@@ -2622,7 +2655,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesCalendar eventPreferences = (EventPreferencesCalendar)event._eventPreferencesCalendar;
+                EventPreferencesCalendar eventPreferences = event._eventPreferencesCalendar;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._calendars = cursor.getString(1);
@@ -2651,7 +2684,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesWifi eventPreferences = (EventPreferencesWifi)event._eventPreferencesWifi;
+                EventPreferencesWifi eventPreferences = event._eventPreferencesWifi;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._SSID = cursor.getString(1);
@@ -2675,7 +2708,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesScreen eventPreferences = (EventPreferencesScreen)event._eventPreferencesScreen;
+                EventPreferencesScreen eventPreferences = event._eventPreferencesScreen;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._eventType = Integer.parseInt(cursor.getString(1));
@@ -2699,7 +2732,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesBluetooth eventPreferences = (EventPreferencesBluetooth)event._eventPreferencesBluetooth;
+                EventPreferencesBluetooth eventPreferences = event._eventPreferencesBluetooth;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._adapterName = cursor.getString(1);
@@ -2726,7 +2759,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesSMS eventPreferences = (EventPreferencesSMS)event._eventPreferencesSMS;
+                EventPreferencesSMS eventPreferences = event._eventPreferencesSMS;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 //eventPreferences._smsEvent = Integer.parseInt(cursor.getString(1));
@@ -2734,6 +2767,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._contactListType = Integer.parseInt(cursor.getString(2));
                 eventPreferences._startTime = Long.parseLong(cursor.getString(3));
                 eventPreferences._contactGroups = cursor.getString(4);
+            }
+            cursor.close();
+        }
+    }
+
+    private void getEventPreferencesProfile(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[] { KEY_E_PROFILE_ENABLED,
+                                KEY_E_PROFILE_FK_PROFILE
+                },
+                KEY_E_ID + "=?",
+                new String[] { String.valueOf(event._id) }, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesProfile eventPreferences = event._eventPreferencesProfile;
+
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
+                eventPreferences._profileId = Long.parseLong(cursor.getString(1));
             }
             cursor.close();
         }
@@ -2767,6 +2822,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             r = updateEventPreferencesBluetooth(event, db);
         if (r != 0)
             r = updateEventPreferencesSMS(event, db);
+        if (r != 0)
+            r = updateEventPreferencesProfile(event, db);
 
         return r;
     }
@@ -2774,7 +2831,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private int updateEventPreferencesTime(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesTime eventPreferences = (EventPreferencesTime)event._eventPreferencesTime;
+        EventPreferencesTime eventPreferences = event._eventPreferencesTime;
 
         String daysOfWeek = "";
         if (eventPreferences._sunday) daysOfWeek = daysOfWeek + "0|";
@@ -2801,7 +2858,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private int updateEventPreferencesBattery(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesBattery eventPreferences = (EventPreferencesBattery)event._eventPreferencesBattery;
+        EventPreferencesBattery eventPreferences = event._eventPreferencesBattery;
 
         values.put(KEY_E_BATTERY_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_BATTERY_LEVEL_LOW, eventPreferences._levelLow);
@@ -2818,7 +2875,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private int updateEventPreferencesCall(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesCall eventPreferences = (EventPreferencesCall)event._eventPreferencesCall;
+        EventPreferencesCall eventPreferences = event._eventPreferencesCall;
 
         values.put(KEY_E_CALL_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_CALL_EVENT, eventPreferences._callEvent);
@@ -2836,7 +2893,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private int updateEventPreferencesPeripheral(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesPeripherals eventPreferences = (EventPreferencesPeripherals)event._eventPreferencesPeripherals;
+        EventPreferencesPeripherals eventPreferences = event._eventPreferencesPeripherals;
 
         values.put(KEY_E_PERIPHERAL_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_PERIPHERAL_TYPE, eventPreferences._peripheralType);
@@ -2851,7 +2908,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private int updateEventPreferencesCalendar(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesCalendar eventPreferences = (EventPreferencesCalendar)event._eventPreferencesCalendar;
+        EventPreferencesCalendar eventPreferences = event._eventPreferencesCalendar;
 
         values.put(KEY_E_CALENDAR_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_CALENDAR_CALENDARS, eventPreferences._calendars);
@@ -2872,7 +2929,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private int updateEventPreferencesWifi(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesWifi eventPreferences = (EventPreferencesWifi)event._eventPreferencesWifi;
+        EventPreferencesWifi eventPreferences = event._eventPreferencesWifi;
 
         values.put(KEY_E_WIFI_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_WIFI_SSID, eventPreferences._SSID);
@@ -2888,7 +2945,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private int updateEventPreferencesScreen(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesScreen eventPreferences = (EventPreferencesScreen)event._eventPreferencesScreen;
+        EventPreferencesScreen eventPreferences = event._eventPreferencesScreen;
 
         values.put(KEY_E_SCREEN_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_SCREEN_EVENT_TYPE, eventPreferences._eventType);
@@ -2904,7 +2961,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private int updateEventPreferencesBluetooth(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesBluetooth eventPreferences = (EventPreferencesBluetooth)event._eventPreferencesBluetooth;
+        EventPreferencesBluetooth eventPreferences = event._eventPreferencesBluetooth;
 
         values.put(KEY_E_BLUETOOTH_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, eventPreferences._adapterName);
@@ -2920,7 +2977,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private int updateEventPreferencesSMS(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesSMS eventPreferences = (EventPreferencesSMS)event._eventPreferencesSMS;
+        EventPreferencesSMS eventPreferences = event._eventPreferencesSMS;
 
         values.put(KEY_E_SMS_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         //values.put(KEY_E_SMS_EVENT, eventPreferences._smsEvent);
@@ -2933,6 +2990,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
         
+        return r;
+    }
+
+    private int updateEventPreferencesProfile(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesProfile eventPreferences = event._eventPreferencesProfile;
+
+        values.put(KEY_E_PROFILE_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_PROFILE_FK_PROFILE, eventPreferences._profileId);
+
+        // updating row
+        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+
         return r;
     }
 
@@ -3138,6 +3210,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else
         if (eventType == ETYPE_SMS)
             eventTypeChecked = eventTypeChecked + KEY_E_SMS_ENABLED + "=1";
+        else
+        if (eventType == ETYPE_PROFILE)
+            eventTypeChecked = eventTypeChecked + KEY_E_PROFILE_ENABLED + "=1";
 
         countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                      " WHERE " + eventTypeChecked;
@@ -3999,7 +4074,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1)
                                             {
                                                 if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START) ||
-                                                    columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END))
+                                                    columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) ||
+                                                    columnNamesExportedDB[i].equals(KEY_E_PROFILE_FK_PROFILE))
                                                 {
                                                     // importnuty profil ma nove id
                                                     // ale mame mapovacie polia, z ktorych vieme
@@ -4010,6 +4086,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     else
                                                     {
                                                         if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) && (cursorExportedDB.getLong(i) == GlobalData.PROFILE_NO_ACTIVATE))
+                                                            values.put(columnNamesExportedDB[i], GlobalData.PROFILE_NO_ACTIVATE);
+                                                        if (columnNamesExportedDB[i].equals(KEY_E_PROFILE_FK_PROFILE) && (cursorExportedDB.getLong(i) == GlobalData.PROFILE_NO_ACTIVATE))
                                                             values.put(columnNamesExportedDB[i], GlobalData.PROFILE_NO_ACTIVATE);
                                                         else
                                                             values.put(columnNamesExportedDB[i], 0);
@@ -4274,6 +4352,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         if (exportedDBObj.getVersion() < 1310)
                                         {
                                             values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1360) {
+                                            values.put(KEY_E_PROFILE_ENABLED, 0);
+                                            values.put(KEY_E_PROFILE_FK_PROFILE, GlobalData.PROFILE_NO_ACTIVATE);
                                         }
 
                                     // Inserting Row do db z SQLiteOpenHelper
