@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<declare-styleable name="ImageViewPreference">
-		<attr name="imageSource" format="string" />
-	</declare-styleable>
-   	<declare-styleable name="SeekBarDialogPreference">
-		<attr name="maximumValue" format="integer" />
-		<attr name="minimumValue" format="integer" />
-		<attr name="stepSize" format="integer" />
-		<attr name="units" format="string" />
-	</declare-styleable>
-	<declare-styleable name="VolumeDialogPreference">
-		<attr name="volumeType" format="string" />
-		<attr name="vNoChange" format="integer" />
-		<attr name="vDefaultProfile" format="integer" />
-		<attr name="vDisableDefaultProfile" format="integer" />
-	</declare-styleable>
-	<declare-styleable name="BrightnessDialogPreference">
-		<attr name="bNoChange" format="integer" />
-		<attr name="bAutomatic" format="integer" />
-		<attr name="bDefaultProfile" format="integer" />
-		<attr name="bDisableDefaultProfile" format="integer" />
-	</declare-styleable>
-	<declare-styleable name="EventTypePreference">
-	</declare-styleable>
-	<declare-styleable name="ProfilePreference">
+    <declare-styleable name="ImageViewPreference">
+        <attr name="imageSource" format="string" />
+    </declare-styleable>
+    <declare-styleable name="SeekBarDialogPreference">
+        <attr name="maximumValue" format="integer" />
+        <attr name="minimumValue" format="integer" />
+        <attr name="stepSize" format="integer" />
+        <attr name="units" format="string" />
+    </declare-styleable>
+    <declare-styleable name="VolumeDialogPreference">
+        <attr name="volumeType" format="string" />
+        <attr name="vNoChange" format="integer" />
+        <attr name="vDefaultProfile" format="integer" />
+        <attr name="vDisableDefaultProfile" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="BrightnessDialogPreference">
+        <attr name="bNoChange" format="integer" />
+        <attr name="bAutomatic" format="integer" />
+        <attr name="bDefaultProfile" format="integer" />
+        <attr name="bDisableDefaultProfile" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="EventTypePreference">
+    </declare-styleable>
+    <declare-styleable name="ProfilePreference">
         <attr name="addNoActivateItem" format="integer" />
-	</declare-styleable>
+        <attr name="showDuration" format="integer" />
+    </declare-styleable>
     <declare-styleable name="NumberPickerPreference">
         <attr name="max" format="integer" />
         <attr name="min" format="integer" />
@@ -38,7 +39,7 @@
         <attr format="reference|color" name="insetForeground" />
     </declare-styleable>
 
-	<!-- theme dependent drawables -->
+    <!-- theme dependent drawables -->
     <attr name="actionNewProfileIcon" format="reference" />
     <attr name="actionEditProfilesIcon" format="reference" />
     <attr name="activityPopupBackground" format="reference" />
@@ -60,8 +61,8 @@
     <attr name="editItemMenuIcon" format="reference" />
     <attr name="applicationSettingsLanguageIcon" format="reference" />
     <attr name="actionEventsRestartIcon" format="reference" />
-	<attr name="toolbarTheme" format="reference" />
-	<attr name="toolbarPopupMenu" format="reference" />
+    <attr name="toolbarTheme" format="reference" />
+    <attr name="toolbarPopupMenu" format="reference" />
     <attr name="editorDrawerListHeaderBackground" format="reference" />
     <attr name="editorDrawerListHeaderTitle" format="reference" />
     <attr name="dialogDivider" format="reference" />

@@ -153,6 +153,7 @@
             android:key="eventProfileProfileId"
             android:title="@string/event_preferences_profile_profile"
             henrichg:addNoActivateItem="0"
+            henrichg:showDuration="1"
             android:dependency="eventProfileEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
