@@ -35,6 +35,7 @@ public class Event {
     public int _delayStart;
     public boolean _isInDelay;
     public boolean _manualProfileActivation;
+    public long _fkProfileStartWhenActivated;
 
     public EventPreferencesTime _eventPreferencesTime;
     public EventPreferencesBattery _eventPreferencesBattery;
@@ -45,7 +46,6 @@ public class Event {
     public EventPreferencesScreen _eventPreferencesScreen;
     public EventPreferencesBluetooth _eventPreferencesBluetooth;
     public EventPreferencesSMS _eventPreferencesSMS;
-    public EventPreferencesProfile _eventPreferencesProfile;
 
     public static final int ESTATUS_STOP = 0;
     public static final int ESTATUS_PAUSE = 1;
@@ -79,6 +79,7 @@ public class Event {
     static final String PREF_EVENT_DELAY_START = "eventDelayStart";
     static final String PREF_EVENT_AT_END_DO = "eventAtEndDo";
     static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
+    static final String PREF_EVENT_START_WHEN_ACTIVATED_PROFILE = "eventStartWhenActivatedProfile";
 
     // Empty constructor
     public Event(){
@@ -99,7 +100,8 @@ public class Event {
                  int delayStart,
                  boolean isInDelay,
                  int atEndDo,
-                 boolean manualProfileActivation)
+                 boolean manualProfileActivation,
+                 long fkProfileStartWhenActivated)
     {
         this._id = id;
         this._name = name;
@@ -115,6 +117,7 @@ public class Event {
         this._isInDelay = isInDelay;
         this._atEndDo = atEndDo;
         this._manualProfileActivation = manualProfileActivation;
+        this._fkProfileStartWhenActivated = fkProfileStartWhenActivated;
         
         createEventPreferences();
     }
@@ -132,7 +135,8 @@ public class Event {
                  int delayStart,
                  boolean isInDelay,
                  int atEndDo,
-                 boolean manualProfileActivation)
+                 boolean manualProfileActivation,
+                 long fkProfileStartWhenActivated)
     {
         this._name = name;
         this._fkProfileStart = fkProfileStart;
@@ -147,7 +151,8 @@ public class Event {
         this._isInDelay = isInDelay;
         this._atEndDo = atEndDo;
         this._manualProfileActivation = manualProfileActivation;
-        
+        this._fkProfileStartWhenActivated = fkProfileStartWhenActivated;
+
         createEventPreferences();
     }
 
@@ -167,6 +172,7 @@ public class Event {
         this._isInDelay = event._isInDelay;
         this._atEndDo = event._atEndDo;
         this._manualProfileActivation = event._manualProfileActivation;
+        this._fkProfileStartWhenActivated = event._fkProfileStartWhenActivated;
         
         copyEventPreferences(event);
     }
@@ -216,11 +222,6 @@ public class Event {
         this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0);
     }
 
-    private void createEventPreferencesProfile()
-    {
-        this._eventPreferencesProfile = new EventPreferencesProfile(this, false, 0);
-    }
-
     public void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -232,7 +233,6 @@ public class Event {
         createEventPreferencesScreen();
         createEventPreferencesBluetooth();
         createEventPreferencesSMS();
-        createEventPreferencesProfile();
     }
 
     public void copyEventPreferences(Event fromEvent)
@@ -255,8 +255,6 @@ public class Event {
             createEventPreferencesBluetooth();
         if (this._eventPreferencesSMS == null)
             createEventPreferencesSMS();
-        if (this._eventPreferencesProfile == null)
-            createEventPreferencesProfile();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -266,7 +264,6 @@ public class Event {
         this._eventPreferencesScreen.copyPreferences(fromEvent);
         this._eventPreferencesBluetooth.copyPreferences(fromEvent);
         this._eventPreferencesSMS.copyPreferences(fromEvent);
-        this._eventPreferencesProfile.copyPreferences(fromEvent);
     }
 
     public boolean isRunnable()
@@ -280,8 +277,7 @@ public class Event {
               this._eventPreferencesWifi._enabled ||
               this._eventPreferencesScreen._enabled ||
               this._eventPreferencesBluetooth._enabled ||
-              this._eventPreferencesSMS._enabled ||
-              this._eventPreferencesProfile._enabled))
+              this._eventPreferencesSMS._enabled))
             runnable = false;
         if (this._eventPreferencesTime._enabled)
             runnable = runnable && this._eventPreferencesTime.isRunable();
@@ -301,8 +297,6 @@ public class Event {
             runnable = runnable && this._eventPreferencesBluetooth.isRunable();
         if (this._eventPreferencesSMS._enabled)
             runnable = runnable && this._eventPreferencesSMS.isRunable();
-        if (this._eventPreferencesProfile._enabled)
-            runnable = runnable && this._eventPreferencesProfile.isRunable();
         return runnable;
     }
 
@@ -320,6 +314,7 @@ public class Event {
         editor.putString(PREF_EVENT_DELAY_START, Integer.toString(this._delayStart));
         editor.putString(PREF_EVENT_AT_END_DO, Integer.toString(this._atEndDo));
         editor.putBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, this._manualProfileActivation);
+        editor.putString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(this._fkProfileStartWhenActivated));
         this._eventPreferencesTime.loadSharedPreferences(preferences);
         this._eventPreferencesBattery.loadSharedPreferences(preferences);
         this._eventPreferencesCall.loadSharedPreferences(preferences);
@@ -329,7 +324,6 @@ public class Event {
         this._eventPreferencesScreen.loadSharedPreferences(preferences);
         this._eventPreferencesBluetooth.loadSharedPreferences(preferences);
         this._eventPreferencesSMS.loadSharedPreferences(preferences);
-        this._eventPreferencesProfile.loadSharedPreferences(preferences);
         editor.commit();
     }
 
@@ -345,6 +339,7 @@ public class Event {
         this._priority = Integer.parseInt(preferences.getString(PREF_EVENT_PRIORITY, Integer.toString(EPRIORITY_MEDIUM)));
         this._atEndDo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_DO, Integer.toString(EATENDDO_UNDONE_PROFILE)));
         this._manualProfileActivation = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
+        this._fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(GlobalData.PROFILE_NO_ACTIVATE)));
 
         String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
         if (sDelayStart.isEmpty()) sDelayStart = "0";
@@ -362,7 +357,6 @@ public class Event {
         this._eventPreferencesScreen.saveSharedPreferences(preferences);
         this._eventPreferencesBluetooth.saveSharedPreferences(preferences);
         this._eventPreferencesSMS.saveSharedPreferences(preferences);
-        this._eventPreferencesProfile.saveSharedPreferences(preferences);
 
         if (!this.isRunnable())
             this._status = ESTATUS_STOP;
@@ -376,10 +370,10 @@ public class Event {
             preference.setSummary(value);
             GUIData.setPreferenceTitleStyle(preference, false, true);
         }
-        if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END))
+        if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END)||
+                key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
         {
-            Preference preference = prefMng.findPreference(key);
-
+            ProfilePreference preference = (ProfilePreference)prefMng.findPreference(key);
             String sProfileId = value;
             long lProfileId;
             try {
@@ -387,19 +381,7 @@ public class Event {
             } catch (Exception e) {
                 lProfileId = 0;
             }
-            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-            Profile profile = dataWrapper.getProfileById(lProfileId, false);
-            if (profile != null)
-            {
-                preference.setSummary(profile._name);
-            }
-            else
-            {
-                if (lProfileId == GlobalData.PROFILE_NO_ACTIVATE)
-                    preference.setSummary(context.getResources().getString(R.string.profile_preference_profile_end_no_activate));
-                else
-                    preference.setSummary(context.getResources().getString(R.string.profile_preference_profile_not_set));
-            }
+            preference.setSummary(lProfileId);
             if (key.equals(PREF_EVENT_PROFILE_START))
                 GUIData.setPreferenceTitleStyle(preference, false, true);
         }
@@ -448,7 +430,8 @@ public class Event {
             key.equals(PREF_EVENT_NOTIFICATION_SOUND) ||
             key.equals(PREF_EVENT_PRIORITY) ||
             key.equals(PREF_EVENT_DELAY_START) ||
-            key.equals(PREF_EVENT_AT_END_DO))
+            key.equals(PREF_EVENT_AT_END_DO) ||
+            key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         _eventPreferencesTime.setSummary(prefMng, key, preferences, context);
         _eventPreferencesBattery.setSummary(prefMng, key, preferences, context);
@@ -459,11 +442,9 @@ public class Event {
         _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
         _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
         _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesProfile.setSummary(prefMng, key, preferences, context);
     }
 
-    public void setAllSummary(PreferenceManager prefMng, Context context)
-    {
+    public void setAllSummary(PreferenceManager prefMng, Context context) {
         setSummary(prefMng, PREF_EVENT_NAME, _name, context);
         setSummary(prefMng, PREF_EVENT_PROFILE_START, Long.toString(this._fkProfileStart), context);
         setSummary(prefMng, PREF_EVENT_PROFILE_END, Long.toString(this._fkProfileEnd), context);
@@ -471,6 +452,7 @@ public class Event {
         setSummary(prefMng, PREF_EVENT_PRIORITY, Integer.toString(this._priority), context);
         setSummary(prefMng, PREF_EVENT_DELAY_START, Integer.toString(this._delayStart), context);
         setSummary(prefMng, PREF_EVENT_AT_END_DO, Integer.toString(this._atEndDo), context);
+        setSummary(prefMng, PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(this._fkProfileStartWhenActivated), context);
         _eventPreferencesTime.setAllSummary(prefMng, context);
         _eventPreferencesBattery.setAllSummary(prefMng, context);
         _eventPreferencesCall.setAllSummary(prefMng, context);
@@ -480,7 +462,6 @@ public class Event {
         _eventPreferencesScreen.setAllSummary(prefMng, context);
         _eventPreferencesBluetooth.setAllSummary(prefMng, context);
         _eventPreferencesSMS.setAllSummary(prefMng, context);
-        _eventPreferencesProfile.setAllSummary(prefMng, context);
     }
 
     public String getPreferencesDescription(Context context)
@@ -493,9 +474,6 @@ public class Event {
 
         if (_eventPreferencesCalendar._enabled && (!description.isEmpty())) description = description + "\n";
         description = _eventPreferencesCalendar.getPreferencesDescription(description, context);
-
-        if (_eventPreferencesProfile._enabled && (!description.isEmpty())) description = description + "\n";
-        description = _eventPreferencesProfile.getPreferencesDescription(description, context);
 
         if (_eventPreferencesBattery._enabled && (!description.isEmpty())) description = description + "\n";
         description = _eventPreferencesBattery.getPreferencesDescription(description, context);
@@ -546,8 +524,6 @@ public class Event {
             canActivate = canActivate || this._eventPreferencesBluetooth.activateReturnProfile();
         if (this._eventPreferencesSMS._enabled)
             canActivate = canActivate || this._eventPreferencesSMS.activateReturnProfile();
-        if (this._eventPreferencesProfile._enabled)
-            canActivate = canActivate || this._eventPreferencesProfile.activateReturnProfile();
 
         return canActivate;
         */
@@ -1052,7 +1028,6 @@ public class Event {
             _eventPreferencesScreen.setSystemRunningEvent(context);
             _eventPreferencesBluetooth.setSystemRunningEvent(context);
             _eventPreferencesSMS.setSystemRunningEvent(context);
-            _eventPreferencesProfile.setSystemRunningEvent(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -1068,7 +1043,6 @@ public class Event {
             _eventPreferencesScreen.setSystemPauseEvent(context);
             _eventPreferencesBluetooth.setSystemPauseEvent(context);
             _eventPreferencesSMS.setSystemPauseEvent(context);
-            _eventPreferencesProfile.setSystemPauseEvent(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -1084,7 +1058,6 @@ public class Event {
             _eventPreferencesScreen.removeSystemEvent(context);
             _eventPreferencesBluetooth.removeSystemEvent(context);
             _eventPreferencesSMS.removeSystemEvent(context);
-            _eventPreferencesProfile.removeSystemEvent(context);
         }
     }
 

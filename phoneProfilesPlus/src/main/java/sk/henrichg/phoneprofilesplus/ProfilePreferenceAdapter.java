@@ -142,8 +142,11 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
             if ((dialog.addNoActivateItem == 1) && (position == 0))
             {
                 holder.radioBtn.setChecked((profileId == GlobalData.PROFILE_NO_ACTIVATE));
-                holder.profileLabel.setText(vi.getResources().getString(R.string.profile_preference_profile_end_no_activate));
-                holder.profileIcon.setImageResource(R.drawable.ic_profile_default);
+                if (dialog.noActivateAsDoNotApply == 1)
+                    holder.profileLabel.setText(vi.getResources().getString(R.string.profile_preference_do_not_apply));
+                else
+                    holder.profileLabel.setText(vi.getResources().getString(R.string.profile_preference_profile_end_no_activate));
+                holder.profileIcon.setImageResource(R.drawable.ic_empty);
                 if (GlobalData.applicationEditorPrefIndicator)
                     holder.profileIndicator.setImageResource(R.drawable.ic_empty);
             }

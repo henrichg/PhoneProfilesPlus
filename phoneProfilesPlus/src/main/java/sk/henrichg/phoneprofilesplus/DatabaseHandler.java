@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1360;
+    private static final int DATABASE_VERSION = 1370;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -55,7 +55,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int ETYPE_BLUETOOTHCONNECTED = 9;
     public static final int ETYPE_BLUETOOTHINFRONT = 10;
     public static final int ETYPE_SMS = 11;
-    public static final int ETYPE_PROFILE = 12;
 
     // activity log types
     public static final int ALTYPE_PROFILEACTIVATION = 1;
@@ -179,8 +178,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_AT_END_DO = "atEndDo";
     private static final String KEY_E_CALENDAR_AVAILABILITY = "calendarAvailability";
     private static final String KEY_E_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
-    private static final String KEY_E_PROFILE_ENABLED = "profileEnabled";
-    private static final String KEY_E_PROFILE_FK_PROFILE = "profileFkProfile";
+    private static final String KEY_E_FK_PROFILE_START_WHEN_ACTIVATED = "fkProfileStartWhenActivated";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -372,8 +370,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_AT_END_DO + " INTEGER,"
                 + KEY_E_CALENDAR_AVAILABILITY + " INTEGER,"
                 + KEY_E_MANUAL_PROFILE_ACTIVATION + " INTEGER,"
-                + KEY_E_PROFILE_ENABLED + " INTEGER,"
-                + KEY_E_PROFILE_FK_PROFILE + " INTEGER"
+                + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1229,18 +1226,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
         }
 
-        if (oldVersion < 1360)
+        if (oldVersion < 1370)
         {
             // pridame nove stlpce
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_PROFILE_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_PROFILE_FK_PROFILE + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " INTEGER");
 
             // updatneme zaznamy
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PROFILE_ENABLED + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PROFILE_FK_PROFILE + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + "=-999");
 
             // pridame index
-            db.execSQL("CREATE INDEX IDX_PROFILE_FK_PROFILE ON " + TABLE_EVENTS + " (" + KEY_E_PROFILE_FK_PROFILE + ")");
+            db.execSQL("CREATE INDEX IDX_FK_PROFILE_START_WHEN_ACTIVATED ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + ")");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -1323,51 +1318,51 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (merged)
             tableName = TABLE_MERGED_PROFILE;
         Cursor cursor = db.query(tableName,
-                                 new String[] { KEY_ID,
-                                                KEY_NAME,
-                                                KEY_ICON,
-                                                KEY_CHECKED,
-                                                KEY_PORDER,
-                                                KEY_VOLUME_RINGER_MODE,
-                                                KEY_VOLUME_RINGTONE,
-                                                KEY_VOLUME_NOTIFICATION,
-                                                KEY_VOLUME_MEDIA,
-                                                KEY_VOLUME_ALARM,
-                                                KEY_VOLUME_SYSTEM,
-                                                KEY_VOLUME_VOICE,
-                                                KEY_SOUND_RINGTONE_CHANGE,
-                                                KEY_SOUND_RINGTONE,
-                                                KEY_SOUND_NOTIFICATION_CHANGE,
-                                                KEY_SOUND_NOTIFICATION,
-                                                KEY_SOUND_ALARM_CHANGE,
-                                                KEY_SOUND_ALARM,
-                                                KEY_DEVICE_AIRPLANE_MODE,
-                                                KEY_DEVICE_WIFI,
-                                                KEY_DEVICE_BLUETOOTH,
-                                                KEY_DEVICE_SCREEN_TIMEOUT,
-                                                KEY_DEVICE_BRIGHTNESS,
-                                                KEY_DEVICE_WALLPAPER_CHANGE,
-                                                KEY_DEVICE_WALLPAPER,
-                                                KEY_DEVICE_MOBILE_DATA,
-                                                KEY_DEVICE_MOBILE_DATA_PREFS,
-                                                KEY_DEVICE_GPS,
-                                                KEY_DEVICE_RUN_APPLICATION_CHANGE,
-                                                KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
-                                                KEY_DEVICE_AUTOSYNC,
-                                                KEY_SHOW_IN_ACTIVATOR,
-                                                KEY_DEVICE_AUTOROTATE,
-                                                KEY_DEVICE_LOCATION_SERVICE_PREFS,
-                                                KEY_VOLUME_SPEAKER_PHONE,
-                                                KEY_DEVICE_NFC,
-                                                KEY_DURATION,
-                                                KEY_AFTER_DURATION_DO,
-                                                KEY_VOLUME_ZEN_MODE,
-                                                KEY_DEVICE_KEYGUARD,
-                                                KEY_VIBRATE_ON_TOUCH,
-                                                KEY_DEVICE_WIFI_AP
-                                                },
-                                 KEY_ID + "=?",
-                                 new String[] { String.valueOf(profile_id) }, null, null, null, null);
+                new String[]{KEY_ID,
+                        KEY_NAME,
+                        KEY_ICON,
+                        KEY_CHECKED,
+                        KEY_PORDER,
+                        KEY_VOLUME_RINGER_MODE,
+                        KEY_VOLUME_RINGTONE,
+                        KEY_VOLUME_NOTIFICATION,
+                        KEY_VOLUME_MEDIA,
+                        KEY_VOLUME_ALARM,
+                        KEY_VOLUME_SYSTEM,
+                        KEY_VOLUME_VOICE,
+                        KEY_SOUND_RINGTONE_CHANGE,
+                        KEY_SOUND_RINGTONE,
+                        KEY_SOUND_NOTIFICATION_CHANGE,
+                        KEY_SOUND_NOTIFICATION,
+                        KEY_SOUND_ALARM_CHANGE,
+                        KEY_SOUND_ALARM,
+                        KEY_DEVICE_AIRPLANE_MODE,
+                        KEY_DEVICE_WIFI,
+                        KEY_DEVICE_BLUETOOTH,
+                        KEY_DEVICE_SCREEN_TIMEOUT,
+                        KEY_DEVICE_BRIGHTNESS,
+                        KEY_DEVICE_WALLPAPER_CHANGE,
+                        KEY_DEVICE_WALLPAPER,
+                        KEY_DEVICE_MOBILE_DATA,
+                        KEY_DEVICE_MOBILE_DATA_PREFS,
+                        KEY_DEVICE_GPS,
+                        KEY_DEVICE_RUN_APPLICATION_CHANGE,
+                        KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
+                        KEY_DEVICE_AUTOSYNC,
+                        KEY_SHOW_IN_ACTIVATOR,
+                        KEY_DEVICE_AUTOROTATE,
+                        KEY_DEVICE_LOCATION_SERVICE_PREFS,
+                        KEY_VOLUME_SPEAKER_PHONE,
+                        KEY_DEVICE_NFC,
+                        KEY_DURATION,
+                        KEY_AFTER_DURATION_DO,
+                        KEY_VOLUME_ZEN_MODE,
+                        KEY_DEVICE_KEYGUARD,
+                        KEY_VIBRATE_ON_TOUCH,
+                        KEY_DEVICE_WIFI_AP
+                },
+                KEY_ID + "=?",
+                new String[]{String.valueOf(profile_id)}, null, null, null, null);
 
         Profile profile = null;
 
@@ -1618,11 +1613,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values2 = new ContentValues();
             values2.put(KEY_E_FK_PROFILE_END, GlobalData.PROFILE_NO_ACTIVATE);
             db.update(TABLE_EVENTS, values2, KEY_E_FK_PROFILE_END + " = ?",
-                    new String[] { String.valueOf(profile._id) });
+                    new String[]{String.valueOf(profile._id)});
 
             ContentValues values3 = new ContentValues();
-            values3.put(KEY_E_PROFILE_FK_PROFILE, 0);
-            db.update(TABLE_EVENTS, values3, KEY_E_PROFILE_FK_PROFILE + " = ?",
+            values3.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, GlobalData.PROFILE_NO_ACTIVATE);
+            db.update(TABLE_EVENTS, values3, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " = ?",
                     new String[] { String.valueOf(profile._id) });
 
             db.setTransactionSuccessful();
@@ -1649,7 +1644,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_E_FK_PROFILE_START, 0);
             values.put(KEY_E_FK_PROFILE_END, GlobalData.PROFILE_NO_ACTIVATE);
-            values.put(KEY_E_PROFILE_FK_PROFILE, 0);
+            values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, GlobalData.PROFILE_NO_ACTIVATE);
             db.update(TABLE_EVENTS, values, null, null);
 
             db.setTransactionSuccessful();
@@ -1964,9 +1959,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getMyWritableDatabase();
 
         Cursor cursor = db.query(TABLE_PROFILES,
-                                 new String[] { KEY_VOLUME_SPEAKER_PHONE },
-                                 KEY_CHECKED + "=?",
-                                 new String[] { "1" }, null, null, null, null);
+                new String[]{KEY_VOLUME_SPEAKER_PHONE},
+                KEY_CHECKED + "=?",
+                new String[]{"1"}, null, null, null, null);
 
         int speakerPhone;
 
@@ -2198,6 +2193,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_IS_IN_DELAY, event._isInDelay ? 1 : 0); // event is in delay before start/pause
         values.put(KEY_E_AT_END_DO, event._atEndDo); //at end of event do
         values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0); // manual profile activation
+        values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, event._fkProfileStartWhenActivated); // start when profile is activated
 
         db.beginTransaction();
 
@@ -2223,23 +2219,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getMyWritableDatabase();
 
         Cursor cursor = db.query(TABLE_EVENTS,
-                                 new String[] { KEY_E_ID,
-                                                KEY_E_NAME,
-                                                KEY_E_FK_PROFILE_START,
-                                                KEY_E_FK_PROFILE_END,
-                                                KEY_E_STATUS,
-                                                KEY_E_NOTIFICATION_SOUND,
-                                                KEY_E_FORCE_RUN,
-                                                KEY_E_BLOCKED,
-                                                //KEY_E_UNDONE_PROFILE,
-                                                KEY_E_PRIORITY,
-                                                KEY_E_DELAY_START,
-                                                KEY_E_IS_IN_DELAY,
-                                                KEY_E_AT_END_DO,
-                                                KEY_E_MANUAL_PROFILE_ACTIVATION
-                                                },
-                                 KEY_E_ID + "=?",
-                                 new String[] { String.valueOf(event_id) }, null, null, null, null);
+                new String[]{KEY_E_ID,
+                        KEY_E_NAME,
+                        KEY_E_FK_PROFILE_START,
+                        KEY_E_FK_PROFILE_END,
+                        KEY_E_STATUS,
+                        KEY_E_NOTIFICATION_SOUND,
+                        KEY_E_FORCE_RUN,
+                        KEY_E_BLOCKED,
+                        //KEY_E_UNDONE_PROFILE,
+                        KEY_E_PRIORITY,
+                        KEY_E_DELAY_START,
+                        KEY_E_IS_IN_DELAY,
+                        KEY_E_AT_END_DO,
+                        KEY_E_MANUAL_PROFILE_ACTIVATION,
+                        KEY_E_FK_PROFILE_START_WHEN_ACTIVATED
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event_id)}, null, null, null, null);
 
         Event event = null;
 
@@ -2263,7 +2260,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                           Integer.parseInt(cursor.getString(9)),
                                           Integer.parseInt(cursor.getString(10)) == 1,
                                           Integer.parseInt(cursor.getString(11)),
-                                          Integer.parseInt(cursor.getString(12)) == 1
+                                          Integer.parseInt(cursor.getString(12)) == 1,
+                                          Long.parseLong(cursor.getString(13))
                                           );
             }
 
@@ -2297,7 +2295,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                          KEY_E_DELAY_START + "," +
                                          KEY_E_IS_IN_DELAY + "," +
                                          KEY_E_AT_END_DO + "," +
-                                         KEY_E_MANUAL_PROFILE_ACTIVATION +
+                                         KEY_E_MANUAL_PROFILE_ACTIVATION + "," +
+                                         KEY_E_FK_PROFILE_START_WHEN_ACTIVATED +
                              " FROM " + TABLE_EVENTS +
                              " ORDER BY " + KEY_E_ID;
 
@@ -2324,6 +2323,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 event._isInDelay = Integer.parseInt(cursor.getString(10)) == 1;
                 event._atEndDo = Integer.parseInt(cursor.getString(11));
                 event._manualProfileActivation = Integer.parseInt(cursor.getString(12)) == 1;
+                event._fkProfileStartWhenActivated = Long.parseLong(cursor.getString(13));
                 event.createEventPreferences();
                 getEventPreferences(event, db);
                 // Adding contact to list
@@ -2357,6 +2357,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_IS_IN_DELAY, event._isInDelay ? 1 : 0);
         values.put(KEY_E_AT_END_DO, event._atEndDo);
         values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, event._manualProfileActivation ? 1 : 0);
+        values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, event._fkProfileStartWhenActivated);
 
         int r = 0;
 
@@ -2388,7 +2389,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
         db.delete(TABLE_EVENTS, KEY_E_ID + " = ?",
-                new String[] { String.valueOf(event._id) });
+                new String[]{String.valueOf(event._id)});
         //db.close();
     }
 
@@ -2396,7 +2397,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteAllEvents() {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
-        db.delete(TABLE_EVENTS, null,	null);
+        db.delete(TABLE_EVENTS, null, null);
         //db.close();
     }
 
@@ -2444,9 +2445,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         new String[] { String.valueOf(profile._id) });
 
             ContentValues values3 = new ContentValues();
-            values3.put(KEY_E_PROFILE_FK_PROFILE, 0);
+            values3.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, GlobalData.PROFILE_NO_ACTIVATE);
             // updating row
-            db.update(TABLE_EVENTS, values3, KEY_E_PROFILE_FK_PROFILE + " = ?",
+            db.update(TABLE_EVENTS, values3, KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " = ?",
                     new String[] { String.valueOf(profile._id) });
 
             db.setTransactionSuccessful();
@@ -2467,7 +2468,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_E_FK_PROFILE_START, 0);
         values.put(KEY_E_FK_PROFILE_END, GlobalData.PROFILE_NO_ACTIVATE);
-        values.put(KEY_E_PROFILE_FK_PROFILE, 0);
+        values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, GlobalData.PROFILE_NO_ACTIVATE);
 
         // updating row
         db.update(TABLE_EVENTS, values, null, null);
@@ -2492,7 +2493,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesScreen(event, db);
         getEventPreferencesBluetooth(event, db);
         getEventPreferencesSMS(event, db);
-        getEventPreferencesProfile(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -2744,15 +2744,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void getEventPreferencesSMS(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
-                                 new String[] { KEY_E_SMS_ENABLED,
-                                                //KEY_E_SMS_EVENT,
-                                                KEY_E_SMS_CONTACTS,
-                                                KEY_E_SMS_CONTACT_LIST_TYPE,
-                                                KEY_E_SMS_START_TIME,
-                                                KEY_E_SMS_CONTACT_GROUPS
-                                                },
-                                 KEY_E_ID + "=?",
-                                 new String[] { String.valueOf(event._id) }, null, null, null, null);
+                new String[]{KEY_E_SMS_ENABLED,
+                        //KEY_E_SMS_EVENT,
+                        KEY_E_SMS_CONTACTS,
+                        KEY_E_SMS_CONTACT_LIST_TYPE,
+                        KEY_E_SMS_START_TIME,
+                        KEY_E_SMS_CONTACT_GROUPS
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
@@ -2767,28 +2767,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._contactListType = Integer.parseInt(cursor.getString(2));
                 eventPreferences._startTime = Long.parseLong(cursor.getString(3));
                 eventPreferences._contactGroups = cursor.getString(4);
-            }
-            cursor.close();
-        }
-    }
-
-    private void getEventPreferencesProfile(Event event, SQLiteDatabase db) {
-        Cursor cursor = db.query(TABLE_EVENTS,
-                new String[] { KEY_E_PROFILE_ENABLED,
-                                KEY_E_PROFILE_FK_PROFILE
-                },
-                KEY_E_ID + "=?",
-                new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
-            cursor.moveToFirst();
-
-            if (cursor.getCount() > 0)
-            {
-                EventPreferencesProfile eventPreferences = event._eventPreferencesProfile;
-
-                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._profileId = Long.parseLong(cursor.getString(1));
             }
             cursor.close();
         }
@@ -2822,8 +2800,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             r = updateEventPreferencesBluetooth(event, db);
         if (r != 0)
             r = updateEventPreferencesSMS(event, db);
-        if (r != 0)
-            r = updateEventPreferencesProfile(event, db);
 
         return r;
     }
@@ -2990,21 +2966,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
         
-        return r;
-    }
-
-    private int updateEventPreferencesProfile(Event event, SQLiteDatabase db) {
-        ContentValues values = new ContentValues();
-
-        EventPreferencesProfile eventPreferences = event._eventPreferencesProfile;
-
-        values.put(KEY_E_PROFILE_ENABLED, (eventPreferences._enabled) ? 1 : 0);
-        values.put(KEY_E_PROFILE_FK_PROFILE, eventPreferences._profileId);
-
-        // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                new String[] { String.valueOf(event._id) });
-
         return r;
     }
 
@@ -3210,9 +3171,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else
         if (eventType == ETYPE_SMS)
             eventTypeChecked = eventTypeChecked + KEY_E_SMS_ENABLED + "=1";
-        else
-        if (eventType == ETYPE_PROFILE)
-            eventTypeChecked = eventTypeChecked + KEY_E_PROFILE_ENABLED + "=1";
 
         countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                      " WHERE " + eventTypeChecked;
@@ -4075,7 +4033,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             {
                                                 if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START) ||
                                                     columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) ||
-                                                    columnNamesExportedDB[i].equals(KEY_E_PROFILE_FK_PROFILE))
+                                                    columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED))
                                                 {
                                                     // importnuty profil ma nove id
                                                     // ale mame mapovacie polia, z ktorych vieme
@@ -4085,7 +4043,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         values.put(columnNamesExportedDB[i], importDBEventProfileIds.get(profileIdx));
                                                     else
                                                     {
-                                                        if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) && (cursorExportedDB.getLong(i) == GlobalData.PROFILE_NO_ACTIVATE))
+                                                        if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) &&
+                                                                (cursorExportedDB.getLong(i) == GlobalData.PROFILE_NO_ACTIVATE))
+                                                            values.put(columnNamesExportedDB[i], GlobalData.PROFILE_NO_ACTIVATE);
+                                                        if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED) &&
+                                                                (cursorExportedDB.getLong(i) == GlobalData.PROFILE_NO_ACTIVATE))
                                                             values.put(columnNamesExportedDB[i], GlobalData.PROFILE_NO_ACTIVATE);
                                                         else
                                                             values.put(columnNamesExportedDB[i], 0);
@@ -4352,9 +4314,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             values.put(KEY_E_MANUAL_PROFILE_ACTIVATION, 0);
                                         }
 
-                                        if (exportedDBObj.getVersion() < 1360) {
-                                            values.put(KEY_E_PROFILE_ENABLED, 0);
-                                            values.put(KEY_E_PROFILE_FK_PROFILE, 0);
+                                        if (exportedDBObj.getVersion() < 1370) {
+                                            values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, GlobalData.PROFILE_NO_ACTIVATE);
                                         }
 
                                     // Inserting Row do db z SQLiteOpenHelper

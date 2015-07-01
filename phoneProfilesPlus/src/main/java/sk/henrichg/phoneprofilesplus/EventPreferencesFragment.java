@@ -24,394 +24,395 @@ import android.widget.TextView;
 import java.util.List;
  
 public class EventPreferencesFragment extends PreferenceFragment 
-										implements SharedPreferences.OnSharedPreferenceChangeListener
+                                        implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-	private DataWrapper dataWrapper;
-	private Event event;
-	public long event_id;
-	//private boolean first_start_activity;
-	private int new_event_mode;
-	private int startupSource;
-	public boolean eventNonEdited = true;
-	private PreferenceManager prefMng;
-	private SharedPreferences preferences;
-	private Context context;
-	private ActionMode actionMode;
-	private Callback actionModeCallback;
-	
-	private int actionModeButtonClicked = BUTTON_UNDEFINED;
-	
-	private static Activity preferencesActivity = null;
-		
-	static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
-	static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
-	private String PREFS_NAME;
+    private DataWrapper dataWrapper;
+    private Event event;
+    public long event_id;
+    //private boolean first_start_activity;
+    private int new_event_mode;
+    private int startupSource;
+    public boolean eventNonEdited = true;
+    private PreferenceManager prefMng;
+    private SharedPreferences preferences;
+    private Context context;
+    private ActionMode actionMode;
+    private Callback actionModeCallback;
 
-	static final String SP_ACTION_MODE_SHOWED = "action_mode_showed";
-	
-	static final int BUTTON_UNDEFINED = 0;
-	static final int BUTTON_CANCEL = 1;
-	static final int BUTTON_SAVE = 2;
-	
-	private OnShowActionModeInEventPreferences onShowActionModeInEventPreferencesCallback = sDummyOnShowActionModeInEventPreferencesCallback;
-	private OnHideActionModeInEventPreferences onHideActionModeInEventPreferencesCallback = sDummyOnHideActionModeInEventPreferencesCallback;
-	private OnRestartEventPreferences onRestartEventPreferencesCallback = sDummyOnRestartEventPreferencesCallback;
-	private OnRedrawEventListFragment onRedrawEventListFragmentCallback = sDummyOnRedrawEventListFragmentCallback;
+    private int actionModeButtonClicked = BUTTON_UNDEFINED;
 
-	// invokes when action mode shows
-	public interface OnShowActionModeInEventPreferences {
-		public void onShowActionModeInEventPreferences();
-	}
+    private static Activity preferencesActivity = null;
 
-	private static OnShowActionModeInEventPreferences sDummyOnShowActionModeInEventPreferencesCallback = new OnShowActionModeInEventPreferences() {
-		public void onShowActionModeInEventPreferences() {
-		}
-	};
-	
-	// invokes when action mode hides
-	public interface OnHideActionModeInEventPreferences {
-		public void onHideActionModeInEventPreferences();
-	}
+    static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
+    static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
+    private String PREFS_NAME;
 
-	private static OnHideActionModeInEventPreferences sDummyOnHideActionModeInEventPreferencesCallback = new OnHideActionModeInEventPreferences() {
-		public void onHideActionModeInEventPreferences() {
-		}
-	};
-	
-	// invokes when restart of event preferences fragment needed (undo preference changes)
-	public interface OnRestartEventPreferences {
-		/**
-		 * Callback for restart fragment.
-		 */
-		public void onRestartEventPreferences(Event event, int newEventMode);
-	}
+    static final String SP_ACTION_MODE_SHOWED = "action_mode_showed";
 
-	private static OnRestartEventPreferences sDummyOnRestartEventPreferencesCallback = new OnRestartEventPreferences() {
-		public void onRestartEventPreferences(Event event, int newEventMode) {
-		}
-	};
-	
-	// invokes when event list fragment redraw needed (preference changes accepted)
-	public interface OnRedrawEventListFragment {
-		/**
-		 * Callback for redraw event list fragment.
-		 */
-		public void onRedrawEventListFragment(Event event, int newEventMode);
-	}
+    static final int BUTTON_UNDEFINED = 0;
+    static final int BUTTON_CANCEL = 1;
+    static final int BUTTON_SAVE = 2;
 
-	private static OnRedrawEventListFragment sDummyOnRedrawEventListFragmentCallback = new OnRedrawEventListFragment() {
-		public void onRedrawEventListFragment(Event event, int newEventMode) {
-		}
-	};
+    private OnShowActionModeInEventPreferences onShowActionModeInEventPreferencesCallback = sDummyOnShowActionModeInEventPreferencesCallback;
+    private OnHideActionModeInEventPreferences onHideActionModeInEventPreferencesCallback = sDummyOnHideActionModeInEventPreferencesCallback;
+    private OnRestartEventPreferences onRestartEventPreferencesCallback = sDummyOnRestartEventPreferencesCallback;
+    private OnRedrawEventListFragment onRedrawEventListFragmentCallback = sDummyOnRedrawEventListFragmentCallback;
 
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
+    // invokes when action mode shows
+    public interface OnShowActionModeInEventPreferences {
+        public void onShowActionModeInEventPreferences();
+    }
 
-		if (!(activity instanceof OnShowActionModeInEventPreferences)) {
-			throw new IllegalStateException(
-					"Activity must implement fragment's callbacks.");
-		}
-		onShowActionModeInEventPreferencesCallback = (OnShowActionModeInEventPreferences) activity;
-		
-		if (!(activity instanceof OnHideActionModeInEventPreferences)) {
-			throw new IllegalStateException(
-					"Activity must implement fragment's callbacks.");
-		}
-		onHideActionModeInEventPreferencesCallback = (OnHideActionModeInEventPreferences) activity;
-		
-		if (!(activity instanceof OnRestartEventPreferences)) {
-			throw new IllegalStateException(
-					"Activity must implement fragment's callbacks.");
-		}
-		onRestartEventPreferencesCallback = (OnRestartEventPreferences) activity;
-		
-		if (!(activity instanceof OnRedrawEventListFragment)) {
-			throw new IllegalStateException(
-					"Activity must implement fragment's callbacks.");
-		}
-		onRedrawEventListFragmentCallback = (OnRedrawEventListFragment) activity;
-		
-	}
+    private static OnShowActionModeInEventPreferences sDummyOnShowActionModeInEventPreferencesCallback = new OnShowActionModeInEventPreferences() {
+        public void onShowActionModeInEventPreferences() {
+        }
+    };
 
-	@Override
-	public void onDetach() {
-		super.onDetach();
+    // invokes when action mode hides
+    public interface OnHideActionModeInEventPreferences {
+        public void onHideActionModeInEventPreferences();
+    }
 
-		// Reset the active callbacks interface to the dummy implementation.
-		onShowActionModeInEventPreferencesCallback = sDummyOnShowActionModeInEventPreferencesCallback;
-		onHideActionModeInEventPreferencesCallback = sDummyOnHideActionModeInEventPreferencesCallback;
-		onRestartEventPreferencesCallback = sDummyOnRestartEventPreferencesCallback;
-		onRedrawEventListFragmentCallback = sDummyOnRedrawEventListFragmentCallback;
-	}
-	
-	@Override
+    private static OnHideActionModeInEventPreferences sDummyOnHideActionModeInEventPreferencesCallback = new OnHideActionModeInEventPreferences() {
+        public void onHideActionModeInEventPreferences() {
+        }
+    };
+
+    // invokes when restart of event preferences fragment needed (undo preference changes)
+    public interface OnRestartEventPreferences {
+        /**
+         * Callback for restart fragment.
+         */
+        public void onRestartEventPreferences(Event event, int newEventMode);
+    }
+
+    private static OnRestartEventPreferences sDummyOnRestartEventPreferencesCallback = new OnRestartEventPreferences() {
+        public void onRestartEventPreferences(Event event, int newEventMode) {
+        }
+    };
+
+    // invokes when event list fragment redraw needed (preference changes accepted)
+    public interface OnRedrawEventListFragment {
+        /**
+         * Callback for redraw event list fragment.
+         */
+        public void onRedrawEventListFragment(Event event, int newEventMode);
+    }
+
+    private static OnRedrawEventListFragment sDummyOnRedrawEventListFragmentCallback = new OnRedrawEventListFragment() {
+        public void onRedrawEventListFragment(Event event, int newEventMode) {
+        }
+    };
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (!(activity instanceof OnShowActionModeInEventPreferences)) {
+            throw new IllegalStateException(
+                    "Activity must implement fragment's callbacks.");
+        }
+        onShowActionModeInEventPreferencesCallback = (OnShowActionModeInEventPreferences) activity;
+
+        if (!(activity instanceof OnHideActionModeInEventPreferences)) {
+            throw new IllegalStateException(
+                    "Activity must implement fragment's callbacks.");
+        }
+        onHideActionModeInEventPreferencesCallback = (OnHideActionModeInEventPreferences) activity;
+
+        if (!(activity instanceof OnRestartEventPreferences)) {
+            throw new IllegalStateException(
+                    "Activity must implement fragment's callbacks.");
+        }
+        onRestartEventPreferencesCallback = (OnRestartEventPreferences) activity;
+
+        if (!(activity instanceof OnRedrawEventListFragment)) {
+            throw new IllegalStateException(
+                    "Activity must implement fragment's callbacks.");
+        }
+        onRedrawEventListFragmentCallback = (OnRedrawEventListFragment) activity;
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        // Reset the active callbacks interface to the dummy implementation.
+        onShowActionModeInEventPreferencesCallback = sDummyOnShowActionModeInEventPreferencesCallback;
+        onHideActionModeInEventPreferencesCallback = sDummyOnHideActionModeInEventPreferencesCallback;
+        onRestartEventPreferencesCallback = sDummyOnRestartEventPreferencesCallback;
+        onRedrawEventListFragmentCallback = sDummyOnRedrawEventListFragmentCallback;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
-		
-		super.onCreate(savedInstanceState);
 
-		// must by false to avoid FC when rotation changes and preference dialogs are shown
-		setRetainInstance(false);
-		
-		preferencesActivity = getActivity();
+        super.onCreate(savedInstanceState);
+
+        // must by false to avoid FC when rotation changes and preference dialogs are shown
+        setRetainInstance(false);
+
+        preferencesActivity = getActivity();
         context = getActivity().getBaseContext();
 
         dataWrapper = new DataWrapper(context.getApplicationContext(), true, false, 0);
-		
-	    startupSource = getArguments().getInt(GlobalData.EXTRA_PREFERENCES_STARTUP_SOURCE, GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT);
-	    if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
-	    	PREFS_NAME = PREFS_NAME_ACTIVITY;
-	    else
-	    if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-	    	PREFS_NAME = PREFS_NAME_FRAGMENT;
-	    else
-			PREFS_NAME = PREFS_NAME_FRAGMENT;
-		
-		prefMng = getPreferenceManager();
-		prefMng.setSharedPreferencesName(PREFS_NAME);
-		prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
-		
+
+        startupSource = getArguments().getInt(GlobalData.EXTRA_PREFERENCES_STARTUP_SOURCE, GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT);
+        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
+            PREFS_NAME = PREFS_NAME_ACTIVITY;
+        else
+        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
+            PREFS_NAME = PREFS_NAME_FRAGMENT;
+        else
+            PREFS_NAME = PREFS_NAME_FRAGMENT;
+
+        prefMng = getPreferenceManager();
+        prefMng.setSharedPreferencesName(PREFS_NAME);
+        prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
+
         // getting attached fragment data
-		if (getArguments().containsKey(GlobalData.EXTRA_NEW_EVENT_MODE))
-			new_event_mode = getArguments().getInt(GlobalData.EXTRA_NEW_EVENT_MODE);
-		if (getArguments().containsKey(GlobalData.EXTRA_EVENT_ID))
-			event_id = getArguments().getLong(GlobalData.EXTRA_EVENT_ID);
-		if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT)
-		{
-			// create new event - default is TIME
-			event = dataWrapper.getNoinitializedEvent(getResources().getString(R.string.event_name_default));
-			event_id = 0;
-		}
-		else
-		if (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE)
-		{
-			// duplicate event
-			Event origEvent = dataWrapper.getEventById(event_id);
-			event = new Event(
-						   origEvent._name+"_d", 
-						   origEvent._fkProfileStart, 
-						   origEvent._fkProfileEnd, 
-						   origEvent.getStatus(),
-						   origEvent._notificationSound,
-						   origEvent._forceRun,
-						   origEvent._blocked,
-						   //origEvent._undoneProfile,
-						   origEvent._priority,
-						   origEvent._delayStart,
-						   origEvent._isInDelay,
+        if (getArguments().containsKey(GlobalData.EXTRA_NEW_EVENT_MODE))
+            new_event_mode = getArguments().getInt(GlobalData.EXTRA_NEW_EVENT_MODE);
+        if (getArguments().containsKey(GlobalData.EXTRA_EVENT_ID))
+            event_id = getArguments().getLong(GlobalData.EXTRA_EVENT_ID);
+        if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT)
+        {
+            // create new event - default is TIME
+            event = dataWrapper.getNoinitializedEvent(getResources().getString(R.string.event_name_default));
+            event_id = 0;
+        }
+        else
+        if (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE)
+        {
+            // duplicate event
+            Event origEvent = dataWrapper.getEventById(event_id);
+            event = new Event(
+                           origEvent._name+"_d",
+                           origEvent._fkProfileStart,
+                           origEvent._fkProfileEnd,
+                           origEvent.getStatus(),
+                           origEvent._notificationSound,
+                           origEvent._forceRun,
+                           origEvent._blocked,
+                           //origEvent._undoneProfile,
+                           origEvent._priority,
+                           origEvent._delayStart,
+                           origEvent._isInDelay,
                            origEvent._atEndDo,
-                           origEvent._manualProfileActivation
-							);
-			event.copyEventPreferences(origEvent);
-			event_id = 0;
-		}
-		else
-			event = dataWrapper.getEventById(event_id);
+                           origEvent._manualProfileActivation,
+                           origEvent._fkProfileStartWhenActivated
+                            );
+            event.copyEventPreferences(origEvent);
+            event_id = 0;
+        }
+        else
+            event = dataWrapper.getEventById(event_id);
 
         preferences = prefMng.getSharedPreferences();
         
-		if (savedInstanceState == null)
-        	loadPreferences();
-   	
-    	// get preference resource id from EventPreference
-		addPreferencesFromResource(R.xml.event_preferences);
-		
-		RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
-		notificationSoundPreference.setEnabled(GlobalData.notificationStatusBar);
-		
-		event._eventPreferencesTime.checkPreferences(prefMng, context);
-		event._eventPreferencesBattery.checkPreferences(prefMng, context);
-		event._eventPreferencesCall.checkPreferences(prefMng, context);
-		event._eventPreferencesCalendar.checkPreferences(prefMng, context);
-		event._eventPreferencesPeripherals.checkPreferences(prefMng, context);
-		event._eventPreferencesWifi.checkPreferences(prefMng, context);
-		event._eventPreferencesScreen.checkPreferences(prefMng, context);
-		event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
-		event._eventPreferencesSMS.checkPreferences(prefMng, context);
+        if (savedInstanceState == null)
+            loadPreferences();
+
+        // get preference resource id from EventPreference
+        addPreferencesFromResource(R.xml.event_preferences);
+
+        RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
+        notificationSoundPreference.setEnabled(GlobalData.notificationStatusBar);
+
+        event._eventPreferencesTime.checkPreferences(prefMng, context);
+        event._eventPreferencesBattery.checkPreferences(prefMng, context);
+        event._eventPreferencesCall.checkPreferences(prefMng, context);
+        event._eventPreferencesCalendar.checkPreferences(prefMng, context);
+        event._eventPreferencesPeripherals.checkPreferences(prefMng, context);
+        event._eventPreferencesWifi.checkPreferences(prefMng, context);
+        event._eventPreferencesScreen.checkPreferences(prefMng, context);
+        event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
+        event._eventPreferencesSMS.checkPreferences(prefMng, context);
 
         preferences.registerOnSharedPreferenceChangeListener(this);  
         
         createActionModeCallback();
 
-		if (savedInstanceState == null)
-		{
-	       	SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-	       	Editor editor = preferences.edit();
-	       	editor.remove(SP_ACTION_MODE_SHOWED);
-	       	editor.commit();
-		}
+        if (savedInstanceState == null)
+        {
+            SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+            Editor editor = preferences.edit();
+            editor.remove(SP_ACTION_MODE_SHOWED);
+            editor.commit();
+        }
 
-		updateSharedPreference();
-       	
+        updateSharedPreference();
+
     }
-	
-	@Override
-	public void onStart()
-	{
-		super.onStart();
-		
-		// must by in onStart(), in ocCreate() crashed
-    	SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-    	int actionModeShowed = preferences.getInt(SP_ACTION_MODE_SHOWED, 0);
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        // must by in onStart(), in ocCreate() crashed
+        SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+        int actionModeShowed = preferences.getInt(SP_ACTION_MODE_SHOWED, 0);
         if (actionModeShowed == 2)
-        	showActionMode();
+            showActionMode();
         else
         if (((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
             (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
-        	&& (actionModeShowed == 0))
-        	showActionMode();
-	}
-	
-	@Override
-	public void onPause()
-	{
-		super.onPause();
+            && (actionModeShowed == 0))
+            showActionMode();
+    }
 
-		/*
-		if (actionMode != null)
-		{
-			restart = false; // nerestartovat fragment
-			actionMode.finish();
-		}
-		*/
-		
-	}
-	
-	@Override
-	public void onDestroy()
-	{
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+
+        /*
+        if (actionMode != null)
+        {
+            restart = false; // nerestartovat fragment
+            actionMode.finish();
+        }
+        */
+
+    }
+
+    @Override
+    public void onDestroy()
+    {
         preferences.unregisterOnSharedPreferenceChangeListener(this);
         event = null;
 
-		if (dataWrapper != null)
-			dataWrapper.invalidateDataWrapper();
-		dataWrapper = null;
+        if (dataWrapper != null)
+            dataWrapper.invalidateDataWrapper();
+        dataWrapper = null;
         
-		super.onDestroy();
-	}
+        super.onDestroy();
+    }
 
-	public void doOnActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		super.onActivityResult(requestCode, resultCode, data);
-	}
-	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		doOnActivityResult(requestCode, resultCode, data);
-	}
-	
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
+    public void doOnActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-		SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-    	Editor editor = preferences.edit();
-    	if (actionMode != null) 
-    		editor.putInt(SP_ACTION_MODE_SHOWED, 2);
-    	else
-    		editor.putInt(SP_ACTION_MODE_SHOWED, 1);
-		editor.commit();
-	}	
-	
-	private void loadPreferences()
-	{
-    	if (event != null)
-    	{
-	    	//SharedPreferences preferences = getActivity().getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
-	    	event.loadSharedPreferences(preferences);
-    	}
-		
-	}
-	
-	private void savePreferences()
-	{
-		List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        doOnActivityResult(requestCode, resultCode, data);
+    }
 
-		if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
-		    (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
-		{
-	    	event.saveSharedPreferences(preferences);
-			
-			// add event into DB
-			dataWrapper.getDatabaseHandler().addEvent(event);
-			event_id = event._id;
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-			// restart Events
-			GlobalData.logE("$$$ restartEvents","from EventPreferencesFragment.savePreferences");
-			dataWrapper.restartEvents(false, true);
-		}
-		else
-    	if (event_id > 0) 
+        SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        if (actionMode != null)
+            editor.putInt(SP_ACTION_MODE_SHOWED, 2);
+        else
+            editor.putInt(SP_ACTION_MODE_SHOWED, 1);
+        editor.commit();
+    }
+
+    private void loadPreferences()
+    {
+        if (event != null)
         {
-	    	event.saveSharedPreferences(preferences);
-	    	
-    		// udate event in DB
-			dataWrapper.getDatabaseHandler().updateEvent(event);
+            //SharedPreferences preferences = getActivity().getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+            event.loadSharedPreferences(preferences);
+        }
 
-			if (event.getStatus() == Event.ESTATUS_STOP)
-			{
-				// pause event
-				event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
-				// stop event
-				event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false, false);
-			}
-			else
-				// pause event
-				event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
-			// restart Events
-			GlobalData.logE("$$$ restartEvents","from EventPreferencesFragment.savePreferences");
-			dataWrapper.restartEvents(false, true);
-			
+    }
+
+    private void savePreferences()
+    {
+        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+
+        if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
+            (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
+        {
+            event.saveSharedPreferences(preferences);
+
+            // add event into DB
+            dataWrapper.getDatabaseHandler().addEvent(event);
+            event_id = event._id;
+
+            // restart Events
+            GlobalData.logE("$$$ restartEvents","from EventPreferencesFragment.savePreferences");
+            dataWrapper.restartEvents(false, true);
+        }
+        else
+        if (event_id > 0)
+        {
+            event.saveSharedPreferences(preferences);
+
+            // udate event in DB
+            dataWrapper.getDatabaseHandler().updateEvent(event);
+
+            if (event.getStatus() == Event.ESTATUS_STOP)
+            {
+                // pause event
+                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
+                // stop event
+                event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false, false);
+            }
+            else
+                // pause event
+                event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
+            // restart Events
+            GlobalData.logE("$$$ restartEvents","from EventPreferencesFragment.savePreferences");
+            dataWrapper.restartEvents(false, true);
+
         }
 
         onRedrawEventListFragmentCallback.onRedrawEventListFragment(event, new_event_mode);
-	}
-	
-	private void updateSharedPreference()
-	{
+    }
+
+    private void updateSharedPreference()
+    {
         if (event != null) 
         {	
 
-	    	// updating activity with selected event preferences
-	    	
-    		event.setAllSummary(prefMng, context);
-			
-        }
-	}
-	
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) 
-	{
+            // updating activity with selected event preferences
 
-		//eventTypeChanged = false;
-		
-		event.setSummary(prefMng, key, sharedPreferences, context);
-		
-    	Activity activity = getActivity();
-    	boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
-    	canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof EventPreferencesFragmentActivity));
-    	if (canShow)
-    		showActionMode();
-	}
-	
-	private void createActionModeCallback()
-	{
-		actionModeCallback = new ActionMode.Callback() {
-			 
+            event.setAllSummary(prefMng, context);
+
+        }
+    }
+
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
+    {
+
+        //eventTypeChanged = false;
+
+        event.setSummary(prefMng, key, sharedPreferences, context);
+
+        Activity activity = getActivity();
+        boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
+        canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof EventPreferencesFragmentActivity));
+        if (canShow)
+            showActionMode();
+    }
+
+    private void createActionModeCallback()
+    {
+        actionModeCallback = new ActionMode.Callback() {
+
             /** Invoked whenever the action mode is shown. This is invoked immediately after onCreateActionMode */
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-        		MenuItem menuItem = menu.findItem(R.id.event_preferences_action_mode_save);
-        		menuItem.setTitle(menuItem.getTitle() + "    ");
-        		return true;
+                MenuItem menuItem = menu.findItem(R.id.event_preferences_action_mode_save);
+                menuItem.setTitle(menuItem.getTitle() + "    ");
+                return true;
             }
  
             /** Called when user exits action mode */
             public void onDestroyActionMode(ActionMode mode) {
                  actionMode = null;
                  if (actionModeButtonClicked == BUTTON_CANCEL)
-            	     // cancel button clicked
+                     // cancel button clicked
                  {
-            	     onRestartEventPreferencesCallback.onRestartEventPreferences(event, new_event_mode);
+                     onRestartEventPreferencesCallback.onRestartEventPreferences(event, new_event_mode);
                  } 
             }
  
@@ -419,7 +420,7 @@ public class EventPreferencesFragment extends PreferenceFragment
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 MenuInflater inflater = mode.getMenuInflater();
                 inflater.inflate(R.menu.event_preferences_action_mode, menu);
-            	return true;
+                return true;
             }
  
             /** This is called when an item in the context menu is selected */
@@ -427,32 +428,32 @@ public class EventPreferencesFragment extends PreferenceFragment
                 switch(item.getItemId())
                 {
                     case R.id.event_preferences_action_mode_save:
-        				savePreferences();
-        				finishActionMode(BUTTON_SAVE);
+                        savePreferences();
+                        finishActionMode(BUTTON_SAVE);
                         return true;
                     default:
-        				finishActionMode(BUTTON_CANCEL);
+                        finishActionMode(BUTTON_CANCEL);
                         return false;                        
                 }
             }
 
         };		
-	}
-	
-	@SuppressLint("InflateParams")
-	private void showActionMode()
-	{
-		eventNonEdited = false;
-		
-		if (actionMode != null)
-			actionMode.finish();
-		
-    	actionModeButtonClicked = BUTTON_UNDEFINED;
-    	
-    	LayoutInflater inflater = LayoutInflater.from(getActivity());
-    	View actionView = inflater.inflate(R.layout.event_preferences_action_mode, null);
-    	TextView title = (TextView)actionView.findViewById(R.id.event_preferences_action_menu_title);
-       	title.setText(R.string.title_activity_event_preferences);		
+    }
+
+    @SuppressLint("InflateParams")
+    private void showActionMode()
+    {
+        eventNonEdited = false;
+
+        if (actionMode != null)
+            actionMode.finish();
+
+        actionModeButtonClicked = BUTTON_UNDEFINED;
+
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View actionView = inflater.inflate(R.layout.event_preferences_action_mode, null);
+        TextView title = (TextView)actionView.findViewById(R.id.event_preferences_action_menu_title);
+        title.setText(R.string.title_activity_event_preferences);
 
         actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(actionModeCallback);
         actionMode.setCustomView(actionView);
@@ -460,44 +461,44 @@ public class EventPreferencesFragment extends PreferenceFragment
         onShowActionModeInEventPreferencesCallback.onShowActionModeInEventPreferences();        
         
         actionMode.getCustomView().findViewById(R.id.event_preferences_action_menu_cancel).setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				finishActionMode(BUTTON_CANCEL);
-			}
-       	});
+            public void onClick(View v) {
+                finishActionMode(BUTTON_CANCEL);
+            }
+        });
 
-	}
-	
-	public boolean isActionModeActive()
-	{
-		return (actionMode != null);
-	}
-	
-	public void finishActionMode(int button)
-	{
-		int _button = button;
-		
-		if (_button == BUTTON_SAVE)
-			new_event_mode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
-		
-		if (getActivity() instanceof EventPreferencesFragmentActivity)
-		{
-			actionModeButtonClicked = BUTTON_UNDEFINED;
-			getActivity().finish(); // finish activity;
-		}
-		else
-		if (actionMode != null)
-		{	
-			actionModeButtonClicked = _button;
-			actionMode.finish();
-		}
-		
+    }
+
+    public boolean isActionModeActive()
+    {
+        return (actionMode != null);
+    }
+
+    public void finishActionMode(int button)
+    {
+        int _button = button;
+
+        if (_button == BUTTON_SAVE)
+            new_event_mode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
+
+        if (getActivity() instanceof EventPreferencesFragmentActivity)
+        {
+            actionModeButtonClicked = BUTTON_UNDEFINED;
+            getActivity().finish(); // finish activity;
+        }
+        else
+        if (actionMode != null)
+        {
+            actionModeButtonClicked = _button;
+            actionMode.finish();
+        }
+
         onHideActionModeInEventPreferencesCallback.onHideActionModeInEventPreferences();        
-		
-	}
 
-	static public Activity getPreferencesActivity()
-	{
-		return preferencesActivity;
-	}
-	
+    }
+
+    static public Activity getPreferencesActivity()
+    {
+        return preferencesActivity;
+    }
+
 }

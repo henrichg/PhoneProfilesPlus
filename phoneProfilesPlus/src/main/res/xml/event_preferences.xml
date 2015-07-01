@@ -34,6 +34,12 @@
             android:title="@string/event_preferences_ForceRun"
             android:defaultValue="false"
             android:summary="@string/event_preferences_ForceRun_summary" />
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
+            android:defaultValue="0"
+            android:key="eventStartWhenActivatedProfile"
+            android:title="@string/event_preferences_eventStartWhenActivatedProfile"
+            henrichg:addNoActivateItem="1"
+            henrichg:noActivateAsDoNotApply="1" />
         <CheckBoxPreference
             android:key="manualProfileActivation"
             android:title="@string/event_preferences_manualProfileActivation"
@@ -140,21 +146,6 @@
             android:entries="@array/eventCalendarAvailabilityArray"
             android:entryValues="@array/eventCalendarAvailabilityValues"
             android:dependency="eventCalendarEnabled" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventProfileParameters"
-        android:title="@string/event_preferences_category_eventProfileParameters" >
-        <CheckBoxPreference
-            android:key="eventProfileEnabled"
-            android:title="@string/event_preferences_profile_enabled"
-            android:defaultValue="false" />
-        <sk.henrichg.phoneprofilesplus.ProfilePreference
-            android:defaultValue="-999"
-            android:key="eventProfileProfileId"
-            android:title="@string/event_preferences_profile_profile"
-            henrichg:addNoActivateItem="0"
-            henrichg:showDuration="1"
-            android:dependency="eventProfileEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventBatteryParameters"

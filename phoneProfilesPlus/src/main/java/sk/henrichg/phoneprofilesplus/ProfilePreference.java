@@ -15,6 +15,7 @@ public class ProfilePreference extends Preference {
     private ImageView profileIcon;
     //private CharSequence preferenceTitle;
     public int addNoActivateItem;
+    public int noActivateAsDoNotApply;
     public int showDuration;
 
     private Context prefContext;
@@ -29,6 +30,7 @@ public class ProfilePreference extends Preference {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProfilePreference);
 
         addNoActivateItem = typedArray.getInt(R.styleable.ProfilePreference_addNoActivateItem, 0);
+        noActivateAsDoNotApply = typedArray.getInt(R.styleable.ProfilePreference_noActivateAsDoNotApply, 0);
         showDuration = typedArray.getInt(R.styleable.ProfilePreference_showDuration, 0);
 
         profileId = "0";
@@ -76,10 +78,10 @@ public class ProfilePreference extends Preference {
             }
             else
             {
-                if ((addNoActivateItem == 1) && (Long.parseLong(profileId) == GlobalData.PROFILE_NO_ACTIVATE))
-                    profileIcon.setImageResource(R.drawable.ic_profile_default); // resource na ikonu
-                else
-                    profileIcon.setImageResource(0); // resource na ikonu
+                //if ((addNoActivateItem == 1) && (Long.parseLong(profileId) == GlobalData.PROFILE_NO_ACTIVATE))
+                //    profileIcon.setImageResource(R.drawable.ic_profile_default); // resource na ikonu
+                //else
+                    profileIcon.setImageResource(R.drawable.ic_empty); // resource na ikonu
             }
             setSummary(Long.parseLong(profileId));
         }
@@ -193,7 +195,7 @@ public class ProfilePreference extends Preference {
 
     }
 
-    private void setSummary(long profileId)
+    public void setSummary(long profileId)
     {
         Profile profile = dataWrapper.getProfileById(profileId, false);
         if (profile != null)
@@ -206,7 +208,10 @@ public class ProfilePreference extends Preference {
         else
         {
             if ((addNoActivateItem == 1) && (profileId == GlobalData.PROFILE_NO_ACTIVATE))
-                setSummary(prefContext.getResources().getString(R.string.profile_preference_profile_end_no_activate));
+                if (noActivateAsDoNotApply == 1)
+                    setSummary(prefContext.getResources().getString(R.string.profile_preference_do_not_apply));
+                else
+                    setSummary(prefContext.getResources().getString(R.string.profile_preference_profile_end_no_activate));
             else
                 setSummary(prefContext.getResources().getString(R.string.profile_preference_profile_not_set));
         }

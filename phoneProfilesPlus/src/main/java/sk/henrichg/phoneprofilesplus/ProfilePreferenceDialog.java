@@ -17,6 +17,7 @@ public class ProfilePreferenceDialog
 
     public ProfilePreference profilePreference;
     public int addNoActivateItem;
+    public int noActivateAsDoNotApply;
     public int showDuration;
     private ProfilePreferenceAdapter profilePreferenceAdapter;
 
@@ -37,6 +38,7 @@ public class ProfilePreferenceDialog
         Collections.sort(profileList, new AlphabeticallyComparator());
 
         addNoActivateItem = profilePreference.addNoActivateItem;
+        noActivateAsDoNotApply = profilePreference.noActivateAsDoNotApply;
         showDuration = profilePreference.showDuration;
 
 

@@ -520,8 +520,6 @@
   <string name="important_info_profile_root">Some profile preferences requires ROOT privileges. These preferences are marked with \"(R)\".</string>
   <string name="important_info_profile_pphelper">Some profile preferences requires installed PPHelper. These preferences are marked with \"(H)\".</string>
   <string name="important_info_pphelper_installation">PPHelper installation requires ROOT privileges. You can invoke PPHelper installation in Editor, via menu item \"Install PPHelper\".</string>
-  <string name="event_type_profile">Profile</string>
-  <string name="event_preferences_category_eventProfileParameters">Profile parameters</string>
-  <string name="event_preferences_profile_enabled">Enable profile</string>
-  <string name="event_preferences_profile_profile">Activated profile</string>
+  <string name="event_preferences_eventStartWhenActivatedProfile">Start only when activated profile</string>
+  <string name="profile_preference_do_not_apply">Do not apply</string>
 </resources>
