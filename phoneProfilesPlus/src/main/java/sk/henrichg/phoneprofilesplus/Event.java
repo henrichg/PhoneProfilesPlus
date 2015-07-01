@@ -623,6 +623,15 @@ public class Event {
                 return;
         }
 
+        // check activated profile
+        if (_fkProfileStartWhenActivated > 0) {
+            Profile activatedProfile = dataWrapper.getActivatedProfile();
+            if ((activatedProfile != null) && (activatedProfile._id != _fkProfileStartWhenActivated))
+                // if activated profile is not _fkProfileStartWhenActivated,
+                // no start event
+                return;
+        }
+
         // search for runing event with higher priority
         for (EventTimeline eventTimeline : eventTimelineList)
         {
