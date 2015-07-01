@@ -4046,6 +4046,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) &&
                                                                 (cursorExportedDB.getLong(i) == GlobalData.PROFILE_NO_ACTIVATE))
                                                             values.put(columnNamesExportedDB[i], GlobalData.PROFILE_NO_ACTIVATE);
+                                                        else
                                                         if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED) &&
                                                                 (cursorExportedDB.getLong(i) == GlobalData.PROFILE_NO_ACTIVATE))
                                                             values.put(columnNamesExportedDB[i], GlobalData.PROFILE_NO_ACTIVATE);

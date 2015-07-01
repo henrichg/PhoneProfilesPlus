@@ -29,7 +29,10 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
         this.profileList = profileList;
 
         if (profileId.isEmpty())
-            this.profileId = 0;
+            if (dialog.addNoActivateItem == 1)
+                this.profileId = GlobalData.PROFILE_NO_ACTIVATE;
+            else
+                this.profileId = 0;
         else
             this.profileId = Long.valueOf(profileId);
 
@@ -62,12 +65,12 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-          ImageView profileIcon;
-          TextView profileLabel;
-          ImageView profileIndicator;
-          RadioButton radioBtn;
-          int position;
-        }
+        ImageView profileIcon;
+        TextView profileLabel;
+        ImageView profileIndicator;
+        RadioButton radioBtn;
+        int position;
+    }
 
     public View getView(int position, View convertView, ViewGroup parent)
     {
@@ -121,6 +124,7 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
                 holder.profileLabel.setText(profile.getProfileNameWithDuration());
             else
                 holder.profileLabel.setText(profile._name);
+            holder.profileIcon.setVisibility(View.VISIBLE);
             if (profile.getIsIconResourceID())
             {
                 if (profile._iconBitmap != null)
@@ -134,8 +138,10 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
             }
             else
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
-            if (GlobalData.applicationEditorPrefIndicator)
+            if (GlobalData.applicationEditorPrefIndicator) {
+                holder.profileIndicator.setVisibility(View.VISIBLE);
                 holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+            }
         }
         else
         {
@@ -146,17 +152,22 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
                     holder.profileLabel.setText(vi.getResources().getString(R.string.profile_preference_do_not_apply));
                 else
                     holder.profileLabel.setText(vi.getResources().getString(R.string.profile_preference_profile_end_no_activate));
-                holder.profileIcon.setImageResource(R.drawable.ic_empty);
+                //holder.profileIcon.setImageResource(R.drawable.ic_empty);
+                holder.profileIcon.setVisibility(View.GONE);
                 if (GlobalData.applicationEditorPrefIndicator)
-                    holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                    //holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                    holder.profileIndicator.setVisibility(View.GONE);
             }
             else
             {
                 holder.radioBtn.setChecked(false);
                 holder.profileLabel.setText("");
+                holder.profileIcon.setVisibility(View.VISIBLE);
                 holder.profileIcon.setImageResource(R.drawable.ic_empty);
-                if (GlobalData.applicationEditorPrefIndicator)
+                if (GlobalData.applicationEditorPrefIndicator) {
+                    holder.profileIndicator.setVisibility(View.VISIBLE);
                     holder.profileIndicator.setImageResource(R.drawable.ic_empty);
+                }
             }
         }
 

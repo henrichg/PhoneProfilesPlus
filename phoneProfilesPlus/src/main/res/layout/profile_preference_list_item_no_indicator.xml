@@ -27,16 +27,24 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_profile_default" />
 
-    <TextView
-        android:id="@+id/profile_pref_dlg_item_label"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@+id/profile_pref_dlg_item_icon"
-        android:paddingLeft="10dp"
-        android:text="@string/profile_name_default"
-        android:textSize="15sp"
-        android:singleLine="true" />
+        android:orientation="vertical"
+        android:layout_marginLeft="80dp"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/profile_pref_dlg_item_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:paddingLeft="10dp"
+            android:text="@string/profile_name_default"
+            android:textSize="15sp"
+            android:singleLine="true" />
+
+    </LinearLayout>
 
 </RelativeLayout>
