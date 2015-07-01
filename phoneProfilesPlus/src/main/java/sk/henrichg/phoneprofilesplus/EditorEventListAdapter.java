@@ -444,13 +444,14 @@ public class EditorEventListAdapter extends BaseAdapter
                             profileName = vi.getResources().getString(R.string.profile_preference_profile_not_set);
                     }
                     holder.profileEndName.setText(profileName);
-                    holder.profileEndIcon.setImageResource(R.drawable.ic_profile_default);
+                    holder.profileEndIcon.setImageResource(R.drawable.ic_empty);
                     if (GlobalData.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                         if (holder.profileEndIndicator != null)
-                            holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
+                            //holder.profileEndIndicator.setImageResource(R.drawable.ic_empty);
+                            holder.profileEndIndicator.setVisibility(View.GONE);
                     }
                 }
             }
