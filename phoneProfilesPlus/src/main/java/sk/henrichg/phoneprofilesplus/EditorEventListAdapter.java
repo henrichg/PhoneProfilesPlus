@@ -326,11 +326,16 @@ public class EditorEventListAdapter extends BaseAdapter
             String eventName = event._name;
             String eventPriority = "[" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
             if (event._forceRun) {
-                eventName = "[\u00BB]" + eventPriority + eventName;
+                eventName = eventPriority + "[\u00BB] " + eventName;
             } else
                 eventName = eventPriority + eventName;
+            if (event._fkProfileStartWhenActivated > 0) {
+                Profile profile =  dataWrapper.getProfileById(event._fkProfileStartWhenActivated, false);
+                if (profile != null)
+                    eventName = eventName + "\n" + "[" + profile._name + "]";
+            }
             if (!isRunnable)
-                eventName = eventName + "\n" + vi.getResources().getString(R.string.event_preferences_error);
+                eventName = eventName + "\n\n" + vi.getResources().getString(R.string.event_preferences_error);
             holder.eventName.setText(eventName);
 
             if (GlobalData.applicationEditorPrefIndicator)
