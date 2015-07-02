@@ -1174,6 +1174,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 lockScreenOrientation();
                 this.dialog.setCancelable(false);
+                this.dialog.setCanceledOnTouchOutside(false);
                 this.dialog.show();
 
                 Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1435,6 +1436,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         lockScreenOrientation();
                         this.dialog.setCancelable(false);
+                        this.dialog.setCanceledOnTouchOutside(false);
                         this.dialog.show();
                     }
 
