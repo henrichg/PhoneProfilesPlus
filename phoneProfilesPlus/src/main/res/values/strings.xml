@@ -337,11 +337,11 @@
   <string name="event_preferences_undoneProfile_summary">Activate a profile, that was active before the start of the event</string>
   <string name="event_prefernce_profile_undone">Undo</string>
   <string name="event_preferences_priority">Priority</string>
-  <string name="array_event_pref_priorityVeryHigh">Very high</string>
-  <string name="array_event_pref_priorityHigh">High</string>
-  <string name="array_event_pref_priorityMedium">Medium</string>
-  <string name="array_event_pref_priorityLow">Low</string>
-  <string name="array_event_pref_priorityVeryLow">Very low</string>
+  <string name="array_event_pref_priorityVeryHigh">[9] Very high</string>
+  <string name="array_event_pref_priorityHigh">[7] High</string>
+  <string name="array_event_pref_priorityMedium">[5] Medium</string>
+  <string name="array_event_pref_priorityLow">[3] Low</string>
+  <string name="array_event_pref_priorityVeryLow">[1] Very low</string>
   <string name="editor_drawer_order_priority">Priority</string>
   <string name="event_type_peripheral">Accessories</string>
   <string name="array_event_pref_peripheralType_deskDock">Desk dock</string>
@@ -372,12 +372,12 @@
   <string name="event_preferences_calendar_no_event">No event</string>
   <string name="pphelper_upgrade_notification_title">PPHelper upgrade is required.</string>
   <string name="pphelper_upgrade_notification_text">Please click for upgrade it.</string>
-  <string name="array_event_pref_priorityLowest">Lowest</string>
-  <string name="array_event_pref_priorityLower">Lower</string>
-  <string name="array_event_pref_priorityLowerMedium">Lower medium</string>
-  <string name="array_event_pref_priorityUpperMedium">Upper medium</string>
-  <string name="array_event_pref_priorityHigher">Higher</string>
-  <string name="array_event_pref_priorityHighest">Highest</string>
+  <string name="array_event_pref_priorityLowest">[0] Lowest</string>
+  <string name="array_event_pref_priorityLower">[2] Lower</string>
+  <string name="array_event_pref_priorityLowerMedium">[4] Lower medium</string>
+  <string name="array_event_pref_priorityUpperMedium">[6] Upper medium</string>
+  <string name="array_event_pref_priorityHigher">[8] Higher</string>
+  <string name="array_event_pref_priorityHighest">[10] Highest</string>
   <string name="event_type_wifi">Wi-Fi</string>
   <string name="event_preferences_category_eventWifiParameters">Wi-Fi parameters</string>
   <string name="event_preferences_wifi_enabled">Enable Wi-Fi</string>
@@ -496,7 +496,7 @@
   <string name="array_event_pref_calendarAvailability_busy">Busy</string>
   <string name="array_event_pref_calendarAvailability_free">Free</string>
   <string name="array_event_pref_calendarAvailability_tentative">Tentative</string>
-  <string name="event_preferences_manualProfileActivation">Manual profile activation</string>
+  <string name="event_preferences_manualProfileActivation">[M] Manual profile activation</string>
   <string name="profileicon_pref_dialog_customColor_button">Change color</string>
   <string name="colorChooser_pref_dialog_title">Set color</string>
   <string name="phone_profiles_pref_category_system">System</string>
@@ -520,6 +520,6 @@
   <string name="important_info_profile_root">Some profile preferences requires ROOT privileges. These preferences are marked with \"(R)\".</string>
   <string name="important_info_profile_pphelper">Some profile preferences requires installed PPHelper. These preferences are marked with \"(H)\".</string>
   <string name="important_info_pphelper_installation">PPHelper installation requires ROOT privileges. You can invoke PPHelper installation in Editor, via menu item \"Install PPHelper\".</string>
-  <string name="event_preferences_eventStartWhenActivatedProfile">Start only when activated profile</string>
+  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Start only when activ. profile</string>
   <string name="profile_preference_do_not_apply">Do not apply</string>
 </resources>

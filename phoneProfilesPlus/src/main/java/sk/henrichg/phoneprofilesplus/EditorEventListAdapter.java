@@ -332,7 +332,7 @@ public class EditorEventListAdapter extends BaseAdapter
             if (event._fkProfileStartWhenActivated > 0) {
                 Profile profile =  dataWrapper.getProfileById(event._fkProfileStartWhenActivated, false);
                 if (profile != null)
-                    eventName = eventName + "\n" + "[" + profile._name + "]";
+                    eventName = eventName + "\n" + "[#] " + profile._name;
             }
             if (!isRunnable)
                 eventName = eventName + "\n\n" + vi.getResources().getString(R.string.event_preferences_error);

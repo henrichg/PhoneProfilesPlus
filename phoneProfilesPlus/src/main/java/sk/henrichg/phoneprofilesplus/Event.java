@@ -448,6 +448,11 @@ public class Event {
     }
 
     public void setAllSummary(PreferenceManager prefMng, Context context) {
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_FORCE_RUN);
+        preference.setTitle("[»] " + preference.getTitle());
+
+
         setSummary(prefMng, PREF_EVENT_NAME, _name, context);
         setSummary(prefMng, PREF_EVENT_PROFILE_START, Long.toString(this._fkProfileStart), context);
         setSummary(prefMng, PREF_EVENT_PROFILE_END, Long.toString(this._fkProfileEnd), context);
