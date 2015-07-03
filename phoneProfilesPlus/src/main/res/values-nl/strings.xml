@@ -337,11 +337,11 @@ Toch activeren?</string>
   <string name="event_preferences_undoneProfile_summary">Activeer voorgaande profiel</string>
   <string name="event_prefernce_profile_undone">Ongedaan maken</string>
   <string name="event_preferences_priority">Prioriteit</string>
-  <string name="array_event_pref_priorityVeryHigh">Heel hoog</string>
-  <string name="array_event_pref_priorityHigh">Hoog</string>
-  <string name="array_event_pref_priorityMedium">Medium</string>
-  <string name="array_event_pref_priorityLow">Laag</string>
-  <string name="array_event_pref_priorityVeryLow">Heel laag</string>
+  <string name="array_event_pref_priorityVeryHigh">[9] Heel hoog</string>
+  <string name="array_event_pref_priorityHigh">[7] Hoog</string>
+  <string name="array_event_pref_priorityMedium">[5] Medium</string>
+  <string name="array_event_pref_priorityLow">[3] Laag</string>
+  <string name="array_event_pref_priorityVeryLow">[1] Heel laag</string>
   <string name="editor_drawer_order_priority">Prioriteit</string>
   <string name="event_type_peripheral">Accessoires</string>
   <string name="array_event_pref_peripheralType_deskDock">Bureau dock</string>
@@ -372,12 +372,12 @@ Toch activeren?</string>
   <string name="event_preferences_calendar_no_event">Geen event</string>
   <string name="pphelper_upgrade_notification_title">PPHelper upgrade is vereist.</string>
   <string name="pphelper_upgrade_notification_text">Klik hier om deze te upgraden.</string>
-  <string name="array_event_pref_priorityLowest">Laagste</string>
-  <string name="array_event_pref_priorityLower">Lager</string>
-  <string name="array_event_pref_priorityLowerMedium">Lager medium</string>
-  <string name="array_event_pref_priorityUpperMedium">Hoger medium</string>
-  <string name="array_event_pref_priorityHigher">Hoger</string>
-  <string name="array_event_pref_priorityHighest">Hoogste</string>
+  <string name="array_event_pref_priorityLowest">[0] Laagste</string>
+  <string name="array_event_pref_priorityLower">[2] Lager</string>
+  <string name="array_event_pref_priorityLowerMedium">[4] Lager medium</string>
+  <string name="array_event_pref_priorityUpperMedium">[6] Hoger medium</string>
+  <string name="array_event_pref_priorityHigher">[8] Hoger</string>
+  <string name="array_event_pref_priorityHighest">[10] Hoogste</string>
   <string name="event_type_wifi">Wi-Fi</string>
   <string name="event_preferences_category_eventWifiParameters">Wi-Fi parameters</string>
   <string name="event_preferences_wifi_enabled">Wifi Inschakelen</string>
@@ -399,7 +399,7 @@ Toch activeren?</string>
   <string name="event_preferences_screen_enabled">Scherm inschakelen</string>
   <string name="event_preferences_screen_event_type">Event type</string>
   <string name="event_preferences_delayStart">Vertraging (sec)</string>
-  <string name="profile_preferences_duration">Duur (min)</string>
+  <string name="profile_preferences_duration">Duur (sec)</string>
   <string name="profile_preferences_afterDurationDo">Bij einde duur doe</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Niets</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Profiel ongedaan maken</string>
@@ -496,7 +496,7 @@ Toch activeren?</string>
   <string name="array_event_pref_calendarAvailability_busy">Busy</string>
   <string name="array_event_pref_calendarAvailability_free">Free</string>
   <string name="array_event_pref_calendarAvailability_tentative">Tentative</string>
-  <string name="event_preferences_manualProfileActivation">Manual profile activation</string>
+  <string name="event_preferences_manualProfileActivation">[M] Manual profile activation</string>
   <string name="profileicon_pref_dialog_customColor_button">Change color</string>
   <string name="colorChooser_pref_dialog_title">Set color</string>
   <string name="phone_profiles_pref_category_system">System</string>
@@ -517,7 +517,9 @@ Toch activeren?</string>
   <string name="important_info_profiles">Profiles</string>
   <string name="important_info_events">Events</string>
   <string name="important_info_system">System</string>
-  <string name="important_info_profile_root">Same profile preferences requires ROOT privileges. These preferences are marked with \"(R)\".</string>
-  <string name="important_info_profile_pphelper">Same profile preferences requires installed PPHelper. These preferences are marked with \"(H)\".</string>
+  <string name="important_info_profile_root">Some profile preferences requires ROOT privileges. These preferences are marked with \"(R)\".</string>
+  <string name="important_info_profile_pphelper">Some profile preferences requires installed PPHelper. These preferences are marked with \"(H)\".</string>
   <string name="important_info_pphelper_installation">PPHelper installation requires ROOT privileges. You can invoke PPHelper installation in Editor, via menu item \"Install PPHelper\".</string>
+  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Start only when activ. profile</string>
+  <string name="profile_preference_do_not_apply">Do not apply</string>
 </resources>
