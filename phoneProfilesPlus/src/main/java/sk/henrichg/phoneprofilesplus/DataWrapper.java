@@ -1863,8 +1863,9 @@ public class DataWrapper {
 
                         for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)
                         {
-                            if (device.getName().equals(event._eventPreferencesBluetooth._adapterName))
-                            {
+                            String _device = device.getName().toUpperCase();
+                            String _adapterName = event._eventPreferencesBluetooth._adapterName.toUpperCase();
+                            if (Wildcard.match(_device, _adapterName, '_', '%')) {
                                 GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth found");
                                 //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
                                 //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
@@ -2407,8 +2408,10 @@ public class DataWrapper {
 
     public static boolean compareSSID(WifiInfo wifiInfo, String SSID)
     {
+        String wifiInfoSSID = getSSID(wifiInfo);
         String ssid2 = "\"" + SSID + "\"";
-        return (getSSID(wifiInfo).equals(SSID) || getSSID(wifiInfo).equals(ssid2));
+        //return (wifiInfoSSID.equals(SSID) || wifiInfoSSID.equals(ssid2));
+        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%') || Wildcard.match(wifiInfoSSID, ssid2, '_', '%'));
     }
 
     public static String getSSID(WifiSSIDData result)
@@ -2437,8 +2440,10 @@ public class DataWrapper {
 
     public static boolean compareSSID(WifiSSIDData result, String SSID)
     {
+        String wifiInfoSSID = getSSID(result);
         String ssid2 = "\"" + SSID + "\"";
-        return (getSSID(result).equals(SSID) || getSSID(result).equals(ssid2));
+        //return (getSSID(result).equals(SSID) || getSSID(result).equals(ssid2));
+        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%') || Wildcard.match(wifiInfoSSID, ssid2, '_', '%'));
     }
 
 

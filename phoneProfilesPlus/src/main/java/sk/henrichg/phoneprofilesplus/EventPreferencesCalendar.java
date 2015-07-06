@@ -443,7 +443,11 @@ public class EventPreferencesCalendar extends EventPreferences {
 
             //Log.e("** EventPrefCalendar", "calendarId="+calendarId);
 
-            String[] selectionArgs = new String[] { String.valueOf(calendarId), "%"+_searchString+"%" };
+            String searchPattern = _searchString;
+            // when in searchPattern are not widcards add %
+            if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                searchPattern = "%"+searchPattern+"%";
+            String[] selectionArgs = new String[] { String.valueOf(calendarId), searchPattern };
 
             // Submit the query
             cur =  cr.query(builder.build(), INSTANCE_PROJECTION, selection, selectionArgs, Instances.BEGIN + " ASC");
