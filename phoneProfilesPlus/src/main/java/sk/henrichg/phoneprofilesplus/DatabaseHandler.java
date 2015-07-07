@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1370;
+    private static final int DATABASE_VERSION = 1380;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -1236,6 +1236,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // pridame index
             db.execSQL("CREATE INDEX IDX_FK_PROFILE_START_WHEN_ACTIVATED ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + ")");
+        }
+
+        if (oldVersion < 1380)
+        {
+            final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                                                   KEY_E_CALENDAR_SEARCH_STRING + "," +
+                                                   KEY_E_WIFI_SSID + "," +
+                                                   KEY_E_BLUETOOTH_ADAPTER_NAME +
+                                        " FROM " + TABLE_EVENTS;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(0));
+                    String calendarSearchString = cursor.getString(1).replace("%", "\\%").replace("_", "\\_");
+                    String wifiSSID = cursor.getString(2).replace("%", "\\%").replace("_", "\\_");
+                    String bluetoothAdapterName = cursor.getString(3).replace("%", "\\%").replace("_", "\\_");
+
+                    db.execSQL("UPDATE " + TABLE_EVENTS +
+                                 " SET " + KEY_E_CALENDAR_SEARCH_STRING + "=\"" + calendarSearchString + "\"," +
+                                           KEY_E_WIFI_SSID + "=\"" + wifiSSID + "\"," +
+                                           KEY_E_BLUETOOTH_ADAPTER_NAME + "=\"" + bluetoothAdapterName + "\"" +
+                               " WHERE " + KEY_E_ID + "=" + id);
+
+                } while (cursor.moveToNext());
+            }
+
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -4023,6 +4051,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             int delayStart = 0;
                             int useEndTime = 0;
                             int undoneProfile = 0;
+                            String calendarSearchString = "";
+                            String wifiSSID = "";
+                            String bluetoothAdapterName = "";
 
                             if (cursorExportedDB.moveToFirst()) {
                                 do {
@@ -4083,6 +4114,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 else
                                                     undoneProfile = cursorExportedDB.getInt(i);
                                             }
+                                            if (columnNamesExportedDB[i].equals(KEY_E_CALENDAR_SEARCH_STRING))
+                                                calendarSearchString = cursorExportedDB.getString(i);
+                                            if (columnNamesExportedDB[i].equals(KEY_E_WIFI_SSID))
+                                                wifiSSID = cursorExportedDB.getString(i);
+                                            if (columnNamesExportedDB[i].equals(KEY_E_BLUETOOTH_ADAPTER_NAME))
+                                                bluetoothAdapterName = cursorExportedDB.getString(i);
 
                                         }
 
@@ -4320,7 +4357,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             values.put(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED, GlobalData.PROFILE_NO_ACTIVATE);
                                         }
 
-                                    // Inserting Row do db z SQLiteOpenHelper
+                                        if (exportedDBObj.getVersion() < 1380) {
+                                            calendarSearchString = calendarSearchString.replace("%", "\\%").replace("_", "\\_");
+                                            wifiSSID = wifiSSID.replace("%", "\\%").replace("_", "\\_");
+                                            bluetoothAdapterName = bluetoothAdapterName.replace("%", "\\%").replace("_", "\\_");
+                                            values.put(KEY_E_CALENDAR_SEARCH_STRING, calendarSearchString);
+                                            values.put(KEY_E_WIFI_SSID, wifiSSID);
+                                            values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, bluetoothAdapterName);
+                                        }
+
+                                        // Inserting Row do db z SQLiteOpenHelper
                                         db.insert(TABLE_EVENTS, null, values);
 
                                 } while (cursorExportedDB.moveToNext());
