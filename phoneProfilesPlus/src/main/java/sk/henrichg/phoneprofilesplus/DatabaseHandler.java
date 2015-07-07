@@ -3297,7 +3297,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         eventTypeChecked = eventTypeChecked + KEY_E_WIFI_ENABLED + "=1" + " AND " +
                                                 KEY_E_WIFI_CONNECTION_TYPE + "=" + connectionType+ " AND " +
-                                                "\"" + SSID + "\" LIKE " + KEY_E_WIFI_SSID;
+                                                "\"" + SSID + "\" LIKE " + KEY_E_WIFI_SSID + " ESCAPE '\\'";
 
         countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                      " WHERE " + eventTypeChecked;
@@ -3426,7 +3426,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND " +
                                                 KEY_E_BLUETOOTH_CONNECTION_TYPE + "=" + connectionType + " AND " +
-                                                "\"" + adapterName + "\" LIKE " + KEY_E_BLUETOOTH_ADAPTER_NAME;
+                                                "\"" + adapterName + "\" LIKE " + KEY_E_BLUETOOTH_ADAPTER_NAME + " ESCAPE '\\'";
 
 
         countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +

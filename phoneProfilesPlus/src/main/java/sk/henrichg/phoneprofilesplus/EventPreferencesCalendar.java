@@ -389,15 +389,15 @@ public class EventPreferencesCalendar extends EventPreferences {
         switch (_searchField) {
             case SEARCH_FIELD_TITLE:
                 selection = selection +
-                        " AND (lower(" + Instances.TITLE + ")" + " LIKE lower(?))";
+                        " AND (lower(" + Instances.TITLE + ")" + " LIKE lower(?))  ESCAPE '\\'";
                 break;
             case SEARCH_FIELD_DESCRIPTION:
                 selection = selection +
-                        " AND (lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?))";
+                        " AND (lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?)) ESCAPE '\\'";
                 break;
             case SEARCH_FIELD_LOCATION:
                 selection = selection +
-                        " AND (lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?))";
+                        " AND (lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?)) ESCAPE '\\'";
                 break;
         }
 
