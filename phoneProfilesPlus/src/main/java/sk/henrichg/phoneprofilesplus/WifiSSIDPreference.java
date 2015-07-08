@@ -13,9 +13,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -23,22 +25,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WifiSSIDPreference extends DialogPreference {
-	
-	private String value;
-	public List<WifiSSIDData> SSIDList = null;
-	
-	Context context;
+
+    private String value;
+    public List<WifiSSIDData> SSIDList = null;
+
+    Context context;
 
     private MaterialDialog mDialog;
-	private LinearLayout progressLinearLayout;
-	private RelativeLayout dataRelativeLayout;
-	private EditText SSIDName;
-	private Button rescanButton;
-	private ListView SSIDListView;
-	private WifiSSIDPreferenceAdapter listAdapter;
-	
-	private AsyncTask<Void, Integer, Void> rescanAsyncTask; 
-	
+    private LinearLayout progressLinearLayout;
+    private RelativeLayout dataRelativeLayout;
+    private EditText SSIDName;
+    private Button rescanButton;
+    private ListView SSIDListView;
+    private WifiSSIDPreferenceAdapter listAdapter;
+
+    private AsyncTask<Void, Integer, Void> rescanAsyncTask;
+
     public WifiSSIDPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         
@@ -87,6 +89,26 @@ public class WifiSSIDPreference extends DialogPreference {
 
         mBuilder.customView(layout, false);
 
+        final TextView helpText = (TextView)layout.findViewById(R.id.wifi_ssid_pref_dlg_helpText);
+        String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
+                            context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
+                            context.getString(R.string.wifi_ssid_pref_dlg_info_about_wildcards) + " " +
+                            context.getString(R.string.pref_dlg_info_about_wildcards_3);
+        helpText.setText(helpString);
+
+        ImageView helpIcon = (ImageView)layout.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
+        helpIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int visibility = helpText.getVisibility();
+                if (visibility == View.VISIBLE)
+                    visibility = View.GONE;
+                else
+                    visibility = View.VISIBLE;
+                helpText.setVisibility(visibility);
+            }
+        });
+
         mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
@@ -129,7 +151,7 @@ public class WifiSSIDPreference extends DialogPreference {
     @Override
     protected Object onGetDefaultValue(TypedArray ta, int index)
     {
-		super.onGetDefaultValue(ta, index);
+        super.onGetDefaultValue(ta, index);
         return ta.getString(index);
     }
 
@@ -142,7 +164,7 @@ public class WifiSSIDPreference extends DialogPreference {
         }
         else
         {
-        	value = (String)defaultValue;
+            value = (String)defaultValue;
             persistString(value);
         }
         
@@ -150,105 +172,105 @@ public class WifiSSIDPreference extends DialogPreference {
 
     public String getSSID()
     {
-    	return value;
+        return value;
     }
     
     public void setSSID(String SSID)
     {
-    	value = SSID;
-    	this.SSIDName.setText(value);
+        value = SSID;
+        this.SSIDName.setText(value);
     }
     
     private void refreshListView(boolean forRescan)
     {
-    	final boolean _forRescan = forRescan;
-    	
-    	rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
+        final boolean _forRescan = forRescan;
 
-			@Override
-			protected void onPreExecute()
-			{
-				super.onPreExecute();
+        rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
-				dataRelativeLayout.setVisibility(View.GONE);
-				progressLinearLayout.setVisibility(View.VISIBLE);
-			}
-			
-			@Override
-			protected Void doInBackground(Void... params) {
-				SSIDList.clear();
-				
-				if (_forRescan)
-				{
-	            	GlobalData.setForceOneWifiScan(context, true);
-	            	WifiScanAlarmBroadcastReceiver.startScanner(context);
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
 
-	            	try {
-			        	Thread.sleep(200);
-				    } catch (InterruptedException e) {
-				        System.out.println(e);
-				    }
-		        	ScannerService.waitForWifiScanEnd(context, this);
-		        }
+                dataRelativeLayout.setVisibility(View.GONE);
+                progressLinearLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                SSIDList.clear();
+
+                if (_forRescan)
+                {
+                    GlobalData.setForceOneWifiScan(context, true);
+                    WifiScanAlarmBroadcastReceiver.startScanner(context);
+
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }
+                    ScannerService.waitForWifiScanEnd(context, this);
+                }
 
                 WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
-				if (WifiScanAlarmBroadcastReceiver.wifiConfigurationList != null)
-				{
-					for (WifiSSIDData wifiConfiguration : WifiScanAlarmBroadcastReceiver.wifiConfigurationList)
-					{
-			        	SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid));
-					}
-				}
+                if (WifiScanAlarmBroadcastReceiver.wifiConfigurationList != null)
+                {
+                    for (WifiSSIDData wifiConfiguration : WifiScanAlarmBroadcastReceiver.wifiConfigurationList)
+                    {
+                        SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid));
+                    }
+                }
 
                 WifiScanAlarmBroadcastReceiver.getScanResults(context);
-		        if (WifiScanAlarmBroadcastReceiver.scanResults != null)
-		        {
-			        for (WifiSSIDData scanResult : WifiScanAlarmBroadcastReceiver.scanResults)
-			        {
-			        	if (!DataWrapper.getSSID(scanResult).isEmpty())
-			        	{
-				        	boolean exists = false;
-				        	for (WifiSSIDData ssidData : SSIDList)
-				        	{
-				        		if (DataWrapper.compareSSID(scanResult, ssidData.ssid))
-				        		{
-				        			exists = true;
-				        			break;
-				        		}
-				        	}
-				        	if (!exists)
-				        		SSIDList.add(new WifiSSIDData(DataWrapper.getSSID(scanResult), scanResult.bssid));
-			        	}
-			        }
-		        }
+                if (WifiScanAlarmBroadcastReceiver.scanResults != null)
+                {
+                    for (WifiSSIDData scanResult : WifiScanAlarmBroadcastReceiver.scanResults)
+                    {
+                        if (!DataWrapper.getSSID(scanResult).isEmpty())
+                        {
+                            boolean exists = false;
+                            for (WifiSSIDData ssidData : SSIDList)
+                            {
+                                if (DataWrapper.compareSSID(scanResult, ssidData.ssid))
+                                {
+                                    exists = true;
+                                    break;
+                                }
+                            }
+                            if (!exists)
+                                SSIDList.add(new WifiSSIDData(DataWrapper.getSSID(scanResult), scanResult.bssid));
+                        }
+                    }
+                }
 
-		        return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Void result)
-			{
-				super.onPostExecute(result);
+                return null;
+            }
 
-				listAdapter.notifyDataSetChanged();
-				progressLinearLayout.setVisibility(View.GONE);
-				dataRelativeLayout.setVisibility(View.VISIBLE);
-				
-				for (int position = 0; position < SSIDList.size()-1; position++)
-				{
-					if (SSIDList.get(position).ssid.equals(value))
-					{
-						SSIDListView.setSelection(position);
-						SSIDListView.setItemChecked(position, true);
-						SSIDListView.smoothScrollToPosition(position);
-						break;
-					}
-				}
-			}
-			
-		};
-		
-		rescanAsyncTask.execute();
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                listAdapter.notifyDataSetChanged();
+                progressLinearLayout.setVisibility(View.GONE);
+                dataRelativeLayout.setVisibility(View.VISIBLE);
+
+                for (int position = 0; position < SSIDList.size()-1; position++)
+                {
+                    if (SSIDList.get(position).ssid.equals(value))
+                    {
+                        SSIDListView.setSelection(position);
+                        SSIDListView.setItemChecked(position, true);
+                        SSIDListView.smoothScrollToPosition(position);
+                        break;
+                    }
+                }
+            }
+
+        };
+
+        rescanAsyncTask.execute();
     }
     
 }

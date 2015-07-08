@@ -13,9 +13,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -23,22 +25,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BluetoothNamePreference extends DialogPreference {
-	
-	private String value;
-	public List<BluetoothDeviceData> bluetoothList = null;
-	
-	Context context;
+
+    private String value;
+    public List<BluetoothDeviceData> bluetoothList = null;
+
+    Context context;
 
     private MaterialDialog mDialog;
-	private LinearLayout progressLinearLayout;
-	private RelativeLayout dataRelativeLayout;
-	private EditText bluetoothName;
-	private Button rescanButton;
-	private ListView bluetoothListView;
-	private BluetoothNamePreferenceAdapter listAdapter;
-	
-	private AsyncTask<Void, Integer, Void> rescanAsyncTask; 
-	
+    private LinearLayout progressLinearLayout;
+    private RelativeLayout dataRelativeLayout;
+    private EditText bluetoothName;
+    private Button rescanButton;
+    private ListView bluetoothListView;
+    private BluetoothNamePreferenceAdapter listAdapter;
+
+    private AsyncTask<Void, Integer, Void> rescanAsyncTask;
+
     public BluetoothNamePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         
@@ -78,7 +80,7 @@ public class BluetoothNamePreference extends DialogPreference {
         bluetoothListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 BluetoothNamePreferenceAdapter.ViewHolder viewHolder =
-                        (BluetoothNamePreferenceAdapter.ViewHolder)v.getTag();
+                        (BluetoothNamePreferenceAdapter.ViewHolder) v.getTag();
                 viewHolder.radioBtn.setChecked(true);
                 setBluetoothName(bluetoothList.get(position).getName());
             }
@@ -86,6 +88,26 @@ public class BluetoothNamePreference extends DialogPreference {
         });
 
         mBuilder.customView(layout, false);
+
+        final TextView helpText = (TextView)layout.findViewById(R.id.bluetooth_name_pref_dlg_helpText);
+        String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
+                context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
+                context.getString(R.string.bluetooth_name_pref_dlg_info_about_wildcards) + " " +
+                context.getString(R.string.pref_dlg_info_about_wildcards_3);
+        helpText.setText(helpString);
+
+        ImageView helpIcon = (ImageView)layout.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
+        helpIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int visibility = helpText.getVisibility();
+                if (visibility == View.VISIBLE)
+                    visibility = View.GONE;
+                else
+                    visibility = View.VISIBLE;
+                helpText.setVisibility(visibility);
+            }
+        });
 
         mDialog = mBuilder.build();
         if (state != null)
@@ -121,15 +143,15 @@ public class BluetoothNamePreference extends DialogPreference {
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-    	
-    	if (!rescanAsyncTask.isCancelled())
-    		rescanAsyncTask.cancel(true);
+
+        if (!rescanAsyncTask.isCancelled())
+            rescanAsyncTask.cancel(true);
     }
     
     @Override 
     protected Object onGetDefaultValue(TypedArray ta, int index)
     {
-		super.onGetDefaultValue(ta, index);
+        super.onGetDefaultValue(ta, index);
         return ta.getString(index);
     }
 
@@ -142,7 +164,7 @@ public class BluetoothNamePreference extends DialogPreference {
         }
         else
         {
-        	value = (String)defaultValue;
+            value = (String)defaultValue;
             persistString(value);
         }
         
@@ -150,105 +172,105 @@ public class BluetoothNamePreference extends DialogPreference {
 
     public String getBluetoothName()
     {
-    	return value;
+        return value;
     }
     
     public void setBluetoothName(String bluetoothName)
     {
-    	value = bluetoothName;
-    	this.bluetoothName.setText(value);
+        value = bluetoothName;
+        this.bluetoothName.setText(value);
     }
     
     private void refreshListView(boolean forRescan)
     {
-    	final boolean _forRescan = forRescan;
-    	
-		rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
+        final boolean _forRescan = forRescan;
 
-			@Override
-			protected void onPreExecute()
-			{
-				super.onPreExecute();
+        rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
-				dataRelativeLayout.setVisibility(View.GONE);
-				progressLinearLayout.setVisibility(View.VISIBLE);
-			}
-			
-			@Override
-			protected Void doInBackground(Void... params) {
-				bluetoothList.clear();
-				
-				if (_forRescan)
-				{
-	            	GlobalData.setForceOneBluetoothScan(context, true);
-	            	BluetoothScanAlarmBroadcastReceiver.startScanner(context);
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
 
-	            	try {
-			        	Thread.sleep(200);
-				    } catch (InterruptedException e) {
-				        System.out.println(e);
-				    }
-		        	ScannerService.waitForBluetoothScanEnd(context, this);
-		        }
+                dataRelativeLayout.setVisibility(View.GONE);
+                progressLinearLayout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                bluetoothList.clear();
+
+                if (_forRescan)
+                {
+                    GlobalData.setForceOneBluetoothScan(context, true);
+                    BluetoothScanAlarmBroadcastReceiver.startScanner(context);
+
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }
+                    ScannerService.waitForBluetoothScanEnd(context, this);
+                }
 
                 BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
-				if (BluetoothScanAlarmBroadcastReceiver.boundedDevicesList != null)
-				{
-			        for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.boundedDevicesList)
-			        {
-			        	bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address));
-			        }
-				}
+                if (BluetoothScanAlarmBroadcastReceiver.boundedDevicesList != null)
+                {
+                    for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.boundedDevicesList)
+                    {
+                        bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address));
+                    }
+                }
 
                 BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
-		        if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
-		        {
-			        for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)
-			        {
-			        	if (!device.getName().isEmpty())
-			        	{
-				        	boolean exists = false;
-				        	for (BluetoothDeviceData _device : bluetoothList)
-				        	{
-				        		if (_device.getName().equalsIgnoreCase(device.getName()))
-				        		{
-				        			exists = true;
-				        			break;
-				        		}
-				        	}
-				        	if (!exists)
-				        		bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address));
-			        	}
-			        }
-		        }
+                if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
+                {
+                    for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)
+                    {
+                        if (!device.getName().isEmpty())
+                        {
+                            boolean exists = false;
+                            for (BluetoothDeviceData _device : bluetoothList)
+                            {
+                                if (_device.getName().equalsIgnoreCase(device.getName()))
+                                {
+                                    exists = true;
+                                    break;
+                                }
+                            }
+                            if (!exists)
+                                bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address));
+                        }
+                    }
+                }
 
-		        return null;
-			}
-			
-			@Override
-			protected void onPostExecute(Void result)
-			{
-				super.onPostExecute(result);
+                return null;
+            }
 
-				listAdapter.notifyDataSetChanged();
-				progressLinearLayout.setVisibility(View.GONE);
-				dataRelativeLayout.setVisibility(View.VISIBLE);
-				
-				for (int position = 0; position < bluetoothList.size()-1; position++)
-				{
-					if (bluetoothList.get(position).getName().equalsIgnoreCase(value))
-					{
-						bluetoothListView.setSelection(position);
-						bluetoothListView.setItemChecked(position, true);
-						bluetoothListView.smoothScrollToPosition(position);
-						break;
-					}
-				}
-			}
-			
-		};
-		
-		rescanAsyncTask.execute();
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                listAdapter.notifyDataSetChanged();
+                progressLinearLayout.setVisibility(View.GONE);
+                dataRelativeLayout.setVisibility(View.VISIBLE);
+
+                for (int position = 0; position < bluetoothList.size()-1; position++)
+                {
+                    if (bluetoothList.get(position).getName().equalsIgnoreCase(value))
+                    {
+                        bluetoothListView.setSelection(position);
+                        bluetoothListView.setItemChecked(position, true);
+                        bluetoothListView.smoothScrollToPosition(position);
+                        break;
+                    }
+                }
+            }
+
+        };
+
+        rescanAsyncTask.execute();
     }
     
 }
