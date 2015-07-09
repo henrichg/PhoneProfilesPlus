@@ -100,6 +100,7 @@ public class GlobalData extends Application {
     static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
     static final String EXTRA_SCANNER_TYPE = "scanner_type";
     static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
+    static final String EXTRA_LINKUNLINK_VOLUMES = "link_unlink_volumes";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
@@ -945,7 +946,7 @@ public class GlobalData extends Application {
         editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
         editor.commit();
     }
-
+/*
     static public int getRingerMode(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -959,7 +960,7 @@ public class GlobalData extends Application {
         editor.putInt(PREF_RINGER_MODE, volume);
         editor.commit();
     }
-
+*/
     static public boolean getShowInfoNotificationOnStart(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
