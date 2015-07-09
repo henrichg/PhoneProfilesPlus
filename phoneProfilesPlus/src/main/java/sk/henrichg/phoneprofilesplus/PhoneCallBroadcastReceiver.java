@@ -70,6 +70,10 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 //    therefore reset ringer volume
                 Profile profile = dataWrapper.getActivatedProfile();
                 if (profile != null) {
+                    try {
+                        Thread.sleep(500); // Delay 0,5 seconds to wait for change audio mode
+                    } catch (InterruptedException e) {
+                    }
                     Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
                     volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
                     savedContext.startService(volumeServiceIntent);
