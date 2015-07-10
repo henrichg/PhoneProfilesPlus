@@ -9,7 +9,7 @@ import java.util.Date;
 
 public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 
-	static TelephonyManager telephony;
+    static TelephonyManager telephony;
     //The receiver will be recreated whenever android feels like it.
     //We need a static variable to remember data between instantiations
     static PhonecallStartEndDetector listener;
@@ -24,19 +24,19 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
         
         if (onStartReceive())
         {
-        	if (telephony == null)
-        		telephony = (TelephonyManager)savedContext.getSystemService(Context.TELEPHONY_SERVICE);
-        	
-	        if(listener == null){
-	            listener = new PhonecallStartEndDetector();
-	        }
+            if (telephony == null)
+                telephony = (TelephonyManager)savedContext.getSystemService(Context.TELEPHONY_SERVICE);
 
-	        //We listen to two intents.  The new outgoing call only tells us of an outgoing call.  We use it to get the number.
-	        if (intent.getAction().equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
-	            listener.setOutgoingNumber(intent.getExtras().getString(Intent.EXTRA_PHONE_NUMBER));
-	            return;
-	        }
-	
+            if(listener == null){
+                listener = new PhonecallStartEndDetector();
+            }
+
+            //We listen to two intents.  The new outgoing call only tells us of an outgoing call.  We use it to get the number.
+            if (intent.getAction().equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
+                listener.setOutgoingNumber(intent.getExtras().getString(Intent.EXTRA_PHONE_NUMBER));
+                return;
+            }
+
             listener.onCallStateChanged(intent);
 
         }
@@ -67,7 +67,7 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 
         //The outgoing number is only sent via a separate intent, so we need to store it out of band
         public void setOutgoingNumber(String number){
-        	inCall = false;
+            inCall = false;
             isIncoming = false;
             savedNumber = number;
             callStartTime = new Date();
@@ -84,7 +84,7 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
             }
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
-                	inCall = false;
+                    inCall = false;
                     isIncoming = true;
                     callStartTime = new Date();
                     String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
@@ -94,17 +94,17 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
                 case TelephonyManager.CALL_STATE_OFFHOOK:
                     //Transition of ringing->offhook are pickups of incoming calls.  Nothing donw on them
                     if(lastState != TelephonyManager.CALL_STATE_RINGING){
-                    	inCall = true;
+                        inCall = true;
                         isIncoming = false;
                         callStartTime = new Date();
                         onOutgoingCallAnswered(savedNumber, callStartTime);                      
                     }
                     else
                     {
-                    	inCall = true;
+                        inCall = true;
                         isIncoming = true;
                         callStartTime = new Date();
-                    	onIncomingCallAnswered(savedNumber, callStartTime);
+                        onIncomingCallAnswered(savedNumber, callStartTime);
                     }
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
@@ -115,13 +115,13 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
                     }
                     else 
                     {
-	                    if(isIncoming){
-	                        onIncomingCallEnded(savedNumber, callStartTime, new Date());
-	                    }
-	                    else{
-	                        onOutgoingCallEnded(savedNumber, callStartTime, new Date());
-	                    }
-                    	inCall = false;
+                        if(isIncoming){
+                            onIncomingCallEnded(savedNumber, callStartTime, new Date());
+                        }
+                        else{
+                            onOutgoingCallEnded(savedNumber, callStartTime, new Date());
+                        }
+                        inCall = false;
                     }
                     break;
             }
