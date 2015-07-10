@@ -19,7 +19,8 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        savedContext = context;
+
+        savedContext = context.getApplicationContext();
         
         if (onStartReceive())
         {
