@@ -25,7 +25,7 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
         if (onStartReceive())
         {
         	if (telephony == null)
-        		telephony = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE); 
+        		telephony = (TelephonyManager)savedContext.getSystemService(Context.TELEPHONY_SERVICE);
         	
 	        if(listener == null){
 	            listener = new PhonecallStartEndDetector();
