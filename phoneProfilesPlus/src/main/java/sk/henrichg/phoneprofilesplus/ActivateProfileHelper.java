@@ -483,16 +483,25 @@ public class ActivateProfileHelper {
     {
         GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "ringerMode="+audioManager.getRingerMode());
 
+
+        int ringerMode = profile._volumeRingerMode;
         //if (profile._volumeRingerMode != 0)
         //    GlobalData.setRingerMode(context, profile._volumeRingerMode);
         //int ringerMode = GlobalData.getRingerMode(context);
-        int ringerMode = profile._volumeRingerMode;
-        if (forSilent) {
-            if (ringerMode != 4)
+
+        // for Lollipop 4=priority mode, for pre-lillipop 4=silent ringer mode
+        // priority mode must by invoked be 2 calls of setRingerMode:
+        // first call of setRingerMode must set ringer mode to normal (1) (not called for pre-lollipop)
+        // second call is normal change ringer mode (4)
+        // this call sequence sets Lollipop priority mode (check ExecuteVolumeProfilePrefsService, how is called setRingerMode)
+        if ((android.os.Build.VERSION.SDK_INT >= 21) && forSilent) {
+            if (ringerMode != 4) // 4 = silent ringer mode
                 return;
             else
                 ringerMode = 1;
         }
+        else
+            return;
 
         switch (ringerMode) {
             case 1:  // Ring

@@ -51,11 +51,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
         editor.commit();
 
-        try {
-            Thread.sleep(500); // Delay 0,5 seconds to wait for change audio mode
-        } catch (InterruptedException e) {
-        }
-
         boolean callEventsExists = false;
         if (GlobalData.getGlobalEventsRuning(savedContext))
             callEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALL) > 0;
@@ -87,15 +82,12 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             }
         }
 
-        if (GlobalData.getGlobalEventsRuning(savedContext))
+        if (callEventsExists)
         {
-            if (callEventsExists)
-            {
-                // start service
-                Intent eventsServiceIntent = new Intent(savedContext, EventsService.class);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                startWakefulService(savedContext, eventsServiceIntent);
-            }
+            // start service
+            Intent eventsServiceIntent = new Intent(savedContext, EventsService.class);
+            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+            startWakefulService(savedContext, eventsServiceIntent);
         }
 
     }
@@ -148,16 +140,17 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 } catch (InterruptedException e) {
                 }
 
-                //Activate loudspeaker
+                ///  change mode to MODE_IN_CALL
                 audioManager.setMode(AudioManager.MODE_IN_CALL);
 
                 savedSpeakerphone = audioManager.isSpeakerphoneOn();
                 boolean changeSpeakerphone = false;
-                if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2))
+                if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
                     changeSpeakerphone = true;
-                if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1))
+                if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
                     changeSpeakerphone = true;
                 if (changeSpeakerphone) {
+                    /// activate SpeakerPhone
                     audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
                     speakerphoneSelected = true;
                 }
@@ -216,11 +209,21 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     
     protected void onIncomingCallEnded(String number, Date start, Date end)
     {
+        try {
+            Thread.sleep(500); // Delay 0,5 seconds to wait for change audio mode
+        } catch (InterruptedException e) {
+        }
+        audioManager.setMode(AudioManager.MODE_NORMAL);
         callEnded(true, number);
     }
 
     protected void onOutgoingCallEnded(String number, Date start, Date end)
     {
+        try {
+            Thread.sleep(500); // Delay 0,5 seconds to wait for change audio mode
+        } catch (InterruptedException e) {
+        }
+        audioManager.setMode(AudioManager.MODE_NORMAL);
         callEnded(false, number);
     }
 
