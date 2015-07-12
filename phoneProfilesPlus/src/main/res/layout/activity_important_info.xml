@@ -23,6 +23,7 @@
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_profiles"
                 android:id="@+id/activity_info_notification_dialog_profiles"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold" />
 
             <TextView
@@ -60,6 +61,7 @@
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_events"
                 android:id="@+id/activity_info_notification_dialog_events"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold" />
 
             <TextView
@@ -82,6 +84,15 @@
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_system"
                 android:id="@+id/activity_info_notification_dialog_system"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_into_sony_stamina_mode"
+                android:id="@+id/activity_info_notification_dialog_info_text10"
                 android:textStyle="bold" />
 
             <TextView
