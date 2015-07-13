@@ -695,9 +695,11 @@ public class EditorProfilesActivity extends AppCompatActivity
             stopService(new Intent(getApplicationContext(), ReceiversService.class));
             stopService(new Intent(getApplicationContext(), KeyguardService.class));
 
+            ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+            ActivateProfileHelper.removeBrightnessView(getApplicationContext());
+
             getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
-            ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
 
             finish();
 
