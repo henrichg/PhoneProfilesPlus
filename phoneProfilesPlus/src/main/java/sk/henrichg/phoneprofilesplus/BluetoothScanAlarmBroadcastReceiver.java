@@ -39,8 +39,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
             int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
-            if (oneshot > -1)
-                setAlarm(context, oneshot == 1);
+            if (oneshot == 0)
+                setAlarm(context, false, false);
         }
 
         if (scanResults == null)
@@ -118,7 +118,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("NewApi")
-    public static void setAlarm(Context context, boolean oneshot)
+    public static void setAlarm(Context context, boolean oneshot, boolean shortInterval)
     {
         GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot);
 
@@ -161,7 +161,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
                 if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
-                    calendar.add(Calendar.MINUTE, GlobalData.applicationEventBluetoothScanInterval);
+                    if (shortInterval)
+                        calendar.add(Calendar.SECOND, 10);
+                    else
+                        calendar.add(Calendar.MINUTE, GlobalData.applicationEventBluetoothScanInterval);
                     long alarmTime = calendar.getTimeInMillis();
 
                     intent.putExtra(EXTRA_ONESHOT, 0);

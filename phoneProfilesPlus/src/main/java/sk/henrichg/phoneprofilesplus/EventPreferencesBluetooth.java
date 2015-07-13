@@ -154,7 +154,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
     {
         if ((_connectionType == CTYPE_INFRONT) &&
             (!BluetoothScanAlarmBroadcastReceiver.isAlarmSet(context, false)))
-            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false);
+            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
     }
 
     @Override
@@ -162,7 +162,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
     {
         if ((_connectionType == CTYPE_INFRONT) &&
             (!BluetoothScanAlarmBroadcastReceiver.isAlarmSet(context, false)))
-            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false);
+            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
     }
 
     @Override

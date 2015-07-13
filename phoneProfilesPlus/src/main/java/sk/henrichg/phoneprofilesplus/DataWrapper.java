@@ -756,9 +756,9 @@ public class DataWrapper {
 
         removeAllEventDelays(true);
 
-        WifiScanAlarmBroadcastReceiver.setAlarm(context, false);
-        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false);
-        SearchCalendarEventsBroadcastReceiver.setAlarm(context);
+        WifiScanAlarmBroadcastReceiver.setAlarm(context, false, true);
+        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
+        SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
 
         if (!getIsManualProfileActivation()) {
             Intent intent = new Intent();
@@ -2186,7 +2186,7 @@ public class DataWrapper {
             GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
             // rescan wifi
-            WifiScanAlarmBroadcastReceiver.setAlarm(context, true);
+            WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             //sendBroadcast(context);
             //setAlarm(context, true);
         }
@@ -2195,7 +2195,7 @@ public class DataWrapper {
             GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
             // rescan bluetooth
-            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true);
+            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
         }
 
         if (showToast)

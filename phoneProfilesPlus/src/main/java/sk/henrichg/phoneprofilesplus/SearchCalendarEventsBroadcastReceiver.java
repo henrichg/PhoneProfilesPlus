@@ -19,6 +19,10 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
         GlobalData.logE("#### SearchCalendarEventsBroadcastReceiver.onReceive", "xxx");
 
+        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
+            setAlarm(context, false);
+        }
+
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
             return;
@@ -49,7 +53,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
     }
 
     @SuppressLint("NewApi")
-    public static void setAlarm(Context context)
+    public static void setAlarm(Context context, boolean shortInterval)
     {
         removeAlarm(context);
 
@@ -63,7 +67,10 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            if (shortInterval)
+                calendar.add(Calendar.SECOND, 5);
+            else
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
             long alarmTime = calendar.getTimeInMillis();
             alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         }
