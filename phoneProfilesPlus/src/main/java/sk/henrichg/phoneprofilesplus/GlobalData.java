@@ -37,8 +37,8 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoLogCat = true;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = //"@@@ BatteryEventBroadcastReceiver|"+
                                          //"@@@ CalendarProviderChangedBroadcastReceiver|"+
@@ -68,22 +68,22 @@ public class GlobalData extends Application {
                                          //"@@@ ActivateProfileHelper|"+
                                          //"PhoneProfilesHelper.doInstallPPHelper"
                                          //"ExecuteRadioProfilePrefsService"
-                                         //"$$$ ScannerService|"+
-                                         //"$$$ EventsService|"+
-                                         //"$$$ ExecuteRadioProfilePrefsService|"+
-                                         //"$$$ WifiStateChangedBroadcastReceiver|"+
-                                         //"$$$ DataWrapper|"+
-                                         //"$$$ WifiScanBroadcastReceiver|"+
-                                         //"$$$ ReceiversService|"+
-                                         //"$$$ WifiConnectionBroadcastReceiver|"+
-                                         //"$$$ ActivateProfileHelper|"+
+                                         "$$$ ScannerService|"+
+                                         "$$$ EventsService|"+
+                                         "$$$ ExecuteRadioProfilePrefsService|"+
+                                         "$$$ WifiStateChangedBroadcastReceiver|"+
+                                         "$$$ DataWrapper|"+
+                                         "$$$ WifiScanBroadcastReceiver|"+
+                                         "$$$ ReceiversService|"+
+                                         "$$$ WifiConnectionBroadcastReceiver|"+
+                                         "$$$ ActivateProfileHelper|"+
                                          //"$$$ Keyguard|"+
-                                         //"$$$ ScreenOnOffBroadcastReceiver|"+
+                                         "$$$ ScreenOnOffBroadcastReceiver|"+
                                          //"$$$ ExecuteWallpaperProfilePrefsService|"+
-                                         //"$$$ Profile|"+
+                                         "$$$ Profile|"+
                                          //"$$$ setEventsBlocked|"+
-                                         //"$$$ restartEvents"
-                                         "$$$ WifiAP"
+                                         "$$$ restartEvents"
+                                         //"$$$ WifiAP"
             ;
 
 
