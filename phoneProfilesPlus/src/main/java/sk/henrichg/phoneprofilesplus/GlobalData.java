@@ -35,6 +35,8 @@ public class GlobalData extends Application {
 
     static String PACKAGE_NAME;
 
+    public static final boolean exactAlarms = true;
+
     private static boolean logIntoLogCat = false;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;

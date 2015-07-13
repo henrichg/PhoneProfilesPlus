@@ -2250,6 +2250,7 @@ public class DataWrapper {
         }
     }
 
+    @SuppressLint("NewApi")
     public void restartEventsWithDelay(int delay, boolean unblockEventsRun)
     {
         GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithDelay");
@@ -2266,7 +2267,10 @@ public class DataWrapper {
         //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        else
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
     }
 
     public void setEventBlocked(Event event, boolean blocked)

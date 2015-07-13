@@ -1128,6 +1128,7 @@ public class ActivateProfileHelper {
         notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
     }
 
+    @SuppressLint("NewApi")
     private void setAlarmForNotificationCancel()
     {
         if (GlobalData.notificationStatusBarCancel.isEmpty() || GlobalData.notificationStatusBarCancel.equals("0"))
@@ -1141,7 +1142,10 @@ public class ActivateProfileHelper {
 
         Calendar now = Calendar.getInstance();
         long time = now.getTimeInMillis() + Integer.valueOf(GlobalData.notificationStatusBarCancel) * 1000;
-        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        else
+            alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
         //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
         //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);

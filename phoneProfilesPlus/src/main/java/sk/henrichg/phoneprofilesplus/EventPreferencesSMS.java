@@ -248,7 +248,7 @@ public class EventPreferencesSMS extends EventPreferences {
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
+    @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(long alarmTime, Context context)
     {
         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
@@ -262,7 +262,10 @@ public class EventPreferencesSMS extends EventPreferences {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        else
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
 
         //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
         //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
