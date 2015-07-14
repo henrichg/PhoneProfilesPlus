@@ -261,6 +261,7 @@ public class GlobalData extends Application {
     private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
     private static final String PREF_RINGER_MODE = "ringer_mode";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
+    private static final String PREF_ZEN_MODE = "zen_mode";
 
     // preferences for event - filled with broadcast receivers
     static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
@@ -948,21 +949,35 @@ public class GlobalData extends Application {
         editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
         editor.commit();
     }
-/*
+
     static public int getRingerMode(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         return preferences.getInt(PREF_RINGER_MODE, 0);
     }
 
-    static public void setRingerMode(Context context, int volume)
+    static public void setRingerMode(Context context, int mode)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putInt(PREF_RINGER_MODE, volume);
+        editor.putInt(PREF_RINGER_MODE, mode);
         editor.commit();
     }
-*/
+
+    static public int getZenMode(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_ZEN_MODE, 0);
+    }
+
+    static public void setZenMode(Context context, int mode)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putInt(PREF_ZEN_MODE, mode);
+        editor.commit();
+    }
+
     static public boolean getShowInfoNotificationOnStart(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
