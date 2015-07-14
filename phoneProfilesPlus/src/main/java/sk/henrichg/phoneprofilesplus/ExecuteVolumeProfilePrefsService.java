@@ -33,6 +33,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         if (profile != null)
         {
+            SettingsContentObserver.internalChange = true;
+
             final Profile _profile = profile;
 
             //Handler audioChangeHandler = new Handler(getMainLooper());
@@ -82,6 +84,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 //WakefulIntentService.sendWakefulWork(context, radioServiceIntent);
                 context.startService(volumeServiceIntent);
             } */
+
         }
 
     }

@@ -197,6 +197,8 @@ public class VolumeDialogPreference extends
 
     public void onStopTrackingTouch(SeekBar seek) {
 
+        SettingsContentObserver.internalChange = true;
+
         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
         if (volumeType.equalsIgnoreCase("RINGTONE"))
@@ -322,6 +324,9 @@ public class VolumeDialogPreference extends
             volumeServiceIntent.putExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallBroadcastReceiver.LINKMODE_NONE);
             _context.startService(volumeServiceIntent);
         } else {
+
+            SettingsContentObserver.internalChange = true;
+
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 // set ringer mode to Ring for proper change ringer mode to Priority
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
@@ -348,6 +353,7 @@ public class VolumeDialogPreference extends
             audioManager.setRingerMode(defaultRingerMode);
 
         }
+
     }
 
 }

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.os.IBinder;
 
 
@@ -15,6 +16,8 @@ public class ReceiversService extends Service {
     //private final WifiConnectionBroadcastReceiver wifiConnectionReceiver = new WifiConnectionBroadcastReceiver();
     private final ScreenOnOffBroadcastReceiver screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
     //private final BluetoothStateChangedBroadcastReceiver bluetoothStateChangedReceiver = new BluetoothStateChangedBroadcastReceiver();
+
+    private static SettingsContentObserver settingsContentObserver;
 
     @Override
     public void onCreate()
@@ -69,6 +72,9 @@ public class ReceiversService extends Service {
         //SMSBroadcastReceiver.registerSMSContentObserver(this);
         //SMSBroadcastReceiver.registerMMSContentObserver(this);
 
+        settingsContentObserver = new SettingsContentObserver(getApplicationContext(), new Handler());
+        getApplicationContext().getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver );
+
     }
 
     @Override
@@ -87,6 +93,9 @@ public class ReceiversService extends Service {
 
         //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(this);
+
+        getApplicationContext().getContentResolver().unregisterContentObserver(settingsContentObserver);
+
     }
 
     @Override
