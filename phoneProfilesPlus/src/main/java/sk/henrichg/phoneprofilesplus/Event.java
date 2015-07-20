@@ -122,7 +122,7 @@ public class Event {
         
         createEventPreferences();
 
-        Log.e("Event", "this._fkProfileEnd=" + this._fkProfileEnd);
+        //Log.e("Event", "this._fkProfileEnd=" + this._fkProfileEnd);
     }
 
     // constructor

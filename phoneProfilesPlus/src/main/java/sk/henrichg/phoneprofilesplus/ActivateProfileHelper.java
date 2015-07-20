@@ -402,8 +402,8 @@ public class ActivateProfileHelper {
         if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
 
             boolean doUnlink = audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
-            Log.e("ActivateProfileHelper", "setVolumes doUnlink=" + doUnlink);
-            Log.e("ActivateProfileHelper", "setVolumes ringerMode=" + audioManager.getRingerMode());
+            //Log.e("ActivateProfileHelper", "setVolumes doUnlink=" + doUnlink);
+            //Log.e("ActivateProfileHelper", "setVolumes ringerMode=" + audioManager.getRingerMode());
 
             if (doUnlink) {
                 //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
@@ -424,16 +424,16 @@ public class ActivateProfileHelper {
                 if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_LINK) {
                     // for separating ringing and notification
                     // in not ringing state ringer and notification volume must by change
-                    Log.e("ActivateProfileHelper","setVolumes get audio mode="+audioManager.getMode());
+                    //Log.e("ActivateProfileHelper","setVolumes get audio mode="+audioManager.getMode());
                     int volume = GlobalData.getRingerVolume(context);
                     if (volume != -999) {
-                        Log.e("ActivateProfileHelper","setVolumes set ring volume="+volume);
+                        //Log.e("ActivateProfileHelper","setVolumes set ring volume="+volume);
                         audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                     }
                     volume = GlobalData.getNotificationVolume(context);
                     if (volume != -999) {
-                        Log.e("ActivateProfileHelper","setVolumes set notification volume="+volume);
+                        //Log.e("ActivateProfileHelper","setVolumes set notification volume="+volume);
                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                     }
