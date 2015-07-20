@@ -234,7 +234,7 @@
   <string name="title_activity_editor">Editor</string>
   <string name="menu_run_events">Event uitvoeren activeren</string>
   <string name="menu_stop_events">Stop events</string>
-  <string name="array_pref_value_0_percent" formatted="false">0 %</string>
+  <string name="array_pref_value_0_percent" formatted="false">0%</string>
   <string name="array_pref_value_25_percent" formatted="false">25%</string>
   <string name="array_pref_value_50_percent" formatted="false">50%</string>
   <string name="array_pref_value_75_percent" formatted="false">75%</string>
@@ -475,42 +475,42 @@ Toch activeren?</string>
   <string name="altype_eventEnd_activateProfile_undoProfile">pauzeer event - profiel activeren en ongedaan maken</string>
   <string name="altype_restartEvents">events herstarten</string>
   <string name="altype_runEvents_disable">events stoppen</string>
-  <string name="altype_runEvents_enable">enable run events</string>
-  <string name="altype_applicationStart">application start</string>
-  <string name="altype_applicationExit">application exit</string>
-  <string name="altype_dataImport">import data</string>
-  <string name="array_event_pref_calendarSearchField_location">Location</string>
-  <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
-  <string name="phone_profiles_pref_notificationShowInStatusBar">Show in status bar</string>
-  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Show in status bar and lockscreen</string>
-  <string name="menu_activity_log_reload">Reload</string>
-  <string name="event_preferences_atEndDo">And do</string>
-  <string name="array_pref_atEndDo_none">None</string>
-  <string name="array_pref_atEndDo_undoneProfile">Undo the profile</string>
-  <string name="array_pref_atEndDo_restartEvents">Restart events</string>
-  <string name="event_preference_profile_restartEvents">Restart</string>
-  <string name="altype_eventEnd_restartEvents">event pause - restart events</string>
-  <string name="altype_eventEnd_activateProfile_restartEvents">event pause - activate and restart events</string>
-  <string name="event_preference_calendar_availability">Availability</string>
-  <string name="array_event_pref_calendarAvailability_noCheck">No check</string>
-  <string name="array_event_pref_calendarAvailability_busy">Busy</string>
-  <string name="array_event_pref_calendarAvailability_free">Free</string>
-  <string name="array_event_pref_calendarAvailability_tentative">Tentative</string>
-  <string name="event_preferences_manualProfileActivation">[M] Manual profile activation</string>
-  <string name="profileicon_pref_dialog_customColor_button">Change color</string>
-  <string name="colorChooser_pref_dialog_title">Set color</string>
-  <string name="phone_profiles_pref_category_system">System</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Unlink ringer and notif. volumes</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uncheck when your device has separated volume for ringer and notifications</string>
-  <string name="profileicon_pref_dialog_info_about_status_bar_icon">If you change the color of the icon, the icon in the status bar will be white. If you select custom icon, in status bar will be application icon.</string>
-  <string name="info_notification_title">Important info</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">If your device has separated volume for ringer and notifications, click here for disabling volumes separation.</string>
-  <string name="info_notification_text">Click here for show important info</string>
-  <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
-  <string name="array_pref_ringerModeArray_silentL">Priority mode</string>
-  <string name="info_notification_silent_mode_lollipop_rename">Silent ringer mode is renamed to Priority mode.</string>
-  <string name="info_notification_silent_mode_lollipop">Priority mode: For simulating silent mode, change volume for ringer and notifications in profile to minimal (0).</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">When your device sets vibration for minimal ringer or notification volume (0), application sets volume to 1. You can use ringer and notification tone \"PhoneProfiles Silent\" for full silence.</string>
+  <string name="altype_runEvents_enable">Activeer Events uitvoeren</string>
+  <string name="altype_applicationStart">Applicatie starten</string>
+  <string name="altype_applicationExit">Applicatie afsluiten</string>
+  <string name="altype_dataImport">gegevens importeren</string>
+  <string name="array_event_pref_calendarSearchField_location">Locatie</string>
+  <string name="profile_preferences_vibrationOnTouch">Trillingen bij aanraken</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBar">In statusbalk weergeven</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">In de statusbalk en lockscreen weergeven</string>
+  <string name="menu_activity_log_reload">Herladen</string>
+  <string name="event_preferences_atEndDo">En doen</string>
+  <string name="array_pref_atEndDo_none">Geen</string>
+  <string name="array_pref_atEndDo_undoneProfile">Profiel ongedaan maken</string>
+  <string name="array_pref_atEndDo_restartEvents">Events herstarten</string>
+  <string name="event_preference_profile_restartEvents">Herstarten</string>
+  <string name="altype_eventEnd_restartEvents">events pauzeren - events herstarten</string>
+  <string name="altype_eventEnd_activateProfile_restartEvents">events pauzeren - activeer en herstart events</string>
+  <string name="event_preference_calendar_availability">Beschikbaarheid</string>
+  <string name="array_event_pref_calendarAvailability_noCheck">Geen controle</string>
+  <string name="array_event_pref_calendarAvailability_busy">Bezet</string>
+  <string name="array_event_pref_calendarAvailability_free">Vrij</string>
+  <string name="array_event_pref_calendarAvailability_tentative">Voorlopig</string>
+  <string name="event_preferences_manualProfileActivation">[M] handmatige profiel activeren</string>
+  <string name="profileicon_pref_dialog_customColor_button">Kleur veranderen</string>
+  <string name="colorChooser_pref_dialog_title">Kleur instellen</string>
+  <string name="phone_profiles_pref_category_system">Systeem</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Beltoon en meldingen ontkoppelen. volumes</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Uitschakelen wanneer uw apparaat gescheiden volume voor beltoon en meldingen heeft</string>
+  <string name="profileicon_pref_dialog_info_about_status_bar_icon">Als u de kleur van het pictogram veranderd zal het pictogram in de statusbalk wit worden. Als u de aangepaste pictogram inschakelt, zal het pictogram van de toepassing op de statusbalk worden gebruikt.</string>
+  <string name="info_notification_title">Belangrijke informatie</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Als uw apparaat gescheiden volume voor beltoon en meldingen heeft, kunt u hier volumes scheiding uitschakelen.</string>
+  <string name="info_notification_text">Klik hier om belangrijke informatie te tonen</string>
+  <string name="profile_preferences_deviceWiFiAP">Wifi-hotspot</string>
+  <string name="array_pref_ringerModeArray_silentL">Prioriteitsmodus</string>
+  <string name="info_notification_silent_mode_lollipop_rename">Stille beltoon modus is gewijzigd in Prioriteitsmodus.</string>
+  <string name="info_notification_silent_mode_lollipop">Prioriteitsmodus: voor het simuleren van stille modus, volume voor beltoon en meldingen in profiel wijzigen naar minimaal (0).</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">Wanneer uw Apparaat automatisch op trillen gaat bij de laagste bel en meldingen volume (0), wordt toepassing volume automatisch ingesteld op 1. U kunt beltoon en meldingen optie \"Stille Telefoon profiel\" gebruiken voor volledige stilte.</string>
   <string name="menu_import_export">Import/Export</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minutes</string>
   <string name="info_notification_event_not_started">Event is not started when:\n1. You have disabled global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".\n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
@@ -522,4 +522,12 @@ Toch activeren?</string>
   <string name="important_info_pphelper_installation">PPHelper installation requires ROOT privileges. You can invoke PPHelper installation in Editor, via menu item \"Install PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Start only when activ. profile</string>
   <string name="profile_preference_do_not_apply">Do not apply</string>
+  <string name="pref_dlg_info_about_wildcards_1">You can use wildcards: \"%\"=any characters, \"_\"=any one character.</string>
+  <string name="pref_dlg_info_about_wildcards_2">If you have \"%\" or \"_\"</string>
+  <string name="wifi_ssid_pref_dlg_info_about_wildcards">in SSID name,</string>
+  <string name="bluetooth_name_pref_dlg_info_about_wildcards">in bluetooth name,</string>
+  <string name="calendar_pref_dlg_info_about_wildcards">in search string,</string>
+  <string name="pref_dlg_info_about_wildcards_3">add \"\\" in front of these characters.</string>
+  <string name="important_info_manual_profile_activation_stops_events">Manual profile activation stops all events. Preferences, that has an event set in the section \"End of event\", are ignored.</string>
+  <string name="important_into_sony_stamina_mode">When you have Sony device and enabled \"Stamina\" mode in \"Power management\", please add PhoneProfilesPlus into \"Apps active in standby\". Without this, application will not work correctly.</string>
 </resources>

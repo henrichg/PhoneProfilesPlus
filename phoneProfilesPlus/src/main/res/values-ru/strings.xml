@@ -47,7 +47,7 @@
   <string name="phone_profiles_pref_category_start">Запуск приложения</string>
   <string name="phone_profiles_pref_category_notifications">Уведомления</string>
   <string name="phone_profiles_pref_applicationActivate">Активировать профиль после загрузки устройства</string>
-  <string name="phone_profiles_pref_applicationClose">Закрыть главный интерфейс после активации профиля</string>
+  <string name="phone_profiles_pref_applicationClose">Закрывать после активации профиля</string>
   <string name="phone_profiles_pref_applicationPrefIndicator">Показывать индикатор настроек</string>
   <string name="phone_profiles_pref_applicationHeader">Показывать активированный профиль</string>
   <string name="phone_profiles_pref_applicationAlert">Запрос на активацию профиля</string>
@@ -181,7 +181,7 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessB">Светлость фона</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Светлость текста</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Светлость иконки</string>
-  <string name="dashclock_extension_description">Отображает активный профиль с кнопкой настроек. Открывает Активатор по прикосновению.</string>
+  <string name="dashclock_extension_description">Отображает активный профиль с индикатором настроек. Открывает Активатор по прикосновению.</string>
   <string name="phone_profiles_pref_category_widget_icon_shortcut">Виджет «Иконка»; Ярлык</string>
   <string name="array_pref_widgetColor_colorful">Цветной</string>
   <string name="array_pref_widgetColor_monochrome">Монохромный</string>
@@ -521,4 +521,12 @@
   <string name="important_info_pphelper_installation">Установка PPHelper\'а требует привилегий ROOT. Чтобы установить PPHelper - в меню Редактора нажмите \"Установить PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Начать только когда активирован профиль</string>
   <string name="profile_preference_do_not_apply">Не применять</string>
+  <string name="pref_dlg_info_about_wildcards_1">Можно использовать подстановочные знаки: «%» = любые символы, «_» = один любой символ.</string>
+  <string name="pref_dlg_info_about_wildcards_2">Если у вас есть «%» или «_»</string>
+  <string name="wifi_ssid_pref_dlg_info_about_wildcards">в поле \"имя SSID\",</string>
+  <string name="bluetooth_name_pref_dlg_info_about_wildcards">в имени Bluetooth,</string>
+  <string name="calendar_pref_dlg_info_about_wildcards">в строке поиска,</string>
+  <string name="pref_dlg_info_about_wildcards_3">Добавьте «\\» перед этими символами.</string>
+  <string name="important_info_manual_profile_activation_stops_events">Ручная активация профиля останавливает все события. Настройки, которые есть в разделе «Конец события», игнорируются.</string>
+  <string name="important_into_sony_stamina_mode">Если вас устройство Sony и включён режим «Stamina» в «Управление питанием», пожалуйста, добавьте PhoneProfilesPlus в список «приложения, активные в режиме ожидания». Без этого приложение не будет работать правильно.</string>
 </resources>

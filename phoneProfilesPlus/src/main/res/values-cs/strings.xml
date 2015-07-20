@@ -398,7 +398,7 @@
   <string name="event_preferences_screen_enabled">Použij obrazovku</string>
   <string name="event_preferences_screen_event_type">Typ události</string>
   <string name="event_preferences_delayStart">Pozdržení (sek.)</string>
-  <string name="profile_preferences_duration">Trvání (min.)</string>
+  <string name="profile_preferences_duration">Trvání (sek.)</string>
   <string name="profile_preferences_afterDurationDo">Po uplynutí trvání udělej</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Nic</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Vrať zpět profil</string>
@@ -521,4 +521,12 @@
   <string name="important_info_pphelper_installation">Instalace PPHelper vyžaduje práva ROOT. Instalaci vyvoláte v Editoru přes položku menu \"Nainstaluj PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spustit pouze pokud je activ. profil</string>
   <string name="profile_preference_do_not_apply">Neaplikovat</string>
+  <string name="pref_dlg_info_about_wildcards_1">Můžete použít zástupné znaky: \"%\"=nějaké znaky, \"_\"=libovolný jeden znak.</string>
+  <string name="pref_dlg_info_about_wildcards_2">Pokud máte \"%\", nebo \"_\"</string>
+  <string name="wifi_ssid_pref_dlg_info_about_wildcards">v SSID,</string>
+  <string name="bluetooth_name_pref_dlg_info_about_wildcards">v názvu Bluetooth,</string>
+  <string name="calendar_pref_dlg_info_about_wildcards">v hledaném řetězci,</string>
+  <string name="pref_dlg_info_about_wildcards_3">přidejte \"\\" před tyto znaky.</string>
+  <string name="important_info_manual_profile_activation_stops_events">Manuální aktivace profilu zastaví všechny události. Předvolby, které mají událost nastavenou v sekci \"Konec události\" , jsou ignorovány.</string>
+  <string name="important_into_sony_stamina_mode">Když máte zařízení od Sony a zapnutý režim \"Výdrž\" v \"Řízení spotřeby\", prosím přidejte PhoneProfilesPlus do \"Aplikace aktivní i v pohot. režimu\". Bez toho aplikace nebude pracovat správně.</string>
 </resources>

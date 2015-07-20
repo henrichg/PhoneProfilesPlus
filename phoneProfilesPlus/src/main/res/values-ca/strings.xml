@@ -398,7 +398,7 @@
   <string name="event_preferences_screen_enabled">Habilitar la pantalla</string>
   <string name="event_preferences_screen_event_type">Tipus d\'esdeveniment</string>
   <string name="event_preferences_delayStart">Retard (sec)</string>
-  <string name="profile_preferences_duration">Durada (min)</string>
+  <string name="profile_preferences_duration">Durada (sec)</string>
   <string name="profile_preferences_afterDurationDo">Després de durada fer</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Res</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Desfer el perfil</string>
@@ -521,4 +521,12 @@
   <string name="important_info_pphelper_installation">La instal·lació de PPHelper requereix permisos de ROOT. Pots executar-ho des de l\'Editor, en la opció de menú \"Instal·lar PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Començar només quan el perfil estigui activat</string>
   <string name="profile_preference_do_not_apply">No s\'apliquen</string>
+  <string name="pref_dlg_info_about_wildcards_1">Podeu utilitzar els comodins: \"%\" = qualsevol caràcter, \"_\" = qualsevol caràcter.</string>
+  <string name="pref_dlg_info_about_wildcards_2">Si vostè té \"%\" o \"_\"</string>
+  <string name="wifi_ssid_pref_dlg_info_about_wildcards">en el SSID,</string>
+  <string name="bluetooth_name_pref_dlg_info_about_wildcards">en el nom del  bluetooth,</string>
+  <string name="calendar_pref_dlg_info_about_wildcards">en la cadena de cerca,</string>
+  <string name="pref_dlg_info_about_wildcards_3">afegir \"\\" davant d\'aquests caràcters.</string>
+  <string name="important_info_manual_profile_activation_stops_events">L\'activació manual del perfil para tots els esdeveniments. Les preferències, que tenen un esdeveniment a la secció \"Final de l\'esdeveniment\", s\'ignoren.</string>
+  <string name="important_into_sony_stamina_mode">Si vostè té un dispositiu de Sony i habilitat el modus \"Stamina\" a la opció Administració d\'energia, si us plau afegiu PhoneProfilesPlus a \"Apps active in standby\". Sense això, l\'aplicació no funciona correctament.</string>
 </resources>

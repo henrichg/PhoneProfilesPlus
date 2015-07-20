@@ -398,7 +398,7 @@
   <string name="event_preferences_screen_enabled">Bildschirm aktivierten</string>
   <string name="event_preferences_screen_event_type">Ereignistyp</string>
   <string name="event_preferences_delayStart">Verzögerung (sec)</string>
-  <string name="profile_preferences_duration">Dauer (min)</string>
+  <string name="profile_preferences_duration">Dauer (sek)</string>
   <string name="profile_preferences_afterDurationDo">Nach Dauer tue</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Nichts</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Profil rückgängig machen</string>
@@ -521,4 +521,12 @@
   <string name="important_info_pphelper_installation">Die PPHelfer-Installation benötigt Root-Rechte. Sie können die PPHelfer-Installation im Editor über den Menüpunkt \"PPHelfer installieren\" aufrufen.</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Nur starten, wenn Profil aktiviert ist</string>
   <string name="profile_preference_do_not_apply">Nicht anwenden</string>
+  <string name="pref_dlg_info_about_wildcards_1">Es können Platzhalter verwendet werden: \"%\"=beliebige Zeichen, \"_\"=ein beliebiges Zeichen.</string>
+  <string name="pref_dlg_info_about_wildcards_2">Wenn \"%\" oder \"_\" im</string>
+  <string name="wifi_ssid_pref_dlg_info_about_wildcards">WLAN-Namen</string>
+  <string name="bluetooth_name_pref_dlg_info_about_wildcards">Bluetooth-Namen</string>
+  <string name="calendar_pref_dlg_info_about_wildcards">Suchbegriff</string>
+  <string name="pref_dlg_info_about_wildcards_3">vorkommen soll, füge \"\\" davor ein.</string>
+  <string name="important_info_manual_profile_activation_stops_events">Manuelle Profilaktivierung stoppt alle Ereignisse. Ereignisse, die etwas im \"Ereignisende\" stehen haben, werden ignoriert.</string>
+  <string name="important_into_sony_stamina_mode">When you have Sony device and enabled \"Stamina\" mode in \"Power management\", please add PhoneProfilesPlus into \"Apps active in standby\". Without this, application will not work correctly.</string>
 </resources>

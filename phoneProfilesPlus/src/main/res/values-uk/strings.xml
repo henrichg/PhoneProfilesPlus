@@ -398,7 +398,7 @@
   <string name="event_preferences_screen_enabled">Активувати</string>
   <string name="event_preferences_screen_event_type">Тип подій</string>
   <string name="event_preferences_delayStart">Затримка (сек.)</string>
-  <string name="profile_preferences_duration">Тривалість (хвилин)</string>
+  <string name="profile_preferences_duration">Тривалість (сек.)</string>
   <string name="profile_preferences_afterDurationDo">Після тривалість зробити</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Нічого</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Анулювати профіль</string>
@@ -521,4 +521,12 @@
   <string name="important_info_pphelper_installation">PPHelper installation requires ROOT privileges. You can invoke PPHelper installation in Editor, via menu item \"Install PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Start only when activ. profile</string>
   <string name="profile_preference_do_not_apply">Do not apply</string>
+  <string name="pref_dlg_info_about_wildcards_1">You can use wildcards: \"%\"=any characters, \"_\"=any one character.</string>
+  <string name="pref_dlg_info_about_wildcards_2">If you have \"%\" or \"_\"</string>
+  <string name="wifi_ssid_pref_dlg_info_about_wildcards">in SSID name,</string>
+  <string name="bluetooth_name_pref_dlg_info_about_wildcards">in bluetooth name,</string>
+  <string name="calendar_pref_dlg_info_about_wildcards">in search string,</string>
+  <string name="pref_dlg_info_about_wildcards_3">add \"\\" in front of these characters.</string>
+  <string name="important_info_manual_profile_activation_stops_events">Manual profile activation stops all events. Preferences, that has an event set in the section \"End of event\", are ignored.</string>
+  <string name="important_into_sony_stamina_mode">When you have Sony device and enabled \"Stamina\" mode in \"Power management\", please add PhoneProfilesPlus into \"Apps active in standby\". Without this, application will not work correctly.</string>
 </resources>

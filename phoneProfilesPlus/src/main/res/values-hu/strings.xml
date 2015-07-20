@@ -234,7 +234,7 @@
   <string name="title_activity_editor">Szerkesztő</string>
   <string name="menu_run_events">Futó események engedélyezése</string>
   <string name="menu_stop_events">Események leállítása</string>
-  <string name="array_pref_value_0_percent" formatted="false">0 %</string>
+  <string name="array_pref_value_0_percent" formatted="false">0%</string>
   <string name="array_pref_value_25_percent" formatted="false">25%</string>
   <string name="array_pref_value_50_percent" formatted="false">50%</string>
   <string name="array_pref_value_75_percent" formatted="false">75%</string>
@@ -398,7 +398,7 @@
   <string name="event_preferences_screen_enabled">Képernyő engedélyezés</string>
   <string name="event_preferences_screen_event_type">Esemény típusa</string>
   <string name="event_preferences_delayStart">Késleltetés (mp)</string>
-  <string name="profile_preferences_duration">Időtartam (perc)</string>
+  <string name="profile_preferences_duration">Időtartam (mp)</string>
   <string name="profile_preferences_afterDurationDo">Időtartam után csinálja</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Semmi</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">A profil visszavonása</string>
@@ -510,15 +510,23 @@
   <string name="info_notification_silent_mode_lollipop_rename">Néma csengés mód átnevezve Elsőbbségi módra.</string>
   <string name="info_notification_silent_mode_lollipop">Elsőbbségi mód: néma üzemmód szimulálása, csengő- és értesítések hangereje a profilban minimális (0).</string>
   <string name="info_notification_minimal_ringer_and_notification_volumes">Amikor az eszközön a beállítás rezegés, minimális csengő-,  vagy értesítési hangerő (0), az alkalmazás beállítja a hangerőt 1. Segítségével csengő- és értesítési hang \"Csendes PhoneProfiles\" teljes csend.</string>
-  <string name="menu_import_export">Import/Export</string>
-  <string name="array_pref_screenTimeoutArray_5minutes">5 minutes</string>
+  <string name="menu_import_export">Importálás/exportálás</string>
+  <string name="array_pref_screenTimeoutArray_5minutes">5 perc</string>
   <string name="info_notification_event_not_started">Event is not started when:\n1. You have disabled global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".\n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
-  <string name="important_info_profiles">Profiles</string>
-  <string name="important_info_events">Events</string>
-  <string name="important_info_system">System</string>
-  <string name="important_info_profile_root">Some profile preferences requires ROOT privileges. These preferences are marked with \"(R)\".</string>
-  <string name="important_info_profile_pphelper">Some profile preferences requires installed PPHelper. These preferences are marked with \"(H)\".</string>
-  <string name="important_info_pphelper_installation">PPHelper installation requires ROOT privileges. You can invoke PPHelper installation in Editor, via menu item \"Install PPHelper\".</string>
-  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Start only when activ. profile</string>
-  <string name="profile_preference_do_not_apply">Do not apply</string>
+  <string name="important_info_profiles">Profilok</string>
+  <string name="important_info_events">Események</string>
+  <string name="important_info_system">Rendszer</string>
+  <string name="important_info_profile_root">Néhány profil ROOT-ot igényel. Ezeket a beállításokat \"(R)\" jelöli.</string>
+  <string name="important_info_profile_pphelper">Néhány profilhoz PPHelper telepítésére van szükség. Ezeket a beállításokat \"(H)\" jelöli.</string>
+  <string name="important_info_pphelper_installation">PPHelper telepítéséhez ROOT jog kell. PPHelper szerkesztő használatához \"PPHelper telepítése\"-re hivatkozhat.</string>
+  <string name="event_preferences_eventStartWhenActivatedProfile">[#] Indítás csak akkor, ha aktív profil</string>
+  <string name="profile_preference_do_not_apply">Nem kell alkalmazni</string>
+  <string name="pref_dlg_info_about_wildcards_1">You can use wildcards: \"%\"=any characters, \"_\"=any one character.</string>
+  <string name="pref_dlg_info_about_wildcards_2">If you have \"%\" or \"_\"</string>
+  <string name="wifi_ssid_pref_dlg_info_about_wildcards">in SSID name,</string>
+  <string name="bluetooth_name_pref_dlg_info_about_wildcards">in bluetooth name,</string>
+  <string name="calendar_pref_dlg_info_about_wildcards">in search string,</string>
+  <string name="pref_dlg_info_about_wildcards_3">add \"\\" in front of these characters.</string>
+  <string name="important_info_manual_profile_activation_stops_events">Manual profile activation stops all events. Preferences, that has an event set in the section \"End of event\", are ignored.</string>
+  <string name="important_into_sony_stamina_mode">When you have Sony device and enabled \"Stamina\" mode in \"Power management\", please add PhoneProfilesPlus into \"Apps active in standby\". Without this, application will not work correctly.</string>
 </resources>
