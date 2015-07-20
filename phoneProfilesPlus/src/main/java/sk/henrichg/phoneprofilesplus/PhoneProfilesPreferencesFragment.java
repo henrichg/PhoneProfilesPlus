@@ -12,7 +12,6 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.TwoStatePreference;
-import android.util.Log;
 import android.widget.ListView;
 
 public class PhoneProfilesPreferencesFragment extends PreferenceFragment 
