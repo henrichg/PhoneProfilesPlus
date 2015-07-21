@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -395,6 +396,15 @@ public class EditorProfileListFragment extends Fragment {
             listView.setSelection(profilePos);
             listView.setItemChecked(profilePos, true);
             listView.smoothScrollToPosition(profilePos);
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    fabButton.show();
+                }
+            }, 500);
+
             editMode = EDIT_MODE_EDIT;
         }
         else
@@ -775,6 +785,14 @@ public class EditorProfileListFragment extends Fragment {
                 listView.setSelection(profilePos);
                 listView.setItemChecked(profilePos, true);
                 listView.smoothScrollToPosition(profilePos);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        fabButton.show();
+                    }
+                }, 500);
             }
         }
     }
