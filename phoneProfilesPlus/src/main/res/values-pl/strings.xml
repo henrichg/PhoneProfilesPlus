@@ -526,7 +526,7 @@
   <string name="wifi_ssid_pref_dlg_info_about_wildcards">w nazwie SSID,</string>
   <string name="bluetooth_name_pref_dlg_info_about_wildcards">w nazwie bluetooth,</string>
   <string name="calendar_pref_dlg_info_about_wildcards">w wyszukiwanym ciągu,</string>
-  <string name="pref_dlg_info_about_wildcards_3">dodaj \"\\" pa początku ciągu znaków.</string>
+  <string name="pref_dlg_info_about_wildcards_3">dodaj \"\\\" pa początku ciągu znaków.</string>
   <string name="important_info_manual_profile_activation_stops_events">Ręczna aktywacja profilu zatrzymuje wszystkie zdarzenia. Preferencje, które posiadają zdarzenie w sekcji \"Koniec zdarzenia\" są ignorowane.</string>
   <string name="important_into_sony_stamina_mode">Jeśli masz urządzenie Sony z włączonym trybem \"Stamina\" w \"Zarządzanie energią\", proszę dodać PhoneProfilesPlus do \"Aplikacji działających w trybie gotowości\". Bez tego aplikacja nie będzie działać poprawnie.</string>
 </resources>

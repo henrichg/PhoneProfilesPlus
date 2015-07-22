@@ -526,7 +526,7 @@
   <string name="wifi_ssid_pref_dlg_info_about_wildcards">v SSID,</string>
   <string name="bluetooth_name_pref_dlg_info_about_wildcards">v názvu Bluetooth,</string>
   <string name="calendar_pref_dlg_info_about_wildcards">v hledaném řetězci,</string>
-  <string name="pref_dlg_info_about_wildcards_3">přidejte \"\\" před tyto znaky.</string>
+  <string name="pref_dlg_info_about_wildcards_3">přidejte \"\\\" před tyto znaky.</string>
   <string name="important_info_manual_profile_activation_stops_events">Manuální aktivace profilu zastaví všechny události. Předvolby, které mají událost nastavenou v sekci \"Konec události\" , jsou ignorovány.</string>
   <string name="important_into_sony_stamina_mode">Když máte zařízení od Sony a zapnutý režim \"Výdrž\" v \"Řízení spotřeby\", prosím přidejte PhoneProfilesPlus do \"Aplikace aktivní i v pohot. režimu\". Bez toho aplikace nebude pracovat správně.</string>
 </resources>
