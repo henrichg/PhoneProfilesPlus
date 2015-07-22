@@ -61,6 +61,11 @@ public class ActivateProfileHelper {
 
     public static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 
+    public static final int ZENMODE_ALL = 0;
+    public static final int ZENMODE_PRIORITY = 1;
+    public static final int ZENMODE_NONE = 2;
+
+
     public ActivateProfileHelper()
     {
 
@@ -343,10 +348,6 @@ public class ActivateProfileHelper {
 
     }
 
-    private static final int ZENMODE_ALL = 0;
-    private static final int ZENMODE_PRIORITY = 1;
-    private static final int ZENMODE_NONE = 2;
-
     public void correctSilentMode(/*Profile profile, */AudioManager audioManager) {
         if (GlobalData.getRingerMode(context) == 4) {
         //if (profile._volumeRingerMode == 4) {
@@ -461,6 +462,9 @@ public class ActivateProfileHelper {
     {
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
+            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context))
+                PPNotificationListenerService.requestInterruptionFilter(context, mode);
+            else
             if (GlobalData.grantRoot(false) && (GlobalData.settingsBinaryExists()))
             {
                 String command1 = "settings put global zen_mode " + mode;

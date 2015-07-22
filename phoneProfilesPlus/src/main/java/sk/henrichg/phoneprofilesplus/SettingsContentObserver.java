@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.os.Handler;
+import android.util.Log;
 
 public class SettingsContentObserver  extends ContentObserver {
 
@@ -23,7 +24,7 @@ public class SettingsContentObserver  extends ContentObserver {
         super(handler);
         context=c;
 
-        //Log.e("### SettingsContentObserver", "xxx");
+        Log.e("### SettingsContentObserver", "xxx");
 
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         previousVolumeRing = audioManager.getStreamVolume(AudioManager.STREAM_RING);
@@ -42,14 +43,14 @@ public class SettingsContentObserver  extends ContentObserver {
     private int volumeChangeDetect(int volumeStream, int previousVolume, AudioManager audioManager) {
 
         int currentVolume = audioManager.getStreamVolume(volumeStream);
-        //Log.e("### SettingsContentObserver", "channel="+volumeStream+" currentVolume="+currentVolume);
-        //Log.e("### SettingsContentObserver", "channel="+volumeStream+" previousVolume="+previousVolume);
+        Log.e("### SettingsContentObserver", "channel="+volumeStream+" currentVolume="+currentVolume);
+        Log.e("### SettingsContentObserver", "channel="+volumeStream+" previousVolume="+previousVolume);
 
         int delta=previousVolume-currentVolume;
 
         if(delta>0)
         {
-            //Log.e("### SettingsContentObserver", "channel="+volumeStream+" Decreased");
+            Log.e("### SettingsContentObserver", "channel="+volumeStream+" Decreased");
             if (!internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING)
                     GlobalData.setRingerVolume(context, currentVolume);
@@ -59,7 +60,7 @@ public class SettingsContentObserver  extends ContentObserver {
         }
         else if(delta<0)
         {
-            //Log.e("### SettingsContentObserver", "channel="+volumeStream+" Increased");
+            Log.e("### SettingsContentObserver", "channel="+volumeStream+" Increased");
             if (!internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING)
                     GlobalData.setRingerVolume(context, currentVolume);
@@ -74,7 +75,7 @@ public class SettingsContentObserver  extends ContentObserver {
     public void onChange(boolean selfChange) {
         super.onChange(selfChange);
 
-        //Log.e("### SettingsContentObserver", "internalChange="+internalChange);
+        Log.e("### SettingsContentObserver", "internalChange=" + internalChange);
 
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
