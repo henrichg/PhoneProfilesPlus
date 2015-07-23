@@ -443,8 +443,8 @@
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Activar pantalla</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Reiniciar esdeveniments</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Activar pantalla. Reprendre esdeveniments</string>
-  <string name="array_pref_ringerModeArray_ZenMode">Interrupcions</string>
-  <string name="profile_preferences_volumeZenMode">(R) tipus d\'interrupcions</string>
+  <string name="array_pref_ringerModeArray_ZenMode">(S) Interrupcions</string>
+  <string name="profile_preferences_volumeZenMode">(S) tipus d\'interrupcions</string>
   <string name="array_pref_zenModeArray_all">Tot</string>
   <string name="array_pref_zenModeArray_priority">Prioritat</string>
   <string name="array_pref_zenModeArray_none">Cap</string>

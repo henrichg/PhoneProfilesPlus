@@ -443,8 +443,8 @@
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Zapnutie obrazovky</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Reštart udalostí</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Zapnutie obrazovky &amp; Reštart udalostí</string>
-  <string name="array_pref_ringerModeArray_ZenMode">Vyrušenia</string>
-  <string name="profile_preferences_volumeZenMode">(R) Typy vyrušení</string>
+  <string name="array_pref_ringerModeArray_ZenMode">(S) Vyrušenia</string>
+  <string name="profile_preferences_volumeZenMode">(S) Typy vyrušení</string>
   <string name="array_pref_zenModeArray_all">Všetky</string>
   <string name="array_pref_zenModeArray_priority">Prioritné</string>
   <string name="array_pref_zenModeArray_none">Žiadne</string>
@@ -527,6 +527,6 @@
   <string name="bluetooth_name_pref_dlg_info_about_wildcards">v mene Bluetooth,</string>
   <string name="calendar_pref_dlg_info_about_wildcards">v hľadanom reťazci,</string>
   <string name="pref_dlg_info_about_wildcards_3">pridajte \"\\\" pred tieto znaky.</string>
-  <string name="important_info_manual_profile_activation_stops_events">Manuálna aktivácia profilu zastaví všetky udalosti. Nastavenie, ktoré má udalosť nastavené v sekcii \"Koniec udalosti\" , sú ignorované.</string>
+  <string name="important_info_manual_profile_activation_stops_events">Manuálna aktivácia profilu zastaví všetky udalosti. Nastavenia, ktoré má udalosť nastavené v sekcii \"Koniec udalosti\" , sú ignorované.</string>
   <string name="important_into_sony_stamina_mode">Keď máte zariadenie od Sony a zapnutý režim \"Stamina\" v \"Správe spotreby\", prosím pridajte PhoneProfilesPlus do \"Aplikácie aktívne aj v pohot. režime\". Bez toho aplikácia nebude pracovať správne.</string>
 </resources>

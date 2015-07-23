@@ -443,8 +443,8 @@
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Увімкнення екрану</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Перезавантажити події</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Увімкнення екрану &amp; Перезавантаження подій</string>
-  <string name="array_pref_ringerModeArray_ZenMode">Режими сповіщень</string>
-  <string name="profile_preferences_volumeZenMode">(R) Типи режиму сповіщень</string>
+  <string name="array_pref_ringerModeArray_ZenMode">(S) Режими сповіщень</string>
+  <string name="profile_preferences_volumeZenMode">(S) Типи режиму сповіщень</string>
   <string name="array_pref_zenModeArray_all">Усі</string>
   <string name="array_pref_zenModeArray_priority">Важливі</string>
   <string name="array_pref_zenModeArray_none">Ні</string>

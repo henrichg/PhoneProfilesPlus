@@ -443,8 +443,8 @@
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Zapnutí obrazovky</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Restart událostí</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Zapnutí obrazovky &amp; Restart událostí</string>
-  <string name="array_pref_ringerModeArray_ZenMode">Vyrušení</string>
-  <string name="profile_preferences_volumeZenMode">(R) Typy vyrušení</string>
+  <string name="array_pref_ringerModeArray_ZenMode">(S) Vyrušení</string>
+  <string name="profile_preferences_volumeZenMode">(S) Typy vyrušení</string>
   <string name="array_pref_zenModeArray_all">Vše</string>
   <string name="array_pref_zenModeArray_priority">Prioritní</string>
   <string name="array_pref_zenModeArray_none">Žádné</string>

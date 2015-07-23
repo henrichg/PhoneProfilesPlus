@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
+import android.service.notification.NotificationListenerService;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
@@ -60,11 +61,6 @@ public class ActivateProfileHelper {
     public static boolean lockRefresh = false;
 
     public static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
-
-    public static final int ZENMODE_ALL = 0;
-    public static final int ZENMODE_PRIORITY = 1;
-    public static final int ZENMODE_NONE = 2;
-
 
     public ActivateProfileHelper()
     {
@@ -458,13 +454,29 @@ public class ActivateProfileHelper {
 
     }
 
+    private static final int ZENMODE_ALL = 0;
+    private static final int ZENMODE_PRIORITY = 1;
+    private static final int ZENMODE_NONE = 2;
+
     private void setZenMode(int mode)
     {
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
-            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context))
-                PPNotificationListenerService.requestInterruptionFilter(context, mode);
-            else
+            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
+                switch (mode) {
+                    case ZENMODE_ALL:
+                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
+                        break;
+                    case ZENMODE_PRIORITY:
+                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_PRIORITY;
+                        break;
+                    case ZENMODE_NONE:
+                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_NONE;
+                        break;
+                }
+                PPNotificationListenerService.requestInterruptionFilter(context, interruptionFilter);
+            } else
             if (GlobalData.grantRoot(false) && (GlobalData.settingsBinaryExists()))
             {
                 String command1 = "settings put global zen_mode " + mode;

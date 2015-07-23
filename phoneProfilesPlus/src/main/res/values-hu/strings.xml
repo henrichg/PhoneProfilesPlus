@@ -443,8 +443,8 @@
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Képernyő Be</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Eseményt újra indít</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Képernyő Be &amp; Újraindít eseményt</string>
-  <string name="array_pref_ringerModeArray_ZenMode">Megszakítások</string>
-  <string name="profile_preferences_volumeZenMode">(R) Megszakítások típusa</string>
+  <string name="array_pref_ringerModeArray_ZenMode">(S) Megszakítások</string>
+  <string name="profile_preferences_volumeZenMode">(S) Megszakítások típusa</string>
   <string name="array_pref_zenModeArray_all">Mindegyik</string>
   <string name="array_pref_zenModeArray_priority">Elsőbbség</string>
   <string name="array_pref_zenModeArray_none">None</string>

@@ -13,37 +13,42 @@
             android:defaultValue="ic_profile_default|1|0|0"
             android:key="prf_pref_profileIcon"
             android:title="@string/profile_preferences_profileIcon" />
-		<CheckBoxPreference 
-		    android:key="prf_pref_showInActivator"
-		    android:title="@string/profile_preferences_showInActivator"
-		    android:defaultValue="true" />
- 		<sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <CheckBoxPreference
+            android:key="prf_pref_showInActivator"
+            android:title="@string/profile_preferences_showInActivator"
+            android:defaultValue="true" />
+        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
             android:key="prf_pref_duration"
             android:summary="@string/profile_preferences_duration"
             android:title="@string/profile_preferences_duration" 
             android:defaultValue="0"
             henrichg:min="0"
             henrichg:max="68400" />
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_afterDurationDo"
             android:summary="@string/array_pref_afterProfileDurationDo_nothing"
             android:key="prf_pref_afterDurationDo"
             android:defaultValue="0"
             android:entries="@array/afterProfileDurationDoArray"
             android:entryValues="@array/afterProfileDurationDoValues" />        
-	</PreferenceCategory>
+    </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/profile_preferences_category_volumes"
         android:title="@string/profile_preferences_category_volumes"
         android:key="prf_pref_volumeCategory"  >
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_volumeRingerMode"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_volumeRingerMode"
             android:defaultValue="0"
             android:entries="@array/ringerModeArray"
-            android:entryValues="@array/ringerModeValues" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:entryValues="@array/ringerModeValues" />
+        <PreferenceScreen
+            android:key="prf_pref_volumeNotificationsAccessSettings"
+            android:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+            android:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary" >
+        </PreferenceScreen>
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_volumeZenMode"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_volumeZenMode"
@@ -69,65 +74,65 @@
             </intent>
         </PreferenceScreen>
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
-			android:key="prf_pref_volumeRingtone"
-			henrichg:volumeType="ringtone"
-			henrichg:vNoChange="1"
-			henrichg:vDefaultProfile="0"
-			henrichg:vDisableDefaultProfile="0"
-			android:title="@string/profile_preferences_volumeRingtone"
-			android:summary="@string/volume_pref_dialog_no_change_chb" />        
-		<sk.henrichg.phoneprofilesplus.VolumeDialogPreference
-			android:key="prf_pref_volumeNotification"
-			henrichg:volumeType="notification"
-			henrichg:vNoChange="1"
-			henrichg:vDefaultProfile="0"
-			henrichg:vDisableDefaultProfile="0"
-			android:title="@string/profile_preferences_volumeNotification"
-			android:summary="@string/volume_pref_dialog_no_change_chb" />        
-		<sk.henrichg.phoneprofilesplus.VolumeDialogPreference
-			android:key="prf_pref_volumeMedia"
-			henrichg:volumeType="media"
-			henrichg:vNoChange="1"
-			henrichg:vDefaultProfile="0"
-			henrichg:vDisableDefaultProfile="0"
-			android:title="@string/profile_preferences_volumeMedia"
-			android:summary="@string/volume_pref_dialog_no_change_chb" />        
-		<sk.henrichg.phoneprofilesplus.VolumeDialogPreference
-			android:key="prf_pref_volumeAlarm"
-			henrichg:volumeType="alarm"
-			henrichg:vNoChange="1"
-			henrichg:vDefaultProfile="0"
-			henrichg:vDisableDefaultProfile="0"
-			android:title="@string/profile_preferences_volumeAlarm"
-			android:summary="@string/volume_pref_dialog_no_change_chb" />        
-		<sk.henrichg.phoneprofilesplus.VolumeDialogPreference
-			android:key="prf_pref_volumeSystem"
-			henrichg:volumeType="system"
-			henrichg:vNoChange="1"
-			henrichg:vDefaultProfile="0"
-			henrichg:vDisableDefaultProfile="0"
-			android:title="@string/profile_preferences_volumeSystem"
-			android:summary="@string/volume_pref_dialog_no_change_chb" />        
-		<sk.henrichg.phoneprofilesplus.VolumeDialogPreference
-			android:key="prf_pref_volumeVoice"
-			henrichg:volumeType="voice"
-			henrichg:vNoChange="1"
-			henrichg:vDefaultProfile="0"
-			henrichg:vDisableDefaultProfile="0"
-			android:title="@string/profile_preferences_volumeVoice"
-			android:summary="@string/volume_pref_dialog_no_change_chb" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:key="prf_pref_volumeRingtone"
+            henrichg:volumeType="ringtone"
+            henrichg:vNoChange="1"
+            henrichg:vDefaultProfile="0"
+            henrichg:vDisableDefaultProfile="0"
+            android:title="@string/profile_preferences_volumeRingtone"
+            android:summary="@string/volume_pref_dialog_no_change_chb" />
+        <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
+            android:key="prf_pref_volumeNotification"
+            henrichg:volumeType="notification"
+            henrichg:vNoChange="1"
+            henrichg:vDefaultProfile="0"
+            henrichg:vDisableDefaultProfile="0"
+            android:title="@string/profile_preferences_volumeNotification"
+            android:summary="@string/volume_pref_dialog_no_change_chb" />
+        <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
+            android:key="prf_pref_volumeMedia"
+            henrichg:volumeType="media"
+            henrichg:vNoChange="1"
+            henrichg:vDefaultProfile="0"
+            henrichg:vDisableDefaultProfile="0"
+            android:title="@string/profile_preferences_volumeMedia"
+            android:summary="@string/volume_pref_dialog_no_change_chb" />
+        <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
+            android:key="prf_pref_volumeAlarm"
+            henrichg:volumeType="alarm"
+            henrichg:vNoChange="1"
+            henrichg:vDefaultProfile="0"
+            henrichg:vDisableDefaultProfile="0"
+            android:title="@string/profile_preferences_volumeAlarm"
+            android:summary="@string/volume_pref_dialog_no_change_chb" />
+        <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
+            android:key="prf_pref_volumeSystem"
+            henrichg:volumeType="system"
+            henrichg:vNoChange="1"
+            henrichg:vDefaultProfile="0"
+            henrichg:vDisableDefaultProfile="0"
+            android:title="@string/profile_preferences_volumeSystem"
+            android:summary="@string/volume_pref_dialog_no_change_chb" />
+        <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
+            android:key="prf_pref_volumeVoice"
+            henrichg:volumeType="voice"
+            henrichg:vNoChange="1"
+            henrichg:vDefaultProfile="0"
+            henrichg:vDisableDefaultProfile="0"
+            android:title="@string/profile_preferences_volumeVoice"
+            android:summary="@string/volume_pref_dialog_no_change_chb" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_volumeSpeakerPhone"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_volumeSpeakerPhone"
             android:defaultValue="0"
             android:entries="@array/volumeSpeakerPhoneArray"
             android:entryValues="@array/volumeSpeakerPhoneValues" />        
-	</PreferenceCategory>
+    </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/profile_preferences_category_sounds"
         android:title="@string/profile_preferences_category_sounds" >
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_soundRingtoneChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_soundRingtoneChange"
@@ -142,7 +147,7 @@
             android:showSilent="true"
             android:showDefault="true"
             android:dependency="prf_pref_soundRingtoneChange" />
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_soundNotificationChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_soundNotificationChange"
@@ -157,7 +162,7 @@
             android:showSilent="true"
             android:showDefault="true"
             android:dependency="prf_pref_soundNotificationChange" />
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_soundAlarmChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_soundAlarmChange"
@@ -176,35 +181,35 @@
     <PreferenceCategory
         android:summary="@string/profile_preferences_category_device"
         android:title="@string/profile_preferences_category_device" >
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceAirplaneMode"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceAirplaneMode"
             android:defaultValue="0"
             android:entries="@array/hardwareModeArray"
             android:entryValues="@array/hardwareModeValues" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceAutosync"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceAutosync"
             android:defaultValue="0"
             android:entries="@array/hardwareModeArray"
             android:entryValues="@array/hardwareModeValues" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceMobileData"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceMobileData"
             android:defaultValue="0"
             android:entries="@array/hardwareModeArray"
             android:entryValues="@array/hardwareModeValues" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceMobileDataPrefs"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceMobileDataPrefs"
             android:defaultValue="0"
             android:entries="@array/mobileDataPrefsArray"
             android:entryValues="@array/mobileDataPrefsValues" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceWiFi"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceWiFi"
@@ -225,78 +230,78 @@
             android:defaultValue="0"
             android:entries="@array/hardwareModeArray"
             android:entryValues="@array/hardwareModeValues" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceGPS"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceGPS"
             android:defaultValue="0"
             android:entries="@array/hardwareModeArray"
             android:entryValues="@array/hardwareModeValues" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceLocationServicePrefs"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceLocationServicePrefs"
             android:defaultValue="0"
             android:entries="@array/locationServicePrefsArray"
             android:entryValues="@array/locationServicePrefsValues" />
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceNFC"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceNFC"
             android:defaultValue="0"
             android:entries="@array/hardwareModeArray"
             android:entryValues="@array/hardwareModeValues" />
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceScreenTimeout"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceScreenTimeout"
             android:defaultValue="0"
             android:entries="@array/screenTimeoutArray"
             android:entryValues="@array/screenTimeoutValues" />
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceKeyguard"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceKeyguard"
             android:defaultValue="0"
             android:entries="@array/keyguardArray"
             android:entryValues="@array/keyguardValues" />
-		<sk.henrichg.phoneprofilesplus.BrightnessDialogPreference
-			android:key="prf_pref_deviceBrightness"
-			henrichg:bNoChange="1"
-			henrichg:bAutomatic="0"
-			henrichg:bDefaultProfile="0"
-			henrichg:bDisableDefaultProfile="0"
-			android:title="@string/profile_preferences_deviceBrightness"
-			android:summary="@string/brightness_pref_dialog_no_change_chb" />   
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.BrightnessDialogPreference
+            android:key="prf_pref_deviceBrightness"
+            henrichg:bNoChange="1"
+            henrichg:bAutomatic="0"
+            henrichg:bDefaultProfile="0"
+            henrichg:bDisableDefaultProfile="0"
+            android:title="@string/profile_preferences_deviceBrightness"
+            android:summary="@string/brightness_pref_dialog_no_change_chb" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceAutoRotation"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceAutoRotation"
             android:defaultValue="0"
             android:entries="@array/displayRotationArray11"
             android:entryValues="@array/displayRotationValues11" />        
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceRunApplicationChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceRunApplicationChange"
             android:defaultValue="0"
             android:entries="@array/runApplicationArray"
             android:entryValues="@array/runApplicationValues" />        
-		<sk.henrichg.phoneprofilesplus.ApplicationsPreference
+        <sk.henrichg.phoneprofilesplus.ApplicationsPreference
             android:defaultValue="-"
             android:key="prf_pref_deviceRunApplicationPackageName"
             android:title="@string/profile_preferences_deviceRunApplicationPackageName" />
-		<com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceWallpaperChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceWallpaperChange"
             android:defaultValue="0"
             android:entries="@array/changeWallpaperArray"
             android:entryValues="@array/changeWallpaperValues" />        
-		<sk.henrichg.phoneprofilesplus.ImageViewPreference
+        <sk.henrichg.phoneprofilesplus.ImageViewPreference
             android:defaultValue="-|0"
             android:key="prf_pref_deviceWallpaper"
             android:title="@string/profile_preferences_deviceWallpaper"
             henrichg:imageSource="file" />
-	</PreferenceCategory>
+    </PreferenceCategory>
 </PreferenceScreen>    

@@ -443,8 +443,8 @@
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Skärm på</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Starta om händelser</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Skärm på &amp; starta om händelser</string>
-  <string name="array_pref_ringerModeArray_ZenMode">Avbrott</string>
-  <string name="profile_preferences_volumeZenMode">(R) avbrottstyp</string>
+  <string name="array_pref_ringerModeArray_ZenMode">(S) Avbrott</string>
+  <string name="profile_preferences_volumeZenMode">(S) avbrottstyp</string>
   <string name="array_pref_zenModeArray_all">Alla</string>
   <string name="array_pref_zenModeArray_priority">Prioritet</string>
   <string name="array_pref_zenModeArray_none">inga</string>

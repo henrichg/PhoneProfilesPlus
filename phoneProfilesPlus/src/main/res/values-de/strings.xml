@@ -443,8 +443,8 @@
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Bildschirm an</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Ereignisse neu starten</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Bildschirm an &amp; Ereignisse neu starten</string>
-  <string name="array_pref_ringerModeArray_ZenMode">Unterbrechungen</string>
-  <string name="profile_preferences_volumeZenMode">(R) Unterbrechungen-Typ</string>
+  <string name="array_pref_ringerModeArray_ZenMode">(S) Unterbrechungen</string>
+  <string name="profile_preferences_volumeZenMode">(S) Unterbrechungen-Typ</string>
   <string name="array_pref_zenModeArray_all">Alle</string>
   <string name="array_pref_zenModeArray_priority">Wichtig</string>
   <string name="array_pref_zenModeArray_none">Keine</string>

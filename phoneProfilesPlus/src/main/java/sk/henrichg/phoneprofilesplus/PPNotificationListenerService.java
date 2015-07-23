@@ -23,21 +23,23 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     public static final String TAG = PPNotificationListenerService.class.getSimpleName();
 
-    private NLServiceReceiver nlservicereciver;
+    private NLServiceReceiver nlservicereceiver;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        nlservicereciver = new NLServiceReceiver();
+        nlservicereceiver = new NLServiceReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_REQUEST_INTERRUPTION_FILTER);
-        registerReceiver(nlservicereciver, filter);
+        registerReceiver(nlservicereceiver, filter);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        unregisterReceiver(nlservicereceiver);
     }
 
     @Override
@@ -149,17 +151,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 if (!TextUtils.isEmpty(intent.getAction())) {
                     if (ACTION_REQUEST_INTERRUPTION_FILTER.equals(intent.getAction())) {
                         if (intent.hasExtra(EXTRA_FILTER)) {
-                            final int zenMode = intent.getIntExtra(EXTRA_FILTER, ActivateProfileHelper.ZENMODE_ALL);
-                            Log.e(TAG, "zenMode = " + zenMode);
-                            switch (zenMode) {
-                                case ActivateProfileHelper.ZENMODE_ALL:
-                                    requestInterruptionFilter(INTERRUPTION_FILTER_ALL);
-                                    break;
-                                case ActivateProfileHelper.ZENMODE_PRIORITY:
-                                    requestInterruptionFilter(INTERRUPTION_FILTER_PRIORITY);
-                                    break;
-                                case ActivateProfileHelper.ZENMODE_NONE:
-                                    requestInterruptionFilter(INTERRUPTION_FILTER_NONE);
+                            final int filter = intent.getIntExtra(EXTRA_FILTER, INTERRUPTION_FILTER_ALL);
+                            Log.e(TAG, "filter= " + filter);
+                            switch (filter) {
+                                case INTERRUPTION_FILTER_ALL:
+                                case INTERRUPTION_FILTER_PRIORITY:
+                                case INTERRUPTION_FILTER_NONE:
+                                    requestInterruptionFilter(filter);
                                     break;
                             }
                         }

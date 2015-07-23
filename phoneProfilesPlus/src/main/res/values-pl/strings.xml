@@ -443,8 +443,8 @@
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Ekran włączony</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Zrestartuj zdarzenia</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Ekran włączony &amp; Zrestartuj zdarzenia</string>
-  <string name="array_pref_ringerModeArray_ZenMode">Przerwania</string>
-  <string name="profile_preferences_volumeZenMode">(R) Typ przerwania</string>
+  <string name="array_pref_ringerModeArray_ZenMode">(S) Przerwania</string>
+  <string name="profile_preferences_volumeZenMode">(S) Typ przerwania</string>
   <string name="array_pref_zenModeArray_all">Wszystkie</string>
   <string name="array_pref_zenModeArray_priority">Priorytet</string>
   <string name="array_pref_zenModeArray_none">Brak</string>

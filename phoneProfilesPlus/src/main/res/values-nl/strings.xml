@@ -444,8 +444,8 @@ Toch activeren?</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Scherm Aan</string>
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Events herstarten</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Scherm aan en events opnieuw opstarten</string>
-  <string name="array_pref_ringerModeArray_ZenMode">Onderbrekingen</string>
-  <string name="profile_preferences_volumeZenMode">(R) Onderbrekingen type</string>
+  <string name="array_pref_ringerModeArray_ZenMode">(S) Onderbrekingen</string>
+  <string name="profile_preferences_volumeZenMode">(S) Onderbrekingen type</string>
   <string name="array_pref_zenModeArray_all">Alles</string>
   <string name="array_pref_zenModeArray_priority">Prioriteit</string>
   <string name="array_pref_zenModeArray_none">Geen</string>
