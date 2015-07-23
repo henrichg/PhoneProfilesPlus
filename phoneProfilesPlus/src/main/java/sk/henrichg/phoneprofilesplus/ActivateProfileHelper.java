@@ -399,7 +399,7 @@ public class ActivateProfileHelper {
         if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
 
             boolean doUnlink = audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
-            doUnlink = doUnlink && (Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_NONE) != ZENMODE_NONE);
+            doUnlink = doUnlink && (Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_ALL) != ZENMODE_NONE);
             //Log.e("ActivateProfileHelper", "setVolumes doUnlink=" + doUnlink);
             //Log.e("ActivateProfileHelper", "setVolumes ringerMode=" + audioManager.getRingerMode());
             //Log.e("ActivateProfileHelper", "setVolumes zenMode=" + Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_NONE));
