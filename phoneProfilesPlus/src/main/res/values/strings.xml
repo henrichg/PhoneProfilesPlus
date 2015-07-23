@@ -533,4 +533,6 @@
   <string name="important_info_profile_settings">Some profile preferences requires changes in system Settings. These preferences are marked with \"(S)\".</string>
   <string name="profile_preferences_volumeNotificationsAccessSettings_title">Notification access</string>
   <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling \"Interruptions type\" profile preference.</string>
+  <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>
+  <string name="array_pref_zenModeArray_priorityWithVibration">Priority with vibration</string>
 </resources>

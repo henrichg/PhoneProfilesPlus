@@ -534,7 +534,6 @@ public class ActivateProfileHelper {
                     e.printStackTrace();
                 }
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
-                //setZenMode(ZENMODE_ALL);
                 break;
             case 2:  // Ring & Vibrate
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
@@ -549,7 +548,6 @@ public class ActivateProfileHelper {
                     e.printStackTrace();
                 }
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
-                //setZenMode(ZENMODE_ALL);
                 break;
             case 3:  // Vibrate
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
@@ -564,7 +562,6 @@ public class ActivateProfileHelper {
                     e.printStackTrace();
                 }
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
-                //setZenMode(ZENMODE_ALL);
                 break;
             case 4:  // Silent
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
@@ -579,7 +576,6 @@ public class ActivateProfileHelper {
                     e.printStackTrace();
                 }
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
-                //setZenMode(ZENMODE_PRIORITY);
                 break;
             case 5: // Zen mode
                 if (profile._volumeZenMode != 0)
@@ -589,12 +585,24 @@ public class ActivateProfileHelper {
                 switch (zenMode) {
                     case 1:
                         setZenMode(ZENMODE_ALL);
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         break;
                     case 2:
                         setZenMode(ZENMODE_PRIORITY);
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         break;
                     case 3:
                         setZenMode(ZENMODE_NONE);
+                        // no change ringer mode
+                        //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                        break;
+                    case 4:
+                        setZenMode(ZENMODE_ALL);
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                        break;
+                    case 5:
+                        setZenMode(ZENMODE_PRIORITY);
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                         break;
                 }
                 break;
