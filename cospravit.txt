@@ -768,6 +768,14 @@ Kde sa vola GlobalData.setEventsBlocked():
 
 --------------------------------------------------------------------
 
+Oddelenie zvonenia a notifikacii:
+- Teraz testujem audiomanager ringermode. Ak je NORMAL, tak robim unlink
+- Problem ale bude s Interruptions. Podla mna by som mal zistovat aj to, aky interruption filter je nastaveny.
+  Da sa to uplne jednoducho a to cez Settings.Global.getInt("zen_mode")
+- Cize, pre Lollipop by som mal robit unlink ak: interruptions filter nie je NONE a zaroven je audiomanager ringermode = NORMAL
+
+--------------------------------------------------------------------
+
 Android M
 1. Wifi scanning dako divno funguje. Ide, ale so strasnym intervalom. Hadam bude opravene exact alarmom - nakodene, testujem
 2. Doze mod: funguje ako Sony Stamina mod. Je tiez mozne nastavit vynimku. Aj tak divno funguje, je mozne ze suvisi s tymi alarmami, vid bod 2.
