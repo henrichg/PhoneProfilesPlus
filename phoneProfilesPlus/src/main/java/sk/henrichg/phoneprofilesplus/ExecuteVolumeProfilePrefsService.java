@@ -32,8 +32,6 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         if (profile != null)
         {
-            SettingsContentObserver.internalChange = true;
-
             final Profile _profile = profile;
 
             //Handler audioChangeHandler = new Handler(getMainLooper());
