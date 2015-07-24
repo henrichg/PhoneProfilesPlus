@@ -62,6 +62,11 @@ public class ActivateProfileHelper {
 
     public static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 
+    // Setting.Global "zen_mode"
+    public static final int ZENMODE_ALL = 0;
+    public static final int ZENMODE_PRIORITY = 1;
+    public static final int ZENMODE_NONE = 2;
+
     public ActivateProfileHelper()
     {
 
@@ -455,10 +460,6 @@ public class ActivateProfileHelper {
         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
 
     }
-
-    private static final int ZENMODE_ALL = 0;
-    private static final int ZENMODE_PRIORITY = 1;
-    private static final int ZENMODE_NONE = 2;
 
     private void setZenMode(int mode)
     {

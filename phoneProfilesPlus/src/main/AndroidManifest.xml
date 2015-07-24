@@ -4,11 +4,11 @@
     android:versionCode="1732"
     android:versionName="3.1.0.1" >
 
-<!--
+    <!--
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="22" />
--->
+    -->
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -48,11 +48,11 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
-<!--
+    <!--
     <android:uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
--->
+    -->
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -185,13 +185,13 @@
         </activity>
         <activity
             android:name=".ActivityLogActivity"
-            android:label="@string/title_activity_activity_log"
-            android:configChanges="locale|layoutDirection" >
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/title_activity_activity_log" >
         </activity>
         <activity
             android:name=".ImportantInfoActivity"
-            android:label="@string/info_notification_title"
-            android:configChanges="locale|layoutDirection" >
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/info_notification_title" >
         </activity>
 
         <receiver
@@ -270,6 +270,7 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".PhoneProfilesDashClockExtension"
             android:icon="@drawable/ic_dashclock"
@@ -344,13 +345,14 @@
             android:name=".KeyguardService"
             android:exported="false" >
         </service>
-        <service android:name=".PPNotificationListenerService"
-            android:exported="@bool/api_v18"
+        <service
+            android:name=".PPNotificationListenerService"
             android:enabled="@bool/api_v18"
+            android:exported="@bool/api_v18"
             android:label="@string/app_name"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
             <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService"/>
+                <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
 
@@ -496,7 +498,42 @@
             android:enabled="true"
             android:exported="false" >
         </receiver>
-
+        <receiver
+            android:name=".AlarmClockBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <!-- // Stock alarms
+                // Nexus (?) -->
+                <action android:name="com.android.deskclock.ALARM_ALERT" />
+                <!-- <action android:name="com.android.deskclock.ALARM_DISMISS" />
+                <action android:name="com.android.deskclock.ALARM_DONE" />
+                <action android:name="com.android.deskclock.ALARM_SNOOZE" /> -->
+                <!-- // stock Android (?) -->
+                <action android:name="com.android.alarmclock.ALARM_ALERT" />
+                <!-- // Stock alarm Manufactures
+                // Samsung -->
+                <action android:name="com.samsung.sec.android.clockpackage.alarm.ALARM_ALERT" />
+                <!-- // HTC -->
+                <action android:name="com.htc.android.worldclock.ALARM_ALERT" />
+                <action android:name="com.htc.android.ALARM_ALERT" />
+                <!-- // Sony -->
+                <action android:name="com.sonyericsson.alarm.ALARM_ALERT" />
+                <!-- // ZTE -->
+                <action android:name="zte.com.cn.alarmclock.ALARM_ALERT" />
+                <!-- // Motorola -->
+                <action android:name="com.motorola.blur.alarmclock.ALARM_ALERT" />
+                <!-- // LG -->
+                <action android:name="com.lge.clock.ALARM_ALERT" />
+                <!-- // Thirdparty Alarms
+                // Gentle Alarm -->
+                <action android:name="com.mobitobi.android.gentlealarm.ALARM_INFO" />
+                <!-- // Sleep As Android -->
+                <action android:name="com.urbandroid.sleep.alarmclock.ALARM_ALERT" />
+                <!-- // Alarmdroid (1.13.2) -->
+                <action android:name="com.splunchy.android.alarmclock.ALARM_ALERT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
