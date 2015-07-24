@@ -223,7 +223,11 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             Thread.sleep(500); // Delay 0,5 seconds to wait for change audio mode
         } catch (InterruptedException e) {
         }
+
+        if (audioManager == null )
+            audioManager = (AudioManager)savedContext.getSystemService(Context.AUDIO_SERVICE);
         audioManager.setMode(AudioManager.MODE_NORMAL);
+
         callEnded(false, number);
     }
 
