@@ -16,22 +16,24 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.e("AlarmClockBroadcastReceiver", "ALARM");
 
-        if (!GlobalData.getApplicationStarted(context))
+        Context appContext = context.getApplicationContext();
+
+        if (!GlobalData.getApplicationStarted(appContext))
             return;
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
 
-            int zenMode = Settings.Global.getInt(context.getContentResolver(), "zen_mode", ActivateProfileHelper.ZENMODE_ALL);
+            int zenMode = Settings.Global.getInt(appContext.getContentResolver(), "zen_mode", ActivateProfileHelper.ZENMODE_ALL);
             Log.e("AlarmClockBroadcastReceiver", "zen_mode="+zenMode);
 
             if (zenMode != ActivateProfileHelper.ZENMODE_ALL) {
 
                 Log.e("AlarmClockBroadcastReceiver", "zen_mode != ALL");
 
-                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
 
                 Profile profile = dataWrapper.getActivatedProfile();
-                profile = GlobalData.getMappedProfile(profile, context);
+                profile = GlobalData.getMappedProfile(profile, appContext);
 
                 if (profile != null) {
 
@@ -46,17 +48,21 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                     Log.e("AlarmClockBroadcastReceiver", "set interruption filter to ALL");
 
-                    PPNotificationListenerService.requestInterruptionFilter(context.getApplicationContext(),
+                    PPNotificationListenerService.requestInterruptionFilter(appContext,
                             NotificationListenerService.INTERRUPTION_FILTER_ALL);
                     */
 
-                    /*
-                    final AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+/*
+                    final AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
                     SettingsContentObserver.internalChange = true;
-                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM,  1, 0);
-                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    */
-
+                    //audioManager.setStreamVolume(AudioManager.STREAM_ALARM,  1, 0);
+                    //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                    audioManager.setStreamMute(AudioManager.STREAM_ALARM, false);
+                    audioManager.setStreamMute(AudioManager.STREAM_RING, false);
+                    audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+                    audioManager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
+                    audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+*/
                 }
             }
         }

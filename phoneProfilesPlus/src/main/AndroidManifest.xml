@@ -500,8 +500,8 @@
         </receiver>
         <receiver
             android:name=".AlarmClockBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true" >
+            android:enabled="false"
+            android:exported="false" >
             <intent-filter>
                 <!-- // Stock alarms
                 // Nexus (?) -->

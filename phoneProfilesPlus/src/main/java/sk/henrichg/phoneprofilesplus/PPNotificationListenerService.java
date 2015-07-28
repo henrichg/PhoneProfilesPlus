@@ -7,6 +7,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
@@ -68,6 +69,26 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {
         Log.e(TAG, "onInterruptionFilterChanged(" + interruptionFilter + ')');
+
+        /*
+        if (interruptionFilter == NotificationListenerService.INTERRUPTION_FILTER_ALL) {
+            final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+            SettingsContentObserver.internalChange = true;
+            //audioManager.setStreamVolume(AudioManager.STREAM_ALARM,  1, 0);
+            //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+            audioManager.setStreamMute(AudioManager.STREAM_ALARM, false);
+            audioManager.setStreamMute(AudioManager.STREAM_RING, false);
+            audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+            audioManager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
+            audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+
+            audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, 6, 0);
+            audioManager.setStreamVolume(AudioManager.STREAM_RING, 6, 0);
+            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 6, 0);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 6, 0);
+            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 6, 0);
+        }
+        */
     }
 
     public static boolean isNotificationListenerServiceEnabled(Context context) {

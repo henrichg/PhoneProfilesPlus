@@ -10,12 +10,12 @@ public class SettingsContentObserver  extends ContentObserver {
 
     public static boolean internalChange = false;
 
-    private int previousVolumeRing = 0;
-    private int previousVolumeNotification = 0;
-    private int previousVolumeMusic = 0;
-    private int previousVolumeAlarm = 0;
-    private int previousVolumeSystem = 0;
-    private int previousVolumeVoice = 0;
+    private static int previousVolumeRing = 0;
+    private static int previousVolumeNotification = 0;
+    private static int previousVolumeMusic = 0;
+    private static int previousVolumeAlarm = 0;
+    private static int previousVolumeSystem = 0;
+    private static int previousVolumeVoice = 0;
     //private int defaultRingerMode = 0;
 
     Context context;
