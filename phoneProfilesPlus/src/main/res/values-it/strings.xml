@@ -534,4 +534,6 @@
   <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling \"Interruptions type\" profile preference.</string>
   <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Priority with vibration</string>
+  <string name="important_info_news">News</string>
+  <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Root requirement is not needed and in future application version will by removed. Click here and enable PhoneProfilesPlus.</string>
 </resources>

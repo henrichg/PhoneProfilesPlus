@@ -534,4 +534,6 @@
   <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Lehetővé teszi a PhoneProfilesPlus számára a \"Értesítési hozzáférés\"-t a rendszer beállításokon belül, hogy engedélyezze a \"Megszakítások típusa\" profil előnybe helyezését.</string>
   <string name="array_pref_zenModeArray_allWithVibration">Minden rezgéssel</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Prioritás rezgéssel</string>
+  <string name="important_info_news">News</string>
+  <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Root requirement is not needed and in future application version will by removed. Click here and enable PhoneProfilesPlus.</string>
 </resources>

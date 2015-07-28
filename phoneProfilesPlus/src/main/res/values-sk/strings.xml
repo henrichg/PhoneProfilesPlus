@@ -534,4 +534,6 @@
   <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Povoľ PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\", pre povolenie parametru profilu \"Typy vyrušení\" .</string>
   <string name="array_pref_zenModeArray_allWithVibration">Všetky s vibráciami</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Prioritné s vibráciami</string>
+  <string name="important_info_news">Novinky</string>
+  <string name="important_info_profile_zenMode">\"Vyrušenia\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\". Root už nie je potrebný a v budúcej verzii aplikácie bude podpora pomocou neho vyradená. Kliknite sem a povoľte PhoneProfilesPlus.</string>
 </resources>
