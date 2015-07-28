@@ -14,7 +14,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("AlarmClockBroadcastReceiver", "ALARM");
+        //Log.e("AlarmClockBroadcastReceiver", "ALARM");
 
         Context appContext = context.getApplicationContext();
 
@@ -24,11 +24,11 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
         if (android.os.Build.VERSION.SDK_INT >= 21) {
 
             int zenMode = Settings.Global.getInt(appContext.getContentResolver(), "zen_mode", ActivateProfileHelper.ZENMODE_ALL);
-            Log.e("AlarmClockBroadcastReceiver", "zen_mode="+zenMode);
+            //Log.e("AlarmClockBroadcastReceiver", "zen_mode="+zenMode);
 
             if (zenMode != ActivateProfileHelper.ZENMODE_ALL) {
 
-                Log.e("AlarmClockBroadcastReceiver", "zen_mode != ALL");
+                //Log.e("AlarmClockBroadcastReceiver", "zen_mode != ALL");
 
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
 
@@ -37,7 +37,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                 if (profile != null) {
 
-                    Log.e("AlarmClockBroadcastReceiver", "profile is activated");
+                    //Log.e("AlarmClockBroadcastReceiver", "profile is activated");
 
                     /*
                     try {
