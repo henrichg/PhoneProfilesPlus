@@ -462,7 +462,7 @@
   <string name="event_preferences_error">Tous les paramètres soulignés ne sont pas définis !</string>
   <string name="title_activity_activity_log">Journal d\'activité</string>
   <string name="menu_activity_log">Journal d\'activité</string>
-  <string name="altype_profileActivation">Activation du profil</string>
+  <string name="altype_profileActivation">Activation du profil</string>(S)
   <string name="altype_afterDuration_undoProfile">Après - Revenir au profil précédent</string>
   <string name="altype_afterDuration_backgroundProfile">Après - Activer le profil par défaut</string>
   <string name="altype_afterDuration_restartEvents">Après - redémarrer les événements</string>
@@ -529,4 +529,9 @@
   <string name="pref_dlg_info_about_wildcards_3">Ajouter « \\ » devant ces caractères.</string>
   <string name="important_info_manual_profile_activation_stops_events">L\'activation manuelle du profil arrête tous les événements. Les préférences, qui ont un événement défini dans la section « Fin de l\'événement », sont ignorés.</string>
   <string name="important_into_sony_stamina_mode">Sivous avez un appareil  Sony et que le mode « Endurance» est activé dans « Gestion de l\'alimentation », veuillez ajouter PhoneProfilesPlus dans « Application active en mode veille ». Sans cela, l\'application ne fonctionnera pas correctement.</string>
+  <string name="important_info_profile_settings">Some profile preferences requires changes in system Settings. These preferences are marked with \"(S)\".</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_title">Notification access</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling \"Interruptions type\" profile preference.</string>
+  <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>
+  <string name="array_pref_zenModeArray_priorityWithVibration">Priority with vibration</string>
 </resources>

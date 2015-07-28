@@ -529,4 +529,9 @@
   <string name="pref_dlg_info_about_wildcards_3">afegir \"\\\" davant d\'aquests caràcters.</string>
   <string name="important_info_manual_profile_activation_stops_events">L\'activació manual del perfil para tots els esdeveniments. Les preferències, que tenen un esdeveniment a la secció \"Final de l\'esdeveniment\", s\'ignoren.</string>
   <string name="important_into_sony_stamina_mode">Si vostè té un dispositiu de Sony i habilitat el modus \"Stamina\" a la opció Administració d\'energia, si us plau afegiu PhoneProfilesPlus a \"Apps active in standby\". Sense això, l\'aplicació no funciona correctament.</string>
+  <string name="important_info_profile_settings">Some profile preferences requires changes in system Settings. These preferences are marked with \"(S)\".</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_title">Notification access</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling \"Interruptions type\" profile preference.</string>
+  <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>
+  <string name="array_pref_zenModeArray_priorityWithVibration">Priority with vibration</string>
 </resources>

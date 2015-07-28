@@ -512,7 +512,7 @@
   <string name="info_notification_minimal_ringer_and_notification_volumes">Amikor az eszközön a beállítás rezegés, minimális csengő-,  vagy értesítési hangerő (0), az alkalmazás beállítja a hangerőt 1. Segítségével csengő- és értesítési hang \"Csendes PhoneProfiles\" teljes csend.</string>
   <string name="menu_import_export">Importálás/exportálás</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 perc</string>
-  <string name="info_notification_event_not_started">Event is not started when:\n1. You have disabled global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".\n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
+  <string name="info_notification_event_not_started">Esemény nem indul el akkor:\n1. Az összes esemény futtatását kikapcsoltad (piros \"lámpa\") - Ezt a Szerkeszttő menüben \"Esemény indítás engedélyezés\".\n2. Kézi aktiválás esetén az aktív profil mellett (\"Sárga lámpa\") - az esemény újra indítása szükséges. Használt az esemény újra indítás ikont a Profilokban, Szerkesztőben vagy az eseményekben. Kézzel aktivált profil jelzése \"[M]\" a profil neve előtt. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
   <string name="important_info_profiles">Profilok</string>
   <string name="important_info_events">Események</string>
   <string name="important_info_system">Rendszer</string>
@@ -521,12 +521,17 @@
   <string name="important_info_pphelper_installation">PPHelper telepítéséhez ROOT jog kell. PPHelper szerkesztő használatához \"PPHelper telepítése\"-re hivatkozhat.</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Indítás csak akkor, ha aktív profil</string>
   <string name="profile_preference_do_not_apply">Nem kell alkalmazni</string>
-  <string name="pref_dlg_info_about_wildcards_1">You can use wildcards: \"%\"=any characters, \"_\"=any one character.</string>
-  <string name="pref_dlg_info_about_wildcards_2">If you have \"%\" or \"_\"</string>
-  <string name="wifi_ssid_pref_dlg_info_about_wildcards">in SSID name,</string>
-  <string name="bluetooth_name_pref_dlg_info_about_wildcards">in bluetooth name,</string>
-  <string name="calendar_pref_dlg_info_about_wildcards">in search string,</string>
-  <string name="pref_dlg_info_about_wildcards_3">add \"\\\" in front of these characters.</string>
-  <string name="important_info_manual_profile_activation_stops_events">Manual profile activation stops all events. Preferences, that has an event set in the section \"End of event\", are ignored.</string>
-  <string name="important_into_sony_stamina_mode">When you have Sony device and enabled \"Stamina\" mode in \"Power management\", please add PhoneProfilesPlus into \"Apps active in standby\". Without this, application will not work correctly.</string>
+  <string name="pref_dlg_info_about_wildcards_1">Használhatsz helyettesítő karaktereket: \"%\"=utána bármilyen karatakter, \"_\"=egy karakter.</string>
+  <string name="pref_dlg_info_about_wildcards_2">Ha van \"%\" vagy \"_\"</string>
+  <string name="wifi_ssid_pref_dlg_info_about_wildcards">az SSID név,</string>
+  <string name="bluetooth_name_pref_dlg_info_about_wildcards">a bluetooth-név</string>
+  <string name="calendar_pref_dlg_info_about_wildcards">a keresési karakterlánc,</string>
+  <string name="pref_dlg_info_about_wildcards_3">Add elé \"\\\" ezeket a karaktereket.</string>
+  <string name="important_info_manual_profile_activation_stops_events">Profil kézi aktiválásakor minden korábbi esemény megáll. Beállíthatod, hogy egy esemény \"Esemény után\" induljon vagy ezt hagyja figyelmen kívül.</string>
+  <string name="important_into_sony_stamina_mode">Ha SONY készülékeden a \"Stamina\" mód az \"Energia gazdálkodás\"-ban aktív, kérlek add a PhoneProfilesPlus-t a \"Aktív alkalmazás készenléti módhoz\". Enélkül az alkalmazás nem működik megfelelően.</string>
+  <string name="important_info_profile_settings">Néhány profil tulajdonság érvényesítéséhez a rendszer beállításokon módosítani kell. Ezeket a \"(S)\" -sel jelöli.</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_title">Értesítési hozzáférés</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Lehetővé teszi a PhoneProfilesPlus számára a \"Értesítési hozzáférés\"-t a rendszer beállításokon belül, hogy engedélyezze a \"Megszakítások típusa\" profil előnybe helyezését.</string>
+  <string name="array_pref_zenModeArray_allWithVibration">Minden rezgéssel</string>
+  <string name="array_pref_zenModeArray_priorityWithVibration">Prioritás rezgéssel</string>
 </resources>

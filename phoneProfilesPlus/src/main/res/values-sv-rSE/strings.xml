@@ -444,7 +444,7 @@
   <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Starta om händelser</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Skärm på &amp; starta om händelser</string>
   <string name="array_pref_ringerModeArray_ZenMode">(S) Avbrott</string>
-  <string name="profile_preferences_volumeZenMode">(S) avbrottstyp</string>
+  <string name="profile_preferences_volumeZenMode">(S) Avbrottstyp</string>
   <string name="array_pref_zenModeArray_all">Alla</string>
   <string name="array_pref_zenModeArray_priority">Prioritet</string>
   <string name="array_pref_zenModeArray_none">inga</string>
@@ -521,12 +521,17 @@
   <string name="important_info_pphelper_installation">PPHelper installation kräver ROOT-privilegier. Du kan anropa PPHelper installation i Redigeraren, via menyalternativet \"Installera PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Startar bara med aktiverad profil</string>
   <string name="profile_preference_do_not_apply">Gäller inte</string>
-  <string name="pref_dlg_info_about_wildcards_1">You can use wildcards: \"%\"=any characters, \"_\"=any one character.</string>
-  <string name="pref_dlg_info_about_wildcards_2">If you have \"%\" or \"_\"</string>
-  <string name="wifi_ssid_pref_dlg_info_about_wildcards">in SSID name,</string>
-  <string name="bluetooth_name_pref_dlg_info_about_wildcards">in bluetooth name,</string>
-  <string name="calendar_pref_dlg_info_about_wildcards">in search string,</string>
-  <string name="pref_dlg_info_about_wildcards_3">add \"\\\" in front of these characters.</string>
-  <string name="important_info_manual_profile_activation_stops_events">Manual profile activation stops all events. Preferences, that has an event set in the section \"End of event\", are ignored.</string>
-  <string name="important_into_sony_stamina_mode">When you have Sony device and enabled \"Stamina\" mode in \"Power management\", please add PhoneProfilesPlus into \"Apps active in standby\". Without this, application will not work correctly.</string>
+  <string name="pref_dlg_info_about_wildcards_1">Du kan använda jokertecken: \"%\" = flera tecken, \"_\" = någon specifik.</string>
+  <string name="pref_dlg_info_about_wildcards_2">Om du har \"%\" eller \"_\"</string>
+  <string name="wifi_ssid_pref_dlg_info_about_wildcards">i SSID namn,</string>
+  <string name="bluetooth_name_pref_dlg_info_about_wildcards">i bluetooth namn,</string>
+  <string name="calendar_pref_dlg_info_about_wildcards">i söksträng,</string>
+  <string name="pref_dlg_info_about_wildcards_3">lägg till \"\\\" framför dessa tecken.</string>
+  <string name="important_info_manual_profile_activation_stops_events">Manuell profilaktiveringen stoppar alla händelser. Inställningar, som har en händelse som i avsnittet \"Slutet av händelsen\", ignoreras.</string>
+  <string name="important_into_sony_stamina_mode">När du har Sony enhet och aktiverat \"Stamina\" läge i \"Power management\", Lägg till PhoneProfilesPlus till \"Apps aktiva i standby\". Utan detta fungerar programmet inte korrekt.</string>
+  <string name="important_info_profile_settings">Some profile preferences requires changes in system Settings. These preferences are marked with \"(S)\".</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_title">Notification access</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling \"Interruptions type\" profile preference.</string>
+  <string name="array_pref_zenModeArray_allWithVibration">All with vibration</string>
+  <string name="array_pref_zenModeArray_priorityWithVibration">Priority with vibration</string>
 </resources>

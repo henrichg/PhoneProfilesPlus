@@ -529,4 +529,9 @@
   <string name="pref_dlg_info_about_wildcards_3">přidejte \"\\\" před tyto znaky.</string>
   <string name="important_info_manual_profile_activation_stops_events">Manuální aktivace profilu zastaví všechny události. Předvolby, které mají událost nastavenou v sekci \"Konec události\" , jsou ignorovány.</string>
   <string name="important_into_sony_stamina_mode">Když máte zařízení od Sony a zapnutý režim \"Výdrž\" v \"Řízení spotřeby\", prosím přidejte PhoneProfilesPlus do \"Aplikace aktivní i v pohot. režimu\". Bez toho aplikace nebude pracovat správně.</string>
+  <string name="important_info_profile_settings">Některé parametry profilu vyžadují změny nastavení v systémových Nastaveních. Tyto parametry jsou označena jako \"(S)\".</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_title">Přístup k upozorněním</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Povol PhoneProfilesPlus v systémovém nastavení \"Přístup k upozorněním\", pro povolení parametru profilu \"Typy vyrušení\".</string>
+  <string name="array_pref_zenModeArray_allWithVibration">Vše s vibrací</string>
+  <string name="array_pref_zenModeArray_priorityWithVibration">Prioritní s vibrací</string>
 </resources>
