@@ -1,6 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,11 +51,60 @@ public class ImportantInfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.info_notification_title);
 
+        PackageInfo pinfo = null;
+        int versionCode = 0;
+        Context context = getApplicationContext();
+        try {
+            pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            versionCode = pinfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            //e.printStackTrace();
+        }
+
+        if ((versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS) ||
+                (android.os.Build.VERSION.SDK_INT < ImportantInfoNotification.API_LEVEL_FOR_NEWS)){
+            TextView infoTextNews = (TextView) findViewById(R.id.activity_info_notification_dialog_news);
+            infoTextNews.setVisibility(View.GONE);
+        }
+
         if (android.os.Build.VERSION.SDK_INT < 21) {
             TextView infoText1 = (TextView)findViewById(R.id.activity_info_notification_dialog_info_text1);
             infoText1.setVisibility(View.GONE);
             TextView infoText11 = (TextView)findViewById(R.id.activity_info_notification_dialog_info_text11);
             infoText11.setVisibility(View.GONE);
+
+            TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
+            infoText13.setVisibility(View.GONE);
+            TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);
+            infoText14.setVisibility(View.GONE);
+        }
+        else {
+            if (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS) {
+                TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
+                infoText13.setVisibility(View.GONE);
+                TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);
+                infoText14.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+            else {
+                TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);
+                infoText14.setVisibility(View.GONE);
+                TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
+                infoText13.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
         }
 
         TextView infoText3 = (TextView)findViewById(R.id.activity_info_notification_dialog_info_text3);

@@ -261,6 +261,7 @@ public class GlobalData extends Application {
     private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
     private static final String PREF_RINGER_MODE = "ringer_mode";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
+    private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
     private static final String PREF_ZEN_MODE = "zen_mode";
 
     // preferences for event - filled with broadcast receivers
@@ -978,17 +979,34 @@ public class GlobalData extends Application {
         editor.commit();
     }
 
-    static public boolean getShowInfoNotificationOnStart(Context context)
+    static public boolean getShowInfoNotificationOnStart(Context context, int version)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, true);
+        boolean show = preferences.getBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, true);
+        int _version = preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
+        return ((_version >= version) && show);
     }
 
-    static public void setShowInfoNotificationOnStart(Context context, boolean volume)
+    static public void setShowInfoNotificationOnStart(Context context, boolean show, int version)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, volume);
+        editor.putBoolean(PREF_SHOW_INFO_NOTIFICATION_ON_START, show);
+        editor.putInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
+        editor.commit();
+    }
+
+    static public int getShowInfoNotificationOnStartVersion(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, 0);
+    }
+
+    static public void setShowInfoNotificationOnStartVersion(Context context, int version)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putInt(PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION, version);
         editor.commit();
     }
 
