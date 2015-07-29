@@ -593,7 +593,7 @@ public class ActivateProfileHelper {
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
                 break;
             case 5: // Zen mode
-                if (profile._volumeZenMode != 0)
+                if ((profile._volumeRingerMode != 0) && (profile._volumeZenMode != 0))
                     GlobalData.setZenMode(context, profile._volumeZenMode);
                 int zenMode = GlobalData.getZenMode(context);
 
