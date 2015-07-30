@@ -536,4 +536,7 @@
   <string name="array_pref_zenModeArray_priorityWithVibration">Prioritné s vibráciami</string>
   <string name="important_info_news">Novinky</string>
   <string name="important_info_profile_zenMode">\"Vyrušenia\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\". Root už nie je potrebný a v budúcej verzii aplikácie bude podpora pomocou neho vyradená. Kliknite sem a povoľte PhoneProfilesPlus.</string>
+  <string name="profile_preferences_zenMode_none_summary">Žiadne vyrušenia, ani budíky</string>
+  <string name="profile_preferences_zenMode_priority_summary">Iba prioritné vyrušenia</string>
+  <string name="profile_preferences_zenMode_all_summary">Všetky vyrušenia</string>
 </resources>
