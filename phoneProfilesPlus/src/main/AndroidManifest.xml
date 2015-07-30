@@ -503,16 +503,23 @@
             android:enabled="false"
             android:exported="false" >
             <intent-filter>
-                <!-- // Stock alarms
-                // Nexus (?) -->
+
+                <!--
+                // Stock alarms
+                // Nexus (?)
+                -->
                 <action android:name="com.android.deskclock.ALARM_ALERT" />
-                <!-- <action android:name="com.android.deskclock.ALARM_DISMISS" />
+                <!--
+                <action android:name="com.android.deskclock.ALARM_DISMISS" />
                 <action android:name="com.android.deskclock.ALARM_DONE" />
-                <action android:name="com.android.deskclock.ALARM_SNOOZE" /> -->
+                <action android:name="com.android.deskclock.ALARM_SNOOZE" />
+                -->
                 <!-- // stock Android (?) -->
                 <action android:name="com.android.alarmclock.ALARM_ALERT" />
-                <!-- // Stock alarm Manufactures
-                // Samsung -->
+                <!--
+                // Stock alarm Manufactures
+                // Samsung
+                -->
                 <action android:name="com.samsung.sec.android.clockpackage.alarm.ALARM_ALERT" />
                 <!-- // HTC -->
                 <action android:name="com.htc.android.worldclock.ALARM_ALERT" />
@@ -525,14 +532,21 @@
                 <action android:name="com.motorola.blur.alarmclock.ALARM_ALERT" />
                 <!-- // LG -->
                 <action android:name="com.lge.clock.ALARM_ALERT" />
-                <!-- // Thirdparty Alarms
-                // Gentle Alarm -->
+                <!--
+                // Thirdparty Alarms
+                // Gentle Alarm
+                -->
                 <action android:name="com.mobitobi.android.gentlealarm.ALARM_INFO" />
                 <!-- // Sleep As Android -->
                 <action android:name="com.urbandroid.sleep.alarmclock.ALARM_ALERT" />
                 <!-- // Alarmdroid (1.13.2) -->
                 <action android:name="com.splunchy.android.alarmclock.ALARM_ALERT" />
             </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".RingerModeChangeReceiver"
+            android:enabled="true"
+            android:exported="true" >
         </receiver>
     </application>
 

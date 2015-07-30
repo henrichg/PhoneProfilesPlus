@@ -7,6 +7,8 @@ import android.content.res.TypedArray;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.provider.Settings;
+import android.service.notification.NotificationListenerService;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +46,7 @@ public class VolumeDialogPreference extends
     private int defaultValueSystem = 0;
     private int defaultValueVoice = 0;
     private int defaultRingerMode = 0;
+    private int defaultZenMode = 0;
     private int stepSize = 1;
 
     private String sValue = "0|1";
@@ -93,6 +96,9 @@ public class VolumeDialogPreference extends
         defaultValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
         defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
         defaultRingerMode = audioManager.getRingerMode();
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+            defaultZenMode = Settings.Global.getInt(context.getContentResolver(), "zen_mode", ActivateProfileHelper.ZENMODE_ALL);
+
 
         typedArray.recycle();
     }
@@ -196,6 +202,7 @@ public class VolumeDialogPreference extends
     public void onStopTrackingTouch(SeekBar seek) {
 
         SettingsContentObserver.internalChange = true;
+        RingerModeChangeReceiver.internalChange = true;
 
         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
@@ -324,6 +331,7 @@ public class VolumeDialogPreference extends
         } else {
 
             SettingsContentObserver.internalChange = true;
+            RingerModeChangeReceiver.internalChange = true;
 
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 // set ringer mode to Ring for proper change ringer mode to Priority
@@ -348,6 +356,10 @@ public class VolumeDialogPreference extends
 
             //Log.e("#### VolumeDialogPreference", "defaultRingerMode=" + defaultRingerMode);
             // set ringer mode after volume because volumes change silent/vibrate
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                PPNotificationListenerService.internalChange = true;
+                PPNotificationListenerService.requestInterruptionFilter(_context, defaultZenMode);
+            }
             audioManager.setRingerMode(defaultRingerMode);
 
         }

@@ -537,6 +537,7 @@ public class ActivateProfileHelper {
 
         switch (ringerMode) {
             case 1:  // Ring
+                RingerModeChangeReceiver.internalChange = true;
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                 try {
                     audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
@@ -551,6 +552,7 @@ public class ActivateProfileHelper {
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
                 break;
             case 2:  // Ring & Vibrate
+                RingerModeChangeReceiver.internalChange = true;
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                 try {
                     audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
@@ -565,6 +567,7 @@ public class ActivateProfileHelper {
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
                 break;
             case 3:  // Vibrate
+                RingerModeChangeReceiver.internalChange = true;
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                 try {
                     audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
@@ -579,6 +582,7 @@ public class ActivateProfileHelper {
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
                 break;
             case 4:  // Silent
+                RingerModeChangeReceiver.internalChange = true;
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                 try {
                     audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
@@ -593,6 +597,7 @@ public class ActivateProfileHelper {
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
                 break;
             case 5: // Zen mode
+                RingerModeChangeReceiver.internalChange = true;
                 if ((profile._volumeRingerMode != 0) && (profile._volumeZenMode != 0))
                     GlobalData.setZenMode(context, profile._volumeZenMode);
                 int zenMode = GlobalData.getZenMode(context);
