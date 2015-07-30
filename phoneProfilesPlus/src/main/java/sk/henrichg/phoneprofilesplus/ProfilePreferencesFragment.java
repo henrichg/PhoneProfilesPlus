@@ -659,6 +659,11 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                     ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    int iValue = Integer.parseInt(sValue);
+                    if ((iValue != 0) && (iValue != 99)) {
+                        String[] summaryArray = getResources().getStringArray(R.array.zenModeSummaryArray);
+                        summary = summary + " - " + summaryArray[iValue-1];
+                    }
                     listPreference.setSummary(summary);
 
                     final String sRingerMode = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, "");
