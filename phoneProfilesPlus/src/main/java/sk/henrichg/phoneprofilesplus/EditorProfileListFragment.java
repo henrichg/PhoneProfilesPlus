@@ -193,7 +193,8 @@ public class EditorProfileListFragment extends Fragment {
         listView.addFooterView(footerView, null, false);
         */
 
-        Toolbar bottomToolbar = (Toolbar)view.findViewById(R.id.editor_profiles_list_bottom_bar);
+        Toolbar bottomToolbar = (Toolbar)getActivity().findViewById(R.id.editor_list_bottom_bar);
+        bottomToolbar.getMenu().clear();
         bottomToolbar.inflateMenu(R.menu.editor_profiles_bottom_bar);
         bottomToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
