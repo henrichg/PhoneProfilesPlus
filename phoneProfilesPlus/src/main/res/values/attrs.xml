@@ -42,6 +42,7 @@
 
     <!-- theme dependent drawables -->
     <attr name="actionNewProfileIcon" format="reference" />
+    <attr name="actionDeleteAllIcon" format="reference" />
     <attr name="actionEditProfilesIcon" format="reference" />
     <attr name="activityPopupBackground" format="reference" />
     <attr name="cardShape" format="reference" />
@@ -69,5 +70,7 @@
     <attr name="dialogDivider" format="reference" />
     <attr name="actionActivityLogIcon" format="reference" />
     <attr name="actionActivityLogReloadIcon" format="reference" />
+    <attr name="actionSourceProfileIcon" format="reference" />
+    <attr name="actionHelpIcon" format="reference" />
 
 </resources>

@@ -11,6 +11,7 @@
         <item name="md_widget_color">?attr/colorAccent</item>
 
         <item name="actionNewProfileIcon">@drawable/ic_action_new_profile_dark</item>
+        <item name="actionDeleteAllIcon">@drawable/ic_action_delete_all_dark</item>
         <item name="actionEditProfilesIcon">@drawable/ic_action_edit_profiles_dark</item>
         <item name="activityPopupBackground">@color/activityPopupBackground_phoneprofilestheme_dark</item>
         <item name="cardShape">@drawable/card_dark</item>
@@ -47,6 +48,9 @@
 
         <item name="alertDialogTheme">@style/AlertDialogStyleDark</item>
         <item name="dialogTheme">@style/DialogStyleDark</item>
+
+        <item name="actionSourceProfileIcon">@drawable/ic_action_source_profile</item>
+        <item name="actionHelpIcon">@drawable/ic_action_help</item>
 
     </style>
 

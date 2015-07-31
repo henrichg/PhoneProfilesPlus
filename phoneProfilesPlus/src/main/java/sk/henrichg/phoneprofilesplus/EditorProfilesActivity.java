@@ -526,9 +526,9 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
 
-        MenuItem menuItem = menu.findItem(R.id.menu_settingsX);
-        menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");
-        menuItem = menu.findItem(R.id.menu_import_export);
+        /*MenuItem menuItem = menu.findItem(R.id.menu_settingsX);
+        menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
+        MenuItem menuItem = menu.findItem(R.id.menu_import_export);
         menuItem.setTitle(getResources().getString(R.string.menu_import_export) + "  >");
 
         // change global events run/stop menu item title
@@ -634,14 +634,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             startActivity(intent);
 
             return true;
-        case R.id.menu_default_profile:
-            // start preferences activity for default profile
-            intent = new Intent(getBaseContext(), ProfilePreferencesFragmentActivity.class);
-            intent.putExtra(GlobalData.EXTRA_PROFILE_ID, GlobalData.DEFAULT_PROFILE_ID);
-            intent.putExtra(GlobalData.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-            startActivityForResult(intent, GlobalData.REQUEST_CODE_PROFILE_PREFERENCES);
-
-            return true;
         case R.id.menu_settings:
             intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
 
@@ -661,10 +653,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         case R.id.menu_import:
             importData();
 
-            return true;
-        case R.id.important_info:
-            intent = new Intent(getBaseContext(), ImportantInfoActivity.class);
-            startActivity(intent);
             return true;
         /*case R.id.menu_help:
             try {

@@ -1,12 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus">
 <!-- 	<item android:id="@+id/menu_new_event"
-	    android:title="@string/menu_new_event"
-	    android:orderInCategory="110"
-	    henrichg:showAsAction="ifRoom|withText"
-	    android:icon="?attr/actionNewProfileIcon" />   -->
-	<item android:id="@+id/menu_delete_all_events"
-	    android:title="@string/menu_delete_all_events"
-	    android:orderInCategory="200"
-	    henrichg:showAsAction="never" />
+        android:title="@string/menu_new_event"
+        android:orderInCategory="110"
+        henrichg:showAsAction="ifRoom|withText"
+        android:icon="?attr/actionNewProfileIcon" />   -->
+<!--    <item android:id="@+id/menu_delete_all_events"
+        android:title="@string/menu_delete_all_events"
+        android:orderInCategory="200"
+        henrichg:showAsAction="never" /> -->
 </menu>

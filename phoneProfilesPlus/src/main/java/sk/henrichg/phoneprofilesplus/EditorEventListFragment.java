@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -188,6 +189,13 @@ public class EditorEventListFragment extends Fragment {
                     case R.id.menu_add_event:
                         startEventPreferencesActivity(null);
                         return true;
+                    case R.id.menu_delete_all_events:
+                        deleteAllEvents();
+                        return true;
+                    case R.id.important_info:
+                        Intent intent = new Intent(getActivity().getBaseContext(), ImportantInfoActivity.class);
+                        getActivity().startActivity(intent);
+                        return true;
                 }
                 return false;
             }
@@ -196,7 +204,7 @@ public class EditorEventListFragment extends Fragment {
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startEventPreferencesActivity((Event)eventListAdapter.getItem(position));
+                startEventPreferencesActivity((Event) eventListAdapter.getItem(position));
             }
 
         });
@@ -304,10 +312,10 @@ public class EditorEventListFragment extends Fragment {
             startEventPreferencesActivity(null);
 
             return true;*/
-        case R.id.menu_delete_all_events:
+        /*case R.id.menu_delete_all_events:
             deleteAllEvents();
 
-            return true;
+            return true;*/
         default:
             return super.onOptionsItemSelected(item);
         }

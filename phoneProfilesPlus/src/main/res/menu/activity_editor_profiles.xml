@@ -14,20 +14,10 @@
         android:title="@string/menu_run_events"
         android:orderInCategory="102"
         henrichg:showAsAction="never" />
-    <item android:id="@+id/menu_settingsX"
+    <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:orderInCategory="210"
         henrichg:showAsAction="never" >
-        <menu>
-            <item android:id="@+id/menu_default_profile"
-                android:title="@string/menu_default_profile"
-                android:orderInCategory="100"
-                henrichg:showAsAction="never" />
-            <item android:id="@+id/menu_settings"
-                android:title="@string/menu_settings"
-                android:orderInCategory="110"
-                henrichg:showAsAction="never" />
-        </menu>
     </item>
     <item android:id="@+id/menu_pphelper_install"
         android:title="@string/menu_phoneprofilehepler_install"
@@ -52,14 +42,6 @@
                 henrichg:showAsAction="never" />
         </menu>
     </item>
-    <item android:id="@+id/important_info"
-        android:title="@string/info_notification_title"
-        android:orderInCategory="240"
-        henrichg:showAsAction="never" />
-<!-- 	<item android:id="@+id/menu_help"
-        android:title="@string/menu_help"
-        android:orderInCategory="250"
-        henrichg:showAsAction="never" />  -->    
     <item android:id="@+id/menu_exit"
         android:title="@string/menu_exit"
         android:orderInCategory="260"
