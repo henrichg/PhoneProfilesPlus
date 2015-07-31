@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,7 +44,7 @@ public class EditorProfileListFragment extends Fragment {
     private DragSortListView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
-    public FloatingActionButton fabButton;
+    //public FloatingActionButton fabButton;
     private DatabaseHandler databaseHandler;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
@@ -192,8 +193,22 @@ public class EditorProfileListFragment extends Fragment {
                 .inflate(R.layout.editor_list_footer, null, false);
         listView.addFooterView(footerView, null, false);
 
-        fabButton = (FloatingActionButton)view.findViewById(R.id.editor_profiles_list_fab);
-        fabButton.attachToListView(listView);
+        //fabButton = (FloatingActionButton)view.findViewById(R.id.editor_profiles_list_fab);
+        //fabButton.attachToListView(listView);
+
+        Toolbar bottomToolbar = (Toolbar)view.findViewById(R.id.editor_profiles_list_bottom_bar);
+        bottomToolbar.inflateMenu(R.menu.editor_profiles_bottom_bar);
+        bottomToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_add_profile:
+                        startProfilePreferencesActivity(null);
+                        return true;
+                }
+                return false;
+            }
+        });
         
         listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -220,12 +235,12 @@ public class EditorProfileListFragment extends Fragment {
             }
         });
 
-        fabButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startProfilePreferencesActivity(null);
-            }
-        });
+        //fabButton.setOnClickListener(new OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        startProfilePreferencesActivity(null);
+        //    }
+        //});
         
         if (profileList == null)
         {
@@ -397,6 +412,7 @@ public class EditorProfileListFragment extends Fragment {
             listView.setItemChecked(profilePos, true);
             listView.smoothScrollToPosition(profilePos);
 
+            /*
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -404,6 +420,7 @@ public class EditorProfileListFragment extends Fragment {
                     fabButton.show();
                 }
             }, 500);
+            */
 
             editMode = EDIT_MODE_EDIT;
         }
@@ -785,7 +802,7 @@ public class EditorProfileListFragment extends Fragment {
                 listView.setSelection(profilePos);
                 listView.setItemChecked(profilePos, true);
                 listView.smoothScrollToPosition(profilePos);
-
+                /*
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -793,6 +810,7 @@ public class EditorProfileListFragment extends Fragment {
                         fabButton.show();
                     }
                 }, 500);
+                */
             }
         }
     }

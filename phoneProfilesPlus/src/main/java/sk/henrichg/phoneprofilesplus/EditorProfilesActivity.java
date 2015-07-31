@@ -1922,7 +1922,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (fragment instanceof EditorProfileListFragment)
             {
-                ((EditorProfileListFragment)fragment).fabButton.show();
+            //    ((EditorProfileListFragment)fragment).fabButton.show();
             }
             else
             {
@@ -1939,7 +1939,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (fragment instanceof EditorProfileListFragment)
             {
-                ((EditorProfileListFragment)fragment).fabButton.hide();
+            //    ((EditorProfileListFragment)fragment).fabButton.hide();
             }
             else
             {
@@ -1956,7 +1956,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (fragment instanceof EditorProfileListFragment)
             {
-                ((EditorProfileListFragment)fragment).fabButton.show();
+            //    ((EditorProfileListFragment)fragment).fabButton.show();
             }
             else
             {
@@ -1973,7 +1973,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (fragment instanceof EditorProfileListFragment)
             {
-                ((EditorProfileListFragment)fragment).fabButton.show();
+            //    ((EditorProfileListFragment)fragment).fabButton.show();
             }
             else
             {

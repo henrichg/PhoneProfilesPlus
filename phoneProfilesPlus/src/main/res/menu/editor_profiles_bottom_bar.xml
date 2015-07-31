@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus">
+    <item android:id="@+id/menu_add_profile"
+        android:title="@string/menu_editor_profiles_bottom_bar_add_profile"
+        android:orderInCategory="100"
+        henrichg:showAsAction="always"
+        android:icon="?attr/actionNewProfileIcon" />
+</menu>

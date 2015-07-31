@@ -7,54 +7,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-	<FrameLayout android:layout_width="match_parent"
-	             android:layout_height="match_parent">
-		    
-   	    <com.mobeta.android.dslv.DragSortListView
-	        android:id="@+id/editor_profiles_list"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:divider="@android:color/transparent" 
-	        android:padding="10dip"
-	        android:dividerHeight="5dp"
-	        android:drawSelectorOnTop="true"
-	        android:choiceMode="singleChoice"
-		    android:clipToPadding="false"
-	    	android:scrollbarStyle="outsideOverlay"
-	        dslv:drag_enabled="true"
-		    dslv:collapsed_height="2dp"
-		    dslv:drag_scroll_start="0.33"
-		    dslv:max_drag_scroll_speed="0.5"
-		    dslv:float_background_color="#00000000"
-		    dslv:float_alpha="0.6"
-		    dslv:slide_shuffle_speed="0.3"
-		    dslv:track_drag_sort="false"
-		    dslv:use_default_controller="true"
-		    dslv:drag_handle_id="@+id/profile_list_drag_handle"
-		    dslv:sort_enabled="true"
-		    dslv:remove_enabled="false"
-		    dslv:drag_start_mode="onMove"
-		    dslv:remove_mode="flingRemove" />
-	
-		<TextView
-		    android:id="@+id/editor_profiles_list_empty"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:text="@string/profile_list_empty"
-		    android:gravity="center"
-		    android:textSize="15sp" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-		<com.melnykov.fab.FloatingActionButton
-            android:id="@+id/editor_profiles_list_fab"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/editor_profiles_list_bottom_bar"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_action_new_profile_dark"
-            fab:fab_colorNormal="@color/fabPrimary"
-            fab:fab_colorPressed="@color/fabPressed"
-            fab:fab_colorRipple="@color/fabRipple" />		
-            
-	</FrameLayout>
-				
+            android:layout_width="match_parent"
+            android:background="?attr/colorPrimary"
+            android:layout_alignParentBottom="true"
+            android:minHeight="?attr/actionBarSize" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/editor_profiles_list_bottom_bar">
+
+            <com.mobeta.android.dslv.DragSortListView
+                android:id="@+id/editor_profiles_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"
+                android:padding="10dip"
+                android:dividerHeight="5dp"
+                android:drawSelectorOnTop="true"
+                android:choiceMode="singleChoice"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                dslv:drag_enabled="true"
+                dslv:collapsed_height="2dp"
+                dslv:drag_scroll_start="0.33"
+                dslv:max_drag_scroll_speed="0.5"
+                dslv:float_background_color="#00000000"
+                dslv:float_alpha="0.6"
+                dslv:slide_shuffle_speed="0.3"
+                dslv:track_drag_sort="false"
+                dslv:use_default_controller="true"
+                dslv:drag_handle_id="@+id/profile_list_drag_handle"
+                dslv:sort_enabled="true"
+                dslv:remove_enabled="false"
+                dslv:drag_start_mode="onMove"
+                dslv:remove_mode="flingRemove" />
+
+            <TextView
+                android:id="@+id/editor_profiles_list_empty"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="@string/profile_list_empty"
+                android:gravity="center"
+                android:textSize="15sp" />
+
+<!--
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/editor_profiles_list_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_action_new_profile_dark"
+                fab:fab_colorNormal="@color/fabPrimary"
+                fab:fab_colorPressed="@color/fabPressed"
+                fab:fab_colorRipple="@color/fabRipple" />
+-->
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
 </LinearLayout>
