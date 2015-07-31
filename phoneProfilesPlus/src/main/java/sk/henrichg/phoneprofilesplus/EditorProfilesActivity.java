@@ -1917,69 +1917,21 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     @Override
     public void onShowActionModeInEventPreferences() {
-        /*Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-        if (fragment != null)
-        {
-            if (fragment instanceof EditorProfileListFragment)
-            {
-                ((EditorProfileListFragment)fragment).fabButton.show();
-            }
-            else
-            {
-                ((EditorEventListFragment)fragment).fabButton.show();
-            }
-        }*/
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     @Override
     public void onShowActionModeInProfilePreferences() {
-        /*Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-        if (fragment != null)
-        {
-            if (fragment instanceof EditorProfileListFragment)
-            {
-                ((EditorProfileListFragment)fragment).fabButton.hide();
-            }
-            else
-            {
-                ((EditorEventListFragment)fragment).fabButton.hide();
-            }
-        }*/
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     @Override
     public void onHideActionModeInEventPreferences() {
-        /*Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-        if (fragment != null)
-        {
-            if (fragment instanceof EditorProfileListFragment)
-            {
-                ((EditorProfileListFragment)fragment).fabButton.show();
-            }
-            else
-            {
-                ((EditorEventListFragment)fragment).fabButton.show();
-            }
-        }*/
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     @Override
     public void onHideActionModeInProfilePreferences() {
-        /*Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-        if (fragment != null)
-        {
-            if (fragment instanceof EditorProfileListFragment)
-            {
-                ((EditorProfileListFragment)fragment).fabButton.show();
-            }
-            else
-            {
-                ((EditorEventListFragment)fragment).fabButton.show();
-            }
-        }*/
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 

@@ -20,8 +20,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
-import com.melnykov.fab.FloatingActionButton;
-
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,7 +31,6 @@ public class EditorEventListFragment extends Fragment {
     private List<Event> eventList;
     private EditorEventListAdapter eventListAdapter;
     private ListView listView;
-    //public FloatingActionButton fabButton;
     private DatabaseHandler databaseHandler;
 
     private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
@@ -174,12 +171,11 @@ public class EditorEventListFragment extends Fragment {
         listView = (ListView)view.findViewById(R.id.editor_events_list);
         listView.setEmptyView(view.findViewById(R.id.editor_events_list_empty));
 
+        /*
         View footerView =  ((LayoutInflater)getActivity().getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.editor_list_footer, null, false);
         listView.addFooterView(footerView, null, false);
-
-        //fabButton = (FloatingActionButton)view.findViewById(R.id.editor_events_list_fab);
-        //fabButton.attachToListView(listView);
+        */
 
         Toolbar bottomToolbar = (Toolbar)view.findViewById(R.id.editor_events_list_bottom_bar);
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
@@ -202,13 +198,6 @@ public class EditorEventListFragment extends Fragment {
             }
 
         });
-
-        /*fabButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startEventPreferencesActivity(null);
-            }
-        });*/
 
         if (eventList == null)
         {
