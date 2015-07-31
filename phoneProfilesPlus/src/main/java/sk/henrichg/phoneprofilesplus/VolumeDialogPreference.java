@@ -2,13 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.Settings;
-import android.service.notification.NotificationListenerService;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;

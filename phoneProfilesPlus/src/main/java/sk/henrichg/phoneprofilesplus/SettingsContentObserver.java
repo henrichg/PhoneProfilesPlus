@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.os.Handler;
-import android.util.Log;
 
 public class SettingsContentObserver  extends ContentObserver {
 

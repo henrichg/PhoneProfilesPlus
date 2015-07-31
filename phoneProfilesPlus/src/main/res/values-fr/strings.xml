@@ -462,7 +462,7 @@
   <string name="event_preferences_error">Tous les paramètres soulignés ne sont pas définis !</string>
   <string name="title_activity_activity_log">Journal d\'activité</string>
   <string name="menu_activity_log">Journal d\'activité</string>
-  <string name="altype_profileActivation">Activation du profil</string>(S)
+  <string name="altype_profileActivation">Activation du profil</string>
   <string name="altype_afterDuration_undoProfile">Après - Revenir au profil précédent</string>
   <string name="altype_afterDuration_backgroundProfile">Après - Activer le profil par défaut</string>
   <string name="altype_afterDuration_restartEvents">Après - redémarrer les événements</string>
@@ -536,4 +536,7 @@
   <string name="array_pref_zenModeArray_priorityWithVibration">Priority with vibration</string>
   <string name="important_info_news">News</string>
   <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Root requirement is not needed and in future application version will by removed. Click here and enable PhoneProfilesPlus.</string>
+  <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
+  <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
+  <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
 </resources>
