@@ -322,14 +322,14 @@ public class VolumeDialogPreference extends
     @Override
     public void onDismiss(DialogInterface dialog)
     {
-        DataWrapper dataWrapper = new DataWrapper(_context, false, false, 0);
+        /*DataWrapper dataWrapper = new DataWrapper(_context, false, false, 0);
         Profile profile = dataWrapper.getActivatedProfile();
         if (profile != null) {
             Intent volumeServiceIntent = new Intent(_context, ExecuteVolumeProfilePrefsService.class);
             volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
             volumeServiceIntent.putExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallBroadcastReceiver.LINKMODE_NONE);
             _context.startService(volumeServiceIntent);
-        } else {
+        } else {*/
 
             SettingsContentObserver.internalChange = true;
             RingerModeChangeReceiver.internalChange = true;
@@ -361,7 +361,7 @@ public class VolumeDialogPreference extends
             // set ringer mode after volume because volumes change silent/vibrate
             audioManager.setRingerMode(defaultRingerMode);
 
-        }
+        //}
 
     }
 
