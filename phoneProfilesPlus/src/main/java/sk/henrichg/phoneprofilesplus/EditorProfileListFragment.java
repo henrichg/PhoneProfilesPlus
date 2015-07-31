@@ -194,7 +194,8 @@ public class EditorProfileListFragment extends Fragment {
         */
 
         Toolbar bottomToolbar = (Toolbar)getActivity().findViewById(R.id.editor_list_bottom_bar);
-        bottomToolbar.getMenu().clear();
+        Menu menu = bottomToolbar.getMenu();
+        if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_profiles_bottom_bar);
         bottomToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
