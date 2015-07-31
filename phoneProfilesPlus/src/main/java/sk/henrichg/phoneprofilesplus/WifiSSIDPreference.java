@@ -218,7 +218,8 @@ public class WifiSSIDPreference extends DialogPreference {
                 {
                     for (WifiSSIDData wifiConfiguration : WifiScanAlarmBroadcastReceiver.wifiConfigurationList)
                     {
-                        SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid));
+                        if (wifiConfiguration.ssid != null)
+                            SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid));
                     }
                 }
 
