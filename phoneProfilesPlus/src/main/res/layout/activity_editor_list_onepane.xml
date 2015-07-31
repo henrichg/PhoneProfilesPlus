@@ -83,18 +83,30 @@
             android:layout_alignParentBottom="true"
             android:background="?attr/colorPrimary"
             app:theme="?attr/toolbarTheme"
-            app:popupTheme="?attr/toolbarPopupMenu"
-            android:elevation="8dp" />
+            app:popupTheme="?attr/toolbarPopupMenu" />
 
         <FrameLayout
-            android:id="@+id/editor_list_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/editor_list_toolbar"
             android:layout_above="@+id/editor_list_bottom_bar"
-            android:background="?attr/activityPopupBackground"
-            android:foreground="?android:windowContentOverlay"
-            tools:context=".EditorProfileListActivity"  />
+            android:foreground="?android:windowContentOverlay" >
+
+            <FrameLayout
+                android:id="@+id/editor_list_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/activityPopupBackground"
+                tools:context=".EditorProfileListActivity"  />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@drawable/bottombar_dropshadow"
+                android:layout_gravity="bottom" />
+
+        </FrameLayout>
+
 
     </RelativeLayout>
     

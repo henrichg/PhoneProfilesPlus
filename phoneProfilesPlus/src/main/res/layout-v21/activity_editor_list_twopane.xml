@@ -8,115 +8,141 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true" >
        
-	<LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:orientation="vertical"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:fitsSystemWindows="false" >
- 	
-	    <LinearLayout 
-	   		android:layout_width="match_parent"
-	    	android:layout_height="wrap_content"
-	        android:paddingBottom="3dp"
-	    	android:orientation="vertical"
-	        android:background="?attr/colorPrimary"
-	        android:elevation="8dp" >
-		    	    
-		    <android.support.v7.widget.Toolbar
-		        android:id="@+id/editor_tollbar"
-		        android:layout_width="match_parent"
-		        android:layout_height="?attr/actionBarSize"
-		        app:theme="?attr/toolbarTheme"
-	    		app:popupTheme="?attr/toolbarPopupMenu" />
-		    	    
-		    <android.support.v7.widget.Toolbar
-		        android:id="@+id/editor_subtollbar"
-		        android:layout_width="match_parent"
-		        android:layout_height="25dp"
-		        android:layout_marginTop="1dp" >
-		
-				<RelativeLayout
-				    android:layout_width="match_parent"
-				    android:layout_height="match_parent" >
-		        
-				 	<TextView
-				        android:id="@+id/editor_filter_title"
-				        android:layout_width="wrap_content"
-				        android:layout_height="wrap_content"
-				        android:layout_alignParentLeft="true"
-				        android:layout_centerVertical="true"
-				        android:ellipsize="end"
-				        android:singleLine="true"
-				        android:textAppearance="?android:attr/textAppearanceSmall"
-				        android:textColor="@android:color/white" />    
-				    			    
-				    <ImageView
-				        android:id="@+id/editor_list_run_stop_indicator"
-				        android:layout_width="wrap_content"
-				        android:layout_height="wrap_content"
-				        android:layout_alignParentRight="true"
-				        android:layout_centerVertical="true"
-				        android:layout_marginRight="10dp"
-				        android:adjustViewBounds="true"
-				        android:contentDescription="@string/empty_string"
-				        android:maxHeight="15dp"
-				        android:maxWidth="50dp"
-				        android:scaleType="centerCrop"
-				        android:src="@drawable/ic_run_events_indicator_stoppped" />
-				    
-				</RelativeLayout>
-		        
-		    </android.support.v7.widget.Toolbar>
-	    
-	    </LinearLayout>
-	    
-		<LinearLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:baselineAligned="false"
-		    android:orientation="horizontal"
-		    android:background="?attr/activityPopupBackground"
-		    tools:context=".EditorProfileListActivity" >
-		    
-		    <!--
-		    This layout is a two-pane layout for the Profiles
-		    master/detail flow. See res/values-large/refs.xml and
-		    res/values-sw600dp/refs.xml for an example of layout aliases
-		    that replace the single-pane version of the layout with
-		    this two-pane version.
-		
-		    For more on layout aliases, see:
-		    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
-		    -->
-		
-		    <FrameLayout
-		        android:id="@+id/editor_list_container"
-		        android:layout_width="0dp"
-		        android:layout_height="match_parent"
-		        android:layout_weight="2" />
-		    
-		    <FrameLayout
-		        android:id="@+id/editor_detail_container"
-		        android:layout_width="0dp"
-		        android:layout_height="match_parent"
-		        android:layout_marginTop="10dp"
-		        android:layout_marginBottom="10dp"
-		        android:layout_marginLeft="10dp"
-		        android:layout_marginRight="10dp"
-		        android:layout_weight="2"
-    			android:background="?attr/cardShape" />
-		    
-		
-		</LinearLayout>
-	    	
-	</LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/editor_list_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="3dp"
+            android:orientation="vertical"
+            android:background="?attr/colorPrimary"
+            android:elevation="8dp" >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/editor_tollbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:theme="?attr/toolbarTheme"
+                app:popupTheme="?attr/toolbarPopupMenu" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/editor_subtollbar"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="1dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/editor_filter_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@android:color/white" />
+
+                    <ImageView
+                        android:id="@+id/editor_list_run_stop_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/empty_string"
+                        android:maxHeight="15dp"
+                        android:maxWidth="50dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_run_events_indicator_stoppped" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/editor_list_bottom_bar"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="?attr/colorPrimary"
+            app:theme="?attr/toolbarTheme"
+            app:popupTheme="?attr/toolbarPopupMenu" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/editor_list_toolbar"
+            android:layout_above="@+id/editor_list_bottom_bar"
+            android:foreground="?android:windowContentOverlay" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:background="?attr/activityPopupBackground"
+                tools:context=".EditorProfileListActivity" >
+
+                <!--
+                This layout is a two-pane layout for the Profiles
+                master/detail flow. See res/values-large/refs.xml and
+                res/values-sw600dp/refs.xml for an example of layout aliases
+                that replace the single-pane version of the layout with
+                this two-pane version.
+
+                For more on layout aliases, see:
+                http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+                -->
+
+                <FrameLayout
+                    android:id="@+id/editor_list_container"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2" />
+
+                <FrameLayout
+                    android:id="@+id/editor_detail_container"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="2"
+                    android:background="?attr/cardShape" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@drawable/bottombar_dropshadow"
+                android:layout_gravity="bottom" />
+
+        </FrameLayout>
+
+    </RelativeLayout>
 
     <sk.henrichg.phoneprofilesplus.ScrimInsetsFrameLayout
-	    android:id="@+id/editor_drawer_root"
+        android:id="@+id/editor_drawer_root"
         android:layout_height="match_parent"
-	    android:layout_gravity="start"
+        android:layout_gravity="start"
         style="@style/NavDrawer"
-	    android:background="?attr/navigationDrawerBackground"
+        android:background="?attr/navigationDrawerBackground"
         android:fitsSystemWindows="true"
         android:elevation="8dp"
         app:insetForeground="#4000"  >
@@ -168,6 +194,5 @@
         </RelativeLayout>
 
     </sk.henrichg.phoneprofilesplus.ScrimInsetsFrameLayout>
-    		
+
 </android.support.v4.widget.DrawerLayout>    
-		
