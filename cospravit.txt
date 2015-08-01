@@ -780,4 +780,4 @@ Android M
 1. Wifi scanning dako divno funguje. Ide, ale so strasnym intervalom. Hadam bude opravene exact alarmom - nakodene, testujem
 2. Doze mod: funguje ako Sony Stamina mod. Je tiez mozne nastavit vynimku. Aj tak divno funguje, je mozne ze suvisi s tymi alarmami, vid bod 2.
 3. Na Exit aplikaciu vznikde exception. Leak viewu. Na G2 to nerobi, zatial predpokladam, ze ide o bug v Android M.
-
+4. Nove veci: Doze (setrenie baterie), Securrity (uzivatek urcuje, co moze aplikacia), Data do cloudu (zaloha dat apliakcie)
