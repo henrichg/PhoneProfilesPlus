@@ -1331,7 +1331,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void importData()
     {
-        // test whether the PhoneProfile is installed
+        /*// test whether the PhoneProfile is installed
         PackageManager packageManager = getApplicationContext().getPackageManager();
         Intent phoneProfiles = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofiles");
         if (phoneProfiles != null)
@@ -1355,7 +1355,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             });
             dialogBuilder.show();
         }
-        else
+        else*/
             importDataAlert(false);
     }
 
