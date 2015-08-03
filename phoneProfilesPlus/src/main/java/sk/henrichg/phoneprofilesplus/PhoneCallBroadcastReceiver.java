@@ -29,6 +29,9 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     public static final int LINKMODE_LINK = 1;
     public static final int LINKMODE_UNLINK = 2;
 
+    public static String EXTRA_EVENT_TYPE = "extra_event_type";
+    public static String EXTRA_PHONE_NUMBER = "extra_phone_number";
+
     protected boolean onStartReceive()
     {
         if (!GlobalData.getApplicationStarted(savedContext))
@@ -51,10 +54,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
         editor.commit();
 
-        boolean callEventsExists = false;
-        if (GlobalData.getGlobalEventsRuning(savedContext))
-            callEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALL) > 0;
-
+        boolean wait = false;
         if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
             if ((eventType == CALL_EVENT_INCOMING_CALL_RINGING) || (eventType == CALL_EVENT_INCOMING_CALL_ENDED)) {
                 /// for linked ringer and notification volume:
@@ -62,6 +62,17 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 //    therefore reset ringer volume
                 Profile profile = dataWrapper.getActivatedProfile();
                 if (profile != null) {
+                    if (eventType == CALL_EVENT_INCOMING_CALL_ENDED) {
+                        try {
+                            Thread.sleep(500); // Delay 0.5 seconds for mode changed to MODE_NORMAL
+                        } catch (InterruptedException e) {
+                        }
+                        wait = true;
+                        /*
+                        if (audioManager == null )
+                            audioManager = (AudioManager)savedContext.getSystemService(Context.AUDIO_SERVICE);
+                        audioManager.setMode(AudioManager.MODE_NORMAL);*/
+                    }
                     Intent volumeServiceIntent = new Intent(savedContext, ExecuteVolumeProfilePrefsService.class);
                     volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
                     int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_UNLINK;
@@ -69,21 +80,23 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                         linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_LINK;
                     volumeServiceIntent.putExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, linkUnlink);
                     savedContext.startService(volumeServiceIntent);
-
-                    if (callEventsExists) {
-                        try {
-                            Thread.sleep(1000); // Delay 1 second wait before call EventsService
-                        } catch (InterruptedException e) {
-                        }
-                    }
-
                 }
                 ///
             }
         }
 
+        boolean callEventsExists = false;
+        if (GlobalData.getGlobalEventsRuning(savedContext))
+            callEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALL) > 0;
+
         if (callEventsExists)
         {
+            if (wait || (eventType == CALL_EVENT_INCOMING_CALL_ENDED)) {
+                try {
+                    Thread.sleep(500); // // Delay 0.5 seconds for ExecuteVolumeProfilePrefsService or mode changed to MODE_NORMAL
+                } catch (InterruptedException e) {
+                }
+            }
             // start service
             Intent eventsServiceIntent = new Intent(savedContext, EventsService.class);
             eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
@@ -209,25 +222,11 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     
     protected void onIncomingCallEnded(String number, Date start, Date end)
     {
-        try {
-            Thread.sleep(500); // Delay 0,5 seconds to wait for change audio mode
-        } catch (InterruptedException e) {
-        }
-        audioManager.setMode(AudioManager.MODE_NORMAL);
         callEnded(true, number);
     }
 
     protected void onOutgoingCallEnded(String number, Date start, Date end)
     {
-        try {
-            Thread.sleep(500); // Delay 0,5 seconds to wait for change audio mode
-        } catch (InterruptedException e) {
-        }
-
-        if (audioManager == null )
-            audioManager = (AudioManager)savedContext.getSystemService(Context.AUDIO_SERVICE);
-        audioManager.setMode(AudioManager.MODE_NORMAL);
-
         callEnded(false, number);
     }
 
