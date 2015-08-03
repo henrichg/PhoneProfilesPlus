@@ -67,7 +67,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                             Thread.sleep(500); // Delay 0.5 seconds for mode changed to MODE_NORMAL
                         } catch (InterruptedException e) {
                         }
-                        wait = true;
                         /*
                         if (audioManager == null )
                             audioManager = (AudioManager)savedContext.getSystemService(Context.AUDIO_SERVICE);
@@ -80,6 +79,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                         linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_LINK;
                     volumeServiceIntent.putExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, linkUnlink);
                     savedContext.startService(volumeServiceIntent);
+                    wait = true;
                 }
                 ///
             }
