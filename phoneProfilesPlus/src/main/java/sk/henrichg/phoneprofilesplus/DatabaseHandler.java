@@ -2120,16 +2120,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                         }
 
-                        // remove ringer mode "Do not disturb"
-                        if ((Integer.parseInt(cursor.getString(9)) == 5) &&
-                            ((android.os.Build.VERSION.SDK_INT < 21) ||
-                             (!GlobalData.isRooted(false)) ||
-                             (!GlobalData.settingsBinaryExists())))
-                        {
+                    if (Integer.parseInt(cursor.getString(9)) == 5) {
+                        boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
+                                (PPNotificationListenerService.isNotificationListenerServiceEnabled(context) ||
+                                        (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
+                                );
+                        if (!notRemove) {
+                            // remove ringer mode "Interruptions"
                             values.put(KEY_VOLUME_RINGER_MODE, 4);
                             db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                         }
+                    }
 
                 } while (cursor.moveToNext());
             }
