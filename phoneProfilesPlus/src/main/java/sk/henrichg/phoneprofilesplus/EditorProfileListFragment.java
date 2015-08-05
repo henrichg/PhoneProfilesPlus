@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -222,6 +223,9 @@ public class EditorProfileListFragment extends Fragment {
                 return false;
             }
         });
+
+        LinearLayout orderLayout = (LinearLayout)getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
+        orderLayout.setVisibility(View.GONE);
         
         listView.setOnItemClickListener(new OnItemClickListener() {
 

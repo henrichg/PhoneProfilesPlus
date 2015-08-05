@@ -18,6 +18,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
@@ -200,6 +202,9 @@ public class EditorEventListFragment extends Fragment {
                 return false;
             }
         });
+
+        LinearLayout orderLayout = (LinearLayout)getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
+        orderLayout.setVisibility(View.VISIBLE);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
 

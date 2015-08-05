@@ -119,7 +119,6 @@ public class EditorProfilesActivity extends AppCompatActivity
     ListView drawerListView;
     ActionBarDrawerToggle drawerToggle;
     TextView filterStatusbarTitle;
-    TextView orderLabel;
     Spinner orderSpinner;
     ImageView drawerHeaderFilterImage;
     TextView drawerHeaderFilterTitle;
@@ -381,16 +380,14 @@ public class EditorProfilesActivity extends AppCompatActivity
         
         filterStatusbarTitle = (TextView) findViewById(R.id.editor_filter_title);
        
-        orderLabel = (TextView) findViewById(R.id.editor_drawer_order_title);
-        
-        orderSpinner = (Spinner) findViewById(R.id.editor_drawer_order);
+        orderSpinner = (Spinner) findViewById(R.id.editor_list_bottom_bar_order);
         ArrayAdapter<CharSequence> orderSpinneAadapter = ArrayAdapter.createFromResource(
                                     //getSupportActionBar().getThemedContext(),
                                     getBaseContext(),
                                     R.array.drawerOrderEvents,
                                     //android.R.layout.simple_spinner_item);
                                     R.layout.editor_drawer_spinner);
-        orderSpinneAadapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        //orderSpinneAadapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
         orderSpinneAadapter.setDropDownViewResource(R.layout.editor_drawer_spinner_dropdown);
         orderSpinner.setAdapter(orderSpinneAadapter);
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -842,18 +839,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         //setIcon(drawerItemsIcon[drawerSelectedItem-1]);
         drawerHeaderFilterImage.setImageResource(drawerItemsIcon[drawerSelectedItem-1]);
         drawerHeaderFilterTitle.setText(drawerItemsTitle[drawerSelectedItem-1]);
-
-        // show/hide order
-        if (drawerSelectedItem <= COUNT_DRAWER_PROFILE_ITEMS)
-        {
-            orderLabel.setVisibility(View.GONE);
-            orderSpinner.setVisibility(View.GONE);
-        }
-        else
-        {
-            orderLabel.setVisibility(View.VISIBLE);
-            orderSpinner.setVisibility(View.VISIBLE);
-        }
 
         // set filter statusbar title
         setStatusBarTitle();
@@ -1606,7 +1591,7 @@ public class EditorProfilesActivity extends AppCompatActivity
      private void setStatusBarTitle()
      {
         // set filter statusbar title
-        String text = "";
+        /*String text = "";
         if (drawerSelectedItem <= COUNT_DRAWER_PROFILE_ITEMS)
         {
             text = drawerItemsSubtitle[drawerSelectedItem-1];
@@ -1617,7 +1602,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             text = drawerItemsSubtitle[drawerSelectedItem-1] +
                     "; " +
                     orderItems[orderSelectedItem];
-        }
+        }*/
+        String text = drawerItemsSubtitle[drawerSelectedItem-1];
         filterStatusbarTitle.setText(text);
         drawerHeaderFilterSubtitle.setText(text);
      }
