@@ -547,6 +547,9 @@
             android:name=".RingerModeChangeReceiver"
             android:enabled="true"
             android:exported="true" >
+            <intent-filter>
+                <action android:name="android.media.RINGER_MODE_CHANGED" />
+            </intent-filter>
         </receiver>
 
     </application>
