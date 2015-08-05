@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.provider.Settings;
+import android.util.Log;
 
 public class RingerModeChangeReceiver extends BroadcastReceiver {
 
@@ -13,6 +14,9 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     @SuppressWarnings("deprecation")
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Log.e("### RingerModeChangeReceiver", "xxx");
+
         if (!internalChange) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             int ringerMode = audioManager.getRingerMode();
