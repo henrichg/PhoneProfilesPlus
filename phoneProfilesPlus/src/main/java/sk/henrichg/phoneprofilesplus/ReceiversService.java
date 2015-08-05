@@ -17,7 +17,7 @@ public class ReceiversService extends Service {
     private final ScreenOnOffBroadcastReceiver screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
     //private final BluetoothStateChangedBroadcastReceiver bluetoothStateChangedReceiver = new BluetoothStateChangedBroadcastReceiver();
 
-    private SettingsContentObserver settingsContentObserver;
+    private static SettingsContentObserver settingsContentObserver = null;
 
     @Override
     public void onCreate()
@@ -72,8 +72,10 @@ public class ReceiversService extends Service {
         //SMSBroadcastReceiver.registerSMSContentObserver(this);
         //SMSBroadcastReceiver.registerMMSContentObserver(this);
 
-        settingsContentObserver = new SettingsContentObserver(this, new Handler());
-        getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver );
+        if (settingsContentObserver != null)
+            getContentResolver().unregisterContentObserver(settingsContentObserver);
+        settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
+        getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
 
     }
 
@@ -94,7 +96,8 @@ public class ReceiversService extends Service {
         //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(this);
 
-        getContentResolver().unregisterContentObserver(settingsContentObserver);
+        if (settingsContentObserver != null)
+            getContentResolver().unregisterContentObserver(settingsContentObserver);
 
     }
 

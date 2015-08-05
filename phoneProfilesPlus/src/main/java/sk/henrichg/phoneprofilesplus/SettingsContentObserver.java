@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.os.Handler;
+import android.util.Log;
 
 public class SettingsContentObserver  extends ContentObserver {
 
@@ -74,7 +75,7 @@ public class SettingsContentObserver  extends ContentObserver {
     public void onChange(boolean selfChange) {
         super.onChange(selfChange);
 
-        //Log.e("### SettingsContentObserver", "internalChange=" + internalChange);
+        Log.e("### SettingsContentObserver", "onChange - internalChange=" + internalChange);
 
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
