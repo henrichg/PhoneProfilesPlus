@@ -21,9 +21,11 @@ public class ImportantInfoNotification {
         try {
             pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             versionCode = pinfo.versionCode;
-            if (versionCode > GlobalData.getShowInfoNotificationOnStartVersion(context) &&
-                    (android.os.Build.VERSION.SDK_INT >= API_LEVEL_FOR_NEWS))
-                GlobalData.setShowInfoNotificationOnStart(context, true, versionCode);
+            if (versionCode > GlobalData.getShowInfoNotificationOnStartVersion(context)) {
+                boolean show = (versionCode >= VERSION_CODE_FOR_NEWS) &&
+                                (android.os.Build.VERSION.SDK_INT >= API_LEVEL_FOR_NEWS);
+                GlobalData.setShowInfoNotificationOnStart(context, show, versionCode);
+            }
             else
                 GlobalData.setShowInfoNotificationOnStartVersion(context, versionCode);
         } catch (PackageManager.NameNotFoundException e) {
