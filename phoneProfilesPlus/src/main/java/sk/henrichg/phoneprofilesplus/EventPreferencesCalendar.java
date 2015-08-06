@@ -121,7 +121,7 @@ public class EventPreferencesCalendar extends EventPreferences {
         }
         else
         {
-            descr = descr + "\u2022 " + context.getString(R.string.event_type_calendar) + ": ";
+            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_calendar) + ": " + "</b>";
 
             String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
             descr = descr + searchFields[this._searchField] + "; ";

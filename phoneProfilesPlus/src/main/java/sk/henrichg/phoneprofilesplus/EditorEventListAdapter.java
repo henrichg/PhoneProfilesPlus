@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -342,7 +343,7 @@ public class EditorEventListAdapter extends BaseAdapter
             {
                 if (holder.eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(vi.getContext());
-                    holder.eventPreferencesDescription.setText(eventPrefDescription);
+                    holder.eventPreferencesDescription.setText(Html.fromHtml(eventPrefDescription));
                 }
             }
 

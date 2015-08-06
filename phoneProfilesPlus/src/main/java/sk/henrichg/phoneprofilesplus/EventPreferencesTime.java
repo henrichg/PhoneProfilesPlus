@@ -161,7 +161,7 @@ public class EventPreferencesTime extends EventPreferences {
         }
         else
         {
-            descr = descr + "\u2022 " + context.getString(R.string.event_type_time) + ": ";
+            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_time) + ": " + "</b>";
 
             boolean[] daySet = new boolean[7];
             daySet[0] = this._sunday;

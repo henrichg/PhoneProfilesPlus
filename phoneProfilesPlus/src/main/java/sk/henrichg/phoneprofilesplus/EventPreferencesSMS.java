@@ -108,7 +108,7 @@ public class EventPreferencesSMS extends EventPreferences {
         }
         else
         {
-            descr = descr + "\u2022 " + context.getString(R.string.event_type_sms) + ": ";
+            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_sms) + ": " + "</b>";
 
             //descr = descr + context.getString(R.string.pref_event_sms_event);
             //String[] smsEvents = context.getResources().getStringArray(R.array.eventSMSEventsArray);
@@ -201,7 +201,7 @@ public class EventPreferencesSMS extends EventPreferences {
 
         int gmtOffset = TimeZone.getDefault().getRawOffset();
 
-        calEndTime.setTimeInMillis((_startTime - gmtOffset) + (5 * 1000));
+        calEndTime.setTimeInMillis((_startTime - gmtOffset) + (_duration * 1000));
         //calEndTime.set(Calendar.SECOND, 0);
         //calEndTime.set(Calendar.MILLISECOND, 0);
 

@@ -87,7 +87,7 @@ public class EventPreferencesBattery extends EventPreferences {
         }
         else
         {
-            descr = descr + "\u2022 " + context.getString(R.string.event_type_battery) + ": ";
+            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_battery) + ": " + "</b>";
 
             descr = descr + context.getString(R.string.pref_event_battery_level);
             descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";

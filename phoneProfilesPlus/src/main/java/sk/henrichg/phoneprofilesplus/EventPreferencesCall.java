@@ -87,7 +87,7 @@ public class EventPreferencesCall extends EventPreferences {
         }
         else
         {
-            descr = descr + "\u2022 " + context.getString(R.string.event_type_call) + ": ";
+            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_call) + ": " + "</b>";
 
             descr = descr + context.getString(R.string.pref_event_call_event);
             String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);

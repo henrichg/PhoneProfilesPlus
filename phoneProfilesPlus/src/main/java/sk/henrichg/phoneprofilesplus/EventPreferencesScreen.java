@@ -72,7 +72,7 @@ public class EventPreferencesScreen extends EventPreferences {
         }
         else
         {
-            descr = descr + "\u2022 " + context.getString(R.string.event_type_screen) + ": ";
+            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_screen) + ": " + "</b>";
 
             String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
             String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);

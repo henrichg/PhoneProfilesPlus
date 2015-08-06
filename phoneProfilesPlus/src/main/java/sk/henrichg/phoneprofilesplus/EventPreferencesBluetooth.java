@@ -73,7 +73,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
         }
         else
         {
-            descr = descr + "\u2022 " + context.getString(R.string.event_type_bluetooth) + ": ";
+            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_bluetooth) + ": " + "</b>";
 
             descr = descr + context.getString(R.string.pref_event_bluetooth_connectionType);
             String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
