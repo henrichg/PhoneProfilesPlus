@@ -493,7 +493,7 @@ public class ActivateProfileHelper {
                         break;
                 }
                 PPNotificationListenerService.requestInterruptionFilter(context, interruptionFilter);
-            } else
+            }/* else
             if (GlobalData.grantRoot(false) && (GlobalData.settingsBinaryExists()))
             {
                 String command1 = "settings put global zen_mode " + mode;
@@ -507,7 +507,7 @@ public class ActivateProfileHelper {
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setZenMode", e.getMessage());
                 }
-            }
+            }*/
         }
     }
 

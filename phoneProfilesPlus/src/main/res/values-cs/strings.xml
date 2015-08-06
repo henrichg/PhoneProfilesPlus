@@ -535,7 +535,7 @@
   <string name="array_pref_zenModeArray_allWithVibration">Vše s vibrací</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Prioritní s vibrací</string>
   <string name="important_info_news">Novinky</string>
-  <string name="important_info_profile_zenMode">\"Přerušení\" profilu v \"Režimu vyzvánění\" vyžaduje povolení PhoneProfilesPlus v systémovém nastavení \"Přístup k oznámením\". Root už není potřebný a v budoucí verzi aplikace bude podpora rootu odstraněna. Klepněte sem a povolte PhoneProfilesPlus.</string>
+  <string name="important_info_profile_zenMode">\"Přerušení\" profilu v \"Režimu vyzvánění\" vyžaduje povolení PhoneProfilesPlus v systémovém nastavení \"Přístup k oznámením\". Klepněte sem a povolte PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenMode_none_summary">Žádné vyrušení, ani budíky</string>
   <string name="profile_preferences_zenMode_priority_summary">Pouze prioritní vyrušení</string>
   <string name="profile_preferences_zenMode_all_summary">Všechna vyrušení</string>

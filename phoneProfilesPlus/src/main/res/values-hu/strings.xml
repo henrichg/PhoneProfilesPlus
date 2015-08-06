@@ -535,7 +535,7 @@
   <string name="array_pref_zenModeArray_allWithVibration">Minden rezgéssel</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Prioritás rezgéssel</string>
   <string name="important_info_news">News</string>
-  <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Root requirement is not needed and in future application version will by removed. Click here and enable PhoneProfilesPlus.</string>
+  <string name="important_info_profile_zenMode">\"Interruptions\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
   <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
   <string name="profile_preferences_zenMode_all_summary">All interruptions</string>

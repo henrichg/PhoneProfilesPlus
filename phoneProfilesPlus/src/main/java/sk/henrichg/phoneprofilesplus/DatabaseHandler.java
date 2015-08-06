@@ -2121,10 +2121,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         }
 
                     if (Integer.parseInt(cursor.getString(9)) == 5) {
-                        boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
+                        /*boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
                                 (PPNotificationListenerService.isNotificationListenerServiceEnabled(context) ||
                                         (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
-                                );
+                                );*/
+                        boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
+                                PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
                         if (!notRemove) {
                             // remove ringer mode "Interruptions"
                             values.put(KEY_VOLUME_RINGER_MODE, 4);
