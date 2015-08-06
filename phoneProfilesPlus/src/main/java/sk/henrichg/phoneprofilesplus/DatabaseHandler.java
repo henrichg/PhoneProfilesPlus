@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1380;
+    private static final int DATABASE_VERSION = 1390;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -179,6 +179,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALENDAR_AVAILABILITY = "calendarAvailability";
     private static final String KEY_E_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
     private static final String KEY_E_FK_PROFILE_START_WHEN_ACTIVATED = "fkProfileStartWhenActivated";
+    private static final String KEY_E_SMS_DURATION = "smsDuration";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -370,7 +371,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_AT_END_DO + " INTEGER,"
                 + KEY_E_CALENDAR_AVAILABILITY + " INTEGER,"
                 + KEY_E_MANUAL_PROFILE_ACTIVATION + " INTEGER,"
-                + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " INTEGER"
+                + KEY_E_FK_PROFILE_START_WHEN_ACTIVATED + " INTEGER,"
+                + KEY_E_SMS_DURATION + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1265,6 +1267,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
         }
+
+        if (oldVersion < 1390)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_DURATION + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_DURATION + "=5");
+        }
+
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
 
@@ -2781,7 +2793,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_SMS_CONTACTS,
                         KEY_E_SMS_CONTACT_LIST_TYPE,
                         KEY_E_SMS_START_TIME,
-                        KEY_E_SMS_CONTACT_GROUPS
+                        KEY_E_SMS_CONTACT_GROUPS,
+                        KEY_E_SMS_DURATION
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -2799,6 +2812,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._contactListType = Integer.parseInt(cursor.getString(2));
                 eventPreferences._startTime = Long.parseLong(cursor.getString(3));
                 eventPreferences._contactGroups = cursor.getString(4);
+                eventPreferences._duration = cursor.getInt(5);
             }
             cursor.close();
         }
@@ -2993,6 +3007,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_SMS_CONTACT_LIST_TYPE, eventPreferences._contactListType);
         values.put(KEY_E_SMS_START_TIME, eventPreferences._startTime);
         values.put(KEY_E_SMS_CONTACT_GROUPS, eventPreferences._contactGroups);
+        values.put(KEY_E_SMS_DURATION, eventPreferences._duration);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4368,6 +4383,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             values.put(KEY_E_CALENDAR_SEARCH_STRING, calendarSearchString);
                                             values.put(KEY_E_WIFI_SSID, wifiSSID);
                                             values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, bluetoothAdapterName);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1390)
+                                        {
+                                            values.put(KEY_E_SMS_DURATION, 5);
                                         }
 
                                         // Inserting Row do db z SQLiteOpenHelper
