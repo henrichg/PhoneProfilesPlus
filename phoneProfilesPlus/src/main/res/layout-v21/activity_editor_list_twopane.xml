@@ -92,6 +92,7 @@
                     android:id="@+id/editor_list_bottom_bar_order_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textSize="14sp"
