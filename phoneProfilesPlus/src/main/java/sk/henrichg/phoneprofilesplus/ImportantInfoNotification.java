@@ -11,8 +11,8 @@ import android.support.v4.app.NotificationCompat;
 
 public class ImportantInfoNotification {
 
-    public static final int VERSION_CODE_FOR_NEWS = 1734;
-    public static final int API_LEVEL_FOR_NEWS = 21;
+    public static final int VERSION_CODE_FOR_NEWS = 9999; // news off
+    public static final int API_LEVEL_FOR_NEWS = 15; //21;
 
     static public void showInfoNotification(Context context) {
 
