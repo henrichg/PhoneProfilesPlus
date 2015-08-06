@@ -221,7 +221,7 @@ public class Event {
 
     private void createEventPreferencesSMS()
     {
-        this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0);
+        this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0, 5);
     }
 
     public void createEventPreferences()

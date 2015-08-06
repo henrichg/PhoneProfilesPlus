@@ -238,7 +238,15 @@
             android:defaultValue="0"
             android:entries="@array/eventCallContactListTypeArray"
             android:entryValues="@array/eventCallContactListTypeValues"
-            android:dependency="eventSMSEnabled" />        
+            android:dependency="eventSMSEnabled" />
+        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="eventSMSDuration"
+            android:summary="@string/event_preferences_duration"
+            android:title="@string/event_preferences_duration"
+            android:defaultValue="5"
+            henrichg:min="5"
+            henrichg:max="68400"
+            android:dependency="eventSMSEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventWifiParameters"

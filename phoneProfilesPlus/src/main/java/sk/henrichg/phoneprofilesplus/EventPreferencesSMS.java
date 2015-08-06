@@ -23,12 +23,14 @@ public class EventPreferencesSMS extends EventPreferences {
     public String _contactGroups;
     public int _contactListType;
     public long _startTime;
+    public int _duration;
 
     static final String PREF_EVENT_SMS_ENABLED = "eventSMSEnabled";
     //static final String PREF_EVENT_SMS_EVENT = "eventSMSEvent";
     static final String PREF_EVENT_SMS_CONTACTS = "eventSMSContacts";
     static final String PREF_EVENT_SMS_CONTACT_GROUPS = "eventSMSContactGroups";
     static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
+    static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
 
     //static final int SMS_EVENT_UNDEFINED = -1;
     //static final int SMS_EVENT_INCOMING = 0;
@@ -43,7 +45,8 @@ public class EventPreferencesSMS extends EventPreferences {
                                     //int smsEvent,
                                     String contacts,
                                     String contactGroups,
-                                    int contactListType)
+                                    int contactListType,
+                                    int duration)
     {
         super(event, enabled);
 
@@ -51,6 +54,7 @@ public class EventPreferencesSMS extends EventPreferences {
         this._contacts = contacts;
         this._contactGroups = contactGroups;
         this._contactListType = contactListType;
+        this._duration = duration;
 
         this._startTime = 0;
     }
@@ -63,6 +67,7 @@ public class EventPreferencesSMS extends EventPreferences {
         this._contacts = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contacts;
         this._contactGroups = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contactGroups;
         this._contactListType = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contactListType;
+        this._duration = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._duration;
 
         this._startTime = 0;
     }
@@ -76,6 +81,7 @@ public class EventPreferencesSMS extends EventPreferences {
         editor.putString(PREF_EVENT_SMS_CONTACTS, this._contacts);
         editor.putString(PREF_EVENT_SMS_CONTACT_GROUPS, this._contactGroups);
         editor.putString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
+        editor.putString(PREF_EVENT_SMS_DURATION, String.valueOf(this._duration));
         editor.commit();
     }
 
@@ -87,6 +93,7 @@ public class EventPreferencesSMS extends EventPreferences {
         this._contacts = preferences.getString(PREF_EVENT_SMS_CONTACTS, "");
         this._contactGroups = preferences.getString(PREF_EVENT_SMS_CONTACT_GROUPS, "");
         this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, "0"));
+        this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_DURATION, "5"));
     }
 
     @Override
@@ -108,7 +115,8 @@ public class EventPreferencesSMS extends EventPreferences {
             //descr = descr + ": " + smsEvents[this._smsEvent] + "; ";
             descr = descr + context.getString(R.string.pref_event_sms_contactListType);
             String[] cntactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
-            descr = descr + ": " + cntactListTypes[this._contactListType];
+            descr = descr + ": " + cntactListTypes[this._contactListType] + "; ";
+            descr = descr + this._duration;
         }
 
         return descr;
@@ -134,6 +142,14 @@ public class EventPreferencesSMS extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             GUIData.setPreferenceTitleStyle(preference, false, true);
         }
+        if (key.equals(PREF_EVENT_SMS_DURATION)) {
+            Preference preference = prefMng.findPreference(key);
+            String sValue = value.toString();
+            //int iValue = 0;
+            //if (!sValue.isEmpty())
+            //    iValue = Integer.valueOf(sValue);
+            preference.setSummary(sValue);
+        }
     }
 
     @Override
@@ -142,7 +158,8 @@ public class EventPreferencesSMS extends EventPreferences {
         if (/*key.equals(PREF_EVENT_SMS_EVENT) ||*/
             key.equals(PREF_EVENT_SMS_CONTACT_LIST_TYPE) ||
             key.equals(PREF_EVENT_SMS_CONTACTS) ||
-            key.equals(PREF_EVENT_SMS_CONTACT_GROUPS))
+            key.equals(PREF_EVENT_SMS_CONTACT_GROUPS) ||
+            key.equals(PREF_EVENT_SMS_DURATION))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -155,6 +172,7 @@ public class EventPreferencesSMS extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_SMS_CONTACT_LIST_TYPE, Integer.toString(_contactListType), context);
         setSummary(prefMng, PREF_EVENT_SMS_CONTACTS, _contacts, context);
         setSummary(prefMng, PREF_EVENT_SMS_CONTACT_GROUPS, _contactGroups, context);
+        setSummary(prefMng, PREF_EVENT_SMS_DURATION, Integer.toString(_duration), context);
     }
 
     @Override
