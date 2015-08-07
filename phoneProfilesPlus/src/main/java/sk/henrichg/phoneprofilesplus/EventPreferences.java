@@ -42,9 +42,9 @@ public class EventPreferences {
     {
     }
 
-    public String getPreferencesDescription(String description, Context context)
+    public String getPreferencesDescription(Context context)
     {
-        return description;
+        return "";
     }
 
     public void setSummary(PreferenceManager prefMng, String key, String value, Context context)

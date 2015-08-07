@@ -150,9 +150,9 @@ public class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(String description, Context context)
+    public String getPreferencesDescription(Context context)
     {
-        String descr = description;
+        String descr = "";
 
         if (!this._enabled)
         {
@@ -221,8 +221,8 @@ public class EventPreferencesTime extends EventPreferences {
                     // date and time format by user system settings configuration
                     alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                  " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                    descr = descr + '\n';
-                    descr = descr + "   -> " + alarmTimeS;
+                    descr = descr + "<br>"; //'\n';
+                    descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
                 }
                 else
                 if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/)
@@ -231,8 +231,8 @@ public class EventPreferencesTime extends EventPreferences {
                     // date and time format by user system settings configuration
                     alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                  " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                    descr = descr + '\n';
-                    descr = descr + "   -> " + alarmTimeS;
+                    descr = descr + "<br>"; //'\n';
+                    descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
                 }
             }
         }

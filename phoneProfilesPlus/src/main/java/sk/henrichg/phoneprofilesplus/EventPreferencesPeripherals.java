@@ -52,9 +52,9 @@ public class EventPreferencesPeripherals extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(String description, Context context)
+    public String getPreferencesDescription(Context context)
     {
-        String descr = description;
+        String descr = "";
 
         if (!this._enabled)
         {
