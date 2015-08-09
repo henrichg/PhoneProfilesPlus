@@ -287,7 +287,7 @@
             android:defaultValue="0"
             android:entries="@array/runApplicationArray"
             android:entryValues="@array/runApplicationValues" />        
-        <sk.henrichg.phoneprofilesplus.ApplicationsPreference
+        <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
             android:defaultValue="-"
             android:key="prf_pref_deviceRunApplicationPackageName"
             android:title="@string/profile_preferences_deviceRunApplicationPackageName" />

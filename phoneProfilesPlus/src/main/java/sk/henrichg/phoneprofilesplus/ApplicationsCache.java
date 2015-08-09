@@ -83,6 +83,14 @@ public class ApplicationsCache {
             return null;
     }
 
+    public Application getApplication(int position)
+    {
+        if (cached)
+            return applicationsList.get(position);
+        else
+            return null;
+    }
+
     public String getPackageName(int position)
     {
         if (cached)

@@ -6,16 +6,16 @@ import android.widget.TextView;
 
 public class ApplicationViewHolder {
 
-    public ImageView imageViewPhoto;
+    public ImageView imageViewIcon;
     public TextView textViewAppName;
     public CheckBox checkBox;
 
     public ApplicationViewHolder() {
     }
 
-    public ApplicationViewHolder(ImageView imageViewPhoto, TextView textViewAppName, CheckBox checkBox)
+    public ApplicationViewHolder(ImageView imageViewIcon, TextView textViewAppName, CheckBox checkBox)
     {
-        this.imageViewPhoto = imageViewPhoto;
+        this.imageViewIcon = imageViewIcon;
         this.textViewAppName = textViewAppName;
         this.checkBox = checkBox;
     }
