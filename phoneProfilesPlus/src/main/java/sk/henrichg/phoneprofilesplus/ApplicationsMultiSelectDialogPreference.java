@@ -2,13 +2,18 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -34,9 +39,50 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         _context = context;
 
+        setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
+
         if (EditorProfilesActivity.getApplicationsCache() == null)
             EditorProfilesActivity.createApplicationsCache();
 
+    }
+
+    //@Override
+    protected void onBindView(View view)
+    {
+        super.onBindView(view);
+
+        //preferenceTitleView = (TextView)view.findViewById(R.id.applications_pref_label);  // resource na title
+        //preferenceTitleView.setText(preferenceTitle);
+
+        ImageView packageIcon = (ImageView)view.findViewById(R.id.applications_pref_icon); // resource na ImageView v custom preference layoute
+
+        if (packageIcon != null)
+        {
+            PackageManager packageManager = _context.getPackageManager();
+            ApplicationInfo app;
+            try {
+
+                String[] splits = value.split("\\|");
+
+                if (splits.length > 0) {
+                    app = packageManager.getApplicationInfo(splits[0], 0);
+                    if (app != null) {
+                        Drawable icon = packageManager.getApplicationIcon(app);
+                        //CharSequence name = packageManager.getApplicationLabel(app);
+                        packageIcon.setImageDrawable(icon);
+                    } else {
+                        packageIcon.setImageDrawable(null);
+                    }
+                }
+                else {
+                    packageIcon.setImageDrawable(null);
+                }
+
+            } catch (PackageManager.NameNotFoundException e) {
+                //e.printStackTrace();
+                packageIcon.setImageDrawable(null);
+            }
+        }
     }
 
     protected void showDialog(Bundle state) {
@@ -102,7 +148,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 if (!EditorProfilesActivity.getApplicationsCache().isCached())
                     EditorProfilesActivity.getApplicationsCache().getApplicationsList(_context);
 
-                getValueCMSDP();
+                getValueAMSDP();
 
                 return null;
             }
@@ -126,27 +172,27 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
         @Override
         public void onPositive(MaterialDialog dialog) {
-            if (shouldPersist())
+        if (shouldPersist())
+        {
+            // sem narvi stringy kontatkov oddelenych |
+            value = "";
+            List<Application> applicationList = EditorProfilesActivity.getApplicationsCache().getList();
+            if (applicationList != null)
             {
-                // sem narvi stringy kontatkov oddelenych |
-                value = "";
-                List<Application> applicationList = EditorProfilesActivity.getApplicationsCache().getList();
-                if (applicationList != null)
+                for (Application application : applicationList)
                 {
-                    for (Application application : applicationList)
+                    if (application.checked)
                     {
-                        if (application.checked)
-                        {
-                            if (!value.isEmpty())
-                                value = value + "|";
-                            value = value + application.packageName;
-                        }
+                        if (!value.isEmpty())
+                            value = value + "|";
+                        value = value + application.packageName;
                     }
                 }
-                persistString(value);
-
-                setSummaryCMSDP();
             }
+            persistString(value);
+
+            setSummaryAMSDP();
+        }
         }
     };
 
@@ -164,7 +210,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     {
         if (restoreValue) {
             // restore state
-            getValueCMSDP();
+            getValueAMSDP();
         }
         else {
             // set state
@@ -172,10 +218,10 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             value = "";
             persistString("");
         }
-        setSummaryCMSDP();
+        setSummaryAMSDP();
     }
 
-    private void getValueCMSDP()
+    private void getValueAMSDP()
     {
         // Get the persistent value
         value = getPersistedString(value);
@@ -210,11 +256,26 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
     }
 
-    private void setSummaryCMSDP()
+    private void setSummaryAMSDP()
     {
         String prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
-        if (!value.isEmpty())
-            prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected);
+        if (!value.isEmpty()) {
+            String[] splits = value.split("\\|");
+            if (splits.length == 1) {
+                PackageManager packageManager = _context.getPackageManager();
+                ApplicationInfo app;
+                try {
+                    app = packageManager.getApplicationInfo(splits[0], 0);
+                    if (app != null)
+                        prefVolumeDataSummary = packageManager.getApplicationLabel(app).toString();
+                } catch (PackageManager.NameNotFoundException e) {
+                    //e.printStackTrace();
+                    prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected);
+                }
+            }
+            else
+                prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected);
+        }
         setSummary(prefVolumeDataSummary);
     }
 
