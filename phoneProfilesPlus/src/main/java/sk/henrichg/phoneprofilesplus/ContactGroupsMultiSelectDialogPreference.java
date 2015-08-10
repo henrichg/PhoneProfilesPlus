@@ -19,25 +19,25 @@ import java.util.List;
 public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 {
 
-	Context _context = null;
-	String value = "";
+    Context _context = null;
+    String value = "";
 
-	// Layout widgets.
-	private ListView listView = null;
-	private LinearLayout linlaProgress;
+    // Layout widgets.
+    private ListView listView = null;
+    private LinearLayout linlaProgress;
     private LinearLayout linlaListView;
 
-	private ContactGroupsMultiselectPreferenceAdapter listAdapter;
+    private ContactGroupsMultiselectPreferenceAdapter listAdapter;
 
-	public ContactGroupsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		
-		_context = context;
+    public ContactGroupsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-		if (EditorProfilesActivity.getContactGroupsCache() == null)
-			EditorProfilesActivity.createContactGroupsCache();
-		
-	}
+        _context = context;
+
+        if (EditorProfilesActivity.getContactGroupsCache() == null)
+            EditorProfilesActivity.createContactGroupsCache();
+
+    }
 
     protected void showDialog(Bundle state) {
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
@@ -150,53 +150,53 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         }
     };
 
-	public void onDismiss (DialogInterface dialog)
-	{
-		EditorProfilesActivity.getContactGroupsCache().cancelCaching();
-		
-		if (!EditorProfilesActivity.getContactGroupsCache().isCached())
-			EditorProfilesActivity.getContactGroupsCache().clearCache(false);
-	}
-	
-	@Override
-	protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
-	{
-		if (restoreValue) {
-			// restore state
-			getValueCMSDP();
-		}
-		else {
-			// set state
-			// sem narvi default string skupin kontaktov oddeleny |
-			value = "";
-			persistString("");
-		}
-		setSummaryCMSDP();
-	}
-	
-	private void getValueCMSDP()
-	{
-		// Get the persistent value
-		value = getPersistedString(value);
-		
-		// change checked state by value
-		List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
-		if (contactGroupList != null)
-		{
-			String[] splits = value.split("\\|");
-			for (ContactGroup contactGroup : contactGroupList)
-			{
-				contactGroup.checked = false;
-				for (int i = 0; i < splits.length; i++)
-				{
-					try {
-						long groupId = Long.parseLong(splits[i]);
-						if (contactGroup.groupId == groupId)
-							contactGroup.checked = true;
-					} catch (Exception e) {
-					}
-				}
-			}
+    public void onDismiss (DialogInterface dialog)
+    {
+        EditorProfilesActivity.getContactGroupsCache().cancelCaching();
+
+        if (!EditorProfilesActivity.getContactGroupsCache().isCached())
+            EditorProfilesActivity.getContactGroupsCache().clearCache(false);
+    }
+
+    @Override
+    protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
+    {
+        if (restoreValue) {
+            // restore state
+            getValueCMSDP();
+        }
+        else {
+            // set state
+            // sem narvi default string skupin kontaktov oddeleny |
+            value = "";
+            persistString("");
+        }
+        setSummaryCMSDP();
+    }
+
+    private void getValueCMSDP()
+    {
+        // Get the persistent value
+        value = getPersistedString(value);
+
+        // change checked state by value
+        List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
+        if (contactGroupList != null)
+        {
+            String[] splits = value.split("\\|");
+            for (ContactGroup contactGroup : contactGroupList)
+            {
+                contactGroup.checked = false;
+                for (int i = 0; i < splits.length; i++)
+                {
+                    try {
+                        long groupId = Long.parseLong(splits[i]);
+                        if (contactGroup.groupId == groupId)
+                            contactGroup.checked = true;
+                    } catch (Exception e) {
+                    }
+                }
+            }
             // move checked on top
             int i = 0;
             int ich = 0;
@@ -209,15 +209,17 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                 }
                 i++;
             }
-		}
-	}
-	
-	private void setSummaryCMSDP()
-	{
-		String prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_not_selected);
-		if (!value.isEmpty())
-			prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected);
-		setSummary(prefVolumeDataSummary);
-	}
-	
+        }
+    }
+
+    private void setSummaryCMSDP()
+    {
+        String prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_not_selected);
+        if (!value.isEmpty()) {
+            String[] splits = value.split("\\|");
+            prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+        }
+        setSummary(prefVolumeDataSummary);
+    }
+
 }

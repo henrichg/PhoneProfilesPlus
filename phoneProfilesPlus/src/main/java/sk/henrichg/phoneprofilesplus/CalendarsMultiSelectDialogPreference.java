@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -24,37 +26,37 @@ import java.util.List;
 public class CalendarsMultiSelectDialogPreference extends DialogPreference
 {
 
-	Context _context = null;
-	String value = "";
-	
-	List<CalendarEvent> calendarList = null;	
-	
-	// Layout widgets.
-	private ListView listView = null;
-	private LinearLayout linlaProgress;
+    Context _context = null;
+    String value = "";
+
+    List<CalendarEvent> calendarList = null;
+
+    // Layout widgets.
+    private ListView listView = null;
+    private LinearLayout linlaProgress;
     private LinearLayout linlaLisView;
 
-	private CalendarsMultiselectPreferenceAdapter listAdapter;
+    private CalendarsMultiselectPreferenceAdapter listAdapter;
 
-	private static final String[] CALENDAR_PROJECTION = new String[] {
-	    Calendars._ID,                           // 0
-	    Calendars.CALENDAR_DISPLAY_NAME,         // 1
-	    Calendars.CALENDAR_COLOR				 // 2
-	};
-	  
-	// The indices for the projection array above.
-	private static final int PROJECTION_ID_INDEX = 0;
-	private static final int PROJECTION_DISPLAY_NAME_INDEX = 1;
-	private static final int PROJECTION_COLOR_INDEX = 2;	
-	
-	public CalendarsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		
-		_context = context;
-		
-		calendarList = new ArrayList<CalendarEvent>();
+    private static final String[] CALENDAR_PROJECTION = new String[] {
+        Calendars._ID,                           // 0
+        Calendars.CALENDAR_DISPLAY_NAME,         // 1
+        Calendars.CALENDAR_COLOR				 // 2
+    };
 
-	}
+    // The indices for the projection array above.
+    private static final int PROJECTION_ID_INDEX = 0;
+    private static final int PROJECTION_DISPLAY_NAME_INDEX = 1;
+    private static final int PROJECTION_COLOR_INDEX = 2;
+
+    public CalendarsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
+
+        _context = context;
+
+        calendarList = new ArrayList<CalendarEvent>();
+
+    }
 
     protected void showDialog(Bundle state) {
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
@@ -122,13 +124,13 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 Cursor cur = null;
                 ContentResolver cr = _context.getContentResolver();
                 Uri uri = Calendars.CONTENT_URI;
-				/*
-				String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND ("
-				                        + Calendars.ACCOUNT_TYPE + " = ?) AND ("
-				                        + Calendars.OWNER_ACCOUNT + " = ?))";
-				String[] selectionArgs = new String[] {"sampleuser@gmail.com", "com.google",
-				        "sampleuser@gmail.com"};
-				*/
+                /*
+                String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND ("
+                                        + Calendars.ACCOUNT_TYPE + " = ?) AND ("
+                                        + Calendars.OWNER_ACCOUNT + " = ?))";
+                String[] selectionArgs = new String[] {"sampleuser@gmail.com", "com.google",
+                        "sampleuser@gmail.com"};
+                */
                 // Submit the query and get a Cursor object back.
                 //cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
                 cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
@@ -199,53 +201,55 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         }
     };
 
-	@Override
-	protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
-	{
-		if (restoreValue) {
-			// restore state
-			getValueCMSDP();
-		}
-		else {
-			// set state
-			// sem narvi default string kontaktov oddeleny |
-			value = "";
-			persistString("");
-		}
-		setSummaryCMSDP();
-	}
-	
-	private void getValueCMSDP()
-	{
-		// Get the persistent value
-		value = getPersistedString(value);
-		
-		// change checked state by value
-		if (calendarList != null)
-		{
-			String[] splits = value.split("\\|");
-			for (CalendarEvent calendar : calendarList)
-			{
-				calendar.checked = false;
-				for (int i = 0; i < splits.length; i++)
-				{
-					try {
-						long calendarId = Long.parseLong(splits[i]);
-						if (calendar.calendarId == calendarId)
-							calendar.checked = true;
-					} catch (Exception e) {
-					}
-				}
-			}
-		}
-	}
-	
-	private void setSummaryCMSDP()
-	{
-		String prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_not_selected);
-		if (!value.isEmpty())
-			prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected);
-		setSummary(prefVolumeDataSummary);
-	}
-	
+    @Override
+    protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
+    {
+        if (restoreValue) {
+            // restore state
+            getValueCMSDP();
+        }
+        else {
+            // set state
+            // sem narvi default string kontaktov oddeleny |
+            value = "";
+            persistString("");
+        }
+        setSummaryCMSDP();
+    }
+
+    private void getValueCMSDP()
+    {
+        // Get the persistent value
+        value = getPersistedString(value);
+
+        // change checked state by value
+        if (calendarList != null)
+        {
+            String[] splits = value.split("\\|");
+            for (CalendarEvent calendar : calendarList)
+            {
+                calendar.checked = false;
+                for (int i = 0; i < splits.length; i++)
+                {
+                    try {
+                        long calendarId = Long.parseLong(splits[i]);
+                        if (calendar.calendarId == calendarId)
+                            calendar.checked = true;
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        }
+    }
+
+    private void setSummaryCMSDP()
+    {
+        String prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_not_selected);
+        if (!value.isEmpty()) {
+            String[] splits = value.split("\\|");
+            prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
+        }
+        setSummary(prefVolumeDataSummary);
+    }
+
 }
