@@ -247,7 +247,34 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         String prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_not_selected);
         if (!value.isEmpty()) {
             String[] splits = value.split("\\|");
-            prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
+            if (splits.length == 1) {
+                boolean found = false;
+                Cursor cur = null;
+                ContentResolver cr = _context.getContentResolver();
+                Uri uri = Calendars.CONTENT_URI;
+                cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
+                if (cur != null) {
+                    while (cur.moveToNext()) {
+                        long calID = 0;
+                        String displayName = null;
+
+                        // Get the field values
+                        calID = cur.getLong(PROJECTION_ID_INDEX);
+                        displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
+
+                        if (calID == Long.valueOf(splits[0])) {
+                            found = true;
+                            prefVolumeDataSummary = displayName;
+                            break;
+                        }
+                    }
+                    cur.close();
+                }
+                if (!found)
+                    prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
+            }
+            else
+                prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
         }
         setSummary(prefVolumeDataSummary);
     }
