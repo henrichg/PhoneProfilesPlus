@@ -2,9 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.provider.ContactsContract;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -217,7 +219,27 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         String prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_not_selected);
         if (!value.isEmpty()) {
             String[] splits = value.split("\\|");
-            prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+            if (splits.length == 1) {
+                boolean found = false;
+                String[] projection = new String[]{
+                        ContactsContract.Groups._ID,
+                        ContactsContract.Groups.TITLE};
+                String selection = ContactsContract.Groups._ID + "=" + splits[0];
+                Cursor mCursor = _context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, null);
+
+                if (mCursor != null) {
+                    while (mCursor.moveToNext()) {
+                        found = true;
+                        prefVolumeDataSummary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                        break;
+                    }
+                    mCursor.close();
+                }
+                if (!found)
+                    prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+            }
+            else
+                prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
         }
         setSummary(prefVolumeDataSummary);
     }

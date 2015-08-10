@@ -252,21 +252,13 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 Cursor cur = null;
                 ContentResolver cr = _context.getContentResolver();
                 Uri uri = Calendars.CONTENT_URI;
-                cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
+                String selection = Calendars._ID + "=" + splits[0];
+                cur = cr.query(uri, CALENDAR_PROJECTION, selection, null, null);
                 if (cur != null) {
                     while (cur.moveToNext()) {
-                        long calID = 0;
-                        String displayName = null;
-
-                        // Get the field values
-                        calID = cur.getLong(PROJECTION_ID_INDEX);
-                        displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
-
-                        if (calID == Long.valueOf(splits[0])) {
-                            found = true;
-                            prefVolumeDataSummary = displayName;
-                            break;
-                        }
+                        found = true;
+                        prefVolumeDataSummary = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
+                        break;
                     }
                     cur.close();
                 }
