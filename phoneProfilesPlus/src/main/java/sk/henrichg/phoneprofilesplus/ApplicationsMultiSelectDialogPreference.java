@@ -255,11 +255,11 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         prefVolumeDataSummary = packageManager.getApplicationLabel(app).toString();
                 } catch (PackageManager.NameNotFoundException e) {
                     //e.printStackTrace();
-                    prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected);
+                    prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
             }
             else
-                prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected);
+                prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
         }
         setSummary(prefVolumeDataSummary);
     }
