@@ -541,4 +541,6 @@
   <string name="profile_preferences_zenMode_all_summary">Všechna vyrušení</string>
   <string name="event_preferences_duration">Trvání (sek.)</string>
   <string name="pref_event_duration">Trvání</string>
+  <string name="applications_multiselect_summary_text_selected">Selected</string>
+  <string name="applications_multiselect_summary_text_not_selected">Not selected</string>
 </resources>

@@ -541,4 +541,6 @@
   <string name="profile_preferences_zenMode_all_summary">Оповещать всегда</string>
   <string name="event_preferences_duration">Продолжительность (сек)</string>
   <string name="pref_event_duration">Продолжительность</string>
+  <string name="applications_multiselect_summary_text_selected">Selected</string>
+  <string name="applications_multiselect_summary_text_not_selected">Not selected</string>
 </resources>
