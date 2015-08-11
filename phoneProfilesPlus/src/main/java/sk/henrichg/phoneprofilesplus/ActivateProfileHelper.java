@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.location.LocationManager;
 import android.media.AudioManager;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
@@ -690,24 +691,24 @@ public class ActivateProfileHelper {
         // nahodenie  tonov
         if (profile._soundRingtoneChange == 1)
         {
-            if (profile._soundRingtone.isEmpty())
-                Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
-            else
-                Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
+            if (!profile._soundRingtone.isEmpty()) {
+                //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
+                RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, Uri.parse(profile._soundRingtone));
+            }
         }
         if (profile._soundNotificationChange == 1)
         {
-            if (profile._soundNotification.isEmpty())
-                Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
-            else
-                Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, profile._soundNotification);
+            if (!profile._soundNotification.isEmpty()) {
+                //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, profile._soundNotification);
+                RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(profile._soundNotification));
+            }
         }
         if (profile._soundAlarmChange == 1)
         {
-            if (profile._soundAlarm.isEmpty())
-                Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
-            else
-                Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, profile._soundAlarm);
+            if (!profile._soundAlarm.isEmpty()) {
+                //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, profile._soundAlarm);
+                RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, Uri.parse(profile._soundAlarm));
+            }
         }
 
         //// nahodenie radio preferences
