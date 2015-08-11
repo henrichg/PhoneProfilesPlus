@@ -526,7 +526,7 @@
   <string name="wifi_ssid_pref_dlg_info_about_wildcards">az SSID név,</string>
   <string name="bluetooth_name_pref_dlg_info_about_wildcards">a bluetooth-név</string>
   <string name="calendar_pref_dlg_info_about_wildcards">a keresési karakterlánc,</string>
-  <string name="pref_dlg_info_about_wildcards_3">Add elé \"\\\" ezeket a karaktereket.</string>
+  <string name="pref_dlg_info_about_wildcards_3">Add elé \"\\" ezeket a karaktereket.</string>
   <string name="important_info_manual_profile_activation_stops_events">Profil kézi aktiválásakor minden korábbi esemény megáll. Beállíthatod, hogy egy esemény \"Esemény után\" induljon vagy ezt hagyja figyelmen kívül.</string>
   <string name="important_into_sony_stamina_mode">Ha SONY készülékeden a \"Stamina\" mód az \"Energia gazdálkodás\"-ban aktív, kérlek add a PhoneProfilesPlus-t a \"Aktív alkalmazás készenléti módhoz\". Enélkül az alkalmazás nem működik megfelelően.</string>
   <string name="important_info_profile_settings">Néhány profil tulajdonság érvényesítéséhez a rendszer beállításokon módosítani kell. Ezeket a \"(S)\" -sel jelöli.</string>
@@ -539,4 +539,6 @@
   <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
   <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
   <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
+  <string name="event_preferences_duration">Duration (sec)</string>
+  <string name="pref_event_duration">Duration</string>
 </resources>

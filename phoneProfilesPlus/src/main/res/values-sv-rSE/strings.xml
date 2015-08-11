@@ -526,7 +526,7 @@
   <string name="wifi_ssid_pref_dlg_info_about_wildcards">i SSID namn,</string>
   <string name="bluetooth_name_pref_dlg_info_about_wildcards">i bluetooth namn,</string>
   <string name="calendar_pref_dlg_info_about_wildcards">i söksträng,</string>
-  <string name="pref_dlg_info_about_wildcards_3">lägg till \"\\\" framför dessa tecken.</string>
+  <string name="pref_dlg_info_about_wildcards_3">lägg till \"\\" framför dessa tecken.</string>
   <string name="important_info_manual_profile_activation_stops_events">Manuell profilaktiveringen stoppar alla händelser. Inställningar, som har en händelse som i avsnittet \"Slutet av händelsen\", ignoreras.</string>
   <string name="important_into_sony_stamina_mode">När du har Sony enhet och aktiverat \"Stamina\" läge i \"Power management\", Lägg till PhoneProfilesPlus till \"Apps aktiva i standby\". Utan detta fungerar programmet inte korrekt.</string>
   <string name="important_info_profile_settings">Some profile preferences requires changes in system Settings. These preferences are marked with \"(S)\".</string>
@@ -539,4 +539,6 @@
   <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
   <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
   <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
+  <string name="event_preferences_duration">Duration (sec)</string>
+  <string name="pref_event_duration">Duration</string>
 </resources>

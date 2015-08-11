@@ -539,4 +539,6 @@
   <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
   <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
   <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
+  <string name="event_preferences_duration">Duration (sec)</string>
+  <string name="pref_event_duration">Duration</string>
 </resources>

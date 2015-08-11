@@ -526,7 +526,7 @@
   <string name="wifi_ssid_pref_dlg_info_about_wildcards">en el nombre SSID,</string>
   <string name="bluetooth_name_pref_dlg_info_about_wildcards">en el nombre bluetooth,</string>
   <string name="calendar_pref_dlg_info_about_wildcards">en la cadena de búsqueda,</string>
-  <string name="pref_dlg_info_about_wildcards_3">añade \"\\\" delante de estos caracteres.</string>
+  <string name="pref_dlg_info_about_wildcards_3">añade \"\\" delante de estos caracteres.</string>
   <string name="important_info_manual_profile_activation_stops_events">La activación manual del perfil detiene todos los eventos. Las preferencias que tengan un evento establecido en la sección \"Fin de evento\", se ignoran.</string>
   <string name="important_into_sony_stamina_mode">Cuando tienes un dispositivo Sony y activas el modo \"Stamina\" en \"Administración de energía\", por favor, añade a PhoneProfilesPlus en \"Apps activas en modo de espera\". Si no haces esto, la aplicación no funcionará correctamente.</string>
   <string name="important_info_profile_settings">Some profile preferences requires changes in system Settings. These preferences are marked with \"(S)\".</string>
@@ -539,4 +539,6 @@
   <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
   <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
   <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
+  <string name="event_preferences_duration">Duration (sec)</string>
+  <string name="pref_event_duration">Duration</string>
 </resources>
