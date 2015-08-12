@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
+import android.util.Log;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class PPNotificationListenerService extends NotificationListenerService {
@@ -66,7 +67,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {
-        //Log.e(TAG, "onInterruptionFilterChanged(" + interruptionFilter + ')');
+        Log.e(TAG, "onInterruptionFilterChanged(" + interruptionFilter + ')');
 
         if (!internalChange) {
             final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
@@ -89,6 +90,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     break;
                 case NotificationListenerService.INTERRUPTION_FILTER_NONE:
                     zenMode = 3;
+                    break;
+                case 4: // new filter - Alarm only - Android M
                     break;
             }
             if (zenMode != 0)
