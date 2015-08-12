@@ -1426,11 +1426,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               cursor.getString(10),
                                               cursor.getString(11),
                                               Integer.parseInt(cursor.getString(12)),
-                                              (cursor.getString(13).isEmpty()) ? Settings.System.DEFAULT_RINGTONE_URI.getPath(): cursor.getString(13),
+                                              cursor.getString(13),
                                               Integer.parseInt(cursor.getString(14)),
-                                              (cursor.getString(15).isEmpty()) ? Settings.System.DEFAULT_NOTIFICATION_URI.getPath(): cursor.getString(15),
+                                              cursor.getString(15),
                                               Integer.parseInt(cursor.getString(16)),
-                                              (cursor.getString(17).isEmpty()) ? Settings.System.DEFAULT_ALARM_ALERT_URI.getPath(): cursor.getString(17),
+                                              cursor.getString(17),
                                               Integer.parseInt(cursor.getString(18)),
                                               Integer.parseInt(cursor.getString(19)),
                                               Integer.parseInt(cursor.getString(20)),
@@ -1538,11 +1538,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 profile._volumeSystem = cursor.getString(10);
                 profile._volumeVoice = cursor.getString(11);
                 profile._soundRingtoneChange = Integer.parseInt(cursor.getString(12));
-                profile._soundRingtone = (cursor.getString(13).isEmpty()) ? Settings.System.DEFAULT_RINGTONE_URI.getPath(): cursor.getString(13);
+                profile._soundRingtone = cursor.getString(13);
                 profile._soundNotificationChange = Integer.parseInt(cursor.getString(14));
-                profile._soundNotification = (cursor.getString(15).isEmpty()) ? Settings.System.DEFAULT_NOTIFICATION_URI.getPath(): cursor.getString(15);
+                profile._soundNotification = cursor.getString(15);
                 profile._soundAlarmChange = Integer.parseInt(cursor.getString(16));
-                profile._soundAlarm = (cursor.getString(17).isEmpty()) ? Settings.System.DEFAULT_ALARM_ALERT_URI.getPath(): cursor.getString(17);
+                profile._soundAlarm = cursor.getString(17);
                 profile._deviceAirplaneMode = Integer.parseInt(cursor.getString(18));
                 profile._deviceWiFi = Integer.parseInt(cursor.getString(19));
                 profile._deviceBluetooth = Integer.parseInt(cursor.getString(20));
