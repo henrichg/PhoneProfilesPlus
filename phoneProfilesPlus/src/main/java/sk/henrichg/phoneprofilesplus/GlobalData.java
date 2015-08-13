@@ -84,6 +84,7 @@ public class GlobalData extends Application {
                                          //"$$$ setEventsBlocked|"+
                                          //"$$$ restartEvents"
                                          //"$$$ WifiAP"
+            ""
             ;
 
 
