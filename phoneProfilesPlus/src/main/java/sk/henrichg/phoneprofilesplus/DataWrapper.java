@@ -1895,147 +1895,25 @@ public class DataWrapper {
 
         if (event._eventPreferencesSMS._enabled)
         {
+            // comute start time
+            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            long startTime = event._eventPreferencesSMS._startTime - gmtOffset;
 
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            //int smsEventType = preferences.getInt(GlobalData.PREF_EVENT_SMS_EVENT_TYPE, EventPreferencesSMS.SMS_EVENT_UNDEFINED);
-            String phoneNumber = preferences.getString(GlobalData.PREF_EVENT_SMS_PHONE_NUMBER, "");
-            long startTime = preferences.getLong(GlobalData.PREF_EVENT_SMS_DATE, 0);
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String alarmTimeS = sdf.format(startTime);
+            GlobalData.logE("DataWrapper.doEventService","startTime="+alarmTimeS);
 
-            boolean phoneNumberFinded = false;
+            // compute end datetime
+            long endAlarmTime = event._eventPreferencesSMS.computeAlarm();
+            alarmTimeS = sdf.format(endAlarmTime);
+            GlobalData.logE("DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
 
-            //GlobalData.logE("DataWrapper.doEventService","smsEventType="+smsEventType);
+            Calendar now = Calendar.getInstance();
+            long nowAlarmTime = now.getTimeInMillis();
+            alarmTimeS = sdf.format(nowAlarmTime);
+            GlobalData.logE("DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
 
-            //if (smsEventType != EventPreferencesSMS.SMS_EVENT_UNDEFINED)
-            //{
-                GlobalData.logE("DataWrapper.doEventService","phoneNumber="+phoneNumber);
-
-                // save sms date into event
-                if (event.getStatus() != Event.ESTATUS_RUNNING)
-                {
-                    event._eventPreferencesSMS._startTime = startTime;
-                    getDatabaseHandler().updateSMSStartTime(event);
-                }
-
-                // comute start time
-                int gmtOffset = TimeZone.getDefault().getRawOffset();
-                startTime = startTime - gmtOffset;
-
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String alarmTimeS = sdf.format(startTime);
-                GlobalData.logE("DataWrapper.doEventService","startTime="+alarmTimeS);
-
-                // compute end datetime
-                long endAlarmTime = event._eventPreferencesSMS.computeAlarm();
-                alarmTimeS = sdf.format(endAlarmTime);
-                GlobalData.logE("DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
-
-                Calendar now = Calendar.getInstance();
-                long nowAlarmTime = now.getTimeInMillis();
-                alarmTimeS = sdf.format(nowAlarmTime);
-                GlobalData.logE("DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
-
-                smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime <= endAlarmTime));
-
-                if (smsPassed)
-                {
-                    GlobalData.logE("DataWrapper.doEventService","start time passed");
-
-                    if (event._eventPreferencesSMS._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE)
-                    {
-                        // find phone number in groups
-                        String[] splits = event._eventPreferencesSMS._contactGroups.split("\\|");
-                        for (int i = 0; i < splits.length; i++) {
-                            String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
-                            String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
-                                                + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
-                                                + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
-                            String[] selectionArgs = new String[]{splits[i]};
-                            Cursor mCursor = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
-                            if (mCursor != null) {
-                                while (mCursor.moveToNext()) {
-                                    String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                                    String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
-                                    String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " +
-                                            ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER + "=1";
-                                    String[] selection2Args = new String[]{contactId};
-                                    Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                                    if (phones != null) {
-                                        while (phones.moveToNext()) {
-                                            String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                                phoneNumberFinded = true;
-                                                break;
-                                            }
-                                        }
-                                        phones.close();
-                                    }
-                                    if (phoneNumberFinded)
-                                        break;
-                                }
-                                mCursor.close();
-                            }
-                            if (phoneNumberFinded)
-                                break;
-                        }
-
-                        if (!phoneNumberFinded) {
-                            // find phone number in contacts
-                            splits = event._eventPreferencesSMS._contacts.split("\\|");
-                            for (int i = 0; i < splits.length; i++) {
-                                String[] splits2 = splits[i].split("#");
-
-                                // get phone number from contacts
-                                String[] projection = new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.HAS_PHONE_NUMBER};
-                                String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1' and " + ContactsContract.Contacts._ID + "=?";
-                                String[] selectionArgs = new String[]{splits2[0]};
-                                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
-                                if (mCursor != null) {
-                                    while (mCursor.moveToNext()) {
-                                        String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER};
-                                        String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
-                                        String[] selection2Args = new String[]{splits2[0], splits2[1]};
-                                        Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                                        if (phones != null) {
-                                            while (phones.moveToNext()) {
-                                                String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                                    phoneNumberFinded = true;
-                                                    break;
-                                                }
-                                            }
-                                            phones.close();
-                                        }
-                                        if (phoneNumberFinded)
-                                            break;
-                                    }
-                                    mCursor.close();
-                                }
-                                if (phoneNumberFinded)
-                                    break;
-                            }
-                        }
-
-                        if (event._eventPreferencesSMS._contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
-                            phoneNumberFinded = !phoneNumberFinded;
-                    }
-                    else
-                        phoneNumberFinded = true;
-
-                    if (phoneNumberFinded)
-                    {
-                        //if (event._eventPreferencesSMS._smsEvent == smsEventType)
-                        //{
-                            //eventStart = eventStart && true;
-                            smsPassed = true;
-                        //}
-                    }
-                    else
-                        smsPassed = false;
-                }
-
-            //}
-            //else
-            //	smsPassed = false;
+            smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime <= endAlarmTime));
         }
 
         if (event._eventPreferencesNotification._enabled)
@@ -2046,21 +1924,19 @@ public class DataWrapper {
 
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String alarmTimeS = sdf.format(startTime);
-            GlobalData.logE("[NE]DataWrapper.doEventService", "startTime=" + alarmTimeS);
+            GlobalData.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
 
             // compute end datetime
             long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
             alarmTimeS = sdf.format(endAlarmTime);
-            GlobalData.logE("[NE]DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
+            GlobalData.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
 
             Calendar now = Calendar.getInstance();
             long nowAlarmTime = now.getTimeInMillis();
             alarmTimeS = sdf.format(nowAlarmTime);
-            GlobalData.logE("[NE]DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
+            GlobalData.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
 
             notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime <= endAlarmTime));
-
-            GlobalData.logE("[NE]DataWrapper.doEventService", "notificationPassed=" + notificationPassed);
         }
 
         GlobalData.logE("DataWrapper.doEventService","timePassed="+timePassed);

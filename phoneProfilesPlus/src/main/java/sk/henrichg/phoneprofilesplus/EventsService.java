@@ -70,6 +70,23 @@ public class EventsService extends IntentService
                 }
             }
         }
+        if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+            // search for sms events, save start time
+            GlobalData.logE("EventsService.onHandleIntent","search for sms events");
+            for (Event _event : eventList)
+            {
+                if (_event.getStatus() != Event.ESTATUS_STOP)
+                {
+                    if (_event._eventPreferencesSMS._enabled)
+                    {
+                        GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                        _event._eventPreferencesSMS.saveStartTime(dataWrapper,
+                                intent.getStringExtra(GlobalData.EXTRA_EVENT_SMS_PHONE_NUMBER),
+                                intent.getLongExtra(GlobalData.EXTRA_EVENT_SMS_DATE, 0));
+                    }
+                }
+            }
+        }
         if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
             // search for notification events, save start time
             GlobalData.logE("EventsService.onHandleIntent","search for notification events");

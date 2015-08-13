@@ -37,7 +37,7 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = true;
+    private static boolean logIntoLogCat = false;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = //"@@@ BatteryEventBroadcastReceiver|"+
@@ -84,10 +84,6 @@ public class GlobalData extends Application {
                                          //"$$$ setEventsBlocked|"+
                                          //"$$$ restartEvents"
                                          //"$$$ WifiAP"
-                                         "PPNotificationListenerService|"+
-                                         "NotificationBroadcastReceiver|"+
-                                         "[NE]DataWrapper|"+
-                                         "EventPreferencesNotification"
             ;
 
 
@@ -109,6 +105,9 @@ public class GlobalData extends Application {
     static final String EXTRA_LINKUNLINK_VOLUMES = "link_unlink_volumes";
     static final String EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME = "event_notification_package_name";
     static final String EXTRA_EVENT_NOTIFICATION_TIME = "event_notification_time";
+    //static final String EXTRA_EVENT_SMS_EVENT_TYPE = "event_sms_event_type";
+    static final String EXTRA_EVENT_SMS_PHONE_NUMBER = "event_sms_phone_number";
+    static final String EXTRA_EVENT_SMS_DATE = "event_sms_date";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
@@ -282,9 +281,6 @@ public class GlobalData extends Application {
     static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
     static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";
     static final String PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN = "eventBluetoothEnabledForScan";
-    static final String PREF_EVENT_SMS_EVENT_TYPE = "eventSMSEventType";
-    static final String PREF_EVENT_SMS_PHONE_NUMBER = "eventSMSPhoneNumber";
-    static final String PREF_EVENT_SMS_DATE = "eventSMSDate";
     static final String PREF_EVENT_WIFI_LAST_STATE = "eventWifiLastState";
     static final String PREF_EVENT_BLUETOOTH_LAST_STATE = "eventBluetoothLastState";
 

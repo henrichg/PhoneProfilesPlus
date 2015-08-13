@@ -86,23 +86,15 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
             GlobalData.logE("SMSBroadcastReceiver.onReceive","from="+origin);
             //GlobalData.logE("SMSBroadcastReceiver.onReceive","message="+body);
 
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            Editor editor = preferences.edit();
-            //editor.putInt(GlobalData.PREF_EVENT_SMS_EVENT_TYPE, EventPreferencesSMS.SMS_EVENT_INCOMING);
-            editor.putString(GlobalData.PREF_EVENT_SMS_PHONE_NUMBER, origin);
-
             Calendar now = Calendar.getInstance();
             int gmtOffset = TimeZone.getDefault().getRawOffset();
             long time = now.getTimeInMillis() + gmtOffset;
-            editor.putLong(GlobalData.PREF_EVENT_SMS_DATE, time);
 
-            editor.commit();
-
-            startService(context);
+            startService(context, origin, time);
         }
     }
 
-    private static void startService(Context context)
+    private static void startService(Context context, String origin, long time)
     {
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -126,6 +118,8 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
+                eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_SMS_DATE, time);
                 startWakefulService(context, eventsServiceIntent);
             }
         }

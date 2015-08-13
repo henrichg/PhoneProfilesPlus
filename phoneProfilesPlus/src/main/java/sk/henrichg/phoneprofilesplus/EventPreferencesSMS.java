@@ -8,9 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
+import android.telephony.PhoneNumberUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -247,7 +250,7 @@ public class EventPreferencesSMS extends EventPreferences {
     {
         removeAlarm(context);
 
-        GlobalData.logE("EventPreferencesSMS.removeSystemEvent","xxx");
+        GlobalData.logE("EventPreferencesSMS.removeSystemEvent", "xxx");
     }
 
     public void removeAlarm(Context context)
@@ -288,6 +291,97 @@ public class EventPreferencesSMS extends EventPreferences {
         //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
         //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
 
+    }
+
+    public void saveStartTime(DataWrapper dataWrapper, String phoneNumber, long startTime) {
+        boolean phoneNumberFinded = false;
+
+        if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE)
+        {
+            // find phone number in groups
+            String[] splits = this._contactGroups.split("\\|");
+            for (int i = 0; i < splits.length; i++) {
+                String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
+                String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
+                        + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
+                        + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
+                String[] selectionArgs = new String[]{splits[i]};
+                Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
+                if (mCursor != null) {
+                    while (mCursor.moveToNext()) {
+                        String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                        String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
+                        String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " +
+                                ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER + "=1";
+                        String[] selection2Args = new String[]{contactId};
+                        Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                        if (phones != null) {
+                            while (phones.moveToNext()) {
+                                String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                    phoneNumberFinded = true;
+                                    break;
+                                }
+                            }
+                            phones.close();
+                        }
+                        if (phoneNumberFinded)
+                            break;
+                    }
+                    mCursor.close();
+                }
+                if (phoneNumberFinded)
+                    break;
+            }
+
+            if (!phoneNumberFinded) {
+                // find phone number in contacts
+                splits = this._contacts.split("\\|");
+                for (int i = 0; i < splits.length; i++) {
+                    String[] splits2 = splits[i].split("#");
+
+                    // get phone number from contacts
+                    String[] projection = new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.HAS_PHONE_NUMBER};
+                    String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1' and " + ContactsContract.Contacts._ID + "=?";
+                    String[] selectionArgs = new String[]{splits2[0]};
+                    Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
+                    if (mCursor != null) {
+                        while (mCursor.moveToNext()) {
+                            String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER};
+                            String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
+                            String[] selection2Args = new String[]{splits2[0], splits2[1]};
+                            Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                            if (phones != null) {
+                                while (phones.moveToNext()) {
+                                    String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                        phoneNumberFinded = true;
+                                        break;
+                                    }
+                                }
+                                phones.close();
+                            }
+                            if (phoneNumberFinded)
+                                break;
+                        }
+                        mCursor.close();
+                    }
+                    if (phoneNumberFinded)
+                        break;
+                }
+            }
+
+            if (this._contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
+                phoneNumberFinded = !phoneNumberFinded;
+        }
+        else
+            phoneNumberFinded = true;
+
+        if (phoneNumberFinded)
+        {
+            this._startTime = startTime;
+            dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
+        }
     }
 
 }
