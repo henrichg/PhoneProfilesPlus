@@ -46,6 +46,7 @@ public class Event {
     public EventPreferencesScreen _eventPreferencesScreen;
     public EventPreferencesBluetooth _eventPreferencesBluetooth;
     public EventPreferencesSMS _eventPreferencesSMS;
+    public EventPreferencesNotification _eventPreferencesNotification;
 
     public static final int ESTATUS_STOP = 0;
     public static final int ESTATUS_PAUSE = 1;
@@ -224,6 +225,11 @@ public class Event {
         this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0, 5);
     }
 
+    private void createEventPreferencesNotification()
+    {
+        this._eventPreferencesNotification = new EventPreferencesNotification(this, false, "", 5);
+    }
+
     public void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -235,6 +241,7 @@ public class Event {
         createEventPreferencesScreen();
         createEventPreferencesBluetooth();
         createEventPreferencesSMS();
+        createEventPreferencesNotification();
     }
 
     public void copyEventPreferences(Event fromEvent)
@@ -257,6 +264,8 @@ public class Event {
             createEventPreferencesBluetooth();
         if (this._eventPreferencesSMS == null)
             createEventPreferencesSMS();
+        if (this._eventPreferencesNotification == null)
+            createEventPreferencesNotification();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -266,6 +275,7 @@ public class Event {
         this._eventPreferencesScreen.copyPreferences(fromEvent);
         this._eventPreferencesBluetooth.copyPreferences(fromEvent);
         this._eventPreferencesSMS.copyPreferences(fromEvent);
+        this._eventPreferencesNotification.copyPreferences(fromEvent);
     }
 
     public boolean isRunnable()
@@ -279,7 +289,8 @@ public class Event {
               this._eventPreferencesWifi._enabled ||
               this._eventPreferencesScreen._enabled ||
               this._eventPreferencesBluetooth._enabled ||
-              this._eventPreferencesSMS._enabled))
+              this._eventPreferencesSMS._enabled ||
+              this._eventPreferencesNotification._enabled))
             runnable = false;
         if (this._eventPreferencesTime._enabled)
             runnable = runnable && this._eventPreferencesTime.isRunable();
@@ -299,6 +310,8 @@ public class Event {
             runnable = runnable && this._eventPreferencesBluetooth.isRunable();
         if (this._eventPreferencesSMS._enabled)
             runnable = runnable && this._eventPreferencesSMS.isRunable();
+        if (this._eventPreferencesNotification._enabled)
+            runnable = runnable && this._eventPreferencesNotification.isRunable();
         return runnable;
     }
 
@@ -326,6 +339,7 @@ public class Event {
         this._eventPreferencesScreen.loadSharedPreferences(preferences);
         this._eventPreferencesBluetooth.loadSharedPreferences(preferences);
         this._eventPreferencesSMS.loadSharedPreferences(preferences);
+        this._eventPreferencesNotification.loadSharedPreferences(preferences);
         editor.commit();
     }
 
@@ -359,6 +373,7 @@ public class Event {
         this._eventPreferencesScreen.saveSharedPreferences(preferences);
         this._eventPreferencesBluetooth.saveSharedPreferences(preferences);
         this._eventPreferencesSMS.saveSharedPreferences(preferences);
+        this._eventPreferencesNotification.saveSharedPreferences(preferences);
 
         if (!this.isRunnable())
             this._status = ESTATUS_STOP;
@@ -444,6 +459,7 @@ public class Event {
         _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
         _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
         _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesNotification.setSummary(prefMng, key, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, Context context) {
@@ -469,6 +485,7 @@ public class Event {
         _eventPreferencesScreen.setAllSummary(prefMng, context);
         _eventPreferencesBluetooth.setAllSummary(prefMng, context);
         _eventPreferencesSMS.setAllSummary(prefMng, context);
+        _eventPreferencesNotification.setAllSummary(prefMng, context);
     }
 
     public String getPreferencesDescription(Context context)
@@ -503,6 +520,9 @@ public class Event {
         if (_eventPreferencesScreen._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesScreen.getPreferencesDescription(context);
 
+        if (_eventPreferencesNotification._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
+        description = description + _eventPreferencesNotification.getPreferencesDescription(context);
+
         //description = description.replace(' ', '\u00A0');
 
         return description;
@@ -531,6 +551,8 @@ public class Event {
             canActivate = canActivate || this._eventPreferencesBluetooth.activateReturnProfile();
         if (this._eventPreferencesSMS._enabled)
             canActivate = canActivate || this._eventPreferencesSMS.activateReturnProfile();
+        if (this._eventPreferencesNotification._enabled)
+            canActivate = canActivate || this._eventPreferencesNotification.activateReturnProfile();
 
         return canActivate;
         */
@@ -1044,6 +1066,7 @@ public class Event {
             _eventPreferencesScreen.setSystemRunningEvent(context);
             _eventPreferencesBluetooth.setSystemRunningEvent(context);
             _eventPreferencesSMS.setSystemRunningEvent(context);
+            _eventPreferencesNotification.setSystemRunningEvent(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -1059,6 +1082,7 @@ public class Event {
             _eventPreferencesScreen.setSystemPauseEvent(context);
             _eventPreferencesBluetooth.setSystemPauseEvent(context);
             _eventPreferencesSMS.setSystemPauseEvent(context);
+            _eventPreferencesNotification.setSystemPauseEvent(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -1074,6 +1098,7 @@ public class Event {
             _eventPreferencesScreen.removeSystemEvent(context);
             _eventPreferencesBluetooth.removeSystemEvent(context);
             _eventPreferencesSMS.removeSystemEvent(context);
+            _eventPreferencesNotification.removeSystemEvent(context);
         }
     }
 

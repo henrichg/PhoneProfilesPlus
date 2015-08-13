@@ -484,7 +484,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".EventsSMSBroadcastReceiver"
+            android:name=".SMSEventEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false" >
         </receiver>
@@ -550,6 +550,16 @@
             <intent-filter>
                 <action android:name="android.media.RINGER_MODE_CHANGED" />
             </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".NotificationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
+        <receiver
+            android:name=".NotificationEventEndBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
         </receiver>
 
     </application>

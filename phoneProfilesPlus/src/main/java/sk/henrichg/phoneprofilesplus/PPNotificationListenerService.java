@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
 import android.provider.Settings;
@@ -13,6 +14,10 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class PPNotificationListenerService extends NotificationListenerService {
@@ -48,6 +53,27 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         //Log.e(TAG, "**********  onNotificationPosted");
         //Log.e(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
+
+        Context context = getApplicationContext();
+
+        if (sbn.getPackageName().equals(context.getPackageName()))
+            return;
+
+        GlobalData.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
+
+        GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
+        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+        String alarmTimeS = sdf.format(sbn.getPostTime());
+        GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
+
+        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        long time = sbn.getPostTime() + gmtOffset;
+
+        Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
+        intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
+        intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, time);
+        context.sendBroadcast(intent);
+
     }
 
     @Override

@@ -254,7 +254,7 @@ public class EventPreferencesSMS extends EventPreferences {
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-        Intent intent = new Intent(context, EventsSMSBroadcastReceiver.class);
+        Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
@@ -273,7 +273,7 @@ public class EventPreferencesSMS extends EventPreferences {
         String result = sdf.format(alarmTime);
         GlobalData.logE("EventPreferencesSMS.setAlarm","endTime="+result);
 
-        Intent intent = new Intent(context, EventsSMSBroadcastReceiver.class);
+        Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
         intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
@@ -1317,14 +1318,14 @@ public class DataWrapper {
 
     @SuppressWarnings("deprecation")
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
-    public boolean doEventService(Event event, boolean statePause,
+    public boolean doEventService(Intent intent, Event event, boolean statePause,
                                     boolean restartEvent, boolean interactive,
                                     boolean forDelayAlarm, boolean reactivate,
                                     Profile mergedProfile)
     {
         int newEventStatus = Event.ESTATUS_NONE;
 
-        boolean eventStart = true;
+        //boolean eventStart = true;
 
         boolean timePassed = true;
         boolean batteryPassed = true;
@@ -1335,6 +1336,7 @@ public class DataWrapper {
         boolean screenPassed = true;
         boolean bluetoothPassed = true;
         boolean smsPassed = true;
+        boolean notificationPassed = true;
 
         boolean isCharging = false;
         float batteryPct = 100.0f;
@@ -1380,7 +1382,7 @@ public class DataWrapper {
 
             timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime <= endAlarmTime));
 
-            eventStart = eventStart && timePassed;
+            //eventStart = eventStart && timePassed;
         }
 
         if (event._eventPreferencesBattery._enabled)
@@ -1410,12 +1412,12 @@ public class DataWrapper {
                     if ((batteryPct >= (event._eventPreferencesBattery._levelLow / (float)100)) &&
                         (batteryPct <= (event._eventPreferencesBattery._levelHight / (float)100)))
                     {
-                        eventStart = eventStart && true;
+                        //eventStart = eventStart && true;
                     }
                     else
                     {
                         batteryPassed = false;
-                        eventStart = eventStart && false;
+                        //eventStart = eventStart && false;
                     }
                 }
             }
@@ -1525,7 +1527,7 @@ public class DataWrapper {
                     {
                         if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
                             ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)))
-                            eventStart = eventStart && true;
+                            ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
                     }
@@ -1533,7 +1535,7 @@ public class DataWrapper {
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)
                     {
                         if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)
-                            eventStart = eventStart && true;
+                            ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
                     }
@@ -1541,7 +1543,7 @@ public class DataWrapper {
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)
                     {
                         if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)
-                            eventStart = eventStart && true;
+                            ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
                     }
@@ -1549,8 +1551,9 @@ public class DataWrapper {
                     if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
                         (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED))
                     {
-                        callPassed = true;
-                        eventStart = eventStart && false;
+                        //callPassed = true;
+                        //eventStart = eventStart && false;
+                        callPassed = false;
                         Editor editor = preferences.edit();
                         editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                         editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
@@ -1602,7 +1605,7 @@ public class DataWrapper {
                 }
                 else
                     peripheralPassed = false;
-                eventStart = eventStart && peripheralPassed;
+                //eventStart = eventStart && peripheralPassed;
             }
             else
             if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_WIRED_HEADSET) ||
@@ -1632,7 +1635,7 @@ public class DataWrapper {
                 }
                 else
                     peripheralPassed = false;
-                eventStart = eventStart && peripheralPassed;
+                //eventStart = eventStart && peripheralPassed;
             }
         }
 
@@ -1678,7 +1681,7 @@ public class DataWrapper {
             else
                 calendarPassed = false;
 
-            eventStart = eventStart && calendarPassed;
+            //eventStart = eventStart && calendarPassed;
         }
 
         if (event._eventPreferencesWifi._enabled)
@@ -1767,7 +1770,7 @@ public class DataWrapper {
                 }
             }
 
-            eventStart = eventStart && wifiPassed;
+            //eventStart = eventStart && wifiPassed;
         }
 
         if (event._eventPreferencesScreen._enabled)
@@ -1809,7 +1812,7 @@ public class DataWrapper {
                     screenPassed = !isScreenOn;
             }
 
-            eventStart = eventStart && screenPassed;
+            //eventStart = eventStart && screenPassed;
         }
 
         if (event._eventPreferencesBluetooth._enabled)
@@ -1887,7 +1890,7 @@ public class DataWrapper {
                 }
             }
 
-            eventStart = eventStart && bluetoothPassed;
+            //eventStart = eventStart && bluetoothPassed;
         }
 
         if (event._eventPreferencesSMS._enabled)
@@ -1910,7 +1913,7 @@ public class DataWrapper {
                 if (event.getStatus() != Event.ESTATUS_RUNNING)
                 {
                     event._eventPreferencesSMS._startTime = startTime;
-                    getDatabaseHandler().updateSMSStartTimes(event);
+                    getDatabaseHandler().updateSMSStartTime(event);
                 }
 
                 // comute start time
@@ -2022,7 +2025,7 @@ public class DataWrapper {
                     {
                         //if (event._eventPreferencesSMS._smsEvent == smsEventType)
                         //{
-                            eventStart = eventStart && true;
+                            //eventStart = eventStart && true;
                             smsPassed = true;
                         //}
                     }
@@ -2035,6 +2038,31 @@ public class DataWrapper {
             //	smsPassed = false;
         }
 
+        if (event._eventPreferencesNotification._enabled)
+        {
+            // comute start time
+            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
+
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String alarmTimeS = sdf.format(startTime);
+            GlobalData.logE("[NE]DataWrapper.doEventService", "startTime=" + alarmTimeS);
+
+            // compute end datetime
+            long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
+            alarmTimeS = sdf.format(endAlarmTime);
+            GlobalData.logE("[NE]DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
+
+            Calendar now = Calendar.getInstance();
+            long nowAlarmTime = now.getTimeInMillis();
+            alarmTimeS = sdf.format(nowAlarmTime);
+            GlobalData.logE("[NE]DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
+
+            notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime <= endAlarmTime));
+
+            GlobalData.logE("[NE]DataWrapper.doEventService", "notificationPassed=" + notificationPassed);
+        }
+
         GlobalData.logE("DataWrapper.doEventService","timePassed="+timePassed);
         GlobalData.logE("DataWrapper.doEventService","batteryPassed="+batteryPassed);
         GlobalData.logE("DataWrapper.doEventService","callPassed="+callPassed);
@@ -2044,8 +2072,9 @@ public class DataWrapper {
         GlobalData.logE("DataWrapper.doEventService","screenPassed="+screenPassed);
         GlobalData.logE("DataWrapper.doEventService","bluetoothPassed="+bluetoothPassed);
         GlobalData.logE("DataWrapper.doEventService","smsPassed="+smsPassed);
+        GlobalData.logE("DataWrapper.doEventService","notificationPassed="+notificationPassed);
 
-        GlobalData.logE("DataWrapper.doEventService","eventStart="+eventStart);
+        //GlobalData.logE("DataWrapper.doEventService","eventStart="+eventStart);
         GlobalData.logE("DataWrapper.doEventService","restartEvent="+restartEvent);
         GlobalData.logE("DataWrapper.doEventService","statePause="+statePause);
 
@@ -2059,14 +2088,15 @@ public class DataWrapper {
             wifiPassed &&
             screenPassed &&
             bluetoothPassed &&
-            smsPassed)
+            smsPassed &&
+            notificationPassed)
         {
             // podmienky sedia, vykoname, co treba
 
-            if (eventStart)
+            //if (eventStart)
                 newEventStatus = Event.ESTATUS_RUNNING;
-            else
-                newEventStatus = Event.ESTATUS_PAUSE;
+            //else
+            //    newEventStatus = Event.ESTATUS_PAUSE;
 
         }
         else
@@ -2130,7 +2160,8 @@ public class DataWrapper {
                 wifiPassed &&
                 screenPassed &&
                 bluetoothPassed &&
-                smsPassed);
+                smsPassed &&
+                notificationPassed);
     }
 
     public void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile)

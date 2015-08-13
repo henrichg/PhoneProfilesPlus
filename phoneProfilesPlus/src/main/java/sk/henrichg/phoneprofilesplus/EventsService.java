@@ -70,6 +70,23 @@ public class EventsService extends IntentService
                 }
             }
         }
+        if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+            // search for notification events, save start time
+            GlobalData.logE("EventsService.onHandleIntent","search for notification events");
+            for (Event _event : eventList)
+            {
+                if (_event.getStatus() != Event.ESTATUS_STOP)
+                {
+                    if (_event._eventPreferencesNotification._enabled)
+                    {
+                        GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                        _event._eventPreferencesNotification.saveStartTime(dataWrapper,
+                                intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
+                                intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));
+                    }
+                }
+            }
+        }
 
         boolean isRestart = (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)/* ||
                              broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
@@ -113,7 +130,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj aj ked uz je zapauznuty
-                    dataWrapper.doEventService(_event, true, true, interactive, forDelayAlarm, true, mergedProfile);
+                    dataWrapper.doEventService(intent, _event, true, true, interactive, forDelayAlarm, true, mergedProfile);
             }
             // 2. start events
             dataWrapper.sortEventsByPriorityAsc();
@@ -126,7 +143,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
                     // spustaj len ak este nebezi
-                    dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm, true, mergedProfile);
+                    dataWrapper.doEventService(intent, _event, false, false, interactive, forDelayAlarm, true, mergedProfile);
             }
         }
         else
@@ -146,7 +163,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj len ak este nie je zapauznuty
-                    dataWrapper.doEventService(_event, true, false, interactive, forDelayAlarm, false, mergedProfile);
+                    dataWrapper.doEventService(intent, _event, true, false, interactive, forDelayAlarm, false, mergedProfile);
             }
             //2. start events
             dataWrapper.sortEventsByPriorityAsc();
@@ -159,7 +176,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
                     // spustaj len ak este nebezi
-                    dataWrapper.doEventService(_event, false, false, interactive, forDelayAlarm, false, mergedProfile);
+                    dataWrapper.doEventService(intent, _event, false, false, interactive, forDelayAlarm, false, mergedProfile);
             }
         }
 

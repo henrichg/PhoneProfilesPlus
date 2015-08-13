@@ -777,37 +777,15 @@ Oddelenie zvonenia a notifikacii:
 --------------------------------------------------------------------
 
 Startery:
-- Su to vlastne parametry udalosti, ktorim sa neda urcit koniec udalosti.
-- Typickym prikladom je SMS, notifikacie, NFC tagy
-
-- SMS uz su naiplementovane, koniec sa simuluje tak, ze sa generuje alarm 5 sekund od zachytenia sms
-- SMS sa odchytava cez broadcast receiver na
-  - action: android.provider.Telephony.SMS_RECEIVED -> SMSky
-  - action: android.provider.Telephony.WAP_PUSH_RECEIVED, action data: application/vnd.wap.mms-message - MMSky
-- po odchyteni sa zapisuje do sharedPreference PREF_EVENT_SMS_PHONE_NUMBER telefone cislo a
-  do PREF_EVENT_SMS_DATE cas prijatia SMS/MMS
-- samozrejme hned sa spusti service EventsService
-- start udalosti je cas prijimu sms
-- koniec udalost je cas prijimu sms + 5 sekund
-- start time sa zapise do eventu (aj do db), ale len ak udalost nebezi
-- pohlada sa v evente, ci tel. cislo sms je v skupinach alebo kontaktoch udalosti (alebo ci nie je - black list)
-- event je passed ak je aktualny cas medzi start a end time a plat to o tel. cisle
-
-- Problemom s SMS je v tom, ze tel. cislo a cas prijimu su globalne premenne
-- Cize pocas trvania udalosti (5 sekund), ak pride nova sms, sa predtym spustena udalost sa zastavi, teda ak
-  nesedi tel. cislo
-- Treba vyriesit, aby uz spustena udalost bezala tych 5 sekund, ked uz bola spustena
-- Zaroven by bolo super, keby sa dalo nastavit trvanie, aby to nebolo natvrdo 5 sekund
-
-- Pridajme: Nastavenie trvania uzivatelom
-- Pridajme: zapis tel. cisla prichodzej sms do udalosti, nie do sharedPreferences
-
-- Zapamatanie tel cisla, casu prijatia premiestnit do broadcastu
-- v doEventService potom uz len testovat cas a tel. cislo, ktore budu zapisane v udalosti
-
-- Dalsie spustace robit potom tak ako budu SMS:
-  - Notifikacie: package name notifikacie + cas notifikacie + trvanie
-  - NFC tagy: identifikator tagu + cas notifikacie + trvanie
+- pride udalost, napr SMS alebo notifikacia
+- zavolat EventsService
+  - pre SMS zavolat z SMSBroadcastReceiver - do intentu dat kontakt a cas
+  - pre notifikace zavolat z NotificationBroadcastReceiver - do intentu dat package a cas
+- v EventsService prechadzat vsetky eventy
+  - ak ma event zapnute smsky, a kontankt sedi, zapisat do eventu cas
+  - ak ma event zapnute notifikacie a package sedi, zapisat do eventu cas
+- potom standardne spustat eventy
+- v doEventService sa vezme startTime eventu prida sa duration a zisti sa ci je aktualny cas v rozsahu
 
 --------------------------------------------------------------------
 

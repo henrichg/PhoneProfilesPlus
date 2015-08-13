@@ -332,7 +332,8 @@
             android:key="eventScreenEnabled"
             android:title="@string/event_preferences_screen_enabled"
             android:defaultValue="false" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_screen_event_type"
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/event_preferences_screen_event_type"
             android:summary="@string/array_event_pref_eventScreenEventType_screenOff"
             android:key="eventScreenEventType"
             android:defaultValue="1"
@@ -345,4 +346,25 @@
             android:defaultValue="false"
             android:dependency="eventScreenEnabled" />
     </PreferenceCategory>
-</PreferenceScreen>    
+    <PreferenceCategory
+        android:summary="@string/event_preferences_category_eventNotificationsParameters"
+        android:title="@string/event_preferences_category_eventNotificationsParameters" >
+        <CheckBoxPreference
+            android:key="eventNotificationEnabled"
+            android:title="@string/event_preferences_notifications_enabled"
+            android:defaultValue="false" />
+        <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
+            android:defaultValue="-"
+            android:key="eventNotificationApplications"
+            android:title="@string/event_preferences_notifications_applications"
+            android:dependency="eventNotificationEnabled" />
+        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="eventNotificationDuration"
+            android:summary="@string/event_preferences_duration"
+            android:title="@string/event_preferences_duration"
+            android:defaultValue="5"
+            henrichg:min="5"
+            henrichg:max="68400"
+            android:dependency="eventNotificationEnabled" />
+    </PreferenceCategory>
+</PreferenceScreen>
