@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
@@ -2069,7 +2070,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             " FROM " + TABLE_PROFILES;
         final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                                         KEY_E_WIFI_ENABLED + "," +
-                                        KEY_E_BLUETOOTH_ENABLED +
+                                        KEY_E_BLUETOOTH_ENABLED + "," +
+                                        KEY_E_NOTIFICATION_ENABLED +
                             " FROM " + TABLE_EVENTS;
 
         //SQLiteDatabase db = this.getWritableDatabase();
@@ -2193,6 +2195,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.HARDWARE_CHECK_NOT_ALLOWED))
                         {
                             values.put(KEY_E_BLUETOOTH_ENABLED, 0);
+                            db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                        }
+                        if ((Integer.parseInt(cursor.getString(3)) != 0) &&
+                                (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2))
+                        {
+                            values.put(KEY_E_NOTIFICATION_ENABLED, 0);
                             db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
                                     new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                         }

@@ -102,6 +102,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         if (bluetooth == null)
             bluetooth = BluetoothAdapter.getDefaultAdapter();
+        if (bluetooth == null)
+            return;
 
         unlock();
 

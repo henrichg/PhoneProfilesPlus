@@ -54,19 +54,23 @@ public class EventPreferencesNotification extends EventPreferences {
     @Override
     public void loadSharedPreferences(SharedPreferences preferences)
     {
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_EVENT_NOTIFICATION_ENABLED, _enabled);
-        editor.putString(PREF_EVENT_NOTIFICATION_APPLICATIONS, this._applications);
-        editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
-        editor.commit();
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Editor editor = preferences.edit();
+            editor.putBoolean(PREF_EVENT_NOTIFICATION_ENABLED, _enabled);
+            editor.putString(PREF_EVENT_NOTIFICATION_APPLICATIONS, this._applications);
+            editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
+            editor.commit();
+        }
     }
 
     @Override
     public void saveSharedPreferences(SharedPreferences preferences)
     {
-        this._enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
-        this._applications = preferences.getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "");
-        this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            this._enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
+            this._applications = preferences.getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "");
+            this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
+        }
     }
 
     @Override
@@ -91,18 +95,19 @@ public class EventPreferencesNotification extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS))
-        {
-            Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, false, true);
-        }
-        if (key.equals(PREF_EVENT_NOTIFICATION_DURATION)) {
-            Preference preference = prefMng.findPreference(key);
-            String sValue = value.toString();
-            //int iValue = 0;
-            //if (!sValue.isEmpty())
-            //    iValue = Integer.valueOf(sValue);
-            preference.setSummary(sValue);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)) {
+                Preference preference = prefMng.findPreference(key);
+                GUIData.setPreferenceTitleStyle(preference, false, true);
+            }
+            if (key.equals(PREF_EVENT_NOTIFICATION_DURATION)) {
+                Preference preference = prefMng.findPreference(key);
+                String sValue = value.toString();
+                //int iValue = 0;
+                //if (!sValue.isEmpty())
+                //    iValue = Integer.valueOf(sValue);
+                preference.setSummary(sValue);
+            }
         }
     }
 
