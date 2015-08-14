@@ -381,6 +381,8 @@ public class EventPreferencesSMS extends EventPreferences {
         {
             this._startTime = startTime;
             dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
+            if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                setSystemPauseEvent(dataWrapper.context);
         }
     }
 
