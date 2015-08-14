@@ -268,6 +268,8 @@ public class EventPreferencesNotification extends EventPreferences {
             if (packageName.equals(splits[i])) {
                 _event._eventPreferencesNotification._startTime = startTime;
                 dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+                if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                    setSystemPauseEvent(dataWrapper.context);
                 break;
             }
         }
