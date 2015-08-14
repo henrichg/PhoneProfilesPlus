@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus" >
+                  xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
+    android:key="eventPreferenceScreen" >
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventidentification"
         android:title="@string/event_preferences_category_eventidentification" >
@@ -347,12 +348,19 @@
             android:dependency="eventScreenEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:key="eventNotificationCategory"
         android:summary="@string/event_preferences_category_eventNotificationsParameters"
         android:title="@string/event_preferences_category_eventNotificationsParameters" >
         <CheckBoxPreference
             android:key="eventNotificationEnabled"
             android:title="@string/event_preferences_notifications_enabled"
             android:defaultValue="false" />
+        <PreferenceScreen
+            android:key="eventNotificationNotificationsAccessSettings"
+            android:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+            android:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary"
+            android:dependency="eventNotificationEnabled" >
+        </PreferenceScreen>
         <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
             android:defaultValue="-"
             android:key="eventNotificationApplications"

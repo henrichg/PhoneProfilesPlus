@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
@@ -26,6 +27,9 @@ import java.util.List;
 public class EventPreferencesFragment extends PreferenceFragment 
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
+    static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
+    static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
+
     private DataWrapper dataWrapper;
     private Event event;
     public long event_id;
@@ -220,6 +224,16 @@ public class EventPreferencesFragment extends PreferenceFragment
         RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
         notificationSoundPreference.setEnabled(GlobalData.notificationStatusBar);
 
+        Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
+        notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                return false;
+            }
+        });
+
         event._eventPreferencesTime.checkPreferences(prefMng, context);
         event._eventPreferencesBattery.checkPreferences(prefMng, context);
         event._eventPreferencesCall.checkPreferences(prefMng, context);
@@ -229,6 +243,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         event._eventPreferencesScreen.checkPreferences(prefMng, context);
         event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
         event._eventPreferencesSMS.checkPreferences(prefMng, context);
+        event._eventPreferencesNotification.checkPreferences(prefMng, context);
 
         preferences.registerOnSharedPreferenceChangeListener(this);  
         
@@ -294,6 +309,9 @@ public class EventPreferencesFragment extends PreferenceFragment
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
+            event._eventPreferencesNotification.checkPreferences(prefMng, context);
+        }
     }
 
     @Override

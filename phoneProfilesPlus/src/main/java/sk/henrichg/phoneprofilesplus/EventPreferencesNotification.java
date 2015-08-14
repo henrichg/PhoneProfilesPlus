@@ -8,8 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -129,6 +132,23 @@ public class EventPreferencesNotification extends EventPreferences {
         runable = runable && (!_applications.isEmpty());
 
         return runable;
+    }
+
+    @Override
+    public void checkPreferences(PreferenceManager prefMng, Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            final boolean enabled =
+                    PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
+            Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
+            Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
+            applicationsPreference.setEnabled(enabled);
+            durationPreference.setEnabled(enabled);
+        }
+        else {
+            PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
+            PreferenceCategory preferenceCategory = (PreferenceCategory) prefMng.findPreference("eventNotificationCategory");
+            preferenceScreen.removePreference(preferenceCategory);
+        }
     }
 
     @Override
