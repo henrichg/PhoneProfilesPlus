@@ -134,11 +134,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     {
         DataWrapper dataWrapper = new DataWrapper(savedContext, false, false, 0);
 
-        if (incoming)
-            doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
-        else
-            doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber, dataWrapper);
-
         Profile profile = dataWrapper.getActivatedProfile();
         profile = GlobalData.getMappedProfile(profile, savedContext);
 
@@ -173,6 +168,11 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
             }
         }
+
+        if (incoming)
+            doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
+        else
+            doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber, dataWrapper);
 
         dataWrapper.invalidateDataWrapper();
     }
