@@ -28,6 +28,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     @SuppressWarnings("deprecation")
     public static void setRingerMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
+        Log.e("RingerModeChangeReceiver.setRingerMode","ringerMode="+ringerMode);
 
         int vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
         int vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
