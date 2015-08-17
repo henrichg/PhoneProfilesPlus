@@ -543,4 +543,9 @@
   <string name="pref_event_duration">Duration</string>
   <string name="applications_multiselect_summary_text_selected">Selected</string>
   <string name="applications_multiselect_summary_text_not_selected">Not selected</string>
+  <string name="event_type_notifications">Notifications</string>
+  <string name="event_preferences_category_eventNotificationsParameters">Notifications parameters</string>
+  <string name="event_preferences_notifications_enabled">Enable notifications</string>
+  <string name="event_preferences_notifications_applications">Applications</string>
+  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling Notification parameters.</string>
 </resources>

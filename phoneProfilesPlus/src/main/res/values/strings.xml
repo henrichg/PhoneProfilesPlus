@@ -548,5 +548,5 @@
   <string name="event_preferences_category_eventNotificationsParameters">Notifications parameters</string>
   <string name="event_preferences_notifications_enabled">Enable notifications</string>
   <string name="event_preferences_notifications_applications">Applications</string>
-  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling Notification event preferences.</string>
+  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling Notification parameters.</string>
 </resources>
