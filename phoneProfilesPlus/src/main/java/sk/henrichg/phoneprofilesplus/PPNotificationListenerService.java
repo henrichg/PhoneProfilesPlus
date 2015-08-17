@@ -125,26 +125,35 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
 
         internalChange = false;
+    }
 
-        /*
-        if (interruptionFilter == NotificationListenerService.INTERRUPTION_FILTER_ALL) {
-            final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-            SettingsContentObserver.internalChange = true;
-            //audioManager.setStreamVolume(AudioManager.STREAM_ALARM,  1, 0);
-            //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-            audioManager.setStreamMute(AudioManager.STREAM_ALARM, false);
-            audioManager.setStreamMute(AudioManager.STREAM_RING, false);
-            audioManager.setStreamMute(AudioManager.STREAM_MUSIC, false);
-            audioManager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-            audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, false);
+    public static void setZenMode(Context context, AudioManager audioManager) {
+        int ringerMode = audioManager.getRingerMode();
 
-            audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, 6, 0);
-            audioManager.setStreamVolume(AudioManager.STREAM_RING, 6, 0);
-            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 6, 0);
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 6, 0);
-            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 6, 0);
+        // convert to profile zenMode
+        int zenMode = 0;
+        int interruptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
+        switch (interruptionFilter) {
+            case ActivateProfileHelper.ZENMODE_ALL:
+                if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
+                    zenMode = 4;
+                else
+                    zenMode = 1;
+                break;
+            case ActivateProfileHelper.ZENMODE_PRIORITY:
+                if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
+                    zenMode = 5;
+                else
+                    zenMode = 2;
+                break;
+            case ActivateProfileHelper.ZENMODE_NONE:
+                zenMode = 3;
+                break;
+            case 3: // new filter - Alarm only - Android M
+                break;
         }
-        */
+        if (zenMode != 0)
+            GlobalData.setZenMode(context, zenMode);
     }
 
     public static boolean isNotificationListenerServiceEnabled(Context context) {
