@@ -65,7 +65,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 if (profile != null) {
                     if (eventType == CALL_EVENT_INCOMING_CALL_ENDED) {
                         try {
-                            Thread.sleep(500); // Delay 0.5 seconds for mode changed to MODE_NORMAL
+                            Thread.sleep(1000); // Delay 0.5 seconds for mode changed to MODE_NORMAL
                         } catch (InterruptedException e) {
                         }
                         /*
@@ -94,7 +94,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         {
             if (wait || (eventType == CALL_EVENT_INCOMING_CALL_ENDED)) {
                 try {
-                    Thread.sleep(500); // // Delay 0.5 seconds for ExecuteVolumeProfilePrefsService or mode changed to MODE_NORMAL
+                    Thread.sleep(1000); // // Delay 0.5 seconds for ExecuteVolumeProfilePrefsService or mode changed to MODE_NORMAL
                 } catch (InterruptedException e) {
                 }
             }
@@ -145,7 +145,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                     audioManager = (AudioManager) savedContext.getSystemService(Context.AUDIO_SERVICE);
 
                 try {
-                    Thread.sleep(500); // Delay 0,5 seconds to handle better turning on loudspeaker
+                    Thread.sleep(1000); // Delay 0,5 seconds to handle better turning on loudspeaker
                 } catch (InterruptedException e) {
                 }
 
