@@ -1433,12 +1433,12 @@ public class DataWrapper {
         if (event._eventPreferencesCall._enabled)
         {
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+            int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
             String phoneNumber = preferences.getString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
             boolean phoneNumberFinded = false;
 
-            if (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED)
+            if (callEventType != PhoneCallService.CALL_EVENT_UNDEFINED)
             {
                 if (event._eventPreferencesCall._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE)
                 {
@@ -1525,8 +1525,8 @@ public class DataWrapper {
                 {
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
                     {
-                        if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
-                            ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)))
+                        if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) ||
+                            ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED)))
                             ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
@@ -1534,7 +1534,7 @@ public class DataWrapper {
                     else
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)
                     {
-                        if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)
+                        if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED)
                             ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
@@ -1542,20 +1542,20 @@ public class DataWrapper {
                     else
                     if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)
                     {
-                        if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)
+                        if (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)
                             ;//eventStart = eventStart && true;
                         else
                             callPassed = false;
                     }
 
-                    if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED))
+                    if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED))
                     {
                         //callPassed = true;
                         //eventStart = eventStart && false;
                         callPassed = false;
                         Editor editor = preferences.edit();
-                        editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+                        editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
                         editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
                         editor.commit();
                     }

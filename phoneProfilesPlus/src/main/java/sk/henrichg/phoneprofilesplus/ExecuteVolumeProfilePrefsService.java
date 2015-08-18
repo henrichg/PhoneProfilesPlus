@@ -24,7 +24,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         final ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
         aph.initialize(dataWrapper, null, context);
 
-        int linkUnlink = intent.getIntExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallBroadcastReceiver.LINKMODE_NONE);
+        int linkUnlink = intent.getIntExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallService.LINKMODE_NONE);
         long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
         boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
         Profile profile = dataWrapper.getProfileById(profile_id, merged);

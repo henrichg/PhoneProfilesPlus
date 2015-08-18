@@ -355,6 +355,10 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+        <service
+            android:name=".PhoneCallService"
+            android:exported="false" >
+        </service>
 
         <receiver
             android:name=".RestartEventsBroadcastReceiver"

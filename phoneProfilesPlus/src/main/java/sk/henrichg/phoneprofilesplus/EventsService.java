@@ -337,9 +337,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(BatteryEventBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             BatteryEventBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            PhoneCallBroadcastReceiver.completeWakefulIntent(intent);
+        //else
+        //if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        //    PhoneCallBroadcastReceiver.completeWakefulIntent(intent);
         else
         if (broadcastReceiverType.equals(DockConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             DockConnectionBroadcastReceiver.completeWakefulIntent(intent);
