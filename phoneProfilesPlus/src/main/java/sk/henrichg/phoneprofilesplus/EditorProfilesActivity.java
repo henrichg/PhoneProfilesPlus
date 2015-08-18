@@ -18,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceScreen;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -685,9 +686,13 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
-            //closeOptionsMenu();
-
-            finish();
+            Handler handler=new Handler();
+            Runnable r=new Runnable() {
+                public void run() {
+                    finish();
+                }
+            };
+            handler.postDelayed(r, 500);
 
             return true;
         default:
