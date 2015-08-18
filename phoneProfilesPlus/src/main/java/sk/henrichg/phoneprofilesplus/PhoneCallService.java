@@ -102,7 +102,7 @@ public class PhoneCallService extends IntentService {
         {
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            //eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
+            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER);
             context.startService(eventsServiceIntent);
         }
 

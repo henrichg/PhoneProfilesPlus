@@ -13,6 +13,8 @@ public class EventsService extends IntentService
     DataWrapper dataWrapper;
     String broadcastReceiverType;
 
+    public static final String BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER = "noBroadcastReceiver";
+
     public EventsService() {
         super("EventsService");
     }
