@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -16,10 +17,10 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
 
         Log.e("### RingerModeChangeReceiver", "xxx");
 
-        if (!internalChange) {
+        //if (!internalChange) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             setRingerMode(context, audioManager);
-        }
+        //}
 
         internalChange = false;
 
@@ -28,7 +29,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     @SuppressWarnings("deprecation")
     public static void setRingerMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
-        Log.e("RingerModeChangeReceiver.setRingerMode","ringerMode="+ringerMode);
+        Log.e("RingerModeChangeReceiver",".setRingerMode  ringerMode="+ringerMode);
 
         int vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
         int vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
