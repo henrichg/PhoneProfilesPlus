@@ -175,7 +175,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         }
 
         setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
-        setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_CANCEL);
+        //setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_CANCEL);
 
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {

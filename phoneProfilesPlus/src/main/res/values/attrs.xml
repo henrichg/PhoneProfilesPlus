@@ -35,6 +35,10 @@
         <attr name="maxExternal" format="string" />
         <attr name="minExternal" format="string" />
     </declare-styleable>
+    <declare-styleable name="DurationDialogPreference">
+        <attr name="dMax" format="integer" />
+        <attr name="dMin" format="integer" />
+    </declare-styleable>
 
     <declare-styleable name="ScrimInsetsView">
         <attr format="reference|color" name="insetForeground" />

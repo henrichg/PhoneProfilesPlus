@@ -145,14 +145,14 @@ public class EventPreferencesSMS extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             GUIData.setPreferenceTitleStyle(preference, false, true);
         }
-        if (key.equals(PREF_EVENT_SMS_DURATION)) {
+        /*if (key.equals(PREF_EVENT_SMS_DURATION)) {
             Preference preference = prefMng.findPreference(key);
             String sValue = value.toString();
             //int iValue = 0;
             //if (!sValue.isEmpty())
             //    iValue = Integer.valueOf(sValue);
             preference.setSummary(sValue);
-        }
+        }*/
     }
 
     @Override

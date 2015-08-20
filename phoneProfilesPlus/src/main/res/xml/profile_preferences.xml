@@ -17,13 +17,13 @@
             android:key="prf_pref_showInActivator"
             android:title="@string/profile_preferences_showInActivator"
             android:defaultValue="true" />
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
             android:key="prf_pref_duration"
             android:summary="@string/profile_preferences_duration"
             android:title="@string/profile_preferences_duration" 
             android:defaultValue="0"
-            henrichg:min="0"
-            henrichg:max="68400" />
+            henrichg:dMin="0"
+            henrichg:dMax="86400" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_afterDurationDo"
             android:summary="@string/array_pref_afterProfileDurationDo_nothing"

@@ -791,7 +791,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             int iValue = 0;
             if (!sValue.isEmpty())
                 iValue = Integer.valueOf(sValue);
-            preference.setSummary(sValue);
+            //preference.setSummary(sValue);
             GUIData.setPreferenceTitleStyle(preference, iValue > 0, false);
         }
         if (key.equals(GlobalData.PREF_PROFILE_AFTER_DURATION_DO))

@@ -46,7 +46,7 @@
             android:title="@string/event_preferences_manualProfileActivation"
             android:defaultValue="false"
             android:disableDependentsState="true"/>
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
             android:key="eventDelayStart"
             android:summary="@string/event_preferences_delayStart"
             android:title="@string/event_preferences_delayStart" 
@@ -240,13 +240,13 @@
             android:entries="@array/eventCallContactListTypeArray"
             android:entryValues="@array/eventCallContactListTypeValues"
             android:dependency="eventSMSEnabled" />
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
             android:key="eventSMSDuration"
             android:summary="@string/event_preferences_duration"
             android:title="@string/event_preferences_duration"
             android:defaultValue="5"
-            henrichg:min="5"
-            henrichg:max="68400"
+            henrichg:dMin="5"
+            henrichg:dMax="86400"
             android:dependency="eventSMSEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
@@ -366,13 +366,13 @@
             android:key="eventNotificationApplications"
             android:title="@string/event_preferences_notifications_applications"
             android:dependency="eventNotificationEnabled" />
-        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
             android:key="eventNotificationDuration"
             android:summary="@string/event_preferences_duration"
             android:title="@string/event_preferences_duration"
             android:defaultValue="5"
-            henrichg:min="5"
-            henrichg:max="68400"
+            henrichg:dMin="5"
+            henrichg:dMax="86400"
             android:dependency="eventNotificationEnabled" />
     </PreferenceCategory>
 </PreferenceScreen>
