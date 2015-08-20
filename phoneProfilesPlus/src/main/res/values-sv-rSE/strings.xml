@@ -397,8 +397,8 @@
   <string name="event_preferences_category_eventScreenParameters">Skärmparametrar</string>
   <string name="event_preferences_screen_enabled">Aktivera skärm</string>
   <string name="event_preferences_screen_event_type">Händelsetyp</string>
-  <string name="event_preferences_delayStart">Fördröjning (sek)</string>
-  <string name="profile_preferences_duration">Varaktighet (sek)</string>
+  <string name="event_preferences_delayStart">Fördröjning</string>
+  <string name="profile_preferences_duration">Varaktighet</string>
   <string name="profile_preferences_afterDurationDo">Efter varaktighet gör</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Ingenting</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Ångra profilen</string>
@@ -431,7 +431,7 @@
   <string name="event_preferences_sms_contacts">Kontakter</string>
   <string name="toast_events_restarted">Händelser omstartade</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Pågående notifiering</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">Avbryt efter (sek)</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">Avbryt efter</string>
   <string name="event_name_background_profile">Standardprofil</string>
   <string name="phoneprofilehepler_install_error_no_root">PPHelper installation kräver ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">PPHelper avinstallation kräver ROOT</string>
@@ -539,7 +539,7 @@
   <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
   <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
   <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
-  <string name="event_preferences_duration">Duration (sec)</string>
+  <string name="event_preferences_duration">Duration</string>
   <string name="pref_event_duration">Duration</string>
   <string name="applications_multiselect_summary_text_selected">Selected</string>
   <string name="applications_multiselect_summary_text_not_selected">Not selected</string>

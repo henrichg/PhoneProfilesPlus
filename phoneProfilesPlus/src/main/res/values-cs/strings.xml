@@ -397,8 +397,8 @@
   <string name="event_preferences_category_eventScreenParameters">Parametry obrazovky</string>
   <string name="event_preferences_screen_enabled">Použij obrazovku</string>
   <string name="event_preferences_screen_event_type">Typ události</string>
-  <string name="event_preferences_delayStart">Pozdržení (sek.)</string>
-  <string name="profile_preferences_duration">Trvání (sek.)</string>
+  <string name="event_preferences_delayStart">Pozdržení</string>
+  <string name="profile_preferences_duration">Trvání</string>
   <string name="profile_preferences_afterDurationDo">Po uplynutí trvání udělej</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Nic</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Vrať zpět profil</string>
@@ -431,7 +431,7 @@
   <string name="event_preferences_sms_contacts">Kontakty</string>
   <string name="toast_events_restarted">Události restartovány</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Probíhající oznámení</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">Zruš po (sek.)</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">Zruš po</string>
   <string name="event_name_background_profile">Výchozí profil</string>
   <string name="phoneprofilehepler_install_error_no_root">Instalace PPHelperu vyžaduje ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">Odinstalace PPHelperu vyžaduje ROOT</string>
@@ -539,7 +539,7 @@
   <string name="profile_preferences_zenMode_none_summary">Žádné vyrušení, ani budíky</string>
   <string name="profile_preferences_zenMode_priority_summary">Pouze prioritní vyrušení</string>
   <string name="profile_preferences_zenMode_all_summary">Všechna vyrušení</string>
-  <string name="event_preferences_duration">Trvání (sek.)</string>
+  <string name="event_preferences_duration">Trvání</string>
   <string name="pref_event_duration">Trvání</string>
   <string name="applications_multiselect_summary_text_selected">Selected</string>
   <string name="applications_multiselect_summary_text_not_selected">Not selected</string>

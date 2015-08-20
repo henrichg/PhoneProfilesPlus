@@ -397,8 +397,8 @@
   <string name="event_preferences_category_eventScreenParameters">Настройки экрана</string>
   <string name="event_preferences_screen_enabled">Включить экран</string>
   <string name="event_preferences_screen_event_type">Тип события</string>
-  <string name="event_preferences_delayStart">Задержка (сек)</string>
-  <string name="profile_preferences_duration">Продолжительность (сек)</string>
+  <string name="event_preferences_delayStart">Задержка</string>
+  <string name="profile_preferences_duration">Продолжительность</string>
   <string name="profile_preferences_afterDurationDo">По окончанию действия профиля</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Ничего</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Отменить данный профиль</string>
@@ -431,7 +431,7 @@
   <string name="event_preferences_sms_contacts">Контакты</string>
   <string name="toast_events_restarted">События перезапущены</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Показывать уведомление постоянно</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">Убрать уведомление через (сек)</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">Убрать уведомление через</string>
   <string name="event_name_background_profile">Профиль по умолчанию</string>
   <string name="phoneprofilehepler_install_error_no_root">Для установки PPHelper требуется ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">Для удаления PPHelper требуется ROOT</string>
@@ -539,7 +539,7 @@
   <string name="profile_preferences_zenMode_none_summary">Не беспокоить</string>
   <string name="profile_preferences_zenMode_priority_summary">Только важные оповещения</string>
   <string name="profile_preferences_zenMode_all_summary">Оповещать всегда</string>
-  <string name="event_preferences_duration">Продолжительность (сек)</string>
+  <string name="event_preferences_duration">Продолжительность</string>
   <string name="pref_event_duration">Продолжительность</string>
   <string name="applications_multiselect_summary_text_selected">Selected</string>
   <string name="applications_multiselect_summary_text_not_selected">Not selected</string>

@@ -397,8 +397,8 @@
   <string name="event_preferences_category_eventScreenParameters">Параметри екрану</string>
   <string name="event_preferences_screen_enabled">Активувати</string>
   <string name="event_preferences_screen_event_type">Тип подій</string>
-  <string name="event_preferences_delayStart">Затримка (сек.)</string>
-  <string name="profile_preferences_duration">Тривалість (сек.)</string>
+  <string name="event_preferences_delayStart">Затримка</string>
+  <string name="profile_preferences_duration">Тривалість</string>
   <string name="profile_preferences_afterDurationDo">Після тривалість зробити</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Нічого</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Анулювати профіль</string>
@@ -431,7 +431,7 @@
   <string name="event_preferences_sms_contacts">Контакти</string>
   <string name="toast_events_restarted">Події перезавантажено</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Триваючі сповіщення</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">Скасувати (сек.)</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">Скасувати</string>
   <string name="event_name_background_profile">Профіль за замовчуванням</string>
   <string name="phoneprofilehepler_install_error_no_root">Щоб встановити PPHelper, необхідний ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">Щоб деінсталювати PPHelper, необхідний ROOT</string>
@@ -539,7 +539,7 @@
   <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
   <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
   <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
-  <string name="event_preferences_duration">Duration (sec)</string>
+  <string name="event_preferences_duration">Duration</string>
   <string name="pref_event_duration">Duration</string>
   <string name="applications_multiselect_summary_text_selected">Selected</string>
   <string name="applications_multiselect_summary_text_not_selected">Not selected</string>

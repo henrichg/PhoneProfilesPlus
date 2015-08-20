@@ -398,8 +398,8 @@ Toch activeren?</string>
   <string name="event_preferences_category_eventScreenParameters">Scherm parameters</string>
   <string name="event_preferences_screen_enabled">Scherm inschakelen</string>
   <string name="event_preferences_screen_event_type">Event type</string>
-  <string name="event_preferences_delayStart">Vertraging (sec)</string>
-  <string name="profile_preferences_duration">Duur (sec)</string>
+  <string name="event_preferences_delayStart">Vertraging</string>
+  <string name="profile_preferences_duration">Duur</string>
   <string name="profile_preferences_afterDurationDo">Bij einde duur doe</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Niets</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Profiel ongedaan maken</string>
@@ -432,7 +432,7 @@ Toch activeren?</string>
   <string name="event_preferences_sms_contacts">Contacten</string>
   <string name="toast_events_restarted">Event opnieuw gestart</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Continue notificaties</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">Annuleren na (sec)</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">Annuleren na</string>
   <string name="event_name_background_profile">Standaardprofiel</string>
   <string name="phoneprofilehepler_install_error_no_root">PPHelper installatie vereist ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">PPHelper verwijdering vereist ROOT</string>
@@ -540,7 +540,7 @@ Toch activeren?</string>
   <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
   <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
   <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
-  <string name="event_preferences_duration">Duration (sec)</string>
+  <string name="event_preferences_duration">Duration</string>
   <string name="pref_event_duration">Duration</string>
   <string name="applications_multiselect_summary_text_selected">Selected</string>
   <string name="applications_multiselect_summary_text_not_selected">Not selected</string>
