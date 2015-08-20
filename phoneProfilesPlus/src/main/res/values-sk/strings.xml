@@ -397,8 +397,8 @@
   <string name="event_preferences_category_eventScreenParameters">Parametre obrazovky</string>
   <string name="event_preferences_screen_enabled">Použi obrazovku</string>
   <string name="event_preferences_screen_event_type">Typ udalosti</string>
-  <string name="event_preferences_delayStart">Pozdržanie</string>
-  <string name="profile_preferences_duration">Trvanie</string>
+  <string name="event_preferences_delayStart">Pozdržanie (sek.)</string>
+  <string name="profile_preferences_duration">Trvanie (sek.)</string>
   <string name="profile_preferences_afterDurationDo">Po uplynutí trvania urob</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Nič</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Vráť späť profil</string>
@@ -431,7 +431,7 @@
   <string name="event_preferences_sms_contacts">Kontakty</string>
   <string name="toast_events_restarted">Udalosti reštartované</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Prebiehajúca notifikácia</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">Zruš po</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">Zruš po (sek.)</string>
   <string name="event_name_background_profile">Predvolený profil</string>
   <string name="phoneprofilehepler_install_error_no_root">Inštalácia PPHelper-a vyžaduje ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">Odinštalácia PPHelper-a vyžaduje ROOT</string>
@@ -539,13 +539,13 @@
   <string name="profile_preferences_zenMode_none_summary">Žiadne vyrušenia, ani budíky</string>
   <string name="profile_preferences_zenMode_priority_summary">Iba prioritné vyrušenia</string>
   <string name="profile_preferences_zenMode_all_summary">Všetky vyrušenia</string>
-  <string name="event_preferences_duration">Trvanie</string>
+  <string name="event_preferences_duration">Trvanie (sek.)</string>
   <string name="pref_event_duration">Trvanie</string>
-  <string name="applications_multiselect_summary_text_selected">Selected</string>
-  <string name="applications_multiselect_summary_text_not_selected">Not selected</string>
-  <string name="event_type_notifications">Notifications</string>
-  <string name="event_preferences_category_eventNotificationsParameters">Notifications parameters</string>
-  <string name="event_preferences_notifications_enabled">Enable notifications</string>
-  <string name="event_preferences_notifications_applications">Applications</string>
-  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling Notification parameters.</string>
+  <string name="applications_multiselect_summary_text_selected">Vybraté</string>
+  <string name="applications_multiselect_summary_text_not_selected">Nevybraté</string>
+  <string name="event_type_notifications">Notifikácie</string>
+  <string name="event_preferences_category_eventNotificationsParameters">Parametre notifikácií</string>
+  <string name="event_preferences_notifications_enabled">Použi notifikácie</string>
+  <string name="event_preferences_notifications_applications">Aplikácie</string>
+  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Povoľ PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\", pre povolenie parametrov notifikácií.</string>
 </resources>

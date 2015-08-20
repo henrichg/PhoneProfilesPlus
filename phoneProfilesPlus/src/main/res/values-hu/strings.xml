@@ -397,8 +397,8 @@
   <string name="event_preferences_category_eventScreenParameters">Képernyő paraméterek</string>
   <string name="event_preferences_screen_enabled">Képernyő engedélyezés</string>
   <string name="event_preferences_screen_event_type">Esemény típusa</string>
-  <string name="event_preferences_delayStart">Késleltetés</string>
-  <string name="profile_preferences_duration">Időtartam</string>
+  <string name="event_preferences_delayStart">Késleltetés (mp)</string>
+  <string name="profile_preferences_duration">Időtartam (mp)</string>
   <string name="profile_preferences_afterDurationDo">Időtartam után csinálja</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Semmi</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">A profil visszavonása</string>
@@ -431,7 +431,7 @@
   <string name="event_preferences_sms_contacts">Névjegyek</string>
   <string name="toast_events_restarted">Események újra indítása</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Folyamatos jelentés</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">Mégse múlva</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">Mégse (sec) múlva</string>
   <string name="event_name_background_profile">Alapértelmezett profil</string>
   <string name="phoneprofilehepler_install_error_no_root">PPHelper telepítéséhez ROOT jog kell</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">PPHelper eltávolításához ROOT jog kell</string>
@@ -539,7 +539,7 @@
   <string name="profile_preferences_zenMode_none_summary">No interruptions. Not even alarms</string>
   <string name="profile_preferences_zenMode_priority_summary">Priority interruptions only</string>
   <string name="profile_preferences_zenMode_all_summary">All interruptions</string>
-  <string name="event_preferences_duration">Duration</string>
+  <string name="event_preferences_duration">Duration (sec)</string>
   <string name="pref_event_duration">Duration</string>
   <string name="applications_multiselect_summary_text_selected">Selected</string>
   <string name="applications_multiselect_summary_text_not_selected">Not selected</string>
