@@ -398,7 +398,7 @@
   <string name="event_preferences_screen_enabled">Activez l\'écran</string>
   <string name="event_preferences_screen_event_type">Type d\'événement</string>
   <string name="event_preferences_delayStart">Délai (s)</string>
-  <string name="profile_preferences_duration">Durée (sec)</string>
+  <string name="profile_preferences_duration">Durée (s)</string>
   <string name="profile_preferences_afterDurationDo">Après la durée faire</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Rien</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Désactiver le profil</string>

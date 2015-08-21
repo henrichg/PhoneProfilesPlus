@@ -397,7 +397,7 @@
   <string name="event_preferences_category_eventScreenParameters">Bildschirmparameter</string>
   <string name="event_preferences_screen_enabled">Bildschirm aktivierten</string>
   <string name="event_preferences_screen_event_type">Ereignistyp</string>
-  <string name="event_preferences_delayStart">Verzögerung (sec)</string>
+  <string name="event_preferences_delayStart">Verzögerung (sek)</string>
   <string name="profile_preferences_duration">Dauer (sek)</string>
   <string name="profile_preferences_afterDurationDo">Nach Dauer tue</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Nichts</string>
