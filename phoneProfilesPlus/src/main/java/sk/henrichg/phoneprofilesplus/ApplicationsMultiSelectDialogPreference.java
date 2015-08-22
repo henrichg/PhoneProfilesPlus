@@ -244,7 +244,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     private void setSummaryAMSDP()
     {
         String prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
-        if (!value.isEmpty()) {
+        if (!value.isEmpty() && !value.equals("-")) {
             String[] splits = value.split("\\|");
             if (splits.length == 1) {
                 PackageManager packageManager = _context.getPackageManager();
