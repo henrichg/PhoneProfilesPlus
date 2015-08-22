@@ -2167,7 +2167,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
                         if (!notRemove) {
                             // remove ringer mode "Interruptions"
-                            values.put(KEY_VOLUME_RINGER_MODE, 4);
+                            values.put(KEY_VOLUME_RINGER_MODE, 0);
                             db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                     new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                         }
