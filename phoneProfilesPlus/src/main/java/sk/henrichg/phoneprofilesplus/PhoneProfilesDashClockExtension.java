@@ -113,6 +113,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     indicator1 = addIntoIndicator(indicator1, "inp");
                     indicator1 = addIntoIndicator(indicator1, "vib");
                 }
+                if (profile._volumeZenMode == 6)
+                    indicator1 = addIntoIndicator(indicator1, "inl");
             }
             else
             {

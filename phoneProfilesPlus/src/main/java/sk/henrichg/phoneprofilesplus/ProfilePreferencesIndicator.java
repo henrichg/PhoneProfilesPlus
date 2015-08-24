@@ -58,6 +58,8 @@ public class ProfilePreferencesIndicator {
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_priority;
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
                 }
+                if (profile._volumeZenMode == 6)
+                    drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
             }
             else
             {

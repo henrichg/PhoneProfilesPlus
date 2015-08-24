@@ -30,7 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1400;
+    private static final int DATABASE_VERSION = 1410;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -1301,6 +1301,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_APPLICATIONS + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_START_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_DURATION + "=5");
+        }
+        if (oldVersion < 1410)
+        {
+            final String selectQuery = "SELECT " + KEY_ID + "," +
+                    KEY_VOLUME_ZEN_MODE +
+                    " FROM " + TABLE_PROFILES;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(0));
+                    int zenMode = cursor.getInt(1);
+
+                    if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23)) // Alarms only zen mode is supported from Android 6.0
+                        db.execSQL("UPDATE " + TABLE_PROFILES +
+                                " SET " + KEY_VOLUME_ZEN_MODE + "=3" + " " +
+                                "WHERE " + KEY_ID + "=" + id);
+
+                } while (cursor.moveToNext());
+            }
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -4003,6 +4024,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursorImportDB = db.rawQuery("SELECT * FROM "+TABLE_PROFILES, null);
 
                         int duration = 0;
+                        int zenMode  = 0;
 
                         if (cursorExportedDB.moveToFirst()) {
                             do {
@@ -4099,6 +4121,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         }
                                         if (columnNamesExportedDB[i].equals(KEY_DURATION))
                                             duration = cursorExportedDB.getInt(i);
+                                        if (columnNamesExportedDB[i].equals(KEY_VOLUME_ZEN_MODE))
+                                            zenMode = cursorExportedDB.getInt(i);
                                     }
 
                                     // for non existent fields set default value
@@ -4175,6 +4199,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     if (exportedDBObj.getVersion() < 1350)
                                     {
                                         values.put(KEY_DURATION, duration * 60); // conversion to seconds
+                                    }
+                                    if (exportedDBObj.getVersion() < 1410)
+                                    {
+                                        if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23))
+                                            values.put(KEY_VOLUME_ZEN_MODE, 3); // Alarms only zen mode is supported from Android 6.0
                                     }
 
                                 ///////////////////////////////////////////////////////

@@ -118,7 +118,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 case NotificationListenerService.INTERRUPTION_FILTER_NONE:
                     zenMode = 3;
                     break;
-                case 4: // new filter - Alarm only - Android M
+                case NotificationListenerService.INTERRUPTION_FILTER_ALARMS: // new filter - Alarm only - Android M
+                    zenMode = 6;
                     break;
             }
             if (zenMode != 0) {
@@ -156,7 +157,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
             case ActivateProfileHelper.ZENMODE_NONE:
                 zenMode = 3;
                 break;
-            case 3: // new filter - Alarm only - Android M
+            case ActivateProfileHelper.ZENMODE_ALARMS: // new filter - Alarm only - Android M
+                zenMode = 6;
                 break;
         }
         if (zenMode != 0) {
@@ -225,6 +227,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
                             case ActivateProfileHelper.ZENMODE_NONE:
                                 requestInterruptionFilter(INTERRUPTION_FILTER_NONE);
                                 break;
+                            case ActivateProfileHelper.ZENMODE_ALARMS:
+                                requestInterruptionFilter(INTERRUPTION_FILTER_ALARMS);
+                                break;
                         }
                     }
                 }
@@ -252,6 +257,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                                 case INTERRUPTION_FILTER_ALL:
                                 case INTERRUPTION_FILTER_PRIORITY:
                                 case INTERRUPTION_FILTER_NONE:
+                                case INTERRUPTION_FILTER_ALARMS:
                                     requestInterruptionFilter(filter);
                                     break;
                             }

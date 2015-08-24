@@ -67,6 +67,7 @@ public class ActivateProfileHelper {
     public static final int ZENMODE_ALL = 0;
     public static final int ZENMODE_PRIORITY = 1;
     public static final int ZENMODE_NONE = 2;
+    public static final int ZENMODE_ALARMS = 3;
 
     public ActivateProfileHelper()
     {
@@ -492,6 +493,9 @@ public class ActivateProfileHelper {
                     case ZENMODE_NONE:
                         interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_NONE;
                         break;
+                    case ZENMODE_ALARMS:
+                        interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
+                        break;
                 }
                 PPNotificationListenerService.requestInterruptionFilter(context, interruptionFilter);
             }/* else
@@ -626,6 +630,11 @@ public class ActivateProfileHelper {
                     case 5:
                         setZenMode(context, ZENMODE_PRIORITY);
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                        break;
+                    case 6:
+                        setZenMode(context, ZENMODE_ALARMS);
+                        // no change ringer mode
+                        //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         break;
                 }
                 break;
