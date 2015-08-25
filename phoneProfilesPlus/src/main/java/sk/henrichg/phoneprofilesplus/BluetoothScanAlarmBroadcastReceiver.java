@@ -121,7 +121,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("NewApi")
     public static void setAlarm(Context context, boolean oneshot, boolean shortInterval)
     {
-        GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot);
+        GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
 
         if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
                 == GlobalData.HARDWARE_CHECK_ALLOWED)
@@ -292,6 +292,13 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public void startScan(Context context)
     {
         BluetoothScanBroadcastReceiver.initTmpScanResults();
+
+        if (bluetooth == null)
+            bluetooth = BluetoothAdapter.getDefaultAdapter();
+
+        if (bluetooth.isDiscovering())
+            bluetooth.cancelDiscovery();
+
         lock(context); // lock wakeLock, then scan.
                     // unlock() is then called at the end of the onReceive function of BluetoothScanBroadcastReceiver
         boolean startScan = bluetooth.startDiscovery();
@@ -307,6 +314,13 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         }
         setWaitForResults(context, startScan);
         setScanRequest(context, false);
+    }
+
+    static public void stopScan(Context context) {
+        if (bluetooth == null)
+            bluetooth = BluetoothAdapter.getDefaultAdapter();
+        if (bluetooth.isDiscovering())
+            bluetooth.cancelDiscovery();
     }
 
     static public void startScanner(Context context)

@@ -127,7 +127,7 @@ public class ScannerService extends IntentService
 
                         if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                             GlobalData.logE("$$$ ScannerService.onHandleIntent", "startScan");
-                            WifiScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
+                            WifiScanAlarmBroadcastReceiver.startScan(context);
                         } else if (wifiState != WifiManager.WIFI_STATE_ENABLING) {
                             WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
                             WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
@@ -229,7 +229,7 @@ public class ScannerService extends IntentService
 
                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
                             GlobalData.logE("$$$ ScannerService.onHandleIntent", "startScan");
-                            BluetoothScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
+                            BluetoothScanAlarmBroadcastReceiver.startScan(context);
                         }
                         else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
                             BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
@@ -252,7 +252,7 @@ public class ScannerService extends IntentService
                                 wifiBluetoothChangeHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                    BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
+                                        BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
                                     }
                                 });
                                 try {
@@ -545,6 +545,7 @@ public class ScannerService extends IntentService
                 e.printStackTrace();
             }
         }
+        BluetoothScanAlarmBroadcastReceiver.stopScan(context);
     }
     
 }
