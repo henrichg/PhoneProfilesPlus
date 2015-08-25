@@ -1864,11 +1864,13 @@ public class DataWrapper {
             {
                 if (!bluetoothPassed)
                 {
-                    if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
+                    List<BluetoothDeviceData> scanResults = BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
+
+                    if (scanResults != null)
                     {
                         //GlobalData.logE("@@@ DataWrapper.doEventService","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
 
-                        for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)
+                        for (BluetoothDeviceData device : scanResults)
                         {
                             String _device = device.getName().toUpperCase();
                             String _adapterName = event._eventPreferencesBluetooth._adapterName.toUpperCase();

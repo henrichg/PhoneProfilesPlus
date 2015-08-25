@@ -29,9 +29,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     public static BluetoothAdapter bluetooth = null;
     private static PowerManager.WakeLock wakeLock = null;
 
-    public static List<BluetoothDeviceData> tmpScanResults = null;
-    public static List<BluetoothDeviceData> scanResults = null;
-    public static List<BluetoothDeviceData> boundedDevicesList = null;
+    //public static List<BluetoothDeviceData> scanResults = null;
+    //public static List<BluetoothDeviceData> boundedDevicesList = null;
 
     public void onReceive(Context context, Intent intent) {
 
@@ -43,11 +42,11 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 setAlarm(context, false, false);
         }
 
-        if (scanResults == null)
-            scanResults = new ArrayList<BluetoothDeviceData>();
+        //if (scanResults == null)
+        //    scanResults = new ArrayList<BluetoothDeviceData>();
 
-        if (boundedDevicesList == null)
-            boundedDevicesList = new ArrayList<BluetoothDeviceData>();
+        //if (boundedDevicesList == null)
+        //    boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
         if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
                 GlobalData.HARDWARE_CHECK_ALLOWED) {
@@ -187,7 +186,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             }
 
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","alarm is set");
+            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "alarm is set");
 
         }
         else
@@ -292,7 +291,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public void startScan(Context context)
     {
-        initTmpScanResults();
+        BluetoothScanBroadcastReceiver.initTmpScanResults();
         lock(context); // lock wakeLock, then scan.
                     // unlock() is then called at the end of the onReceive function of BluetoothScanBroadcastReceiver
         boolean startScan = bluetooth.startDiscovery();
@@ -330,14 +329,6 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
     */
 
-    static public void initTmpScanResults()
-    {
-        if (tmpScanResults != null)
-            tmpScanResults.clear();
-        else
-            tmpScanResults = new ArrayList<BluetoothDeviceData>();
-    }
-
     static public boolean getBluetoothEnabledForScan(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -354,8 +345,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public void fillBoundedDevicesList(Context context)
     {
-        if (boundedDevicesList == null)
-            boundedDevicesList = new ArrayList<BluetoothDeviceData>();
+        //if (boundedDevicesList == null)
+        //    boundedDevicesList = new ArrayList<BluetoothDeviceData>();
+
+        List<BluetoothDeviceData> boundedDevicesList  = new ArrayList<BluetoothDeviceData>();
 
         if (bluetooth == null)
             bluetooth = BluetoothAdapter.getDefaultAdapter();
@@ -366,18 +359,21 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         {
             boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress()));
         }
-        saveBoundedDevicesList(context);
+        saveBoundedDevicesList(context, boundedDevicesList);
     }
 
     private static final String SCAN_RESULT_COUNT_PREF = "count";
     private static final String SCAN_RESULT_DEVICE_PREF = "device";
 
-    public static void getBoundedDevicesList(Context context)
+    //public static void getBoundedDevicesList(Context context)
+    public static List<BluetoothDeviceData> getBoundedDevicesList(Context context)
     {
-        if (boundedDevicesList == null)
-            boundedDevicesList = new ArrayList<BluetoothDeviceData>();
+        //if (boundedDevicesList == null)
+        //    boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
-        boundedDevicesList.clear();
+        //boundedDevicesList.clear();
+
+        List<BluetoothDeviceData> boundedDevicesList  = new ArrayList<BluetoothDeviceData>();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -387,19 +383,20 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         for (int i = 0; i < count; i++)
         {
-            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF+i, "");
+            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
             if (!json.isEmpty()) {
                 BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
                 boundedDevicesList.add(device);
             }
         }
 
+        return boundedDevicesList;
     }
 
-    private static void saveBoundedDevicesList(Context context)
+    private static void saveBoundedDevicesList(Context context, List<BluetoothDeviceData> boundedDevicesList)
     {
-        if (boundedDevicesList == null)
-            boundedDevicesList = new ArrayList<BluetoothDeviceData>();
+        //if (boundedDevicesList == null)
+        //    boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -419,12 +416,15 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         editor.commit();
     }
 
-    public static void getScanResults(Context context)
+    //public static void getScanResults(Context context)
+    public static List<BluetoothDeviceData> getScanResults(Context context)
     {
-        if (scanResults == null)
-            scanResults = new ArrayList<BluetoothDeviceData>();
+        //if (scanResults == null)
+        //    scanResults = new ArrayList<BluetoothDeviceData>();
 
-        scanResults.clear();
+        //scanResults.clear();
+
+        List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -441,12 +441,13 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
+        return scanResults;
     }
 
-    public static void saveScanResults(Context context)
+    public static void saveScanResults(Context context, List<BluetoothDeviceData> scanResults)
     {
-        if (scanResults == null)
-            scanResults = new ArrayList<BluetoothDeviceData>();
+        //if (scanResults == null)
+        //    scanResults = new ArrayList<BluetoothDeviceData>();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

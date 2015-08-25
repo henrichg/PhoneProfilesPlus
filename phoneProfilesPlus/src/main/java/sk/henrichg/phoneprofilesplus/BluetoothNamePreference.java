@@ -213,19 +213,19 @@ public class BluetoothNamePreference extends DialogPreference {
                     ScannerService.waitForBluetoothScanEnd(context, this);
                 }
 
-                BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
-                if (BluetoothScanAlarmBroadcastReceiver.boundedDevicesList != null)
+                List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
+                if (boundedDevicesList != null)
                 {
-                    for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.boundedDevicesList)
+                    for (BluetoothDeviceData device : boundedDevicesList)
                     {
                         bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address));
                     }
                 }
 
-                BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
-                if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
+                List<BluetoothDeviceData> scanResults = BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
+                if (scanResults != null)
                 {
-                    for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.scanResults)
+                    for (BluetoothDeviceData device : scanResults)
                     {
                         if (!device.getName().isEmpty())
                         {

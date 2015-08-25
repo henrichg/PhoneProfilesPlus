@@ -7,60 +7,63 @@ import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
-	public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScan";
+    public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScan";
 
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		
-		//GlobalData.logE("#### BluetoothScanBroadcastReceiver.onReceive","xxx");
-		GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- start");
+    private static List<BluetoothDeviceData> tmpScanResults = null;
 
-		if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
-			BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
-		
-		if (!GlobalData.getApplicationStarted(context))
-			// application is not started
-			return;
+    @Override
+    public void onReceive(Context context, Intent intent) {
 
-		GlobalData.loadPreferences(context);
-		
-		if (GlobalData.getGlobalEventsRuning(context))
-		{
+        //GlobalData.logE("#### BluetoothScanBroadcastReceiver.onReceive","xxx");
+        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- start");
 
-			boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context));
-			
-			if (scanStarted)
-			{
-				GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","xxx");
+        if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
+            BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
 
-				String action = intent.getAction();
+        if (!GlobalData.getApplicationStarted(context))
+            // application is not started
+            return;
 
-				GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","action="+action);
-				
-	            if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action))
-	            {
-	            	BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
+        GlobalData.loadPreferences(context);
 
-	            	if (BluetoothScanAlarmBroadcastReceiver.tmpScanResults == null)
-	            		BluetoothScanAlarmBroadcastReceiver.tmpScanResults = new ArrayList<BluetoothDeviceData>();
-	            	else
-	            		BluetoothScanAlarmBroadcastReceiver.tmpScanResults.clear();
-	            }
-	            else if (BluetoothDevice.ACTION_FOUND.equals(action))
-	            {
-					// When discovery finds a device
+        if (GlobalData.getGlobalEventsRuning(context))
+        {
 
-	            	BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context));
+
+            if (scanStarted)
+            {
+                GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","xxx");
+
+                String action = intent.getAction();
+
+                GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","action="+action);
+
+                if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action))
+                {
+                    BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
+
+                    if (tmpScanResults == null)
+                        tmpScanResults = new ArrayList<BluetoothDeviceData>();
+                    else
+                        tmpScanResults.clear();
+                }
+                else if (BluetoothDevice.ACTION_FOUND.equals(action))
+                {
+                    // When discovery finds a device
+
+                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
                     String btName = device.getName();
                     if (intent.hasExtra(BluetoothDevice.EXTRA_NAME))
                         btName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
 
                     boolean found = false;
-                    for (BluetoothDeviceData _device : BluetoothScanAlarmBroadcastReceiver.tmpScanResults)
+                    for (BluetoothDeviceData _device : tmpScanResults)
                     {
                         if (_device.address.equals(device.getAddress()))
                         {
@@ -70,68 +73,78 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                     }
                     if (!found)
                     {
-                        BluetoothScanAlarmBroadcastReceiver.tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress()));
+                        tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress()));
                         GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName="+btName);
                     }
-	            }
-	            else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
-	            {
-					//BluetoothScanAlarmBroadcastReceiver.unlock();
-					
-					if (BluetoothScanAlarmBroadcastReceiver.scanResults == null)
-						BluetoothScanAlarmBroadcastReceiver.scanResults = new ArrayList<BluetoothDeviceData>();
-					
-					BluetoothScanAlarmBroadcastReceiver.scanResults.clear();
-					for (BluetoothDeviceData device : BluetoothScanAlarmBroadcastReceiver.tmpScanResults)
-					{
-						BluetoothScanAlarmBroadcastReceiver.scanResults.add(new BluetoothDeviceData(device.getName(), device.address));
-					}
-					//BluetoothScanAlarmBroadcastReceiver.scanResults.addAll(BluetoothScanAlarmBroadcastReceiver.tmpScanResults);
-					BluetoothScanAlarmBroadcastReceiver.tmpScanResults.clear();
+                }
+                else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
+                {
+                    //BluetoothScanAlarmBroadcastReceiver.unlock();
 
-                    BluetoothScanAlarmBroadcastReceiver.saveScanResults(context);
+                    //if (BluetoothScanAlarmBroadcastReceiver.scanResults == null)
+                    //    BluetoothScanAlarmBroadcastReceiver.scanResults = new ArrayList<BluetoothDeviceData>();
 
-					/*
-					if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
-					{
-						for (BluetoothDevice device : BluetoothScanAlarmBroadcastReceiver.scanResults)
-						{
-							GlobalData.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
-						}
-					}
-					*/
+                    List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
+
+                    //BluetoothScanAlarmBroadcastReceiver.scanResults.clear();
+                    for (BluetoothDeviceData device : tmpScanResults)
+                    {
+                        scanResults.add(new BluetoothDeviceData(device.getName(), device.address));
+                    }
+                    //BluetoothScanAlarmBroadcastReceiver.scanResults.addAll(BluetoothScanAlarmBroadcastReceiver.tmpScanResults);
+                    tmpScanResults.clear();
+
+                    BluetoothScanAlarmBroadcastReceiver.saveScanResults(context, scanResults);
 
                     /*
-					if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context))
-					{
-						GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","disable bluetooth");
-						BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
-						// not call this, due BluetoothConnectionBroadcastReceiver
-						//BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-					}
-					*/
+                    if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
+                    {
+                        for (BluetoothDevice device : BluetoothScanAlarmBroadcastReceiver.scanResults)
+                        {
+                            GlobalData.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
+                        }
+                    }
+                    */
 
-					BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-					
-					boolean forceOneScan = GlobalData.getForceOneBluetoothScan(context); 
-					GlobalData.setForceOneBluetoothScan(context, false);
-					
-					if (!forceOneScan) // not start service for force scan
-					{
-						// start service
-						Intent eventsServiceIntent = new Intent(context, EventsService.class);
-						eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-						startWakefulService(context, eventsServiceIntent);
-					}
-					
-	            }				
-				
-			}
+                    /*
+                    if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context))
+                    {
+                        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","disable bluetooth");
+                        BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
+                        // not call this, due BluetoothConnectionBroadcastReceiver
+                        //BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+                    }
+                    */
 
-		}
+                    BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 
-		GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- end");
-		
-	}
+                    boolean forceOneScan = GlobalData.getForceOneBluetoothScan(context);
+                    GlobalData.setForceOneBluetoothScan(context, false);
+
+                    if (!forceOneScan) // not start service for force scan
+                    {
+                        // start service
+                        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                        eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                        startWakefulService(context, eventsServiceIntent);
+                    }
+
+                }
+
+            }
+
+        }
+
+        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- end");
+
+    }
+
+    static public void initTmpScanResults()
+    {
+        if (tmpScanResults != null)
+            tmpScanResults.clear();
+        else
+            tmpScanResults = new ArrayList<BluetoothDeviceData>();
+    }
 
 }

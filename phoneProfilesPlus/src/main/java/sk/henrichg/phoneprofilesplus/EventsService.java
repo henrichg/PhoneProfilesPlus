@@ -125,8 +125,8 @@ public class EventsService extends IntentService
         // no refresh notification and widgets
         ActivateProfileHelper.lockRefresh = true;
 
-        BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
-        BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
+        //BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
+        //BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
 
         Profile mergedProfile = dataWrapper.getNoinitializedProfile("", "", 0);
 
