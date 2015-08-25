@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.PowerManager;
@@ -34,8 +35,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     private static WifiLock wifiLock = null;
     private static PowerManager.WakeLock wakeLock = null;
 
-    public static List<WifiSSIDData> scanResults = null;
-    public static List<WifiSSIDData> wifiConfigurationList = null;
+    //public static List<WifiSSIDData> scanResults = null;
+    //public static List<WifiSSIDData> wifiConfigurationList = null;
 
     @SuppressLint("NewApi")
     public void onReceive(Context context, Intent intent) {
@@ -48,11 +49,11 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 setAlarm(context, false, false);
         }
 
-        if (scanResults == null)
-            scanResults = new ArrayList<WifiSSIDData>();
+        //if (scanResults == null)
+        //    scanResults = new ArrayList<WifiSSIDData>();
 
-        if (wifiConfigurationList == null)
-            wifiConfigurationList = new ArrayList<WifiSSIDData>();
+        //if (wifiConfigurationList == null)
+        //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
         if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) !=
                 GlobalData.HARDWARE_CHECK_ALLOWED) {
@@ -367,8 +368,10 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public void fillWifiConfigurationList(Context context)
     {
-        if (wifiConfigurationList == null)
-            wifiConfigurationList = new ArrayList<WifiSSIDData>();
+        //if (wifiConfigurationList == null)
+        //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
+
+        List<WifiSSIDData> wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -395,13 +398,16 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         }
-        saveWifiConfigurationList(context);
+        //saveWifiConfigurationList(context);
+        saveWifiConfigurationList(context, wifiConfigurationList);
     }
 
     static public void fillScanResults(Context context)
     {
-        if (scanResults == null)
-            scanResults = new ArrayList<WifiSSIDData>();
+        //if (scanResults == null)
+        //    scanResults = new ArrayList<WifiSSIDData>();
+
+        List<WifiSSIDData> scanResults = new ArrayList<WifiSSIDData>();
 
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -427,18 +433,22 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         }
-        saveScanResults(context);
+        //saveScanResults(context);
+        saveScanResults(context, scanResults);
     }
 
     private static final String SCAN_RESULT_COUNT_PREF = "count";
     private static final String SCAN_RESULT_DEVICE_PREF = "device";
 
-    public static void getWifiConfigurationList(Context context)
+    //public static void getWifiConfigurationList(Context context)
+    public static List<WifiSSIDData> getWifiConfigurationList(Context context)
     {
-        if (wifiConfigurationList == null)
-            wifiConfigurationList = new ArrayList<WifiSSIDData>();
+        //if (wifiConfigurationList == null)
+        //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
-        wifiConfigurationList.clear();
+        //wifiConfigurationList.clear();
+
+        List<WifiSSIDData> wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_CONFIGURATION_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -446,21 +456,22 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         Gson gson = new Gson();
 
-        for (int i = 0; i < count; i++)
-        {
-            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF+i, "");
+        for (int i = 0; i < count; i++) {
+            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
             if (!json.isEmpty()) {
                 WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
                 wifiConfigurationList.add(device);
             }
         }
 
+        return wifiConfigurationList;
     }
 
-    private static void saveWifiConfigurationList(Context context)
+    //private static void saveWifiConfigurationList(Context context)
+    private static void saveWifiConfigurationList(Context context, List<WifiSSIDData> wifiConfigurationList)
     {
-        if (wifiConfigurationList == null)
-            wifiConfigurationList = new ArrayList<WifiSSIDData>();
+        //if (wifiConfigurationList == null)
+        //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_CONFIGURATION_LIST_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -471,8 +482,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         Gson gson = new Gson();
 
-        for (int i = 0; i < wifiConfigurationList.size(); i++)
-        {
+        for (int i = 0; i < wifiConfigurationList.size(); i++) {
             String json = gson.toJson(wifiConfigurationList.get(i));
             editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
         }
@@ -480,12 +490,15 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         editor.commit();
     }
 
-    public static void getScanResults(Context context)
+    //public static void getScanResults(Context context)
+    public static List<WifiSSIDData> getScanResults(Context context)
     {
-        if (scanResults == null)
-            scanResults = new ArrayList<WifiSSIDData>();
+        //if (scanResults == null)
+        //    scanResults = new ArrayList<WifiSSIDData>();
 
-        scanResults.clear();
+        //scanResults.clear();
+
+        List<WifiSSIDData> scanResults = new ArrayList<WifiSSIDData>();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -493,21 +506,22 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         Gson gson = new Gson();
 
-        for (int i = 0; i < count; i++)
-        {
-            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF+i, "");
+        for (int i = 0; i < count; i++) {
+            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
             if (!json.isEmpty()) {
                 WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
                 scanResults.add(device);
             }
         }
 
+        return scanResults;
     }
 
-    private static void saveScanResults(Context context)
+    //private static void saveScanResults(Context context)
+    private static void saveScanResults(Context context, List<WifiSSIDData> scanResults)
     {
-        if (scanResults == null)
-            scanResults = new ArrayList<WifiSSIDData>();
+        //if (scanResults == null)
+        //    scanResults = new ArrayList<WifiSSIDData>();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -525,6 +539,68 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         editor.commit();
+    }
+
+    public static String getSSID(WifiInfo wifiInfo, List<WifiSSIDData> wifiConfigurationList)
+    {
+        String SSID = wifiInfo.getSSID();
+        if (SSID == null)
+            SSID = "";
+        SSID = SSID.replace("\"", "");
+
+        if (SSID.isEmpty())
+        {
+            if (wifiConfigurationList != null)
+            {
+                for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
+                {
+                    if (wifiConfiguration.bssid.equals(wifiInfo.getBSSID()))
+                        return wifiConfiguration.ssid.replace("\"", "");
+                }
+            }
+        }
+
+        return SSID;
+    }
+
+    public static boolean compareSSID(WifiInfo wifiInfo, String SSID, List<WifiSSIDData> wifiConfigurationList)
+    {
+        String wifiInfoSSID = getSSID(wifiInfo, wifiConfigurationList);
+        String ssid2 = "\"" + SSID + "\"";
+        //return (wifiInfoSSID.equals(SSID) || wifiInfoSSID.equals(ssid2));
+        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%') || Wildcard.match(wifiInfoSSID, ssid2, '_', '%'));
+    }
+
+    public static String getSSID(WifiSSIDData result, List<WifiSSIDData> wifiConfigurationList)
+    {
+        String SSID;
+        if (result.ssid == null)
+            SSID = "";
+        else
+            SSID = result.ssid.replace("\"", "");
+
+        if (SSID.isEmpty())
+        {
+            if (wifiConfigurationList != null)
+            {
+                for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
+                {
+                    if ((wifiConfiguration.bssid != null) &&
+                            (wifiConfiguration.bssid.equals(result.bssid)))
+                        return wifiConfiguration.ssid.replace("\"", "");
+                }
+            }
+        }
+
+        return SSID;
+    }
+
+    public static boolean compareSSID(WifiSSIDData result, String SSID, List<WifiSSIDData> wifiConfigurationList)
+    {
+        String wifiInfoSSID = getSSID(result, wifiConfigurationList);
+        String ssid2 = "\"" + SSID + "\"";
+        //return (getSSID(result).equals(SSID) || getSSID(result).equals(ssid2));
+        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%') || Wildcard.match(wifiInfoSSID, ssid2, '_', '%'));
     }
 
 }

@@ -1694,6 +1694,8 @@ public class DataWrapper {
             ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
+            List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
+
             if (isWifiEnabled)
             {
                 GlobalData.logE("DataWrapper.doEventService","wifiStateEnabled=true");
@@ -1705,10 +1707,10 @@ public class DataWrapper {
 
                     WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
-                    GlobalData.logE("@@@ DataWrapper.doEventService","wifiSSID="+getSSID(wifiInfo));
+                    GlobalData.logE("@@@ DataWrapper.doEventService","wifiSSID="+WifiScanAlarmBroadcastReceiver.getSSID(wifiInfo, wifiConfigurationList));
                     GlobalData.logE("@@@ DataWrapper.doEventService","wifiBSSID="+wifiInfo.getBSSID());
 
-                    wifiPassed = compareSSID(wifiInfo, event._eventPreferencesWifi._SSID);
+                    wifiPassed = WifiScanAlarmBroadcastReceiver.compareSSID(wifiInfo, event._eventPreferencesWifi._SSID, wifiConfigurationList);
 
                     if (wifiPassed)
                     {
@@ -1738,17 +1740,19 @@ public class DataWrapper {
             {
                 if (!wifiPassed)
                 {
+                    List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
 
-                    if (WifiScanAlarmBroadcastReceiver.scanResults != null)
+                    //if (WifiScanAlarmBroadcastReceiver.scanResults != null)
+                    if (scanResults != null)
                     {
                         //GlobalData.logE("@@@x DataWrapper.doEventService","scanResults != null");
                         //GlobalData.logE("@@@x DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
 
-                        for (WifiSSIDData result : WifiScanAlarmBroadcastReceiver.scanResults)
+                        for (WifiSSIDData result : scanResults)
                         {
                             //GlobalData.logE("@@@x DataWrapper.doEventService","wifiSSID="+getSSID(result));
                             //GlobalData.logE("@@@x DataWrapper.doEventService","wifiBSSID="+result.BSSID);
-                            if (compareSSID(result, event._eventPreferencesWifi._SSID))
+                            if (WifiScanAlarmBroadcastReceiver.compareSSID(result, event._eventPreferencesWifi._SSID, wifiConfigurationList))
                             {
                                 GlobalData.logE("@@@x DataWrapper.doEventService","wifi found");
                                 wifiPassed = true;
@@ -2294,69 +2298,6 @@ public class DataWrapper {
         else
             return "";
     }
-
-    public static String getSSID(WifiInfo wifiInfo)
-    {
-        String SSID = wifiInfo.getSSID();
-        if (SSID == null)
-            SSID = "";
-        SSID = SSID.replace("\"", "");
-
-        if (SSID.isEmpty())
-        {
-            if (WifiScanAlarmBroadcastReceiver.wifiConfigurationList != null)
-            {
-                for (WifiSSIDData wifiConfiguration : WifiScanAlarmBroadcastReceiver.wifiConfigurationList)
-                {
-                    if (wifiConfiguration.bssid.equals(wifiInfo.getBSSID()))
-                        return wifiConfiguration.ssid.replace("\"", "");
-                }
-            }
-        }
-
-        return SSID;
-    }
-
-    public static boolean compareSSID(WifiInfo wifiInfo, String SSID)
-    {
-        String wifiInfoSSID = getSSID(wifiInfo);
-        String ssid2 = "\"" + SSID + "\"";
-        //return (wifiInfoSSID.equals(SSID) || wifiInfoSSID.equals(ssid2));
-        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%') || Wildcard.match(wifiInfoSSID, ssid2, '_', '%'));
-    }
-
-    public static String getSSID(WifiSSIDData result)
-    {
-        String SSID;
-        if (result.ssid == null)
-            SSID = "";
-        else
-            SSID = result.ssid.replace("\"", "");
-
-        if (SSID.isEmpty())
-        {
-            if (WifiScanAlarmBroadcastReceiver.wifiConfigurationList != null)
-            {
-                for (WifiSSIDData wifiConfiguration : WifiScanAlarmBroadcastReceiver.wifiConfigurationList)
-                {
-                    if ((wifiConfiguration.bssid != null) &&
-                        (wifiConfiguration.bssid.equals(result.bssid)))
-                        return wifiConfiguration.ssid.replace("\"", "");
-                }
-            }
-        }
-
-        return SSID;
-    }
-
-    public static boolean compareSSID(WifiSSIDData result, String SSID)
-    {
-        String wifiInfoSSID = getSSID(result);
-        String ssid2 = "\"" + SSID + "\"";
-        //return (getSSID(result).equals(SSID) || getSSID(result).equals(ssid2));
-        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%') || Wildcard.match(wifiInfoSSID, ssid2, '_', '%'));
-    }
-
 
     public void removeAllEventDelays(boolean onlyFromDb)
     {

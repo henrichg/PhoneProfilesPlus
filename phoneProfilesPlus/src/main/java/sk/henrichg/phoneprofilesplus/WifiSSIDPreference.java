@@ -213,34 +213,34 @@ public class WifiSSIDPreference extends DialogPreference {
                     ScannerService.waitForWifiScanEnd(context, this);
                 }
 
-                WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
-                if (WifiScanAlarmBroadcastReceiver.wifiConfigurationList != null)
+                List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
+                if (wifiConfigurationList != null)
                 {
-                    for (WifiSSIDData wifiConfiguration : WifiScanAlarmBroadcastReceiver.wifiConfigurationList)
+                    for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
                     {
                         if (wifiConfiguration.ssid != null)
                             SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid));
                     }
                 }
 
-                WifiScanAlarmBroadcastReceiver.getScanResults(context);
-                if (WifiScanAlarmBroadcastReceiver.scanResults != null)
+                List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
+                if (scanResults != null)
                 {
-                    for (WifiSSIDData scanResult : WifiScanAlarmBroadcastReceiver.scanResults)
+                    for (WifiSSIDData scanResult : scanResults)
                     {
-                        if (!DataWrapper.getSSID(scanResult).isEmpty())
+                        if (!WifiScanAlarmBroadcastReceiver.getSSID(scanResult, wifiConfigurationList).isEmpty())
                         {
                             boolean exists = false;
                             for (WifiSSIDData ssidData : SSIDList)
                             {
-                                if (DataWrapper.compareSSID(scanResult, ssidData.ssid))
+                                if (WifiScanAlarmBroadcastReceiver.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList))
                                 {
                                     exists = true;
                                     break;
                                 }
                             }
                             if (!exists)
-                                SSIDList.add(new WifiSSIDData(DataWrapper.getSSID(scanResult), scanResult.bssid));
+                                SSIDList.add(new WifiSSIDData(WifiScanAlarmBroadcastReceiver.getSSID(scanResult, wifiConfigurationList), scanResult.bssid));
                         }
                     }
                 }

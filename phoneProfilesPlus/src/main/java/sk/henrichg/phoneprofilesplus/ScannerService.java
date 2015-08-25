@@ -14,6 +14,8 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import java.util.List;
+
 public class ScannerService extends IntentService
 {
     Context context;
@@ -311,11 +313,11 @@ public class ScannerService extends IntentService
 
                 // wifi is connected
 
-                WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(dataWrapper.context);
-                WifiScanAlarmBroadcastReceiver.getScanResults(dataWrapper.context);
+                List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(dataWrapper.context);
+                List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(dataWrapper.context);
 
                 WifiInfo wifiInfo = WifiScanAlarmBroadcastReceiver.wifi.getConnectionInfo();
-                String SSID = DataWrapper.getSSID(wifiInfo);
+                String SSID = WifiScanAlarmBroadcastReceiver.getSSID(wifiInfo, wifiConfigurationList);
 
                 GlobalData.logE("$$$ ScannerService.canScanWifi","connected SSID="+SSID);
 
@@ -324,7 +326,7 @@ public class ScannerService extends IntentService
                 // search for events with connected SSID and connection type NOTINFRONT
                 boolean isSSIDScannedNotInFront = dataWrapper.getDatabaseHandler().isSSIDScanned(SSID, EventPreferencesWifi.CTYPE_NOTINFRONT);
 
-                if ((isSSIDScannedInFront) && (!isSSIDScannedNotInFront) && (WifiScanAlarmBroadcastReceiver.scanResults.size() != 0))
+                if ((isSSIDScannedInFront) && (!isSSIDScannedNotInFront) && (scanResults.size() != 0))
                 {
                     // INFRONT events exists for connected SSID and
                     // NOTINFRONT events not exists for connected SSID and
