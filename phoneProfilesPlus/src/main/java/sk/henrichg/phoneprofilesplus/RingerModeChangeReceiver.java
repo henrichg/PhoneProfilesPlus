@@ -15,7 +15,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Log.e("### RingerModeChangeReceiver", "xxx");
+        //Log.e("### RingerModeChangeReceiver", "xxx");
 
         //if (!internalChange) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -29,7 +29,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     @SuppressWarnings("deprecation")
     public static void setRingerMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
-        Log.e("RingerModeChangeReceiver",".setRingerMode  ringerMode="+ringerMode);
+        //Log.e("RingerModeChangeReceiver",".setRingerMode  ringerMode="+ringerMode);
 
         int vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
         int vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
