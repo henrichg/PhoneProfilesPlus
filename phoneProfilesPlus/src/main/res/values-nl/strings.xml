@@ -549,4 +549,6 @@ Toch activeren?</string>
   <string name="event_preferences_notifications_enabled">Enable notifications</string>
   <string name="event_preferences_notifications_applications">Applications</string>
   <string name="event_preferences_volumeNotificationsAccessSettings_summary">Allow PhoneProfilesPlus in \"Notification access\" system settings, for enabling Notification parameters.</string>
+  <string name="array_pref_zenModeArray_alarms">Only alarms</string>
+  <string name="profile_preferences_zenMode_alarms_summary">Only alarms interruptions</string>
 </resources>

@@ -548,4 +548,6 @@
   <string name="event_preferences_notifications_enabled">Použi notifikácie</string>
   <string name="event_preferences_notifications_applications">Aplikácie</string>
   <string name="event_preferences_volumeNotificationsAccessSettings_summary">Povoľ PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\", pre povolenie parametrov notifikácií.</string>
+  <string name="array_pref_zenModeArray_alarms">Len budíky</string>
+  <string name="profile_preferences_zenMode_alarms_summary">Iba budíky budú oznamované</string>
 </resources>
