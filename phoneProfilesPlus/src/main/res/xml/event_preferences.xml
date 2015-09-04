@@ -52,7 +52,7 @@
             android:title="@string/event_preferences_delayStart" 
             android:defaultValue="0"
             henrichg:dMin="0"
-            henrichg:dMax="68400" />
+            henrichg:dMax="86400" />
         <RingtonePreference
             android:key="eventNotificationSound"
             android:summary="@string/array_pref_no_change"
