@@ -55,8 +55,6 @@
         <item name="actionSourceProfileIcon">@drawable/ic_action_source_profile</item>
         <item name="actionHelpIcon">@drawable/ic_action_help</item>
 
-        <item name="android:popupMenuStyle">@style/PopupMenu_dark</item>
-
     </style>
 
     <style name="PopupMenu_dark" parent="@style/Widget.AppCompat.PopupMenu">
