@@ -1226,9 +1226,12 @@ public class ActivateProfileHelper {
 
         Calendar now = Calendar.getInstance();
         long time = now.getTimeInMillis() + Integer.valueOf(GlobalData.notificationStatusBarCancel) * 1000;
+        // not needed exact for removing notification
+        /*if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
-        else
+        else*/
             alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
         //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
