@@ -307,14 +307,15 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         lock(context); // lock wakeLock, then scan.
                     // unlock() is then called at the end of the onReceive function of BluetoothScanBroadcastReceiver
+        BluetoothScanBroadcastReceiver.discoveryStarted = false;
         boolean startScan = bluetooth.startDiscovery();
-        GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive","scanStarted="+startScan);
+        GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan","scanStarted="+startScan);
         if (!startScan)
         {
             unlock();
             if (getBluetoothEnabledForScan(context))
             {
-                GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive","disable bluetooth");
+                GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan","disable bluetooth");
                 bluetooth.disable();
             }
         }

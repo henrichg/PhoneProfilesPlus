@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
     public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScan";
 
     private static List<BluetoothDeviceData> tmpScanResults = null;
+    public static boolean discoveryStarted = false;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -45,12 +47,16 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
                 if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action))
                 {
-                    BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
+                    if (!discoveryStarted) {
+                        discoveryStarted = true;
 
-                    if (tmpScanResults == null)
-                        tmpScanResults = new ArrayList<BluetoothDeviceData>();
-                    else
-                        tmpScanResults.clear();
+                        BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
+
+                        if (tmpScanResults == null)
+                            tmpScanResults = new ArrayList<BluetoothDeviceData>();
+                        else
+                            tmpScanResults.clear();
+                    }
                 }
                 else if (BluetoothDevice.ACTION_FOUND.equals(action))
                 {
@@ -79,6 +85,8 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
                 else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
                 {
+                    discoveryStarted = false;
+
                     //BluetoothScanAlarmBroadcastReceiver.unlock();
 
                     //if (BluetoothScanAlarmBroadcastReceiver.scanResults == null)
