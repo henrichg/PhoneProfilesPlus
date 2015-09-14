@@ -37,7 +37,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
-            GlobalData.logE("SearchCalendarEventsBroadcastReceiver.onReceive","calendarEventsExists="+calendarEventsExists);
+            GlobalData.logE("SearchCalendarEventsBroadcastReceiver.onReceive", "calendarEventsExists=" + calendarEventsExists);
             dataWrapper.invalidateDataWrapper();
 
             if (calendarEventsExists)
@@ -72,7 +72,10 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
             else
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
             long alarmTime = calendar.getTimeInMillis();
-            alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            else
+                alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         }
         else {
             calendar.add(Calendar.SECOND, 5);

@@ -2180,6 +2180,9 @@ public class DataWrapper {
         //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        else
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
             alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         else

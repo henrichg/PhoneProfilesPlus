@@ -106,6 +106,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
+            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            else
             if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
