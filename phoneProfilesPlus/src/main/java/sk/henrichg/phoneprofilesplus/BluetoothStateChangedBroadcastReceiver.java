@@ -7,23 +7,23 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
 
-	public static final String BROADCAST_RECEIVER_TYPE = "bluetoothState";
-	
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		GlobalData.logE("#### BluetoothStateChangedBroadcastReceiver.onReceive","xxx");
-	
-		if (!GlobalData.getApplicationStarted(context))
-			// application is not started
-			return;
+    public static final String BROADCAST_RECEIVER_TYPE = "bluetoothState";
 
-		GlobalData.loadPreferences(context);
-		
-		int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        GlobalData.logE("#### BluetoothStateChangedBroadcastReceiver.onReceive","xxx");
 
-		if (GlobalData.getGlobalEventsRuning(context))
-		{
-    		GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive","state="+bluetoothState);
+        if (!GlobalData.getApplicationStarted(context))
+            // application is not started
+            return;
+
+        GlobalData.loadPreferences(context);
+
+        int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
+
+        if (GlobalData.getGlobalEventsRuning(context))
+        {
+            GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive","state="+bluetoothState);
 
             if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
 
@@ -35,11 +35,18 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                     //{
                         if (BluetoothScanAlarmBroadcastReceiver.getScanRequest(context))
                         {
-                            GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "startScan");
+                            GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start classic scan");
                             BluetoothScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
                         }
                         else
-                        if (!BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))
+                        if (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context))
+                        {
+                            GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start LE scan");
+                            BluetoothScanAlarmBroadcastReceiver.startLEScan(context.getApplicationContext());
+                        }
+                        else
+                        if (!(BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context) ||
+                              BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)))
                         {
                             // refresh bounded devices
                             BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
@@ -48,7 +55,9 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                 }
 
                 if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                      (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
                       (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                      (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)) ||
                       (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)))) {
                     boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
                     dataWrapper.invalidateDataWrapper();
@@ -67,11 +76,11 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
         }
 
         /*
-		if (bluetoothState == BluetoothAdapter.STATE_OFF)
-		{
-			BluetoothScanAlarmBroadcastReceiver.stopScan(context);
-		}
-		*/
-		
-	}
+        if (bluetoothState == BluetoothAdapter.STATE_OFF)
+        {
+            BluetoothScanAlarmBroadcastReceiver.stopScan(context);
+        }
+        */
+
+    }
 }

@@ -87,19 +87,12 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                 {
                     discoveryStarted = false;
 
-                    //BluetoothScanAlarmBroadcastReceiver.unlock();
-
-                    //if (BluetoothScanAlarmBroadcastReceiver.scanResults == null)
-                    //    BluetoothScanAlarmBroadcastReceiver.scanResults = new ArrayList<BluetoothDeviceData>();
-
                     List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
 
-                    //BluetoothScanAlarmBroadcastReceiver.scanResults.clear();
                     for (BluetoothDeviceData device : tmpScanResults)
                     {
                         scanResults.add(new BluetoothDeviceData(device.getName(), device.address));
                     }
-                    //BluetoothScanAlarmBroadcastReceiver.scanResults.addAll(BluetoothScanAlarmBroadcastReceiver.tmpScanResults);
                     tmpScanResults.clear();
 
                     BluetoothScanAlarmBroadcastReceiver.saveScanResults(context, scanResults);
@@ -111,16 +104,6 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                         {
                             GlobalData.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
                         }
-                    }
-                    */
-
-                    /*
-                    if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context))
-                    {
-                        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","disable bluetooth");
-                        BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
-                        // not call this, due BluetoothConnectionBroadcastReceiver
-                        //BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
                     }
                     */
 

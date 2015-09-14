@@ -203,6 +203,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 if (_forRescan)
                 {
                     GlobalData.setForceOneBluetoothScan(context, true);
+                    GlobalData.setForceOneLEBluetoothScan(context, true);
                     BluetoothScanAlarmBroadcastReceiver.startScanner(context);
 
                     try {
@@ -210,7 +211,7 @@ public class BluetoothNamePreference extends DialogPreference {
                     } catch (InterruptedException e) {
                         System.out.println(e);
                     }
-                    ScannerService.waitForBluetoothScanEnd(context, this);
+                    ScannerService.waitForBoothBluetoothScanEnd(context, this);
                 }
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);

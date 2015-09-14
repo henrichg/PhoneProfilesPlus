@@ -262,6 +262,7 @@ public class GlobalData extends Application {
     private static final String PREF_FORCE_RUN_EVENT_RUNNING = "forceRunEventRunning";
     private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     private static final String PREF_FORCE_ONE_BLUETOOTH_SCAN = "forceOneBluetoothScan";
+    private static final String PREF_FORCE_ONE_LE_BLUETOOTH_SCAN = "forceOneLEBluetoothScan";
     private static final String PREF_FORCE_ONE_WIFI_SCAN = "forceOneWifiScan";
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
     private static final String PREF_RINGER_VOLUME = "ringer_volume";
@@ -282,6 +283,8 @@ public class GlobalData extends Application {
     static final String PREF_EVENT_WIFI_ENABLED_FOR_SCAN = "eventWifiEnabledForScan";
     static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
     static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";
+    static final String PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST = "eventBluetoothLEScanRequest";
+    static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS = "eventBluetoothWaitForLEResults";
     static final String PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN = "eventBluetoothEnabledForScan";
     static final String PREF_EVENT_WIFI_LAST_STATE = "eventWifiLastState";
     static final String PREF_EVENT_BLUETOOTH_LAST_STATE = "eventBluetoothLastState";
@@ -888,6 +891,20 @@ public class GlobalData extends Application {
         editor.commit();
     }
 
+    static public boolean getForceOneWifiScan(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_FORCE_ONE_WIFI_SCAN, false);
+    }
+
+    static public void setForceOneWifiScan(Context context, boolean forceScan)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putBoolean(PREF_FORCE_ONE_WIFI_SCAN, forceScan);
+        editor.commit();
+    }
+
     static public boolean getForceOneBluetoothScan(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -902,17 +919,17 @@ public class GlobalData extends Application {
         editor.commit();
     }
 
-    static public boolean getForceOneWifiScan(Context context)
+    static public boolean getForceOneLEBluetoothScan(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_FORCE_ONE_WIFI_SCAN, false);
+        return preferences.getBoolean(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, false);
     }
 
-    static public void setForceOneWifiScan(Context context, boolean forceScan)
+    static public void setForceOneLEBluetoothScan(Context context, boolean forceScan)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(PREF_FORCE_ONE_WIFI_SCAN, forceScan);
+        editor.putBoolean(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, forceScan);
         editor.commit();
     }
 

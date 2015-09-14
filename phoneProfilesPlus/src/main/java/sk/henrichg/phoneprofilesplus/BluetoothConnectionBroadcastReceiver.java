@@ -68,7 +68,9 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                     GlobalData.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","connected"+connected);
 
                     if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                         (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
                          (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                         (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)) ||
                          (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context))))
                     {
                         // bluetooth is not scanned
