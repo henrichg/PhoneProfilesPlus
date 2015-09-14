@@ -332,6 +332,7 @@ public class GlobalData extends Application {
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
 
+    @Override
     public void onCreate()
     {
     //	Debug.startMethodTracing("phoneprofiles");
@@ -364,9 +365,11 @@ public class GlobalData extends Application {
 
     }
 
+    @Override
     public void onTerminate ()
     {
         DatabaseHandler.getInstance(this).closeConnection();
+        super.onTerminate();
     }
 
     //--------------------------------------------------------------
