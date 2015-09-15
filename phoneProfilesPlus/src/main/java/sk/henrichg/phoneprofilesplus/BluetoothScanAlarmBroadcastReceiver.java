@@ -369,6 +369,13 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if (bluetooth == null)
             bluetooth = BluetoothAdapter.getDefaultAdapter();
 
+        //TODO for API <= 18 BluetoothAdapter.startLeScan(BluetoothAdapter.LeScanCallback callback) -> zda sa, ze nie je mozne zistit koniec scanovania
+        //TODO for API > 18 BluetoothLeScanner scanner = getBluetoothAdapter().getBluetoothLeScanner();
+        //TODO              scanner.startScan(ScanCallback callback); -> zda sa, ze tu je koniec scanovania
+        //TODO nie je comapt verzia na to > 18?
+        //TODO bacha na to, aby classic a LE scanning zoznam nezmazal jeden druheho
+
+
         //if (bluetooth.isDiscovering())
         //    bluetooth.cancelDiscovery();
 
