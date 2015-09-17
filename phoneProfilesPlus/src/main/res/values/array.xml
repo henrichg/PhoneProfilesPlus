@@ -273,6 +273,7 @@
     <item>@string/array_pref_screenTimeoutArray_30seconds</item>
     <item>@string/array_pref_screenTimeoutArray_1minute</item>
     <item>@string/array_pref_screenTimeoutArray_2minutes</item>
+    <item>@string/array_pref_screenTimeoutArray_5minutes</item>
     <item>@string/array_pref_screenTimeoutArray_10minutes</item>
     <item>@string/array_pref_screenTimeoutArray_never_timeout</item>
 </string-array>
@@ -282,6 +283,7 @@
     <item>2</item>
     <item>3</item>
     <item>4</item>
+    <item>7</item>
     <item>5</item>
     <item>6</item>
 </string-array>
