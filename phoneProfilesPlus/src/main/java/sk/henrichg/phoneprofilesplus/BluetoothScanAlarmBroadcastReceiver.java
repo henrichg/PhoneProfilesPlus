@@ -6,6 +6,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.ScanFilter;
+import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -397,16 +399,17 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 // unlock() is then called at the end of the scan from ScannerService
 
                 /*
-                ScanSettings settings = new ScanSettings.Builder()
-                        //.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
-                        .setReportDelay(9000)
-                        //.setUseHardwareBatchingIfSupported(false)
-                        .build();
-                */
+                if (bluetooth.isOffloadedScanBatchingSupported()) {
+                    ScanSettings settings = new ScanSettings.Builder()
+                            .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
+                            .setReportDelay(10000)
+                            .build();
 
-                //List<ScanFilter> filters = new ArrayList<ScanFilter>();
-                //ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback21);
-                ScannerService.leScanner.startScan(ScannerService.leScanCallback21);
+                    List<ScanFilter> filters = new ArrayList<ScanFilter>();
+                    ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback21);
+                }
+                else*/
+                    ScannerService.leScanner.startScan(ScannerService.leScanCallback21);
             }
             else {
                 if (ScannerService.leScanCallback18 == null)
