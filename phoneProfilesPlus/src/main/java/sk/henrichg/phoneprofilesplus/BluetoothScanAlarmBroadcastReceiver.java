@@ -374,6 +374,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             bluetooth.cancelDiscovery();
     }
 
+    @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     static public void startLEScan(Context context)
     {
@@ -383,42 +384,75 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             if (bluetooth == null)
                 bluetooth = BluetoothAdapter.getDefaultAdapter();
-            if (ScannerService.leScanner == null)
-                ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
-            if (ScannerService.leScanCallback == null)
-                ScannerService.leScanCallback = new BluetoothLEScanCallback(context);
 
-            ScannerService.leScanner.stopScan(ScannerService.leScanCallback);
+            if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                if (ScannerService.leScanner == null)
+                    ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
+                if (ScannerService.leScanCallback21 == null)
+                    ScannerService.leScanCallback21 = new BluetoothLEScanCallback21(context);
 
-            lock(context); // lock wakeLock, then scan.
-            // unlock() is then called at the end of the scan from ScannerService
+                ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
 
-            /*
-            ScanSettings settings = new ScanSettings.Builder()
-                    .setScanMode(ScanSettings.SCAN_MODE_).setReportDelay(9000)
-                    //.setUseHardwareBatchingIfSupported(false)
-                    .build();
-            */
+                lock(context); // lock wakeLock, then scan.
+                // unlock() is then called at the end of the scan from ScannerService
 
-            //List<ScanFilter> filters = new ArrayList<ScanFilter>();
-            //ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback);
-            ScannerService.leScanner.startScan(ScannerService.leScanCallback);
+                /*
+                ScanSettings settings = new ScanSettings.Builder()
+                        //.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
+                        .setReportDelay(9000)
+                        //.setUseHardwareBatchingIfSupported(false)
+                        .build();
+                */
+
+                //List<ScanFilter> filters = new ArrayList<ScanFilter>();
+                //ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback21);
+                ScannerService.leScanner.startScan(ScannerService.leScanCallback21);
+            }
+            else {
+                if (ScannerService.leScanCallback18 == null)
+                    ScannerService.leScanCallback18 = new BluetoothLEScanCallback18(context);
+
+                bluetooth.stopLeScan(ScannerService.leScanCallback18);
+
+                lock(context); // lock wakeLock, then scan.
+                // unlock() is then called at the end of the scan from ScannerService
+
+                boolean startScan = bluetooth.startLeScan(ScannerService.leScanCallback18);
+
+                if (!startScan)
+                {
+                    unlock();
+                    if (getBluetoothEnabledForScan(context))
+                    {
+                        bluetooth.disable();
+                    }
+                }
+            }
 
             setWaitForLEResults(context, true); //startScan);
             setLEScanRequest(context, false);
         }
     }
 
+    @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     static public void stopLEScan(Context context) {
         if (ScannerService.bluetoothLESupported(context)) {
             if (bluetooth == null)
                 bluetooth = BluetoothAdapter.getDefaultAdapter();
-            if (ScannerService.leScanner == null)
-                ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
-            if (ScannerService.leScanCallback == null)
-                ScannerService.leScanCallback = new BluetoothLEScanCallback(context);
-            ScannerService.leScanner.stopScan(ScannerService.leScanCallback);
+
+            if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                if (ScannerService.leScanner == null)
+                    ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
+                if (ScannerService.leScanCallback21 == null)
+                    ScannerService.leScanCallback21 = new BluetoothLEScanCallback21(context);
+                ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
+            }
+            else {
+                if (ScannerService.leScanCallback18 == null)
+                    ScannerService.leScanCallback18 = new BluetoothLEScanCallback18(context);
+                bluetooth.stopLeScan(ScannerService.leScanCallback18);
+            }
         }
     }
 

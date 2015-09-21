@@ -38,7 +38,7 @@ public class GlobalData extends Application {
     public static final boolean exactAlarms = true;
 
     private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = true;
+    private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = //"@@@ BatteryEventBroadcastReceiver|"+
                                          //"@@@ CalendarProviderChangedBroadcastReceiver|"+
@@ -87,7 +87,8 @@ public class GlobalData extends Application {
             //"@@@ BluetoothScanBroadcastReceiver|"+
             //"@@@ BluetoothScanAlarmBroadcastReceiver|"+
             "$$$ ScannerService|"+
-            "BluetoothLEScanCallback"
+            "BluetoothLEScanCallback21|"+
+            "BluetoothLEScanCallback18"
             ;
 
 

@@ -32,7 +32,8 @@ public class ScannerService extends IntentService
     Handler wifiBluetoothChangeHandler;
 
     public static BluetoothLeScanner leScanner = null;
-    public static BluetoothLEScanCallback leScanCallback = null;
+    public static BluetoothLEScanCallback18 leScanCallback18 = null;
+    public static BluetoothLEScanCallback21 leScanCallback21 = null;
 
     public ScannerService()
     {
@@ -691,4 +692,5 @@ public class ScannerService extends IntentService
         return ((android.os.Build.VERSION.SDK_INT >= 18) &&
                 context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE));
     }
+
 }
