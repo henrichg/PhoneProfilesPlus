@@ -16,6 +16,10 @@ import android.os.Handler;
 
 import java.util.List;
 
+import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
+import no.nordicsemi.android.support.v18.scanner.ScanCallback;
+import no.nordicsemi.android.support.v18.scanner.ScanResult;
+
 public class ScannerService extends IntentService
 {
     Context context;
@@ -28,6 +32,9 @@ public class ScannerService extends IntentService
     public static final String PPHELPER_EXTRA_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.EXTRA_RADIOCHANGESTATE";
 
     Handler wifiBluetoothChangeHandler;
+
+    public static BluetoothLeScannerCompat leScanner = null;
+    public static BluetoothLEScanCallback leScanCallback = null;
 
     public ScannerService()
     {
@@ -225,20 +232,20 @@ public class ScannerService extends IntentService
                     intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
                     registerReceiver(bluetoothScanReceiver, intentFilter6);
 
+                    ///////// Classic BT scan
+
                     // enable bluetooth
-                    int bluetoothState = enableBluetooth(dataWrapper, BluetoothScanAlarmBroadcastReceiver.bluetooth, wifiBluetoothChangeHandler);
+                    int bluetoothState = enableBluetooth(dataWrapper,
+                                            BluetoothScanAlarmBroadcastReceiver.bluetooth,
+                                            wifiBluetoothChangeHandler,
+                                            false);
 
                     if (!((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_TURNING_ON))) {
                         BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
-                        BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-                        BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
                         GlobalData.setForceOneBluetoothScan(context, false);
-                        GlobalData.setForceOneLEBluetoothScan(context, false);
                     }
-
-                    ///////// Classic BT scan
 
                     if (bluetoothState == BluetoothAdapter.STATE_ON) {
                         GlobalData.logE("$$$ ScannerService.onHandleIntent", "start classic scan");
@@ -264,29 +271,44 @@ public class ScannerService extends IntentService
 
                     ///////// Classic BT scan
 
-                    ///////// LE BT scan
+                    if (android.os.Build.VERSION.SDK_INT >= 18) {
+                        ///////// LE BT scan
 
-                    if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                        GlobalData.logE("$$$ ScannerService.onHandleIntent", "start LE scan");
-                        BluetoothScanAlarmBroadcastReceiver.startLEScan(context);
+                        // enable bluetooth
+                        bluetoothState = enableBluetooth(dataWrapper,
+                                BluetoothScanAlarmBroadcastReceiver.bluetooth,
+                                wifiBluetoothChangeHandler,
+                                true);
+
+                        if (!((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_TURNING_ON))) {
+                            BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
+                            BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
+                            BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+                            GlobalData.setForceOneLEBluetoothScan(context, false);
+                        }
+
+                        if (bluetoothState == BluetoothAdapter.STATE_ON) {
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "start LE scan");
+                            BluetoothScanAlarmBroadcastReceiver.startLEScan(context);
+                        }
+
+                        if ((BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context))) {
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "waiting for LE scan end");
+
+                            // wait for scan end
+                            waitForLEBluetoothScanEnd(context, null);
+
+                            GlobalData.logE("$$$ ScannerService.onHandleIntent", "LE scan ended");
+
+                        }
+
+                        GlobalData.setForceOneLEBluetoothScan(context, false);
+                        BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
+                        BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
+
+                        ///////// LE BT scan
                     }
-
-                    if ((BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
-                        (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context))) {
-                        GlobalData.logE("$$$ ScannerService.onHandleIntent", "waiting for LE scan end");
-
-                        // wait for scan end
-                        waitForLEBluetoothScanEnd(context, null);
-
-                        GlobalData.logE("$$$ ScannerService.onHandleIntent", "LE scan ended");
-
-                    }
-
-                    GlobalData.setForceOneLEBluetoothScan(context, false);
-                    BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
-                    BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
-
-                    ///////// LE BT scan
 
                     if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
                         GlobalData.logE("$$$ ScannerService.onHandleIntent", "disable bluetooth");
@@ -499,12 +521,19 @@ public class ScannerService extends IntentService
     }
 
     @SuppressLint("NewApi")
-    private static int enableBluetooth(DataWrapper dataWrapper, BluetoothAdapter bluetooth, Handler wifiBluetoothChangeHandler)
+    private static int enableBluetooth(DataWrapper dataWrapper,
+                                       BluetoothAdapter bluetooth,
+                                       Handler wifiBluetoothChangeHandler,
+                                       boolean forLE)
     {
         GlobalData.logE("@@@ ScannerService.enableBluetooth","xxx");
 
         int bluetoothState = bluetooth.getState();
-        boolean forceScan = (GlobalData.getForceOneBluetoothScan(dataWrapper.context) || GlobalData.getForceOneLEBluetoothScan(dataWrapper.context));
+        boolean forceScan = false;
+        if (!forLE)
+            forceScan = GlobalData.getForceOneBluetoothScan(dataWrapper.context);
+        else
+            forceScan = GlobalData.getForceOneLEBluetoothScan(dataWrapper.context);
 
         //if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
         //{
@@ -519,8 +548,10 @@ public class ScannerService extends IntentService
                     {
                         GlobalData.logE("@@@ ScannerService.enableBluetooth","set enabled");
                         BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(dataWrapper.context, true);
-                        BluetoothScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, true);
-                        BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(dataWrapper.context, true);
+                        if (!forLE)
+                            BluetoothScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, true);
+                        else
+                            BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(dataWrapper.context, true);
                         final BluetoothAdapter _bluetooth = bluetooth;
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
@@ -566,10 +597,13 @@ public class ScannerService extends IntentService
             }
         }
     }
-    
+
+    private static int classicScanDuration = 20; // 20 seconds for classic bluetooth scan
+    private static int leScanDuration = 10;      // 10 seconds for le bluetooth scan
+
     public static void waitForBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
-        for (int i = 0; i < 5 * 20; i++) // 20 seconds for bluetooth scan
+        for (int i = 0; i < 5 * classicScanDuration; i++)
         {
             if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                   (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))))
@@ -591,10 +625,31 @@ public class ScannerService extends IntentService
 
     public static void waitForLEBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
-        for (int i = 0; i < 5 * 10; i++) // 10 seconds for bluetooth scan
+        if (android.os.Build.VERSION.SDK_INT >= 18) {
+            for (int i = 0; i < 5 * leScanDuration; i++)
+            {
+                if (!((BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
+                      (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context))))
+                    break;
+                if (asyncTask != null) {
+                    if (asyncTask.isCancelled())
+                        break;
+                }
+
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            BluetoothScanAlarmBroadcastReceiver.stopLEScan(context);
+        }
+    }
+
+    public static void waitForForceOneBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask) {
+        for (int i = 0; i < 5 * classicScanDuration; i++)
         {
-            if (!((BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
-                  (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context))))
+            if (!(GlobalData.getForceOneBluetoothScan(context)))
                 break;
             if (asyncTask != null)
             {
@@ -608,12 +663,28 @@ public class ScannerService extends IntentService
                 e.printStackTrace();
             }
         }
-        BluetoothScanAlarmBroadcastReceiver.stopLEScan(context);
-    }
+        if (asyncTask != null)
+        {
+            if (asyncTask.isCancelled())
+                return;
+        }
 
-    public static void waitForBoothBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask) {
-        waitForBluetoothScanEnd(context, asyncTask);
-        waitForLEBluetoothScanEnd(context, asyncTask);
+        for (int i = 0; i < 5 * leScanDuration; i++)
+        {
+            if (!(GlobalData.getForceOneLEBluetoothScan(context)))
+                break;
+            if (asyncTask != null)
+            {
+                if (asyncTask.isCancelled())
+                    break;
+            }
+
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

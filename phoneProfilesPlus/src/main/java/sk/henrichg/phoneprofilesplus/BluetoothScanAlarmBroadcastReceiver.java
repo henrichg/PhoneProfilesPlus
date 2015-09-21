@@ -21,6 +21,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
+import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
+import no.nordicsemi.android.support.v18.scanner.ScanFilter;
+import no.nordicsemi.android.support.v18.scanner.ScanSettings;
+
 public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScanAlarm";
@@ -285,16 +289,22 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public boolean getLEScanRequest(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, false);
+        if (android.os.Build.VERSION.SDK_INT >= 18) {
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, false);
+        }
+        else
+            return false;
     }
 
     static public void setLEScanRequest(Context context, boolean startScan)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, startScan);
-        editor.commit();
+        if (android.os.Build.VERSION.SDK_INT >= 18) {
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            Editor editor = preferences.edit();
+            editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, startScan);
+            editor.commit();
+        }
     }
 
     static public boolean getWaitForResults(Context context)
@@ -313,16 +323,22 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public boolean getWaitForLEResults(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, false);
+        if (android.os.Build.VERSION.SDK_INT >= 18) {
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, false);
+        }
+        else
+            return false;
     }
 
     static public void setWaitForLEResults(Context context, boolean startScan)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, startScan);
-        editor.commit();
+        if (android.os.Build.VERSION.SDK_INT >= 18) {
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            Editor editor = preferences.edit();
+            editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, startScan);
+            editor.commit();
+        }
     }
 
     static public void startScan(Context context)
@@ -364,49 +380,45 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public void startLEScan(Context context)
     {
-        //BluetoothScanBroadcastReceiver.initTmpScanResults();
+        if (android.os.Build.VERSION.SDK_INT >= 18) {
 
-        if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter();
+            //BluetoothScanBroadcastReceiver.initTmpScanResults();
 
-        //TODO for API <= 18 BluetoothAdapter.startLeScan(BluetoothAdapter.LeScanCallback callback) -> zda sa, ze nie je mozne zistit koniec scanovania
-        //TODO for API > 18 BluetoothLeScanner scanner = getBluetoothAdapter().getBluetoothLeScanner();
-        //TODO              scanner.startScan(ScanCallback callback); -> zda sa, ze tu je koniec scanovania
-        //TODO nie je comapt verzia na to > 18?
-        //TODO bacha na to, aby classic a LE scanning zoznam nezmazal jeden druheho
+            if (bluetooth == null)
+                bluetooth = BluetoothAdapter.getDefaultAdapter();
+            if (ScannerService.leScanner == null)
+                ScannerService.leScanner = BluetoothLeScannerCompat.getScanner();
+            if (ScannerService.leScanCallback == null)
+                ScannerService.leScanCallback = new BluetoothLEScanCallback();
 
+            ScannerService.leScanner.stopScan(ScannerService.leScanCallback);
 
-        //if (bluetooth.isDiscovering())
-        //    bluetooth.cancelDiscovery();
+            lock(context); // lock wakeLock, then scan.
+            // unlock() is then called at the end of the scan from ScannerService
 
-        lock(context); // lock wakeLock, then scan.
-                       // unlock() is then called at the end of the scan from ScannerService
+            ScanSettings settings = new ScanSettings.Builder()
+                    .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER).setReportDelay(9000)
+                    .setUseHardwareBatchingIfSupported(false)
+                    .build();
 
-        /*
-        BluetoothScanBroadcastReceiver.discoveryStarted = false;
-        boolean startScan = bluetooth.startDiscovery();
-        GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan","scanStarted="+startScan);
+            List<ScanFilter> filters = new ArrayList<ScanFilter>();
+            ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback);
 
-        if (!startScan)
-        {
-            unlock();
-            if (getBluetoothEnabledForScan(context))
-            {
-                GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan","disable bluetooth");
-                bluetooth.disable();
-            }
+            setWaitForLEResults(context, true); //startScan);
+            setLEScanRequest(context, false);
         }
-        */
-
-        setWaitForLEResults(context, true); //startScan);
-        setLEScanRequest(context, false);
     }
 
     static public void stopLEScan(Context context) {
-        if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter();
-        //if (bluetooth.isDiscovering())
-        //    bluetooth.cancelDiscovery();
+        if (android.os.Build.VERSION.SDK_INT >= 18) {
+            if (bluetooth == null)
+                bluetooth = BluetoothAdapter.getDefaultAdapter();
+            if (ScannerService.leScanner == null)
+                ScannerService.leScanner = BluetoothLeScannerCompat.getScanner();
+            if (ScannerService.leScanCallback == null)
+                ScannerService.leScanCallback = new BluetoothLEScanCallback();
+            ScannerService.leScanner.stopScan(ScannerService.leScanCallback);
+        }
     }
 
     static public void startScanner(Context context)

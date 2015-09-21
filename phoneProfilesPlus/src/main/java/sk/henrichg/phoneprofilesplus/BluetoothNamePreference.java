@@ -211,7 +211,7 @@ public class BluetoothNamePreference extends DialogPreference {
                     } catch (InterruptedException e) {
                         System.out.println(e);
                     }
-                    ScannerService.waitForBoothBluetoothScanEnd (context, this);
+                    ScannerService.waitForForceOneBluetoothScanEnd(context, this);
                 }
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
