@@ -21,10 +21,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
-import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
-import no.nordicsemi.android.support.v18.scanner.ScanFilter;
-import no.nordicsemi.android.support.v18.scanner.ScanSettings;
-
 public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScanAlarm";
@@ -289,7 +285,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public boolean getLEScanRequest(Context context)
     {
-        if (android.os.Build.VERSION.SDK_INT >= 18) {
+        if (ScannerService.bluetoothLESupported(context)) {
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, false);
         }
@@ -299,7 +295,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public void setLEScanRequest(Context context, boolean startScan)
     {
-        if (android.os.Build.VERSION.SDK_INT >= 18) {
+        if (ScannerService.bluetoothLESupported(context)) {
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
             editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, startScan);
@@ -323,7 +319,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public boolean getWaitForLEResults(Context context)
     {
-        if (android.os.Build.VERSION.SDK_INT >= 18) {
+        if (ScannerService.bluetoothLESupported(context)) {
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, false);
         }
@@ -333,7 +329,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public void setWaitForLEResults(Context context, boolean startScan)
     {
-        if (android.os.Build.VERSION.SDK_INT >= 18) {
+        if (ScannerService.bluetoothLESupported(context)) {
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
             editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, startScan);
@@ -378,45 +374,50 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             bluetooth.cancelDiscovery();
     }
 
+    @SuppressLint("NewApi")
     static public void startLEScan(Context context)
     {
-        if (android.os.Build.VERSION.SDK_INT >= 18) {
+        if (ScannerService.bluetoothLESupported(context)) {
 
             //BluetoothScanBroadcastReceiver.initTmpScanResults();
 
             if (bluetooth == null)
                 bluetooth = BluetoothAdapter.getDefaultAdapter();
             if (ScannerService.leScanner == null)
-                ScannerService.leScanner = BluetoothLeScannerCompat.getScanner();
+                ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
             if (ScannerService.leScanCallback == null)
-                ScannerService.leScanCallback = new BluetoothLEScanCallback();
+                ScannerService.leScanCallback = new BluetoothLEScanCallback(context);
 
             ScannerService.leScanner.stopScan(ScannerService.leScanCallback);
 
             lock(context); // lock wakeLock, then scan.
             // unlock() is then called at the end of the scan from ScannerService
 
+            /*
             ScanSettings settings = new ScanSettings.Builder()
-                    .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER).setReportDelay(9000)
-                    .setUseHardwareBatchingIfSupported(false)
+                    .setScanMode(ScanSettings.SCAN_MODE_).setReportDelay(9000)
+                    //.setUseHardwareBatchingIfSupported(false)
                     .build();
+            */
 
-            List<ScanFilter> filters = new ArrayList<ScanFilter>();
-            ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback);
+            //List<ScanFilter> filters = new ArrayList<ScanFilter>();
+            //ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback);
+            ScannerService.leScanner.startScan(ScannerService.leScanCallback);
 
             setWaitForLEResults(context, true); //startScan);
             setLEScanRequest(context, false);
         }
     }
 
+    @SuppressLint("NewApi")
     static public void stopLEScan(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 18) {
+        if (ScannerService.bluetoothLESupported(context)) {
             if (bluetooth == null)
                 bluetooth = BluetoothAdapter.getDefaultAdapter();
             if (ScannerService.leScanner == null)
-                ScannerService.leScanner = BluetoothLeScannerCompat.getScanner();
+                ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
             if (ScannerService.leScanCallback == null)
-                ScannerService.leScanCallback = new BluetoothLEScanCallback();
+                ScannerService.leScanCallback = new BluetoothLEScanCallback(context);
             ScannerService.leScanner.stopScan(ScannerService.leScanCallback);
         }
     }
@@ -546,7 +547,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         for (int i = 0; i < count; i++)
         {
-            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF+i, "");
+            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
             if (!json.isEmpty()) {
                 BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
                 scanResults.add(device);
@@ -556,28 +557,81 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         return scanResults;
     }
 
+    public static void clearScanResults(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.clear();
+        editor.putInt(SCAN_RESULT_COUNT_PREF, 0);
+
+        editor.commit();
+    }
+
     public static void saveScanResults(Context context, List<BluetoothDeviceData> scanResults)
     {
-        //if (scanResults == null)
-        //    scanResults = new ArrayList<BluetoothDeviceData>();
+        List<BluetoothDeviceData> savedScanResults = getScanResults(context);
+
+        for (BluetoothDeviceData device : scanResults) {
+            boolean found = false;
+            for (BluetoothDeviceData _device : savedScanResults) {
+
+                if (_device.address.equals(device.address)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                savedScanResults.add(new BluetoothDeviceData(device.name, device.address));
+            }
+        }
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.clear();
 
-        editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+        editor.putInt(SCAN_RESULT_COUNT_PREF, savedScanResults.size());
 
         Gson gson = new Gson();
-
-        for (int i = 0; i < scanResults.size(); i++)
+        for (int i = 0; i < savedScanResults.size(); i++)
         {
-            String json = gson.toJson(scanResults.get(i));
+            String json = gson.toJson(savedScanResults.get(i));
             editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
         }
 
         editor.commit();
     }
 
+    public static void addScanResult(Context context, BluetoothDeviceData device) {
+        List<BluetoothDeviceData> savedScanResults = getScanResults(context);
+
+        boolean found = false;
+        for (BluetoothDeviceData _device : savedScanResults) {
+
+            if (_device.address.equals(device.address)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            savedScanResults.add(new BluetoothDeviceData(device.name, device.address));
+        }
+
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.clear();
+
+        editor.putInt(SCAN_RESULT_COUNT_PREF, savedScanResults.size());
+
+        Gson gson = new Gson();
+        for (int i = 0; i < savedScanResults.size(); i++)
+        {
+            String json = gson.toJson(savedScanResults.get(i));
+            editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
+        }
+
+        editor.commit();
+    }
 
 }

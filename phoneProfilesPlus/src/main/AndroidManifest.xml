@@ -10,7 +10,7 @@
         android:minSdkVersion="16"
         android:targetSdkVersion="23" />
     -->
-    <uses-sdk tools:overrideLibrary="no.nordicsemi.android.support.v18.scanner"/>
+    <!-- <uses-sdk tools:overrideLibrary="no.nordicsemi.android.support.v18.scanner"/> -->
 
     <supports-screens
         android:anyDensity="true"

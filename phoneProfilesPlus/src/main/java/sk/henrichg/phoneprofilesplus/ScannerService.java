@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.le.BluetoothLeScanner;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -15,10 +17,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import java.util.List;
-
-import no.nordicsemi.android.support.v18.scanner.BluetoothLeScannerCompat;
-import no.nordicsemi.android.support.v18.scanner.ScanCallback;
-import no.nordicsemi.android.support.v18.scanner.ScanResult;
 
 public class ScannerService extends IntentService
 {
@@ -33,7 +31,7 @@ public class ScannerService extends IntentService
 
     Handler wifiBluetoothChangeHandler;
 
-    public static BluetoothLeScannerCompat leScanner = null;
+    public static BluetoothLeScanner leScanner = null;
     public static BluetoothLEScanCallback leScanCallback = null;
 
     public ScannerService()
@@ -232,6 +230,8 @@ public class ScannerService extends IntentService
                     intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
                     registerReceiver(bluetoothScanReceiver, intentFilter6);
 
+                    BluetoothScanAlarmBroadcastReceiver.clearScanResults(context);
+
                     ///////// Classic BT scan
 
                     // enable bluetooth
@@ -271,7 +271,7 @@ public class ScannerService extends IntentService
 
                     ///////// Classic BT scan
 
-                    if (android.os.Build.VERSION.SDK_INT >= 18) {
+                    if (bluetoothLESupported(context)) {
                         ///////// LE BT scan
 
                         // enable bluetooth
@@ -625,7 +625,7 @@ public class ScannerService extends IntentService
 
     public static void waitForLEBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
-        if (android.os.Build.VERSION.SDK_INT >= 18) {
+        if (bluetoothLESupported(context)) {
             for (int i = 0; i < 5 * leScanDuration; i++)
             {
                 if (!((BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
@@ -687,4 +687,8 @@ public class ScannerService extends IntentService
         }
     }
 
+    public static boolean bluetoothLESupported(Context context) {
+        return ((android.os.Build.VERSION.SDK_INT >= 18) &&
+                context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE));
+    }
 }
