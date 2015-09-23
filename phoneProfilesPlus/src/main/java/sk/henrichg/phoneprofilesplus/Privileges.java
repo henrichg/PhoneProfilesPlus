@@ -90,4 +90,12 @@ public class Privileges {
             return true;
     }
 
+    public static boolean checkVolumePreferences(Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            return true;
+        }
+        else
+            return true;
+    }
+
 }
