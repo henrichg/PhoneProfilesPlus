@@ -32,19 +32,18 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         if (profile != null)
         {
-            final Profile _profile = profile;
+            if (Privileges.checkProfilePrivileges(profile)) {
 
-            //Handler audioChangeHandler = new Handler(getMainLooper());
+                //Handler audioChangeHandler = new Handler(getMainLooper());
 
-            final AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+                final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-            //audioChangeHandler.post(new Runnable() {
-            //    @Override
-            //    public void run() {
+                //audioChangeHandler.post(new Runnable() {
+                //    @Override
+                //    public void run() {
 
-                    // set ringer mode to Ring for proper change ringer mode to Silent
-                    Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
-                    aph.setRingerMode(_profile, audioManager, true);
+                // set ringer mode to Ring for proper change ringer mode to Silent
+                aph.setRingerMode(profile, audioManager, true);
 
                     /*
                     TelephonyManager telephony = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -57,30 +56,30 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                     }
                     */
 
-                    Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
-                    aph.setVolumes(_profile, audioManager, linkUnlink);
+                aph.setVolumes(profile, audioManager, linkUnlink);
 
-                    // set ringer mode after volume because volumes change silent/vibrate
-                    Settings.System.putInt(context.getContentResolver(), "notifications_use_ring_volume", 0);
-                    aph.setRingerMode(_profile, audioManager, false);
-            //    }
-            //});
+                // set ringer mode after volume because volumes change silent/vibrate
+                aph.setRingerMode(profile, audioManager, false);
+                //    }
+                //});
 
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                //System.out.println(e);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    //System.out.println(e);
+                }
+
+            /*	if (intent.getBooleanExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, false))
+                {
+                    // run service for execute volumes - second set
+                    Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
+                    volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                    volumeServiceIntent.putExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, false);
+                    //WakefulIntentService.sendWakefulWork(context, radioServiceIntent);
+                    context.startService(volumeServiceIntent);
+                } */
+
             }
-
-        /*	if (intent.getBooleanExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, false))
-            {
-                // run service for execute volumes - second set
-                Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-                volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-                volumeServiceIntent.putExtra(GlobalData.EXTRA_SECOND_SET_VOLUMES, false);
-                //WakefulIntentService.sendWakefulWork(context, radioServiceIntent);
-                context.startService(volumeServiceIntent);
-            } */
 
         }
 
