@@ -32,7 +32,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         if (profile != null)
         {
-            if (Privileges.checkVolumePreferences(profile)) {
+            if (Privileges.checkVolumePreferences(context, profile)) {
 
                 //Handler audioChangeHandler = new Handler(getMainLooper());
 

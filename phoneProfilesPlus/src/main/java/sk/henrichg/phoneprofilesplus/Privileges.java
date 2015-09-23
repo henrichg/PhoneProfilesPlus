@@ -1,5 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Context;
+import android.provider.Settings;
+
 public class Privileges {
 
     /////// Profile privileges
@@ -81,8 +84,7 @@ public class Privileges {
     // PREF_PROFILE_DEVICE_WIFI_AP
     //  - WifiManager
 
-    public static boolean checkProfilePrivileges(Profile profile) {
-
+    public static boolean checkProfilePrivileges(Context context, Profile profile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             return true;
         }
@@ -90,9 +92,19 @@ public class Privileges {
             return true;
     }
 
-    public static boolean checkVolumePreferences(Profile profile) {
+    public static boolean checkVolumePreferences(Context context, Profile profile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            return true;
+            if ((profile._volumeRingerMode != 0) ||
+                    profile.getVolumeRingtoneChange() ||
+                    profile.getVolumeNotificationChange() ||
+                    profile.getVolumeMediaChange() ||
+                    profile.getVolumeAlarmChange() ||
+                    profile.getVolumeSystemChange() ||
+                    profile.getVolumeVoiceChange()) {
+                return Settings.System.canWrite(context);
+            }
+            else
+                return true;
         }
         else
             return true;
