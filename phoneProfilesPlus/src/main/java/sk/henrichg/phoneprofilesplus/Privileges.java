@@ -92,7 +92,7 @@ public class Privileges {
             return true;
     }
 
-    public static boolean checkVolumePreferences(Context context, Profile profile) {
+    public static boolean checkProfileVolumePreferences(Context context, Profile profile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if ((profile._volumeRingerMode != 0) ||
                     profile.getVolumeRingtoneChange() ||
@@ -101,6 +101,34 @@ public class Privileges {
                     profile.getVolumeAlarmChange() ||
                     profile.getVolumeSystemChange() ||
                     profile.getVolumeVoiceChange()) {
+                return Settings.System.canWrite(context);
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+
+    public static boolean checkSavedRingerMode(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            int ringerMode = GlobalData.getRingerMode(context);
+            if (ringerMode != 0)
+                return Settings.System.canWrite(context);
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkSavedVolumes(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            int ringerVolume = GlobalData.getRingerVolume(context);
+            int notificationVolume = GlobalData.getNotificationVolume(context);
+            if ((ringerVolume != -999) ||
+                (notificationVolume != -999)) {
                 return Settings.System.canWrite(context);
             }
             else
