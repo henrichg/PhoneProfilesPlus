@@ -807,4 +807,6 @@ Security:
 - ak privilegia nebudu potvrdene
 - ak bude niektore natvrdo zakazane, profil neaktivujeme a ani nerobime dialog/notifikaciu o tom
 
+- !!! BACHA - ringer mode, ring a notification volumes, zen mode su kvoli unkink volumes v preferences. Tie sa beru na
+  nastavenie, nie tie, ktore su v profile
 
