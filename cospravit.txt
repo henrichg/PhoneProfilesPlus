@@ -809,4 +809,9 @@ Security:
 
 - !!! BACHA - ringer mode, ring a notification volumes, zen mode su kvoli unkink volumes v preferences. Tie sa beru na
   nastavenie, nie tie, ktore su v profile
+- ActivateProfileHelpser.setRingerMode:
+  - Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); hadze to exception:
+    "java.lang.IllegalArgumentException: You cannot change private secure settings."
+    Zatial netusim co to znamena a ako to spravit. :-/
+- instalacia phoneprofiles-silent.ogg - vyzaduje citanie a zapis do storage.
 
