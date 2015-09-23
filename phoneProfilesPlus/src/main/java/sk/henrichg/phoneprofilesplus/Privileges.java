@@ -96,6 +96,7 @@ public class Privileges {
 
     public static boolean checkProfileVolumePreferences(Context context, Profile profile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
+            //Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); -- NOT WORKING
             if ((profile._volumeRingerMode != 0) ||
                     profile.getVolumeRingtoneChange() ||
                     profile.getVolumeNotificationChange() ||
@@ -103,7 +104,8 @@ public class Privileges {
                     profile.getVolumeAlarmChange() ||
                     profile.getVolumeSystemChange() ||
                     profile.getVolumeVoiceChange()) {
-                return Settings.System.canWrite(context);
+                //return Settings.System.canWrite(context);
+                return true;
             }
             else
                 return true;
@@ -113,11 +115,13 @@ public class Privileges {
     }
 
 
-    public static boolean checkSavedRingerMode(Context context, Profile profile) {
+    public static boolean checkSavedProfileRingerMode(Context context, Profile profile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
+            //Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); -- NOT WORKING
             int ringerMode = GlobalData.getRingerMode(context);
             if (ringerMode != 0)
-                return Settings.System.canWrite(context);
+                //return Settings.System.canWrite(context);
+                return true;
             else
                 return true;
         }
@@ -125,13 +129,15 @@ public class Privileges {
             return true;
     }
 
-    public static boolean checkSavedVolumes(Context context, Profile profile) {
+    public static boolean checkSavedProfileVolumes(Context context, Profile profile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
+            //Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); -- NOT WORKING
             int ringerVolume = GlobalData.getRingerVolume(context);
             int notificationVolume = GlobalData.getNotificationVolume(context);
             if ((ringerVolume != -999) ||
-                (notificationVolume != -999)) {
-                return Settings.System.canWrite(context);
+                    (notificationVolume != -999)) {
+                //return Settings.System.canWrite(context);
+                return true;
             }
             else
                 return true;
@@ -143,6 +149,68 @@ public class Privileges {
     public static boolean checkInstallTone(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
             return (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        else
+            return true;
+    }
+
+    public static boolean checkProfileVibrationOnTouch(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (profile._vibrationOnTouch != 0) {
+                return Settings.System.canWrite(context);
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkProfileRingtones(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if ((profile._soundRingtoneChange != 0) ||
+                    (profile._soundNotificationChange != 0) ||
+                    (profile._soundAlarmChange != 0)) {
+                return Settings.System.canWrite(context);
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkProfileScreenTimeout(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (profile._deviceScreenTimeout != 0) {
+                return Settings.System.canWrite(context);
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkProfileScreenBrightness(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if ((profile == null) || profile.getDeviceBrightnessChange()) {
+                return Settings.System.canWrite(context);
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkProfileAutoRotation(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if ((profile == null) || profile._deviceAutoRotate != 0) {
+                return Settings.System.canWrite(context);
+            }
+            else
+                return true;
+        }
         else
             return true;
     }

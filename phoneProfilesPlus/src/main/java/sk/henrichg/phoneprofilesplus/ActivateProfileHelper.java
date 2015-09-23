@@ -385,7 +385,7 @@ public class ActivateProfileHelper {
                 GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
         }
 
-        if (Privileges.checkSavedVolumes(context, profile)) {
+        if (Privileges.checkSavedProfileVolumes(context, profile)) {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             int callState = telephony.getCallState();
 
@@ -547,7 +547,7 @@ public class ActivateProfileHelper {
                 return;
         }
 
-        if (Privileges.checkSavedRingerMode(context, profile)) {
+        if (Privileges.checkSavedProfileRingerMode(context, profile)) {
 
             switch (ringerMode) {
                 case 1:  // Ring
@@ -564,6 +564,7 @@ public class ActivateProfileHelper {
                         e.printStackTrace();
                     }
                     if (android.os.Build.VERSION.SDK_INT >= 23)
+                        // Nefunfuje v Android M, hadze exception
                         ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
                     else
                         Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
@@ -582,6 +583,7 @@ public class ActivateProfileHelper {
                         e.printStackTrace();
                     }
                     if (android.os.Build.VERSION.SDK_INT >= 23)
+                        // Nefunfuje v Android M, hadze exception
                         ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1);
                     else
                         Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
@@ -600,6 +602,7 @@ public class ActivateProfileHelper {
                         e.printStackTrace();
                     }
                     if (android.os.Build.VERSION.SDK_INT >= 23)
+                        // Nefunfuje v Android M, hadze exception
                         ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1);
                     else
                         Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
@@ -618,6 +621,7 @@ public class ActivateProfileHelper {
                         e.printStackTrace();
                     }
                     if (android.os.Build.VERSION.SDK_INT >= 23)
+                        // Nefunfuje v Android M, hadze exception
                         ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
                     else
                         Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
@@ -633,6 +637,7 @@ public class ActivateProfileHelper {
                             setZenMode(context, ZENMODE_ALL);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             if (android.os.Build.VERSION.SDK_INT >= 23)
+                                // Nefunfuje v Android M, hadze exception
                                 ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
                             else
                                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
@@ -641,6 +646,7 @@ public class ActivateProfileHelper {
                             setZenMode(context, ZENMODE_PRIORITY);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             if (android.os.Build.VERSION.SDK_INT >= 23)
+                                // Nefunfuje v Android M, hadze exception
                                 ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
                             else
                                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
@@ -654,6 +660,7 @@ public class ActivateProfileHelper {
                             setZenMode(context, ZENMODE_ALL);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             if (android.os.Build.VERSION.SDK_INT >= 23)
+                                // Nefunfuje v Android M, hadze exception
                                 ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1);
                             else
                                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
@@ -662,6 +669,7 @@ public class ActivateProfileHelper {
                             setZenMode(context, ZENMODE_PRIORITY);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             if (android.os.Build.VERSION.SDK_INT >= 23)
+                                // Nefunfuje v Android M, hadze exception
                                 ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1);
                             else
                                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
@@ -724,50 +732,48 @@ public class ActivateProfileHelper {
         setRingerMode(profile, audioManager);*/
 
         // set vibration on touch
-        switch (profile._vibrationOnTouch) {
-            case 1:
-                Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
-                break;
-            case 2:
-                Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
-                break;
+        if (Privileges.checkProfileVibrationOnTouch(context, profile)) {
+            switch (profile._vibrationOnTouch) {
+                case 1:
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
+                    break;
+                case 2:
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
+                    break;
+            }
         }
 
         // nahodenie  tonov
-        if (profile._soundRingtoneChange == 1)
-        {
-            if (!profile._soundRingtone.isEmpty()) {
-                //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
-                RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, Uri.parse(profile._soundRingtone));
+        if (Privileges.checkProfileRingtones(context, profile)) {
+            if (profile._soundRingtoneChange == 1) {
+                if (!profile._soundRingtone.isEmpty()) {
+                    //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
+                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, Uri.parse(profile._soundRingtone));
+                } else {
+                    // selected is None tone
+                    //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
+                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, null);
+                }
             }
-            else {
-                // selected is None tone
-                //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
-                RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, null);
+            if (profile._soundNotificationChange == 1) {
+                if (!profile._soundNotification.isEmpty()) {
+                    //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, profile._soundNotification);
+                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(profile._soundNotification));
+                } else {
+                    // selected is None tone
+                    //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
+                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, null);
+                }
             }
-        }
-        if (profile._soundNotificationChange == 1)
-        {
-            if (!profile._soundNotification.isEmpty()) {
-                //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, profile._soundNotification);
-                RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(profile._soundNotification));
-            }
-            else {
-                // selected is None tone
-                //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
-                RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, null);
-            }
-        }
-        if (profile._soundAlarmChange == 1)
-        {
-            if (!profile._soundAlarm.isEmpty()) {
-                //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, profile._soundAlarm);
-                RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, Uri.parse(profile._soundAlarm));
-            }
-            else {
-                // selected is None tone
-                //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
-                RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, null);
+            if (profile._soundAlarmChange == 1) {
+                if (!profile._soundAlarm.isEmpty()) {
+                    //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, profile._soundAlarm);
+                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, Uri.parse(profile._soundAlarm));
+                } else {
+                    // selected is None tone
+                    //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
+                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, null);
+                }
             }
         }
 
@@ -805,39 +811,41 @@ public class ActivateProfileHelper {
             ContentResolver.setMasterSyncAutomatically(_isAutosync);
 
         // screen timeout
-        switch (profile._deviceScreenTimeout) {
-            case 1:
-                screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-                break;
-            case 2:
-                screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
-                break;
-            case 3:
-                screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
-                break;
-            case 4:
-                screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
-                break;
-            case 5:
-                screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
-                break;
-            case 6:
-                screenTimeoutUnlock(context);
-                if (android.os.Build.VERSION.SDK_INT < 19)
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
-                else
-                    screenTimeoutLock(context);
+        if (Privileges.checkProfileScreenTimeout(context, profile)) {
+            switch (profile._deviceScreenTimeout) {
+                case 1:
+                    screenTimeoutUnlock(context);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                    break;
+                case 2:
+                    screenTimeoutUnlock(context);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
+                    break;
+                case 3:
+                    screenTimeoutUnlock(context);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
+                    break;
+                case 4:
+                    screenTimeoutUnlock(context);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
+                    break;
+                case 5:
+                    screenTimeoutUnlock(context);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
+                    break;
+                case 6:
+                    screenTimeoutUnlock(context);
+                    if (android.os.Build.VERSION.SDK_INT < 19)
+                        Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
+                    else
+                        screenTimeoutLock(context);
                     //Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 18000000);
-                break;
-            case 7:
-                screenTimeoutUnlock(context);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
-                break;
+                    break;
+                case 7:
+                    screenTimeoutUnlock(context);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
+                    break;
+            }
         }
 
         // zapnutie/vypnutie lockscreenu
@@ -885,79 +893,78 @@ public class ActivateProfileHelper {
         }
 
         // nahodenie podsvietenia
-        if (profile.getDeviceBrightnessChange())
-        {
-            GlobalData.logE("ActivateProfileHelper.execute", "set brightness: profile="+profile._name);
-            GlobalData.logE("ActivateProfileHelper.execute", "set brightness: _deviceBrightness="+profile._deviceBrightness);
+        if (Privileges.checkProfileScreenBrightness(context, profile)) {
+            if (profile.getDeviceBrightnessChange()) {
+                GlobalData.logE("ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
+                GlobalData.logE("ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
 
-            if (profile.getDeviceBrightnessAutomatic())
-            {
-                Settings.System.putInt(context.getContentResolver(),
+                if (profile.getDeviceBrightnessAutomatic()) {
+                    Settings.System.putInt(context.getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS_MODE,
                             Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-                Settings.System.putInt(context.getContentResolver(),
-                        Settings.System.SCREEN_BRIGHTNESS,
-                        profile.getDeviceBrightnessManualValue(context));
-                if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                    Settings.System.putFloat(context.getContentResolver(),
-                            ADAPTIVE_BRIGHTNESS_SETTING_NAME,
-                            profile.getDeviceBrightnessAdaptiveValue(context));
-            }
-            else
-            {
-                Settings.System.putInt(context.getContentResolver(),
-                            Settings.System.SCREEN_BRIGHTNESS_MODE,
-                            Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-                Settings.System.putInt(context.getContentResolver(),
+                    Settings.System.putInt(context.getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS,
                             profile.getDeviceBrightnessManualValue(context));
-            }
+                    // Nefunguje v Android M, hadze exception
+                    //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+                    //    Settings.System.putFloat(context.getContentResolver(),
+                    //            ADAPTIVE_BRIGHTNESS_SETTING_NAME,
+                    //            profile.getDeviceBrightnessAdaptiveValue(context));
+                } else {
+                    Settings.System.putInt(context.getContentResolver(),
+                            Settings.System.SCREEN_BRIGHTNESS_MODE,
+                            Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                    Settings.System.putInt(context.getContentResolver(),
+                            Settings.System.SCREEN_BRIGHTNESS,
+                            profile.getDeviceBrightnessManualValue(context));
+                }
 
-            if (brightnessHandler != null)
-            {
-                final Profile __profile = profile;
-                final Context __context = context;
-                brightnessHandler.post(new Runnable() {
-                    public void run() {
-                        createBrightnessView(__profile, __context);
-                    }
-                });
+                if (brightnessHandler != null) {
+                    final Profile __profile = profile;
+                    final Context __context = context;
+                    brightnessHandler.post(new Runnable() {
+                        public void run() {
+                            createBrightnessView(__profile, __context);
+                        }
+                    });
+                } else
+                    createBrightnessView(profile, context);
             }
-            else
-                createBrightnessView(profile, context);
         }
 
         // nahodenie rotate
-        switch (profile._deviceAutoRotate) {
-            case 1:
-                // set autorotate on
-                Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
-                break;
-            case 2:
-                // set autorotate off
-                // degree 0
-                Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
-                break;
-            case 3:
-                // set autorotate off
-                // degree 90
-                Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_90);
-                break;
-            case 4:
-                // set autorotate off
-                // degree 180
-                Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_180);
-                break;
-            case 5:
-                // set autorotate off
-                // degree 270
-                Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_270);
-                break;
+        if (Privileges.checkProfileAutoRotation(context, profile)) {
+            switch (profile._deviceAutoRotate) {
+                case 1:
+                    // set autorotate on
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
+                    break;
+                case 2:
+                    // set autorotate off
+                    // degree 0
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
+                    break;
+                case 3:
+                    // set autorotate off
+                    // degree 90
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_90);
+                    break;
+                case 4:
+                    // set autorotate off
+                    // degree 180
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_180);
+                    break;
+                case 5:
+                    // set autorotate off
+                    // degree 270
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_270);
+                    break;
+            }
         }
 
         // nahodenie pozadia
