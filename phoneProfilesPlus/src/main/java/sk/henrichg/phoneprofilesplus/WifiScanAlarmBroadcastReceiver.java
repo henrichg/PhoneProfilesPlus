@@ -253,21 +253,26 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static void lock(Context context)
     {
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.lock","idleMode="+powerManager.isDeviceIdleMode());
+
          // initialise the locks
         if (wifiLock == null)
             wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
         if (wakeLock == null)
-            wakeLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE))
-                            .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiScanWakeLock");
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiScanWakeLock");
 
         try {
             if (!wakeLock.isHeld())
                 wakeLock.acquire();
             if (!wifiLock.isHeld())
                 wifiLock.acquire();
-            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.lock","xxx");
+            GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.lock","xxx");
         } catch(Exception e) {
             Log.e("WifiScanAlarmBroadcastReceiver.lock", "Error getting Lock: "+e.getMessage());
+            GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.lock", "Error getting Lock: " + e.getMessage());
         }
     }
  
@@ -277,7 +282,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             wakeLock.release();
         if ((wifiLock != null) && (wifiLock.isHeld()))
             wifiLock.release();
-        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.unlock","xxx");
+        GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.unlock","xxx");
     }
     
     public static void sendBroadcast(Context context)
@@ -321,13 +326,13 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         lock(context); // lock wakeLock and wifiLock, then scan.
                     // unlock() is then called at the end of the onReceive function of WifiScanBroadcastReceiver
         boolean startScan = wifi.startScan();
-        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.startScan","scanStarted="+startScan);
+        GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.startScan","scanStarted="+startScan);
         GlobalData.logE("$$$ WifiAP", "WifiScanAlarmBroadcastReceiver.startScan-startScan="+startScan);
         if (!startScan)
         {
             if (getWifiEnabledForScan(context))
             {
-                GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.startScan","disable wifi");
+                GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.startScan","disable wifi");
                 wifi.setWifiEnabled(false);
             }
             unlock();

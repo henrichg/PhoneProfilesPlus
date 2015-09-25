@@ -795,7 +795,7 @@ Android M
 3. Na Exit aplikaciu vznikde exception. Leak viewu. Na G2 to nerobi, zatial predpokladam, ze ide o bug v Android M.
 4. Nove veci: Doze (setrenie baterie), Security (uzivatek urcuje, co moze aplikacia), Data do cloudu (zaloha dat apliakcie)
 
-Security:
+---- Security:
 - spravme tak, ze bude zdruzovat podla profilu/udalosti
 - kazdy profil/udalost maju prefernces, cize spriahnut preference so zoznamom privilegii
 - pri aktivacii profilu skontrolujeme vsetky nastavene preferences a k nim privilegia
@@ -832,4 +832,16 @@ CO NEFUNGUJE
   "java.lang.IllegalArgumentException: You cannot change private secure settings."
   Zatial netusim co to znamena a ako to spravit. :-/
 
+------
 
+---- Power management:
+
+1. Ak je device v "Device Idle" mode, podla dokumentacie nerobi wifi scanning.
+2. Ak to tak je, tak vobec nespustat scanning, ale odchytavat broadcast na zmenu modu a ak sa
+   "Device Idle" vypne, spravit one scan.
+3. Aplikacia sa moze dostat do "App Standby" modu. Treba zistit, ako sa toto da odchytit. Ak bude v tomto mode,
+   scannovat s intervalom raz tak dlhym ako je prednastavene. Ak sa vypne tento mod, spravit one scan.
+4. Od Loppipopa existuje "Power Save" mod. Da sa odchytit boradcast. Mal by fungovat tak ako pri
+   "App standby" mode.
+
+-------
