@@ -17,6 +17,7 @@ import android.preference.Preference;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -319,8 +320,18 @@ public class ImageViewPreference extends Preference {
      * @param uri The Uri to query.
      * @author paulburke
      */
-    @SuppressLint("NewApi")
+    @SuppressLint({"NewApi", "LongLogTag"})
     public static String getPath(final Context context, final Uri uri) {
+
+        Log.e("ImageViewPreference.getPath" + " File -",
+                "Authority: " + uri.getAuthority() +
+                        ", Fragment: " + uri.getFragment() +
+                        ", Port: " + uri.getPort() +
+                        ", Query: " + uri.getQuery() +
+                        ", Scheme: " + uri.getScheme() +
+                        ", Host: " + uri.getHost() +
+                        ", Segments: " + uri.getPathSegments().toString()
+        );
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
