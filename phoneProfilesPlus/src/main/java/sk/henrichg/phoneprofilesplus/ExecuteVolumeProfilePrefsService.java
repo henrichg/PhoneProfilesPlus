@@ -4,7 +4,6 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.provider.Settings;
 
 public class ExecuteVolumeProfilePrefsService extends IntentService
 {
@@ -32,7 +31,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         if (profile != null)
         {
-            if (Privileges.checkProfileVolumePreferences(context, profile)) {
+            if (Permissions.checkProfileVolumePreferences(context, profile)) {
 
                 //Handler audioChangeHandler = new Handler(getMainLooper());
 

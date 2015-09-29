@@ -385,7 +385,7 @@ public class ActivateProfileHelper {
                 GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
         }
 
-        if (Privileges.checkSavedProfileVolumes(context, profile)) {
+        if (Permissions.checkSavedProfileVolumes(context, profile)) {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             int callState = telephony.getCallState();
 
@@ -547,7 +547,7 @@ public class ActivateProfileHelper {
                 return;
         }
 
-        if (Privileges.checkSavedProfileRingerMode(context, profile)) {
+        if (Permissions.checkSavedProfileRingerMode(context, profile)) {
 
             switch (ringerMode) {
                 case 1:  // Ring
@@ -732,7 +732,7 @@ public class ActivateProfileHelper {
         setRingerMode(profile, audioManager);*/
 
         // set vibration on touch
-        if (Privileges.checkProfileVibrationOnTouch(context, profile)) {
+        if (Permissions.checkProfileVibrationOnTouch(context, profile)) {
             switch (profile._vibrationOnTouch) {
                 case 1:
                     Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
@@ -744,7 +744,7 @@ public class ActivateProfileHelper {
         }
 
         // nahodenie  tonov
-        if (Privileges.checkProfileRingtones(context, profile)) {
+        if (Permissions.checkProfileRingtones(context, profile)) {
             if (profile._soundRingtoneChange == 1) {
                 if (!profile._soundRingtone.isEmpty()) {
                     //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
@@ -811,7 +811,7 @@ public class ActivateProfileHelper {
             ContentResolver.setMasterSyncAutomatically(_isAutosync);
 
         // screen timeout
-        if (Privileges.checkProfileScreenTimeout(context, profile)) {
+        if (Permissions.checkProfileScreenTimeout(context, profile)) {
             switch (profile._deviceScreenTimeout) {
                 case 1:
                     screenTimeoutUnlock(context);
@@ -893,7 +893,7 @@ public class ActivateProfileHelper {
         }
 
         // nahodenie podsvietenia
-        if (Privileges.checkProfileScreenBrightness(context, profile)) {
+        if (Permissions.checkProfileScreenBrightness(context, profile)) {
             if (profile.getDeviceBrightnessChange()) {
                 GlobalData.logE("ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
                 GlobalData.logE("ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
@@ -933,7 +933,7 @@ public class ActivateProfileHelper {
         }
 
         // nahodenie rotate
-        if (Privileges.checkProfileAutoRotation(context, profile)) {
+        if (Permissions.checkProfileAutoRotation(context, profile)) {
             switch (profile._deviceAutoRotate) {
                 case 1:
                     // set autorotate on

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 
-public class Privileges {
+public class Permissions {
 
     /////// Profile privileges
     // PREF_PROFILE_VOLUME_RINGER_MODE

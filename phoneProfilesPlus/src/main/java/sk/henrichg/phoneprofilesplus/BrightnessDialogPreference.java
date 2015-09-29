@@ -148,7 +148,7 @@ public class BrightnessDialogPreference extends
     @Override
     public void onDismiss(DialogInterface dialog)
     {
-        if (Privileges.checkProfileScreenBrightness(_context, null)) {
+        if (Permissions.checkProfileScreenBrightness(_context, null)) {
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
             //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
@@ -177,7 +177,7 @@ public class BrightnessDialogPreference extends
         // Set the valueText text.
         valueText.setText(String.valueOf(value));
 
-        if (Privileges.checkProfileScreenBrightness(_context, null)) {
+        if (Permissions.checkProfileScreenBrightness(_context, null)) {
             if (automatic == 1)
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
             else
@@ -276,7 +276,7 @@ public class BrightnessDialogPreference extends
 
         if (/*(isAutomatic) || */(_noChange == 1))
         {
-            if (Privileges.checkProfileScreenBrightness(_context, null)) {
+            if (Permissions.checkProfileScreenBrightness(_context, null)) {
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
                 // Nefunguje v Android M, hadze exception
@@ -294,7 +294,7 @@ public class BrightnessDialogPreference extends
         }
         else
         {
-            if (Privileges.checkProfileScreenBrightness(_context, null)) {
+            if (Permissions.checkProfileScreenBrightness(_context, null)) {
                 if (_automatic == 1)
                     Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                 else
