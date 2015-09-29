@@ -93,7 +93,7 @@ public class ImageViewPreference extends Preference {
                 Resources resources = prefContext.getResources();
                 int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
                 int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-                Bitmap bitmap = BitmapManipulator.resampleBitmap(imageIdentifier, width, height);
+                Bitmap bitmap = BitmapManipulator.resampleBitmap(imageIdentifier, width, height, prefContext);
 
                 if (bitmap != null)
                     imageView.setImageBitmap(bitmap);
@@ -252,15 +252,17 @@ public class ImageViewPreference extends Preference {
 
     public void startGallery()
     {
-        //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (Permissions.checkGallery(prefContext)) {
+            //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
 
-        // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
-        ProfilePreferencesFragment.setChangedImageViewPreference(this);
-        ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
+            // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+            ProfilePreferencesFragment.setChangedImageViewPreference(this);
+            ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
+        }
     }
 
 

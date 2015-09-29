@@ -6,25 +6,25 @@ import android.content.Intent;
 
 public class ExecuteWallpaperProfilePrefsService extends IntentService
 {
-	public ExecuteWallpaperProfilePrefsService() {
-		super("ExecuteWallpaperProfilePrefsService");
-	}
+    public ExecuteWallpaperProfilePrefsService() {
+        super("ExecuteWallpaperProfilePrefsService");
+    }
 
-	@Override
-	protected void onHandleIntent(Intent intent) {
-		
-		GlobalData.logE("$$$ ExecuteWallpaperProfilePrefsService.onHandleIntent", "-- START ----------");
-		
-		Context context = getApplicationContext();
-		
-		GlobalData.loadPreferences(context);
-		
-		DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-		
-		long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
-		boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
-		Profile profile = dataWrapper.getProfileById(profile_id, merged);
-		
+    @Override
+    protected void onHandleIntent(Intent intent) {
+
+        GlobalData.logE("$$$ ExecuteWallpaperProfilePrefsService.onHandleIntent", "-- START ----------");
+
+        Context context = getApplicationContext();
+
+        GlobalData.loadPreferences(context);
+
+        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+
+        long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
+        boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
+        Profile profile = dataWrapper.getProfileById(profile_id, merged);
+
         // run execute radios from ActivateProfileHelper
         profile = GlobalData.getMappedProfile(profile, context);
         if (profile != null)
@@ -34,9 +34,9 @@ public class ExecuteWallpaperProfilePrefsService extends IntentService
             aph.executeForWallpaper(profile);
         }
 
-		dataWrapper.invalidateDataWrapper();
+        dataWrapper.invalidateDataWrapper();
 
-		GlobalData.logE("$$$ ExecuteWallpaperProfilePrefsService.onHandleIntent","-- END ----------");
-		
-	}
+        GlobalData.logE("$$$ ExecuteWallpaperProfilePrefsService.onHandleIntent","-- END ----------");
+
+    }
 }

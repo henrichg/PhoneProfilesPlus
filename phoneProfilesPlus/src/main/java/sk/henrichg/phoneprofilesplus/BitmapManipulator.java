@@ -20,9 +20,12 @@ import java.io.File;
 
 public class BitmapManipulator {
 
-    public static Bitmap resampleBitmap(String bitmapFile, int width, int height)
+    public static Bitmap resampleBitmap(String bitmapFile, int width, int height, Context context)
     {
         if (bitmapFile == null)
+            return null;
+
+        if (!Permissions.checkGallery(context))
             return null;
 
         File f = new File(bitmapFile);

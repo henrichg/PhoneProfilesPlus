@@ -7,7 +7,7 @@ import android.provider.Settings;
 
 public class Permissions {
 
-    /////// Profile privileges
+    /////// Profile permissions
     // PREF_PROFILE_VOLUME_RINGER_MODE
     //  - System.Settings -> "notifications_use_ring_volume"
     //  - System.Settings -> "vibrate_when_ringing"
@@ -86,7 +86,7 @@ public class Permissions {
     // PREF_PROFILE_DEVICE_WIFI_AP
     //  - WifiManager
 
-    public static boolean checkProfilePrivileges(Context context, Profile profile) {
+    public static boolean checkProfilePermissions(Context context, Profile profile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             return true;
         }
@@ -211,6 +211,32 @@ public class Permissions {
             else
                 return true;
         }
+        else
+            return true;
+    }
+
+    public static boolean checkWallpaper(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if ((profile == null) || profile._deviceWallpaperChange != 0) {
+                return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkCustomProfileIcon(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        else
+            return true;
+    }
+
+    public static boolean checkGallery(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
             return true;
     }
