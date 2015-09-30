@@ -816,13 +816,9 @@ Android M
 - export vyzaduje WRITE_EXTERNAL_STORAGE
 
 CO ESTE TREBA
-- nastavenie uzivatelskej ikony profilu + jej pouzivanie
 - radio preferences
-- nastavenie pozadia plochy
-- nastavenie mobilnych dat cez Settings dialog
-- nastavenie lokacie cez Settings dialog
-- spustenie aplikacii
-- import/export
+  - GPS nefunguje, ani cez PPHelper
+- phone
 
 CO NEFUNGUJE
 - Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); hadze to exception:

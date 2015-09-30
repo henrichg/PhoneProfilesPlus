@@ -110,6 +110,11 @@ public class PhoneProfilesHelper {
             return false;
         }
 
+        if (!Permissions.checkPPHelperInstall(activity.getApplicationContext())) {
+            Log.e("PhoneProfilesHelper.doInstallPPHelper", "No WRITE_EXTERNAL_STORAGE granted");
+            return false;
+        }
+
         AssetManager assetManager = activity.getApplicationContext().getAssets();
         String[] files = null;
         try {

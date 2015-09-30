@@ -215,7 +215,7 @@ public class Permissions {
             return true;
     }
 
-    public static boolean checkWallpaper(Context context, Profile profile) {
+    public static boolean checkProfileWallpaper(Context context, Profile profile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if ((profile == null) || profile._deviceWallpaperChange != 0) {
                 return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
@@ -227,7 +227,7 @@ public class Permissions {
             return true;
     }
 
-    public static boolean checkCustomProfileIcon(Context context, Profile profile) {
+    public static boolean checkCustomProfileIcon(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
             return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
@@ -237,6 +237,39 @@ public class Permissions {
     public static boolean checkGallery(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
             return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        else
+            return true;
+    }
+
+    public static boolean checkImport(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        else
+            return true;
+    }
+
+    public static boolean checkExport(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            return (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        else
+            return true;
+    }
+
+    public static boolean checkProfileRadioPreferences(Context context, Profile profile) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if ((profile._deviceWiFiAP != 0)) {
+                return Settings.System.canWrite(context);
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkPPHelperInstall(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            return (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
             return true;
     }

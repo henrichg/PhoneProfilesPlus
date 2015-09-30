@@ -82,10 +82,12 @@ public class ExecuteRadioProfilePrefsService extends IntentService
                     System.out.println(e);
                 }
             } else {
-                // run execute radios from ActivateProfileHelper
-                ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
-                aph.initialize(dataWrapper, null, context);
-                aph.executeForRadios(profile, false);
+                if (Permissions.checkProfileRadioPreferences(context, profile)) {
+                    // run execute radios from ActivateProfileHelper
+                    ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
+                    aph.initialize(dataWrapper, null, context);
+                    aph.executeForRadios(profile, false);
+                }
             }
         }
 

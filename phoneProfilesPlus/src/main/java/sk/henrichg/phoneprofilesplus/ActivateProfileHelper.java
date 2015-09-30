@@ -968,7 +968,7 @@ public class ActivateProfileHelper {
         }
 
         // nahodenie pozadia
-        if (Permissions.checkWallpaper(context, profile)) {
+        if (Permissions.checkProfileWallpaper(context, profile)) {
             if (profile._deviceWallpaperChange == 1) {
                 Intent wallpaperServiceIntent = new Intent(context, ExecuteWallpaperProfilePrefsService.class);
                 wallpaperServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
@@ -981,7 +981,7 @@ public class ActivateProfileHelper {
         {
             // preferences, ktore vyzaduju interakciu uzivatela
 
-            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
+            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
             {
                 if (profile._deviceMobileDataPrefs == 1)
                 {

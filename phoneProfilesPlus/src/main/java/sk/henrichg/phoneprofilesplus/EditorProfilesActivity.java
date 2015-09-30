@@ -841,10 +841,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         // header is position=0
         drawerListView.setItemChecked(drawerSelectedItem, true);
         // Get the title and icon followed by the position
-        setTitle(drawerItemsTitle[drawerSelectedItem-1]);
+        setTitle(drawerItemsTitle[drawerSelectedItem - 1]);
         //setIcon(drawerItemsIcon[drawerSelectedItem-1]);
         drawerHeaderFilterImage.setImageResource(drawerItemsIcon[drawerSelectedItem-1]);
-        drawerHeaderFilterTitle.setText(drawerItemsTitle[drawerSelectedItem-1]);
+        drawerHeaderFilterTitle.setText(drawerItemsTitle[drawerSelectedItem - 1]);
 
         // set filter statusbar title
         setStatusBarTitle();
@@ -1133,151 +1133,142 @@ public class EditorProfilesActivity extends AppCompatActivity
         final Activity activity = this;
         final String _applicationDataPath = applicationDataPath;
 
-        class ImportAsyncTask extends AsyncTask<Void, Integer, Integer>
-        {
-            private MaterialDialog dialog;
-            private DataWrapper dataWrapper;
+        if (Permissions.checkImport(activity.getApplicationContext())) {
 
-            ImportAsyncTask()
-            {
-                 this.dialog = new MaterialDialog.Builder(activity)
-                                     .content(R.string.import_profiles_alert_title)
-                                     //.disableDefaultFonts()
-                                     .progress(true, 0)
-                                     .build();
-                 this.dataWrapper = getDataWrapper();
-            }
+            class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
+                private MaterialDialog dialog;
+                private DataWrapper dataWrapper;
 
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-
-                lockScreenOrientation();
-                this.dialog.setCancelable(false);
-                this.dialog.setCanceledOnTouchOutside(false);
-                this.dialog.show();
-
-                Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-                if (fragment != null)
-                {
-                    if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment)fragment).removeAdapter();
-                    else
-                        ((EditorEventListFragment)fragment).removeAdapter();
+                ImportAsyncTask() {
+                    this.dialog = new MaterialDialog.Builder(activity)
+                            .content(R.string.import_profiles_alert_title)
+                                    //.disableDefaultFonts()
+                            .progress(true, 0)
+                            .build();
+                    this.dataWrapper = getDataWrapper();
                 }
 
-                // check root, this set GlobalData.rooted for doInBackgroud()
-                GlobalData.isRooted(false);
-            }
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
 
-            @Override
-            protected Integer doInBackground(Void... params) {
+                    lockScreenOrientation();
+                    this.dialog.setCancelable(false);
+                    this.dialog.setCanceledOnTouchOutside(false);
+                    this.dialog.show();
 
-                this.dataWrapper.stopAllEvents(true, false);
-
-                int ret = this.dataWrapper.getDatabaseHandler().importDB(_applicationDataPath);
-
-                if (ret == 1)
-                {
-                    // check for hardware capability and update data
-                    ret = this.dataWrapper.getDatabaseHandler().updateForHardware(getApplicationContext());
-                }
-                if (ret == 1)
-                {
-                    File sd = Environment.getExternalStorageDirectory();
-                    File exportFile = new File(sd, _applicationDataPath + "/" + GUIData.EXPORT_APP_PREF_FILENAME);
-                    if (!importApplicationPreferences(exportFile, 1))
-                        ret = 0;
-                    else
-                    {
-                        exportFile = new File(sd, _applicationDataPath + "/" + GUIData.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                        if (!importApplicationPreferences(exportFile, 2))
-                            ret = 0;
+                    Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+                    if (fragment != null) {
+                        if (fragment instanceof EditorProfileListFragment)
+                            ((EditorProfileListFragment) fragment).removeAdapter();
+                        else
+                            ((EditorEventListFragment) fragment).removeAdapter();
                     }
+
+                    // check root, this set GlobalData.rooted for doInBackgroud()
+                    GlobalData.isRooted(false);
                 }
 
-                return ret;
-            }
+                @Override
+                protected Integer doInBackground(Void... params) {
 
-            @Override
-            protected void onPostExecute(Integer result)
-            {
-                super.onPostExecute(result);
+                    this.dataWrapper.stopAllEvents(true, false);
 
-                if (this.dialog.isShowing())
-                    this.dialog.dismiss();
-                unlockScreenOrientation();
+                    int ret = this.dataWrapper.getDatabaseHandler().importDB(_applicationDataPath);
 
-                if (result == 1)
-                {
-                    GlobalData.loadPreferences(getApplicationContext());
+                    if (ret == 1) {
+                        // check for hardware capability and update data
+                        ret = this.dataWrapper.getDatabaseHandler().updateForHardware(getApplicationContext());
+                    }
+                    if (ret == 1) {
+                        File sd = Environment.getExternalStorageDirectory();
+                        File exportFile = new File(sd, _applicationDataPath + "/" + GUIData.EXPORT_APP_PREF_FILENAME);
+                        if (!importApplicationPreferences(exportFile, 1))
+                            ret = 0;
+                        else {
+                            exportFile = new File(sd, _applicationDataPath + "/" + GUIData.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                            if (!importApplicationPreferences(exportFile, 2))
+                                ret = 0;
+                        }
+                    }
 
-                    dataWrapper.invalidateProfileList();
-                    dataWrapper.invalidateEventList();
+                    return ret;
+                }
 
-                    dataWrapper.updateNotificationAndWidgets(null, "");
-                    //dataWrapper.getActivateProfileHelper().showNotification(null, "");
-                    //dataWrapper.getActivateProfileHelper().updateWidget();
+                @Override
+                protected void onPostExecute(Integer result) {
+                    super.onPostExecute(result);
 
-                    GlobalData.logE("$$$ setEventsBlocked", "EditorProfilesActivity.doImportData.onPostExecute, false");
-                    GlobalData.setEventsBlocked(getApplicationContext(), false);
-                    dataWrapper.getDatabaseHandler().unblockAllEvents();
-                    GlobalData.setForceRunEventRunning(getApplicationContext(), false);
+                    if (this.dialog.isShowing())
+                        this.dialog.dismiss();
+                    unlockScreenOrientation();
 
-                    SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                    Editor editor = preferences.edit();
-                    editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
-                    editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
-                    editor.commit();
+                    if (result == 1) {
+                        GlobalData.loadPreferences(getApplicationContext());
 
-                    // restart events
-                    // startneme eventy
-                    if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
-                    {
+                        dataWrapper.invalidateProfileList();
+                        dataWrapper.invalidateEventList();
+
+                        dataWrapper.updateNotificationAndWidgets(null, "");
+                        //dataWrapper.getActivateProfileHelper().showNotification(null, "");
+                        //dataWrapper.getActivateProfileHelper().updateWidget();
+
+                        GlobalData.logE("$$$ setEventsBlocked", "EditorProfilesActivity.doImportData.onPostExecute, false");
+                        GlobalData.setEventsBlocked(getApplicationContext(), false);
+                        dataWrapper.getDatabaseHandler().unblockAllEvents();
+                        GlobalData.setForceRunEventRunning(getApplicationContext(), false);
+
+                        SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+                        Editor editor = preferences.edit();
+                        editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
+                        editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
+                        editor.commit();
+
+                        // restart events
+                        // startneme eventy
+                        if (GlobalData.getGlobalEventsRuning(getApplicationContext())) {
                         /*
                         Intent intent = new Intent();
                         intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
                         getBaseContext().sendBroadcast(intent);
                         */
-                        GlobalData.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
-                        dataWrapper.restartEventsWithDelay(1, false);
+                            GlobalData.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
+                            dataWrapper.restartEventsWithDelay(1, false);
+                        }
+
+                        dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
+
+                        // toast notification
+                        Toast msg = Toast.makeText(getApplicationContext(),
+                                getResources().getString(R.string.toast_import_ok),
+                                Toast.LENGTH_SHORT);
+                        msg.show();
+
+                        // refresh activity
+                        GUIData.reloadActivity(activity, true);
+                    } else {
+                        importExportErrorDialog(1);
                     }
 
-                    dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
-
-                    // toast notification
-                    Toast msg = Toast.makeText(getApplicationContext(),
-                            getResources().getString(R.string.toast_import_ok),
-                            Toast.LENGTH_SHORT);
-                    msg.show();
-
-                    // refresh activity
-                    GUIData.reloadActivity(activity, true);
                 }
-                else
-                {
-                    importExportErrorDialog(1);
+
+                private void lockScreenOrientation() {
+                    int currentOrientation = activity.getResources().getConfiguration().orientation;
+                    if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                    } else {
+                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                    }
+                }
+
+                private void unlockScreenOrientation() {
+                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
                 }
 
             }
 
-            private void lockScreenOrientation() {
-                int currentOrientation = activity.getResources().getConfiguration().orientation;
-                if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-                } else {
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-                }
-            }
-
-            private void unlockScreenOrientation() {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
-            }
-
+            new ImportAsyncTask().execute();
         }
-
-        new ImportAsyncTask().execute();
     }
 
     private void importDataAlert(boolean remoteExport)
@@ -1395,94 +1386,88 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             public void onClick(DialogInterface dialog, int which) {
 
-                class ExportAsyncTask extends AsyncTask<Void, Integer, Integer>
-                {
-                    private MaterialDialog dialog;
-                    private DataWrapper dataWrapper;
+                if (Permissions.checkExport(activity.getApplicationContext())) {
 
-                    ExportAsyncTask()
-                    {
-                        this.dialog = new MaterialDialog.Builder(activity)
-                                .content(R.string.export_profiles_alert_title)
-                                //.disableDefaultFonts()
-                                .progress(true, 0)
-                                .build();
-                         this.dataWrapper = getDataWrapper();
-                    }
+                    class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
+                        private MaterialDialog dialog;
+                        private DataWrapper dataWrapper;
 
-                    @Override
-                    protected void onPreExecute()
-                    {
-                        super.onPreExecute();
+                        ExportAsyncTask() {
+                            this.dialog = new MaterialDialog.Builder(activity)
+                                    .content(R.string.export_profiles_alert_title)
+                                            //.disableDefaultFonts()
+                                    .progress(true, 0)
+                                    .build();
+                            this.dataWrapper = getDataWrapper();
+                        }
 
-                        lockScreenOrientation();
-                        this.dialog.setCancelable(false);
-                        this.dialog.setCanceledOnTouchOutside(false);
-                        this.dialog.show();
-                    }
+                        @Override
+                        protected void onPreExecute() {
+                            super.onPreExecute();
 
-                    @Override
-                    protected Integer doInBackground(Void... params) {
+                            lockScreenOrientation();
+                            this.dialog.setCancelable(false);
+                            this.dialog.setCanceledOnTouchOutside(false);
+                            this.dialog.show();
+                        }
 
-                        int ret = dataWrapper.getDatabaseHandler().exportDB();
-                        if (ret == 1)
-                        {
-                            File sd = Environment.getExternalStorageDirectory();
-                            File exportFile = new File(sd, GlobalData.EXPORT_PATH + "/" + GUIData.EXPORT_APP_PREF_FILENAME);
-                            if (!exportApplicationPreferences(exportFile, 1))
-                                ret = 0;
-                            else
-                            {
-                                exportFile = new File(sd, GlobalData.EXPORT_PATH + "/" + GUIData.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                                if (!exportApplicationPreferences(exportFile, 2))
+                        @Override
+                        protected Integer doInBackground(Void... params) {
+
+                            int ret = dataWrapper.getDatabaseHandler().exportDB();
+                            if (ret == 1) {
+                                File sd = Environment.getExternalStorageDirectory();
+                                File exportFile = new File(sd, GlobalData.EXPORT_PATH + "/" + GUIData.EXPORT_APP_PREF_FILENAME);
+                                if (!exportApplicationPreferences(exportFile, 1))
                                     ret = 0;
+                                else {
+                                    exportFile = new File(sd, GlobalData.EXPORT_PATH + "/" + GUIData.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                                    if (!exportApplicationPreferences(exportFile, 2))
+                                        ret = 0;
+                                }
+                            }
+
+                            return ret;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Integer result) {
+                            super.onPostExecute(result);
+
+                            if (dialog.isShowing())
+                                dialog.dismiss();
+                            unlockScreenOrientation();
+
+                            if (result == 1) {
+
+                                // toast notification
+                                Toast msg = Toast.makeText(getApplicationContext(),
+                                        getResources().getString(R.string.toast_export_ok),
+                                        Toast.LENGTH_SHORT);
+                                msg.show();
+
+                            } else {
+                                importExportErrorDialog(2);
                             }
                         }
 
-                        return ret;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Integer result)
-                    {
-                        super.onPostExecute(result);
-
-                        if (dialog.isShowing())
-                            dialog.dismiss();
-                        unlockScreenOrientation();
-
-                        if (result == 1)
-                        {
-
-                            // toast notification
-                            Toast msg = Toast.makeText(getApplicationContext(),
-                                    getResources().getString(R.string.toast_export_ok),
-                                    Toast.LENGTH_SHORT);
-                            msg.show();
-
+                        private void lockScreenOrientation() {
+                            int currentOrientation = activity.getResources().getConfiguration().orientation;
+                            if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                            } else {
+                                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                            }
                         }
-                        else
-                        {
-                            importExportErrorDialog(2);
+
+                        private void unlockScreenOrientation() {
+                            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
                         }
+
                     }
 
-                    private void lockScreenOrientation() {
-                        int currentOrientation = activity.getResources().getConfiguration().orientation;
-                        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-                        } else {
-                            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-                        }
-                    }
-
-                    private void unlockScreenOrientation() {
-                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
-                    }
-
+                    new ExportAsyncTask().execute();
                 }
-
-                new ExportAsyncTask().execute();
 
             }
         });
