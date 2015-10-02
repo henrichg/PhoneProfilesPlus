@@ -790,9 +790,10 @@ Startery:
 --------------------------------------------------------------------
 
 Android M
+
 1. Wifi scanning dako divno funguje. Ide, ale so strasnym intervalom. Hadam bude opravene exact alarmom - nakodene, testujem
 2. Doze mod: funguje ako Sony Stamina mod. Je tiez mozne nastavit vynimku. Aj tak divno funguje, je mozne ze suvisi s tymi alarmami, vid bod 2.
-3. Na Exit aplikaciu vznikde exception. Leak viewu. Na G2 to nerobi, zatial predpokladam, ze ide o bug v Android M.
+3. Na Exit aplikaciu vznikne exception. Leak viewu. Na G2 to nerobi, zatial predpokladam, ze ide o bug v Android M.
 4. Nove veci: Doze (setrenie baterie), Security (uzivatek urcuje, co moze aplikacia), Data do cloudu (zaloha dat apliakcie)
 
 ---- Security:
@@ -804,21 +805,25 @@ Android M
   vypytame si povolenie privilegii cez dialog
 - ak neaktivujeme z gui, vytvorime o tom notifikaciu, klik na nu vyvola dialog na povolenie privilegii
 - po potvrdeni privilegii, profil aktivujeme
-- ak privilegia nebudu potvrdene
+- ak privilegia nebudu potvrdene, profil neaktivujeme
 - ak bude niektore natvrdo zakazane, profil neaktivujeme a ani nerobime dialog/notifikaciu o tom
 
-- ringer mode, ring a notification volumes, zen mode su kvoli unkink volumes v preferences. Tie sa beru na
-  nastavenie, nie tie, ktore su v profile
-- instalacia phoneprofiles-silent.ogg - vyzaduje WRITE_EXTERNAL_STORAGE.
-- nastavenie ikony profilu a pozadia plochy vyzaduje READ_EXTERNAL_STORAGE
-- uzivatelska ikona pravdepodobne vyzaduje READ_EXTERNAL_STORAGE
-- import vyzaduje READ_EXTERNAL_STORAGE
-- export vyzaduje WRITE_EXTERNAL_STORAGE
-
 CO ESTE TREBA
-- radio preferences
-  - GPS nefunguje, ani cez PPHelper
-- phone
+- instalacia phoneprofiles-silent.ogg - vyzaduje WRITE_EXTERNAL_STORAGE. Cize sa mozno na prvy start
+  nenainstaluje. Tak spravme o tom notifikaciu a dajme to aj do menu Editora (ak nie je nainstalovane).
+- phone - v PhoneProfiles mam len broadcast receiver. Ten nefunguje, ak nemam povolene Phone skupinu:
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+  Cize aplikacia nespadne ani pri prichodzom, ani pri odchodzom hovore.
+  Treabe este testnut PhoneProfilesPlus. Ale tam to je asi to iste, tam len potom citam kontakty,
+  a to uz je ina permission.
+  Budem to teda checkovat len pocas aktivacie profilu.
+- vsetky zvysne premissions v PhoneProfilesPlus
+
+CO FUNGUJE CIASTOCNE:
+- wifi scanning aby fungoval aj na pozadi je ntune:
+  - <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>  v manifeste, COARSE je malo, ak zmenis mod lokacie na "Vysoka presnost"
+  - musi byt zapnuta lokacia
 
 CO NEFUNGUJE
 - Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); hadze to exception:
@@ -827,11 +832,7 @@ CO NEFUNGUJE
 - Settings.System.putFloat(_context.getContentResolver(), "screen_auto_brightness_adj", value); hadze to exception:
   "java.lang.IllegalArgumentException: You cannot change private secure settings."
   Zatial netusim co to znamena a ako to spravit. :-/
-
-CO FUNGUJE CIASTOCNE:
-- wifi scanning aby fungoval aj na pozadi je ntune:
-  - <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>  v manifeste, COARSE je malo, ak zmenis mod lokacie na "Vysoka presnost"
-  - musi byt zapnuta lokacia
+- GPS on/off nefunguje, ani cez PPHelper
 
 ------
 
