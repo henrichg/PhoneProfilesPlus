@@ -1,13 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.Manifest.*;
 
 public class Permissions {
 
@@ -100,19 +103,35 @@ public class Permissions {
     private static final int PERMISSION_RADIO_PREFERENCES = 8;
     private static final int PERMISSION_PHONE_BROADCAST = 9;
 
-    public static List<Integer> checkProfilePermissions(Context context, Profile profile) {
-        List<Integer>  permissions = new ArrayList<Integer>();
+    private static final String EXTRA_PERMISSION_GROUP = "permission_group";
+    private static final String EXTRA_PERMISSION_PERMISSION = "permission_permission";
+
+    public static class PermissionType {
+        public int group;
+        public String permission;
+
+        PermissionType (int group, String permission) {
+            this.group = group;
+            this.permission = permission;
+        }
+    }
+
+    public static List<PermissionType> checkProfilePermissions(Context context, Profile profile) {
+        List<PermissionType>  permissions = new ArrayList<PermissionType>();
         if (profile == null) return permissions;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (!checkProfileVolumePreferences(context, profile)) permissions.add(PERMISSION_VOLUME_PREFERENCES);
-            if (!checkProfileVibrationOnTouch(context, profile)) permissions.add(PERMISSION_VIBRATION_ON_TOUCH);
-            if (!checkProfileRingtones(context, profile)) permissions.add(PERMISSION_RINGTONES);
-            if (!checkProfileScreenTimeout(context, profile)) permissions.add(PERMISSION_SCREEN_TIMEOUT);
-            if (!checkProfileScreenBrightness(context, profile)) permissions.add(PERMISSION_SCREEN_BRIGHTNESS);
-            if (!checkProfileAutoRotation(context, profile)) permissions.add(PERMISSION_AUTOROTATION);
-            if (!checkProfileWallpaper(context, profile)) permissions.add(PERMISSION_WALLPAPER);
-            if (!checkProfileRadioPreferences(context, profile)) permissions.add(PERMISSION_RADIO_PREFERENCES);
-            if (!checkProfilePhoneBroadcast(context, profile)) permissions.add(PERMISSION_PHONE_BROADCAST);
+            if (!checkProfileVolumePreferences(context, profile)) permissions.add(new PermissionType(PERMISSION_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
+            if (!checkProfileVibrationOnTouch(context, profile)) permissions.add(new PermissionType(PERMISSION_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
+            if (!checkProfileRingtones(context, profile)) permissions.add(new PermissionType(PERMISSION_RINGTONES, permission.WRITE_SETTINGS));
+            if (!checkProfileScreenTimeout(context, profile)) permissions.add(new PermissionType(PERMISSION_SCREEN_TIMEOUT, permission.WRITE_SETTINGS));
+            if (!checkProfileScreenBrightness(context, profile)) permissions.add(new PermissionType(PERMISSION_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
+            if (!checkProfileAutoRotation(context, profile)) permissions.add(new PermissionType(PERMISSION_AUTOROTATION, permission.WRITE_SETTINGS));
+            if (!checkProfileWallpaper(context, profile)) permissions.add(new PermissionType(PERMISSION_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+            if (!checkProfileRadioPreferences(context, profile)) permissions.add(new PermissionType(PERMISSION_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
+            if (!checkProfilePhoneBroadcast(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PHONE_BROADCAST, permission.READ_PHONE_STATE));
+                permissions.add(new PermissionType(PERMISSION_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
+            }
             return permissions;
         }
         else
@@ -139,7 +158,6 @@ public class Permissions {
         else
             return true;
     }
-
 
     public static boolean checkSavedProfileRingerMode(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -174,7 +192,7 @@ public class Permissions {
 
     public static boolean checkInstallTone(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            return (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            return (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
             return true;
     }
@@ -250,7 +268,7 @@ public class Permissions {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if ((profile == null) || profile._deviceWallpaperChange != 0) {
-                return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+                return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
             }
             else
                 return true;
@@ -261,28 +279,28 @@ public class Permissions {
 
     public static boolean checkCustomProfileIcon(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
             return true;
     }
 
     public static boolean checkGallery(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
             return true;
     }
 
     public static boolean checkImport(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            return (context.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
             return true;
     }
 
     public static boolean checkExport(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            return (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            return (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
             return true;
     }
@@ -302,7 +320,7 @@ public class Permissions {
 
     public static boolean checkPPHelperInstall(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            return (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            return (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         else
             return true;
     }
@@ -311,8 +329,8 @@ public class Permissions {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if (profile._volumeSpeakerPhone != 0) {
-                boolean granted = (context.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
-                granted = granted && (context.checkSelfPermission(Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED);
+                boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+                granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED);
                 return granted;
             }
             else
@@ -323,12 +341,15 @@ public class Permissions {
     }
 
     public static boolean grantProfilePermissions(Context context, Profile profile, boolean interactive) {
-        List<Integer> permissions = checkProfilePermissions(context, profile);
-        if (permissions.size() > 0) {
-            //if (activity.shouldShowRequestPermissionRationale()) {
-
-            //}
-
+        List<PermissionType> permissions = checkProfilePermissions(context, profile);
+        if (permissions.size() >= 0) {
+            for (PermissionType permissionType : permissions) {
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                intent.putExtra(EXTRA_PERMISSION_GROUP, permissionType.group);
+                intent.putExtra(EXTRA_PERMISSION_PERMISSION, permissionType.permission);
+                context.startActivity(intent);
+            }
         }
         return permissions.size() == 0;
     }
