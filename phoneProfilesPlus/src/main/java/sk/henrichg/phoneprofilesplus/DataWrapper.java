@@ -371,8 +371,12 @@ public class DataWrapper {
         int startupSource = GlobalData.STARTUP_SOURCE_SERVICE;
         if (manual)
             startupSource = GlobalData.STARTUP_SOURCE_SERVICE_MANUAL;
-        getActivateProfileHelper().initialize(this, null, context);
-        _activateProfile(getProfileById(profile_id, merged), merged, startupSource, interactive, null, eventNotificationSound, log);
+        boolean granted = true;
+        Profile profile = getProfileById(profile_id, merged);
+        if (Permissions.grantProfilePermissions(context, profile, interactive)) {
+            getActivateProfileHelper().initialize(this, null, context);
+            _activateProfile(profile, merged, startupSource, interactive, null, eventNotificationSound, log);
+        }
     }
 
     public void updateNotificationAndWidgets(Profile profile, String eventNotificationSound)
@@ -1083,7 +1087,7 @@ public class DataWrapper {
         msg.show();
     }
 
-    private void activateProfileWithAlert(Profile profile, int startupSource, boolean interactive,
+    private void activateProfileWithAlert(Profile profile, int startupSource, final boolean interactive,
                                             Activity activity, String eventNotificationSound)
     {
         boolean isforceRunEvent = false;
@@ -1131,8 +1135,9 @@ public class DataWrapper {
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    _activateProfile(_profile, false, _startupSource, _interactive, _activity,
-                                        _eventNotificationSound, true);
+                    if (Permissions.grantProfilePermissions(context, _profile, interactive))
+                        _activateProfile(_profile, false, _startupSource, _interactive, _activity,
+                                            _eventNotificationSound, true);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
@@ -1158,7 +1163,8 @@ public class DataWrapper {
         }
         else
         {
-            _activateProfile(profile, false, startupSource, interactive, activity, eventNotificationSound, true);
+            if (Permissions.grantProfilePermissions(context, profile, interactive))
+                _activateProfile(profile, false, startupSource, interactive, activity, eventNotificationSound, true);
         }
     }
 

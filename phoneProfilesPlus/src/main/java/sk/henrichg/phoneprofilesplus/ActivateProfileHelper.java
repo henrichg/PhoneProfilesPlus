@@ -385,7 +385,7 @@ public class ActivateProfileHelper {
                 GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
         }
 
-        if (Permissions.checkSavedProfileVolumes(context, profile)) {
+        if (Permissions.checkSavedProfileVolumes(context)) {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             int callState = telephony.getCallState();
 
@@ -547,7 +547,7 @@ public class ActivateProfileHelper {
                 return;
         }
 
-        if (Permissions.checkSavedProfileRingerMode(context, profile)) {
+        if (Permissions.checkSavedProfileRingerMode(context)) {
 
             switch (ringerMode) {
                 case 1:  // Ring

@@ -808,6 +808,7 @@ Android M
 - ak privilegia nebudu potvrdene, profil neaktivujeme
 - ak bude niektore natvrdo zakazane, profil neaktivujeme a ani nerobime dialog/notifikaciu o tom
 
+
 CO ESTE TREBA
 - instalacia phoneprofiles-silent.ogg - vyzaduje WRITE_EXTERNAL_STORAGE. Cize sa mozno na prvy start
   nenainstaluje. Tak spravme o tom notifikaciu a dajme to aj do menu Editora (ak nie je nainstalovane).
