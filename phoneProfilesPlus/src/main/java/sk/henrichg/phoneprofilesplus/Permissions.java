@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 
@@ -103,10 +105,11 @@ public class Permissions {
     private static final int PERMISSION_RADIO_PREFERENCES = 8;
     private static final int PERMISSION_PHONE_BROADCAST = 9;
 
-    private static final String EXTRA_PERMISSION_GROUP = "permission_group";
-    private static final String EXTRA_PERMISSION_PERMISSION = "permission_permission";
+    //public static final String EXTRA_PERMISSION_GROUP = "permission_group";
+    //public static final String EXTRA_PERMISSION_PERMISSION = "permission_permission";
+    public static final String EXTRA_PERMISSION_TYPES = "permission_types";
 
-    public static class PermissionType {
+    public static class PermissionType implements Parcelable {
         public int group;
         public String permission;
 
@@ -114,6 +117,32 @@ public class Permissions {
             this.group = group;
             this.permission = permission;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.group);
+            dest.writeString(this.permission);
+        }
+
+        protected PermissionType(Parcel in) {
+            this.group = in.readInt();
+            this.permission = in.readString();
+        }
+
+        public static final Parcelable.Creator<PermissionType> CREATOR = new Parcelable.Creator<PermissionType>() {
+            public PermissionType createFromParcel(Parcel source) {
+                return new PermissionType(source);
+            }
+
+            public PermissionType[] newArray(int size) {
+                return new PermissionType[size];
+            }
+        };
     }
 
     public static List<PermissionType> checkProfilePermissions(Context context, Profile profile) {
@@ -343,13 +372,18 @@ public class Permissions {
     public static boolean grantProfilePermissions(Context context, Profile profile, boolean interactive) {
         List<PermissionType> permissions = checkProfilePermissions(context, profile);
         if (permissions.size() >= 0) {
-            for (PermissionType permissionType : permissions) {
+            /*for (PermissionType permissionType : permissions) {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
                 intent.putExtra(EXTRA_PERMISSION_GROUP, permissionType.group);
                 intent.putExtra(EXTRA_PERMISSION_PERMISSION, permissionType.permission);
                 context.startActivity(intent);
-            }
+            }*/
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>)permissions);
+            context.startActivity(intent);
         }
         return permissions.size() == 0;
     }
