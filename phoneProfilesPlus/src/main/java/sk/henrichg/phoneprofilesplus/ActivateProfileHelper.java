@@ -708,6 +708,29 @@ public class ActivateProfileHelper {
         }
     }
 
+    public void executeForRunApplications(Profile profile) {
+        if (profile._deviceRunApplicationChange == 1)
+        {
+            String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+            Intent intent;
+            PackageManager packageManager = context.getPackageManager();
+
+            for (int i = 0; i < splits.length; i++) {
+                intent = packageManager.getLaunchIntentForPackage(splits[i]);
+                if (intent != null) {
+                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }
+                }
+            }
+        }
+    }
+
     public void execute(Profile _profile, boolean merged, boolean _interactive, String eventNotificationSound)
     {
         // rozdelit zvonenie a notifikacie - zial je to oznacene ako @Hide :-(
@@ -1010,23 +1033,10 @@ public class ActivateProfileHelper {
 
             if (profile._deviceRunApplicationChange == 1)
             {
-                String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                Intent intent;
-                PackageManager packageManager = context.getPackageManager();
-
-                for (int i = 0; i < splits.length; i++) {
-                    intent = packageManager.getLaunchIntentForPackage(splits[i]);
-                    if (intent != null) {
-                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            System.out.println(e);
-                        }
-                    }
-                }
+                Intent runApplicationsServiceIntent = new Intent(context, ExecuteRunApplicationsProfilePrefsService.class);
+                runApplicationsServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                runApplicationsServiceIntent.putExtra(GlobalData.EXTRA_MERGED_PROFILE, merged);
+                context.startService(runApplicationsServiceIntent);
             }
         }
 

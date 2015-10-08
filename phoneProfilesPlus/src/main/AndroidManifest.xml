@@ -369,6 +369,10 @@
             android:name=".PhoneCallService"
             android:exported="false" >
         </service>
+        <service
+            android:name=".ExecuteRunApplicationsProfilePrefsService"
+            android:exported="false" >
+        </service>
 
         <receiver
             android:name=".RestartEventsBroadcastReceiver"
