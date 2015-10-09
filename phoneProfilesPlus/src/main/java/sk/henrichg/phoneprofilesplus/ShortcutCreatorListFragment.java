@@ -267,7 +267,8 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         Canvas canvas = new Canvas(combined);
         canvas.drawBitmap(bitmap1, 0f, 0f, null);
-        canvas.drawBitmap(bitmap2, 0f, 0f, null);
+        if (GlobalData.applicationShortcutEmblem)
+            canvas.drawBitmap(bitmap2, 0f, 0f, null);
 
         return combined;
     }
