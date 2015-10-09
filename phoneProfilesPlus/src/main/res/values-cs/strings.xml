@@ -550,4 +550,5 @@
   <string name="event_preferences_volumeNotificationsAccessSettings_summary">Povol PhoneProfilesPlus v systémovém nastavení \"Přístup k oznámením\", pro povolení parametrů oznámení.</string>
   <string name="array_pref_zenModeArray_alarms">Pouze budíky</string>
   <string name="profile_preferences_zenMode_alarms_summary">Pouze budíky budou oznamovány</string>
+  <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
 </resources>

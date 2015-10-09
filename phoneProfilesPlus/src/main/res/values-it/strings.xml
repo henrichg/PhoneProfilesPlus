@@ -543,4 +543,5 @@
   <string name="pref_event_duration">Duration</string>
   <string name="applications_multiselect_summary_text_selected">Selected</string>
   <string name="applications_multiselect_summary_text_not_selected">Not selected</string>
+  <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
 </resources>
