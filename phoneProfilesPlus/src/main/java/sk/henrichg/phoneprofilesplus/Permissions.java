@@ -284,6 +284,14 @@ public class Permissions {
             return true;
     }
 
+    public static boolean checkScreenBrightness(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            return Settings.System.canWrite(context);
+        }
+        else
+            return true;
+    }
+
     public static boolean checkProfileAutoRotation(Context context, Profile profile) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
