@@ -8,6 +8,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +105,7 @@ public class Permissions {
     private static final int PERMISSION_WALLPAPER = 7;
     private static final int PERMISSION_RADIO_PREFERENCES = 8;
     private static final int PERMISSION_PHONE_BROADCAST = 9;
+    private static final int PERMISSION_CUSTOM_PROFILE_ICON = 10;
 
     //public static final String EXTRA_PERMISSION_GROUP = "permission_group";
     //public static final String EXTRA_PERMISSION_PERMISSION = "permission_permission";
@@ -147,6 +149,7 @@ public class Permissions {
 
     public static List<PermissionType> checkProfilePermissions(Context context, Profile profile) {
         List<PermissionType>  permissions = new ArrayList<PermissionType>();
+        Log.e("Permissions", "checkProfilePermissions - profile.icon="+profile._icon);
         if (profile == null) return permissions;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if (!checkProfileVolumePreferences(context, profile)) permissions.add(new PermissionType(PERMISSION_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
@@ -161,6 +164,7 @@ public class Permissions {
                 permissions.add(new PermissionType(PERMISSION_PHONE_BROADCAST, permission.READ_PHONE_STATE));
                 permissions.add(new PermissionType(PERMISSION_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
             }
+            if (!checkCustomProfileIcon(context, profile)) permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
             return permissions;
         }
         else
@@ -270,7 +274,7 @@ public class Permissions {
     public static boolean checkProfileScreenBrightness(Context context, Profile profile) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if ((profile == null) || profile.getDeviceBrightnessChange()) {
+            if (profile.getDeviceBrightnessChange()) {
                 return Settings.System.canWrite(context);
             }
             else
@@ -283,7 +287,7 @@ public class Permissions {
     public static boolean checkProfileAutoRotation(Context context, Profile profile) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if ((profile == null) || profile._deviceAutoRotate != 0) {
+            if (profile._deviceAutoRotate != 0) {
                 return Settings.System.canWrite(context);
             }
             else
@@ -296,7 +300,7 @@ public class Permissions {
     public static boolean checkProfileWallpaper(Context context, Profile profile) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if ((profile == null) || profile._deviceWallpaperChange != 0) {
+            if (profile._deviceWallpaperChange != 0) {
                 return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
             }
             else
@@ -306,9 +310,18 @@ public class Permissions {
             return true;
     }
 
-    public static boolean checkCustomProfileIcon(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+    public static boolean checkCustomProfileIcon(Context context, Profile profile) {
+        if (profile == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+            Profile _profile = dataWrapper.getDatabaseHandler().getProfile(profile._id, false);
+            if (_profile == null) return true;
+            if (!_profile.getIsIconResourceID()) {
+                return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            }
+            else
+                return true;
+        }
         else
             return true;
     }

@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,9 @@ public class WifiSSIDPreference extends DialogPreference {
     private Button rescanButton;
     private ListView SSIDListView;
     private WifiSSIDPreferenceAdapter listAdapter;
+
+    public RadioButton selectedRB = null;
+    public int selectedPosition = -1;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
@@ -81,6 +85,13 @@ public class WifiSSIDPreference extends DialogPreference {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 WifiSSIDPreferenceAdapter.ViewHolder viewHolder =
                         (WifiSSIDPreferenceAdapter.ViewHolder) v.getTag();
+
+                if(position != selectedPosition && selectedRB != null){
+                    selectedRB.setChecked(false);
+                }
+                selectedPosition = position;
+                selectedRB = viewHolder.radioBtn;
+
                 viewHolder.radioBtn.setChecked(true);
                 setSSID(SSIDList.get(position).ssid);
             }

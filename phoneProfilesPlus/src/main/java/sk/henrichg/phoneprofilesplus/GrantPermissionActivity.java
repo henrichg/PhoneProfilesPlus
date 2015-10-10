@@ -76,14 +76,17 @@ public class GrantPermissionActivity extends Activity {
             showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
 
             if (showRequestWriteSettings) {
+                Log.e("GrantPermissionActivity","onStart - showRequestWriteSettings");
                 showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_write_settings) + "</b>";
                 showRequestString = showRequestString + "<br>";
             }
             if (showRequestReadExternalStorage) {
+                Log.e("GrantPermissionActivity","onStart - showRequestReadExternalStorage");
                 showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
                 showRequestString = showRequestString + "<br>";
             }
             if (showRequestReadPhoneState || showRequestProcessOutgoingCalls) {
+                Log.e("GrantPermissionActivity","onStart - showRequestReadPhoneState");
                 showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
                 showRequestString = showRequestString + "<br>";
             }

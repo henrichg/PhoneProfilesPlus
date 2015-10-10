@@ -336,7 +336,7 @@ public class ProfileIconPreference extends DialogPreference {
 
     public boolean startGallery()
     {
-        if (Permissions.checkCustomProfileIcon(prefContext)) {
+        if (Permissions.checkGallery(prefContext)) {
             //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
             Intent intent = new Intent(Intent.ACTION_PICK);
