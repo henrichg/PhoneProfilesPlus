@@ -110,11 +110,11 @@ public class Permissions {
     public static final String EXTRA_PERMISSION_TYPES = "permission_types";
 
     public static class PermissionType implements Parcelable {
-        public int group;
+        public int preference;
         public String permission;
 
-        PermissionType (int group, String permission) {
-            this.group = group;
+        PermissionType (int preference, String permission) {
+            this.preference = preference;
             this.permission = permission;
         }
 
@@ -125,12 +125,12 @@ public class Permissions {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.group);
+            dest.writeInt(this.preference);
             dest.writeString(this.permission);
         }
 
         protected PermissionType(Parcel in) {
-            this.group = in.readInt();
+            this.preference = in.readInt();
             this.permission = in.readString();
         }
 

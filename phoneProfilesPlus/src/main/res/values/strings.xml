@@ -552,4 +552,10 @@
   <string name="array_pref_zenModeArray_alarms">Only alarms</string>
   <string name="profile_preferences_zenMode_alarms_summary">Only alarms interruptions</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
+  <string name="permission_group_name_write_settings">Modify system settings</string>
+  <string name="permission_group_name_storage">Storage</string>
+  <string name="permission_group_name_phone">Phone</string>
+  <string name="permissions_for_profile_text1">Activation of profile</string>
+  <string name="permissions_for_profile_text2">requires these permisions:</string>
+  <string name="permissions_for_profile_text3">Please grant them in next dialogs, for proper profile activation.</string>
 </resources>
