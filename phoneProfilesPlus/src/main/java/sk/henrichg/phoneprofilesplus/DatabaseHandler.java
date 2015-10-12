@@ -1195,9 +1195,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MANUAL_PROFILE_ACTIVATION + "=0");
         }
 
+        boolean mergedTableCreate = false;
         if (oldVersion < 1320) {
             final String CREATE_MERGED_PROFILE_TABLE = profileTableCreationString(TABLE_MERGED_PROFILE);
             db.execSQL(CREATE_MERGED_PROFILE_TABLE);
+            mergedTableCreate = true;
         }
 
         if (oldVersion < 1330)
@@ -1211,8 +1213,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1340)
         {
-            // pridame nove stlpce
-            db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_WIFI_AP + " INTEGER");
+            if (!mergedTableCreate) {
+                // pridame nove stlpce
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_WIFI_AP + " INTEGER");
+            }
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WIFI_AP + "=0");
