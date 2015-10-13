@@ -560,4 +560,6 @@
   <string name="permissions_for_profile_text3">Please grant them in next dialogs, for proper profile activation.</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Even if Wi-fi is disabled</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Even if Bluetooth is disabled</string>
+  <string name="permissions_alert_title">Permissions request</string>
+  <string name="permissions_for_profile_text_notification">requires allow some permissions</string>
 </resources>

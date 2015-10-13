@@ -63,4 +63,10 @@ public class ImportantInfoNotification {
         mNotificationManager.notify(GlobalData.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
     }
 
+    public static void removeNotification(Context context)
+    {
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(GlobalData.IMPORTANT_INFO_NOTIFICATION_ID);
+    }
+
 }

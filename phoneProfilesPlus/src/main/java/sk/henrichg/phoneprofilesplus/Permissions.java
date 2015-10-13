@@ -1,6 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,6 +11,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -397,12 +401,12 @@ public class Permissions {
             return true;
     }
 
-    public static boolean grantProfilePermissionsAndActivate(Context context, Profile profile, boolean mergedProfile,
+    public static boolean grantProfilePermissionsAndActivateActivity(Context context, Profile profile, boolean mergedProfile,
                                                              int startupSource, boolean interactive,
                                                              boolean forGUI, boolean monochrome, int monochromeValue,
                                                              String eventNotificationSound, boolean log) {
         List<PermissionType> permissions = checkProfilePermissions(context, profile);
-        if (permissions.size() >= 0) {
+        if (permissions.size() > 0) {
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
@@ -418,6 +422,56 @@ public class Permissions {
             context.startActivity(intent);
         }
         return permissions.size() == 0;
+    }
+
+    public static boolean grantProfilePermissionsAndActivateNotification(Context context, Profile profile, boolean mergedProfile,
+                                                             int startupSource, boolean interactive,
+                                                             boolean forGUI, boolean monochrome, int monochromeValue,
+                                                             String eventNotificationSound, boolean log) {
+        List<PermissionType> permissions = checkProfilePermissions(context, profile);
+        if (permissions.size() > 0) {
+
+            NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+                    .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                    .setContentText(context.getString(R.string.permissions_for_profile_text1) +
+                            " \"" + profile._name + "\" " +
+                            context.getString(R.string.permissions_for_profile_text_notification)) // message for notification
+                    .setAutoCancel(true); // clear notification after click
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+            intent.putExtra(EXTRA_MERGED_PROFILE, mergedProfile);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_STARTUP_SOURCE, startupSource);
+            intent.putExtra(EXTRA_INTERACTIVE, interactive);
+            intent.putExtra(EXTRA_FOR_GUI, forGUI);
+            intent.putExtra(EXTRA_MONOCHROME, monochrome);
+            intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
+            intent.putExtra(EXTRA_EVENT_NOTIFICATION_SOUND, eventNotificationSound);
+            intent.putExtra(EXTRA_LOG, log);
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder.setContentIntent(pi);
+            if (android.os.Build.VERSION.SDK_INT >= 16)
+                mBuilder.setPriority(Notification.PRIORITY_MAX);
+            if (android.os.Build.VERSION.SDK_INT >= 21)
+            {
+                mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
+                mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+            }
+            NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.notify(GlobalData.GRANT_PERMISSIONS_NOTIFICATION_ID, mBuilder.build());
+        }
+        return permissions.size() == 0;
+    }
+
+    public static void removeNotification(Context context)
+    {
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(GlobalData.GRANT_PERMISSIONS_NOTIFICATION_ID);
     }
 
 }

@@ -140,6 +140,7 @@ public class GlobalData extends Application {
     static final int PROFILE_NOTIFICATION_ID = 700420;
     static final int PPHELPER_UPGRADE_NOTIFICATION_ID = 700421;
     static final int IMPORTANT_INFO_NOTIFICATION_ID = 700422;
+    static final int GRANT_PERMISSIONS_NOTIFICATION_ID = 700423;
 
     static final String PREF_PROFILE_NAME = "prf_pref_profileName";
     static final String PREF_PROFILE_ICON = "prf_pref_profileIcon";
@@ -401,29 +402,23 @@ public class GlobalData extends Application {
         if (!logIntoFile)
             return;
 
-        File sd = Environment.getExternalStorageDirectory();
-        File exportDir = new File(sd, GlobalData.EXPORT_PATH);
-        if (!(exportDir.exists() && exportDir.isDirectory()))
-            exportDir.mkdirs();
-
-        File logFile = new File(sd, EXPORT_PATH + "/" + LOG_FILENAME);
-
-        if (logFile.length() > 1024 * 10000)
-            resetLog();
-
-        if (!logFile.exists())
+        try
         {
-            try
+            File sd = Environment.getExternalStorageDirectory();
+            File exportDir = new File(sd, GlobalData.EXPORT_PATH);
+            if (!(exportDir.exists() && exportDir.isDirectory()))
+                exportDir.mkdirs();
+
+            File logFile = new File(sd, EXPORT_PATH + "/" + LOG_FILENAME);
+
+            if (logFile.length() > 1024 * 10000)
+                resetLog();
+
+            if (!logFile.exists())
             {
                 logFile.createNewFile();
             }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        try
-        {
+
             //BufferedWriter for performance, true to set append to file flag
             BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
             String log = "";
