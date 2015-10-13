@@ -544,4 +544,6 @@
   <string name="applications_multiselect_summary_text_selected">Selected</string>
   <string name="applications_multiselect_summary_text_not_selected">Not selected</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Even if Wi-fi is disabled</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Even if Bluetooth is disabled</string>
 </resources>

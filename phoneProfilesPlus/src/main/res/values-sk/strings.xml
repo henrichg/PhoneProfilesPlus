@@ -551,4 +551,6 @@
   <string name="array_pref_zenModeArray_alarms">Len budíky</string>
   <string name="profile_preferences_zenMode_alarms_summary">Iba budíky budú oznamované</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Even if Wi-fi is disabled</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Even if Bluetooth is disabled</string>
 </resources>
