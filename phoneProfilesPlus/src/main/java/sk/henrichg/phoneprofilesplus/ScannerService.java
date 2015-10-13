@@ -138,7 +138,7 @@ public class ScannerService extends IntentService
                             WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
                             WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                             WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-                            GlobalData.setForceOneWifiScan(context, false);
+                            GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                         }
 
                         if ((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
@@ -167,7 +167,7 @@ public class ScannerService extends IntentService
 
                             WifiScanAlarmBroadcastReceiver.unlock();
 
-                            GlobalData.setForceOneWifiScan(context, false);
+                            GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                             WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                             WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                             WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
@@ -178,7 +178,7 @@ public class ScannerService extends IntentService
                 }
             }
             else {
-                GlobalData.setForceOneWifiScan(context, false);
+                GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                 WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                 WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                 WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
@@ -245,7 +245,7 @@ public class ScannerService extends IntentService
                         BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-                        GlobalData.setForceOneBluetoothScan(context, false);
+                        GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                     }
 
                     if (bluetoothState == BluetoothAdapter.STATE_ON) {
@@ -264,7 +264,7 @@ public class ScannerService extends IntentService
 
                     }
 
-                    GlobalData.setForceOneBluetoothScan(context, false);
+                    GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                     BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                     BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
 
@@ -285,7 +285,7 @@ public class ScannerService extends IntentService
                             BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
                             BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
                             BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-                            GlobalData.setForceOneLEBluetoothScan(context, false);
+                            GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                         }
 
                         if (bluetoothState == BluetoothAdapter.STATE_ON) {
@@ -304,7 +304,7 @@ public class ScannerService extends IntentService
 
                         }
 
-                        GlobalData.setForceOneLEBluetoothScan(context, false);
+                        GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                         BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
 
@@ -332,8 +332,8 @@ public class ScannerService extends IntentService
                 }
             }
             else {
-                GlobalData.setForceOneBluetoothScan(context, false);
-                GlobalData.setForceOneLEBluetoothScan(context, false);
+                GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+                GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                 BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
                 BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                 BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
@@ -367,7 +367,7 @@ public class ScannerService extends IntentService
         {
             ConnectivityManager connManager = (ConnectivityManager)dataWrapper.context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (networkInfo.isConnected() && (!GlobalData.getForceOneWifiScan(dataWrapper.context)))
+            if (networkInfo.isConnected() && (GlobalData.getForceOneWifiScan(dataWrapper.context) == GlobalData.FORCE_ONE_SCAN_DISABLED))
             {
                 GlobalData.logE("$$$ ScannerService.canScanWifi","wifi is connected");
 
@@ -396,7 +396,7 @@ public class ScannerService extends IntentService
                     WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(dataWrapper.context, false);
                     WifiScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, false);
                     WifiScanAlarmBroadcastReceiver.setWaitForResults(dataWrapper.context, false);
-                    GlobalData.setForceOneWifiScan(dataWrapper.context, false);
+                    GlobalData.setForceOneWifiScan(dataWrapper.context, GlobalData.FORCE_ONE_SCAN_DISABLED);
 
                     GlobalData.logE("$$$ ScannerService.canScanWifi","connected SSID is scanned, no start scan");
 
@@ -416,7 +416,7 @@ public class ScannerService extends IntentService
         GlobalData.logE("@@@ ScannerService.enableWifi","xxx");
 
         int wifiState = wifi.getWifiState();
-        boolean forceScan = GlobalData.getForceOneWifiScan(dataWrapper.context);
+        int forceScan = GlobalData.getForceOneWifiScan(dataWrapper.context);
 
         //if ((!dataWrapper.getIsManualProfileActivation()) || forceScan)
         //{
@@ -430,11 +430,13 @@ public class ScannerService extends IntentService
                 isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
                 if (!isWifiEnabled)
                 {
-                    if (GlobalData.applicationEventWifiEnableWifi || forceScan)
+                    if (GlobalData.applicationEventWifiEnableWifi || (forceScan != GlobalData.FORCE_ONE_SCAN_DISABLED))
                     {
                         boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
-
-                        if (wifiEventsExists || forceScan)
+                        boolean scan = (wifiEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED));
+                        if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS))
+                            scan = false;
+                        if (scan)
                         {
                             WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(dataWrapper.context, true);
                             WifiScanAlarmBroadcastReceiver.setScanRequest(dataWrapper.context, true);
@@ -480,7 +482,9 @@ public class ScannerService extends IntentService
         {
 
             boolean connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(dataWrapper.context, "");
-            if (connected && (!GlobalData.getForceOneBluetoothScan(dataWrapper.context)) && (!GlobalData.getForceOneLEBluetoothScan(dataWrapper.context)))
+            if (connected &&
+                    (GlobalData.getForceOneBluetoothScan(dataWrapper.context) == GlobalData.FORCE_ONE_SCAN_DISABLED) &&
+                    (GlobalData.getForceOneLEBluetoothScan(dataWrapper.context) == GlobalData.FORCE_ONE_SCAN_DISABLED))
             {
                 GlobalData.logE("$$$ ScannerService.canScanBluetooth","bluetooth is connected");
 
@@ -506,8 +510,8 @@ public class ScannerService extends IntentService
                     BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(dataWrapper.context, false);
                     BluetoothScanAlarmBroadcastReceiver.setWaitForResults(dataWrapper.context, false);
                     BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(dataWrapper.context, false);
-                    GlobalData.setForceOneBluetoothScan(dataWrapper.context, false);
-                    GlobalData.setForceOneLEBluetoothScan(dataWrapper.context, false);
+                    GlobalData.setForceOneBluetoothScan(dataWrapper.context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+                    GlobalData.setForceOneLEBluetoothScan(dataWrapper.context, GlobalData.FORCE_ONE_SCAN_DISABLED);
 
                     GlobalData.logE("$$$ ScannerService.canScanBluetooth","connected SSID is scanned, no start scan");
 
@@ -530,7 +534,7 @@ public class ScannerService extends IntentService
         GlobalData.logE("@@@ ScannerService.enableBluetooth","xxx");
 
         int bluetoothState = bluetooth.getState();
-        boolean forceScan = false;
+        int forceScan;
         if (!forLE)
             forceScan = GlobalData.getForceOneBluetoothScan(dataWrapper.context);
         else
@@ -541,11 +545,13 @@ public class ScannerService extends IntentService
             boolean isBluetoothEnabled = bluetoothState == BluetoothAdapter.STATE_ON;
             if (!isBluetoothEnabled)
             {
-                if (GlobalData.applicationEventBluetoothEnableBluetooth || forceScan)
+                if (GlobalData.applicationEventBluetoothEnableBluetooth || (forceScan != GlobalData.FORCE_ONE_SCAN_DISABLED))
                 {
                     boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
-
-                    if (bluetoothEventsExists || forceScan)
+                    boolean scan = (bluetoothEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED));
+                    if ((!bluetoothEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS))
+                        scan = false;
+                    if (scan)
                     {
                         GlobalData.logE("@@@ ScannerService.enableBluetooth","set enabled");
                         BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(dataWrapper.context, true);
@@ -650,7 +656,7 @@ public class ScannerService extends IntentService
     public static void waitForForceOneBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask) {
         for (int i = 0; i < 5 * classicScanDuration; i++)
         {
-            if (!(GlobalData.getForceOneBluetoothScan(context)))
+            if (GlobalData.getForceOneBluetoothScan(context) == GlobalData.FORCE_ONE_SCAN_DISABLED)
                 break;
             if (asyncTask != null)
             {
@@ -672,7 +678,7 @@ public class ScannerService extends IntentService
 
         for (int i = 0; i < 5 * leScanDuration; i++)
         {
-            if (!(GlobalData.getForceOneLEBluetoothScan(context)))
+            if (GlobalData.getForceOneLEBluetoothScan(context) == GlobalData.FORCE_ONE_SCAN_DISABLED)
                 break;
             if (asyncTask != null)
             {

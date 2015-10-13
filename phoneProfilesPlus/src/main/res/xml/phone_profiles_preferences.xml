@@ -33,6 +33,7 @@
         <CheckBoxPreference
             android:key="applicationEventWifiEnableWifi"
             android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"
+            android:summary="@string/phone_profiles_pref_applicationEventWifiEnableWifi_summary"
             android:defaultValue="true" />
         <sk.henrichg.phoneprofilesplus.NumberPickerPreference
             android:key="applicationEventWifiScanInterval"
@@ -51,6 +52,7 @@
         <CheckBoxPreference
             android:key="applicationEventBluetoothEnableBluetooth"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"
+            android:summary="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary"
             android:defaultValue="true" />
         <sk.henrichg.phoneprofilesplus.NumberPickerPreference
             android:key="applicationEventBluetoothScanInterval"

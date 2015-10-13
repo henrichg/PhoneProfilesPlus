@@ -261,9 +261,9 @@ public class GlobalData extends Application {
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
     private static final String PREF_FORCE_RUN_EVENT_RUNNING = "forceRunEventRunning";
     private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
-    private static final String PREF_FORCE_ONE_BLUETOOTH_SCAN = "forceOneBluetoothScan";
-    private static final String PREF_FORCE_ONE_LE_BLUETOOTH_SCAN = "forceOneLEBluetoothScan";
-    private static final String PREF_FORCE_ONE_WIFI_SCAN = "forceOneWifiScan";
+    private static final String PREF_FORCE_ONE_BLUETOOTH_SCAN = "forceOneBluetoothScanInt";
+    private static final String PREF_FORCE_ONE_LE_BLUETOOTH_SCAN = "forceOneLEBluetoothScanInt";
+    private static final String PREF_FORCE_ONE_WIFI_SCAN = "forceOneWifiScanInt";
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
     private static final String PREF_RINGER_VOLUME = "ringer_volume";
     private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
@@ -272,6 +272,10 @@ public class GlobalData extends Application {
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
     private static final String PREF_ZEN_MODE = "zen_mode";
     private static final String PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION = "show_request_write_settings_permission";
+
+    public static final int FORCE_ONE_SCAN_DISABLED = 0;
+    public static final int FORCE_ONE_SCAN_ENABLED = 1;
+    public static final int FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS = 2;
 
     // preferences for event - filled with broadcast receivers
     static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
@@ -894,45 +898,45 @@ public class GlobalData extends Application {
         editor.commit();
     }
 
-    static public boolean getForceOneWifiScan(Context context)
+    static public int getForceOneWifiScan(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_FORCE_ONE_WIFI_SCAN, false);
+        return preferences.getInt(PREF_FORCE_ONE_WIFI_SCAN, FORCE_ONE_SCAN_DISABLED);
     }
 
-    static public void setForceOneWifiScan(Context context, boolean forceScan)
+    static public void setForceOneWifiScan(Context context, int forceScan)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(PREF_FORCE_ONE_WIFI_SCAN, forceScan);
+        editor.putInt(PREF_FORCE_ONE_WIFI_SCAN, forceScan);
         editor.commit();
     }
 
-    static public boolean getForceOneBluetoothScan(Context context)
+    static public int getForceOneBluetoothScan(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_FORCE_ONE_BLUETOOTH_SCAN, false);
+        return preferences.getInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
     }
 
-    static public void setForceOneBluetoothScan(Context context, boolean forceScan)
+    static public void setForceOneBluetoothScan(Context context, int forceScan)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(PREF_FORCE_ONE_BLUETOOTH_SCAN, forceScan);
+        editor.putInt(PREF_FORCE_ONE_BLUETOOTH_SCAN, forceScan);
         editor.commit();
     }
 
-    static public boolean getForceOneLEBluetoothScan(Context context)
+    static public int getForceOneLEBluetoothScan(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, false);
+        return preferences.getInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, FORCE_ONE_SCAN_DISABLED);
     }
 
-    static public void setForceOneLEBluetoothScan(Context context, boolean forceScan)
+    static public void setForceOneLEBluetoothScan(Context context, int forceScan)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, forceScan);
+        editor.putInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, forceScan);
         editor.commit();
     }
 

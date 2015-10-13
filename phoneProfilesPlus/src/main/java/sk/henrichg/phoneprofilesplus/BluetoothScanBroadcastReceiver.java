@@ -109,10 +109,10 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
                     BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 
-                    boolean forceOneScan = GlobalData.getForceOneBluetoothScan(context);
-                    GlobalData.setForceOneBluetoothScan(context, false);
+                    int forceOneScan = GlobalData.getForceOneBluetoothScan(context);
+                    GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
 
-                    if (!forceOneScan) // not start service for force scan
+                    if (forceOneScan == GlobalData.FORCE_ONE_SCAN_DISABLED) // not start service for force scan
                     {
                         // start service
                         Intent eventsServiceIntent = new Intent(context, EventsService.class);

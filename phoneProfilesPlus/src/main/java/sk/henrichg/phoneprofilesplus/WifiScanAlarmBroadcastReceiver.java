@@ -85,7 +85,11 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
             GlobalData.logE("WifiScanAlarmBroadcastReceiver.onReceive","wifiEventsExists="+wifiEventsExists);
 
-            if (wifiEventsExists || GlobalData.getForceOneWifiScan(context))
+            int forceScan = GlobalData.getForceOneWifiScan(dataWrapper.context);
+            boolean scan = (wifiEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED));
+            if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS))
+                scan = false;
+            if (scan)
             {
                 startScanner(context);
             }
@@ -168,6 +172,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
                 else
                     alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+
+                GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS);
             }
             else
             {

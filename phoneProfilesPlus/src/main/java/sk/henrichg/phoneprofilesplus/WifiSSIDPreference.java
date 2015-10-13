@@ -213,7 +213,7 @@ public class WifiSSIDPreference extends DialogPreference {
 
                 if (_forRescan)
                 {
-                    GlobalData.setForceOneWifiScan(context, true);
+                    GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_ENABLED);
                     WifiScanAlarmBroadcastReceiver.startScanner(context);
 
                     try {
