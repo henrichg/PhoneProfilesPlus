@@ -552,14 +552,14 @@
   <string name="array_pref_zenModeArray_alarms">Only alarms</string>
   <string name="profile_preferences_zenMode_alarms_summary">Only alarms interruptions</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Even if Wi-fi is disabled</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Even if Bluetooth is disabled</string>
   <string name="permission_group_name_write_settings">Modify system settings</string>
   <string name="permission_group_name_storage">Storage</string>
   <string name="permission_group_name_phone">Phone</string>
-  <string name="permissions_for_profile_text1">Activation of profile</string>
-  <string name="permissions_for_profile_text2">requires these permissions:</string>
-  <string name="permissions_for_profile_text3">Please grant them in next dialogs, for proper profile activation.</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Even if Wi-fi is disabled</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Even if Bluetooth is disabled</string>
   <string name="permissions_alert_title">Permissions request</string>
+  <string name="permissions_for_profile_text1">Profile</string>
+  <string name="permissions_for_profile_text2">will not be activated, because activation requires these permissions:</string>
+  <string name="permissions_for_profile_text3">Please grant them in next dialogs, for proper profile activation.</string>
   <string name="permissions_for_profile_text_notification">requires allow some permissions</string>
 </resources>

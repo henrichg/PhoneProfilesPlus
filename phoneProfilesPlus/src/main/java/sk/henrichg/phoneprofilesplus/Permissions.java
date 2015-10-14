@@ -114,8 +114,6 @@ public class Permissions {
 
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
     public static final String EXTRA_PERMISSION_TYPES = "permission_types";
-    public static final String EXTRA_STARTUP_SOURCE = "startup_source";
-    public static final String EXTRA_INTERACTIVE = "interactive";
     public static final String EXTRA_FOR_GUI = "for_gui";
     public static final String EXTRA_MONOCHROME = "monochrome";
     public static final String EXTRA_MONOCHROME_VALUE = "monochrome_value";
@@ -409,11 +407,10 @@ public class Permissions {
         if (permissions.size() > 0) {
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
             intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
             intent.putExtra(EXTRA_MERGED_PROFILE, mergedProfile);
             intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
-            intent.putExtra(EXTRA_STARTUP_SOURCE, startupSource);
-            intent.putExtra(EXTRA_INTERACTIVE, interactive);
             intent.putExtra(EXTRA_FOR_GUI, forGUI);
             intent.putExtra(EXTRA_MONOCHROME, monochrome);
             intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
@@ -441,18 +438,16 @@ public class Permissions {
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
             intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
             intent.putExtra(EXTRA_MERGED_PROFILE, mergedProfile);
             intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
-            intent.putExtra(EXTRA_STARTUP_SOURCE, startupSource);
-            intent.putExtra(EXTRA_INTERACTIVE, interactive);
             intent.putExtra(EXTRA_FOR_GUI, forGUI);
             intent.putExtra(EXTRA_MONOCHROME, monochrome);
             intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
             intent.putExtra(EXTRA_EVENT_NOTIFICATION_SOUND, eventNotificationSound);
             intent.putExtra(EXTRA_LOG, log);
 
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(pi);
             if (android.os.Build.VERSION.SDK_INT >= 16)
