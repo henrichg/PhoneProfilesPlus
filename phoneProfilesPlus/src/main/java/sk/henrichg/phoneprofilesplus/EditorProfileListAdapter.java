@@ -351,7 +351,7 @@ public class EditorProfileListAdapter extends BaseAdapter
                 if (profile._iconBitmap != null)
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);
                 else {
-                    holder.profileIcon.setImageResource(0);
+                    //holder.profileIcon.setImageBitmap(null);
                     int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                             vi.getContext().getPackageName());
                     holder.profileIcon.setImageResource(res); // resource na ikonu

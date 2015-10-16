@@ -362,7 +362,7 @@ public class EditorEventListAdapter extends BaseAdapter
                     if (profile._iconBitmap != null)
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                     else {
-                        holder.profileStartIcon.setImageResource(0);
+                        //holder.profileStartIcon.setImageBitmap(null);
                         int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                                 vi.getContext().getPackageName());
                         holder.profileStartIcon.setImageResource(res); // resource na ikonu
@@ -421,7 +421,7 @@ public class EditorEventListAdapter extends BaseAdapter
                         if (profile._iconBitmap != null)
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                         else {
-                            holder.profileEndIcon.setImageResource(0);
+                            //holder.profileEndIcon.setImageBitmap(null);
                             int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                                     vi.getContext().getPackageName());
                             holder.profileEndIcon.setImageResource(res); // resource na ikonu

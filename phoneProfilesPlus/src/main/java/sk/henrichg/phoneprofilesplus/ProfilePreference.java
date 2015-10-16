@@ -65,7 +65,7 @@ public class ProfilePreference extends Preference {
                     if (profile._iconBitmap != null)
                         profileIcon.setImageBitmap(profile._iconBitmap);
                     else {
-                        profileIcon.setImageResource(0);
+                        //profileIcon.setImageBitmap(null);
                         int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                                 prefContext.getPackageName());
                         profileIcon.setImageResource(res); // resource na ikonu
