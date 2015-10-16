@@ -854,6 +854,8 @@ public class Event {
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
                 GlobalData.logE("Event.pauseEvent","restart events");
 
+                EventsService.restartAtEndOfEvent = true;
+
                 dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
                 GlobalData.logE("$$$ restartEvents", "from Event.doActivateEndProfile");
