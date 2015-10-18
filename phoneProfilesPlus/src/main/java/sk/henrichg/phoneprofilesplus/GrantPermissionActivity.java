@@ -93,7 +93,7 @@ public class GrantPermissionActivity extends Activity {
             String showRequestString = "";
 
             if (installTonePreference) {
-                showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + " ";
+                showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
             }
             else {
                 showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
@@ -172,9 +172,17 @@ public class GrantPermissionActivity extends Activity {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CODE: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    updateGUI();
+
+                boolean allGranted = true;
+                for (int i=0; i < grantResults.length; i++) {
+                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                        allGranted = false;
+                        break;
+                    }
+                }
+
+                if (allGranted) {
+                    finishGrant();
                 } else {
                     finish();
                 }
@@ -226,14 +234,19 @@ public class GrantPermissionActivity extends Activity {
                 ActivityCompat.requestPermissions(this, permArray, PERMISSIONS_REQUEST_CODE);
             }
             else
-                finish();
+                finishGrant();
         }
     }
 
-    private void updateGUI() {
+    private void finishGrant() {
         finishAffinity();
 
-        if (!installTonePreference) {
+        if (installTonePreference) {
+            Permissions.removeInstallToneNotification(getApplicationContext());
+            FirstStartService.installTone(FirstStartService.TONE_ID, FirstStartService.TONE_NAME, getApplicationContext(), true);
+        }
+        else {
+            Permissions.removeProfileNotification(getApplicationContext());
             ActivateProfileHelper activateProfileHelper = new ActivateProfileHelper();
             activateProfileHelper.initialize(dataWrapper, null, getApplicationContext());
             Profile activatedProfile = dataWrapper.getActivatedProfile();

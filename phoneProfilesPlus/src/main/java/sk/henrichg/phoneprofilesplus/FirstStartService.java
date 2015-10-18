@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,6 +21,9 @@ import java.io.InputStream;
 
 
 public class FirstStartService extends IntentService {
+
+    public static final int TONE_ID = R.raw.phoneprofiles_silent;
+    public static final String TONE_NAME = "PhoneProfiles Silent";
 
     public FirstStartService()
     {
@@ -53,10 +57,7 @@ public class FirstStartService extends IntentService {
         GlobalData.loadPreferences(context);
         GUIData.setLanguage(context);
 
-        // remove phoneprofiles_silent.mp3
-        //removeTone("phoneprofiles_silent.mp3", context);
-        // install phoneprofiles_silent.ogg
-        installTone(R.raw.phoneprofiles_silent, "PhoneProfiles Silent", context);
+        installTone(TONE_ID, TONE_NAME, context, false);
 
         GlobalData.setLockscreenDisabled(context, false);
 
@@ -114,9 +115,50 @@ public class FirstStartService extends IntentService {
         dataWrapper.invalidateDataWrapper();
     }
 
-    private boolean installTone(int resID, String title, Context context) {
+    public static boolean isToneInstalled(int resID, Context context) {
+        if (Permissions.checkInstallTone(context)) {
+            // Make sure the shared storage is currently writable
+            if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+                return false;
 
-        if (Permissions.grantInstallTonePermissionsNotification(context)) {
+            File path = Environment.
+                    getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES);
+            // Make sure the directory exists
+            //noinspection ResultOfMethodCallIgnored
+            path.mkdirs();
+            String filename = context.getResources().getResourceEntryName(resID) + ".ogg";
+            File outFile = new File(path, filename);
+
+            if (!outFile.exists())
+                return false;
+
+            String outAbsPath = outFile.getAbsolutePath();
+
+            Uri contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
+
+            Cursor cursor = context.getContentResolver().query(contentUri,
+                    new String[]{MediaStore.MediaColumns.DATA},
+                    MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
+            if ((cursor == null) || (!cursor.moveToFirst())) {
+                if (cursor != null)
+                    cursor.close();
+                return false;
+            }
+
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public static boolean installTone(int resID, String title, Context context, boolean fromMenu) {
+
+        boolean granted;
+        if (fromMenu)
+            granted = Permissions.grantInstallTonePermissionsActivity(context);
+        else
+            granted = Permissions.grantInstallTonePermissionsNotification(context);
+        if (granted) {
 
             // Make sure the shared storage is currently writable
             if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
@@ -226,6 +268,17 @@ public class FirstStartService extends IntentService {
                         cursor.close();
                     }
                 }
+            }
+
+            if (fromMenu) {
+                int strId = R.string.toast_tone_installation_installed_ok;
+                if (isError)
+                    strId = R.string.toast_tone_installation_installed_error;
+
+                Toast msg = Toast.makeText(context,
+                        context.getResources().getString(strId),
+                        Toast.LENGTH_SHORT);
+                msg.show();
             }
 
             return !isError;
