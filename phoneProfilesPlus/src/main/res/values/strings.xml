@@ -560,6 +560,9 @@
   <string name="permissions_alert_title">Permissions request</string>
   <string name="permissions_for_profile_text1">Profile</string>
   <string name="permissions_for_profile_text2">will not be activated, because activation requires these permissions:</string>
-  <string name="permissions_for_profile_text3">Please grant them in next dialogs, for proper profile activation.</string>
-  <string name="permissions_for_profile_text_notification">requires allow some permissions</string>
+  <string name="permissions_for_profile_text3">Please grant them in next dialogs. Then you can activate profile.</string>
+  <string name="permissions_for_profile_text_notification">requires some permissions</string>
+  <string name="permissions_for_install_tone_text1">Installation of tone "PhoneProfiles Silent" will not be executed, because this requires some permissions.</string>
+  <string name="permissions_for_install_tone_text2">Please grant them in next dialogs. Then you can install tone from Editor menu.</string>
+  <string name="permissions_for_install_tone_text_notification">Installation of tone "PhoneProfiles Silent" requires some permissions.</string>
 </resources>

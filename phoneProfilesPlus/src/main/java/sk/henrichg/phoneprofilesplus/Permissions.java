@@ -101,16 +101,17 @@ public class Permissions {
     // PREF_PROFILE_DEVICE_WIFI_AP
     //  - WifiManager
 
-    private static final int PERMISSION_VOLUME_PREFERENCES = 1;
-    private static final int PERMISSION_VIBRATION_ON_TOUCH = 2;
-    private static final int PERMISSION_RINGTONES = 3;
-    private static final int PERMISSION_SCREEN_TIMEOUT = 4;
-    private static final int PERMISSION_SCREEN_BRIGHTNESS = 5;
-    private static final int PERMISSION_AUTOROTATION = 6;
-    private static final int PERMISSION_WALLPAPER = 7;
-    private static final int PERMISSION_RADIO_PREFERENCES = 8;
-    private static final int PERMISSION_PHONE_BROADCAST = 9;
-    private static final int PERMISSION_CUSTOM_PROFILE_ICON = 10;
+    public static final int PERMISSION_VOLUME_PREFERENCES = 1;
+    public static final int PERMISSION_VIBRATION_ON_TOUCH = 2;
+    public static final int PERMISSION_RINGTONES = 3;
+    public static final int PERMISSION_SCREEN_TIMEOUT = 4;
+    public static final int PERMISSION_SCREEN_BRIGHTNESS = 5;
+    public static final int PERMISSION_AUTOROTATION = 6;
+    public static final int PERMISSION_WALLPAPER = 7;
+    public static final int PERMISSION_RADIO_PREFERENCES = 8;
+    public static final int PERMISSION_PHONE_BROADCAST = 9;
+    public static final int PERMISSION_CUSTOM_PROFILE_ICON = 10;
+    public static final int PERMISSION_INSTALL_TONE = 11;
 
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
     public static final String EXTRA_PERMISSION_TYPES = "permission_types";
@@ -399,7 +400,7 @@ public class Permissions {
             return true;
     }
 
-    public static boolean grantProfilePermissionsAndActivateActivity(Context context, Profile profile, boolean mergedProfile,
+    public static boolean grantProfilePermissionsActivity(Context context, Profile profile, boolean mergedProfile,
                                                              int startupSource, boolean interactive,
                                                              boolean forGUI, boolean monochrome, int monochromeValue,
                                                              String eventNotificationSound, boolean log) {
@@ -421,7 +422,7 @@ public class Permissions {
         return permissions.size() == 0;
     }
 
-    public static boolean grantProfilePermissionsAndActivateNotification(Context context, Profile profile, boolean mergedProfile,
+    public static boolean grantProfilePermissionsNotification(Context context, Profile profile, boolean mergedProfile,
                                                              int startupSource, boolean interactive,
                                                              boolean forGUI, boolean monochrome, int monochromeValue,
                                                              String eventNotificationSound, boolean log) {
@@ -458,15 +459,55 @@ public class Permissions {
                 mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
             }
             NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-            mNotificationManager.notify(GlobalData.GRANT_PERMISSIONS_NOTIFICATION_ID, mBuilder.build());
+            mNotificationManager.notify(GlobalData.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID, mBuilder.build());
         }
         return permissions.size() == 0;
     }
 
-    public static void removeNotification(Context context)
+    public static boolean grantInstallTonePermissionsNotification(Context context) {
+        boolean granted = checkInstallTone(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_INSTALL_TONE, permission.WRITE_EXTERNAL_STORAGE));
+
+            NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+                    .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                    .setContentText(context.getString(R.string.permissions_for_install_tone_text_notification))
+                    .setAutoCancel(true); // clear notification after click
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+
+            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder.setContentIntent(pi);
+            if (android.os.Build.VERSION.SDK_INT >= 16)
+                mBuilder.setPriority(Notification.PRIORITY_MAX);
+            if (android.os.Build.VERSION.SDK_INT >= 21)
+            {
+                mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
+                mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+            }
+            NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.notify(GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID, mBuilder.build());
+        }
+        return granted;
+    }
+
+
+
+
+
+
+
+
+    public static void removeNotifications(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(GlobalData.GRANT_PERMISSIONS_NOTIFICATION_ID);
+        notificationManager.cancel(GlobalData.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
+        notificationManager.cancel(GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
     }
 
 }

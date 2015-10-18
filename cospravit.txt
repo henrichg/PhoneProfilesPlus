@@ -819,7 +819,6 @@ CO ESTE TREBA
   Treabe este testnut PhoneProfilesPlus. Ale tam to je asi to iste, tam len potom citam kontakty,
   a to uz je ina permission.
   Budem to teda checkovat len pocas aktivacie profilu.
-- log do suboru - staci len odchytit exceptions
 - vsetky zvysne premissions v PhoneProfilesPlus
 
 CO FUNGUJE CIASTOCNE:

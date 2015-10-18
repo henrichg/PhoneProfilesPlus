@@ -116,7 +116,7 @@ public class FirstStartService extends IntentService {
 
     private boolean installTone(int resID, String title, Context context) {
 
-        if (Permissions.checkInstallTone(context)) {
+        if (Permissions.grantInstallTonePermissionsNotification(context)) {
 
             // Make sure the shared storage is currently writable
             if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))

@@ -5,21 +5,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PermissionGroupInfo;
-import android.content.pm.PermissionInfo;
-import android.content.res.Configuration;
-import android.media.audiofx.BassBoost;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +23,8 @@ public class GrantPermissionActivity extends Activity {
     private boolean forGUI;
     private boolean monochrome;
     private int monochromeValue;
-    private String eventNotificationSound;
-    private boolean log;
+
+    boolean installTonePreference = false;
 
     private Profile profile;
     private DataWrapper dataWrapper;
@@ -48,14 +39,13 @@ public class GrantPermissionActivity extends Activity {
         GlobalData.loadPreferences(getApplicationContext());
 
         Intent intent = getIntent();
+        permissions = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
+
         profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
         mergedProfile = intent.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
-        permissions = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
         forGUI = intent.getBooleanExtra(Permissions.EXTRA_FOR_GUI, false);
         monochrome = intent.getBooleanExtra(Permissions.EXTRA_MONOCHROME, false);
         monochromeValue = intent.getIntExtra(Permissions.EXTRA_MONOCHROME_VALUE, 0xFF);
-        eventNotificationSound = intent.getStringExtra(Permissions.EXTRA_EVENT_NOTIFICATION_SOUND);
-        log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
 
         dataWrapper = new DataWrapper(getApplicationContext(), forGUI, monochrome, monochromeValue);
         profile = dataWrapper.getProfileById(profile_id, mergedProfile);
@@ -68,14 +58,20 @@ public class GrantPermissionActivity extends Activity {
 
         Context context = getApplicationContext();
 
+        installTonePreference = false;
+
         boolean showRequestWriteSettings = false;
         boolean showRequestReadExternalStorage = false;
         boolean showRequestReadPhoneState = false;
         boolean showRequestProcessOutgoingCalls = false;
+        boolean showRequestWriteExternalStorage = false;
 
         Log.e("GrantPermissionActivity", "onStart - permissions.size="+permissions.size());
 
         for (Permissions.PermissionType permissionType : permissions) {
+            if (permissionType.preference == Permissions.PERMISSION_INSTALL_TONE)
+                installTonePreference = true;
+
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS))
                 showRequestWriteSettings = GlobalData.getShowRequestWriteSettingsPermission(context);
             if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE))
@@ -84,14 +80,27 @@ public class GrantPermissionActivity extends Activity {
                 showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE);
             if (permissionType.permission.equals(Manifest.permission.PROCESS_OUTGOING_CALLS))
                 showRequestProcessOutgoingCalls = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.PROCESS_OUTGOING_CALLS);
+            if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
 
-        if (showRequestWriteSettings || showRequestReadExternalStorage || showRequestReadPhoneState || showRequestProcessOutgoingCalls) {
+        if (showRequestWriteSettings ||
+                showRequestReadExternalStorage ||
+                showRequestReadPhoneState ||
+                showRequestProcessOutgoingCalls ||
+                showRequestWriteExternalStorage) {
 
-            String showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
-            if (profile != null)
-                showRequestString = showRequestString + "\"" + profile._name + "\" ";
-            showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
+            String showRequestString = "";
+
+            if (installTonePreference) {
+                showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + " ";
+            }
+            else {
+                showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
+                if (profile != null)
+                    showRequestString = showRequestString + "\"" + profile._name + "\" ";
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
+            }
 
             if (showRequestWriteSettings) {
                 Log.e("GrantPermissionActivity","onStart - showRequestWriteSettings");
@@ -108,9 +117,18 @@ public class GrantPermissionActivity extends Activity {
                 showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
                 showRequestString = showRequestString + "<br>";
             }
+            if (showRequestWriteExternalStorage) {
+                Log.e("GrantPermissionActivity","onStart - showRequestWriteExternalStorage");
+                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
+                showRequestString = showRequestString + "<br>";
+            }
 
             showRequestString = showRequestString + "<br>";
-            showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
+
+            if (installTonePreference)
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_install_tone_text2);
+            else
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
             // set theme and language for dialog alert ;-)
             // not working on Android 2.3.x
@@ -160,7 +178,6 @@ public class GrantPermissionActivity extends Activity {
                 } else {
                     finish();
                 }
-                //activateProfile();
                 return;
             }
 
@@ -178,15 +195,17 @@ public class GrantPermissionActivity extends Activity {
     private void requestPermissions(boolean writeSettings) {
 
         if (writeSettings) {
+            boolean writeSettingsFound = false;
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
+                    writeSettingsFound = true;
                     final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
                     startActivityForResult(intent, WRITE_SETTINGS_REQUEST_CODE);
                     break;
                 }
-                else
-                    requestPermissions(false);
             }
+            if (!writeSettingsFound)
+                requestPermissions(false);
         }
         else {
             List<String> permList = new ArrayList<String>();
@@ -210,28 +229,20 @@ public class GrantPermissionActivity extends Activity {
                 finish();
         }
     }
-/*
-    private void activateProfile() {
-        List<Permissions.PermissionType> permissions = Permissions.checkProfilePermissions(getApplicationContext(), profile);
-
-        if (permissions.size() == 0) {
-            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
-            dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive, null, eventNotificationSound, log);
-        }
-        finish();
-    }
-*/
 
     private void updateGUI() {
         finishAffinity();
-        ActivateProfileHelper activateProfileHelper = new ActivateProfileHelper();
-        activateProfileHelper.initialize(dataWrapper, null, getApplicationContext());
-        Profile activatedProfile = dataWrapper.getActivatedProfile();
-        if (activatedProfile._id == profile_id) {
-            Profile profileFromDB = dataWrapper.getProfileById(profile_id, mergedProfile); // for regenerating icon bitmaps
-            activateProfileHelper.showNotification(profileFromDB, "");
+
+        if (!installTonePreference) {
+            ActivateProfileHelper activateProfileHelper = new ActivateProfileHelper();
+            activateProfileHelper.initialize(dataWrapper, null, getApplicationContext());
+            Profile activatedProfile = dataWrapper.getActivatedProfile();
+            if (activatedProfile._id == profile_id) {
+                Profile profileFromDB = dataWrapper.getProfileById(profile_id, mergedProfile); // for regenerating icon bitmaps
+                activateProfileHelper.showNotification(profileFromDB, "");
+            }
+            activateProfileHelper.updateWidget();
         }
-        activateProfileHelper.updateWidget();
     }
 
 }

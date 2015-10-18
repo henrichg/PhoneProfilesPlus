@@ -672,7 +672,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             getDataWrapper().getActivateProfileHelper().removeNotification();
             PhoneProfilesHelper.removeNotification(getApplicationContext());
             ImportantInfoNotification.removeNotification(getApplicationContext());
-            Permissions.removeNotification(getApplicationContext());
+            Permissions.removeNotifications(getApplicationContext());
 
             SearchCalendarEventsBroadcastReceiver.removeAlarm(getApplicationContext());
             WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
