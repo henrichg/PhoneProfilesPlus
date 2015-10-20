@@ -215,15 +215,6 @@ public class FirstStartService extends IntentService {
 
                 // Set the file metadata
                 String outAbsPath = outFile.getAbsolutePath();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(MediaStore.MediaColumns.DATA, outAbsPath);
-                contentValues.put(MediaStore.MediaColumns.TITLE, title);
-                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
-                contentValues.put(MediaStore.MediaColumns.SIZE, outFile.length());
-                contentValues.put(MediaStore.Audio.Media.IS_ALARM, true);
-                contentValues.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
-                contentValues.put(MediaStore.Audio.Media.IS_RINGTONE, true);
-                contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
 
                 Uri contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
 
@@ -244,6 +235,15 @@ public class FirstStartService extends IntentService {
                         //        MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null);
 
                         // Add the metadata to the file in the database
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(MediaStore.MediaColumns.DATA, outAbsPath);
+                        contentValues.put(MediaStore.MediaColumns.TITLE, title);
+                        contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+                        contentValues.put(MediaStore.MediaColumns.SIZE, outFile.length());
+                        contentValues.put(MediaStore.Audio.Media.IS_ALARM, true);
+                        contentValues.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
+                        contentValues.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+                        contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
                         Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
 
                         if (newUri != null) {

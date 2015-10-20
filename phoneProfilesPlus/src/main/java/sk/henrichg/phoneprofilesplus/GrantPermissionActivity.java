@@ -247,15 +247,16 @@ public class GrantPermissionActivity extends Activity {
         }
         else {
             Permissions.removeProfileNotification(getApplicationContext());
-            ActivateProfileHelper activateProfileHelper = new ActivateProfileHelper();
-            activateProfileHelper.initialize(dataWrapper, null, getApplicationContext());
-            Profile activatedProfile = dataWrapper.getActivatedProfile();
-            if (activatedProfile._id == profile_id) {
-                Profile profileFromDB = dataWrapper.getProfileById(profile_id, mergedProfile); // for regenerating icon bitmaps
-                activateProfileHelper.showNotification(profileFromDB, "");
-            }
-            activateProfileHelper.updateWidget();
         }
+
+        ActivateProfileHelper activateProfileHelper = new ActivateProfileHelper();
+        activateProfileHelper.initialize(dataWrapper, null, getApplicationContext());
+        Profile activatedProfile = dataWrapper.getActivatedProfile();
+        if (activatedProfile._id == profile_id) {
+            Profile profileFromDB = dataWrapper.getProfileById(profile_id, mergedProfile); // for regenerating icon bitmaps
+            activateProfileHelper.showNotification(profileFromDB, "");
+        }
+        activateProfileHelper.updateWidget();
     }
 
 }
