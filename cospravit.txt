@@ -818,6 +818,9 @@ CO ESTE TREBA
   a to uz je ina permission.
   Budem to teda checkovat len pocas aktivacie profilu.
 - vsetky zvysne premissions v PhoneProfilesPlus
+- Skus, ci existuje broadcast na zmenu permissions. Tu by sa dali zrusit permission notifikacie a updatnut
+  profil notifikacia a widgety
+-
 
 CO FUNGUJE CIASTOCNE:
 - wifi scanning aby fungoval aj na pozadi je ntune:
@@ -881,11 +884,24 @@ CO NEFUNGUJE
 ---- Power management:
 
 1. Ak je device v "Device Idle" mode, podla dokumentacie nerobi wifi scanning.
-2. Ak to tak je, tak vobec nespustat scanning, ale odchytavat broadcast na zmenu modu a ak sa
-   "Device Idle" vypne, spravit one scan.
+2. Pocas "device idle" nerobit scanning, odchytavat broadcast na zmenu modu a ak sa
+   "Device Idle" vypne, spravit restart eventov.
 3. Aplikacia sa moze dostat do "App Standby" modu. Treba zistit, ako sa toto da odchytit. Ak bude v tomto mode,
    scannovat s intervalom raz tak dlhym ako je prednastavene. Ak sa vypne tento mod, spravit one scan.
 4. Od Loppipopa existuje "Power Save" mod. Da sa odchytit boradcast. Mal by fungovat tak ako pri
    "App standby" mode.
 
 -------
+
+--- Poznamky z Notable:
+
+1. scanning - ak bezi, a dam spustit one shot scanning z preferences, neukoncit hned, ale cakat na
+   ukoncenie beziaceho
+2. sprav udalost na start aplikacie
+3. skus spravit do profilu moznot zastavit aplikaciu
+4. sprav notifikaciu ako dasboard, kde budu ikony profilov, klikom na ikonu sa profil aktivuje.
+   poradie bude take iste ako pro aktivatore. Ak sa nezmestia na jednu notifikaciu, spravit dalsiu.
+   Notifikacia bude mat prioritu nastavitelnu, default bude Minimal. Uzivatel si bude moct zmenit, aby sa
+   takat notifikacia zobrazila aj v lockscreene. ;-)
+
+--------
