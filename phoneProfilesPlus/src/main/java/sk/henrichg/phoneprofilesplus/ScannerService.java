@@ -305,7 +305,7 @@ public class ScannerService extends IntentService
                             waitForLEBluetoothScanEnd(context, null);
 
                             // send broadcast for start EventsService
-                            Intent btLEIntent = new Intent();
+                            Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
                             sendBroadcast(btLEIntent);
 
                             GlobalData.logE("$$$ ScannerService.onHandleIntent", "LE scan ended");
