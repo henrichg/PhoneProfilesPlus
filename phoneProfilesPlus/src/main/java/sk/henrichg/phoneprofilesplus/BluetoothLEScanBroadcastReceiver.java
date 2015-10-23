@@ -16,11 +16,11 @@ public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        //GlobalData.logE("#### BluetoothScanBroadcastReceiver.onReceive","xxx");
+        //GlobalData.logE("#### BluetoothLEScanBroadcastReceiver.onReceive","xxx");
         GlobalData.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "----- start");
 
-        if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
-            BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+        //if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
+        //    BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -31,7 +31,7 @@ public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
         if (GlobalData.getGlobalEventsRuning(context))
         {
 
-            boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context));
+            boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context));
 
             if (scanStarted)
             {
@@ -39,10 +39,10 @@ public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
                 BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
 
-                BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
 
-                int forceOneScan = GlobalData.getForceOneBluetoothScan(context);
-                GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+                int forceOneScan = GlobalData.getForceOneLEBluetoothScan(context);
+                GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
 
                 if (forceOneScan != GlobalData.FORCE_ONE_SCAN_ENABLED) // not start service for force scan
                 {

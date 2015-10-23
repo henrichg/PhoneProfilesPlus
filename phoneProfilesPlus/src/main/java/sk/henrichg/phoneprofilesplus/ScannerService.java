@@ -311,9 +311,11 @@ public class ScannerService extends IntentService
                             GlobalData.logE("$$$ ScannerService.onHandleIntent", "LE scan ended");
 
                         }
+                        else {
+                            GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+                            BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
+                        }
 
-                        GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
-                        BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
 
                         unregisterReceiver(bluetoothLEScanReceiver);
