@@ -568,4 +568,5 @@
   <string name="menu_install_tone">Install tone \"PhoneProfiles Silent\"</string>
   <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>
   <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>
+  <string name="toast_permissions_granted">Permissions are already granted</string>
 </resources>

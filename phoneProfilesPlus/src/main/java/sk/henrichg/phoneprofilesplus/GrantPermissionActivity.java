@@ -2,29 +2,34 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GrantPermissionActivity extends Activity {
 
+    private int grantType;
+    private List<Permissions.PermissionType> permissions;
     private long profile_id;
     private boolean mergedProfile;
-    private List<Permissions.PermissionType> permissions;
+    private boolean onlyNotification;
     private boolean forGUI;
     private boolean monochrome;
     private int monochromeValue;
-
-    boolean installTonePreference = false;
 
     private Profile profile;
     private DataWrapper dataWrapper;
@@ -39,7 +44,9 @@ public class GrantPermissionActivity extends Activity {
         GlobalData.loadPreferences(getApplicationContext());
 
         Intent intent = getIntent();
+        grantType = intent.getIntExtra(Permissions.EXTRA_GRANT_TYPE, 0);
         permissions = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
+        onlyNotification = intent.getBooleanExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
 
         profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
         mergedProfile = intent.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
@@ -58,7 +65,34 @@ public class GrantPermissionActivity extends Activity {
 
         Context context = getApplicationContext();
 
-        installTonePreference = false;
+        if (permissions.size() == 0) {
+            // called from notification - recheck permissions
+            if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
+                boolean granted = Permissions.checkInstallTone(context);
+                if (!granted) {
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
+                }
+                else {
+                    Toast msg = Toast.makeText(context,
+                            context.getResources().getString(R.string.toast_permissions_granted),
+                            Toast.LENGTH_SHORT);
+                    msg.show();
+                    finish();
+                    return;
+                }
+            }
+            else {
+                permissions = Permissions.checkProfilePermissions(context, profile);
+                if (permissions.size() == 0) {
+                    Toast msg = Toast.makeText(context,
+                            context.getResources().getString(R.string.toast_permissions_granted),
+                            Toast.LENGTH_SHORT);
+                    msg.show();
+                    finish();
+                    return;
+                }
+            }
+        }
 
         boolean showRequestWriteSettings = false;
         boolean showRequestReadExternalStorage = false;
@@ -69,9 +103,6 @@ public class GrantPermissionActivity extends Activity {
         Log.e("GrantPermissionActivity", "onStart - permissions.size="+permissions.size());
 
         for (Permissions.PermissionType permissionType : permissions) {
-            if (permissionType.preference == Permissions.PERMISSION_INSTALL_TONE)
-                installTonePreference = true;
-
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS))
                 showRequestWriteSettings = GlobalData.getShowRequestWriteSettingsPermission(context);
             if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE))
@@ -90,70 +121,114 @@ public class GrantPermissionActivity extends Activity {
                 showRequestProcessOutgoingCalls ||
                 showRequestWriteExternalStorage) {
 
-            String showRequestString = "";
+            if (onlyNotification) {
+                NotificationCompat.Builder mBuilder;
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
+                if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
+                    mBuilder =   new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+                            .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                            .setContentText(context.getString(R.string.permissions_for_install_tone_text_notification))
+                            .setAutoCancel(true); // clear notification after click
+                }
+                else {
+                    mBuilder =   new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+                            .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                            .setContentText(context.getString(R.string.permissions_for_profile_text1) +
+                                    " \"" + profile._name + "\" " +
+                                    context.getString(R.string.permissions_for_profile_text_notification)) // message for notification
+                            .setAutoCancel(true); // clear notification after click
+                    intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                    intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);
+                    intent.putExtra(Permissions.EXTRA_MONOCHROME, monochrome);
+                    intent.putExtra(Permissions.EXTRA_MONOCHROME_VALUE, monochromeValue);
+                }
+                permissions.clear();
+                intent.putParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES, (ArrayList<Permissions.PermissionType>) permissions);
+                intent.putExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
 
-            if (installTonePreference) {
-                showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
+                PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                if (android.os.Build.VERSION.SDK_INT >= 16)
+                    mBuilder.setPriority(Notification.PRIORITY_MAX);
+                if (android.os.Build.VERSION.SDK_INT >= 21)
+                {
+                    mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
+                    mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+                }
+                NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotificationManager.notify(GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID, mBuilder.build());
+
+                finish();
+                return;
             }
             else {
-                showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
-                if (profile != null)
-                    showRequestString = showRequestString + "\"" + profile._name + "\" ";
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
-            }
+                String showRequestString = "";
 
-            if (showRequestWriteSettings) {
-                Log.e("GrantPermissionActivity","onStart - showRequestWriteSettings");
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_write_settings) + "</b>";
-                showRequestString = showRequestString + "<br>";
-            }
-            if (showRequestReadExternalStorage) {
-                Log.e("GrantPermissionActivity","onStart - showRequestReadExternalStorage");
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
-                showRequestString = showRequestString + "<br>";
-            }
-            if (showRequestReadPhoneState || showRequestProcessOutgoingCalls) {
-                Log.e("GrantPermissionActivity","onStart - showRequestReadPhoneState");
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
-                showRequestString = showRequestString + "<br>";
-            }
-            if (showRequestWriteExternalStorage) {
-                Log.e("GrantPermissionActivity","onStart - showRequestWriteExternalStorage");
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
-                showRequestString = showRequestString + "<br>";
-            }
-
-            showRequestString = showRequestString + "<br>";
-
-            if (installTonePreference)
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_install_tone_text2);
-            else
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
-
-            // set theme and language for dialog alert ;-)
-            // not working on Android 2.3.x
-            GUIData.setTheme(this, true, false);
-            GUIData.setLanguage(this.getBaseContext());
-
-            final Activity _activity = this;
-
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.permissions_alert_title);
-            dialogBuilder.setMessage(Html.fromHtml(showRequestString));
-            dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    requestPermissions(true);
+                if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
+                    showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
+                } else {
+                    showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
+                    if (profile != null)
+                        showRequestString = showRequestString + "\"" + profile._name + "\" ";
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
                 }
-            });
-            dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    finish();
-                }
-            });
-            dialogBuilder.show();
 
+                if (showRequestWriteSettings) {
+                    Log.e("GrantPermissionActivity", "onStart - showRequestWriteSettings");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_write_settings) + "</b>";
+                    showRequestString = showRequestString + "<br>";
+                }
+                if (showRequestReadExternalStorage) {
+                    Log.e("GrantPermissionActivity", "onStart - showRequestReadExternalStorage");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
+                    showRequestString = showRequestString + "<br>";
+                }
+                if (showRequestReadPhoneState || showRequestProcessOutgoingCalls) {
+                    Log.e("GrantPermissionActivity", "onStart - showRequestReadPhoneState");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
+                    showRequestString = showRequestString + "<br>";
+                }
+                if (showRequestWriteExternalStorage) {
+                    Log.e("GrantPermissionActivity", "onStart - showRequestWriteExternalStorage");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
+                    showRequestString = showRequestString + "<br>";
+                }
+
+                showRequestString = showRequestString + "<br>";
+
+                if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_install_tone_text2);
+                else
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
+
+                // set theme and language for dialog alert ;-)
+                // not working on Android 2.3.x
+                GUIData.setTheme(this, true, false);
+                GUIData.setLanguage(this.getBaseContext());
+
+                final Activity _activity = this;
+
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.permissions_alert_title);
+                dialogBuilder.setMessage(Html.fromHtml(showRequestString));
+                dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        requestPermissions(true);
+                    }
+                });
+                dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        finish();
+                    }
+                });
+                dialogBuilder.show();
+            }
         }
         else {
             requestPermissions(true);
@@ -241,7 +316,7 @@ public class GrantPermissionActivity extends Activity {
     private void finishGrant() {
         finishAffinity();
 
-        if (installTonePreference) {
+        if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
             Permissions.removeInstallToneNotification(getApplicationContext());
             FirstStartService.installTone(FirstStartService.TONE_ID, FirstStartService.TONE_NAME, getApplicationContext(), true);
         }

@@ -372,7 +372,7 @@ public class DataWrapper {
         if (manual)
             startupSource = GlobalData.STARTUP_SOURCE_SERVICE_MANUAL;
         Profile profile = getProfileById(profile_id, merged);
-        if (Permissions.grantProfilePermissionsNotification(context, profile, merged, startupSource, interactive,
+        if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue, eventNotificationSound, true)) {
             getActivateProfileHelper().initialize(this, null, context);
             _activateProfile(profile, merged, startupSource, interactive, null, eventNotificationSound, log);
@@ -1135,7 +1135,7 @@ public class DataWrapper {
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    if (Permissions.grantProfilePermissionsActivity(context, _profile, false, _startupSource, _interactive,
+                    if (Permissions.grantProfilePermissions(context, _profile, false, false,
                             forGUI, monochrome, monochromeValue, _eventNotificationSound, true))
                         _activateProfile(_profile, false, _startupSource, _interactive, _activity,
                                             _eventNotificationSound, true);
@@ -1172,10 +1172,10 @@ public class DataWrapper {
         {
             boolean granted;
             if (interactive)
-                granted = Permissions.grantProfilePermissionsActivity(context, profile, false, startupSource, interactive,
+                granted = Permissions.grantProfilePermissions(context, profile, false, false,
                                         forGUI, monochrome, monochromeValue, eventNotificationSound, true);
             else
-                granted = Permissions.grantProfilePermissionsNotification(context, profile, false, startupSource, interactive,
+                granted = Permissions.grantProfilePermissions(context, profile, false, true,
                         forGUI, monochrome, monochromeValue, eventNotificationSound, true);
             if (granted)
                 _activateProfile(profile, false, startupSource, interactive, activity, eventNotificationSound, true);

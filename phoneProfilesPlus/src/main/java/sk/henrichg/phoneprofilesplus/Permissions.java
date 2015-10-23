@@ -114,8 +114,13 @@ public class Permissions {
     public static final int PERMISSION_CUSTOM_PROFILE_ICON = 10;
     public static final int PERMISSION_INSTALL_TONE = 11;
 
+    public static final int GRANT_TYPE_PROFILE = 1;
+    public static final int GRANT_TYPE_INSTALL_TONE = 2;
+
+    public static final String EXTRA_GRANT_TYPE = "grant_type";
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
     public static final String EXTRA_PERMISSION_TYPES = "permission_types";
+    public static final String EXTRA_ONLY_NOTIFICATION = "only_notification";
     public static final String EXTRA_FOR_GUI = "for_gui";
     public static final String EXTRA_MONOCHROME = "monochrome";
     public static final String EXTRA_MONOCHROME_VALUE = "monochrome_value";
@@ -401,18 +406,20 @@ public class Permissions {
             return true;
     }
 
-    public static boolean grantProfilePermissionsActivity(Context context, Profile profile, boolean mergedProfile,
-                                                             int startupSource, boolean interactive,
-                                                             boolean forGUI, boolean monochrome, int monochromeValue,
-                                                             String eventNotificationSound, boolean log) {
+    public static boolean grantProfilePermissions(Context context, Profile profile, boolean mergedProfile,
+                                                  boolean onlyNotification,
+                                                  boolean forGUI, boolean monochrome, int monochromeValue,
+                                                  String eventNotificationSound, boolean log) {
         List<PermissionType> permissions = checkProfilePermissions(context, profile);
         if (permissions.size() > 0) {
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PROFILE);
             intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
             intent.putExtra(EXTRA_MERGED_PROFILE, mergedProfile);
             intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
             intent.putExtra(EXTRA_FOR_GUI, forGUI);
             intent.putExtra(EXTRA_MONOCHROME, monochrome);
             intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
@@ -423,49 +430,7 @@ public class Permissions {
         return permissions.size() == 0;
     }
 
-    public static boolean grantProfilePermissionsNotification(Context context, Profile profile, boolean mergedProfile,
-                                                             int startupSource, boolean interactive,
-                                                             boolean forGUI, boolean monochrome, int monochromeValue,
-                                                             String eventNotificationSound, boolean log) {
-        List<PermissionType> permissions = checkProfilePermissions(context, profile);
-        if (permissions.size() > 0) {
-
-            NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
-                    .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                    .setContentText(context.getString(R.string.permissions_for_profile_text1) +
-                            " \"" + profile._name + "\" " +
-                            context.getString(R.string.permissions_for_profile_text_notification)) // message for notification
-                    .setAutoCancel(true); // clear notification after click
-
-            Intent intent = new Intent(context, GrantPermissionActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
-            intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(EXTRA_MERGED_PROFILE, mergedProfile);
-            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
-            intent.putExtra(EXTRA_FOR_GUI, forGUI);
-            intent.putExtra(EXTRA_MONOCHROME, monochrome);
-            intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
-            intent.putExtra(EXTRA_EVENT_NOTIFICATION_SOUND, eventNotificationSound);
-            intent.putExtra(EXTRA_LOG, log);
-
-            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            mBuilder.setContentIntent(pi);
-            if (android.os.Build.VERSION.SDK_INT >= 16)
-                mBuilder.setPriority(Notification.PRIORITY_MAX);
-            if (android.os.Build.VERSION.SDK_INT >= 21)
-            {
-                mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-                mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-            }
-            NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-            mNotificationManager.notify(GlobalData.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID, mBuilder.build());
-        }
-        return permissions.size() == 0;
-    }
-
-    public static boolean grantInstallTonePermissionsActivity(Context context) {
+    public static boolean grantInstallTonePermissions(Context context, boolean onlyNotification) {
         boolean granted = checkInstallTone(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
@@ -474,40 +439,10 @@ public class Permissions {
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_INSTALL_TONE);
             intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
             context.startActivity(intent);
-        }
-        return granted;
-    }
-
-    public static boolean grantInstallTonePermissionsNotification(Context context) {
-        boolean granted = checkInstallTone(context);
-        if (!granted) {
-            List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            permissions.add(new PermissionType(PERMISSION_INSTALL_TONE, permission.WRITE_EXTERNAL_STORAGE));
-
-            NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
-                    .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                    .setContentText(context.getString(R.string.permissions_for_install_tone_text_notification))
-                    .setAutoCancel(true); // clear notification after click
-
-            Intent intent = new Intent(context, GrantPermissionActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
-            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
-
-            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            mBuilder.setContentIntent(pi);
-            if (android.os.Build.VERSION.SDK_INT >= 16)
-                mBuilder.setPriority(Notification.PRIORITY_MAX);
-            if (android.os.Build.VERSION.SDK_INT >= 21)
-            {
-                mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-                mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-            }
-            NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-            mNotificationManager.notify(GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID, mBuilder.build());
         }
         return granted;
     }

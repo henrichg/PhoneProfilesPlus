@@ -155,9 +155,9 @@ public class FirstStartService extends IntentService {
 
         boolean granted;
         if (fromMenu)
-            granted = Permissions.grantInstallTonePermissionsActivity(context);
+            granted = Permissions.grantInstallTonePermissions(context, false);
         else
-            granted = Permissions.grantInstallTonePermissionsNotification(context);
+            granted = Permissions.grantInstallTonePermissions(context, true);
         if (granted) {
 
             // Make sure the shared storage is currently writable

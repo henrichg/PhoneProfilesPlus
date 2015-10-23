@@ -885,20 +885,11 @@ CO NEFUNGUJE
 
 1. Ak je device v "Device Idle" mode, podla dokumentacie nerobi wifi scanning.
 2. Pocas "device idle" nerobit scanning, odchytavat broadcast na zmenu modu a ak sa
-   "Device Idle" vypne, spravit restart eventov.
+   "Device Idle" vypne, zavolat EventsService (akoby to bol typ udalosti).
 3. Aplikacia sa moze dostat do "App Standby" modu. Treba zistit, ako sa toto da odchytit. Ak bude v tomto mode,
    scannovat s intervalom raz tak dlhym ako je prednastavene. Ak sa vypne tento mod, spravit one scan.
-4. Od Loppipopa existuje "Power Save" mod. Da sa odchytit boradcast. Mal by fungovat tak ako pri
+4. Od Lollipopa existuje "Power Save" mod. Da sa odchytit boradcast. Mal by fungovat tak ako pri
    "App standby" mode.
-5. Vypada to tak, ze to moc zerie baterku. Vela wakeup-ov. Podla mojej konfiguracie to moze robit but broadcast na bateriu a scanning. Pre broadcast na bateriu by som skusil zmenit sposob, kedy mam zavolat EventsService:
-
-	int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-        int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-        int battPct = Math.round(level/(float)scale); 
-        
-Takto dostanem cele percenta. A EventsService sa zavola len na zmnu percenta.
-
-Povodne to mam tak, ze pouzivam cisto len level. Takze moze byt, ze to wakeup-uje prilis casto. Ktoho vie aka je hodnota EXTRA_SCALE.
 
 -------
 
