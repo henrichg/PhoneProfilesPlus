@@ -1358,9 +1358,6 @@ public class DataWrapper {
         boolean smsPassed = true;
         boolean notificationPassed = true;
 
-        boolean isCharging = false;
-        float batteryPct = 100.0f;
-
         GlobalData.logE("DataWrapper.doEventService","--- start --------------------------");
         GlobalData.logE("DataWrapper.doEventService","------- event._id="+event._id);
         GlobalData.logE("DataWrapper.doEventService","------- event._name="+event._name);
@@ -1407,6 +1404,9 @@ public class DataWrapper {
 
         if (event._eventPreferencesBattery._enabled)
         {
+            boolean isCharging;
+            int batteryPct;
+
             // get battery status
             IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             Intent batteryStatus = context.registerReceiver(null, ifilter);
@@ -1414,23 +1414,25 @@ public class DataWrapper {
             if (batteryStatus != null)
             {
                 int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-                GlobalData.logE("DataWrapper.doEventService","status="+status);
+                GlobalData.logE("*** DataWrapper.doEventService","status="+status);
                 isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                              status == BatteryManager.BATTERY_STATUS_FULL;
-                GlobalData.logE("DataWrapper.doEventService","isCharging="+isCharging);
+                GlobalData.logE("*** DataWrapper.doEventService","isCharging="+isCharging);
 
                 int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                 int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-                batteryPct = level / (float)scale;
+                GlobalData.logE("*** DataWrapper.doEventService","level="+level);
+                GlobalData.logE("*** DataWrapper.doEventService","scale="+scale);
 
-                GlobalData.logE("DataWrapper.doEventService","batteryPct="+batteryPct);
+                batteryPct = Math.round(level/(float)scale*100);
+                GlobalData.logE("*** DataWrapper.doEventService","batteryPct="+batteryPct);
 
                 batteryPassed = (isCharging == event._eventPreferencesBattery._charging);
 
                 if (batteryPassed)
                 {
-                    if ((batteryPct >= (event._eventPreferencesBattery._levelLow / (float)100)) &&
-                        (batteryPct <= (event._eventPreferencesBattery._levelHight / (float)100)))
+                    if ((batteryPct >= event._eventPreferencesBattery._levelLow) &&
+                        (batteryPct <= event._eventPreferencesBattery._levelHight))
                     {
                         //eventStart = eventStart && true;
                     }
@@ -1442,11 +1444,7 @@ public class DataWrapper {
                 }
             }
             else
-            {
                 batteryPassed = false;
-                isCharging = false;
-                batteryPct = -1.0f;
-            }
 
         }
 

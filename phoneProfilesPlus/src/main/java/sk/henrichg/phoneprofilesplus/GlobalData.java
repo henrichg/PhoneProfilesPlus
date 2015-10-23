@@ -72,11 +72,12 @@ public class GlobalData extends Application {
                                          //"$$$ EventsService|"+
                                          //"$$$ ExecuteRadioProfilePrefsService|"+
                                          "$$$ WifiStateChangedBroadcastReceiver|"+
-                                         //"$$$ DataWrapper|"+
+                                         "*** DataWrapper|"+
                                          "$$$ WifiScanBroadcastReceiver|"+
                                          //"$$$ ReceiversService|"+
                                          "$$$ WifiConnectionBroadcastReceiver|"+
-                                         "$$$ WifiScanAlarmBroadcastReceiver"
+                                         "$$$ WifiScanAlarmBroadcastReceiver|"+
+                                         "BatteryEventBroadcastReceiver"
                                          //"$$$ ActivateProfileHelper|"+
                                          //"$$$ Keyguard|"+
                                          //"$$$ ScreenOnOffBroadcastReceiver|"+
