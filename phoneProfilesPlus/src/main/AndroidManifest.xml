@@ -479,6 +479,11 @@
             android:enabled="true"
             android:exported="false" >
         </receiver>
+        <receiver
+            android:name=".BluetoothLEScanBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+        </receiver>
         <!--
      		<receiver android:name=".SMSBroadcastReceiver"  android:enabled="true">
 			<intent-filter android:priority="1000">

@@ -68,7 +68,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
                     int forceOneScan = GlobalData.getForceOneWifiScan(context);
                     GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
 
-                    if (forceOneScan == GlobalData.FORCE_ONE_SCAN_DISABLED) // not start service for force scan
+                    if (forceOneScan != GlobalData.FORCE_ONE_SCAN_ENABLED) // not start service for force scan
                     {
                         // start service
                         Intent eventsServiceIntent = new Intent(context, EventsService.class);

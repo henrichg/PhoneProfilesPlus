@@ -80,9 +80,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             int forceScan = GlobalData.getForceOneBluetoothScan(dataWrapper.context);
             int forceScanLE = GlobalData.getForceOneLEBluetoothScan(context);
             boolean scan = (bluetoothEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED) || (forceScanLE == GlobalData.FORCE_ONE_SCAN_ENABLED));
-            if ((!bluetoothEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS))
+            if ((!bluetoothEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                 scan = false;
-            if ((!bluetoothEventsExists) && (forceScanLE == GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS))
+            if ((!bluetoothEventsExists) && (forceScanLE == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                 scan = false;
             if (scan)
             {
@@ -166,8 +166,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 else
                     alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
 
-                GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS);
-                GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS);
+                GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS);
+                GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS);
 
             }
             else

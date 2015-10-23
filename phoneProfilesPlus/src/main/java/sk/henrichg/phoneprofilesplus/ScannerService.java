@@ -25,6 +25,7 @@ public class ScannerService extends IntentService
 
     private final WifiScanBroadcastReceiver wifiScanReceiver = new WifiScanBroadcastReceiver();
     private final BluetoothScanBroadcastReceiver bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
+    private final BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
 
     public static final String PPHELPER_ACTION_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.ACTION_RADIOCHANGESTATE";
     public static final String PPHELPER_EXTRA_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.EXTRA_RADIOCHANGESTATE";
@@ -225,6 +226,8 @@ public class ScannerService extends IntentService
 
                     BluetoothScanAlarmBroadcastReceiver.unlock();
 
+                    ///////// Classic BT scan
+
                     IntentFilter intentFilter6 = new IntentFilter();
                     intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
                     intentFilter6.addAction(BluetoothDevice.ACTION_FOUND);
@@ -232,8 +235,6 @@ public class ScannerService extends IntentService
                     registerReceiver(bluetoothScanReceiver, intentFilter6);
 
                     BluetoothScanAlarmBroadcastReceiver.clearScanResults(context);
-
-                    ///////// Classic BT scan
 
                     // enable bluetooth
                     int bluetoothState = enableBluetooth(dataWrapper,
@@ -270,10 +271,13 @@ public class ScannerService extends IntentService
 
                     unregisterReceiver(bluetoothScanReceiver);
 
-                    ///////// Classic BT scan
+                    ///////// Classic BT scan - end
 
                     if (bluetoothLESupported(context)) {
                         ///////// LE BT scan
+
+                        IntentFilter intentFilter7 = new IntentFilter();
+                        registerReceiver(bluetoothLEScanReceiver, intentFilter7);
 
                         // enable bluetooth
                         bluetoothState = enableBluetooth(dataWrapper,
@@ -300,6 +304,10 @@ public class ScannerService extends IntentService
                             // wait for scan end
                             waitForLEBluetoothScanEnd(context, null);
 
+                            // send broadcast for start EventsService
+                            Intent btLEIntent = new Intent();
+                            sendBroadcast(btLEIntent);
+
                             GlobalData.logE("$$$ ScannerService.onHandleIntent", "LE scan ended");
 
                         }
@@ -308,7 +316,9 @@ public class ScannerService extends IntentService
                         BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
 
-                        ///////// LE BT scan
+                        unregisterReceiver(bluetoothLEScanReceiver);
+
+                        ///////// LE BT scan - end
                     }
 
                     if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
@@ -434,7 +444,7 @@ public class ScannerService extends IntentService
                     {
                         boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
                         boolean scan = (wifiEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED));
-                        if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS))
+                        if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                             scan = false;
                         if (scan)
                         {
@@ -549,7 +559,7 @@ public class ScannerService extends IntentService
                 {
                     boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
                     boolean scan = (bluetoothEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED));
-                    if ((!bluetoothEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_ONLY_WHEN_EVENTS_EXISTS))
+                    if ((!bluetoothEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                         scan = false;
                     if (scan)
                     {
