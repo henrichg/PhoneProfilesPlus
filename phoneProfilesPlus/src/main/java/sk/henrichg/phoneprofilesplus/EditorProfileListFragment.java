@@ -266,7 +266,7 @@ public class EditorProfileListFragment extends Fragment {
             Profile profile;
             profile = dataWrapper.getActivatedProfile();
             updateHeader(profile);
-            setProfileSelection(profile);
+            setProfileSelection(profile, false);
         }
 
     }
@@ -329,7 +329,7 @@ public class EditorProfileListFragment extends Fragment {
                 Profile profile;
                 profile = fragment.dataWrapper.getActivatedProfile();
                 fragment.updateHeader(profile);
-                fragment.setProfileSelection(profile);
+                fragment.setProfileSelection(profile, false);
 
                 if (defaultProfilesGenerated)
                 {
@@ -784,7 +784,7 @@ public class EditorProfileListFragment extends Fragment {
         onFinishProfilePreferencesActionModeCallback.onFinishProfilePreferencesActionMode();
     }
 
-    private void setProfileSelection(Profile profile) {
+    private void setProfileSelection(Profile profile, boolean refreshIcons) {
         if (profileListAdapter != null)
         {
             int profilePos;
@@ -794,7 +794,7 @@ public class EditorProfileListFragment extends Fragment {
             else
                 profilePos = listView.getCheckedItemPosition();
 
-            profileListAdapter.notifyDataSetChanged();
+            profileListAdapter.notifyDataSetChanged(refreshIcons);
 
             if (profilePos != ListView.INVALID_POSITION)
             {
@@ -806,7 +806,7 @@ public class EditorProfileListFragment extends Fragment {
         }
     }
 
-    public void updateListView(Profile profile, boolean newProfile)
+    public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons)
     {
         if (profileListAdapter != null)
         {
@@ -824,7 +824,7 @@ public class EditorProfileListFragment extends Fragment {
                 sortByPOrder(profileList);
         }
 
-        setProfileSelection(profile);
+        setProfileSelection(profile, refreshIcons);
     }
 
     public int getFilterType()
@@ -857,7 +857,7 @@ public class EditorProfileListFragment extends Fragment {
         Collections.sort(profileList, new ByPOrderComparator());
     }
 
-    public void refreshGUI()
+    public void refreshGUI(boolean refreshIcons)
     {
         if ((dataWrapper == null) || (profileListAdapter == null))
             return;
@@ -873,12 +873,12 @@ public class EditorProfileListFragment extends Fragment {
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);
-            updateListView(profileFromDataWrapper, false);
+            updateListView(profileFromDataWrapper, false, refreshIcons);
         }
         else
         {
             updateHeader(null);
-            updateListView(null, false);
+            updateListView(null, false, refreshIcons);
         }
 
     }

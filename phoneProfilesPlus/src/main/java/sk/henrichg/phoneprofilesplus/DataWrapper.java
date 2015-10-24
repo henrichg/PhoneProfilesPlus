@@ -490,6 +490,16 @@ public class DataWrapper {
         editor.commit();
     }
 
+    public void refreshProfileIcon(Profile profile, boolean monochrome, int monochromeValue) {
+        boolean isIconResourceID = profile.getIsIconResourceID();
+        String iconIdentifier = profile.getIconIdentifier();
+        getDatabaseHandler().getProfileIcon(profile);
+        if (isIconResourceID && iconIdentifier.equals("ic_profile_default") && (!profile.getIsIconResourceID())) {
+            profile.generateIconBitmap(context, monochrome, monochromeValue);
+            profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+        }
+    }
+
 //---------------------------------------------------
 
     public List<Event> getEventList()

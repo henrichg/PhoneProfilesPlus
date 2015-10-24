@@ -363,7 +363,7 @@ public class EditorEventListFragment extends Fragment {
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                 event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false); // activate return profile
                 // redraw event list
-                updateListView(event, false);
+                updateListView(event, false, false);
                 // restart events
                 GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
                 dataWrapper.restartEvents(false, true);
@@ -372,7 +372,7 @@ public class EditorEventListFragment extends Fragment {
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                 event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false, false); // activate return profile
                 // redraw event list
-                updateListView(event, false);
+                updateListView(event, false, false);
                 // restart events
                 GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
                 dataWrapper.restartEvents(false, true);
@@ -386,14 +386,14 @@ public class EditorEventListFragment extends Fragment {
                 // udate event in DB
                 dataWrapper.getDatabaseHandler().updateEvent(event);
                 // redraw event list
-                updateListView(event, false);
+                updateListView(event, false, false);
             } else {
                 // stop event
                 event.setStatus(Event.ESTATUS_STOP);
                 // udate event in DB
                 dataWrapper.getDatabaseHandler().updateEvent(event);
                 // redraw event list
-                updateListView(event, false);
+                updateListView(event, false, false);
             }
         }
     }
@@ -550,7 +550,7 @@ public class EditorEventListFragment extends Fragment {
         onFinishEventPreferencesActionModeCallback.onFinishEventPreferencesActionMode();
     }
 
-    public void updateListView(Event event, boolean newEvent)
+    public void updateListView(Event event, boolean newEvent, boolean refreshIcons)
     {
         if (eventListAdapter != null)
         {
@@ -574,7 +574,7 @@ public class EditorEventListFragment extends Fragment {
             else
                 eventPos = listView.getCheckedItemPosition();
 
-            eventListAdapter.notifyDataSetChanged();
+            eventListAdapter.notifyDataSetChanged(refreshIcons);
 
             if (eventPos != ListView.INVALID_POSITION)
             {
@@ -648,7 +648,7 @@ public class EditorEventListFragment extends Fragment {
         }
     }
 
-    public void refreshGUI()
+    public void refreshGUI(boolean refreshIcons)
     {
         if ((dataWrapper == null) || (eventList == null))
             return;
@@ -663,7 +663,7 @@ public class EditorEventListFragment extends Fragment {
             dataWrapper.getDatabaseHandler().setSMSStartTime(event);
             dataWrapper.getDatabaseHandler().setNotificationStartTime(event);
         }
-        updateListView(null, false);
+        updateListView(null, false, refreshIcons);
     }
 
     public void removeAdapter() {

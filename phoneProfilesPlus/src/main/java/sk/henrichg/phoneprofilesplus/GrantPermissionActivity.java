@@ -337,9 +337,7 @@ public class GrantPermissionActivity extends Activity {
         if (forGUI && (profile != null))
         {
             // regenerate profile icon
-            dataWrapper.getDatabaseHandler().getProfileIcon(profile);
-            profile.generateIconBitmap(context, monochrome, monochromeValue);
-            profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+            dataWrapper.refreshProfileIcon(profile, monochrome, monochromeValue);
         }
 
         if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
@@ -368,12 +366,17 @@ public class GrantPermissionActivity extends Activity {
                     Permissions.profileActivationActivity, eventNotificationSound, log);
         }
 
-        if (grantType != Permissions.GRANT_TYPE_PROFILE) {
+        //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             Profile activatedProfile = dataWrapper.getActivatedProfile();
             if (activatedProfile._id == profile_id)
                 activateProfileHelper.showNotification(profile, "");
             activateProfileHelper.updateWidget();
-        }
+
+            Intent intent5 = new Intent();
+            intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
+            intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, true);
+            context.sendBroadcast(intent5);
+        //}
     }
 
 }

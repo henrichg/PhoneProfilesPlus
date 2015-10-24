@@ -207,6 +207,18 @@ public class EditorEventListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
+    public void notifyDataSetChanged(boolean refreshIcons) {
+        if (refreshIcons) {
+            for (Event event : eventList) {
+                Profile profile = dataWrapper.getProfileById(event._fkProfileStart, false);
+                dataWrapper.refreshProfileIcon(profile, false, 0);
+                profile = dataWrapper.getProfileById(event._fkProfileEnd, false);
+                dataWrapper.refreshProfileIcon(profile, false, 0);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     static class ViewHolder {
           RelativeLayout listItemRoot;
           TextView eventName;

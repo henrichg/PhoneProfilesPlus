@@ -244,6 +244,14 @@ public class EditorProfileListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
+    public void notifyDataSetChanged(boolean refreshIcons) {
+        if (refreshIcons) {
+            for (Profile profile : profileList) {
+                dataWrapper.refreshProfileIcon(profile, false, 0);
+            }
+        }
+    }
+
     static class ViewHolder {
           RelativeLayout listItemRoot;
           ImageView profileIcon;
