@@ -95,7 +95,7 @@ public class GlobalData extends Application {
     static final String EXTRA_PROFILE_ID = "profile_id";
     static final String EXTRA_MERGED_PROFILE = "merged_profile";
     static final String EXTRA_EVENT_ID = "event_id";
-    static final String EXTRA_START_APP_SOURCE = "start_app_source";
+    static final String EXTRA_STARTUP_SOURCE = "startup_source";
     static final String EXTRA_RESET_EDITOR = "reset_editor";
     static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
     static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";

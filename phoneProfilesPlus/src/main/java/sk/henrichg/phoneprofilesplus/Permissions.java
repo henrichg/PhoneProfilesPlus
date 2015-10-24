@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -126,9 +127,11 @@ public class Permissions {
     public static final String EXTRA_FOR_GUI = "for_gui";
     public static final String EXTRA_MONOCHROME = "monochrome";
     public static final String EXTRA_MONOCHROME_VALUE = "monochrome_value";
+    public static final String EXTRA_INTERACTIVE = "interactive";
     public static final String EXTRA_EVENT_NOTIFICATION_SOUND = "event_notification_sound";
     public static final String EXTRA_LOG = "log";
 
+    public static Activity profileActivationActivity = null;
     public static ImageViewPreference imageViewPreference = null;
     public static ProfileIconPreference profileIconPreference = null;
 
@@ -414,6 +417,7 @@ public class Permissions {
     public static boolean grantProfilePermissions(Context context, Profile profile, boolean mergedProfile,
                                                   boolean onlyNotification,
                                                   boolean forGUI, boolean monochrome, int monochromeValue,
+                                                  int startupSource, boolean interactive, Activity activity,
                                                   String eventNotificationSound, boolean log) {
         List<PermissionType> permissions = checkProfilePermissions(context, profile);
         if (permissions.size() > 0) {
@@ -428,8 +432,11 @@ public class Permissions {
             intent.putExtra(EXTRA_FOR_GUI, forGUI);
             intent.putExtra(EXTRA_MONOCHROME, monochrome);
             intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
+            intent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
+            intent.putExtra(EXTRA_INTERACTIVE, interactive);
             intent.putExtra(EXTRA_EVENT_NOTIFICATION_SOUND, eventNotificationSound);
             intent.putExtra(EXTRA_LOG, log);
+            profileActivationActivity = activity;
             context.startActivity(intent);
         }
         return permissions.size() == 0;

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
@@ -373,7 +372,9 @@ public class DataWrapper {
             startupSource = GlobalData.STARTUP_SOURCE_SERVICE_MANUAL;
         Profile profile = getProfileById(profile_id, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
-                forGUI, monochrome, monochromeValue, eventNotificationSound, true)) {
+                forGUI, monochrome, monochromeValue,
+                startupSource, interactive, null,
+                eventNotificationSound, true)) {
             getActivateProfileHelper().initialize(this, null, context);
             _activateProfile(profile, merged, startupSource, interactive, null, eventNotificationSound, log);
         }
@@ -1071,7 +1072,7 @@ public class DataWrapper {
         {
             Intent returnIntent = new Intent();
             returnIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-            returnIntent.getIntExtra(GlobalData.EXTRA_START_APP_SOURCE, startupSource);
+            returnIntent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
             activity.setResult(Activity.RESULT_OK,returnIntent);
         }
 
@@ -1136,7 +1137,9 @@ public class DataWrapper {
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     if (Permissions.grantProfilePermissions(context, _profile, false, false,
-                            forGUI, monochrome, monochromeValue, _eventNotificationSound, true))
+                            forGUI, monochrome, monochromeValue,
+                            _startupSource, _interactive, _activity,
+                            _eventNotificationSound, true))
                         _activateProfile(_profile, false, _startupSource, _interactive, _activity,
                                             _eventNotificationSound, true);
                     else {
@@ -1173,10 +1176,14 @@ public class DataWrapper {
             boolean granted;
             if (interactive)
                 granted = Permissions.grantProfilePermissions(context, profile, false, false,
-                                        forGUI, monochrome, monochromeValue, eventNotificationSound, true);
+                                        forGUI, monochrome, monochromeValue,
+                                        startupSource, interactive, activity,
+                                        eventNotificationSound, true);
             else
                 granted = Permissions.grantProfilePermissions(context, profile, false, true,
-                        forGUI, monochrome, monochromeValue, eventNotificationSound, true);
+                                        forGUI, monochrome, monochromeValue,
+                                        startupSource, interactive, null,
+                                        eventNotificationSound, true);
             if (granted)
                 _activateProfile(profile, false, startupSource, interactive, activity, eventNotificationSound, true);
         }
@@ -1184,6 +1191,9 @@ public class DataWrapper {
 
     private void finishActivity(int startupSource, boolean afterActivation, Activity _activity)
     {
+        if (_activity == null)
+            return;
+
         final Activity activity = _activity;
 
         boolean finish = true;
@@ -1327,7 +1337,7 @@ public class DataWrapper {
             {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile_id);
-                returnIntent.getIntExtra(GlobalData.EXTRA_START_APP_SOURCE, startupSource);
+                returnIntent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
                 activity.setResult(Activity.RESULT_OK,returnIntent);
             }
 

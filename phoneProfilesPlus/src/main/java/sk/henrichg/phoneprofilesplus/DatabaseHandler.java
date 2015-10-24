@@ -2077,6 +2077,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return speakerPhone;
     }
 
+    public void getProfileIcon(Profile profile)
+    {
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_PROFILES,
+                new String[] { KEY_ICON },
+                KEY_ID + "=?",
+                new String[] { Long.toString(profile._id) }, null, null, null, null);
+
+        if (cursor != null)
+        {
+            if (cursor.moveToFirst())
+                profile._icon = cursor.getString(0);
+        }
+
+        cursor.close();
+        //db.close();
+
+    }
+
     public int updateForHardware(Context context)
     {
         int ret = 0;

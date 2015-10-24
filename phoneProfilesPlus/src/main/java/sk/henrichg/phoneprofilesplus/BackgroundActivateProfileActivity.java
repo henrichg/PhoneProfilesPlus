@@ -21,7 +21,7 @@ public class BackgroundActivateProfileActivity extends Activity {
 		dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 		
 		intent = getIntent();
-		startupSource = intent.getIntExtra(GlobalData.EXTRA_START_APP_SOURCE, 0);
+		startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, 0);
 		profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
 
 		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());

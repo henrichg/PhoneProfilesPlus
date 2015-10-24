@@ -30,7 +30,10 @@ public class GrantPermissionActivity extends Activity {
     private boolean forGUI;
     private boolean monochrome;
     private int monochromeValue;
-
+    private int startupSource;
+    private boolean interactive;
+    private String eventNotificationSound;
+    private boolean log;
     private Profile profile;
     private DataWrapper dataWrapper;
 
@@ -53,6 +56,10 @@ public class GrantPermissionActivity extends Activity {
         forGUI = intent.getBooleanExtra(Permissions.EXTRA_FOR_GUI, false);
         monochrome = intent.getBooleanExtra(Permissions.EXTRA_MONOCHROME, false);
         monochromeValue = intent.getIntExtra(Permissions.EXTRA_MONOCHROME_VALUE, 0xFF);
+        startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_ACTIVATOR);
+        interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
+        eventNotificationSound = intent.getStringExtra(Permissions.EXTRA_EVENT_NOTIFICATION_SOUND);
+        log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
 
         dataWrapper = new DataWrapper(getApplicationContext(), forGUI, monochrome, monochromeValue);
         profile = dataWrapper.getProfileById(profile_id, mergedProfile);
@@ -322,36 +329,51 @@ public class GrantPermissionActivity extends Activity {
     }
 
     private void finishGrant() {
+        Context context = getApplicationContext();
+
+        ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
+        activateProfileHelper.initialize(dataWrapper, Permissions.profileActivationActivity, context);
+
+        if (forGUI && (profile != null))
+        {
+            // regenerate profile icon
+            dataWrapper.getDatabaseHandler().getProfileIcon(profile);
+            profile.generateIconBitmap(context, monochrome, monochromeValue);
+            profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+        }
+
         if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
-            Permissions.removeInstallToneNotification(getApplicationContext());
-            FirstStartService.installTone(FirstStartService.TONE_ID, FirstStartService.TONE_NAME, getApplicationContext(), true);
-            finishAffinity();
+            //finishAffinity();
+            finish();
+            Permissions.removeInstallToneNotification(context);
+            FirstStartService.installTone(FirstStartService.TONE_ID, FirstStartService.TONE_NAME, context, true);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_WALLPAPER) {
+            finish();
             if (Permissions.imageViewPreference != null)
                 Permissions.imageViewPreference.startGallery();
-            finish();
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON) {
+            finish();
             if (Permissions.profileIconPreference != null)
                 Permissions.profileIconPreference.startGallery();
-            finish();
         }
         else {
-            Permissions.removeProfileNotification(getApplicationContext());
-            finishAffinity();
+            //finishAffinity();
+            finish();
+            Permissions.removeProfileNotification(context);
+            dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
+                    Permissions.profileActivationActivity, eventNotificationSound, log);
         }
 
-        ActivateProfileHelper activateProfileHelper = new ActivateProfileHelper();
-        activateProfileHelper.initialize(dataWrapper, null, getApplicationContext());
-        Profile activatedProfile = dataWrapper.getActivatedProfile();
-        if (activatedProfile._id == profile_id) {
-            Profile profileFromDB = dataWrapper.getProfileById(profile_id, mergedProfile); // for regenerating icon bitmaps
-            activateProfileHelper.showNotification(profileFromDB, "");
+        if (grantType != Permissions.GRANT_TYPE_PROFILE) {
+            Profile activatedProfile = dataWrapper.getActivatedProfile();
+            if (activatedProfile._id == profile_id)
+                activateProfileHelper.showNotification(profile, "");
+            activateProfileHelper.updateWidget();
         }
-        activateProfileHelper.updateWidget();
     }
 
 }

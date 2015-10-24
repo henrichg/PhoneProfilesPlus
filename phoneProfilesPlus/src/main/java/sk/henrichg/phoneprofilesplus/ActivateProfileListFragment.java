@@ -199,7 +199,7 @@ public class ActivateProfileListFragment extends Fragment {
 					// nie je ziaden profile, startneme Editor
 					
 					Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorProfilesActivity.class);
-					intent.putExtra(GlobalData.EXTRA_START_APP_SOURCE, GlobalData.STARTUP_SOURCE_ACTIVATOR_START);
+					intent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_ACTIVATOR_START);
 					fragment.getActivity().startActivity(intent);
 					
 					fragment.getActivity().finish();

@@ -228,7 +228,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 				widget.setEmptyView(R.id.widget_profile_grid, R.id.widget_profiles_list_empty);
 			
 			Intent clickIntent=new Intent(context, BackgroundActivateProfileActivity.class);
-			clickIntent.putExtra(GlobalData.EXTRA_START_APP_SOURCE, GlobalData.STARTUP_SOURCE_WIDGET);
+			clickIntent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_WIDGET);
 			PendingIntent clickPI=PendingIntent.getActivity(context, 0,
 			                                            clickIntent,
 			                                            PendingIntent.FLAG_UPDATE_CURRENT);
@@ -241,7 +241,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 		else
 		{
 			Intent intent = new Intent(context, LauncherActivity.class);
-			intent.putExtra(GlobalData.EXTRA_START_APP_SOURCE, GlobalData.STARTUP_SOURCE_WIDGET);
+			intent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_WIDGET);
 			PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,  
 														PendingIntent.FLAG_UPDATE_CURRENT);
 			widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);

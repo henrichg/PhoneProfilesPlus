@@ -180,7 +180,7 @@ public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsF
 		Bundle extras=new Bundle();
     
 		extras.putLong(GlobalData.EXTRA_PROFILE_ID, profile._id);
-		extras.putInt(GlobalData.EXTRA_START_APP_SOURCE, GlobalData.STARTUP_SOURCE_SHORTCUT);
+		extras.putInt(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_SHORTCUT);
 		i.putExtras(extras);
 		row.setOnClickFillInIntent(R.id.widget_profile_list_item, i);
 

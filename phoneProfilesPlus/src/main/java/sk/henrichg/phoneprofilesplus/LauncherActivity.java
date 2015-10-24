@@ -19,7 +19,7 @@ public class LauncherActivity extends Activity {
 		dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
 		
 		Intent intent = getIntent();
-		startupSource = intent.getIntExtra(GlobalData.EXTRA_START_APP_SOURCE, 0);
+		startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, 0);
 	}
 	
 	@Override
@@ -85,7 +85,7 @@ public class LauncherActivity extends Activity {
 
 		finish();
 		
-		intentLaunch.putExtra(GlobalData.EXTRA_START_APP_SOURCE, startupSource);
+		intentLaunch.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
 		startActivity(intentLaunch);
 		
 		// reset, aby sa to dalej chovalo ako normalne spustenie z lauchera
