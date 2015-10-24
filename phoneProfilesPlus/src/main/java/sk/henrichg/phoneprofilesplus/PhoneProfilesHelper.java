@@ -91,10 +91,15 @@ public class PhoneProfilesHelper {
     }
     */
 
-    private static boolean doInstallPPHelper(Activity activity)
+    public static boolean doInstallPPHelper(Activity activity)
     {
         boolean OK = true;
         errorNoRoot = false;
+
+        if (!Permissions.grantInstallPPHelperPermissions(activity.getApplicationContext(), activity)) {
+            Log.e("PhoneProfilesHelper.doInstallPPHelper", "No WRITE_EXTERNAL_STORAGE granted");
+            return false;
+        }
 
         /*if (!GlobalData.isRooted(false))
         {
@@ -107,11 +112,6 @@ public class PhoneProfilesHelper {
         {
             Log.e("PhoneProfilesHelper.doInstallPPHelper", "Grant root failed");
             errorNoRoot = true;
-            return false;
-        }
-
-        if (!Permissions.checkPPHelperInstall(activity.getApplicationContext())) {
-            Log.e("PhoneProfilesHelper.doInstallPPHelper", "No WRITE_EXTERNAL_STORAGE granted");
             return false;
         }
 

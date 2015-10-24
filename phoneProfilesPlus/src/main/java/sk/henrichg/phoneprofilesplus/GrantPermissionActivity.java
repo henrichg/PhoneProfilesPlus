@@ -34,6 +34,8 @@ public class GrantPermissionActivity extends Activity {
     private boolean interactive;
     private String eventNotificationSound;
     private boolean log;
+    private String applicationDataPath;
+
     private Profile profile;
     private DataWrapper dataWrapper;
 
@@ -60,6 +62,7 @@ public class GrantPermissionActivity extends Activity {
         interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
         eventNotificationSound = intent.getStringExtra(Permissions.EXTRA_EVENT_NOTIFICATION_SOUND);
         log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
+        applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
 
         dataWrapper = new DataWrapper(getApplicationContext(), forGUI, monochrome, monochromeValue);
         profile = dataWrapper.getProfileById(profile_id, mergedProfile);
@@ -181,6 +184,12 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = context.getString(R.string.permissions_for_wallpaper_text1) + "<br><br>";
                 else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
                     showRequestString = context.getString(R.string.permissions_for_custom_profile_icon_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_EXPORT)
+                    showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_IMPORT)
+                    showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_INSTALL_PPHELPER)
+                    showRequestString = context.getString(R.string.permissions_for_install_pphelper_text1) + "<br><br>";
                 else {
                     showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
                     if (profile != null)
@@ -217,6 +226,12 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_wallpaper_text2);
                 else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_custom_profile_icon_text2);
+                else if (grantType == Permissions.GRANT_TYPE_EXPORT)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
+                else if (grantType == Permissions.GRANT_TYPE_IMPORT)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
+                else if (grantType == Permissions.GRANT_TYPE_INSTALL_PPHELPER)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_install_pphelper_text2);
                 else
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
@@ -357,6 +372,24 @@ public class GrantPermissionActivity extends Activity {
             finish();
             if (Permissions.profileIconPreference != null)
                 Permissions.profileIconPreference.startGallery();
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_EXPORT) {
+            finish();
+            if (Permissions.editorActivity != null)
+                Permissions.editorActivity.doExportData();
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_IMPORT) {
+            finish();
+            if (Permissions.editorActivity != null)
+                Permissions.editorActivity.doImportData(applicationDataPath);
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_INSTALL_PPHELPER) {
+            finish();
+            if (Permissions.editorActivity != null)
+                PhoneProfilesHelper.doInstallPPHelper(Permissions.editorActivity);
         }
         else {
             //finishAffinity();

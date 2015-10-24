@@ -1141,12 +1141,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         return res;
     }
 
-    private void doImportData(String applicationDataPath)
+    public void doImportData(String applicationDataPath)
     {
-        final Activity activity = this;
+        final EditorProfilesActivity activity = this;
         final String _applicationDataPath = applicationDataPath;
 
-        if (Permissions.checkImport(activity.getApplicationContext())) {
+        if (Permissions.grantImportPermissions(activity.getApplicationContext(), activity, applicationDataPath)) {
 
             class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
                 private MaterialDialog dialog;
@@ -1398,94 +1398,100 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-
-                if (Permissions.checkExport(activity.getApplicationContext())) {
-
-                    class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
-                        private MaterialDialog dialog;
-                        private DataWrapper dataWrapper;
-
-                        ExportAsyncTask() {
-                            this.dialog = new MaterialDialog.Builder(activity)
-                                    .content(R.string.export_profiles_alert_title)
-                                            //.disableDefaultFonts()
-                                    .progress(true, 0)
-                                    .build();
-                            this.dataWrapper = getDataWrapper();
-                        }
-
-                        @Override
-                        protected void onPreExecute() {
-                            super.onPreExecute();
-
-                            lockScreenOrientation();
-                            this.dialog.setCancelable(false);
-                            this.dialog.setCanceledOnTouchOutside(false);
-                            this.dialog.show();
-                        }
-
-                        @Override
-                        protected Integer doInBackground(Void... params) {
-
-                            int ret = dataWrapper.getDatabaseHandler().exportDB();
-                            if (ret == 1) {
-                                File sd = Environment.getExternalStorageDirectory();
-                                File exportFile = new File(sd, GlobalData.EXPORT_PATH + "/" + GUIData.EXPORT_APP_PREF_FILENAME);
-                                if (!exportApplicationPreferences(exportFile, 1))
-                                    ret = 0;
-                                else {
-                                    exportFile = new File(sd, GlobalData.EXPORT_PATH + "/" + GUIData.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                                    if (!exportApplicationPreferences(exportFile, 2))
-                                        ret = 0;
-                                }
-                            }
-
-                            return ret;
-                        }
-
-                        @Override
-                        protected void onPostExecute(Integer result) {
-                            super.onPostExecute(result);
-
-                            if (dialog.isShowing())
-                                dialog.dismiss();
-                            unlockScreenOrientation();
-
-                            if (result == 1) {
-
-                                // toast notification
-                                Toast msg = Toast.makeText(getApplicationContext(),
-                                        getResources().getString(R.string.toast_export_ok),
-                                        Toast.LENGTH_SHORT);
-                                msg.show();
-
-                            } else {
-                                importExportErrorDialog(2);
-                            }
-                        }
-
-                        private void lockScreenOrientation() {
-                            int currentOrientation = activity.getResources().getConfiguration().orientation;
-                            if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-                                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-                            } else {
-                                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-                            }
-                        }
-
-                        private void unlockScreenOrientation() {
-                            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
-                        }
-
-                    }
-
-                    new ExportAsyncTask().execute();
-                }
-
+                doExportData();
             }
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
         dialogBuilder.show();
+    }
+
+    public void doExportData()
+    {
+        final EditorProfilesActivity activity = this;
+
+        if (Permissions.grantExportPermissions(activity.getApplicationContext(), activity)) {
+
+            class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
+                private MaterialDialog dialog;
+                private DataWrapper dataWrapper;
+
+                ExportAsyncTask() {
+                    this.dialog = new MaterialDialog.Builder(activity)
+                            .content(R.string.export_profiles_alert_title)
+                                    //.disableDefaultFonts()
+                            .progress(true, 0)
+                            .build();
+                    this.dataWrapper = getDataWrapper();
+                }
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+
+                    lockScreenOrientation();
+                    this.dialog.setCancelable(false);
+                    this.dialog.setCanceledOnTouchOutside(false);
+                    this.dialog.show();
+                }
+
+                @Override
+                protected Integer doInBackground(Void... params) {
+
+                    int ret = dataWrapper.getDatabaseHandler().exportDB();
+                    if (ret == 1) {
+                        File sd = Environment.getExternalStorageDirectory();
+                        File exportFile = new File(sd, GlobalData.EXPORT_PATH + "/" + GUIData.EXPORT_APP_PREF_FILENAME);
+                        if (!exportApplicationPreferences(exportFile, 1))
+                            ret = 0;
+                        else {
+                            exportFile = new File(sd, GlobalData.EXPORT_PATH + "/" + GUIData.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                            if (!exportApplicationPreferences(exportFile, 2))
+                                ret = 0;
+                        }
+                    }
+
+                    return ret;
+                }
+
+                @Override
+                protected void onPostExecute(Integer result) {
+                    super.onPostExecute(result);
+
+                    if (dialog.isShowing())
+                        dialog.dismiss();
+                    unlockScreenOrientation();
+
+                    if (result == 1) {
+
+                        // toast notification
+                        Toast msg = Toast.makeText(getApplicationContext(),
+                                getResources().getString(R.string.toast_export_ok),
+                                Toast.LENGTH_SHORT);
+                        msg.show();
+
+                    } else {
+                        importExportErrorDialog(2);
+                    }
+                }
+
+                private void lockScreenOrientation() {
+                    int currentOrientation = activity.getResources().getConfiguration().orientation;
+                    if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                    } else {
+                        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                    }
+                }
+
+                private void unlockScreenOrientation() {
+                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+                }
+
+            }
+
+            new ExportAsyncTask().execute();
+        }
+
     }
 
     @Override

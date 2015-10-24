@@ -114,11 +114,17 @@ public class Permissions {
     public static final int PERMISSION_PHONE_BROADCAST = 9;
     public static final int PERMISSION_CUSTOM_PROFILE_ICON = 10;
     public static final int PERMISSION_INSTALL_TONE = 11;
+    public static final int PERMISSION_EXPORT = 12;
+    public static final int PERMISSION_IMPORT = 13;
+    public static final int PERMISSION_INSTALL_PPHELPER = 14;
 
     public static final int GRANT_TYPE_PROFILE = 1;
     public static final int GRANT_TYPE_INSTALL_TONE = 2;
     public static final int GRANT_TYPE_WALLPAPER = 3;
     public static final int GRANT_TYPE_CUSTOM_PROFILE_ICON = 4;
+    public static final int GRANT_TYPE_EXPORT = 5;
+    public static final int GRANT_TYPE_IMPORT = 6;
+    public static final int GRANT_TYPE_INSTALL_PPHELPER = 7;
 
     public static final String EXTRA_GRANT_TYPE = "grant_type";
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
@@ -130,10 +136,13 @@ public class Permissions {
     public static final String EXTRA_INTERACTIVE = "interactive";
     public static final String EXTRA_EVENT_NOTIFICATION_SOUND = "event_notification_sound";
     public static final String EXTRA_LOG = "log";
+    public static final String EXTRA_APPLICATION_DATA_PATH = "application_data_path";
 
     public static Activity profileActivationActivity = null;
     public static ImageViewPreference imageViewPreference = null;
     public static ProfileIconPreference profileIconPreference = null;
+    public static EditorProfilesActivity editorActivity = null;
+    public static Activity ppHelperInstallActivity = null;
 
     public static class PermissionType implements Parcelable {
         public int preference;
@@ -495,10 +504,60 @@ public class Permissions {
         return granted;
     }
 
+    public static boolean grantExportPermissions(Context context, EditorProfilesActivity editor) {
+        boolean granted = checkExport(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_EXPORT, permission.WRITE_EXTERNAL_STORAGE));
 
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            editorActivity = editor;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
 
+    public static boolean grantImportPermissions(Context context, EditorProfilesActivity editor, String applicationDataPath) {
+        boolean granted = checkImport(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_IMPORT, permission.READ_EXTERNAL_STORAGE));
 
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMPORT);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            intent.putExtra(EXTRA_APPLICATION_DATA_PATH, applicationDataPath);
+            editorActivity = editor;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
 
+    public static boolean grantInstallPPHelperPermissions(Context context, Activity activity) {
+        boolean granted = checkPPHelperInstall(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_INSTALL_PPHELPER, permission.WRITE_EXTERNAL_STORAGE));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_INSTALL_PPHELPER);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            ppHelperInstallActivity = activity;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
 
 
     public static void removeProfileNotification(Context context)

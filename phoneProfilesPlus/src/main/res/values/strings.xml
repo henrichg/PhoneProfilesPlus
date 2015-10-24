@@ -564,7 +564,7 @@
   <string name="permissions_for_profile_text_notification">requires some permissions</string>
   <string name="permissions_for_install_tone_text1">Installation of tone "PhoneProfiles Silent" will not be executed, because this requires some permissions.</string>
   <string name="permissions_for_install_tone_text2">Please grant them in next dialogs. Then tone will be installed.</string>
-  <string name="permissions_for_install_tone_text_notification">Installation of tone "PhoneProfiles Silent" requires some permissions.</string>
+  <string name="permissions_for_install_tone_text_notification">Installation of tone \"PhoneProfiles Silent\" requires some permissions.</string>
   <string name="menu_install_tone">Install tone \"PhoneProfiles Silent\"</string>
   <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>
   <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>
@@ -573,4 +573,10 @@
   <string name="permissions_for_wallpaper_text2">Please grant them in next dialogs. Then you can select wallpaper from gallery.</string>
   <string name="permissions_for_custom_profile_icon_text1">Selecting custom profile icon requires some permissions.</string>
   <string name="permissions_for_custom_profile_icon_text2">Please grant them in next dialogs. Then you can select icon from gallery.</string>
+  <string name="permissions_for_export_app_data_text1">Export application data requires some permissions.</string>
+  <string name="permissions_for_export_app_data_text2">Please grant them in next dialogs. Then data will be exported.</string>
+  <string name="permissions_for_import_app_data_text1">Import application data requires some permissions.</string>
+  <string name="permissions_for_import_app_data_text2">Please grant them in next dialogs. Then data will be imported.</string>
+  <string name="permissions_for_install_pphelper_text1">Installation of PPHelper requires some permissions.</string>
+  <string name="permissions_for_install_pphelper_text2">Please grant them in next dialogs. Then PPHelper will be installed.</string>
 </resources>
