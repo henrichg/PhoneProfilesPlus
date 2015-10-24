@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus" >
+                  xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
+                  android:key="rootScreen" >
+
+    <PreferenceCategory
+        android:title="@string/phone_profiles_pref_category_permissions"
+        android:summary="@string/phone_profiles_pref_category_permissions"
+        android:key="prf_pref_permissionsCategory" >
+        <PreferenceScreen
+            android:key="prf_pref_writeSystemSettingsPermissions"
+            android:title="@string/phone_profiles_pref_writeSystemSettingPermissions"
+            android:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary" >
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:key="prf_pref_applicationPermissions"
+            android:title="@string/phone_profiles_pref_applicationPermissions"
+            android:summary="@string/phone_profiles_pref_applicationPermissions_summary" >
+        </PreferenceScreen>
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/phone_profiles_pref_category_activation"

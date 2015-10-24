@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -11,7 +13,9 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
+import android.provider.Settings;
 import android.widget.ListView;
 
 public class PhoneProfilesPreferencesFragment extends PreferenceFragment 
@@ -23,6 +27,11 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     private static Activity preferencesActivity = null;
     private String extraScrollTo;
     private String extraScrollToType;
+
+    static final String PREF_APPLICATION_PERMISSIONS = "prf_pref_applicationPermissions";
+    static final int RESULT_APPLICATION_PERMISSIONS = 1990;
+    static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "prf_pref_writeSystemSettingsPermissions";
+    static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +54,35 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.phone_profiles_preferences);
 
         preferences.registerOnSharedPreferenceChangeListener(this);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            Preference preference = prefMng.findPreference(PREF_APPLICATION_PERMISSIONS);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
+                    startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
+                    return false;
+                }
+            });
+            preference = prefMng.findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                    return false;
+                }
+            });
+        }
+        else {
+            PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
+            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("prf_pref_permissionsCategory");
+            preferenceScreen.removePreference(preferenceCategory);
+        }
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
         extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
@@ -274,6 +312,31 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == RESULT_APPLICATION_PERMISSIONS) ||
+            (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS)) {
+
+            Context context = preferencesActivity.getApplicationContext();
+            DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+
+            ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
+            activateProfileHelper.initialize(dataWrapper, null, context);
+
+            Profile activatedProfile = dataWrapper.getActivatedProfile();
+            dataWrapper.refreshProfileIcon(activatedProfile, false, 0);
+            activateProfileHelper.showNotification(activatedProfile, "");
+            activateProfileHelper.updateWidget();
+
+            /*
+            Intent intent5 = new Intent();
+            intent5.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
+            intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, true);
+            context.sendBroadcast(intent5);
+            */
+
+            preferencesActivity.finishAffinity();
+        }
+
     }
 
     @Override
