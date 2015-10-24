@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
@@ -38,6 +39,8 @@ public class GrantPermissionActivity extends Activity {
 
     private Profile profile;
     private DataWrapper dataWrapper;
+
+    private boolean started = false;
 
     private static final int WRITE_SETTINGS_REQUEST_CODE = 909090;
     private static final int PERMISSIONS_REQUEST_CODE = 909091;
@@ -72,6 +75,9 @@ public class GrantPermissionActivity extends Activity {
     protected void onStart()
     {
         super.onStart();
+
+        if (started) return;
+        started = true;
 
         Context context = getApplicationContext();
 
@@ -240,7 +246,7 @@ public class GrantPermissionActivity extends Activity {
                 GUIData.setTheme(this, true, false);
                 GUIData.setLanguage(this.getBaseContext());
 
-                final Activity _activity = this;
+                final boolean _showRequestWriteSettings = showRequestWriteSettings;
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                 dialogBuilder.setTitle(R.string.permissions_alert_title);
@@ -248,7 +254,7 @@ public class GrantPermissionActivity extends Activity {
                 dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        requestPermissions(true);
+                        requestPermissions(_showRequestWriteSettings);
                     }
                 });
                 dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -261,7 +267,7 @@ public class GrantPermissionActivity extends Activity {
             }
         }
         else {
-            requestPermissions(true);
+            requestPermissions(showRequestWriteSettings);
         }
     }
 
@@ -300,8 +306,39 @@ public class GrantPermissionActivity extends Activity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        final Context context = getApplicationContext();
         if (requestCode == WRITE_SETTINGS_REQUEST_CODE) {
-            requestPermissions(false);
+
+            if (!Settings.System.canWrite(context)) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.permissions_alert_title);
+                dialogBuilder.setMessage(R.string.permissions_write_settings_not_allowed_confirm);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GlobalData.setShowRequestWriteSettingsPermission(context, false);
+                        requestPermissions(false);
+                    }
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GlobalData.setShowRequestWriteSettingsPermission(context, true);
+                        requestPermissions(false);
+                    }
+                });
+                dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        requestPermissions(false);
+                    }
+                });
+                dialogBuilder.show();
+            }
+            else {
+                GlobalData.setShowRequestWriteSettingsPermission(context, true);
+                requestPermissions(false);
+            }
         }
     }
 
