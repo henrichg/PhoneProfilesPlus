@@ -156,8 +156,9 @@ public class ProfileIconPreference extends DialogPreference {
         @Override
         public void onNeutral(MaterialDialog dialog) {
             // zavolat galeriu na vyzdvihnutie image
-            if (startGallery())
-                dialog.dismiss();
+            if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this))
+                startGallery();
+            dialog.dismiss();
         }
     };
 
@@ -334,23 +335,17 @@ public class ProfileIconPreference extends DialogPreference {
         updateIcon(true);
     }
 
-    public boolean startGallery()
+    public void startGallery()
     {
-        if (Permissions.checkGallery(prefContext)) {
-            //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
 
-            // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
-            ProfilePreferencesFragment.setChangedProfileIconPreference(this);
-            ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
-
-            return true;
-        }
-
-        return false;
+        // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+        ProfilePreferencesFragment.setChangedProfileIconPreference(this);
+        ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
 
     private void showCustomColorChooser() {

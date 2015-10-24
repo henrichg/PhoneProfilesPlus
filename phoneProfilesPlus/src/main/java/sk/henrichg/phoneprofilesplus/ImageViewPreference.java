@@ -117,7 +117,8 @@ public class ImageViewPreference extends Preference {
         else
         {
             // zavolat galeriu na vyzdvihnutie image
-            startGallery();
+            if (Permissions.grantWallpaperPermissions(prefContext, this))
+                startGallery();
         }
 
     }
@@ -252,17 +253,15 @@ public class ImageViewPreference extends Preference {
 
     public void startGallery()
     {
-        if (Permissions.checkGallery(prefContext)) {
-            //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
 
-            // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
-            ProfilePreferencesFragment.setChangedImageViewPreference(this);
-            ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
-        }
+        // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+        ProfilePreferencesFragment.setChangedImageViewPreference(this);
+        ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
 
 

@@ -14,7 +14,7 @@ public class ImageViewPreferenceDialog  {
     private String imageSource;
     MaterialDialog dialog;
 
-    public ImageViewPreferenceDialog(Context context, ImageViewPreference preference, String imgSource,
+    public ImageViewPreferenceDialog(final Context context, ImageViewPreference preference, String imgSource,
                                      String imageIdentifier, boolean isImageResourceID)
     {
         this.imageViewPreference = preference;
@@ -33,7 +33,8 @@ public class ImageViewPreferenceDialog  {
                 @Override
                 public void onPositive(MaterialDialog dialog) {
                     // zavolat galeriu na vyzdvihnutie image
-                    imageViewPreference.startGallery();
+                    if (Permissions.grantWallpaperPermissions(context, imageViewPreference))
+                        imageViewPreference.startGallery();
                     dialog.dismiss();
                 }
             });

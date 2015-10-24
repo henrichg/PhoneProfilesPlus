@@ -116,6 +116,8 @@ public class Permissions {
 
     public static final int GRANT_TYPE_PROFILE = 1;
     public static final int GRANT_TYPE_INSTALL_TONE = 2;
+    public static final int GRANT_TYPE_WALLPAPER = 3;
+    public static final int GRANT_TYPE_CUSTOM_PROFILE_ICON = 4;
 
     public static final String EXTRA_GRANT_TYPE = "grant_type";
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
@@ -126,6 +128,9 @@ public class Permissions {
     public static final String EXTRA_MONOCHROME_VALUE = "monochrome_value";
     public static final String EXTRA_EVENT_NOTIFICATION_SOUND = "event_notification_sound";
     public static final String EXTRA_LOG = "log";
+
+    public static ImageViewPreference imageViewPreference = null;
+    public static ProfileIconPreference profileIconPreference = null;
 
     public static class PermissionType implements Parcelable {
         public int preference;
@@ -447,6 +452,41 @@ public class Permissions {
         return granted;
     }
 
+    public static boolean grantWallpaperPermissions(Context context, ImageViewPreference preference) {
+        boolean granted = checkGallery(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WALLPAPER);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            imageViewPreference = preference;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
+
+    public static boolean grantCustomProfileIconPermissions(Context context, ProfileIconPreference preference) {
+        boolean granted = checkGallery(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CUSTOM_PROFILE_ICON);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            profileIconPreference = preference;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
 
 
 
