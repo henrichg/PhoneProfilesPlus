@@ -220,41 +220,42 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     private void setSummaryCMSDP()
     {
         String prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_not_selected);
-        if (!value.isEmpty()) {
-            String[] splits = value.split("\\|");
-            if (splits.length == 1) {
-                boolean found = false;
-                String[] projection = new String[] {
-                        ContactsContract.Contacts._ID,
-                        ContactsContract.Contacts.DISPLAY_NAME,
-                        ContactsContract.Contacts.PHOTO_ID };
-                String [] splits2 = splits[0].split("#");
-                String selection = ContactsContract.Contacts._ID + "=" + splits2[0];
-                Cursor mCursor = _context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
+        if (Permissions.checkContacts(_context)) {
+            if (!value.isEmpty()) {
+                String[] splits = value.split("\\|");
+                if (splits.length == 1) {
+                    boolean found = false;
+                    String[] projection = new String[]{
+                            ContactsContract.Contacts._ID,
+                            ContactsContract.Contacts.DISPLAY_NAME,
+                            ContactsContract.Contacts.PHOTO_ID};
+                    String[] splits2 = splits[0].split("#");
+                    String selection = ContactsContract.Contacts._ID + "=" + splits2[0];
+                    Cursor mCursor = _context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
 
-                if (mCursor != null) {
-                    while (mCursor.moveToNext()) {
-                        selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + splits2[0] + " AND " +
-                                ContactsContract.CommonDataKinds.Phone._ID + "=" + splits2[1];
-                        Cursor phones = _context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, selection, null, null);
-                        if (phones != null) {
-                            while (phones.moveToNext()) {
-                                found = true;
-                                prefVolumeDataSummary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)) + '\n' +
-                                        phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                break;
+                    if (mCursor != null) {
+                        while (mCursor.moveToNext()) {
+                            selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + splits2[0] + " AND " +
+                                    ContactsContract.CommonDataKinds.Phone._ID + "=" + splits2[1];
+                            Cursor phones = _context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, selection, null, null);
+                            if (phones != null) {
+                                while (phones.moveToNext()) {
+                                    found = true;
+                                    prefVolumeDataSummary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)) + '\n' +
+                                            phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                    break;
+                                }
                             }
+                            if (found)
+                                break;
                         }
-                        if (found)
-                            break;
+                        mCursor.close();
                     }
-                    mCursor.close();
-                }
-                if (!found)
+                    if (!found)
+                        prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+                } else
                     prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
             }
-            else
-                prefVolumeDataSummary = _context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
         }
         setSummary(prefVolumeDataSummary);
     }

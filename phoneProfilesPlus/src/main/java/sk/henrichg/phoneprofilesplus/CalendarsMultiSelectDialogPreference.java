@@ -121,9 +121,10 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 
                 calendarList.clear();
 
-                Cursor cur = null;
-                ContentResolver cr = _context.getContentResolver();
-                Uri uri = Calendars.CONTENT_URI;
+                if (Permissions.checkCalendar(_context)) {
+                    Cursor cur = null;
+                    ContentResolver cr = _context.getContentResolver();
+                    Uri uri = Calendars.CONTENT_URI;
                 /*
                 String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND ("
                                         + Calendars.ACCOUNT_TYPE + " = ?) AND ("
@@ -131,29 +132,30 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 String[] selectionArgs = new String[] {"sampleuser@gmail.com", "com.google",
                         "sampleuser@gmail.com"};
                 */
-                // Submit the query and get a Cursor object back.
-                //cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
-                cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
-                if (cur != null) {
-                    while (cur.moveToNext()) {
-                        long calID = 0;
-                        String displayName = null;
-                        int color = 0;
+                    // Submit the query and get a Cursor object back.
+                    //cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
+                    cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
+                    if (cur != null) {
+                        while (cur.moveToNext()) {
+                            long calID = 0;
+                            String displayName = null;
+                            int color = 0;
 
-                        // Get the field values
-                        calID = cur.getLong(PROJECTION_ID_INDEX);
-                        displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
-                        color = cur.getInt(PROJECTION_COLOR_INDEX);
+                            // Get the field values
+                            calID = cur.getLong(PROJECTION_ID_INDEX);
+                            displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
+                            color = cur.getInt(PROJECTION_COLOR_INDEX);
 
-                        CalendarEvent aCalendar = new CalendarEvent();
-                        aCalendar.calendarId = calID;
-                        aCalendar.name = displayName;
-                        aCalendar.color = color;
+                            CalendarEvent aCalendar = new CalendarEvent();
+                            aCalendar.calendarId = calID;
+                            aCalendar.name = displayName;
+                            aCalendar.color = color;
 
-                        calendarList.add(aCalendar);
+                            calendarList.add(aCalendar);
 
+                        }
+                        cur.close();
                     }
-                    cur.close();
                 }
 
                 getValueCMSDP();
@@ -245,28 +247,29 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
     private void setSummaryCMSDP()
     {
         String prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_not_selected);
-        if (!value.isEmpty()) {
-            String[] splits = value.split("\\|");
-            if (splits.length == 1) {
-                boolean found = false;
-                Cursor cur = null;
-                ContentResolver cr = _context.getContentResolver();
-                Uri uri = Calendars.CONTENT_URI;
-                String selection = Calendars._ID + "=" + splits[0];
-                cur = cr.query(uri, CALENDAR_PROJECTION, selection, null, null);
-                if (cur != null) {
-                    while (cur.moveToNext()) {
-                        found = true;
-                        prefVolumeDataSummary = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
-                        break;
+        if (Permissions.checkCalendar(_context)) {
+            if (!value.isEmpty()) {
+                String[] splits = value.split("\\|");
+                if (splits.length == 1) {
+                    boolean found = false;
+                    Cursor cur = null;
+                    ContentResolver cr = _context.getContentResolver();
+                    Uri uri = Calendars.CONTENT_URI;
+                    String selection = Calendars._ID + "=" + splits[0];
+                    cur = cr.query(uri, CALENDAR_PROJECTION, selection, null, null);
+                    if (cur != null) {
+                        while (cur.moveToNext()) {
+                            found = true;
+                            prefVolumeDataSummary = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
+                            break;
+                        }
+                        cur.close();
                     }
-                    cur.close();
-                }
-                if (!found)
+                    if (!found)
+                        prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
+                } else
                     prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
             }
-            else
-                prefVolumeDataSummary = _context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
         }
         setSummary(prefVolumeDataSummary);
     }

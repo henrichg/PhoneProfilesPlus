@@ -1468,7 +1468,7 @@ public class DataWrapper {
 
         }
 
-        if (event._eventPreferencesCall._enabled)
+        if ((event._eventPreferencesCall._enabled) && (Permissions.checkEventCallContacts(context, event)))
         {
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
@@ -1677,7 +1677,7 @@ public class DataWrapper {
             }
         }
 
-        if (event._eventPreferencesCalendar._enabled)
+        if ((event._eventPreferencesCalendar._enabled) && (Permissions.checkEventCalendar(context, event)))
         {
             // compute start datetime
             long startAlarmTime;
@@ -1937,7 +1937,7 @@ public class DataWrapper {
             //eventStart = eventStart && bluetoothPassed;
         }
 
-        if (event._eventPreferencesSMS._enabled)
+        if ((event._eventPreferencesSMS._enabled) && (Permissions.checkEventSMSContacts(context, event)))
         {
             // comute start time
             int gmtOffset = TimeZone.getDefault().getRawOffset();

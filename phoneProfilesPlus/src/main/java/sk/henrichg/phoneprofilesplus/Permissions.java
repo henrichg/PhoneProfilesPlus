@@ -444,6 +444,58 @@ public class Permissions {
             return true;
     }
 
+    public static boolean checkContacts(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            return (ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED);
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkEventCallContacts(Context context, Event event) {
+        if (event == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (event._eventPreferencesCall._enabled)
+                return (ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED);
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkEventSMSContacts(Context context, Event event) {
+        if (event == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (event._eventPreferencesSMS._enabled)
+                return (ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED);
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkCalendar(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            return (ContextCompat.checkSelfPermission(context, permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED);
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkEventCalendar(Context context, Event event) {
+        if (event == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (event._eventPreferencesCalendar._enabled)
+                return (ContextCompat.checkSelfPermission(context, permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED);
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
     public static boolean grantProfilePermissions(Context context, Profile profile, boolean mergedProfile,
                                                   boolean onlyNotification,
                                                   boolean forGUI, boolean monochrome, int monochromeValue,

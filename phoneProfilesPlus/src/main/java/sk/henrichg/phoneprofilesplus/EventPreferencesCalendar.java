@@ -363,7 +363,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 
     public void searchEvent(Context context)
     {
-        if (!(isRunable() && _enabled))
+        if (!(isRunable() && _enabled && Permissions.checkCalendar(context)))
         {
             _startTime = 0;
             _endTime = 0;
