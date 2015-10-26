@@ -496,6 +496,36 @@ public class Permissions {
             return true;
     }
 
+    public static boolean checkEventSMSBroadcast(Context context, Event event) {
+        if (event == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (event._eventPreferencesSMS._enabled) {
+                boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED);
+                granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED);
+                return granted;
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    public static boolean checkEventLocation(Context context, Event event) {
+        if (event == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (event._eventPreferencesWifi._enabled || event._eventPreferencesBluetooth._enabled) {
+                boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+                granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+                return granted;
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
     public static boolean grantProfilePermissions(Context context, Profile profile, boolean mergedProfile,
                                                   boolean onlyNotification,
                                                   boolean forGUI, boolean monochrome, int monochromeValue,
