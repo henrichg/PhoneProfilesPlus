@@ -1468,7 +1468,9 @@ public class DataWrapper {
 
         }
 
-        if ((event._eventPreferencesCall._enabled) && (Permissions.checkEventCallContacts(context, event)))
+        if ((event._eventPreferencesCall._enabled) &&
+                Permissions.checkEventCallContacts(context, event) &&
+                Permissions.checkEventPhoneBroadcast(context, event))
         {
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
@@ -1722,7 +1724,7 @@ public class DataWrapper {
             //eventStart = eventStart && calendarPassed;
         }
 
-        if (event._eventPreferencesWifi._enabled)
+        if (event._eventPreferencesWifi._enabled && Permissions.checkEventLocation(context, event))
         {
             wifiPassed = false;
 
@@ -1857,7 +1859,7 @@ public class DataWrapper {
             //eventStart = eventStart && screenPassed;
         }
 
-        if (event._eventPreferencesBluetooth._enabled)
+        if (event._eventPreferencesBluetooth._enabled && Permissions.checkEventLocation(context, event))
         {
             bluetoothPassed = false;
 
@@ -1937,7 +1939,9 @@ public class DataWrapper {
             //eventStart = eventStart && bluetoothPassed;
         }
 
-        if ((event._eventPreferencesSMS._enabled) && (Permissions.checkEventSMSContacts(context, event)))
+        if ((event._eventPreferencesSMS._enabled) &&
+                Permissions.checkEventSMSContacts(context, event) &&
+                Permissions.checkEventSMSBroadcast(context, event))
         {
             // comute start time
             int gmtOffset = TimeZone.getDefault().getRawOffset();

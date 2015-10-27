@@ -24,99 +24,24 @@ import static android.Manifest.*;
 
 public class Permissions {
 
-    /////// Profile permissions
-    // PREF_PROFILE_VOLUME_RINGER_MODE
-    //  - System.Settings -> "notifications_use_ring_volume"
-    //  - System.Settings -> "vibrate_when_ringing"
-    //  - AudioManager
-    // PREF_PROFILE_VOLUME_ZEN_MODE
-    //  - System.Settings -> "notifications_use_ring_volume"
-    //  - NotificationListenerService
-    // PREF_PROFILE_VOLUME_RINGTONE
-    //  - System.Settings -> "notifications_use_ring_volume"
-    //  - AudioManager
-    // PREF_PROFILE_VOLUME_NOTIFICATION
-    //  - System.Settings -> "notifications_use_ring_volume"
-    //  - AudioManager
-    // PREF_PROFILE_VOLUME_MEDIA
-    //  - System.Settings -> "notifications_use_ring_volume"
-    //  - AudioManager
-    // PREF_PROFILE_VOLUME_ALARM
-    //  - System.Settings -> "notifications_use_ring_volume"
-    //  - AudioManager
-    // PREF_PROFILE_VOLUME_SYSTEM
-    //  - System.Settings -> "notifications_use_ring_volume"
-    //  - AudioManager
-    // PREF_PROFILE_VOLUME_VOICE
-    //  - System.Settings -> "notifications_use_ring_volume"
-    //  - AudioManager
-    // PREF_PROFILE_SOUND_RINGTONE_CHANGE
-    //  - none
-    // PREF_PROFILE_SOUND_RINGTONE
-    //  - RingtoneManager
-    // PREF_PROFILE_SOUND_NOTIFICATION_CHANGE
-    //  - none
-    // PREF_PROFILE_SOUND_NOTIFICATION
-    //  - RingtoneManager
-    // PREF_PROFILE_SOUND_ALARM_CHANGE
-    //  - none
-    // PREF_PROFILE_SOUND_ALARM
-    //  - RingtoneManager
-    // PREF_PROFILE_DEVICE_AIRPLANE_MODE
-    //  - PPHelper
-    // PREF_PROFILE_DEVICE_WIFI
-    //  - WifiManager
-    // PREF_PROFILE_DEVICE_BLUETOOTH
-    //  - BluetoothAdapter
-    // PREF_PROFILE_DEVICE_SCREEN_TIMEOUT
-    //  - Settings.System
-    // PREF_PROFILE_DEVICE_BRIGHTNESS
-    //  - Settings.System
-    // PREF_PROFILE_DEVICE_WALLPAPER_CHANGE
-    //  - none
-    // PREF_PROFILE_DEVICE_WALLPAPER
-    //  - WallpaperManager
-    // PREF_PROFILE_DEVICE_MOBILE_DATA
-    //  - PPHelper
-    // PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS
-    //  - start intent
-    // PREF_PROFILE_DEVICE_GPS
-    //  - ROOT
-    // PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE
-    //  - none
-    // PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME
-    //  - start intent
-    // PREF_PROFILE_DEVICE_AUTOSYNC
-    //  - ContentResolver
-    // PREF_PROFILE_DEVICE_AUTOROTATE
-    //  - Settings.System
-    // PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS
-    //  - start intent
-    // PREF_PROFILE_VOLUME_SPEAKER_PHONE
-    //  - AudioManager
-    // PREF_PROFILE_DEVICE_NFC
-    //  - PPHelper
-    // PREF_PROFILE_DEVICE_KEYGUARD
-    //  - KeyguardManager
-    // PREF_PROFILE_VIBRATION_ON_TOUCH
-    //  - Settings.System
-    // PREF_PROFILE_DEVICE_WIFI_AP
-    //  - WifiManager
-
-    public static final int PERMISSION_VOLUME_PREFERENCES = 1;
-    public static final int PERMISSION_VIBRATION_ON_TOUCH = 2;
-    public static final int PERMISSION_RINGTONES = 3;
-    public static final int PERMISSION_SCREEN_TIMEOUT = 4;
-    public static final int PERMISSION_SCREEN_BRIGHTNESS = 5;
-    public static final int PERMISSION_AUTOROTATION = 6;
-    public static final int PERMISSION_WALLPAPER = 7;
-    public static final int PERMISSION_RADIO_PREFERENCES = 8;
-    public static final int PERMISSION_PHONE_BROADCAST = 9;
-    public static final int PERMISSION_CUSTOM_PROFILE_ICON = 10;
+    public static final int PERMISSION_PROFILE_VOLUME_PREFERENCES = 1;
+    public static final int PERMISSION_PROFILE_VIBRATION_ON_TOUCH = 2;
+    public static final int PERMISSION_PROFILE_RINGTONES = 3;
+    public static final int PERMISSION_PROFILE_SCREEN_TIMEOUT = 4;
+    public static final int PERMISSION_PROFILE_SCREEN_BRIGHTNESS = 5;
+    public static final int PERMISSION_PROFILE_AUTOROTATION = 6;
+    public static final int PERMISSION_PROFILE_WALLPAPER = 7;
+    public static final int PERMISSION_PROFILE_RADIO_PREFERENCES = 8;
+    public static final int PERMISSION_PROFILE_PHONE_BROADCAST = 9;
+    public static final int PERMISSION_PROFILE_CUSTOM_PROFILE_ICON = 10;
     public static final int PERMISSION_INSTALL_TONE = 11;
     public static final int PERMISSION_EXPORT = 12;
     public static final int PERMISSION_IMPORT = 13;
     public static final int PERMISSION_INSTALL_PPHELPER = 14;
+    public static final int PERMISSION_EVENT_CALENDAR_PREFERENCES = 15;
+    public static final int PERMISSION_EVENT_CALL_PREFERENCES = 16;
+    public static final int PERMISSION_EVENT_SMS_PREFERENCES = 17;
+    public static final int PERMISSION_EVENT_SCANNING_PREFERENCES = 18;
 
     public static final int GRANT_TYPE_PROFILE = 1;
     public static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -185,19 +110,19 @@ public class Permissions {
         Log.e("Permissions", "checkProfilePermissions - profile.icon="+profile._icon);
         if (profile == null) return permissions;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (!checkProfileVolumePreferences(context, profile)) permissions.add(new PermissionType(PERMISSION_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
-            if (!checkProfileVibrationOnTouch(context, profile)) permissions.add(new PermissionType(PERMISSION_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
-            if (!checkProfileRingtones(context, profile)) permissions.add(new PermissionType(PERMISSION_RINGTONES, permission.WRITE_SETTINGS));
-            if (!checkProfileScreenTimeout(context, profile)) permissions.add(new PermissionType(PERMISSION_SCREEN_TIMEOUT, permission.WRITE_SETTINGS));
-            if (!checkProfileScreenBrightness(context, profile)) permissions.add(new PermissionType(PERMISSION_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
-            if (!checkProfileAutoRotation(context, profile)) permissions.add(new PermissionType(PERMISSION_AUTOROTATION, permission.WRITE_SETTINGS));
-            if (!checkProfileWallpaper(context, profile)) permissions.add(new PermissionType(PERMISSION_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
-            if (!checkProfileRadioPreferences(context, profile)) permissions.add(new PermissionType(PERMISSION_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
+            if (!checkProfileVolumePreferences(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
+            if (!checkProfileVibrationOnTouch(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
+            if (!checkProfileRingtones(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
+            if (!checkProfileScreenTimeout(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.WRITE_SETTINGS));
+            if (!checkProfileScreenBrightness(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
+            if (!checkProfileAutoRotation(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_AUTOROTATION, permission.WRITE_SETTINGS));
+            if (!checkProfileWallpaper(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+            if (!checkProfileRadioPreferences(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
             if (!checkProfilePhoneBroadcast(context, profile)) {
-                permissions.add(new PermissionType(PERMISSION_PHONE_BROADCAST, permission.READ_PHONE_STATE));
-                permissions.add(new PermissionType(PERMISSION_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
+                permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.READ_PHONE_STATE));
+                permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
             }
-            if (!checkCustomProfileIcon(context, profile)) permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
+            if (!checkCustomProfileIcon(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
             return permissions;
         }
         else
@@ -444,6 +369,33 @@ public class Permissions {
             return true;
     }
 
+    public static List<PermissionType> checkEventPermissions(Context context, Event event) {
+        List<PermissionType>  permissions = new ArrayList<PermissionType>();
+        if (event == null) return permissions;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (!checkEventCalendar(context, event)) permissions.add(new PermissionType(PERMISSION_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
+            if (!checkEventCallContacts(context, event)) permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
+            if (!checkEventPhoneBroadcast(context, event)) {
+                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
+                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+            }
+            if (!checkEventSMSContacts(context, event)) permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_CONTACTS));
+            if (!checkEventSMSBroadcast(context, event)) {
+                permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.RECEIVE_SMS));
+                permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
+            }
+            if (!checkEventLocation(context, event)) {
+                permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            }
+
+            return permissions;
+        }
+        else
+            return permissions;
+    }
+
+
     public static boolean checkContacts(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             return (ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED);
@@ -526,6 +478,21 @@ public class Permissions {
             return true;
     }
 
+    public static boolean checkEventPhoneBroadcast(Context context, Event event) {
+        if (event == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (event._eventPreferencesCall._enabled) {
+                boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+                granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED);
+                return granted;
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
     public static boolean grantProfilePermissions(Context context, Profile profile, boolean mergedProfile,
                                                   boolean onlyNotification,
                                                   boolean forGUI, boolean monochrome, int monochromeValue,
@@ -575,7 +542,7 @@ public class Permissions {
         boolean granted = checkGallery(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            permissions.add(new PermissionType(PERMISSION_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+            permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -593,7 +560,7 @@ public class Permissions {
         boolean granted = checkGallery(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
+            permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

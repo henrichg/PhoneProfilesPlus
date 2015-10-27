@@ -879,7 +879,16 @@ CO NEFUNGUJE
 
 - GPS on/off nefunguje, ani cez PPHelper
 
-------
+EVENTY
+- Pre eventy sa vyvola notifikacia na grant. Vyvola sa z DataWrapper.doEventService().
+- Povodne som chcel testovat aj privilegia profilov v evente. Tu je problem, ze sa v EventsService profily merguju.
+  Cize ak by som dal notifikaciu na grant s mergeProfiles=true sa moze stat, ze v merge tabulke uz bude iny stav.
+- Takze grant na eventy bude bez checku profilov.
+- Este je iny zdroj, kedy sa event pauzuje/stopuje. Tieto zdroje priamo volaju pauseEvent(), stopEvent().
+  Tie ale nemerguju profily.
+- Profily si sami nahodia notifikaciu na grant, lebo EventsService, DataWrapper.doEventService(), startEvent(),
+  pauseEvent(), stopEvent() zavola activateProfileFromEvent() a tam sa generuje notifikacia.
+- Ak uzivatel grantnem tak sa zavola EventsService, akoby slo o klasicku udalost napr. typ time.
 
 ---- Power management:
 
