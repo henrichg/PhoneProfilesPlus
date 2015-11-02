@@ -1358,11 +1358,14 @@ public class DataWrapper {
 
     @SuppressWarnings("deprecation")
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
-    public boolean doEventService(Intent intent, Event event, boolean statePause,
+    public void doEventService(/*Intent intent, */Event event, boolean statePause,
                                     boolean restartEvent, boolean interactive,
                                     boolean forDelayAlarm, boolean reactivate,
                                     Profile mergedProfile)
     {
+        if (!Permissions.grantEventPermissions(context, event, true))
+            return;
+
         int newEventStatus = Event.ESTATUS_NONE;
 
         //boolean eventStart = true;
@@ -2075,17 +2078,6 @@ public class DataWrapper {
         }
 
         GlobalData.logE("DataWrapper.doEventService","--- end --------------------------");
-
-        return (timePassed &&
-                batteryPassed &&
-                callPassed &&
-                peripheralPassed &&
-                calendarPassed &&
-                wifiPassed &&
-                screenPassed &&
-                bluetoothPassed &&
-                smsPassed &&
-                notificationPassed);
     }
 
     public void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile)

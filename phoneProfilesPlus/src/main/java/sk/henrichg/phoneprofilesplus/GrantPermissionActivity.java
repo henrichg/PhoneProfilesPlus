@@ -38,8 +38,10 @@ public class GrantPermissionActivity extends Activity {
     private String eventNotificationSound;
     private boolean log;
     private String applicationDataPath;
+    private long event_id;
 
     private Profile profile;
+    private Event event;
     private DataWrapper dataWrapper;
 
     private boolean started = false;
@@ -69,8 +71,12 @@ public class GrantPermissionActivity extends Activity {
         log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
 
+        event_id = intent.getLongExtra(GlobalData.EXTRA_EVENT_ID, 0);
+
         dataWrapper = new DataWrapper(getApplicationContext(), forGUI, monochrome, monochromeValue);
         profile = dataWrapper.getProfileById(profile_id, mergedProfile);
+        event = dataWrapper.getEventById(event_id);
+
     }
 
     @Override
@@ -99,6 +105,18 @@ public class GrantPermissionActivity extends Activity {
                     return;
                 }
             }
+            else
+            if (grantType == Permissions.GRANT_TYPE_EVENT) {
+                permissions = Permissions.checkEventPermissions(context, event);
+                if (permissions.size() == 0) {
+                    Toast msg = Toast.makeText(context,
+                            context.getResources().getString(R.string.toast_permissions_granted),
+                            Toast.LENGTH_SHORT);
+                    msg.show();
+                    finish();
+                    return;
+                }
+            }
             else {
                 permissions = Permissions.checkProfilePermissions(context, profile);
                 if (permissions.size() == 0) {
@@ -117,6 +135,12 @@ public class GrantPermissionActivity extends Activity {
         boolean showRequestReadPhoneState = false;
         boolean showRequestProcessOutgoingCalls = false;
         boolean showRequestWriteExternalStorage = false;
+        boolean showRequestReadCalendar = false;
+        boolean showRequestReadContacts = false;
+        boolean showRequestReceiveSMS = false;
+        boolean showRequestReadSMS = false;
+        boolean showRequestAccessCoarseLocation = false;
+        boolean showRequestAccessFineLocation = false;
 
         Log.e("GrantPermissionActivity", "onStart - permissions.size="+permissions.size());
 
@@ -131,15 +155,34 @@ public class GrantPermissionActivity extends Activity {
                 showRequestProcessOutgoingCalls = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.PROCESS_OUTGOING_CALLS);
             if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE))
                 showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR))
+                showRequestReadCalendar = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CALENDAR);
+            if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS))
+                showRequestReadContacts = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS);
+            if (permissionType.permission.equals(Manifest.permission.RECEIVE_SMS))
+                showRequestReceiveSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS);
+            if (permissionType.permission.equals(Manifest.permission.READ_SMS))
+                showRequestReadSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS);
+            if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION))
+                showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+            if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION))
+                showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION);
         }
 
         if (showRequestWriteSettings ||
                 showRequestReadExternalStorage ||
                 showRequestReadPhoneState ||
                 showRequestProcessOutgoingCalls ||
-                showRequestWriteExternalStorage) {
+                showRequestWriteExternalStorage ||
+                showRequestReadCalendar ||
+                showRequestReadContacts ||
+                showRequestReceiveSMS ||
+                showRequestReadSMS ||
+                showRequestAccessCoarseLocation ||
+                showRequestAccessFineLocation) {
 
             if (onlyNotification) {
+                int notificationID;
                 NotificationCompat.Builder mBuilder;
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -150,6 +193,19 @@ public class GrantPermissionActivity extends Activity {
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
                             .setContentText(context.getString(R.string.permissions_for_install_tone_text_notification))
                             .setAutoCancel(true); // clear notification after click
+                    notificationID = GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID;
+                }
+                else
+                if (grantType == Permissions.GRANT_TYPE_EVENT) {
+                    mBuilder =   new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+                            .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                            .setContentText(context.getString(R.string.permissions_for_event_text1) +
+                                    " \"" + event._name + "\" " +
+                                    context.getString(R.string.permissions_for_event_text_notification)) // message for notification
+                            .setAutoCancel(true); // clear notification after click
+                    intent.putExtra(GlobalData.EXTRA_EVENT_ID, event._id);
+                    notificationID = GlobalData.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else {
                     mBuilder =   new NotificationCompat.Builder(context)
@@ -163,6 +219,7 @@ public class GrantPermissionActivity extends Activity {
                     intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);
                     intent.putExtra(Permissions.EXTRA_MONOCHROME, monochrome);
                     intent.putExtra(Permissions.EXTRA_MONOCHROME_VALUE, monochromeValue);
+                    notificationID = GlobalData.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID;
                 }
                 permissions.clear();
                 intent.putParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES, (ArrayList<Permissions.PermissionType>) permissions);
@@ -178,7 +235,7 @@ public class GrantPermissionActivity extends Activity {
                     mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
                 }
                 NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotificationManager.notify(GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID, mBuilder.build());
+                mNotificationManager.notify(notificationID, mBuilder.build());
 
                 finish();
                 return;
@@ -198,6 +255,13 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
                 else if (grantType == Permissions.GRANT_TYPE_INSTALL_PPHELPER)
                     showRequestString = context.getString(R.string.permissions_for_install_pphelper_text1) + "<br><br>";
+                else
+                if (grantType == Permissions.GRANT_TYPE_EVENT){
+                    showRequestString = context.getString(R.string.permissions_for_event_text1) + " ";
+                    if (event != null)
+                        showRequestString = showRequestString + "\"" + event._name + "\" ";
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text2) + "<br><br>";
+                }
                 else {
                     showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
                     if (profile != null)
@@ -210,7 +274,7 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_write_settings) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
-                if (showRequestReadExternalStorage) {
+                if (showRequestReadExternalStorage || showRequestWriteExternalStorage) {
                     Log.e("GrantPermissionActivity", "onStart - showRequestReadExternalStorage");
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
                     showRequestString = showRequestString + "<br>";
@@ -220,9 +284,24 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
-                if (showRequestWriteExternalStorage) {
-                    Log.e("GrantPermissionActivity", "onStart - showRequestWriteExternalStorage");
-                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
+                if (showRequestReadCalendar) {
+                    Log.e("GrantPermissionActivity", "onStart - showRequestReadCalendar");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_calendar) + "</b>";
+                    showRequestString = showRequestString + "<br>";
+                }
+                if (showRequestReadContacts) {
+                    Log.e("GrantPermissionActivity", "onStart - showRequestReadContacts");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_contacts) + "</b>";
+                    showRequestString = showRequestString + "<br>";
+                }
+                if (showRequestReceiveSMS || showRequestReadSMS) {
+                    Log.e("GrantPermissionActivity", "onStart - showRequestReceiveSMS");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_sms) + "</b>";
+                    showRequestString = showRequestString + "<br>";
+                }
+                if (showRequestAccessCoarseLocation || showRequestAccessFineLocation) {
+                    Log.e("GrantPermissionActivity", "onStart - showRequestReadCalendar");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_location) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
 
@@ -240,6 +319,8 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
                 else if (grantType == Permissions.GRANT_TYPE_INSTALL_PPHELPER)
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_install_pphelper_text2);
+                else if (grantType == Permissions.GRANT_TYPE_EVENT)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text3);
                 else
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
@@ -430,6 +511,13 @@ public class GrantPermissionActivity extends Activity {
             finish();
             if (Permissions.editorActivity != null)
                 PhoneProfilesHelper.doInstallPPHelper(Permissions.editorActivity);
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_EVENT) {
+            //finishAffinity();
+            finish();
+            Permissions.removeEventNotification(context);
+            dataWrapper.restartEvents(false, true);
         }
         else {
             //finishAffinity();

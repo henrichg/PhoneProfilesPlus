@@ -50,6 +50,7 @@ public class Permissions {
     public static final int GRANT_TYPE_EXPORT = 5;
     public static final int GRANT_TYPE_IMPORT = 6;
     public static final int GRANT_TYPE_INSTALL_PPHELPER = 7;
+    public static final int GRANT_TYPE_EVENT = 8;
 
     public static final String EXTRA_GRANT_TYPE = "grant_type";
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
@@ -629,6 +630,21 @@ public class Permissions {
         return granted;
     }
 
+    public static boolean grantEventPermissions(Context context, Event event,
+                                                  boolean onlyNotification) {
+        List<PermissionType> permissions = checkEventPermissions(context, event);
+        if (permissions.size() > 0) {
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EVENT);
+            intent.putExtra(GlobalData.EXTRA_EVENT_ID, event._id);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
+            context.startActivity(intent);
+        }
+        return permissions.size() == 0;
+    }
 
     public static void removeProfileNotification(Context context)
     {
@@ -642,11 +658,18 @@ public class Permissions {
         notificationManager.cancel(GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
     }
 
+    public static void removeEventNotification(Context context)
+    {
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(GlobalData.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+    }
+
     public static void removeNotifications(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(GlobalData.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
         notificationManager.cancel(GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
+        notificationManager.cancel(GlobalData.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
     }
 
 }

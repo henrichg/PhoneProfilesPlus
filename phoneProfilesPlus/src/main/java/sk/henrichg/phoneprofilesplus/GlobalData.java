@@ -143,6 +143,7 @@ public class GlobalData extends Application {
     static final int IMPORTANT_INFO_NOTIFICATION_ID = 700422;
     static final int GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID = 700423;
     static final int GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID = 700424;
+    static final int GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID = 700425;
 
     static final String PREF_PROFILE_NAME = "prf_pref_profileName";
     static final String PREF_PROFILE_ICON = "prf_pref_profileIcon";

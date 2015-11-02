@@ -888,7 +888,7 @@ EVENTY
   Tie ale nemerguju profily.
 - Profily si sami nahodia notifikaciu na grant, lebo EventsService, DataWrapper.doEventService(), startEvent(),
   pauseEvent(), stopEvent() zavola activateProfileFromEvent() a tam sa generuje notifikacia.
-- Ak uzivatel grantnem tak sa zavola EventsService, akoby slo o klasicku udalost napr. typ time.
+- Ak uzivatel grantnem tak sa restartnu udalosti, ale nerusit manualne aktivovany profil.
 
 ---- Power management:
 

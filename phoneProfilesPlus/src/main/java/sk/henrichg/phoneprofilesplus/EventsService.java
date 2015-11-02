@@ -151,7 +151,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj aj ked uz je zapauznuty
-                    dataWrapper.doEventService(intent, _event, true, true, interactive, forDelayAlarm, true, mergedProfile);
+                    dataWrapper.doEventService(/*intent, */_event, true, true, interactive, forDelayAlarm, true, mergedProfile);
             }
             // 2. start events
             dataWrapper.sortEventsByPriorityAsc();
@@ -164,7 +164,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
                     // spustaj len ak este nebezi
-                    dataWrapper.doEventService(intent, _event, false, false, interactive, forDelayAlarm, true, mergedProfile);
+                    dataWrapper.doEventService(/*intent, */_event, false, false, interactive, forDelayAlarm, true, mergedProfile);
             }
         }
         else
@@ -184,7 +184,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj len ak este nie je zapauznuty
-                    dataWrapper.doEventService(intent, _event, true, false, interactive, forDelayAlarm, false, mergedProfile);
+                    dataWrapper.doEventService(/*intent, */_event, true, false, interactive, forDelayAlarm, false, mergedProfile);
             }
             //2. start events
             dataWrapper.sortEventsByPriorityAsc();
@@ -197,7 +197,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
                     // spustaj len ak este nebezi
-                    dataWrapper.doEventService(intent, _event, false, false, interactive, forDelayAlarm, false, mergedProfile);
+                    dataWrapper.doEventService(/*intent, */_event, false, false, interactive, forDelayAlarm, false, mergedProfile);
             }
         }
 
