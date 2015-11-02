@@ -797,6 +797,8 @@ Android M
 4. Nove veci: Doze (setrenie baterie), Security (uzivatek urcuje, co moze aplikacia), Data do cloudu (zaloha dat apliakcie)
 
 ---- Security:
+
+PROFILY
 - spravme tak, ze bude zdruzovat podla profilu/udalosti
 - kazdy profil/udalost maju prefernces, cize spriahnut preference so zoznamom privilegii
 - pri aktivacii profilu skontrolujeme vsetky nastavene preferences a k nim privilegia
@@ -807,25 +809,32 @@ Android M
 - po potvrdeni privilegii profil neaktivujeme, ale updatneme widgety a notifikaciu, aktivity zavrieme
 - ak privilegia nebudu potvrdene, nerobime nic
 - ak bude niektore natvrdo zakazane, nerobime dialog/notifikaciu o tom
-
-
-CO ESTE TREBA
-- phone - v PhoneProfiles mam len broadcast receiver. Ten nefunguje, ak nemam povolene Phone skupinu:
+- phone - mam len broadcast receiver. Ten nefunguje, ak nemam povolene Phone skupinu:
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
   Cize aplikacia nespadne ani pri prichodzom, ani pri odchodzom hovore.
-  Treabe este testnut PhoneProfilesPlus. Ale tam to je asi to iste, tam len potom citam kontakty,
-  a to uz je ina permission.
-  Budem to teda checkovat len pocas aktivacie profilu.
-- vsetky zvysne premissions v PhoneProfilesPlus
+
+EVENTY
+- Pre eventy sa vyvola notifikacia na grant. Vyvola sa z DataWrapper.doEventService().
+- Povodne som chcel testovat aj privilegia profilov v evente. Tu je problem, ze sa v EventsService profily merguju.
+  Cize ak by som dal notifikaciu na grant s mergeProfiles=true sa moze stat, ze v merge tabulke uz bude iny stav.
+- Takze grant na eventy bude bez checku profilov.
+- Este je iny zdroj, kedy sa event pauzuje/stopuje. Tieto zdroje priamo volaju pauseEvent(), stopEvent().
+  Tie ale nemerguju profily.
+- Profily si sami nahodia notifikaciu na grant, lebo EventsService, DataWrapper.doEventService(), startEvent(),
+  pauseEvent(), stopEvent() zavola activateProfileFromEvent() a tam sa generuje notifikacia.
+- Ak uzivatel grantnem tak sa restartnu udalosti, ale nerusit manualne aktivovany profil.
+
+CO ESTE TREBA
+- premissions v PhoneProfilesPlus - preferences dialogy na kontakty a Wifi/BT - scanning
 - Skus, ci existuje broadcast na zmenu permissions. Tu by sa dali zrusit permission notifikacie a updatnut
   profil notifikacia a widgety
--
 
 CO FUNGUJE CIASTOCNE:
 - wifi scanning aby fungoval aj na pozadi je ntune:
   - <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>  v manifeste, COARSE je malo, ak zmenis mod lokacie na "Vysoka presnost"
   - musi byt zapnuta lokacia
+  - ESTE TO TESTNI
 
 CO NEFUNGUJE
 - Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); hadze to exception:
@@ -878,17 +887,6 @@ CO NEFUNGUJE
         }
 
 - GPS on/off nefunguje, ani cez PPHelper
-
-EVENTY
-- Pre eventy sa vyvola notifikacia na grant. Vyvola sa z DataWrapper.doEventService().
-- Povodne som chcel testovat aj privilegia profilov v evente. Tu je problem, ze sa v EventsService profily merguju.
-  Cize ak by som dal notifikaciu na grant s mergeProfiles=true sa moze stat, ze v merge tabulke uz bude iny stav.
-- Takze grant na eventy bude bez checku profilov.
-- Este je iny zdroj, kedy sa event pauzuje/stopuje. Tieto zdroje priamo volaju pauseEvent(), stopEvent().
-  Tie ale nemerguju profily.
-- Profily si sami nahodia notifikaciu na grant, lebo EventsService, DataWrapper.doEventService(), startEvent(),
-  pauseEvent(), stopEvent() zavola activateProfileFromEvent() a tam sa generuje notifikacia.
-- Ak uzivatel grantnem tak sa restartnu udalosti, ale nerusit manualne aktivovany profil.
 
 ---- Power management:
 
