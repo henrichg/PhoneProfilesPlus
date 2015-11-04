@@ -275,7 +275,11 @@ public class GrantPermissionActivity extends Activity {
                 else if (grantType == Permissions.GRANT_TYPE_INSTALL_PPHELPER)
                     showRequestString = context.getString(R.string.permissions_for_install_pphelper_text1) + "<br><br>";
                 else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
-                    showRequestString = context.getString(R.string.permissions_for_wifi_bt_scan_text1) + "<br><br>";
+                    showRequestString = context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG)
+                    showRequestString = context.getString(R.string.permissions_for_calendar_dialog_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG)
+                    showRequestString = context.getString(R.string.permissions_for_contacts_dialog_text1) + "<br><br>";
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT){
                     showRequestString = context.getString(R.string.permissions_for_event_text1) + " ";
@@ -345,7 +349,11 @@ public class GrantPermissionActivity extends Activity {
                 else if (grantType == Permissions.GRANT_TYPE_INSTALL_PPHELPER)
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_install_pphelper_text2);
                 else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
-                    showRequestString = showRequestString + context.getString(R.string.permissions_for_wifi_bt_scan_text2);
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text2);
+                else if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_calendar_dialog_text2);
+                else if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_contacts_dialog_text2);
                 else if (grantType == Permissions.GRANT_TYPE_EVENT)
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text3);
                 else
@@ -553,8 +561,25 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.wifiSSIDPreference.refreshListView(true);
             if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true);
+            dataWrapper.restartEvents(false, true);
             WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+            finish();
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
+            if (Permissions.calendarsMultiSelectDialogPreference != null)
+                Permissions.calendarsMultiSelectDialogPreference.refreshListView();
+            dataWrapper.restartEvents(false, true);
+            finish();
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG) {
+            if (Permissions.contactsMultiSelectDialogPreference != null)
+                Permissions.contactsMultiSelectDialogPreference.refreshListView();
+            if (Permissions.contactGroupsMultiSelectDialogPreference != null)
+                Permissions.contactGroupsMultiSelectDialogPreference.refreshListView();
+            dataWrapper.restartEvents(false, true);
             finish();
         }
         else

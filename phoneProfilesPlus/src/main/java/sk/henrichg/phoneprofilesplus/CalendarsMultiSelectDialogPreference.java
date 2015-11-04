@@ -104,7 +104,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
-    public void onShow(DialogInterface dialog) {
+    public void refreshListView() {
 
         new AsyncTask<Void, Integer, Void>() {
 
@@ -168,13 +168,22 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
             {
                 super.onPostExecute(result);
 
-                listAdapter = new CalendarsMultiselectPreferenceAdapter(_context, calendarList);
-                listView.setAdapter(listAdapter);
+                if (listAdapter == null) {
+                    listAdapter = new CalendarsMultiselectPreferenceAdapter(_context, calendarList);
+                    listView.setAdapter(listAdapter);
+                }
+                else
+                    listAdapter.notifyDataSetChanged();
                 linlaLisView.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
             }
 
         }.execute();
+    }
+
+    public void onShow(DialogInterface dialog) {
+        if (Permissions.grantCalendarDialogPermissions(_context, this))
+            refreshListView();
     }
 
     private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {

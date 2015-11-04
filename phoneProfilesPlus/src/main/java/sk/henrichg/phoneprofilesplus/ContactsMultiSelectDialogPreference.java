@@ -69,6 +69,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         });
 
         listAdapter = new ContactsMultiselectPreferenceAdapter(_context);
+        listView.setAdapter(listAdapter);
 
         mBuilder.customView(layout, false);
 
@@ -87,7 +88,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
-    public void onShow(DialogInterface dialog) {
+    public void refreshListView() {
 
         new AsyncTask<Void, Integer, Void>() {
 
@@ -117,12 +118,17 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 if (!EditorProfilesActivity.getContactsCache().isCached())
                     EditorProfilesActivity.getContactsCache().clearCache(false);
 
-                listView.setAdapter(listAdapter);
+                listAdapter.notifyDataSetChanged();
                 linlaListView.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
             }
 
         }.execute();
+    }
+
+    public void onShow(DialogInterface dialog) {
+        if (Permissions.grantContactsDialogPermissions(_context, this))
+            refreshListView();
     }
 
     private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {

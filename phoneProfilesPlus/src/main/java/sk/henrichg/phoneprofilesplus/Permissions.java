@@ -42,6 +42,7 @@ public class Permissions {
     public static final int PERMISSION_EVENT_CALL_PREFERENCES = 16;
     public static final int PERMISSION_EVENT_SMS_PREFERENCES = 17;
     public static final int PERMISSION_EVENT_SCANNING_PREFERENCES = 18;
+    public static final int PERMISSION_EVENT_CONTACTS = 19;
 
     public static final int GRANT_TYPE_PROFILE = 1;
     public static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -52,6 +53,8 @@ public class Permissions {
     public static final int GRANT_TYPE_INSTALL_PPHELPER = 7;
     public static final int GRANT_TYPE_EVENT = 8;
     public static final int GRANT_TYPE_WIFI_BT_SCAN_DIALOG = 9;
+    public static final int GRANT_TYPE_CALENDAR_DIALOG = 10;
+    public static final int GRANT_TYPE_CONTACT_DIALOG = 11;
 
     public static final String EXTRA_GRANT_TYPE = "grant_type";
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
@@ -72,6 +75,9 @@ public class Permissions {
     public static Activity ppHelperInstallActivity = null;
     public static WifiSSIDPreference wifiSSIDPreference = null;
     public static BluetoothNamePreference bluetoothNamePreference = null;
+    public static CalendarsMultiSelectDialogPreference calendarsMultiSelectDialogPreference = null;
+    public static ContactsMultiSelectDialogPreference contactsMultiSelectDialogPreference = null;
+    public static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
 
     public static class PermissionType implements Parcelable {
         public int preference;
@@ -694,6 +700,62 @@ public class Permissions {
             intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
             bluetoothNamePreference = preference;
             wifiSSIDPreference = null;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
+
+    public static boolean grantCalendarDialogPermissions(Context context, CalendarsMultiSelectDialogPreference preference) {
+        boolean granted = checkCalendar(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CALENDAR_DIALOG);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            calendarsMultiSelectDialogPreference = preference;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
+
+    public static boolean grantContactsDialogPermissions(Context context, ContactsMultiSelectDialogPreference preference) {
+        boolean granted = checkContacts(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS, permission.READ_CONTACTS));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            contactsMultiSelectDialogPreference = preference;
+            contactGroupsMultiSelectDialogPreference = null;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
+
+    public static boolean grantContactGroupsDialogPermissions(Context context, ContactGroupsMultiSelectDialogPreference preference) {
+        boolean granted = checkContacts(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS, permission.READ_CONTACTS));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            contactGroupsMultiSelectDialogPreference = preference;
+            contactsMultiSelectDialogPreference = null;
             context.startActivity(intent);
         }
         return granted;
