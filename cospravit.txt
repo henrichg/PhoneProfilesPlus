@@ -826,7 +826,7 @@ EVENTY
 - Ak uzivatel grantnem tak sa restartnu udalosti, ale nerusit manualne aktivovany profil.
 
 CO ESTE TREBA
-- premissions v PhoneProfilesPlus - preferences dialogy na kontakty a Wifi/BT - scanning
+- premissions v PhoneProfilesPlus - preferences dialogy na kontakty, kalendar
 - Skus, ci existuje broadcast na zmenu permissions. Tu by sa dali zrusit permission notifikacie a updatnut
   profil notifikacia a widgety
 

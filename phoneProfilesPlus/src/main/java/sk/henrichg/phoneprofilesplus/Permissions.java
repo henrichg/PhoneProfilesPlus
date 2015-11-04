@@ -70,6 +70,8 @@ public class Permissions {
     public static ProfileIconPreference profileIconPreference = null;
     public static EditorProfilesActivity editorActivity = null;
     public static Activity ppHelperInstallActivity = null;
+    public static WifiSSIDPreference wifiSSIDPreference = null;
+    public static BluetoothNamePreference bluetoothNamePreference = null;
 
     public static class PermissionType implements Parcelable {
         public int preference;
@@ -659,7 +661,7 @@ public class Permissions {
         return permissions.size() == 0;
     }
 
-    public static boolean grantScanDialogPermissions(Context context) {
+    public static boolean grantWifiScanDialogPermissions(Context context, WifiSSIDPreference preference) {
         boolean granted = checkLocation(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
@@ -671,6 +673,27 @@ public class Permissions {
             intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
             intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
             intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            wifiSSIDPreference = preference;
+            bluetoothNamePreference = null;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
+
+    public static boolean grantBluetoothScanDialogPermissions(Context context, BluetoothNamePreference preference) {
+        boolean granted = checkLocation(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            bluetoothNamePreference = preference;
+            wifiSSIDPreference = null;
             context.startActivity(intent);
         }
         return granted;

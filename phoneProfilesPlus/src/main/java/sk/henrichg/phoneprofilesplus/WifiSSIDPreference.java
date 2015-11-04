@@ -148,7 +148,7 @@ public class WifiSSIDPreference extends DialogPreference {
         }
         @Override
         public void onNeutral(MaterialDialog dialog) {
-            if (Permissions.grantScanDialogPermissions(context))
+            if (Permissions.grantWifiScanDialogPermissions(context, WifiSSIDPreference.this))
                 refreshListView(true);
         }
     };
@@ -193,7 +193,7 @@ public class WifiSSIDPreference extends DialogPreference {
         this.SSIDName.setText(value);
     }
     
-    private void refreshListView(boolean forRescan)
+    public void refreshListView(boolean forRescan)
     {
         final boolean _forRescan = forRescan;
 

@@ -148,7 +148,7 @@ public class BluetoothNamePreference extends DialogPreference {
         }
         @Override
         public void onNeutral(MaterialDialog dialog) {
-            if (Permissions.grantScanDialogPermissions(context))
+            if (Permissions.grantBluetoothScanDialogPermissions(context, BluetoothNamePreference.this))
                 refreshListView(true);
         }
     };
@@ -193,7 +193,7 @@ public class BluetoothNamePreference extends DialogPreference {
         this.bluetoothName.setText(value);
     }
     
-    private void refreshListView(boolean forRescan)
+    public void refreshListView(boolean forRescan)
     {
         final boolean _forRescan = forRescan;
 

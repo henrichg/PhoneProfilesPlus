@@ -549,6 +549,10 @@ public class GrantPermissionActivity extends Activity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG) {
+            if (Permissions.wifiSSIDPreference != null)
+                Permissions.wifiSSIDPreference.refreshListView(true);
+            if (Permissions.bluetoothNamePreference != null)
+                Permissions.bluetoothNamePreference.refreshListView(true);
             finish();
         }
         else
