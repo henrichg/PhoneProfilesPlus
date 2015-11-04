@@ -202,6 +202,7 @@ public class GrantPermissionActivity extends Activity {
                             .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
                             .setContentText(context.getString(R.string.permissions_for_install_tone_text_notification))
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_install_tone_big_text_notification)))
                             .setAutoCancel(true); // clear notification after click
                     notificationID = GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID;
                 }
@@ -210,9 +211,9 @@ public class GrantPermissionActivity extends Activity {
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                            .setContentText(context.getString(R.string.permissions_for_event_text1) +
-                                    " \"" + event._name + "\" " +
-                                    context.getString(R.string.permissions_for_event_text_notification)) // message for notification
+                            .setContentText(context.getString(R.string.permissions_for_event_text_notification)) // message for notification
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_event_text1) + " " +
+                                    context.getString(R.string.permissions_for_event_big_text_notification)))
                             .setAutoCancel(true); // clear notification after click
                     intent.putExtra(GlobalData.EXTRA_EVENT_ID, event._id);
                     notificationID = GlobalData.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
@@ -221,10 +222,17 @@ public class GrantPermissionActivity extends Activity {
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                            .setContentText(context.getString(R.string.permissions_for_profile_text1) +
-                                    " \"" + profile._name + "\" " +
-                                    context.getString(R.string.permissions_for_profile_text_notification)) // message for notification
+                            .setContentText(context.getString(R.string.permissions_for_profile_text_notification)) // message for notification
                             .setAutoCancel(true); // clear notification after click
+                    if (mergedProfile) {
+                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_profile_text1m) + " " +
+                                context.getString(R.string.permissions_for_profile_big_text_notification)));
+                    }
+                    else {
+                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_profile_text1) +
+                                " \"" + profile._name + "\" " +
+                                context.getString(R.string.permissions_for_profile_big_text_notification)));
+                    }
                     intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
                     intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);
                     intent.putExtra(Permissions.EXTRA_MONOCHROME, monochrome);
@@ -269,15 +277,19 @@ public class GrantPermissionActivity extends Activity {
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT){
                     showRequestString = context.getString(R.string.permissions_for_event_text1) + " ";
-                    if (event != null)
-                        showRequestString = showRequestString + "\"" + event._name + "\" ";
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text2) + "<br><br>";
                 }
                 else {
-                    showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
-                    if (profile != null)
-                        showRequestString = showRequestString + "\"" + profile._name + "\" ";
-                    showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
+                    if (mergedProfile) {
+                        showRequestString = context.getString(R.string.permissions_for_profile_text1m) + " ";
+                        showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
+                    }
+                    else {
+                        showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
+                        if (profile != null)
+                            showRequestString = showRequestString + "\"" + profile._name + "\" ";
+                        showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
+                    }
                 }
 
                 if (showRequestWriteSettings) {
@@ -389,12 +401,14 @@ public class GrantPermissionActivity extends Activity {
                 if (allGranted) {
                     finishGrant();
                 } else {
-                    Context context = getApplicationContext();
-                    Toast msg = Toast.makeText(context,
-                            context.getResources().getString(R.string.app_name) + ": " +
-                            context.getResources().getString(R.string.toast_permissions_not_granted),
-                            Toast.LENGTH_SHORT);
-                    msg.show();
+                    if (!onlyNotification) {
+                        Context context = getApplicationContext();
+                        Toast msg = Toast.makeText(context,
+                                context.getResources().getString(R.string.app_name) + ": " +
+                                        context.getResources().getString(R.string.toast_permissions_not_granted),
+                                Toast.LENGTH_SHORT);
+                        msg.show();
+                    }
                     finish();
                 }
                 return;
