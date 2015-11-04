@@ -378,6 +378,12 @@ public class GrantPermissionActivity extends Activity {
                 if (allGranted) {
                     finishGrant();
                 } else {
+                    Context context = getApplicationContext();
+                    Toast msg = Toast.makeText(context,
+                            context.getResources().getString(R.string.app_name) + ": " +
+                            context.getResources().getString(R.string.toast_permissions_not_granted),
+                            Toast.LENGTH_SHORT);
+                    msg.show();
                     finish();
                 }
                 return;
