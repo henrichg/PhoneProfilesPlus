@@ -429,24 +429,21 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-        List<ScanResult> _scanResults = wifi.getScanResults();
-        if (_scanResults != null)
-        {
-            scanResults.clear();
-            for (ScanResult device : _scanResults)
-            {
-                boolean found = false;
-                for (WifiSSIDData _device : scanResults)
-                {
-                    if (_device.bssid.equals(device.BSSID))
-                    {
-                        found = true;
-                        break;
+        if (Permissions.checkLocation(context)) {
+            List<ScanResult> _scanResults = wifi.getScanResults();
+            if (_scanResults != null) {
+                scanResults.clear();
+                for (ScanResult device : _scanResults) {
+                    boolean found = false;
+                    for (WifiSSIDData _device : scanResults) {
+                        if (_device.bssid.equals(device.BSSID)) {
+                            found = true;
+                            break;
+                        }
                     }
-                }
-                if (!found)
-                {
-                    scanResults.add(new WifiSSIDData(device.SSID, device.BSSID));
+                    if (!found) {
+                        scanResults.add(new WifiSSIDData(device.SSID, device.BSSID));
+                    }
                 }
             }
         }

@@ -108,8 +108,8 @@ public class Permissions {
 
     public static List<PermissionType> checkProfilePermissions(Context context, Profile profile) {
         List<PermissionType>  permissions = new ArrayList<PermissionType>();
-        Log.e("Permissions", "checkProfilePermissions - profile.icon="+profile._icon);
         if (profile == null) return permissions;
+        Log.e("Permissions", "checkProfilePermissions - profile.icon="+profile._icon);
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if (!checkProfileVolumePreferences(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
             if (!checkProfileVibrationOnTouch(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
@@ -464,10 +464,25 @@ public class Permissions {
             return true;
     }
 
+    public static boolean checkLocation(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            return granted;
+        }
+        else
+            return true;
+    }
+
     public static boolean checkEventLocation(Context context, Event event) {
         if (event == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (event._eventPreferencesWifi._enabled || event._eventPreferencesBluetooth._enabled) {
+            if ((event._eventPreferencesWifi._enabled &&
+                    ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
+                     (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)))||
+                (event._eventPreferencesBluetooth._enabled &&
+                    ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
+                     (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)))) {
                 boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
                 granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
                 return granted;

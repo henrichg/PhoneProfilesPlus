@@ -77,6 +77,16 @@ public class GrantPermissionActivity extends Activity {
         profile = dataWrapper.getProfileById(profile_id, mergedProfile);
         event = dataWrapper.getEventById(event_id);
 
+        Log.e("GrantPermissionActivity", "onShow grantType="+grantType);
+        Log.e("GrantPermissionActivity", "onShow permissions.size()="+permissions.size());
+        Log.e("GrantPermissionActivity", "onShow onlyNotification="+onlyNotification);
+        if (profile != null)
+            Log.e("GrantPermissionActivity", "onShow profile._name="+profile._name);
+        if (event != null)
+            Log.e("GrantPermissionActivity", "onShow event._name="+event._name);
+
+
+
     }
 
     @Override
@@ -222,6 +232,7 @@ public class GrantPermissionActivity extends Activity {
                     notificationID = GlobalData.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID;
                 }
                 permissions.clear();
+                intent.putExtra(Permissions.EXTRA_GRANT_TYPE, grantType);
                 intent.putParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES, (ArrayList<Permissions.PermissionType>) permissions);
                 intent.putExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
 
@@ -524,6 +535,14 @@ public class GrantPermissionActivity extends Activity {
             finish();
             Permissions.removeEventNotification(context);
             dataWrapper.restartEvents(false, true);
+            for (Permissions.PermissionType permissionType : permissions) {
+                if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
+                    permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                    BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                    break;
+                }
+            }
         }
         else {
             //finishAffinity();

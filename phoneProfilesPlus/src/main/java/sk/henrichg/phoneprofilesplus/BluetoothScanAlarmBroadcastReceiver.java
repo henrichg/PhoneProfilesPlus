@@ -248,7 +248,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if (pendingIntent != null)
             GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
         else
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm not found");
+            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
 
         return (pendingIntent != null);
     }
@@ -360,23 +360,24 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if (bluetooth.isDiscovering())
             bluetooth.cancelDiscovery();
 
-        lock(context); // lock wakeLock, then scan.
-        // unlock() is then called at the end of the scan from ScannerService
-
         BluetoothScanBroadcastReceiver.discoveryStarted = false;
-        boolean startScan = bluetooth.startDiscovery();
-        GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan","scanStarted="+startScan);
 
-        if (!startScan)
-        {
-            unlock();
-            if (getBluetoothEnabledForScan(context))
-            {
-                GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan","disable bluetooth");
-                bluetooth.disable();
+        if (Permissions.checkLocation(context)) {
+            lock(context); // lock wakeLock, then scan.
+            // unlock() is then called at the end of the scan from ScannerService
+
+            boolean startScan = bluetooth.startDiscovery();
+            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan", "scanStarted=" + startScan);
+
+            if (!startScan) {
+                unlock();
+                if (getBluetoothEnabledForScan(context)) {
+                    GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan", "disable bluetooth");
+                    bluetooth.disable();
+                }
             }
+            setWaitForResults(context, startScan);
         }
-        setWaitForResults(context, startScan);
         setScanRequest(context, false);
     }
 
@@ -398,16 +399,17 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             if (bluetooth == null)
                 bluetooth = BluetoothAdapter.getDefaultAdapter();
 
-            if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                if (ScannerService.leScanner == null)
-                    ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
-                if (ScannerService.leScanCallback21 == null)
-                    ScannerService.leScanCallback21 = new BluetoothLEScanCallback21(context);
+            if (Permissions.checkLocation(context)) {
+                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                    if (ScannerService.leScanner == null)
+                        ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
+                    if (ScannerService.leScanCallback21 == null)
+                        ScannerService.leScanCallback21 = new BluetoothLEScanCallback21(context);
 
-                ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
+                    ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
 
-                lock(context); // lock wakeLock, then scan.
-                // unlock() is then called at the end of the scan from ScannerService
+                    lock(context); // lock wakeLock, then scan.
+                    // unlock() is then called at the end of the scan from ScannerService
 
                 /*
                 if (bluetooth.isOffloadedScanBatchingSupported()) {
@@ -421,29 +423,27 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
                 else*/
                     ScannerService.leScanner.startScan(ScannerService.leScanCallback21);
-            }
-            else {
-                if (ScannerService.leScanCallback18 == null)
-                    ScannerService.leScanCallback18 = new BluetoothLEScanCallback18(context);
+                } else {
+                    if (ScannerService.leScanCallback18 == null)
+                        ScannerService.leScanCallback18 = new BluetoothLEScanCallback18(context);
 
-                bluetooth.stopLeScan(ScannerService.leScanCallback18);
+                    bluetooth.stopLeScan(ScannerService.leScanCallback18);
 
-                lock(context); // lock wakeLock, then scan.
-                // unlock() is then called at the end of the scan from ScannerService
+                    lock(context); // lock wakeLock, then scan.
+                    // unlock() is then called at the end of the scan from ScannerService
 
-                boolean startScan = bluetooth.startLeScan(ScannerService.leScanCallback18);
+                    boolean startScan = bluetooth.startLeScan(ScannerService.leScanCallback18);
 
-                if (!startScan)
-                {
-                    unlock();
-                    if (getBluetoothEnabledForScan(context))
-                    {
-                        bluetooth.disable();
+                    if (!startScan) {
+                        unlock();
+                        if (getBluetoothEnabledForScan(context)) {
+                            bluetooth.disable();
+                        }
                     }
                 }
-            }
 
-            setWaitForLEResults(context, true); //startScan);
+                setWaitForLEResults(context, true); //startScan);
+            }
             setLEScanRequest(context, false);
         }
     }
