@@ -51,6 +51,7 @@ public class Permissions {
     public static final int GRANT_TYPE_IMPORT = 6;
     public static final int GRANT_TYPE_INSTALL_PPHELPER = 7;
     public static final int GRANT_TYPE_EVENT = 8;
+    public static final int GRANT_TYPE_WIFI_BT_SCAN_DIALOG = 9;
 
     public static final String EXTRA_GRANT_TYPE = "grant_type";
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
@@ -386,7 +387,6 @@ public class Permissions {
                 permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
             }
             if (!checkEventLocation(context, event)) {
-                permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
                 permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
             }
 
@@ -466,8 +466,8 @@ public class Permissions {
 
     public static boolean checkLocation(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
-            granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            //granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
             return granted;
         }
         else
@@ -483,9 +483,7 @@ public class Permissions {
                 (event._eventPreferencesBluetooth._enabled &&
                     ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
                      (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)))) {
-                boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
-                granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
-                return granted;
+                return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
             }
             else
                 return true;
@@ -659,6 +657,23 @@ public class Permissions {
             context.startActivity(intent);
         }
         return permissions.size() == 0;
+    }
+
+    public static boolean grantScanDialogPermissions(Context context) {
+        boolean granted = checkLocation(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            context.startActivity(intent);
+        }
+        return granted;
     }
 
     public static void removeProfileNotification(Context context)

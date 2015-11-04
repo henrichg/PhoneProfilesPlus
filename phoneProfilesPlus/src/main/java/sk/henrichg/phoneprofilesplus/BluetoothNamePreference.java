@@ -148,7 +148,8 @@ public class BluetoothNamePreference extends DialogPreference {
         }
         @Override
         public void onNeutral(MaterialDialog dialog) {
-            refreshListView(true);
+            if (Permissions.grantScanDialogPermissions(context))
+                refreshListView(true);
         }
     };
 

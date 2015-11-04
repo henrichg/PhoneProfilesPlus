@@ -274,6 +274,8 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
                 else if (grantType == Permissions.GRANT_TYPE_INSTALL_PPHELPER)
                     showRequestString = context.getString(R.string.permissions_for_install_pphelper_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
+                    showRequestString = context.getString(R.string.permissions_for_wifi_bt_scan_text1) + "<br><br>";
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT){
                     showRequestString = context.getString(R.string.permissions_for_event_text1) + " ";
@@ -342,6 +344,8 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_import_app_data_text2);
                 else if (grantType == Permissions.GRANT_TYPE_INSTALL_PPHELPER)
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_install_pphelper_text2);
+                else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_wifi_bt_scan_text2);
                 else if (grantType == Permissions.GRANT_TYPE_EVENT)
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text3);
                 else
@@ -542,6 +546,10 @@ public class GrantPermissionActivity extends Activity {
             finish();
             if (Permissions.editorActivity != null)
                 PhoneProfilesHelper.doInstallPPHelper(Permissions.editorActivity);
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG) {
+            finish();
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EVENT) {
