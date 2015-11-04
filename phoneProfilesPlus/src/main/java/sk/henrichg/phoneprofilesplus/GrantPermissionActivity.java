@@ -553,6 +553,8 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.wifiSSIDPreference.refreshListView(true);
             if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true);
+            WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             finish();
         }
         else
