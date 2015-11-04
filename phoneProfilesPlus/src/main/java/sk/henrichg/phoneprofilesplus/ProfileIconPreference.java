@@ -156,9 +156,10 @@ public class ProfileIconPreference extends DialogPreference {
         @Override
         public void onNeutral(MaterialDialog dialog) {
             // zavolat galeriu na vyzdvihnutie image
-            if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this))
+            if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this)) {
                 startGallery();
-            dialog.dismiss();
+                dialog.dismiss();
+            }
         }
     };
 
