@@ -30,6 +30,7 @@ public class GrantPermissionActivity extends Activity {
     private long profile_id;
     private boolean mergedProfile;
     private boolean onlyNotification;
+    private boolean mergedNotification;
     private boolean forGUI;
     private boolean monochrome;
     private int monochromeValue;
@@ -49,6 +50,8 @@ public class GrantPermissionActivity extends Activity {
     private static final int WRITE_SETTINGS_REQUEST_CODE = 909090;
     private static final int PERMISSIONS_REQUEST_CODE = 909091;
 
+    private static final String NOTIFICATION_DELETED_ACTION = "sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,7 @@ public class GrantPermissionActivity extends Activity {
         grantType = intent.getIntExtra(Permissions.EXTRA_GRANT_TYPE, 0);
         permissions = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
         onlyNotification = intent.getBooleanExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
+        mergedNotification = intent.getBooleanExtra(Permissions.EXTRA_MERGED_NOTIFICATION, false);
 
         profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
         mergedProfile = intent.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
@@ -84,9 +88,6 @@ public class GrantPermissionActivity extends Activity {
             Log.e("GrantPermissionActivity", "onShow profile._name="+profile._name);
         if (event != null)
             Log.e("GrantPermissionActivity", "onShow event._name="+event._name);
-
-
-
     }
 
     @Override
@@ -212,9 +213,23 @@ public class GrantPermissionActivity extends Activity {
                             .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
                             .setContentText(context.getString(R.string.permissions_for_event_text_notification)) // message for notification
-                            .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_event_text1) + " " +
-                                    context.getString(R.string.permissions_for_event_big_text_notification)))
                             .setAutoCancel(true); // clear notification after click
+                    if (mergedNotification) {
+                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_event_text1m) + " " +
+                                context.getString(R.string.permissions_for_event_big_text_notification)));
+                    }
+                    else {
+                        String text = context.getString(R.string.permissions_for_event_text1) + " ";
+                        if (event != null)
+                            text = text + "\"" + event._name + "\" ";
+                        text = text + context.getString(R.string.permissions_for_event_big_text_notification);
+                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
+
+                    }
+                    Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
+                    PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, 0);
+                    mBuilder.setDeleteIntent(deletePendingIntent);
+
                     intent.putExtra(GlobalData.EXTRA_EVENT_ID, event._id);
                     notificationID = GlobalData.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
                 }
@@ -224,15 +239,21 @@ public class GrantPermissionActivity extends Activity {
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
                             .setContentText(context.getString(R.string.permissions_for_profile_text_notification)) // message for notification
                             .setAutoCancel(true); // clear notification after click
-                    if (mergedProfile) {
+                    if (mergedProfile || mergedNotification) {
                         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_profile_text1m) + " " +
                                 context.getString(R.string.permissions_for_profile_big_text_notification)));
                     }
                     else {
-                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_profile_text1) +
-                                " \"" + profile._name + "\" " +
-                                context.getString(R.string.permissions_for_profile_big_text_notification)));
+                        String text = context.getString(R.string.permissions_for_profile_text1) + " ";
+                        if (profile != null)
+                            text = text + "\"" + profile._name + "\" ";
+                        text = text + context.getString(R.string.permissions_for_profile_big_text_notification);
+                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
                     }
+                    Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
+                    PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, 0);
+                    mBuilder.setDeleteIntent(deletePendingIntent);
+
                     intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
                     intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);
                     intent.putExtra(Permissions.EXTRA_MONOCHROME, monochrome);
@@ -282,11 +303,19 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = context.getString(R.string.permissions_for_contacts_dialog_text1) + "<br><br>";
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT){
-                    showRequestString = context.getString(R.string.permissions_for_event_text1) + " ";
-                    showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text2) + "<br><br>";
+                    if (mergedNotification) {
+                        showRequestString = context.getString(R.string.permissions_for_event_text1m) + " ";
+                        showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text2) + "<br><br>";
+                    }
+                    else {
+                        showRequestString = context.getString(R.string.permissions_for_event_text1) + " ";
+                        if (event != null)
+                            showRequestString = showRequestString + "\"" + event._name + "\" ";
+                        showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text2) + "<br><br>";
+                    }
                 }
                 else {
-                    if (mergedProfile) {
+                    if (mergedProfile || mergedNotification) {
                         showRequestString = context.getString(R.string.permissions_for_profile_text1m) + " ";
                         showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
                     }

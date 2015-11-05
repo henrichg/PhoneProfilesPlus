@@ -559,7 +559,7 @@
   <string name="permission_group_name_phone">Phone</string>
   <string name="permissions_alert_title">Permissions request</string>
   <string name="permissions_for_profile_text1">Activation of profile</string>
-  <string name="permissions_for_profile_text1m">Some profiles activated from events</string>
+  <string name="permissions_for_profile_text1m">Some profiles</string>
   <string name="permissions_for_profile_text2">requires these permissions:</string>
   <string name="permissions_for_profile_text3">Please grant them in next dialogs. Then profile will be activated.</string>
   <string name="permissions_for_profile_text_notification">Permissions request</string>
@@ -589,7 +589,8 @@
   <string name="phone_profiles_pref_writeSystemSettingPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>
   <string name="phone_profiles_pref_applicationPermissions">Application permissions</string>
   <string name="phone_profiles_pref_applicationPermissions_summary">Please enable permissions in option \"Permissions\".</string>
-  <string name="permissions_for_event_text1">Some events</string>
+  <string name="permissions_for_event_text1">Event</string>
+  <string name="permissions_for_event_text1m">Some events</string>
   <string name="permissions_for_event_text2">requires these permissions:</string>
   <string name="permissions_for_event_text3">Please grant them in next dialogs. Then events will be restarted.</string>
   <string name="permissions_for_event_text_notification">Permissions request</string>

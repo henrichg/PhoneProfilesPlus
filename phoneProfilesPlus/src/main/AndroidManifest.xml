@@ -582,6 +582,14 @@
             android:enabled="true"
             android:exported="false" >
         </receiver>
+        <receiver
+            android:name=".PermissionsNotificationDeletedReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

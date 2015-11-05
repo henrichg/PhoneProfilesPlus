@@ -60,6 +60,7 @@ public class Permissions {
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
     public static final String EXTRA_PERMISSION_TYPES = "permission_types";
     public static final String EXTRA_ONLY_NOTIFICATION = "only_notification";
+    public static final String EXTRA_MERGED_NOTIFICATION = "merged_notification";
     public static final String EXTRA_FOR_GUI = "for_gui";
     public static final String EXTRA_MONOCHROME = "monochrome";
     public static final String EXTRA_MONOCHROME_VALUE = "monochrome_value";
