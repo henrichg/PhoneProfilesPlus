@@ -11,7 +11,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("#### ScreenOnOffBroadcastReceiver.onReceive","xxx");
+        GlobalData.logE("##### ScreenOnOffBroadcastReceiver.onReceive","xxx");
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started

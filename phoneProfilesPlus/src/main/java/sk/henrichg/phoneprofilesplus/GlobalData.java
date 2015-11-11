@@ -72,7 +72,10 @@ public class GlobalData extends Application {
                                         "##### RingerModeChangeReceiver.onReceive|"+
                                         "##### NotificationBroadcastReceiver.onReceive|"+
                                         "##### NotificationEventEndBroadcastReceiver.onReceive|"+
-                                        "##### PermissionsNotificationDeletedReceiver.onReceive|"
+                                        "##### PermissionsNotificationDeletedReceiver.onReceive|"+
+                                        "##### BatteryEventBroadcastReceiver.onReceive|"+
+                                        "##### HeadsetConnectionBroadcastReceiver.onReceive|"+
+                                        "##### ScreenOnOffBroadcastReceiver.onReceive"
                                          //"@@@ BatteryEventBroadcastReceiver|"+
                                          //"@@@ CalendarProviderChangedBroadcastReceiver|"+
                                          //"@@@ EventsCalendarBroadcastReceiver|"+
