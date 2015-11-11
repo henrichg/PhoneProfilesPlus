@@ -54,6 +54,7 @@ public class EventsService extends IntentService
 
             GlobalData.logE("@@@ EventsService.onHandleIntent","-- end: not events found --------------------------------");
 
+            return;
         }
 
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
