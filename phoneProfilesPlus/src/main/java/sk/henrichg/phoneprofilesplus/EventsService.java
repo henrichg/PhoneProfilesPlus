@@ -81,13 +81,9 @@ public class EventsService extends IntentService
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
                 GlobalData.setActivatedProfileForDuration(context, 0);
 
-                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-
                 GlobalData.setEventsBlocked(context, false);
                 dataWrapper.getDatabaseHandler().unblockAllEvents();
                 GlobalData.setForceRunEventRunning(context, false);
-
-                dataWrapper.invalidateDataWrapper();
             }
         }
 
