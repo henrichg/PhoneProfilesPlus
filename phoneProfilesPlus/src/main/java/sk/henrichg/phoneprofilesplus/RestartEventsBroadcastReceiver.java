@@ -26,7 +26,7 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
             GlobalData.logE("$$$ restartEvents","in RestartEventsBroadcastReceiver, unblockEventsRun="+unblockEventsRun);
 
-            if (unblockEventsRun)
+            /*if (unblockEventsRun)
             {
                 // remove alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -39,11 +39,12 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
                 GlobalData.setForceRunEventRunning(context, false);
 
                 dataWrapper.invalidateDataWrapper();
-            }
+            }*/
 
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
             eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+            eventsServiceIntent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
             startWakefulService(context, eventsServiceIntent);
         }
     }

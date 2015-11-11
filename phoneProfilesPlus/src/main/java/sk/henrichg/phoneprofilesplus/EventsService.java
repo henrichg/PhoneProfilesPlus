@@ -69,6 +69,28 @@ public class EventsService extends IntentService
 
         List<Event> eventList = dataWrapper.getEventList();
 
+        boolean isRestart = (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)/* ||
+                             broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
+                             broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)*/);
+
+        boolean interactive = !isRestart;
+
+        if (isRestart) {
+            if (intent.getBooleanExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false)) {
+                // remove alarm for profile duration
+                ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+                GlobalData.setActivatedProfileForDuration(context, 0);
+
+                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+
+                GlobalData.setEventsBlocked(context, false);
+                dataWrapper.getDatabaseHandler().unblockAllEvents();
+                GlobalData.setForceRunEventRunning(context, false);
+
+                dataWrapper.invalidateDataWrapper();
+            }
+        }
+
         if (broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
             broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
         {
@@ -120,12 +142,6 @@ public class EventsService extends IntentService
                 }
             }
         }
-
-        boolean isRestart = (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)/* ||
-                             broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
-                             broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)*/);
-
-        boolean interactive = !isRestart;
 
         boolean forDelayAlarm = broadcastReceiverType.equals(EventDelayBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
 
