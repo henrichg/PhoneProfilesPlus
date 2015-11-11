@@ -324,7 +324,7 @@ public class ImageViewPreference extends Preference {
     @SuppressLint({"NewApi", "LongLogTag"})
     public static String getPath(final Context context, final Uri uri) {
 
-        Log.e("ImageViewPreference.getPath" + " File -",
+        /*Log.e("ImageViewPreference.getPath" + " File -",
                 "Authority: " + uri.getAuthority() +
                         ", Fragment: " + uri.getFragment() +
                         ", Port: " + uri.getPort() +
@@ -332,7 +332,7 @@ public class ImageViewPreference extends Preference {
                         ", Scheme: " + uri.getScheme() +
                         ", Host: " + uri.getHost() +
                         ", Segments: " + uri.getPathSegments().toString()
-        );
+        );*/
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 

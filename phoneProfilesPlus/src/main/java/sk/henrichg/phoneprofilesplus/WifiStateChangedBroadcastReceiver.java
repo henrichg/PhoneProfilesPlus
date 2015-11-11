@@ -7,25 +7,25 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
 
-	public static final String BROADCAST_RECEIVER_TYPE = "wifiState";
-	
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		GlobalData.logE("#### WifiStateChangedBroadcastReceiver.onReceive","xxx");
-	
-		if (WifiScanAlarmBroadcastReceiver.wifi == null)
-			WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-		
-		if (!GlobalData.getApplicationStarted(context))
-			// application is not started
-			return;
+    public static final String BROADCAST_RECEIVER_TYPE = "wifiState";
 
-		GlobalData.loadPreferences(context);
-		
-		int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        GlobalData.logE("##### WifiStateChangedBroadcastReceiver.onReceive", "xxx");
 
-		if (GlobalData.getGlobalEventsRuning(context))
-		{
+        if (WifiScanAlarmBroadcastReceiver.wifi == null)
+            WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        if (!GlobalData.getApplicationStarted(context))
+            // application is not started
+            return;
+
+        GlobalData.loadPreferences(context);
+
+        int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
+
+        if (GlobalData.getGlobalEventsRuning(context))
+        {
             GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","state="+wifiState);
 
             if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED))
@@ -70,11 +70,11 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                 //}
             }
         }
-		
-		/*if (wifiState == WifiManager.WIFI_STATE_DISABLED)
-		{
-			WifiScanAlarmBroadcastReceiver.stopScan(context);
-		}*/
-		
-	}
+
+        /*if (wifiState == WifiManager.WIFI_STATE_DISABLED)
+        {
+            WifiScanAlarmBroadcastReceiver.stopScan(context);
+        }*/
+
+    }
 }

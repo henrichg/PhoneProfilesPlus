@@ -41,7 +41,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("NewApi")
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("#### WifiScanAlarmBroadcastReceiver.onReceive", "xxx");
+        GlobalData.logE("##### WifiScanAlarmBroadcastReceiver.onReceive", "xxx");
 
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
             int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);

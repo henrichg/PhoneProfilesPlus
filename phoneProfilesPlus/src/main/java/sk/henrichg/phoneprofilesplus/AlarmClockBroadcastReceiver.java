@@ -11,7 +11,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Log.e("AlarmClockBroadcastReceiver", "ALARM");
+        GlobalData.logE("##### AlarmClockBroadcastReceiver.onReceive", "xxx");
 
         Context appContext = context.getApplicationContext();
 

@@ -11,7 +11,7 @@ public class NotificationEventEndBroadcastReceiver extends WakefulBroadcastRecei
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("#### NotificationEventEndBroadcastReceiver.onReceive","xxx");
+        GlobalData.logE("##### NotificationEventEndBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started

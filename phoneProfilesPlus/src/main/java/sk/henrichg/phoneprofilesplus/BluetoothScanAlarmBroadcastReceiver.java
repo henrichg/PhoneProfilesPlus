@@ -36,7 +36,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("#### BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
+        GlobalData.logE("##### BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
             int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);

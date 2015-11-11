@@ -42,7 +42,38 @@ public class GlobalData extends Application {
     private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
-    public static String logFilterTags = //"@@@ BatteryEventBroadcastReceiver|"+
+    public static String logFilterTags = "##### LocaleChangedReceiver.onReceive|"+
+                                        "##### BootUpReceiver.onReceive|"+
+                                        "##### PackageReplacedReceiver.onReceive|"+
+                                        "##### DashClockBroadcastReceiver.onReceive|"+
+                                        "##### SetRadioPrefsForProfileBroadcastReceiver.onReceive|"+
+                                        "##### RestartEventsBroadcastReceiver.onReceive|"+
+                                        "##### EventsTimeBroadcastReceiver.onReceive|"+
+                                        "##### RefreshGUIBroadcastReceiver.onReceive|"+
+                                        "##### PhoneCallBroadcastReceiver.onReceive|"+
+                                        "##### DockConnectionBroadcastReceiver.onReceive|"+
+                                        "##### EventsCalendarBroadcastReceiver.onReceive|"+
+                                        "##### CalendarProviderChangedBroadcastReceiver.onReceive|"+
+                                        "##### SearchCalendarEventsBroadcastReceiver.onReceive|"+
+                                        "##### WifiConnectionBroadcastReceiver.onReceive|"+
+                                        "##### WifiStateChangedBroadcastReceiver.onReceive|"+
+                                        "##### WifiScanAlarmBroadcastReceiver.onReceive|"+
+                                        "##### EventDelayBroadcastReceiver.onReceive|"+
+                                        "##### ProfileDurationAlarmBroadcastReceiver.onReceive|"+
+                                        "##### BluetoothConnectionBroadcastReceiver.onReceive|"+
+                                        "##### BluetoothStateChangedBroadcastReceiver.onReceive|"+
+                                        "##### BluetoothScanAlarmBroadcastReceiver.onReceive|"+
+                                        "##### BluetoothLEScanBroadcastReceiver.onReceive|"+
+                                        "##### SMSBroadcastReceiver.onReceive|"+
+                                        "##### SMSEventEndBroadcastReceiver.onReceive|"+
+                                        "##### NotificationCancelAlarmBroadcastReceiver.onReceive|"+
+                                        "##### RemoveBrightnessViewBroadcastReceiver.onReceive|"+
+                                        "##### AlarmClockBroadcastReceiver.onReceive|"+
+                                        "##### RingerModeChangeReceiver.onReceive|"+
+                                        "##### NotificationBroadcastReceiver.onReceive|"+
+                                        "##### NotificationEventEndBroadcastReceiver.onReceive|"+
+                                        "##### PermissionsNotificationDeletedReceiver.onReceive|"
+                                         //"@@@ BatteryEventBroadcastReceiver|"+
                                          //"@@@ CalendarProviderChangedBroadcastReceiver|"+
                                          //"@@@ EventsCalendarBroadcastReceiver|"+
                                          //"@@@ EventsTimeBroadcastReceiver|"+
@@ -70,16 +101,16 @@ public class GlobalData extends Application {
                                          //"@@@ ActivateProfileHelper|"+
                                          //"PhoneProfilesHelper.doInstallPPHelper"
                                          //"ExecuteRadioProfilePrefsService"
-                                         "$$$ ScannerService|"+
+                                         //"$$$ ScannerService|"+
                                          //"$$$ EventsService|"+
                                          //"$$$ ExecuteRadioProfilePrefsService|"+
-                                         "$$$ WifiStateChangedBroadcastReceiver|"+
-                                         "*** DataWrapper|"+
-                                         "$$$ WifiScanBroadcastReceiver|"+
+                                         //"$$$ WifiStateChangedBroadcastReceiver|"+
+                                         //"*** DataWrapper|"+
+                                         //"$$$ WifiScanBroadcastReceiver|"+
                                          //"$$$ ReceiversService|"+
-                                         "$$$ WifiConnectionBroadcastReceiver|"+
-                                         "$$$ WifiScanAlarmBroadcastReceiver|"+
-                                         "@@@ ScreenOnOffBroadcastReceiver"
+                                         //"$$$ WifiConnectionBroadcastReceiver|"+
+                                         //"$$$ WifiScanAlarmBroadcastReceiver|"+
+                                         //"@@@ ScreenOnOffBroadcastReceiver"
                                          //"$$$ ActivateProfileHelper|"+
                                          //"$$$ Keyguard|"+
                                          //"$$$ ScreenOnOffBroadcastReceiver|"+

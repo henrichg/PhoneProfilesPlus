@@ -19,7 +19,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        GlobalData.logE("#### BluetoothConnectionBroadcastReceiver.onReceive","xxx");
+        GlobalData.logE("##### BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
 
         getConnectedDevices(context);
 

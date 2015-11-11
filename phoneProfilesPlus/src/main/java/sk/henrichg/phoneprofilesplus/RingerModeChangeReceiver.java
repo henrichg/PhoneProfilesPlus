@@ -15,7 +15,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        //Log.e("### RingerModeChangeReceiver", "xxx");
+        GlobalData.logE("##### RingerModeChangeReceiver.onReceive", "xxx");
 
         //if (!internalChange) {
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);

@@ -17,7 +17,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("#### SearchCalendarEventsBroadcastReceiver.onReceive", "xxx");
+        GlobalData.logE("##### SearchCalendarEventsBroadcastReceiver.onReceive", "xxx");
 
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
             setAlarm(context, false);

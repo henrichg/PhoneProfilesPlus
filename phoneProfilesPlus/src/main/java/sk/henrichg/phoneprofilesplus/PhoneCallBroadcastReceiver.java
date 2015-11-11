@@ -23,6 +23,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     protected boolean onStartReceive()
     {
+        GlobalData.logE("##### PhoneCallBroadcastReceiver.onReceive", "xxx");
+
         if (!GlobalData.getApplicationStarted(savedContext))
             return false;
 

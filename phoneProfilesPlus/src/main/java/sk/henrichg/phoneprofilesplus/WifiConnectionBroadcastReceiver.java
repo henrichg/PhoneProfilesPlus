@@ -8,30 +8,30 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 
-	public static final String BROADCAST_RECEIVER_TYPE = "wifiConnection";
-	
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		GlobalData.logE("#### WifiConnectionBroadcastReceiver.onReceive","xxx");
+    public static final String BROADCAST_RECEIVER_TYPE = "wifiConnection";
 
-		if (!GlobalData.getApplicationStarted(context))
-			// application is not started
-			return;
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        GlobalData.logE("##### WifiConnectionBroadcastReceiver.onReceive", "xxx");
 
-		GlobalData.loadPreferences(context);
+        if (!GlobalData.getApplicationStarted(context))
+            // application is not started
+            return;
 
-	    NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+        GlobalData.loadPreferences(context);
+
+        NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 
         if (info != null)
         {
 
-			if (GlobalData.getGlobalEventsRuning(context))
-			{
-	    		GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
+            if (GlobalData.getGlobalEventsRuning(context))
+            {
+                GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
 
-	        	if ((info.getState() == NetworkInfo.State.CONNECTED) ||
-	        		(info.getState() == NetworkInfo.State.DISCONNECTED))
-	        	{
+                if ((info.getState() == NetworkInfo.State.CONNECTED) ||
+                    (info.getState() == NetworkInfo.State.DISCONNECTED))
+                {
                     boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
                     GlobalData.logE("$$$ WifiAP", "WifiConnectionBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
 
@@ -59,9 +59,9 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
                             GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
                     //}
 
-	        	}
-			}
-			
+                }
+            }
+
         }
-	}
+    }
 }

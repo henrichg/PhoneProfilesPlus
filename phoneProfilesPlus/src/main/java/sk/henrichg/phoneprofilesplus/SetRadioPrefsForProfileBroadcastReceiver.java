@@ -6,26 +6,27 @@ import android.content.Intent;
 
 public class SetRadioPrefsForProfileBroadcastReceiver extends BroadcastReceiver {
 
-	private static final String	ACTION = "sk.henrichg.phoneprofilesplus.SetRadiosForProfile.ACTION";
-	
-	@Override
-	public void onReceive(Context context, Intent intent) {
+    private static final String	ACTION = "sk.henrichg.phoneprofilesplus.SetRadiosForProfile.ACTION";
 
-		String action = intent.getAction();
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        GlobalData.logE("##### SetRadioPrefsForProfileBroadcastReceiver.onReceive", "xxx");
 
-		if (action.equals (ACTION))
-		{
-			// start service
-			
-			long profileId = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
-			if (profileId != 0)
-			{
-				Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
-				radioServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profileId);
-				context.startService(radioServiceIntent);
-			}
-		}		
-		
-	}
+        String action = intent.getAction();
+
+        if (action.equals (ACTION))
+        {
+            // start service
+
+            long profileId = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
+            if (profileId != 0)
+            {
+                Intent radioServiceIntent = new Intent(context, ExecuteRadioProfilePrefsService.class);
+                radioServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profileId);
+                context.startService(radioServiceIntent);
+            }
+        }
+
+    }
 
 }

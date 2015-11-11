@@ -22,7 +22,7 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("#### SMSBroadcastReceiver.onReceive","xxx");
+        GlobalData.logE("##### SMSBroadcastReceiver.onReceive", "xxx");
 
         boolean smsMmsReceived = false;
 
