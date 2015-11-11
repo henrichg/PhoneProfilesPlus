@@ -20,8 +20,8 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        //GlobalData.logE("#### BluetoothScanBroadcastReceiver.onReceive","xxx");
-        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- start");
+        GlobalData.logE("##### BluetoothScanBroadcastReceiver.onReceive","xxx");
+        //GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- start");
 
         if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
             BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();

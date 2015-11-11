@@ -396,7 +396,8 @@ public class Permissions {
                 permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
             }
             if (!checkEventLocation(context, event)) {
-                permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
             }
 
             return permissions;
@@ -475,8 +476,8 @@ public class Permissions {
 
     public static boolean checkLocation(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
-            //granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            //boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            boolean granted = (ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
             return granted;
         }
         else
@@ -672,7 +673,8 @@ public class Permissions {
         boolean granted = checkLocation(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -691,7 +693,8 @@ public class Permissions {
         boolean granted = checkLocation(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

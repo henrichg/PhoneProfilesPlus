@@ -14,8 +14,8 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        //GlobalData.logE("#### WifiScanBroadcastReceiver.onReceive","xxx");
-        GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
+        GlobalData.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
+        //GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
 
         if (WifiScanAlarmBroadcastReceiver.wifi == null)
             WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);

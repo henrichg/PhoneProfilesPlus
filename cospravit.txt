@@ -833,6 +833,7 @@ CO FUNGUJE CIASTOCNE:
 - wifi scanning aby fungoval aj na pozadi je ntune:
   - <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>  v manifeste, COARSE je malo, ak zmenis mod lokacie na "Vysoka presnost"
   - musi byt zapnuta lokacia
+  - musi byt povolene scanovaniw wifi v nastaveniach lokacie
   - ESTE TO TESTNI
 
 CO NEFUNGUJE
