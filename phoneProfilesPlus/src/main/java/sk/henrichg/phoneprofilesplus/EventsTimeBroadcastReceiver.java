@@ -23,7 +23,7 @@ public class EventsTimeBroadcastReceiver extends WakefulBroadcastReceiver {
         {
             GlobalData.logE("@@@ EventsTimeBroadcastReceiver.onReceive","xxx");
 
-            boolean timeEventsExists = false;
+            /*boolean timeEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             timeEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_TIME) > 0;
@@ -31,12 +31,12 @@ public class EventsTimeBroadcastReceiver extends WakefulBroadcastReceiver {
             dataWrapper.invalidateDataWrapper();
 
             if (timeEventsExists)
-            {
+            {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
-            }
+            //}
 
         }
 

@@ -23,7 +23,7 @@ public class CalendarProviderChangedBroadcastReceiver extends WakefulBroadcastRe
         {
             GlobalData.logE("@@@ CalendarProviderChangedBroadcastReceiver.onReceive","xxx");
 
-            boolean calendarEventsExists = false;
+            /*boolean calendarEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
@@ -31,12 +31,12 @@ public class CalendarProviderChangedBroadcastReceiver extends WakefulBroadcastRe
             dataWrapper.invalidateDataWrapper();
 
             if (calendarEventsExists)
-            {
+            {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
-            }
+            //}
 
         }
 

@@ -27,8 +27,6 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
 
             if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
 
-                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-
                 if (bluetoothState == BluetoothAdapter.STATE_ON)
                 {
                     //if ((!dataWrapper.getIsManualProfileActivation()) || GlobalData.getForceOneBluetoothScan(context))
@@ -59,17 +57,19 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                       (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
                       (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)) ||
                       (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)))) {
+
+                    /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                     boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
                     dataWrapper.invalidateDataWrapper();
 
                     if (bluetoothEventsExists) {
                         GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothEventsExists=" + bluetoothEventsExists);
-
+                    */
                         // start service
                         Intent eventsServiceIntent = new Intent(context, EventsService.class);
                         eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                         startWakefulService(context, eventsServiceIntent);
-                    }
+                    //}
                 }
 
             }

@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
-    //public static final String BROADCAST_RECEIVER_TYPE = "phoneCall";
+    public static final String BROADCAST_RECEIVER_TYPE = "phoneCall";
 
     public static final String EXTRA_SERVICE_PHONE_EVENT = "service_phone_event";
     public static final String EXTRA_SERVICE_PHONE_INCOMING = "service_phone_incoming";

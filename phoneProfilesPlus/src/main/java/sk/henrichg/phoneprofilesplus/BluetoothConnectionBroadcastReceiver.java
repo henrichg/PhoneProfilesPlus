@@ -75,19 +75,19 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                     {
                         // bluetooth is not scanned
 
-                        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                        /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                         boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
                         dataWrapper.invalidateDataWrapper();
 
                         if (bluetoothEventsExists)
                         {
                             GlobalData.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","bluetoothEventsExists="+bluetoothEventsExists);
-
+                        */
                             // start service
                             Intent eventsServiceIntent = new Intent(context, EventsService.class);
                             eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                             startWakefulService(context, eventsServiceIntent);
-                        }
+                        //}
                     }
 
                 //}

@@ -43,18 +43,18 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 
                             GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
 
-                            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                            /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                             boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
                             dataWrapper.invalidateDataWrapper();
 
                             if (wifiEventsExists) {
                                 GlobalData.logE("@@@ WifiConnectionBroadcastReceiver.onReceive", "wifiEventsExists=" + wifiEventsExists);
-
+                            */
                                 // start service
                                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                                 startWakefulService(context, eventsServiceIntent);
-                            }
+                            //}
                         } else
                             GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
                     //}

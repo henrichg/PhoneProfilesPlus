@@ -23,7 +23,7 @@ public class SMSEventEndBroadcastReceiver extends WakefulBroadcastReceiver {
         {
             GlobalData.logE("@@@ SMSEventEndBroadcastReceiver.onReceive","xxx");
 
-            boolean smsEventsExists = false;
+            /*boolean smsEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             smsEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_SMS) > 0;
@@ -31,12 +31,12 @@ public class SMSEventEndBroadcastReceiver extends WakefulBroadcastReceiver {
             dataWrapper.invalidateDataWrapper();
 
             if (smsEventsExists)
-            {
+            {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
-            }
+            //}
 
         }
 

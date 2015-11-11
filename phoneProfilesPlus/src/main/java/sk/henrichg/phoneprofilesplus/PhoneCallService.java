@@ -94,17 +94,17 @@ public class PhoneCallService extends IntentService {
             }
         }
 
-        boolean callEventsExists = false;
+        /*boolean callEventsExists = false;
         if (GlobalData.getGlobalEventsRuning(context))
             callEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALL) > 0;
 
         if (callEventsExists)
-        {
+        {*/
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, EventsService.BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER);
+            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
             context.startService(eventsServiceIntent);
-        }
+        //}
 
     }
 

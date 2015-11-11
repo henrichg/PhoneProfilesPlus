@@ -30,7 +30,7 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
         {
             GlobalData.logE("@@@ NotificationBroadcastReceiver.onReceive","packageName="+intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
 
-            boolean notificationEventsExists = false;
+            /*boolean notificationEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             notificationEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION) > 0;
@@ -38,14 +38,14 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
             dataWrapper.invalidateDataWrapper();
 
             if (notificationEventsExists)
-            {
+            {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));
                 startWakefulService(context, eventsServiceIntent);
-            }
+            //}
         }
     }
 

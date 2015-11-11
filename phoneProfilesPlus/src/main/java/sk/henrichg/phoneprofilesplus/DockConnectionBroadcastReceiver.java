@@ -20,17 +20,17 @@ public class DockConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+            /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
             dataWrapper.invalidateDataWrapper();
 
             if (peripheralEventsExists)
-            {
+            {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
-            }
+            //}
 
         }
     }

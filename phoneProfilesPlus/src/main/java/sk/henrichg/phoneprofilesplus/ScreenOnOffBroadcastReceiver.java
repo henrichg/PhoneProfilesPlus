@@ -40,7 +40,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
                 GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive","screen unlock");
 
-            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+            /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
             boolean screenEventsExists = false;
 
@@ -49,12 +49,12 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             dataWrapper.invalidateDataWrapper();
 
             if (screenEventsExists)
-            {
+            {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
-            }
+            //}
 
 
             if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))

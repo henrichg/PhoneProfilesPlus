@@ -52,17 +52,17 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                     isCharging = _isCharging;
                     batteryPct = pct;
 
-                    DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                    /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                     batteryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY) > 0;
                     dataWrapper.invalidateDataWrapper();
 
                     if (batteryEventsExists)
-                    {
+                    {*/
                         // start service
                         Intent eventsServiceIntent = new Intent(context, EventsService.class);
                         eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                         startWakefulService(context, eventsServiceIntent);
-                    }
+                    //}
                 }
             }
         }

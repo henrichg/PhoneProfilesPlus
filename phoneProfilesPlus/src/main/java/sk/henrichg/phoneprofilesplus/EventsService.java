@@ -44,7 +44,18 @@ public class EventsService extends IntentService
 
         GlobalData.loadPreferences(context);
 
+        broadcastReceiverType = intent.getStringExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE);
+
         dataWrapper = new DataWrapper(context, true, false, 0);
+
+        if (!eventsExists(broadcastReceiverType)) {
+            doEndService(intent);
+            dataWrapper.invalidateDataWrapper();
+
+            GlobalData.logE("@@@ EventsService.onHandleIntent","-- end: not events found --------------------------------");
+
+        }
+
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
 
         // create a handler to post messages to the main thread
@@ -52,8 +63,6 @@ public class EventsService extends IntentService
         dataWrapper.setToastHandler(toastHandler);
         Handler brightnessHandler = new Handler(getMainLooper());
         dataWrapper.getActivateProfileHelper().setBrightnessHandler(brightnessHandler);
-
-        broadcastReceiverType = intent.getStringExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE);
 
         GlobalData.logE("$$$ EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
 
@@ -325,35 +334,137 @@ public class EventsService extends IntentService
 
     }
 
+    private boolean eventsExists(String broadcastReceiverType) {
+        int eventType = 0;
+        if (broadcastReceiverType.equals(BatteryEventBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_BATTERY;
+        else
+        if (broadcastReceiverType.equals(BluetoothConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
+        /*else
+        if (broadcastReceiverType.equals(BluetoothLEScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_????;*/
+        /*else
+        if (broadcastReceiverType.equals(BluetoothScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_????;*/
+        else
+        if (broadcastReceiverType.equals(BluetoothStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
+        else
+        if (broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_CALENDAR;
+        else
+        if (broadcastReceiverType.equals(DockConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_PERIPHERAL;
+        /*else
+        if (broadcastReceiverType.equals(EventDelayBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_????;*/
+        else
+        if (broadcastReceiverType.equals(EventsCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_CALENDAR;
+        else
+        if (broadcastReceiverType.equals(EventsTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_TIME;
+        else
+        if (broadcastReceiverType.equals(HeadsetConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_PERIPHERAL;
+        else
+        if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_NOTIFICATION;
+        else
+        if (broadcastReceiverType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_NOTIFICATION;
+        else
+        if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_CALL;
+        /*else
+        if (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_???;*/
+        else
+        if (broadcastReceiverType.equals(ScreenOnOffBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_SCREEN;
+        else
+        if (broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_CALENDAR;
+        else
+        if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_SMS;
+        else
+        if (broadcastReceiverType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_SMS;
+        else
+        if (broadcastReceiverType.equals(WifiConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
+        /*else
+        if (broadcastReceiverType.equals(WifiScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_????;*/
+        else
+        if (broadcastReceiverType.equals(WifiStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
+
+
+        if (eventType > 0)
+            return dataWrapper.getDatabaseHandler().getTypeEventsCount(eventType) > 0;
+        else
+            return true;
+    }
+
     private void doEndService(Intent intent)
     {
         // completting wake
-        if (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            RestartEventsBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(EventsTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            EventsTimeBroadcastReceiver.completeWakefulIntent(intent);
-        else
         if (broadcastReceiverType.equals(BatteryEventBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             BatteryEventBroadcastReceiver.completeWakefulIntent(intent);
-        //else
-        //if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-        //    PhoneCallBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(DockConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            DockConnectionBroadcastReceiver.completeWakefulIntent(intent);
+        if (broadcastReceiverType.equals(BluetoothScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            BluetoothScanBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(HeadsetConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            HeadsetConnectionBroadcastReceiver.completeWakefulIntent(intent);
+        if (broadcastReceiverType.equals(BluetoothLEScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            BluetoothLEScanBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(EventsCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            EventsCalendarBroadcastReceiver.completeWakefulIntent(intent);
+        if (broadcastReceiverType.equals(BluetoothScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            BluetoothScanBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(BluetoothStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            BluetoothStateChangedBroadcastReceiver.completeWakefulIntent(intent);
         else
         if (broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             CalendarProviderChangedBroadcastReceiver.completeWakefulIntent(intent);
         else
+        if (broadcastReceiverType.equals(DockConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            DockConnectionBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(EventDelayBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            EventDelayBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(EventsCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            EventsCalendarBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(EventsTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            EventsTimeBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(HeadsetConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            HeadsetConnectionBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            NotificationBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            NotificationEventEndBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            RestartEventsBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(ScreenOnOffBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            ScreenOnOffBroadcastReceiver.completeWakefulIntent(intent);
+        else
         if (broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             SearchCalendarEventsBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            SMSBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            SMSEventEndBroadcastReceiver.completeWakefulIntent(intent);
         else
         if (broadcastReceiverType.equals(WifiConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             WifiConnectionBroadcastReceiver.completeWakefulIntent(intent);
@@ -361,26 +472,13 @@ public class EventsService extends IntentService
         if (broadcastReceiverType.equals(WifiScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             WifiScanBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(ScreenOnOffBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            ScreenOnOffBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(BluetoothConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            BluetoothConnectionBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(BluetoothScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            BluetoothScanBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            SMSBroadcastReceiver.completeWakefulIntent(intent);
-        else
         if (broadcastReceiverType.equals(WifiStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             WifiStateChangedBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(BluetoothStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            BluetoothStateChangedBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(EventDelayBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            EventDelayBroadcastReceiver.completeWakefulIntent(intent);
+
+
+        // this broadcast not starts service with wakefull method
+        //if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        //    PhoneCallBroadcastReceiver.completeWakefulIntent(intent);
     }
 
 }
