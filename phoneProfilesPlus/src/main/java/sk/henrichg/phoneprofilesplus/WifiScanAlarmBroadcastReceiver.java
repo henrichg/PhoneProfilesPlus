@@ -120,6 +120,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         unlock();
 
+        /*
         ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         //NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
@@ -137,6 +138,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         //else
         //    editor.putInt(GlobalData.PREF_EVENT_WIFI_LAST_STATE, -1);
         editor.commit();
+        */
 
         if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED)
         {

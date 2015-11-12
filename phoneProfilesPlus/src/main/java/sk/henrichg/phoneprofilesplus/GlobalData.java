@@ -337,8 +337,8 @@ public class GlobalData extends Application {
     static final String PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST = "eventBluetoothLEScanRequest";
     static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS = "eventBluetoothWaitForLEResults";
     static final String PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN = "eventBluetoothEnabledForScan";
-    static final String PREF_EVENT_WIFI_LAST_STATE = "eventWifiLastState";
-    static final String PREF_EVENT_BLUETOOTH_LAST_STATE = "eventBluetoothLastState";
+    //static final String PREF_EVENT_WIFI_LAST_STATE = "eventWifiLastState";
+    //static final String PREF_EVENT_BLUETOOTH_LAST_STATE = "eventBluetoothLastState";
 
     public static boolean applicationStartOnBoot;
     public static boolean applicationActivate;

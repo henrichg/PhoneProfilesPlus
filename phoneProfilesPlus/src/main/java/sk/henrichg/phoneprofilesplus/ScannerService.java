@@ -503,9 +503,9 @@ public class ScannerService extends IntentService
             {
                 boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
                 boolean isScanAlwaysAvailable = false;
-                //if (android.os.Build.VERSION.SDK_INT >= 18)
-                //	isScanAlwaisAvailable = wifi.isScanAlwaysAvailable();
-                GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaisAvailable="+isScanAlwaysAvailable);
+                if (android.os.Build.VERSION.SDK_INT >= 18)
+                    isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
+                GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
                 isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
                 if (!isWifiEnabled)
                 {
@@ -545,7 +545,10 @@ public class ScannerService extends IntentService
                 }
                 else
                 {
-                    GlobalData.logE("@@@ ScannerService.enableWifi","already enabled");
+                    if (isScanAlwaysAvailable) {
+                        GlobalData.logE("@@@ ScannerService.enableWifi", "already enabled");
+                        wifiState =  WifiManager.WIFI_STATE_ENABLED;
+                    }
                     return wifiState;
                 }
             }

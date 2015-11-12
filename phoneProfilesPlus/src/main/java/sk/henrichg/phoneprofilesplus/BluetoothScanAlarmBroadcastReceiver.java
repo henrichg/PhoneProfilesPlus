@@ -118,10 +118,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         unlock();
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        /*SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
         editor.putInt(GlobalData.PREF_EVENT_BLUETOOTH_LAST_STATE, -1);
-        editor.commit();
+        editor.commit();*/
 
         if (bluetooth.isEnabled())
         {
