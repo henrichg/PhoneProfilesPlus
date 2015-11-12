@@ -438,9 +438,15 @@ public class ScannerService extends IntentService
         int wifiState = WifiScanAlarmBroadcastReceiver.wifi.getWifiState();
         if (wifiState == WifiManager.WIFI_STATE_ENABLED)
         {
+
             ConnectivityManager connManager = (ConnectivityManager)dataWrapper.context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (networkInfo.isConnected() && (GlobalData.getForceOneWifiScan(dataWrapper.context) == GlobalData.FORCE_ONE_SCAN_DISABLED))
+            //NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            //if (networkInfo.isConnected() && (GlobalData.getForceOneWifiScan(dataWrapper.context) == GlobalData.FORCE_ONE_SCAN_DISABLED))
+            NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+            if ((activeNetwork != null) &&
+                (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
+                activeNetwork.isConnected() &&
+                (GlobalData.getForceOneWifiScan(dataWrapper.context) == GlobalData.FORCE_ONE_SCAN_DISABLED))
             {
                 GlobalData.logE("$$$ ScannerService.canScanWifi","wifi is connected");
 

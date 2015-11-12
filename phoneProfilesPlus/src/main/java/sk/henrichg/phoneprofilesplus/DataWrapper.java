@@ -1735,7 +1735,8 @@ public class DataWrapper {
             boolean isWifiEnabled = wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED;
 
             ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            //NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
 
             List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
 
@@ -1744,7 +1745,10 @@ public class DataWrapper {
                 GlobalData.logE("DataWrapper.doEventService","wifiStateEnabled=true");
 
                 GlobalData.logE("@@@ DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
-                if (networkInfo.isConnected())
+                //if (networkInfo.isConnected())
+                if ((activeNetwork != null) &&
+                    (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
+                    activeNetwork.isConnected())
                 {
                     GlobalData.logE("@@@ DataWrapper.doEventService","wifi connected");
 

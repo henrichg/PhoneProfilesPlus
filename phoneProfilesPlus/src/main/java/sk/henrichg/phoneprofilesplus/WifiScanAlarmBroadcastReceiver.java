@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
@@ -120,17 +121,21 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         unlock();
 
         ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        //NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        if (networkInfo.getState() == NetworkInfo.State.CONNECTED)
+        //if (networkInfo.getState() == NetworkInfo.State.CONNECTED)
+        if ((activeNetwork != null) &&
+            (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
+            activeNetwork.isConnected())
             editor.putInt(GlobalData.PREF_EVENT_WIFI_LAST_STATE, 1);
         else
-        if (networkInfo.getState() == NetworkInfo.State.DISCONNECTED)
+        //if (networkInfo.getState() == NetworkInfo.State.DISCONNECTED)
             editor.putInt(GlobalData.PREF_EVENT_WIFI_LAST_STATE, 0);
-        else
-            editor.putInt(GlobalData.PREF_EVENT_WIFI_LAST_STATE, -1);
+        //else
+        //    editor.putInt(GlobalData.PREF_EVENT_WIFI_LAST_STATE, -1);
         editor.commit();
 
         if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED)
