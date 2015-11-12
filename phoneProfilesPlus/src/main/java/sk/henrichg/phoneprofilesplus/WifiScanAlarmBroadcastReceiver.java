@@ -33,7 +33,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static WifiManager wifi = null;
     private static WifiLock wifiLock = null;
-    private static PowerManager.WakeLock wakeLock = null;
+    //private static PowerManager.WakeLock wakeLock = null;
 
     //public static List<WifiSSIDData> scanResults = null;
     //public static List<WifiSSIDData> wifiConfigurationList = null;
@@ -85,7 +85,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
             GlobalData.logE("WifiScanAlarmBroadcastReceiver.onReceive","wifiEventsExists="+wifiEventsExists);
 
-            int forceScan = GlobalData.getForceOneWifiScan(dataWrapper.context);
+            int forceScan = GlobalData.getForceOneWifiScan(context);
             boolean scan = (wifiEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED));
             if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                 scan = false;
@@ -259,20 +259,20 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static void lock(Context context)
     {
-        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        //PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.lock","idleMode="+powerManager.isDeviceIdleMode());
+        //if (android.os.Build.VERSION.SDK_INT >= 23)
+        //    GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.lock","idleMode="+powerManager.isDeviceIdleMode());
 
          // initialise the locks
         if (wifiLock == null)
             wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
-        if (wakeLock == null)
-            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiScanWakeLock");
+        //if (wakeLock == null) - moved to ScannerService
+        //    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiScanWakeLock");
 
         try {
-            if (!wakeLock.isHeld())
-                wakeLock.acquire();
+        //    if (!wakeLock.isHeld())
+        //        wakeLock.acquire();
             if (!wifiLock.isHeld())
                 wifiLock.acquire();
             GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.lock","xxx");
@@ -284,8 +284,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
  
     public static void unlock()
     {
-        if ((wakeLock != null) && (wakeLock.isHeld()))
-            wakeLock.release();
+        //if ((wakeLock != null) && (wakeLock.isHeld()))
+        //    wakeLock.release();
         if ((wifiLock != null) && (wifiLock.isHeld()))
             wifiLock.release();
         GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.unlock","xxx");

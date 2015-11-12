@@ -29,7 +29,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     public static final String EXTRA_ONESHOT = "oneshot";
 
     public static BluetoothAdapter bluetooth = null;
-    private static PowerManager.WakeLock wakeLock = null;
+    //private static PowerManager.WakeLock wakeLock = null;
 
     //public static List<BluetoothDeviceData> scanResults = null;
     //public static List<BluetoothDeviceData> boundedDevicesList = null;
@@ -255,8 +255,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static void lock(Context context)
     {
-         // initialise the locks
-        if (wakeLock == null)
+         // initialise the locks - moved to ScannerService
+        /*if (wakeLock == null)
             wakeLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE))
                             .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanWakeLock");
 
@@ -266,13 +266,13 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         //	GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.lock","xxx");
         } catch(Exception e) {
             Log.e("BluetoothScanAlarmBroadcastReceiver.lock", "Error getting Lock: "+e.getMessage());
-        }
+        }*/
     }
  
     public static void unlock()
     {
-        if ((wakeLock != null) && (wakeLock.isHeld()))
-            wakeLock.release();
+        /*if ((wakeLock != null) && (wakeLock.isHeld()))
+            wakeLock.release();*/
         //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.unlock","xxx");
     }
     

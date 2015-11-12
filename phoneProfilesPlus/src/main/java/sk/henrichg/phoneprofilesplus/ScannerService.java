@@ -15,6 +15,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.PowerManager;
+import android.util.Log;
 
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class ScannerService extends IntentService
 {
     Context context;
     DataWrapper dataWrapper;
+
+    private PowerManager.WakeLock wakeLock = null;
 
     private final WifiScanBroadcastReceiver wifiScanReceiver = new WifiScanBroadcastReceiver();
     private final BluetoothScanBroadcastReceiver bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
@@ -85,6 +89,8 @@ public class ScannerService extends IntentService
             }
 
             if (canScan) {
+
+                lock();
 
                 dataWrapper = new DataWrapper(context, false, false, 0);
 
@@ -177,6 +183,8 @@ public class ScannerService extends IntentService
                         unregisterReceiver(wifiScanReceiver);
                     //}
                 }
+
+                unlock();
             }
             else {
                 GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
@@ -190,6 +198,8 @@ public class ScannerService extends IntentService
             GlobalData.logE("@@@ ScannerService.onHandleIntent", "getStartScan=false");
 
             if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.HARDWARE_CHECK_ALLOWED) {
+
+                lock();
 
                 dataWrapper = new DataWrapper(context, false, false, 0);
 
@@ -342,6 +352,8 @@ public class ScannerService extends IntentService
                     BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
 
                 }
+
+                unlock();
             }
             else {
                 GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
@@ -370,6 +382,26 @@ public class ScannerService extends IntentService
 
         GlobalData.logE("### ScannerService.onHandleIntent", "-- END ------------");
 
+    }
+
+    private void lock() {
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (wakeLock == null)
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ScanWakeLock");
+        try {
+            if (!wakeLock.isHeld())
+                wakeLock.acquire();
+            GlobalData.logE("$$$ ScannerService.lock","xxx");
+        } catch(Exception e) {
+            Log.e("ScannerService.lock", "Error getting Lock: " + e.getMessage());
+            GlobalData.logE("$$$ ScannerService.lock", "Error getting Lock: " + e.getMessage());
+        }
+    }
+
+    private void unlock() {
+        GlobalData.logE("$$$ ScannerService.unlock","xxx");
+        if ((wakeLock != null) && (wakeLock.isHeld()))
+            wakeLock.release();
     }
 
     private static boolean canScanWifi(DataWrapper dataWrapper)
