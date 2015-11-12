@@ -250,12 +250,18 @@
             android:dependency="eventSMSEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:key="eventWifiScanningCategory"
         android:summary="@string/event_preferences_category_eventWifiParameters"
         android:title="@string/event_preferences_category_eventWifiParameters" >
         <CheckBoxPreference
             android:key="eventWiFiEnabled"
             android:title="@string/event_preferences_wifi_enabled"
             android:defaultValue="false" />
+        <PreferenceScreen
+            android:key="eventWiFiScanningSystemSettings"
+            android:title="@string/phone_profiles_pref_eventWiFiScanningSystemSettings"
+            android:summary="@string/phone_profiles_pref_eventWiFiScanningSystemSettings_summary" >
+        </PreferenceScreen>
         <PreferenceScreen
             android:key="eventEnableWiFiScaningAppSettings"
             android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"

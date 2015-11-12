@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -32,6 +33,8 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     static final int RESULT_APPLICATION_PERMISSIONS = 1990;
     static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "prf_pref_writeSystemSettingsPermissions";
     static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
+    static final String PREF_WIFI_SCANNING_SYSTEM_SETTINGS = "applicationEventWiFiScanningSystemSettings";
+    static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1992;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,11 +80,37 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                     return false;
                 }
             });
+
+            if (WifiScanAlarmBroadcastReceiver.wifi == null)
+                WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) preferencesActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+            if (!WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable()) {
+                preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                        return false;
+                    }
+                });
+            }
+            else {
+                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiScanningCategory");
+                preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+                preferenceCategory.removePreference(preference);
+            }
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
             PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("prf_pref_permissionsCategory");
             preferenceScreen.removePreference(preferenceCategory);
+
+            preferenceCategory = (PreferenceCategory) findPreference("eventWifiScanningCategory");
+            Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+            preferenceCategory.removePreference(preference);
+
         }
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");

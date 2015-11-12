@@ -6,11 +6,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.view.ActionMode.Callback;
@@ -50,6 +56,9 @@ public class EventPreferencesFragment extends PreferenceFragment
     static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
     static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
     private String PREFS_NAME;
+
+    static final String PREF_WIFI_SCANNING_SYSTEM_SETTINGS = "eventWiFiScanningSystemSettings";
+    static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1990;
 
     static final String SP_ACTION_MODE_SHOWED = "action_mode_showed";
 
@@ -245,8 +254,37 @@ public class EventPreferencesFragment extends PreferenceFragment
         event._eventPreferencesSMS.checkPreferences(prefMng, context);
         event._eventPreferencesNotification.checkPreferences(prefMng, context);
 
-        preferences.registerOnSharedPreferenceChangeListener(this);  
-        
+        preferences.registerOnSharedPreferenceChangeListener(this);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+
+            if (WifiScanAlarmBroadcastReceiver.wifi == null)
+                WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) preferencesActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+            if (!WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable()) {
+                Preference preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                        return false;
+                    }
+                });
+            }
+            else {
+                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiScanningCategory");
+                Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+                preferenceCategory.removePreference(preference);
+            }
+        }
+        else {
+            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiScanningCategory");
+            Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+            preferenceCategory.removePreference(preference);
+        }
+
         createActionModeCallback();
 
         if (savedInstanceState == null)

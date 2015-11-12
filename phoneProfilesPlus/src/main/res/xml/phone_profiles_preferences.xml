@@ -45,8 +45,14 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="eventWifiScanningCategory"
         android:title="@string/phone_profiles_pref_category_event"
         android:summary="@string/phone_profiles_pref_category_event" >
+        <PreferenceScreen
+            android:key="applicationEventWiFiScanningSystemSettings"
+            android:title="@string/phone_profiles_pref_eventWiFiScanningSystemSettings"
+            android:summary="@string/phone_profiles_pref_eventWiFiScanningSystemSettings_summary" >
+        </PreferenceScreen>
         <CheckBoxPreference
             android:key="applicationEventWifiEnableWifi"
             android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"
