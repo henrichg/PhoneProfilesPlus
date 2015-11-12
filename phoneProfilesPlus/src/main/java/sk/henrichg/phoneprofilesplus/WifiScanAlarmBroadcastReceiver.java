@@ -76,10 +76,11 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         {
             GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive","xxx");
 
-            boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
-            GlobalData.logE("$$$ WifiAP", "WifiScanAlarmBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
+            //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
+            //GlobalData.logE("$$$ WifiAP", "WifiScanAlarmBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
 
-            boolean wifiEventsExists = false;
+            // moved to ScannerService
+            /*boolean wifiEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
@@ -90,15 +91,15 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                 scan = false;
             if (scan)
-            {
+            {*/
                 startScanner(context);
-            }
+            /*}
             else {
                 removeAlarm(context, false);
                 removeAlarm(context, true);
             }
 
-            dataWrapper.invalidateDataWrapper();
+            dataWrapper.invalidateDataWrapper();*/
         }
 
     }

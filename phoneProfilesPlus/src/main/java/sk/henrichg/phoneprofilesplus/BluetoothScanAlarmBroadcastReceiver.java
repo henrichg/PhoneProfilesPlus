@@ -71,7 +71,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         {
             GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
-            boolean bluetoothEventsExists = false;
+            // moved to ScannerService
+            /*boolean bluetoothEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
@@ -85,15 +86,15 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             if ((!bluetoothEventsExists) && (forceScanLE == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                 scan = false;
             if (scan)
-            {
+            {*/
                 startScanner(context);
-            }
+            /*}
             else {
                 removeAlarm(context, false);
                 removeAlarm(context, true);
             }
 
-            dataWrapper.invalidateDataWrapper();
+            dataWrapper.invalidateDataWrapper();*/
         }
 
     }
