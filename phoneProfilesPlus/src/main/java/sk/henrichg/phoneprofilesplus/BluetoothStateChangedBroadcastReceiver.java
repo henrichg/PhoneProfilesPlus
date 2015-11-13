@@ -52,24 +52,26 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                     //}
                 }
 
-                if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                      (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
-                      (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
-                      (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)) ||
-                      (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)))) {
+                if (false) { // it is not event type for this - save battery ;-)
+                    if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)) ||
+                            (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)))) {
 
-                    /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-                    boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
-                    dataWrapper.invalidateDataWrapper();
+                        /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                        boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
+                        dataWrapper.invalidateDataWrapper();
 
-                    if (bluetoothEventsExists) {
-                        GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothEventsExists=" + bluetoothEventsExists);
-                    */
-                        // start service
-                        Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                        eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                        startWakefulService(context, eventsServiceIntent);
-                    //}
+                        if (bluetoothEventsExists) {
+                            GlobalData.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "bluetoothEventsExists=" + bluetoothEventsExists);
+                        */
+                            // start service
+                            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                            startWakefulService(context, eventsServiceIntent);
+                            //}
+                    }
                 }
 
             }

@@ -51,21 +51,23 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                         //}
                     }
 
-                    if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                            (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
-                            (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
+                    if (false) { // it is not event type for this - save battery ;-)
+                        if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                                (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                                (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
 
-                        /*boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
-                        dataWrapper.invalidateDataWrapper();
+                            /*boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
+                            dataWrapper.invalidateDataWrapper();
 
-                        if (wifiEventsExists) {
-                            GlobalData.logE("@@@ WifiStateChangedBroadcastReceiver.onReceive", "wifiEventsExists=" + wifiEventsExists);
-                        */
-                            // start service
-                            Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                            startWakefulService(context, eventsServiceIntent);
-                        //}
+                            if (wifiEventsExists) {
+                                GlobalData.logE("@@@ WifiStateChangedBroadcastReceiver.onReceive", "wifiEventsExists=" + wifiEventsExists);
+                            */
+                                // start service
+                                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                                startWakefulService(context, eventsServiceIntent);
+                                //}
+                        }
                     }
                 //}
             }
