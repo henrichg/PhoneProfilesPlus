@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.NumberPicker;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 
@@ -50,8 +51,21 @@ public class NumberPickerPreference extends DialogPreference {
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        mNumberPicker.clearFocus();
+
+                        value = String.valueOf(mNumberPicker.getValue());
+
+                        if (callChangeListener(value))
+                        {
+                            //persistInt(mNumberPicker.getValue());
+                            persistString(value);
+                        }
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_number_pref_dialog, null);
         onBindDialogView(layout);
@@ -86,21 +100,6 @@ public class NumberPickerPreference extends DialogPreference {
         mDialog.setOnDismissListener(this);
         mDialog.show();
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-            mNumberPicker.clearFocus();
-
-            value = String.valueOf(mNumberPicker.getValue());
-
-            if (callChangeListener(value))
-            {
-                //persistInt(mNumberPicker.getValue());
-                persistString(value);
-            }
-        }
-    };
 
     @Override
     protected Object onGetDefaultValue(TypedArray ta, int index)

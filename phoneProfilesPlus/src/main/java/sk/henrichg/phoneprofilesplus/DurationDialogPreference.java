@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 
@@ -50,8 +51,32 @@ public class DurationDialogPreference extends DialogPreference {
                 .icon(getDialogIcon())
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        mNumberPickerHours.clearFocus();
+                        mNumberPickerMinutes.clearFocus();
+                        mNumberPickerSeconds.clearFocus();
+
+                        int hours = mNumberPickerHours.getValue();
+                        int minutes = mNumberPickerMinutes.getValue();
+                        int seconds = mNumberPickerSeconds.getValue();
+
+                        int iValue = hours * 3600 + minutes * 60 + seconds;
+                        if (iValue < mMin) iValue = mMin;
+                        if (iValue > mMax) iValue = mMax;
+
+                        value = String.valueOf(iValue);
+
+                        if (callChangeListener(value))
+                        {
+                            //persistInt(mNumberPicker.getValue());
+                            persistString(value);
+                            setSummaryDDP();
+                        }
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_duration_pref_dialog, null);
         onBindDialogView(layout);
@@ -107,32 +132,6 @@ public class DurationDialogPreference extends DialogPreference {
         mDialog.setOnDismissListener(this);
         mDialog.show();
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-            mNumberPickerHours.clearFocus();
-            mNumberPickerMinutes.clearFocus();
-            mNumberPickerSeconds.clearFocus();
-
-            int hours = mNumberPickerHours.getValue();
-            int minutes = mNumberPickerMinutes.getValue();
-            int seconds = mNumberPickerSeconds.getValue();
-
-            int iValue = hours * 3600 + minutes * 60 + seconds;
-            if (iValue < mMin) iValue = mMin;
-            if (iValue > mMax) iValue = mMax;
-
-            value = String.valueOf(iValue);
-
-            if (callChangeListener(value))
-            {
-                //persistInt(mNumberPicker.getValue());
-                persistString(value);
-                setSummaryDDP();
-            }
-        }
-    };
 
     @Override
     protected Object onGetDefaultValue(TypedArray ta, int index)

@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.sql.Date;
@@ -16,9 +17,9 @@ import java.util.Calendar;
 
 public class TimePreference extends DialogPreference {
     
-	private Context context;
-	private AttributeSet attributeSet;
-	private Calendar calendar;
+    private Context context;
+    private AttributeSet attributeSet;
+    private Calendar calendar;
     private TimePicker picker = null;
 
     public TimePreference(Context ctxt, AttributeSet attrs) {
@@ -40,8 +41,24 @@ public class TimePreference extends DialogPreference {
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist()) {
+                            picker.clearFocus();
+
+                            calendar.set(Calendar.HOUR_OF_DAY, picker.getCurrentHour());
+                            calendar.set(Calendar.MINUTE, picker.getCurrentMinute());
+
+                            setSummary(getSummary());
+                            if (callChangeListener(calendar.getTimeInMillis())) {
+                                persistLong(calendar.getTimeInMillis());
+                                notifyChanged();
+                            }
+                        }
+                    }
+                });
 
         /*
         if (GlobalData.applicationTheme.equals("dark"))
@@ -69,24 +86,6 @@ public class TimePreference extends DialogPreference {
         picker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
         picker.setCurrentMinute(calendar.get(Calendar.MINUTE));
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-            if (shouldPersist()) {
-                picker.clearFocus();
-
-                calendar.set(Calendar.HOUR_OF_DAY, picker.getCurrentHour());
-                calendar.set(Calendar.MINUTE, picker.getCurrentMinute());
-
-                setSummary(getSummary());
-                if (callChangeListener(calendar.getTimeInMillis())) {
-                    persistLong(calendar.getTimeInMillis());
-                    notifyChanged();
-                }
-            }
-        }
-    };
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {

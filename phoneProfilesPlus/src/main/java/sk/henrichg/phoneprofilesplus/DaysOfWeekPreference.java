@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.text.DateFormatSymbols;
@@ -74,8 +75,32 @@ public class DaysOfWeekPreference extends DialogPreference {
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist())
+                        {
+                            // sem narvi stringy skupin kontatkov oddelenych |
+                            value = "";
+                            if (daysOfWeekList != null)
+                            {
+                                for (DayOfWeek dayOfWeek : daysOfWeekList)
+                                {
+                                    if (dayOfWeek.checked)
+                                    {
+                                        if (!value.isEmpty())
+                                            value = value + "|";
+                                        value = value + dayOfWeek.value;
+                                    }
+                                }
+                            }
+                            persistString(value);
+
+                            setSummaryDOWMDP();
+                        }
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_days_of_week_pref_dialog, null);
         onBindDialogView(layout);
@@ -146,32 +171,6 @@ public class DaysOfWeekPreference extends DialogPreference {
 
     }
     */
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-        if (shouldPersist())
-        {
-            // sem narvi stringy skupin kontatkov oddelenych |
-            value = "";
-            if (daysOfWeekList != null)
-            {
-                for (DayOfWeek dayOfWeek : daysOfWeekList)
-                {
-                    if (dayOfWeek.checked)
-                    {
-                        if (!value.isEmpty())
-                            value = value + "|";
-                        value = value + dayOfWeek.value;
-                    }
-                }
-            }
-            persistString(value);
-
-            setSummaryDOWMDP();
-        }
-        }
-    };
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {

@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
@@ -65,8 +66,32 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist())
+                        {
+                            // sem narvi stringy kontatkov oddelenych |
+                            value = "";
+                            if (calendarList != null)
+                            {
+                                for (CalendarEvent calendar : calendarList)
+                                {
+                                    if (calendar.checked)
+                                    {
+                                        if (!value.isEmpty())
+                                            value = value + "|";
+                                        value = value + calendar.calendarId;
+                                    }
+                                }
+                            }
+                            persistString(value);
+
+                            setSummaryCMSDP();
+                        }
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_calendars_multiselect_pref_dialog, null);
         onBindDialogView(layout);
@@ -185,32 +210,6 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         if (Permissions.grantCalendarDialogPermissions(_context, this))
             refreshListView();
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-        if (shouldPersist())
-        {
-            // sem narvi stringy kontatkov oddelenych |
-            value = "";
-            if (calendarList != null)
-            {
-                for (CalendarEvent calendar : calendarList)
-                {
-                    if (calendar.checked)
-                    {
-                        if (!value.isEmpty())
-                            value = value + "|";
-                        value = value + calendar.calendarId;
-                    }
-                }
-            }
-            persistString(value);
-
-            setSummaryCMSDP();
-        }
-        }
-    };
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue)

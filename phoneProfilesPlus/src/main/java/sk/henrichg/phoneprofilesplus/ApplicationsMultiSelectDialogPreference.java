@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.List;
@@ -76,7 +77,33 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist())
+                        {
+                            // sem narvi stringy kontatkov oddelenych |
+                            value = "";
+                            List<Application> applicationList = EditorProfilesActivity.getApplicationsCache().getList();
+                            if (applicationList != null)
+                            {
+                                for (Application application : applicationList)
+                                {
+                                    if (application.checked)
+                                    {
+                                        if (!value.isEmpty())
+                                            value = value + "|";
+                                        value = value + application.packageName;
+                                    }
+                                }
+                            }
+                            persistString(value);
+
+                            setIcons();
+                            setSummaryAMSDP();
+                        }
+                    }
+                })
                 .content(getDialogMessage());
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_applications_multiselect_pref_dialog, null);
@@ -152,35 +179,6 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         }.execute();
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-        if (shouldPersist())
-        {
-            // sem narvi stringy kontatkov oddelenych |
-            value = "";
-            List<Application> applicationList = EditorProfilesActivity.getApplicationsCache().getList();
-            if (applicationList != null)
-            {
-                for (Application application : applicationList)
-                {
-                    if (application.checked)
-                    {
-                        if (!value.isEmpty())
-                            value = value + "|";
-                        value = value + application.packageName;
-                    }
-                }
-            }
-            persistString(value);
-
-            setIcons();
-            setSummaryAMSDP();
-        }
-        }
-    };
-
 
     public void onDismiss (DialogInterface dialog)
     {

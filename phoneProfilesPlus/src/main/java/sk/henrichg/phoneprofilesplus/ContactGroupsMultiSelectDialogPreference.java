@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.List;
@@ -48,8 +49,33 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist())
+                        {
+                            // sem narvi stringy skupin kontatkov oddelenych |
+                            value = "";
+                            List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
+                            if (contactGroupList != null)
+                            {
+                                for (ContactGroup contactGroup : contactGroupList)
+                                {
+                                    if (contactGroup.checked)
+                                    {
+                                        if (!value.isEmpty())
+                                            value = value + "|";
+                                        value = value + contactGroup.groupId;
+                                    }
+                                }
+                            }
+                            persistString(value);
+
+                            setSummaryCMSDP();
+                        }
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_contact_groups_multiselect_pref_dialog, null);
         onBindDialogView(layout);
@@ -130,33 +156,6 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         if (Permissions.grantContactGroupsDialogPermissions(_context, this))
             refreshListView();
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-            if (shouldPersist())
-            {
-                // sem narvi stringy skupin kontatkov oddelenych |
-                value = "";
-                List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
-                if (contactGroupList != null)
-                {
-                    for (ContactGroup contactGroup : contactGroupList)
-                    {
-                        if (contactGroup.checked)
-                        {
-                            if (!value.isEmpty())
-                                value = value + "|";
-                            value = value + contactGroup.groupId;
-                        }
-                    }
-                }
-                persistString(value);
-
-                setSummaryCMSDP();
-            }
-        }
-    };
 
     public void onDismiss (DialogInterface dialog)
     {

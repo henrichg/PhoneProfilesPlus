@@ -17,6 +17,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 public class ProfileIconPreference extends DialogPreference {
@@ -84,9 +85,33 @@ public class ProfileIconPreference extends DialogPreference {
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .neutralText(R.string.imageview_resource_file_pref_dialog_gallery_btn)
-                .callback(callback)
                 .autoDismiss(false)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist()) {
+                            setImageIdentifierAndType("", true, true);
+                        }
+                        mDialog.dismiss();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        mDialog.dismiss();
+                    }
+                })
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        // zavolat galeriu na vyzdvihnutie image
+                        if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this)) {
+                            startGallery();
+                            mDialog.dismiss();
+                        }
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_profileicon_pref_dialog, null);
         onBindDialogView(layout);
@@ -140,28 +165,6 @@ public class ProfileIconPreference extends DialogPreference {
         mDialog.setOnDismissListener(this);
         mDialog.show();
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-            if (shouldPersist()) {
-                setImageIdentifierAndType("", true, true);
-            }
-            mDialog.dismiss();
-        }
-        @Override
-        public void onNegative(MaterialDialog dialog) {
-            mDialog.dismiss();
-        }
-        @Override
-        public void onNeutral(MaterialDialog dialog) {
-            // zavolat galeriu na vyzdvihnutie image
-            if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this)) {
-                startGallery();
-                dialog.dismiss();
-            }
-        }
-    };
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index)

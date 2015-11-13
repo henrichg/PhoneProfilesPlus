@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
@@ -62,9 +63,36 @@ public class BluetoothNamePreference extends DialogPreference {
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
                 .neutralText(R.string.bluetooth_name_pref_dlg_rescan_button)
-                .callback(callback)
                 .autoDismiss(false)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist()) {
+                            bluetoothName.clearFocus();
+                            value = bluetoothName.getText().toString();
+
+                            if (callChangeListener(value))
+                            {
+                                persistString(value);
+                            }
+                        }
+                        mDialog.dismiss();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        mDialog.dismiss();
+                    }
+                })
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (Permissions.grantBluetoothScanDialogPermissions(context, BluetoothNamePreference.this))
+                            refreshListView(true);
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_bluetooth_name_pref_dialog, null);
         onBindDialogView(layout);
@@ -127,31 +155,6 @@ public class BluetoothNamePreference extends DialogPreference {
         mDialog.setOnDismissListener(this);
         mDialog.show();
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-            if (shouldPersist()) {
-                bluetoothName.clearFocus();
-                value = bluetoothName.getText().toString();
-
-                if (callChangeListener(value))
-                {
-                    persistString(value);
-                }
-            }
-            mDialog.dismiss();
-        }
-        @Override
-        public void onNegative(MaterialDialog dialog) {
-            mDialog.dismiss();
-        }
-        @Override
-        public void onNeutral(MaterialDialog dialog) {
-            if (Permissions.grantBluetoothScanDialogPermissions(context, BluetoothNamePreference.this))
-                refreshListView(true);
-        }
-    };
 
     @Override
     public void onDismiss(DialogInterface dialog) {

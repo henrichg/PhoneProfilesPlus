@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 public class VolumeDialogPreference extends
@@ -109,8 +110,18 @@ public class VolumeDialogPreference extends
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist()) {
+                            persistString(Integer.toString(value + minimumValue)
+                                    + "|" + Integer.toString(noChange)
+                                    + "|" + Integer.toString(defaultProfile));
+                            setSummaryVDP();
+                        }
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_volume_pref_dialog, null);
         onBindDialogView(layout);
@@ -223,18 +234,6 @@ public class VolumeDialogPreference extends
         if (volumeType.equalsIgnoreCase("VOICE"))
             audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, value, AudioManager.FLAG_PLAY_SOUND);
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-            if (shouldPersist()) {
-                persistString(Integer.toString(value + minimumValue)
-                        + "|" + Integer.toString(noChange)
-                        + "|" + Integer.toString(defaultProfile));
-                setSummaryVDP();
-            }
-        }
-    };
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue)

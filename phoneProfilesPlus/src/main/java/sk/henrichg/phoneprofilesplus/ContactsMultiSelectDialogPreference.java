@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.List;
@@ -48,8 +49,33 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist())
+                        {
+                            // sem narvi stringy kontatkov oddelenych |
+                            value = "";
+                            List<Contact> contactList = EditorProfilesActivity.getContactsCache().getList();
+                            if (contactList != null)
+                            {
+                                for (Contact contact : contactList)
+                                {
+                                    if (contact.checked)
+                                    {
+                                        if (!value.isEmpty())
+                                            value = value + "|";
+                                        value = value + contact.contactId + "#" + contact.phoneId;
+                                    }
+                                }
+                            }
+                            persistString(value);
+
+                            setSummaryCMSDP();
+                        }
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_contacts_multiselect_pref_dialog, null);
         onBindDialogView(layout);
@@ -130,34 +156,6 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         if (Permissions.grantContactsDialogPermissions(_context, this))
             refreshListView();
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-            if (shouldPersist())
-            {
-                // sem narvi stringy kontatkov oddelenych |
-                value = "";
-                List<Contact> contactList = EditorProfilesActivity.getContactsCache().getList();
-                if (contactList != null)
-                {
-                    for (Contact contact : contactList)
-                    {
-                        if (contact.checked)
-                        {
-                            if (!value.isEmpty())
-                                value = value + "|";
-                            value = value + contact.contactId + "#" + contact.phoneId;
-                        }
-                    }
-                }
-                persistString(value);
-
-                setSummaryCMSDP();
-            }
-        }
-    };
-
 
     public void onDismiss (DialogInterface dialog)
     {

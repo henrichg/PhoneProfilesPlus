@@ -17,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 public class BrightnessDialogPreference extends
@@ -86,8 +87,19 @@ public class BrightnessDialogPreference extends
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
-                .callback(callback)
-                .content(getDialogMessage());
+                .content(getDialogMessage())
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                        if (shouldPersist()) {
+                            persistString(Integer.toString(value + minimumValue)
+                                    + "|" + Integer.toString(noChange)
+                                    + "|" + Integer.toString(automatic)
+                                    + "|" + Integer.toString(defaultProfile));
+                            setSummaryBDP();
+                        }
+                    }
+                });
 
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_brightness_pref_dialog, null);
         onBindDialogView(layout);
@@ -326,19 +338,6 @@ public class BrightnessDialogPreference extends
 
     public void onStopTrackingTouch(SeekBar seek) {
     }
-
-    private final MaterialDialog.ButtonCallback callback = new MaterialDialog.ButtonCallback() {
-        @Override
-        public void onPositive(MaterialDialog dialog) {
-            if (shouldPersist()) {
-                persistString(Integer.toString(value + minimumValue)
-                        + "|" + Integer.toString(noChange)
-                        + "|" + Integer.toString(automatic)
-                        + "|" + Integer.toString(defaultProfile));
-                setSummaryBDP();
-            }
-        }
-    };
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue)

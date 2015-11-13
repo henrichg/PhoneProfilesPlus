@@ -6,6 +6,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 public class ImageViewPreferenceDialog  {
@@ -29,9 +30,9 @@ public class ImageViewPreferenceDialog  {
         if (imageSource.equals("resource_file"))
         {
             dialogBuilder.positiveText(R.string.imageview_resource_file_pref_dialog_gallery_btn);
-            dialogBuilder.callback(new MaterialDialog.ButtonCallback() {
+            dialogBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
                 @Override
-                public void onPositive(MaterialDialog dialog) {
+                public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                     // zavolat galeriu na vyzdvihnutie image
                     if (Permissions.grantWallpaperPermissions(context, imageViewPreference))
                         imageViewPreference.startGallery();
