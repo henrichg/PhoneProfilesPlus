@@ -539,7 +539,10 @@ public class Permissions {
             intent.putExtra(EXTRA_INTERACTIVE, interactive);
             intent.putExtra(EXTRA_EVENT_NOTIFICATION_SOUND, eventNotificationSound);
             intent.putExtra(EXTRA_LOG, log);
-            profileActivationActivity = activity;
+            if (!onlyNotification)
+                profileActivationActivity = activity;
+            else
+                profileActivationActivity = null;
             context.startActivity(intent);
         }
         return permissions.size() == 0;
@@ -791,4 +794,16 @@ public class Permissions {
         notificationManager.cancel(GlobalData.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
     }
 
+    public static void releaseReferences() {
+        profileActivationActivity = null;
+        imageViewPreference = null;
+        profileIconPreference = null;
+        editorActivity = null;
+        ppHelperInstallActivity = null;
+        wifiSSIDPreference = null;
+        bluetoothNamePreference = null;
+        calendarsMultiSelectDialogPreference = null;
+        contactsMultiSelectDialogPreference = null;
+        contactGroupsMultiSelectDialogPreference = null;
+    }
 }

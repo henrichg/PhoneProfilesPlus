@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionGroupInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -408,6 +409,7 @@ public class GrantPermissionActivity extends Activity {
                     @Override
                     public void onCancel(DialogInterface dialog) {
                         finish();
+                        Permissions.releaseReferences();
                     }
                 });
                 dialogBuilder.show();
@@ -451,6 +453,7 @@ public class GrantPermissionActivity extends Activity {
                         msg.show();
                     }
                     finish();
+                    Permissions.releaseReferences();
                 }
                 return;
             }
@@ -633,6 +636,7 @@ public class GrantPermissionActivity extends Activity {
             dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
                     Permissions.profileActivationActivity, eventNotificationSound, log);
         }
+        Permissions.releaseReferences();
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             Profile activatedProfile = dataWrapper.getActivatedProfile();
