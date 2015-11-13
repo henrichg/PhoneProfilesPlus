@@ -45,7 +45,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="eventWifiScanningCategory"
+        android:key="eventCategory"
         android:title="@string/phone_profiles_pref_category_event"
         android:summary="@string/phone_profiles_pref_category_event" >
         <PreferenceScreen
@@ -72,6 +72,11 @@
             android:defaultValue="0"
             android:entries="@array/applicationEventRescanArray"
             android:entryValues="@array/applicationEventRescanValues" />
+        <PreferenceScreen
+            android:key="applicationEventBluetoothScanningSystemSettings"
+            android:title="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings"
+            android:summary="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings_summary" >
+        </PreferenceScreen>
         <CheckBoxPreference
             android:key="applicationEventBluetoothEnableBluetooth"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"

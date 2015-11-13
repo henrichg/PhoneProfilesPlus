@@ -58,7 +58,7 @@ public class EventPreferencesFragment extends PreferenceFragment
     private String PREFS_NAME;
 
     static final String PREF_WIFI_SCANNING_SYSTEM_SETTINGS = "eventWiFiScanningSystemSettings";
-    static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1990;
+    static final String PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS = "eventBluetoothScanningSystemSettings";
 
     static final String SP_ACTION_MODE_SHOWED = "action_mode_showed";
 
@@ -258,30 +258,30 @@ public class EventPreferencesFragment extends PreferenceFragment
 
         if (Build.VERSION.SDK_INT >= 23) {
 
+            int locationMode = Settings.Secure.getInt(preferencesActivity.getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+
             if (WifiScanAlarmBroadcastReceiver.wifi == null)
                 WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) preferencesActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-            if (!WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable()) {
-                Preference preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
-                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
-                        intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
-                        return false;
-                    }
-                });
-            }
-            else {
-                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiScanningCategory");
+            if ((locationMode != Settings.Secure.LOCATION_MODE_OFF) && WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable()) {
+                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiCategory");
                 Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+                preferenceCategory.removePreference(preference);
+            }
+
+            if (locationMode != Settings.Secure.LOCATION_MODE_OFF) {
+                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventBluetoothCategory");
+                Preference preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
                 preferenceCategory.removePreference(preference);
             }
         }
         else {
-            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiScanningCategory");
+            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiCategory");
             Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+            preferenceCategory.removePreference(preference);
+
+            preferenceCategory = (PreferenceCategory) findPreference("eventBluetoothCategory");
+            preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
             preferenceCategory.removePreference(preference);
         }
 

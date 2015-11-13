@@ -34,6 +34,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "prf_pref_writeSystemSettingsPermissions";
     static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
     static final String PREF_WIFI_SCANNING_SYSTEM_SETTINGS = "applicationEventWiFiScanningSystemSettings";
+    static final String PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS = "applicationEventBluetoothScanningSystemSettings";
     static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1992;
 
     @Override
@@ -81,15 +82,18 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 }
             });
 
+            int locationMode = Settings.Secure.getInt(preferencesActivity.getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+
             if (WifiScanAlarmBroadcastReceiver.wifi == null)
                 WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) preferencesActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-            if (!WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable()) {
+            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable())) {
                 preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                        //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
                         return false;
@@ -97,8 +101,27 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 });
             }
             else {
-                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiScanningCategory");
+                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
                 preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+                preferenceCategory.removePreference(preference);
+            }
+
+            if (locationMode == Settings.Secure.LOCATION_MODE_OFF) {
+                preference = prefMng.findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                        return false;
+                    }
+                });
+            }
+            else {
+                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
+                preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
                 preferenceCategory.removePreference(preference);
             }
         }
@@ -107,10 +130,13 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("prf_pref_permissionsCategory");
             preferenceScreen.removePreference(preferenceCategory);
 
-            preferenceCategory = (PreferenceCategory) findPreference("eventWifiScanningCategory");
+            preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
             Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
             preferenceCategory.removePreference(preference);
 
+            preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
+            preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
+            preferenceCategory.removePreference(preference);
         }
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
@@ -313,11 +339,15 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         if (listView != null) {
             PreferenceCategory scrollCategory = null;
             CheckBoxPreference scrollCheckBox = null;
+            PreferenceScreen scrollScreen = null;
             if (extraScrollToType.equals("category"))
                 scrollCategory = (PreferenceCategory) findPreference(extraScrollTo);
             else
             if (extraScrollToType.equals("checkbox"))
                 scrollCheckBox = (CheckBoxPreference) findPreference(extraScrollTo);
+            else
+            if (extraScrollToType.equals("screen"))
+                scrollScreen = (PreferenceScreen) findPreference(extraScrollTo);
             for (int i = 0; i < getPreferenceScreen().getRootAdapter().getCount(); i++) {
                 Object o = getPreferenceScreen().getRootAdapter().getItem(i);
                 if ((scrollCategory != null) &&
@@ -326,6 +356,10 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 else
                 if ((scrollCheckBox != null) &&
                         (o instanceof CheckBoxPreference) && (o.equals(scrollCheckBox)))
+                    listView.setSelection(i);
+                else
+                if ((scrollScreen != null) &&
+                        (o instanceof PreferenceScreen) && (o.equals(scrollScreen)))
                     listView.setSelection(i);
             }
         }

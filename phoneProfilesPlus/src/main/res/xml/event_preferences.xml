@@ -250,7 +250,7 @@
             android:dependency="eventSMSEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:key="eventWifiScanningCategory"
+        android:key="eventWifiCategory"
         android:summary="@string/event_preferences_category_eventWifiParameters"
         android:title="@string/event_preferences_category_eventWifiParameters" >
         <CheckBoxPreference
@@ -260,7 +260,13 @@
         <PreferenceScreen
             android:key="eventWiFiScanningSystemSettings"
             android:title="@string/phone_profiles_pref_eventWiFiScanningSystemSettings"
-            android:summary="@string/phone_profiles_pref_eventWiFiScanningSystemSettings_summary" >
+            android:summary="@string/phone_profiles_pref_eventWiFiScanningSystemSettings_summary"
+            android:dependency="eventWiFiEnabled" >
+            <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
+                    android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
+                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="applicationEventWiFiScanningSystemSettings" />
+                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="screen" />
+            </intent>
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventEnableWiFiScaningAppSettings"
@@ -287,12 +293,24 @@
             android:dependency="eventWiFiEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:key="eventBluetoothCategory"
         android:summary="@string/event_preferences_category_eventBluetoothParameters"
         android:title="@string/event_preferences_category_eventBluetoothParameters" >
         <CheckBoxPreference
             android:key="eventBluetoothEnabled"
             android:title="@string/event_preferences_bluetooth_enabled"
             android:defaultValue="false" />
+        <PreferenceScreen
+            android:key="eventBluetoothScanningSystemSettings"
+            android:title="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings"
+            android:summary="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings_summary"
+            android:dependency="eventBluetoothEnabled" >
+            <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
+                    android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
+                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="applicationEventBluetoothScanningSystemSettings" />
+                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="screen" />
+            </intent>
+        </PreferenceScreen>
         <PreferenceScreen
             android:key="eventEnableBluetoothScaningAppSettings"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"
