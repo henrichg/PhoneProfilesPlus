@@ -64,6 +64,10 @@ public class GrantPermissionActivity extends Activity {
         onlyNotification = intent.getBooleanExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
         permissions = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
         mergedNotification = false;
+        if (permissions == null) {
+            permissions = GlobalData.getMergedPermissions(getApplicationContext());
+            mergedNotification = true;
+        }
 
         profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
         mergedProfile = intent.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
