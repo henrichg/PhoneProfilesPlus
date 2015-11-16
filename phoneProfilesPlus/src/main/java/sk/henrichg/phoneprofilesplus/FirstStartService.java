@@ -52,6 +52,8 @@ public class FirstStartService extends IntentService {
 
         GlobalData.logE("$$$ FirstStartService.onHandleIntent","application not started");
 
+        GlobalData.clearMergedPermissions(context);
+
         //int startType = intent.getStringExtra(GlobalData.EXTRA_FIRST_START_TYPE);
 
         GlobalData.loadPreferences(context);

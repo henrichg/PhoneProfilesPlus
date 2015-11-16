@@ -61,9 +61,9 @@ public class GrantPermissionActivity extends Activity {
 
         Intent intent = getIntent();
         grantType = intent.getIntExtra(Permissions.EXTRA_GRANT_TYPE, 0);
-        permissions = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
         onlyNotification = intent.getBooleanExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
-        mergedNotification = intent.getBooleanExtra(Permissions.EXTRA_MERGED_NOTIFICATION, false);
+        permissions = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
+        mergedNotification = false;
 
         profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
         mergedProfile = intent.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
@@ -99,7 +99,7 @@ public class GrantPermissionActivity extends Activity {
         if (started) return;
         started = true;
 
-        Context context = getApplicationContext();
+        final Context context = getApplicationContext();
 
         if (permissions.size() == 0) {
             // called from notification - recheck permissions
@@ -119,7 +119,9 @@ public class GrantPermissionActivity extends Activity {
             }
             else
             if (grantType == Permissions.GRANT_TYPE_EVENT) {
-                permissions = Permissions.checkEventPermissions(context, event);
+                // get permissions from shared preferences and recheck it
+                permissions = Permissions.recheckPermissions(context, GlobalData.getMergedPermissions(context));
+                mergedNotification = true;
                 if (permissions.size() == 0) {
                     Toast msg = Toast.makeText(context,
                             context.getResources().getString(R.string.toast_permissions_granted),
@@ -130,7 +132,9 @@ public class GrantPermissionActivity extends Activity {
                 }
             }
             else {
-                permissions = Permissions.checkProfilePermissions(context, profile);
+                // get permissions from shared preferences and recheck it
+                permissions = Permissions.recheckPermissions(context, GlobalData.getMergedPermissions(context));
+                mergedNotification = true;
                 if (permissions.size() == 0) {
                     Toast msg = Toast.makeText(context,
                             context.getResources().getString(R.string.toast_permissions_granted),
@@ -410,6 +414,8 @@ public class GrantPermissionActivity extends Activity {
                     public void onCancel(DialogInterface dialog) {
                         finish();
                         Permissions.releaseReferences();
+                        if (mergedNotification)
+                            GlobalData.clearMergedPermissions(context);
                     }
                 });
                 dialogBuilder.show();
@@ -454,6 +460,8 @@ public class GrantPermissionActivity extends Activity {
                     }
                     finish();
                     Permissions.releaseReferences();
+                    if (mergedNotification)
+                        GlobalData.clearMergedPermissions(getApplicationContext());
                 }
                 return;
             }
@@ -637,6 +645,8 @@ public class GrantPermissionActivity extends Activity {
                     Permissions.profileActivationActivity, eventNotificationSound, log);
         }
         Permissions.releaseReferences();
+        if (mergedNotification)
+            GlobalData.clearMergedPermissions(context);
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             Profile activatedProfile = dataWrapper.getActivatedProfile();

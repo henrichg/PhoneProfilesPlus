@@ -12,6 +12,8 @@ public class PermissionsNotificationDeletedReceiver extends BroadcastReceiver {
 
         GlobalData.logE("##### PermissionsNotificationDeletedReceiver.onReceive", "xxx");
 
+        GlobalData.clearMergedPermissions(context.getApplicationContext());
+
     }
 
 }
