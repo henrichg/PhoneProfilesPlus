@@ -126,7 +126,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
         }
 
-        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- end");
+        //GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- end");
 
     }
 

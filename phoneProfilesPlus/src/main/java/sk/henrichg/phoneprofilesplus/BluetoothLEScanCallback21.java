@@ -18,20 +18,11 @@ public class BluetoothLEScanCallback21 extends ScanCallback {
     }
 
     public void onScanResult(int callbackType, ScanResult result) {
-        GlobalData.logE("BluetoothLEScanCallback21", "onScanResult - callbackType=" + callbackType);
-        GlobalData.logE("BluetoothLEScanCallback21", "onScanResult - result=" + result.toString());
+        boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context));
 
-        BluetoothDevice device = result.getDevice();
-        String btName = device.getName();
-
-        BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress());
-
-        BluetoothScanAlarmBroadcastReceiver.addScanResult(context, deviceData);
-    }
-
-    public void onBatchScanResults(List<ScanResult> results) {
-        for (ScanResult result : results) {
-            GlobalData.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());
+        if (scanStarted) {
+            GlobalData.logE("BluetoothLEScanCallback21", "onScanResult - callbackType=" + callbackType);
+            GlobalData.logE("BluetoothLEScanCallback21", "onScanResult - result=" + result.toString());
 
             BluetoothDevice device = result.getDevice();
             String btName = device.getName();
@@ -39,6 +30,23 @@ public class BluetoothLEScanCallback21 extends ScanCallback {
             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress());
 
             BluetoothScanAlarmBroadcastReceiver.addScanResult(context, deviceData);
+        }
+    }
+
+    public void onBatchScanResults(List<ScanResult> results) {
+        boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context));
+
+        if (scanStarted) {
+            for (ScanResult result : results) {
+                GlobalData.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());
+
+                BluetoothDevice device = result.getDevice();
+                String btName = device.getName();
+
+                BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress());
+
+                BluetoothScanAlarmBroadcastReceiver.addScanResult(context, deviceData);
+            }
         }
     }
 

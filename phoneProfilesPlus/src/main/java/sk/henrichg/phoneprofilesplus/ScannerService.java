@@ -69,63 +69,6 @@ public class ScannerService extends IntentService
         String scanType = intent.getStringExtra(GlobalData.EXTRA_SCANNER_TYPE);
         GlobalData.logE("### ScannerService.onHandleIntent", "scanType="+scanType);
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            // check for Location Settings
-
-            int locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-            boolean isScanAlwaysAvailable = true;
-
-            if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI)) {
-                if (WifiScanAlarmBroadcastReceiver.wifi == null)
-                    WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-                isScanAlwaysAvailable = WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable();
-            }
-
-            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!isScanAlwaysAvailable)) {
-                // Location settings are not properly set, show notification about it
-
-                Intent notificationIntent = new Intent(context, PhoneProfilesPreferencesActivity.class);
-                notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                String notificationText;
-                String notificationBigText;
-
-                if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI)) {
-                    notificationText = context.getString(R.string.phone_profiles_pref_eventWiFiScanningSystemSettings);
-                    notificationBigText = context.getString(R.string.phone_profiles_pref_eventWiFiScanningSystemSettings_summary);
-                }
-                else {
-                    notificationText = context.getString(R.string.phone_profiles_pref_eventBluetoothScanningSystemSettings);
-                    notificationBigText = context.getString(R.string.phone_profiles_pref_eventBluetoothScanningSystemSettings_summary);
-                }
-
-                NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
-                        .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                        .setContentText(notificationText) // message for notification
-                        .setAutoCancel(true); // clear notification after click
-                mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(notificationBigText));
-
-                notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "applicationEventBluetoothScanningSystemSettings");
-                notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-
-                PendingIntent pi = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setContentIntent(pi);
-                if (android.os.Build.VERSION.SDK_INT >= 16)
-                    mBuilder.setPriority(Notification.PRIORITY_MAX);
-                if (android.os.Build.VERSION.SDK_INT >= 21)
-                {
-                    mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-                    mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-                }
-                NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotificationManager.notify(GlobalData.LOCATION_SETTINGS_FOR_SCANNING__NOTIFICATION_ID, mBuilder.build());
-
-                return;
-            }
-
-        }
-
         wifiBluetoothChangeHandler = new Handler(getMainLooper());
 
         GlobalData.logE("$$$ ScannerService.onHandleIntent", "before synchronized block - scanType=" + scanType);
@@ -149,6 +92,9 @@ public class ScannerService extends IntentService
                 canScan = !WifiApManager.isWifiAPEnabled(context);
                 GlobalData.logE("$$$ ScannerService.onHandleIntent", "canScan=" + canScan);
                 GlobalData.logE("$$$ WifiAP", "ScannerService.onHandleIntent-isWifiAPEnabled="+!canScan);
+            }
+            if (canScan) {
+                canScan = isLocationEnabled(context, scanType);
             }
 
             if (canScan) {
@@ -375,8 +321,9 @@ public class ScannerService extends IntentService
 
                         ///////// Classic BT scan - end
 
-                        if (bluetoothLESupported(context)) {
-                            ///////// LE BT scan
+                        ///////// LE BT scan
+
+                        if (bluetoothLESupported(context) && isLocationEnabled(context, scanType)) {
 
                             IntentFilter intentFilter7 = new IntentFilter();
                             registerReceiver(bluetoothLEScanReceiver, intentFilter7);
@@ -421,8 +368,9 @@ public class ScannerService extends IntentService
 
                             unregisterReceiver(bluetoothLEScanReceiver);
 
-                            ///////// LE BT scan - end
                         }
+
+                        ///////// LE BT scan - end
 
                         if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
                             GlobalData.logE("$$$ ScannerService.onHandleIntent", "disable bluetooth");
@@ -460,8 +408,8 @@ public class ScannerService extends IntentService
 
         // send broadcast about radio change state to PPHelper
         Intent ppHelperIntent2 = new Intent();
-        ppHelperIntent2.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
-        ppHelperIntent2.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, false);
+            ppHelperIntent2.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
+            ppHelperIntent2.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, false);
         context.sendBroadcast(ppHelperIntent2);
 
             GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - end - scanType="+scanType);
@@ -815,6 +763,8 @@ public class ScannerService extends IntentService
                 e.printStackTrace();
             }
         }
+        BluetoothScanAlarmBroadcastReceiver.stopScan(context);
+
         if (asyncTask != null)
         {
             if (asyncTask.isCancelled())
@@ -837,11 +787,87 @@ public class ScannerService extends IntentService
                 e.printStackTrace();
             }
         }
+        BluetoothScanAlarmBroadcastReceiver.stopLEScan(context);
+
     }
 
     public static boolean bluetoothLESupported(Context context) {
         return ((android.os.Build.VERSION.SDK_INT >= 18) &&
                 context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE));
+    }
+
+    private static boolean isLocationEnabled(Context context, String scanType) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            // check for Location Settings
+
+            int locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+            boolean isScanAlwaysAvailable = true;
+
+            if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI)) {
+                if (WifiScanAlarmBroadcastReceiver.wifi == null)
+                    WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                isScanAlwaysAvailable = WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable();
+            }
+
+            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!isScanAlwaysAvailable)) {
+                // Location settings are not properly set, show notification about it
+
+                Intent notificationIntent = new Intent(context, PhoneProfilesPreferencesActivity.class);
+                notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                String notificationText;
+                String notificationBigText;
+
+                if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI)) {
+                    notificationText = context.getString(R.string.phone_profiles_pref_eventWiFiScanningSystemSettings);
+                    notificationBigText = context.getString(R.string.phone_profiles_pref_eventWiFiScanningSystemSettings_summary);
+                }
+                else {
+                    notificationText = context.getString(R.string.phone_profiles_pref_eventBluetoothScanningSystemSettings);
+                    notificationBigText = context.getString(R.string.phone_profiles_pref_eventBluetoothScanningSystemSettings_summary);
+                }
+
+                NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+                        .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                        .setContentText(notificationText) // message for notification
+                        .setAutoCancel(true); // clear notification after click
+                mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(notificationBigText));
+
+                int requestCode;
+                if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI)) {
+                    notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "applicationEventWiFiScanningSystemSettings");
+                    requestCode = 1;
+                }
+                else {
+                    notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "applicationEventBluetoothScanningSystemSettings");
+                    requestCode = 2;
+                }
+                notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+
+                PendingIntent pi = PendingIntent.getActivity(context, requestCode, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                mBuilder.setContentIntent(pi);
+                if (android.os.Build.VERSION.SDK_INT >= 16)
+                    mBuilder.setPriority(Notification.PRIORITY_MAX);
+                if (android.os.Build.VERSION.SDK_INT >= 21)
+                {
+                    mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
+                    mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+                }
+                NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+                if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI))
+                    mNotificationManager.notify(GlobalData.LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_ID, mBuilder.build());
+                else
+                    mNotificationManager.notify(GlobalData.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID, mBuilder.build());
+
+                return false;
+            }
+            else
+                return true;
+
+        }
+        else
+            return true;
     }
 
 }

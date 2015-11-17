@@ -831,10 +831,13 @@ CO ESTE TREBA
 
 CO FUNGUJE CIASTOCNE:
 - wifi scanning aby fungoval aj na pozadi je ntune:
-  - <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>  v manifeste, COARSE je malo, ak zmenis mod lokacie na "Vysoka presnost"
   - musi byt zapnuta lokacia
-  - musi byt povolene scanovaniw wifi v nastaveniach lokacie
-  - ESTE TO TESTNI
+  - musi byt povolene scanovanie wifi v nastaveniach lokacie
+- bluetooth scanning - classic je ok, nemusi byt lokacia zapnuta
+- bluetooth scanning - LE - neviem, ci treba:
+  - musi byt zapnuta lokacia
+  - musi byt povolene scanovanie bluetooth v nastaveniach lokacie
+  - treba testnut, ale nemam LS zariadenie :-(
 
 CO NEFUNGUJE
 - Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); hadze to exception:
