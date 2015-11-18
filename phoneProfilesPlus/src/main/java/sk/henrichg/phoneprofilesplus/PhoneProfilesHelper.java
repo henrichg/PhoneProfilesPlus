@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 public class PhoneProfilesHelper {
 
@@ -178,7 +179,9 @@ public class PhoneProfilesHelper {
             if (!OK)
                 Log.e("PhoneProfilesHelper.doInstallPPHelper", "remount RW ERROR");
             if (OK)
-                RootTools.deleteFileOrDirectory(destinationFile, false);
+                //OK =
+                //RootTools.deleteFileOrDirectory(destinationFile, false);
+                deleteFile_su(destinationFile);
             //if (!OK)
             //	Log.e("PhoneProfilesHelper.doInstallPPHelper", "delete file ERROR");
             if (OK)
@@ -391,20 +394,19 @@ public class PhoneProfilesHelper {
 
         if (GlobalData.isSELinuxEnforcing())
             Shell.defaultContext = Shell.ShellContext.RECOVERY;
-        //OK = RootTools.remount("/system", "RW");
+        OK = RootTools.remount("/system", "RW");
+        if (!OK)
+            Log.e("PhoneProfilesHelper.doUninstallPPHelper", "remount RW ERROR");
+        if (OK)
+            //OK = RootTools.deleteFileOrDirectory(destinationFile, true);
+            OK = deleteFile_su(destinationFile);
+        if (!OK)
+            Log.e("PhoneProfilesHelper.doUninstallPPHelper", "delete file ERROR");
+        if (OK)
+            //OK =
+            RootTools.remount("/system", "RO");
         //if (!OK)
-        //	Log.e("PhoneProfilesHelper.doUninstallPPHelper", "remount RW ERROR");
-        //if (OK)
-        //Log.e("PhoneProfilesHelper.doUninstallPPHelper", "before delete file");
-        RootTools.deleteFileOrDirectory(destinationFile, true);
-        //Log.e("PhoneProfilesHelper.doUninstallPPHelper", "after delete file");
-        OK = true;
-        //if (!OK)
-        //	Log.e("PhoneProfilesHelper.doUninstallPPHelper", "delete file ERROR");
-        //if (OK)
-        //	OK = RootTools.remount("/system", "RO");
-        //if (!OK)
-        //	Log.e("PhoneProfilesHelper.doUninstallPPHelper", "remount RO ERROR");
+        //    Log.e("PhoneProfilesHelper.doUninstallPPHelper", "remount RO ERROR");
         if (GlobalData.isSELinuxEnforcing())
             Shell.defaultContext = Shell.ShellContext.NORMAL;
 
@@ -694,4 +696,27 @@ public class PhoneProfilesHelper {
         notificationManager.cancel(GlobalData.PPHELPER_UPGRADE_NOTIFICATION_ID);
     }
 
+    private static boolean deleteFile_su(String file) {
+        boolean OK;
+
+        List<String> settingsPaths = RootTools.findBinary("rm");
+        if (settingsPaths.size() > 0) {
+            String command1 = "rm " + file;
+            //if (GlobalData.isSELinuxEnforcing())
+            //	command1 = GlobalData.getSELinuxEnforceCommad(command1);
+            Command command = new Command(0, false, command1);
+            try {
+                RootTools.getShell(true, Shell.ShellContext.RECOVERY).add(command);
+                OK = commandWait(command);
+                OK = OK && command.getExitCode() == 0;
+            } catch (Exception e) {
+                e.printStackTrace();
+                OK = false;
+            }
+        }
+        else {
+            OK = RootTools.deleteFileOrDirectory(file, false);
+        }
+        return OK;
+    }
 }
