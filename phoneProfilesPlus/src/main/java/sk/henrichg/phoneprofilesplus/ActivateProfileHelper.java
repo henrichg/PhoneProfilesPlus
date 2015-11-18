@@ -1499,7 +1499,7 @@ public class ActivateProfileHelper {
     private void setGPS(Context context, boolean enable)
     {
         boolean isEnabled;
-        //int locationMode = -1;
+        int locationMode = -1;
         //if (android.os.Build.VERSION.SDK_INT < 19)
             isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
         /*else {
@@ -1554,7 +1554,9 @@ public class ActivateProfileHelper {
                     }
                 /*}
                 else {
-                    int newValue = Settings.Secure.LOCATION_MODE_SENSORS_ONLY;
+                    int newValue = locationMode;
+                    if (locationMode == Settings.Secure.LOCATION_MODE_OFF)
+                        newValue = Settings.Secure.LOCATION_MODE_SENSORS_ONLY;
                     if (locationMode == Settings.Secure.LOCATION_MODE_BATTERY_SAVING)
                         newValue = Settings.Secure.LOCATION_MODE_HIGH_ACCURACY;
 
@@ -1641,9 +1643,11 @@ public class ActivateProfileHelper {
                     }
                 /*}
                 else {
-                    int newValue = Settings.Secure.LOCATION_MODE_OFF;
+                    int newValue = locationMode;
                     if (locationMode == Settings.Secure.LOCATION_MODE_HIGH_ACCURACY)
                         newValue = Settings.Secure.LOCATION_MODE_BATTERY_SAVING;
+                    if (locationMode == Settings.Secure.LOCATION_MODE_SENSORS_ONLY)
+                        newValue = Settings.Secure.LOCATION_MODE_OFF;
 
                     command1 = "settings put secure location_mode \"" + newValue + "\"";
                     Command command = new Command(0, false, command1);
