@@ -176,6 +176,11 @@
             android:title="@string/event_preferences_battery_charging"
             android:defaultValue="false"
             android:dependency="eventBatteryEnabled" />
+        <CheckBoxPreference
+            android:key="eventBatteryPowerSaveMode"
+            android:title="@string/event_preferences_battery_power_save_mode"
+            android:defaultValue="false"
+            android:dependency="eventBatteryEnabled" />
     </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventCallParameters"

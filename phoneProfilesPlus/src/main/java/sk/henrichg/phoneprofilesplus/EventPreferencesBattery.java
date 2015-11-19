@@ -13,23 +13,27 @@ public class EventPreferencesBattery extends EventPreferences {
     public int _levelLow;
     public int _levelHight;
     public boolean _charging;
+    public boolean _powerSaveMode;
 
     static final String PREF_EVENT_BATTERY_ENABLED = "eventBatteryEnabled";
     static final String PREF_EVENT_BATTERY_LEVEL_LOW = "eventBatteryLevelLow";
     static final String PREF_EVENT_BATTERY_LEVEL_HIGHT = "eventBatteryLevelHight";
     static final String PREF_EVENT_BATTERY_CHARGING = "eventBatteryCharging";
+    static final String PREF_EVENT_BATTERY_POWER_SAVE_MODE = "eventBatteryPowerSaveMode";
 
     public EventPreferencesBattery(Event event,
                                     boolean enabled,
                                     int levelLow,
                                     int levelHight,
-                                    boolean charging)
+                                    boolean charging,
+                                    boolean powerSaveMode)
     {
         super(event, enabled);
 
         this._levelLow = levelLow;
         this._levelHight = levelHight;
         this._charging = charging;
+        this._powerSaveMode = powerSaveMode;
     }
 
     @Override
@@ -39,6 +43,7 @@ public class EventPreferencesBattery extends EventPreferences {
         this._levelLow = ((EventPreferencesBattery)fromEvent._eventPreferencesBattery)._levelLow;
         this._levelHight = ((EventPreferencesBattery)fromEvent._eventPreferencesBattery)._levelHight;
         this._charging = ((EventPreferencesBattery)fromEvent._eventPreferencesBattery)._charging;
+        this._powerSaveMode = ((EventPreferencesBattery)fromEvent._eventPreferencesBattery)._powerSaveMode;
     }
 
     @Override
@@ -49,6 +54,7 @@ public class EventPreferencesBattery extends EventPreferences {
         editor.putString(PREF_EVENT_BATTERY_LEVEL_LOW, String.valueOf(this._levelLow));
         editor.putString(PREF_EVENT_BATTERY_LEVEL_HIGHT, String.valueOf(this._levelHight));
         editor.putBoolean(PREF_EVENT_BATTERY_CHARGING, this._charging);
+        editor.putBoolean(PREF_EVENT_BATTERY_POWER_SAVE_MODE, this._powerSaveMode);
         editor.commit();
     }
 
@@ -73,6 +79,7 @@ public class EventPreferencesBattery extends EventPreferences {
         this._levelHight= iLevel;
 
         this._charging = preferences.getBoolean(PREF_EVENT_BATTERY_CHARGING, false);
+        this._powerSaveMode = preferences.getBoolean(PREF_EVENT_BATTERY_POWER_SAVE_MODE, false);
     }
 
     @Override
@@ -93,6 +100,8 @@ public class EventPreferencesBattery extends EventPreferences {
             descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";
             if (this._charging)
                 descr = descr + ", " + context.getString(R.string.pref_event_battery_charging);
+            if (this._powerSaveMode)
+                descr = descr + ", " + context.getString(R.string.pref_event_battery_power_save_mode);
         }
 
         return descr;

@@ -668,11 +668,13 @@
     <item>#FF5722</item>
 </array>
 <string-array name="scanInPowerSaveModeArray">
+    <item>@string/array_pref_scanInPowerSaveMode_1xInterval</item>
     <item>@string/array_pref_scanInPowerSaveMode_2xInterval</item>
     <item>@string/array_pref_scanInPowerSaveMode_noScan</item>
 </string-array>
 <string-array name="scanInPowerSaveModeValues">
     <item>0</item>
     <item>1</item>
+    <item>2</item>
 </string-array>
 </resources>

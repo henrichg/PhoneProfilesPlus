@@ -78,14 +78,17 @@ public class ScannerService extends IntentService
             isPowerSaveMode = powerManager.isPowerSaveMode();
         }
         if (isPowerSaveMode) {
-            if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI) &&
-                    GlobalData.applicationEventWifiScanInPowerSaveMode.equals("1"))
-                // not scan wi-fi in power save mode
-                return;
-            if (scanType.equals(GlobalData.SCANNER_TYPE_BLUETOOTH) &&
-                    GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
-                // not scan bluetooth in power save mode
-                return;
+            int forceScan = GlobalData.getForceOneWifiScan(context);
+            if ((forceScan != GlobalData.FORCE_ONE_SCAN_ENABLED)) {
+                if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI) &&
+                        GlobalData.applicationEventWifiScanInPowerSaveMode.equals("2"))
+                    // not scan wi-fi in power save mode
+                    return;
+                if (scanType.equals(GlobalData.SCANNER_TYPE_BLUETOOTH) &&
+                        GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("2"))
+                    // not scan bluetooth in power save mode
+                    return;
+            }
         }
 
         wifiBluetoothChangeHandler = new Handler(getMainLooper());

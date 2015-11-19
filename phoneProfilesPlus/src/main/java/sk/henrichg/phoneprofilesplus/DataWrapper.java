@@ -1465,6 +1465,13 @@ public class DataWrapper {
                         //eventStart = eventStart && false;
                     }
                 }
+                if (batteryPassed && event._eventPreferencesBattery._powerSaveMode) {
+                    boolean isPowerSaveMode = false;
+                    if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        batteryPassed = powerManager.isPowerSaveMode();
+                    }
+                }
             }
             else
                 batteryPassed = false;

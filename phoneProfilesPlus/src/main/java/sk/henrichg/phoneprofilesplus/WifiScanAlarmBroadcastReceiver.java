@@ -198,7 +198,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     isPowerSaveMode = powerManager.isPowerSaveMode();
                 }
-                if (isPowerSaveMode && GlobalData.applicationEventWifiScanInPowerSaveMode.equals("0"))
+                if (isPowerSaveMode && GlobalData.applicationEventWifiScanInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
 
                 if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
