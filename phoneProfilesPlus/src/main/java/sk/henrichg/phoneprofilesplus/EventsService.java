@@ -414,6 +414,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(WifiStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
+        /*else
+        if (broadcastReceiverType.equals(DeviceIdleModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_????;*/
 
 
         if (eventType > 0)
@@ -487,6 +490,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(WifiStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             WifiStateChangedBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(DeviceIdleModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            DeviceIdleModeBroadcastReceiver.completeWakefulIntent(intent);
 
 
         // this broadcast not starts service with wakefull method

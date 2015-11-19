@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     package="sk.henrichg.phoneprofilesplus"
     android:versionCode="1786"
     android:versionName="3.2b" >
@@ -37,8 +37,7 @@
         <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     -->
     <!-- required for wifi/bluetooth scanning in Android 6.0 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
@@ -590,7 +589,11 @@
                 <action android:name="sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED" />
             </intent-filter>
         </receiver>
-
+        <receiver
+            android:name=".DeviceIdleModeBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" >
+        </receiver>
     </application>
 
 </manifest>

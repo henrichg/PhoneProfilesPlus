@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
 
 
 public class ReceiversService extends Service {
@@ -16,6 +17,7 @@ public class ReceiversService extends Service {
     //private final WifiConnectionBroadcastReceiver wifiConnectionReceiver = new WifiConnectionBroadcastReceiver();
     private final ScreenOnOffBroadcastReceiver screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
     //private final BluetoothStateChangedBroadcastReceiver bluetoothStateChangedReceiver = new BluetoothStateChangedBroadcastReceiver();
+    private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
 
@@ -60,6 +62,13 @@ public class ReceiversService extends Service {
         registerReceiver(bluetoothStateChangedReceiver, intentFilter8);
         */
 
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
+            IntentFilter intentFilter9 = new IntentFilter();
+            intentFilter9.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
+            getApplicationContext().registerReceiver(deviceIdleModeReceiver, intentFilter5);
+        }
+
         /*
         // receivers for system date and time change
         // events must by restarted
@@ -76,7 +85,6 @@ public class ReceiversService extends Service {
             getContentResolver().unregisterContentObserver(settingsContentObserver);
         settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
         getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
-
     }
 
     @Override
@@ -90,8 +98,8 @@ public class ReceiversService extends Service {
         //unregisterReceiver(wifiConnectionReceiver);
         getApplicationContext().unregisterReceiver(screenOnOffReceiver);
         //unregisterReceiver(bluetoothStateChangedReceiver);
-
         //getApplicationContext().unregisterReceiver(restartEventsReceiver);
+        getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
 
         //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(this);
