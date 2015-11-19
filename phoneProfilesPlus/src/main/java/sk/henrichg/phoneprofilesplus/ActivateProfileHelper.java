@@ -286,7 +286,13 @@ public class ActivateProfileHelper {
         if (!onlyCheckForPPHelper) {
             if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_GPS, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
             {
-                String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                //boolean isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
+
+                LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                boolean isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                GlobalData.logE("ActivateProfileHelper.doExecuteForRadios","isEnabled="+isEnabled);
+
 
                 switch (profile._deviceGPS) {
                     case 1:
@@ -296,9 +302,9 @@ public class ActivateProfileHelper {
                         setGPS(context, false);
                         break;
                     case 3:
-                        if (!provider.contains("gps")) {
+                        if (!isEnabled) {
                             setGPS(context, true);
-                        } else if (provider.contains("gps")) {
+                        } else if (isEnabled) {
                             setGPS(context, false);
                         }
                         break;
@@ -1498,15 +1504,21 @@ public class ActivateProfileHelper {
     @SuppressWarnings("deprecation")
     private void setGPS(Context context, boolean enable)
     {
-        boolean isEnabled;
-        int locationMode = -1;
+        //boolean isEnabled;
+        //int locationMode = -1;
         //if (android.os.Build.VERSION.SDK_INT < 19)
-            isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
+        //    isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
         /*else {
             locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, -1);
             isEnabled = (locationMode == Settings.Secure.LOCATION_MODE_HIGH_ACCURACY) ||
                         (locationMode == Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
         }*/
+
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+
+        GlobalData.logE("ActivateProfileHelper.setGPS", "isEnabled="+isEnabled);
 
         //if(!provider.contains(LocationManager.GPS_PROVIDER) && enable)
         if ((!isEnabled)  && enable)
@@ -1530,7 +1542,7 @@ public class ActivateProfileHelper {
                 String command1;
                 //String command2;
 
-                //if (android.os.Build.VERSION.SDK_INT < 19) {
+                if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
                     String newSet;
@@ -1539,7 +1551,7 @@ public class ActivateProfileHelper {
                     else
                         newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
 
-                    command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
+                    command1 = "settings put secure location_providers_allowed " + newSet;
                     //if (GlobalData.isSELinuxEnforcing())
                     //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
 
@@ -1552,15 +1564,9 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
-                /*}
+                }
                 else {
-                    int newValue = locationMode;
-                    if (locationMode == Settings.Secure.LOCATION_MODE_OFF)
-                        newValue = Settings.Secure.LOCATION_MODE_SENSORS_ONLY;
-                    if (locationMode == Settings.Secure.LOCATION_MODE_BATTERY_SAVING)
-                        newValue = Settings.Secure.LOCATION_MODE_HIGH_ACCURACY;
-
-                    command1 = "settings put secure location_mode \"" + newValue + "\"";
+                    command1 = "settings put secure location_providers_allowed +gps";
                     Command command = new Command(0, false, command1);
                     try {
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -1569,7 +1575,7 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
-                }*/
+                }
             }
             else
             {
@@ -1612,7 +1618,7 @@ public class ActivateProfileHelper {
                 String command1;
                 //String command2;
 
-                //if (android.os.Build.VERSION.SDK_INT < 19) {
+                if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
                     String[] list = provider.split(",");
@@ -1629,7 +1635,7 @@ public class ActivateProfileHelper {
                         }
                     }
 
-                    command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
+                    command1 = "settings put secure location_providers_allowed " + newSet;
                     //if (GlobalData.isSELinuxEnforcing())
                     //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                     //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state false";
@@ -1641,15 +1647,9 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
-                /*}
+                }
                 else {
-                    int newValue = locationMode;
-                    if (locationMode == Settings.Secure.LOCATION_MODE_HIGH_ACCURACY)
-                        newValue = Settings.Secure.LOCATION_MODE_BATTERY_SAVING;
-                    if (locationMode == Settings.Secure.LOCATION_MODE_SENSORS_ONLY)
-                        newValue = Settings.Secure.LOCATION_MODE_OFF;
-
-                    command1 = "settings put secure location_mode \"" + newValue + "\"";
+                    command1 = "settings put secure location_providers_allowed -gps";
                     Command command = new Command(0, false, command1);
                     try {
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -1658,7 +1658,7 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
-                }*/
+                }
             }
             else
             {

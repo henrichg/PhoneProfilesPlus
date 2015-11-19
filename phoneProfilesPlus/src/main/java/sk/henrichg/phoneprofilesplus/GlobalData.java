@@ -80,9 +80,9 @@ public class GlobalData extends Application {
                                         "##### WifiScanBroadcastReceiver.onReceive|"+
                                         "##### BluetoothScanBroadcastReceiver.onReceive|"+*/
                                         //"$$$ WifiScanBroadcastReceiver"
-                                        "@@@ BluetoothScanBroadcastReceiver|"+
-                                        "BluetoothLEScanCallback18|"+
-                                        "BluetoothLEScanCallback21"
+                                        //"@@@ BluetoothScanBroadcastReceiver|"+
+                                        //"BluetoothLEScanCallback18|"+
+                                        //"BluetoothLEScanCallback21"
                                          //"@@@ BatteryEventBroadcastReceiver|"+
                                          //"@@@ CalendarProviderChangedBroadcastReceiver|"+
                                          //"@@@ EventsCalendarBroadcastReceiver|"+
@@ -129,6 +129,8 @@ public class GlobalData extends Application {
                                          //"$$$ setEventsBlocked|"+
                                          //"$$$ restartEvents"
                                          //"$$$ WifiAP"
+                                        "ActivateProfileHelper.setGPS|"+
+                                        "ActivateProfileHelper.doExecuteForRadios"
             ;
 
 
