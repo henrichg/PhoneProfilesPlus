@@ -180,11 +180,20 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
+                int interval = GlobalData.applicationEventBluetoothScanInterval;
+                boolean isPowerSaveMode = false;
+                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    isPowerSaveMode = powerManager.isPowerSaveMode();
+                }
+                if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("0"))
+                    interval = 2 * interval;
+
                 if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
                     if (shortInterval)
                         calendar.add(Calendar.SECOND, 10);
                     else
-                        calendar.add(Calendar.MINUTE, GlobalData.applicationEventBluetoothScanInterval);
+                        calendar.add(Calendar.MINUTE, interval);
                     long alarmTime = calendar.getTimeInMillis();
 
                     intent.putExtra(EXTRA_ONESHOT, 0);
@@ -200,10 +209,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     intent.putExtra(EXTRA_ONESHOT, 0);
                     PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
-                    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                            alarmTime,
-                            GlobalData.applicationEventBluetoothScanInterval * 60 * 1000,
-                            alarmIntent);
+                    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, interval * 60 * 1000, alarmIntent);
                 }
 
             }

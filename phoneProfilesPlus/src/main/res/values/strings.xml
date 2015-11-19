@@ -609,4 +609,8 @@
   <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Please enable Location and Wi-Fi scanning in System Settings. Without this, Wi-fi scanning will not working.</string>
   <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Bluetooth scanning - System Settings</string>
   <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not working.</string>
+  <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Wi-Fi scan in Power Save mode</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Bluetooth scan in Power Save mode</string>
+  <string name="array_pref_scanInPowerSaveMode_2xInterval">2x interval</string>
+  <string name="array_pref_scanInPowerSaveMode_noScan">No scan</string>
 </resources>

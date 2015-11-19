@@ -69,6 +69,25 @@ public class ScannerService extends IntentService
         String scanType = intent.getStringExtra(GlobalData.EXTRA_SCANNER_TYPE);
         GlobalData.logE("### ScannerService.onHandleIntent", "scanType="+scanType);
 
+        GlobalData.loadPreferences(context);
+
+        // check power save mode
+        boolean isPowerSaveMode = false;
+        if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            isPowerSaveMode = powerManager.isPowerSaveMode();
+        }
+        if (isPowerSaveMode) {
+            if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI) &&
+                    GlobalData.applicationEventWifiScanInPowerSaveMode.equals("1"))
+                // not scan wi-fi in power save mode
+                return;
+            if (scanType.equals(GlobalData.SCANNER_TYPE_BLUETOOTH) &&
+                    GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
+                // not scan bluetooth in power save mode
+                return;
+        }
+
         wifiBluetoothChangeHandler = new Handler(getMainLooper());
 
         GlobalData.logE("$$$ ScannerService.onHandleIntent", "before synchronized block - scanType=" + scanType);

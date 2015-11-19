@@ -18,6 +18,7 @@ public class ReceiversService extends Service {
     private final ScreenOnOffBroadcastReceiver screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
     //private final BluetoothStateChangedBroadcastReceiver bluetoothStateChangedReceiver = new BluetoothStateChangedBroadcastReceiver();
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
+    private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
 
@@ -66,7 +67,14 @@ public class ReceiversService extends Service {
             deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
             IntentFilter intentFilter9 = new IntentFilter();
             intentFilter9.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
-            getApplicationContext().registerReceiver(deviceIdleModeReceiver, intentFilter5);
+            getApplicationContext().registerReceiver(deviceIdleModeReceiver, intentFilter9);
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
+            IntentFilter intentFilter10 = new IntentFilter();
+            intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
+            getApplicationContext().registerReceiver(deviceIdleModeReceiver, intentFilter10);
         }
 
         /*
@@ -100,6 +108,7 @@ public class ReceiversService extends Service {
         //unregisterReceiver(bluetoothStateChangedReceiver);
         //getApplicationContext().unregisterReceiver(restartEventsReceiver);
         getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
+        getApplicationContext().unregisterReceiver(powerSaveModeReceiver);
 
         //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(this);

@@ -417,6 +417,9 @@ public class EventsService extends IntentService
         /*else
         if (broadcastReceiverType.equals(DeviceIdleModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_????;*/
+        else
+        if (broadcastReceiverType.equals(PowerSaveModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_BATTERY;
 
 
         if (eventType > 0)
@@ -493,6 +496,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(DeviceIdleModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             DeviceIdleModeBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(PowerSaveModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            PowerSaveModeBroadcastReceiver.completeWakefulIntent(intent);
 
 
         // this broadcast not starts service with wakefull method
