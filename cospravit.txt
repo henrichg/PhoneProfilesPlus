@@ -889,7 +889,6 @@ CO NEFUNGUJE
             }
         }
 
-- GPS on/off nefunguje, ani cez PPHelper
 
 ---- Power management:
 
