@@ -1551,7 +1551,7 @@ public class ActivateProfileHelper {
                     else
                         newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
 
-                    command1 = "settings put secure location_providers_allowed " + newSet;
+                    command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
                     //if (GlobalData.isSELinuxEnforcing())
                     //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
 
@@ -1635,7 +1635,7 @@ public class ActivateProfileHelper {
                         }
                     }
 
-                    command1 = "settings put secure location_providers_allowed " + newSet;
+                    command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
                     //if (GlobalData.isSELinuxEnforcing())
                     //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                     //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state false";
