@@ -68,7 +68,7 @@
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventWifiScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
-            android:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+            android:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
             android:defaultValue="0"
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues" />
@@ -99,7 +99,7 @@
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventBluetoothScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode"
-            android:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+            android:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
             android:defaultValue="0"
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues" />
