@@ -449,7 +449,7 @@ Toch activeren?</string>
   <string name="array_pref_zenModeArray_all">Alles</string>
   <string name="array_pref_zenModeArray_priority">Prioriteit</string>
   <string name="array_pref_zenModeArray_none">Geen</string>
-  <string name="profile_preferences_deviceMobileData_21">(H) Mobiele data</string>
+  <string name="profile_preferences_deviceMobileData_21">(R) Mobiele data</string>
   <string name="preference_profile_adaptiveBrightness">Optimaal</string>
   <string name="profile_preferences_deviceKeyguard">Schermvergrendeling</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profielnaam verbergen (widget)</string>

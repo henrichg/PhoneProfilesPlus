@@ -448,7 +448,7 @@
   <string name="array_pref_zenModeArray_all">Všetky</string>
   <string name="array_pref_zenModeArray_priority">Prioritné</string>
   <string name="array_pref_zenModeArray_none">Žiadne</string>
-  <string name="profile_preferences_deviceMobileData_21">(H) Mobilné dáta</string>
+  <string name="profile_preferences_deviceMobileData_21">(R) Mobilné dáta</string>
   <string name="preference_profile_adaptiveBrightness">Prispôsobenie</string>
   <string name="profile_preferences_deviceKeyguard">Zámok obrazovky</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skryť názov profilu (miniapl.)</string>

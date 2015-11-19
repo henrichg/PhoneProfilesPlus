@@ -1230,7 +1230,7 @@ public class GlobalData extends Application {
             {
                 if (android.os.Build.VERSION.SDK_INT >= 21)
                 {
-                    if (PhoneProfilesHelper.isPPHelperInstalled(context, 22))
+                    /*if (PhoneProfilesHelper.isPPHelperInstalled(context, 22))
                     {
                         // je nainstalovany PhonProfilesHelper
                         featurePresented = HARDWARE_CHECK_ALLOWED;
@@ -1244,11 +1244,11 @@ public class GlobalData extends Application {
                             else
                                 featurePresented = HARDWARE_CHECK_UPGRADE_PPHELPER;
                         }
-                    }
-                    /*if (isRooted(false) && settingsBinaryExists())
+                    }*/
+                    if (isRooted(false) /*&& settingsBinaryExists()*/)
                     {
                         featurePresented = HARDWARE_CHECK_ALLOWED;
-                    }*/
+                    }
                 }
                 else
                 {

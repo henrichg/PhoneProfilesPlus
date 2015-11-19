@@ -448,7 +448,7 @@
   <string name="array_pref_zenModeArray_all">Wszystkie</string>
   <string name="array_pref_zenModeArray_priority">Priorytet</string>
   <string name="array_pref_zenModeArray_none">Brak</string>
-  <string name="profile_preferences_deviceMobileData_21">(H) Dane komórkowe</string>
+  <string name="profile_preferences_deviceMobileData_21">(R) Dane komórkowe</string>
   <string name="preference_profile_adaptiveBrightness">Adaptacyjna</string>
   <string name="profile_preferences_deviceKeyguard">Ekran blokady</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Ukryj nazwę profilu (widżet)</string>

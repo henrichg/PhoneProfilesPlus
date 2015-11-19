@@ -448,7 +448,7 @@
   <string name="array_pref_zenModeArray_all">Mindegyik</string>
   <string name="array_pref_zenModeArray_priority">Elsőbbség</string>
   <string name="array_pref_zenModeArray_none">None</string>
-  <string name="profile_preferences_deviceMobileData_21">(H) Mobile adat</string>
+  <string name="profile_preferences_deviceMobileData_21">(R) Mobile adat</string>
   <string name="preference_profile_adaptiveBrightness">Adaptív</string>
   <string name="profile_preferences_deviceKeyguard">Képernyőzár</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profil név elrejtés (Widget)</string>

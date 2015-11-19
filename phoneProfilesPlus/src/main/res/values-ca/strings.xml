@@ -448,7 +448,7 @@
   <string name="array_pref_zenModeArray_all">Tot</string>
   <string name="array_pref_zenModeArray_priority">Prioritat</string>
   <string name="array_pref_zenModeArray_none">Cap</string>
-  <string name="profile_preferences_deviceMobileData_21">(H) dades mòbils</string>
+  <string name="profile_preferences_deviceMobileData_21">(R) dades mòbils</string>
   <string name="preference_profile_adaptiveBrightness">Adaptativa</string>
   <string name="profile_preferences_deviceKeyguard">Pantalla de bloqueig</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Amaga el nom de perfil (widget)</string>

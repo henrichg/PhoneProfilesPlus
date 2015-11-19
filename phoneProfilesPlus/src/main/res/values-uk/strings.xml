@@ -448,7 +448,7 @@
   <string name="array_pref_zenModeArray_all">Усі</string>
   <string name="array_pref_zenModeArray_priority">Важливі</string>
   <string name="array_pref_zenModeArray_none">Ні</string>
-  <string name="profile_preferences_deviceMobileData_21">(H) Передача даних</string>
+  <string name="profile_preferences_deviceMobileData_21">(R) Передача даних</string>
   <string name="preference_profile_adaptiveBrightness">Адаптивна</string>
   <string name="profile_preferences_deviceKeyguard">Заблокувати екран</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Приховати назву профілю (віджет)</string>

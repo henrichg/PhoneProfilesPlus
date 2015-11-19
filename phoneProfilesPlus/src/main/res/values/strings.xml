@@ -449,7 +449,7 @@
   <string name="array_pref_zenModeArray_all">All</string>
   <string name="array_pref_zenModeArray_priority">Priority</string>
   <string name="array_pref_zenModeArray_none">None</string>
-  <string name="profile_preferences_deviceMobileData_21">(H) Mobile data</string>
+  <string name="profile_preferences_deviceMobileData_21">(R) Mobile data</string>
   <string name="preference_profile_adaptiveBrightness">Adaptive</string>
   <string name="profile_preferences_deviceKeyguard">Lock screen</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Hide profile name (widget)</string>
