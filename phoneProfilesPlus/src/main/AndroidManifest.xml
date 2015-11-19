@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="sk.henrichg.phoneprofilesplus"
-    android:versionCode="1786"
+    android:versionCode="1790"
     android:versionName="3.2b" >
 
     <!--
