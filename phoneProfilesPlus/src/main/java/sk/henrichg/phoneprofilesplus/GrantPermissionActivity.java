@@ -236,7 +236,7 @@ public class GrantPermissionActivity extends Activity {
 
                     }
                     Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
-                    PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, 0);
+                    PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
                     mBuilder.setDeleteIntent(deletePendingIntent);
 
                     intent.putExtra(GlobalData.EXTRA_EVENT_ID, event._id);
@@ -260,7 +260,7 @@ public class GrantPermissionActivity extends Activity {
                         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
                     }
                     Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
-                    PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, 0);
+                    PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
                     mBuilder.setDeleteIntent(deletePendingIntent);
 
                     intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
@@ -274,7 +274,7 @@ public class GrantPermissionActivity extends Activity {
                 intent.putParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES, (ArrayList<Permissions.PermissionType>) permissions);
                 intent.putExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
 
-                PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
                 if (android.os.Build.VERSION.SDK_INT >= 16)
                     mBuilder.setPriority(Notification.PRIORITY_MAX);

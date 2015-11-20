@@ -3,6 +3,8 @@
       package="com.mobeta.android.dslv"
       android:versionCode="4"
       android:versionName="0.6.1">
+    <!--
     <uses-sdk android:targetSdkVersion="22"
       android:minSdkVersion="14" />
+      -->
 </manifest> 
