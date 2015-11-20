@@ -272,6 +272,8 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         setSummary(GlobalData.PREF_APPLICATION_EDITOR_HEADER);
         setSummary(GlobalData.PREF_NOTIFICATION_TOAST);
         setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE);
 
         if (android.os.Build.VERSION.SDK_INT >= 16) {
             setSummary(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
