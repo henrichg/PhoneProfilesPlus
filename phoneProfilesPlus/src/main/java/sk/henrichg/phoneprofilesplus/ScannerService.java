@@ -72,11 +72,7 @@ public class ScannerService extends IntentService
         GlobalData.loadPreferences(context);
 
         // check power save mode
-        boolean isPowerSaveMode = false;
-        if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            isPowerSaveMode = powerManager.isPowerSaveMode();
-        }
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode) {
             int forceScan = GlobalData.getForceOneWifiScan(context);
             if ((forceScan != GlobalData.FORCE_ONE_SCAN_ENABLED)) {
