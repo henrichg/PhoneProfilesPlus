@@ -71,10 +71,10 @@ public class ReceiversService extends Service {
         }
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
-            deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
+            powerSaveModeReceiver = new PowerSaveModeBroadcastReceiver();
             IntentFilter intentFilter10 = new IntentFilter();
             intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
-            getApplicationContext().registerReceiver(deviceIdleModeReceiver, intentFilter10);
+            getApplicationContext().registerReceiver(powerSaveModeReceiver, intentFilter10);
         }
 
         /*
