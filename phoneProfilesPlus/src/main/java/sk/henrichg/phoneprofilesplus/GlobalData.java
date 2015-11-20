@@ -1197,7 +1197,7 @@ public class GlobalData extends Application {
                             featurePresented = HARDWARE_CHECK_ALLOWED;
                         else
                         {
-                            // "settings" binnary not exists
+                            // "settings" binary not exists
                             if (PhoneProfilesHelper.PPHelperVersion == -1)
                                 featurePresented = HARDWARE_CHECK_INSTALL_PPHELPER;
                             else
@@ -1230,24 +1230,24 @@ public class GlobalData extends Application {
             {
                 if (android.os.Build.VERSION.SDK_INT >= 21)
                 {
-                    /*if (PhoneProfilesHelper.isPPHelperInstalled(context, 22))
+                    if (PhoneProfilesHelper.isPPHelperInstalled(context, 22))
                     {
                         // je nainstalovany PhonProfilesHelper
                         featurePresented = HARDWARE_CHECK_ALLOWED;
                     }
                     else
                     {
-                        if (isRooted(false))
+                        // zariadenie je rootnute
+                        if (serviceBinaryExists())
+                            featurePresented = HARDWARE_CHECK_ALLOWED;
+                        else
                         {
+                            // "service" binary not exists
                             if (PhoneProfilesHelper.PPHelperVersion == -1)
                                 featurePresented = HARDWARE_CHECK_INSTALL_PPHELPER;
                             else
                                 featurePresented = HARDWARE_CHECK_UPGRADE_PPHELPER;
                         }
-                    }*/
-                    if (isRooted(false) /*&& settingsBinaryExists()*/)
-                    {
-                        featurePresented = HARDWARE_CHECK_ALLOWED;
                     }
                 }
                 else
@@ -1302,7 +1302,7 @@ public class GlobalData extends Application {
                         featurePresented = HARDWARE_CHECK_ALLOWED;
                     else
                     {
-                        // "settings" binnary not exists
+                        // "settings" binary not exists
                         if (PhoneProfilesHelper.PPHelperVersion == -1)
                             featurePresented = HARDWARE_CHECK_INSTALL_PPHELPER;
                         else
@@ -1413,6 +1413,9 @@ public class GlobalData extends Application {
     static private boolean isSELinuxEnforcing = false;
     //static private String suVersion = null;
     //static private boolean suVersionChecked = false;
+    static private boolean serviceBinaryChecking = false;
+    static private boolean serviceBinaryChecked = false;
+    static private boolean serviceBinaryExists = false;
 
     static boolean isRooted(boolean onlyCheckFlags)
     {
@@ -1426,6 +1429,8 @@ public class GlobalData extends Application {
             isSELinuxEnforcing = false;
             //suVersionChecked = false;
             //suVersion = null;
+            serviceBinaryExists = false;
+            serviceBinaryChecked = false;
             if (!onlyCheckFlags)
             {
                 rootChecking = true;
@@ -1474,6 +1479,8 @@ public class GlobalData extends Application {
             isSELinuxEnforcing = false;
             //suVersionChecked = false;
             //suVersion = null;
+            serviceBinaryExists = false;
+            serviceBinaryChecked = false;
             GlobalData.logE("GlobalData.grantRoot", "start isAccessGiven");
             grantChecking = true;
             if (RootTools.isAccessGiven())
@@ -1525,6 +1532,27 @@ public class GlobalData extends Application {
         }
         GlobalData.logE("GlobalData.settingsBinaryExists", "settingsBinaryExists="+settingsBinaryExists);
         return settingsBinaryExists;
+    }
+
+    static boolean serviceBinaryExists()
+    {
+        RootShell.debugMode = rootToolsDebug;
+
+        if ((!serviceBinaryChecked) && (!serviceBinaryChecking))
+        {
+            serviceBinaryChecking = true;
+            List<String> servicePaths = RootTools.findBinary("service");
+            serviceBinaryExists = servicePaths.size() > 0;
+            /*try {
+                RootTools.closeAllShells();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
+            serviceBinaryChecking = false;
+            serviceBinaryChecked = true;
+        }
+        GlobalData.logE("GlobalData.serviceBinaryExists", "serviceBinaryExists="+serviceBinaryExists);
+        return serviceBinaryExists;
     }
 
     /**
