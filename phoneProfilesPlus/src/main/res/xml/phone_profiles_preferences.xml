@@ -42,6 +42,11 @@
             android:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
             android:summary="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
             android:defaultValue="true" />
+        <PreferenceScreen
+            android:key="applicationPowerSaveMode"
+            android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
+            android:summary="@string/empty_string" >
+        </PreferenceScreen>
     </PreferenceCategory>
 
     <PreferenceCategory

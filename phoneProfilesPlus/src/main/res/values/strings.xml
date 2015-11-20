@@ -616,4 +616,5 @@
   <string name="array_pref_scanInPowerSaveMode_noScan">No scan</string>
   <string name="pref_event_battery_power_save_mode">Power save mode</string>
   <string name="event_preferences_battery_power_save_mode">Power save mode</string>
+  <string name="phone_profiles_pref_applicationPowerSaveMode">Power save mode settings</string>
 </resources>
