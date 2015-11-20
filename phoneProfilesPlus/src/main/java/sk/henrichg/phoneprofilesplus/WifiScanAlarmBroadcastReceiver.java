@@ -193,11 +193,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
                 int interval = GlobalData.applicationEventWifiScanInterval;
-                boolean isPowerSaveMode = false;
-                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    isPowerSaveMode = powerManager.isPowerSaveMode();
-                }
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
                 if (isPowerSaveMode && GlobalData.applicationEventWifiScanInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
 

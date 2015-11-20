@@ -47,6 +47,13 @@
             android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
             android:summary="@string/empty_string" >
         </PreferenceScreen>
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:key="applicationPowerSaveModeInternal"
+            android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
+            android:summary="@string/array_pref_powerSaveMode_off"
+            android:defaultValue="0"
+            android:entries="@array/powerSaveModeArray"
+            android:entryValues="@array/powerSaveModeValues" />
     </PreferenceCategory>
 
     <PreferenceCategory

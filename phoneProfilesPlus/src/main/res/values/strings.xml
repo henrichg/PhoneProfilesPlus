@@ -617,4 +617,7 @@
   <string name="pref_event_battery_power_save_mode">Power save mode</string>
   <string name="event_preferences_battery_power_save_mode">Power save mode</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Power save mode settings</string>
+  <string name="array_pref_powerSaveMode_off">Off</string>
+  <string name="array_pref_powerSaveMode_5">Turn on at 5% battery</string>
+  <string name="array_pref_powerSaveMode_15">Turn on at 15% battery</string>
 </resources>

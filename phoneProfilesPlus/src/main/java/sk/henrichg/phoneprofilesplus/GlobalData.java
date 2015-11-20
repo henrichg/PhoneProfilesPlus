@@ -292,6 +292,7 @@ public class GlobalData extends Application {
     public static final String PREF_APPLICATION_SHORTCUT_EMBLEM = "applicationShortcutEmblem";
     public static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE = "applicationEventWifiScanInPowerSaveMode";
     public static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE = "applicationEventBluetoothScanInPowerSaveMode";
+    public static final String PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
     public static final int HARDWARE_CHECK_NOT_ALLOWED = 0;
     public static final int HARDWARE_CHECK_ALLOWED = 1;
@@ -396,6 +397,7 @@ public class GlobalData extends Application {
     public static boolean applicationShortcutEmblem;
     public static String applicationEventWifiScanInPowerSaveMode;
     public static String applicationEventBluetoothScanInPowerSaveMode;
+    public static String applicationPowerSaveModeInternal;
 
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
@@ -608,6 +610,7 @@ public class GlobalData extends Application {
         applicationShortcutEmblem = preferences.getBoolean(PREF_APPLICATION_SHORTCUT_EMBLEM, true);
         applicationEventWifiScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE, "0");
         applicationEventBluetoothScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE, "0");
+        applicationPowerSaveModeInternal = preferences.getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "0");
 
         if (applicationTheme.equals("light"))
         {

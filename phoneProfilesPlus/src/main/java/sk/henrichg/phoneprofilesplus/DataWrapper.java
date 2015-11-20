@@ -19,6 +19,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
@@ -1466,11 +1467,7 @@ public class DataWrapper {
                     }
                 }
                 if (batteryPassed && event._eventPreferencesBattery._powerSaveMode) {
-                    boolean isPowerSaveMode = false;
-                    if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                        batteryPassed = powerManager.isPowerSaveMode();
-                    }
+                    batteryPassed = DataWrapper.isPowerSaveMode(context);
                 }
             }
             else
@@ -2360,4 +2357,37 @@ public class DataWrapper {
         getDatabaseHandler().removeAllEventsInDelay();
     }
 
+    public static boolean isPowerSaveMode(Context context) {
+        // Internal Power save mode
+        if (Build.VERSION.SDK_INT < 21) {
+            boolean isCharging;
+            int batteryPct;
+
+            // get battery status
+            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+            Intent batteryStatus = context.registerReceiver(null, ifilter);
+
+            if (batteryStatus != null) {
+                int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                        status == BatteryManager.BATTERY_STATUS_FULL;
+
+                int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+
+                batteryPct = Math.round(level / (float) scale * 100);
+
+                if ((!isCharging) &&
+                    ((GlobalData.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
+                    (GlobalData.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15)))) {
+                    return true;
+                }
+            }
+        }
+        else {
+            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            return powerManager.isPowerSaveMode();
+        }
+        return false;
+    }
 }

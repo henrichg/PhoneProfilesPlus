@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.PowerManager;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -181,11 +182,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
                 int interval = GlobalData.applicationEventBluetoothScanInterval;
-                boolean isPowerSaveMode = false;
-                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                    PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    isPowerSaveMode = powerManager.isPowerSaveMode();
-                }
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
                 if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("0"))
                     interval = 2 * interval;
 

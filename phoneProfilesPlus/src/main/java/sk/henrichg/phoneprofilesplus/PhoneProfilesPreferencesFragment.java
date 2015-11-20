@@ -39,6 +39,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1992;
     static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
     static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
+    static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,11 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         preferences.registerOnSharedPreferenceChangeListener(this);
 
         if (Build.VERSION.SDK_INT >= 21) {
-            Preference preference = prefMng.findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
+            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("categorySystem");
+            Preference preference = findPreference(PREF_POWER_SAVE_MODE_INTERNAL);
+            preferenceCategory.removePreference(preference);
+
+            preference = prefMng.findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -274,6 +279,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE);
+        setSummary(GlobalData.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL);
 
         if (android.os.Build.VERSION.SDK_INT >= 16) {
             setSummary(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
