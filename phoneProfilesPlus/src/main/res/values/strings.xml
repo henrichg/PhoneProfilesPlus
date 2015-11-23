@@ -620,6 +620,6 @@
   <string name="array_pref_powerSaveMode_off">Off</string>
   <string name="array_pref_powerSaveMode_5">Turn on at 5% battery</string>
   <string name="array_pref_powerSaveMode_15">Turn on at 15% battery</string>
-  <string name="important_info_profile_ringerMode_root">In Android 6 (Marshmallow), is not possible to change system setting \"Vibrate when ringing\" in non-roted device.</string>
-  <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow), is not possible to change level of \"Adaptive brightness\" in non-roted device.</string>
+  <string name="important_info_profile_ringerMode_root">In Android 6 (Marshmallow), is not possible to change system setting \"Vibrate when ringing\" in non-rooted device.</string>
+  <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow), is not possible to change level of \"Adaptive brightness\" in non-rooted device.</string>
 </resources>
