@@ -61,10 +61,37 @@ public class ImportantInfoActivity extends AppCompatActivity {
             //e.printStackTrace();
         }
 
-        if ((versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS) ||
-                (android.os.Build.VERSION.SDK_INT < ImportantInfoNotification.API_LEVEL_FOR_NEWS)){
+        boolean news = true;
+        if (versionCode <= ImportantInfoNotification.VERSION_CODE_FOR_NEWS) {
+            // old installed version, no show news
             TextView infoTextNews = (TextView) findViewById(R.id.activity_info_notification_dialog_news);
             infoTextNews.setVisibility(View.GONE);
+            news = false;
+        }
+
+        if (android.os.Build.VERSION.SDK_INT < 23) {
+            TextView infoText15 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text15);
+            infoText15.setVisibility(View.GONE);
+            TextView infoText16 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text16);
+            infoText16.setVisibility(View.GONE);
+            TextView infoText17 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text17);
+            infoText17.setVisibility(View.GONE);
+            TextView infoText18 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text18);
+            infoText18.setVisibility(View.GONE);
+        }
+        else {
+            if (!news) {
+                TextView infoText15 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text15);
+                infoText15.setVisibility(View.GONE);
+                TextView infoText17 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text17);
+                infoText17.setVisibility(View.GONE);
+            }
+            else {
+                TextView infoText16 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text16);
+                infoText16.setVisibility(View.GONE);
+                TextView infoText18 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text18);
+                infoText18.setVisibility(View.GONE);
+            }
         }
 
         if (android.os.Build.VERSION.SDK_INT < 21) {
@@ -79,7 +106,8 @@ public class ImportantInfoActivity extends AppCompatActivity {
             infoText14.setVisibility(View.GONE);
         }
         else {
-            if (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS) {
+            if (versionCode > 1772) { // deployed version for this info
+                // new installed version, no show old news
                 TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
                 infoText13.setVisibility(View.GONE);
                 TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);

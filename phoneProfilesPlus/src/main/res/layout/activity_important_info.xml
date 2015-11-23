@@ -31,6 +31,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_ringerMode_root"
+                android:id="@+id/activity_info_notification_dialog_info_text15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_adaptiveBrightness_root"
+                android:id="@+id/activity_info_notification_dialog_info_text17" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_zenMode"
                 android:id="@+id/activity_info_notification_dialog_info_text13"
                 android:textColor="?attr/colorAccent"/>
@@ -77,9 +91,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_ringerMode_root"
+                android:id="@+id/activity_info_notification_dialog_info_text16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_zenMode"
                 android:id="@+id/activity_info_notification_dialog_info_text14"
                 android:textColor="?attr/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_adaptiveBrightness_root"
+                android:id="@+id/activity_info_notification_dialog_info_text18" />
 
             <TextView
                 android:layout_width="wrap_content"

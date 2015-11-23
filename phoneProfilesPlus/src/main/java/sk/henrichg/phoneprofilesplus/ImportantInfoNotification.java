@@ -11,8 +11,7 @@ import android.support.v4.app.NotificationCompat;
 
 public class ImportantInfoNotification {
 
-    public static final int VERSION_CODE_FOR_NEWS = 9999; // news off
-    public static final int API_LEVEL_FOR_NEWS = 15; //21;
+    public static final int VERSION_CODE_FOR_NEWS = 1790; // 9999 news off
 
     static public void showInfoNotification(Context context) {
 
@@ -22,8 +21,7 @@ public class ImportantInfoNotification {
             pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             versionCode = pinfo.versionCode;
             if (versionCode > GlobalData.getShowInfoNotificationOnStartVersion(context)) {
-                boolean show = (versionCode >= VERSION_CODE_FOR_NEWS) &&
-                                (android.os.Build.VERSION.SDK_INT >= API_LEVEL_FOR_NEWS);
+                boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
                 GlobalData.setShowInfoNotificationOnStart(context, show, versionCode);
             }
             else
