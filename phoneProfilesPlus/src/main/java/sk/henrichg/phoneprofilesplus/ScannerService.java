@@ -105,7 +105,7 @@ public class ScannerService extends IntentService
         {
             GlobalData.logE("@@@ ScannerService.onHandleIntent", "getStartScan=false");
 
-            boolean canScan = GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.HARDWARE_CHECK_ALLOWED;
+            boolean canScan = GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_ALLOWED;
             if (canScan) {
                 canScan = !WifiApManager.isWifiAPEnabled(context);
                 GlobalData.logE("$$$ ScannerService.onHandleIntent", "canScan=" + canScan);
@@ -236,7 +236,7 @@ public class ScannerService extends IntentService
         if (scanType.equals(GlobalData.SCANNER_TYPE_BLUETOOTH)) {
             GlobalData.logE("@@@ ScannerService.onHandleIntent", "getStartScan=false");
 
-            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.HARDWARE_CHECK_ALLOWED) {
+            if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_ALLOWED) {
 
                 lock();
 

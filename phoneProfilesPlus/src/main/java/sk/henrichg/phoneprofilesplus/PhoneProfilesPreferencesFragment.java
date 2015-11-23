@@ -336,8 +336,8 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN);
         setSummary(GlobalData.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME);
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, preferencesActivity.getApplicationContext())
-                    != GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, preferencesActivity.getApplicationContext())
+                    != GlobalData.PREFERENCE_ALLOWED)
         {
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI).setEnabled(false);
@@ -347,8 +347,8 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             editor.commit();
         }
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, preferencesActivity.getApplicationContext())
-                    != GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, preferencesActivity.getApplicationContext())
+                != GlobalData.PREFERENCE_ALLOWED)
         {
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH).setEnabled(false);

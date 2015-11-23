@@ -127,8 +127,8 @@ public class EventPreferencesBluetooth extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, _adapterName, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, Integer.toString(_connectionType), context);
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
-                != GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
+                != GlobalData.PREFERENCE_ALLOWED)
         {
             prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED).setEnabled(false);
             prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME).setEnabled(false);

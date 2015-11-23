@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.Settings;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,9 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.stericson.RootShell.execution.Command;
+import com.stericson.RootShell.execution.Shell;
+import com.stericson.RootTools.RootTools;
 
 public class BrightnessDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
@@ -136,13 +140,6 @@ public class BrightnessDialogPreference extends
         if (defaultProfile == 1)
             noChangeChBox.setChecked(false);
 
-        /*
-        boolean isAutomatic = (automatic == 1);
-        if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-            isAutomatic = false;
-        valueText.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
-        seekBar.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
-        */
         valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
         seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
         automaticChBox.setEnabled((noChange == 0) && (defaultProfile == 0));
@@ -163,8 +160,7 @@ public class BrightnessDialogPreference extends
         if (Permissions.checkScreenBrightness(_context)) {
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
-            //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-            //    Settings.System.putFloat(_context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, savedAdaptiveBrightness);
+            setAdaptiveBrightness(savedAdaptiveBrightness);
         }
 
         Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
@@ -176,53 +172,7 @@ public class BrightnessDialogPreference extends
         win.setAttributes(layoutParams);
     }
 
-    public void onProgressChanged(SeekBar seek, int newValue,
-            boolean fromTouch) {
-        // Round the value to the closest integer value.
-        if (stepSize >= 1) {
-            value = Math.round(newValue/stepSize)*stepSize;
-        }
-        else {
-            value = newValue;
-        }
-
-        // Set the valueText text.
-        valueText.setText(String.valueOf(value));
-
-        if (Permissions.checkScreenBrightness(_context)) {
-            if (automatic == 1)
-                Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-            else
-                Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-            Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
-                    Profile.convertPercentsToBrightnessManualValue(value + minimumValue, _context));
-            if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-            {
-                // Nefunguje v Android M, hadze exception
-                //Settings.System.putFloat(_context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME,
-                //                    Profile.convertPercentsToBrightnessAdaptiveValue(value + minimumValue, _context));
-            }
-        }
-
-        Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
-        WindowManager.LayoutParams layoutParams = win.getAttributes();
-        if (automatic == 1)
-            layoutParams.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-        else
-            layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(value + minimumValue, _context) / (float) 255;
-        win.setAttributes(layoutParams);
-
-        callChangeListener(value);
-    }
-
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        /*
-        boolean isAutomatic = (automatic == 1);
-        if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-            isAutomatic = false;  // enable change value via seek bar
-        */
-
         if (buttonView.getId() == R.id.brightnessPrefDialogNoChange)
         {
             noChange = (isChecked)? 1 : 0;
@@ -291,9 +241,7 @@ public class BrightnessDialogPreference extends
             if (Permissions.checkScreenBrightness(_context)) {
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
-                // Nefunguje v Android M, hadze exception
-                //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                //    Settings.System.putFloat(_context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, savedAdaptiveBrightness);
+                setAdaptiveBrightness(savedAdaptiveBrightness);
             }
 
             Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
@@ -313,12 +261,7 @@ public class BrightnessDialogPreference extends
                     Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                         Profile.convertPercentsToBrightnessManualValue(_value + minimumValue, _context));
-                if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                {
-                    // Nefunguje v Android M, hadze exception
-                    //Settings.System.putFloat(_context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME,
-                    //                    Profile.convertPercentsToBrightnessAdaptiveValue(_value + minimumValue, _context));
-                }
+                setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(_value + minimumValue, _context));
             }
 
             Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
@@ -333,10 +276,52 @@ public class BrightnessDialogPreference extends
         callChangeListener(noChange);
     }
 
+    private void setBrightnessFromSeekBar(int value) {
+        if (Permissions.checkScreenBrightness(_context)) {
+            if (automatic == 1)
+                Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+            else
+                Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+            Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
+                    Profile.convertPercentsToBrightnessManualValue(value + minimumValue, _context));
+            setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(value + minimumValue, _context));
+        }
+
+        Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
+        WindowManager.LayoutParams layoutParams = win.getAttributes();
+        if (automatic == 1)
+            layoutParams.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+        else
+            layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(value + minimumValue, _context) / (float) 255;
+        win.setAttributes(layoutParams);
+    }
+
+    public void onProgressChanged(SeekBar seek, int newValue,
+                                  boolean fromUser) {
+        // Round the value to the closest integer value.
+        if (stepSize >= 1) {
+            value = Math.round(newValue/stepSize)*stepSize;
+        }
+        else {
+            value = newValue;
+        }
+
+        // Set the valueText text.
+        valueText.setText(String.valueOf(value));
+
+        if ((!fromUser) || (android.os.Build.VERSION.SDK_INT < 23)){
+            setBrightnessFromSeekBar(value);
+        }
+
+        callChangeListener(value);
+    }
+
     public void onStartTrackingTouch(SeekBar seek) {
     }
 
     public void onStopTrackingTouch(SeekBar seek) {
+        if ((android.os.Build.VERSION.SDK_INT >= 23))
+            setBrightnessFromSeekBar(value);
     }
 
     @Override
@@ -424,6 +409,51 @@ public class BrightnessDialogPreference extends
                 prefVolumeDataSummary = sValue;
         }
         setSummary(prefVolumeDataSummary);
+    }
+
+    private void setAdaptiveBrightness(float value) {
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context)
+                == GlobalData.PREFERENCE_ALLOWED) {
+            if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+                Settings.System.putFloat(_context.getContentResolver(),
+                        ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
+            else {
+                String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
+                        Float.toString(value);
+                //if (GlobalData.isSELinuxEnforcing())
+                //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                Command command = new Command(0, false, command1); //, command2);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    commandWait(command);
+                    //RootTools.closeAllShells();
+                } catch (Exception e) {
+                    Log.e("BrightnessDialogPreference.setAdaptiveBrightness", "Error on run su: " + e.toString());
+                }
+            }
+        }
+    }
+
+    private static void commandWait(Command cmd) throws Exception {
+        int waitTill = 50;
+        int waitTillMultiplier = 2;
+        int waitTillLimit = 3200; //7 tries, 6350 msec
+
+        while (!cmd.isFinished() && waitTill<=waitTillLimit) {
+            synchronized (cmd) {
+                try {
+                    if (!cmd.isFinished()) {
+                        cmd.wait(waitTill);
+                        waitTill *= waitTillMultiplier;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (!cmd.isFinished()){
+            Log.e("ActivateProfileHelper", "Could not finish root command in " + (waitTill/waitTillMultiplier));
+        }
     }
 
 }

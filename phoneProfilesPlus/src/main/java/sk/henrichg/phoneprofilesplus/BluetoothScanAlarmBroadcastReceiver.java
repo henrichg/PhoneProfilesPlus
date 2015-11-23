@@ -51,8 +51,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         //if (boundedDevicesList == null)
         //    boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
-                GlobalData.HARDWARE_CHECK_ALLOWED) {
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
+                GlobalData.PREFERENCE_ALLOWED) {
             removeAlarm(context, false);
             removeAlarm(context, true);
             return;
@@ -108,8 +108,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         setWaitForLEResults(context, false);
         setBluetoothEnabledForScan(context, false);
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
-                GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
+                GlobalData.PREFERENCE_ALLOWED)
             return;
 
         if (bluetooth == null)
@@ -136,8 +136,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
-                == GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
+                == GlobalData.PREFERENCE_ALLOWED)
         {
             GlobalData.logE("BluetoothScanAlarmBroadcastReceiver.setAlarm","BluetoothHardware=true");
 

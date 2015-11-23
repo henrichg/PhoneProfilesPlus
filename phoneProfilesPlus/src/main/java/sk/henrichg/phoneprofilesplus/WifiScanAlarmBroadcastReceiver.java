@@ -56,8 +56,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         //if (wifiConfigurationList == null)
         //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) !=
-                GlobalData.HARDWARE_CHECK_ALLOWED) {
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) !=
+                GlobalData.PREFERENCE_ALLOWED) {
             removeAlarm(context, false);
             removeAlarm(context, true);
             return;
@@ -111,8 +111,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         setWaitForResults(context, false);
         setWifiEnabledForScan(context, false);
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) !=
-                GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) !=
+                GlobalData.PREFERENCE_ALLOWED)
             return;
 
         if (wifi == null)
@@ -151,8 +151,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot);
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context)
-                == GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context)
+                == GlobalData.PREFERENCE_ALLOWED)
         {
             GlobalData.logE("WifiScanAlarmBroadcastReceiver.setAlarm","WifiHardware=true");
 

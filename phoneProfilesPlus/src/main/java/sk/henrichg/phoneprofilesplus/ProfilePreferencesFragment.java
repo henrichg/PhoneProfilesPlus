@@ -726,18 +726,18 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             key.equals(GlobalData.PREF_PROFILE_DEVICE_NFC) ||
             key.equals(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP))
         {
-            int canChange = GlobalData.hardwareCheck(key, context);
-            if (canChange != GlobalData.HARDWARE_CHECK_ALLOWED)
+            int canChange = GlobalData.isPreferenceAllowed(key, context);
+            if (canChange != GlobalData.PREFERENCE_ALLOWED)
             {
                 ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
                 listPreference.setEnabled(false);
-                if (canChange == GlobalData.HARDWARE_CHECK_NOT_ALLOWED)
+                if (canChange == GlobalData.PREFERENCE_ALLOWED)
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
                 else
-                if (canChange == GlobalData.HARDWARE_CHECK_INSTALL_PPHELPER)
+                if (canChange == GlobalData.PREFERENCE_INSTALL_PPHELPER)
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_install_pphelper));
                 else
-                if (canChange == GlobalData.HARDWARE_CHECK_UPGRADE_PPHELPER)
+                if (canChange == GlobalData.PREFERENCE_UPGRADE_PPHELPER)
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_upgrade_pphelper));
                 GUIData.setPreferenceTitleStyle(listPreference, false, false);
             }

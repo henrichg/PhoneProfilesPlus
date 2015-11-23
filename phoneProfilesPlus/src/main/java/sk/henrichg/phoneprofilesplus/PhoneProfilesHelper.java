@@ -443,7 +443,7 @@ public class PhoneProfilesHelper {
             Context context = activity.getApplicationContext();
             // update profiles for hardware changes
             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(context);
-            databaseHandler.updateForHardware(context);
+            databaseHandler.disableNotAllowedPreferences(context);
             // refresh GUI
             Intent refreshIntent = new Intent();
             refreshIntent.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);

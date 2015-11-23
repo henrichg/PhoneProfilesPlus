@@ -127,8 +127,8 @@ public class EventPreferencesWifi extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_WIFI_SSID, _SSID, context);
         setSummary(prefMng, PREF_EVENT_WIFI_CONNECTION_TYPE, Integer.toString(_connectionType), context);
 
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context)
-                != GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context)
+                != GlobalData.PREFERENCE_ALLOWED)
         {
             prefMng.findPreference(PREF_EVENT_WIFI_ENABLED).setEnabled(false);
             prefMng.findPreference(PREF_EVENT_WIFI_SSID).setEnabled(false);

@@ -116,7 +116,7 @@ public class ActivateProfileHelper {
 
         // nahodenie mobilnych dat
         if (!onlyCheckForPPHelper) {
-            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.HARDWARE_CHECK_ALLOWED) {
+            if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.PREFERENCE_ALLOWED) {
                 boolean _isMobileData = isMobileData(context);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
@@ -151,7 +151,7 @@ public class ActivateProfileHelper {
         // nahodenie WiFi AP
         boolean canChangeWifi = true;
         if (!onlyCheckForPPHelper) {
-            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, context) == GlobalData.HARDWARE_CHECK_ALLOWED) {
+            if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, context) == GlobalData.PREFERENCE_ALLOWED) {
                 WifiApManager wifiApManager = null;
                 try {
                     wifiApManager = new WifiApManager(context);
@@ -196,7 +196,7 @@ public class ActivateProfileHelper {
 
         if (canChangeWifi) {
             // nahodenie WiFi
-            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.HARDWARE_CHECK_ALLOWED) {
+            if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_ALLOWED) {
                 boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
                 if (!isWifiAPEnabled) { // only when wifi AP is not enabled, change wifi
                     GlobalData.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=" + isWifiAPEnabled);
@@ -244,7 +244,7 @@ public class ActivateProfileHelper {
         }
 
         // nahodenie bluetooth
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_ALLOWED)
         {
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             boolean isBluetoothEnabled = bluetoothAdapter.isEnabled();
@@ -286,7 +286,7 @@ public class ActivateProfileHelper {
 
         // nahodenie GPS
         if (!onlyCheckForPPHelper) {
-            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_GPS, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
+            if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_GPS, context) == GlobalData.PREFERENCE_ALLOWED)
             {
                 //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                 //boolean isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
@@ -322,7 +322,7 @@ public class ActivateProfileHelper {
     {
         boolean _isAirplaneMode = false;
         boolean _setAirplaneMode = false;
-        if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context) == GlobalData.PREFERENCE_ALLOWED)
         {
             _isAirplaneMode = isAirplaneMode(context);
             switch (profile._deviceAirplaneMode) {
@@ -936,11 +936,27 @@ public class ActivateProfileHelper {
                     Settings.System.putInt(context.getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS,
                             profile.getDeviceBrightnessManualValue(context));
-                    // Nefunguje v Android M, hadze exception
-                    //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                    //    Settings.System.putFloat(context.getContentResolver(),
-                    //            ADAPTIVE_BRIGHTNESS_SETTING_NAME,
-                    //            profile.getDeviceBrightnessAdaptiveValue(context));
+                    if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, context)
+                            == GlobalData.PREFERENCE_ALLOWED) {
+                        if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+                            Settings.System.putFloat(context.getContentResolver(),
+                                    ADAPTIVE_BRIGHTNESS_SETTING_NAME,
+                                    profile.getDeviceBrightnessAdaptiveValue(context));
+                        else {
+                            String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
+                                    Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
+                            //if (GlobalData.isSELinuxEnforcing())
+                            //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                commandWait(command);
+                                //RootTools.closeAllShells();
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                            }
+                        }
+                    }
                 } else {
                     Settings.System.putInt(context.getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS_MODE,
@@ -1012,7 +1028,7 @@ public class ActivateProfileHelper {
         {
             // preferences, ktore vyzaduju interakciu uzivatela
 
-            if (GlobalData.hardwareCheck(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == GlobalData.HARDWARE_CHECK_ALLOWED)
+            if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == GlobalData.PREFERENCE_ALLOWED)
             {
                 if (profile._deviceMobileDataPrefs == 1)
                 {
