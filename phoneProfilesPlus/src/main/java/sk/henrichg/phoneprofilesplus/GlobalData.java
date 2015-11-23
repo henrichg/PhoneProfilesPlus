@@ -233,8 +233,9 @@ public class GlobalData extends Application {
     static final String PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS = "prf_pref_volumeUnlinkVolumesAppSettings";
     static final String PREF_PROFILE_DEVICE_WIFI_AP = "prf_pref_deviceWiFiAP";
 
-    // not as separated preference, bud checked from isPreferenceAllowed
+    // no preferences, bud checked from isPreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
+    static final String PREF_PROFILE_DEVICE_VIBRATE_WHEN_RINGING = "prf_pref_volumeVibrateWhenRinging";
 
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
 
@@ -1358,24 +1359,21 @@ public class GlobalData extends Application {
             }
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_VOLUME_RINGER_MODE) ||
-            preferenceKey.equals(PREF_PROFILE_VOLUME_ZEN_MODE))
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_VIBRATE_WHEN_RINGING))
         {
-            if (android.os.Build.VERSION.SDK_INT >= 23)
-            {
-                if (isRooted(false))
-                {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                if (isRooted(false)) {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
-                    /*else
-                    {
-                        // "settings" binnary not exists
-                        if (PhoneProfilesHelper.PPHelperVersion == -1)
-                            featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                        else
-                            featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                    }*/
+                /*else
+                {
+                    // "settings" binnary not exists
+                    if (PhoneProfilesHelper.PPHelperVersion == -1)
+                        featurePresented = PREFERENCE_INSTALL_PPHELPER;
+                    else
+                        featurePresented = PREFERENCE_UPGRADE_PPHELPER;
+                }*/
                 }
             }
             else
@@ -1384,8 +1382,7 @@ public class GlobalData extends Application {
         else
         if (preferenceKey.equals(PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
         {
-            if (android.os.Build.VERSION.SDK_INT >= 21)
-            {
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                 {
                     if (isRooted(false))

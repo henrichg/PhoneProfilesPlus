@@ -530,6 +530,27 @@ public class ActivateProfileHelper {
         }
     }
 
+    private void setVibrateWhenRinging(int value) {
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_VIBRATE_WHEN_RINGING, context)
+                == GlobalData.PREFERENCE_ALLOWED) {
+            if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+                Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", value);
+            else {
+                String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + value;
+                //if (GlobalData.isSELinuxEnforcing())
+                //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                Command command = new Command(0, false, command1); //, command2);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    commandWait(command);
+                    //RootTools.closeAllShells();
+                } catch (Exception e) {
+                    Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                }
+            }
+        }
+    }
+
     @SuppressWarnings("deprecation")
     public void setRingerMode(Profile profile, AudioManager audioManager, boolean forSilent)
     {
@@ -571,11 +592,7 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
-                        // Nefunfuje v Android M, hadze exception
-                        ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
-                    else
-                        Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
+                    setVibrateWhenRinging(0);
                     break;
                 case 2:  // Ring & Vibrate
                     RingerModeChangeReceiver.internalChange = true;
@@ -590,11 +607,7 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
-                        // Nefunfuje v Android M, hadze exception
-                        ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1);
-                    else
-                        Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
+                    setVibrateWhenRinging(1);
                     break;
                 case 3:  // Vibrate
                     RingerModeChangeReceiver.internalChange = true;
@@ -609,11 +622,7 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
-                        // Nefunfuje v Android M, hadze exception
-                        ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1);
-                    else
-                        Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
+                    setVibrateWhenRinging(1);
                     break;
                 case 4:  // Silent
                     RingerModeChangeReceiver.internalChange = true;
@@ -628,11 +637,7 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    if (android.os.Build.VERSION.SDK_INT >= 23)
-                        // Nefunfuje v Android M, hadze exception
-                        ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
-                    else
-                        Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
+                    setVibrateWhenRinging(0);
                     break;
                 case 5: // Zen mode
                     RingerModeChangeReceiver.internalChange = true;
@@ -644,20 +649,12 @@ public class ActivateProfileHelper {
                         case 1:
                             setZenMode(context, ZENMODE_ALL);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                            if (android.os.Build.VERSION.SDK_INT >= 23)
-                                // Nefunfuje v Android M, hadze exception
-                                ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
-                            else
-                                Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
+                            setVibrateWhenRinging(0);
                             break;
                         case 2:
                             setZenMode(context, ZENMODE_PRIORITY);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                            if (android.os.Build.VERSION.SDK_INT >= 23)
-                                // Nefunfuje v Android M, hadze exception
-                                ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
-                            else
-                                Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 0);
+                            setVibrateWhenRinging(0);
                             break;
                         case 3:
                             setZenMode(context, ZENMODE_NONE);
@@ -667,20 +664,12 @@ public class ActivateProfileHelper {
                         case 4:
                             setZenMode(context, ZENMODE_ALL);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                            if (android.os.Build.VERSION.SDK_INT >= 23)
-                                // Nefunfuje v Android M, hadze exception
-                                ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1);
-                            else
-                                Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
+                            setVibrateWhenRinging(1);
                             break;
                         case 5:
                             setZenMode(context, ZENMODE_PRIORITY);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                            if (android.os.Build.VERSION.SDK_INT >= 23)
-                                // Nefunfuje v Android M, hadze exception
-                                ;//Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 1);
-                            else
-                                Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", 1);
+                            setVibrateWhenRinging(1);
                             break;
                         case 6:
                             setZenMode(context, ZENMODE_ALARMS);

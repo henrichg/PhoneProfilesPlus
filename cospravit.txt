@@ -838,57 +838,12 @@ CO FUNGUJE CIASTOCNE:
   - musi byt zapnuta lokacia
   - musi byt povolene scanovanie bluetooth v nastaveniach lokacie
   - treba testnut, ale nemam LS zariadenie :-(
-
-CO NEFUNGUJE
-- Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); hadze to exception:
-  "java.lang.IllegalArgumentException: You cannot change private secure settings."
 - Settings.System.putFloat(_context.getContentResolver(), "screen_auto_brightness_adj", value); hadze to exception:
   "java.lang.IllegalArgumentException: You cannot change private secure settings."
-
-- Takze to vypada, ze Settings.System.VIBRATE_WHEN_RINGING a "screen_auto_brightness_adj" mozu menit len systemove aplikacie.
-  Lebo su v  Settings.System.PRIVATE_SETTINGS. Takze asi len PPHelper.
-  Vid: https://github.com/android/platform_frameworks_base/blob/master/packages/SettingsProvider/src/com/android/providers/settings/SettingsProvider.java
-    private void enforceRestrictedSystemSettingsMutationForCallingPackage(
-           ...
-           case MUTATION_OPERATION_UPDATE: {
-                if (Settings.System.PUBLIC_SETTINGS.contains(name)) {
-                    return;
-                }
-
-                // The calling package is already verified.
-                PackageInfo packageInfo = getCallingPackageInfoOrThrow();
-
-                // Privileged apps can do whatever they want.
-                if ((packageInfo.applicationInfo.privateFlags
-                        & ApplicationInfo.PRIVATE_FLAG_PRIVILEGED) != 0) {
-                    return;
-                }
-
-                warnOrThrowForUndesiredSecureSettingsMutationForTargetSdk(
-                        packageInfo.applicationInfo.targetSdkVersion, name);
-            } break;
-            ...
-    private static void warnOrThrowForUndesiredSecureSettingsMutationForTargetSdk(
-                int targetSdkVersion, String name) {
-            // If the app targets Lollipop MR1 or older SDK we warn, otherwise crash.
-            if (targetSdkVersion <= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                if (Settings.System.PRIVATE_SETTINGS.contains(name)) {
-                    Slog.w(LOG_TAG, "You shouldn't not change private system settings."
-                            + " This will soon become an error.");
-                } else {
-                    Slog.w(LOG_TAG, "You shouldn't keep your settings in the secure settings."
-                            + " This will soon become an error.");
-                }
-            } else {
-                if (Settings.System.PRIVATE_SETTINGS.contains(name)) {
-                    throw new IllegalArgumentException("You cannot change private secure settings.");
-                } else {
-                    throw new IllegalArgumentException("You cannot keep your settings in"
-                            + " the secure settings.");
-                }
-            }
-        }
-
+  - "Vyriesene" rootom.
+- Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); hadze to exception:
+  "java.lang.IllegalArgumentException: You cannot change private secure settings."
+  - "Vyriesene" rootom.
 
 ---- Power management:
 
