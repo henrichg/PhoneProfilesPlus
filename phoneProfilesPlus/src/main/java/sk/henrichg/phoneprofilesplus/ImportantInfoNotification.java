@@ -11,7 +11,8 @@ import android.support.v4.app.NotificationCompat;
 
 public class ImportantInfoNotification {
 
-    public static final int VERSION_CODE_FOR_NEWS = 1790; // 9999 news off
+    // this version code must by <= version code in manifest
+    public static final int VERSION_CODE_FOR_NEWS = 1792; // 9999 news off
 
     static public void showInfoNotification(Context context) {
 
