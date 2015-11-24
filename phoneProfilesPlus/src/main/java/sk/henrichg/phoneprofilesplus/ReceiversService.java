@@ -107,8 +107,10 @@ public class ReceiversService extends Service {
         getApplicationContext().unregisterReceiver(screenOnOffReceiver);
         //unregisterReceiver(bluetoothStateChangedReceiver);
         //getApplicationContext().unregisterReceiver(restartEventsReceiver);
-        getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
-        getApplicationContext().unregisterReceiver(powerSaveModeReceiver);
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+            getApplicationContext().unregisterReceiver(powerSaveModeReceiver);
 
         //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(this);

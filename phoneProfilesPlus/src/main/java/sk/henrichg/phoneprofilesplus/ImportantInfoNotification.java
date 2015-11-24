@@ -32,7 +32,7 @@ public class ImportantInfoNotification {
 
         if (GlobalData.getShowInfoNotificationOnStart(context, versionCode)) {
 
-            showNotificationForUnlinkRingerNotificationVolumes(context,
+            showNotification(context,
                     context.getString(R.string.info_notification_title),
                     context.getString(R.string.info_notification_text));
 
@@ -40,7 +40,7 @@ public class ImportantInfoNotification {
         }
     }
 
-    static private void showNotificationForUnlinkRingerNotificationVolumes(Context context, String title, String text) {
+    static private void showNotification(Context context, String title, String text) {
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
                 .setContentTitle(title) // title for notification
