@@ -1244,16 +1244,17 @@ public class GlobalData extends Application {
                     }
                     else
                     {
-                        // zariadenie je rootnute
-                        if (serviceBinaryExists())
-                            featurePresented = PREFERENCE_ALLOWED;
-                        else
-                        {
-                            // "service" binary not exists
-                            if (PhoneProfilesHelper.PPHelperVersion == -1)
-                                featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                            else
-                                featurePresented = PREFERENCE_UPGRADE_PPHELPER;
+                        if (isRooted(false)) {
+                            // zariadenie je rootnute
+                            if (serviceBinaryExists())
+                                featurePresented = PREFERENCE_ALLOWED;
+                            else {
+                                // "service" binary not exists
+                                if (PhoneProfilesHelper.PPHelperVersion == -1)
+                                    featurePresented = PREFERENCE_INSTALL_PPHELPER;
+                                else
+                                    featurePresented = PREFERENCE_UPGRADE_PPHELPER;
+                            }
                         }
                     }
                 }
