@@ -71,6 +71,10 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 infoText16.setVisibility(View.GONE);
                 TextView infoText18 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text18);
                 infoText18.setVisibility(View.GONE);
+                TextView infoText20 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text20);
+                infoText20.setVisibility(View.GONE);
+                TextView infoText22 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text22);
+                infoText22.setVisibility(View.GONE);
                 news = true;
             }
         }
@@ -79,6 +83,10 @@ public class ImportantInfoActivity extends AppCompatActivity {
             infoText15.setVisibility(View.GONE);
             TextView infoText17 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text17);
             infoText17.setVisibility(View.GONE);
+            TextView infoText19 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text19);
+            infoText19.setVisibility(View.GONE);
+            TextView infoText21 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text21);
+            infoText21.setVisibility(View.GONE);
         }
 
         if (news1772) {
@@ -119,6 +127,14 @@ public class ImportantInfoActivity extends AppCompatActivity {
             TextView infoText17 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text17);
             infoText17.setVisibility(View.GONE);
             TextView infoText18 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text18);
+            infoText18.setVisibility(View.GONE);
+            TextView infoText19 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text19);
+            infoText15.setVisibility(View.GONE);
+            TextView infoText20 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text20);
+            infoText16.setVisibility(View.GONE);
+            TextView infoText21 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text21);
+            infoText17.setVisibility(View.GONE);
+            TextView infoText22 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text22);
             infoText18.setVisibility(View.GONE);
         }
 

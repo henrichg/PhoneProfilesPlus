@@ -45,6 +45,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_wifiScanning_location"
+                android:id="@+id/activity_info_notification_dialog_info_text19" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_bluetoothScanning_location"
+                android:id="@+id/activity_info_notification_dialog_info_text21" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_zenMode"
                 android:id="@+id/activity_info_notification_dialog_info_text13"
                 android:textColor="?attr/colorAccent"/>
@@ -136,6 +150,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_wifiScanning_location"
+                android:id="@+id/activity_info_notification_dialog_info_text20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_bluetoothScanning_location"
+                android:id="@+id/activity_info_notification_dialog_info_text22" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:text="@string/important_info_system"
                 android:id="@+id/activity_info_notification_dialog_system"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -167,15 +195,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/important_info_pphelper_installation"
-                android:id="@+id/activity_info_notification_dialog_info_text7" />
+                android:text="@string/important_info_profile_settings"
+                android:id="@+id/activity_info_notification_dialog_info_text12" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/important_info_profile_settings"
-                android:id="@+id/activity_info_notification_dialog_info_text12" />
+                android:text="@string/important_info_pphelper_installation"
+                android:id="@+id/activity_info_notification_dialog_info_text7" />
 
         </LinearLayout>
 
