@@ -495,7 +495,6 @@ public class ActivateProfileHelper {
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
             if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
-                PPNotificationListenerService.internalChange = true;
                 int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
                 switch (mode) {
                     case ZENMODE_ALL:
@@ -554,11 +553,12 @@ public class ActivateProfileHelper {
     @SuppressWarnings("deprecation")
     public void setRingerMode(Profile profile, AudioManager audioManager, boolean forSilent)
     {
-        GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "ringerMode="+audioManager.getRingerMode());
+        GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "ringerMode=" + audioManager.getRingerMode());
 
-        //int ringerMode = profile._volumeRingerMode;
-        if (profile._volumeRingerMode != 0)
-            GlobalData.setRingerMode(context, profile._volumeRingerMode);
+        if (profile._volumeRingerMode == 0)
+            return;
+
+        GlobalData.setRingerMode(context, profile._volumeRingerMode);
         int ringerMode = GlobalData.getRingerMode(context);
 
         // for Lollipop 4=priority mode, for pre-lillipop 4=silent ringer mode
@@ -640,41 +640,43 @@ public class ActivateProfileHelper {
                     setVibrateWhenRinging(0);
                     break;
                 case 5: // Zen mode
-                    RingerModeChangeReceiver.internalChange = true;
                     if ((profile._volumeRingerMode != 0) && (profile._volumeZenMode != 0))
                         GlobalData.setZenMode(context, profile._volumeZenMode);
                     int zenMode = GlobalData.getZenMode(context);
 
                     switch (zenMode) {
                         case 1:
+                            RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_ALL);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateWhenRinging(0);
                             break;
                         case 2:
+                            RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_PRIORITY);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateWhenRinging(0);
                             break;
                         case 3:
+                            RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_NONE);
-                            // no change ringer mode
-                            //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             break;
                         case 4:
+                            RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_ALL);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateWhenRinging(1);
                             break;
                         case 5:
+                            RingerModeChangeReceiver.internalChange = true;
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             setZenMode(context, ZENMODE_PRIORITY);
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateWhenRinging(1);
                             break;
                         case 6:
+                            RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_ALARMS);
-                            // no change ringer mode
-                            //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             break;
                     }
                     break;

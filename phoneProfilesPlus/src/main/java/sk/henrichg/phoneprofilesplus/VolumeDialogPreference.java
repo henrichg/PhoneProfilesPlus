@@ -352,6 +352,12 @@ public class VolumeDialogPreference extends
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM, defaultValueAlarm, 0);
             //audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, defaultValueVoice, 0);
 
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                //System.out.println(e);
+            }
+
             ActivateProfileHelper.setZenMode(_context, defaultZenMode);
 
             //Log.e("#### VolumeDialogPreference", "defaultRingerMode=" + defaultRingerMode);
