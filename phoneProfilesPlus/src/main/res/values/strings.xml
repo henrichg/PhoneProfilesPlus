@@ -624,4 +624,5 @@
   <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow), is not possible to change level of \"Adaptive brightness\" in non-rooted device.</string>
   <string name="important_info_profile_wifiScanning_location">In Android 6 (Marshmallow), for Wi-Fi scanning must be enabled Loaction and "Wi-Fi scanning" in Loaction settings.</string>
   <string name="important_info_profile_bluetoothScanning_location">In Android 6 (Marshmallow), for Bluetooth LE scanning must be enabled Loaction and "Bluetooth scanning" in Loaction settings.</string>
+  <string name="profile_preferences_devicePowerSaveMode">Power save mode</string>
 </resources>

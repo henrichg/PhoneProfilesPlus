@@ -214,6 +214,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             else
             if (profile._deviceAutoRotate != 0)
                 indicator1 = addIntoIndicator(indicator1, "rot");
+            // power save mode
+            if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
+                indicator1 = addIntoIndicator(indicator1, "ps1");
+            if (profile._devicePowerSaveMode == 2)
+                indicator1 = addIntoIndicator(indicator1, "ps0");
             // run application
             if (profile._deviceRunApplicationChange == 1)
                 indicator1 = addIntoIndicator(indicator1, "rap");

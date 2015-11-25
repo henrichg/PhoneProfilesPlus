@@ -1013,6 +1013,34 @@ public class ActivateProfileHelper {
             }
         }
 
+        // set power save mode
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context) == GlobalData.PREFERENCE_ALLOWED) {
+            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            boolean _isPowerSaveMode = powerManager.isPowerSaveMode();
+            boolean _setPowerSaveMode = false;
+            switch (profile._devicePowerSaveMode) {
+                case 1:
+                    if (!_isPowerSaveMode) {
+                        _isPowerSaveMode = true;
+                        _setPowerSaveMode = true;
+                    }
+                    break;
+                case 2:
+                    if (_isPowerSaveMode) {
+                        _isPowerSaveMode = false;
+                        _setPowerSaveMode = true;
+                    }
+                    break;
+                case 3:
+                    _isPowerSaveMode = !_isPowerSaveMode;
+                    _setPowerSaveMode = true;
+                    break;
+            }
+            if (_setPowerSaveMode) {
+                setPowerSaveMode(_isPowerSaveMode);
+            }
+        }
+
         if (interactive)
         {
             // preferences, ktore vyzaduju interakciu uzivatela
@@ -1786,6 +1814,17 @@ public class ActivateProfileHelper {
         context.sendBroadcast(intent);
     }
 
+    private void setPowerSaveMode(boolean enable) {
+        String command1 = "settings put global low_power " + ((enable) ? 1 : 0);
+        Command command = new Command(0, false, command1);
+        try {
+            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+            commandWait(command);
+            //RootTools.closeAllShells();
+        } catch (Exception e) {
+            Log.e("ActivateProfileHelper.setPowerSaveMode", "Error on run su: " + e.toString());
+        }
+    }
 
     private static void commandWait(Command cmd) throws Exception {
         int waitTill = 50;

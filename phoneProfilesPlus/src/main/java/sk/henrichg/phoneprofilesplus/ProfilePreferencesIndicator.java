@@ -157,6 +157,11 @@ public class ProfilePreferencesIndicator {
             else
             if (profile._deviceAutoRotate != 0)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
+            // power save mode
+            if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode;
+            if (profile._devicePowerSaveMode == 2)
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off;
             // run application
             if (profile._deviceRunApplicationChange == 1)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_run_application;

@@ -279,7 +279,14 @@
             android:key="prf_pref_deviceAutoRotation"
             android:defaultValue="0"
             android:entries="@array/displayRotationArray11"
-            android:entryValues="@array/displayRotationValues11" />        
+            android:entryValues="@array/displayRotationValues11" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/profile_preferences_devicePowerSaveMode"
+            android:summary="@string/array_pref_no_change"
+            android:key="prf_pref_devicePowerSaveMode"
+            android:defaultValue="0"
+            android:entries="@array/hardwareModeArray"
+            android:entryValues="@array/hardwareModeValues" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceRunApplicationChange"
             android:summary="@string/array_pref_no_change"

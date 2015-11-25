@@ -30,7 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1410;
+    private static final int DATABASE_VERSION = 1420;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -122,6 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_KEYGUARD = "deviceKeyguard";
     private static final String KEY_VIBRATE_ON_TOUCH = "vibrateOnTouch";
     private static final String KEY_DEVICE_WIFI_AP = "deviceWifiAP";
+    private static final String KEY_DEVICE_POWER_SAVE_MODE = "devicePowerSaveMode";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -308,7 +309,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_VOLUME_ZEN_MODE + " INTEGER,"
                 + KEY_DEVICE_KEYGUARD + " INTEGER,"
                 + KEY_VIBRATE_ON_TOUCH + " INTEGER,"
-                + KEY_DEVICE_WIFI_AP + " INTEGER"
+                + KEY_DEVICE_WIFI_AP + " INTEGER,"
+                + KEY_DEVICE_POWER_SAVE_MODE + " INTEGER"
                 + ")";
     }
 
@@ -1328,6 +1330,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
         }
 
+        if (oldVersion < 1420)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_POWER_SAVE_MODE + " INTEGER");
+            if (!mergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_POWER_SAVE_MODE + " INTEGER");
+            }
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_POWER_SAVE_MODE + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_POWER_SAVE_MODE + "=0");
+        }
+
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -1386,6 +1401,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
         values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
         values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
+        values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
 
         // Inserting Row
         if (!merged) {
@@ -1449,7 +1465,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_VOLUME_ZEN_MODE,
                         KEY_DEVICE_KEYGUARD,
                         KEY_VIBRATE_ON_TOUCH,
-                        KEY_DEVICE_WIFI_AP
+                        KEY_DEVICE_WIFI_AP,
+                        KEY_DEVICE_POWER_SAVE_MODE
                 },
                 KEY_ID + "=?",
                 new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -1503,7 +1520,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(38)),
                                               Integer.parseInt(cursor.getString(39)),
                                               Integer.parseInt(cursor.getString(40)),
-                                              Integer.parseInt(cursor.getString(41))
+                                              Integer.parseInt(cursor.getString(41)),
+                                              Integer.parseInt(cursor.getString(42))
                                               );
             }
 
@@ -1562,7 +1580,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                          KEY_VOLUME_ZEN_MODE + "," +
                                          KEY_DEVICE_KEYGUARD + "," +
                                          KEY_VIBRATE_ON_TOUCH + ","+
-                                         KEY_DEVICE_WIFI_AP +
+                                         KEY_DEVICE_WIFI_AP + ","+
+                                         KEY_DEVICE_POWER_SAVE_MODE +
                              " FROM " + TABLE_PROFILES;
 
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -1616,6 +1635,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 profile._deviceKeyguard = Integer.parseInt(cursor.getString(39));
                 profile._vibrationOnTouch = Integer.parseInt(cursor.getString(40));
                 profile._deviceWiFiAP = Integer.parseInt(cursor.getString(41));
+                profile._devicePowerSaveMode = Integer.parseInt(cursor.getString(42));
                 // Adding contact to list
                 profileList.add(profile);
             } while (cursor.moveToNext());
@@ -1675,6 +1695,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
         values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
         values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
+        values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
 
         // updating row
         int r = db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -1912,7 +1933,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 KEY_VOLUME_ZEN_MODE,
                                                 KEY_DEVICE_KEYGUARD,
                                                 KEY_VIBRATE_ON_TOUCH,
-                                                KEY_DEVICE_WIFI_AP
+                                                KEY_DEVICE_WIFI_AP,
+                                                KEY_DEVICE_POWER_SAVE_MODE
                                                 },
                                  KEY_CHECKED + "=?",
                                  new String[] { "1" }, null, null, null, null);
@@ -1966,7 +1988,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(38)),
                                               Integer.parseInt(cursor.getString(39)),
                                               Integer.parseInt(cursor.getString(40)),
-                                              Integer.parseInt(cursor.getString(41))
+                                              Integer.parseInt(cursor.getString(41)),
+                                              Integer.parseInt(cursor.getString(42))
                                               );
             }
             else
@@ -2112,7 +2135,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         KEY_DEVICE_LOCATION_SERVICE_PREFS + "," +
                                         KEY_DEVICE_NFC + "," +
                                         KEY_VOLUME_RINGER_MODE + "," +
-                                        KEY_DEVICE_WIFI_AP +
+                                        KEY_DEVICE_WIFI_AP + "," +
+                                        KEY_DEVICE_POWER_SAVE_MODE +
                             " FROM " + TABLE_PROFILES;
         final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                                         KEY_E_WIFI_ENABLED + "," +
@@ -2227,6 +2251,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                         new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                             }
+                        }
+
+                        if ((Integer.parseInt(cursor.getString(11)) != 0) &&
+                                (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context)
+                                        == GlobalData.PREFERENCE_NOT_ALLOWED))
+                        {
+                            values.clear();
+                            values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
+                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                         }
 
                 } while (cursor.moveToNext());
@@ -4242,6 +4276,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     {
                                         if ((zenMode == 6) && (android.os.Build.VERSION.SDK_INT < 23))
                                             values.put(KEY_VOLUME_ZEN_MODE, 3); // Alarms only zen mode is supported from Android 6.0
+                                    }
+                                    if (exportedDBObj.getVersion() < 1420)
+                                    {
+                                        values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
                                     }
 
                                 ///////////////////////////////////////////////////////

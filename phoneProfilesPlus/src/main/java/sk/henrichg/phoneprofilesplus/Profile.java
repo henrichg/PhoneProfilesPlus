@@ -50,6 +50,7 @@ public class Profile {
     public int _deviceKeyguard;
     public int _vibrationOnTouch;
     public int _deviceWiFiAP;
+    public int _devicePowerSaveMode;
 
 
     public Bitmap _iconBitmap;
@@ -113,7 +114,8 @@ public class Profile {
                    int volumeZenMode,
                    int deviceKeyguard,
                    int vibrationOnTouch,
-                   int deviceWifiAP)
+                   int deviceWifiAP,
+                   int devicePowerSaveMode)
     {
         this._id = id;
         this._name = name;
@@ -158,6 +160,7 @@ public class Profile {
         this._deviceKeyguard = deviceKeyguard;
         this._vibrationOnTouch = vibrationOnTouch;
         this._deviceWiFiAP = deviceWifiAP;
+        this._devicePowerSaveMode = devicePowerSaveMode;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -204,7 +207,8 @@ public class Profile {
                    int volumeZenMode,
                    int deviceKeyguard,
                    int vibrationOnTouch,
-                   int deviceWiFiAP)
+                   int deviceWiFiAP,
+                   int devicePowerSaveMode)
     {
         this._name = name;
         this._icon = icon;
@@ -247,6 +251,7 @@ public class Profile {
         this._deviceKeyguard = deviceKeyguard;
         this._vibrationOnTouch = vibrationOnTouch;
         this._deviceWiFiAP = deviceWiFiAP;
+        this._devicePowerSaveMode = devicePowerSaveMode;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -296,6 +301,7 @@ public class Profile {
         this._deviceKeyguard = profile._deviceKeyguard;
         this._vibrationOnTouch = profile._vibrationOnTouch;
         this._deviceWiFiAP = profile._deviceWiFiAP;
+        this._devicePowerSaveMode = profile._devicePowerSaveMode;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -451,6 +457,16 @@ public class Profile {
                         this._deviceWiFiAP = 2;
                     else if (this._deviceWiFiAP == 2)
                         this._deviceWiFiAP = 1;
+                }
+            }
+            if (withProfile._devicePowerSaveMode != 0) {
+                if (withProfile._devicePowerSaveMode != 3) // toggle
+                    this._devicePowerSaveMode = withProfile._devicePowerSaveMode;
+                else {
+                    if (this._devicePowerSaveMode == 1)
+                        this._devicePowerSaveMode = 2;
+                    else if (this._devicePowerSaveMode == 2)
+                        this._devicePowerSaveMode = 1;
                 }
             }
 
