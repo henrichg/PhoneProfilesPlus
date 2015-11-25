@@ -46,14 +46,16 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_wifiScanning_location"
-                android:id="@+id/activity_info_notification_dialog_info_text19" />
+                android:id="@+id/activity_info_notification_dialog_info_text19"
+                android:textColor="?attr/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_bluetoothScanning_location"
-                android:id="@+id/activity_info_notification_dialog_info_text21" />
+                android:id="@+id/activity_info_notification_dialog_info_text21"
+                android:textColor="?attr/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -151,14 +153,16 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_wifiScanning_location"
-                android:id="@+id/activity_info_notification_dialog_info_text20" />
+                android:id="@+id/activity_info_notification_dialog_info_text20"
+                android:textColor="?attr/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_bluetoothScanning_location"
-                android:id="@+id/activity_info_notification_dialog_info_text22" />
+                android:id="@+id/activity_info_notification_dialog_info_text22"
+                android:textColor="?attr/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"

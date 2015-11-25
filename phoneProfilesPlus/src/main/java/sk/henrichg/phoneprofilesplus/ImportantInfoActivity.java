@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,8 +72,28 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 infoText16.setVisibility(View.GONE);
                 TextView infoText18 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text18);
                 infoText18.setVisibility(View.GONE);
+                TextView infoText19 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text19);
+                infoText19.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
                 TextView infoText20 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text20);
                 infoText20.setVisibility(View.GONE);
+                TextView infoText21 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text21);
+                infoText21.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
                 TextView infoText22 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text22);
                 infoText22.setVisibility(View.GONE);
                 news = true;
@@ -85,8 +106,28 @@ public class ImportantInfoActivity extends AppCompatActivity {
             infoText17.setVisibility(View.GONE);
             TextView infoText19 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text19);
             infoText19.setVisibility(View.GONE);
+            TextView infoText20 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text20);
+            infoText20.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    startActivity(intent);
+                    finish();
+                }
+            });
             TextView infoText21 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text21);
             infoText21.setVisibility(View.GONE);
+            TextView infoText22 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text22);
+            infoText22.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
 
         if (news1772) {
