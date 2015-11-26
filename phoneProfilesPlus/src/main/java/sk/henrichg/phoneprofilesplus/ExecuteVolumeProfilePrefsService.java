@@ -41,13 +41,19 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 aph.setVolumes(profile, audioManager, linkUnlink);
 
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(200);
                 } catch (InterruptedException e) {
                     //System.out.println(e);
                 }
 
                 // set ringer mode after volume because volumes change silent/vibrate
                 aph.setRingerMode(profile, audioManager, false);
+
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    //System.out.println(e);
+                }
 
             }
 
