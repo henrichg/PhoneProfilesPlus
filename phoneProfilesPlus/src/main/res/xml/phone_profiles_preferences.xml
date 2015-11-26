@@ -233,6 +233,14 @@
         android:title="@string/phone_profiles_pref_category_gui"
         android:summary="@string/phone_profiles_pref_category_gui" >
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationLanguage"
+            android:summary="@string/phone_profiles_pref_applicationLanguage_system"
+            android:key="applicationLanguage"
+            android:icon="?attr/applicationSettingsLanguageIcon"
+            android:defaultValue="system"
+            android:entries="@array/languageArray"
+            android:entryValues="@array/languageValues" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationHomeLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationHomeLauncher"
@@ -260,14 +268,6 @@
             android:defaultValue="material"
             android:entries="@array/themeArray"
             android:entryValues="@array/themeValues" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
-            android:title="@string/phone_profiles_pref_applicationLanguage"
-            android:summary="@string/phone_profiles_pref_applicationLanguage_system"
-            android:key="applicationLanguage"
-            android:icon="?attr/applicationSettingsLanguageIcon"
-            android:defaultValue="system"
-            android:entries="@array/languageArray"
-            android:entryValues="@array/languageValues" />
         <CheckBoxPreference
             android:key="applicationShortcutEmblem"
             android:title="@string/phone_profiles_pref_applicationShortcutEmblem"
