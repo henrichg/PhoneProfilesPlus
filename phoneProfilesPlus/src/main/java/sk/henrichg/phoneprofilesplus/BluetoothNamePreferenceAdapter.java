@@ -64,7 +64,14 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        holder.bluetoothName.setText(bluetoothDevice.getName());
+        if (android.os.Build.VERSION.SDK_INT >= 18) {
+            if (bluetoothDevice.le)
+                holder.bluetoothName.setText("[LE] " + bluetoothDevice.getName());
+            else
+                holder.bluetoothName.setText("[CL] " + bluetoothDevice.getName());
+        }
+        else
+            holder.bluetoothName.setText(bluetoothDevice.getName());
 
         holder.radioBtn.setTag(position);
         holder.radioBtn.setChecked(bluetoothDevice.getName().equalsIgnoreCase(preference.getBluetoothName()));

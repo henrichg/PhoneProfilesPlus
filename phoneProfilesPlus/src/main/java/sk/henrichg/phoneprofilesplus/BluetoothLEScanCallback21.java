@@ -27,7 +27,7 @@ public class BluetoothLEScanCallback21 extends ScanCallback {
             BluetoothDevice device = result.getDevice();
             String btName = device.getName();
 
-            BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress());
+            BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(), true);
 
             BluetoothScanAlarmBroadcastReceiver.addScanResult(context, deviceData);
         }
@@ -43,7 +43,7 @@ public class BluetoothLEScanCallback21 extends ScanCallback {
                 BluetoothDevice device = result.getDevice();
                 String btName = device.getName();
 
-                BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress());
+                BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(), true);
 
                 BluetoothScanAlarmBroadcastReceiver.addScanResult(context, deviceData);
             }

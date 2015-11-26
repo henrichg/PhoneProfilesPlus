@@ -1,17 +1,19 @@
 package sk.henrichg.phoneprofilesplus;
 
 public class BluetoothDeviceData {
-	
-	public String name;
-	public String address;
-	
+
+    public String name;
+    public String address;
+    public boolean le;
+
     public BluetoothDeviceData() {
     }
 
-    public BluetoothDeviceData(String name, String address) 
+    public BluetoothDeviceData(String name, String address, boolean le)
     {
-    	this.name = name;
-    	this.address = address;
+        this.name = name;
+        this.address = address;
+        this.le = le;
     }
 
     public String getName() {

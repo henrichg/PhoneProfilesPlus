@@ -26,7 +26,7 @@ public class BluetoothLEScanCallback18 implements BluetoothAdapter.LeScanCallbac
             String btName = device.getName();
             GlobalData.logE("BluetoothLEScanCallback18", "onLeScan - deviceName=" + btName);
 
-            BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress());
+            BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(), true);
             BluetoothScanAlarmBroadcastReceiver.addScanResult(context, deviceData);
         }
     }

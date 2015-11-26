@@ -459,17 +459,18 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             if (bluetooth == null)
                 bluetooth = BluetoothAdapter.getDefaultAdapter();
 
-            if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                if (ScannerService.leScanner == null)
-                    ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
-                if (ScannerService.leScanCallback21 == null)
-                    ScannerService.leScanCallback21 = new BluetoothLEScanCallback21(context);
-                ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
-            }
-            else {
-                if (ScannerService.leScanCallback18 == null)
-                    ScannerService.leScanCallback18 = new BluetoothLEScanCallback18(context);
-                bluetooth.stopLeScan(ScannerService.leScanCallback18);
+            if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
+                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                    if (ScannerService.leScanner == null)
+                        ScannerService.leScanner = bluetooth.getBluetoothLeScanner();
+                    if (ScannerService.leScanCallback21 == null)
+                        ScannerService.leScanCallback21 = new BluetoothLEScanCallback21(context);
+                    ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
+                } else {
+                    if (ScannerService.leScanCallback18 == null)
+                        ScannerService.leScanCallback18 = new BluetoothLEScanCallback18(context);
+                    bluetooth.stopLeScan(ScannerService.leScanCallback18);
+                }
             }
         }
     }
@@ -522,7 +523,10 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         boundedDevicesList.clear();
         for (BluetoothDevice device : boundedDevices)
         {
-            boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress()));
+            boolean le = false;
+            if ((android.os.Build.VERSION.SDK_INT >= 18))
+                le = (device.getType() == BluetoothDevice.DEVICE_TYPE_LE);
+            boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(), le));
         }
         saveBoundedDevicesList(context, boundedDevicesList);
     }
@@ -633,7 +637,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             }
             if (!found) {
-                savedScanResults.add(new BluetoothDeviceData(device.name, device.address));
+                savedScanResults.add(new BluetoothDeviceData(device.name, device.address, device.le));
             }
         }
 
@@ -666,7 +670,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             }
         }
         if (!found) {
-            savedScanResults.add(new BluetoothDeviceData(device.name, device.address));
+            savedScanResults.add(new BluetoothDeviceData(device.name, device.address, device.le));
         }
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
