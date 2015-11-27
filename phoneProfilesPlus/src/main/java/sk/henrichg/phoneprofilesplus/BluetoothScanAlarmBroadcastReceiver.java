@@ -410,28 +410,25 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     if (ScannerService.leScanCallback21 == null)
                         ScannerService.leScanCallback21 = new BluetoothLEScanCallback21(context);
 
-                    ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
+                    //ScannerService.leScanner.stopScan(ScannerService.leScanCallback21);
 
                     lock(context); // lock wakeLock, then scan.
                     // unlock() is then called at the end of the scan from ScannerService
 
-                /*
-                if (bluetooth.isOffloadedScanBatchingSupported()) {
-                    ScanSettings settings = new ScanSettings.Builder()
-                            .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
-                            .setReportDelay(10000)
-                            .build();
+                    ScanSettings.Builder builder = new ScanSettings.Builder();
+                    builder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
+                    if (bluetooth.isOffloadedScanBatchingSupported())
+                        builder.setReportDelay(ScannerService.leScanDuration * 1000);
+                    ScanSettings settings = builder.build();
 
                     List<ScanFilter> filters = new ArrayList<ScanFilter>();
                     ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback21);
                 }
-                else*/
-                    ScannerService.leScanner.startScan(ScannerService.leScanCallback21);
-                } else {
+                else {
                     if (ScannerService.leScanCallback18 == null)
                         ScannerService.leScanCallback18 = new BluetoothLEScanCallback18(context);
 
-                    bluetooth.stopLeScan(ScannerService.leScanCallback18);
+                    //bluetooth.stopLeScan(ScannerService.leScanCallback18);
 
                     lock(context); // lock wakeLock, then scan.
                     // unlock() is then called at the end of the scan from ScannerService

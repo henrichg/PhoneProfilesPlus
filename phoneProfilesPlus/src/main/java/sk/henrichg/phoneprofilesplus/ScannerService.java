@@ -40,6 +40,9 @@ public class ScannerService extends IntentService
     public static final String PPHELPER_ACTION_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.ACTION_RADIOCHANGESTATE";
     public static final String PPHELPER_EXTRA_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.EXTRA_RADIOCHANGESTATE";
 
+    public static int classicScanDuration = 20; // 20 seconds for classic bluetooth scan
+    public static int leScanDuration = 10;      // 10 seconds for le bluetooth scan
+
     Handler wifiBluetoothChangeHandler;
 
     public static BluetoothLeScanner leScanner = null;
@@ -292,6 +295,8 @@ public class ScannerService extends IntentService
 
                         BluetoothScanAlarmBroadcastReceiver.unlock();
 
+                        BluetoothScanAlarmBroadcastReceiver.clearScanResults(context);
+
                         ///////// Classic BT scan
 
                         IntentFilter intentFilter6 = new IntentFilter();
@@ -299,8 +304,6 @@ public class ScannerService extends IntentService
                         intentFilter6.addAction(BluetoothDevice.ACTION_FOUND);
                         intentFilter6.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
                         registerReceiver(bluetoothScanReceiver, intentFilter6);
-
-                        BluetoothScanAlarmBroadcastReceiver.clearScanResults(context);
 
                         // enable bluetooth
                         int bluetoothState = enableBluetooth(dataWrapper,
@@ -715,9 +718,6 @@ public class ScannerService extends IntentService
             }
         }
     }
-
-    private static int classicScanDuration = 20; // 20 seconds for classic bluetooth scan
-    private static int leScanDuration = 10;      // 10 seconds for le bluetooth scan
 
     public static void waitForBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
