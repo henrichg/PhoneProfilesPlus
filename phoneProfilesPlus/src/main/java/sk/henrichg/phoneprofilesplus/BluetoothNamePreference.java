@@ -234,7 +234,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 {
                     for (BluetoothDeviceData device : boundedDevicesList)
                     {
-                        bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.le));
+                        bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type));
                     }
                 }
 
@@ -255,7 +255,7 @@ public class BluetoothNamePreference extends DialogPreference {
                                 }
                             }
                             if (!exists)
-                                bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.le));
+                                bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type));
                         }
                     }
                 }

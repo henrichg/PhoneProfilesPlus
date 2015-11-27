@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,10 +66,19 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
         }
 
         if (android.os.Build.VERSION.SDK_INT >= 18) {
-            if (bluetoothDevice.le)
-                holder.bluetoothName.setText("[LE] " + bluetoothDevice.getName());
+            String sType;
+            if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_CLASSIC)
+                sType = "CL";
             else
-                holder.bluetoothName.setText("[CL] " + bluetoothDevice.getName());
+            if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_DUAL)
+                sType = "DU";
+            else
+            if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_LE)
+                sType = "LE";
+            else
+                sType = "??";
+
+            holder.bluetoothName.setText("["+sType+"] " + bluetoothDevice.getName());
         }
         else
             holder.bluetoothName.setText(bluetoothDevice.getName());

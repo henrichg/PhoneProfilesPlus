@@ -79,7 +79,8 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                     }
                     if (!found)
                     {
-                        tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress(), false));
+                        tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
+                                BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device)));
                         GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName="+btName);
                     }
                 }
@@ -91,7 +92,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
                     for (BluetoothDeviceData device : tmpScanResults)
                     {
-                        scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.le));
+                        scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type));
                     }
                     tmpScanResults.clear();
 

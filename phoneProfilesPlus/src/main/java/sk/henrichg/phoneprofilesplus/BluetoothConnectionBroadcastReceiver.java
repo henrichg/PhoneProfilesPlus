@@ -34,7 +34,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
             boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
 
             if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
-                addConnectedDevice(device, false);
+                addConnectedDevice(device);
             else
             if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED))
                 changeDeviceName(device, intent.getStringExtra(BluetoothDevice.EXTRA_NAME));
@@ -155,7 +155,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         }
     }
 
-    private void addConnectedDevice(BluetoothDevice device, boolean le)
+    private void addConnectedDevice(BluetoothDevice device)
     {
         synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
 
@@ -167,7 +167,8 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                 }
             }
             if (!found) {
-                connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(), le));
+                connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
+                        BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device)));
             }
         }
     }
