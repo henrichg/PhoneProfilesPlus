@@ -30,7 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1420;
+    private static final int DATABASE_VERSION = 1430;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -188,6 +188,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_NOTIFICATION_APPLICATIONS = "notificationApplications";
     private static final String KEY_E_NOTIFICATION_DURATION = "notificationDuration";
     private static final String KEY_E_NOTIFICATION_START_TIME = "notificationStartTime";
+    private static final String KEY_E_BATTERY_POWER_SAVE_MODE = "batteryPowerSaveMode";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -385,7 +386,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_NOTIFICATION_ENABLED + " INTEGER,"
                 + KEY_E_NOTIFICATION_APPLICATIONS + " TEXT,"
                 + KEY_E_NOTIFICATION_START_TIME + " INTEGER,"
-                + KEY_E_NOTIFICATION_DURATION + " INTEGER"
+                + KEY_E_NOTIFICATION_DURATION + " INTEGER,"
+                + KEY_E_BATTERY_POWER_SAVE_MODE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1341,6 +1343,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_POWER_SAVE_MODE + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_POWER_SAVE_MODE + "=0");
+        }
+
+        if (oldVersion < 1430)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_POWER_SAVE_MODE + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_POWER_SAVE_MODE + "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -2736,7 +2747,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                  new String[] { KEY_E_BATTERY_ENABLED,
                                                 KEY_E_BATTERY_LEVEL_LOW,
                                                 KEY_E_BATTERY_LEVEL_HIGHT,
-                                                KEY_E_BATTERY_CHARGING
+                                                KEY_E_BATTERY_CHARGING,
+                                                KEY_E_BATTERY_POWER_SAVE_MODE
                                                 },
                                  KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
@@ -2752,6 +2764,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._levelLow = Integer.parseInt(cursor.getString(1));
                 eventPreferences._levelHight = Integer.parseInt(cursor.getString(2));
                 eventPreferences._charging = (Integer.parseInt(cursor.getString(3)) == 1);
+                eventPreferences._powerSaveMode = (Integer.parseInt(cursor.getString(4)) == 1);
             }
             cursor.close();
         }
@@ -3041,6 +3054,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_BATTERY_LEVEL_LOW, eventPreferences._levelLow);
         values.put(KEY_E_BATTERY_LEVEL_HIGHT, eventPreferences._levelHight);
         values.put(KEY_E_BATTERY_CHARGING, eventPreferences._charging ? 1 : 0);
+        values.put(KEY_E_BATTERY_POWER_SAVE_MODE, eventPreferences._powerSaveMode ? 1 : 0);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4644,7 +4658,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             values.put(KEY_E_NOTIFICATION_DURATION, 5);
                                         }
 
-                                        // Inserting Row do db z SQLiteOpenHelper
+                                        if (exportedDBObj.getVersion() < 1430)
+                                        {
+                                            values.put(KEY_E_BATTERY_POWER_SAVE_MODE, 0);
+                                        }
+
+                                    // Inserting Row do db z SQLiteOpenHelper
                                         db.insert(TABLE_EVENTS, null, values);
 
                                 } while (cursorExportedDB.moveToNext());
