@@ -217,7 +217,7 @@ public class Event {
 
     private void createEventPreferencesBluetooth()
     {
-        this._eventPreferencesBluetooth = new EventPreferencesBluetooth(this, false, "", 0);
+        this._eventPreferencesBluetooth = new EventPreferencesBluetooth(this, false, "", 0, 0);
     }
 
     private void createEventPreferencesSMS()

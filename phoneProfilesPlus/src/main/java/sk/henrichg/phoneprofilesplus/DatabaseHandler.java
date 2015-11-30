@@ -30,7 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1430;
+    private static final int DATABASE_VERSION = 1440;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -189,6 +189,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_NOTIFICATION_DURATION = "notificationDuration";
     private static final String KEY_E_NOTIFICATION_START_TIME = "notificationStartTime";
     private static final String KEY_E_BATTERY_POWER_SAVE_MODE = "batteryPowerSaveMode";
+    private static final String KEY_E_BLUETOOTH_DEVICES_TYPE = "bluetoothDevicesType";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -387,7 +388,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_NOTIFICATION_APPLICATIONS + " TEXT,"
                 + KEY_E_NOTIFICATION_START_TIME + " INTEGER,"
                 + KEY_E_NOTIFICATION_DURATION + " INTEGER,"
-                + KEY_E_BATTERY_POWER_SAVE_MODE + " INTEGER"
+                + KEY_E_BATTERY_POWER_SAVE_MODE + " INTEGER,"
+                + KEY_E_BLUETOOTH_DEVICES_TYPE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1352,6 +1354,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_POWER_SAVE_MODE + "=0");
+        }
+
+        if (oldVersion < 1440)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BLUETOOTH_DEVICES_TYPE + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BLUETOOTH_DEVICES_TYPE + "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -2906,7 +2917,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_EVENTS,
                                  new String[] { KEY_E_BLUETOOTH_ENABLED,
                                                 KEY_E_BLUETOOTH_ADAPTER_NAME,
-                                                KEY_E_BLUETOOTH_CONNECTION_TYPE
+                                                KEY_E_BLUETOOTH_CONNECTION_TYPE,
+                                                KEY_E_BLUETOOTH_DEVICES_TYPE
                                                 },
                                  KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
@@ -2921,6 +2933,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._adapterName = cursor.getString(1);
                 eventPreferences._connectionType = Integer.parseInt(cursor.getString(2));
+                eventPreferences._devicesType = Integer.parseInt(cursor.getString(3));
             }
             cursor.close();
         }
@@ -3157,6 +3170,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_BLUETOOTH_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, eventPreferences._adapterName);
         values.put(KEY_E_BLUETOOTH_CONNECTION_TYPE, eventPreferences._connectionType);
+        values.put(KEY_E_BLUETOOTH_DEVICES_TYPE, eventPreferences._devicesType);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -3780,6 +3794,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
 
     }
+
+    public int getBluetoothClassicDevicesCount(int devicesType, int forceScan)
+    {
+        if (forceScan != GlobalData.FORCE_ONE_SCAN_ENABLED) {
+            final String countQuery;
+            String eventTypeChecked = "";
+            eventTypeChecked = eventTypeChecked + KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
+            eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND ";
+            if (devicesType == EventPreferencesBluetooth.DTYPE_CLASSIC)
+                eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=0";
+            else if (devicesType == EventPreferencesBluetooth.DTYPE_LE)
+                eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=1";
+
+            countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
+                    " WHERE " + eventTypeChecked;
+
+            //SQLiteDatabase db = this.getReadableDatabase();
+            SQLiteDatabase db = getMyWritableDatabase();
+
+            Cursor cursor = db.rawQuery(countQuery, null);
+
+            int r;
+
+            if (cursor != null) {
+                cursor.moveToFirst();
+                r = Integer.parseInt(cursor.getString(0));
+            } else
+                r = 0;
+
+            cursor.close();
+            //db.close();
+
+            return r;
+        }
+        else
+            return 999;
+    }
+
 
 // EVENT TIMELINE ------------------------------------------------------------------
 
@@ -4661,6 +4713,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         if (exportedDBObj.getVersion() < 1430)
                                         {
                                             values.put(KEY_E_BATTERY_POWER_SAVE_MODE, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1434)
+                                        {
+                                            values.put(KEY_E_BLUETOOTH_DEVICES_TYPE, 0);
                                         }
 
                                     // Inserting Row do db z SQLiteOpenHelper

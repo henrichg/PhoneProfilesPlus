@@ -327,12 +327,21 @@
                 <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="checkbox" />
             </intent>
         </PreferenceScreen>
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_bluetooth_connection_type"
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/event_preferences_bluetooth_connection_type"
             android:summary="@string/array_event_pref_bluetoothConnectionType_connected"
             android:key="eventBluetoothConnectionType"
             android:defaultValue="0"
             android:entries="@array/eventBluetoothConnectionTypeArray"
             android:entryValues="@array/eventBluetoothConnectionTypeValues"
+            android:dependency="eventBluetoothEnabled" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/event_preferences_bluetooth_devices_type"
+            android:summary="@string/array_event_pref_bluetoothDevicesType_classic"
+            android:key="eventBluetoothDevicesType"
+            android:defaultValue="0"
+            android:entries="@array/eventBluetoothDevicesTypeArray"
+            android:entryValues="@array/eventBluetoothDevicesTypeValues"
             android:dependency="eventBluetoothEnabled" />
         <sk.henrichg.phoneprofilesplus.BluetoothNamePreference
             android:key="eventBluetoothAdapterNAME"
