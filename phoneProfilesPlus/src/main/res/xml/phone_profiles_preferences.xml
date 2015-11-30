@@ -108,6 +108,13 @@
             android:defaultValue="10"
             henrichg:min="1"
             henrichg:max="300" />
+        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="applicationEventBluetoothLEScanDuration"
+            android:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
+            android:title="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
+            android:defaultValue="10"
+            henrichg:min="5"
+            henrichg:max="30" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventBluetoothScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode"

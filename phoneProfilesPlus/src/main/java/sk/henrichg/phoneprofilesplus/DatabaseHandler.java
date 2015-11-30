@@ -3795,20 +3795,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int getBluetoothClassicDevicesCount(int devicesType, int forceScan)
+    public int getBluetoothDevicesTypeCount(int devicesType, int forceScan)
     {
         if (forceScan != GlobalData.FORCE_ONE_SCAN_ENABLED) {
             final String countQuery;
-            String eventTypeChecked = "";
-            eventTypeChecked = eventTypeChecked + KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
-            eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND ";
+            String devicesTypeChecked = "";
+            devicesTypeChecked = devicesTypeChecked + KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
+            devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_ENABLED + "=1" + " AND ";
+            devicesTypeChecked = devicesTypeChecked + "(" + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=1 OR " + KEY_E_BLUETOOTH_CONNECTION_TYPE + "=3) AND ";
             if (devicesType == EventPreferencesBluetooth.DTYPE_CLASSIC)
-                eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=0";
+                devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=0";
             else if (devicesType == EventPreferencesBluetooth.DTYPE_LE)
-                eventTypeChecked = eventTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=1";
+                devicesTypeChecked = devicesTypeChecked + KEY_E_BLUETOOTH_DEVICES_TYPE + "=1";
 
             countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
-                    " WHERE " + eventTypeChecked;
+                    " WHERE " + devicesTypeChecked;
 
             //SQLiteDatabase db = this.getReadableDatabase();
             SQLiteDatabase db = getMyWritableDatabase();

@@ -92,11 +92,12 @@ public class EventPreferencesBluetooth extends EventPreferences {
             descr = descr + ": " + connectionListTypeNames[index] + "; ";
             descr = descr + context.getString(R.string.pref_event_bluetooth_adapterName);
             descr = descr + ": ";
-            if (this._devicesType == DTYPE_CLASSIC)
-                descr = descr + "[CL] ";
-            else
-            if (this._devicesType == DTYPE_LE)
-                descr = descr + "[LE] ";
+            if (ScannerService.bluetoothLESupported(context)) {
+                if (this._devicesType == DTYPE_CLASSIC)
+                    descr = descr + "[CL] ";
+                else if (this._devicesType == DTYPE_LE)
+                    descr = descr + "[LE] ";
+            }
             descr = descr + this._adapterName;
         }
 
@@ -108,7 +109,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(context.getResources().getString(R.string.menu_settings)+": "+
+            preference.setSummary(context.getResources().getString(R.string.menu_settings) + ": " +
                     context.getResources().getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableBluetooth));
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_ADAPTER_NAME))
@@ -117,14 +118,35 @@ public class EventPreferencesBluetooth extends EventPreferences {
             preference.setSummary(value);
             GUIData.setPreferenceTitleStyle(preference, false, true);
         }
-        if (key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE)||
-            key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE))
+        if (key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
             int index = listPreference.findIndexOfValue(value);
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
+
+            boolean btLESupported = ScannerService.bluetoothLESupported(context);
+            listPreference = (ListPreference)prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE);
+            if ((!btLESupported) || value.equals("0") || value.equals("2"))
+                listPreference.setEnabled(false);
+            else
+                listPreference.setEnabled(true);
         }
+        if (key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE))
+        {
+            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            boolean btLESupported = ScannerService.bluetoothLESupported(context);
+
+            if (!btLESupported) {
+                listPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
+            }
+            else {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
+        }
+
     }
 
     @Override
@@ -145,9 +167,6 @@ public class EventPreferencesBluetooth extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, _adapterName, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, Integer.toString(_connectionType), context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_DEVICES_TYPE, Integer.toString(_devicesType), context);
-
-        if (!ScannerService.bluetoothLESupported(context))
-            prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE).setEnabled(false);
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
                 != GlobalData.PREFERENCE_ALLOWED)

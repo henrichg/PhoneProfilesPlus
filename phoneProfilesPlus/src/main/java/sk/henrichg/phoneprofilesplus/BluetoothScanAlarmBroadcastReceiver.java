@@ -423,7 +423,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                         builder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
 
                     if (bluetooth.isOffloadedScanBatchingSupported())
-                        builder.setReportDelay(ScannerService.leScanDuration * 1000);
+                        builder.setReportDelay(GlobalData.applicationEventBluetoothLEScanDuration * 1000);
                     ScanSettings settings = builder.build();
 
                     List<ScanFilter> filters = new ArrayList<ScanFilter>();

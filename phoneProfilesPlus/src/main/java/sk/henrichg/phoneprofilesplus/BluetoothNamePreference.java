@@ -52,6 +52,8 @@ public class BluetoothNamePreference extends DialogPreference {
         this.context = context;
         
         bluetoothList = new ArrayList<BluetoothDeviceData>();
+
+        GlobalData.loadPreferences(context);
     }
 
     @Override

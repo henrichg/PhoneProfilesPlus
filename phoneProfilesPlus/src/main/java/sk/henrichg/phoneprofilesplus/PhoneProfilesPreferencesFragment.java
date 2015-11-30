@@ -159,6 +159,12 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
                 preferenceCategory.removePreference(preference);
             }
+
+            if (!ScannerService.bluetoothLESupported(preferencesActivity.getApplicationContext())) {
+                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
+                preference = findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
+                preferenceCategory.removePreference(preference);
+            }
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
@@ -365,6 +371,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         setSummary(GlobalData.PREF_APPLICATION_EVENT_WIFI_RESCAN);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN);
         setSummary(GlobalData.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, preferencesActivity.getApplicationContext())
                     != GlobalData.PREFERENCE_ALLOWED)
@@ -383,6 +390,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH).setEnabled(false);
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN).setEnabled(false);
+            prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION).setEnabled(false);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, false);
             editor.commit();

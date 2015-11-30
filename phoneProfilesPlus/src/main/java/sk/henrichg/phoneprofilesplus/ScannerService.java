@@ -41,7 +41,6 @@ public class ScannerService extends IntentService
     public static final String PPHELPER_EXTRA_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.EXTRA_RADIOCHANGESTATE";
 
     public static int classicScanDuration = 20; // 20 seconds for classic bluetooth scan
-    public static int leScanDuration = 10;      // 10 seconds for le bluetooth scan
 
     Handler wifiBluetoothChangeHandler;
 
@@ -259,9 +258,9 @@ public class ScannerService extends IntentService
                 Log.e("ScannerService","bluetoothEventsExists="+bluetoothEventsExists);
                 Log.e("ScannerService","forceScan="+forceScan);
                 Log.e("ScannerService", "forceScanLE=" + forceScanLE);
-                classicDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothClassicDevicesCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
+                classicDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
                 if (bluetoothLESupported(context) && isLocationEnabled(context, scanType))
-                    leDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothClassicDevicesCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
+                    leDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
                 else
                     leDevicesScan = false;
                 unlock();
@@ -777,7 +776,7 @@ public class ScannerService extends IntentService
     public static void waitForLEBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
         if (bluetoothLESupported(context)) {
-            for (int i = 0; i < 5 * leScanDuration; i++)
+            for (int i = 0; i < 5 * GlobalData.applicationEventBluetoothLEScanDuration; i++)
             {
                 if (!((BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
                       (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context))))
@@ -822,7 +821,7 @@ public class ScannerService extends IntentService
                 return;
         }
 
-        for (int i = 0; i < 5 * leScanDuration; i++)
+        for (int i = 0; i < 5 * GlobalData.applicationEventBluetoothLEScanDuration; i++)
         {
             if (GlobalData.getForceOneLEBluetoothScan(context) == GlobalData.FORCE_ONE_SCAN_DISABLED)
                 break;
