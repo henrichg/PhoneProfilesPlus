@@ -159,12 +159,6 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
                 preferenceCategory.removePreference(preference);
             }
-
-            if (!ScannerService.bluetoothLESupported(preferencesActivity.getApplicationContext())) {
-                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
-                preference = findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
-                preferenceCategory.removePreference(preference);
-            }
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
@@ -179,6 +173,12 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
             preferenceCategory.removePreference(preference);
         }
+        if (!ScannerService.bluetoothLESupported(preferencesActivity.getApplicationContext())) {
+            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
+            Preference preference = findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
+            preferenceCategory.removePreference(preference);
+        }
+
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
         extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
