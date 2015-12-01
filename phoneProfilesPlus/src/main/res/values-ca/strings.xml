@@ -563,7 +563,7 @@
   <string name="permissions_for_profile_text3">Please grant them in next dialogs. Then profile will be activated.</string>
   <string name="permissions_for_profile_text_notification">Permissions request</string>
   <string name="permissions_for_profile_big_text_notification">requires some permissions to by granted.</string>
-  <string name="permissions_for_install_tone_text1">Installation of tone "PhoneProfiles Silent" will not be executed, because this requires some permissions.</string>
+  <string name="permissions_for_install_tone_text1">Installation of tone \"PhoneProfiles Silent\" will not be executed, because this requires some permissions.</string>
   <string name="permissions_for_install_tone_text2">Please grant them in next dialogs. Then tone will be installed.</string>
   <string name="permissions_for_install_tone_text_notification">Permissions request</string>
   <string name="permissions_for_install_tone_big_text_notification">Installation of tone \"PhoneProfiles Silent\" requires some permissions to by granted.</string>
@@ -615,4 +615,17 @@
   <string name="array_pref_scanInPowerSaveMode_noScan">No scan</string>
   <string name="pref_event_battery_power_save_mode">Power save mode</string>
   <string name="event_preferences_battery_power_save_mode">Power save mode</string>
+  <string name="phone_profiles_pref_applicationPowerSaveMode">Power save mode settings</string>
+  <string name="array_pref_powerSaveMode_off">Off</string>
+  <string name="array_pref_powerSaveMode_5">Turn on at 5% battery</string>
+  <string name="array_pref_powerSaveMode_15">Turn on at 15% battery</string>
+  <string name="important_info_profile_ringerMode_root">In Android 6 (Marshmallow), is not possible to change system setting \"Vibrate when ringing\" in non-rooted device.</string>
+  <string name="important_info_profile_adaptiveBrightness_root">In Android 6 (Marshmallow), is not possible to change level of \"Adaptive brightness\" in non-rooted device.</string>
+  <string name="important_info_profile_wifiScanning_location">In Android 6 (Marshmallow), for Wi-Fi scanning must be enabled Loaction and \"Wi-Fi scanning\" in Loaction settings.</string>
+  <string name="important_info_profile_bluetoothScanning_location">In Android 6 (Marshmallow), for Bluetooth LE scanning must be enabled Loaction and \"Bluetooth scanning\" in Loaction settings.</string>
+  <string name="profile_preferences_devicePowerSaveMode">Power save mode</string>
+  <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>
+  <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
+  <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (sec)</string>
 </resources>
