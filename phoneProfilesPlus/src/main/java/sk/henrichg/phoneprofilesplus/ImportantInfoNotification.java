@@ -22,7 +22,8 @@ public class ImportantInfoNotification {
             pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             versionCode = pinfo.versionCode;
             if (versionCode > GlobalData.getShowInfoNotificationOnStartVersion(context)) {
-                boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
+                //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
+                boolean show = canShowNotification(versionCode);
                 GlobalData.setShowInfoNotificationOnStart(context, show, versionCode);
             }
             else
@@ -39,6 +40,25 @@ public class ImportantInfoNotification {
 
             GlobalData.setShowInfoNotificationOnStart(context, false, versionCode);
         }
+    }
+
+    static private boolean canShowNotification(int versionCode) {
+        boolean news = false;
+        boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+
+        if (newsLatest) {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                news = true;
+            }
+        }
+
+        if (news1772) {
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                news = true;
+            }
+        }
+        return news;
     }
 
     static private void showNotification(Context context, String title, String text) {
