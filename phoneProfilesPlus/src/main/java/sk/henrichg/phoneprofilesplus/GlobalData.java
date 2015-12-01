@@ -131,7 +131,9 @@ public class GlobalData extends Application {
                                          //"$$$ WifiAP"
                                         //"ActivateProfileHelper.setGPS|"+
                                         //"ActivateProfileHelper.doExecuteForRadios"
-                                        "BluetoothLEScanCallback21"
+                                        "BluetoothLEScanCallback21|"+
+                                        "BluetoothLEScanCallback18|"+
+                                        "* ScannerService"
             ;
 
 
