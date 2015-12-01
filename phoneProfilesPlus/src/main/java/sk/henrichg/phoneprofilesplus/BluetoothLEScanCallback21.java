@@ -21,11 +21,12 @@ public class BluetoothLEScanCallback21 extends ScanCallback {
         boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context));
 
         if (scanStarted) {
-            GlobalData.logE("BluetoothLEScanCallback21", "onScanResult - callbackType=" + callbackType);
-            GlobalData.logE("BluetoothLEScanCallback21", "onScanResult - result=" + result.toString());
+            //GlobalData.logE("BluetoothLEScanCallback21", "onScanResult - callbackType=" + callbackType);
+            //GlobalData.logE("BluetoothLEScanCallback21", "onScanResult - result=" + result.toString());
 
             BluetoothDevice device = result.getDevice();
             String btName = device.getName();
+            GlobalData.logE("BluetoothLEScanCallback21", "onScanResult - deviceName=" + btName);
 
             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
                     BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device));
@@ -39,10 +40,11 @@ public class BluetoothLEScanCallback21 extends ScanCallback {
 
         if (scanStarted) {
             for (ScanResult result : results) {
-                GlobalData.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());
+                //GlobalData.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());
 
                 BluetoothDevice device = result.getDevice();
                 String btName = device.getName();
+                GlobalData.logE("BluetoothLEScanCallback21", "onBatchScanResults - deviceName=" + btName);
 
                 BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
                         BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device));
