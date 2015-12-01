@@ -39,8 +39,8 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = true;
+    private static boolean logIntoLogCat = false;
+    private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =
                                         /*"##### LocaleChangedReceiver.onReceive|"+
@@ -131,9 +131,10 @@ public class GlobalData extends Application {
                                          //"$$$ WifiAP"
                                         //"ActivateProfileHelper.setGPS|"+
                                         //"ActivateProfileHelper.doExecuteForRadios"
-                                        "BluetoothLEScanCallback21|"+
-                                        "BluetoothLEScanCallback18|"+
-                                        "* ScannerService"
+                                        //"BluetoothLEScanCallback21|"+
+                                        //"BluetoothLEScanCallback18|"+
+                                        //"* ScannerService"
+                                        "ActivateProfileHelper.setGPS"
             ;
 
 
