@@ -409,8 +409,8 @@ public class Permissions {
                 permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
             }
             if (!checkEventLocation(context, event)) {
-                //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
-                permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
             }
 
             return permissions;
@@ -489,8 +489,8 @@ public class Permissions {
 
     public static boolean checkLocation(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            //boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
-            boolean granted = (ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            //boolean granted = (ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
             return granted;
         }
         else
@@ -506,7 +506,8 @@ public class Permissions {
                 (event._eventPreferencesBluetooth._enabled &&
                     ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
                      (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)))) {
-                return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+                return (ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+                //return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
             }
             else
                 return true;
@@ -695,8 +696,8 @@ public class Permissions {
         boolean granted = checkLocation(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
-            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -715,8 +716,8 @@ public class Permissions {
         boolean granted = checkLocation(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
-            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
