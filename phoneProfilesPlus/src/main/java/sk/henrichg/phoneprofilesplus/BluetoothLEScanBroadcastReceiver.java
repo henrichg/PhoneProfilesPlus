@@ -1,13 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
 

@@ -17,7 +17,6 @@ import android.preference.Preference;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 

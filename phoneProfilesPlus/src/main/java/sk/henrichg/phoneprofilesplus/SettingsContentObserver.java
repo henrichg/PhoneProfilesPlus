@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.os.Handler;
-import android.util.Log;
 
 import java.util.Calendar;
 
