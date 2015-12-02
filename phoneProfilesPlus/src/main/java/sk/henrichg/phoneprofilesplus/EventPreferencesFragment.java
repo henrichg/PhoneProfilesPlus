@@ -31,9 +31,6 @@ import java.util.List;
 public class EventPreferencesFragment extends PreferenceFragment 
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-    static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
-    static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
-
     private DataWrapper dataWrapper;
     private Event event;
     public long event_id;
@@ -55,8 +52,12 @@ public class EventPreferencesFragment extends PreferenceFragment
     static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
     private String PREFS_NAME;
 
+    static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
+    static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     static final String PREF_WIFI_SCANNING_SYSTEM_SETTINGS = "eventWiFiScanningSystemSettings";
+    static final String PREF_WIFI_SCANNING_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
     static final String PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS = "eventBluetoothScanningSystemSettings";
+    static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
 
     static final String SP_ACTION_MODE_SHOWED = "action_mode_showed";
 
@@ -231,16 +232,6 @@ public class EventPreferencesFragment extends PreferenceFragment
         RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
         notificationSoundPreference.setEnabled(GlobalData.notificationStatusBar);
 
-        Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
-        notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
-                return false;
-            }
-        });
-
         event._eventPreferencesTime.checkPreferences(prefMng, context);
         event._eventPreferencesBattery.checkPreferences(prefMng, context);
         event._eventPreferencesCall.checkPreferences(prefMng, context);
@@ -254,6 +245,21 @@ public class EventPreferencesFragment extends PreferenceFragment
 
         preferences.registerOnSharedPreferenceChangeListener(this);
 
+        Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
+        notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                return false;
+            }
+        });
+        Preference preference = findPreference(PREF_WIFI_SCANNING_APP_SETTINGS);
+        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        preference = findPreference(PREF_BLUETOOTH_SCANNING_APP_SETTINGS);
+        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+
         if (Build.VERSION.SDK_INT >= 23) {
 
             int locationMode = Settings.Secure.getInt(preferencesActivity.getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
@@ -261,21 +267,27 @@ public class EventPreferencesFragment extends PreferenceFragment
             if (WifiScanAlarmBroadcastReceiver.wifi == null)
                 WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) preferencesActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
+            preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
             if ((locationMode != Settings.Secure.LOCATION_MODE_OFF) && WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable()) {
                 PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiCategory");
-                Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
                 preferenceCategory.removePreference(preference);
             }
+            else {
+                preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            }
 
+            preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
             if (locationMode != Settings.Secure.LOCATION_MODE_OFF) {
                 PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventBluetoothCategory");
-                Preference preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
                 preferenceCategory.removePreference(preference);
+            }
+            else {
+                preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             }
         }
         else {
             PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiCategory");
-            Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+            preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
             preferenceCategory.removePreference(preference);
 
             preferenceCategory = (PreferenceCategory) findPreference("eventBluetoothCategory");

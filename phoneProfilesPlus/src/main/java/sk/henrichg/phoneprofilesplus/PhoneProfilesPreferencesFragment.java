@@ -74,6 +74,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             preferenceCategory.removePreference(preference);
 
             preference = prefMng.findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
+            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -96,6 +97,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         }
         if (Build.VERSION.SDK_INT >= 23) {
             Preference preference = prefMng.findPreference(PREF_APPLICATION_PERMISSIONS);
+            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -107,6 +109,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 }
             });
             preference = prefMng.findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+            preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -124,6 +127,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 
             if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable())) {
                 preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
+                preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
@@ -143,6 +147,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 
             if (locationMode == Settings.Secure.LOCATION_MODE_OFF) {
                 preference = prefMng.findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
+                preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
