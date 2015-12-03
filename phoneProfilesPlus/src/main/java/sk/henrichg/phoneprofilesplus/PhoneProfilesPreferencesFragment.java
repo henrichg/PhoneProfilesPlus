@@ -91,7 +91,30 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 
         preferences.registerOnSharedPreferenceChangeListener(this);
 
-        preferences.registerOnSharedPreferenceChangeListener(this);
+        PreferenceScreen _preference = (PreferenceScreen) findPreference("applicationInterfaceCategory");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("categoryAplicationStart");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("categorySystem");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("prf_pref_permissionsCategory");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("categoryNotifications");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("profileActivationCategory");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("wifiScanningCategory");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("bluetoothScanninCategory");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("categoryActivator");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("categoryEditor");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("categoryWidgetList");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        _preference = (PreferenceScreen) findPreference("categoryWidgetIcon");
+        if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
 
         if (Build.VERSION.SDK_INT >= 21) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
