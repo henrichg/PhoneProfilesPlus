@@ -479,7 +479,6 @@ public class EditorEventListAdapter extends BaseAdapter
             holder.eventItemEditMenu.setOnClickListener(new OnClickListener() {
 
                     public void onClick(View v) {
-                        ((EditorEventListFragment)fragment).finishEventPreferencesActionMode();
                         ((EditorEventListFragment)fragment).showEditMenu(eventItemEditMenu);
                     }
                 });

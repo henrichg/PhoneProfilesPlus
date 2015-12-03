@@ -65,30 +65,7 @@ public class EventPreferencesFragment extends PreferenceFragment
     static final int BUTTON_CANCEL = 1;
     static final int BUTTON_SAVE = 2;
 
-    private OnShowActionModeInEventPreferences onShowActionModeInEventPreferencesCallback = sDummyOnShowActionModeInEventPreferencesCallback;
-    private OnHideActionModeInEventPreferences onHideActionModeInEventPreferencesCallback = sDummyOnHideActionModeInEventPreferencesCallback;
     private OnRestartEventPreferences onRestartEventPreferencesCallback = sDummyOnRestartEventPreferencesCallback;
-    private OnRedrawEventListFragment onRedrawEventListFragmentCallback = sDummyOnRedrawEventListFragmentCallback;
-
-    // invokes when action mode shows
-    public interface OnShowActionModeInEventPreferences {
-        public void onShowActionModeInEventPreferences();
-    }
-
-    private static OnShowActionModeInEventPreferences sDummyOnShowActionModeInEventPreferencesCallback = new OnShowActionModeInEventPreferences() {
-        public void onShowActionModeInEventPreferences() {
-        }
-    };
-
-    // invokes when action mode hides
-    public interface OnHideActionModeInEventPreferences {
-        public void onHideActionModeInEventPreferences();
-    }
-
-    private static OnHideActionModeInEventPreferences sDummyOnHideActionModeInEventPreferencesCallback = new OnHideActionModeInEventPreferences() {
-        public void onHideActionModeInEventPreferences() {
-        }
-    };
 
     // invokes when restart of event preferences fragment needed (undo preference changes)
     public interface OnRestartEventPreferences {
@@ -103,47 +80,15 @@ public class EventPreferencesFragment extends PreferenceFragment
         }
     };
 
-    // invokes when event list fragment redraw needed (preference changes accepted)
-    public interface OnRedrawEventListFragment {
-        /**
-         * Callback for redraw event list fragment.
-         */
-        public void onRedrawEventListFragment(Event event, int newEventMode);
-    }
-
-    private static OnRedrawEventListFragment sDummyOnRedrawEventListFragmentCallback = new OnRedrawEventListFragment() {
-        public void onRedrawEventListFragment(Event event, int newEventMode) {
-        }
-    };
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
-        if (!(activity instanceof OnShowActionModeInEventPreferences)) {
-            throw new IllegalStateException(
-                    "Activity must implement fragment's callbacks.");
-        }
-        onShowActionModeInEventPreferencesCallback = (OnShowActionModeInEventPreferences) activity;
-
-        if (!(activity instanceof OnHideActionModeInEventPreferences)) {
-            throw new IllegalStateException(
-                    "Activity must implement fragment's callbacks.");
-        }
-        onHideActionModeInEventPreferencesCallback = (OnHideActionModeInEventPreferences) activity;
 
         if (!(activity instanceof OnRestartEventPreferences)) {
             throw new IllegalStateException(
                     "Activity must implement fragment's callbacks.");
         }
         onRestartEventPreferencesCallback = (OnRestartEventPreferences) activity;
-
-        if (!(activity instanceof OnRedrawEventListFragment)) {
-            throw new IllegalStateException(
-                    "Activity must implement fragment's callbacks.");
-        }
-        onRedrawEventListFragmentCallback = (OnRedrawEventListFragment) activity;
-
     }
 
     @Override
@@ -151,10 +96,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         super.onDetach();
 
         // Reset the active callbacks interface to the dummy implementation.
-        onShowActionModeInEventPreferencesCallback = sDummyOnShowActionModeInEventPreferencesCallback;
-        onHideActionModeInEventPreferencesCallback = sDummyOnHideActionModeInEventPreferencesCallback;
         onRestartEventPreferencesCallback = sDummyOnRestartEventPreferencesCallback;
-        onRedrawEventListFragmentCallback = sDummyOnRedrawEventListFragmentCallback;
     }
 
     @Override
@@ -431,8 +373,6 @@ public class EventPreferencesFragment extends PreferenceFragment
             dataWrapper.restartEvents(false, true);
 
         }
-
-        onRedrawEventListFragmentCallback.onRedrawEventListFragment(event, new_event_mode);
     }
 
     private void updateSharedPreference()
@@ -454,10 +394,10 @@ public class EventPreferencesFragment extends PreferenceFragment
 
         event.setSummary(prefMng, key, sharedPreferences, context);
 
-        Activity activity = getActivity();
-        boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
-        canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof EventPreferencesFragmentActivity));
-        if (canShow)
+        //Activity activity = getActivity();
+        //boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
+        //canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof EventPreferencesFragmentActivity));
+        //if (canShow)
             showActionMode();
     }
 
@@ -524,8 +464,6 @@ public class EventPreferencesFragment extends PreferenceFragment
         actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(actionModeCallback);
         actionMode.setCustomView(actionView);
         
-        onShowActionModeInEventPreferencesCallback.onShowActionModeInEventPreferences();        
-        
         actionMode.getCustomView().findViewById(R.id.event_preferences_action_menu_cancel).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 finishActionMode(BUTTON_CANCEL);
@@ -557,9 +495,6 @@ public class EventPreferencesFragment extends PreferenceFragment
             actionModeButtonClicked = _button;
             actionMode.finish();
         }
-
-        onHideActionModeInEventPreferencesCallback.onHideActionModeInEventPreferences();        
-
     }
 
     static public Activity getPreferencesActivity()

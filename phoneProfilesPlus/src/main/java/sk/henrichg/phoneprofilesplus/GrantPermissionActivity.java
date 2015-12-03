@@ -652,7 +652,7 @@ public class GrantPermissionActivity extends Activity {
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             Profile activatedProfile = dataWrapper.getActivatedProfile();
-            if (activatedProfile._id == profile_id)
+        if ((activatedProfile == null) || (activatedProfile._id == profile_id))
                 activateProfileHelper.showNotification(profile, "");
             activateProfileHelper.updateWidget();
 

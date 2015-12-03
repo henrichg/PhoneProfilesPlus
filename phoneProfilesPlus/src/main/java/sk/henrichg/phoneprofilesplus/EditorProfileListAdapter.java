@@ -389,7 +389,6 @@ public class EditorProfileListAdapter extends BaseAdapter
             holder.profileItemEditMenu.setOnClickListener(new OnClickListener() {
 
                     public void onClick(View v) {
-                        ((EditorProfileListFragment)fragment).finishProfilePreferencesActionMode();
                         ((EditorProfileListFragment)fragment).showEditMenu(profileItemEditMenu);
                     }
                 });

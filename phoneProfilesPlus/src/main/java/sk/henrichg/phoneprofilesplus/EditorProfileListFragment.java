@@ -64,7 +64,6 @@ public class EditorProfileListFragment extends Fragment {
      * The fragment's current callback objects
      */
     private OnStartProfilePreferences onStartProfilePreferencesCallback = sDummyOnStartProfilePreferencesCallback;
-    private OnFinishProfilePreferencesActionMode onFinishProfilePreferencesActionModeCallback = sDummyOnFinishProfilePreferencesActionModeCallback;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -72,7 +71,7 @@ public class EditorProfileListFragment extends Fragment {
      */
     // invoked when start profile preference fragment/activity needed
     public interface OnStartProfilePreferences {
-        public void onStartProfilePreferences(Profile profile, int editMode, int filterType);
+        public void onStartProfilePreferences(Profile profile, int editMode);
     }
 
     /**
@@ -80,17 +79,7 @@ public class EditorProfileListFragment extends Fragment {
      * nothing. Used only when this fragment is not attached to an activity.
      */
     private static OnStartProfilePreferences sDummyOnStartProfilePreferencesCallback = new OnStartProfilePreferences() {
-        public void onStartProfilePreferences(Profile profile, int editMode, int filterType) {
-        }
-    };
-
-    // invoked when action mode finish needed (from profile list adapter)
-    public interface OnFinishProfilePreferencesActionMode {
-        public void onFinishProfilePreferencesActionMode();
-    }
-
-    private static OnFinishProfilePreferencesActionMode sDummyOnFinishProfilePreferencesActionModeCallback = new OnFinishProfilePreferencesActionMode() {
-        public void onFinishProfilePreferencesActionMode() {
+        public void onStartProfilePreferences(Profile profile, int editMode) {
         }
     };
 
@@ -107,10 +96,6 @@ public class EditorProfileListFragment extends Fragment {
                     "Activity must implement fragment's callbacks.");
         }
         onStartProfilePreferencesCallback = (OnStartProfilePreferences) activity;
-
-        if (activity instanceof OnFinishProfilePreferencesActionMode)
-            onFinishProfilePreferencesActionModeCallback = (OnFinishProfilePreferencesActionMode) activity;
-
     }
 
     @Override
@@ -119,7 +104,6 @@ public class EditorProfileListFragment extends Fragment {
 
         // Reset the active callbacks interface to the dummy implementation.
         onStartProfilePreferencesCallback = sDummyOnStartProfilePreferencesCallback;
-        onFinishProfilePreferencesActionModeCallback = sDummyOnFinishProfilePreferencesActionModeCallback;
     }
 
 
@@ -430,7 +414,7 @@ public class EditorProfileListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartProfilePreferencesCallback.onStartProfilePreferences(_profile, editMode, filterType);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(_profile, editMode);
     }
 
     public void duplicateProfile(Profile origProfile)
@@ -442,7 +426,7 @@ public class EditorProfileListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartProfilePreferencesCallback.onStartProfilePreferences(origProfile, editMode, filterType);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(origProfile, editMode);
 
     }
 
@@ -546,7 +530,7 @@ public class EditorProfileListFragment extends Fragment {
         activateProfileHelper.showNotification(_profile, "");
         activateProfileHelper.updateWidget();
 
-        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, filterType);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE);
 
     }
 
@@ -693,7 +677,7 @@ public class EditorProfileListFragment extends Fragment {
                 activateProfileHelper.removeNotification();
                 activateProfileHelper.updateWidget();
 
-                onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, filterType);
+                onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE);
 
             }
         });
@@ -774,12 +758,6 @@ public class EditorProfileListFragment extends Fragment {
     public void activateProfile(Profile profile, boolean interactive)
     {
         dataWrapper.activateProfile(profile._id, GlobalData.STARTUP_SOURCE_EDITOR, getActivity(), "");
-    }
-
-    // called from profile list adapter
-    public void finishProfilePreferencesActionMode()
-    {
-        onFinishProfilePreferencesActionModeCallback.onFinishProfilePreferencesActionMode();
     }
 
     private void setProfileSelection(Profile profile, boolean refreshIcons) {

@@ -61,7 +61,6 @@ public class EditorEventListFragment extends Fragment {
      * The fragment's current callback objects
      */
     private OnStartEventPreferences onStartEventPreferencesCallback = sDummyOnStartEventPreferencesCallback;
-    private OnFinishEventPreferencesActionMode onFinishEventPreferencesActionModeCallback = sDummyOnFinishEventPreferencesActionModeCallback;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -69,7 +68,7 @@ public class EditorEventListFragment extends Fragment {
      */
     // invoked when start profile preference fragment/activity needed
     public interface OnStartEventPreferences {
-        public void onStartEventPreferences(Event event, int editMode, int filterType, int orderType);
+        public void onStartEventPreferences(Event event, int editMode);
     }
 
     /**
@@ -77,17 +76,7 @@ public class EditorEventListFragment extends Fragment {
      * nothing. Used only when this fragment is not attached to an activity.
      */
     private static OnStartEventPreferences sDummyOnStartEventPreferencesCallback = new OnStartEventPreferences() {
-        public void onStartEventPreferences(Event event, int editMode, int filterType, int orderType) {
-        }
-    };
-
-    // invoked when action mode finish needed (from event list adapter)
-    public interface OnFinishEventPreferencesActionMode {
-        public void onFinishEventPreferencesActionMode();
-    }
-
-    private static OnFinishEventPreferencesActionMode sDummyOnFinishEventPreferencesActionModeCallback = new OnFinishEventPreferencesActionMode() {
-        public void onFinishEventPreferencesActionMode() {
+        public void onStartEventPreferences(Event event, int editMode) {
         }
     };
 
@@ -104,10 +93,6 @@ public class EditorEventListFragment extends Fragment {
                     "Activity must implement fragment's callbacks.");
         }
         onStartEventPreferencesCallback = (OnStartEventPreferences) activity;
-
-        if (activity instanceof OnFinishEventPreferencesActionMode)
-            onFinishEventPreferencesActionModeCallback = (OnFinishEventPreferencesActionMode) activity;
-
     }
 
     @Override
@@ -116,7 +101,6 @@ public class EditorEventListFragment extends Fragment {
 
         // Reset the active callbacks interface to the dummy implementation.
         onStartEventPreferencesCallback = sDummyOnStartEventPreferencesCallback;
-        onFinishEventPreferencesActionModeCallback = sDummyOnFinishEventPreferencesActionModeCallback;
     }
 
 
@@ -348,7 +332,7 @@ public class EditorEventListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartEventPreferencesCallback.onStartEventPreferences(_event, editMode, filterType, orderType);
+        onStartEventPreferencesCallback.onStartEventPreferences(_event, editMode);
     }
 
     public void runStopEvent(Event event)
@@ -424,8 +408,7 @@ public class EditorEventListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartEventPreferencesCallback.onStartEventPreferences(origEvent, editMode, filterType, orderType);
-
+        onStartEventPreferencesCallback.onStartEventPreferences(origEvent, editMode);
 
     }
 
@@ -448,7 +431,7 @@ public class EditorEventListFragment extends Fragment {
         {
             eventListAdapter.notifyDataSetChanged();
 
-            onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, filterType, orderType);
+            onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE);
         }
     }
 
@@ -534,18 +517,12 @@ public class EditorEventListFragment extends Fragment {
                 databaseHandler.deleteAllEvents();
                 eventListAdapter.clear();
 
-                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, filterType, orderType);
+                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE);
 
             }
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
         dialogBuilder.show();
-    }
-
-    // called from event list adapter
-    public void finishEventPreferencesActionMode()
-    {
-        onFinishEventPreferencesActionModeCallback.onFinishEventPreferencesActionMode();
     }
 
     public void updateListView(Event event, boolean newEvent, boolean refreshIcons)
