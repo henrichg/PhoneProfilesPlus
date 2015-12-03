@@ -14,10 +14,7 @@ import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import sk.henrichg.phoneprofilesplus.EventPreferencesFragment.OnRestartEventPreferences;
-
 public class EventPreferencesFragmentActivity extends AppCompatActivity
-                                                implements OnRestartEventPreferences
 {
 
     private long event_id = 0;
@@ -137,33 +134,6 @@ public class EventPreferencesFragmentActivity extends AppCompatActivity
                 return super.dispatchKeyEvent(event);
         }
         return super.dispatchKeyEvent(event);
-    }
-
-    public void onRestartEventPreferences(Event event, int newEventMode) {
-        if ((newEventMode != EditorEventListFragment.EDIT_MODE_INSERT) &&
-             (newEventMode != EditorEventListFragment.EDIT_MODE_DUPLICATE))
-        {
-            Bundle arguments = new Bundle();
-            arguments.putLong(GlobalData.EXTRA_EVENT_ID, event._id);
-            arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
-            arguments.putInt(GlobalData.EXTRA_PREFERENCES_STARTUP_SOURCE, GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
-            EventPreferencesFragment fragment = new EventPreferencesFragment();
-            fragment.setArguments(arguments);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.activity_event_preferences_container, fragment, "EventPreferencesFragment").commit();
-        }
-        else
-        {
-            Fragment fragment = getFragmentManager().findFragmentById(R.id.activity_event_preferences_container);
-            if (fragment != null)
-            {
-                getFragmentManager().beginTransaction()
-                    .remove(fragment).commit();
-            }
-        }
-    }
-
-    public void onPreferenceAttached(PreferenceScreen root, int xmlId) {
     }
 
 }

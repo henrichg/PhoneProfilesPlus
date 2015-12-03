@@ -65,40 +65,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
     static final String PREF_UNLINK_VOLUMES_APP_PREFERENCES = "prf_pref_volumeUnlinkVolumesAppSettings";
 
-    private OnRestartProfilePreferences onRestartProfilePreferencesCallback = sDummyOnRestartProfilePreferencesCallback;
-
-    // invokes when restart of profile preferences fragment needed (undo preference changes)
-    public interface OnRestartProfilePreferences {
-        /**
-         * Callback for restart fragment.
-         */
-        public void onRestartProfilePreferences(Profile profile, int newProfileMode);
-    }
-
-    private static OnRestartProfilePreferences sDummyOnRestartProfilePreferencesCallback = new OnRestartProfilePreferences() {
-        public void onRestartProfilePreferences(Profile profile, int newProfileMode) {
-        }
-    };
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        if (!(activity instanceof OnRestartProfilePreferences)) {
-            throw new IllegalStateException(
-                    "Activity must implement fragment's callbacks.");
-        }
-        onRestartProfilePreferencesCallback = (OnRestartProfilePreferences) activity;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        // Reset the active callbacks interface to the dummy implementation.
-        onRestartProfilePreferencesCallback = sDummyOnRestartProfilePreferencesCallback;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -927,7 +893,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         //boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
         //canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof ProfilePreferencesFragmentActivity));
         //if (canShow)
-        //    showActionMode();
+            showActionMode();
     }
 
     private void createActionModeCallback()
@@ -943,9 +909,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
  
             /** Called when user exits action mode */
             public void onDestroyActionMode(ActionMode mode) {
+               finishActionMode(BUTTON_CANCEL);
                actionMode = null;
-               if (actionModeButtonClicked == BUTTON_CANCEL)
-                   onRestartProfilePreferencesCallback.onRestartProfilePreferences(profile, new_profile_mode);
             }
  
             /** This is called when the action mode is created. This is called by startActionMode() */

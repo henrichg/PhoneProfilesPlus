@@ -13,10 +13,7 @@ import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import sk.henrichg.phoneprofilesplus.ProfilePreferencesFragment.OnRestartProfilePreferences;
-
 public class ProfilePreferencesFragmentActivity extends AppCompatActivity
-                                                implements OnRestartProfilePreferences
 {
     private long profile_id = 0;
     int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
@@ -144,34 +141,5 @@ public class ProfilePreferencesFragmentActivity extends AppCompatActivity
         return super.dispatchKeyEvent(event);
     }
 
-    public void onRestartProfilePreferences(Profile profile, int newProfileMode) {
-        if ((newProfileMode != EditorProfileListFragment.EDIT_MODE_INSERT) &&
-            (newProfileMode != EditorProfileListFragment.EDIT_MODE_DUPLICATE))
-        {
-            Bundle arguments = new Bundle();
-            arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile._id);
-            arguments.putInt(GlobalData.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-            if (profile_id == GlobalData.DEFAULT_PROFILE_ID)
-                arguments.putInt(GlobalData.EXTRA_PREFERENCES_STARTUP_SOURCE, GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE);
-            else
-                arguments.putInt(GlobalData.EXTRA_PREFERENCES_STARTUP_SOURCE, GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
-            ProfilePreferencesFragment fragment = new ProfilePreferencesFragment();
-            fragment.setArguments(arguments);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.activity_profile_preferences_container, fragment, "ProfilePreferencesFragment").commit();
-        }
-        else
-        {
-            ProfilePreferencesFragment fragment = (ProfilePreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_profile_preferences_container);
-            if (fragment != null)
-            {
-                getFragmentManager().beginTransaction()
-                    .remove(fragment).commit();
-            }
-        }
-    }
-
-    public void onPreferenceAttached(PreferenceScreen root, int xmlId) {
-    }
 
 }

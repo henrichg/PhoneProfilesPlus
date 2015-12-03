@@ -65,40 +65,6 @@ public class EventPreferencesFragment extends PreferenceFragment
     static final int BUTTON_CANCEL = 1;
     static final int BUTTON_SAVE = 2;
 
-    private OnRestartEventPreferences onRestartEventPreferencesCallback = sDummyOnRestartEventPreferencesCallback;
-
-    // invokes when restart of event preferences fragment needed (undo preference changes)
-    public interface OnRestartEventPreferences {
-        /**
-         * Callback for restart fragment.
-         */
-        public void onRestartEventPreferences(Event event, int newEventMode);
-    }
-
-    private static OnRestartEventPreferences sDummyOnRestartEventPreferencesCallback = new OnRestartEventPreferences() {
-        public void onRestartEventPreferences(Event event, int newEventMode) {
-        }
-    };
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        if (!(activity instanceof OnRestartEventPreferences)) {
-            throw new IllegalStateException(
-                    "Activity must implement fragment's callbacks.");
-        }
-        onRestartEventPreferencesCallback = (OnRestartEventPreferences) activity;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-        // Reset the active callbacks interface to the dummy implementation.
-        onRestartEventPreferencesCallback = sDummyOnRestartEventPreferencesCallback;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -414,12 +380,8 @@ public class EventPreferencesFragment extends PreferenceFragment
  
             /** Called when user exits action mode */
             public void onDestroyActionMode(ActionMode mode) {
-                 actionMode = null;
-                 if (actionModeButtonClicked == BUTTON_CANCEL)
-                     // cancel button clicked
-                 {
-                     onRestartEventPreferencesCallback.onRestartEventPreferences(event, new_event_mode);
-                 } 
+                finishActionMode(BUTTON_CANCEL);
+                actionMode = null;
             }
  
             /** This is called when the action mode is created. This is called by startActionMode() */

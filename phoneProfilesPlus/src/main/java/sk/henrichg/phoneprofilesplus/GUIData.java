@@ -28,6 +28,9 @@ public class GUIData {
     public static final String EXPORT_APP_PREF_FILENAME = "ApplicationPreferences.backup";
     public static final String EXPORT_DEF_PROFILE_PREF_FILENAME = "DefaultProfilePreferences.backup";
 
+    // this string is from material-preferences linrary (https://github.com/ferrannp/material-preferences)
+    public static final String MAIN_PREFERENCE_FRAGMENT_TAG = "com.fnp.materialpreferences.MainFragment";
+
     public static void setLanguage(Context context)//, boolean restart)
     {
         // jazyk na aky zmenit

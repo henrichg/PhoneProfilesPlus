@@ -138,7 +138,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        PhoneProfilesPreferencesFragment fragment = (PhoneProfilesPreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_phone_profiles_preferences_container);
+        PhoneProfilesPreferencesFragment fragment = (PhoneProfilesPreferencesFragment)getFragmentManager().
+                findFragmentByTag(GUIData.MAIN_PREFERENCE_FRAGMENT_TAG);
         if (fragment != null)
             fragment.doOnActivityResult(requestCode, resultCode, data);
     }
