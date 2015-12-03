@@ -38,7 +38,10 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     public void onCreate(Bundle savedInstanceState) {
 
         // must by called before super.onCreate() for PreferenceActivity
-        GUIData.setTheme(this, false, false);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            GUIData.setTheme(this, false, true);
+        else
+            GUIData.setTheme(this, false, false);
         GUIData.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
@@ -59,6 +62,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             //extraScrollToType = intent.getStringExtra(EXTRA_SCROLL_TO_TYPE);
         }
 
+        /*
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -74,6 +78,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
+        */
 
         invalidateEditor = false;
 
