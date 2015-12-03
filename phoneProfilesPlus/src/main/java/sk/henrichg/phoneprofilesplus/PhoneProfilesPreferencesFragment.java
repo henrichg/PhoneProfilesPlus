@@ -13,7 +13,6 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
@@ -25,7 +24,9 @@ import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.widget.ListView;
 
-public class PhoneProfilesPreferencesFragment extends PreferenceFragment 
+import com.fnp.materialpreferences.PreferenceFragment;
+
+public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                                               implements SharedPreferences.OnSharedPreferenceChangeListener
 {
 
@@ -58,13 +59,37 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         preferencesActivity = getActivity();
         //context = getActivity().getBaseContext();
 
-        prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(GlobalData.APPLICATION_PREFS_NAME);
-        prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
+        //prefMng = getPreferenceManager();
+        //prefMng.setSharedPreferencesName(GlobalData.APPLICATION_PREFS_NAME);
+        //prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         preferences = prefMng.getSharedPreferences();
 
-        addPreferencesFromResource(R.xml.phone_profiles_preferences);
+        //addPreferencesFromResource(R.xml.phone_profiles_preferences);
+
+        extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
+        extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
+
+    }
+
+    @Override
+    public void addPreferencesFromResource(int preferenceResId) {
+        prefMng = getPreferenceManager();
+        prefMng.setSharedPreferencesName(GlobalData.APPLICATION_PREFS_NAME);
+        prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
+        super.addPreferencesFromResource(preferenceResId);
+    }
+
+    @Override
+    public int addPreferencesFromResource() {
+        return R.xml.phone_profiles_preferences;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        preferences.registerOnSharedPreferenceChangeListener(this);
 
         preferences.registerOnSharedPreferenceChangeListener(this);
 
@@ -183,11 +208,6 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             Preference preference = findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
             preferenceCategory.removePreference(preference);
         }
-
-
-        extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
-        extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
-
     }
 
     private void setTitleStyle(Preference preference, boolean bold, boolean underline)

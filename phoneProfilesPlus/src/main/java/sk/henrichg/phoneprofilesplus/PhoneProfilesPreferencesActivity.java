@@ -13,9 +13,10 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.fnp.materialpreferences.PreferenceActivity;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class PhoneProfilesPreferencesActivity extends AppCompatActivity
+public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 {
 
     private SharedPreferences preferences;
@@ -42,7 +43,7 @@ public class PhoneProfilesPreferencesActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_phone_profiles_preferences);
+        //setContentView(R.layout.activity_phone_profiles_preferences);
 
         String extraScrollTo = "";
         String extraScrollToType = "";
@@ -76,9 +77,9 @@ public class PhoneProfilesPreferencesActivity extends AppCompatActivity
 
         invalidateEditor = false;
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.title_activity_phone_profiles_preferences);
+        //getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setTitle(R.string.title_activity_phone_profiles_preferences);
 
 
         preferences = getApplicationContext().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, MODE_PRIVATE);
@@ -89,19 +90,22 @@ public class PhoneProfilesPreferencesActivity extends AppCompatActivity
         wifiScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "10"));
         bluetoothScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
 
+        PhoneProfilesPreferencesFragment fragment = new PhoneProfilesPreferencesFragment();
+
         if (savedInstanceState == null) {
-            PhoneProfilesPreferencesFragment fragment = new PhoneProfilesPreferencesFragment();
             Bundle args = new Bundle();
             args.putString(EXTRA_SCROLL_TO, extraScrollTo);
             args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
             fragment.setArguments(args);
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.activity_phone_profiles_preferences_container, fragment, "PhoneProfilesPreferencesFragment").commit();
+            //getFragmentManager().beginTransaction()
+            //        .replace(R.id.activity_phone_profiles_preferences_container, fragment, "PhoneProfilesPreferencesFragment").commit();
         }
 
-        
+        setPreferenceFragment(fragment);
+
     }
 
+    /*
     @Override
     public void onConfigurationChanged(Configuration newConfig)
     {
@@ -110,7 +114,9 @@ public class PhoneProfilesPreferencesActivity extends AppCompatActivity
         getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
         GUIData.reloadActivity(this, false);
     }
+    */
 
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -122,6 +128,7 @@ public class PhoneProfilesPreferencesActivity extends AppCompatActivity
             return super.onOptionsItemSelected(item);
         }
     }
+    */
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)

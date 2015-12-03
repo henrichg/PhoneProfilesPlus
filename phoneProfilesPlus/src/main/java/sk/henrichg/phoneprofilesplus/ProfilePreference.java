@@ -131,14 +131,17 @@ public class ProfilePreference extends Preference {
         // ulozime instance state - napriklad kvoli zmene orientacie
 
         final Parcelable superState = super.onSaveInstanceState();
-        if (isPersistent()) {
+        /*if (isPersistent()) {
             // netreba ukladat, je ulozene persistentne
             return superState;
-        }
+        }*/
 
         // ulozenie istance state
         final SavedState myState = new SavedState(superState);
         myState.profileId = profileId;
+        myState.addNoActivateItem = addNoActivateItem;
+        myState.noActivateAsDoNotApply = noActivateAsDoNotApply;
+        myState.showDuration = showDuration;
         return myState;
 
     }
@@ -146,9 +149,13 @@ public class ProfilePreference extends Preference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        if (dataWrapper == null)
+            dataWrapper = new DataWrapper(prefContext, true, false, 0);
+
         if (!state.getClass().equals(SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
+            setSummary(Long.parseLong(profileId));
             return;
         }
 
@@ -157,6 +164,11 @@ public class ProfilePreference extends Preference {
         super.onRestoreInstanceState(myState.getSuperState());
         String value = (String) myState.profileId;
         profileId = value;
+        addNoActivateItem = myState.addNoActivateItem;
+        noActivateAsDoNotApply = myState.noActivateAsDoNotApply;
+        showDuration = myState.showDuration;
+
+        setSummary(Long.parseLong(profileId));
         notifyChanged();
     }
 
@@ -185,7 +197,7 @@ public class ProfilePreference extends Preference {
         profileId = newValue;
 
         // set summary
-        setSummary(profileId);
+        setSummary(Long.parseLong(profileId));
 
         // zapis do preferences
         persistString(newValue);
@@ -221,6 +233,9 @@ public class ProfilePreference extends Preference {
     private static class SavedState extends BaseSavedState
     {
         String profileId;
+        public int addNoActivateItem;
+        public int noActivateAsDoNotApply;
+        public int showDuration;
 
         public SavedState(Parcel source)
         {
@@ -228,6 +243,9 @@ public class ProfilePreference extends Preference {
 
             // restore profileId
             profileId = source.readString();
+            addNoActivateItem = source.readInt();
+            noActivateAsDoNotApply = source.readInt();
+            showDuration = source.readInt();
         }
 
         @Override
@@ -237,6 +255,9 @@ public class ProfilePreference extends Preference {
 
             // save profileId
             dest.writeString(profileId);
+            dest.writeInt(addNoActivateItem);
+            dest.writeInt(noActivateAsDoNotApply);
+            dest.writeInt(showDuration);
         }
 
         public SavedState(Parcelable superState)
