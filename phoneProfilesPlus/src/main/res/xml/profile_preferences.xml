@@ -43,11 +43,11 @@
             android:defaultValue="0"
             android:entries="@array/ringerModeArray"
             android:entryValues="@array/ringerModeValues" />
-        <PreferenceScreen
+        <Preference
             android:key="prf_pref_volumeNotificationsAccessSettings"
             android:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
             android:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary" >
-        </PreferenceScreen>
+        </Preference>
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_volumeZenMode"
             android:summary="@string/array_pref_no_change"
@@ -63,16 +63,16 @@
             android:defaultValue="0"
             android:entries="@array/vibrationOnTouchArray"
             android:entryValues="@array/vibrationOnTouchValues" />
-        <PreferenceScreen
+        <Preference
             android:key="prf_pref_volumeUnlinkVolumesAppSettings"
             android:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
             android:summary="@string/menu_settings" >
             <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
                 android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
-                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="applicationUnlinkRingerNotificationVolumes" />
-                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="checkbox" />
+                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="categorySystem" />
+                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="screen" />
             </intent>
-        </PreferenceScreen>
+        </Preference>
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
             android:key="prf_pref_volumeRingtone"
             henrichg:volumeType="ringtone"

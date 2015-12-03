@@ -32,7 +32,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     private boolean invalidateEditor = false;
 
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
-    public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
+    //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,17 +46,17 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         //setContentView(R.layout.activity_phone_profiles_preferences);
 
         String extraScrollTo = "";
-        String extraScrollToType = "";
+        //String extraScrollToType = "";
 
         Intent intent = getIntent();
         if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
             // activity is started from lockscreen, scroll to notifications cattegory
             extraScrollTo = "categoryNotifications";
-            extraScrollToType = "category";
+            //extraScrollToType = "category";
         }
         else {
             extraScrollTo = intent.getStringExtra(EXTRA_SCROLL_TO);
-            extraScrollToType = intent.getStringExtra(EXTRA_SCROLL_TO_TYPE);
+            //extraScrollToType = intent.getStringExtra(EXTRA_SCROLL_TO_TYPE);
         }
 
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
@@ -95,7 +95,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         if (savedInstanceState == null) {
             Bundle args = new Bundle();
             args.putString(EXTRA_SCROLL_TO, extraScrollTo);
-            args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
+            //args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
             fragment.setArguments(args);
             //getFragmentManager().beginTransaction()
             //        .replace(R.id.activity_phone_profiles_preferences_container, fragment, "PhoneProfilesPreferencesFragment").commit();

@@ -34,7 +34,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     private SharedPreferences preferences;
     private static Activity preferencesActivity = null;
     private String extraScrollTo;
-    private String extraScrollToType;
+    //private String extraScrollToType;
 
     static final String PREF_APPLICATION_PERMISSIONS = "prf_pref_applicationPermissions";
     static final int RESULT_APPLICATION_PERMISSIONS = 1990;
@@ -68,7 +68,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         //addPreferencesFromResource(R.xml.phone_profiles_preferences);
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
-        extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
+        //extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
 
     }
 
@@ -94,9 +94,10 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         preferences.registerOnSharedPreferenceChangeListener(this);
 
         if (Build.VERSION.SDK_INT >= 21) {
-            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("categorySystem");
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
             Preference preference = findPreference(PREF_POWER_SAVE_MODE_INTERNAL);
-            preferenceCategory.removePreference(preference);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
 
             preference = prefMng.findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
             preference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -116,9 +117,10 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 }
             });
         } else {
-            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("categorySystem");
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
             Preference preference = findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
-            preferenceCategory.removePreference(preference);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
         }
         if (Build.VERSION.SDK_INT >= 23) {
             Preference preference = prefMng.findPreference(PREF_APPLICATION_PERMISSIONS);
@@ -165,9 +167,10 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 });
             }
             else {
-                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("wifiScanningCategory");
                 preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
-                preferenceCategory.removePreference(preference);
+                if (preference != null)
+                    preferenceCategory.removePreference(preference);
             }
 
             if (locationMode == Settings.Secure.LOCATION_MODE_OFF) {
@@ -185,28 +188,33 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 });
             }
             else {
-                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
                 preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
-                preferenceCategory.removePreference(preference);
+                if (preference != null)
+                    preferenceCategory.removePreference(preference);
             }
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
-            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("prf_pref_permissionsCategory");
-            preferenceScreen.removePreference(preferenceCategory);
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_permissionsCategory");
+            if (preferenceCategory != null)
+                preferenceScreen.removePreference(preferenceCategory);
 
-            preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
+            preferenceCategory = (PreferenceScreen) findPreference("wifiScanningCategory");
             Preference preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
-            preferenceCategory.removePreference(preference);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
 
-            preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
+            preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
             preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
-            preferenceCategory.removePreference(preference);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
         }
         if (!ScannerService.bluetoothLESupported(preferencesActivity.getApplicationContext())) {
-            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventCategory");
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
             Preference preference = findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
-            preferenceCategory.removePreference(preference);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
         }
     }
 
@@ -370,7 +378,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             Preference preference = prefMng.findPreference(GlobalData.PREF_NOTIFICATION_STATUS_BAR_STYLE);
             if (preference != null)
             {
-                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("categoryNotifications");
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryNotifications");
                 preferenceCategory.removePreference(preference);
             }
         }
@@ -430,6 +438,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 
         updateSharedPreference();
 
+        /*
         // scroll to preference
         ListView listView = (ListView) getActivity().findViewById(android.R.id.list);
         if (listView != null) {
@@ -459,6 +468,18 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                     listView.setSelection(i);
             }
         }
+        */
+
+        if (extraScrollTo != null) {
+            PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
+            Preference preference = findPreference(extraScrollTo);
+            if (preference != null) {
+                int pos = preference.getOrder();
+                preferenceScreen.onItemClick(null, null, pos, 0);
+            }
+            extraScrollTo = null;
+        }
+
     }
 
     @Override

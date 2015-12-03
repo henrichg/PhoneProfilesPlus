@@ -196,8 +196,8 @@ public class ImportantInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, GlobalData.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
-                intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "checkbox");
+                intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "categorySystem");
+                //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivity(intent);
                 finish();
             }

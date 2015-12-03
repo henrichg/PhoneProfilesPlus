@@ -629,6 +629,8 @@
     <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
     <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (sec)</string>
+    <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi scanning</string>
+    <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth scanning</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

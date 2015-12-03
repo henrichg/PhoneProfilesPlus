@@ -888,14 +888,14 @@ public class ScannerService extends IntentService
 
                 int requestCode;
                 if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI)) {
-                    notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "applicationEventWiFiScanningSystemSettings");
+                    notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "wifiScanningCategory");
                     requestCode = 1;
                 }
                 else {
-                    notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "applicationEventBluetoothScanningSystemSettings");
+                    notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "bluetoothScanninCategory");
                     requestCode = 2;
                 }
-                notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                //notificationIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
 
                 PendingIntent pi = PendingIntent.getActivity(context, requestCode, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
