@@ -2,7 +2,9 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
-    android:key="eventPreferenceScreen" >
+    android:key="eventPreferenceScreen"
+    android:title="@string/title_activity_event_preferences">
+
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventidentification"
         android:title="@string/event_preferences_category_eventidentification" >

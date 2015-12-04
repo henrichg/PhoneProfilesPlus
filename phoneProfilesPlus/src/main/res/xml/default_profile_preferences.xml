@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus" >
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
+    android:key="rootScreen"
+    android:title="@string/title_activity_default_profile_preferences" >
+
     <PreferenceCategory
         android:summary="@string/profile_preferences_category_volumes"
         android:title="@string/profile_preferences_category_volumes"

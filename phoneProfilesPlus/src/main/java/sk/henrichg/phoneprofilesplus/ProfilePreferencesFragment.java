@@ -15,11 +15,12 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.view.ActionMode.Callback;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,24 +28,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
- 
-public class ProfilePreferencesFragment extends PreferenceFragment 
+
+import com.fnp.materialpreferences.PreferenceFragment;
+
+public class ProfilePreferencesFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private DataWrapper dataWrapper;
     private Profile profile;
-    public long profile_id;
     //private boolean first_start_activity;
     private int new_profile_mode;
-    private int startupSource;
-    public boolean profileNonEdited = true;
+    public static int startupSource;
     private PreferenceManager prefMng;
     private SharedPreferences preferences;
     private Context context;
-    private ActionMode actionMode;
-    private Callback actionModeCallback;
-
-    private int actionModeButtonClicked = BUTTON_UNDEFINED;
 
     private static ImageViewPreference changedImageViewPreference;
     private static ProfileIconPreference changedProfileIconPreference;
@@ -54,12 +51,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     static final String PREFS_NAME_FRAGMENT = "profile_preferences_fragment";
     static final String PREFS_NAME_DEFAULT_PROFILE = GlobalData.DEFAULT_PROFILE_PREFS_NAME;
     private String PREFS_NAME;
-
-    static final String SP_ACTION_MODE_SHOWED = "action_mode_showed";
-
-    static final int BUTTON_UNDEFINED = 0;
-    static final int BUTTON_CANCEL = 1;
-    static final int BUTTON_SAVE = 2;
 
     static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
@@ -77,8 +68,29 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         context = getActivity().getApplicationContext();
 
         dataWrapper = new DataWrapper(context, true, false, 0);
-        
-        startupSource = getArguments().getInt(GlobalData.EXTRA_PREFERENCES_STARTUP_SOURCE, GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT);
+
+        long profile_id = 0;
+
+        // getting attached fragment data
+        if (getArguments().containsKey(GlobalData.EXTRA_NEW_PROFILE_MODE))
+            new_profile_mode = getArguments().getInt(GlobalData.EXTRA_NEW_PROFILE_MODE);
+        if (getArguments().containsKey(GlobalData.EXTRA_PROFILE_ID))
+            profile_id = getArguments().getLong(GlobalData.EXTRA_PROFILE_ID);
+
+        profile = ProfilePreferencesFragmentActivity.createProfile(context.getApplicationContext(), profile_id, new_profile_mode, true);
+
+        preferences = prefMng.getSharedPreferences();
+
+        /*if (first_start_activity)*/
+        //if (savedInstanceState == null)
+        //    loadPreferences();
+
+        updateSharedPreference();
+
+    }
+
+    @Override
+    public void addPreferencesFromResource(int preferenceResId) {
         if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = PREFS_NAME_ACTIVITY;
         else
@@ -94,90 +106,24 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         prefMng.setSharedPreferencesName(PREFS_NAME);
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
-        // getting attached fragment data
-        if (getArguments().containsKey(GlobalData.EXTRA_NEW_PROFILE_MODE))
-            new_profile_mode = getArguments().getInt(GlobalData.EXTRA_NEW_PROFILE_MODE);
-        if (getArguments().containsKey(GlobalData.EXTRA_PROFILE_ID))
-            profile_id = getArguments().getLong(GlobalData.EXTRA_PROFILE_ID);
+        super.addPreferencesFromResource(preferenceResId);
+    }
+
+    @Override
+    public int addPreferencesFromResource() {
+        Log.e("******** ProfilePreferenceFragment", "startupSource=" + startupSource);
 
         if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
-        {
-            profile = GlobalData.getDefaultProfile(context);
-            profile_id = profile._id;
-        }
+            return R.xml.default_profile_preferences;
         else
-        if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT)
-        {
-            // create new profile
-            profile = dataWrapper.getNoinitializedProfile(
-                        getResources().getString(R.string.profile_name_default),
-                        GlobalData.PROFILE_ICON_DEFAULT, 0);
-            profile._showInActivator = true;
-            profile_id = 0;
-        }
-        else
-        if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)
-        {
-            // duplicate profile
-            Profile origProfile = dataWrapper.getProfileById(profile_id, false);
-            profile = new Profile(
-                           origProfile._name+"_d",
-                           origProfile._icon,
-                           false,
-                           origProfile._porder,
-                           origProfile._volumeRingerMode,
-                           origProfile._volumeRingtone,
-                           origProfile._volumeNotification,
-                           origProfile._volumeMedia,
-                           origProfile._volumeAlarm,
-                           origProfile._volumeSystem,
-                           origProfile._volumeVoice,
-                           origProfile._soundRingtoneChange,
-                           origProfile._soundRingtone,
-                           origProfile._soundNotificationChange,
-                           origProfile._soundNotification,
-                           origProfile._soundAlarmChange,
-                           origProfile._soundAlarm,
-                           origProfile._deviceAirplaneMode,
-                           origProfile._deviceWiFi,
-                           origProfile._deviceBluetooth,
-                           origProfile._deviceScreenTimeout,
-                           origProfile._deviceBrightness,
-                           origProfile._deviceWallpaperChange,
-                           origProfile._deviceWallpaper,
-                           origProfile._deviceMobileData,
-                           origProfile._deviceMobileDataPrefs,
-                           origProfile._deviceGPS,
-                           origProfile._deviceRunApplicationChange,
-                           origProfile._deviceRunApplicationPackageName,
-                           origProfile._deviceAutosync,
-                           origProfile._showInActivator,
-                           origProfile._deviceAutoRotate,
-                           origProfile._deviceLocationServicePrefs,
-                           origProfile._volumeSpeakerPhone,
-                           origProfile._deviceNFC,
-                           origProfile._duration,
-                           origProfile._afterDurationDo,
-                           origProfile._volumeZenMode,
-                           origProfile._deviceKeyguard,
-                           origProfile._vibrationOnTouch,
-                           origProfile._deviceWiFiAP,
-                           origProfile._devicePowerSaveMode);
-            profile_id = 0;
-        }
-        else
-            profile = dataWrapper.getProfileById(profile_id, false);
+            return R.xml.profile_preferences;
+    }
 
-        preferences = prefMng.getSharedPreferences();
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        /*if (first_start_activity)*/
-        if (savedInstanceState == null)
-            loadPreferences();
-
-        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
-            addPreferencesFromResource(R.xml.default_profile_preferences);
-        else
-            addPreferencesFromResource(R.xml.profile_preferences);
+        preferences.registerOnSharedPreferenceChangeListener(this);
 
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
@@ -279,37 +225,11 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             Preference mobileDataPreference = prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA);
             mobileDataPreference.setTitle(R.string.profile_preferences_deviceMobileData);
         }
-
-        preferences.registerOnSharedPreferenceChangeListener(this);
-        createActionModeCallback();
-
-        if (savedInstanceState == null)
-        {
-            SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-            Editor editor = preferences.edit();
-            editor.remove(SP_ACTION_MODE_SHOWED);
-            editor.commit();
-        }
-
-        updateSharedPreference();
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-        // must by in onStart(), in ocCreate() crashed
-        SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-        int actionModeShowed = preferences.getInt(SP_ACTION_MODE_SHOWED, 0);
-        if (actionModeShowed == 2)
-            showActionMode();
-        else
-        if (((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
-            (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))
-            && (actionModeShowed == 0))
-            showActionMode();
-
     }
 
     @Override
@@ -379,158 +299,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        SharedPreferences preferences = getActivity().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        if (actionMode != null)
-            editor.putInt(SP_ACTION_MODE_SHOWED, 2);
-        else
-            editor.putInt(SP_ACTION_MODE_SHOWED, 1);
-        editor.commit();
-    }
-
-    private void loadPreferences()
-    {
-        if (profile != null)
-        {
-            //SharedPreferences preferences = getActivity().getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
-
-            Editor editor = preferences.edit();
-            if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
-            {
-                /*
-                editor.remove(GlobalData.PREF_PROFILE_NAME).putString(GlobalData.PREF_PROFILE_NAME, profile._name);
-                editor.remove(GlobalData.PREF_PROFILE_ICON).putString(GlobalData.PREF_PROFILE_ICON, profile._icon);
-                editor.remove(GlobalData.PREF_PROFILE_SHOW_IN_ACTIVATOR).putBoolean(GlobalData.PREF_PROFILE_SHOW_IN_ACTIVATOR, profile._showInActivator);
-                editor.remove(GlobalData.PREF_PROFILE_DURATION).editor.putString(GlobalData.PREF_PROFILE_DURATION, Integer.toString(profile._duration));
-                editor.remove(GlobalData.PREF_PROFILE_AFTER_DURATION_DO).editor.putString(GlobalData.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(profile._afterDurationDo));
-                */
-                editor.putString(GlobalData.PREF_PROFILE_NAME, profile._name);
-                editor.putString(GlobalData.PREF_PROFILE_ICON, profile._icon);
-                editor.putBoolean(GlobalData.PREF_PROFILE_SHOW_IN_ACTIVATOR, profile._showInActivator);
-                editor.putString(GlobalData.PREF_PROFILE_DURATION, Integer.toString(profile._duration));
-                editor.putString(GlobalData.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(profile._afterDurationDo));
-            }
-            editor.putString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(profile._volumeRingerMode));
-            editor.putString(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(profile._volumeZenMode));
-            editor.putString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
-            editor.putString(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, profile._volumeNotification);
-            editor.putString(GlobalData.PREF_PROFILE_VOLUME_MEDIA, profile._volumeMedia);
-            editor.putString(GlobalData.PREF_PROFILE_VOLUME_ALARM, profile._volumeAlarm);
-            editor.putString(GlobalData.PREF_PROFILE_VOLUME_SYSTEM, profile._volumeSystem);
-            editor.putString(GlobalData.PREF_PROFILE_VOLUME_VOICE, profile._volumeVoice);
-            editor.putString(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(profile._soundRingtoneChange));
-            editor.putString(GlobalData.PREF_PROFILE_SOUND_RINGTONE, profile._soundRingtone);
-            editor.putString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(profile._soundNotificationChange));
-            editor.putString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, profile._soundNotification);
-            editor.putString(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(profile._soundAlarmChange));
-            editor.putString(GlobalData.PREF_PROFILE_SOUND_ALARM, profile._soundAlarm);
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(profile._deviceAirplaneMode));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_WIFI, Integer.toString(profile._deviceWiFi));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, Integer.toString(profile._deviceBluetooth));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, Integer.toString(profile._deviceScreenTimeout));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, Integer.toString(profile._deviceWallpaperChange));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER, profile._deviceWallpaper);
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, Integer.toString(profile._deviceMobileData));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, Integer.toString(profile._deviceMobileDataPrefs));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_GPS, Integer.toString(profile._deviceGPS));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, Integer.toString(profile._deviceRunApplicationChange));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC, Integer.toString(profile._deviceAutosync));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE, Integer.toString(profile._deviceAutoRotate));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, Integer.toString(profile._deviceLocationServicePrefs));
-            editor.putString(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, Integer.toString(profile._volumeSpeakerPhone));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_NFC, Integer.toString(profile._deviceNFC));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, Integer.toString(profile._deviceKeyguard));
-            editor.putString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, Integer.toString(profile._vibrationOnTouch));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, Integer.toString(profile._deviceWiFiAP));
-            editor.putString(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, Integer.toString(profile._devicePowerSaveMode));
-            editor.commit();
-        }
-
-    }
-
-    private void savePreferences()
-    {
-        if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
-        {
-            profile._name = preferences.getString(GlobalData.PREF_PROFILE_NAME, "");
-            profile._icon = preferences.getString(GlobalData.PREF_PROFILE_ICON, "");
-            profile._showInActivator = preferences.getBoolean(GlobalData.PREF_PROFILE_SHOW_IN_ACTIVATOR, true);
-
-            profile._duration = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DURATION, ""));
-            profile._afterDurationDo = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_AFTER_DURATION_DO, ""));
-
-            Profile activatedProfile = dataWrapper.getActivatedProfile();
-            if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                // remove alarm for profile duration
-                ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
-                GlobalData.setActivatedProfileForDuration(context, profile._id);
-            }
-        }
-        profile._volumeRingerMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, ""));
-        profile._volumeZenMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, ""));
-        profile._volumeRingtone = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, "");
-        profile._volumeNotification = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, "");
-        profile._volumeMedia = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_MEDIA, "");
-        profile._volumeAlarm = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_ALARM, "");
-        profile._volumeSystem = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_SYSTEM, "");
-        profile._volumeVoice = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_VOICE, "");
-        profile._soundRingtoneChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
-        profile._soundRingtone = preferences.getString(GlobalData.PREF_PROFILE_SOUND_RINGTONE, "");
-        profile._soundNotificationChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
-        profile._soundNotification = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, "");
-        profile._soundAlarmChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
-        profile._soundAlarm = preferences.getString(GlobalData.PREF_PROFILE_SOUND_ALARM, "");
-        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, ""));
-        profile._deviceWiFi = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WIFI, ""));
-        profile._deviceBluetooth = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, ""));
-        profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, ""));
-        profile._deviceBrightness = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, "");
-        profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, ""));
-        if (profile._deviceWallpaperChange == 1)
-            profile._deviceWallpaper = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER, "");
-        else
-            profile._deviceWallpaper = "-|0";
-        profile._deviceMobileData = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, ""));
-        profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, ""));
-        profile._deviceGPS = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_GPS, ""));
-        profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, ""));
-        if (profile._deviceRunApplicationChange == 1)
-            profile._deviceRunApplicationPackageName = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
-        else
-            profile._deviceRunApplicationPackageName = "-";
-        profile._deviceAutosync = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC, ""));
-        profile._deviceAutoRotate = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE, ""));
-        profile._deviceLocationServicePrefs = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, ""));
-        profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, ""));
-        profile._deviceNFC = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NFC, ""));
-        profile._deviceKeyguard = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, ""));
-        profile._vibrationOnTouch = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, ""));
-        profile._deviceWiFiAP = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, ""));
-        profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, ""));
-
-        if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
-        {
-            // update bitmaps
-            profile.generateIconBitmap(context, false, 0);
-            profile.generatePreferencesIndicator(context, false, 0);
-
-            if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
-                (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))
-            {
-                // add profile into DB
-                dataWrapper.getDatabaseHandler().addProfile(profile, false);
-                profile_id = profile._id;
-
-            }
-            else
-            if (profile_id > 0)
-            {
-                dataWrapper.getDatabaseHandler().updateProfile(profile);
-            }
-        }
     }
 
     private void setSummary(String key, Object value)
@@ -893,103 +661,11 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         //boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
         //canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof ProfilePreferencesFragmentActivity));
         //if (canShow)
-            showActionMode();
-    }
+        //    showActionMode();
+        ProfilePreferencesFragmentActivity activity = (ProfilePreferencesFragmentActivity)getActivity();
+        ProfilePreferencesFragmentActivity.showSaveMenu = true;
+        activity.invalidateOptionsMenu();
 
-    private void createActionModeCallback()
-    {
-        actionModeCallback = new ActionMode.Callback() {
-
-            /** Invoked whenever the action mode is shown. This is invoked immediately after onCreateActionMode */
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                MenuItem menuItem = menu.findItem(R.id.profile_preferences_action_mode_save);
-                menuItem.setTitle(menuItem.getTitle() + "    ");
-                return true;
-            }
- 
-            /** Called when user exits action mode */
-            public void onDestroyActionMode(ActionMode mode) {
-               finishActionMode(BUTTON_CANCEL);
-               actionMode = null;
-            }
- 
-            /** This is called when the action mode is created. This is called by startActionMode() */
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                MenuInflater inflater = mode.getMenuInflater();
-                inflater.inflate(R.menu.profile_preferences_action_mode, menu);
-                return true;
-            }
- 
-            /** This is called when an item in the context menu is selected */
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                switch(item.getItemId())
-                {
-                    case R.id.profile_preferences_action_mode_save:
-                        savePreferences();
-                        finishActionMode(BUTTON_SAVE);
-                        return true;
-                    default:
-                        finishActionMode(BUTTON_CANCEL);
-                        return false;                        
-                }
-            }
-
-        };		
-    }
-
-    @SuppressLint("InflateParams")
-    private void showActionMode()
-    {
-        profileNonEdited = false;
-
-        if (actionMode != null)
-            actionMode.finish();
-
-
-        actionModeButtonClicked = BUTTON_UNDEFINED;
-
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View actionView = inflater.inflate(R.layout.profile_preferences_action_mode, null);
-        TextView title = (TextView)actionView.findViewById(R.id.profile_preferences_action_menu_title);
-
-        title.setText(R.string.title_activity_profile_preferences);
-
-        actionMode = ((AppCompatActivity)getActivity()).startSupportActionMode(actionModeCallback);
-        actionMode.setCustomView(actionView); 
-        
-        actionMode.getCustomView().findViewById(R.id.profile_preferences_action_menu_cancel).setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-
-                finishActionMode(BUTTON_CANCEL);
-
-            }
-        });
-
-    }
-
-    public boolean isActionModeActive()
-    {
-        return (actionMode != null);
-    }
-
-    public void finishActionMode(int button)
-    {
-        int _button = button;
-
-        if (_button == BUTTON_SAVE)
-            new_profile_mode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
-
-        if (getActivity() instanceof ProfilePreferencesFragmentActivity)
-        {
-            actionModeButtonClicked = BUTTON_UNDEFINED;
-            getActivity().finish(); // finish activity;
-        }
-        else
-        if (actionMode != null)
-        {
-            actionModeButtonClicked = _button;
-            actionMode.finish();
-        }
     }
 
     static public Activity getPreferencesActivity()
