@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
     android:key="eventPreferenceScreen" >
     <PreferenceCategory
         android:summary="@string/event_preferences_category_eventidentification"
@@ -262,28 +263,30 @@
             android:key="eventWiFiEnabled"
             android:title="@string/event_preferences_wifi_enabled"
             android:defaultValue="false" />
-        <PreferenceScreen
+        <Preference
             android:key="eventWiFiScanningSystemSettings"
             android:title="@string/phone_profiles_pref_eventWiFiScanningSystemSettings"
             android:summary="@string/phone_profiles_pref_eventWiFiScanningSystemSettings_summary"
-            android:dependency="eventWiFiEnabled" >
+            android:dependency="eventWiFiEnabled"
+            android:widgetLayout="@layout/start_activity_preference" >
             <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
                     android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
                 <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="wifiScanningCategory" />
                 <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="screen" />
             </intent>
-        </PreferenceScreen>
-        <PreferenceScreen
+        </Preference>
+        <Preference
             android:key="eventEnableWiFiScaningAppSettings"
             android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"
             android:summary="@string/menu_settings"
-            android:dependency="eventWiFiEnabled" >
+            android:dependency="eventWiFiEnabled"
+            android:widgetLayout="@layout/start_activity_preference" >
             <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
                 android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
                 <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="wifiScanningCategory" />
                 <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="checkbox" />
             </intent>
-        </PreferenceScreen>
+        </Preference>
         <com.afollestad.materialdialogs.prefs.MaterialListPreference android:title="@string/event_preferences_wifi_connection_type"
             android:summary="@string/array_event_pref_wifiConnectionType_connected"
             android:key="eventWiFiConnectionType"
@@ -305,28 +308,30 @@
             android:key="eventBluetoothEnabled"
             android:title="@string/event_preferences_bluetooth_enabled"
             android:defaultValue="false" />
-        <PreferenceScreen
+        <Preference
             android:key="eventBluetoothScanningSystemSettings"
             android:title="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings"
             android:summary="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings_summary"
-            android:dependency="eventBluetoothEnabled" >
+            android:dependency="eventBluetoothEnabled"
+            android:widgetLayout="@layout/start_activity_preference" >
             <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
                     android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
                 <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="bluetoothScanninCategory" />
                 <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="screen" />
             </intent>
-        </PreferenceScreen>
-        <PreferenceScreen
+        </Preference>
+        <Preference
             android:key="eventEnableBluetoothScaningAppSettings"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"
             android:summary="@string/menu_settings"
-            android:dependency="eventBluetoothEnabled" >
+            android:dependency="eventBluetoothEnabled"
+            android:widgetLayout="@layout/start_activity_preference" >
             <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
                 android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
                 <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="bluetoothScanninCategory" />
                 <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="checkbox" />
             </intent>
-        </PreferenceScreen>
+        </Preference>
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/event_preferences_bluetooth_connection_type"
             android:summary="@string/array_event_pref_bluetoothConnectionType_connected"
@@ -393,12 +398,13 @@
             android:key="eventNotificationEnabled"
             android:title="@string/event_preferences_notifications_enabled"
             android:defaultValue="false" />
-        <PreferenceScreen
+        <Preference
             android:key="eventNotificationNotificationsAccessSettings"
             android:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
             android:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary"
-            android:dependency="eventNotificationEnabled" >
-        </PreferenceScreen>
+            android:dependency="eventNotificationEnabled"
+            android:widgetLayout="@layout/start_activity_preference" >
+        </Preference>
         <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
             android:defaultValue="-"
             android:key="eventNotificationApplications"

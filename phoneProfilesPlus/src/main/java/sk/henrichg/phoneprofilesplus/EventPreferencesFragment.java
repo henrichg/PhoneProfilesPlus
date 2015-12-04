@@ -154,7 +154,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         preferences.registerOnSharedPreferenceChangeListener(this);
 
         Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
-        notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
         notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -164,9 +164,9 @@ public class EventPreferencesFragment extends PreferenceFragment
             }
         });
         Preference preference = findPreference(PREF_WIFI_SCANNING_APP_SETTINGS);
-        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
         preference = findPreference(PREF_BLUETOOTH_SCANNING_APP_SETTINGS);
-        preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+        //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
 
         if (Build.VERSION.SDK_INT >= 23) {
 
@@ -180,18 +180,18 @@ public class EventPreferencesFragment extends PreferenceFragment
                 PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiCategory");
                 preferenceCategory.removePreference(preference);
             }
-            else {
-                preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            }
+            //else {
+            //    preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            //}
 
             preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
             if (locationMode != Settings.Secure.LOCATION_MODE_OFF) {
                 PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventBluetoothCategory");
                 preferenceCategory.removePreference(preference);
             }
-            else {
-                preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            }
+            //else {
+            //    preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            //}
         }
         else {
             PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiCategory");

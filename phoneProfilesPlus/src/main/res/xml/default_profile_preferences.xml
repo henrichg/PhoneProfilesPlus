@@ -15,7 +15,8 @@
         <Preference
             android:key="prf_pref_volumeNotificationsAccessSettings"
             android:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
-            android:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary" >
+            android:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary"
+            android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_volumeZenMode"
@@ -34,7 +35,8 @@
         <Preference
             android:key="prf_pref_volumeUnlinkVolumesAppSettings"
             android:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
-            android:summary="@string/menu_settings" >
+            android:summary="@string/menu_settings"
+            android:widgetLayout="@layout/start_activity_preference" >
             <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
                 android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
                 <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="categorySystem" />

@@ -7,7 +7,8 @@
 
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_gui"
-        android:key="applicationInterfaceCategory" >
+        android:key="applicationInterfaceCategory"
+        android:widgetLayout="@layout/start_activity_preference">
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationLanguage"
             android:summary="@string/phone_profiles_pref_applicationLanguage_system"
@@ -52,7 +53,8 @@
 
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_start"
-        android:key="categoryAplicationStart" >
+        android:key="categoryAplicationStart"
+        android:widgetLayout="@layout/start_activity_preference">
         <CheckBoxPreference
             android:key="applicationStartOnBoot"
             android:title="@string/phone_profiles_pref_applicationStartOnBoot"
@@ -65,7 +67,8 @@
 
     <PreferenceScreen
         android:key="categorySystem"
-        android:title="@string/phone_profiles_pref_category_system" >
+        android:title="@string/phone_profiles_pref_category_system"
+        android:widgetLayout="@layout/start_activity_preference">
         <CheckBoxPreference
             android:key="applicationUnlinkRingerNotificationVolumes"
             android:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
@@ -74,7 +77,8 @@
         <Preference
             android:key="applicationPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
-            android:summary="@string/empty_string" >
+            android:summary="@string/empty_string"
+            android:widgetLayout="@layout/start_activity_preference"> >
         </Preference>
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationPowerSaveModeInternal"
@@ -87,22 +91,26 @@
 
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_permissions"
-        android:key="prf_pref_permissionsCategory" >
+        android:key="prf_pref_permissionsCategory"
+        android:widgetLayout="@layout/start_activity_preference">
         <Preference
             android:key="prf_pref_writeSystemSettingsPermissions"
             android:title="@string/phone_profiles_pref_writeSystemSettingPermissions"
-            android:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary" >
+            android:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary"
+            android:widgetLayout="@layout/start_activity_preference">
         </Preference>
         <Preference
             android:key="prf_pref_applicationPermissions"
             android:title="@string/phone_profiles_pref_applicationPermissions"
-            android:summary="@string/phone_profiles_pref_applicationPermissions_summary" >
+            android:summary="@string/phone_profiles_pref_applicationPermissions_summary"
+            android:widgetLayout="@layout/start_activity_preference">
         </Preference>
     </PreferenceScreen>
 
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_notifications"
-        android:key="categoryNotifications" >
+        android:key="categoryNotifications"
+        android:widgetLayout="@layout/start_activity_preference">
         <CheckBoxPreference
             android:key="notificationsToast"
             android:title="@string/phone_profiles_pref_notificationsToast"
@@ -147,7 +155,8 @@
 
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_activation"
-        android:key="profileActivationCategory" >
+        android:key="profileActivationCategory"
+        android:widgetLayout="@layout/start_activity_preference">
         <sk.henrichg.phoneprofilesplus.ProfilePreference
             android:defaultValue="-999"
             android:key="applicationBackgroundProfile"
@@ -161,11 +170,13 @@
 
     <PreferenceScreen
         android:key="wifiScanningCategory"
-        android:title="@string/phone_profiles_pref_category_wifi_scanning" >
+        android:title="@string/phone_profiles_pref_category_wifi_scanning"
+        android:widgetLayout="@layout/start_activity_preference">
         <Preference
             android:key="applicationEventWiFiScanningSystemSettings"
             android:title="@string/phone_profiles_pref_eventWiFiScanningSystemSettings"
-            android:summary="@string/phone_profiles_pref_eventWiFiScanningSystemSettings_summary" >
+            android:summary="@string/phone_profiles_pref_eventWiFiScanningSystemSettings_summary"
+            android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
         <CheckBoxPreference
             android:key="applicationEventWifiEnableWifi"
@@ -197,11 +208,13 @@
 
     <PreferenceScreen
         android:key="bluetoothScanninCategory"
-        android:title="@string/phone_profiles_pref_category_bluetooth_scanning" >
+        android:title="@string/phone_profiles_pref_category_bluetooth_scanning"
+        android:widgetLayout="@layout/start_activity_preference">
         <Preference
             android:key="applicationEventBluetoothScanningSystemSettings"
             android:title="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings"
-            android:summary="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings_summary" >
+            android:summary="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings_summary"
+            android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
         <CheckBoxPreference
             android:key="applicationEventBluetoothEnableBluetooth"
@@ -240,7 +253,8 @@
 
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_activator"
-        android:key="categoryActivator" >
+        android:key="categoryActivator"
+        android:widgetLayout="@layout/start_activity_preference">
         <CheckBoxPreference
             android:key="applicationActivatorPrefIndicator"
             android:title="@string/phone_profiles_pref_applicationPrefIndicator"
@@ -265,7 +279,8 @@
     
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_editor"
-        android:key="categoryEditor" >
+        android:key="categoryEditor"
+        android:widgetLayout="@layout/start_activity_preference">
         <CheckBoxPreference
             android:key="applicationEditorPrefIndicator"
             android:title="@string/phone_profiles_pref_applicationPrefIndicator"
@@ -286,7 +301,8 @@
     
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_widget_list"
-        android:key="categoryWidgetList" >
+        android:key="categoryWidgetList"
+        android:widgetLayout="@layout/start_activity_preference">
         <CheckBoxPreference
             android:key="applicationWidgetListPrefIndicator"
             android:title="@string/phone_profiles_pref_applicationPrefIndicator"
@@ -338,7 +354,8 @@
     
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_widget_icon_shortcut"
-        android:key="categoryWidgetIcon" >
+        android:key="categoryWidgetIcon"
+        android:widgetLayout="@layout/start_activity_preference">
         <CheckBoxPreference
             android:key="applicationWidgetIconHideProfileName"
             android:title="@string/phone_profiles_pref_applicationWidgetIconHideProfileName"
