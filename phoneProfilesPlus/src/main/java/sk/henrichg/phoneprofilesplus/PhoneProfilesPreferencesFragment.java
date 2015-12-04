@@ -22,6 +22,7 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.fnp.materialpreferences.PreferenceFragment;
@@ -68,6 +69,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         //addPreferencesFromResource(R.xml.phone_profiles_preferences);
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
+        Log.e("------- PhoneProfilesPreferencesFragment", "extraScrollTo=" + extraScrollTo);
         //extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
 
     }
