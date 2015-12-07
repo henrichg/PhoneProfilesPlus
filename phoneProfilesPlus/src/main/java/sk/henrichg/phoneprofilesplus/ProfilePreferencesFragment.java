@@ -127,26 +127,28 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
-            // add zen mode option to preference Ringer mode
             ListPreference ringerModePreference = (ListPreference) prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE);
-            CharSequence[] entries = ringerModePreference.getEntries();
-            CharSequence[] entryValues = ringerModePreference.getEntryValues();
 
-            CharSequence[] newEntries = new CharSequence[entries.length+1];
-            CharSequence[] newEntryValues = new CharSequence[entries.length+1];
+            if (ringerModePreference.findIndexOfValue("5") < 0) {
+                // add zen mode option to preference Ringer mode
+                CharSequence[] entries = ringerModePreference.getEntries();
+                CharSequence[] entryValues = ringerModePreference.getEntryValues();
 
-            for (int i = 0; i < entries.length; i++)
-            {
-                newEntries[i] = entries[i];
-                newEntryValues[i] = entryValues[i];
+                CharSequence[] newEntries = new CharSequence[entries.length + 1];
+                CharSequence[] newEntryValues = new CharSequence[entries.length + 1];
+
+                for (int i = 0; i < entries.length; i++) {
+                    newEntries[i] = entries[i];
+                    newEntryValues[i] = entryValues[i];
+                }
+
+                newEntries[entries.length] = context.getString(R.string.array_pref_ringerModeArray_ZenMode);
+                newEntryValues[entries.length] = "5";
+
+                ringerModePreference.setEntries(newEntries);
+                ringerModePreference.setEntryValues(newEntryValues);
+                ringerModePreference.setValue(Integer.toString(profile._volumeRingerMode));
             }
-
-            newEntries[entries.length] = context.getString(R.string.array_pref_ringerModeArray_ZenMode);
-            newEntryValues[entries.length] = "5";
-
-            ringerModePreference.setEntries(newEntries);
-            ringerModePreference.setEntryValues(newEntryValues);
-            ringerModePreference.setValue(Integer.toString(profile._volumeRingerMode));
 
             /*final boolean canEnableZenMode =
                     (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||

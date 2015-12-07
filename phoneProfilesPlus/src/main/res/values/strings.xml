@@ -631,7 +631,7 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (sec)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi scanning</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth scanning</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_preferences_category_radios">Radios</string>
+    <string name="profile_preferences_category_screen">Screen</string>
+    <string name="profile_preferences_category_others">Others</string>
 </resources>
