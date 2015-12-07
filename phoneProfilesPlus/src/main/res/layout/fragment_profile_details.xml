@@ -22,7 +22,7 @@
             android:orientation="horizontal" >
 
             <ImageView
-                android:id="@+id/profile_detail_edit_menu"
+                android:id="@+id/profile_detail_edit"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:padding="5dp"

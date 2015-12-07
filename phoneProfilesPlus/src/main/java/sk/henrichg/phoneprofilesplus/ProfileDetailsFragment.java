@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -18,6 +19,50 @@ public class ProfileDetailsFragment extends Fragment {
     public ProfileDetailsFragment() {
         // Required empty public constructor
     }
+
+    /**
+     * The fragment's current callback objects
+     */
+    private OnStartProfilePreferencesFromDetail onStartProfilePreferencesCallback = sDummyOnStartProfilePreferencesCallback;
+
+    /**
+     * A callback interface that all activities containing this fragment must
+     * implement. This mechanism allows activities to be notified.
+     */
+    // invoked when start profile preference fragment/activity needed
+    public interface OnStartProfilePreferencesFromDetail {
+        public void onStartProfilePreferencesFromDetail(Profile profile);
+    }
+
+    /**
+     * A dummy implementation of the Callbacks interface that does
+     * nothing. Used only when this fragment is not attached to an activity.
+     */
+    private static OnStartProfilePreferencesFromDetail sDummyOnStartProfilePreferencesCallback = new OnStartProfilePreferencesFromDetail() {
+        public void onStartProfilePreferencesFromDetail(Profile profile) {
+        }
+    };
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // Activities containing this fragment must implement its callbacks.
+        if (!(activity instanceof OnStartProfilePreferencesFromDetail)) {
+            throw new IllegalStateException(
+                    "Activity must implement fragment's callbacks.");
+        }
+        onStartProfilePreferencesCallback = (OnStartProfilePreferencesFromDetail) activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        // Reset the active callbacks interface to the dummy implementation.
+        onStartProfilePreferencesCallback = sDummyOnStartProfilePreferencesCallback;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,12 +91,12 @@ public class ProfileDetailsFragment extends Fragment {
         ImageView profileIcon;
         TextView profileName;
         ImageView profileIndicator;
-        ImageView profileItemEditMenu;
+        ImageView profileItemEdit;
         ImageView profileShowInActivator;
 
         profileName = (TextView)view.findViewById(R.id.profile_detail_profile_name);
         profileIcon = (ImageView)view.findViewById(R.id.profile_detail_profile_icon);
-        profileItemEditMenu = (ImageView)view.findViewById(R.id.profile_detail_edit_menu);
+        profileItemEdit = (ImageView)view.findViewById(R.id.profile_detail_edit);
         if (GlobalData.applicationEditorPrefIndicator)
             profileIndicator = (ImageView)view.findViewById(R.id.profile_detail_profile_pref_indicator);
         else
@@ -94,18 +139,22 @@ public class ProfileDetailsFragment extends Fragment {
                     profileIndicator.setImageBitmap(profile._preferencesIndicator);
             }
 
-            /*
-            profileItemEditMenu.setTag(profile);
-            final ImageView _profileItemEditMenu = profileItemEditMenu;
-            holder.profileItemEditMenu.setOnClickListener(new View.OnClickListener() {
+            profileItemEdit.setTag(profile);
+            profileItemEdit.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    ((EditorProfileListFragment) fragment).showEditMenu(profileItemEditMenu);
+                    startProfilePreferencesActivity(profile);
                 }
             });
-            */
         }
 
+    }
+
+    private void startProfilePreferencesActivity(Profile profile)
+    {
+        // Notify the active callbacks interface (the activity, if the
+        // fragment is attached to one) one must start profile preferences
+        onStartProfilePreferencesCallback.onStartProfilePreferencesFromDetail(profile);
     }
 
 }
