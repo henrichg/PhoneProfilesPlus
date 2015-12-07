@@ -60,11 +60,13 @@ import java.util.Map.Entry;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
 import sk.henrichg.phoneprofilesplus.ProfileDetailsFragment.OnStartProfilePreferencesFromDetail;
+import sk.henrichg.phoneprofilesplus.EventDetailsFragment.OnStartEventPreferencesFromDetail;
 
 public class EditorProfilesActivity extends AppCompatActivity
                                     implements OnStartProfilePreferences,
                                                OnStartEventPreferences,
-                                               OnStartProfilePreferencesFromDetail
+                                               OnStartProfilePreferencesFromDetail,
+                                               OnStartEventPreferencesFromDetail
 {
 
     private static EditorProfilesActivity instance;
@@ -702,6 +704,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
         return super.onKeyUp(keyCode, event);
     }
+
     /////
 
     // ListView click listener in the navigation drawer
@@ -822,7 +825,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         // Get the title and icon followed by the position
         setTitle(drawerItemsTitle[drawerSelectedItem - 1]);
         //setIcon(drawerItemsIcon[drawerSelectedItem-1]);
-        drawerHeaderFilterImage.setImageResource(drawerItemsIcon[drawerSelectedItem-1]);
+        drawerHeaderFilterImage.setImageResource(drawerItemsIcon[drawerSelectedItem -1]);
         drawerHeaderFilterTitle.setText(drawerItemsTitle[drawerSelectedItem - 1]);
 
         // set filter statusbar title
@@ -1651,6 +1654,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 && (editMode != EditorEventListFragment.EDIT_MODE_DELETE))
                 startEventPreferenceActivity(event, editMode);
         }
+    }
+
+    @Override
+    public void onStartEventPreferencesFromDetail(Event event) {
+        startEventPreferenceActivity(event, EditorEventListFragment.EDIT_MODE_EDIT);
     }
 
     public void redrawEventListFragment(Event event, int newEventMode) {

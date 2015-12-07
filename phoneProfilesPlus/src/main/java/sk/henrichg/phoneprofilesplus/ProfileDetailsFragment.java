@@ -139,7 +139,6 @@ public class ProfileDetailsFragment extends Fragment {
                     profileIndicator.setImageBitmap(profile._preferencesIndicator);
             //}
 
-            profileItemEdit.setTag(profile);
             profileItemEdit.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
