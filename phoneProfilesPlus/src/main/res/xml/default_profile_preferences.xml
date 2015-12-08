@@ -6,8 +6,8 @@
     android:title="@string/title_activity_default_profile_preferences" >
 
     <PreferenceScreen
-        android:title="@string/profile_preferences_category_volumes"
-        android:key="prf_pref_volumeCategory"
+        android:title="@string/profile_preferences_category_sound_profile"
+        android:key="prf_pref_soundProfileCategory"
         android:widgetLayout="@layout/start_activity_preference"  >
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_volumeRingerMode"
@@ -36,6 +36,11 @@
             android:defaultValue="0"
             android:entries="@array/vibrationOnTouchDPArray"
             android:entryValues="@array/vibrationOnTouchDPValues" />
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="@string/profile_preferences_category_volumes"
+        android:key="prf_pref_volumeCategory"
+        android:widgetLayout="@layout/start_activity_preference"  >
         <Preference
             android:key="prf_pref_volumeUnlinkVolumesAppSettings"
             android:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"

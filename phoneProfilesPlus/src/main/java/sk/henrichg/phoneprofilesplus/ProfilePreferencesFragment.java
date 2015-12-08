@@ -148,6 +148,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 ringerModePreference.setEntries(newEntries);
                 ringerModePreference.setEntryValues(newEntryValues);
                 ringerModePreference.setValue(Integer.toString(profile._volumeRingerMode));
+                setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, profile._volumeRingerMode);
             }
 
             /*final boolean canEnableZenMode =
