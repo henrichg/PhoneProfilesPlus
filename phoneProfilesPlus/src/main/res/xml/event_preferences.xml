@@ -25,9 +25,10 @@
             android:entries="@array/eventPriorityArray"
             android:entryValues="@array/eventPriorityValues" />        
     </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_startofevent"
-        android:title="@string/event_preferences_category_startofevent" >
+    <PreferenceScreen
+        android:title="@string/event_preferences_category_startofevent"
+        android:key="eventStartCategory"
+        android:widgetLayout="@layout/start_activity_preference" >
         <sk.henrichg.phoneprofilesplus.ProfilePreference
             android:defaultValue="0"
             android:key="eventProfileStart"
@@ -63,10 +64,11 @@
             android:ringtoneType="notification" 
             android:showSilent="true"
             android:showDefault="true" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_endofevent"
+    </PreferenceScreen>
+    <PreferenceScreen
         android:title="@string/event_preferences_category_endofevent"
+        android:key="eventEndCategory"
+        android:widgetLayout="@layout/start_activity_preference"
         android:dependency="manualProfileActivation">
         <sk.henrichg.phoneprofilesplus.ProfilePreference
             android:defaultValue="-999"
@@ -80,10 +82,11 @@
             android:defaultValue="1"
             android:entries="@array/eventAtEndDoArray"
             android:entryValues="@array/eventAtEndDoValues" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventTimeParameters"
-        android:title="@string/event_preferences_category_eventTimeParameters" >
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="@string/event_preferences_category_eventTimeParameters"
+        android:key="eventTimeCategory"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventTimeEnabled"
             android:title="@string/event_preferences_time_enabled"
@@ -115,10 +118,11 @@
             android:defaultValue="0"
             android:title="@string/event_preferences_time_endTime"
             android:dependency="eventTimeEnabled" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventCalendarParameters"
-        android:title="@string/event_preferences_category_eventCalendarParameters" >
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="@string/event_preferences_category_eventCalendarParameters"
+        android:key="eventCalendarCategory"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventCalendarEnabled"
             android:title="@string/event_preferences_calendar_enabled"
@@ -150,10 +154,11 @@
             android:entries="@array/eventCalendarAvailabilityArray"
             android:entryValues="@array/eventCalendarAvailabilityValues"
             android:dependency="eventCalendarEnabled" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventBatteryParameters"
-        android:title="@string/event_preferences_category_eventBatteryParameters" >
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="@string/event_preferences_category_eventBatteryParameters"
+        android:key="eventBatteryCategory"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventBatteryEnabled"
             android:title="@string/event_preferences_battery_enabled"
@@ -184,10 +189,11 @@
             android:title="@string/event_preferences_battery_power_save_mode"
             android:defaultValue="false"
             android:dependency="eventBatteryEnabled" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventCallParameters"
-        android:title="@string/event_preferences_category_eventCallParameters" >
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="@string/event_preferences_category_eventCallParameters"
+        android:key="eventCallCategory"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventCallEnabled"
             android:title="@string/event_preferences_call_enabled"
@@ -216,10 +222,11 @@
             android:entries="@array/eventCallContactListTypeArray"
             android:entryValues="@array/eventCallContactListTypeValues"
             android:dependency="eventCallEnabled" />        
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventSMSParameters"
-        android:title="@string/event_preferences_category_eventSMSParameters" >
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="@string/event_preferences_category_eventSMSParameters"
+        android:key="eventSMSCategory"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventSMSEnabled"
             android:title="@string/event_preferences_sms_enabled"
@@ -256,11 +263,11 @@
             henrichg:dMin="5"
             henrichg:dMax="86400"
             android:dependency="eventSMSEnabled" />
-    </PreferenceCategory>
-    <PreferenceCategory
+    </PreferenceScreen>
+    <PreferenceScreen
         android:key="eventWifiCategory"
-        android:summary="@string/event_preferences_category_eventWifiParameters"
-        android:title="@string/event_preferences_category_eventWifiParameters" >
+        android:title="@string/event_preferences_category_eventWifiParameters"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventWiFiEnabled"
             android:title="@string/event_preferences_wifi_enabled"
@@ -301,11 +308,11 @@
             android:summary="@string/event_preferences_wifi_ssid"
             android:title="@string/event_preferences_wifi_ssid"
             android:dependency="eventWiFiEnabled" />
-    </PreferenceCategory>
-    <PreferenceCategory
+    </PreferenceScreen>
+    <PreferenceScreen
         android:key="eventBluetoothCategory"
-        android:summary="@string/event_preferences_category_eventBluetoothParameters"
-        android:title="@string/event_preferences_category_eventBluetoothParameters" >
+        android:title="@string/event_preferences_category_eventBluetoothParameters"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventBluetoothEnabled"
             android:title="@string/event_preferences_bluetooth_enabled"
@@ -355,10 +362,11 @@
             android:summary="@string/event_preferences_bluetooth_adapter_name"
             android:title="@string/event_preferences_bluetooth_adapter_name"
             android:dependency="eventBluetoothEnabled" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventPeripheralParameters"
-        android:title="@string/event_preferences_category_eventPeripheralParameters" >
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="@string/event_preferences_category_eventPeripheralParameters"
+        android:key="eventAccessoriesCategory"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventPeripheralEnabled"
             android:title="@string/event_preferences_peripheral_enabled"
@@ -370,10 +378,11 @@
             android:entries="@array/eventPeripheralTypeArray"
             android:entryValues="@array/eventPeripheralTypeValues"
             android:dependency="eventPeripheralEnabled" />        
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventScreenParameters"
-        android:title="@string/event_preferences_category_eventScreenParameters" >
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:title="@string/event_preferences_category_eventScreenParameters"
+        android:key="eventScreenCategory"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventScreenEnabled"
             android:title="@string/event_preferences_screen_enabled"
@@ -391,11 +400,11 @@
             android:title="@string/event_preferences_screen_start_when_unlocked"
             android:defaultValue="false"
             android:dependency="eventScreenEnabled" />
-    </PreferenceCategory>
-    <PreferenceCategory
+    </PreferenceScreen>
+    <PreferenceScreen
         android:key="eventNotificationCategory"
-        android:summary="@string/event_preferences_category_eventNotificationsParameters"
-        android:title="@string/event_preferences_category_eventNotificationsParameters" >
+        android:title="@string/event_preferences_category_eventNotificationsParameters"
+        android:widgetLayout="@layout/start_activity_preference" >
         <CheckBoxPreference
             android:key="eventNotificationEnabled"
             android:title="@string/event_preferences_notifications_enabled"
@@ -420,5 +429,5 @@
             henrichg:dMin="5"
             henrichg:dMax="86400"
             android:dependency="eventNotificationEnabled" />
-    </PreferenceCategory>
+    </PreferenceScreen>
 </PreferenceScreen>

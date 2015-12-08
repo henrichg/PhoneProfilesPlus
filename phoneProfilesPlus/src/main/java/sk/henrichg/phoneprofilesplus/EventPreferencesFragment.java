@@ -13,6 +13,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -156,8 +157,9 @@ public class EventPreferencesFragment extends PreferenceFragment
 
             preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
             if ((locationMode != Settings.Secure.LOCATION_MODE_OFF) && WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable()) {
-                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiCategory");
-                preferenceCategory.removePreference(preference);
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventWifiCategory");
+                if (preference != null)
+                    preferenceCategory.removePreference(preference);
             }
             //else {
             //    preference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -165,21 +167,24 @@ public class EventPreferencesFragment extends PreferenceFragment
 
             preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
             if (locationMode != Settings.Secure.LOCATION_MODE_OFF) {
-                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventBluetoothCategory");
-                preferenceCategory.removePreference(preference);
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventBluetoothCategory");
+                if (preference != null)
+                    preferenceCategory.removePreference(preference);
             }
             //else {
             //    preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             //}
         }
         else {
-            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("eventWifiCategory");
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventWifiCategory");
             preference = findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
-            preferenceCategory.removePreference(preference);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
 
-            preferenceCategory = (PreferenceCategory) findPreference("eventBluetoothCategory");
+            preferenceCategory = (PreferenceScreen) findPreference("eventBluetoothCategory");
             preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
-            preferenceCategory.removePreference(preference);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
         }
     }
 

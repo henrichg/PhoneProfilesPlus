@@ -151,8 +151,9 @@ public class EventPreferencesNotification extends EventPreferences {
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
-            PreferenceCategory preferenceCategory = (PreferenceCategory) prefMng.findPreference("eventNotificationCategory");
-            preferenceScreen.removePreference(preferenceCategory);
+            PreferenceScreen preferenceCategory = (PreferenceScreen) prefMng.findPreference("eventNotificationCategory");
+            if (preferenceCategory != null)
+                preferenceScreen.removePreference(preferenceCategory);
         }
     }
 
