@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 
 public class EventPreferencesPeripherals extends EventPreferences {
@@ -12,6 +13,8 @@ public class EventPreferencesPeripherals extends EventPreferences {
 
     static final String PREF_EVENT_PERIPHERAL_ENABLED = "eventPeripheralEnabled";
     static final String PREF_EVENT_PERIPHERAL_TYPE = "eventPeripheralType";
+
+    static final String PREF_EVENT_PERIPHERAL_CATEGORY = "eventAccessoriesCategory";
 
     static final int PERIPHERAL_TYPE_DESK_DOCK = 0;
     static final int PERIPHERAL_TYPE_CAR_DOCK = 1;
@@ -97,6 +100,23 @@ public class EventPreferencesPeripherals extends EventPreferences {
     public void setAllSummary(PreferenceManager prefMng, Context context)
     {
         setSummary(prefMng, PREF_EVENT_PERIPHERAL_TYPE, Integer.toString(_peripheralType), context);
+    }
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_PERIPHERAL_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_PERIPHERAL_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_PERIPHERAL_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     @Override

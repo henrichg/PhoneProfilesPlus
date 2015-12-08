@@ -20,6 +20,8 @@ import android.preference.PreferenceScreen;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.view.ActionMode.Callback;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -304,6 +306,122 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         super.onSaveInstanceState(outState);
     }
 
+    private boolean isBold(String key) {
+        Preference preference = prefMng.findPreference(key);
+        if (preference != null) {
+            CharSequence title = preference.getTitle();
+            Spannable sbt = new SpannableString(title);
+            Object spansToRemove[] = sbt.getSpans(0, title.length(), Object.class);
+            return spansToRemove.length > 0;
+        }
+        else
+            return true;
+    }
+
+    private void setCategoryTitleStyle(Preference preference, boolean bold) {
+        String key = preference.getKey();
+        boolean _bold = bold;
+        Preference preferenceScreen = null;
+
+        if (key.equals(GlobalData.PREF_PROFILE_DURATION) ||
+                key.equals(GlobalData.PREF_PROFILE_AFTER_DURATION_DO)) {
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DURATION);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_AFTER_DURATION_DO);
+            preferenceScreen = prefMng.findPreference("prf_pref_activationDurationCategory");
+        }
+
+        if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE) ||
+                key.equals(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE) ||
+                key.equals(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH)) {
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH);
+            preferenceScreen = prefMng.findPreference("prf_pref_soundProfileCategory");
+        }
+
+        if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGTONE) ||
+                key.equals(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION) ||
+                key.equals(GlobalData.PREF_PROFILE_VOLUME_MEDIA) ||
+                key.equals(GlobalData.PREF_PROFILE_VOLUME_ALARM) ||
+                key.equals(GlobalData.PREF_PROFILE_VOLUME_SYSTEM) ||
+                key.equals(GlobalData.PREF_PROFILE_VOLUME_VOICE) ||
+                key.equals(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE)) {
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_RINGTONE);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_MEDIA);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_ALARM);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_SYSTEM);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_VOICE);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
+            preferenceScreen = prefMng.findPreference("prf_pref_volumeCategory");
+        }
+
+        if (key.equals(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE) ||
+                //key.equals(GlobalData.PREF_PROFILE_SOUND_RINGTONE) ||
+                key.equals(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE) ||
+                //key.equals(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION) ||
+                key.equals(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE)) {
+            //key.equals(GlobalData.PREF_PROFILE_SOUND_ALARM)) {
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+            //_bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_RINGTONE);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+            //_bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE);
+            //_bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_ALARM);
+            preferenceScreen = prefMng.findPreference("prf_pref_soundsCategory");
+        }
+
+        if (key.equals(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
+                //key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_WIFI) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_GPS) ||
+                //key.equals(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_NFC)) {
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA);
+            //_bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_WIFI);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_GPS);
+            //_bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_NFC);
+            preferenceScreen = prefMng.findPreference("prf_pref_radiosCategory");
+        }
+
+        if (key.equals(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE)) {
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE);
+            preferenceScreen = prefMng.findPreference("prf_pref_screenCategory");
+        }
+
+        if (key.equals(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
+            key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
+                //key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)) {
+            //key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER)) {
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+            //_bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+            //_bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER);
+            preferenceScreen = prefMng.findPreference("prf_pref_othersCategory");
+        }
+
+        if (preferenceScreen != null)
+            GUIData.setPreferenceTitleStyle(preferenceScreen, _bold, false);
+    }
+
     private void setSummary(String key, Object value)
     {
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS)) {
@@ -316,6 +434,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value.toString());
             GUIData.setPreferenceTitleStyle(preference, false, true);
+            setCategoryTitleStyle(preference, false);
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE))
         {
@@ -325,6 +444,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
             GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            setCategoryTitleStyle(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE))
         {
@@ -343,6 +463,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                     listPreference.setEnabled(false);
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
                     GUIData.setPreferenceTitleStyle(listPreference, false, false);
+                    setCategoryTitleStyle(listPreference, false);
                 }
                 else
                 {
@@ -364,8 +485,10 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                     else
                         iRingerMode = Integer.parseInt(sRingerMode);
 
-                    if (iRingerMode == 5)
+                    if (iRingerMode == 5) {
                         GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+                        setCategoryTitleStyle(listPreference, index > 0);
+                    }
                     listPreference.setEnabled(iRingerMode == 5);
                 }
             }
@@ -380,6 +503,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
             GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            setCategoryTitleStyle(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_SOUND_RINGTONE) ||
             key.equals(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION) ||
@@ -426,6 +550,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 if (canChange == GlobalData.PREFERENCE_UPGRADE_PPHELPER)
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_upgrade_pphelper));
                 GUIData.setPreferenceTitleStyle(listPreference, false, false);
+                setCategoryTitleStyle(listPreference, false);
             }
             else
             {
@@ -435,6 +560,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
                 GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+                setCategoryTitleStyle(listPreference, index > 0);
             }
 
         }
@@ -450,6 +576,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             listPreference.setEnabled(!secureKeyguard);
             if (secureKeyguard) {
                 GUIData.setPreferenceTitleStyle(listPreference, false, false);
+                setCategoryTitleStyle(listPreference, false);
                 listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
             }
             else {
@@ -458,6 +585,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
                 GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+                setCategoryTitleStyle(listPreference, index > 0);
             }
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT))
@@ -468,6 +596,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
             GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            setCategoryTitleStyle(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE))
         {
@@ -477,6 +606,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
             GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            setCategoryTitleStyle(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
             key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
@@ -491,6 +621,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
             GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            setCategoryTitleStyle(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DURATION))
         {
@@ -501,6 +632,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 iValue = Integer.valueOf(sValue);
             //preference.setSummary(sValue);
             GUIData.setPreferenceTitleStyle(preference, iValue > 0, false);
+            setCategoryTitleStyle(preference, iValue > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_AFTER_DURATION_DO))
         {
@@ -510,6 +642,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
             GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            setCategoryTitleStyle(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGTONE) ||
             key.equals(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION) ||
@@ -528,6 +661,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 noChange = 1;
             }
             GUIData.setPreferenceTitleStyle(preference, noChange != 1, false);
+            setCategoryTitleStyle(preference, noChange != 1);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS))
         {
@@ -541,6 +675,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 noChange = 1;
             }
             GUIData.setPreferenceTitleStyle(preference, noChange != 1, false);
+            setCategoryTitleStyle(preference, noChange != 1);
         }
 
     }

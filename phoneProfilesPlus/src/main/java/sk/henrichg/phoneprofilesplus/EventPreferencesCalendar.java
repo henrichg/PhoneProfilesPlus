@@ -41,6 +41,8 @@ public class EventPreferencesCalendar extends EventPreferences {
     static final String PREF_EVENT_CALENDAR_SEARCH_STRING = "eventCalendarSearchString";
     static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";
 
+    static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategory";
+
     static final int SEARCH_FIELD_TITLE = 0;
     static final int SEARCH_FIELD_DESCRIPTION = 1;
     static final int SEARCH_FIELD_LOCATION = 2;
@@ -219,6 +221,23 @@ public class EventPreferencesCalendar extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_FIELD, Integer.toString(_searchField), context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_STRING, _searchString, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_AVAILABILITY, Integer.toString(_availability), context);
+    }
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_CALENDAR_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_CALENDAR_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     @Override

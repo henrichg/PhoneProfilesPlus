@@ -29,6 +29,8 @@ public class EventPreferencesBluetooth extends EventPreferences {
     static final String PREF_EVENT_BLUETOOTH_CONNECTION_TYPE = "eventBluetoothConnectionType";
     static final String PREF_EVENT_BLUETOOTH_DEVICES_TYPE = "eventBluetoothDevicesType";
 
+    static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategory";
+
     public EventPreferencesBluetooth(Event event,
                                     boolean enabled,
                                     String adapterName,
@@ -177,6 +179,23 @@ public class EventPreferencesBluetooth extends EventPreferences {
             prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE).setEnabled(false);
         }
 
+    }
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_BLUETOOTH_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_BLUETOOTH_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     @Override

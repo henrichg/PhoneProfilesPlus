@@ -20,6 +20,8 @@ public class EventPreferencesCall extends EventPreferences {
     static final String PREF_EVENT_CALL_CONTACT_GROUPS = "eventCallContactGroups";
     static final String PREF_EVENT_CALL_CONTACT_LIST_TYPE = "eventCallContactListType";
 
+    static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategory";
+
     static final int CALL_EVENT_RINGING = 0;
     static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 1;
     static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
@@ -141,6 +143,23 @@ public class EventPreferencesCall extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALL_CONTACT_LIST_TYPE, Integer.toString(_contactListType), context);
         setSummary(prefMng, PREF_EVENT_CALL_CONTACTS, _contacts, context);
         setSummary(prefMng, PREF_EVENT_CALL_CONTACT_GROUPS, _contactGroups, context);
+    }
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_CALL_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     @Override

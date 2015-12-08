@@ -28,6 +28,8 @@ public class EventPreferencesNotification extends EventPreferences {
     static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
     static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
 
+    static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategory";
+
     public EventPreferencesNotification(Event event,
                                         boolean enabled,
                                         String applications,
@@ -126,6 +128,23 @@ public class EventPreferencesNotification extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, _applications, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, Integer.toString(_duration), context);
+    }
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     @Override

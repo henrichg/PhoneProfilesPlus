@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class Event {
 
@@ -437,6 +438,45 @@ public class Event {
         {
             prefMng.findPreference(key).setSummary(value);
         }
+
+    }
+
+    private void setBoldOthersParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_FORCE_RUN) ||
+                key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
+                key.equals(PREF_EVENT_NOTIFICATION_SOUND) ||
+                key.equals(PREF_EVENT_DELAY_START) ||
+                key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
+            boolean forceRunChanged = false;
+            boolean manualProfileActivationChanged = false;
+            boolean profileStartWhenActivatedChanged = false;
+            boolean delayStarChanged = false;
+            boolean notificationSoundChanged = false;
+
+            if (preferences == null) {
+                forceRunChanged = this._forceRun;
+                manualProfileActivationChanged = this._manualProfileActivation;
+                profileStartWhenActivatedChanged = this._fkProfileStartWhenActivated != GlobalData.PROFILE_NO_ACTIVATE;
+                delayStarChanged = this._delayStart != 0;
+                notificationSoundChanged = !this._notificationSound.isEmpty();
+            }
+            else {
+                forceRunChanged = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
+                manualProfileActivationChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
+                profileStartWhenActivatedChanged = !preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(GlobalData.PROFILE_NO_ACTIVATE)).equals(String.valueOf(GlobalData.PROFILE_NO_ACTIVATE));
+                delayStarChanged = !preferences.getString(PREF_EVENT_DELAY_START, "0").equals("0");
+                notificationSoundChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "").isEmpty();
+            }
+            boolean bold = (forceRunChanged ||
+                            manualProfileActivationChanged ||
+                            profileStartWhenActivatedChanged ||
+                            delayStarChanged ||
+                            notificationSoundChanged);
+            Preference preference = prefMng.findPreference("eventStartOthersCategory");
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
@@ -450,16 +490,27 @@ public class Event {
             key.equals(PREF_EVENT_AT_END_DO) ||
             key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
             setSummary(prefMng, key, preferences.getString(key, ""), context);
+        setBoldOthersParametersCategory(prefMng, key, preferences);
         _eventPreferencesTime.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesTime.setBoldParametersCategory(prefMng, key, preferences);
         _eventPreferencesBattery.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesBattery.setBoldParametersCategory(prefMng, key, preferences);
         _eventPreferencesCall.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesCall.setBoldParametersCategory(prefMng, key, preferences);
         _eventPreferencesPeripherals.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesPeripherals.setBoldParametersCategory(prefMng, key, preferences);
         _eventPreferencesCalendar.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesCalendar.setBoldParametersCategory(prefMng, key, preferences);
         _eventPreferencesWifi.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesWifi.setBoldParametersCategory(prefMng, key, preferences);
         _eventPreferencesScreen.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesScreen.setBoldParametersCategory(prefMng, key, preferences);
         _eventPreferencesBluetooth.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesBluetooth.setBoldParametersCategory(prefMng, key, preferences);
         _eventPreferencesSMS.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesSMS.setBoldParametersCategory(prefMng, key, preferences);
         _eventPreferencesNotification.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesNotification.setBoldParametersCategory(prefMng, key, preferences);
     }
 
     public void setAllSummary(PreferenceManager prefMng, Context context) {
@@ -476,16 +527,27 @@ public class Event {
         setSummary(prefMng, PREF_EVENT_DELAY_START, Integer.toString(this._delayStart), context);
         setSummary(prefMng, PREF_EVENT_AT_END_DO, Integer.toString(this._atEndDo), context);
         setSummary(prefMng, PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(this._fkProfileStartWhenActivated), context);
+        setBoldOthersParametersCategory(prefMng, "", null);
         _eventPreferencesTime.setAllSummary(prefMng, context);
+        _eventPreferencesTime.setBoldParametersCategory(prefMng, "", null);
         _eventPreferencesBattery.setAllSummary(prefMng, context);
+        _eventPreferencesBattery.setBoldParametersCategory(prefMng, "", null);
         _eventPreferencesCall.setAllSummary(prefMng, context);
+        _eventPreferencesCall.setBoldParametersCategory(prefMng, "", null);
         _eventPreferencesPeripherals.setAllSummary(prefMng, context);
+        _eventPreferencesPeripherals.setBoldParametersCategory(prefMng, "", null);
         _eventPreferencesCalendar.setAllSummary(prefMng, context);
+        _eventPreferencesCalendar.setBoldParametersCategory(prefMng, "", null);
         _eventPreferencesWifi.setAllSummary(prefMng, context);
+        _eventPreferencesWifi.setBoldParametersCategory(prefMng, "", null);
         _eventPreferencesScreen.setAllSummary(prefMng, context);
+        _eventPreferencesScreen.setBoldParametersCategory(prefMng, "", null);
         _eventPreferencesBluetooth.setAllSummary(prefMng, context);
+        _eventPreferencesBluetooth.setBoldParametersCategory(prefMng, "", null);
         _eventPreferencesSMS.setAllSummary(prefMng, context);
+        _eventPreferencesSMS.setBoldParametersCategory(prefMng, "", null);
         _eventPreferencesNotification.setAllSummary(prefMng, context);
+        _eventPreferencesNotification.setBoldParametersCategory(prefMng, "", null);
     }
 
     public String getPreferencesDescription(Context context)

@@ -24,6 +24,8 @@ public class EventPreferencesWifi extends EventPreferences {
     static final String PREF_EVENT_WIFI_SSID = "eventWiFiSSID";
     static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
 
+    static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
+
     public EventPreferencesWifi(Event event,
                                     boolean enabled,
                                     String SSID,
@@ -135,6 +137,23 @@ public class EventPreferencesWifi extends EventPreferences {
             prefMng.findPreference(PREF_EVENT_WIFI_CONNECTION_TYPE).setEnabled(false);
         }
 
+    }
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_WIFI_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     @Override

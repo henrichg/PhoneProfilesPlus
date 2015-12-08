@@ -37,6 +37,8 @@ public class EventPreferencesTime extends EventPreferences {
     static final String PREF_EVENT_TIME_END_TIME = "eventTimeEndTime";
     //static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
 
+    static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategory";
+
     public EventPreferencesTime(Event event,
                                 boolean enabled,
                                 boolean sunday,
@@ -279,7 +281,24 @@ public class EventPreferencesTime extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_TIME_DAYS, "", context);
     }
-    
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_TIME_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
+    }
+
     @Override
     public boolean isRunable()
     {

@@ -35,6 +35,8 @@ public class EventPreferencesSMS extends EventPreferences {
     static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
     static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
 
+    static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategory";
+
     //static final int SMS_EVENT_UNDEFINED = -1;
     //static final int SMS_EVENT_INCOMING = 0;
     //static final int SMS_EVENT_OUTGOING = 1;
@@ -176,6 +178,23 @@ public class EventPreferencesSMS extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_SMS_CONTACTS, _contacts, context);
         setSummary(prefMng, PREF_EVENT_SMS_CONTACT_GROUPS, _contactGroups, context);
         setSummary(prefMng, PREF_EVENT_SMS_DURATION, Integer.toString(_duration), context);
+    }
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_SMS_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     @Override

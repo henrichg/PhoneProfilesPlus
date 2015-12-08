@@ -23,6 +23,8 @@ public class EventPreferencesScreen extends EventPreferences {
     static final String PREF_EVENT_SCREEN_EVENT_TYPE = "eventScreenEventType";
     static final String PREF_EVENT_SCREEN_WHEN_UNLOCKED = "eventScreenWhenUnlocked";
 
+    static final String PREF_EVENT_SCREEN_CATEGORY = "eventScreenCategory";
+
     public EventPreferencesScreen(Event event,
                                     boolean enabled,
                                     int eventType,
@@ -117,6 +119,23 @@ public class EventPreferencesScreen extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, Integer.toString(_eventType), context);
 
         setWhenUnlockedTitle(prefMng, _eventType);
+    }
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_SCREEN_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_SCREEN_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     @Override

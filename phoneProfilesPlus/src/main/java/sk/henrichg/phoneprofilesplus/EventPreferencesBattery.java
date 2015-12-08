@@ -21,6 +21,8 @@ public class EventPreferencesBattery extends EventPreferences {
     static final String PREF_EVENT_BATTERY_CHARGING = "eventBatteryCharging";
     static final String PREF_EVENT_BATTERY_POWER_SAVE_MODE = "eventBatteryPowerSaveMode";
 
+    static final String PREF_EVENT_BATTERY_CATEGORY = "eventBatteryCategory";
+
     public EventPreferencesBattery(Event event,
                                     boolean enabled,
                                     int levelLow,
@@ -130,6 +132,23 @@ public class EventPreferencesBattery extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_LOW, Integer.toString(_levelLow), context);
         setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_HIGHT, Integer.toString(_levelHight), context);
+    }
+
+    @Override
+    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+        if (key.isEmpty() ||
+                key.equals(PREF_EVENT_BATTERY_ENABLED)) {
+            boolean preferenceChanged = false;
+            if (preferences == null) {
+                preferenceChanged = this._enabled;
+            } else {
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_BATTERY_ENABLED, false);
+            }
+            boolean bold = preferenceChanged;
+            Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
+            if (preference != null)
+                GUIData.setPreferenceTitleStyle(preference, bold, false);
+        }
     }
 
     @Override
