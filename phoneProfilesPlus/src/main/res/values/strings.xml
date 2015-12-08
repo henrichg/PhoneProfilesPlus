@@ -636,4 +636,5 @@
     <string name="profile_preferences_category_radios">Radios</string>
     <string name="profile_preferences_category_screen">Screen</string>
     <string name="profile_preferences_category_others">Others</string>
+    <string name="event_preferences_category_startofeventOthers">Other parameters</string>
 </resources>

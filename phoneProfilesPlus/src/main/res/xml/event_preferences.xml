@@ -25,50 +25,53 @@
             android:entries="@array/eventPriorityArray"
             android:entryValues="@array/eventPriorityValues" />        
     </PreferenceCategory>
-    <PreferenceScreen
+    <PreferenceCategory
         android:title="@string/event_preferences_category_startofevent"
-        android:key="eventStartCategory"
-        android:widgetLayout="@layout/start_activity_preference" >
+        android:key="eventStartCategory" >
         <sk.henrichg.phoneprofilesplus.ProfilePreference
             android:defaultValue="0"
             android:key="eventProfileStart"
             android:title="@string/event_preferences_eventProfileStart"
             henrichg:addNoActivateItem="0" />
-        <CheckBoxPreference
-            android:key="eventForceRun"
-            android:title="@string/event_preferences_ForceRun"
-            android:defaultValue="false"
-            android:summary="@string/event_preferences_ForceRun_summary" />
-        <sk.henrichg.phoneprofilesplus.ProfilePreference
-            android:defaultValue="0"
-            android:key="eventStartWhenActivatedProfile"
-            android:title="@string/event_preferences_eventStartWhenActivatedProfile"
-            henrichg:addNoActivateItem="1"
-            henrichg:noActivateAsDoNotApply="1" />
-        <CheckBoxPreference
-            android:key="manualProfileActivation"
-            android:title="@string/event_preferences_manualProfileActivation"
-            android:defaultValue="false"
-            android:disableDependentsState="true"/>
-        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
-            android:key="eventDelayStart"
-            android:summary="@string/event_preferences_delayStart"
-            android:title="@string/event_preferences_delayStart" 
-            android:defaultValue="0"
-            henrichg:dMin="0"
-            henrichg:dMax="86400" />
-        <RingtonePreference
-            android:key="eventNotificationSound"
-            android:summary="@string/array_pref_no_change"
-            android:title="@string/event_preferences_notificationSound"
-            android:ringtoneType="notification" 
-            android:showSilent="true"
-            android:showDefault="true" />
-    </PreferenceScreen>
-    <PreferenceScreen
+        <PreferenceScreen
+            android:title="@string/event_preferences_category_startofeventOthers"
+            android:key="eventStartOthersCategory"
+            android:widgetLayout="@layout/start_activity_preference" >
+            <CheckBoxPreference
+                android:key="eventForceRun"
+                android:title="@string/event_preferences_ForceRun"
+                android:defaultValue="false"
+                android:summary="@string/event_preferences_ForceRun_summary" />
+            <sk.henrichg.phoneprofilesplus.ProfilePreference
+                android:defaultValue="0"
+                android:key="eventStartWhenActivatedProfile"
+                android:title="@string/event_preferences_eventStartWhenActivatedProfile"
+                henrichg:addNoActivateItem="1"
+                henrichg:noActivateAsDoNotApply="1" />
+            <CheckBoxPreference
+                android:key="manualProfileActivation"
+                android:title="@string/event_preferences_manualProfileActivation"
+                android:defaultValue="false"
+                android:disableDependentsState="true"/>
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+                android:key="eventDelayStart"
+                android:summary="@string/event_preferences_delayStart"
+                android:title="@string/event_preferences_delayStart"
+                android:defaultValue="0"
+                henrichg:dMin="0"
+                henrichg:dMax="86400" />
+            <RingtonePreference
+                android:key="eventNotificationSound"
+                android:summary="@string/array_pref_no_change"
+                android:title="@string/event_preferences_notificationSound"
+                android:ringtoneType="notification"
+                android:showSilent="true"
+                android:showDefault="true" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/event_preferences_category_endofevent"
         android:key="eventEndCategory"
-        android:widgetLayout="@layout/start_activity_preference"
         android:dependency="manualProfileActivation">
         <sk.henrichg.phoneprofilesplus.ProfilePreference
             android:defaultValue="-999"
@@ -82,7 +85,7 @@
             android:defaultValue="1"
             android:entries="@array/eventAtEndDoArray"
             android:entryValues="@array/eventAtEndDoValues" />
-    </PreferenceScreen>
+    </PreferenceCategory>
     <PreferenceScreen
         android:title="@string/event_preferences_category_eventTimeParameters"
         android:key="eventTimeCategory"
