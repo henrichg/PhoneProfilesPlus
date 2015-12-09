@@ -462,7 +462,7 @@ public class Event {
 
     }
 
-    private void setBoldOthersParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+    private void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (key.isEmpty() ||
                 key.equals(PREF_EVENT_FORCE_RUN) ||
                 key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
@@ -475,18 +475,25 @@ public class Event {
             boolean delayStarChanged = false;
             boolean notificationSoundChanged = false;
 
+            long fkProfileStartWhenActivated;
+            int delay;
+
             if (preferences == null) {
                 forceRunChanged = this._forceRun;
                 manualProfileActivationChanged = this._manualProfileActivation;
                 profileStartWhenActivatedChanged = this._fkProfileStartWhenActivated != GlobalData.PROFILE_NO_ACTIVATE;
+                fkProfileStartWhenActivated = this._fkProfileStartWhenActivated;
                 delayStarChanged = this._delayStart != 0;
+                delay = this._delayStart;
                 notificationSoundChanged = !this._notificationSound.isEmpty();
             }
             else {
                 forceRunChanged = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
                 manualProfileActivationChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
-                profileStartWhenActivatedChanged = !preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(GlobalData.PROFILE_NO_ACTIVATE)).equals(String.valueOf(GlobalData.PROFILE_NO_ACTIVATE));
+                fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(GlobalData.PROFILE_NO_ACTIVATE)));
+                profileStartWhenActivatedChanged = fkProfileStartWhenActivated != GlobalData.PROFILE_NO_ACTIVATE;
                 delayStarChanged = !preferences.getString(PREF_EVENT_DELAY_START, "0").equals("0");
+                delay = preferences.getInt(PREF_EVENT_DELAY_START, 0);
                 notificationSoundChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "").isEmpty();
             }
             boolean bold = (forceRunChanged ||
@@ -497,6 +504,33 @@ public class Event {
             Preference preference = prefMng.findPreference("eventStartOthersCategory");
             if (preference != null)
                 GUIData.setPreferenceTitleStyle(preference, bold, false);
+            if (bold) {
+                String summary = "";
+                if (forceRunChanged)
+                    summary = summary + "[»] " + context.getString(R.string.event_preferences_ForceRun);
+                if (manualProfileActivationChanged) {
+                    if (!summary.isEmpty()) summary = summary +" • ";
+                    summary = summary + context.getString(R.string.event_preferences_manualProfileActivation);
+                }
+                if (profileStartWhenActivatedChanged) {
+                    if (!summary.isEmpty()) summary = summary +" • ";
+                    summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile);
+                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+                    Profile profile = dataWrapper.getProfileById(fkProfileStartWhenActivated, false);
+                    if (profile != null)
+                        summary = summary + ": " + profile._name;
+                }
+                if (delayStarChanged) {
+                    if (!summary.isEmpty()) summary = summary +" • ";
+                    summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
+                    summary = summary + delay;
+                }
+                if (notificationSoundChanged) {
+                    if (!summary.isEmpty()) summary = summary +" • ";
+                    summary = summary + context.getString(R.string.event_preferences_notificationSound);
+                }
+                preference.setSummary(summary);
+            }
         }
     }
 
@@ -516,7 +550,7 @@ public class Event {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, Boolean.toString(value), context);
         }
-        setBoldOthersParametersCategory(prefMng, key, preferences);
+        setCategorySummary(prefMng, key, preferences, context);
         _eventPreferencesTime.setSummary(prefMng, key, preferences, context);
         _eventPreferencesTime.setCategorySummary(prefMng, key, preferences, context);
         _eventPreferencesBattery.setSummary(prefMng, key, preferences, context);
@@ -555,7 +589,7 @@ public class Event {
         setSummary(prefMng, PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(this._fkProfileStartWhenActivated), context);
         setSummary(prefMng, PREF_EVENT_FORCE_RUN, Boolean.toString(this._forceRun), context);
         setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION, Boolean.toString(this._manualProfileActivation), context);
-        setBoldOthersParametersCategory(prefMng, "", null);
+        setCategorySummary(prefMng, "", null, context);
         _eventPreferencesTime.setAllSummary(prefMng, context);
         _eventPreferencesTime.setCategorySummary(prefMng, "", null, context);
         _eventPreferencesBattery.setAllSummary(prefMng, context);
