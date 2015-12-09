@@ -502,34 +502,37 @@ public class Event {
                             delayStarChanged ||
                             notificationSoundChanged);
             Preference preference = prefMng.findPreference("eventStartOthersCategory");
-            if (preference != null)
+            if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false);
-            if (bold) {
-                String summary = "";
-                if (forceRunChanged)
-                    summary = summary + "[»] " + context.getString(R.string.event_preferences_ForceRun);
-                if (manualProfileActivationChanged) {
-                    if (!summary.isEmpty()) summary = summary +" • ";
-                    summary = summary + context.getString(R.string.event_preferences_manualProfileActivation);
+                if (bold) {
+                    String summary = "";
+                    if (forceRunChanged)
+                        summary = summary + "[»] " + context.getString(R.string.event_preferences_ForceRun);
+                    if (manualProfileActivationChanged) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        summary = summary + context.getString(R.string.event_preferences_manualProfileActivation);
+                    }
+                    if (profileStartWhenActivatedChanged) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile);
+                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+                        Profile profile = dataWrapper.getProfileById(fkProfileStartWhenActivated, false);
+                        if (profile != null)
+                            summary = summary + ": " + profile._name;
+                    }
+                    if (delayStarChanged) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
+                        summary = summary + delay;
+                    }
+                    if (notificationSoundChanged) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        summary = summary + context.getString(R.string.event_preferences_notificationSound);
+                    }
+                    preference.setSummary(summary);
                 }
-                if (profileStartWhenActivatedChanged) {
-                    if (!summary.isEmpty()) summary = summary +" • ";
-                    summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile);
-                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
-                    Profile profile = dataWrapper.getProfileById(fkProfileStartWhenActivated, false);
-                    if (profile != null)
-                        summary = summary + ": " + profile._name;
-                }
-                if (delayStarChanged) {
-                    if (!summary.isEmpty()) summary = summary +" • ";
-                    summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                    summary = summary + delay;
-                }
-                if (notificationSoundChanged) {
-                    if (!summary.isEmpty()) summary = summary +" • ";
-                    summary = summary + context.getString(R.string.event_preferences_notificationSound);
-                }
-                preference.setSummary(summary);
+                else
+                    preference.setSummary("");
             }
         }
     }
