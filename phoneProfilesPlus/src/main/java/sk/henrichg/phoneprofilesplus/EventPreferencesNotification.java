@@ -13,6 +13,7 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.text.Html;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -76,7 +77,7 @@ public class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
@@ -87,7 +88,10 @@ public class EventPreferencesNotification extends EventPreferences {
         }
         else
         {
-            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_notifications) + ": " + "</b>";
+            if (addBullet) {
+                descr = descr + "<b>\u2022 </b>";
+                descr = descr + "<b>" + context.getString(R.string.event_type_notifications) + ": " + "</b>";
+            }
             descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
         }
 
@@ -131,7 +135,7 @@ public class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (key.isEmpty() ||
                 key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
             boolean preferenceChanged = false;
@@ -142,8 +146,11 @@ public class EventPreferencesNotification extends EventPreferences {
             }
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
-            if (preference != null)
+            if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false);
+                if (bold)
+                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+            }
         }
     }
 

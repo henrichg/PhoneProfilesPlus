@@ -13,7 +13,7 @@
             android:title="@string/profile_preferences_volumeRingerMode"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_volumeRingerMode"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_volumeRingerMode"
             android:entries="@array/ringerModeDPArray"
             android:entryValues="@array/ringerModeDPValues" />
         <Preference
@@ -26,14 +26,14 @@
             android:title="@string/profile_preferences_volumeZenMode"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_volumeZenMode"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_volumeZenMode"
             android:entries="@array/zenModeDPArray"
             android:entryValues="@array/zenModeDPValues" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_vibrationOnTouch"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_vibrationOnTouch"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_vibrationOnTouch"
             android:entries="@array/vibrationOnTouchDPArray"
             android:entryValues="@array/vibrationOnTouchDPValues" />
     </PreferenceScreen>
@@ -116,7 +116,7 @@
             android:title="@string/profile_preferences_soundRingtoneChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_soundRingtoneChange"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_soundRingtoneChange"
             android:entries="@array/soundChangeDPArray"
             android:entryValues="@array/soundChangeDPValues" />  
         <RingtonePreference
@@ -131,7 +131,7 @@
             android:title="@string/profile_preferences_soundNotificationChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_soundNotificationChange"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_soundNotificationChange"
             android:entries="@array/soundChangeDPArray"
             android:entryValues="@array/soundChangeDPValues" />  
         <RingtonePreference
@@ -146,7 +146,7 @@
             android:title="@string/profile_preferences_soundAlarmChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_soundAlarmChange"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_soundAlarmChange"
             android:entries="@array/soundChangeDPArray"
             android:entryValues="@array/soundChangeDPValues" />  
         <RingtonePreference
@@ -166,70 +166,70 @@
             android:title="@string/profile_preferences_deviceAirplaneMode"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceAirplaneMode"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceAirplaneMode"
             android:entries="@array/hardwareModeDPArray"
             android:entryValues="@array/hardwareModeDPValues" />        
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceAutosync"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceAutosync"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceAutosync"
             android:entries="@array/hardwareModeDPArray"
             android:entryValues="@array/hardwareModeDPValues" />        
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceMobileData"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceMobileData"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceMobileData"
             android:entries="@array/hardwareModeDPArray"
             android:entryValues="@array/hardwareModeDPValues" />        
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceMobileDataPrefs"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceMobileDataPrefs"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceMobileDataPrefs"
             android:entries="@array/mobileDataPrefsDPArray"
             android:entryValues="@array/mobileDataPrefsDPValues" />        
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceWiFi"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceWiFi"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceWiFi"
             android:entries="@array/hardwareModeDPArray"
             android:entryValues="@array/hardwareModeDPValues" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceWiFiAP"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceWiFiAP"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceWiFiAP"
             android:entries="@array/hardwareModeDPArray"
             android:entryValues="@array/hardwareModeDPValues" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceBluetooth"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceBluetooth"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceBluetooth"
             android:entries="@array/hardwareModeDPArray"
             android:entryValues="@array/hardwareModeDPValues" />        
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceGPS"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceGPS"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceGPS"
             android:entries="@array/hardwareModeDPArray"
             android:entryValues="@array/hardwareModeDPValues" />        
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceLocationServicePrefs"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceLocationServicePrefs"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceLocationServicePrefs"
             android:entries="@array/locationServicePrefsDPArray"
             android:entryValues="@array/locationServicePrefsDPValues" />        
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceNFC"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceNFC"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceNFC"
             android:entries="@array/hardwareModeDPArray"
             android:entryValues="@array/hardwareModeDPValues" />
     </PreferenceScreen>
@@ -241,14 +241,14 @@
             android:title="@string/profile_preferences_deviceScreenTimeout"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceScreenTimeout"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceScreenTimeout"
             android:entries="@array/screenTimeoutDPArray"
             android:entryValues="@array/screenTimeoutDPValues" />        
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceKeyguard"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceKeyguard"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceKeyguard"
             android:entries="@array/keyguardDPArray"
             android:entryValues="@array/keyguardDPValues" />
         <sk.henrichg.phoneprofilesplus.BrightnessDialogPreference
@@ -263,7 +263,7 @@
             android:title="@string/profile_preferences_deviceAutoRotation"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceAutoRotation"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceAutoRotation"
             android:entries="@array/displayRotationDPArray11"
             android:entryValues="@array/displayRotationDPValues11" />
     </PreferenceScreen>
@@ -275,29 +275,29 @@
             android:title="@string/profile_preferences_devicePowerSaveMode"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_devicePowerSaveMode"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_devicePowerSaveMode"
             android:entries="@array/hardwareModeDPArray"
             android:entryValues="@array/hardwareModeDPValues" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceRunApplicationChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceRunApplicationChange"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceRunApplicationChange"
             android:entries="@array/runApplicationDPArray"
             android:entryValues="@array/runApplicationDPValues" />        
         <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
-            android:defaultValue="-"
+            android:defaultValue="@string/prf_pref_deviceRunApplicationPackageName"
             android:key="prf_pref_deviceRunApplicationPackageName"
             android:title="@string/profile_preferences_deviceRunApplicationPackageName" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceWallpaperChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceWallpaperChange"
-            android:defaultValue="0"
+            android:defaultValue="@string/prf_pref_deviceWallpaperChange"
             android:entries="@array/changeWallpaperDPArray"
             android:entryValues="@array/changeWallpaperDPValues" />        
         <sk.henrichg.phoneprofilesplus.ImageViewPreference
-            android:defaultValue="-|0"
+            android:defaultValue="@string/prf_pref_deviceWallpaper"
             android:key="prf_pref_deviceWallpaper"
             android:title="@string/profile_preferences_deviceWallpaper"
             henrichg:imageSource="file" />

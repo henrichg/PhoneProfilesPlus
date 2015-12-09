@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.widget.Toast;
 
 public class EventPreferencesBattery extends EventPreferences {
@@ -85,7 +86,7 @@ public class EventPreferencesBattery extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
@@ -96,7 +97,10 @@ public class EventPreferencesBattery extends EventPreferences {
         }
         else
         {
-            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_battery) + ": " + "</b>";
+            if (addBullet) {
+                descr = descr + "<b>\u2022 </b>";
+                descr = descr + "<b>" + context.getString(R.string.event_type_battery) + ": " + "</b>";
+            }
 
             descr = descr + context.getString(R.string.pref_event_battery_level);
             descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";
@@ -135,7 +139,7 @@ public class EventPreferencesBattery extends EventPreferences {
     }
 
     @Override
-    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (key.isEmpty() ||
                 key.equals(PREF_EVENT_BATTERY_ENABLED)) {
             boolean preferenceChanged = false;
@@ -146,8 +150,11 @@ public class EventPreferencesBattery extends EventPreferences {
             }
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
-            if (preference != null)
+            if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false);
+                if (bold)
+                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+            }
         }
     }
 

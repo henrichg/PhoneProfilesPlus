@@ -8,6 +8,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.text.Html;
 
 import java.util.Arrays;
 
@@ -63,7 +64,7 @@ public class EventPreferencesScreen extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
@@ -74,7 +75,10 @@ public class EventPreferencesScreen extends EventPreferences {
         }
         else
         {
-            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_screen) + ": " + "</b>";
+            if (addBullet) {
+                descr = descr + "<b>\u2022 </b>";
+                descr = descr + "<b>" + context.getString(R.string.event_type_screen) + ": " + "</b>";
+            }
 
             String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
             String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);
@@ -122,7 +126,7 @@ public class EventPreferencesScreen extends EventPreferences {
     }
 
     @Override
-    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (key.isEmpty() ||
                 key.equals(PREF_EVENT_SCREEN_ENABLED)) {
             boolean preferenceChanged = false;
@@ -133,8 +137,11 @@ public class EventPreferencesScreen extends EventPreferences {
             }
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
-            if (preference != null)
+            if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false);
+                if (bold)
+                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+            }
         }
     }
 

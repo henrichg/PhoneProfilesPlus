@@ -306,6 +306,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         super.onSaveInstanceState(outState);
     }
 
+    /*
     private boolean isBold(String key) {
         Preference preference = prefMng.findPreference(key);
         if (preference != null) {
@@ -317,6 +318,30 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         else
             return true;
     }
+    */
+
+    private boolean preferenceChanged(String key) {
+        Preference preference = prefMng.findPreference(key);
+        if (preference != null) {
+            String defaultValue =
+                    getResources().getString(
+                            GlobalData.getResourceId(preference.getKey(), "string", context));
+            //Log.e("------ ProfilePreferencesFragment","preferenceChanged  key="+key);
+            //Log.e("------ ProfilePreferencesFragment","preferenceChanged  defaultValue="+defaultValue);
+            //Log.e("------ ProfilePreferencesFragment","preferenceChanged  value="+preferences.getString(preference.getKey(), defaultValue));
+            if (preference instanceof VolumeDialogPreference) {
+                return VolumeDialogPreference.changeEnabled(preferences.getString(preference.getKey(), defaultValue));
+            }
+            else
+            if (preference instanceof BrightnessDialogPreference) {
+                return BrightnessDialogPreference.changeEnabled(preferences.getString(preference.getKey(), defaultValue));
+            }
+            else
+                return !preferences.getString(preference.getKey(), defaultValue).equals(defaultValue);
+        }
+        else
+            return false;
+    }
 
     private void setCategoryTitleStyle(Preference preference, boolean bold) {
         String key = preference.getKey();
@@ -325,17 +350,17 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
         if (key.equals(GlobalData.PREF_PROFILE_DURATION) ||
                 key.equals(GlobalData.PREF_PROFILE_AFTER_DURATION_DO)) {
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DURATION);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_AFTER_DURATION_DO);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DURATION);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_AFTER_DURATION_DO);
             preferenceScreen = prefMng.findPreference("prf_pref_activationDurationCategory");
         }
 
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE) ||
                 key.equals(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE) ||
                 key.equals(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH)) {
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH);
             preferenceScreen = prefMng.findPreference("prf_pref_soundProfileCategory");
         }
 
@@ -346,13 +371,13 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 key.equals(GlobalData.PREF_PROFILE_VOLUME_SYSTEM) ||
                 key.equals(GlobalData.PREF_PROFILE_VOLUME_VOICE) ||
                 key.equals(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE)) {
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_RINGTONE);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_MEDIA);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_ALARM);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_SYSTEM);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_VOICE);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VOLUME_RINGTONE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VOLUME_MEDIA);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VOLUME_ALARM);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VOLUME_SYSTEM);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VOLUME_VOICE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
             preferenceScreen = prefMng.findPreference("prf_pref_volumeCategory");
         }
 
@@ -362,11 +387,11 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 //key.equals(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION) ||
                 key.equals(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE)) {
             //key.equals(GlobalData.PREF_PROFILE_SOUND_ALARM)) {
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
             //_bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_RINGTONE);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
             //_bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE);
             //_bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_ALARM);
             preferenceScreen = prefMng.findPreference("prf_pref_soundsCategory");
         }
@@ -374,23 +399,23 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
-                //key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_WIFI) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_GPS) ||
-                //key.equals(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_NFC)) {
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA);
-            //_bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_WIFI);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_GPS);
-            //_bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_NFC);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_WIFI);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_GPS);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_NFC);
             preferenceScreen = prefMng.findPreference("prf_pref_radiosCategory");
         }
 
@@ -398,10 +423,10 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE)) {
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE);
             preferenceScreen = prefMng.findPreference("prf_pref_screenCategory");
         }
 
@@ -410,10 +435,10 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 //key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)) {
             //key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER)) {
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
             //_bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
-            _bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+            _bold = _bold || preferenceChanged(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
             //_bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER);
             preferenceScreen = prefMng.findPreference("prf_pref_othersCategory");
         }

@@ -456,4 +456,9 @@ public class BrightnessDialogPreference extends
         }
     }
 
+    public static boolean changeEnabled(String value) {
+        String[] splits = value.split("\\|");
+        return Integer.parseInt(splits[1]) == 0;
+    }
+
 }

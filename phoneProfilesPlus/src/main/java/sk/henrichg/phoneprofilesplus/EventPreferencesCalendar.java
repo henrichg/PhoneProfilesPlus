@@ -17,6 +17,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
+import android.text.Html;
 import android.text.format.DateFormat;
 
 import java.text.SimpleDateFormat;
@@ -112,7 +113,7 @@ public class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
@@ -123,7 +124,10 @@ public class EventPreferencesCalendar extends EventPreferences {
         }
         else
         {
-            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_calendar) + ": " + "</b>";
+            if (addBullet) {
+                descr = descr + "<b>\u2022 </b>";
+                descr = descr + "<b>" + context.getString(R.string.event_type_calendar) + ": " + "</b>";
+            }
 
             String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
             descr = descr + searchFields[this._searchField] + "; ";
@@ -224,7 +228,7 @@ public class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (key.isEmpty() ||
                 key.equals(PREF_EVENT_CALENDAR_ENABLED)) {
             boolean preferenceChanged = false;
@@ -235,8 +239,11 @@ public class EventPreferencesCalendar extends EventPreferences {
             }
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
-            if (preference != null)
+            if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false);
+                if (bold)
+                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+            }
         }
     }
 

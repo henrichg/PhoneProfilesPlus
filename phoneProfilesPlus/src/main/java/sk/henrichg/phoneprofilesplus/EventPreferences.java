@@ -43,7 +43,7 @@ public class EventPreferences {
     {
     }
 
-    public String getPreferencesDescription(Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         return "";
     }
@@ -60,7 +60,7 @@ public class EventPreferences {
     {
     }
 
-    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
     }
 
     public void checkPreferences(PreferenceManager prefMng, Context context)

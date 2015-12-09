@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.text.format.DateFormat;
 
 import java.sql.Date;
@@ -152,7 +153,7 @@ public class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
@@ -163,7 +164,10 @@ public class EventPreferencesTime extends EventPreferences {
         }
         else
         {
-            descr = descr + "<b>" + "\u2022 " + context.getString(R.string.event_type_time) + ": " + "</b>";
+            if (addBullet) {
+                descr = descr + "<b>\u2022 </b>";
+                descr = descr + "<b>" + context.getString(R.string.event_type_time) + ": " + "</b>";
+            }
 
             boolean[] daySet = new boolean[7];
             daySet[0] = this._sunday;
@@ -283,7 +287,7 @@ public class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public void setBoldParametersCategory(PreferenceManager prefMng, String key, SharedPreferences preferences) {
+    public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (key.isEmpty() ||
                 key.equals(PREF_EVENT_TIME_ENABLED)) {
             boolean preferenceChanged = false;
@@ -294,8 +298,11 @@ public class EventPreferencesTime extends EventPreferences {
             }
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
-            if (preference != null)
+            if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false);
+                if (bold)
+                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+            }
         }
     }
 
