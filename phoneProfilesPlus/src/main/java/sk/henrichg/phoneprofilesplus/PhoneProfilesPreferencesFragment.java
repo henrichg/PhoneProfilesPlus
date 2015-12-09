@@ -73,6 +73,8 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         Log.e("------- PhoneProfilesPreferencesFragment", "extraScrollTo=" + extraScrollTo);
         //extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
 
+        updateSharedPreference();
+
     }
 
     @Override
@@ -462,8 +464,6 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     public void onStart()
     {
         super.onStart();
-
-        updateSharedPreference();
 
         /*
         // scroll to preference
