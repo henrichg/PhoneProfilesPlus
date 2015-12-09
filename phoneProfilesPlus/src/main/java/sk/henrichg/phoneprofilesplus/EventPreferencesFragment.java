@@ -83,7 +83,8 @@ public class EventPreferencesFragment extends PreferenceFragment
         event = EventPreferencesFragmentActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, true);
 
         preferences = prefMng.getSharedPreferences();
-        
+        preferences.registerOnSharedPreferenceChangeListener(this);
+
         //if (savedInstanceState == null)
         //    loadPreferences();
 
@@ -116,8 +117,6 @@ public class EventPreferencesFragment extends PreferenceFragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        preferences.registerOnSharedPreferenceChangeListener(this);
 
         RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
         notificationSoundPreference.setEnabled(GlobalData.notificationStatusBar);
