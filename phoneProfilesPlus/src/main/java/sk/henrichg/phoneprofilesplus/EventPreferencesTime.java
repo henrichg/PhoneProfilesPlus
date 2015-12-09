@@ -216,29 +216,26 @@ public class EventPreferencesTime extends EventPreferences {
             //}
 
 
-            if (GlobalData.getGlobalEventsRuning(context))
-            {
-                long alarmTime;
-                //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
-                String alarmTimeS = "";
-                if (_event.getStatus() == Event.ESTATUS_PAUSE)
-                {
-                    alarmTime = computeAlarm(true);
-                    // date and time format by user system settings configuration
-                    alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                 " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                    descr = descr + "<br>"; //'\n';
-                    descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
-                }
-                else
-                if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/)
-                {
-                    alarmTime = computeAlarm(false);
-                    // date and time format by user system settings configuration
-                    alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                 " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                    descr = descr + "<br>"; //'\n';
-                    descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+            if (addBullet) {
+                if (GlobalData.getGlobalEventsRuning(context)) {
+                    long alarmTime;
+                    //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
+                    String alarmTimeS = "";
+                    if (_event.getStatus() == Event.ESTATUS_PAUSE) {
+                        alarmTime = computeAlarm(true);
+                        // date and time format by user system settings configuration
+                        alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                        descr = descr + "<br>"; //'\n';
+                        descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                    } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
+                        alarmTime = computeAlarm(false);
+                        // date and time format by user system settings configuration
+                        alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                        descr = descr + "<br>"; //'\n';
+                        descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                    }
                 }
             }
         }

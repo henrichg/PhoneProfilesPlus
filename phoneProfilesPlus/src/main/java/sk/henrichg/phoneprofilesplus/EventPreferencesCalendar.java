@@ -139,37 +139,31 @@ public class EventPreferencesCalendar extends EventPreferences {
 
             //Calendar calendar = Calendar.getInstance();
 
-            if (GlobalData.getGlobalEventsRuning(context))
-            {
-                if (_eventFound)
-                {
-                    long alarmTime;
-                    //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
-                    String alarmTimeS = "";
-                    if (_event.getStatus() == Event.ESTATUS_PAUSE)
-                    {
-                        alarmTime = computeAlarm(true);
-                        // date and time format by user system settings configuration
-                        alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                     " " + DateFormat.getTimeFormat(context).format(alarmTime);
+            if (addBullet) {
+                if (GlobalData.getGlobalEventsRuning(context)) {
+                    if (_eventFound) {
+                        long alarmTime;
+                        //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
+                        String alarmTimeS = "";
+                        if (_event.getStatus() == Event.ESTATUS_PAUSE) {
+                            alarmTime = computeAlarm(true);
+                            // date and time format by user system settings configuration
+                            alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                    " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                            descr = descr + "<br>"; //'\n';
+                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                        } else if (_event.getStatus() == Event.ESTATUS_RUNNING) {
+                            alarmTime = computeAlarm(false);
+                            // date and time format by user system settings configuration
+                            alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                    " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                            descr = descr + "<br>"; //'\n';
+                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                        }
+                    } else {
                         descr = descr + "<br>"; //'\n';
-                        descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                        descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getResources().getString(R.string.event_preferences_calendar_no_event);
                     }
-                    else
-                    if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                    {
-                        alarmTime = computeAlarm(false);
-                        // date and time format by user system settings configuration
-                        alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                     " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                        descr = descr + "<br>"; //'\n';
-                        descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
-                    }
-                }
-                else
-                {
-                    descr = descr + "<br>"; //'\n';
-                    descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getResources().getString(R.string.event_preferences_calendar_no_event);
                 }
             }
         }
