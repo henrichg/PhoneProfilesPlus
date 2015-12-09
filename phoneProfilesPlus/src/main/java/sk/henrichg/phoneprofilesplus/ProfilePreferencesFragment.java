@@ -831,6 +831,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         {
             Preference preference = prefMng.findPreference(key);
             String sValue = value.toString();
+            Log.e("------ ProfilePreferencesFragment", "setSummary key="+key);
+            Log.e("------ ProfilePreferencesFragment", "setSummary sValue="+sValue);
             boolean change = VolumeDialogPreference.changeEnabled(sValue);
             GUIData.setPreferenceTitleStyle(preference, change, false);
             setCategorySummary(preference, change);
@@ -894,7 +896,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
     private void updateSharedPreference()
     {
-        if (profile != null) 
+        if (profile != null)
         {
 
             // updating activity with selected profile preferences

@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -371,6 +373,106 @@ public class VolumeDialogPreference extends
     public static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");
         return Integer.parseInt(splits[1]) == 0;
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState()
+    {
+        // ulozime instance state - napriklad kvoli zmene orientacie
+
+        final Parcelable superState = super.onSaveInstanceState();
+        /*if (isPersistent()) {
+            // netreba ukladat, je ulozene persistentne
+            return superState;
+        }*/
+
+        // ulozenie istance state
+        final SavedState myState = new SavedState(superState);
+        myState.value = value;
+        myState.volumeType = volumeType;
+        myState.noChange = noChange;
+        myState.defaultProfile = defaultProfile;
+        myState.disableDefaultProfile = disableDefaultProfile;
+        return myState;
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state)
+    {
+        if (!state.getClass().equals(SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            setSummaryVDP();
+            return;
+        }
+
+        // restore instance state
+        SavedState myState = (SavedState)state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        value = myState.value;
+        volumeType = myState.volumeType;
+        noChange = myState.noChange;
+        defaultProfile = myState.defaultProfile;
+        disableDefaultProfile = myState.disableDefaultProfile;
+
+        setSummaryVDP();
+        notifyChanged();
+    }
+
+    // SavedState class
+    private static class SavedState extends BaseSavedState
+    {
+        public int value = 0;
+        public String volumeType = null;
+        public int noChange = 0;
+        public int defaultProfile = 0;
+        public int disableDefaultProfile = 0;
+
+        public SavedState(Parcel source)
+        {
+            super(source);
+
+            // restore profileId
+            value = source.readInt();
+            volumeType = source.readString();
+            noChange = source.readInt();
+            defaultProfile = source.readInt();
+            disableDefaultProfile = source.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags)
+        {
+            super.writeToParcel(dest, flags);
+
+            // save profileId
+            dest.writeInt(value);
+            dest.writeString(volumeType);
+            dest.writeInt(noChange);
+            dest.writeInt(defaultProfile);
+            dest.writeInt(disableDefaultProfile);
+        }
+
+        public SavedState(Parcelable superState)
+        {
+            super(superState);
+        }
+
+        @SuppressWarnings("unused")
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in)
+                    {
+                        return new SavedState(in);
+                    }
+                    public SavedState[] newArray(int size)
+                    {
+                        return new SavedState[size];
+                    }
+
+                };
+
     }
 
 }
