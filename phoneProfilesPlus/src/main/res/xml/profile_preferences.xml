@@ -64,8 +64,7 @@
             android:key="prf_pref_volumeZenMode"
             android:defaultValue="@string/prf_pref_volumeZenMode"
             android:entries="@array/zenModeArray"
-            android:entryValues="@array/zenModeValues"
-            android:dependency="prf_pref_volumeCategory" />
+            android:entryValues="@array/zenModeValues" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_vibrationOnTouch"
             android:summary="@string/array_pref_no_change"
