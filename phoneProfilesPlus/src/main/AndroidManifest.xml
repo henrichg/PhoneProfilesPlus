@@ -86,7 +86,6 @@
         android:label="@string/app_name">
         <activity
             android:name=".LauncherActivity"
-            android:excludeFromRecents="true"
             android:label="@string/title_activity_phone_profiles"
             android:theme="@style/EmptyActivity">
             <intent-filter>
@@ -98,7 +97,6 @@
         <activity
             android:name=".ActivateProfileActivity"
             android:configChanges="locale|layoutDirection"
-            android:excludeFromRecents="true"
             android:label="@string/title_activity_activator"
             android:theme="@style/PopupTheme_withToolbar_material">
         </activity>
@@ -192,6 +190,7 @@
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
         </activity>
 
