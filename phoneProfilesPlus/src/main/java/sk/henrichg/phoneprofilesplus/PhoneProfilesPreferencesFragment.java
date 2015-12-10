@@ -139,8 +139,22 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                     }
                     else
                         intent = new Intent(android.provider.Settings.ACTION_BATTERY_SAVER_SETTINGS);
-                    intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
+                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    try {
+                        startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
+                    } catch (Exception e) {
+                        if(Build.VERSION.SDK_INT > 21) {
+                            intent = new Intent();
+                            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
+                            try {
+                                startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
+                            } catch (Exception e2) {
+                                e2.printStackTrace();
+                            }
+                        }
+                        else
+                            e.printStackTrace();
+                    }
                     return false;
                 }
             });
