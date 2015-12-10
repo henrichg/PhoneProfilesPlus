@@ -896,6 +896,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
     private void updateSharedPreference()
     {
+        Log.e("------ ProfilePreferencesFragment", "updateSharedPreference");
+
         if (profile != null)
         {
 
@@ -973,6 +975,14 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         activity.invalidateOptionsMenu();
 
     }
+
+    /*
+    @Override
+    public boolean onPreferenceScreenClick(PreferenceScreen preference) {
+        updateSharedPreference();
+        return super.onPreferenceScreenClick(preference);
+    }
+    */
 
     static public Activity getPreferencesActivity()
     {

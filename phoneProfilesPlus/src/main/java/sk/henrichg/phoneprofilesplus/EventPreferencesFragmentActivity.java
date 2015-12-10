@@ -2,12 +2,14 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -211,7 +213,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             else
                 PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
 
-            SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+            SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
             event.loadSharedPreferences(preferences);
         }
@@ -231,7 +233,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         else
             PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
 
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+        SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
         // save preferences into profile
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();

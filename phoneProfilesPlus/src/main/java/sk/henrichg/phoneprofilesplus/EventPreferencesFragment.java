@@ -50,7 +50,6 @@ public class EventPreferencesFragment extends PreferenceFragment
 
     static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
     static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
-    private String PREFS_NAME;
 
     static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
@@ -82,6 +81,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 
         event = EventPreferencesFragmentActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, true);
 
+        //prefMng = getPreferenceManager();
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);
 
@@ -94,6 +94,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 
     @Override
     public void addPreferencesFromResource(int preferenceResId) {
+        String PREFS_NAME;
         if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = PREFS_NAME_ACTIVITY;
         else
@@ -240,7 +241,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         super.onSaveInstanceState(outState);
     }
 
-    private void updateSharedPreference()
+    public void updateSharedPreference()
     {
         if (event != null) 
         {	
@@ -268,6 +269,14 @@ public class EventPreferencesFragment extends PreferenceFragment
         EventPreferencesFragmentActivity.showSaveMenu = true;
         activity.invalidateOptionsMenu();
     }
+
+    /*
+    public boolean onPreferenceScreenClick(PreferenceScreen preference) {
+        boolean click = super.onPreferenceScreenClick(preference);
+        updateSharedPreference();
+        return click;
+    }
+    */
 
     static public Activity getPreferencesActivity()
     {

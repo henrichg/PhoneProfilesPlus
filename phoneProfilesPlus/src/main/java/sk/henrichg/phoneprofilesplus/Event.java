@@ -493,7 +493,7 @@ public class Event {
                 fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(GlobalData.PROFILE_NO_ACTIVATE)));
                 profileStartWhenActivatedChanged = fkProfileStartWhenActivated != GlobalData.PROFILE_NO_ACTIVATE;
                 delayStarChanged = !preferences.getString(PREF_EVENT_DELAY_START, "0").equals("0");
-                delay = preferences.getInt(PREF_EVENT_DELAY_START, 0);
+                delay = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_START, "0"));
                 notificationSoundChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "").isEmpty();
             }
             boolean bold = (forceRunChanged ||
@@ -579,7 +579,7 @@ public class Event {
     public void setAllSummary(PreferenceManager prefMng, Context context) {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_FORCE_RUN);
-        preference.setTitle("[»] " + preference.getTitle());
+        preference.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
 
 
         setSummary(prefMng, PREF_EVENT_NAME, _name, context);

@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceScreen;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -239,6 +240,9 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
     }
 
     private void loadPreferences(int new_profile_mode) {
+
+        Log.e("------------ ProfilePreferencesFragmentActivity", "loadPreferences");
+
         Profile profile = createProfile(getApplicationContext(), profile_id, new_profile_mode, false);
 
         if (profile != null)
