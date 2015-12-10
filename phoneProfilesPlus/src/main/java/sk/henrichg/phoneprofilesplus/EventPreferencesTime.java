@@ -264,7 +264,7 @@ public class EventPreferencesTime extends EventPreferences {
         if (key.equals(PREF_EVENT_TIME_DAYS))
         {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, false, true);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
         }
     }
 
@@ -296,7 +296,7 @@ public class EventPreferencesTime extends EventPreferences {
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false);
+                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
                 if (bold)
                     preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
             }

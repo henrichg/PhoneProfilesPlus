@@ -122,7 +122,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value);
-            GUIData.setPreferenceTitleStyle(preference, false, true);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE))
         {
@@ -198,7 +198,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false);
+                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
                 if (bold)
                     preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
             }

@@ -104,7 +104,7 @@ public class EventPreferencesNotification extends EventPreferences {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)) {
                 Preference preference = prefMng.findPreference(key);
-                GUIData.setPreferenceTitleStyle(preference, false, true);
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
             /*if (key.equals(PREF_EVENT_NOTIFICATION_DURATION)) {
                 Preference preference = prefMng.findPreference(key);
@@ -147,7 +147,7 @@ public class EventPreferencesNotification extends EventPreferences {
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false);
+                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
                 if (bold)
                     preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
             }

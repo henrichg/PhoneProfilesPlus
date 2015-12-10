@@ -199,7 +199,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                     Preference zenModePreference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
 
                     zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode);
-                    GUIData.setPreferenceTitleStyle(zenModePreference, false, false);
+                    GUIData.setPreferenceTitleStyle(zenModePreference, false, false, false);
 
                     return true;
                 }
@@ -592,7 +592,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         }
 
         if (preferenceScreen != null) {
-            GUIData.setPreferenceTitleStyle(preferenceScreen, _bold, false);
+            GUIData.setPreferenceTitleStyle(preferenceScreen, _bold, false, false);
             if (_bold)
                 preferenceScreen.setSummary(summary);
             else
@@ -611,7 +611,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value.toString());
-            GUIData.setPreferenceTitleStyle(preference, false, true);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
             setCategorySummary(preference, false);
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE))
@@ -621,7 +621,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             int index = listPreference.findIndexOfValue(sValue);
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
             setCategorySummary(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE))
@@ -640,7 +640,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                     ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
                     listPreference.setEnabled(false);
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
-                    GUIData.setPreferenceTitleStyle(listPreference, false, false);
+                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
                 else
@@ -664,7 +664,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                         iRingerMode = Integer.parseInt(sRingerMode);
 
                     if (iRingerMode == 5) {
-                        GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+                        GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
                         setCategorySummary(listPreference, index > 0);
                     }
                     listPreference.setEnabled(iRingerMode == 5);
@@ -680,7 +680,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             int index = listPreference.findIndexOfValue(sValue);
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
             setCategorySummary(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_SOUND_RINGTONE) ||
@@ -727,7 +727,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 else
                 if (canChange == GlobalData.PREFERENCE_UPGRADE_PPHELPER)
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_upgrade_pphelper));
-                GUIData.setPreferenceTitleStyle(listPreference, false, false);
+                GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
                 setCategorySummary(listPreference, false);
             }
             else
@@ -737,7 +737,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
 
@@ -753,7 +753,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
             listPreference.setEnabled(!secureKeyguard);
             if (secureKeyguard) {
-                GUIData.setPreferenceTitleStyle(listPreference, false, false);
+                GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
                 setCategorySummary(listPreference, false);
                 listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
             }
@@ -762,7 +762,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -773,7 +773,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             int index = listPreference.findIndexOfValue(sValue);
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
             setCategorySummary(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE))
@@ -783,7 +783,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             int index = listPreference.findIndexOfValue(sValue);
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
             setCategorySummary(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
@@ -798,7 +798,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             int index = listPreference.findIndexOfValue(sValue);
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
             setCategorySummary(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DURATION))
@@ -809,7 +809,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             if (!sValue.isEmpty())
                 iValue = Integer.valueOf(sValue);
             //preference.setSummary(sValue);
-            GUIData.setPreferenceTitleStyle(preference, iValue > 0, false);
+            GUIData.setPreferenceTitleStyle(preference, iValue > 0, false, false);
             setCategorySummary(preference, iValue > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_AFTER_DURATION_DO))
@@ -819,7 +819,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             int index = listPreference.findIndexOfValue(sValue);
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
             listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false);
+            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
             setCategorySummary(listPreference, index > 0);
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGTONE) ||
@@ -834,7 +834,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             Log.e("------ ProfilePreferencesFragment", "setSummary key="+key);
             Log.e("------ ProfilePreferencesFragment", "setSummary sValue="+sValue);
             boolean change = VolumeDialogPreference.changeEnabled(sValue);
-            GUIData.setPreferenceTitleStyle(preference, change, false);
+            GUIData.setPreferenceTitleStyle(preference, change, false, false);
             setCategorySummary(preference, change);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS))
@@ -842,7 +842,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             Preference preference = prefMng.findPreference(key);
             String sValue = value.toString();
             boolean change = BrightnessDialogPreference.changeEnabled(sValue);
-            GUIData.setPreferenceTitleStyle(preference, change, false);
+            GUIData.setPreferenceTitleStyle(preference, change, false, false);
             setCategorySummary(preference, change);
         }
 

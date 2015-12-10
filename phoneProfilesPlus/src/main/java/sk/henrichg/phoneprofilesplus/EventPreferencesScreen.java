@@ -138,7 +138,7 @@ public class EventPreferencesScreen extends EventPreferences {
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false);
+                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
                 if (bold)
                     preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
             }

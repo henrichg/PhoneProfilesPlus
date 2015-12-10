@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Handler;
 import android.preference.Preference;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 
@@ -197,7 +199,7 @@ public class GUIData {
             activity.recreate();
     }
 
-    public static void setPreferenceTitleStyle(Preference preference, boolean bold, boolean underline)
+    public static void setPreferenceTitleStyle(Preference preference, boolean bold, boolean underline, boolean errorColor)
     {
         CharSequence title = preference.getTitle();
         Spannable sbt = new SpannableString(title);
@@ -212,6 +214,8 @@ public class GUIData {
                 sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             if (underline)
                 sbt.setSpan(new UnderlineSpan(), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (errorColor)
+                sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             preference.setTitle(sbt);
         }
         else

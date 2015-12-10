@@ -144,12 +144,12 @@ public class EventPreferencesSMS extends EventPreferences {
         if (key.equals(PREF_EVENT_SMS_CONTACTS))
         {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, false, true);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
         }
         if (key.equals(PREF_EVENT_SMS_CONTACT_GROUPS))
         {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, false, true);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
         }
         /*if (key.equals(PREF_EVENT_SMS_DURATION)) {
             Preference preference = prefMng.findPreference(key);
@@ -197,7 +197,7 @@ public class EventPreferencesSMS extends EventPreferences {
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false);
+                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
                 if (bold)
                     preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
             }

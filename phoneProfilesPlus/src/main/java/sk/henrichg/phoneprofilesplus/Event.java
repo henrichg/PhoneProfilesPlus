@@ -387,7 +387,7 @@ public class Event {
         {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value);
-            GUIData.setPreferenceTitleStyle(preference, false, true);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
         }
         if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END)||
                 key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
@@ -402,9 +402,9 @@ public class Event {
             }
             preference.setSummary(lProfileId);
             if (key.equals(PREF_EVENT_PROFILE_START))
-                GUIData.setPreferenceTitleStyle(preference, false, true);
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
             if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
-                GUIData.setPreferenceTitleStyle(preference, lProfileId != GlobalData.PROFILE_NO_ACTIVATE, false);
+                GUIData.setPreferenceTitleStyle(preference, lProfileId != GlobalData.PROFILE_NO_ACTIVATE, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND))
@@ -413,7 +413,7 @@ public class Event {
             String ringtoneUri = value.toString();
             if (ringtoneUri.isEmpty()) {
                 preference.setSummary(R.string.preferences_notificationSound_None);
-                GUIData.setPreferenceTitleStyle(preference, false, false);
+                GUIData.setPreferenceTitleStyle(preference, false, false, false);
             }
             else
             {
@@ -425,7 +425,7 @@ public class Event {
                 else
                     ringtoneName = ringtone.getTitle(context);
                 preference.setSummary(ringtoneName);
-                GUIData.setPreferenceTitleStyle(preference, true, false);
+                GUIData.setPreferenceTitleStyle(preference, true, false, false);
             }
         }
         if (key.equals(PREF_EVENT_PRIORITY))
@@ -452,12 +452,12 @@ public class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GUIData.setPreferenceTitleStyle(preference, delay > 0, false);
+            GUIData.setPreferenceTitleStyle(preference, delay > 0, false, false);
         }
         if (key.equals(PREF_EVENT_FORCE_RUN) ||
                 key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION)) {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, value.equals("true"), false);
+            GUIData.setPreferenceTitleStyle(preference, value.equals("true"), false, false);
         }
 
     }
@@ -503,7 +503,7 @@ public class Event {
                             notificationSoundChanged);
             Preference preference = prefMng.findPreference("eventStartOthersCategory");
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false);
+                GUIData.setPreferenceTitleStyle(preference, bold, false, false);
                 if (bold) {
                     String summary = "";
                     if (forceRunChanged)

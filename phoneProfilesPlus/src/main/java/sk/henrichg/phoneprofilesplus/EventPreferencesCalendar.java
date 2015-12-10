@@ -177,7 +177,7 @@ public class EventPreferencesCalendar extends EventPreferences {
         if (key.equals(PREF_EVENT_CALENDAR_CALENDARS))
         {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, false, true);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
         }
         if (key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
             key.equals(PREF_EVENT_CALENDAR_AVAILABILITY))
@@ -196,7 +196,7 @@ public class EventPreferencesCalendar extends EventPreferences {
                     context.getString(R.string.calendar_pref_dlg_info_about_wildcards) + " " +
                     context.getString(R.string.pref_dlg_info_about_wildcards_3);
             ((EditTextPreference)preference).setDialogMessage(helpString);
-            GUIData.setPreferenceTitleStyle(preference, false, true);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
         }
     }
 
@@ -234,7 +234,7 @@ public class EventPreferencesCalendar extends EventPreferences {
             boolean bold = preferenceChanged;
             Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false);
+                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
                 if (bold)
                     preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
             }
