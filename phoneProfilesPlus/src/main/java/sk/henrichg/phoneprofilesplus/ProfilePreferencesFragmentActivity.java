@@ -25,6 +25,8 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
     private long profile_id = 0;
     int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
 
+    private int resultCode = RESULT_CANCELED;
+
     public static boolean showSaveMenu = false;
 
     @Override
@@ -114,7 +116,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         Intent returnIntent = new Intent();
         returnIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile_id);
         returnIntent.putExtra(GlobalData.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        setResult(RESULT_OK,returnIntent);
+        setResult(resultCode,returnIntent);
 
         super.finish();
     }
@@ -135,6 +137,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         switch (item.getItemId()) {
             case R.id.profile_preferences_action_mode_save:
                 savePreferences(newProfileMode);
+                resultCode = RESULT_OK;
                 finish();
                 return true;
             default:

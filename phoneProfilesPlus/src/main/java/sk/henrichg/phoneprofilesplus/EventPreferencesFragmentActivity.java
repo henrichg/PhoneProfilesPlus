@@ -30,6 +30,8 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     private long event_id = 0;
     int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
 
+    private int resultCode = RESULT_CANCELED;
+
     public static boolean showSaveMenu = false;
 
     @Override
@@ -109,7 +111,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         Intent returnIntent = new Intent();
         returnIntent.putExtra(GlobalData.EXTRA_EVENT_ID, event_id);
         returnIntent.putExtra(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
-        setResult(RESULT_OK,returnIntent);
+        setResult(resultCode,returnIntent);
 
         super.finish();
     }
@@ -130,6 +132,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         switch (item.getItemId()) {
             case R.id.profile_preferences_action_mode_save:
                 savePreferences(newEventMode);
+                resultCode = RESULT_OK;
                 finish();
                 return true;
             default:
