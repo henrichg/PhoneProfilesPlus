@@ -167,12 +167,12 @@ public class EventPreferencesBluetooth extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS, "", context);
-        setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, _adapterName, context);
-        setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, Integer.toString(_connectionType), context);
-        setSummary(prefMng, PREF_EVENT_BLUETOOTH_DEVICES_TYPE, Integer.toString(_devicesType), context);
+        setSummary(prefMng, PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BLUETOOTH_DEVICES_TYPE, preferences, context);
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
                 != GlobalData.PREFERENCE_ALLOWED)

@@ -101,9 +101,9 @@ public class EventPreferencesPeripherals extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_PERIPHERAL_TYPE, Integer.toString(_peripheralType), context);
+        setSummary(prefMng, PREF_EVENT_PERIPHERAL_TYPE, preferences, context);
     }
 
     @Override

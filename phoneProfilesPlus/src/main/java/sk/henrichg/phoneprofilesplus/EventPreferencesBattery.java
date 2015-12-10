@@ -132,10 +132,10 @@ public class EventPreferencesBattery extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_LOW, Integer.toString(_levelLow), context);
-        setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_HIGHT, Integer.toString(_levelHight), context);
+        setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_LOW, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_HIGHT, preferences, context);
     }
 
     @Override

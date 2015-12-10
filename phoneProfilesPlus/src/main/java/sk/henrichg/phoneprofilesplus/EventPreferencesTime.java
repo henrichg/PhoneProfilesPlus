@@ -278,9 +278,9 @@ public class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_TIME_DAYS, "", context);
+        setSummary(prefMng, PREF_EVENT_TIME_DAYS, preferences, context);
     }
 
     @Override

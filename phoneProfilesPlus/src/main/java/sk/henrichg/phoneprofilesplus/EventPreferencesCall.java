@@ -141,12 +141,12 @@ public class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_CALL_EVENT, Integer.toString(_callEvent), context);
-        setSummary(prefMng, PREF_EVENT_CALL_CONTACT_LIST_TYPE, Integer.toString(_contactListType), context);
-        setSummary(prefMng, PREF_EVENT_CALL_CONTACTS, _contacts, context);
-        setSummary(prefMng, PREF_EVENT_CALL_CONTACT_GROUPS, _contactGroups, context);
+        setSummary(prefMng, PREF_EVENT_CALL_EVENT, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_CONTACT_LIST_TYPE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_CONTACTS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_CONTACT_GROUPS, preferences, context);
     }
 
     @Override

@@ -118,9 +118,9 @@ public class EventPreferencesScreen extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, Integer.toString(_eventType), context);
+        setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences, context);
 
         setWhenUnlockedTitle(prefMng, _eventType);
     }

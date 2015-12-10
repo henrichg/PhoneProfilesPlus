@@ -175,13 +175,13 @@ public class EventPreferencesSMS extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        //setSummary(prefMng, PREF_EVENT_SMS_EVENT, Integer.toString(_smsEvent), context);
-        setSummary(prefMng, PREF_EVENT_SMS_CONTACT_LIST_TYPE, Integer.toString(_contactListType), context);
-        setSummary(prefMng, PREF_EVENT_SMS_CONTACTS, _contacts, context);
-        setSummary(prefMng, PREF_EVENT_SMS_CONTACT_GROUPS, _contactGroups, context);
-        setSummary(prefMng, PREF_EVENT_SMS_DURATION, Integer.toString(_duration), context);
+        //setSummary(prefMng, PREF_EVENT_SMS_EVENT, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SMS_CONTACT_LIST_TYPE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SMS_CONTACTS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SMS_CONTACT_GROUPS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SMS_DURATION, preferences, context);
     }
 
     @Override

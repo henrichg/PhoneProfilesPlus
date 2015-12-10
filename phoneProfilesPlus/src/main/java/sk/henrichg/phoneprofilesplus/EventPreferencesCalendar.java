@@ -213,12 +213,12 @@ public class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_CALENDAR_CALENDARS, _calendars, context);
-        setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_FIELD, Integer.toString(_searchField), context);
-        setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_STRING, _searchString, context);
-        setSummary(prefMng, PREF_EVENT_CALENDAR_AVAILABILITY, Integer.toString(_availability), context);
+        setSummary(prefMng, PREF_EVENT_CALENDAR_CALENDARS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_FIELD, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_STRING, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALENDAR_AVAILABILITY, preferences, context);
     }
 
     @Override

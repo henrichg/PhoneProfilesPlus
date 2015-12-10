@@ -127,11 +127,11 @@ public class EventPreferencesWifi extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS, "", context);
-        setSummary(prefMng, PREF_EVENT_WIFI_SSID, _SSID, context);
-        setSummary(prefMng, PREF_EVENT_WIFI_CONNECTION_TYPE, Integer.toString(_connectionType), context);
+        setSummary(prefMng, PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
+        setSummary(prefMng, PREF_EVENT_WIFI_CONNECTION_TYPE, preferences, context);
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context)
                 != GlobalData.PREFERENCE_ALLOWED)

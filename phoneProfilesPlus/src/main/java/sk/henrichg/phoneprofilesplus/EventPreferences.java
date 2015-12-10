@@ -56,7 +56,7 @@ public class EventPreferences {
     {
     }
 
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
     }
 

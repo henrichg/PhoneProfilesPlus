@@ -576,6 +576,7 @@ public class Event {
         _eventPreferencesNotification.setCategorySummary(prefMng, key, preferences, context);
     }
 
+    /*
     public void setAllSummary(PreferenceManager prefMng, Context context) {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_FORCE_RUN);
@@ -613,6 +614,46 @@ public class Event {
         _eventPreferencesSMS.setCategorySummary(prefMng, "", null, context);
         _eventPreferencesNotification.setAllSummary(prefMng, context);
         _eventPreferencesNotification.setCategorySummary(prefMng, "", null, context);
+    }
+    */
+
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_FORCE_RUN);
+        preference.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
+
+
+        setSummary(prefMng, PREF_EVENT_NAME, preferences, context);
+        setSummary(prefMng, PREF_EVENT_PROFILE_START, preferences, context);
+        setSummary(prefMng, PREF_EVENT_PROFILE_END, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND, preferences, context);
+        setSummary(prefMng, PREF_EVENT_PRIORITY, preferences, context);
+        setSummary(prefMng, PREF_EVENT_DELAY_START, preferences, context);
+        setSummary(prefMng, PREF_EVENT_AT_END_DO, preferences, context);
+        setSummary(prefMng, PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_FORCE_RUN, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MANUAL_PROFILE_ACTIVATION, preferences, context);
+        setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesTime.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesTime.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesBattery.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesBattery.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesCall.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesCall.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesPeripherals.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesPeripherals.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesCalendar.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesCalendar.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesWifi.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesWifi.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesScreen.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesScreen.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesBluetooth.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesBluetooth.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesSMS.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesSMS.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesNotification.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesNotification.setCategorySummary(prefMng, "", preferences, context);
     }
 
     public String getPreferencesDescription(Context context)

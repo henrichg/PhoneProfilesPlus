@@ -848,6 +848,17 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
     }
 
+    private void setSummary(String key) {
+        String value;
+        if (key.equals(GlobalData.PREF_PROFILE_SHOW_IN_ACTIVATOR)) {
+            boolean b = preferences.getBoolean(key, false);
+            value = Boolean.toString(b);
+        }
+        else
+            value = preferences.getString(key, "");
+        setSummary(key, value);
+    }
+
     private void disableDependedPref(String key, Object value)
     {
         String sValue = value.toString();
@@ -894,6 +905,17 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
     }
 
+    private void disableDependedPref(String key) {
+        String value;
+        if (key.equals(GlobalData.PREF_PROFILE_SHOW_IN_ACTIVATOR)) {
+            boolean b = preferences.getBoolean(key, false);
+            value = Boolean.toString(b);
+        }
+        else
+            value = preferences.getString(key, "");
+        disableDependedPref(key, value);
+    }
+
     private void updateSharedPreference()
     {
         Log.e("------ ProfilePreferencesFragment", "updateSharedPreference");
@@ -903,55 +925,55 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
             // updating activity with selected profile preferences
 
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS, "");
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
 
             if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             {
-                setSummary(GlobalData.PREF_PROFILE_NAME, profile._name);
-                setSummary(GlobalData.PREF_PROFILE_DURATION, profile._duration);
-                setSummary(GlobalData.PREF_PROFILE_AFTER_DURATION_DO, profile._afterDurationDo);
+                setSummary(GlobalData.PREF_PROFILE_NAME);
+                setSummary(GlobalData.PREF_PROFILE_DURATION);
+                setSummary(GlobalData.PREF_PROFILE_AFTER_DURATION_DO);
             }
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, profile._volumeRingerMode);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, profile._volumeZenMode);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_RINGTONE, profile._soundRingtone);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, profile._soundNotification);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_ALARM, profile._soundAlarm);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_WIFI, profile._deviceWiFi);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, profile._deviceBluetooth);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, profile._deviceMobileData);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_GPS, profile._deviceGPS);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC, profile._deviceAutosync);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_NFC, profile._deviceNFC);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, profile._deviceKeyguard);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, profile._volumeNotification);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_MEDIA, profile._volumeMedia);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_ALARM, profile._volumeAlarm);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_SYSTEM, profile._volumeSystem);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_VOICE, profile._volumeVoice);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-            setSummary(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, profile._vibrationOnTouch);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, profile._deviceWiFiAP);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE);
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
+            setSummary(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+            setSummary(GlobalData.PREF_PROFILE_SOUND_RINGTONE);
+            setSummary(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+            setSummary(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION);
+            setSummary(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE);
+            setSummary(GlobalData.PREF_PROFILE_SOUND_ALARM);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_WIFI);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_GPS);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_NFC);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD);
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGTONE);
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_MEDIA);
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_ALARM);
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_SYSTEM);
+            setSummary(GlobalData.PREF_PROFILE_VOLUME_VOICE);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS);
+            setSummary(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
 
             // disable depended preferences
-            disableDependedPref(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
-            disableDependedPref(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
-            disableDependedPref(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
-            disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
-            disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
-            disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, profile._deviceWiFiAP);
+            disableDependedPref(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+            disableDependedPref(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+            disableDependedPref(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE);
+            disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+            disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+            disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
 
         }
     }

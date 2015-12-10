@@ -84,6 +84,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         //prefMng = getPreferenceManager();
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);
+        //Log.e("------------- EventPreferencesFragment", prefMng.getSharedPreferencesName());
 
         //if (savedInstanceState == null)
         //    loadPreferences();
@@ -248,7 +249,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 
             // updating activity with selected event preferences
 
-            event.setAllSummary(prefMng, context);
+            event.setAllSummary(prefMng, preferences, context);
 
         }
     }

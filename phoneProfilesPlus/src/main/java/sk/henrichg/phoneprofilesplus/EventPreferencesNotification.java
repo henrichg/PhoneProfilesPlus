@@ -128,10 +128,10 @@ public class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void setAllSummary(PreferenceManager prefMng, Context context)
+    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, _applications, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, Integer.toString(_duration), context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
     }
 
     @Override
