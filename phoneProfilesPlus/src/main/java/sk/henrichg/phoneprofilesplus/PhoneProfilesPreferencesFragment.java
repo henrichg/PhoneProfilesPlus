@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
@@ -23,7 +22,6 @@ import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
-import android.widget.ListView;
 
 import com.fnp.materialpreferences.PreferenceFragment;
 
@@ -70,7 +68,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         //addPreferencesFromResource(R.xml.phone_profiles_preferences);
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
-        Log.e("------- PhoneProfilesPreferencesFragment", "extraScrollTo=" + extraScrollTo);
+        //Log.e("------- PhoneProfilesPreferencesFragment", "extraScrollTo=" + extraScrollTo);
         //extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
 
         updateSharedPreference();
