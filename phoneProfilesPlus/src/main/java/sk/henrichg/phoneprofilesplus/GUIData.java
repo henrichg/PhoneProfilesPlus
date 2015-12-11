@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Handler;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -15,6 +16,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 
+import java.lang.reflect.Method;
 import java.text.Collator;
 import java.util.Locale;
 
@@ -224,5 +226,27 @@ public class GUIData {
         }
     }
 
+    public static void registerOnActivityDestroyListener(Preference preference, PreferenceManager.OnActivityDestroyListener listener) {
+        try {
+            PreferenceManager pm = preference.getPreferenceManager();
+            Method method = pm.getClass().getDeclaredMethod(
+                    "registerOnActivityDestroyListener",
+                    PreferenceManager.OnActivityDestroyListener.class);
+            method.setAccessible(true);
+            method.invoke(pm, listener);
+        } catch (Exception ignored) {
+        }
+    }
 
+    public static void unregisterOnActivityDestroyListener(Preference preference, PreferenceManager.OnActivityDestroyListener listener) {
+        try {
+            PreferenceManager pm = preference.getPreferenceManager();
+            Method method = pm.getClass().getDeclaredMethod(
+                    "unregisterOnActivityDestroyListener",
+                    PreferenceManager.OnActivityDestroyListener.class);
+            method.setAccessible(true);
+            method.invoke(pm, listener);
+        } catch (Exception ignored) {
+        }
+    }
 }

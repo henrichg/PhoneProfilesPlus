@@ -1390,10 +1390,6 @@ public class ActivateProfileHelper {
 
     }
 
-
-
-    @SuppressLint("NewApi")
-    @SuppressWarnings("deprecation")
     private boolean isAirplaneMode(Context context)
     {
         if (android.os.Build.VERSION.SDK_INT >= 17)

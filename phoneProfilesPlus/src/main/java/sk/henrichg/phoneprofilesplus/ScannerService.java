@@ -76,6 +76,16 @@ public class ScannerService extends IntentService
 
         GlobalData.loadPreferences(context);
 
+        // for Airplane mode ON, no scan
+        if (android.os.Build.VERSION.SDK_INT >= 17) {
+            if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0)
+                return;
+        }
+        else {
+            if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0)
+                return;
+        }
+
         // check power save mode
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode) {

@@ -1,9 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
@@ -30,6 +32,7 @@ public class BrightnessDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
     Context _context = null;
+    MaterialDialog mDialog;
 
     // Layout widgets.
     private SeekBar seekBar = null;
@@ -78,15 +81,17 @@ public class BrightnessDialogPreference extends
 
         _defaultProfile = GlobalData.getDefaultProfile(_context);
 
-        savedBrightness = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 128);
-        savedBrightnessMode = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-        if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-            savedAdaptiveBrightness = Settings.System.getFloat(_context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
-
     }
 
     @Override
     protected void showDialog(Bundle state) {
+        if (state == null) {
+            savedBrightness = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 128);
+            savedBrightnessMode = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+            if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+                savedAdaptiveBrightness = Settings.System.getFloat(_context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
+        }
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
@@ -148,17 +153,32 @@ public class BrightnessDialogPreference extends
 
         mBuilder.customView(layout, false);
 
-        MaterialDialog mDialog = mBuilder.build();
+        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
+
+        GUIData.registerOnActivityDestroyListener(this, this);
+
         mDialog.setOnDismissListener(this);
+
+        if (state != null)
+            mDialog.onRestoreInstanceState(state);
+
         mDialog.show();
+    }
+
+    @Override
+    public Dialog getDialog() {
+        return mDialog;
     }
 
     @Override
     public void onDismiss(DialogInterface dialog)
     {
+        super.onDismiss(dialog);
+        GUIData.unregisterOnActivityDestroyListener(this, this);
+
         if (Permissions.checkScreenBrightness(_context)) {
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
@@ -172,6 +192,13 @@ public class BrightnessDialogPreference extends
         else
             layoutParams.screenBrightness = savedBrightness / (float) 255;
         win.setAttributes(layoutParams);
+    }
+
+    @Override
+    public void onActivityDestroy() {
+        super.onActivityDestroy();
+        if (mDialog != null && mDialog.isShowing())
+            mDialog.dismiss();
     }
 
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -427,7 +454,7 @@ public class BrightnessDialogPreference extends
                 Command command = new Command(0, false, command1); //, command2);
                 try {
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command);
+                    //commandWait(command);
                     //RootTools.closeAllShells();
                 } catch (Exception e) {
                     Log.e("BrightnessDialogPreference.setAdaptiveBrightness", "Error on run su: " + e.toString());
@@ -474,8 +501,19 @@ public class BrightnessDialogPreference extends
             return superState;
         }*/
 
-        // ulozenie istance state
         final SavedState myState = new SavedState(superState);
+
+        Dialog dialog = getDialog();
+        if (dialog == null || !dialog.isShowing()) {
+            //myState.isDialogShowing = superState.isDialogShowing;
+            //myState.dialogBundle = dialogBundle;
+        }
+        else {
+            myState.isDialogShowing = true;
+            myState.dialogBundle = dialog.onSaveInstanceState();
+        }
+
+        // ulozenie instance state
         myState.value = value;
         myState.noChange = noChange;
         myState.automatic = automatic;
@@ -504,6 +542,12 @@ public class BrightnessDialogPreference extends
         defaultProfile = myState.defaultProfile;
         disableDefaultProfile = myState.disableDefaultProfile;
 
+        // nezobrazovat dialog, lebo je volany z NestedFragmentu a akoby sa otvoril 2x
+        // Ta ista chyba je aj v MaterilaDialogPreference
+        //if (myState.isDialogShowing) {
+        //    showDialog(myState.dialogBundle);
+        //}
+
         setSummaryBDP();
         notifyChanged();
     }
@@ -511,6 +555,8 @@ public class BrightnessDialogPreference extends
     // SavedState class
     private static class SavedState extends BaseSavedState
     {
+        boolean isDialogShowing;
+        Bundle dialogBundle;
         public int value = 0;
         public int noChange = 0;
         public int automatic = 0;
@@ -521,7 +567,9 @@ public class BrightnessDialogPreference extends
         {
             super(source);
 
-            // restore profileId
+            isDialogShowing = source.readInt() == 1;
+            dialogBundle = source.readBundle();
+
             value = source.readInt();
             noChange = source.readInt();
             automatic = source.readInt();
@@ -534,7 +582,9 @@ public class BrightnessDialogPreference extends
         {
             super.writeToParcel(dest, flags);
 
-            // save profileId
+            dest.writeInt(isDialogShowing ? 1 : 0);
+            dest.writeBundle(dialogBundle);
+
             dest.writeInt(value);
             dest.writeInt(noChange);
             dest.writeInt(automatic);

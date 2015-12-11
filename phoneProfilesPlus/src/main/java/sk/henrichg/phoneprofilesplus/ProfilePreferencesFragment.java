@@ -115,8 +115,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
     @Override
     public int addPreferencesFromResource() {
-        Log.e("******** ProfilePreferenceFragment", "startupSource=" + startupSource);
-
         if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             return R.xml.default_profile_preferences;
         else
@@ -315,9 +313,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             String defaultValue =
                     getResources().getString(
                             GlobalData.getResourceId(preference.getKey(), "string", context));
-            //Log.e("------ ProfilePreferencesFragment","preferenceChanged  key="+key);
-            //Log.e("------ ProfilePreferencesFragment","preferenceChanged  defaultValue="+defaultValue);
-            //Log.e("------ ProfilePreferencesFragment","preferenceChanged  value="+preferences.getString(preference.getKey(), defaultValue));
             if (preference instanceof VolumeDialogPreference) {
                 if (VolumeDialogPreference.changeEnabled(preferences.getString(preference.getKey(), defaultValue)))
                     title = preference.getTitle().toString();
@@ -831,8 +826,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         {
             Preference preference = prefMng.findPreference(key);
             String sValue = value.toString();
-            Log.e("------ ProfilePreferencesFragment", "setSummary key="+key);
-            Log.e("------ ProfilePreferencesFragment", "setSummary sValue="+sValue);
             boolean change = VolumeDialogPreference.changeEnabled(sValue);
             GUIData.setPreferenceTitleStyle(preference, change, false, false);
             setCategorySummary(preference, change);
@@ -918,8 +911,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
     private void updateSharedPreference()
     {
-        Log.e("------ ProfilePreferencesFragment", "updateSharedPreference");
-
         if (profile != null)
         {
 
