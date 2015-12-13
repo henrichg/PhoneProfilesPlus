@@ -224,9 +224,6 @@
   <string name="default_profile_name_meeting">Vergadering</string>
   <string name="default_profile_name_sleep">Slapen</string>
   <string name="phone_profiles_pref_applicationAutoCloseDrawer">Navigatiebalk automatisch verbergen</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title">App. gegevens importeren</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title2">Importeren uit PhoneProfiles</string>
-  <string name="import_profiles_from_phoneprofiles_alert_message">Importeren uit PhoneProfiles?</string>
   <string name="alert_button_yes">Ja</string>
   <string name="alert_button_no">Nee</string>
   <string name="profile_preferences_deviceAutoRotation">Scherm rotatie</string>
@@ -510,7 +507,7 @@ Toch activeren?</string>
   <string name="array_pref_ringerModeArray_silentL">Prioriteitsmodus</string>
   <string name="info_notification_silent_mode_lollipop_rename">Stille beltoon modus is gewijzigd in Prioriteitsmodus.</string>
   <string name="info_notification_silent_mode_lollipop">Prioriteitsmodus: voor het simuleren van stille modus, volume voor beltoon en meldingen in profiel wijzigen naar minimaal (0).</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Wanneer uw Apparaat automatisch op trillen gaat bij de laagste bel en meldingen volume (0), wordt toepassing volume automatisch ingesteld op 1. U kunt beltoon en meldingen optie \"Stille Telefoon profiel\" gebruiken voor volledige stilte.</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">Wanneer uw Apparaat automatisch op trillen gaat bij de laagste bel en meldingen volume (0), wordt toepassing volume automatisch ingesteld op 1. U kunt beltoon en meldingen optie \"PhoneProfiles Silent\" gebruiken voor volledige stilte.</string>
   <string name="menu_import_export">Import/Export</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minutes</string>
   <string name="info_notification_event_not_started">Event is not started when:\n1. You have disabled global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".\n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
@@ -629,4 +626,12 @@ Toch activeren?</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
   <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (sec)</string>
+  <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi scanning</string>
+  <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth scanning</string>
+  <string name="profile_preferences_category_activation_duration">Activation duration</string>
+  <string name="profile_preferences_category_sound_profile">Sound profile</string>
+  <string name="profile_preferences_category_radios">Radios</string>
+  <string name="profile_preferences_category_screen">Screen</string>
+  <string name="profile_preferences_category_others">Others</string>
+  <string name="event_preferences_category_startofeventOthers">Other parameters</string>
 </resources>

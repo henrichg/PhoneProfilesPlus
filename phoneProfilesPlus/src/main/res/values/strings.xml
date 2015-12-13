@@ -225,9 +225,6 @@
     <string name="default_profile_name_meeting">Meeting</string>
     <string name="default_profile_name_sleep">Sleep</string>
     <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide navig.drawer</string>
-    <string name="import_profiles_from_phoneprofiles_alert_title">Import app. data</string>
-    <string name="import_profiles_from_phoneprofiles_alert_title2">Import from PhoneProfiles</string>
-    <string name="import_profiles_from_phoneprofiles_alert_message">Import from PhoneProfiles?</string>
     <string name="alert_button_yes">Yes</string>
     <string name="alert_button_no">No</string>
     <string name="profile_preferences_deviceAutoRotation">Display rotation</string>

@@ -224,9 +224,6 @@
   <string name="default_profile_name_meeting">Reunió</string>
   <string name="default_profile_name_sleep">Dormir</string>
   <string name="phone_profiles_pref_applicationAutoCloseDrawer">Amaga automàticament dissenyador del navegador</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title">Importar dades de l\'applicació</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title2">Importació de PhoneProfiles</string>
-  <string name="import_profiles_from_phoneprofiles_alert_message">Importació de PhoneProfiles?</string>
   <string name="alert_button_yes">Si</string>
   <string name="alert_button_no">No</string>
   <string name="profile_preferences_deviceAutoRotation">Rotació de pantalla</string>
@@ -509,7 +506,7 @@
   <string name="array_pref_ringerModeArray_silentL">Mode de prioritat</string>
   <string name="info_notification_silent_mode_lollipop_rename">Mode en silenci es re-nombrat al  mode prioritat.</string>
   <string name="info_notification_silent_mode_lollipop">Mode de prioritat: per simular mode silenciós, canviar el volum, del so i de les notificacions, en el perfil pel mínim (0).</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Quan el seu dispositiu estableix la vibració al mínim, volum (0), l\'aplicació defineix el volum a 1. Pot utilitzar so i notificació \"PhoneProfiles silenci\" per silenci absolut.</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">Quan el seu dispositiu estableix la vibració al mínim, volum (0), l\'aplicació defineix el volum a 1. Pot utilitzar so i notificació \"PhoneProfiles Silent\" per silenci absolut.</string>
   <string name="menu_import_export">Importa/exporta</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minuts</string>
   <string name="info_notification_event_not_started">Esdeveniment no s\'executa quan: \n1. Heu inhabilitat l\'execució esdeveniments  globals(\"semàfor vermell\") - habilitar-los al menú d\'Editor, opció \"Permetre executar esdeveniments\". \n2. Heu activat manualment el perfil (\"semàfor taronja\") - cal que re-inicieu els esdeveniments. Utilitza la icona Reprendre esdeveniments des de les opcions Activador, Editor o Notificació. L\'activació manual del Perfil està indicat també amb \"[M]\" davant del nom del perfil. L\'Excepció d\'això és, quan l\'esdeveniment ha marcat la preferència \"ignora activació manual\". \n3. Heu inhabilitat l\'execució de l\'esdeveniment en preferències de l\'esdeveniment - preferència d\'esdeveniment \"Permetre executar\" ha d\'estar marcada. \nNota: \"Semàfor\" és al títol de l\'Activador i al Editor.</string>
@@ -628,4 +625,12 @@
   <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
   <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (sec)</string>
+  <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi scanning</string>
+  <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth scanning</string>
+  <string name="profile_preferences_category_activation_duration">Activation duration</string>
+  <string name="profile_preferences_category_sound_profile">Sound profile</string>
+  <string name="profile_preferences_category_radios">Radios</string>
+  <string name="profile_preferences_category_screen">Screen</string>
+  <string name="profile_preferences_category_others">Others</string>
+  <string name="event_preferences_category_startofeventOthers">Other parameters</string>
 </resources>

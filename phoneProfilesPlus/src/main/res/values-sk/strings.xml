@@ -224,9 +224,6 @@
   <string name="default_profile_name_meeting">Porada</string>
   <string name="default_profile_name_sleep">Spánok</string>
   <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-schovnie navig.panelu</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title">Import apl. dát</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title2">Importovať z PhoneProfiles</string>
-  <string name="import_profiles_from_phoneprofiles_alert_message">Importovať z PhoneProfiles?</string>
   <string name="alert_button_yes">Áno</string>
   <string name="alert_button_no">Nie</string>
   <string name="profile_preferences_deviceAutoRotation">Rotácia displeja</string>
@@ -604,7 +601,7 @@
   <string name="permissions_for_calendar_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa zobrazí zoznam kalendárov.</string>
   <string name="permissions_for_contacts_dialog_text1">Prístup k zozname kontaktov vyžaduje niektoré povolenia.</string>
   <string name="permissions_for_contacts_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa zobrazí zoznam kontaktov.</string>
-  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Skenovanie Wi-Fi - nastavenia sustému</string>
+  <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Skenovanie Wi-Fi - nastavenia systému</string>
   <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Prosím, zapnite Polohu a skenovanie Wi-Fi v nastaveniach systému. Bez toho Wi-fi skenovanie nebude fungovať.</string>
   <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Skenovanie Bluetooth - nastavenia systému</string>
   <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Prosím, zapnite Polohu a skenovanie Bluetooth v nastaveniach systému. Bez toho, skenovanie Bluetooth nebude fungovať.</string>
@@ -628,4 +625,12 @@
   <string name="array_event_pref_bluetoothDevicesType_classic">Klasické [CL]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Nízkoenergetické [LE]</string>
   <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Trvanie skenovania Bluetooth LE (sek.)</string>
+  <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi skenovanie</string>
+  <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth skenovanie</string>
+  <string name="profile_preferences_category_activation_duration">Trvanie aktivácie</string>
+  <string name="profile_preferences_category_sound_profile">Zvukové profily</string>
+  <string name="profile_preferences_category_radios">Rádiá</string>
+  <string name="profile_preferences_category_screen">Obrazovka</string>
+  <string name="profile_preferences_category_others">Ostatné</string>
+  <string name="event_preferences_category_startofeventOthers">Ostatné parametre</string>
 </resources>

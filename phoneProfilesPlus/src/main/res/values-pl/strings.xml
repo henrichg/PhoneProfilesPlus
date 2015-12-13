@@ -224,9 +224,6 @@
   <string name="default_profile_name_meeting">Spotkanie</string>
   <string name="default_profile_name_sleep">Sen</string>
   <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto ukrywanie szuflady nawigacji</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title">Import danych</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title2">Import z PhoneProfiles</string>
-  <string name="import_profiles_from_phoneprofiles_alert_message">Zaimportować z PhoneProfiles?</string>
   <string name="alert_button_yes">Tak</string>
   <string name="alert_button_no">Nie</string>
   <string name="profile_preferences_deviceAutoRotation">Obrót ekranu</string>
@@ -509,7 +506,7 @@
   <string name="array_pref_ringerModeArray_silentL">Tryb priorytetu</string>
   <string name="info_notification_silent_mode_lollipop_rename">Tryb Cichy dzwonka jest przemianowany na tryb Priorytetu.</string>
   <string name="info_notification_silent_mode_lollipop">Tryb priorytetu: Aby zasymulować tryb cichy, zmień głośność dzwonka oraz powiadomień w profilu na minimalne (0).</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Gdy urządzenie ustawia wibrację na minimalny dzwonek lub głośność powiadomienia (0), aplikacja ustawia głośność na 1. Można użyć dźwięku dzwonka i powiadomienia \"PhoneProfiles Wycisz\" dla pełnego wyciszenia.</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">Gdy urządzenie ustawia wibrację na minimalny dzwonek lub głośność powiadomienia (0), aplikacja ustawia głośność na 1. Można użyć dźwięku dzwonka i powiadomienia \"PhoneProfiles Silent\" dla pełnego wyciszenia.</string>
   <string name="menu_import_export">Import/Eksport</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minut</string>
   <string name="info_notification_event_not_started">Zdarzenie nie zostanie rozpoczęte gdy: \n1. Wyłączyłeś działanie globalnych zdarzeń (czerwony \"sygnalizacja świetlna\") - właczw menu Edytor z przedmiotu \"Włącz zdarzenia uruchomić\". \n2. Ręcznie uaktywniono profil (pomarańczowy \"sygnalizacja świetlna\") - należy ponownie uruchomić zdarzenia. Używać ikona Restart zdarzeń w tytule aktywator, redaktor lub w zgłoszeniu. Ręcznie aktywny profil jest wskazane także z \"[M]\" przed nazwą profilu. Wyjątek od tego jest, gdy zdarzenie ma sprawdzone preferencji \"Ignoruj instrukcja aktywacji\". \n3. Wyłączono zdarzenie uruchamiane w przypadku preferencji - zdarzenie preferencji \"Włącz Uruchom\" musi przez sprawdzane. \nNote: \"Sygnalizacja świetlna\" jest w tytule aktywator i redaktor.</string>
@@ -628,4 +625,12 @@
   <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
   <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (sec)</string>
+  <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi scanning</string>
+  <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth scanning</string>
+  <string name="profile_preferences_category_activation_duration">Activation duration</string>
+  <string name="profile_preferences_category_sound_profile">Sound profile</string>
+  <string name="profile_preferences_category_radios">Radios</string>
+  <string name="profile_preferences_category_screen">Screen</string>
+  <string name="profile_preferences_category_others">Others</string>
+  <string name="event_preferences_category_startofeventOthers">Other parameters</string>
 </resources>

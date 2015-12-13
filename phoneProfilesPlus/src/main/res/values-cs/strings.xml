@@ -224,9 +224,6 @@
   <string name="default_profile_name_meeting">Porada</string>
   <string name="default_profile_name_sleep">Spánek</string>
   <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-skrytí navig.panelu</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title">Import apl. dat</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title2">Importovat z PhoneProfiles</string>
-  <string name="import_profiles_from_phoneprofiles_alert_message">Importovat z PhoneProfiles?</string>
   <string name="alert_button_yes">Ano</string>
   <string name="alert_button_no">Ne</string>
   <string name="profile_preferences_deviceAutoRotation">Rotace displeje</string>
@@ -516,7 +513,7 @@
   <string name="important_info_profiles">Profily</string>
   <string name="important_info_events">Události</string>
   <string name="important_info_system">Systém</string>
-  <string name="important_info_profile_root">Některé parametry profilu vyžadují práva ROOT. Tyto parametry jsou označena jako \"(R)\".</string>
+  <string name="important_info_profile_root">Některé parametry profilu vyžadují práva ROOT. Tyto parametry jsou označeny jako \"(R)\".</string>
   <string name="important_info_profile_pphelper">Některé parametry profilu vyžadují nainstalovaný PPHelper. Tyto parametry jsou označeny jako \"(H)\".</string>
   <string name="important_info_pphelper_installation">Instalace PPHelper vyžaduje práva ROOT. Instalaci vyvoláte v Editoru přes položku menu \"Nainstaluj PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spustit pouze pokud je activ. profil</string>
@@ -621,11 +618,19 @@
   <string name="array_pref_powerSaveMode_15">Zapnout při 15 % baterie</string>
   <string name="important_info_profile_ringerMode_root">V Androidu 6 (Marshmallow) není možné změnit nastavení \"Vibrovat při zvonění\" pokud nemáte práva ROOT.</string>
   <string name="important_info_profile_adaptiveBrightness_root">V Androidu 6 (Marshmallow) není možné měnit úrovně \"Adaptivní jas\" pokud nemáte práva ROOT.</string>
-  <string name="important_info_profile_wifiScanning_location">In Android 6 (Marshmallow), for Wi-Fi scanning must be enabled Loaction and \"Wi-Fi scanning\" in Loaction settings.</string>
-  <string name="important_info_profile_bluetoothScanning_location">In Android 6 (Marshmallow), for Bluetooth LE scanning must be enabled Loaction and \"Bluetooth scanning\" in Loaction settings.</string>
-  <string name="profile_preferences_devicePowerSaveMode">Power save mode</string>
-  <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>
-  <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
-  <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (sec)</string>
+  <string name="important_info_profile_wifiScanning_location">V Android 6 (Marshmallow), pro skenování Wifi musí být povolena Poloha a \"Vyhledávání sítí Wi-fi\" na nastaveních Polohy.</string>
+  <string name="important_info_profile_bluetoothScanning_location">V Android 6 (Marshmallow), pro Bluetooth LE skenování musí být povolena Poloha a \"Hledání zařízení Bluetooth\" v nastavení Polohy.</string>
+  <string name="profile_preferences_devicePowerSaveMode">Úsporný režim</string>
+  <string name="event_preferences_bluetooth_devices_type">Skenované typy zařízení</string>
+  <string name="array_event_pref_bluetoothDevicesType_classic">Klasické [CE]</string>
+  <string name="array_event_pref_bluetoothDevicesType_le">Nízkoenergetické [LE]</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Trvání skenování Bluetooth LE (sek.)</string>
+  <string name="phone_profiles_pref_category_wifi_scanning">Skenování Wi-fi</string>
+  <string name="phone_profiles_pref_category_bluetooth_scanning">Skenování Bluetooth</string>
+  <string name="profile_preferences_category_activation_duration">Trvání aktivace</string>
+  <string name="profile_preferences_category_sound_profile">Zvukové profily</string>
+  <string name="profile_preferences_category_radios">Rádia</string>
+  <string name="profile_preferences_category_screen">Obrazovka</string>
+  <string name="profile_preferences_category_others">Ostatní</string>
+  <string name="event_preferences_category_startofeventOthers">Ostatní parametry</string>
 </resources>
