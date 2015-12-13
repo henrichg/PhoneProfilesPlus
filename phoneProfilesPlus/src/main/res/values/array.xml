@@ -73,6 +73,7 @@
     <item>@string/phone_profiles_pref_applicationLanguage_sk</item>
     <item>@string/phone_profiles_pref_applicationLanguage_sv_SE</item>
     <item>@string/phone_profiles_pref_applicationLanguage_uk</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_he</item>
 </string-array>
 <string-array name="languageValues">
     <item>@string/array_pref_value_system</item>
@@ -90,6 +91,7 @@
     <item>@string/array_pref_value_sk</item>
     <item>@string/array_pref_value_sv_SE</item>
     <item>@string/array_pref_value_uk</item>
+    <item>@string/array_pref_value_he</item>
 </string-array>
 <string-array name="notificationIconStyleArray">
     <item>@string/phone_profiles_pref_notificationStatusBarStyle_color</item>
