@@ -38,7 +38,7 @@
     
     <ImageView
         android:id="@+id/act_prof_list_profile_pref_indicator"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_below="@+id/act_prof_list_item_profile_name"
         android:layout_toRightOf="@+id/act_prof_list_item_profile_icon"
