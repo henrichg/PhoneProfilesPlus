@@ -84,17 +84,17 @@
 
         <ImageView
             android:id="@+id/profile_list_item_show_in_activator"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_below="@+id/profile_list_item_profile_name"
             android:layout_toRightOf="@+id/profile_list_item_profile_icon"
             android:layout_toEndOf="@+id/profile_list_item_profile_icon"
             android:adjustViewBounds="true"
             android:contentDescription="@string/empty_string"
-            android:scaleType="fitStart"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_profile_activated"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp" />
 
     </RelativeLayout>
     

@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        android:scaleType="fitStart"
+        android:scaleType="@integer/profilePrefIndicatorScaleType"
         android:src="@drawable/ic_profile_default"
         android:contentDescription="@string/empty_string"/>
 

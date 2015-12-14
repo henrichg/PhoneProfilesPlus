@@ -48,7 +48,7 @@
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/empty_string"
-            android:scaleType="fitStart"
+            android:scaleType="@integer/profilePrefIndicatorScaleType"
             android:src="@drawable/ic_event_status_stop"
             android:paddingLeft="2dp"
             android:paddingStart="2dp"

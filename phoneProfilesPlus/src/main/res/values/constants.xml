@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="api_v18">false</bool>
+    <integer name="profilePrefIndicatorScaleType">2</integer>
 </resources>
