@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_centerVertical="true"
         android:checked="false"
         android:focusable="false"
@@ -19,7 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/bluetooth_name_pref_dlg_item_radiobtn"
+        android:layout_toEndOf="@+id/bluetooth_name_pref_dlg_item_radiobtn"
         android:paddingLeft="3dp"
+        android:paddingStart="3dp"
         android:text="@string/empty_string"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     

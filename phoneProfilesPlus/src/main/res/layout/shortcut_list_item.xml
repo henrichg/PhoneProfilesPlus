@@ -12,7 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string"
         android:maxHeight="40dp"
@@ -26,7 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/shortcut_list_item_profile_icon"
+        android:layout_toEndOf="@+id/shortcut_list_item_profile_icon"
         android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:text="@string/profile_name_default"
         android:textSize="15sp"
         android:singleLine="true" />
@@ -37,11 +41,13 @@
         android:layout_height="15dp"
         android:layout_below="@+id/shortcut_list_item_profile_name"
         android:layout_toRightOf="@+id/shortcut_list_item_profile_icon"
+        android:layout_toEndOf="@+id/shortcut_list_item_profile_icon"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string"
         android:scaleType="fitStart"
         android:src="@drawable/ic_profile_pref_volume_on"
-        android:paddingLeft="10dp" />
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp" />
     
         
 </RelativeLayout>

@@ -26,7 +26,8 @@
             android:id="@+id/duration_pref_dlg_hours"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp" />
         <TextView
             android:layout_width="15dp"
             android:layout_height="wrap_content"
@@ -53,7 +54,8 @@
             android:id="@+id/duration_pref_dlg_seconds"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp" />
 
     </LinearLayout>
 

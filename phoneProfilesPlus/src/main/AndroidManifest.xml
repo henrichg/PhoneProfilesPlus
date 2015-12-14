@@ -81,6 +81,7 @@
     <application
         android:name=".GlobalData"
         android:allowBackup="true"
+        android:supportsRtl="true"
         android:configChanges="locale|layoutDirection"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">

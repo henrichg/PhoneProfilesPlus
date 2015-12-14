@@ -8,7 +8,7 @@
     tools:context=".ActivateProfileActivity" >
 
     <LinearLayout
-		android:id="@+id/act_prof_linlayout_header"
+        android:id="@+id/act_prof_linlayout_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -18,79 +18,85 @@
         android:orientation="vertical"
         android:padding="5dp" >
     
-		<RelativeLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:orientation="horizontal"
-		    android:padding="1dp" >
-		
-		    <ImageView
-		        android:id="@+id/act_prof_activated_profile_icon"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_centerVertical="true"
-		        android:adjustViewBounds="true"
-		        android:contentDescription="@string/empty_string"
-		        android:maxHeight="40dp"
-		        android:maxWidth="40dp"
-		        android:scaleType="centerCrop"
-		        android:src="@drawable/ic_profile_default" />
-		    
-		    <TextView
-		        android:id="@+id/act_prof_activated_profile_name"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentTop="true"
-		        android:layout_marginLeft="3dp"
-		        android:layout_toRightOf="@+id/act_prof_activated_profile_icon"
-		        android:paddingLeft="10dp"
-		        android:text="@string/profile_name_default"
-		        android:textSize="15sp"
-		        android:textStyle="bold"
-		        android:singleLine="true" />
-		
-		    <ImageView
-		        android:id="@+id/act_prof_activated_profile_activated"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentTop="true"
-		        android:layout_alignParentRight="true"
-		        android:adjustViewBounds="true"
-		        android:contentDescription="@string/empty_string"
-		        android:maxHeight="20dp"
-		        android:maxWidth="20dp"
-		        android:scaleType="centerCrop"
-		        android:src="@drawable/ic_profile_activated" />
-		    
-		    <ImageView
-		        android:id="@+id/act_prof_activated_profile_pref_indicator"
-		        android:layout_width="200dp"
-		        android:layout_height="15dp"
-		        android:layout_below="@+id/act_prof_activated_profile_name"
-		        android:layout_toRightOf="@+id/act_prof_activated_profile_icon"
-		        android:adjustViewBounds="true"
-		        android:contentDescription="@string/empty_string"
-		        android:scaleType="fitStart"
-		        android:src="@drawable/ic_profile_pref_volume_on"
-		        android:paddingLeft="10dp" />
-		    		    
-		</RelativeLayout>
-		
-	</LinearLayout>		
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="1dp" >
+
+            <ImageView
+                android:id="@+id/act_prof_activated_profile_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/empty_string"
+                android:maxHeight="40dp"
+                android:maxWidth="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_profile_default" />
+
+            <TextView
+                android:id="@+id/act_prof_activated_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_toRightOf="@+id/act_prof_activated_profile_icon"
+                android:layout_toEndOf="@+id/act_prof_activated_profile_icon"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:text="@string/profile_name_default"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:singleLine="true" />
+
+            <ImageView
+                android:id="@+id/act_prof_activated_profile_activated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/empty_string"
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_profile_activated" />
+
+            <ImageView
+                android:id="@+id/act_prof_activated_profile_pref_indicator"
+                android:layout_width="200dp"
+                android:layout_height="15dp"
+                android:layout_below="@+id/act_prof_activated_profile_name"
+                android:layout_toRightOf="@+id/act_prof_activated_profile_icon"
+                android:layout_toEndOf="@+id/act_prof_activated_profile_icon"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/empty_string"
+                android:scaleType="fitStart"
+                android:src="@drawable/ic_profile_pref_volume_on"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
   
-	<GridView 
-	    android:id="@+id/act_prof_profiles_grid"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:padding="10dp"
+    <GridView
+        android:id="@+id/act_prof_profiles_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
         android:columnWidth="100dp"
-	    android:gravity="center"
-	    android:horizontalSpacing="5dp"
-	    android:verticalSpacing="5dp"
-	    android:numColumns="3"
-	    android:stretchMode="columnWidth"
-	    android:clipToPadding="false"
-    	android:scrollbarStyle="outsideOverlay"
+        android:gravity="center"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
         android:drawSelectorOnTop="true" />
     
 

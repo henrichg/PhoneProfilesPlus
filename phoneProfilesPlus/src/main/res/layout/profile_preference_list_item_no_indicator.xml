@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_centerVertical="true"
         android:checked="false"
         android:focusable="false"
@@ -19,7 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:layout_toRightOf="@+id/profile_pref_dlg_item_radiobtn"
+        android:layout_toEndOf="@+id/profile_pref_dlg_item_radiobtn"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string"
         android:maxHeight="40dp"
@@ -32,15 +35,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
         android:layout_centerVertical="true">
 
         <TextView
             android:id="@+id/profile_pref_dlg_item_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:paddingLeft="10dp"
+            android:paddingStart="10dp"
             android:text="@string/profile_name_default"
             android:textSize="15sp"
             android:singleLine="true" />

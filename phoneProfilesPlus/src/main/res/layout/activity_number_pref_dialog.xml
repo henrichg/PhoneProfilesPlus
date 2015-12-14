@@ -7,7 +7,6 @@
 
     <NumberPicker
         android:id="@+id/number_picker"
-        android:layout_centerInParent="true"
         android:layout_width="100dip"
         android:layout_height="match_parent" />
 

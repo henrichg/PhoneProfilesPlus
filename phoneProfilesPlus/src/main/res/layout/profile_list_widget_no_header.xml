@@ -5,28 +5,28 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-	<LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:orientation="vertical" >
-	
-	    <ListView
-	        android:id="@+id/widget_profile_list"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:padding="10dip"
-        	android:divider="@android:color/transparent"
-		    android:clipToPadding="false"
-    		android:scrollbarStyle="outsideOverlay" />
-	    
-	    <TextView
-		    android:id="@+id/widget_profiles_list_empty"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:text="@string/profile_list_empty"
-		    android:gravity="center"
-		    android:textSize="15sp" />
-	    	    
-	
-	</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/widget_profile_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:divider="@android:color/transparent"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay" />
+
+        <TextView
+            android:id="@+id/widget_profiles_list_empty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/profile_list_empty"
+            android:gravity="center"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
 </RelativeLayout>

@@ -10,6 +10,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
         android:contentDescription="@string/empty_string"
@@ -23,7 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/editor_drawer_list_item_icon"
+        android:layout_toEndOf="@+id/editor_drawer_list_item_icon"
         android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:ellipsize="end"
         android:singleLine="true" />
     
@@ -34,7 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editor_drawer_list_item_title"
         android:layout_toRightOf="@+id/editor_drawer_list_item_icon"
+        android:layout_toEndOf="@+id/editor_drawer_list_item_icon"
         android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceSmall" />    

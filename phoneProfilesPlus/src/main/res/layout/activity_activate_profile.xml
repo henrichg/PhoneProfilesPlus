@@ -8,49 +8,51 @@
     tools:context=".ActivatorActivity" >
  
     <LinearLayout 
-   		android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingBottom="3dp"
-    	android:orientation="vertical"
+        android:orientation="vertical"
         android:background="?attr/colorPrimary"
         android:elevation="8dp" >
 
-	    <android.support.v7.widget.Toolbar
-	        android:id="@+id/act_prof_tollbar"
-	        android:layout_width="match_parent"
-	        android:layout_height="?attr/actionBarSize"
-	        app:theme="?attr/toolbarTheme"
-    		app:popupTheme="?attr/toolbarPopupMenu" />
-	
-	    <android.support.v7.widget.Toolbar
-	        android:id="@+id/act_prof_subtollbar"
-	        android:layout_width="match_parent"
-	        android:layout_height="25dp"
-	        android:layout_marginTop="1dp" >
-	
-			<RelativeLayout
-			    android:layout_width="match_parent"
-			    android:layout_height="match_parent" >
-	        
-			    <ImageView
-			        android:id="@+id/act_prof_run_stop_indicator"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_alignParentRight="true"
-			        android:layout_centerVertical="true"
-			        android:layout_marginRight="10dp"
-			        android:adjustViewBounds="true"
-			        android:contentDescription="@string/empty_string"
-			        android:maxHeight="15dp"
-			        android:maxWidth="50dp"
-			        android:scaleType="centerCrop"
-			        android:src="@drawable/ic_run_events_indicator_stoppped" />
-			    
-			</RelativeLayout>
-	        
-	    </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/act_prof_tollbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:theme="?attr/toolbarTheme"
+            app:popupTheme="?attr/toolbarPopupMenu" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/act_prof_subtollbar"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="1dp" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <ImageView
+                    android:id="@+id/act_prof_run_stop_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/empty_string"
+                    android:maxHeight="15dp"
+                    android:maxWidth="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_run_events_indicator_stoppped" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
     
-	</LinearLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -10,7 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
         android:adjustViewBounds="true"
         android:padding="10dp"
         android:maxHeight="50dp"
@@ -26,8 +28,10 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="7dp"
-	    android:singleLine="true"
+        android:layout_marginStart="7dp"
+        android:singleLine="true"
         android:layout_toRightOf="@+id/profile_preferences_action_menu_cancel"
+        android:layout_toEndOf="@+id/profile_preferences_action_menu_cancel"
         android:text="@string/profile_name_default"
         style="?attr/actionProfileButtonTextStyle" />
     

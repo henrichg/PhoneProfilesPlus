@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:orientation="horizontal" >
 
             <ImageView
@@ -39,7 +40,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/profile_detail_buttons_root"
+            android:layout_toStartOf="@+id/profile_detail_buttons_root"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true" >
 
             <ImageView
@@ -48,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/empty_string"
                 android:maxHeight="40dp"
@@ -61,7 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/profile_detail_profile_icon"
+                android:layout_toEndOf="@+id/profile_detail_profile_icon"
                 android:paddingLeft="10dp"
+                android:paddingStart="10dp"
                 android:text="@string/profile_name_default"
                 android:textSize="15sp"
                 android:singleLine="true" />
@@ -72,11 +78,13 @@
                 android:layout_height="27dp"
                 android:layout_below="@+id/profile_detail_profile_name"
                 android:layout_toRightOf="@+id/profile_detail_profile_icon"
+                android:layout_toEndOf="@+id/profile_detail_profile_icon"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/empty_string"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_profile_activated"
-                android:paddingLeft="10dp" />
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp" />
 
             <ImageView
                 android:id="@+id/profile_detail_profile_pref_indicator"
@@ -84,11 +92,13 @@
                 android:layout_height="15dp"
                 android:layout_below="@+id/profile_detail_profile_name"
                 android:layout_toRightOf="@+id/profile_detail_show_in_activator"
+                android:layout_toEndOf="@+id/profile_detail_show_in_activator"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/empty_string"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_profile_pref_volume_on"
-                android:paddingLeft="10dp" />
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp" />
 
         </RelativeLayout>
 
