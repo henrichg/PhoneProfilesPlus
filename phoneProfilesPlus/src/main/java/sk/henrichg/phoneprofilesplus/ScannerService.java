@@ -82,7 +82,7 @@ public class ScannerService extends IntentService
                 return;
         }
         else {
-            if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0)
+            if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0)
                 return;
         }
 
