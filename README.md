@@ -12,3 +12,4 @@ Required external libs
 - SystemBarTint - https://github.com/jgilfelt/SystemBarTint
 - GSon - https://code.google.com/p/google-gson/
 - Material Dialogs - https://github.com/afollestad/material-dialogs
+- Material Preferences - https://github.com/ferrannp/material-preferences
