@@ -105,8 +105,8 @@ public class EventPreferencesFragment extends PreferenceFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
-        notificationSoundPreference.setEnabled(GlobalData.notificationStatusBar);
+        //RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
+        //notificationSoundPreference.setEnabled(GlobalData.notificationStatusBar);
 
         event._eventPreferencesTime.checkPreferences(prefMng, context);
         event._eventPreferencesBattery.checkPreferences(prefMng, context);

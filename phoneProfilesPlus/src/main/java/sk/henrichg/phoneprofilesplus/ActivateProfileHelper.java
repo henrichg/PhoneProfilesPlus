@@ -1173,8 +1173,18 @@ public class ActivateProfileHelper {
             // no refres notification
             return;
 
-        if (GlobalData.notificationStatusBar)
+        if ((GlobalData.notificationStatusBar) || (!eventNotificationSound.isEmpty()))
         {
+            boolean notificationShowInStatusBar = GlobalData.notificationShowInStatusBar;
+            boolean notificationStatusBarPermanent = GlobalData.notificationStatusBarPermanent;
+            boolean forceShow = false;
+
+            if (!notificationShowInStatusBar) {
+                notificationShowInStatusBar = true;
+                notificationStatusBarPermanent = false;
+                forceShow = true;
+            }
+
             // close showed notification
             //notificationManager.cancel(GlobalData.NOTIFICATION_ID);
 
@@ -1221,7 +1231,7 @@ public class ActivateProfileHelper {
                     .setContentIntent(pIntent);
 
             if (android.os.Build.VERSION.SDK_INT >= 16) {
-                if (GlobalData.notificationShowInStatusBar)
+                if (notificationShowInStatusBar)
                     notificationBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
                 else
                     notificationBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
@@ -1302,14 +1312,14 @@ public class ActivateProfileHelper {
 
             notification.contentView = contentView;
 
-            if (GlobalData.notificationStatusBarPermanent)
+            if (notificationStatusBarPermanent)
             {
                 //notification.flags |= Notification.FLAG_NO_CLEAR;
                 notification.flags |= Notification.FLAG_ONGOING_EVENT;
             }
             else
             {
-                setAlarmForNotificationCancel();
+                setAlarmForNotificationCancel(forceShow);
             }
             notificationManager.notify(GlobalData.PROFILE_NOTIFICATION_ID, notification);
         }
@@ -1325,10 +1335,16 @@ public class ActivateProfileHelper {
     }
 
     @SuppressLint("NewApi")
-    private void setAlarmForNotificationCancel()
+    private void setAlarmForNotificationCancel(boolean forceShow)
     {
-        if (GlobalData.notificationStatusBarCancel.isEmpty() || GlobalData.notificationStatusBarCancel.equals("0"))
-            return;
+        if (!forceShow) {
+            if (GlobalData.notificationStatusBarCancel.isEmpty() || GlobalData.notificationStatusBarCancel.equals("0"))
+                return;
+        }
+
+        int notificationStatusBarCancel = Integer.valueOf(GlobalData.notificationStatusBarCancel);
+        if (forceShow)
+            notificationStatusBarCancel = 3;
 
         Intent intent = new Intent(context, NotificationCancelAlarmBroadcastReceiver.class);
 
@@ -1337,7 +1353,7 @@ public class ActivateProfileHelper {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
         Calendar now = Calendar.getInstance();
-        long time = now.getTimeInMillis() + Integer.valueOf(GlobalData.notificationStatusBarCancel) * 1000;
+        long time = now.getTimeInMillis() + notificationStatusBarCancel * 1000;
         // not needed exact for removing notification
         /*if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
