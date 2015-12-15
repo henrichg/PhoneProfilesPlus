@@ -21,7 +21,6 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 
 import com.fnp.materialpreferences.PreferenceFragment;
 
