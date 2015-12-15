@@ -64,9 +64,14 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         boolean news = false;
         boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
 
         if (newsLatest) {
+            ;    // no news
+        }
+
+        if (news1804) {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 TextView infoText16 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text16);
                 infoText16.setVisibility(View.GONE);
