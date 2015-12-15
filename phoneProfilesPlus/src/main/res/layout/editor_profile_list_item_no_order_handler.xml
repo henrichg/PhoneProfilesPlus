@@ -36,7 +36,9 @@
             android:layout_toStartOf="@+id/profile_list_item_buttons_root"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true" >
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp" >
     
         <ImageView
             android:id="@+id/profile_list_item_profile_icon"
