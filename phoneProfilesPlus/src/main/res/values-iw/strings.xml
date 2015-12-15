@@ -224,9 +224,6 @@
   <string name="default_profile_name_meeting">פגישה</string>
   <string name="default_profile_name_sleep">שינה</string>
   <string name="phone_profiles_pref_applicationAutoCloseDrawer">הסתרה אוטומטית של מגירת הניווט</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title">ייבוא נתוני היישומון</string>
-  <string name="import_profiles_from_phoneprofiles_alert_title2">ייבוא מ-PhoneProfiles</string>
-  <string name="import_profiles_from_phoneprofiles_alert_message">לייבא מ-PhoneProfiles?</string>
   <string name="alert_button_yes">כן</string>
   <string name="alert_button_no">לא</string>
   <string name="profile_preferences_deviceAutoRotation">סיבוב התצוגה</string>
