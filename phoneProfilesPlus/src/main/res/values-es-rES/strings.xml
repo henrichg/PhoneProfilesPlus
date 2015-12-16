@@ -506,7 +506,7 @@
   <string name="array_pref_ringerModeArray_silentL">Modo prioritario</string>
   <string name="info_notification_silent_mode_lollipop_rename">El modo de silencio de llamadas ahora se llama modo Prioritario.</string>
   <string name="info_notification_silent_mode_lollipop">Modo de Prioridad: para simular el modo de silencio, pon al mínimo (0) el volumen de las llamadas y notificaciones en el perfil.</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Cuando tu dispositivo activa la vibración en el volumen mínimo (0) de llamada o notificación, la aplicación activa el volumen a 1. Puedes usar el tono de llamada y notificación \"PhoneProfiles Silent\" para silencio total.</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">Cuando tu dispositivo activa la vibración en el volumen mínimo (0) de llamada o notificación, la aplicación activa el volumen a 1. Puedes usar el tono de llamada y notificación \"PhoneProfiles Silencio\" para silencio total.</string>
   <string name="menu_import_export">Importar/Exportar</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minutos</string>
   <string name="info_notification_event_not_started">El evento no se inicia cuando:\n1. Has deshabilitado la ejecución global de eventos (\"semáforo\" en rojo) - actívalo desde el menú del Editor en la opción \"Activar ejecución de eventos\".\n2. Has activado manualmente el perfil (\"semáforo\" en ámbar) - debes reiniciar los eventos. Usa el icono de Reiniciar eventos en el título del Activador, Editor o en la notificación. Un perfil activado manualmente se indica también con \"[M]\" delante del nombre del perfil. Excepto cuando en el evento se ha activado la opción \"Ignorar activación automática\".\n3. Has deshabilitado la ejecución de eventos desde las preferencias de evento - la opción de evento \"Ejecutar eventos\" debe estar marcada.\n Nota: El \"Semáforo\" está en el título del Activador y en el Editor.</string>
@@ -633,4 +633,5 @@
   <string name="profile_preferences_category_screen">Screen</string>
   <string name="profile_preferences_category_others">Others</string>
   <string name="event_preferences_category_startofeventOthers">Other parameters</string>
+  <string name="phone_profiles_pref_applicationLanguage_he">עִברִית</string>
 </resources>

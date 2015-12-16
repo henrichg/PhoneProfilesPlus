@@ -633,4 +633,5 @@
   <string name="profile_preferences_category_screen">Obrazovka</string>
   <string name="profile_preferences_category_others">Ostatné</string>
   <string name="event_preferences_category_startofeventOthers">Ostatné parametre</string>
+  <string name="phone_profiles_pref_applicationLanguage_he">עִברִית</string>
 </resources>

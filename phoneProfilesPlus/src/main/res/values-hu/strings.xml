@@ -506,7 +506,7 @@
   <string name="array_pref_ringerModeArray_silentL">Prioritás mód</string>
   <string name="info_notification_silent_mode_lollipop_rename">Néma csengés mód átnevezve Elsőbbségi módra.</string>
   <string name="info_notification_silent_mode_lollipop">Elsőbbségi mód: néma üzemmód szimulálása, csengő- és értesítések hangereje a profilban minimális (0).</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Amikor az eszközön a beállítás rezegés, minimális csengő-,  vagy értesítési hangerő (0), az alkalmazás beállítja a hangerőt 1. Segítségével csengő- és értesítési hang \"PhoneProfiles Silent\" teljes csend.</string>
+  <string name="info_notification_minimal_ringer_and_notification_volumes">Amikor az eszközön a beállítás rezegés, minimális csengő-,  vagy értesítési hangerő (0), az alkalmazás beállítja a hangerőt 1. Segítségével csengő- és értesítési hang \"Csendes PhoneProfiles\" teljes csend.</string>
   <string name="menu_import_export">Importálás/exportálás</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 perc</string>
   <string name="info_notification_event_not_started">Esemény nem indul el akkor:\n1. Az összes esemény futtatását kikapcsoltad (piros \"lámpa\") - Ezt a Szerkeszttő menüben \"Esemény indítás engedélyezés\".\n2. Kézi aktiválás esetén az aktív profil mellett (\"Sárga lámpa\") - az esemény újra indítása szükséges. Használt az esemény újra indítás ikont a Profilokban, Szerkesztőben vagy az eseményekben. Kézzel aktivált profil jelzése \"[M]\" a profil neve előtt. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
@@ -633,4 +633,5 @@
   <string name="profile_preferences_category_screen">Screen</string>
   <string name="profile_preferences_category_others">Others</string>
   <string name="event_preferences_category_startofeventOthers">Other parameters</string>
+  <string name="phone_profiles_pref_applicationLanguage_he">עִברִית</string>
 </resources>
