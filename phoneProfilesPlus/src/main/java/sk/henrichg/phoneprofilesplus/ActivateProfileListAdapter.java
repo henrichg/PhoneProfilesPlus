@@ -154,13 +154,13 @@ public class ActivateProfileListAdapter extends BaseAdapter
         if (profile._checked && (!GlobalData.applicationActivatorHeader))
         {
             if (GlobalData.applicationTheme.equals("material"))
-                holder.listItemRoot.setBackgroundResource(R.drawable.header_card);
+                holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
             else
             if (GlobalData.applicationTheme.equals("dark"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dark);
             else
             if (GlobalData.applicationTheme.equals("dlight"))
-                holder.listItemRoot.setBackgroundResource(R.drawable.header_card);
+                holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
             holder.profileName.setTypeface(null, Typeface.BOLD);
         }
         else
