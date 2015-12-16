@@ -119,15 +119,17 @@ public class EventPreferencesFragment extends PreferenceFragment
         event._eventPreferencesNotification.checkPreferences(prefMng, context);
 
         Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
-        //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-        notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
-                return false;
-            }
-        });
+        if (notificationAccessPreference != null) {
+            //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                    startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                    return false;
+                }
+            });
+        }
         Preference preference = findPreference(PREF_WIFI_SCANNING_APP_SETTINGS);
         //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
         preference = findPreference(PREF_BLUETOOTH_SCANNING_APP_SETTINGS);
