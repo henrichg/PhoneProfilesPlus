@@ -625,13 +625,13 @@
   <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
   <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Интервал сканирования Bluetooth LE (сек)</string>
-  <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi scanning</string>
-  <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth scanning</string>
-  <string name="profile_preferences_category_activation_duration">Activation duration</string>
-  <string name="profile_preferences_category_sound_profile">Sound profile</string>
-  <string name="profile_preferences_category_radios">Radios</string>
-  <string name="profile_preferences_category_screen">Screen</string>
-  <string name="profile_preferences_category_others">Others</string>
-  <string name="event_preferences_category_startofeventOthers">Other parameters</string>
+  <string name="phone_profiles_pref_category_wifi_scanning">Сканирование Wi-Fi</string>
+  <string name="phone_profiles_pref_category_bluetooth_scanning">Сканирование bluetooth</string>
+  <string name="profile_preferences_category_activation_duration">Продолжительность активации</string>
+  <string name="profile_preferences_category_sound_profile">Звук профиля</string>
+  <string name="profile_preferences_category_radios">Параметры радиомодулей</string>
+  <string name="profile_preferences_category_screen">Экран</string>
+  <string name="profile_preferences_category_others">Прочие</string>
+  <string name="event_preferences_category_startofeventOthers">Прочие параметры</string>
   <string name="phone_profiles_pref_applicationLanguage_he">עִברִית</string>
 </resources>

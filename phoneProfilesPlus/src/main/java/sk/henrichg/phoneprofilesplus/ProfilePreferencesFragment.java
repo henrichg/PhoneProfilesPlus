@@ -15,7 +15,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 
 import com.fnp.materialpreferences.PreferenceFragment;
 
@@ -719,8 +718,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                if (key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA))
-                    Log.e("ProfilePreferencesFragment", "index="+index);
+                //if (key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA))
+                //    Log.e("ProfilePreferencesFragment", "index="+index);
                 GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
