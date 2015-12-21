@@ -1179,8 +1179,8 @@ public class ActivateProfileHelper {
             boolean notificationStatusBarPermanent = GlobalData.notificationStatusBarPermanent;
             boolean forceShow = false;
 
-            if (!notificationShowInStatusBar) {
-                notificationShowInStatusBar = true;
+            if (!GlobalData.notificationStatusBar) {
+                notificationShowInStatusBar = false;
                 notificationStatusBarPermanent = false;
                 forceShow = true;
             }
