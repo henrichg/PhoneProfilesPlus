@@ -331,7 +331,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 
         removeAlarm(context);
 
-        GlobalData.logE("EventPreferencesCalendar.removeSystemEvent","xxx");
+        GlobalData.logE("EventPreferencesCalendar.removeSystemEvent", "xxx");
     }
 
     public void removeAlarm(Context context)
@@ -382,6 +382,173 @@ public class EventPreferencesCalendar extends EventPreferences {
     }
 
     public void searchEvent(Context context)
+    {
+        if (!(isRunable() && _enabled && Permissions.checkCalendar(context)))
+        {
+            _startTime = 0;
+            _endTime = 0;
+            _eventFound = false;
+            DatabaseHandler.getInstance(context).updateEventCalendarTimes(_event);
+            return;
+        }
+
+        final String[] INSTANCE_PROJECTION = new String[] {
+                Instances.BEGIN,           // 0
+                Instances.END,			   // 1
+                Instances.TITLE,           // 2
+                Instances.DESCRIPTION,     // 3
+                Instances.CALENDAR_ID,     // 4
+                Instances.ALL_DAY,         // 5
+                Instances.EVENT_LOCATION,  // 6
+                Instances.AVAILABILITY/*,  // 7
+            Instances.EVENT_TIMEZONE   // 8 */
+        };
+
+        // The indices for the projection array above.
+        final int PROJECTION_BEGIN_INDEX = 0;
+        final int PROJECTION_END_INDEX = 1;
+        final int PROJECTION_TITLE_INDEX = 2;
+        //final int PROJECTION_DESCRIPTION_INDEX = 3;
+        final int PROJECTION_CALENDAR_ID_INDEX = 4;
+        final int PROJECTION_ALL_DAY_INDEX = 5;
+        //final int PROJECTION_EVENT_TIMEZONE_INDEX = 6;
+
+        Cursor cur = null;
+        ContentResolver cr = context.getContentResolver();
+
+        String selection =  "(    ";
+
+        switch (_searchField) {
+            case SEARCH_FIELD_TITLE:
+                selection = selection +
+                        "     (lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')";
+                break;
+            case SEARCH_FIELD_DESCRIPTION:
+                selection = selection +
+                        "     (lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')";
+                break;
+            case SEARCH_FIELD_LOCATION:
+                selection = selection +
+                        "     (lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')";
+                break;
+        }
+
+        switch (_availability) {
+            case AVAILABILITY_BUSY:
+                selection = selection +
+                        " AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_BUSY + ")";
+                break;
+            case AVAILABILITY_FREE:
+                selection = selection +
+                        " AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_FREE + ")";
+                break;
+            case AVAILABILITY_TENTATIVE:
+                selection = selection +
+                        " AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_TENTATIVE + ")";
+                break;
+        }
+        selection = selection + ")";
+
+        //Log.e("** EventPrefCalendar", "_searchField="+_searchField);
+        //Log.e("** EventPrefCalendar", "selection="+selection);
+
+        // Construct the query with the desired date range.
+        Calendar calendar = Calendar.getInstance();
+        long now = calendar.getTimeInMillis();
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        long startMillis = calendar.getTimeInMillis();
+        calendar.add(Calendar.DAY_OF_YEAR, 32);
+        long endMillis = calendar.getTimeInMillis();
+
+        Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
+        ContentUris.appendId(builder, startMillis);
+        ContentUris.appendId(builder, endMillis);
+
+        _eventFound = false;
+        _startTime = 0;
+        _endTime = 0;
+
+        String[] splits = _calendars.split("\\|");
+
+        String searchPattern = _searchString;
+        // when in searchPattern are not widcards add %
+        if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+            searchPattern = "%"+searchPattern+"%";
+        String[] selectionArgs = new String[] { searchPattern };
+
+        // Submit the query
+        cur =  cr.query(builder.build(), INSTANCE_PROJECTION, selection, selectionArgs, Instances.BEGIN + " ASC");
+
+        if (cur != null)
+        {
+            while (cur.moveToNext()) {
+
+                boolean calendarFound = false;
+                for (int i = 0; i < splits.length; i++) {
+                    long calendarId = Long.parseLong(splits[i]);
+                    if (cur.getLong(PROJECTION_CALENDAR_ID_INDEX) == calendarId) {
+                        calendarFound = true;
+                    }
+                }
+                if (!calendarFound)
+                    continue;
+
+                long beginVal = 0;
+                long endVal = 0;
+                //String title = null;
+
+                //Log.e("** EventPrefCalendar", "title="+cur.getString(PROJECTION_TITLE_INDEX));
+
+                // Get the field values
+                beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
+                endVal = cur.getLong(PROJECTION_END_INDEX);
+
+                if (cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1)
+                {
+                    // get UTC offset
+                    Date _now = new Date();
+                    int utcOffset = TimeZone.getDefault().getOffset(_now.getTime());
+
+                    beginVal -= utcOffset;
+                    endVal -= utcOffset;
+                }
+
+                //title = cur.getString(PROJECTION_TITLE_INDEX);
+
+                int gmtOffset = TimeZone.getDefault().getRawOffset();
+
+                if ((beginVal <= now) && (endVal > now))
+                {
+                    // event instance is found
+                    _eventFound = true;
+                    _startTime = beginVal + gmtOffset;
+                    _endTime = endVal + gmtOffset;
+                    //Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
+                    //Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
+                    break;
+                }
+                else
+                if (beginVal > now)
+                {
+                    // event instance is found
+                    _eventFound = true;
+                    _startTime = beginVal + gmtOffset;
+                    _endTime = endVal + gmtOffset;
+                    //Log.e("** EventPrefCalendar", "beginVal="+getDate(_startTime));
+                    //Log.e("** EventPrefCalendar", "endVal="+getDate(_endTime));
+                    break;
+                }
+
+            }
+
+            cur.close();
+        }
+
+        DatabaseHandler.getInstance(context).updateEventCalendarTimes(_event);
+
+    }
+
+    public void searchEvent_old(Context context)
     {
         if (!(isRunable() && _enabled && Permissions.checkCalendar(context)))
         {
