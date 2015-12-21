@@ -213,9 +213,10 @@ public class ActivateProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case R.id.menu_edit_profiles:
-            Intent intent = new Intent(getBaseContext(), EditorProfilesActivity.class);
+            Intent intent = new Intent(getApplicationContext(), EditorProfilesActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_ACTIVATOR);
-            startActivity(intent);
+            getApplicationContext().startActivity(intent);
 
             finish();
 
