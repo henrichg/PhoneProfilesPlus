@@ -2,6 +2,7 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="rootScreen"
     android:title="@string/title_activity_phone_profiles_preferences" >
 
@@ -16,35 +17,40 @@
             android:icon="?attr/applicationSettingsLanguageIcon"
             android:defaultValue="system"
             android:entries="@array/languageArray"
-            android:entryValues="@array/languageValues" />
+            android:entryValues="@array/languageValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationHomeLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationHomeLauncher"
             android:defaultValue="activator"
             android:entries="@array/laucherArray"
-            android:entryValues="@array/launcherValues" />
+            android:entryValues="@array/launcherValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationWidgetLauncher"
             android:defaultValue="activator"
             android:entries="@array/laucherArray"
-            android:entryValues="@array/launcherValues" />
+            android:entryValues="@array/launcherValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_notificationLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationNotificationLauncher"
             android:defaultValue="activator"
             android:entries="@array/laucherArray"
-            android:entryValues="@array/launcherValues" />
+            android:entryValues="@array/launcherValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationTheme"
             android:summary="@string/phone_profiles_pref_applicationTheme_dlight"
             android:key="applicationTheme"
             android:defaultValue="material"
             android:entries="@array/themeArray"
-            android:entryValues="@array/themeValues" />
+            android:entryValues="@array/themeValues"
+            app:useStockLayout="true" />
         <CheckBoxPreference
             android:key="applicationShortcutEmblem"
             android:title="@string/phone_profiles_pref_applicationShortcutEmblem"
@@ -86,7 +92,8 @@
             android:summary="@string/array_pref_powerSaveMode_off"
             android:defaultValue="0"
             android:entries="@array/powerSaveModeArray"
-            android:entryValues="@array/powerSaveModeValues" />
+            android:entryValues="@array/powerSaveModeValues"
+            app:useStockLayout="true" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -145,7 +152,8 @@
             android:defaultValue="1"
             android:entries="@array/notificationIconStyleArray"
             android:entryValues="@array/notificationIconStyleValues"
-            android:dependency="notificationStatusBar" />
+            android:dependency="notificationStatusBar"
+            app:useStockLayout="true" />
         <CheckBoxPreference
             android:key="notificationPrefIndicator"
             android:title="@string/phone_profiles_pref_notificationPrefIndicator"
@@ -196,14 +204,16 @@
             android:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
             android:defaultValue="0"
             android:entries="@array/scanInPowerSaveModeArray"
-            android:entryValues="@array/scanInPowerSaveModeValues" />
+            android:entryValues="@array/scanInPowerSaveModeValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventWifiRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_none"
             android:key="applicationEventWifiRescan"
             android:defaultValue="0"
             android:entries="@array/applicationEventRescanArray"
-            android:entryValues="@array/applicationEventRescanValues" />
+            android:entryValues="@array/applicationEventRescanValues"
+            app:useStockLayout="true" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -241,14 +251,16 @@
             android:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
             android:defaultValue="0"
             android:entries="@array/scanInPowerSaveModeArray"
-            android:entryValues="@array/scanInPowerSaveModeValues" />
+            android:entryValues="@array/scanInPowerSaveModeValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_none"
             android:key="applicationEventBluetoothRescan"
             android:defaultValue="0"
             android:entries="@array/applicationEventRescanArray"
-            android:entryValues="@array/applicationEventRescanValues" />
+            android:entryValues="@array/applicationEventRescanValues"
+            app:useStockLayout="true" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -321,35 +333,40 @@
             android:key="applicationWidgetListBackground"
             android:defaultValue="25"
             android:entries="@array/widgetBackgroundArray"
-            android:entryValues="@array/widgetBackgroundValues" />
+            android:entryValues="@array/widgetBackgroundValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
             android:summary="0"
             android:key="applicationWidgetListLightnessB"
             android:defaultValue="0"
             android:entries="@array/widgetLightnessArray"
-            android:entryValues="@array/widgetLightnessValues" />
+            android:entryValues="@array/widgetLightnessValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
             android:summary="100"
             android:key="applicationWidgetListLightnessT"
             android:defaultValue="100"
             android:entries="@array/widgetLightnessArray"
-            android:entryValues="@array/widgetLightnessValues" />
+            android:entryValues="@array/widgetLightnessValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetIconColor"
             android:summary="0"
             android:key="applicationWidgetListIconColor"
             android:defaultValue="0"
             android:entries="@array/widgetColorArray"
-            android:entryValues="@array/widgetColorValues" />
+            android:entryValues="@array/widgetColorValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
             android:summary="100"
             android:key="applicationWidgetListIconLightness"
             android:defaultValue="100"
             android:entries="@array/widgetLightnessArray"
-            android:entryValues="@array/widgetLightnessValues" />
+            android:entryValues="@array/widgetLightnessValues"
+            app:useStockLayout="true" />
     </PreferenceScreen>
     
     <PreferenceScreen
@@ -366,14 +383,16 @@
             android:key="applicationWidgetIconColor"
             android:defaultValue="0"
             android:entries="@array/widgetColorArray"
-            android:entryValues="@array/widgetColorValues" />
+            android:entryValues="@array/widgetColorValues"
+            app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
             android:summary="100"
             android:key="applicationWidgetIconLightness"
             android:defaultValue="100"
             android:entries="@array/widgetLightnessArray"
-            android:entryValues="@array/widgetLightnessValues" />
+            android:entryValues="@array/widgetLightnessValues"
+            app:useStockLayout="true" />
     </PreferenceScreen>
 
 </PreferenceScreen>    
