@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionCode="1836"
-          android:versionName="3.3.1.1">
+          android:versionCode="1840"
+          android:versionName="3.3.2b">
 
     <!--
     <uses-sdk
@@ -369,6 +369,17 @@
             android:name=".ExecuteRunApplicationsProfilePrefsService"
             android:exported="false">
         </service>
+        <service
+            android:label="@string/accessibility_service_name"
+            android:name=".ForegroundApplicationChangedService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibilityservice"/>
+        </service>
 
         <receiver
             android:name=".RestartEventsBroadcastReceiver"
@@ -595,6 +606,11 @@
         </receiver>
         <receiver
             android:name=".DisableInernalChangeBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".ForegroundApplicationChangedBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>

@@ -638,4 +638,12 @@
     <string name="array_pref_value_he">iw</string>
     <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
     <string name="array_pref_value_tr">tr</string>
+    <string name="accessibility_service_name">PhoneProfilesPlus</string>
+    <string name="accessibility_service_description">Allow PhoneProfilesPlus detect what application is in the foreground. This is necessary for events with enabled \"Applications parameters\".</string>
+    <string name="event_type_applications">Applications</string>
+    <string name="event_preferences_category_eventApplicationsParameters">Applications parameters</string>
+    <string name="event_preferences_applications_enabled">Enable applications</string>
+    <string name="event_preferences_applications_applications">Applications</string>
+    <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
+    <string name="event_preferences_applications_AccessibilitySettings_summary">Allow PhoneProfilesPlus in \"Accessibilty\" system settings, for enabling Applications parameters.</string>
 </resources>

@@ -1384,6 +1384,7 @@ public class DataWrapper {
         boolean bluetoothPassed = true;
         boolean smsPassed = true;
         boolean notificationPassed = true;
+        boolean applicationPassed = true;
 
         GlobalData.logE("DataWrapper.doEventService","--- start --------------------------");
         GlobalData.logE("DataWrapper.doEventService","------- event._id="+event._id);
@@ -2001,6 +2002,23 @@ public class DataWrapper {
             notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime <= endAlarmTime));
         }
 
+        if (event._eventPreferencesApplication._enabled)
+        {
+            applicationPassed = false;
+
+            String foregroundApplication = GlobalData.getApplicationInForeground(context);
+
+            if (!foregroundApplication.isEmpty()) {
+                String[] splits = event._eventPreferencesApplication._applications.split("\\|");
+                for (int i = 0; i < splits.length; i++) {
+                    if (foregroundApplication.equals(splits[i])) {
+                        applicationPassed = true;
+                        break;
+                    }
+                }
+            }
+        }
+
         GlobalData.logE("DataWrapper.doEventService","timePassed="+timePassed);
         GlobalData.logE("DataWrapper.doEventService","batteryPassed="+batteryPassed);
         GlobalData.logE("DataWrapper.doEventService","callPassed="+callPassed);
@@ -2011,6 +2029,7 @@ public class DataWrapper {
         GlobalData.logE("DataWrapper.doEventService","bluetoothPassed="+bluetoothPassed);
         GlobalData.logE("DataWrapper.doEventService","smsPassed="+smsPassed);
         GlobalData.logE("DataWrapper.doEventService","notificationPassed="+notificationPassed);
+        GlobalData.logE("DataWrapper.doEventService","applicationPassed="+applicationPassed);
 
         //GlobalData.logE("DataWrapper.doEventService","eventStart="+eventStart);
         GlobalData.logE("DataWrapper.doEventService","restartEvent="+restartEvent);
@@ -2027,7 +2046,8 @@ public class DataWrapper {
             screenPassed &&
             bluetoothPassed &&
             smsPassed &&
-            notificationPassed)
+            notificationPassed &&
+            applicationPassed)
         {
             // podmienky sedia, vykoname, co treba
 

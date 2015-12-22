@@ -339,6 +339,7 @@ public class GlobalData extends Application {
     private static final String PREF_MERGED_PERRMISSIONS = "merged_permissions";
     private static final String PREF_MERGED_PERRMISSIONS_COUNT = "merged_permissions_count";
     private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION = "show_enable_location_notification";
+    private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
 
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
     public static final int FORCE_ONE_SCAN_ENABLED = 1;
@@ -1206,6 +1207,21 @@ public class GlobalData extends Application {
         editor.clear();
         editor.commit();
     }
+
+    static public String getApplicationInForeground(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getString(PREF_APPLICATION_IN_FOREGROUND, "");
+    }
+
+    static public void setApplicationInForeground(Context context, String application)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putString(PREF_APPLICATION_IN_FOREGROUND, application);
+        editor.commit();
+    }
+
 
     // ----- Check if preference is allowed in device -------------------------------------
 

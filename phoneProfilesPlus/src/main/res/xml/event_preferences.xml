@@ -453,4 +453,25 @@
             henrichg:dMax="86400"
             android:dependency="eventNotificationEnabled" />
     </PreferenceScreen>
+    <PreferenceScreen
+        android:key="eventApplicationCategory"
+        android:title="@string/event_preferences_category_eventApplicationsParameters"
+        android:widgetLayout="@layout/start_activity_preference" >
+        <CheckBoxPreference
+            android:key="eventApplicationEnabled"
+            android:title="@string/event_preferences_applications_enabled"
+            android:defaultValue="false" />
+        <Preference
+            android:key="eventApplicationAccessibilitySettings"
+            android:title="@string/event_preferences_applications_AccessibilitySettings_title"
+            android:summary="@string/event_preferences_applications_AccessibilitySettings_summary"
+            android:dependency="eventApplicationEnabled"
+            android:widgetLayout="@layout/start_activity_preference" >
+        </Preference>
+        <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
+            android:defaultValue="-"
+            android:key="eventApplicationApplications"
+            android:title="@string/event_preferences_applications_applications"
+            android:dependency="eventApplicationEnabled" />
+    </PreferenceScreen>
 </PreferenceScreen>

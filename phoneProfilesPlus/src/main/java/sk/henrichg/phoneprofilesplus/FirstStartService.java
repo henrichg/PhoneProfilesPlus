@@ -71,6 +71,7 @@ public class FirstStartService extends IntentService {
             PPNotificationListenerService.setZenMode(context, audioManager);
 
         GlobalData.setActivatedProfileForDuration(context, 0);
+        GlobalData.setApplicationInForeground(context, "");
 
         // show notification about upgrade PPHelper
         PhoneProfilesHelper.showPPHelperUpgradeNotification(context);

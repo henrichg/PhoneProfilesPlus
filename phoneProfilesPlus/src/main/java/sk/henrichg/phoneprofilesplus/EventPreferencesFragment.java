@@ -27,8 +27,6 @@ public class EventPreferencesFragment extends PreferenceFragment
     private PreferenceManager prefMng;
     private SharedPreferences preferences;
     private Context context;
-    private ActionMode actionMode;
-    private Callback actionModeCallback;
 
     private static Activity preferencesActivity = null;
 
@@ -41,6 +39,8 @@ public class EventPreferencesFragment extends PreferenceFragment
     static final String PREF_WIFI_SCANNING_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
     static final String PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS = "eventBluetoothScanningSystemSettings";
     static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
+    static final String PREF_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
+    static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,6 +117,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
         event._eventPreferencesSMS.checkPreferences(prefMng, context);
         event._eventPreferencesNotification.checkPreferences(prefMng, context);
+        event._eventPreferencesApplication.checkPreferences(prefMng, context);
 
         Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
@@ -126,6 +127,18 @@ public class EventPreferencesFragment extends PreferenceFragment
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                     startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                    return false;
+                }
+            });
+        }
+        Preference accessibilityPreference = prefMng.findPreference(PREF_ACCESSIBILITY_SETTINGS);
+        if (accessibilityPreference != null) {
+            //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                    startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                     return false;
                 }
             });
@@ -214,6 +227,9 @@ public class EventPreferencesFragment extends PreferenceFragment
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
+            event._eventPreferencesApplication.checkPreferences(prefMng, context);
         }
     }
 

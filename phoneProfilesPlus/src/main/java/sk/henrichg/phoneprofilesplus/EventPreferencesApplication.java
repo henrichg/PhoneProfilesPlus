@@ -1,80 +1,69 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 import android.text.Html;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.TimeZone;
-
-public class EventPreferencesNotification extends EventPreferences {
+public class EventPreferencesApplication extends EventPreferences {
 
     public String _applications;
-    public long _startTime;
-    public int _duration;
+    //public long _startTime;
+    //public int _duration;
 
-    static final String PREF_EVENT_NOTIFICATION_ENABLED = "eventNotificationEnabled";
-    static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
-    static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
+    static final String PREF_EVENT_APPLICATION_ENABLED = "eventApplicationEnabled";
+    static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
+    //static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
 
-    static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategory";
+    static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategory";
 
-    public EventPreferencesNotification(Event event,
-                                        boolean enabled,
-                                        String applications,
-                                        int duration)
+    public EventPreferencesApplication(Event event,
+                                       boolean enabled,
+                                       String applications/*,
+                                       int duration*/)
     {
         super(event, enabled);
 
         this._applications = applications;
-        this._duration = duration;
+        //this._duration = duration;
 
-        this._startTime = 0;
+        //this._startTime = 0;
     }
 
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._enabled;
-        this._applications = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._applications;
-        this._duration = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._duration;
+        this._enabled = ((EventPreferencesApplication)fromEvent._eventPreferencesApplication)._enabled;
+        this._applications = ((EventPreferencesApplication)fromEvent._eventPreferencesApplication)._applications;
+        //this._duration = ((EventPreferencesApplication)fromEvent._eventPreferencesNotification)._duration;
 
-        this._startTime = 0;
+        //this._startTime = 0;
     }
 
     @Override
     public void loadSharedPreferences(SharedPreferences preferences)
     {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Editor editor = preferences.edit();
-            editor.putBoolean(PREF_EVENT_NOTIFICATION_ENABLED, _enabled);
-            editor.putString(PREF_EVENT_NOTIFICATION_APPLICATIONS, this._applications);
-            editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
+            editor.putBoolean(PREF_EVENT_APPLICATION_ENABLED, _enabled);
+            editor.putString(PREF_EVENT_APPLICATION_APPLICATIONS, this._applications);
+            //editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
             editor.commit();
-        }
+        //}
     }
 
     @Override
     public void saveSharedPreferences(SharedPreferences preferences)
     {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            this._enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
-            this._applications = preferences.getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "");
-            this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
-        }
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            this._enabled = preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
+            this._applications = preferences.getString(PREF_EVENT_APPLICATION_APPLICATIONS, "");
+            //this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
+        //}
     }
 
     @Override
@@ -91,7 +80,7 @@ public class EventPreferencesNotification extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 </b>";
-                descr = descr + "<b>" + context.getString(R.string.event_type_notifications) + ": " + "</b>";
+                descr = descr + "<b>" + context.getString(R.string.event_type_applications) + ": " + "</b>";
             }
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -112,8 +101,10 @@ public class EventPreferencesNotification extends EventPreferences {
                 else
                     selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             }
-            descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
-            descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
+            descr = descr + selectedApplications;
+
+            //descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
+            //descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
         }
 
         return descr;
@@ -122,8 +113,8 @@ public class EventPreferencesNotification extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)) {
                 Preference preference = prefMng.findPreference(key);
                 GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
@@ -135,14 +126,14 @@ public class EventPreferencesNotification extends EventPreferences {
                 //    iValue = Integer.valueOf(sValue);
                 preference.setSummary(sValue);
             }*/
-        }
+        //}
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS) ||
-            key.equals(PREF_EVENT_NOTIFICATION_DURATION))
+        if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)/* ||
+            key.equals(PREF_EVENT_NOTIFICATION_DURATION)*/)
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -151,22 +142,22 @@ public class EventPreferencesNotification extends EventPreferences {
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_APPLICATION_APPLICATIONS, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
     }
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (key.isEmpty() ||
-                key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
+                key.equals(PREF_EVENT_APPLICATION_ENABLED)) {
             boolean preferenceChanged = false;
             if (preferences == null) {
                 preferenceChanged = this._enabled;
             } else {
-                preferenceChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
+                preferenceChanged = preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
             }
             boolean bold = preferenceChanged;
-            Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
+            Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
                 if (bold)
@@ -188,20 +179,20 @@ public class EventPreferencesNotification extends EventPreferences {
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final boolean enabled =
-                    PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
-            Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
-            Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
+                    ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
+            Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
+            //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
             applicationsPreference.setEnabled(enabled);
-            durationPreference.setEnabled(enabled);
-        }
-        else {
+            //durationPreference.setEnabled(enabled);
+        //}
+        /*else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
             PreferenceScreen preferenceCategory = (PreferenceScreen) prefMng.findPreference("eventNotificationCategory");
             if (preferenceCategory != null)
                 preferenceScreen.removePreference(preferenceCategory);
-        }
+        }*/
     }
 
     @Override
@@ -210,6 +201,7 @@ public class EventPreferencesNotification extends EventPreferences {
         return true;
     }
 
+    /*
     public long computeAlarm()
     {
         GlobalData.logE("EventPreferencesNotification.computeAlarm","xxx");
@@ -227,6 +219,7 @@ public class EventPreferencesNotification extends EventPreferences {
 
         return alarmTime;
     }
+    */
 
     @Override
     public void setSystemRunningEvent(Context context)
@@ -236,9 +229,9 @@ public class EventPreferencesNotification extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsService
 
-        GlobalData.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
+        //GlobalData.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
 
-        removeAlarm(context);
+        //removeAlarm(context);
     }
 
     @Override
@@ -249,24 +242,25 @@ public class EventPreferencesNotification extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsService
 
-        GlobalData.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
+        //GlobalData.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
 
-        removeAlarm(context);
+        //removeAlarm(context);
 
-        if (!(isRunable() && _enabled))
-            return;
+        //if (!(isRunable() && _enabled))
+        //    return;
 
-        setAlarm(computeAlarm(), context);
+        //setAlarm(computeAlarm(), context);
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
-        removeAlarm(context);
+        //removeAlarm(context);
 
-        GlobalData.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
+        //GlobalData.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
     }
 
+    /*
     public void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
@@ -297,10 +291,10 @@ public class EventPreferencesNotification extends EventPreferences {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+        if (GlobalData.exactAlarms && (Build.VERSION.SDK_INT >= 23))
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         else
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+        if (GlobalData.exactAlarms && (Build.VERSION.SDK_INT >= 19))
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         else
             alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
@@ -325,5 +319,6 @@ public class EventPreferencesNotification extends EventPreferences {
             }
         }
     }
+    */
 
 }
