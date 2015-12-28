@@ -643,6 +643,8 @@ public class GrantPermissionActivity extends Activity {
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
+            if (eventNotificationSound == null)
+                eventNotificationSound = "";
             dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
                     Permissions.profileActivationActivity, eventNotificationSound, log);
         }
