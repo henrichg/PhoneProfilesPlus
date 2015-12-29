@@ -39,7 +39,7 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =
@@ -131,9 +131,12 @@ public class GlobalData extends Application {
                                          //"$$$ WifiAP"
                                         //"ActivateProfileHelper.setGPS|"+
                                         //"ActivateProfileHelper.doExecuteForRadios"
-                                        "BluetoothLEScanCallback21|"+
-                                        "BluetoothLEScanCallback18|"+
-                                        "* ScannerService"
+                                        //"BluetoothLEScanCallback21|"+
+                                        //"BluetoothLEScanCallback18|"+
+                                        //"* ScannerService"
+                                        "#### PPNotificationListenerService|"+
+                                        "##### NotificationBroadcastReceiver|"+
+                                        "##### NotificationEventEndBroadcastReceiver"
             ;
 
 
@@ -153,8 +156,9 @@ public class GlobalData extends Application {
     static final String EXTRA_SCANNER_TYPE = "scanner_type";
     static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
     static final String EXTRA_LINKUNLINK_VOLUMES = "link_unlink_volumes";
-    static final String EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME = "event_notification_package_name";
-    static final String EXTRA_EVENT_NOTIFICATION_TIME = "event_notification_time";
+    //static final String EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME = "event_notification_package_name";
+    //static final String EXTRA_EVENT_NOTIFICATION_TIME = "event_notification_time";
+    static final String EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED = "event_notification_posted_removed";
     //static final String EXTRA_EVENT_SMS_EVENT_TYPE = "event_sms_event_type";
     static final String EXTRA_EVENT_SMS_PHONE_NUMBER = "event_sms_phone_number";
     static final String EXTRA_EVENT_SMS_DATE = "event_sms_date";
@@ -253,6 +257,7 @@ public class GlobalData extends Application {
     static final String BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME = "bluetooth_bounded_devices_list";
     static final String BLUETOOTH_SCAN_RESULTS_PREFS_NAME = "bluetooth_scan_results";
     static final String PERMISSIONS_PREFS_NAME = "permissions_list";
+    static final String POSTED_NOTIFICATIONS_PREFS_NAME = "posted_notifications";
 
     public static final String PREF_APPLICATION_START_ON_BOOT = "applicationStartOnBoot";
     public static final String PREF_APPLICATION_ACTIVATE = "applicationActivate";
@@ -413,6 +418,7 @@ public class GlobalData extends Application {
 
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
+    public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
 
     @Override
     public void onCreate()

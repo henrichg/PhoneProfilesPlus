@@ -18,6 +18,7 @@ import android.text.Html;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 public class EventPreferencesNotification extends EventPreferences {
@@ -310,6 +311,7 @@ public class EventPreferencesNotification extends EventPreferences {
 
     }
 
+    /*
     public void saveStartTime(DataWrapper dataWrapper, String packageName, long startTime) {
         if (packageName == null)
             return;
@@ -318,6 +320,24 @@ public class EventPreferencesNotification extends EventPreferences {
         for (int i = 0; i < splits.length; i++) {
             if (packageName.equals(splits[i])) {
                 _event._eventPreferencesNotification._startTime = startTime;
+                dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+                if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                    setSystemPauseEvent(dataWrapper.context);
+                break;
+            }
+        }
+    }
+    */
+
+    public void saveStartTime(DataWrapper dataWrapper) {
+
+        PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
+
+        String[] splits = this._applications.split("\\|");
+        for (int i = 0; i < splits.length; i++) {
+            PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(dataWrapper.context, splits[i]);
+            if (notification != null) {
+                _event._eventPreferencesNotification._startTime = notification.time;
                 dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
                 if (_event.getStatus() == Event.ESTATUS_RUNNING)
                     setSystemPauseEvent(dataWrapper.context);

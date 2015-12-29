@@ -21,7 +21,7 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ NotificationBroadcastReceiver.onReceive","packageName="+intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
+            //GlobalData.logE("@@@ NotificationBroadcastReceiver.onReceive","packageName="+intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
 
             /*boolean notificationEventsExists = false;
 
@@ -35,8 +35,9 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));
+                //eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
+                //eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));
+                eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED));
                 startWakefulService(context, eventsServiceIntent);
             //}
         }

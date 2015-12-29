@@ -131,9 +131,12 @@ public class EventsService extends IntentService
                     if (_event._eventPreferencesNotification._enabled)
                     {
                         GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
-                        _event._eventPreferencesNotification.saveStartTime(dataWrapper,
+                        /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
                                 intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
-                                intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));
+                                intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
+                        if (intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted"))
+                            _event._eventPreferencesNotification.saveStartTime(dataWrapper);
+
                     }
                 }
             }

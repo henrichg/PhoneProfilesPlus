@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Build;
 import android.provider.Settings;
@@ -15,8 +16,13 @@ import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+
+import java.security.spec.PSSParameterSpec;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -29,6 +35,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public static final String TAG = PPNotificationListenerService.class.getSimpleName();
 
     private NLServiceReceiver nlservicereceiver;
+
+    private static List<PostedNotificationData> notifications = null;
+
 
     @Override
     public void onCreate() {
@@ -67,9 +76,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long time = sbn.getPostTime() + gmtOffset;
 
+        getNotifiedPackages(context);
+        addNotifiedPackage(sbn.getPackageName(), time);
+        saveNotifiedPackages(context);
+
         Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
-        intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
-        intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, time);
+        //intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
+        //intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, time);
+        intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
         context.sendBroadcast(intent);
 
     }
@@ -78,6 +92,24 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onNotificationRemoved(StatusBarNotification sbn) {
         //Log.e(TAG, "********** onNOtificationRemoved");
         //Log.e(TAG, "ID :" + sbn.getId() + "t" + sbn.getNotification().tickerText + "t" + sbn.getPackageName());
+
+        Context context = getApplicationContext();
+
+        if (sbn.getPackageName().equals(context.getPackageName()))
+            return;
+
+        GlobalData.logE("#### PPNotificationListenerService.onNotificationRemoved","xxx");
+
+        getNotifiedPackages(context);
+        removeNotifiedPackage(sbn.getPackageName());
+        saveNotifiedPackages(context);
+
+        Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
+        //intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
+        //intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, time);
+        intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
+        context.sendBroadcast(intent);
+
     }
 
     // Android 5.0 Lollipop
@@ -276,4 +308,118 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         }
     }
+
+
+    private static final String POSTED_NOTIFICATIONS_COUNT_PREF = "count";
+    private static final String POSTED_NOTIFICATIONS_PACKAGE_PREF = "package";
+
+    public static void getNotifiedPackages(Context context)
+    {
+        synchronized (GlobalData.notificationsChangeMutex) {
+
+            if (notifications == null)
+                notifications = new ArrayList<PostedNotificationData>();
+
+            notifications.clear();
+
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.POSTED_NOTIFICATIONS_PREFS_NAME, Context.MODE_PRIVATE);
+
+            int count = preferences.getInt(POSTED_NOTIFICATIONS_COUNT_PREF, 0);
+
+            Gson gson = new Gson();
+
+            for (int i = 0; i < count; i++) {
+                String json = preferences.getString(POSTED_NOTIFICATIONS_PACKAGE_PREF + i, "");
+                if (!json.isEmpty()) {
+                    PostedNotificationData notification = gson.fromJson(json, PostedNotificationData.class);
+                    notifications.add(notification);
+                }
+            }
+        }
+    }
+
+    private static void saveNotifiedPackages(Context context)
+    {
+        synchronized (GlobalData.notificationsChangeMutex) {
+
+            if (notifications == null)
+                notifications = new ArrayList<PostedNotificationData>();
+
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.POSTED_NOTIFICATIONS_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.clear();
+
+            editor.putInt(POSTED_NOTIFICATIONS_COUNT_PREF, notifications.size());
+
+            Gson gson = new Gson();
+
+            for (int i = 0; i < notifications.size(); i++) {
+                String json = gson.toJson(notifications.get(i));
+                editor.putString(POSTED_NOTIFICATIONS_PACKAGE_PREF + i, json);
+            }
+
+            editor.commit();
+        }
+    }
+
+    private void addNotifiedPackage(String packageName, long time)
+    {
+        synchronized (GlobalData.notificationsChangeMutex) {
+
+            if (notifications == null)
+                notifications = new ArrayList<PostedNotificationData>();
+
+            boolean found = false;
+            for (PostedNotificationData _notification : notifications) {
+                if (_notification.packageName.equals(packageName)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                notifications.add(new PostedNotificationData(packageName, time));
+            }
+
+        }
+    }
+
+    private void removeNotifiedPackage(String packageName)
+    {
+        synchronized (GlobalData.notificationsChangeMutex) {
+
+            if (notifications == null)
+                notifications = new ArrayList<PostedNotificationData>();
+
+            int index = 0;
+            boolean found = false;
+            for (PostedNotificationData _notification : notifications) {
+                if (_notification.packageName.equals(packageName)) {
+                    found = true;
+                    break;
+                }
+                ++index;
+            }
+            if (found)
+                notifications.remove(index);
+        }
+    }
+
+    public static PostedNotificationData getNotificationPosted(Context context, String packageName)
+    {
+        synchronized (GlobalData.notificationsChangeMutex) {
+
+            if (notifications == null)
+                notifications = new ArrayList<PostedNotificationData>();
+
+            for (PostedNotificationData _notification : notifications) {
+                String _packageName = _notification.getPackageName();
+                if (packageName.equals(_packageName))
+                    return _notification;
+            }
+
+            return null;
+        }
+    }
+
 }
