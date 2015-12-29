@@ -36,8 +36,11 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
             if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
                 addConnectedDevice(device);
             else
-            if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED))
-                changeDeviceName(device, intent.getStringExtra(BluetoothDevice.EXTRA_NAME));
+            if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
+                String deviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+                if (deviceName != null)
+                    changeDeviceName(device, deviceName);
+            }
             else
                 removeConnectedDevice(device);
 
