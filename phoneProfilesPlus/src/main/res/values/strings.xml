@@ -646,4 +646,5 @@
     <string name="event_preferences_applications_applications">Applications</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
     <string name="event_preferences_applications_AccessibilitySettings_summary">Allow PhoneProfilesPlus in \"Accessibility\" system settings, for enabling Applications parameters.</string>
+    <string name="event_preferences_notifications_end_when_removed">End when removed</string>
 </resources>

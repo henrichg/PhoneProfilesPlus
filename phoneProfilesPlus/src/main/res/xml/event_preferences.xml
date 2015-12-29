@@ -444,6 +444,11 @@
             android:key="eventNotificationApplications"
             android:title="@string/event_preferences_notifications_applications"
             android:dependency="eventNotificationEnabled" />
+        <CheckBoxPreference
+            android:key="eventNotificationEndWhenRemoved"
+            android:title="@string/event_preferences_notifications_end_when_removed"
+            android:defaultValue="false"
+            android:dependency="eventNotificationEnabled" />
         <sk.henrichg.phoneprofilesplus.DurationDialogPreference
             android:key="eventNotificationDuration"
             android:summary="@string/event_preferences_duration"

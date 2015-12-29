@@ -1981,25 +1981,30 @@ public class DataWrapper {
 
         if (event._eventPreferencesNotification._enabled)
         {
-            // comute start time
-            int gmtOffset = TimeZone.getDefault().getRawOffset();
-            long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
+            if (!event._eventPreferencesNotification._endWhenRemoved) {
+                // comute start time
+                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
 
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String alarmTimeS = sdf.format(startTime);
-            GlobalData.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String alarmTimeS = sdf.format(startTime);
+                GlobalData.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
 
-            // compute end datetime
-            long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
-            alarmTimeS = sdf.format(endAlarmTime);
-            GlobalData.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
+                // compute end datetime
+                long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
+                alarmTimeS = sdf.format(endAlarmTime);
+                GlobalData.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
 
-            Calendar now = Calendar.getInstance();
-            long nowAlarmTime = now.getTimeInMillis();
-            alarmTimeS = sdf.format(nowAlarmTime);
-            GlobalData.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
+                Calendar now = Calendar.getInstance();
+                long nowAlarmTime = now.getTimeInMillis();
+                alarmTimeS = sdf.format(nowAlarmTime);
+                GlobalData.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
 
-            notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime <= endAlarmTime));
+                notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime <= endAlarmTime));
+            }
+            else {
+                notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);
+            }
         }
 
         if (event._eventPreferencesApplication._enabled)

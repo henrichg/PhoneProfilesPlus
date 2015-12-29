@@ -228,7 +228,7 @@ public class Event {
 
     private void createEventPreferencesNotification()
     {
-        this._eventPreferencesNotification = new EventPreferencesNotification(this, false, "", 5);
+        this._eventPreferencesNotification = new EventPreferencesNotification(this, false, "", 5, false);
     }
 
     private void createEventPreferencesApplication()

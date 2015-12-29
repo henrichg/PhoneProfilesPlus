@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1450;
+    private static final int DATABASE_VERSION = 1460;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -192,6 +192,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_BLUETOOTH_DEVICES_TYPE = "bluetoothDevicesType";
     private static final String KEY_E_APPLICATION_ENABLED = "applicationEnabled";
     private static final String KEY_E_APPLICATION_APPLICATIONS = "applicationApplications";
+    private static final String KEY_E_NOTIFICATION_END_WHEN_REMOVED = "notificationEndWhenRemoved";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -393,7 +394,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_BATTERY_POWER_SAVE_MODE + " INTEGER,"
                 + KEY_E_BLUETOOTH_DEVICES_TYPE + " INTEGER,"
                 + KEY_E_APPLICATION_ENABLED + " INTEGER,"
-                + KEY_E_APPLICATION_APPLICATIONS + " TEXT"
+                + KEY_E_APPLICATION_APPLICATIONS + " TEXT,"
+                + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1378,6 +1380,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_APPLICATION_ENABLED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_APPLICATION_APPLICATIONS + "=\"\"");
+        }
+
+        if (oldVersion < 1460)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_END_WHEN_REMOVED + "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -2992,7 +3003,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{KEY_E_NOTIFICATION_ENABLED,
                         KEY_E_NOTIFICATION_APPLICATIONS,
                         KEY_E_NOTIFICATION_START_TIME,
-                        KEY_E_NOTIFICATION_DURATION
+                        KEY_E_NOTIFICATION_DURATION,
+                        KEY_E_NOTIFICATION_END_WHEN_REMOVED
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3008,6 +3020,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._applications = cursor.getString(1);
                 eventPreferences._startTime = Long.parseLong(cursor.getString(2));
                 eventPreferences._duration = cursor.getInt(3);
+                eventPreferences._endWhenRemoved = (Integer.parseInt(cursor.getString(4)) == 1);
             }
             cursor.close();
         }
@@ -3252,6 +3265,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NOTIFICATION_APPLICATIONS, eventPreferences._applications);
         values.put(KEY_E_NOTIFICATION_START_TIME, eventPreferences._startTime);
         values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
+        values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, (eventPreferences._endWhenRemoved) ? 1 : 0);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4789,6 +4803,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         {
                                             values.put(KEY_E_APPLICATION_ENABLED, 0);
                                             values.put(KEY_E_APPLICATION_APPLICATIONS, "");
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1460)
+                                        {
+                                            values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, 0);
                                         }
 
                                     // Inserting Row do db z SQLiteOpenHelper

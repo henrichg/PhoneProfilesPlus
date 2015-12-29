@@ -128,7 +128,7 @@ public class EventsService extends IntentService
             {
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                 {
-                    if (_event._eventPreferencesNotification._enabled)
+                    if ((_event._eventPreferencesNotification._enabled) && (!_event._eventPreferencesNotification._endWhenRemoved))
                     {
                         GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                         /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,

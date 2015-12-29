@@ -26,22 +26,26 @@ public class EventPreferencesNotification extends EventPreferences {
     public String _applications;
     public long _startTime;
     public int _duration;
+    public boolean _endWhenRemoved;
 
     static final String PREF_EVENT_NOTIFICATION_ENABLED = "eventNotificationEnabled";
     static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
     static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
+    static final String PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED = "eventNotificationEndWhenRemoved";
 
     static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategory";
 
     public EventPreferencesNotification(Event event,
                                         boolean enabled,
                                         String applications,
-                                        int duration)
+                                        int duration,
+                                        boolean endWhenRemoved)
     {
         super(event, enabled);
 
         this._applications = applications;
         this._duration = duration;
+        this._endWhenRemoved = endWhenRemoved;
 
         this._startTime = 0;
     }
@@ -52,6 +56,7 @@ public class EventPreferencesNotification extends EventPreferences {
         this._enabled = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._enabled;
         this._applications = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._applications;
         this._duration = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._duration;
+        this._endWhenRemoved = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._endWhenRemoved;
 
         this._startTime = 0;
     }
@@ -64,6 +69,7 @@ public class EventPreferencesNotification extends EventPreferences {
             editor.putBoolean(PREF_EVENT_NOTIFICATION_ENABLED, _enabled);
             editor.putString(PREF_EVENT_NOTIFICATION_APPLICATIONS, this._applications);
             editor.putString(PREF_EVENT_NOTIFICATION_DURATION, String.valueOf(this._duration));
+            editor.putBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, _endWhenRemoved);
             editor.commit();
         }
     }
@@ -75,6 +81,7 @@ public class EventPreferencesNotification extends EventPreferences {
             this._enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
             this._applications = preferences.getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "");
             this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_DURATION, "5"));
+            this._endWhenRemoved = preferences.getBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, false);
         }
     }
 
@@ -114,7 +121,10 @@ public class EventPreferencesNotification extends EventPreferences {
                     selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             }
             descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
-            descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
+            if (this._endWhenRemoved)
+                descr = descr + context.getString(R.string.event_preferences_notifications_end_when_removed);
+            else
+                descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
         }
 
         return descr;
@@ -136,6 +146,10 @@ public class EventPreferencesNotification extends EventPreferences {
                 //    iValue = Integer.valueOf(sValue);
                 preference.setSummary(sValue);
             }*/
+            if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
+                preference.setEnabled(value.equals("false"));
+            }
         }
     }
 
@@ -147,6 +161,10 @@ public class EventPreferencesNotification extends EventPreferences {
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
+        if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true": "false", context);
+        }
     }
 
     @Override
@@ -154,6 +172,7 @@ public class EventPreferencesNotification extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, preferences, context);
     }
 
     @Override
@@ -190,12 +209,19 @@ public class EventPreferencesNotification extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            final boolean enabled =
+            boolean enabled =
                     PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
             Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
+            Preference endWhenRemovedPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED);
             Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
             applicationsPreference.setEnabled(enabled);
+            endWhenRemovedPreference.setEnabled(enabled);
+
+            SharedPreferences preferences = prefMng.getSharedPreferences();
+            boolean endWhenRemoved = preferences.getBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, false);
+            enabled = enabled && (!endWhenRemoved);
             durationPreference.setEnabled(enabled);
+
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
@@ -328,6 +354,19 @@ public class EventPreferencesNotification extends EventPreferences {
         }
     }
     */
+
+    public boolean isNotificationVisible(DataWrapper dataWrapper) {
+
+        PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
+
+        String[] splits = this._applications.split("\\|");
+        for (int i = 0; i < splits.length; i++) {
+            PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(dataWrapper.context, splits[i]);
+            if (notification != null)
+                return true;
+        }
+        return false;
+    }
 
     public void saveStartTime(DataWrapper dataWrapper) {
 
