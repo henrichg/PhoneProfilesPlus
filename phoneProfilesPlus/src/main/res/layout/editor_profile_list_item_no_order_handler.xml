@@ -77,13 +77,13 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/empty_string"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_profile_activated"
+            android:src="@drawable/ic_profile_show_in_activator_on"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp" />
 
         <ImageView
             android:id="@+id/profile_list_profile_pref_indicator"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="15dp"
             android:layout_below="@+id/profile_list_item_profile_name"
             android:layout_toRightOf="@+id/profile_list_item_show_in_activator"
