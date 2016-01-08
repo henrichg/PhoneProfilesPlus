@@ -76,7 +76,8 @@
                 android:contentDescription="@string/empty_string"
                 android:scaleType="@integer/profilePrefIndicatorScaleType"
                 android:src="@drawable/ic_profile_pref_volume_on"
-                android:paddingLeft="10dp" />
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp" />
 
         </RelativeLayout>
 
