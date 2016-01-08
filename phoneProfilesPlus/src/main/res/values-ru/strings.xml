@@ -620,7 +620,7 @@
   <string name="important_info_profile_adaptiveBrightness_root">В Android 6 (Marshmallow) невозможно изменить системную настройку «Адаптивная регулировка» без прав суперпользователя.</string>
   <string name="important_info_profile_wifiScanning_location">В Android 6 (Marshmallow) для Wi-Fi сканирования должен быть включен режим \"По всем источникам\" в настройках \"Местоположение\".</string>
   <string name="important_info_profile_bluetoothScanning_location">В Android 6 (Marshmallow) для Bluetooth LE сканирования должен быть включен режим \"По всем источникам\" в настройках \"Местоположение\".</string>
-  <string name="profile_preferences_devicePowerSaveMode">Режим энергосбережения</string>
+  <string name="profile_preferences_devicePowerSaveMode">(R) Режим энергосбережения</string>
   <string name="event_preferences_bluetooth_devices_type">Тип сканируемых устройств</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
@@ -634,4 +634,16 @@
   <string name="profile_preferences_category_others">Прочие</string>
   <string name="event_preferences_category_startofeventOthers">Прочие параметры</string>
   <string name="phone_profiles_pref_applicationLanguage_he">עִברִית</string>
+  <string name="array_pref_value_he">iw</string>
+  <string name="phone_profiles_pref_applicationLanguage_tr">Турецкий</string>
+  <string name="array_pref_value_tr">tr</string>
+  <string name="accessibility_service_name">PhoneProfilesPlus</string>
+  <string name="accessibility_service_description">Разрешить PhoneProfilesPlus обнаруживать, какое приложение запущено. Это необходимо для событий с включёнными \"Параметрами приложений\".</string>
+  <string name="event_type_applications">Приложения</string>
+  <string name="event_preferences_category_eventApplicationsParameters">Параметры прилоржений</string>
+  <string name="event_preferences_applications_enabled">Активировать приложения</string>
+  <string name="event_preferences_applications_applications">Приложения</string>
+  <string name="event_preferences_applications_AccessibilitySettings_title">Настройки доступности</string>
+  <string name="event_preferences_applications_AccessibilitySettings_summary">Разрешить PhoneProfilesPlus в настройках системы «Доступность», для включения параметров приложений.</string>
+  <string name="event_preferences_notifications_end_when_removed">После удаления</string>
 </resources>

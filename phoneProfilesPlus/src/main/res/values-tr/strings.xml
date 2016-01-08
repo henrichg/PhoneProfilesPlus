@@ -620,7 +620,7 @@
   <string name="important_info_profile_adaptiveBrightness_root">(Marshmallow) Android 6\'da sistem ayarı olan \"Otomatik parlaklık\"ı değiştirmek kök erişimi olmayan cihazda değiştirmek mümkün değil.</string>
   <string name="important_info_profile_wifiScanning_location">(Marshmallow) Android 6\'da Wi-Fi tarama için Konum ayarlarında Konum ve \"Wi-Fi tarama\" etkinleştirilmelidir.</string>
   <string name="important_info_profile_bluetoothScanning_location">(Marshmallow) Android 6\'da Bluetooth LE tarama için Konum ayarlarında Konum ve \"Bluetooth tarama\" etkinleştirilmelidir.</string>
-  <string name="profile_preferences_devicePowerSaveMode">Güç tasarrufu modu</string>
+  <string name="profile_preferences_devicePowerSaveMode">(R) Güç tasarrufu modu</string>
   <string name="event_preferences_bluetooth_devices_type">Taranan cihazların türü</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">Klasik [CE]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Düşük enerji [LE]</string>
@@ -634,4 +634,16 @@
   <string name="profile_preferences_category_others">Diğerleri</string>
   <string name="event_preferences_category_startofeventOthers">Diğer parametreler</string>
   <string name="phone_profiles_pref_applicationLanguage_he">Hibrit</string>
+  <string name="array_pref_value_he">iw</string>
+  <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
+  <string name="array_pref_value_tr">tr</string>
+  <string name="accessibility_service_name">Telefon Profilleri Plus</string>
+  <string name="accessibility_service_description">PhoneProfilesPlus ne uygulama algılamak ön planda izin verir. Bu olaylar parametrelerle etkin\"uygulamalar\" için gereklidir.</string>
+  <string name="event_type_applications">Uygulamalar</string>
+  <string name="event_preferences_category_eventApplicationsParameters">Uygulama parametreleri</string>
+  <string name="event_preferences_applications_enabled">Uygulamaları etkinleştir</string>
+  <string name="event_preferences_applications_applications">Uygulamalar</string>
+  <string name="event_preferences_applications_AccessibilitySettings_title">Erişebilirlik ayarları</string>
+  <string name="event_preferences_applications_AccessibilitySettings_summary">PhoneProfilesPlus uygulamalar parametreleri etkinleştirmek için \"Erişilebilirlik\" sistem ayarlarında izin.</string>
+  <string name="event_preferences_notifications_end_when_removed">Son kaldırıldı</string>
 </resources>

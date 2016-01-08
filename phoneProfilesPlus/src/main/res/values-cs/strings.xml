@@ -620,7 +620,7 @@
   <string name="important_info_profile_adaptiveBrightness_root">V Androidu 6 (Marshmallow) není možné měnit úrovně \"Adaptivní jas\" pokud nemáte práva ROOT.</string>
   <string name="important_info_profile_wifiScanning_location">V Android 6 (Marshmallow), pro skenování Wifi musí být povolena Poloha a \"Vyhledávání sítí Wi-fi\" na nastaveních Polohy.</string>
   <string name="important_info_profile_bluetoothScanning_location">V Android 6 (Marshmallow), pro Bluetooth LE skenování musí být povolena Poloha a \"Hledání zařízení Bluetooth\" v nastavení Polohy.</string>
-  <string name="profile_preferences_devicePowerSaveMode">Úsporný režim</string>
+  <string name="profile_preferences_devicePowerSaveMode">(R) Úsporný režim</string>
   <string name="event_preferences_bluetooth_devices_type">Skenované typy zařízení</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">Klasické [CE]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Nízkoenergetické [LE]</string>
@@ -634,4 +634,16 @@
   <string name="profile_preferences_category_others">Ostatní</string>
   <string name="event_preferences_category_startofeventOthers">Ostatní parametry</string>
   <string name="phone_profiles_pref_applicationLanguage_he">עִברִית</string>
+  <string name="array_pref_value_he">iw</string>
+  <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
+  <string name="array_pref_value_tr">tr</string>
+  <string name="accessibility_service_name">PhoneProfilesPlus</string>
+  <string name="accessibility_service_description">Umožní PhoneProfilePlus zjišťovat, která aplikace je v popředí. Toto je nezbytné pro události, které mají povoleno \"Parametry aplikací\"</string>
+  <string name="event_type_applications">Aplikace</string>
+  <string name="event_preferences_category_eventApplicationsParameters">Parametry aplikace</string>
+  <string name="event_preferences_applications_enabled">Použij aplikace</string>
+  <string name="event_preferences_applications_applications">Aplikace</string>
+  <string name="event_preferences_applications_AccessibilitySettings_title">Nastavení dostupnosti</string>
+  <string name="event_preferences_applications_AccessibilitySettings_summary">Povol PhoneProfilePlus v systémovém nastavení \"Dostupnost\", pro povolení parametrů aplikací.</string>
+  <string name="event_preferences_notifications_end_when_removed">Konec, pokud odstraněna</string>
 </resources>
