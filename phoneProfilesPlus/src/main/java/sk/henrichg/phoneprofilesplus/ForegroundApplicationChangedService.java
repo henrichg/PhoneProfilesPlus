@@ -51,7 +51,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
                 //Log.d("ForegroundApplicationChangedService", "currentActivity="+componentName.flattenToShortString());
 
                 String packageInForeground = event.getPackageName().toString();
-                Log.d("ForegroundApplicationChangedService", "packageInForeground="+packageInForeground);
+                //Log.d("ForegroundApplicationChangedService", "packageInForeground="+packageInForeground);
                 GlobalData.setApplicationInForeground(context, packageInForeground);
 
                 Intent intent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
@@ -74,7 +74,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.d("ForegroundApplicationChangedService", "onUnbind");
+        //Log.d("ForegroundApplicationChangedService", "onUnbind");
 
         Context context = getApplicationContext();
 

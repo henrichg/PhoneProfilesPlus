@@ -11,8 +11,6 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
-import android.support.v7.view.ActionMode;
-import android.support.v7.view.ActionMode.Callback;
 
 import com.fnp.materialpreferences.PreferenceFragment;
  
