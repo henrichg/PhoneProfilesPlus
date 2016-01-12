@@ -1883,13 +1883,13 @@ public class DataWrapper {
 
             if (isBluetoothEnabled)
             {
-                GlobalData.logE("DataWrapper.doEventService","bluetoothEnabled=true");
+                GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetoothEnabled=true");
 
-                GlobalData.logE("@@@ DataWrapper.doEventService","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
+                GlobalData.logE("[BTScan] DataWrapper.doEventService","-- eventAdapterName="+event._eventPreferencesBluetooth._adapterName);
 
                 if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, "")) {
 
-                    GlobalData.logE("@@@ DataWrapper.doEventService", "bluetooth connected");
+                    GlobalData.logE("[BTScan] DataWrapper.doEventService", "bluetooth connected");
 
                     if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, event._eventPreferencesBluetooth._adapterName)) {
                         // event BT adapter is connected
@@ -1900,10 +1900,15 @@ public class DataWrapper {
                             // for this connectionTypes, BT must not be connected to event BT adapter
                             bluetoothPassed = false;
                     }
+                    else {
+                        if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)
+                            // for this connectionTypes, BT must not be connected to event BT adapter
+                            bluetoothPassed = true;
+                    }
                 }
                 else
                 {
-                    GlobalData.logE("@@@ DataWrapper.doEventService", "bluetooth not connected");
+                    GlobalData.logE("[BTScan] DataWrapper.doEventService", "bluetooth not connected");
 
                     if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)
                         // for this connectionTypes, BT must not be connected to event BT adapter
@@ -1912,7 +1917,9 @@ public class DataWrapper {
                 }
             }
             else
-                GlobalData.logE("DataWrapper.doEventService","bluetoothEnabled=true");
+                GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetoothEnabled=true");
+
+            GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetoothPassed="+bluetoothPassed);
 
             if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
                 (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
@@ -1950,6 +1957,8 @@ public class DataWrapper {
 
                 }
             }
+
+            GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetoothPassed="+bluetoothPassed);
 
             //eventStart = eventStart && bluetoothPassed;
         }

@@ -40,7 +40,7 @@ public class GlobalData extends Application {
     public static final boolean exactAlarms = true;
 
     private static boolean logIntoLogCat = false;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =
                                         /*"##### LocaleChangedReceiver.onReceive|"+
@@ -134,9 +134,10 @@ public class GlobalData extends Application {
                                         //"BluetoothLEScanCallback21|"+
                                         //"BluetoothLEScanCallback18|"+
                                         //"* ScannerService"
-                                        "#### PPNotificationListenerService|"+
-                                        "##### NotificationBroadcastReceiver|"+
-                                        "##### NotificationEventEndBroadcastReceiver"
+                                        //"#### PPNotificationListenerService|"+
+                                        //"##### NotificationBroadcastReceiver|"+
+                                        //"##### NotificationEventEndBroadcastReceiver"
+                                        "[BTScan] DataWrapper"
             ;
 
 

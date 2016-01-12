@@ -98,11 +98,13 @@ public class EventPreferencesBluetooth extends EventPreferences {
             descr = descr + ": " + connectionListTypeNames[index] + "; ";
             descr = descr + context.getString(R.string.pref_event_bluetooth_adapterName);
             descr = descr + ": ";
-            if (ScannerService.bluetoothLESupported(context)) {
-                if (this._devicesType == DTYPE_CLASSIC)
-                    descr = descr + "[CL] ";
-                else if (this._devicesType == DTYPE_LE)
-                    descr = descr + "[LE] ";
+            if ((this._connectionType == CTYPE_INFRONT) || (this._connectionType == CTYPE_NOTINFRONT)) {
+                if (ScannerService.bluetoothLESupported(context)) {
+                    if (this._devicesType == DTYPE_CLASSIC)
+                        descr = descr + "[CL] ";
+                    else if (this._devicesType == DTYPE_LE)
+                        descr = descr + "[LE] ";
+                }
             }
             descr = descr + this._adapterName;
         }
