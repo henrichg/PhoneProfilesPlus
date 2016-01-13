@@ -869,3 +869,33 @@ CO FUNGUJE CIASTOCNE:
    takat notifikacia zobrazila aj v lockscreene. ;-)
 
 --------
+
+---------- PIN/password
+
+1. ako zrusim pin/heslo
+
+deviceManager.setPasswordMinimumLength(compName, 0);
+boolean result = deviceManager.resetPassword("", DevicePolicyManager.RESET_PASSWORD_REQUIRE_ENTRY);
+
+2. ako nahodim pin/heslo
+
+DevicePolicyManager deviceManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
+ComponentName compName = new ComponentName(MessageService.this, LockAdmin.class);  
+
+boolean active = deviceManager.isAdminActive(compName);  
+
+if (active) { 
+  deviceManager.setPasswordQuality(compName,DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED);
+  deviceManager.setPasswordMinimumLength(compName, 5);
+
+  boolean result = deviceManager.resetPassword("blablabla", DevicePolicyManager.RESET_PASSWORD_REQUIRE_ENTRY);
+}
+
+3. password quality:
+
+DevicePolicyManager.PASSWORD_QUALITY_SOMETHING - pattern lock?
+DevicePolicyManager.PASSWORD_QUALITY_BIOMETRIC_WEAK - tvar, odtlacok prstu?
+DevicePolicyManager.PASSWORD_QUALITY_NUMERIC - pin?
+DevicePolicyManager.PASSWORD_QUALITY_ALPHABETIC - heslo?
+DevicePolicyManager.PASSWORD_QUALITY_ALPHANUMERIC - heslo?
+DevicePolicyManager.PASSWORD_QUALITY_COMPLEX - heslo?
