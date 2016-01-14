@@ -36,15 +36,15 @@
             android:key="eventProfileStart"
             android:title="@string/event_preferences_eventProfileStart"
             henrichg:addNoActivateItem="0" />
+        <CheckBoxPreference
+            android:key="eventForceRun"
+            android:title="@string/event_preferences_ForceRun"
+            android:defaultValue="false"
+            android:summary="@string/event_preferences_ForceRun_summary" />
         <PreferenceScreen
             android:title="@string/event_preferences_category_startofeventOthers"
             android:key="eventStartOthersCategory"
             android:widgetLayout="@layout/start_activity_preference" >
-            <CheckBoxPreference
-                android:key="eventForceRun"
-                android:title="@string/event_preferences_ForceRun"
-                android:defaultValue="false"
-                android:summary="@string/event_preferences_ForceRun_summary" />
             <sk.henrichg.phoneprofilesplus.ProfilePreference
                 android:defaultValue="0"
                 android:key="eventStartWhenActivatedProfile"
