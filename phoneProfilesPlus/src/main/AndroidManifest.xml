@@ -614,6 +614,13 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-    </application>
+        <receiver
+            android:name=".WifiAPStateChangeBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>    </application>
 
 </manifest>

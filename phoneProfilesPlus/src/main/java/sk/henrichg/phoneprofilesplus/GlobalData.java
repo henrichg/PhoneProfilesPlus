@@ -137,7 +137,8 @@ public class GlobalData extends Application {
                                         //"#### PPNotificationListenerService|"+
                                         //"##### NotificationBroadcastReceiver|"+
                                         //"##### NotificationEventEndBroadcastReceiver"
-                                        "[BTScan] DataWrapper"
+                                        //"[BTScan] DataWrapper"
+                                        "WifiAPStateChangeBroadcastReceiver"
             ;
 
 
