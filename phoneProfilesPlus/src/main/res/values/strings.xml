@@ -647,4 +647,5 @@
     <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
     <string name="event_preferences_applications_AccessibilitySettings_summary">Allow PhoneProfilesPlus in \"Accessibility\" system settings, for enabling Applications parameters.</string>
     <string name="event_preferences_notifications_end_when_removed">End when removed</string>
+    <string name="brightness_pref_dialog_adaptive_level_root_required">For change adaptive level, ROOT is required.</string>
 </resources>

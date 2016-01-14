@@ -53,6 +53,7 @@ public class BrightnessDialogPreference extends
     private String sValue = "";
     private int value = 0;
 
+    private boolean adaptiveAllowed = true;
     Profile _defaultProfile;
 
     private int savedBrightness;
@@ -80,6 +81,9 @@ public class BrightnessDialogPreference extends
 
         _defaultProfile = GlobalData.getDefaultProfile(_context);
 
+        adaptiveAllowed = (android.os.Build.VERSION.SDK_INT <= 21) ||
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context)
+                                                    == GlobalData.PREFERENCE_ALLOWED);
     }
 
     @Override
@@ -111,7 +115,7 @@ public class BrightnessDialogPreference extends
                     }
                 });
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_brightness_pref_dialog, null);
+        View layout = LayoutInflater.from(_context).inflate(R.layout.activity_brightness_pref_dialog, null);
         onBindDialogView(layout);
 
         seekBar = (SeekBar)layout.findViewById(R.id.brightnessPrefDialogSeekbar);
@@ -120,8 +124,14 @@ public class BrightnessDialogPreference extends
         automaticChBox = (CheckBox)layout.findViewById(R.id.brightnessPrefDialogAutomatic);
         defaultProfileChBox = (CheckBox)layout.findViewById(R.id.brightnessPrefDialogDefaultProfile);
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-            automaticChBox.setText(R.string.preference_profile_adaptiveBrightness);
+        if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
+            String text = _context.getString(R.string.preference_profile_adaptiveBrightness);
+            automaticChBox.setText(text);
+        }
+
+        if (adaptiveAllowed) {
+            layout.findViewById(R.id.brightnessPrefDialogAdaptiveLevelRoot).setVisibility(View.GONE);
+        }
 
         seekBar.setOnSeekBarChangeListener(this);
         seekBar.setKeyProgressIncrement(stepSize);
@@ -135,7 +145,7 @@ public class BrightnessDialogPreference extends
         noChangeChBox.setChecked((noChange == 1));
 
         automaticChBox.setOnCheckedChangeListener(this);
-        automaticChBox.setChecked((automatic == 1));
+        automaticChBox.setChecked(automatic == 1);
 
         defaultProfileChBox.setOnCheckedChangeListener(this);
         defaultProfileChBox.setChecked((defaultProfile == 1));
@@ -146,8 +156,8 @@ public class BrightnessDialogPreference extends
         if (defaultProfile == 1)
             noChangeChBox.setChecked(false);
 
-        valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
-        seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
+        valueText.setEnabled(adaptiveAllowed && (noChange == 0) && (defaultProfile == 0));
+        seekBar.setEnabled(adaptiveAllowed && (noChange == 0) && (defaultProfile == 0));
         automaticChBox.setEnabled((noChange == 0) && (defaultProfile == 0));
 
         mBuilder.customView(layout, false);
@@ -173,8 +183,7 @@ public class BrightnessDialogPreference extends
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog)
-    {
+    public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         GUIData.unregisterOnActivityDestroyListener(this, this);
 
@@ -209,8 +218,8 @@ public class BrightnessDialogPreference extends
             valueText.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
             seekBar.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
             */
-            valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
-            seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
+            valueText.setEnabled(adaptiveAllowed && (noChange == 0) && (defaultProfile == 0));
+            seekBar.setEnabled(adaptiveAllowed && (noChange == 0) && (defaultProfile == 0));
             automaticChBox.setEnabled((noChange == 0) && (defaultProfile == 0));
             if (isChecked)
                 defaultProfileChBox.setChecked(false);
@@ -224,8 +233,8 @@ public class BrightnessDialogPreference extends
             valueText.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
             seekBar.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
             */
-            valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
-            seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
+            valueText.setEnabled(adaptiveAllowed && (noChange == 0) && (defaultProfile == 0));
+            seekBar.setEnabled(adaptiveAllowed && (noChange == 0) && (defaultProfile == 0));
             automaticChBox.setEnabled((noChange == 0) && (defaultProfile == 0));
             if (isChecked)
                 noChangeChBox.setChecked(false);
@@ -243,8 +252,8 @@ public class BrightnessDialogPreference extends
             valueText.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
             seekBar.setEnabled((noChange == 0) && (defaultProfile == 0) && (!isAutomatic));
             */
-            valueText.setEnabled((noChange == 0) && (defaultProfile == 0));
-            seekBar.setEnabled((noChange == 0) && (defaultProfile == 0));
+            valueText.setEnabled(adaptiveAllowed && (noChange == 0) && (defaultProfile == 0));
+            seekBar.setEnabled(adaptiveAllowed && (noChange == 0) && (defaultProfile == 0));
         }
 
         // get values from defaultProfile when default profile checkbox is checked
@@ -440,8 +449,7 @@ public class BrightnessDialogPreference extends
     }
 
     private void setAdaptiveBrightness(float value) {
-        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context)
-                == GlobalData.PREFERENCE_ALLOWED) {
+        if (adaptiveAllowed) {
             if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                 Settings.System.putFloat(_context.getContentResolver(),
                         ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
