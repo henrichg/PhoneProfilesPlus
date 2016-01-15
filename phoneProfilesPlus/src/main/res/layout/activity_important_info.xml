@@ -120,7 +120,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/important_info_profile_activation_text7"
+                android:text="@string/important_info_profile_activation_restart_events_icon"
                 android:id="@+id/activity_info_profile_activation7a"
                 android:textStyle="bold"
                 android:drawableRight="?attr/actionEventsRestartIconInverse"
@@ -134,7 +134,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/important_info_profile_activation_text7"
+                android:text="@string/important_info_profile_activation_traffic_light_icon"
                 android:id="@+id/activity_info_profile_activation8a"
                 android:textStyle="bold"
                 android:drawableRight="@drawable/ic_run_events_indicator_running"
@@ -224,16 +224,37 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
                 android:text="@string/info_notification_event_not_started"
-                android:id="@+id/activity_info_notification_dialog_info_text4" />
+                android:id="@+id/activity_info_notification_dialog_info_text4"
+                android:textStyle="bold" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_restart_events_icon"
+                android:id="@+id/activity_info_profile_activation7b"
+                android:textStyle="bold"
+                android:drawableRight="?attr/actionEventsRestartIconInverse"
+                android:drawablePadding="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_activation_traffic_light_icon"
+                android:id="@+id/activity_info_profile_activation8b"
+                android:textStyle="bold"
+                android:drawableRight="@drawable/ic_run_events_indicator_running"
+                android:drawablePadding="6dp" />
+
+            <!--
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_manual_profile_activation_stops_events"
-                android:id="@+id/activity_info_notification_dialog_info_text8" />
+                android:id="@+id/activity_info_notification_dialog_info_text8"
+                android:textStyle="bold" />
+            -->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -260,6 +281,13 @@
                 android:text="@string/important_info_system"
                 android:id="@+id/activity_info_notification_dialog_system"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_android_doze_mode"
+                android:id="@+id/activity_info_notification_dialog_info_text10a"
                 android:textStyle="bold" />
 
             <TextView

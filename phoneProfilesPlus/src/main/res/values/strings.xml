@@ -654,10 +654,12 @@
     <string name="important_info_profile_activation_text4">Manual activation pauses all events and events will be never started. You must Restart events to resume the events start.</string>
     <string name="important_info_profile_activation_text5">Exceptions to this rule is if the event has set preference \"Ignore manual activation\".</string>
     <string name="important_info_profile_activation_text6">Restart events can be invoked from Activator, Editor and notification.</string>
-    <string name="important_info_profile_activation_text7">Icon:</string>
     <string name="important_info_profile_activation_text8">In title of Activator and Editor is \"traffic light\".</string>
     <string name="important_info_profile_activation_text9">- green color: events can be started.</string>
     <string name="important_info_profile_activation_text10">- orange color: events can not by started - profile is activated manually.</string>
     <string name="important_info_profile_activation_text11">- red color: events are stopped - events run can by enabled with Editor menu item \"Enable events run\".</string>
+    <string name="important_info_profile_activation_restart_events_icon">Restart events icon:</string>
+    <string name="important_info_profile_activation_traffic_light_icon">\"Traffic light\" icon:</string>
+    <string name="important_info_android_doze_mode">In Android 6 is implemented \"Doze mode\" and \"App Standby\". When you encountered problems with profile activation from events, if you leaves a device unplugged and stationary for a period of time, with the screen off, add PhoneProfilesPlus into \"Battery\"->\"Battery optimization\"->\"Not optimized\".</string>
 
 </resources>
