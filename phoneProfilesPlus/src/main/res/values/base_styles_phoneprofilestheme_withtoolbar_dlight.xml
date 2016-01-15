@@ -31,6 +31,7 @@
         <item name="editItemMenuIcon">@drawable/ic_profile_item_edit_menu</item> 
         <item name="applicationSettingsLanguageIcon">@drawable/ic_settings_language</item> 
         <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_dark</item>
+        <item name="actionEventsRestartIconInverse">@drawable/ic_action_events_restart</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Light</item>
 

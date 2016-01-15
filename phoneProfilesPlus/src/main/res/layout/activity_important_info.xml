@@ -20,6 +20,8 @@
             android:paddingTop="@dimen/important_info_top_margin"
             android:paddingBottom="@dimen/important_info_bottom_margin" >
 
+            <!-- NEWS -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,6 +69,8 @@
                 android:id="@+id/activity_info_notification_dialog_info_text13"
                 android:textColor="?attr/colorAccent"/>
 
+            <!-- PROFILES -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,6 +78,85 @@
                 android:text="@string/important_info_profiles"
                 android:id="@+id/activity_info_notification_dialog_profiles"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text1"
+                android:id="@+id/activity_info_profile_activation1"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text2"
+                android:id="@+id/activity_info_profile_activation2"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text3"
+                android:id="@+id/activity_info_profile_activation3"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text4"
+                android:id="@+id/activity_info_profile_activation4"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_activation_text5"
+                android:id="@+id/activity_info_profile_activation5"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text6"
+                android:id="@+id/activity_info_profile_activation6"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text7"
+                android:id="@+id/activity_info_profile_activation7a"
+                android:textStyle="bold"
+                android:drawableRight="?attr/actionEventsRestartIconInverse"
+                android:drawablePadding="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text8"
+                android:id="@+id/activity_info_profile_activation8"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text7"
+                android:id="@+id/activity_info_profile_activation8a"
+                android:textStyle="bold"
+                android:drawableRight="@drawable/ic_run_events_indicator_running"
+                android:drawablePadding="6dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text9"
+                android:id="@+id/activity_info_profile_activation9"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text10"
+                android:id="@+id/activity_info_profile_activation10"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_activation_text11"
+                android:id="@+id/activity_info_profile_activation11"
                 android:textStyle="bold" />
 
             <TextView
@@ -127,6 +210,8 @@
                 android:text="@string/important_info_profile_adaptiveBrightness_root"
                 android:id="@+id/activity_info_notification_dialog_info_text18" />
 
+            <!-- EVENTS -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -165,6 +250,8 @@
                 android:text="@string/important_info_profile_bluetoothScanning_location"
                 android:id="@+id/activity_info_notification_dialog_info_text22"
                 android:textColor="?attr/colorAccent" />
+
+            <!-- SYSTEM -->
 
             <TextView
                 android:layout_width="wrap_content"

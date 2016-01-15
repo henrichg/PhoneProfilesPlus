@@ -67,6 +67,7 @@
     <attr name="editItemMenuIcon" format="reference" />
     <attr name="applicationSettingsLanguageIcon" format="reference" />
     <attr name="actionEventsRestartIcon" format="reference" />
+    <attr name="actionEventsRestartIconInverse" format="reference" />
     <attr name="toolbarTheme" format="reference" />
     <attr name="toolbarPopupMenu" format="reference" />
     <attr name="editorDrawerListHeaderBackground" format="reference" />
