@@ -163,8 +163,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/info_notification_minimal_ringer_and_notification_volumes"
-                android:id="@+id/activity_info_notification_dialog_info_text2" />
+                android:text="@string/important_info_profile_root"
+                android:id="@+id/activity_info_notification_dialog_info_text5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_pphelper"
+                android:id="@+id/activity_info_notification_dialog_info_text6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_settings"
+                android:id="@+id/activity_info_notification_dialog_info_text12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_pphelper_installation"
+                android:id="@+id/activity_info_notification_dialog_info_text7" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -178,15 +199,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/info_notification_silent_mode_lollipop_rename"
-                android:id="@+id/activity_info_notification_dialog_info_text1" />
+                android:text="@string/info_notification_silent_mode_lollipop"
+                android:id="@+id/activity_info_notification_dialog_info_text11" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/info_notification_silent_mode_lollipop"
-                android:id="@+id/activity_info_notification_dialog_info_text11" />
+                android:text="@string/info_notification_minimal_ringer_and_notification_volumes"
+                android:id="@+id/activity_info_notification_dialog_info_text2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -297,34 +318,6 @@
                 android:text="@string/important_into_sony_stamina_mode"
                 android:id="@+id/activity_info_notification_dialog_info_text10"
                 android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/important_info_profile_root"
-                android:id="@+id/activity_info_notification_dialog_info_text5" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/important_info_profile_pphelper"
-                android:id="@+id/activity_info_notification_dialog_info_text6" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/important_info_profile_settings"
-                android:id="@+id/activity_info_notification_dialog_info_text12" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/important_info_pphelper_installation"
-                android:id="@+id/activity_info_notification_dialog_info_text7" />
 
         </LinearLayout>
 
