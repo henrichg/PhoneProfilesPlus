@@ -205,6 +205,13 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 preferenceCategory.removePreference(preference);
             }
         }
+        if (android.os.Build.VERSION.SDK_INT < 23) {
+            Preference preference = (Preference) prefMng.findPreference("prf_pref_volumeVibrateWhenRingingRootInfo");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
+                preferenceCategory.removePreference(preference);
+            }
+        }
     }
 
     @Override

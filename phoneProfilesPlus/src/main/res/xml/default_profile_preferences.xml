@@ -10,6 +10,10 @@
         android:title="@string/profile_preferences_category_sound_profile"
         android:key="prf_pref_soundProfileCategory"
         android:widgetLayout="@layout/start_activity_preference"  >
+        <Preference
+            android:key="prf_pref_volumeVibrateWhenRingingRootInfo"
+            android:title="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_title"
+            android:summary="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_summary" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_volumeRingerMode"
             android:summary="@string/array_pref_no_change"
