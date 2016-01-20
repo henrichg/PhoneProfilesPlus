@@ -51,7 +51,8 @@
         <Preference
             android:key="prf_pref_volumeVibrateWhenRingingRootInfo"
             android:title="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_title"
-            android:summary="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_summary" />
+            android:summary="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_summary"
+            android:widgetLayout="@layout/info_preference" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_volumeRingerMode"
             android:summary="@string/array_pref_no_change"
