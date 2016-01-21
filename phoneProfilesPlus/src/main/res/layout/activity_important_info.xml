@@ -245,6 +245,44 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/info_notification_event_states"
+                android:id="@+id/activity_info_notification_dialog_info_text30" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/info_notification_event_states_running"
+                android:id="@+id/activity_info_notification_dialog_info_text31"
+                android:drawableLeft="@drawable/ic_event_status_running"
+                android:drawablePadding="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/info_notification_event_states_paused"
+                android:id="@+id/activity_info_notification_dialog_info_text32"
+                android:drawableLeft="@drawable/ic_event_status_pause"
+                android:drawablePadding="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/info_notification_event_states_paused_delay"
+                android:id="@+id/activity_info_notification_dialog_info_text34"
+                android:drawableLeft="@drawable/ic_event_status_pause_delay"
+                android:drawablePadding="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/info_notification_event_states_stopped"
+                android:id="@+id/activity_info_notification_dialog_info_text33"
+                android:drawableLeft="@drawable/ic_event_status_stop"
+                android:drawablePadding="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/info_notification_event_not_started"
                 android:id="@+id/activity_info_notification_dialog_info_text4"
                 android:textStyle="bold" />

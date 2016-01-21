@@ -663,5 +663,9 @@
     <string name="important_info_android_doze_mode">In Android 6 is implemented \"Doze mode\" and \"App Standby\". When you encountered problems with profile activation from events, if you leaves a device unplugged and stationary for a period of time, with the screen off, add PhoneProfilesPlus into \"Battery\"->\"Battery optimization\"->\"Not optimized\".</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrate when ringing</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">In Android 6 this system setting can by changed only on rooted devices. Affected are ringer modes and interruption types with vibration.</string>
-
+    <string name="info_notification_event_states">The event may be in 4 states:</string>
+    <string name="info_notification_event_states_running">Running: event is started and running. Event parameters are satisfied.</string>
+    <string name="info_notification_event_states_paused">Paused: event is not running. Event parameters are not satisfied. Event is waiting for parameters satisfaction.</string>
+    <string name="info_notification_event_states_stopped">Stopped: event is stopped and can not by started. Event parameter \"Enable run\" is not checked.</string>
+    <string name="info_notification_event_states_paused_delay">Paused with delay: event is started, but is waiting in the delay. Event parameters are satisfied.</string>
 </resources>
