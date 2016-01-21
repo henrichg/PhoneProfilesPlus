@@ -668,4 +668,6 @@
     <string name="info_notification_event_states_paused">Paused: event is not running. Event parameters are not satisfied. Event is waiting for parameters satisfaction.</string>
     <string name="info_notification_event_states_stopped">Stopped: event is stopped and can not by started. Event parameter \"Enable run\" is not checked.</string>
     <string name="info_notification_event_states_paused_delay">Paused with delay: event is started, but is waiting in the delay. Event parameters are satisfied.</string>
+    <string name="info_notification_source_profile">For each profile parameter can be set that it is used Source profile. To set the Source profile parameters, use the icon in the bottom panel.</string>
+    <string name="info_notification_source_profile_icon">Source profile icon:</string>
 </resources>

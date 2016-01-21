@@ -124,6 +124,7 @@
                 android:id="@+id/activity_info_profile_activation7a"
                 android:textStyle="bold"
                 android:drawableRight="?attr/actionEventsRestartIconInverse"
+                android:drawableEnd="?attr/actionEventsRestartIconInverse"
                 android:drawablePadding="4dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -138,6 +139,7 @@
                 android:id="@+id/activity_info_profile_activation8a"
                 android:textStyle="bold"
                 android:drawableRight="@drawable/ic_run_events_indicator_running"
+                android:drawableEnd="@drawable/ic_run_events_indicator_running"
                 android:drawablePadding="6dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -158,6 +160,21 @@
                 android:text="@string/important_info_profile_activation_text11"
                 android:id="@+id/activity_info_profile_activation11"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_source_profile"
+                android:id="@+id/activity_info_notification_dialog_info_text40" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/info_notification_source_profile_icon"
+                android:id="@+id/activity_info_notification_dialog_info_text41"
+                android:drawableRight="?attr/actionSourceProfileIconInverse"
+                android:drawableEnd="?attr/actionSourceProfileIconInverse"
+                android:drawablePadding="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -254,6 +271,7 @@
                 android:text="@string/info_notification_event_states_running"
                 android:id="@+id/activity_info_notification_dialog_info_text31"
                 android:drawableLeft="@drawable/ic_event_status_running"
+                android:drawableStart="@drawable/ic_event_status_running"
                 android:drawablePadding="4dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -262,6 +280,7 @@
                 android:text="@string/info_notification_event_states_paused"
                 android:id="@+id/activity_info_notification_dialog_info_text32"
                 android:drawableLeft="@drawable/ic_event_status_pause"
+                android:drawableStart="@drawable/ic_event_status_pause"
                 android:drawablePadding="4dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -270,6 +289,7 @@
                 android:text="@string/info_notification_event_states_paused_delay"
                 android:id="@+id/activity_info_notification_dialog_info_text34"
                 android:drawableLeft="@drawable/ic_event_status_pause_delay"
+                android:drawableStart="@drawable/ic_event_status_pause_delay"
                 android:drawablePadding="4dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -278,6 +298,7 @@
                 android:text="@string/info_notification_event_states_stopped"
                 android:id="@+id/activity_info_notification_dialog_info_text33"
                 android:drawableLeft="@drawable/ic_event_status_stop"
+                android:drawableStart="@drawable/ic_event_status_stop"
                 android:drawablePadding="4dp" />
 
             <TextView
@@ -294,6 +315,7 @@
                 android:id="@+id/activity_info_profile_activation7b"
                 android:textStyle="bold"
                 android:drawableRight="?attr/actionEventsRestartIconInverse"
+                android:drawableEnd="?attr/actionEventsRestartIconInverse"
                 android:drawablePadding="4dp" />
             <TextView
                 android:layout_width="wrap_content"
@@ -303,6 +325,7 @@
                 android:id="@+id/activity_info_profile_activation8b"
                 android:textStyle="bold"
                 android:drawableRight="@drawable/ic_run_events_indicator_running"
+                android:drawableEnd="@drawable/ic_run_events_indicator_running"
                 android:drawablePadding="6dp" />
 
             <!--
@@ -345,6 +368,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
                 android:text="@string/important_info_android_doze_mode"
                 android:id="@+id/activity_info_notification_dialog_info_text10a"
                 android:textStyle="bold" />
