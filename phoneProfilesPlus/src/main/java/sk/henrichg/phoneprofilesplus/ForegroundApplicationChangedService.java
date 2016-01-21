@@ -40,22 +40,26 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
             Context context = getApplicationContext();
 
-            ComponentName componentName = new ComponentName(
-                    event.getPackageName().toString(),
-                    event.getClassName().toString()
-            );
+            try {
+                ComponentName componentName = new ComponentName(
+                        event.getPackageName().toString(),
+                        event.getClassName().toString()
+                );
 
-            ActivityInfo activityInfo = tryGetActivity(componentName);
-            boolean isActivity = activityInfo != null;
-            if (isActivity) {
-                //Log.d("ForegroundApplicationChangedService", "currentActivity="+componentName.flattenToShortString());
+                ActivityInfo activityInfo = tryGetActivity(componentName);
+                boolean isActivity = activityInfo != null;
+                if (isActivity) {
+                    //Log.d("ForegroundApplicationChangedService", "currentActivity="+componentName.flattenToShortString());
 
-                String packageInForeground = event.getPackageName().toString();
-                //Log.d("ForegroundApplicationChangedService", "packageInForeground="+packageInForeground);
-                GlobalData.setApplicationInForeground(context, packageInForeground);
+                    String packageInForeground = event.getPackageName().toString();
+                    //Log.d("ForegroundApplicationChangedService", "packageInForeground="+packageInForeground);
+                    GlobalData.setApplicationInForeground(context, packageInForeground);
 
-                Intent intent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
-                context.sendBroadcast(intent);
+                    Intent intent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
+                    context.sendBroadcast(intent);
+                }
+            } catch (Exception e) {
+                Log.e("ForegroundApplicationChangedService.onAccessibilityEvent", e.toString());
             }
         }
     }
