@@ -219,8 +219,8 @@ public class BluetoothNamePreference extends DialogPreference {
 
                 if (_forRescan)
                 {
-                    GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_ENABLED);
-                    GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_ENABLED);
+                    GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
+                    GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     BluetoothScanAlarmBroadcastReceiver.startScanner(context);
 
                     try {

@@ -136,10 +136,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         editor.commit();
         */
 
-        if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED)
-        {
-            fillWifiConfigurationList(context);
-        }
+        fillWifiConfigurationList(context);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
@@ -217,7 +214,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
-            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarm is set");
+            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot + "; alarm is set");
 
         }
         else
@@ -294,7 +291,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         //    wakeLock.release();
         if ((wifiLock != null) && (wifiLock.isHeld()))
             wifiLock.release();
-        GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.unlock","xxx");
+        GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.unlock", "xxx");
     }
     
     public static void sendBroadcast(Context context)
@@ -330,7 +327,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         Editor editor = preferences.edit();
         editor.putBoolean(GlobalData.PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
         editor.commit();
-        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setWaitForResults","waitForResults="+waitForResults);
+        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setWaitForResults", "waitForResults=" + waitForResults);
     }
 
     static public void startScan(Context context)
@@ -398,6 +395,10 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        if (wifi.getWifiState() != WifiManager.WIFI_STATE_ENABLED)
+            // wifi must be enabled for wifi.getConfiguredNetworks()
+            return;
 
         List<WifiConfiguration> _wifiConfigurationList = wifi.getConfiguredNetworks();
         if (_wifiConfigurationList != null)

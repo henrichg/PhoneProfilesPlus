@@ -351,6 +351,7 @@ public class GlobalData extends Application {
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
     public static final int FORCE_ONE_SCAN_ENABLED = 1;
     public static final int FORCE_ONE_SCAN_AND_DO_EVENTS = 2;
+    public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
 
     // preferences for event - filled with broadcast receivers
     static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
