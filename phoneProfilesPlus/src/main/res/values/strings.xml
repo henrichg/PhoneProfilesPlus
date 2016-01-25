@@ -672,4 +672,6 @@
     <string name="info_notification_source_profile_icon">Source profile icon:</string>
     <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>
     <string name="important_info_default_profile">When not any event is running, activated is \"Default profile\", when is configured. You can configure default profile in application settings in \"Profile activation\". Click here, to configure it.</string>
+    <string name="info_notification_unlink_ringer_notification_volumes2">If your device has not separated volume for ringer and notifications, keep enabled volumes separation.</string>
+    <string name="important_info_how_does_volume_separation_work">How \"volume separation\" works: Profile activation adjust the device volume by profile notifications volume level. When call ringing is detected, ringing volume level from profile is adjusted. After end of call, notification volume level from profile is back adjusted.</string>
 </resources>

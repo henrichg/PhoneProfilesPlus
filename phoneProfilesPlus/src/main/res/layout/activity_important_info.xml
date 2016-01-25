@@ -207,10 +207,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
                 android:text="@string/info_notification_unlink_ringer_notification_volumes"
                 android:id="@+id/activity_info_notification_dialog_info_text3"
-                android:textColor="?attr/colorAccent"/>
+                android:textColor="?attr/colorAccent"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/info_notification_unlink_ringer_notification_volumes2"
+                android:id="@+id/activity_info_notification_dialog_info_text46"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_how_does_volume_separation_work"
+                android:id="@+id/activity_info_notification_dialog_info_text45"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
