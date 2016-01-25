@@ -671,4 +671,5 @@
     <string name="info_notification_source_profile">For each profile parameter can be set that it is used Source profile. To set the Source profile parameters, use the icon in the bottom panel.</string>
     <string name="info_notification_source_profile_icon">Source profile icon:</string>
     <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>
+    <string name="important_info_default_profile">When not any event is running, activated is \"Default profile\", when is configured. You can configure default profile in application settings in \"Profile activation\". Click here, to configure it.</string>
 </resources>

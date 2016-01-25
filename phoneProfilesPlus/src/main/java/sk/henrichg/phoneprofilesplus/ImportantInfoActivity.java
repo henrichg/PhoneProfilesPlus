@@ -206,6 +206,19 @@ public class ImportantInfoActivity extends AppCompatActivity {
             }
         });
 
+        TextView infoText40 = (TextView)findViewById(R.id.activity_info_default_profile);
+        infoText40.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "profileActivationCategory");
+                //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivity(intent);
+                finish();
+            }
+        });
+
         if (!news) {
             TextView infoTextNews = (TextView) findViewById(R.id.activity_info_notification_dialog_news);
             infoTextNews.setVisibility(View.GONE);
