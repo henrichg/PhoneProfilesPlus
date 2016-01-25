@@ -31,6 +31,7 @@ public class EventPreferencesCalendar extends EventPreferences {
     public int _searchField;
     public String _searchString;
     public int _availability;
+    public boolean _ignoreAllDayEvents;
 
     public long _startTime;
     public long _endTime;
@@ -41,6 +42,7 @@ public class EventPreferencesCalendar extends EventPreferences {
     static final String PREF_EVENT_CALENDAR_SEARCH_FIELD = "eventCalendarSearchField";
     static final String PREF_EVENT_CALENDAR_SEARCH_STRING = "eventCalendarSearchString";
     static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";
+    static final String PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS = "eventCalendarIgnoreAllDayEvents";
 
     static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategory";
 
@@ -58,7 +60,8 @@ public class EventPreferencesCalendar extends EventPreferences {
                                 String calendars,
                                 int searchField,
                                 String searchString,
-                                int availability)
+                                int availability,
+                                boolean ignoreAllDayEvents)
     {
         super(event, enabled);
 
@@ -66,6 +69,7 @@ public class EventPreferencesCalendar extends EventPreferences {
         this._searchField = searchField;
         this._searchString = searchString;
         this._availability = availability;
+        this._ignoreAllDayEvents = ignoreAllDayEvents;
 
         this._startTime = 0;
         this._endTime = 0;
@@ -80,6 +84,7 @@ public class EventPreferencesCalendar extends EventPreferences {
         this._searchField = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._searchField;
         this._searchString = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._searchString;
         this._availability = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._availability;
+        this._ignoreAllDayEvents = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._ignoreAllDayEvents;
 
         this._startTime = 0;
         this._endTime = 0;
@@ -95,6 +100,7 @@ public class EventPreferencesCalendar extends EventPreferences {
         editor.putString(PREF_EVENT_CALENDAR_SEARCH_FIELD, String.valueOf(_searchField));
         editor.putString(PREF_EVENT_CALENDAR_SEARCH_STRING, _searchString);
         editor.putString(PREF_EVENT_CALENDAR_AVAILABILITY, String.valueOf(_availability));
+        editor.putBoolean(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, _ignoreAllDayEvents);
         editor.commit();
     }
 
@@ -106,6 +112,7 @@ public class EventPreferencesCalendar extends EventPreferences {
         this._searchField = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_SEARCH_FIELD, "0"));
         this._searchString = preferences.getString(PREF_EVENT_CALENDAR_SEARCH_STRING, "");
         this._availability = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_AVAILABILITY, "0"));
+        this._ignoreAllDayEvents = preferences.getBoolean(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, false);
 
         this._startTime = 0;
         this._endTime = 0;
@@ -133,6 +140,9 @@ public class EventPreferencesCalendar extends EventPreferences {
             descr = descr + searchFields[this._searchField] + "; ";
 
             descr = descr + "\"" + this._searchString + "\""  + "; ";
+
+            if (this._ignoreAllDayEvents)
+                descr = descr + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "; ";
 
             String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
             descr = descr + availabilities[this._availability];
@@ -491,6 +501,9 @@ public class EventPreferencesCalendar extends EventPreferences {
                     }
                 }
                 if (!calendarFound)
+                    continue;
+
+                if ((cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1) && this._ignoreAllDayEvents)
                     continue;
 
                 long beginVal = 0;

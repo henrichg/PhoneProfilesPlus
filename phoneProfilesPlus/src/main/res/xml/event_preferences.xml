@@ -155,6 +155,11 @@
             android:selectAllOnFocus="true"
             android:dependency="eventCalendarEnabled"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="eventCalendarIgnoreAllDayEvents"
+            android:title="@string/event_preferences_calendar_ignore_all_day_events"
+            android:defaultValue="false"
+            android:dependency="eventCalendarEnabled" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/event_preference_calendar_availability"
             android:summary="@string/array_event_pref_calendarSearchField_eventName"

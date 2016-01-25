@@ -670,4 +670,5 @@
     <string name="info_notification_event_states_paused_delay">Paused with delay: event is started, but is waiting in the delay. Event parameters are satisfied.</string>
     <string name="info_notification_source_profile">For each profile parameter can be set that it is used Source profile. To set the Source profile parameters, use the icon in the bottom panel.</string>
     <string name="info_notification_source_profile_icon">Source profile icon:</string>
+    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>
 </resources>

@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1460;
+    private static final int DATABASE_VERSION = 1470;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -193,6 +193,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_APPLICATION_ENABLED = "applicationEnabled";
     private static final String KEY_E_APPLICATION_APPLICATIONS = "applicationApplications";
     private static final String KEY_E_NOTIFICATION_END_WHEN_REMOVED = "notificationEndWhenRemoved";
+    private static final String KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS = "calendarIgnoreAllDayEvents";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -395,7 +396,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_BLUETOOTH_DEVICES_TYPE + " INTEGER,"
                 + KEY_E_APPLICATION_ENABLED + " INTEGER,"
                 + KEY_E_APPLICATION_APPLICATIONS + " TEXT,"
-                + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " INTEGER"
+                + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " INTEGER,"
+                + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1389,6 +1391,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_END_WHEN_REMOVED + "=0");
+        }
+
+        if (oldVersion < 1470)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -2867,7 +2878,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 KEY_E_CALENDAR_EVENT_START_TIME,
                                                 KEY_E_CALENDAR_EVENT_END_TIME,
                                                 KEY_E_CALENDAR_EVENT_FOUND,
-                                                KEY_E_CALENDAR_AVAILABILITY
+                                                KEY_E_CALENDAR_AVAILABILITY,
+                                         KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS
                                                 },
                                  KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
@@ -2887,6 +2899,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._endTime = Long.parseLong(cursor.getString(5));
                 eventPreferences._eventFound = (Integer.parseInt(cursor.getString(6)) == 1);
                 eventPreferences._availability = Integer.parseInt(cursor.getString(7));
+                eventPreferences._ignoreAllDayEvents = (Integer.parseInt(cursor.getString(8)) == 1);
             }
             cursor.close();
         }
@@ -3179,6 +3192,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALENDAR_EVENT_END_TIME, eventPreferences._endTime);
         values.put(KEY_E_CALENDAR_EVENT_FOUND, (eventPreferences._eventFound) ? 1 : 0);
         values.put(KEY_E_CALENDAR_AVAILABILITY, eventPreferences._availability);
+        values.put(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, (eventPreferences._ignoreAllDayEvents) ? 1 : 0);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4809,6 +4823,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         if (exportedDBObj.getVersion() < 1460)
                                         {
                                             values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1470)
+                                        {
+                                            values.put(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, 0);
                                         }
 
                                     // Inserting Row do db z SQLiteOpenHelper
