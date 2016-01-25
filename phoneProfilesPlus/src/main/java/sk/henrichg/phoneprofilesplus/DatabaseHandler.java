@@ -4212,6 +4212,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.rawQuery(selectQuery, null);
     }
 
+// GEOFENCES ----------------------------------------------------------------------
+
+    public Cursor getGeofencesCursor() {
+
+        final String selectQuery = "SELECT " + KEY_G_ID + "," +
+                                               KEY_G_LATITUDE + "," +
+                                               KEY_G_LONGITUDE + "," +
+                                               KEY_G_RADIUS + "," +
+                                               KEY_G_NAME +
+                                    " FROM " + TABLE_GEOFENCES +
+                                " ORDER BY " + KEY_G_NAME + " ASC";
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        return db.rawQuery(selectQuery, null);
+    }
+
 // OTHERS -------------------------------------------------------------------------
 
     public boolean tableExists(String tableName, SQLiteDatabase db)

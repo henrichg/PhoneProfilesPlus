@@ -15,7 +15,7 @@
         android:text="@string/empty_string" />
 
     <TextView
-        android:id="@+id/location_pref_dlg_item_label"
+        android:id="@+id/location_pref_dlg_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/location_pref_dlg_item_radiobtn"
