@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1470;
+    private static final int DATABASE_VERSION = 1480;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -40,6 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_EVENTS = "events";
     private static final String TABLE_EVENT_TIMELINE = "event_timeline";
     private static final String TABLE_ACTIVITY_LOG = "activity_log";
+    private static final String TABLE_GEOFENCES = "geofences";
 
     // import/export
     private final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
@@ -209,6 +210,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_AL_PROFILE_NAME = "profileName";
     public static final String KEY_AL_PROFILE_ICON = "profileIcon";
     public static final String KEY_AL_DURATION_DELAY = "durationDelay";
+
+    // Geofences Columns names
+    public static final String KEY_G_ID = "_id";  // for CursorAdapter must by this name
+    public static final String KEY_G_LATITUDE = "latitude";
+    public static final String KEY_G_LONGITUDE = "longitude";
+    public static final String KEY_G_RADIUS = "radius";
+    public static final String KEY_G_NAME = "name";
+
 
     /**
      * Constructor takes and keeps a reference of the passed context in order to
@@ -428,6 +437,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_ACTIVITYLOG_TABLE);
 
         db.execSQL("CREATE INDEX IDX_AL_LOG_DATE_TIME ON " + TABLE_ACTIVITY_LOG + " (" + KEY_AL_LOG_DATE_TIME + ")");
+
+        final String CREATE_GEOFENCES_TABLE = "CREATE TABLE " + TABLE_GEOFENCES + "("
+                + KEY_G_ID + " INTEGER PRIMARY KEY,"
+                + KEY_G_LATITUDE + " DOUBLE,"
+                + KEY_G_LONGITUDE + " DOUBLE,"
+                + KEY_G_RADIUS + " FLOAT,"
+                + KEY_G_NAME + " TEXT"
+                + ")";
+        db.execSQL(CREATE_GEOFENCES_TABLE);
 
     }
 
@@ -1400,6 +1418,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + "=0");
+        }
+
+        if (oldVersion < 1480) {
+            final String CREATE_GEOFENCES_TABLE = "CREATE TABLE " + TABLE_GEOFENCES + "("
+                    + KEY_G_ID + " INTEGER PRIMARY KEY,"
+                    + KEY_G_LATITUDE + " DOUBLE,"
+                    + KEY_G_LONGITUDE + " DOUBLE,"
+                    + KEY_G_RADIUS + " FLOAT,"
+                    + KEY_G_NAME + " TEXT"
+                    + ")";
+            db.execSQL(CREATE_GEOFENCES_TABLE);
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -4868,6 +4897,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                     // Inserting Row do db z SQLiteOpenHelper
                                     db.insert(TABLE_ACTIVITY_LOG, null, values);
+
+                                } while (cursorExportedDB.moveToNext());
+                            }
+
+                            cursorExportedDB.close();
+                            cursorImportDB.close();
+
+                        }
+
+                        db.execSQL("DELETE FROM " + TABLE_GEOFENCES);
+
+                        if (tableExists(TABLE_GEOFENCES, exportedDBObj)) {
+                            // cusor for events exportedDB
+                            cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_GEOFENCES, null);
+                            columnNamesExportedDB = cursorExportedDB.getColumnNames();
+
+                            // cursor for profiles of destination db
+                            cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_GEOFENCES, null);
+
+                            if (cursorExportedDB.moveToFirst()) {
+                                do {
+                                    values.clear();
+                                    for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                        // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                        if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                            values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                        }
+                                    }
+
+                                    // for non existent fields set default value
+                                        /*if (exportedDBObj.getVersion() < 30)
+                                        {
+                                            values.put(KEY_E_USE_END_TIME, 0);
+                                        }*/
+
+                                    // Inserting Row do db z SQLiteOpenHelper
+                                    db.insert(TABLE_GEOFENCES, null, values);
 
                                 } while (cursorExportedDB.moveToNext());
                             }
