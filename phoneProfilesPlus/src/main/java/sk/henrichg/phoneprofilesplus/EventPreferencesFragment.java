@@ -39,6 +39,8 @@ public class EventPreferencesFragment extends PreferenceFragment
     static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
     static final String PREF_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
     static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
+    static final String PREF_LOCATION_SETTINGS = "eventLocationLocationSettings";
+    static final int RESULT_LOCATION_SETTINGS = 1983;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         event._eventPreferencesSMS.checkPreferences(prefMng, context);
         event._eventPreferencesNotification.checkPreferences(prefMng, context);
         event._eventPreferencesApplication.checkPreferences(prefMng, context);
+        event._eventPreferencesLocation.checkPreferences(prefMng, context);
 
         Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
@@ -136,6 +139,19 @@ public class EventPreferencesFragment extends PreferenceFragment
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                    startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                    return false;
+                }
+            });
+        }
+        Preference locationPreference = prefMng.findPreference(PREF_LOCATION_SETTINGS);
+        if (locationPreference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            locationPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
                     startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                     return false;
                 }
@@ -228,6 +244,9 @@ public class EventPreferencesFragment extends PreferenceFragment
         }
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
             event._eventPreferencesApplication.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_LOCATION_SETTINGS) {
+            event._eventPreferencesLocation.checkPreferences(prefMng, context);
         }
     }
 

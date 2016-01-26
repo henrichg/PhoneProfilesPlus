@@ -147,7 +147,7 @@ public class EventPreferencesLocation extends EventPreferences {
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final boolean enabled = true;
-                    //ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
+                    GlobalData.isLocationEnabled(context.getApplicationContext());
             Preference geofencePreference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCE_ID);
         geofencePreference.setEnabled(enabled);
         //}
