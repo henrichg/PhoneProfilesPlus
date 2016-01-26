@@ -389,6 +389,27 @@
             android:dependency="eventBluetoothEnabled" />
     </PreferenceScreen>
     <PreferenceScreen
+        android:key="eventLocationCategory"
+        android:title="@string/event_preferences_category_eventLocationsParameters"
+        android:widgetLayout="@layout/start_activity_preference" >
+        <CheckBoxPreference
+            android:key="eventLocationEnabled"
+            android:title="@string/event_preferences_locations_enabled"
+            android:defaultValue="false" />
+        <Preference
+            android:key="eventLocationLocationSettings"
+            android:title="@string/event_preferences_location_LocationSettings_title"
+            android:summary="@string/event_preferences_location_LocationSettings_summary"
+            android:dependency="eventLocationEnabled"
+            android:widgetLayout="@layout/start_activity_preference" >
+        </Preference>
+        <sk.henrichg.phoneprofilesplus.LocationGeofencePreference
+            android:defaultValue="0"
+            android:key="eventLocationGeofenceId"
+            android:title="@string/event_preferences_locations_location"
+            android:dependency="eventLocationEnabled" />
+    </PreferenceScreen>
+    <PreferenceScreen
         android:title="@string/event_preferences_category_eventPeripheralParameters"
         android:key="eventAccessoriesCategory"
         android:widgetLayout="@layout/start_activity_preference" >

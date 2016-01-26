@@ -674,4 +674,10 @@
     <string name="important_info_default_profile">When not any event is running, activated is \"Default profile\", when is configured. You can configure default profile in application settings in \"Profile activation\". Click here, to configure it.</string>
     <string name="info_notification_unlink_ringer_notification_volumes2">If your device has not separated volume for ringer and notifications, keep enabled volumes separation.</string>
     <string name="important_info_how_does_volume_separation_work">How \"volume separation\" works: Profile activation adjust the device volume by profile notifications volume level. When call ringing is detected, ringing volume level from profile is adjusted. After end of call, notification volume level from profile is back adjusted.</string>
+    <string name="event_type_locations">Locations</string>
+    <string name="event_preferences_category_eventLocationsParameters">Location parameters</string>
+    <string name="event_preferences_locations_enabled">Enable locations</string>
+    <string name="event_preferences_location_LocationSettings_title">Location settings</string>
+    <string name="event_preferences_location_LocationSettings_summary">Allow PhoneProfilesPlus in \"Location\" system settings, for enabling Locations parameters.</string>
+    <string name="event_preferences_locations_location">Location</string>
 </resources>

@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1490;
+    private static final int DATABASE_VERSION = 1500;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -59,6 +59,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int ETYPE_SMS = 11;
     public static final int ETYPE_NOTIFICATION = 12;
     public static final int ETYPE_APPLICATION = 13;
+    public static final int ETYPE_LOCATION = 14;
 
     // activity log types
     public static final int ALTYPE_PROFILEACTIVATION = 1;
@@ -195,6 +196,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_APPLICATION_APPLICATIONS = "applicationApplications";
     private static final String KEY_E_NOTIFICATION_END_WHEN_REMOVED = "notificationEndWhenRemoved";
     private static final String KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS = "calendarIgnoreAllDayEvents";
+    private static final String KEY_E_LOCATION_ENABLED = "locationEnabled";
+    private static final String KEY_E_LOCATION_FK_GEOFENCE = "fklocationGeofenceId";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -407,7 +410,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_APPLICATION_ENABLED + " INTEGER,"
                 + KEY_E_APPLICATION_APPLICATIONS + " TEXT,"
                 + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " INTEGER,"
-                + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " INTEGER"
+                + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " INTEGER,"
+                + KEY_E_LOCATION_ENABLED + " INTEGER,"
+                + KEY_E_LOCATION_FK_GEOFENCE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1440,6 +1445,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_GEOFENCES + " SET " + KEY_G_CHECKED + "=0");
+        }
+
+        if (oldVersion < 1500)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_LOCATION_ENABLED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_LOCATION_FK_GEOFENCE + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_LOCATION_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_LOCATION_FK_GEOFENCE + "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -2764,6 +2780,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesSMS(event, db);
         getEventPreferencesNotification(event, db);
         getEventPreferencesApplication(event, db);
+        getEventPreferencesLocation(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -3105,6 +3122,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesLocation(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_LOCATION_ENABLED,
+                        KEY_E_LOCATION_FK_GEOFENCE
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesLocation eventPreferences = event._eventPreferencesLocation;
+
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
+                eventPreferences._geofenceId = cursor.getInt(1);
+            }
+            cursor.close();
+        }
+    }
+
     public int updateEventPreferences(Event event) {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -3137,6 +3176,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             r = updateEventPreferencesNotification(event, db);
         if (r != 0)
             r = updateEventPreferencesApplication(event, db);
+        if (r != 0)
+            r = updateEventPreferencesLocation(event, db);
 
         return r;
     }
@@ -3337,6 +3378,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_APPLICATION_APPLICATIONS, eventPreferences._applications);
         //values.put(KEY_E_NOTIFICATION_START_TIME, eventPreferences._startTime);
         //values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
+
+        // updating row
+        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+
+        return r;
+    }
+
+    private int updateEventPreferencesLocation(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesLocation eventPreferences = event._eventPreferencesLocation;
+
+        values.put(KEY_E_LOCATION_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_LOCATION_FK_GEOFENCE, eventPreferences._geofenceId);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -3553,6 +3609,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else
         if (eventType == ETYPE_APPLICATION)
             eventTypeChecked = eventTypeChecked + KEY_E_APPLICATION_ENABLED + "=1";
+        else
+        if (eventType == ETYPE_LOCATION)
+            eventTypeChecked = eventTypeChecked + KEY_E_LOCATION_ENABLED + "=1";
 
         countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                      " WHERE " + eventTypeChecked;
@@ -5002,6 +5061,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         if (exportedDBObj.getVersion() < 1470)
                                         {
                                             values.put(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1500)
+                                        {
+                                            values.put(KEY_E_LOCATION_ENABLED, 0);
+                                            values.put(KEY_E_LOCATION_FK_GEOFENCE, 0);
                                         }
 
                                     // Inserting Row do db z SQLiteOpenHelper
