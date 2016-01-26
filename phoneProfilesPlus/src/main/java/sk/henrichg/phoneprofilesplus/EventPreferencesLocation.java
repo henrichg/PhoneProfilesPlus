@@ -102,7 +102,7 @@ public class EventPreferencesLocation extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_LOCATION_GEOFENCE_ID))
         {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+            setSummary(prefMng, key, String.valueOf(preferences.getInt(key, 0)), context);
         }
     }
 

@@ -4303,23 +4303,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public String getGeofenceName(int geofenceId) {
         final String countQuery = "SELECT " + KEY_G_NAME +
-                                    "FROM " + TABLE_GEOFENCES +
-                                   "WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
+                                   " FROM " + TABLE_GEOFENCES +
+                                  " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
 
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
         Cursor cursor = db.rawQuery(countQuery, null);
 
-        String r;
+        String r = "";
 
         if (cursor != null)
         {
-            cursor.moveToFirst();
-            r = cursor.getString(0);
+            if (cursor.moveToFirst())
+                r = cursor.getString(0);
         }
-        else
-            r = "";
 
         cursor.close();
         //db.close();
@@ -4329,23 +4327,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public int getCheckedGeofence() {
         final String countQuery = "SELECT " + KEY_G_ID +
-                                    "FROM " + TABLE_GEOFENCES +
-                                    "WHERE " + KEY_G_CHECKED + "=1";
+                                   " FROM " + TABLE_GEOFENCES +
+                                  " WHERE " + KEY_G_CHECKED + "=1";
 
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
         Cursor cursor = db.rawQuery(countQuery, null);
 
-        int r;
+        int r = 0;
 
         if (cursor != null)
         {
-            cursor.moveToFirst();
-            r = cursor.getInt(0);
+            if (cursor.moveToFirst())
+                r = cursor.getInt(0);
         }
-        else
-            r = 0;
 
         cursor.close();
         //db.close();
@@ -4408,7 +4404,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         } catch (Exception e){
             //Error in between database transaction
-            Log.e("DatabaseHandler.updateProfileReturnET", e.toString());
+            Log.e("DatabaseHandler.checkGeofence", e.toString());
         } finally {
             db.endTransaction();
         }
