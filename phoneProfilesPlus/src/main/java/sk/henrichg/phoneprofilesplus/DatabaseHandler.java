@@ -2878,14 +2878,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void getEventPreferencesCall(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
-                                 new String[] { KEY_E_CALL_ENABLED,
-                                                KEY_E_CALL_EVENT,
-                                                KEY_E_CALL_CONTACTS,
-                                                KEY_E_CALL_CONTACT_LIST_TYPE,
-                                                KEY_E_CALL_CONTACT_GROUPS
-                                                },
-                                 KEY_E_ID + "=?",
-                                 new String[] { String.valueOf(event._id) }, null, null, null, null);
+                new String[]{KEY_E_CALL_ENABLED,
+                        KEY_E_CALL_EVENT,
+                        KEY_E_CALL_CONTACTS,
+                        KEY_E_CALL_CONTACT_LIST_TYPE,
+                        KEY_E_CALL_CONTACT_GROUPS
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
@@ -2906,11 +2906,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void getEventPreferencesPeripheral(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
-                                 new String[] { KEY_E_PERIPHERAL_ENABLED,
-                                                KEY_E_PERIPHERAL_TYPE
-                                                },
-                                 KEY_E_ID + "=?",
-                                 new String[] { String.valueOf(event._id) }, null, null, null, null);
+                new String[]{KEY_E_PERIPHERAL_ENABLED,
+                        KEY_E_PERIPHERAL_TYPE
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
@@ -2928,18 +2928,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void getEventPreferencesCalendar(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
-                                 new String[] { KEY_E_CALENDAR_ENABLED,
-                                                KEY_E_CALENDAR_CALENDARS,
-                                                KEY_E_CALENDAR_SEARCH_FIELD,
-                                                KEY_E_CALENDAR_SEARCH_STRING,
-                                                KEY_E_CALENDAR_EVENT_START_TIME,
-                                                KEY_E_CALENDAR_EVENT_END_TIME,
-                                                KEY_E_CALENDAR_EVENT_FOUND,
-                                                KEY_E_CALENDAR_AVAILABILITY,
-                                         KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS
-                                                },
-                                 KEY_E_ID + "=?",
-                                 new String[] { String.valueOf(event._id) }, null, null, null, null);
+                new String[]{KEY_E_CALENDAR_ENABLED,
+                        KEY_E_CALENDAR_CALENDARS,
+                        KEY_E_CALENDAR_SEARCH_FIELD,
+                        KEY_E_CALENDAR_SEARCH_STRING,
+                        KEY_E_CALENDAR_EVENT_START_TIME,
+                        KEY_E_CALENDAR_EVENT_END_TIME,
+                        KEY_E_CALENDAR_EVENT_FOUND,
+                        KEY_E_CALENDAR_AVAILABILITY,
+                        KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
@@ -4284,6 +4284,168 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 // GEOFENCES ----------------------------------------------------------------------
 
+    // Adding new geofence
+    void addGeofence(Geofence geofence, boolean checked) {
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_G_NAME, geofence._name); // geofence Name
+        values.put(KEY_G_LATITUDE, geofence._latitude);
+        values.put(KEY_G_LONGITUDE, geofence._longitude);
+        values.put(KEY_G_RADIUS, geofence._radius);
+        values.put(KEY_G_CHECKED, checked ? 1 : 0);
+
+        db.beginTransaction();
+
+        try {
+            // Inserting Row
+            geofence._id = db.insert(TABLE_GEOFENCES, null, values);
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close(); // Closing database connection
+    }
+
+    // Getting single geofence
+    Geofence getGeofence(int geofenceId) {
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_GEOFENCES,
+                new String[]{KEY_G_ID,
+                            KEY_G_NAME,
+                            KEY_G_LATITUDE,
+                            KEY_G_LONGITUDE,
+                            KEY_G_RADIUS
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(geofenceId)}, null, null, null, null);
+
+        Geofence geofence = null;
+
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                geofence = new Geofence();
+                geofence._id = Long.parseLong(cursor.getString(0));
+                geofence._name = cursor.getString(1);
+                geofence._latitude = cursor.getDouble(2);
+                geofence._longitude = cursor.getDouble(3);
+                geofence._radius = cursor.getFloat(4);
+            }
+
+            cursor.close();
+        }
+
+        //db.close();
+
+        return geofence;
+    }
+
+    // Getting All geofences
+    public List<Geofence> getAllGeofences() {
+        List<Geofence> geofenceList = new ArrayList<Geofence>();
+
+        // Select All Query
+        final String selectQuery = "SELECT " + KEY_G_ID + "," +
+                                               KEY_G_NAME + "," +
+                                               KEY_G_LATITUDE + "," +
+                                               KEY_G_LONGITUDE + "," +
+                                               KEY_G_RADIUS +
+                                    " FROM " + TABLE_GEOFENCES +
+                                " ORDER BY " + KEY_G_ID;
+
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Geofence geofence = new Geofence();
+                geofence._id = Long.parseLong(cursor.getString(0));
+                geofence._name = cursor.getString(1);
+                geofence._latitude = cursor.getDouble(2);
+                geofence._longitude = cursor.getDouble(3);
+                geofence._radius = cursor.getFloat(4);
+                geofenceList.add(geofence);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        //db.close();
+
+        return geofenceList;
+    }
+
+    // Updating single geofence
+    public int updateGeofence(Geofence geofence, boolean checked) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_G_NAME, geofence._name);
+        values.put(KEY_G_LATITUDE, geofence._latitude);
+        values.put(KEY_G_LONGITUDE, geofence._longitude);
+        values.put(KEY_G_RADIUS, geofence._radius);
+        values.put(KEY_G_CHECKED, checked ? 1 : 0);
+
+        int r = 0;
+
+        db.beginTransaction();
+
+        try {
+            // updating row
+            r = db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?",
+                    new String[] { String.valueOf(geofence._id) });
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.updateEvent", e.toString());
+            r = 0;
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+
+        return r;
+    }
+
+    // Deleting single geofence
+    public void deleteGeofence(long geofenceId) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+        db.delete(TABLE_GEOFENCES, KEY_G_ID + " = ?",
+                new String[]{String.valueOf(geofenceId)});
+        //db.close();
+    }
+    public void deleteGeofence(Geofence geofence) {
+        deleteGeofence(geofence._id);
+    }
+
+    // Deleting all geofences
+    public void deleteAllGeofences() {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+        db.delete(TABLE_GEOFENCES, null, null);
+        //db.close();
+    }
+
     public Cursor getGeofencesCursor() {
 
         final String selectQuery = "SELECT " + KEY_G_ID + "," +
@@ -4301,7 +4463,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.rawQuery(selectQuery, null);
     }
 
-    public String getGeofenceName(int geofenceId) {
+    public String getGeofenceName(long geofenceId) {
         final String countQuery = "SELECT " + KEY_G_NAME +
                                    " FROM " + TABLE_GEOFENCES +
                                   " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
@@ -4349,7 +4511,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
-    public int getGeofencePosition(int geofenceId) {
+    public int getGeofencePosition(long geofenceId) {
         final String selectQuery = "SELECT " + KEY_G_ID +
                                     " FROM " + TABLE_GEOFENCES +
                                 " ORDER BY " + KEY_G_NAME + " ASC";
@@ -4364,7 +4526,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 ++position;
-                if (cursor.getInt(0) == geofenceId) {
+                if (cursor.getLong(0) == geofenceId) {
                     break;
                 }
 
@@ -4378,7 +4540,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return position;
     }
 
-    public void checkGeofence(int geofenceId) {
+    public void checkGeofence(long geofenceId) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -4387,7 +4549,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.beginTransaction();
 
         try {
-            // uncheck geofence
+            // uncheck geofences
             values.clear();
             values.put(KEY_G_CHECKED, 0);
             db.update(TABLE_GEOFENCES, values, null, null);

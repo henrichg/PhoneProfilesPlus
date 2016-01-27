@@ -680,4 +680,5 @@
     <string name="event_preferences_location_LocationSettings_title">Location settings</string>
     <string name="event_preferences_location_LocationSettings_summary">Allow PhoneProfilesPlus in \"Location\" system settings, for enabling Locations parameters.</string>
     <string name="event_preferences_locations_location">Location</string>
+    <string name="event_preferences_locations_location_not_selected">Not selected</string>
 </resources>

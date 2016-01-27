@@ -11,7 +11,7 @@ import android.text.Html;
 
 public class EventPreferencesLocation extends EventPreferences {
 
-    public int _geofenceId;
+    public long _geofenceId;
 
     static final String PREF_EVENT_LOCATION_ENABLED = "eventLocationEnabled";
     static final String PREF_EVENT_LOCATION_GEOFENCE_ID = "eventLocationGeofenceId";
@@ -22,7 +22,7 @@ public class EventPreferencesLocation extends EventPreferences {
 
     public EventPreferencesLocation(Event event,
                                     boolean enabled,
-                                    int geofenceId)
+                                    long geofenceId)
     {
         super(event, enabled);
 
@@ -42,7 +42,7 @@ public class EventPreferencesLocation extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Editor editor = preferences.edit();
             editor.putBoolean(PREF_EVENT_LOCATION_ENABLED, _enabled);
-            editor.putInt(PREF_EVENT_LOCATION_GEOFENCE_ID, this._geofenceId);
+            editor.putLong(PREF_EVENT_LOCATION_GEOFENCE_ID, this._geofenceId);
             editor.commit();
         //}
     }
@@ -52,7 +52,7 @@ public class EventPreferencesLocation extends EventPreferences {
     {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_LOCATION_ENABLED, false);
-            this._geofenceId = preferences.getInt(PREF_EVENT_LOCATION_GEOFENCE_ID, 0);
+            this._geofenceId = preferences.getLong(PREF_EVENT_LOCATION_GEOFENCE_ID, 0);
         //}
     }
 
@@ -74,11 +74,7 @@ public class EventPreferencesLocation extends EventPreferences {
 
             String selectedLocation = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             if (this._geofenceId != 0) {
-
-                if (dataWrapper == null)
-                    dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
-
-                selectedLocation = dataWrapper.getDatabaseHandler().getGeofenceName(this._geofenceId);
+                selectedLocation = getGeofenceName(this._geofenceId, context);
             }
             descr = descr + selectedLocation;
         }
@@ -92,6 +88,12 @@ public class EventPreferencesLocation extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (key.equals(PREF_EVENT_LOCATION_GEOFENCE_ID)) {
                 Preference preference = prefMng.findPreference(key);
+                long lValue;
+                if (!value.isEmpty())
+                    lValue = Long.valueOf(value);
+                else
+                    lValue = 0;
+                preference.setSummary(getGeofenceName(lValue, context));
                 GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
         //}
@@ -102,7 +104,7 @@ public class EventPreferencesLocation extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_LOCATION_GEOFENCE_ID))
         {
-            setSummary(prefMng, key, String.valueOf(preferences.getInt(key, 0)), context);
+            setSummary(prefMng, key, String.valueOf(preferences.getLong(key, 0)), context);
         }
     }
 
@@ -146,8 +148,7 @@ public class EventPreferencesLocation extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            final boolean enabled = true;
-                    GlobalData.isLocationEnabled(context.getApplicationContext());
+            final boolean enabled = GlobalData.isLocationEnabled(context.getApplicationContext());
             Preference geofencePreference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCE_ID);
         geofencePreference.setEnabled(enabled);
         //}
@@ -174,4 +175,13 @@ public class EventPreferencesLocation extends EventPreferences {
     {
     }
 
+    private String getGeofenceName(long geofenceId, Context context) {
+        if (dataWrapper == null)
+            dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
+
+        String name = dataWrapper.getDatabaseHandler().getGeofenceName(geofenceId);
+        if (name.isEmpty())
+            name = context.getString(R.string.event_preferences_locations_location_not_selected);
+        return name;
+    }
 }

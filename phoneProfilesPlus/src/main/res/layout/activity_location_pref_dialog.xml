@@ -120,8 +120,7 @@
                     android:layout_toStartOf = "@+id/location_pref_dlg_add"
                     android:layout_centerVertical="true"
                     android:text="Geofence"
-                    android:textStyle="bold"
-                    android:singleLine="true" />
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </RelativeLayout>
 

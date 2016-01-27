@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,13 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     private final int KEY_G_NAME;
     private final int KEY_G_CHECKED;
 
-    public LocationGeofencesPreferenceAdapter(Context context, Cursor cursor) {
+    //public RadioButton selectedRB;
+    private LocationGeofencePreference preference;
+
+    public LocationGeofencesPreferenceAdapter(Context context, Cursor cursor, LocationGeofencePreference preference) {
         super(context, cursor, 0);
+
+        this.preference = preference;
 
         KEY_G_ID = cursor.getColumnIndex(DatabaseHandler.KEY_G_ID);
         //KEY_G_LATITUDE = cursor.getColumnIndex(DatabaseHandler.KEY_G_LATITUDE);
@@ -36,6 +42,8 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         //KEY_G_RADIUS = cursor.getColumnIndex(DatabaseHandler.KEY_G_RADIUS);
         KEY_G_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_G_NAME);
         KEY_G_CHECKED = cursor.getColumnIndex(DatabaseHandler.KEY_G_CHECKED);
+
+        //selectedRB = null;
     }
 
     @Override
@@ -48,10 +56,7 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         rowData.radioButton = (RadioButton) view.findViewById(R.id.location_pref_dlg_item_radiobtn);
         rowData.name  = (TextView) view.findViewById(R.id.location_pref_dlg_item_name);
 
-        int id = cursor.getInt(KEY_G_ID);
-        rowData.radioButton.setChecked(cursor.getInt(KEY_G_CHECKED) == 1);
-        rowData.name.setText(cursor.getString(KEY_G_NAME));
-        rowData._id = id;
+        getView(rowData, context, cursor, true);
 
         view.setTag(rowData);
 
@@ -62,20 +67,49 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
 
         ViewHolder rowData = (ViewHolder) view.getTag();
+        getView(rowData, context, cursor, false);
+    }
 
-        int id = cursor.getInt(KEY_G_ID);
-        rowData.radioButton.setChecked(cursor.getInt(KEY_G_CHECKED) == 1);
+    private void getView(final ViewHolder rowData, Context context, Cursor cursor, boolean newView) {
+        boolean checked = cursor.getInt(KEY_G_CHECKED) == 1;
+        long id = cursor.getLong(KEY_G_ID);
+        rowData.radioButton.setChecked(checked);
+        rowData.radioButton.setTag(id);
         rowData.name.setText(cursor.getString(KEY_G_NAME));
-        rowData._id = id;
+        //if (checked) {
+        //    selectedRB = rowData.radioButton;
+        //    Log.d("LocationGeofencesPreferenceAdapter.getView", "checked id=" + id);
+        //}
+
+        rowData.radioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                RadioButton rb = (RadioButton) v;
+
+                /*
+                if (selectedRB != null) {
+                    selectedRB.setChecked(false);
+                }
+                selectedRB = rb;
+                */
+
+                long id = (long) rb.getTag();
+                preference.dataWrapper.getDatabaseHandler().checkGeofence(id);
+
+                //rowData.radioButton.setChecked(true);
+                preference.setGeofenceId(id, false);
+
+                preference.refreshListView();
+            }
+        });
     }
 
     public static class ViewHolder {
         RadioButton radioButton;
         TextView name;
-        int _id;
     }
 
     public void reload(DataWrapper dataWrapper) {
+        //selectedRB = null;
         changeCursor(dataWrapper.getDatabaseHandler().getGeofencesCursor());
     }
 
