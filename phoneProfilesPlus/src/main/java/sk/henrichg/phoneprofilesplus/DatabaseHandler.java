@@ -4321,10 +4321,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_GEOFENCES,
                 new String[]{KEY_G_ID,
-                            KEY_G_NAME,
-                            KEY_G_LATITUDE,
-                            KEY_G_LONGITUDE,
-                            KEY_G_RADIUS
+                        KEY_G_NAME,
+                        KEY_G_LATITUDE,
+                        KEY_G_LONGITUDE,
+                        KEY_G_RADIUS
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(geofenceId)}, null, null, null, null);
@@ -4426,12 +4426,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
+    public boolean isGeofenceUsed(long geofenceId/*, long forEventId*/) {
+        String countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
+                " WHERE " + KEY_E_LOCATION_FK_GEOFENCE + "=" + String.valueOf(geofenceId) +
+                " AND " + KEY_E_LOCATION_ENABLED + "=1";
+                              /*" AND " + KEY_E_ID + "<>" + String.valueOf(forEventId);*/
+
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int r;
+
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+            r = Integer.parseInt(cursor.getString(0));
+        }
+        else
+            r = 0;
+
+        cursor.close();
+        //db.close();
+
+        return r > 0;
+    }
+
     // Deleting single geofence
     public void deleteGeofence(long geofenceId) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
-        db.delete(TABLE_GEOFENCES, KEY_G_ID + " = ?",
-                new String[]{String.valueOf(geofenceId)});
+
+        db.beginTransaction();
+
+        try {
+
+            // delete geofence
+            db.delete(TABLE_GEOFENCES, KEY_G_ID + " = ?",
+                    new String[]{String.valueOf(geofenceId)});
+
+            // unlink geofence from events
+            ContentValues values = new ContentValues();
+            values.put(KEY_E_LOCATION_FK_GEOFENCE, 0);
+            db.update(TABLE_EVENTS, values, KEY_E_LOCATION_FK_GEOFENCE + " = ? AND " + KEY_E_LOCATION_ENABLED + "=0",
+                    new String[]{String.valueOf(geofenceId)});
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.deleteGeofence", e.toString());
+        } finally {
+            db.endTransaction();
+        }
+
         //db.close();
     }
     public void deleteGeofence(Geofence geofence) {
@@ -4442,7 +4491,60 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteAllGeofences() {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
-        db.delete(TABLE_GEOFENCES, null, null);
+
+        db.beginTransaction();
+
+        try {
+
+            db.delete(TABLE_GEOFENCES, null, null);
+
+            ContentValues values = new ContentValues();
+            values.put(KEY_E_LOCATION_FK_GEOFENCE, 0);
+            db.update(TABLE_EVENTS, values, KEY_E_LOCATION_FK_GEOFENCE + "=0", null);
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.deleteGeofence", e.toString());
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+    }
+
+    public void checkGeofence(long geofenceId) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        db.beginTransaction();
+
+        try {
+            // uncheck geofences
+            values.clear();
+            values.put(KEY_G_CHECKED, 0);
+            db.update(TABLE_GEOFENCES, values, null, null);
+
+            if (geofenceId > 0) {
+                // check geofence
+                values.clear();
+                values.put(KEY_G_CHECKED, 1);
+                db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?",
+                        new String[]{String.valueOf(geofenceId)});
+            }
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.checkGeofence", e.toString());
+        } finally {
+            db.endTransaction();
+        }
+
         //db.close();
     }
 
@@ -4538,40 +4640,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // return event timeline list
         return position;
-    }
-
-    public void checkGeofence(long geofenceId) {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        db.beginTransaction();
-
-        try {
-            // uncheck geofences
-            values.clear();
-            values.put(KEY_G_CHECKED, 0);
-            db.update(TABLE_GEOFENCES, values, null, null);
-
-            if (geofenceId > 0) {
-                // check geofence
-                values.clear();
-                values.put(KEY_G_CHECKED, 1);
-                db.update(TABLE_GEOFENCES, values, KEY_G_ID + " = ?",
-                        new String[]{String.valueOf(geofenceId)});
-            }
-
-            db.setTransactionSuccessful();
-
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.checkGeofence", e.toString());
-        } finally {
-            db.endTransaction();
-        }
-
-        //db.close();
     }
 
 // OTHERS -------------------------------------------------------------------------

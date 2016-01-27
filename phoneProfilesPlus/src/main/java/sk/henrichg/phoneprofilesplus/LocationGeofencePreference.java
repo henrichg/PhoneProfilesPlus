@@ -3,9 +3,15 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +43,9 @@ public class LocationGeofencePreference extends DialogPreference {
     private TextView geofenceName;
     private ListView geofencesListView;
     private LocationGeofencesPreferenceAdapter listAdapter;
+    private AppCompatImageButton addButton;
+    private AppCompatImageButton editButton;
+    private AppCompatImageButton deleteButton;
 
     public DataWrapper dataWrapper;
 
@@ -91,7 +100,11 @@ public class LocationGeofencePreference extends DialogPreference {
         //dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.location_pref_dlg_rella_data);
 
         geofenceName = (TextView) layout.findViewById(R.id.location_pref_dlg_geofence_name);
-        setGeofenceId(dataWrapper.getDatabaseHandler().getCheckedGeofence(), false);
+        setGeofenceId(dataWrapper.getDatabaseHandler().getCheckedGeofence());
+
+        addButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_add);
+        editButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_edit);
+        deleteButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_delete);
 
         geofencesListView = (ListView) layout.findViewById(R.id.location_pref_dlg_listview);
 
@@ -118,7 +131,7 @@ public class LocationGeofencePreference extends DialogPreference {
                 dataWrapper.getDatabaseHandler().checkGeofence(gid);
 
                 //viewHolder.radioButton.setChecked(true);
-                setGeofenceId(gid, false);
+                setGeofenceId(gid);
 
                 refreshListView();
             }
@@ -149,8 +162,7 @@ public class LocationGeofencePreference extends DialogPreference {
         });
         */
 
-        ImageView addIcon = (ImageView)layout.findViewById(R.id.location_pref_dlg_add);
-        addIcon.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Geofence geofence = new Geofence();
@@ -161,26 +173,33 @@ public class LocationGeofencePreference extends DialogPreference {
                 dataWrapper.getDatabaseHandler().addGeofence(geofence, false);
                 dataWrapper.getDatabaseHandler().checkGeofence(geofence._id);
                 refreshListView();
-                setGeofenceId(geofence._id, true);
+                setGeofenceId(geofence._id);
             }
         });
 
-        ImageView editIcon = (ImageView)layout.findViewById(R.id.location_pref_dlg_edit);
-        editIcon.setOnClickListener(new View.OnClickListener() {
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
         });
 
-        ImageView deleteIcon = (ImageView)layout.findViewById(R.id.location_pref_dlg_delete);
-        deleteIcon.setOnClickListener(new View.OnClickListener() {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 long value = dataWrapper.getDatabaseHandler().getCheckedGeofence();
                 if (value > 0) {
-                    dataWrapper.getDatabaseHandler().deleteGeofence(value);
-                    refreshListView();
-                    setGeofenceId(0, true);
+                    if (!dataWrapper.getDatabaseHandler().isGeofenceUsed(value/*, 0 getSharedPreferences().getLong(Event.PREF_EVENT_ID, 0)*/)) {
+                        dataWrapper.getDatabaseHandler().deleteGeofence(value);
+                        refreshListView();
+                        setGeofenceId(0);
+                    }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                        dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
+                        dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        dialogBuilder.show();
+                    }
                 }
             }
         });
@@ -223,12 +242,13 @@ public class LocationGeofencePreference extends DialogPreference {
         
     }    
 
-    public void setGeofenceId(long geofenceId, boolean uncheckSelected)
+    public void setGeofenceId(long geofenceId)
     {
-        /*if (uncheckSelected && (selectedItem != null))
-            selectedItem.radioButton.setChecked(false);*/
+        String name = dataWrapper.getDatabaseHandler().getGeofenceName(geofenceId);
+        if (name.isEmpty())
+            name = "["+context.getString(R.string.event_preferences_locations_location_not_selected)+"]";
 
-        this.geofenceName.setText(dataWrapper.getDatabaseHandler().getGeofenceName(geofenceId));
+        this.geofenceName.setText(name);
     }
     
     public void refreshListView()
@@ -240,22 +260,39 @@ public class LocationGeofencePreference extends DialogPreference {
             position = 0;
         geofencesListView.setSelection(position);
 
-        /*
-        //listAdapter.notifyDataSetChanged();
-        progressLinearLayout.setVisibility(View.GONE);
-        dataRelativeLayout.setVisibility(View.VISIBLE);
-
-        for (int position = 0; position < SSIDList.size()-1; position++)
-        {
-            if (SSIDList.get(position).ssid.equals(value))
-            {
-                SSIDListView.setSelection(position);
-                SSIDListView.setItemChecked(position, true);
-                SSIDListView.smoothScrollToPosition(position);
-                break;
-            }
-        }
-        */
+        setImageButtonEnabled(value > 0, editButton, R.drawable.ic_action_location_edit);
+        setImageButtonEnabled(value > 0, deleteButton, R.drawable.ic_action_location_delete);
     }
-    
+
+    /**
+     * Sets the specified image buttonto the given state, while modifying or
+     * "graying-out" the icon as well
+     *
+     * @param enabled The state of the menu item
+     * @param item The menu item to modify
+     * @param iconResId The icon ID
+     */
+    private void setImageButtonEnabled(boolean enabled, AppCompatImageButton item,int iconResId) {
+        item.setEnabled(enabled);
+        Drawable originalIcon = ContextCompat.getDrawable(context, iconResId);
+        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
+        item.setImageDrawable(icon);
+    }
+
+    /**
+     * Mutates and applies a filter that converts the given drawable to a Gray
+     * image. This method may be used to simulate the color of disable icons in
+     * Honeycomb's ActionBar.
+     *
+     * @return a mutated version of the given drawable with a color filter
+     *         applied.
+     */
+    private Drawable convertDrawableToGrayScale(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
+        Drawable res = drawable.mutate();
+        res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        return res;
+    }
 }

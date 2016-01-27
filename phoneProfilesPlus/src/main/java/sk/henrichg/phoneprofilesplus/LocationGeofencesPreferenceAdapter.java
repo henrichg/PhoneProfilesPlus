@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,10 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         long id = cursor.getLong(KEY_G_ID);
         rowData.radioButton.setChecked(checked);
         rowData.radioButton.setTag(id);
+        if (preference.dataWrapper.getDatabaseHandler().isGeofenceUsed(id))
+            rowData.name.setTypeface(null, Typeface.BOLD);
+        else
+            rowData.name.setTypeface(null, Typeface.NORMAL);
         rowData.name.setText(cursor.getString(KEY_G_NAME));
         //if (checked) {
         //    selectedRB = rowData.radioButton;
@@ -96,7 +101,7 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
                 preference.dataWrapper.getDatabaseHandler().checkGeofence(id);
 
                 //rowData.radioButton.setChecked(true);
-                preference.setGeofenceId(id, false);
+                preference.setGeofenceId(id);
 
                 preference.refreshListView();
             }

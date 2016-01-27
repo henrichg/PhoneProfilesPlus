@@ -71,6 +71,7 @@ public class Event {
     public static final int EATENDDO_UNDONE_PROFILE = 1;
     public static final int EATENDDO_RESTART_EVENTS = 2;
 
+    static final String PREF_EVENT_ID = "eventId";
     static final String PREF_EVENT_ENABLED = "eventEnabled";
     static final String PREF_EVENT_NAME = "eventName";
     static final String PREF_EVENT_PROFILE_START = "eventProfileStart";
@@ -344,6 +345,7 @@ public class Event {
     public void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
+        editor.putLong(PREF_EVENT_ID, this._id);
         editor.putString(PREF_EVENT_NAME, this._name);
         editor.putString(PREF_EVENT_PROFILE_START, Long.toString(this._fkProfileStart));
         editor.putString(PREF_EVENT_PROFILE_END, Long.toString(this._fkProfileEnd));
