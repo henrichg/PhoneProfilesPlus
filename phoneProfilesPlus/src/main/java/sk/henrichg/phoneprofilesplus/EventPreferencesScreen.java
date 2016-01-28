@@ -64,11 +64,15 @@ public class EventPreferencesScreen extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesScreen tmp = new EventPreferencesScreen(this._event, this._enabled, this._eventType, this._whenUnlocked);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_screen) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -82,11 +86,11 @@ public class EventPreferencesScreen extends EventPreferences {
 
             String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
             String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);
-            int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(this._eventType));
+            int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(tmp._eventType));
             descr = descr + eventListTypeNames[index];
-            if (this._whenUnlocked)
+            if (tmp._whenUnlocked)
             {
-                if (this._eventType == 0)
+                if (tmp._eventType == 0)
                     descr = descr + "; " + context.getString(R.string.pref_event_screen_startWhenUnlocked);
                 else
                     descr = descr + "; " + context.getString(R.string.pref_event_screen_endWhenUnlocked);
@@ -139,8 +143,7 @@ public class EventPreferencesScreen extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }

@@ -65,11 +65,15 @@ public class EventPreferencesWifi extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesWifi tmp = new EventPreferencesWifi(this._event, this._enabled, this._SSID, this._connectionType);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_wifi) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -84,10 +88,10 @@ public class EventPreferencesWifi extends EventPreferences {
             descr = descr + context.getString(R.string.pref_event_wifi_connectionType);
             String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
             String[] connectionListTypes = context.getResources().getStringArray(R.array.eventWifiConnectionTypeValues);
-            int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
+            int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(tmp._connectionType));
             descr = descr + ": " + connectionListTypeNames[index] + "; ";
             descr = descr + context.getString(R.string.pref_event_wifi_ssid);
-            descr = descr + ": " + this._SSID;
+            descr = descr + ": " + tmp._SSID;
         }
 
         return descr;
@@ -157,8 +161,7 @@ public class EventPreferencesWifi extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }

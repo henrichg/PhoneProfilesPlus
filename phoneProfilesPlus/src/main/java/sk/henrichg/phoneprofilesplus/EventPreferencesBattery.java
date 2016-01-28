@@ -86,11 +86,15 @@ public class EventPreferencesBattery extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesBattery tmp = new EventPreferencesBattery(this._event, this._enabled, this._levelLow, this._levelHight, this._charging, this._powerSaveMode);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_battery) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -103,10 +107,10 @@ public class EventPreferencesBattery extends EventPreferences {
             }
 
             descr = descr + context.getString(R.string.pref_event_battery_level);
-            descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";
-            if (this._charging)
+            descr = descr + ": " + tmp._levelLow + "% - " + tmp._levelHight + "%";
+            if (tmp._charging)
                 descr = descr + ", " + context.getString(R.string.pref_event_battery_charging);
-            if (this._powerSaveMode)
+            if (tmp._powerSaveMode)
                 descr = descr + ", " + context.getString(R.string.pref_event_battery_power_save_mode);
         }
 
@@ -152,8 +156,8 @@ public class EventPreferencesBattery extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                //if (bold)
+                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }

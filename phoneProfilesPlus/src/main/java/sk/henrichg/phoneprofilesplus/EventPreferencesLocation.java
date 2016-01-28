@@ -57,11 +57,15 @@ public class EventPreferencesLocation extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofenceId);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             ;
         }
@@ -73,8 +77,8 @@ public class EventPreferencesLocation extends EventPreferences {
             }
 
             String selectedLocation = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (this._geofenceId != 0) {
-                selectedLocation = getGeofenceName(this._geofenceId, context);
+            if (tmp._geofenceId != 0) {
+                selectedLocation = getGeofenceName(tmp._geofenceId, context);
             }
             descr = descr + selectedLocation;
         }
@@ -128,8 +132,7 @@ public class EventPreferencesLocation extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }

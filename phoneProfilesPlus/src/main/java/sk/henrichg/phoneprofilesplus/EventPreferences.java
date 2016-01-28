@@ -42,7 +42,7 @@ public class EventPreferences {
     {
     }
 
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         return "";
     }

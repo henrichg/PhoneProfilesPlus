@@ -67,11 +67,15 @@ public class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_notification) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -84,8 +88,8 @@ public class EventPreferencesApplication extends EventPreferences {
             }
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                String[] splits = this._applications.split("\\|");
+            if (!tmp._applications.isEmpty() && !tmp._applications.equals("-")) {
+                String[] splits = tmp._applications.split("\\|");
                 if (splits.length == 1) {
                     PackageManager packageManager = context.getPackageManager();
                     ApplicationInfo app;
@@ -104,7 +108,7 @@ public class EventPreferencesApplication extends EventPreferences {
             descr = descr + selectedApplications;
 
             //descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
-            //descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
+            //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
         }
 
         return descr;
@@ -160,8 +164,8 @@ public class EventPreferencesApplication extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                //if (bold)
+                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }

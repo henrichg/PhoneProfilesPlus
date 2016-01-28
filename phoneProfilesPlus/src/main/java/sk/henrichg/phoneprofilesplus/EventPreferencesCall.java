@@ -79,11 +79,15 @@ public class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesCall tmp = new EventPreferencesCall(this._event, this._enabled, this._callEvent, this._contacts, this._contactGroups, this._contactListType);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_call) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -97,10 +101,10 @@ public class EventPreferencesCall extends EventPreferences {
 
             descr = descr + context.getString(R.string.pref_event_call_event);
             String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-            descr = descr + ": " + callEvents[this._callEvent] + "; ";
+            descr = descr + ": " + callEvents[tmp._callEvent] + "; ";
             descr = descr + context.getString(R.string.pref_event_call_contactListType);
             String[] cntactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-            descr = descr + ": " + cntactListTypes[this._contactListType];
+            descr = descr + ": " + cntactListTypes[tmp._contactListType];
         }
 
         return descr;
@@ -163,8 +167,7 @@ public class EventPreferencesCall extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }

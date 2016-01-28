@@ -120,11 +120,15 @@ public class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._searchField, this._searchString, this._availability, this._ignoreAllDayEvents);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_calendar) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -137,15 +141,15 @@ public class EventPreferencesCalendar extends EventPreferences {
             }
 
             String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
-            descr = descr + searchFields[this._searchField] + "; ";
+            descr = descr + searchFields[tmp._searchField] + "; ";
 
-            descr = descr + "\"" + this._searchString + "\""  + "; ";
+            descr = descr + "\"" + tmp._searchString + "\""  + "; ";
 
-            if (this._ignoreAllDayEvents)
+            if (tmp._ignoreAllDayEvents)
                 descr = descr + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "; ";
 
             String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
-            descr = descr + availabilities[this._availability];
+            descr = descr + availabilities[tmp._availability];
 
             //Calendar calendar = Calendar.getInstance();
 
@@ -245,8 +249,7 @@ public class EventPreferencesCalendar extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }

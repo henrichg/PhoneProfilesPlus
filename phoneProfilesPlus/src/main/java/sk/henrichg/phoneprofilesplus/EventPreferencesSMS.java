@@ -103,11 +103,15 @@ public class EventPreferencesSMS extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType, this._duration);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_sms) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -121,11 +125,11 @@ public class EventPreferencesSMS extends EventPreferences {
 
             //descr = descr + context.getString(R.string.pref_event_sms_event);
             //String[] smsEvents = context.getResources().getStringArray(R.array.eventSMSEventsArray);
-            //descr = descr + ": " + smsEvents[this._smsEvent] + "; ";
+            //descr = descr + ": " + smsEvents[tmp._smsEvent] + "; ";
             descr = descr + context.getString(R.string.pref_event_sms_contactListType);
             String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
-            descr = descr + ": " + contactListTypes[this._contactListType] + "; ";
-            descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
+            descr = descr + ": " + contactListTypes[tmp._contactListType] + "; ";
+            descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
         }
 
         return descr;
@@ -198,8 +202,7 @@ public class EventPreferencesSMS extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }

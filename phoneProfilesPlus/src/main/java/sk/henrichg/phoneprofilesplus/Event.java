@@ -659,40 +659,40 @@ public class Event {
 
         description = "";
 
-        description = description + _eventPreferencesTime.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesTime.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesCalendar._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesCalendar.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesCalendar.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesBattery._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesBattery.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesBattery.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesCall._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesCall.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesCall.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesSMS._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesSMS.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesSMS.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesWifi._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesWifi.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesWifi.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesBluetooth._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesBluetooth.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesBluetooth.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesPeripherals._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesPeripherals.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesPeripherals.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesScreen._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesScreen.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesScreen.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesNotification._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesNotification.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesNotification.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesApplication._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesApplication.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesApplication.getPreferencesDescription(true, null, context);
 
         if (_eventPreferencesLocation._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesLocation.getPreferencesDescription(true, context);
+        description = description + _eventPreferencesLocation.getPreferencesDescription(true, null, context);
 
         //description = description.replace(' ', '\u00A0');
 

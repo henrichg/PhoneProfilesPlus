@@ -75,11 +75,15 @@ public class EventPreferencesBluetooth extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesBluetooth tmp = new EventPreferencesBluetooth(this._event, this._enabled, this._adapterName, this._connectionType, this._devicesType);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_bluetooth) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -94,19 +98,19 @@ public class EventPreferencesBluetooth extends EventPreferences {
             descr = descr + context.getString(R.string.pref_event_bluetooth_connectionType);
             String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
             String[] connectionListTypes = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeValues);
-            int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
+            int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(tmp._connectionType));
             descr = descr + ": " + connectionListTypeNames[index] + "; ";
             descr = descr + context.getString(R.string.pref_event_bluetooth_adapterName);
             descr = descr + ": ";
-            if ((this._connectionType == CTYPE_INFRONT) || (this._connectionType == CTYPE_NOTINFRONT)) {
+            if ((tmp._connectionType == CTYPE_INFRONT) || (tmp._connectionType == CTYPE_NOTINFRONT)) {
                 if (ScannerService.bluetoothLESupported(context)) {
-                    if (this._devicesType == DTYPE_CLASSIC)
+                    if (tmp._devicesType == DTYPE_CLASSIC)
                         descr = descr + "[CL] ";
-                    else if (this._devicesType == DTYPE_LE)
+                    else if (tmp._devicesType == DTYPE_LE)
                         descr = descr + "[LE] ";
                 }
             }
-            descr = descr + this._adapterName;
+            descr = descr + tmp._adapterName;
         }
 
         return descr;
@@ -201,8 +205,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }

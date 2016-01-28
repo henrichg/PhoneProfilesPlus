@@ -56,11 +56,15 @@ public class EventPreferencesPeripherals extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
     {
         String descr = "";
 
-        if (!this._enabled)
+        EventPreferencesPeripherals tmp = new EventPreferencesPeripherals(this._event, this._enabled, this._peripheralType);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        if (!tmp._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_peripheral) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -73,7 +77,7 @@ public class EventPreferencesPeripherals extends EventPreferences {
             }
 
             String[] peripheralTypes = context.getResources().getStringArray(R.array.eventPeripheralTypeArray);
-            descr = descr + peripheralTypes[this._peripheralType];
+            descr = descr + peripheralTypes[tmp._peripheralType];
         }
 
         return descr;
@@ -120,8 +124,7 @@ public class EventPreferencesPeripherals extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_PERIPHERAL_CATEGORY);
             if (preference != null) {
                 GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, context)));
+                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
             }
         }
     }
