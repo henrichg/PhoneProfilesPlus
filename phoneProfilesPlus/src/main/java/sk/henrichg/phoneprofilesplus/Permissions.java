@@ -35,7 +35,7 @@ public class Permissions {
     public static final int PERMISSION_EVENT_CALENDAR_PREFERENCES = 15;
     public static final int PERMISSION_EVENT_CALL_PREFERENCES = 16;
     public static final int PERMISSION_EVENT_SMS_PREFERENCES = 17;
-    public static final int PERMISSION_EVENT_SCANNING_PREFERENCES = 18;
+    public static final int PERMISSION_EVENT_LOCATION_PREFERENCES = 18;
     public static final int PERMISSION_EVENT_CONTACTS = 19;
 
     public static final int GRANT_TYPE_PROFILE = 1;
@@ -49,6 +49,7 @@ public class Permissions {
     public static final int GRANT_TYPE_WIFI_BT_SCAN_DIALOG = 9;
     public static final int GRANT_TYPE_CALENDAR_DIALOG = 10;
     public static final int GRANT_TYPE_CONTACT_DIALOG = 11;
+    public static final int GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY = 12;
 
     public static final String EXTRA_GRANT_TYPE = "grant_type";
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
@@ -72,6 +73,8 @@ public class Permissions {
     public static CalendarsMultiSelectDialogPreference calendarsMultiSelectDialogPreference = null;
     public static ContactsMultiSelectDialogPreference contactsMultiSelectDialogPreference = null;
     public static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
+    public static LocationGeofenceEditorActivity locationGeofenceEditorActivity = null;
+
 
     public static class PermissionType implements Parcelable {
         public int preference;
@@ -409,7 +412,7 @@ public class Permissions {
                 permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
             }
             if (!checkEventLocation(context, event)) {
-                permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                 //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
             }
 
@@ -505,7 +508,8 @@ public class Permissions {
                      (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)))||
                 (event._eventPreferencesBluetooth._enabled &&
                     ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
-                     (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)))) {
+                     (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) ||
+                (event._eventPreferencesLocation._enabled)) {
                 return (ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
                 //return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
             }
@@ -696,8 +700,8 @@ public class Permissions {
         boolean granted = checkLocation(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
-            //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+            permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            //permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -707,6 +711,7 @@ public class Permissions {
             intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
             wifiSSIDPreference = preference;
             bluetoothNamePreference = null;
+            locationGeofenceEditorActivity = null;
             context.startActivity(intent);
         }
         return granted;
@@ -716,8 +721,8 @@ public class Permissions {
         boolean granted = checkLocation(context);
         if (!granted) {
             List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_FINE_LOCATION));
-            //permissions.add(new PermissionType(PERMISSION_EVENT_SCANNING_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+            permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            //permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -727,6 +732,7 @@ public class Permissions {
             intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
             bluetoothNamePreference = preference;
             wifiSSIDPreference = null;
+            locationGeofenceEditorActivity = null;
             context.startActivity(intent);
         }
         return granted;
@@ -783,6 +789,27 @@ public class Permissions {
             intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
             contactGroupsMultiSelectDialogPreference = preference;
             contactsMultiSelectDialogPreference = null;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
+
+    public static boolean grantLocationGeofenceEditorPermissions(Context context, LocationGeofenceEditorActivity activity) {
+        boolean granted = checkLocation(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+            //permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            bluetoothNamePreference = null;
+            wifiSSIDPreference = null;
+            locationGeofenceEditorActivity = activity;
             context.startActivity(intent);
         }
         return granted;

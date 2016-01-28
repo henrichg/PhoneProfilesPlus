@@ -684,4 +684,6 @@
     <string name="event_preferences_locations_cant_delete_location_title">Delete location</string>
     <string name="event_preferences_locations_cant_delete_location_text">Can\'t delete, location is used in any event.</string>
     <string name="location_editor_title">Location editor</string>
+    <string name="permissions_for_location_geofence_editor_activity_text1">Location requires some permissions.</string>
+    <string name="permissions_for_location_geofence_editor_activity_text2">Please grant them in next dialogs. Then location change detection will be performed.</string>
 </resources>

@@ -159,13 +159,15 @@ public class LocationGeofencePreference extends DialogPreference {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startEditor();
+                startEditor(0);
             }
         });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                long value = dataWrapper.getDatabaseHandler().getCheckedGeofence();
+                startEditor(value);
             }
         });
 
@@ -282,8 +284,9 @@ public class LocationGeofencePreference extends DialogPreference {
         return res;
     }
 
-    private void startEditor() {
-        Intent intent = new Intent(context, LocationGeofenceEditor.class);
+    private void startEditor(long geofenceId) {
+        Intent intent = new Intent(context, LocationGeofenceEditorActivity.class);
+        intent.putExtra(EXTRA_GEOFENCE_ID, geofenceId);
 
         // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
         EventPreferencesFragment.setChangedLocationGeofencePreference(this);

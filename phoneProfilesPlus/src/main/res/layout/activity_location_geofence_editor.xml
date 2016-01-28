@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LocationGeofenceEditor">
+    tools:context=".LocationGeofenceEditorActivity">
 
     <LinearLayout
         android:id="@+id/location_editor_et_btn3"

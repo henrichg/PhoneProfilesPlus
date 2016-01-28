@@ -4285,7 +4285,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 // GEOFENCES ----------------------------------------------------------------------
 
     // Adding new geofence
-    void addGeofence(Geofence geofence, boolean checked) {
+    void addGeofence(Geofence geofence) {
 
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4295,7 +4295,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_G_LATITUDE, geofence._latitude);
         values.put(KEY_G_LONGITUDE, geofence._longitude);
         values.put(KEY_G_RADIUS, geofence._radius);
-        values.put(KEY_G_CHECKED, checked ? 1 : 0);
+        values.put(KEY_G_CHECKED, 0);
 
         db.beginTransaction();
 
@@ -4391,7 +4391,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single geofence
-    public int updateGeofence(Geofence geofence, boolean checked) {
+    public int updateGeofence(Geofence geofence) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -4400,7 +4400,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_G_LATITUDE, geofence._latitude);
         values.put(KEY_G_LONGITUDE, geofence._longitude);
         values.put(KEY_G_RADIUS, geofence._radius);
-        values.put(KEY_G_CHECKED, checked ? 1 : 0);
+        values.put(KEY_G_CHECKED, 0);
 
         int r = 0;
 

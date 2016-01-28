@@ -308,6 +308,8 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = context.getString(R.string.permissions_for_calendar_dialog_text1) + "<br><br>";
                 else if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG)
                     showRequestString = context.getString(R.string.permissions_for_contacts_dialog_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY)
+                    showRequestString = context.getString(R.string.permissions_for_location_geofence_editor_activity_text1) + "<br><br>";
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT){
                     if (mergedNotification) {
@@ -392,6 +394,8 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_contacts_dialog_text2);
                 else if (grantType == Permissions.GRANT_TYPE_EVENT)
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text3);
+                else if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_location_geofence_editor_activity_text2);
                 else
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
@@ -638,6 +642,16 @@ public class GrantPermissionActivity extends Activity {
                     break;
                 }
             }
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
+            if (Permissions.locationGeofenceEditorActivity != null) {
+                Permissions.locationGeofenceEditorActivity.refreshActivity();
+            }
+            dataWrapper.restartEvents(false, true);
+            WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+            finish();
         }
         else {
             //finishAffinity();
