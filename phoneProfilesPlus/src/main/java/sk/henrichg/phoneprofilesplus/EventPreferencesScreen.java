@@ -64,15 +64,11 @@ public class EventPreferencesScreen extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
-        EventPreferencesScreen tmp = new EventPreferencesScreen(this._event, this._enabled, this._eventType, this._whenUnlocked);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
-
-        if (!tmp._enabled)
+        if (!this._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_screen) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -86,11 +82,11 @@ public class EventPreferencesScreen extends EventPreferences {
 
             String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
             String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);
-            int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(tmp._eventType));
+            int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(this._eventType));
             descr = descr + eventListTypeNames[index];
-            if (tmp._whenUnlocked)
+            if (this._whenUnlocked)
             {
-                if (tmp._eventType == 0)
+                if (this._eventType == 0)
                     descr = descr + "; " + context.getString(R.string.pref_event_screen_startWhenUnlocked);
                 else
                     descr = descr + "; " + context.getString(R.string.pref_event_screen_endWhenUnlocked);
@@ -131,20 +127,14 @@ public class EventPreferencesScreen extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (key.isEmpty() ||
-                key.equals(PREF_EVENT_SCREEN_ENABLED)) {
-            boolean preferenceChanged = false;
-            if (preferences == null) {
-                preferenceChanged = this._enabled;
-            } else {
-                preferenceChanged = preferences.getBoolean(PREF_EVENT_SCREEN_ENABLED, false);
-            }
-            boolean bold = preferenceChanged;
-            Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
-            if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
-            }
+        EventPreferencesScreen tmp = new EventPreferencesScreen(this._event, this._enabled, this._eventType, this._whenUnlocked);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
+        if (preference != null) {
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 

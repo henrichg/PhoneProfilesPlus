@@ -57,15 +57,11 @@ public class EventPreferencesLocation extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
-        EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofenceId);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
-
-        if (!tmp._enabled)
+        if (!this._enabled)
         {
             ;
         }
@@ -77,8 +73,8 @@ public class EventPreferencesLocation extends EventPreferences {
             }
 
             String selectedLocation = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (tmp._geofenceId != 0) {
-                selectedLocation = getGeofenceName(tmp._geofenceId, context);
+            if (this._geofenceId != 0) {
+                selectedLocation = getGeofenceName(this._geofenceId, context);
             }
             descr = descr + selectedLocation;
         }
@@ -120,20 +116,14 @@ public class EventPreferencesLocation extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (key.isEmpty() ||
-                key.equals(PREF_EVENT_LOCATION_ENABLED)) {
-            boolean preferenceChanged = false;
-            if (preferences == null) {
-                preferenceChanged = this._enabled;
-            } else {
-                preferenceChanged = preferences.getBoolean(PREF_EVENT_LOCATION_ENABLED, false);
-            }
-            boolean bold = preferenceChanged;
-            Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_CATEGORY);
-            if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
-            }
+        EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofenceId);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_CATEGORY);
+        if (preference != null) {
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 

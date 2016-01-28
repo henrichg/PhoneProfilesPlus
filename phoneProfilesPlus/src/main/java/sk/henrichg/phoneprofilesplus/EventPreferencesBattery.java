@@ -86,15 +86,11 @@ public class EventPreferencesBattery extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
-        EventPreferencesBattery tmp = new EventPreferencesBattery(this._event, this._enabled, this._levelLow, this._levelHight, this._charging, this._powerSaveMode);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
-
-        if (!tmp._enabled)
+        if (!this._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_battery) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -107,10 +103,10 @@ public class EventPreferencesBattery extends EventPreferences {
             }
 
             descr = descr + context.getString(R.string.pref_event_battery_level);
-            descr = descr + ": " + tmp._levelLow + "% - " + tmp._levelHight + "%";
-            if (tmp._charging)
+            descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";
+            if (this._charging)
                 descr = descr + ", " + context.getString(R.string.pref_event_battery_charging);
-            if (tmp._powerSaveMode)
+            if (this._powerSaveMode)
                 descr = descr + ", " + context.getString(R.string.pref_event_battery_power_save_mode);
         }
 
@@ -144,21 +140,14 @@ public class EventPreferencesBattery extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (key.isEmpty() ||
-                key.equals(PREF_EVENT_BATTERY_ENABLED)) {
-            boolean preferenceChanged = false;
-            if (preferences == null) {
-                preferenceChanged = this._enabled;
-            } else {
-                preferenceChanged = preferences.getBoolean(PREF_EVENT_BATTERY_ENABLED, false);
-            }
-            boolean bold = preferenceChanged;
-            Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
-            if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                //if (bold)
-                    preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
-            }
+        EventPreferencesBattery tmp = new EventPreferencesBattery(this._event, this._enabled, this._levelLow, this._levelHight, this._charging, this._powerSaveMode);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
+        if (preference != null) {
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 

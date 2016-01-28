@@ -85,15 +85,11 @@ public class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
-        EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled, this._applications, this._duration, this._endWhenRemoved);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
-
-        if (!tmp._enabled)
+        if (!this._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_notification) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -106,8 +102,8 @@ public class EventPreferencesNotification extends EventPreferences {
             }
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!tmp._applications.isEmpty() && !tmp._applications.equals("-")) {
-                String[] splits = tmp._applications.split("\\|");
+            if (!this._applications.isEmpty() && !this._applications.equals("-")) {
+                String[] splits = this._applications.split("\\|");
                 if (splits.length == 1) {
                     PackageManager packageManager = context.getPackageManager();
                     ApplicationInfo app;
@@ -124,10 +120,10 @@ public class EventPreferencesNotification extends EventPreferences {
                     selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             }
             descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
-            if (tmp._endWhenRemoved)
+            if (this._endWhenRemoved)
                 descr = descr + context.getString(R.string.event_preferences_notifications_end_when_removed);
             else
-                descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
+                descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
         }
 
         return descr;
@@ -180,20 +176,14 @@ public class EventPreferencesNotification extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (key.isEmpty() ||
-                key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
-            boolean preferenceChanged = false;
-            if (preferences == null) {
-                preferenceChanged = this._enabled;
-            } else {
-                preferenceChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
-            }
-            boolean bold = preferenceChanged;
-            Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
-            if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
-            }
+        EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled, this._applications, this._duration, this._endWhenRemoved);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
+        if (preference != null) {
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 

@@ -120,15 +120,11 @@ public class EventPreferencesCalendar extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
-        EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._searchField, this._searchString, this._availability, this._ignoreAllDayEvents);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
-
-        if (!tmp._enabled)
+        if (!this._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_calendar) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -141,15 +137,15 @@ public class EventPreferencesCalendar extends EventPreferences {
             }
 
             String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
-            descr = descr + searchFields[tmp._searchField] + "; ";
+            descr = descr + searchFields[this._searchField] + "; ";
 
-            descr = descr + "\"" + tmp._searchString + "\""  + "; ";
+            descr = descr + "\"" + this._searchString + "\""  + "; ";
 
-            if (tmp._ignoreAllDayEvents)
+            if (this._ignoreAllDayEvents)
                 descr = descr + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "; ";
 
             String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
-            descr = descr + availabilities[tmp._availability];
+            descr = descr + availabilities[this._availability];
 
             //Calendar calendar = Calendar.getInstance();
 
@@ -237,20 +233,14 @@ public class EventPreferencesCalendar extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (key.isEmpty() ||
-                key.equals(PREF_EVENT_CALENDAR_ENABLED)) {
-            boolean preferenceChanged = false;
-            if (preferences == null) {
-                preferenceChanged = this._enabled;
-            } else {
-                preferenceChanged = preferences.getBoolean(PREF_EVENT_CALENDAR_ENABLED, false);
-            }
-            boolean bold = preferenceChanged;
-            Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
-            if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
-            }
+        EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._searchField, this._searchString, this._availability, this._ignoreAllDayEvents);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
+        if (preference != null) {
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 

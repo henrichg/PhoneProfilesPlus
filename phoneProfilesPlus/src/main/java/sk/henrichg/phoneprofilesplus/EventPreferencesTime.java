@@ -153,16 +153,12 @@ public class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
-        EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wendesday,
-                                                            this._thursday, this._friday, this._saturday, this._startTime, this._endTime);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
 
-        if (!tmp._enabled)
+        if (!this._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_time) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -175,13 +171,13 @@ public class EventPreferencesTime extends EventPreferences {
             }
 
             boolean[] daySet = new boolean[7];
-            daySet[0] = tmp._sunday;
-            daySet[1] = tmp._monday;
-            daySet[2] = tmp._tuesday;
-            daySet[3] = tmp._wendesday;
-            daySet[4] = tmp._thursday;
-            daySet[5] = tmp._friday;
-            daySet[6] = tmp._saturday;
+            daySet[0] = this._sunday;
+            daySet[1] = this._monday;
+            daySet[2] = this._tuesday;
+            daySet[3] = this._wendesday;
+            daySet[4] = this._thursday;
+            daySet[5] = this._friday;
+            daySet[6] = this._saturday;
 
             boolean allDays = true;
             for (int i = 0; i < 7; i++)
@@ -210,12 +206,12 @@ public class EventPreferencesTime extends EventPreferences {
 
             Calendar calendar = Calendar.getInstance();
 
-            calendar.setTimeInMillis(tmp._startTime - gmtOffset);
+            calendar.setTimeInMillis(this._startTime - gmtOffset);
             descr = descr + "- ";
             descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
             //if (tmp._useEndTime)
             //{
-                calendar.setTimeInMillis(tmp._endTime - gmtOffset);
+                calendar.setTimeInMillis(this._endTime - gmtOffset);
                 descr = descr + "-";
                 descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
             //}
@@ -290,20 +286,15 @@ public class EventPreferencesTime extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (key.isEmpty() ||
-                key.equals(PREF_EVENT_TIME_ENABLED)) {
-            boolean preferenceChanged = false;
-            if (preferences == null) {
-                preferenceChanged = this._enabled;
-            } else {
-                preferenceChanged = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
-            }
-            boolean bold = preferenceChanged;
-            Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
-            if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
-            }
+        EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wendesday,
+                this._thursday, this._friday, this._saturday, this._startTime, this._endTime);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
+        if (preference != null) {
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 

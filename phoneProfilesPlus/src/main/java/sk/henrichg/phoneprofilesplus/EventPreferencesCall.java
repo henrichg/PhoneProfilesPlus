@@ -79,15 +79,11 @@ public class EventPreferencesCall extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, SharedPreferences preferences, Context context)
+    public String getPreferencesDescription(boolean addBullet, Context context)
     {
         String descr = "";
 
-        EventPreferencesCall tmp = new EventPreferencesCall(this._event, this._enabled, this._callEvent, this._contacts, this._contactGroups, this._contactListType);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
-
-        if (!tmp._enabled)
+        if (!this._enabled)
         {
             //descr = descr + context.getString(R.string.event_type_call) + ": ";
             //descr = descr + context.getString(R.string.event_preferences_not_enabled);
@@ -101,10 +97,10 @@ public class EventPreferencesCall extends EventPreferences {
 
             descr = descr + context.getString(R.string.pref_event_call_event);
             String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-            descr = descr + ": " + callEvents[tmp._callEvent] + "; ";
+            descr = descr + ": " + callEvents[this._callEvent] + "; ";
             descr = descr + context.getString(R.string.pref_event_call_contactListType);
             String[] cntactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-            descr = descr + ": " + cntactListTypes[tmp._contactListType];
+            descr = descr + ": " + cntactListTypes[this._contactListType];
         }
 
         return descr;
@@ -155,20 +151,14 @@ public class EventPreferencesCall extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (key.isEmpty() ||
-                key.equals(PREF_EVENT_CALL_ENABLED)) {
-            boolean preferenceChanged = false;
-            if (preferences == null) {
-                preferenceChanged = this._enabled;
-            } else {
-                preferenceChanged = preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
-            }
-            boolean bold = preferenceChanged;
-            Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CATEGORY);
-            if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, bold, false, !isRunable());
-                preference.setSummary(Html.fromHtml(getPreferencesDescription(false, preferences, context)));
-            }
+        EventPreferencesCall tmp = new EventPreferencesCall(this._event, this._enabled, this._callEvent, this._contacts, this._contactGroups, this._contactListType);
+        if (preferences != null)
+            tmp.saveSharedPreferences(preferences);
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CATEGORY);
+        if (preference != null) {
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 
