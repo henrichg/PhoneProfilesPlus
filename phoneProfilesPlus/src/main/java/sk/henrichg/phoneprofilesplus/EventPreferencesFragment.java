@@ -11,6 +11,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.util.Log;
 
 import com.fnp.materialpreferences.PreferenceFragment;
  
@@ -27,6 +28,7 @@ public class EventPreferencesFragment extends PreferenceFragment
     private Context context;
 
     private static Activity preferencesActivity = null;
+    private static LocationGeofencePreference changedLocationGeofencePreference;
 
     static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
     static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
@@ -238,7 +240,8 @@ public class EventPreferencesFragment extends PreferenceFragment
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
-        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("EventPreferencesFragment.doOnActivityResult", "requestCode="+requestCode);
+
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
         }
@@ -248,6 +251,17 @@ public class EventPreferencesFragment extends PreferenceFragment
         if (requestCode == RESULT_LOCATION_SETTINGS) {
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
         }
+
+        if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
+            Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
+            if (changedLocationGeofencePreference != null) {
+                if(resultCode == Activity.RESULT_OK){
+                    long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
+                    changedLocationGeofencePreference.setGeofenceFromEditor(geofenceId);
+                }
+            }
+        }
+
     }
 
     @Override
@@ -301,6 +315,11 @@ public class EventPreferencesFragment extends PreferenceFragment
     static public Activity getPreferencesActivity()
     {
         return preferencesActivity;
+    }
+
+    static public void setChangedLocationGeofencePreference(LocationGeofencePreference changedLocationGeofencePref)
+    {
+        changedLocationGeofencePreference = changedLocationGeofencePref;
     }
 
 }

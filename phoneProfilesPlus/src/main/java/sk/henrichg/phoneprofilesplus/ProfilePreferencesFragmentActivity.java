@@ -17,6 +17,8 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
     private long profile_id = 0;
     int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
 
+    ProfilePreferencesFragment fragment;
+
     private int resultCode = RESULT_CANCELED;
 
     public static boolean showSaveMenu = false;
@@ -66,7 +68,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
             getSupportActionBar().setTitle(R.string.title_activity_profile_preferences);
         */
 
-        ProfilePreferencesFragment fragment = new ProfilePreferencesFragment();
+        fragment = new ProfilePreferencesFragment();
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
@@ -79,9 +81,6 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
             fragment.setArguments(arguments);
 
             loadPreferences(newProfileMode);
-
-            //getFragmentManager().beginTransaction()
-            //        .replace(R.id.activity_profile_preferences_container, fragment, "ProfilePreferencesFragment").commit();
         }
 
         setPreferenceFragment(fragment);
@@ -96,14 +95,6 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
 
     @Override
     public void finish() {
-
-        /*
-        ProfilePreferencesFragment fragment = (ProfilePreferencesFragment)getFragmentManager().
-                findFragmentByTag(GUIData.MAIN_PREFERENCE_FRAGMENT_TAG);
-        if (fragment != null)
-            profile_id = fragment.profile_id;
-        */
-
         // for startActivityForResult
         Intent returnIntent = new Intent();
         returnIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile_id);
@@ -151,8 +142,6 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        ProfilePreferencesFragment fragment = (ProfilePreferencesFragment)getFragmentManager().
-                findFragmentByTag(GUIData.MAIN_PREFERENCE_FRAGMENT_TAG);
         if (fragment != null)
             fragment.doOnActivityResult(requestCode, resultCode, data);
     }

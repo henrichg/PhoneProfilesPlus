@@ -247,8 +247,6 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
-        super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == ImageViewPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
             Uri selectedImage = data.getData();

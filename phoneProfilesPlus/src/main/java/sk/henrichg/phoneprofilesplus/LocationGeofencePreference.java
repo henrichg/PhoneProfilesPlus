@@ -2,11 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.v4.content.ContextCompat;
@@ -18,20 +18,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LocationGeofencePreference extends DialogPreference {
 
@@ -48,6 +39,9 @@ public class LocationGeofencePreference extends DialogPreference {
     private AppCompatImageButton deleteButton;
 
     public DataWrapper dataWrapper;
+
+    public static final String EXTRA_GEOFENCE_ID = "geofence_id";
+    public static final int RESULT_GEOFENCE_EDITOR = 2100;
 
     public LocationGeofencePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -165,15 +159,7 @@ public class LocationGeofencePreference extends DialogPreference {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Geofence geofence = new Geofence();
-                geofence._name = "Pokus";
-                geofence._latitude = 1;
-                geofence._longitude = 1;
-                geofence._radius = 100;
-                dataWrapper.getDatabaseHandler().addGeofence(geofence, false);
-                dataWrapper.getDatabaseHandler().checkGeofence(geofence._id);
-                refreshListView();
-                setGeofenceId(geofence._id);
+                startEditor();
             }
         });
 
@@ -295,4 +281,19 @@ public class LocationGeofencePreference extends DialogPreference {
         res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         return res;
     }
+
+    private void startEditor() {
+        Intent intent = new Intent(context, LocationGeofenceEditor.class);
+
+        // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+        EventPreferencesFragment.setChangedLocationGeofencePreference(this);
+        EventPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
+    }
+
+    public void setGeofenceFromEditor(long geofenceId) {
+        Log.d("LocationGeofencePreference.setGeofenceFromEditor", "geofenceId=" + geofenceId);
+        refreshListView();
+        setGeofenceId(geofenceId);
+    }
+
 }

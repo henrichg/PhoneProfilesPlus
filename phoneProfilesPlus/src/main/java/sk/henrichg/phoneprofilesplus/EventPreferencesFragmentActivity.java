@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +20,8 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
     private long event_id = 0;
     int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
+
+    EventPreferencesFragment fragment;
 
     private int resultCode = RESULT_CANCELED;
 
@@ -63,7 +66,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         event_id = getIntent().getLongExtra(GlobalData.EXTRA_EVENT_ID, 0L);
         newEventMode = getIntent().getIntExtra(GlobalData.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
 
-        EventPreferencesFragment fragment = new EventPreferencesFragment();
+        fragment = new EventPreferencesFragment();
 
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
@@ -144,7 +147,6 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        EventPreferencesFragment fragment = (EventPreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_event_preferences_container);
         if (fragment != null)
             fragment.doOnActivityResult(requestCode, resultCode, data);
     }

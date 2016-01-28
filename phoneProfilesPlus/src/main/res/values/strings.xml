@@ -683,4 +683,5 @@
     <string name="event_preferences_locations_location_not_selected">Not selected</string>
     <string name="event_preferences_locations_cant_delete_location_title">Delete location</string>
     <string name="event_preferences_locations_cant_delete_location_text">Can\'t delete, location is used in any event.</string>
+    <string name="location_editor_title">Location editor</string>
 </resources>

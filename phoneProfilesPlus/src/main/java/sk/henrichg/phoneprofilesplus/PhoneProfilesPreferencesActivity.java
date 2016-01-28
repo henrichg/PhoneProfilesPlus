@@ -24,6 +24,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
     private boolean invalidateEditor = false;
 
+    PhoneProfilesPreferencesFragment fragment;
+
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
 
@@ -88,15 +90,13 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         wifiScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "10"));
         bluetoothScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
 
-        PhoneProfilesPreferencesFragment fragment = new PhoneProfilesPreferencesFragment();
+        fragment = new PhoneProfilesPreferencesFragment();
 
         if (savedInstanceState == null) {
             Bundle args = new Bundle();
             args.putString(EXTRA_SCROLL_TO, extraScrollTo);
             //args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
             fragment.setArguments(args);
-            //getFragmentManager().beginTransaction()
-            //        .replace(R.id.activity_phone_profiles_preferences_container, fragment, "PhoneProfilesPreferencesFragment").commit();
         }
 
         setPreferenceFragment(fragment);
@@ -131,8 +131,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        PhoneProfilesPreferencesFragment fragment = (PhoneProfilesPreferencesFragment)getFragmentManager().
-                findFragmentByTag(GUIData.MAIN_PREFERENCE_FRAGMENT_TAG);
         if (fragment != null)
             fragment.doOnActivityResult(requestCode, resultCode, data);
     }

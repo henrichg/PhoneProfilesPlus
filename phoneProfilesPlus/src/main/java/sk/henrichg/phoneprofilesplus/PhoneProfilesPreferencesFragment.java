@@ -529,8 +529,6 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
-        super.onActivityResult(requestCode, resultCode, data);
-
         if ((requestCode == RESULT_APPLICATION_PERMISSIONS) ||
             (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS)) {
 
