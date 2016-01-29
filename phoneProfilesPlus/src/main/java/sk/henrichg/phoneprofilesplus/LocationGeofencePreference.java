@@ -248,40 +248,8 @@ public class LocationGeofencePreference extends DialogPreference {
             position = 0;
         geofencesListView.setSelection(position);
 
-        setImageButtonEnabled(value > 0, editButton, R.drawable.ic_action_location_edit);
-        setImageButtonEnabled(value > 0, deleteButton, R.drawable.ic_action_location_delete);
-    }
-
-    /**
-     * Sets the specified image buttonto the given state, while modifying or
-     * "graying-out" the icon as well
-     *
-     * @param enabled The state of the menu item
-     * @param item The menu item to modify
-     * @param iconResId The icon ID
-     */
-    private void setImageButtonEnabled(boolean enabled, AppCompatImageButton item,int iconResId) {
-        item.setEnabled(enabled);
-        Drawable originalIcon = ContextCompat.getDrawable(context, iconResId);
-        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
-        item.setImageDrawable(icon);
-    }
-
-    /**
-     * Mutates and applies a filter that converts the given drawable to a Gray
-     * image. This method may be used to simulate the color of disable icons in
-     * Honeycomb's ActionBar.
-     *
-     * @return a mutated version of the given drawable with a color filter
-     *         applied.
-     */
-    private Drawable convertDrawableToGrayScale(Drawable drawable) {
-        if (drawable == null) {
-            return null;
-        }
-        Drawable res = drawable.mutate();
-        res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
-        return res;
+        GUIData.setImageButtonEnabled(value > 0, editButton, R.drawable.ic_action_location_edit, context);
+        GUIData.setImageButtonEnabled(value > 0, deleteButton, R.drawable.ic_action_location_delete, context);
     }
 
     private void startEditor(long geofenceId) {

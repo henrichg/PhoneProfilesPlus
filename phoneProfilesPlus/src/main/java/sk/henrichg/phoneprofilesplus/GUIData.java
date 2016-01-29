@@ -6,9 +6,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -249,4 +253,37 @@ public class GUIData {
         } catch (Exception ignored) {
         }
     }
+
+    /**
+     * Sets the specified image buttonto the given state, while modifying or
+     * "graying-out" the icon as well
+     *
+     * @param enabled The state of the menu item
+     * @param item The menu item to modify
+     * @param iconResId The icon ID
+     */
+    public static void setImageButtonEnabled(boolean enabled, AppCompatImageButton item, int iconResId, Context context) {
+        item.setEnabled(enabled);
+        Drawable originalIcon = ContextCompat.getDrawable(context, iconResId);
+        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
+        item.setImageDrawable(icon);
+    }
+
+    /**
+     * Mutates and applies a filter that converts the given drawable to a Gray
+     * image. This method may be used to simulate the color of disable icons in
+     * Honeycomb's ActionBar.
+     *
+     * @return a mutated version of the given drawable with a color filter
+     *         applied.
+     */
+    public static Drawable convertDrawableToGrayScale(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
+        Drawable res = drawable.mutate();
+        res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        return res;
+    }
+
 }

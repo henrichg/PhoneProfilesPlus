@@ -5,23 +5,31 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 public class LocationGeofenceEditorActivity extends AppCompatActivity
-                                    implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+                                     implements GoogleApiClient.ConnectionCallbacks,
+                                                GoogleApiClient.OnConnectionFailedListener,
+                                                LocationListener
 {
     private GoogleApiClient mGoogleApiClient;
 
@@ -34,11 +42,39 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     private static final String STATE_RESOLVING_ERROR = "resolving_error";
 
-    Location mLastLocation;
+    public static final int SUCCESS_RESULT = 0;
+    public static final int FAILURE_RESULT = 1;
+    public static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
+    public static final String RECEIVER = PACKAGE_NAME + ".RECEIVER";
+    public static final String RESULT_DATA_KEY = PACKAGE_NAME + ".RESULT_DATA_KEY";
+    public static final String LOCATION_DATA_EXTRA = PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
+
+    /**
+     * The desired interval for location updates. Inexact. Updates may be more or less frequent.
+     */
+    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+
+    /**
+     * The fastest rate for active location updates. Exact. Updates will never be more frequent
+     * than this value.
+     */
+    public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+
+    private Location mLastLocation;
+    private Location mLocation;
+    protected LocationRequest mLocationRequest;
 
     private long geofenceId;
+    private Geofence geofence;
 
+    private AddressResultReceiver mResultReceiver;
+    private boolean mAddressRequested = false;
 
+    DataWrapper dataWrapper;
+
+    EditText geofenceNameEditText;
+    AppCompatImageButton addressButton;
+    Button okButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +90,15 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_location_geofence_editor);
 
+        mResultReceiver = new AddressResultReceiver(new Handler());
+
         // Create a GoogleApiClient instance
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+        createLocationRequest();
 
         mResolvingError = savedInstanceState != null
                 && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
@@ -67,32 +106,45 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         Intent intent = getIntent();
         geofenceId = intent.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
 
-        Button okButton = (Button)findViewById(R.id.location_editor_ok);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+
+        if (geofenceId > 0)
+            geofence = dataWrapper.getDatabaseHandler().getGeofence(geofenceId);
+        if (geofence == null) {
+            geofenceId = 0;
+            geofence = new Geofence();
+            geofence._name = getString(R.string.event_preferences_location_new_location_name) + "_" +
+                                String.valueOf(dataWrapper.getDatabaseHandler().getGeofenceCount()+1);
+        }
+        geofence._radius = 100;
+
+
+        geofenceNameEditText = (EditText)findViewById(R.id.location_editor_geofence_name);
+        geofenceNameEditText.setText(geofence._name);
+
+        okButton = (Button)findViewById(R.id.location_editor_ok);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Geofence geofence = new Geofence();
+                String name = geofenceNameEditText.getText().toString();
+                if ((!name.isEmpty()) || (mLocation != null)) {
+                    geofence._name = name;
+                    geofence._latitude = mLocation.getLatitude();
+                    geofence._longitude = mLocation.getLongitude();
 
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+                    if (geofenceId > 0) {
+                        dataWrapper.getDatabaseHandler().updateGeofence(geofence);
+                    } else {
+                        dataWrapper.getDatabaseHandler().addGeofence(geofence);
+                    }
 
+                    dataWrapper.getDatabaseHandler().checkGeofence(geofence._id);
 
-                if (geofenceId > 0) {
-                    dataWrapper.getDatabaseHandler().updateGeofence(geofence);
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, geofence._id);
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
                 }
-                else {
-                    geofence._name = "Pokus";
-                    geofence._latitude = 1;
-                    geofence._longitude = 1;
-                    geofence._radius = 100;
-                    dataWrapper.getDatabaseHandler().addGeofence(geofence);
-                }
-
-                dataWrapper.getDatabaseHandler().checkGeofence(geofence._id);
-
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, geofence._id);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
             }
         });
 
@@ -110,7 +162,28 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         myLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mLastLocation != null)
+                    mLocation = mLastLocation;
                 refreshActivity();
+            }
+        });
+
+        addressButton = (AppCompatImageButton)findViewById(R.id.location_editor_address);
+        addressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Only start the service to fetch the address if GoogleApiClient is
+                // connected.
+                if (mGoogleApiClient.isConnected() && mLocation != null) {
+                    startIntentService();
+                }
+                // If GoogleApiClient isn't connected, process the user's request by
+                // setting mAddressRequested to true. Later, when GoogleApiClient connects,
+                // launch the service to fetch the address. As far as the user is
+                // concerned, pressing the Fetch Address button
+                // immediately kicks off the process of getting the address.
+                mAddressRequested = true;
+                //updateUIWidgets();
             }
         });
 
@@ -128,6 +201,27 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     protected void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Within {@code onPause()}, we pause location updates, but leave the
+        // connection to GoogleApiClient intact.  Here, we resume receiving
+        // location updates if the user has requested them.
+
+        if (mGoogleApiClient.isConnected()) {
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+        }
     }
 
     @Override
@@ -152,9 +246,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
-            refreshActivity();
-        }
+        refreshActivity();
+        startLocationUpdates();
     }
 
     @Override
@@ -162,6 +255,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         // The connection has been interrupted.
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
+        Log.i("LocationGeofenceEditorActivity", "Connection suspended");
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -185,16 +280,43 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Callback that fires when the location changes.
+     */
+    @Override
+    public void onLocationChanged(Location location) {
+        mLastLocation = location;
 
-    public void refreshActivity() {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            Log.d("LocationGeofenceEditorActivity.refreshActivity", "latitude=" + String.valueOf(mLastLocation.getLatitude()));
-            Log.d("LocationGeofenceEditorActivity.refreshActivity", "longitude=" + String.valueOf(mLastLocation.getLongitude()));
+        Log.d("LocationGeofenceEditorActivity.onLocationChanged", "latitude=" + String.valueOf(location.getLatitude()));
+        Log.d("LocationGeofenceEditorActivity.onLocationChanged", "longitude=" + String.valueOf(location.getLongitude()));
+
+        if (mLocation == null) {
+            mLocation = mLastLocation;
+            refreshActivity();
         }
     }
 
-    // The rest of this code is all about building the error dialog
+    public void refreshActivity() {
+        Log.d("LocationGeofenceEditorActivity.refreshActivity", "xxx");
+        getLastLocation();
+        if (mLocation != null) {
+            Log.d("LocationGeofenceEditorActivity.refreshActivity", "latitude=" + String.valueOf(mLocation.getLatitude()));
+            Log.d("LocationGeofenceEditorActivity.refreshActivity", "longitude=" + String.valueOf(mLocation.getLongitude()));
+
+            // Determine whether a Geocoder is available.
+            if (!Geocoder.isPresent()) {
+                //Toast.makeText(this, R.string.no_geocoder_available,
+                //        Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (mAddressRequested) {
+                startIntentService();
+            }
+        }
+        GUIData.setImageButtonEnabled(mLocation != null, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
+        String name = geofenceNameEditText.getText().toString();
+        okButton.setEnabled((!name.isEmpty()) || (mLocation != null));
+    }
 
     /* Creates a dialog for an error message */
     private void showErrorDialog(int errorCode) {
@@ -230,4 +352,87 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         }
     }
 
+    private void getLastLocation() {
+        if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+            Log.d("LocationGeofenceEditorActivity.getLastLocation", "mLastLocation="+mLastLocation);
+
+            if (mLastLocation == null)
+                startLocationUpdates();
+            else if (mLocation == null)
+                mLocation = mLastLocation;
+        }
+    }
+
+    protected void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+
+        // Sets the desired interval for active location updates. This interval is
+        // inexact. You may not receive updates at all if no location sources are available, or
+        // you may receive them slower than requested. You may also receive updates faster than
+        // requested if other applications are requesting location at a faster interval.
+        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
+
+        // Sets the fastest rate for active location updates. This interval is exact, and your
+        // application will never receive updates faster than this value.
+        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
+
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+    }
+
+
+    /**
+     * Requests location updates from the FusedLocationApi.
+     */
+    protected void startLocationUpdates() {
+        // The final argument to {@code requestLocationUpdates()} is a LocationListener
+        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
+        if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this))
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+    }
+
+    /**
+     * Removes location updates from the FusedLocationApi.
+     */
+    protected void stopLocationUpdates() {
+        // It is a good practice to remove location requests when the activity is in a paused or
+        // stopped state. Doing so helps battery performance and is especially
+        // recommended in applications that request frequent location updates.
+
+        // The final argument to {@code requestLocationUpdates()} is a LocationListener
+        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+    }
+
+    protected void startIntentService() {
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        intent.putExtra(RECEIVER, mResultReceiver);
+        intent.putExtra(LOCATION_DATA_EXTRA, mLocation);
+        startService(intent);
+    }
+
+    class AddressResultReceiver extends ResultReceiver {
+
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+
+            // Display the address string
+            // or an error message sent from the intent service.
+            String addressOutput = resultData.getString(RESULT_DATA_KEY);
+            geofenceNameEditText.setText(addressOutput);
+            mAddressRequested = false;
+
+            // Show a toast message if an address was found.
+            //if (resultCode == SUCCESS_RESULT) {
+            //    showToast(getString(R.string.address_found));
+            //}
+
+        }
+    }
 }
+

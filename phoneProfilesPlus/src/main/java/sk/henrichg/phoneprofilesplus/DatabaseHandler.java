@@ -4315,7 +4315,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting single geofence
-    Geofence getGeofence(int geofenceId) {
+    Geofence getGeofence(long geofenceId) {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -4421,6 +4421,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.endTransaction();
         }
 
+        //db.close();
+
+        return r;
+    }
+
+    public int getGeofenceCount() {
+        String countQuery = "SELECT  count(*) FROM " + TABLE_GEOFENCES;
+
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int r;
+
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+            r = Integer.parseInt(cursor.getString(0));
+        }
+        else
+            r = 0;
+
+        cursor.close();
         //db.close();
 
         return r;

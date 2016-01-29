@@ -686,4 +686,5 @@
     <string name="location_editor_title">Location editor</string>
     <string name="permissions_for_location_geofence_editor_activity_text1">Location requires some permissions.</string>
     <string name="permissions_for_location_geofence_editor_activity_text2">Please grant them in next dialogs. Then location change detection will be performed.</string>
+    <string name="event_preferences_location_new_location_name">Location</string>
 </resources>
