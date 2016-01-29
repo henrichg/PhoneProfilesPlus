@@ -4326,7 +4326,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_G_LONGITUDE,
                         KEY_G_RADIUS
                 },
-                KEY_E_ID + "=?",
+                KEY_G_ID + "=?",
                 new String[]{String.valueOf(geofenceId)}, null, null, null, null);
 
         Geofence geofence = null;

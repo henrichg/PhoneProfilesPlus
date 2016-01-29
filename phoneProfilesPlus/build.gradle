@@ -48,6 +48,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.fnp:material-preferences:0.1.4'
     compile 'com.google.android.gms:play-services-location:8.4.0'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
 }
 
 

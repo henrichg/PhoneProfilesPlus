@@ -25,13 +25,21 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class LocationGeofenceEditorActivity extends AppCompatActivity
                                      implements GoogleApiClient.ConnectionCallbacks,
                                                 GoogleApiClient.OnConnectionFailedListener,
-                                                LocationListener
+                                                LocationListener,
+                                                OnMapReadyCallback
 {
     private GoogleApiClient mGoogleApiClient;
+    private GoogleMap mMap;
 
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -119,6 +127,11 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         geofence._radius = 100;
 
 
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.location_editor_map);
+        mapFragment.getMapAsync(this);
+
         geofenceNameEditText = (EditText)findViewById(R.id.location_editor_geofence_name);
         geofenceNameEditText.setText(geofence._name);
 
@@ -127,7 +140,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 String name = geofenceNameEditText.getText().toString();
-                if ((!name.isEmpty()) || (mLocation != null)) {
+                if ((!name.isEmpty()) && (mLocation != null)) {
                     geofence._name = name;
                     geofence._latitude = mLocation.getLatitude();
                     geofence._longitude = mLocation.getLongitude();
@@ -296,6 +309,27 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    //----------------------------------------------------
+
     public void refreshActivity() {
         Log.d("LocationGeofenceEditorActivity.refreshActivity", "xxx");
         getLastLocation();
@@ -315,41 +349,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         }
         GUIData.setImageButtonEnabled(mLocation != null, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
         String name = geofenceNameEditText.getText().toString();
-        okButton.setEnabled((!name.isEmpty()) || (mLocation != null));
-    }
-
-    /* Creates a dialog for an error message */
-    private void showErrorDialog(int errorCode) {
-        // Create a fragment for the error dialog
-        ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
-        // Pass the error that should be displayed
-        Bundle args = new Bundle();
-        args.putInt(DIALOG_ERROR, errorCode);
-        dialogFragment.setArguments(args);
-        dialogFragment.show(getSupportFragmentManager(), "errordialog");
-    }
-
-    /* Called from ErrorDialogFragment when the dialog is dismissed. */
-    public void onDialogDismissed() {
-        mResolvingError = false;
-    }
-
-    /* A fragment to display an error dialog */
-    public static class ErrorDialogFragment extends DialogFragment {
-        public ErrorDialogFragment() { }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Get the error code and retrieve the appropriate dialog
-            int errorCode = this.getArguments().getInt(DIALOG_ERROR);
-            return GoogleApiAvailability.getInstance().getErrorDialog(
-                    this.getActivity(), errorCode, REQUEST_RESOLVE_ERROR);
-        }
-
-        @Override
-        public void onDismiss(DialogInterface dialog) {
-            ((LocationGeofenceEditorActivity) getActivity()).onDialogDismissed();
-        }
+        okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
     }
 
     private void getLastLocation() {
@@ -434,5 +434,43 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         }
     }
+
+
+    //------------------------------------------
+
+    /* Creates a dialog for an error message */
+    private void showErrorDialog(int errorCode) {
+        // Create a fragment for the error dialog
+        ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
+        // Pass the error that should be displayed
+        Bundle args = new Bundle();
+        args.putInt(DIALOG_ERROR, errorCode);
+        dialogFragment.setArguments(args);
+        dialogFragment.show(getSupportFragmentManager(), "errordialog");
+    }
+
+    /* Called from ErrorDialogFragment when the dialog is dismissed. */
+    public void onDialogDismissed() {
+        mResolvingError = false;
+    }
+
+    /* A fragment to display an error dialog */
+    public static class ErrorDialogFragment extends DialogFragment {
+        public ErrorDialogFragment() { }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Get the error code and retrieve the appropriate dialog
+            int errorCode = this.getArguments().getInt(DIALOG_ERROR);
+            return GoogleApiAvailability.getInstance().getErrorDialog(
+                    this.getActivity(), errorCode, REQUEST_RESOLVE_ERROR);
+        }
+
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            ((LocationGeofenceEditorActivity) getActivity()).onDialogDismissed();
+        }
+    }
+
 }
 

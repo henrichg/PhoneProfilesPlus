@@ -138,16 +138,20 @@
         android:id="@+id/location_editor_linla_map"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
+        android:padding="0dp"
         android:orientation="vertical"
         android:layout_above="@+id/location_editor_et_btn"
         android:layout_alignParentTop="true"
         >
 
-        <FrameLayout
-            android:id="@+id/location_editor_map"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <fragment android:id="@+id/location_editor_map"
+                  android:name="com.google.android.gms.maps.SupportMapFragment"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:map="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  tools:context="sk.henrichg.phoneprofilesplus.LocationGeofenceEditorActivity"/>
 
     </LinearLayout>
 
