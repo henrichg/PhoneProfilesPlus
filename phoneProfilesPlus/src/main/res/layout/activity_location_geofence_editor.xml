@@ -30,9 +30,6 @@
                 android:id="@+id/location_editor_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
@@ -44,9 +41,6 @@
                 android:id="@+id/location_editor_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_toLeftOf = "@+id/location_editor_ok"
                 android:layout_toStartOf = "@+id/location_editor_ok"
                 android:layout_centerVertical="true"
@@ -104,7 +98,7 @@
                 android:background="?attr/selectableItemBackground" />
 
             <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/location_editor_address"
+                android:id="@+id/location_editor_address_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -120,10 +114,10 @@
                 android:id="@+id/location_editor_geofence_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_toLeftOf = "@+id/location_editor_address"
-                android:layout_toStartOf = "@+id/location_editor_address"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf = "@+id/location_editor_address_btn"
+                android:layout_toStartOf = "@+id/location_editor_address_btn"
                 android:layout_centerVertical="true"
                 android:selectAllOnFocus="true"
                 android:inputType="textNoSuggestions" />
@@ -132,7 +126,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/location_editor_linla_map"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -142,6 +136,16 @@
         android:layout_alignParentTop="true"
         >
 
+        <TextView
+            android:id="@+id/location_editor_address_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentBottom="true"
+            android:text="@string/empty_string"
+            android:singleLine="true"/>
+
         <fragment android:id="@+id/location_editor_map"
                   android:name="com.google.android.gms.maps.SupportMapFragment"
                   xmlns:android="http://schemas.android.com/apk/res/android"
@@ -149,9 +153,11 @@
                   xmlns:tools="http://schemas.android.com/tools"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
+                  android:layout_above="@+id/location_editor_address_text"
+                  android:layout_alignParentTop="true"
                   tools:context="sk.henrichg.phoneprofilesplus.LocationGeofenceEditorActivity"
                   map:cameraZoom="15" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -58,6 +59,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     public static final String RECEIVER = PACKAGE_NAME + ".RECEIVER";
     public static final String RESULT_DATA_KEY = PACKAGE_NAME + ".RESULT_DATA_KEY";
     public static final String LOCATION_DATA_EXTRA = PACKAGE_NAME + ".LOCATION_DATA_EXTRA";
+    public static final String UPDATE_NAME_EXTRA = PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
 
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
@@ -84,6 +86,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     EditText geofenceNameEditText;
     AppCompatImageButton addressButton;
+    TextView addressText;
     Button okButton;
 
     @Override
@@ -137,6 +140,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         geofenceNameEditText = (EditText)findViewById(R.id.location_editor_geofence_name);
         geofenceNameEditText.setText(geofence._name);
 
+        addressText = (TextView)findViewById(R.id.location_editor_address_text);
+
         okButton = (Button)findViewById(R.id.location_editor_ok);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,27 +183,16 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 if (mLastLocation != null)
-                    mLocation = mLastLocation;
+                    mLocation = new Location(mLastLocation);
                 refreshActivity(true);
             }
         });
 
-        addressButton = (AppCompatImageButton)findViewById(R.id.location_editor_address);
+        addressButton = (AppCompatImageButton)findViewById(R.id.location_editor_address_btn);
         addressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Only start the service to fetch the address if GoogleApiClient is
-                // connected.
-                if (mGoogleApiClient.isConnected() && mLocation != null) {
-                    startIntentService();
-                }
-                // If GoogleApiClient isn't connected, process the user's request by
-                // setting mAddressRequested to true. Later, when GoogleApiClient connects,
-                // launch the service to fetch the address. As far as the user is
-                // concerned, pressing the Fetch Address button
-                // immediately kicks off the process of getting the address.
-                mAddressRequested = true;
-                //updateUIWidgets();
+                getGeofenceAddress(true);
             }
         });
 
@@ -306,7 +300,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         Log.d("LocationGeofenceEditorActivity.onLocationChanged", "longitude=" + String.valueOf(location.getLongitude()));
 
         if (mLocation == null) {
-            mLocation = mLastLocation;
+            mLocation = new Location(mLastLocation);
             refreshActivity(true);
         }
     }
@@ -325,6 +319,18 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         mMap = googleMap;
         mMap.getUiSettings().setMapToolbarEnabled(false);
         updateEditedMarker(true);
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng point) {
+                Log.d("Map", "Map clicked");
+                if (mLocation == null)
+                    mLocation = new Location(mLastLocation);
+                mLocation.setLatitude(point.latitude);
+                mLocation.setLongitude(point.longitude);
+                refreshActivity(false);
+            }
+        });
     }
 
     private void updateEditedMarker(boolean setMapCamera) {
@@ -361,10 +367,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 //        Toast.LENGTH_LONG).show();
                 return;
             }
-            if (mAddressRequested) {
-                startIntentService();
-
-            }
+            startIntentService(false);
         }
         GUIData.setImageButtonEnabled(mLocation != null, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
         String name = geofenceNameEditText.getText().toString();
@@ -383,7 +386,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             if (mLastLocation == null)
                 startLocationUpdates();
             else if (mLocation == null)
-                mLocation = mLastLocation;
+                mLocation = new Location(mLastLocation);
         }
     }
 
@@ -427,10 +430,25 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
-    protected void startIntentService() {
+    private  void getGeofenceAddress(boolean updateName) {
+        // Only start the service to fetch the address if GoogleApiClient is
+        // connected.
+        if (mGoogleApiClient.isConnected() && mLocation != null) {
+            startIntentService(true);
+        }
+        // If GoogleApiClient isn't connected, process the user's request by
+        // setting mAddressRequested to true. Later, when GoogleApiClient connects,
+        // launch the service to fetch the address. As far as the user is
+        // concerned, pressing the Fetch Address button
+        // immediately kicks off the process of getting the address.
+        mAddressRequested = true;
+    }
+
+    protected void startIntentService(boolean updateName) {
         Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.putExtra(RECEIVER, mResultReceiver);
         intent.putExtra(LOCATION_DATA_EXTRA, mLocation);
+        intent.putExtra(UPDATE_NAME_EXTRA, updateName);
         startService(intent);
     }
 
@@ -446,7 +464,10 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             // Display the address string
             // or an error message sent from the intent service.
             String addressOutput = resultData.getString(RESULT_DATA_KEY);
-            geofenceNameEditText.setText(addressOutput);
+            addressText.setText(addressOutput);
+
+            if (resultData.getBoolean(UPDATE_NAME_EXTRA, false))
+                geofenceNameEditText.setText(addressOutput);
 
             updateEditedMarker(false);
 

@@ -19,6 +19,7 @@ import java.util.Locale;
 public class FetchAddressIntentService extends IntentService {
 
     protected ResultReceiver mReceiver;
+    private boolean updateName;
 
     public FetchAddressIntentService() {
         super("FetchAddressIntentService");
@@ -47,6 +48,8 @@ public class FetchAddressIntentService extends IntentService {
             deliverResultToReceiver(LocationGeofenceEditorActivity.FAILURE_RESULT, "No location data provided");
             return;
         }
+
+        updateName = intent.getBooleanExtra(LocationGeofenceEditorActivity.UPDATE_NAME_EXTRA, false);
 
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
 
@@ -93,6 +96,7 @@ public class FetchAddressIntentService extends IntentService {
     private void deliverResultToReceiver(int resultCode, String message) {
         Bundle bundle = new Bundle();
         bundle.putString(LocationGeofenceEditorActivity.RESULT_DATA_KEY, message);
+        bundle.putBoolean(LocationGeofenceEditorActivity.UPDATE_NAME_EXTRA, updateName);
         mReceiver.send(resultCode, bundle);
     }
 
