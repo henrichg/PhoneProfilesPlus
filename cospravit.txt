@@ -899,3 +899,21 @@ DevicePolicyManager.PASSWORD_QUALITY_NUMERIC - pin?
 DevicePolicyManager.PASSWORD_QUALITY_ALPHABETIC - heslo?
 DevicePolicyManager.PASSWORD_QUALITY_ALPHANUMERIC - heslo?
 DevicePolicyManager.PASSWORD_QUALITY_COMPLEX - heslo?
+
+---------------------------------------------------------------------------
+
+---------- Lokacia -----------------------------
+
+Vsetko uz mam, geofences mam v tabulke, preference dialog spraveny, teraz uz treba len
+zacat skenovat, co som v radiuse geofence.
+
+Na FirstStartEvents() spojim sa s GoogleAPI. Potom dam zistenie, ci nejake udalosti mam na lokaciu
+a ak ano, nastavim vsetko co treba (vid dokumentacia).
+
+Na globalne zastavenie udalosti a Exit, zrusim GoogleAPI spojenie (vid dokumentacia).
+
+Na pause udalosti s lokaciou:
+- ak je event povoleny: pridam jeho geofence na skenovanie.
+- inac: vyhodim ho zo skenovania.
+
+----------------------------------------------
