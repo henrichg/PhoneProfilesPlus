@@ -646,7 +646,7 @@ public class GrantPermissionActivity extends Activity {
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
             if (Permissions.locationGeofenceEditorActivity != null) {
-                Permissions.locationGeofenceEditorActivity.refreshActivity();
+                Permissions.locationGeofenceEditorActivity.refreshActivity(true);
             }
             dataWrapper.restartEvents(false, true);
             WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);

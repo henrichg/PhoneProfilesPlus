@@ -38,8 +38,7 @@
                 android:layout_centerVertical="true"
                 android:text="@android:string/ok"
                 android:textColor="?attr/colorAccent"
-                android:background="?attr/selectableItemBackground"
-                android:textStyle="bold"/>
+                android:background="?attr/selectableItemBackground"/>
 
             <Button
                 android:id="@+id/location_editor_cancel"
@@ -53,8 +52,7 @@
                 android:layout_centerVertical="true"
                 android:text="@android:string/cancel"
                 android:textColor="?attr/colorAccent"
-                android:background="?attr/selectableItemBackground"
-                android:textStyle="bold" />
+                android:background="?attr/selectableItemBackground" />
 
         </RelativeLayout>
 
@@ -151,7 +149,8 @@
                   xmlns:tools="http://schemas.android.com/tools"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  tools:context="sk.henrichg.phoneprofilesplus.LocationGeofenceEditorActivity"/>
+                  tools:context="sk.henrichg.phoneprofilesplus.LocationGeofenceEditorActivity"
+                  map:cameraZoom="15" />
 
     </LinearLayout>
 

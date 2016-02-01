@@ -30,6 +30,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class LocationGeofenceEditorActivity extends AppCompatActivity
@@ -40,6 +41,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 {
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
+    private Marker editedMarker;
 
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -177,7 +179,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             public void onClick(View v) {
                 if (mLastLocation != null)
                     mLocation = mLastLocation;
-                refreshActivity();
+                refreshActivity(true);
             }
         });
 
@@ -259,7 +261,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        refreshActivity();
+        refreshActivity(true);
         startLocationUpdates();
     }
 
@@ -305,7 +307,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         if (mLocation == null) {
             mLocation = mLastLocation;
-            refreshActivity();
+            refreshActivity(true);
         }
     }
 
@@ -321,16 +323,32 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setMapToolbarEnabled(false);
+        updateEditedMarker(true);
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    private void updateEditedMarker(boolean setMapCamera) {
+        if ((mMap != null) && (mLocation != null)) {
+
+            LatLng editedGeofence = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+
+            if (editedMarker == null) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(editedGeofence);
+                editedMarker = mMap.addMarker(markerOptions);
+            }
+            else
+                editedMarker.setPosition(editedGeofence);
+            editedMarker.setTitle(geofenceNameEditText.getText().toString());
+
+            if (setMapCamera)
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
+        }
     }
 
     //----------------------------------------------------
 
-    public void refreshActivity() {
+    public void refreshActivity(boolean setMapCamera) {
         Log.d("LocationGeofenceEditorActivity.refreshActivity", "xxx");
         getLastLocation();
         if (mLocation != null) {
@@ -345,10 +363,14 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             }
             if (mAddressRequested) {
                 startIntentService();
+
             }
         }
         GUIData.setImageButtonEnabled(mLocation != null, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
         String name = geofenceNameEditText.getText().toString();
+
+        updateEditedMarker(setMapCamera);
+
         okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
     }
 
@@ -425,13 +447,10 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             // or an error message sent from the intent service.
             String addressOutput = resultData.getString(RESULT_DATA_KEY);
             geofenceNameEditText.setText(addressOutput);
+
+            updateEditedMarker(false);
+
             mAddressRequested = false;
-
-            // Show a toast message if an address was found.
-            //if (resultCode == SUCCESS_RESULT) {
-            //    showToast(getString(R.string.address_found));
-            //}
-
         }
     }
 
