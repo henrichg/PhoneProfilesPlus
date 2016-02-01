@@ -212,8 +212,10 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
         </activity>
-        <activity android:name=".LocationGeofenceEditorActivity">
-            android:label="@string/empty_string"
+        <activity
+            android:name=".LocationGeofenceEditorActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/location_editor_title" >
         </activity>
 
         <receiver
