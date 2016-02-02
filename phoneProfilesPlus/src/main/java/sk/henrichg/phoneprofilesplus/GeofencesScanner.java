@@ -167,7 +167,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
 
             for (Geofence geofence : geofences) {
-                if (dataWrapper.getDatabaseHandler().isGeofenceUsed(geofence._id)) {
+                if (dataWrapper.getDatabaseHandler().isGeofenceUsed(geofence._id, true)) {
                     mGeofenceList.add(new com.google.android.gms.location.Geofence.Builder()
                                     .setRequestId(GEOFENCE_KEY_PREFIX + String.valueOf(geofence._id))
                                     .setCircularRegion(geofence._latitude, geofence._longitude, geofence._radius)
@@ -178,6 +178,9 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     );
                 }
             }
+
+            if (mGeofenceList.size() == 0)
+                return;
 
             try {
                 LocationServices.GeofencingApi.addGeofences(
@@ -203,6 +206,59 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     // This is the same pending intent that was used in addGeofences().
                     getGeofencePendingIntent()
             ).setResultCallback(this); // Result processed in onResult().
+        }
+    }
+
+    public void registerGeofenceForEvent(Event event) {
+        if (mGoogleApiClient.isConnected() && Permissions.checkLocation(context)) {
+            if (event._eventPreferencesLocation != null) {
+                Log.d("GeofencesScanner.registerGeofenceForEvent", "geofenceId="+event._eventPreferencesLocation._geofenceId);
+
+                Geofence geofence = dataWrapper.getDatabaseHandler().getGeofence(event._eventPreferencesLocation._geofenceId);
+                if (geofence != null) {
+                    // Empty list for storing geofences.
+                    mGeofenceList = new ArrayList<com.google.android.gms.location.Geofence>();
+                    mGeofenceList.add(new com.google.android.gms.location.Geofence.Builder()
+                                    .setRequestId(GEOFENCE_KEY_PREFIX + String.valueOf(geofence._id))
+                                    .setCircularRegion(geofence._latitude, geofence._longitude, geofence._radius)
+                                    .setExpirationDuration(com.google.android.gms.location.Geofence.NEVER_EXPIRE)
+                                    .setTransitionTypes(com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER |
+                                            com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT)
+                                    .build()
+                    );
+
+                    try {
+                        LocationServices.GeofencingApi.addGeofences(
+                                mGoogleApiClient,
+                                // The GeofenceRequest object.
+                                getGeofencingRequest(),
+                                // A pending intent that that is reused when calling removeGeofences(). This
+                                // pending intent is used to generate an intent when a matched geofence
+                                // transition is observed.
+                                getGeofencePendingIntent()
+                        ).setResultCallback(this); // Result processed in onResult().
+                    } catch (SecurityException securityException) {
+                        // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                    }
+                }
+            }
+        }
+    }
+
+    public void unregisterGeofenceForEvent(Event event) {
+        if (mGoogleApiClient.isConnected()) {
+            if (event._eventPreferencesLocation != null) {
+                Log.d("GeofencesScanner.unregisterGeofenceForEvent", "xxx");
+
+                ArrayList<String> geofenceRequestIdList = new ArrayList<String>();
+                geofenceRequestIdList.add(GEOFENCE_KEY_PREFIX + String.valueOf(event._eventPreferencesLocation._geofenceId));
+
+                LocationServices.GeofencingApi.removeGeofences(
+                        mGoogleApiClient,
+                        geofenceRequestIdList
+                ).setResultCallback(this); // Result processed in onResult().
+            }
+
         }
     }
 

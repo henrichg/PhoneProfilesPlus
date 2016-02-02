@@ -176,7 +176,7 @@ public class LocationGeofencePreference extends DialogPreference {
             public void onClick(View v) {
                 long value = dataWrapper.getDatabaseHandler().getCheckedGeofence();
                 if (value > 0) {
-                    if (!dataWrapper.getDatabaseHandler().isGeofenceUsed(value/*, 0 getSharedPreferences().getLong(Event.PREF_EVENT_ID, 0)*/)) {
+                    if (!dataWrapper.getDatabaseHandler().isGeofenceUsed(value, false)) {
                         dataWrapper.getDatabaseHandler().deleteGeofence(value);
                         refreshListView();
                         setGeofenceId(0);

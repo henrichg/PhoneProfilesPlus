@@ -76,7 +76,7 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         long id = cursor.getLong(KEY_G_ID);
         rowData.radioButton.setChecked(checked);
         rowData.radioButton.setTag(id);
-        if (preference.dataWrapper.getDatabaseHandler().isGeofenceUsed(id))
+        if (preference.dataWrapper.getDatabaseHandler().isGeofenceUsed(id, false))
             rowData.name.setTypeface(null, Typeface.BOLD);
         else
             rowData.name.setTypeface(null, Typeface.NORMAL);

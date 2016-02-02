@@ -161,11 +161,17 @@ public class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setSystemPauseEvent(Context context)
     {
+        if (GlobalData.geofencesScanner != null) {
+            GlobalData.geofencesScanner.registerGeofenceForEvent(_event);
+        }
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
+        if (GlobalData.geofencesScanner != null) {
+            GlobalData.geofencesScanner.unregisterGeofenceForEvent(_event);
+        }
     }
 
     private String getGeofenceName(long geofenceId, Context context) {

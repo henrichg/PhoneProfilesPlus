@@ -3138,7 +3138,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 EventPreferencesLocation eventPreferences = event._eventPreferencesLocation;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._geofenceId = cursor.getInt(1);
+                eventPreferences._geofenceId = cursor.getLong(1);
             }
             cursor.close();
         }
@@ -4450,11 +4450,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
-    public boolean isGeofenceUsed(long geofenceId/*, long forEventId*/) {
+    public boolean isGeofenceUsed(long geofenceId, boolean onlyEnabledEvents) {
         String countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                 " WHERE " + KEY_E_LOCATION_FK_GEOFENCE + "=" + String.valueOf(geofenceId) +
                 " AND " + KEY_E_LOCATION_ENABLED + "=1";
-                              /*" AND " + KEY_E_ID + "<>" + String.valueOf(forEventId);*/
+        if (onlyEnabledEvents)
+            countQuery = countQuery + " AND " + KEY_E_STATUS + " IN (" +
+                    String.valueOf(Event.ESTATUS_PAUSE) + "," +
+                    String.valueOf(Event.ESTATUS_RUNNING) + ")";
 
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
