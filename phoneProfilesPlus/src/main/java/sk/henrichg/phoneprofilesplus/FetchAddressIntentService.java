@@ -76,7 +76,8 @@ public class FetchAddressIntentService extends IntentService {
             if (errorMessage.isEmpty()) {
                 Log.e("FetchAddressIntentService", "No address found");
             }
-            deliverResultToReceiver(LocationGeofenceEditorActivity.FAILURE_RESULT, "No address found");
+            deliverResultToReceiver(LocationGeofenceEditorActivity.FAILURE_RESULT,
+                    getApplicationContext().getString(R.string.event_preferences_location_no_address_found));
         } else {
             Address address = addresses.get(0);
             ArrayList<String> addressFragments = new ArrayList<String>();

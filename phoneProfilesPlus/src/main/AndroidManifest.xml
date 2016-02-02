@@ -217,6 +217,13 @@
             android:configChanges="locale|layoutDirection"
             android:label="@string/location_editor_title" >
         </activity>
+        <activity
+            android:name=".GeofenceScannerErrorActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyActivity">
+        </activity>
 
         <receiver
             android:name=".IconWidgetProvider"

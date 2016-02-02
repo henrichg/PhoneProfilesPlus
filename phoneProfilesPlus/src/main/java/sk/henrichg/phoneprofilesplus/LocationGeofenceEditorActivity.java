@@ -286,7 +286,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             showErrorDialog(result.getErrorCode());
             mResolvingError = true;
         }
-
     }
 
     /**
@@ -357,19 +356,19 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     public void refreshActivity(boolean setMapCamera) {
         Log.d("LocationGeofenceEditorActivity.refreshActivity", "xxx");
         getLastLocation();
+        boolean enableAddressButton = false;
         if (mLocation != null) {
             Log.d("LocationGeofenceEditorActivity.refreshActivity", "latitude=" + String.valueOf(mLocation.getLatitude()));
             Log.d("LocationGeofenceEditorActivity.refreshActivity", "longitude=" + String.valueOf(mLocation.getLongitude()));
 
             // Determine whether a Geocoder is available.
-            if (!Geocoder.isPresent()) {
-                //Toast.makeText(this, R.string.no_geocoder_available,
-                //        Toast.LENGTH_LONG).show();
-                return;
+            if (Geocoder.isPresent()) {
+                startIntentService(false);
+                enableAddressButton = true;
             }
-            startIntentService(false);
         }
-        GUIData.setImageButtonEnabled(mLocation != null, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
+        if (addressButton.isEnabled())
+            GUIData.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
         String name = geofenceNameEditText.getText().toString();
 
         updateEditedMarker(setMapCamera);
@@ -461,15 +460,22 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
 
-            // Display the address string
-            // or an error message sent from the intent service.
-            String addressOutput = resultData.getString(RESULT_DATA_KEY);
-            addressText.setText(addressOutput);
+            boolean enableAddressButton = false;
+            if (resultCode == LocationGeofenceEditorActivity.SUCCESS_RESULT) {
+                // Display the address string
+                // or an error message sent from the intent service.
+                String addressOutput = resultData.getString(RESULT_DATA_KEY);
+                addressText.setText(addressOutput);
 
-            if (resultData.getBoolean(UPDATE_NAME_EXTRA, false))
-                geofenceNameEditText.setText(addressOutput);
+                if (resultData.getBoolean(UPDATE_NAME_EXTRA, false))
+                    geofenceNameEditText.setText(addressOutput);
 
-            updateEditedMarker(false);
+                updateEditedMarker(false);
+
+                enableAddressButton = true;
+            }
+
+            GUIData.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
 
             mAddressRequested = false;
         }

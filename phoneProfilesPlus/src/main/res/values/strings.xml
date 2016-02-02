@@ -687,4 +687,7 @@
     <string name="permissions_for_location_geofence_editor_activity_text1">Location requires some permissions.</string>
     <string name="permissions_for_location_geofence_editor_activity_text2">Please grant them in next dialogs. Then location change detection will be performed.</string>
     <string name="event_preferences_location_new_location_name">Location</string>
+    <string name="event_preferences_location_no_address_found">No address found</string>
+    <string name="event_preferences_location_google_api_connection_error_title">Google Play Services error</string>
+    <string name="event_preferences_location_google_api_connection_error_text">Connection to Google Play Services failed. Click here to resolve it.</string>
 </resources>
