@@ -655,6 +655,11 @@
                 <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED"/>
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".GeofenceScannerBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
 
     </application>
 

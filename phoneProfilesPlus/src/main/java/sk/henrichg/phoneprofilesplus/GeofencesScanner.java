@@ -51,7 +51,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     //private static final long GEOFENCE_EXPIRATION_IN_MILISECONDS =
     //        GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
 
-    public static final String GEOFENCE_KEY_PREFIX = "PPP_GEOFENCE_";
+    public static final String GEOFENCE_KEY_PREFIX = "PhoneProfilesPlusGeofence_";
 
     public GeofencesScanner(Context context) {
         this.context = context;
@@ -161,6 +161,9 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     public void registerAllEventGeofences() {
         if (mGoogleApiClient.isConnected() && Permissions.checkLocation(context)) {
 
+            // clear all geofence transitions
+            dataWrapper.getDatabaseHandler().clearAllGeofenceTransitions();
+
             // Empty list for storing geofences.
             mGeofenceList = new ArrayList<com.google.android.gms.location.Geofence>();
 
@@ -211,7 +214,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     public void registerGeofenceForEvent(Event event) {
         if (mGoogleApiClient.isConnected() && Permissions.checkLocation(context)) {
-            if (event._eventPreferencesLocation != null) {
+            if ((event._eventPreferencesLocation != null) && (event._eventPreferencesLocation._enabled)) {
                 Log.d("GeofencesScanner.registerGeofenceForEvent", "geofenceId="+event._eventPreferencesLocation._geofenceId);
 
                 Geofence geofence = dataWrapper.getDatabaseHandler().getGeofence(event._eventPreferencesLocation._geofenceId);

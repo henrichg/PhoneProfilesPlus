@@ -36,15 +36,19 @@ public class GeofencesScannerService extends IntentService {
                 // Get the geofences that were triggered. A single event can trigger multiple geofences.
                 List<com.google.android.gms.location.Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
 
+                // save transitions to geofence table
+                if (updateGeofences(geofenceTransition, triggeringGeofences)) {
+                    // send broadcast for calling EventsService
+                    Intent broadcastIntent = new Intent(getApplicationContext(), GeofenceScannerBroadcastReceiver.class);
+                    sendBroadcast(broadcastIntent);
+                }
+
                 // Get the transition details as a String.
                 String geofenceTransitionDetails = getGeofenceTransitionDetails(
                         this,
                         geofenceTransition,
                         triggeringGeofences
                 );
-
-                // Send notification and log the transition details.
-                //sendNotification(geofenceTransitionDetails);
                 Log.d("GeofencesScannerService", geofenceTransitionDetails);
             } else {
                 // Log the error.
@@ -52,6 +56,31 @@ public class GeofencesScannerService extends IntentService {
             }
         }
     }
+
+    private boolean updateGeofences(int geofenceTransition,
+                                 List<com.google.android.gms.location.Geofence> triggeringGeofences) {
+
+        for (com.google.android.gms.location.Geofence geofence : triggeringGeofences) {
+
+            String geofenceRequestId = geofence.getRequestId();
+
+            String[] splits = geofenceRequestId.split("_");
+
+            if (splits[0].equals(GeofencesScanner.GEOFENCE_KEY_PREFIX)) {
+                try {
+                    long geofenceId = Integer.parseInt(splits[1]);
+
+                    DataWrapper dataWrapper  = new DataWrapper(getApplicationContext(), false, false, 0);
+                    dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofenceId, geofenceTransition);
+
+                    return true;
+                } catch (Exception e) {
+                }
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Gets transition details and returns them as a formatted string.
