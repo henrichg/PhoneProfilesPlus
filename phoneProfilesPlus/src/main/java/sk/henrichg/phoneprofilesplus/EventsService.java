@@ -423,6 +423,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(PowerSaveModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_BATTERY;
+        else
+        if (broadcastReceiverType.equals(GeofenceScannerBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_LOCATION;
 
 
         if (eventType > 0)
@@ -502,6 +505,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(PowerSaveModeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             PowerSaveModeBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(GeofenceScannerBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            GeofenceScannerBroadcastReceiver.completeWakefulIntent(intent);
 
 
         // this broadcast not starts service with wakefull method

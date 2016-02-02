@@ -1392,6 +1392,7 @@ public class DataWrapper {
         boolean smsPassed = true;
         boolean notificationPassed = true;
         boolean applicationPassed = true;
+        boolean locationPassed = true;
 
         GlobalData.logE("DataWrapper.doEventService","--- start --------------------------");
         GlobalData.logE("DataWrapper.doEventService","------- event._id="+event._id);
@@ -2040,6 +2041,16 @@ public class DataWrapper {
             }
         }
 
+        if (event._eventPreferencesLocation._enabled)
+        {
+            locationPassed = false;
+
+            int geofenceTransition = getDatabaseHandler().getGeofenceTransition(event._eventPreferencesLocation._geofenceId);
+
+            if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
+                locationPassed = true;
+        }
+
         GlobalData.logE("DataWrapper.doEventService","timePassed="+timePassed);
         GlobalData.logE("DataWrapper.doEventService","batteryPassed="+batteryPassed);
         GlobalData.logE("DataWrapper.doEventService","callPassed="+callPassed);
@@ -2051,6 +2062,7 @@ public class DataWrapper {
         GlobalData.logE("DataWrapper.doEventService","smsPassed="+smsPassed);
         GlobalData.logE("DataWrapper.doEventService","notificationPassed="+notificationPassed);
         GlobalData.logE("DataWrapper.doEventService","applicationPassed="+applicationPassed);
+        GlobalData.logE("DataWrapper.doEventService","locationPassed="+locationPassed);
 
         //GlobalData.logE("DataWrapper.doEventService","eventStart="+eventStart);
         GlobalData.logE("DataWrapper.doEventService","restartEvent="+restartEvent);
@@ -2068,7 +2080,8 @@ public class DataWrapper {
             bluetoothPassed &&
             smsPassed &&
             notificationPassed &&
-            applicationPassed)
+            applicationPassed &&
+            locationPassed)
         {
             // podmienky sedia, vykoname, co treba
 

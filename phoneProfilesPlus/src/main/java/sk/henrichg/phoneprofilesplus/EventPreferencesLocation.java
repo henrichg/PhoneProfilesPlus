@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.util.Log;
 
 public class EventPreferencesLocation extends EventPreferences {
 
@@ -156,11 +157,16 @@ public class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setSystemRunningEvent(Context context)
     {
+        Log.d("EventPreferencesLocation.setSystemRunningEvent", "xxx");
+        if (GlobalData.geofencesScanner != null) {
+            GlobalData.geofencesScanner.registerGeofenceForEvent(_event);
+        }
     }
 
     @Override
     public void setSystemPauseEvent(Context context)
     {
+        Log.d("EventPreferencesLocation.setSystemPauseEvent", "xxx");
         if (GlobalData.geofencesScanner != null) {
             GlobalData.geofencesScanner.registerGeofenceForEvent(_event);
         }

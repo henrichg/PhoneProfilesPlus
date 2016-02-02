@@ -51,7 +51,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     //private static final long GEOFENCE_EXPIRATION_IN_MILISECONDS =
     //        GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
 
-    public static final String GEOFENCE_KEY_PREFIX = "PhoneProfilesPlusGeofence_";
+    public static final String GEOFENCE_KEY_PREFIX = "PhoneProfilesPlusGeofence";
 
     public GeofencesScanner(Context context) {
         this.context = context;
@@ -172,7 +172,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             for (Geofence geofence : geofences) {
                 if (dataWrapper.getDatabaseHandler().isGeofenceUsed(geofence._id, true)) {
                     mGeofenceList.add(new com.google.android.gms.location.Geofence.Builder()
-                                    .setRequestId(GEOFENCE_KEY_PREFIX + String.valueOf(geofence._id))
+                                    .setRequestId(GEOFENCE_KEY_PREFIX + "_" + String.valueOf(geofence._id))
                                     .setCircularRegion(geofence._latitude, geofence._longitude, geofence._radius)
                                     .setExpirationDuration(com.google.android.gms.location.Geofence.NEVER_EXPIRE)
                                     .setTransitionTypes(com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER |
@@ -214,6 +214,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     public void registerGeofenceForEvent(Event event) {
         if (mGoogleApiClient.isConnected() && Permissions.checkLocation(context)) {
+            Log.d("GeofencesScanner.registerGeofenceForEvent", "enabled="+event._eventPreferencesLocation._enabled);
             if ((event._eventPreferencesLocation != null) && (event._eventPreferencesLocation._enabled)) {
                 Log.d("GeofencesScanner.registerGeofenceForEvent", "geofenceId="+event._eventPreferencesLocation._geofenceId);
 
@@ -222,7 +223,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     // Empty list for storing geofences.
                     mGeofenceList = new ArrayList<com.google.android.gms.location.Geofence>();
                     mGeofenceList.add(new com.google.android.gms.location.Geofence.Builder()
-                                    .setRequestId(GEOFENCE_KEY_PREFIX + String.valueOf(geofence._id))
+                                    .setRequestId(GEOFENCE_KEY_PREFIX + "_" + String.valueOf(geofence._id))
                                     .setCircularRegion(geofence._latitude, geofence._longitude, geofence._radius)
                                     .setExpirationDuration(com.google.android.gms.location.Geofence.NEVER_EXPIRE)
                                     .setTransitionTypes(com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER |
@@ -254,7 +255,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 Log.d("GeofencesScanner.unregisterGeofenceForEvent", "xxx");
 
                 ArrayList<String> geofenceRequestIdList = new ArrayList<String>();
-                geofenceRequestIdList.add(GEOFENCE_KEY_PREFIX + String.valueOf(event._eventPreferencesLocation._geofenceId));
+                geofenceRequestIdList.add(GEOFENCE_KEY_PREFIX + "_" + String.valueOf(event._eventPreferencesLocation._geofenceId));
 
                 LocationServices.GeofencingApi.removeGeofences(
                         mGoogleApiClient,
