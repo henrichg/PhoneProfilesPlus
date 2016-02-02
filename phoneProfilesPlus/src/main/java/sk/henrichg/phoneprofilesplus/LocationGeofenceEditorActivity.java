@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -265,7 +266,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
         Log.i("LocationGeofenceEditorActivity", "Connection suspended");
-        mGoogleApiClient.connect();
+        //mGoogleApiClient.connect();
     }
 
     @Override
@@ -378,7 +379,12 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     private void getLastLocation() {
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            try {
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            } catch (SecurityException securityException) {
+                // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                return;
+            }
 
             Log.d("LocationGeofenceEditorActivity.getLastLocation", "mLastLocation="+mLastLocation);
 
@@ -412,8 +418,14 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     protected void startLocationUpdates() {
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
-        if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this))
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
+            try {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            } catch (SecurityException securityException) {
+                // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                return;
+            }
+        }
     }
 
     /**
@@ -451,6 +463,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         startService(intent);
     }
 
+    @SuppressLint("ParcelCreator")
     class AddressResultReceiver extends ResultReceiver {
 
         public AddressResultReceiver(Handler handler) {

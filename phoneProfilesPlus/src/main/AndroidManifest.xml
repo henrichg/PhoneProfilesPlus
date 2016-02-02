@@ -215,7 +215,7 @@
         <activity
             android:name=".LocationGeofenceEditorActivity"
             android:configChanges="locale|layoutDirection"
-            android:label="@string/location_editor_title" >
+            android:label="@string/location_editor_title">
         </activity>
         <activity
             android:name=".GeofenceScannerErrorActivity"
@@ -409,6 +409,10 @@
         <service
             android:name=".FetchAddressIntentService"
             android:exported="false"/>
+        <service
+            android:name=".GeofencesScannerService"
+            android:exported="false">
+        </service>
 
         <receiver
             android:name=".RestartEventsBroadcastReceiver"
@@ -651,6 +655,7 @@
                 <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED"/>
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

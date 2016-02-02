@@ -588,6 +588,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // stop bluetooth scanner
                 BluetoothScanAlarmBroadcastReceiver.initialize(getApplicationContext());
                 BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
+
+                if (GlobalData.geofencesScanner != null) {
+                    GlobalData.geofencesScanner.disconnect();
+                    GlobalData.geofencesScanner = null;
+                }
             }
             else
             {
@@ -663,6 +668,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
             ActivateProfileHelper.removeBrightnessView(getApplicationContext());
+
+            if (GlobalData.geofencesScanner != null) {
+                GlobalData.geofencesScanner.disconnect();
+                GlobalData.geofencesScanner = null;
+            }
 
             getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
