@@ -15,10 +15,12 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -34,9 +36,6 @@ public class LocationGeofencePreference extends DialogPreference {
     private TextView geofenceName;
     private ListView geofencesListView;
     private LocationGeofencesPreferenceAdapter listAdapter;
-    private AppCompatImageButton addButton;
-    private AppCompatImageButton editButton;
-    private AppCompatImageButton deleteButton;
 
     public DataWrapper dataWrapper;
 
@@ -96,9 +95,7 @@ public class LocationGeofencePreference extends DialogPreference {
         geofenceName = (TextView) layout.findViewById(R.id.location_pref_dlg_geofence_name);
         setGeofenceId(dataWrapper.getDatabaseHandler().getCheckedGeofence());
 
-        addButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_add);
-        editButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_edit);
-        deleteButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_delete);
+        AppCompatImageButton addButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_add);
 
         geofencesListView = (ListView) layout.findViewById(R.id.location_pref_dlg_listview);
 
@@ -121,7 +118,7 @@ public class LocationGeofencePreference extends DialogPreference {
                 */
                 //listAdapter.selectedRB = viewHolder.radioButton;
 
-                long gid = (long)viewHolder.radioButton.getTag();
+                long gid = (long) viewHolder.radioButton.getTag();
                 dataWrapper.getDatabaseHandler().checkGeofence(gid);
 
                 //viewHolder.radioButton.setChecked(true);
@@ -160,35 +157,6 @@ public class LocationGeofencePreference extends DialogPreference {
             @Override
             public void onClick(View v) {
                 startEditor(0);
-            }
-        });
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long value = dataWrapper.getDatabaseHandler().getCheckedGeofence();
-                startEditor(value);
-            }
-        });
-
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long value = dataWrapper.getDatabaseHandler().getCheckedGeofence();
-                if (value > 0) {
-                    if (!dataWrapper.getDatabaseHandler().isGeofenceUsed(value, false)) {
-                        dataWrapper.getDatabaseHandler().deleteGeofence(value);
-                        refreshListView();
-                        setGeofenceId(0);
-                    }
-                    else {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-                        dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
-                        dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        dialogBuilder.show();
-                    }
-                }
             }
         });
 
@@ -247,9 +215,6 @@ public class LocationGeofencePreference extends DialogPreference {
         if (position > -1)
             position = 0;
         geofencesListView.setSelection(position);
-
-        GUIData.setImageButtonEnabled(value > 0, editButton, R.drawable.ic_action_location_edit, context);
-        GUIData.setImageButtonEnabled(value > 0, deleteButton, R.drawable.ic_action_location_delete, context);
     }
 
     private void startEditor(long geofenceId) {
@@ -265,6 +230,49 @@ public class LocationGeofencePreference extends DialogPreference {
         Log.d("LocationGeofencePreference.setGeofenceFromEditor", "geofenceId=" + geofenceId);
         refreshListView();
         setGeofenceId(geofenceId);
+    }
+
+    public void showEditMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context context = view.getContext();
+        PopupMenu popup = new PopupMenu(context, view);
+        new MenuInflater(context).inflate(R.menu.location_geofence_pref_item_edit, popup.getMenu());
+
+        final long geofenceId = (long)view.getTag();
+        final Context _context = context;
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            public boolean onMenuItemClick(android.view.MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.location_geofence_pref_item_menu_edit:
+                        startEditor(geofenceId);
+                        return true;
+                    case R.id.location_geofence_pref_item_menu_delete:
+                        if (geofenceId > 0) {
+                            if (!dataWrapper.getDatabaseHandler().isGeofenceUsed(geofenceId, false)) {
+                                dataWrapper.getDatabaseHandler().deleteGeofence(geofenceId);
+                                refreshListView();
+                                setGeofenceId(0);
+                            }
+                            else {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(_context);
+                                dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
+                                dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                dialogBuilder.show();
+                            }
+                        }
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
+        popup.show();
     }
 
 }

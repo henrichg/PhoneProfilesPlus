@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -56,6 +57,7 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
 
         rowData.radioButton = (RadioButton) view.findViewById(R.id.location_pref_dlg_item_radiobtn);
         rowData.name  = (TextView) view.findViewById(R.id.location_pref_dlg_item_name);
+        rowData.itemEditMenu = (ImageView) view.findViewById(R.id.location_pref_dlg_item_edit_menu);
 
         getView(rowData, context, cursor, true);
 
@@ -106,11 +108,22 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
                 preference.refreshListView();
             }
         });
+
+        rowData.itemEditMenu.setTag(id);
+        final ImageView itemEditMenu = rowData.itemEditMenu;
+        rowData.itemEditMenu.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                preference.showEditMenu(itemEditMenu);
+            }
+        });
+
     }
 
     public static class ViewHolder {
         RadioButton radioButton;
         TextView name;
+        ImageView itemEditMenu;
     }
 
     public void reload(DataWrapper dataWrapper) {
