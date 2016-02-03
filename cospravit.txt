@@ -917,3 +917,8 @@ Na pause udalosti s lokaciou:
 - inac: vyhodim ho zo skenovania.
 
 ----------------------------------------------
+
+
+- Aktivator/Editor/Widget- nezmesti sa nazov profilu, zavadzia ta kvacka tam
+- Tlacitka Zrusit/OK - na Android 4.1 maju tenke pismo, ale MaterialDialog to ma OK
+
