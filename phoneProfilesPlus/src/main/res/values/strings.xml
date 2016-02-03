@@ -678,7 +678,7 @@
     <string name="event_preferences_category_eventLocationsParameters">Location parameters</string>
     <string name="event_preferences_locations_enabled">Enable location</string>
     <string name="event_preferences_location_LocationSettings_title">Location settings</string>
-    <string name="event_preferences_location_LocationSettings_summary">Allow PhoneProfilesPlus in \"Location\" system settings, for enabling Location parameters.</string>
+    <string name="event_preferences_location_LocationSettings_summary">Switch On \"Location\" in system settings, for enabling Location parameters.</string>
     <string name="event_preferences_locations_location">Location</string>
     <string name="event_preferences_locations_location_not_selected">Not selected</string>
     <string name="event_preferences_locations_cant_delete_location_title">Delete location</string>
