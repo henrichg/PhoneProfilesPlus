@@ -81,14 +81,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:padding="15dp" >
 
             <TextView
                 android:id="@+id/location_pref_dlg_radius_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
@@ -98,8 +96,6 @@
                 android:id="@+id/location_pref_dlg_radius_seekbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:layout_marginEnd="15dp"
                 android:layout_toRightOf="@+id/location_pref_dlg_radius_label"
                 android:layout_toEndOf="@+id/location_pref_dlg_radius_label"
                 android:layout_centerVertical="true"
