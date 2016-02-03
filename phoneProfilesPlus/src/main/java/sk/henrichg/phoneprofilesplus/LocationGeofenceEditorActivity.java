@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Color;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
@@ -13,12 +14,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -31,6 +34,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -44,6 +49,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap mMap;
     private Marker editedMarker;
+    private Circle editedRadius;
 
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -89,6 +95,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     AppCompatImageButton addressButton;
     TextView addressText;
     Button okButton;
+    private SeekBar radiusSeekBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,21 +129,45 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
 
-        if (geofenceId > 0)
+        if (geofenceId > 0) {
             geofence = dataWrapper.getDatabaseHandler().getGeofence(geofenceId);
+            mLocation = new Location(getString(R.string.app_name));
+            mLocation.setLatitude(geofence._latitude);
+            mLocation.setLongitude(geofence._longitude);
+        }
         if (geofence == null) {
             geofenceId = 0;
             geofence = new Geofence();
             geofence._name = getString(R.string.event_preferences_location_new_location_name) + "_" +
                                 String.valueOf(dataWrapper.getDatabaseHandler().getGeofenceCount()+1);
+            geofence._radius = 100;
         }
-        geofence._radius = 100;
-
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.location_editor_map);
         mapFragment.getMapAsync(this);
+
+        radiusSeekBar = (SeekBar)findViewById(R.id.location_pref_dlg_radius_seekbar);
+        radiusSeekBar.setProgress(Math.round(geofence._radius / (float)20.0)-1);
+        radiusSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                geofence._radius = (progress+1) * 20;
+                updateEditedMarker(false);
+                Log.d("LocationGeofenceEditorActivity.onProgressChanged", "radius="+geofence._radius);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         geofenceNameEditText = (EditText)findViewById(R.id.location_editor_geofence_name);
         geofenceNameEditText.setText(geofence._name);
@@ -346,6 +377,19 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             else
                 editedMarker.setPosition(editedGeofence);
             editedMarker.setTitle(geofenceNameEditText.getText().toString());
+
+            if (editedRadius == null) {
+                editedRadius = mMap.addCircle(new CircleOptions()
+                        .center(editedGeofence)
+                        .radius(geofence._radius)
+                        .strokeColor(ContextCompat.getColor(this, R.color.map_marker_stroke))
+                        .fillColor(ContextCompat.getColor(this, R.color.map_marker_fill))
+                        .strokeWidth(5));
+            }
+            else {
+                editedRadius.setRadius(geofence._radius);
+                editedRadius.setCenter(editedGeofence);
+            }
 
             if (setMapCamera)
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
