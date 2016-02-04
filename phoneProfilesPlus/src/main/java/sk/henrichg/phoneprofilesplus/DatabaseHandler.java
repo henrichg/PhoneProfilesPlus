@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1510;
+    private static final int DATABASE_VERSION = 1520;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -198,6 +198,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS = "calendarIgnoreAllDayEvents";
     private static final String KEY_E_LOCATION_ENABLED = "locationEnabled";
     private static final String KEY_E_LOCATION_FK_GEOFENCE = "fklocationGeofenceId";
+    private static final String KEY_E_LOCATION_WHEN_OUTSIDE = "locationWhenOutside";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -412,7 +413,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " INTEGER,"
                 + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " INTEGER,"
                 + KEY_E_LOCATION_ENABLED + " INTEGER,"
-                + KEY_E_LOCATION_FK_GEOFENCE + " INTEGER"
+                + KEY_E_LOCATION_FK_GEOFENCE + " INTEGER,"
+                + KEY_E_LOCATION_WHEN_OUTSIDE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1465,6 +1467,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_GEOFENCES + " SET " + KEY_G_TRANSITION + "=0");
+        }
+
+        if (oldVersion < 1520) {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_LOCATION_WHEN_OUTSIDE + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_LOCATION_WHEN_OUTSIDE + "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -3134,7 +3144,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private void getEventPreferencesLocation(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_LOCATION_ENABLED,
-                        KEY_E_LOCATION_FK_GEOFENCE
+                        KEY_E_LOCATION_FK_GEOFENCE,
+                        KEY_E_LOCATION_WHEN_OUTSIDE
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3148,6 +3159,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._geofenceId = cursor.getLong(1);
+                eventPreferences._whenOutside = cursor.getInt(2) == 1;
+
             }
             cursor.close();
         }
@@ -3402,6 +3415,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(KEY_E_LOCATION_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_LOCATION_FK_GEOFENCE, eventPreferences._geofenceId);
+        values.put(KEY_E_LOCATION_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -5401,6 +5415,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         {
                                             values.put(KEY_E_LOCATION_ENABLED, 0);
                                             values.put(KEY_E_LOCATION_FK_GEOFENCE, 0);
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 1520)
+                                        {
+                                            values.put(KEY_E_LOCATION_WHEN_OUTSIDE, 0);
                                         }
 
                                     // Inserting Row do db z SQLiteOpenHelper

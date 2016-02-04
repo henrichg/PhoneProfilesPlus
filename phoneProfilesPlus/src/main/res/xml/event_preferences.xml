@@ -408,6 +408,11 @@
             android:key="eventLocationGeofenceId"
             android:title="@string/event_preferences_locations_location"
             android:dependency="eventLocationEnabled" />
+        <CheckBoxPreference
+            android:key="eventLocationStartWhenOutside"
+            android:title="@string/event_preferences_location_when_outside_pref_name"
+            android:defaultValue="false"
+            android:dependency="eventLocationEnabled" />
     </PreferenceScreen>
     <PreferenceScreen
         android:title="@string/event_preferences_category_eventPeripheralParameters"

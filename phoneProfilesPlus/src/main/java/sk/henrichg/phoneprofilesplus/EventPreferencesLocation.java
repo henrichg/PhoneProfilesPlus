@@ -13,9 +13,11 @@ import android.util.Log;
 public class EventPreferencesLocation extends EventPreferences {
 
     public long _geofenceId;
+    public boolean _whenOutside;
 
     static final String PREF_EVENT_LOCATION_ENABLED = "eventLocationEnabled";
     static final String PREF_EVENT_LOCATION_GEOFENCE_ID = "eventLocationGeofenceId";
+    static final String PREF_EVENT_LOCATION_WHEN_OUTSIDE = "eventLocationStartWhenOutside";
 
     static final String PREF_EVENT_LOCATION_CATEGORY = "eventLocationCategory";
 
@@ -23,11 +25,13 @@ public class EventPreferencesLocation extends EventPreferences {
 
     public EventPreferencesLocation(Event event,
                                     boolean enabled,
-                                    long geofenceId)
+                                    long geofenceId,
+                                    boolean _whenOutside)
     {
         super(event, enabled);
 
         this._geofenceId = geofenceId;
+        this._whenOutside = _whenOutside;
     }
 
     @Override
@@ -35,6 +39,7 @@ public class EventPreferencesLocation extends EventPreferences {
     {
         this._enabled = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._enabled;
         this._geofenceId = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._geofenceId;
+        this._whenOutside = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._whenOutside;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class EventPreferencesLocation extends EventPreferences {
             Editor editor = preferences.edit();
             editor.putBoolean(PREF_EVENT_LOCATION_ENABLED, _enabled);
             editor.putLong(PREF_EVENT_LOCATION_GEOFENCE_ID, this._geofenceId);
+            editor.putBoolean(PREF_EVENT_LOCATION_WHEN_OUTSIDE, this._whenOutside);
             editor.commit();
         //}
     }
@@ -54,6 +60,7 @@ public class EventPreferencesLocation extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_LOCATION_ENABLED, false);
             this._geofenceId = preferences.getLong(PREF_EVENT_LOCATION_GEOFENCE_ID, 0);
+            this._whenOutside = preferences.getBoolean(PREF_EVENT_LOCATION_WHEN_OUTSIDE, false);
         //}
     }
 
@@ -78,6 +85,8 @@ public class EventPreferencesLocation extends EventPreferences {
                 selectedLocation = getGeofenceName(this._geofenceId, context);
             }
             descr = descr + selectedLocation;
+            if (this._whenOutside)
+                descr = descr + "; " + context.getString(R.string.event_preferences_location_when_outside_description);
         }
 
         return descr;
@@ -117,7 +126,8 @@ public class EventPreferencesLocation extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofenceId);
+        EventPreferencesLocation tmp = new EventPreferencesLocation(this._event,
+                                                this._enabled, this._geofenceId, this._whenOutside);
         if (preferences != null)
             tmp.saveSharedPreferences(preferences);
 
@@ -167,9 +177,9 @@ public class EventPreferencesLocation extends EventPreferences {
     public void setSystemPauseEvent(Context context)
     {
         Log.d("EventPreferencesLocation.setSystemPauseEvent", "xxx");
-        if (GlobalData.geofencesScanner != null) {
-            GlobalData.geofencesScanner.registerGeofenceForEvent(_event);
-        }
+        //if (GlobalData.geofencesScanner != null) {
+        //    GlobalData.geofencesScanner.registerGeofenceForEvent(_event);
+        //}
     }
 
     @Override

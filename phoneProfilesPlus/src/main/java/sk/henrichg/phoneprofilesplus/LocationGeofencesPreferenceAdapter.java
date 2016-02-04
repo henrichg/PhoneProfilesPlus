@@ -103,7 +103,7 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
                 preference.dataWrapper.getDatabaseHandler().checkGeofence(id);
 
                 //rowData.radioButton.setChecked(true);
-                preference.setGeofenceId(id);
+                preference.updateGUIWithGeofence(id);
 
                 preference.refreshListView();
             }

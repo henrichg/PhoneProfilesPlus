@@ -2049,6 +2049,9 @@ public class DataWrapper {
 
             if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
                 locationPassed = true;
+
+            if (event._eventPreferencesLocation._whenOutside)
+                locationPassed = !locationPassed;
         }
 
         GlobalData.logE("DataWrapper.doEventService","timePassed="+timePassed);

@@ -240,7 +240,7 @@ public class Event {
 
     private void createEventPreferencesLocation()
     {
-        this._eventPreferencesLocation = new EventPreferencesLocation(this, false, 0);
+        this._eventPreferencesLocation = new EventPreferencesLocation(this, false, 0, false);
     }
 
     public void createEventPreferences()
