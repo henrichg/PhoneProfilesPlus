@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.graphics.Color;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;

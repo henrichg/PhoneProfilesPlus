@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.Html;
