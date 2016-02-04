@@ -92,14 +92,29 @@
                 android:layout_centerVertical="true"
                 android:text="@string/event_preferences_location_radius" />
 
-            <SeekBar
-                android:id="@+id/location_pref_dlg_radius_seekbar"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/location_pref_dlg_radius_label"
                 android:layout_toEndOf="@+id/location_pref_dlg_radius_label"
-                android:layout_centerVertical="true"
-                android:max="50" />
+                android:layout_centerVertical="true" >
+
+                <TextView
+                    android:id="@+id/location_pref_dlg_radius_seekbar_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="1" />
+
+                <SeekBar
+                    android:id="@+id/location_pref_dlg_radius_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/location_pref_dlg_radius_seekbar_label"
+                    android:max="50" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
