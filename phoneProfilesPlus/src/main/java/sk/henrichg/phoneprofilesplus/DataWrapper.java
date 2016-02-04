@@ -177,11 +177,7 @@ public class DataWrapper {
         return String.valueOf(dValue.intValue());
     }
 
-    public List<Profile>  getDefaultProfileList()
-    {
-        invalidateProfileList();
-        getDatabaseHandler().deleteAllProfiles();
-
+    public Profile getDefaultProfile(int index, boolean saveToDB) {
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         int	maximumValueRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
         int	maximumValueNotification = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
@@ -190,67 +186,92 @@ public class DataWrapper {
         //int	maximumValueSystem = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
         //int	maximumValueVoicecall = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
 
-
         Profile profile;
 
-        profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_home), "ic_profile_home_2", 1);
-        profile._showInActivator = true;
-        profile._volumeRingerMode = 1;
-        profile._volumeRingtone = getVolumeLevelString(71, maximumValueRing)+"|0|0";
-        profile._volumeNotification = getVolumeLevelString(86, maximumValueNotification)+"|0|0";
-        profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm)+"|0|0";
-        profile._volumeMedia = getVolumeLevelString(80, maximumValueMusic)+"|0|0";
-        profile._deviceWiFi = 1;
-        //profile._deviceBrightness = "60|0|0|0";
-        getDatabaseHandler().addProfile(profile, false);
-        profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", 2);
-        profile._showInActivator = true;
-        profile._volumeRingerMode = 2;
-        profile._volumeRingtone = getVolumeLevelString(100, maximumValueRing)+"|0|0";
-        profile._volumeNotification = getVolumeLevelString(100, maximumValueNotification)+"|0|0";
-        profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm)+"|0|0";
-        profile._volumeMedia = getVolumeLevelString(93, maximumValueMusic)+"|0|0";
-        profile._deviceWiFi = 2;
-        //profile._deviceBrightness = "255|0|0|0";
-        getDatabaseHandler().addProfile(profile, false);
-        profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_work), "ic_profile_work_5", 3);
-        profile._showInActivator = true;
-        profile._volumeRingerMode = 1;
-        profile._volumeRingtone = getVolumeLevelString(57, maximumValueRing)+"|0|0";
-        profile._volumeNotification = getVolumeLevelString(71, maximumValueNotification)+"|0|0";
-        profile._volumeAlarm = getVolumeLevelString(57, maximumValueAlarm)+"|0|0";
-        profile._volumeMedia = getVolumeLevelString(80, maximumValueMusic)+"|0|0";
-        profile._deviceWiFi = 2;
-        //profile._deviceBrightness = "60|0|0|0";
-        getDatabaseHandler().addProfile(profile, false);
-        profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", 4);
-        profile._showInActivator = true;
-        profile._volumeRingerMode = 4;
-        profile._volumeRingtone = getVolumeLevelString(0, maximumValueRing)+"|0|0";
-        profile._volumeNotification = getVolumeLevelString(0, maximumValueNotification)+"|0|0";
-        profile._volumeAlarm = getVolumeLevelString(0, maximumValueAlarm)+"|0|0";
-        profile._volumeMedia = getVolumeLevelString(0, maximumValueMusic)+"|0|0";
-        profile._deviceWiFi = 0;
-        //profile._deviceBrightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|1|1|0";
-        getDatabaseHandler().addProfile(profile, false);
-        profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", 5);
-        profile._showInActivator = true;
-        profile._volumeRingerMode = 4;
-        profile._volumeRingtone = getVolumeLevelString(0, maximumValueRing)+"|0|0";
-        profile._volumeNotification = getVolumeLevelString(0, maximumValueNotification)+"|0|0";
-        profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm)+"|0|0";
-        profile._volumeMedia = getVolumeLevelString(0, maximumValueMusic)+"|0|0";
-        profile._deviceWiFi = 0;
-        //profile._deviceBrightness = "10|0|0|0";
-        getDatabaseHandler().addProfile(profile, false);
-        profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", 6);
-        profile._showInActivator = false;
-        profile._deviceAutosync = 2;
-        profile._deviceMobileData = 2;
-        profile._deviceWiFi = 2;
-        profile._deviceBluetooth = 2;
-        profile._deviceGPS = 2;
-        getDatabaseHandler().addProfile(profile, false);
+        switch (index) {
+            case 0:
+                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_home), "ic_profile_home_2", 1);
+                profile._showInActivator = true;
+                profile._volumeRingerMode = 1;
+                profile._volumeRingtone = getVolumeLevelString(71, maximumValueRing) + "|0|0";
+                profile._volumeNotification = getVolumeLevelString(86, maximumValueNotification) + "|0|0";
+                profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";
+                profile._volumeMedia = getVolumeLevelString(80, maximumValueMusic) + "|0|0";
+                profile._deviceWiFi = 1;
+                //profile._deviceBrightness = "60|0|0|0";
+                break;
+            case 1:
+                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", 2);
+                profile._showInActivator = true;
+                profile._volumeRingerMode = 2;
+                profile._volumeRingtone = getVolumeLevelString(100, maximumValueRing) + "|0|0";
+                profile._volumeNotification = getVolumeLevelString(100, maximumValueNotification) + "|0|0";
+                profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";
+                profile._volumeMedia = getVolumeLevelString(93, maximumValueMusic) + "|0|0";
+                profile._deviceWiFi = 2;
+                //profile._deviceBrightness = "255|0|0|0";
+                break;
+            case 2:
+                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_work), "ic_profile_work_5", 3);
+                profile._showInActivator = true;
+                profile._volumeRingerMode = 1;
+                profile._volumeRingtone = getVolumeLevelString(57, maximumValueRing) + "|0|0";
+                profile._volumeNotification = getVolumeLevelString(71, maximumValueNotification) + "|0|0";
+                profile._volumeAlarm = getVolumeLevelString(57, maximumValueAlarm) + "|0|0";
+                profile._volumeMedia = getVolumeLevelString(80, maximumValueMusic) + "|0|0";
+                profile._deviceWiFi = 2;
+                //profile._deviceBrightness = "60|0|0|0";
+                break;
+            case 3:
+                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", 4);
+                profile._showInActivator = true;
+                profile._volumeRingerMode = 4;
+                profile._volumeRingtone = getVolumeLevelString(0, maximumValueRing) + "|0|0";
+                profile._volumeNotification = getVolumeLevelString(0, maximumValueNotification) + "|0|0";
+                profile._volumeAlarm = getVolumeLevelString(0, maximumValueAlarm) + "|0|0";
+                profile._volumeMedia = getVolumeLevelString(0, maximumValueMusic) + "|0|0";
+                profile._deviceWiFi = 0;
+                //profile._deviceBrightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|1|1|0";
+                break;
+            case 4:
+                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", 5);
+                profile._showInActivator = true;
+                profile._volumeRingerMode = 4;
+                profile._volumeRingtone = getVolumeLevelString(0, maximumValueRing) + "|0|0";
+                profile._volumeNotification = getVolumeLevelString(0, maximumValueNotification) + "|0|0";
+                profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";
+                profile._volumeMedia = getVolumeLevelString(0, maximumValueMusic) + "|0|0";
+                profile._deviceWiFi = 0;
+                //profile._deviceBrightness = "10|0|0|0";
+                break;
+            case 5:
+                profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", 6);
+                profile._showInActivator = false;
+                profile._deviceAutosync = 2;
+                profile._deviceMobileData = 2;
+                profile._deviceWiFi = 2;
+                profile._deviceBluetooth = 2;
+                profile._deviceGPS = 2;
+                break;
+            default:
+                profile = null;
+        }
+
+        if (profile != null) {
+            if (saveToDB)
+                getDatabaseHandler().addProfile(profile, false);
+        }
+
+        return profile;
+    }
+
+    public List<Profile>  getDefaultProfileList()
+    {
+        invalidateProfileList();
+        getDatabaseHandler().deleteAllProfiles();
+
+        for (int index = 0; index < 6; index++)
+            getDefaultProfile(index, true);
 
         return getProfileList();
     }
@@ -654,7 +675,7 @@ public class DataWrapper {
             if (event._fkProfileStart == profile._id)
                 event.stopEvent(this, eventTimelineList, false, true, saveEventStatus, false, false);
         }
-        GlobalData.logE("$$$ restartEvents","from DataWrapper.stopEventsForProfile");
+        GlobalData.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         restartEvents(false, true);
     }
 
@@ -837,11 +858,7 @@ public class DataWrapper {
         }
     }
 
-    public void generateDefaultEventList()
-    {
-        invalidateEventList();
-        getDatabaseHandler().deleteAllEvents();
-
+    public Event getDefaultEvent(int index, boolean saveToDB) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
 
@@ -849,113 +866,138 @@ public class DataWrapper {
 
         Event event;
 
-        event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_week));
-        event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
-        //event._undoneProfile = false;
-        event._atEndDo = Event.EATENDDO_NONE;
-        event._eventPreferencesTime._enabled = true;
-        event._eventPreferencesTime._monday = true;
-        event._eventPreferencesTime._tuesday = true;
-        event._eventPreferencesTime._wendesday = true;
-        event._eventPreferencesTime._thursday = true;
-        event._eventPreferencesTime._friday = true;
-        //calendar.clear(Calendar.DATE);
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
-        //calendar.set(Calendar.SECOND, 0);
-        //calendar.set(Calendar.MILLISECOND, 0);
-        event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
-        ///calendar.clear(Calendar.DATE);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 0);
-        //calendar.set(Calendar.SECOND, 0);
-        //calendar.set(Calendar.MILLISECOND, 0);
-        event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
-        //event._eventPreferencesTime._useEndTime = true;
-        getDatabaseHandler().addEvent(event);
-        event = getNoinitializedEvent(context.getString(R.string.default_event_name_weekend));
-        event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
-        //event._undoneProfile = false;
-        event._atEndDo = Event.EATENDDO_NONE;
-        event._eventPreferencesTime._enabled = true;
-        event._eventPreferencesTime._saturday = true;
-        event._eventPreferencesTime._sunday = true;
-        //calendar.clear(Calendar.DATE);
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
-        //calendar.set(Calendar.SECOND, 0);
-        //calendar.set(Calendar.MILLISECOND, 0);
-        event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
-        //calendar.clear(Calendar.DATE);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 0);
-        //calendar.set(Calendar.SECOND, 0);
-        //calendar.set(Calendar.MILLISECOND, 0);
-        event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
-        //event._eventPreferencesTime._useEndTime = true;
-        getDatabaseHandler().addEvent(event);
-        event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_work));
-        event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_work));
-        //event._undoneProfile = true;
-        event._atEndDo = Event.EATENDDO_NONE;
-        event._priority = Event.EPRIORITY_HIGHER;
-        event._eventPreferencesTime._enabled = true;
-        event._eventPreferencesTime._monday = true;
-        event._eventPreferencesTime._tuesday = true;
-        event._eventPreferencesTime._wendesday = true;
-        event._eventPreferencesTime._thursday = true;
-        event._eventPreferencesTime._friday = true;
-        //calendar.clear(Calendar.DATE);
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE, 30);
-        //calendar.set(Calendar.SECOND, 0);
-        //calendar.set(Calendar.MILLISECOND, 0);
-        event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
-        //calendar.clear(Calendar.DATE);
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE, 30);
-        //calendar.set(Calendar.SECOND, 0);
-        //calendar.set(Calendar.MILLISECOND, 0);
-        event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
-        //event._eventPreferencesTime._useEndTime = true;
-        getDatabaseHandler().addEvent(event);
-        event = getNoinitializedEvent(context.getString(R.string.default_event_name_overnight));
-        event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_sleep));
-        //event._undoneProfile = false;
-        event._atEndDo = Event.EATENDDO_NONE;
-        event._eventPreferencesTime._enabled = true;
-        event._eventPreferencesTime._monday = true;
-        event._eventPreferencesTime._tuesday = true;
-        event._eventPreferencesTime._wendesday = true;
-        event._eventPreferencesTime._thursday = true;
-        event._eventPreferencesTime._friday = true;
-        event._eventPreferencesTime._saturday = true;
-        event._eventPreferencesTime._sunday = true;
-        //calendar.clear(Calendar.DATE);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 0);
-        //calendar.set(Calendar.SECOND, 0);
-        //calendar.set(Calendar.MILLISECOND, 0);
-        event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
-        //calendar.clear(Calendar.DATE);
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
-        //calendar.set(Calendar.SECOND, 0);
-        //calendar.set(Calendar.MILLISECOND, 0);
-        event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
-        //event._eventPreferencesTime._useEndTime = true;
-        getDatabaseHandler().addEvent(event);
-        event = getNoinitializedEvent(context.getString(R.string.default_event_name_low_battery));
-        event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_battery_low));
-        //event._undoneProfile = false;
-        event._atEndDo = Event.EATENDDO_NONE;
-        event._priority = Event.EPRIORITY_HIGHEST;
-        event._forceRun = true;
-        event._eventPreferencesBattery._enabled = true;
-        event._eventPreferencesBattery._levelLow = 0;
-        event._eventPreferencesBattery._levelHight = 10;
-        event._eventPreferencesBattery._charging = false;
-        getDatabaseHandler().addEvent(event);
+        switch (index) {
+            case 0:
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_week));
+                event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
+                //event._undoneProfile = false;
+                event._atEndDo = Event.EATENDDO_NONE;
+                event._eventPreferencesTime._enabled = true;
+                event._eventPreferencesTime._monday = true;
+                event._eventPreferencesTime._tuesday = true;
+                event._eventPreferencesTime._wendesday = true;
+                event._eventPreferencesTime._thursday = true;
+                event._eventPreferencesTime._friday = true;
+                //calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 8);
+                calendar.set(Calendar.MINUTE, 0);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
+                ///calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 23);
+                calendar.set(Calendar.MINUTE, 0);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                //event._eventPreferencesTime._useEndTime = true;
+                break;
+            case 1:
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_weekend));
+                event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
+                //event._undoneProfile = false;
+                event._atEndDo = Event.EATENDDO_NONE;
+                event._eventPreferencesTime._enabled = true;
+                event._eventPreferencesTime._saturday = true;
+                event._eventPreferencesTime._sunday = true;
+                //calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 8);
+                calendar.set(Calendar.MINUTE, 0);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
+                //calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 23);
+                calendar.set(Calendar.MINUTE, 0);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                //event._eventPreferencesTime._useEndTime = true;
+                break;
+            case 2:
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_work));
+                event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_work));
+                //event._undoneProfile = true;
+                event._atEndDo = Event.EATENDDO_NONE;
+                event._priority = Event.EPRIORITY_HIGHER;
+                event._eventPreferencesTime._enabled = true;
+                event._eventPreferencesTime._monday = true;
+                event._eventPreferencesTime._tuesday = true;
+                event._eventPreferencesTime._wendesday = true;
+                event._eventPreferencesTime._thursday = true;
+                event._eventPreferencesTime._friday = true;
+                //calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 9);
+                calendar.set(Calendar.MINUTE, 30);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
+                //calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 17);
+                calendar.set(Calendar.MINUTE, 30);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                //event._eventPreferencesTime._useEndTime = true;
+                break;
+            case 3:
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_overnight));
+                event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_sleep));
+                //event._undoneProfile = false;
+                event._atEndDo = Event.EATENDDO_NONE;
+                event._eventPreferencesTime._enabled = true;
+                event._eventPreferencesTime._monday = true;
+                event._eventPreferencesTime._tuesday = true;
+                event._eventPreferencesTime._wendesday = true;
+                event._eventPreferencesTime._thursday = true;
+                event._eventPreferencesTime._friday = true;
+                event._eventPreferencesTime._saturday = true;
+                event._eventPreferencesTime._sunday = true;
+                //calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 23);
+                calendar.set(Calendar.MINUTE, 0);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
+                //calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 8);
+                calendar.set(Calendar.MINUTE, 0);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                //event._eventPreferencesTime._useEndTime = true;
+                break;
+            case 4:
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_low_battery));
+                event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_battery_low));
+                //event._undoneProfile = false;
+                event._atEndDo = Event.EATENDDO_NONE;
+                event._priority = Event.EPRIORITY_HIGHEST;
+                event._forceRun = true;
+                event._eventPreferencesBattery._enabled = true;
+                event._eventPreferencesBattery._levelLow = 0;
+                event._eventPreferencesBattery._levelHight = 10;
+                event._eventPreferencesBattery._charging = false;
+                break;
+            default:
+                event = null;
+        }
+
+        if (event != null) {
+            if (saveToDB)
+                getDatabaseHandler().addEvent(event);
+        }
+
+        return event;
+    }
+
+    public void generateDefaultEventList()
+    {
+        invalidateEventList();
+        getDatabaseHandler().deleteAllEvents();
+
+        for (int index = 0; index < 5; index++)
+            getDefaultEvent(index, true);
     }
 
 

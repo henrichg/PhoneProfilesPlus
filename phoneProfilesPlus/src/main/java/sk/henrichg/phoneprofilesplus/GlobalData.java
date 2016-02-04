@@ -153,6 +153,7 @@ public class GlobalData extends Application {
     static final String EXTRA_STARTUP_SOURCE = "startup_source";
     static final String EXTRA_RESET_EDITOR = "reset_editor";
     static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
+    static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
     static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
     //static final String EXTRA_PREFERENCES_STARTUP_SOURCE = "preferences_startup_source";
     static final String EXTRA_START_SYSTEM_EVENT = "start_system_event";
@@ -318,7 +319,7 @@ public class GlobalData extends Application {
     public static final int PREFERENCE_INSTALL_PPHELPER = 2;
     public static final int PREFERENCE_UPGRADE_PPHELPER = 3;
     
-    public static final long DEFAULT_PROFILE_ID = -999;  // source profile id
+    public static final long DEFAULT_PROFILE_ID = -999L;  // source profile id
     public static final long PROFILE_NO_ACTIVATE = -999;
 
     public static final String SCANNER_TYPE_WIFI = "wifi";

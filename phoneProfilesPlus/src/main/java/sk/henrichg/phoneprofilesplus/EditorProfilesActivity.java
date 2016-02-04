@@ -81,6 +81,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final String SP_DATA_DETAILS_DATA_TYPE = "data_detail_data_type";
     private static final String SP_DATA_DETAILS_DATA_ID = "data_detail_data_id";
     private static final String SP_DATA_DETAILS_EDIT_MODE = "data_detail_edit_mode";
+    private static final String SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX = "data_detail_predefined_profile_index";
 
 
     private static final String SP_EDITOR_DRAWER_SELECTED_ITEM = "editor_drawer_selected_item";
@@ -192,9 +193,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (dataType == 1) {
                     long profile_id = preferences.getLong(SP_DATA_DETAILS_DATA_ID, 0);
                     int editMode = preferences.getInt(SP_DATA_DETAILS_EDIT_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+                    int predefinedProfileIndex = preferences.getInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, 0);
                     Bundle arguments = new Bundle();
                     arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile_id);
                     arguments.putInt(GlobalData.EXTRA_NEW_PROFILE_MODE, editMode);
+                    arguments.putInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
                     ProfileDetailsFragment fragment = new ProfileDetailsFragment();
                     fragment.setArguments(arguments);
                     getFragmentManager().beginTransaction()
@@ -203,6 +206,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 else if (dataType == 2) {
                     long event_id = preferences.getLong(SP_DATA_DETAILS_DATA_ID, 0);
                     int editMode = preferences.getInt(SP_DATA_DETAILS_EDIT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
+                    int predefinedProfileIndex = preferences.getInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, 0);
                     Bundle arguments = new Bundle();
                     arguments.putLong(GlobalData.EXTRA_EVENT_ID, event_id);
                     arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, editMode);
@@ -754,7 +758,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment").commit();
                 if (removePreferences)
-                    redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT);
+                    redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT, 0);
                 break;
             case 2:
                 profilesFilterType = EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR;
@@ -765,7 +769,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment").commit();
                 if (removePreferences)
-                    redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT);
+                    redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT, 0);
                 break;
             case 3:
                 profilesFilterType = EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR;
@@ -776,7 +780,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment").commit();
                 if (removePreferences)
-                    redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT);
+                    redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT, 0);
                 break;
             case 4:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
@@ -896,6 +900,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // redraw list fragment after finish ProfilePreferencesFragmentActivity
                 long profile_id = data.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
                 int newProfileMode = data.getIntExtra(GlobalData.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+                int predefinedProfileIndex = data.getIntExtra(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
                 if (profile_id > 0)
                 {
@@ -905,7 +910,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     profile.generatePreferencesIndicator(getBaseContext(), false, 0);
 
                     // redraw list fragment , notifications, widgets after finish ProfilePreferencesFragmentActivity
-                    redrawProfileListFragment(profile, newProfileMode);
+                    redrawProfileListFragment(profile, newProfileMode, predefinedProfileIndex);
                 }
                 else
                 if (profile_id == GlobalData.DEFAULT_PROFILE_ID)
@@ -1437,6 +1442,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Editor editor = preferences.edit();
                     editor.putLong(SP_DATA_DETAILS_DATA_ID, ((ProfileDetailsFragment) fragment).profile_id);
                     editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((ProfileDetailsFragment) fragment).editMode);
+                    editor.putInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, ((ProfileDetailsFragment) fragment).predefinedProfileIndex);
                     editor.commit();
                 }
             }
@@ -1509,17 +1515,18 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerHeaderFilterSubtitle.setText(text);
      }
 
-    private void startProfilePreferenceActivity(Profile profile, int editMode) {
+    private void startProfilePreferenceActivity(Profile profile, int editMode, int predefinedProfileIndex) {
         Intent intent = new Intent(getBaseContext(), ProfilePreferencesFragmentActivity.class);
         if (editMode == EditorProfileListFragment.EDIT_MODE_INSERT)
-            intent.putExtra(GlobalData.EXTRA_PROFILE_ID, 0);
+            intent.putExtra(GlobalData.EXTRA_PROFILE_ID, 0L);
         else
             intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
         intent.putExtra(GlobalData.EXTRA_NEW_PROFILE_MODE, editMode);
+        intent.putExtra(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         startActivityForResult(intent, GlobalData.REQUEST_CODE_PROFILE_PREFERENCES);
     }
 
-    public void onStartProfilePreferences(Profile profile, int editMode) {
+    public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
@@ -1527,7 +1534,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             if ((editMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                 (editMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {
-                startProfilePreferenceActivity(profile, editMode);
+                startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
             }
             else
             if (profile != null)
@@ -1535,6 +1542,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Bundle arguments = new Bundle();
                 arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile._id);
                 arguments.putInt(GlobalData.EXTRA_NEW_PROFILE_MODE, editMode);
+                arguments.putInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
                 ProfileDetailsFragment fragment = new ProfileDetailsFragment();
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -1557,16 +1565,16 @@ public class EditorProfilesActivity extends AppCompatActivity
                 (editMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                 (editMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))
                 && (editMode != EditorProfileListFragment.EDIT_MODE_DELETE))
-                startProfilePreferenceActivity(profile, editMode);
+                startProfilePreferenceActivity(profile, editMode, predefinedProfileIndex);
         }
     }
 
     @Override
     public void onStartProfilePreferencesFromDetail(Profile profile) {
-        startProfilePreferenceActivity(profile, EditorProfileListFragment.EDIT_MODE_EDIT);
+        startProfilePreferenceActivity(profile, EditorProfileListFragment.EDIT_MODE_EDIT, 0);
     }
 
-    public void redrawProfilePreferences(Profile profile, int newProfileMode) {
+    public void redrawProfilePreferences(Profile profile, int newProfileMode, int predefinedProfileIndex) {
         if (mTwoPane) {
             if (profile != null)
             {
@@ -1574,6 +1582,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Bundle arguments = new Bundle();
                 arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile._id);
                 arguments.putInt(GlobalData.EXTRA_NEW_PROFILE_MODE, newProfileMode);
+                arguments.putInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
                 ProfileDetailsFragment fragment = new ProfileDetailsFragment();
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -1591,7 +1600,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    public void redrawProfileListFragment(Profile profile, int newProfileMode) {
+    public void redrawProfileListFragment(Profile profile, int newProfileMode, int predefinedProfileIndex) {
         // redraw headeru list fragmentu, notifikacie a widgetov
 
         EditorProfileListFragment fragment = (EditorProfileListFragment)getFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1610,7 +1619,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             fragment.dataWrapper.getActivateProfileHelper().updateWidget();
 
         }
-        redrawProfilePreferences(profile, newProfileMode);
+        redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex);
     }
 
     private void startEventPreferenceActivity(Event event, int editMode) {

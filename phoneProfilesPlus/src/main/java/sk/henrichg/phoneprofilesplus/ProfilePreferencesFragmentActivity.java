@@ -16,6 +16,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
 {
     private long profile_id = 0;
     int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
+    int predefinedProfileIndex = 0;
 
     ProfilePreferencesFragment fragment;
 
@@ -60,6 +61,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
 
         profile_id = getIntent().getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
         newProfileMode = getIntent().getIntExtra(GlobalData.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+        predefinedProfileIndex = getIntent().getIntExtra(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
         /*
         if (profile_id == GlobalData.DEFAULT_PROFILE_ID)
@@ -78,9 +80,10 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
                 ProfilePreferencesFragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
             else
                 ProfilePreferencesFragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
+            arguments.putInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
             fragment.setArguments(arguments);
 
-            loadPreferences(newProfileMode);
+            loadPreferences(newProfileMode, predefinedProfileIndex);
         }
 
         setPreferenceFragment(fragment);
@@ -99,6 +102,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         Intent returnIntent = new Intent();
         returnIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile_id);
         returnIntent.putExtra(GlobalData.EXTRA_NEW_PROFILE_MODE, newProfileMode);
+        returnIntent.putExtra(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         setResult(resultCode,returnIntent);
 
         super.finish();
@@ -119,7 +123,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile_preferences_action_mode_save:
-                savePreferences(newProfileMode);
+                savePreferences(newProfileMode, predefinedProfileIndex);
                 resultCode = RESULT_OK;
                 finish();
                 return true;
@@ -146,7 +150,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
             fragment.doOnActivityResult(requestCode, resultCode, data);
     }
 
-    public static Profile createProfile(Context context, long profile_id, int new_profile_mode, boolean leaveSaveMenu) {
+    public static Profile createProfile(Context context, long profile_id, int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
@@ -161,9 +165,14 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT)
         {
             // create new profile
-            profile = dataWrapper.getNoinitializedProfile(
-                    context.getResources().getString(R.string.profile_name_default),
-                    GlobalData.PROFILE_ICON_DEFAULT, 0);
+            if (predefinedProfileIndex == 0) {
+                profile = dataWrapper.getNoinitializedProfile(
+                        context.getResources().getString(R.string.profile_name_default),
+                        GlobalData.PROFILE_ICON_DEFAULT, 0);
+            }
+            else {
+                profile = dataWrapper.getDefaultProfile(predefinedProfileIndex-1, false);
+            }
             profile._showInActivator = true;
             showSaveMenu = true;
         }
@@ -223,11 +232,11 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         return profile;
     }
 
-    private void loadPreferences(int new_profile_mode) {
+    private void loadPreferences(int new_profile_mode, int predefinedProfileIndex) {
 
         //Log.e("------------ ProfilePreferencesFragmentActivity", "loadPreferences");
 
-        Profile profile = createProfile(getApplicationContext(), profile_id, new_profile_mode, false);
+        Profile profile = createProfile(getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, false);
 
         if (profile != null)
         {
@@ -300,10 +309,10 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         }
     }
 
-    private void savePreferences(int new_profile_mode)
+    private void savePreferences(int new_profile_mode, int predefinedProfileIndex)
     {
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
-        Profile profile = createProfile(getApplicationContext(), profile_id, new_profile_mode, true);
+        Profile profile = createProfile(getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
 
         String PREFS_NAME;
         if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
