@@ -690,4 +690,6 @@
   <string name="event_preferences_location_google_api_connection_error_title">Chyba Google Play Services</string>
   <string name="event_preferences_location_google_api_connection_error_text">Zlyhalo pripojenie k Google Play Services. Kliknite sem pre jeho vyriešenie.</string>
   <string name="event_preferences_location_radius">Polomer:</string>
+  <string name="event_preferences_location_when_outside_pref_name">Štart keď je mimo polohy</string>
+  <string name="event_preferences_location_when_outside_description">Mimo polohy</string>
 </resources>

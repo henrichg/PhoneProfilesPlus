@@ -24,7 +24,7 @@
   <string name="delete_profile_alert_message">Удалить профиль?</string>
   <string name="delete_event_alert_message">Удалить событие?</string>
   <string name="toast_profile_activated_0">Профиль</string>
-  <string name="toast_profile_activated_1">активирован(о)</string>
+  <string name="toast_profile_activated_1">активирован</string>
   <string name="title_activity_image_view_preference_dialog">Изменить иконку</string>
   <string name="title_activity_applications_preference_dialog">Выберите приложение</string>
   <string name="preference_profile_no_change">Не изменять</string>
@@ -144,7 +144,7 @@
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Настройки передачи мобильных данных</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Цветная иконка</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Встроенная</string>
-  <string name="phone_profiles_pref_applicationLongClickActivation">Активация профиля длинным нажатием</string>
+  <string name="phone_profiles_pref_applicationLongClickActivation">Активация профиля долгим нажатием</string>
   <string name="profile_preferences_deviceRunApplicationPackageName">Приложение</string>
   <string name="profile_preferences_deviceRunApplicationChange">Запустить приложение</string>
   <string name="alert_title_delete_all_profiles">Удалить все профили</string>
@@ -182,7 +182,7 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Яркость текста</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Яркость иконки</string>
   <string name="dashclock_extension_description">Отображает активный профиль с индикатором настроек. Открывает Активатор по прикосновению.</string>
-  <string name="phone_profiles_pref_category_widget_icon_shortcut">Виджет «Иконка»; Ярлык</string>
+  <string name="phone_profiles_pref_category_widget_icon_shortcut">Иконка виджета; Ярлык</string>
   <string name="array_pref_widgetColor_colorful">Цветной</string>
   <string name="array_pref_widgetColor_monochrome">Монохромный</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">Тип цвета иконки</string>
@@ -376,7 +376,7 @@
   <string name="array_event_pref_priorityHighest">[10] Наивысший</string>
   <string name="event_type_wifi">Wi-Fi</string>
   <string name="event_preferences_category_eventWifiParameters">Настройки Wi-Fi</string>
-  <string name="event_preferences_wifi_enabled">Активировать</string>
+  <string name="event_preferences_wifi_enabled">Активировать Wi-Fi</string>
   <string name="event_preferences_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Подключение</string>
@@ -411,7 +411,7 @@
   <string name="event_type_bluetooth">Bluetooth</string>
   <string name="event_preferences_category_eventBluetoothParameters">Настройки Bluetooth</string>
   <string name="event_preferences_bluetooth_enabled">Включить Bluetooth</string>
-  <string name="event_preferences_bluetooth_adapter_name">Имя Bluetooth</string>
+  <string name="event_preferences_bluetooth_adapter_name">Имя Bluetooth-устройства</string>
   <string name="pref_event_bluetooth_adapterName">Имя Bluetooth-устройства</string>
   <string name="pref_event_bluetooth_connectionType">Подключение</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Подключен</string>
@@ -604,7 +604,7 @@
   <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Сканирование WiFi - Настройки системы</string>
   <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Пожалуйста, включите Местоположение и Wi-Fi сканирование в настройках системы. Без этого, сканирования Wi-fi не будет работать.</string>
   <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Сканирование Bluetooth - Настройки системы</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Пожалуйста, включите Местоположение и Bluetooth сканирование в настройках системы. Без этого сканирование Bluetooth не будет работать.</string>
+  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Пожалуйста, включите настройку системы \"Местоположение\" и выберите режим \"По координатам сети\" или \"По всем источникам\". Без этого сканирование Bluetooth не будет работать.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Сканирование Wi-Fi в режиме энергосбережения</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Сканирование Bluetooth в режиме энергосбережения</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x интервал</string>
@@ -648,7 +648,7 @@
   <string name="event_preferences_notifications_end_when_removed">После удаления</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Для изменения адаптивного уровня требуются права Суперпользователя.</string>
   <string name="important_info_profile_activation_text1">Профиль может быть активирован в двух режимах:</string>
-  <string name="important_info_profile_activation_text2">1. Ручная активация - активирован через активатор, редактор, уведомление, виджет, ярлык. Активированный вручную профиль отображается с «[M]» перед названием профиля.</string>
+  <string name="important_info_profile_activation_text2">1. Ручная активация - активирован через Активатор, Редактор, уведомление, виджет, ярлык. Активированный вручную профиль отображается с «[M]» перед названием профиля.</string>
   <string name="important_info_profile_activation_text3">2. событие активации - выполняется по событию.</string>
   <string name="important_info_profile_activation_text4">Ручная активация приостанавливает все события и они никогда не будет запущены повторно. Вам необходимо перезапустить события, чтобы возобновить их.</string>
   <string name="important_info_profile_activation_text5">Исключения из этого правила, если событиям установлено \"Игнорировать ручную активацию\".</string>
@@ -659,7 +659,7 @@
   <string name="important_info_profile_activation_text11">- красный цвет: события остановлены - запуск событий может быть возобновлён с помощью пункта меню редактора \"Разрешить запуск событий\".</string>
   <string name="important_info_profile_activation_restart_events_icon">Иконка перезапуска событий:</string>
   <string name="important_info_profile_activation_traffic_light_icon">Значок «Светофор»:</string>
-  <string name="important_info_android_doze_mode">In Android 6 is implemented \"Doze mode\" and \"App Standby\". When you encountered problems with profile activation from events, if you leaves a device unplugged and stationary for a period of time, with the screen off, add PhoneProfilesPlus into \"Battery\"-&gt;\"Battery optimization\"-&gt;\"Not optimized\".</string>
+  <string name="important_info_android_doze_mode">В Android 6 реализован режим \"Doze\" и \"App Standby\". Если вы столкнулись с проблемами с активацией профиля из событий, когда устройство отключилось после выключения экрана, добавьте PhoneProfilesPlus в пункт \"Батарея\" -&gt; \"Экономия заряда батареи\" -&gt; \"Не экономить\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Вибрация при звонке</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">В Android 6 системные параметры может быть изменены только на разблокированных устройствах, имеющих права Суперпользователя. Такие как режим звонка с вибрацией.</string>
   <string name="info_notification_event_states">Событие может находиться в 4-х состояниях:</string>
@@ -677,17 +677,19 @@
   <string name="event_preferences_category_eventLocationsParameters">Параметры местоположения</string>
   <string name="event_preferences_locations_enabled">Разрешить местоположение</string>
   <string name="event_preferences_location_LocationSettings_title">Настройки местоположения</string>
-  <string name="event_preferences_location_LocationSettings_summary">Switch On \"Location\" in system settings, for enabling Location parameters.</string>
+  <string name="event_preferences_location_LocationSettings_summary">Включите \"Местоположение\" в системных настройках для доступа к параметрам.</string>
   <string name="event_preferences_locations_location">Местоположение</string>
   <string name="event_preferences_locations_location_not_selected">Не выбрано</string>
   <string name="event_preferences_locations_cant_delete_location_title">Удалить местоположение</string>
   <string name="event_preferences_locations_cant_delete_location_text">Невозможно удалить, местоположение используется в данный момент.</string>
   <string name="location_editor_title">Редактирование местоположения</string>
   <string name="permissions_for_location_geofence_editor_activity_text1">Местоположение запрашивает дополнительные права.</string>
-  <string name="permissions_for_location_geofence_editor_activity_text2">Please grant them in next dialogs. Then location change detection will be performed.</string>
-  <string name="event_preferences_location_new_location_name">Location</string>
-  <string name="event_preferences_location_no_address_found">No address found</string>
-  <string name="event_preferences_location_google_api_connection_error_title">Google Play Services error</string>
-  <string name="event_preferences_location_google_api_connection_error_text">Connection to Google Play Services failed. Click here to resolve it.</string>
-  <string name="event_preferences_location_radius">Radius:</string>
+  <string name="permissions_for_location_geofence_editor_activity_text2">Пожалуйста, разрешите их в следующих диалогах. Когда произойдет изменение местоположения.</string>
+  <string name="event_preferences_location_new_location_name">Местоположение</string>
+  <string name="event_preferences_location_no_address_found">Адрес не найден</string>
+  <string name="event_preferences_location_google_api_connection_error_title">Ошибка сервиса Google Play</string>
+  <string name="event_preferences_location_google_api_connection_error_text">Подключение к Google Play не удалось. Нажмите сюда для решения.</string>
+  <string name="event_preferences_location_radius">Радиус:</string>
+  <string name="event_preferences_location_when_outside_pref_name">Start when is outside location</string>
+  <string name="event_preferences_location_when_outside_description">When outside</string>
 </resources>

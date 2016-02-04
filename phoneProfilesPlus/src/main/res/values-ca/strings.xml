@@ -690,4 +690,6 @@
   <string name="event_preferences_location_google_api_connection_error_title">Google Play Services error</string>
   <string name="event_preferences_location_google_api_connection_error_text">Connection to Google Play Services failed. Click here to resolve it.</string>
   <string name="event_preferences_location_radius">Radius:</string>
+  <string name="event_preferences_location_when_outside_pref_name">Start when is outside location</string>
+  <string name="event_preferences_location_when_outside_description">When outside</string>
 </resources>
