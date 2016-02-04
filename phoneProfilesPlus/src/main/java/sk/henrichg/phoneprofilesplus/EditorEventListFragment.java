@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
@@ -68,7 +70,7 @@ public class EditorEventListFragment extends Fragment {
      */
     // invoked when start profile preference fragment/activity needed
     public interface OnStartEventPreferences {
-        public void onStartEventPreferences(Event event, int editMode);
+        public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex);
     }
 
     /**
@@ -76,7 +78,7 @@ public class EditorEventListFragment extends Fragment {
      * nothing. Used only when this fragment is not attached to an activity.
      */
     private static OnStartEventPreferences sDummyOnStartEventPreferencesCallback = new OnStartEventPreferences() {
-        public void onStartEventPreferences(Event event, int editMode) {
+        public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex) {
         }
     };
 
@@ -162,6 +164,8 @@ public class EditorEventListFragment extends Fragment {
         listView.addFooterView(footerView, null, false);
         */
 
+        final Activity activity = getActivity();
+
         Toolbar bottomToolbar = (Toolbar)getActivity().findViewById(R.id.editor_list_bottom_bar);
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
@@ -171,7 +175,18 @@ public class EditorEventListFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_add_event:
-                        startEventPreferencesActivity(null);
+                        new MaterialDialog.Builder(activity)
+                                .title(R.string.new_event_predefined_events_dialog)
+                                .items(R.array.addEventPredefinedArray)
+                                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                                    @Override
+                                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                        startEventPreferencesActivity(null, which);
+                                        return true;
+                                    }
+                                })
+                                        //.positiveText(R.string.choose)
+                                .show();
                         return true;
                     case R.id.menu_delete_all_events:
                         deleteAllEvents();
@@ -191,7 +206,7 @@ public class EditorEventListFragment extends Fragment {
         listView.setOnItemClickListener(new OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startEventPreferencesActivity((Event) eventListAdapter.getItem(position));
+                startEventPreferencesActivity((Event) eventListAdapter.getItem(position), 0);
             }
 
         });
@@ -308,7 +323,7 @@ public class EditorEventListFragment extends Fragment {
         }
     }
 
-    private void startEventPreferencesActivity(Event event)
+    private void startEventPreferencesActivity(Event event, int predefinedEventIndex)
     {
 
         Event _event = event;
@@ -332,7 +347,7 @@ public class EditorEventListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartEventPreferencesCallback.onStartEventPreferences(_event, editMode);
+        onStartEventPreferencesCallback.onStartEventPreferences(_event, editMode, predefinedEventIndex);
     }
 
     public void runStopEvent(Event event)
@@ -408,7 +423,7 @@ public class EditorEventListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartEventPreferencesCallback.onStartEventPreferences(origEvent, editMode);
+        onStartEventPreferencesCallback.onStartEventPreferences(origEvent, editMode, 0);
 
     }
 
@@ -431,7 +446,7 @@ public class EditorEventListFragment extends Fragment {
         {
             eventListAdapter.notifyDataSetChanged();
 
-            onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE);
+            onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
         }
     }
 
@@ -517,7 +532,7 @@ public class EditorEventListFragment extends Fragment {
                 databaseHandler.deleteAllEvents();
                 eventListAdapter.clear();
 
-                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE);
+                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
 
             }
         });

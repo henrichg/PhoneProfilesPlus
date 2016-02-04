@@ -18,7 +18,8 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 {
 
     private long event_id = 0;
-    int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
+    private int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
+    private int predefinedEventIndex = 0;
 
     EventPreferencesFragment fragment;
 
@@ -64,6 +65,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
         event_id = getIntent().getLongExtra(GlobalData.EXTRA_EVENT_ID, 0L);
         newEventMode = getIntent().getIntExtra(GlobalData.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
+        predefinedEventIndex = getIntent().getIntExtra(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
         fragment = new EventPreferencesFragment();
 
@@ -71,9 +73,10 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             Bundle arguments = new Bundle();
             arguments.putLong(GlobalData.EXTRA_EVENT_ID, event_id);
             arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
+            arguments.putInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
             fragment.setArguments(arguments);
 
-            loadPreferences(newEventMode);
+            loadPreferences(newEventMode, predefinedEventIndex);
 
             /*getFragmentManager().beginTransaction()
                     .replace(R.id.activity_event_preferences_container, fragment, "EventPreferencesFragment").commit();*/
@@ -103,6 +106,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         Intent returnIntent = new Intent();
         returnIntent.putExtra(GlobalData.EXTRA_EVENT_ID, event_id);
         returnIntent.putExtra(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
+        returnIntent.putExtra(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         setResult(resultCode,returnIntent);
 
         super.finish();
@@ -123,7 +127,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile_preferences_action_mode_save:
-                savePreferences(newEventMode);
+                savePreferences(newEventMode, predefinedEventIndex);
                 resultCode = RESULT_OK;
                 finish();
                 return true;
@@ -150,7 +154,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             fragment.doOnActivityResult(requestCode, resultCode, data);
     }
 
-    public static Event createEvent(Context context, long event_id, int new_event_mode, boolean leaveSaveMenu) {
+    public static Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex, boolean leaveSaveMenu) {
         Event event;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
@@ -160,7 +164,10 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT)
         {
             // create new event - default is TIME
-            event = dataWrapper.getNoinitializedEvent(context.getString(R.string.event_name_default));
+            if (predefinedEventIndex == 0)
+                event = dataWrapper.getNoinitializedEvent(context.getString(R.string.event_name_default));
+            else
+                event = dataWrapper.getDefaultEvent(predefinedEventIndex-1, false);
             showSaveMenu = true;
         }
         else
@@ -193,8 +200,8 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         return event;
     }
 
-    private void loadPreferences(int new_event_mode) {
-        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, false);
+    private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
+        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
 
         if (event != null)
         {
@@ -213,10 +220,10 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         }
     }
 
-    private void savePreferences(int new_event_mode)
+    private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
-        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, true);
+        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
 
         String PREFS_NAME;
         if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)

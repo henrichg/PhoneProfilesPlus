@@ -82,6 +82,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final String SP_DATA_DETAILS_DATA_ID = "data_detail_data_id";
     private static final String SP_DATA_DETAILS_EDIT_MODE = "data_detail_edit_mode";
     private static final String SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX = "data_detail_predefined_profile_index";
+    private static final String SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX = "data_detail_predefined_event_index";
 
 
     private static final String SP_EDITOR_DRAWER_SELECTED_ITEM = "editor_drawer_selected_item";
@@ -206,10 +207,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 else if (dataType == 2) {
                     long event_id = preferences.getLong(SP_DATA_DETAILS_DATA_ID, 0);
                     int editMode = preferences.getInt(SP_DATA_DETAILS_EDIT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
-                    int predefinedProfileIndex = preferences.getInt(SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX, 0);
+                    int predefinedEventIndex = preferences.getInt(SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX, 0);
                     Bundle arguments = new Bundle();
                     arguments.putLong(GlobalData.EXTRA_EVENT_ID, event_id);
                     arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, editMode);
+                    arguments.putInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
                     EventDetailsFragment fragment = new EventDetailsFragment();
                     fragment.setArguments(arguments);
                     getFragmentManager().beginTransaction()
@@ -792,7 +794,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
                 if (removePreferences)
-                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT);
+                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
             case 5:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_RUNNING;
@@ -804,7 +806,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
                 if (removePreferences)
-                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT);
+                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
             case 6:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_PAUSED;
@@ -816,7 +818,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
                 if (removePreferences)
-                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT);
+                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
             case 7:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_STOPPED;
@@ -828,7 +830,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
                 if (removePreferences)
-                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT);
+                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
             }
         }
@@ -928,13 +930,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // redraw list fragment after finish EventPreferencesFragmentActivity
                 long event_id = data.getLongExtra(GlobalData.EXTRA_EVENT_ID, 0L);
                 int newEventMode = data.getIntExtra(GlobalData.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
+                int predefinedEventIndex = data.getIntExtra(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
                 if (event_id > 0)
                 {
                     Event event = getDataWrapper().getDatabaseHandler().getEvent(event_id);
 
                     // redraw list fragment , notifications, widgets after finish EventPreferencesFragmentActivity
-                    redrawEventListFragment(event, newEventMode);
+                    redrawEventListFragment(event, newEventMode, predefinedEventIndex);
                 }
             }
         }
@@ -1455,6 +1458,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Editor editor = preferences.edit();
                     editor.putLong(SP_DATA_DETAILS_DATA_ID, ((EventDetailsFragment) fragment).event_id);
                     editor.putInt(SP_DATA_DETAILS_EDIT_MODE, ((EventDetailsFragment) fragment).editMode);
+                    editor.putInt(SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX, ((EventDetailsFragment) fragment).predefinedEventIndex);
                     editor.commit();
                 }
             }
@@ -1622,17 +1626,18 @@ public class EditorProfilesActivity extends AppCompatActivity
         redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex);
     }
 
-    private void startEventPreferenceActivity(Event event, int editMode) {
+    private void startEventPreferenceActivity(Event event, int editMode, int predefinedEventIndex) {
         Intent intent = new Intent(getBaseContext(), EventPreferencesFragmentActivity.class);
         if (editMode == EditorEventListFragment.EDIT_MODE_INSERT)
             intent.putExtra(GlobalData.EXTRA_EVENT_ID, 0L);
         else
             intent.putExtra(GlobalData.EXTRA_EVENT_ID, event._id);
         intent.putExtra(GlobalData.EXTRA_NEW_EVENT_MODE, editMode);
+        intent.putExtra(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         startActivityForResult(intent, GlobalData.REQUEST_CODE_EVENT_PREFERENCES);
     }
 
-    public void onStartEventPreferences(Event event, int editMode) {
+    public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
@@ -1640,7 +1645,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             if ((editMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (editMode == EditorEventListFragment.EDIT_MODE_DUPLICATE)) {
-                startEventPreferenceActivity(event, editMode);
+                startEventPreferenceActivity(event, editMode, predefinedEventIndex);
             }
             else
             if (event != null)
@@ -1648,6 +1653,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Bundle arguments = new Bundle();
                 arguments.putLong(GlobalData.EXTRA_EVENT_ID, event._id);
                 arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, editMode);
+                arguments.putInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
                 EventDetailsFragment fragment = new EventDetailsFragment();
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -1670,16 +1676,16 @@ public class EditorProfilesActivity extends AppCompatActivity
                 (editMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (editMode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
                 && (editMode != EditorEventListFragment.EDIT_MODE_DELETE))
-                startEventPreferenceActivity(event, editMode);
+                startEventPreferenceActivity(event, editMode, predefinedEventIndex);
         }
     }
 
     @Override
     public void onStartEventPreferencesFromDetail(Event event) {
-        startEventPreferenceActivity(event, EditorEventListFragment.EDIT_MODE_EDIT);
+        startEventPreferenceActivity(event, EditorEventListFragment.EDIT_MODE_EDIT, 0);
     }
 
-    public void redrawEventListFragment(Event event, int newEventMode) {
+    public void redrawEventListFragment(Event event, int newEventMode, int predefinedEventIndex) {
         // redraw headeru list fragmentu, notifikacie a widgetov
         EditorEventListFragment fragment = (EditorEventListFragment)getFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment != null)
@@ -1691,10 +1697,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
             fragment.updateListView(event, newEvent, false);
         }
-        redrawEventPreferences(event, newEventMode);
+        redrawEventPreferences(event, newEventMode, predefinedEventIndex);
     }
 
-    public void redrawEventPreferences(Event event, int newEventMode) {
+    public void redrawEventPreferences(Event event, int newEventMode, int predefinedEventIndex) {
         if (mTwoPane) {
             if (event != null)
             {
@@ -1702,6 +1708,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Bundle arguments = new Bundle();
                 arguments.putLong(GlobalData.EXTRA_EVENT_ID, event._id);
                 arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
+                arguments.putInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
                 EventDetailsFragment fragment = new EventDetailsFragment();
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()

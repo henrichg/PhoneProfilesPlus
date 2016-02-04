@@ -22,6 +22,7 @@ public class EventPreferencesFragment extends PreferenceFragment
     private Event event;
     //private boolean first_start_activity;
     private int new_event_mode;
+    private int predefinedEventIndex;
     public static int startupSource;
     private PreferenceManager prefMng;
     private SharedPreferences preferences;
@@ -64,8 +65,9 @@ public class EventPreferencesFragment extends PreferenceFragment
             new_event_mode = getArguments().getInt(GlobalData.EXTRA_NEW_EVENT_MODE);
         if (getArguments().containsKey(GlobalData.EXTRA_EVENT_ID))
             event_id = getArguments().getLong(GlobalData.EXTRA_EVENT_ID);
+        predefinedEventIndex = getArguments().getInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX);
 
-        event = EventPreferencesFragmentActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, true);
+        event = EventPreferencesFragmentActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
 
         //prefMng = getPreferenceManager();
         preferences = prefMng.getSharedPreferences();

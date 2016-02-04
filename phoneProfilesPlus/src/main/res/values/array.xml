@@ -707,4 +707,12 @@
     <item>@string/default_profile_name_meeting</item>
     <item>@string/default_profile_name_sleep</item>
 </string-array>
+<string-array name="addEventPredefinedArray">
+    <item>@string/new_empty_event</item>
+    <item>@string/default_event_name_during_the_week</item>
+    <item>@string/default_event_name_weekend</item>
+    <item>@string/default_event_name_during_the_work</item>
+    <item>@string/default_event_name_overnight</item>
+    <item>@string/default_event_name_low_battery</item>
+</string-array>
 </resources>
