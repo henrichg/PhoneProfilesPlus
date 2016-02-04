@@ -248,7 +248,7 @@ public class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void setSystemRunningEvent(Context context)
+    public void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
 
@@ -261,7 +261,7 @@ public class EventPreferencesNotification extends EventPreferences {
     }
 
     @Override
-    public void setSystemPauseEvent(Context context)
+    public void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
 
@@ -371,7 +371,7 @@ public class EventPreferencesNotification extends EventPreferences {
                 _event._eventPreferencesNotification._startTime = notification.time;
                 dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
                 if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                    setSystemPauseEvent(dataWrapper.context);
+                    setSystemEventForPause(dataWrapper.context);
                 break;
             }
         }

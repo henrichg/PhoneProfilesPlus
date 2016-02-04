@@ -126,12 +126,12 @@ public class EventPreferencesPeripherals extends EventPreferences {
     }
 
     @Override
-    public void setSystemRunningEvent(Context context)
+    public void setSystemEventForStart(Context context)
     {
     }
 
     @Override
-    public void setSystemPauseEvent(Context context)
+    public void setSystemEventForPause(Context context)
     {
     }
 

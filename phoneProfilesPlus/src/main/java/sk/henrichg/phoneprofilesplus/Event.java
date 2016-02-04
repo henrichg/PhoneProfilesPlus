@@ -1230,36 +1230,36 @@ public class Event {
         {
             // event paused
             // setup system event for next running status
-            _eventPreferencesTime.setSystemRunningEvent(context);
-            _eventPreferencesBattery.setSystemRunningEvent(context);
-            _eventPreferencesCall.setSystemRunningEvent(context);
-            _eventPreferencesPeripherals.setSystemRunningEvent(context);
-            _eventPreferencesCalendar.setSystemRunningEvent(context);
-            _eventPreferencesWifi.setSystemRunningEvent(context);
-            _eventPreferencesScreen.setSystemRunningEvent(context);
-            _eventPreferencesBluetooth.setSystemRunningEvent(context);
-            _eventPreferencesSMS.setSystemRunningEvent(context);
-            _eventPreferencesNotification.setSystemRunningEvent(context);
-            _eventPreferencesApplication.setSystemRunningEvent(context);
-            _eventPreferencesLocation.setSystemRunningEvent(context);
+            _eventPreferencesTime.setSystemEventForStart(context);
+            _eventPreferencesBattery.setSystemEventForStart(context);
+            _eventPreferencesCall.setSystemEventForStart(context);
+            _eventPreferencesPeripherals.setSystemEventForStart(context);
+            _eventPreferencesCalendar.setSystemEventForStart(context);
+            _eventPreferencesWifi.setSystemEventForStart(context);
+            _eventPreferencesScreen.setSystemEventForStart(context);
+            _eventPreferencesBluetooth.setSystemEventForStart(context);
+            _eventPreferencesSMS.setSystemEventForStart(context);
+            _eventPreferencesNotification.setSystemEventForStart(context);
+            _eventPreferencesApplication.setSystemEventForStart(context);
+            _eventPreferencesLocation.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
         {
             // event started
             // setup system event for pause status
-            _eventPreferencesTime.setSystemPauseEvent(context);
-            _eventPreferencesBattery.setSystemPauseEvent(context);
-            _eventPreferencesCall.setSystemPauseEvent(context);
-            _eventPreferencesPeripherals.setSystemPauseEvent(context);
-            _eventPreferencesCalendar.setSystemPauseEvent(context);
-            _eventPreferencesWifi.setSystemPauseEvent(context);
-            _eventPreferencesScreen.setSystemPauseEvent(context);
-            _eventPreferencesBluetooth.setSystemPauseEvent(context);
-            _eventPreferencesSMS.setSystemPauseEvent(context);
-            _eventPreferencesNotification.setSystemPauseEvent(context);
-            _eventPreferencesApplication.setSystemPauseEvent(context);
-            _eventPreferencesLocation.setSystemPauseEvent(context);
+            _eventPreferencesTime.setSystemEventForPause(context);
+            _eventPreferencesBattery.setSystemEventForPause(context);
+            _eventPreferencesCall.setSystemEventForPause(context);
+            _eventPreferencesPeripherals.setSystemEventForPause(context);
+            _eventPreferencesCalendar.setSystemEventForPause(context);
+            _eventPreferencesWifi.setSystemEventForPause(context);
+            _eventPreferencesScreen.setSystemEventForPause(context);
+            _eventPreferencesBluetooth.setSystemEventForPause(context);
+            _eventPreferencesSMS.setSystemEventForPause(context);
+            _eventPreferencesNotification.setSystemEventForPause(context);
+            _eventPreferencesApplication.setSystemEventForPause(context);
+            _eventPreferencesLocation.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)

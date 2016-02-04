@@ -213,7 +213,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
     }
 
     @Override
-    public void setSystemRunningEvent(Context context)
+    public void setSystemEventForStart(Context context)
     {
         if ((_connectionType == CTYPE_INFRONT) &&
             (!BluetoothScanAlarmBroadcastReceiver.isAlarmSet(context, false)))
@@ -221,7 +221,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
     }
 
     @Override
-    public void setSystemPauseEvent(Context context)
+    public void setSystemEventForPause(Context context)
     {
         if ((_connectionType == CTYPE_INFRONT) &&
             (!BluetoothScanAlarmBroadcastReceiver.isAlarmSet(context, false)))

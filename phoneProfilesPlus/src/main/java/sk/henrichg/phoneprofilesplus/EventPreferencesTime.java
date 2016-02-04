@@ -442,7 +442,7 @@ public class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public void setSystemRunningEvent(Context context)
+    public void setSystemEventForStart(Context context)
     {
         // set alarm for state PAUSE
 
@@ -459,7 +459,7 @@ public class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public void setSystemPauseEvent(Context context)
+    public void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
 

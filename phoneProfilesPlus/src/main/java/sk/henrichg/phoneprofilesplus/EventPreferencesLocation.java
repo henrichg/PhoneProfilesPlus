@@ -165,7 +165,7 @@ public class EventPreferencesLocation extends EventPreferences {
     }
 
     @Override
-    public void setSystemRunningEvent(Context context)
+    public void setSystemEventForStart(Context context)
     {
         Log.d("EventPreferencesLocation.setSystemRunningEvent", "xxx");
         if (GlobalData.geofencesScanner != null) {
@@ -174,7 +174,7 @@ public class EventPreferencesLocation extends EventPreferences {
     }
 
     @Override
-    public void setSystemPauseEvent(Context context)
+    public void setSystemEventForPause(Context context)
     {
         Log.d("EventPreferencesLocation.setSystemPauseEvent", "xxx");
         //if (GlobalData.geofencesScanner != null) {

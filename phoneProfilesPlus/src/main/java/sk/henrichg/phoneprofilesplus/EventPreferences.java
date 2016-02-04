@@ -66,12 +66,12 @@ public class EventPreferences {
     {
     }
 
-    public void setSystemRunningEvent(Context context)
+    public void setSystemEventForStart(Context context)
     {
 
     }
 
-    public void setSystemPauseEvent(Context context)
+    public void setSystemEventForPause(Context context)
     {
 
     }
