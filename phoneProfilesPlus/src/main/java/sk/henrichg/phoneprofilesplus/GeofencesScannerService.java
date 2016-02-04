@@ -60,6 +60,8 @@ public class GeofencesScannerService extends IntentService {
     private boolean updateGeofences(int geofenceTransition,
                                  List<com.google.android.gms.location.Geofence> triggeringGeofences) {
 
+        DataWrapper dataWrapper  = new DataWrapper(getApplicationContext(), false, false, 0);
+
         for (com.google.android.gms.location.Geofence geofence : triggeringGeofences) {
 
             String geofenceRequestId = geofence.getRequestId();
@@ -74,7 +76,6 @@ public class GeofencesScannerService extends IntentService {
                     long geofenceId = Long.parseLong(splits[1]);
                     Log.d("GeofencesScannerService.updateGeofences", "geofenceId="+geofenceId);
 
-                    DataWrapper dataWrapper  = new DataWrapper(getApplicationContext(), false, false, 0);
                     dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofenceId, geofenceTransition);
 
                     return true;
