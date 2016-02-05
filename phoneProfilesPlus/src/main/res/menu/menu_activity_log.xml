@@ -8,5 +8,10 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom|withText"
         android:icon="?attr/actionActivityLogReloadIcon" />
+    <item android:id="@+id/menu_activity_log_clear"
+          android:title="@string/menu_activity_log_clear"
+          android:orderInCategory="200"
+          app:showAsAction="ifRoom|withText"
+          android:icon="?attr/actionDeleteAllIcon" />
 
 </menu>

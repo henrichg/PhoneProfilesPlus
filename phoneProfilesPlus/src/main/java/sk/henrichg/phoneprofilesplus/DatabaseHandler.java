@@ -4287,6 +4287,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close(); // Closing database connection
     }
 
+    public void clearActivityLog() {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        //db.beginTransaction();
+
+        try {
+            db.delete(TABLE_ACTIVITY_LOG, null, null);
+
+           // db.setTransactionSuccessful();
+        } catch (Exception e){
+            //Error in between database transaction
+        } finally {
+            //db.endTransaction();
+        }
+
+        //db.close();
+    }
+
     public Cursor getActivityLogCursor() {
 
         final String selectQuery = "SELECT " + KEY_AL_ID + "," +

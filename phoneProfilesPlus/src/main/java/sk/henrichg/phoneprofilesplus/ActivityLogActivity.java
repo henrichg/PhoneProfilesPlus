@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,6 +83,19 @@ public class ActivityLogActivity extends AppCompatActivity {
                 activityLogAdapter.reload(dataWrapper);
                 //listView.smoothScrollToPosition(0);
                 listView.setSelection(0);
+                return true;
+            case R.id.menu_activity_log_clear:
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.activity_log_clear_alert_title);
+                dialogBuilder.setMessage(R.string.activity_log_clear_alert_message);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dataWrapper.getDatabaseHandler().clearActivityLog();
+                        activityLogAdapter.reload(dataWrapper);
+                    }
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                dialogBuilder.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
