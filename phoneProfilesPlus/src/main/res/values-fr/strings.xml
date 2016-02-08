@@ -690,6 +690,13 @@
   <string name="event_preferences_location_google_api_connection_error_title">Erreur du service Google Play</string>
   <string name="event_preferences_location_google_api_connection_error_text">Échec de la connexion aux Services de Google Play. Cliquez ici pour régler ce problème.</string>
   <string name="event_preferences_location_radius">Rayon :</string>
-  <string name="event_preferences_location_when_outside_pref_name">Start when is outside location</string>
-  <string name="event_preferences_location_when_outside_description">When outside</string>
+  <string name="event_preferences_location_when_outside_pref_name">Commencez quand on quitte l\'emplacement</string>
+  <string name="event_preferences_location_when_outside_description">Quand en dehors</string>
+  <string name="new_empty_profile">Profil vide</string>
+  <string name="new_profile_predefined_profiles_dialog">Profils prédéfinis</string>
+  <string name="new_empty_event">Événements vide</string>
+  <string name="new_event_predefined_events_dialog">Événements prédéfinis</string>
+  <string name="menu_activity_log_clear">Effacer le journal</string>
+  <string name="activity_log_clear_alert_title">Effacer le Journal d\'activité</string>
+  <string name="activity_log_clear_alert_message">Etes-vous sûr?</string>
 </resources>

@@ -692,4 +692,11 @@
   <string name="event_preferences_location_radius">Radius:</string>
   <string name="event_preferences_location_when_outside_pref_name">Start when is outside location</string>
   <string name="event_preferences_location_when_outside_description">When outside</string>
+  <string name="new_empty_profile">Empty profile</string>
+  <string name="new_profile_predefined_profiles_dialog">Predefined profiles</string>
+  <string name="new_empty_event">Empty event</string>
+  <string name="new_event_predefined_events_dialog">Predefined events</string>
+  <string name="menu_activity_log_clear">Clear log</string>
+  <string name="activity_log_clear_alert_title">Clear activity log</string>
+  <string name="activity_log_clear_alert_message">Are you sure?</string>
 </resources>

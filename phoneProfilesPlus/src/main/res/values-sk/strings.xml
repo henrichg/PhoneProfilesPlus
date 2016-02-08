@@ -692,4 +692,11 @@
   <string name="event_preferences_location_radius">Polomer:</string>
   <string name="event_preferences_location_when_outside_pref_name">Štart keď je mimo polohy</string>
   <string name="event_preferences_location_when_outside_description">Mimo polohy</string>
+  <string name="new_empty_profile">Prázdny profil</string>
+  <string name="new_profile_predefined_profiles_dialog">Preddefinované profily</string>
+  <string name="new_empty_event">Prázdna udalosť</string>
+  <string name="new_event_predefined_events_dialog">Preddefinované udalosti</string>
+  <string name="menu_activity_log_clear">Vymazať log</string>
+  <string name="activity_log_clear_alert_title">Vymazať log aktivity</string>
+  <string name="activity_log_clear_alert_message">Ste si istý?</string>
 </resources>

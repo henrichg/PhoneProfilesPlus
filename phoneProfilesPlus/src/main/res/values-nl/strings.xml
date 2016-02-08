@@ -678,7 +678,7 @@ Toch activeren?</string>
   <string name="event_preferences_category_eventLocationsParameters">Locatie parameters</string>
   <string name="event_preferences_locations_enabled">Locatie inschakelen</string>
   <string name="event_preferences_location_LocationSettings_title">Locatie instellingen</string>
-  <string name="event_preferences_location_LocationSettings_summary">Switch On \"Location\" in system settings, for enabling Location parameters.</string>
+  <string name="event_preferences_location_LocationSettings_summary">Zet \"Locatie\" aan in systeem instellingen om locatie parameters in te schakelen.</string>
   <string name="event_preferences_locations_location">Locatie</string>
   <string name="event_preferences_locations_location_not_selected">Niet geselecteerd</string>
   <string name="event_preferences_locations_cant_delete_location_title">Locatie verwijderen</string>
@@ -687,10 +687,17 @@ Toch activeren?</string>
   <string name="permissions_for_location_geofence_editor_activity_text1">Locatie vereist machtigingen.</string>
   <string name="permissions_for_location_geofence_editor_activity_text2">Sta die toe in de volgende schermen. Vervolgens kan locatie wijzigingsdetectie uitgevoerd worden.</string>
   <string name="event_preferences_location_new_location_name">Locatie</string>
-  <string name="event_preferences_location_no_address_found">No address found</string>
-  <string name="event_preferences_location_google_api_connection_error_title">Google Play Services error</string>
-  <string name="event_preferences_location_google_api_connection_error_text">Connection to Google Play Services failed. Click here to resolve it.</string>
-  <string name="event_preferences_location_radius">Radius:</string>
-  <string name="event_preferences_location_when_outside_pref_name">Start when is outside location</string>
-  <string name="event_preferences_location_when_outside_description">When outside</string>
+  <string name="event_preferences_location_no_address_found">Geen adres gevonden</string>
+  <string name="event_preferences_location_google_api_connection_error_title">Google Play Services fout</string>
+  <string name="event_preferences_location_google_api_connection_error_text">Verbinding met Google Play Services is mislukt. Klik hier om het op te lossen.</string>
+  <string name="event_preferences_location_radius">Straal:</string>
+  <string name="event_preferences_location_when_outside_pref_name">Starten wanneer buiten locatie</string>
+  <string name="event_preferences_location_when_outside_description">Wanneer buiten</string>
+  <string name="new_empty_profile">Lege profiel</string>
+  <string name="new_profile_predefined_profiles_dialog">Voorgedefinieerde profielen</string>
+  <string name="new_empty_event">Leeg event</string>
+  <string name="new_event_predefined_events_dialog">Voorgedefinieerde events</string>
+  <string name="menu_activity_log_clear">Clear log</string>
+  <string name="activity_log_clear_alert_title">Clear activity log</string>
+  <string name="activity_log_clear_alert_message">Are you sure?</string>
 </resources>

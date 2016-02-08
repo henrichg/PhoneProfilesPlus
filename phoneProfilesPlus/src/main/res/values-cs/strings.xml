@@ -690,6 +690,13 @@
   <string name="event_preferences_location_google_api_connection_error_title">Chyba služby Google Play</string>
   <string name="event_preferences_location_google_api_connection_error_text">Selhalo připojení k Google Play Services. Klikněte zde pro jeho vyřešení.</string>
   <string name="event_preferences_location_radius">Poloměr:</string>
-  <string name="event_preferences_location_when_outside_pref_name">Start when is outside location</string>
-  <string name="event_preferences_location_when_outside_description">When outside</string>
+  <string name="event_preferences_location_when_outside_pref_name">Start když je mimo polohu</string>
+  <string name="event_preferences_location_when_outside_description">Mimo polohu</string>
+  <string name="new_empty_profile">Prázdný profil</string>
+  <string name="new_profile_predefined_profiles_dialog">Předdefinované profily</string>
+  <string name="new_empty_event">Prázdná událost</string>
+  <string name="new_event_predefined_events_dialog">Předdefinované události</string>
+  <string name="menu_activity_log_clear">Vymazat log</string>
+  <string name="activity_log_clear_alert_title">Vymazat log aktivity</string>
+  <string name="activity_log_clear_alert_message">Jste si jistý?</string>
 </resources>

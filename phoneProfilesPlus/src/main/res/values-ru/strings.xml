@@ -690,6 +690,13 @@
   <string name="event_preferences_location_google_api_connection_error_title">Ошибка сервиса Google Play</string>
   <string name="event_preferences_location_google_api_connection_error_text">Подключение к Google Play не удалось. Нажмите сюда для решения.</string>
   <string name="event_preferences_location_radius">Радиус:</string>
-  <string name="event_preferences_location_when_outside_pref_name">Start when is outside location</string>
-  <string name="event_preferences_location_when_outside_description">When outside</string>
+  <string name="event_preferences_location_when_outside_pref_name">Запустить, когда находится вне местоположения</string>
+  <string name="event_preferences_location_when_outside_description">Когда вне местоположения</string>
+  <string name="new_empty_profile">Пустой профиль</string>
+  <string name="new_profile_predefined_profiles_dialog">Шаблоны профилей</string>
+  <string name="new_empty_event">Пустое событие</string>
+  <string name="new_event_predefined_events_dialog">Шаблоны событий</string>
+  <string name="menu_activity_log_clear">Clear log</string>
+  <string name="activity_log_clear_alert_title">Clear activity log</string>
+  <string name="activity_log_clear_alert_message">Are you sure?</string>
 </resources>
