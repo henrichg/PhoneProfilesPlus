@@ -242,7 +242,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
-        Log.d("EventPreferencesFragment.doOnActivityResult", "requestCode="+requestCode);
+        //Log.d("EventPreferencesFragment.doOnActivityResult", "requestCode="+requestCode);
 
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
@@ -255,7 +255,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         }
 
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
-            Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
+            //Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
             if (changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
                     long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);

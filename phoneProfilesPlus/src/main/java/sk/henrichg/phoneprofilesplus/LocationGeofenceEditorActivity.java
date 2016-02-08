@@ -156,7 +156,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 geofence._radius = (progress+1) * 20;
                 updateEditedMarker(false);
-                Log.d("LocationGeofenceEditorActivity.onProgressChanged", "radius="+geofence._radius);
+                //Log.d("LocationGeofenceEditorActivity.onProgressChanged", "radius="+geofence._radius);
             }
 
             @Override
@@ -328,8 +328,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     public void onLocationChanged(Location location) {
         mLastLocation = location;
 
-        Log.d("LocationGeofenceEditorActivity.onLocationChanged", "latitude=" + String.valueOf(location.getLatitude()));
-        Log.d("LocationGeofenceEditorActivity.onLocationChanged", "longitude=" + String.valueOf(location.getLongitude()));
+        //Log.d("LocationGeofenceEditorActivity.onLocationChanged", "latitude=" + String.valueOf(location.getLatitude()));
+        //Log.d("LocationGeofenceEditorActivity.onLocationChanged", "longitude=" + String.valueOf(location.getLongitude()));
 
         if (mLocation == null) {
             mLocation = new Location(mLastLocation);
@@ -355,7 +355,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng point) {
-                Log.d("Map", "Map clicked");
+                //Log.d("Map", "Map clicked");
                 if (mLocation == null)
                     mLocation = new Location(mLastLocation);
                 mLocation.setLatitude(point.latitude);
@@ -401,12 +401,12 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     //----------------------------------------------------
 
     public void refreshActivity(boolean setMapCamera) {
-        Log.d("LocationGeofenceEditorActivity.refreshActivity", "xxx");
+        //Log.d("LocationGeofenceEditorActivity.refreshActivity", "xxx");
         getLastLocation();
         boolean enableAddressButton = false;
         if (mLocation != null) {
-            Log.d("LocationGeofenceEditorActivity.refreshActivity", "latitude=" + String.valueOf(mLocation.getLatitude()));
-            Log.d("LocationGeofenceEditorActivity.refreshActivity", "longitude=" + String.valueOf(mLocation.getLongitude()));
+            //Log.d("LocationGeofenceEditorActivity.refreshActivity", "latitude=" + String.valueOf(mLocation.getLatitude()));
+            //Log.d("LocationGeofenceEditorActivity.refreshActivity", "longitude=" + String.valueOf(mLocation.getLongitude()));
 
             // Determine whether a Geocoder is available.
             if (Geocoder.isPresent()) {
@@ -432,7 +432,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 return;
             }
 
-            Log.d("LocationGeofenceEditorActivity.getLastLocation", "mLastLocation="+mLastLocation);
+            //Log.d("LocationGeofenceEditorActivity.getLastLocation", "mLastLocation="+mLastLocation);
 
             if (mLastLocation == null)
                 startLocationUpdates();

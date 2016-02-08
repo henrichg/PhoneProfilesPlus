@@ -43,6 +43,7 @@ public class GeofencesScannerService extends IntentService {
                     sendBroadcast(broadcastIntent);
                 }
 
+                /*
                 // Get the transition details as a String.
                 String geofenceTransitionDetails = getGeofenceTransitionDetails(
                         this,
@@ -50,6 +51,7 @@ public class GeofencesScannerService extends IntentService {
                         triggeringGeofences
                 );
                 Log.d("GeofencesScannerService", geofenceTransitionDetails);
+                */
             } else {
                 // Log the error.
                 Log.e("GeofencesScannerService", "Invalid geofence transition type: "+geofenceTransition);
@@ -65,16 +67,16 @@ public class GeofencesScannerService extends IntentService {
         for (com.google.android.gms.location.Geofence geofence : triggeringGeofences) {
 
             String geofenceRequestId = geofence.getRequestId();
-            Log.d("GeofencesScannerService.updateGeofences", "geofenceRequestId="+geofenceRequestId);
+            //Log.d("GeofencesScannerService.updateGeofences", "geofenceRequestId="+geofenceRequestId);
 
             String[] splits = geofenceRequestId.split("_");
-            Log.d("GeofencesScannerService.updateGeofences", "splits[0]="+splits[0]);
-            Log.d("GeofencesScannerService.updateGeofences", "splits[1]="+splits[1]);
+            //Log.d("GeofencesScannerService.updateGeofences", "splits[0]="+splits[0]);
+            //Log.d("GeofencesScannerService.updateGeofences", "splits[1]="+splits[1]);
 
             if (splits[0].equals(GeofencesScanner.GEOFENCE_KEY_PREFIX)) {
                 try {
                     long geofenceId = Long.parseLong(splits[1]);
-                    Log.d("GeofencesScannerService.updateGeofences", "geofenceId="+geofenceId);
+                    //Log.d("GeofencesScannerService.updateGeofences", "geofenceId="+geofenceId);
 
                     dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofenceId, geofenceTransition);
 

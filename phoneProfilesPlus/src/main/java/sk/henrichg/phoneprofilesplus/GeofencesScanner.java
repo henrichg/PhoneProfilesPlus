@@ -76,7 +76,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d("GeofencesScanner.onConnected", "xxx");
+        //Log.d("GeofencesScanner.onConnected", "xxx");
         registerAllEventGeofences();
     }
 
@@ -85,13 +85,13 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // The connection has been interrupted.
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
-        Log.d("GeofencesScanner.onConnectionSuspended", "xxx");
+        //Log.d("GeofencesScanner.onConnectionSuspended", "xxx");
         //mGoogleApiClient.connect();
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d("GeofencesScanner.onConnectionFailed", "xxx");
+        //Log.d("GeofencesScanner.onConnectionFailed", "xxx");
         if (mResolvingError) {
             // Already attempting to resolve an error.
             return;
@@ -205,9 +205,9 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     public void registerGeofenceForEvent(Event event) {
         if (mGoogleApiClient.isConnected() && Permissions.checkLocation(context)) {
-            Log.d("GeofencesScanner.registerGeofenceForEvent", "enabled="+event._eventPreferencesLocation._enabled);
+            //Log.d("GeofencesScanner.registerGeofenceForEvent", "enabled="+event._eventPreferencesLocation._enabled);
             if ((event._eventPreferencesLocation != null) && (event._eventPreferencesLocation._enabled)) {
-                Log.d("GeofencesScanner.registerGeofenceForEvent", "geofenceId="+event._eventPreferencesLocation._geofenceId);
+                //Log.d("GeofencesScanner.registerGeofenceForEvent", "geofenceId="+event._eventPreferencesLocation._geofenceId);
 
                 Geofence geofence = dataWrapper.getDatabaseHandler().getGeofence(event._eventPreferencesLocation._geofenceId);
                 if (geofence != null) {
@@ -243,7 +243,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     public void unregisterGeofenceForEvent(Event event) {
         if (mGoogleApiClient.isConnected()) {
             if (event._eventPreferencesLocation != null) {
-                Log.d("GeofencesScanner.unregisterGeofenceForEvent", "xxx");
+                //Log.d("GeofencesScanner.unregisterGeofenceForEvent", "xxx");
 
                 ArrayList<String> geofenceRequestIdList = new ArrayList<String>();
                 geofenceRequestIdList.add(GEOFENCE_KEY_PREFIX + "_" + String.valueOf(event._eventPreferencesLocation._geofenceId));

@@ -227,7 +227,7 @@ public class LocationGeofencePreference extends DialogPreference {
     }
 
     public void setGeofenceFromEditor(long geofenceId) {
-        Log.d("LocationGeofencePreference.setGeofenceFromEditor", "geofenceId=" + geofenceId);
+        //Log.d("LocationGeofencePreference.setGeofenceFromEditor", "geofenceId=" + geofenceId);
         persistGeofence(true);
         refreshListView();
         updateGUIWithGeofence(geofenceId);
