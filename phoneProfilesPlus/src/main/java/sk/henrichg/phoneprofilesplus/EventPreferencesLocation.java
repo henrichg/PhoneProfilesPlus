@@ -6,7 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.Html;
-import android.util.Log;
 
 public class EventPreferencesLocation extends EventPreferences {
 

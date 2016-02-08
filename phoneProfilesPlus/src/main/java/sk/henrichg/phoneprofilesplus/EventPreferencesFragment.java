@@ -11,7 +11,6 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
-import android.util.Log;
 
 import com.fnp.materialpreferences.PreferenceFragment;
  
