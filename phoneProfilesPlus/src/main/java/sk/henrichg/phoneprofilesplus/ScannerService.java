@@ -138,18 +138,21 @@ public class ScannerService extends IntentService
                 lock();
                 boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
                 unlock();
-                GlobalData.logE("$$$ ScannerService.onHandleIntent","wifiEventsExists="+wifiEventsExists);
                 int forceScan = GlobalData.getForceOneWifiScan(context);
                 boolean scan = (wifiEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED) ||
                                                     (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                     scan = false;
+                GlobalData.logE("*** ScannerService.onHandleIntent","wifiEventsExists="+wifiEventsExists);
+                GlobalData.logE("*** ScannerService.onHandleIntent","forceScan="+forceScan);
                 if (!scan) {
                    // wifi scan events not exists
+                   GlobalData.logE("*** ScannerService.onHandleIntent","alarms removed");
                    WifiScanAlarmBroadcastReceiver.removeAlarm(context, false);
                    WifiScanAlarmBroadcastReceiver.removeAlarm(context, true);
                 }
                 else {
+                    GlobalData.logE("*** ScannerService.onHandleIntent","can scan");
 
                     if (WifiScanAlarmBroadcastReceiver.wifi == null)
                         WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -174,6 +177,8 @@ public class ScannerService extends IntentService
                     }
 
                     if (canScanWifi(dataWrapper)) {
+
+                        GlobalData.logE("*** ScannerService.onHandleIntent","scan started");
 
                         WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
                         WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
@@ -236,22 +241,22 @@ public class ScannerService extends IntentService
                             }
                         }
 
-                        GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
-                        WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-                        WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-                        WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                        //GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+                        //WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
+                        //WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                        //WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
                     }
                 }
 
                 WifiScanAlarmBroadcastReceiver.unlock();
                 unlock();
             }
-            else {
+            //else {
                 GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                 WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                 WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                 WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
-            }
+            //}
         }
         else
         if (scanType.equals(GlobalData.SCANNER_TYPE_BLUETOOTH)) {
@@ -454,13 +459,13 @@ public class ScannerService extends IntentService
                             }
                         }
 
-                        GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
-                        GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
-                        BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-                        BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-                        BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
-                        BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
-                        BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
+                        //GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+                        //GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+                        //BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+                        //BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+                        //BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
+                        //BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
+                        //BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
 
                     }
                 }
@@ -468,7 +473,7 @@ public class ScannerService extends IntentService
                 BluetoothScanAlarmBroadcastReceiver.unlock();
                 unlock();
             }
-            else {
+            //else {
                 GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                 GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
                 BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
@@ -476,7 +481,7 @@ public class ScannerService extends IntentService
                 BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
                 BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
                 BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
-            }
+            //}
         }
 
         // send broadcast about radio change state to PPHelper
@@ -517,7 +522,7 @@ public class ScannerService extends IntentService
             wakeLock.release();
     }
 
-    private static boolean canScanWifi(DataWrapper dataWrapper)
+    private boolean canScanWifi(DataWrapper dataWrapper)
     {
         int wifiState = WifiScanAlarmBroadcastReceiver.wifi.getWifiState();
         if (wifiState == WifiManager.WIFI_STATE_ENABLED)
@@ -544,10 +549,12 @@ public class ScannerService extends IntentService
 
                 GlobalData.logE("$$$ ScannerService.canScanWifi","connected SSID="+SSID);
 
+                lock();
                 // search for events with connected SSID and connection type INFRONT
                 boolean isSSIDScannedInFront = dataWrapper.getDatabaseHandler().isSSIDScanned(SSID, EventPreferencesWifi.CTYPE_INFRONT);
                 // search for events with connected SSID and connection type NOTINFRONT
                 boolean isSSIDScannedNotInFront = dataWrapper.getDatabaseHandler().isSSIDScanned(SSID, EventPreferencesWifi.CTYPE_NOTINFRONT);
+                unlock();
 
                 if ((isSSIDScannedInFront) && (!isSSIDScannedNotInFront) && (scanResults.size() != 0))
                 {
@@ -644,7 +651,7 @@ public class ScannerService extends IntentService
         return wifiState;
     }
 
-    private static boolean canScanBluetooth(DataWrapper dataWrapper)
+    private boolean canScanBluetooth(DataWrapper dataWrapper)
     {
         int bluetoothState = BluetoothScanAlarmBroadcastReceiver.bluetooth.getState();
         if (bluetoothState == BluetoothAdapter.STATE_ON)
@@ -659,12 +666,14 @@ public class ScannerService extends IntentService
 
                 // bluetooth is connected
 
+                lock();
                 // search for events with connected bluetooth adapter and connection type INFRONT
                 boolean isBluetoothNameScannedInFront =
                         BluetoothConnectionBroadcastReceiver.isAdapterNameScanned(dataWrapper, EventPreferencesBluetooth.CTYPE_INFRONT);
                 // search for events with connected bluetooth adapter and connection type NOTINFRONT
                 boolean isBluetoothNameScannedNotInFront =
                         BluetoothConnectionBroadcastReceiver.isAdapterNameScanned(dataWrapper, EventPreferencesBluetooth.CTYPE_NOTINFRONT);
+                unlock();
 
                 List<BluetoothDeviceData> scanResults = BluetoothScanAlarmBroadcastReceiver.getScanResults(dataWrapper.context);
                 if ((isBluetoothNameScannedInFront) && (!isBluetoothNameScannedNotInFront) && (scanResults.size() != 0))

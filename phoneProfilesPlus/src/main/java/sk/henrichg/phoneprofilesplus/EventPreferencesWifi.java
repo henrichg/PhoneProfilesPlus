@@ -171,7 +171,7 @@ public class EventPreferencesWifi extends EventPreferences {
     @Override
     public void setSystemEventForStart(Context context)
     {
-        if ((_connectionType == CTYPE_INFRONT) &&
+        if (((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
             (!WifiScanAlarmBroadcastReceiver.isAlarmSet(context, false)))
             WifiScanAlarmBroadcastReceiver.setAlarm(context, false, true);
     }
@@ -179,9 +179,11 @@ public class EventPreferencesWifi extends EventPreferences {
     @Override
     public void setSystemEventForPause(Context context)
     {
-        if ((_connectionType == CTYPE_INFRONT) &&
+        /*
+        if (((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
             (!WifiScanAlarmBroadcastReceiver.isAlarmSet(context, false)))
             WifiScanAlarmBroadcastReceiver.setAlarm(context, false, true);
+        */
     }
 
     @Override
