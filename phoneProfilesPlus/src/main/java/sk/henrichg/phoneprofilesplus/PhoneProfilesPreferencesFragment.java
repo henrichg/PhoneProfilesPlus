@@ -558,6 +558,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
         doOnActivityResult(requestCode, resultCode, data);
     }
 

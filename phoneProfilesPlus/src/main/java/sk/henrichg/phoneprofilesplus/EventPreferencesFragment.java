@@ -11,6 +11,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.util.Log;
 
 import com.fnp.materialpreferences.PreferenceFragment;
  
@@ -155,14 +156,14 @@ public class EventPreferencesFragment extends PreferenceFragment
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                    startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
                     return false;
                 }
             });
         }
-        Preference preference = findPreference(PREF_WIFI_SCANNING_APP_SETTINGS);
+        Preference preference; //= findPreference(PREF_WIFI_SCANNING_APP_SETTINGS);
         //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-        preference = findPreference(PREF_BLUETOOTH_SCANNING_APP_SETTINGS);
+        //preference = findPreference(PREF_BLUETOOTH_SCANNING_APP_SETTINGS);
         //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
 
         if (Build.VERSION.SDK_INT >= 23) {
@@ -241,7 +242,7 @@ public class EventPreferencesFragment extends PreferenceFragment
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
-        //Log.d("EventPreferencesFragment.doOnActivityResult", "requestCode="+requestCode);
+        Log.d("EventPreferencesFragment.doOnActivityResult", "requestCode="+requestCode);
 
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
@@ -254,7 +255,7 @@ public class EventPreferencesFragment extends PreferenceFragment
         }
 
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
-            //Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
+            Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
             if (changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
                     long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
@@ -268,6 +269,7 @@ public class EventPreferencesFragment extends PreferenceFragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
         doOnActivityResult(requestCode, resultCode, data);
     }
 
