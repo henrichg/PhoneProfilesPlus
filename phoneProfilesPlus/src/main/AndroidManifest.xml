@@ -222,7 +222,7 @@
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyActivity">
+            android:theme="@style/EmptyAppCompatActivity">
         </activity>
 
         <receiver
