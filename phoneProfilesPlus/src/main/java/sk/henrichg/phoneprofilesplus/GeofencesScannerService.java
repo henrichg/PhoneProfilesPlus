@@ -43,7 +43,6 @@ public class GeofencesScannerService extends IntentService {
                     sendBroadcast(broadcastIntent);
                 }
 
-                /*
                 // Get the transition details as a String.
                 String geofenceTransitionDetails = getGeofenceTransitionDetails(
                         this,
@@ -51,7 +50,6 @@ public class GeofencesScannerService extends IntentService {
                         triggeringGeofences
                 );
                 Log.d("GeofencesScannerService", geofenceTransitionDetails);
-                */
             } else {
                 // Log the error.
                 Log.e("GeofencesScannerService", "Invalid geofence transition type: "+geofenceTransition);
