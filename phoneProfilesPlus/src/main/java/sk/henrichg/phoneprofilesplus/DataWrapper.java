@@ -2216,6 +2216,11 @@ public class DataWrapper {
             }
             getDatabaseHandler().unblockAllEvents();
             GlobalData.setForceRunEventRunning(context, false);
+
+            if (GlobalData.geofencesScanner != null) {
+                GlobalData.geofencesScanner.unregisterAllEventGeofences();
+                GlobalData.geofencesScanner.registerAllEventGeofences();
+            }
         }
 
         if (!keepActivatedProfile)

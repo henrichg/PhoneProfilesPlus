@@ -76,7 +76,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d("GeofencesScanner.onConnected", "xxx");
+        //Log.d("GeofencesScanner.onConnected", "xxx");
         registerAllEventGeofences();
     }
 
@@ -85,13 +85,13 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // The connection has been interrupted.
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
-        Log.d("GeofencesScanner.onConnectionSuspended", "xxx");
+        //Log.d("GeofencesScanner.onConnectionSuspended", "xxx");
         //mGoogleApiClient.connect();
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d("GeofencesScanner.onConnectionFailed", "xxx");
+        //Log.d("GeofencesScanner.onConnectionFailed", "xxx");
         if (mResolvingError) {
             // Already attempting to resolve an error.
             return;
@@ -151,7 +151,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     public void registerAllEventGeofences() {
         if (mGoogleApiClient.isConnected() && Permissions.checkLocation(context)) {
-            Log.d("GeofencesScanner.registerAllEventGeofences","xxx");
+            //Log.d("GeofencesScanner.registerAllEventGeofences","xxx");
 
             // clear all geofence transitions
             dataWrapper.getDatabaseHandler().clearAllGeofenceTransitions();
@@ -212,6 +212,8 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
                 Geofence geofence = dataWrapper.getDatabaseHandler().getGeofence(event._eventPreferencesLocation._geofenceId);
                 if (geofence != null) {
+                    dataWrapper.getDatabaseHandler().updateGeofenceTransition(event._eventPreferencesLocation._geofenceId, 0);
+
                     // Empty list for storing geofences.
                     mGeofenceList = new ArrayList<com.google.android.gms.location.Geofence>();
                     mGeofenceList.add(new com.google.android.gms.location.Geofence.Builder()

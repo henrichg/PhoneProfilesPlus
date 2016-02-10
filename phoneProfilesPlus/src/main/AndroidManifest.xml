@@ -660,6 +660,15 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <receiver
+            android:name=".LocationModeChangedBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.location.MODE_CHANGED"/>
+                <action android:name="android.location.PROVIDERS_CHANGED"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 
