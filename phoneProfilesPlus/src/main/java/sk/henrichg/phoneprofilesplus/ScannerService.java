@@ -126,9 +126,6 @@ public class ScannerService extends IntentService
                 GlobalData.logE("$$$ ScannerService.onHandleIntent", "canScan=" + canScan);
                 GlobalData.logE("$$$ WifiAP", "ScannerService.onHandleIntent-isWifiAPEnabled="+!canScan);
             }
-            if (canScan) {
-                canScan = isLocationEnabled(context, scanType);
-            }
 
             if (canScan) {
 
@@ -143,6 +140,10 @@ public class ScannerService extends IntentService
                                                     (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                     scan = false;
+                if (scan) {
+                    if (wifiEventsExists)
+                        scan = isLocationEnabled(context, scanType);
+                }
                 GlobalData.logE("*** ScannerService.onHandleIntent", "wifiEventsExists=" + wifiEventsExists);
                 GlobalData.logE("*** ScannerService.onHandleIntent", "forceScan=" + forceScan);
                 if (!scan) {
@@ -275,7 +276,7 @@ public class ScannerService extends IntentService
                 int forceScan = GlobalData.getForceOneBluetoothScan(dataWrapper.context);
                 int forceScanLE = GlobalData.getForceOneLEBluetoothScan(context);
                 classicDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
-                if (bluetoothLESupported(context) && isLocationEnabled(context, scanType))
+                if (bluetoothLESupported(context))
                     leDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
                 else
                     leDevicesScan = false;
@@ -288,6 +289,10 @@ public class ScannerService extends IntentService
                     scan = false;
                 if ((!bluetoothEventsExists) && (forceScanLE == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
                     scan = false;
+                if (scan) {
+                    if (leDevicesScan)
+                        leDevicesScan = isLocationEnabled(context, scanType);
+                }
                 if (!scan) {
                     // bluetooth scan events not exists
                     BluetoothScanAlarmBroadcastReceiver.removeAlarm(context, false);
