@@ -59,10 +59,10 @@
 </string-array>
 <string-array name="languageArray">
     <item>@string/phone_profiles_pref_applicationLanguage_system</item>
-    <item>@string/phone_profiles_pref_applicationLanguage_en</item>
     <item>@string/phone_profiles_pref_applicationLanguage_ca</item>
     <item>@string/phone_profiles_pref_applicationLanguage_cs</item>
     <item>@string/phone_profiles_pref_applicationLanguage_de</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_en</item>
     <item>@string/phone_profiles_pref_applicationLanguage_es_ES</item>
     <item>@string/phone_profiles_pref_applicationLanguage_fr</item>
     <item>@string/phone_profiles_pref_applicationLanguage_it</item>
@@ -75,13 +75,14 @@
     <item>@string/phone_profiles_pref_applicationLanguage_sv_SE</item>
     <item>@string/phone_profiles_pref_applicationLanguage_tr</item>
     <item>@string/phone_profiles_pref_applicationLanguage_uk</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_zh_TW</item>
 </string-array>
 <string-array name="languageValues">
     <item>@string/array_pref_value_system</item>
-    <item>@string/array_pref_value_en</item>
     <item>@string/array_pref_value_ca</item>
     <item>@string/array_pref_value_cs</item>
     <item>@string/array_pref_value_de</item>
+    <item>@string/array_pref_value_en</item>
     <item>@string/array_pref_value_es_ES</item>
     <item>@string/array_pref_value_fr</item>
     <item>@string/array_pref_value_it</item>
@@ -94,6 +95,7 @@
     <item>@string/array_pref_value_sv_SE</item>
     <item>@string/array_pref_value_tr</item>
     <item>@string/array_pref_value_uk</item>
+    <item>@string/array_pref_value_zh_TW</item>
 </string-array>
 <string-array name="notificationIconStyleArray">
     <item>@string/phone_profiles_pref_notificationStatusBarStyle_color</item>

@@ -619,7 +619,7 @@
   <string name="important_info_profile_ringerMode_root">Android 6 (Marshmallow)-ban nem lehetséges a \"Rezeg amikor cseng\" rendszer beállítás ha nem root-olt a rendszer.</string>
   <string name="important_info_profile_adaptiveBrightness_root">Android 6 (Marshmallow)-ban nincs lehetőség a \"Automatikus fényerő\"-re ha nem root-olt a rendszer.</string>
   <string name="important_info_profile_wifiScanning_location">Android 6 (Marshmallow)-ban Wi-Fi kereséshez engedélyezni kell helyzet és a \"Wi-Fi keresés\" a Hely beállításokban.</string>
-  <string name="important_info_profile_bluetoothScanning_location">In Android 6 (Marshmallow), for Bluetooth LE scanning must be enabled Location and \"Bluetooth scanning\" in Location settings.</string>
+  <string name="important_info_profile_bluetoothScanning_location">Android 6 (Marshmallow) a Bluetooth LE kereséshez engedélyezni kell Helyzet és \"Bluetooth keresést\" a tartózkodási hely beállításaiban.</string>
   <string name="profile_preferences_devicePowerSaveMode">(R) Energiatakarékos üzemmód</string>
   <string name="event_preferences_bluetooth_devices_type">Keresett rendszer típusa</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">Hagyományos [CE]</string>
@@ -633,7 +633,7 @@
   <string name="profile_preferences_category_screen">Kijelző</string>
   <string name="profile_preferences_category_others">Egyebek</string>
   <string name="event_preferences_category_startofeventOthers">Egyéb paraméterek</string>
-  <string name="phone_profiles_pref_applicationLanguage_he">עִברִית</string>
+  <string name="phone_profiles_pref_applicationLanguage_he">Abrit</string>
   <string name="array_pref_value_he">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Török</string>
   <string name="array_pref_value_tr">tr</string>

@@ -661,7 +661,7 @@
   <string name="important_info_profile_activation_traffic_light_icon">Значок «Светофор»:</string>
   <string name="important_info_android_doze_mode">В Android 6 реализован режим \"Doze\" и \"App Standby\". Если вы столкнулись с проблемами с активацией профиля из событий, когда устройство отключилось после выключения экрана, добавьте PhoneProfilesPlus в пункт \"Батарея\" -&gt; \"Экономия заряда батареи\" -&gt; \"Не экономить\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Вибрация при звонке</string>
-  <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">В Android 6 системные параметры может быть изменены только на разблокированных устройствах, имеющих права Суперпользователя. Такие как режим звонка с вибрацией.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">В Android 6 системные параметры, такие как режим звонка и вибрация, могут быть изменены только на разблокированных устройствах, имеющих права Суперпользователя.</string>
   <string name="info_notification_event_states">Событие может находиться в 4-х состояниях:</string>
   <string name="info_notification_event_states_running">Выполняется: событие запущено и работает. Параметры событий удовлетворены.</string>
   <string name="info_notification_event_states_paused">Приостановлено: событие не выполняется. Параметры события не удовлетворяютя. Событие ожидает удовлетворения параметров.</string>
@@ -696,7 +696,7 @@
   <string name="new_profile_predefined_profiles_dialog">Шаблоны профилей</string>
   <string name="new_empty_event">Пустое событие</string>
   <string name="new_event_predefined_events_dialog">Шаблоны событий</string>
-  <string name="menu_activity_log_clear">Clear log</string>
-  <string name="activity_log_clear_alert_title">Clear activity log</string>
-  <string name="activity_log_clear_alert_message">Are you sure?</string>
+  <string name="menu_activity_log_clear">Очистить журнал</string>
+  <string name="activity_log_clear_alert_title">Очистить текущий журнал</string>
+  <string name="activity_log_clear_alert_message">Вы уверены?</string>
 </resources>

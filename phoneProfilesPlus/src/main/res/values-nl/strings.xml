@@ -697,7 +697,7 @@ Toch activeren?</string>
   <string name="new_profile_predefined_profiles_dialog">Voorgedefinieerde profielen</string>
   <string name="new_empty_event">Leeg event</string>
   <string name="new_event_predefined_events_dialog">Voorgedefinieerde events</string>
-  <string name="menu_activity_log_clear">Clear log</string>
-  <string name="activity_log_clear_alert_title">Clear activity log</string>
-  <string name="activity_log_clear_alert_message">Are you sure?</string>
+  <string name="menu_activity_log_clear">Log leegmaken</string>
+  <string name="activity_log_clear_alert_title">Leegmaken activiteitenlogboek</string>
+  <string name="activity_log_clear_alert_message">Weet je het zeker?</string>
 </resources>

@@ -696,7 +696,7 @@
   <string name="new_profile_predefined_profiles_dialog">Önceden tanımlanmış profiller</string>
   <string name="new_empty_event">Boş etkinlik</string>
   <string name="new_event_predefined_events_dialog">Önceden tanımlanmış etkinlikler</string>
-  <string name="menu_activity_log_clear">Clear log</string>
-  <string name="activity_log_clear_alert_title">Clear activity log</string>
-  <string name="activity_log_clear_alert_message">Are you sure?</string>
+  <string name="menu_activity_log_clear">Günlüğü temizle</string>
+  <string name="activity_log_clear_alert_title">Etkinlik Günlüğünü sil</string>
+  <string name="activity_log_clear_alert_message">Emin misiniz?</string>
 </resources>
