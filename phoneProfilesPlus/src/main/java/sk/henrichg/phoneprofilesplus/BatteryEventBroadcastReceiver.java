@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
@@ -52,14 +53,16 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                     isCharging = _isCharging;
                     batteryPct = pct;
 
-                    boolean powerSaveMode = false;
-                    if ((!isCharging) &&
-                        ((GlobalData.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
-                        (GlobalData.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))))
-                        powerSaveMode = true;
+                    if (Build.VERSION.SDK_INT < 21) {
+                        boolean powerSaveMode = false;
+                        if ((!isCharging) &&
+                                ((GlobalData.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
+                                        (GlobalData.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))))
+                            powerSaveMode = true;
 
-                    if (GlobalData.geofencesScanner != null)
-                        GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode);
+                        if (GlobalData.geofencesScanner != null)
+                            GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode);
+                    }
 
 
                     /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
