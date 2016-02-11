@@ -315,6 +315,8 @@ public class GlobalData extends Application {
     public static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE = "applicationEventBluetoothScanInPowerSaveMode";
     public static final String PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
     public static final String PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION = "applicationEventBluetoothLEScanDuration";
+    public static final String PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL = "applicationEventLocationUpdateInterval";
+    public static final String PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE = "applicationEventLocationUpdateInPowerSaveMode";
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
@@ -424,6 +426,8 @@ public class GlobalData extends Application {
     public static String applicationEventBluetoothScanInPowerSaveMode;
     public static String applicationPowerSaveModeInternal;
     public static int applicationEventBluetoothLEScanDuration;
+    public static int applicationEventLocationUpdateInterval;
+    public static String applicationEventLocationUpdateInPowerSaveMode;
 
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
@@ -641,6 +645,8 @@ public class GlobalData extends Application {
         applicationEventBluetoothScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE, "0");
         applicationPowerSaveModeInternal = preferences.getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "0");
         applicationEventBluetoothLEScanDuration = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, "10"));
+        applicationEventLocationUpdateInterval  = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "10"));
+        applicationEventLocationUpdateInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE, "0");
 
         if (applicationTheme.equals("light"))
         {

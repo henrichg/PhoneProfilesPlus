@@ -167,7 +167,7 @@ public class EventPreferencesLocation extends EventPreferences {
     public void setSystemEventForStart(Context context)
     {
         //Log.d("EventPreferencesLocation.setSystemRunningEvent", "xxx");
-        if (GlobalData.geofencesScanner != null) {
+        if ((GlobalData.geofencesScanner != null) && GeofencesScanner.withGeofencingAPI) {
             GlobalData.geofencesScanner.registerGeofenceForEvent(_event);
         }
     }
@@ -181,7 +181,7 @@ public class EventPreferencesLocation extends EventPreferences {
     @Override
     public void removeSystemEvent(Context context)
     {
-        if (GlobalData.geofencesScanner != null) {
+        if ((GlobalData.geofencesScanner != null) && GeofencesScanner.withGeofencingAPI) {
             GlobalData.geofencesScanner.unregisterGeofenceForEvent(_event);
         }
     }

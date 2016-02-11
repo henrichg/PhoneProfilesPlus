@@ -177,6 +177,33 @@
     </PreferenceScreen>
 
     <PreferenceScreen
+        android:key="loactionCategory"
+        android:title="@string/phone_profiles_pref_category_location"
+        android:widgetLayout="@layout/start_activity_preference">
+        <Preference
+            android:key="applicationEventLocationSystemSettings"
+            android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+            android:summary="@string/phone_profiles_pref_eventLocationSystemSettings_summary"
+            android:widgetLayout="@layout/start_activity_preference" >
+        </Preference>
+        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="applicationEventLocationUpdateInterval"
+            android:summary="@string/phone_profiles_pref_applicationEventLocationUpdateInterval"
+            android:title="@string/phone_profiles_pref_applicationEventLocationUpdateInterval"
+            android:defaultValue="10"
+            henrichg:min="1"
+            henrichg:max="300" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:key="applicationEventLocationUpdateInPowerSaveMode"
+            android:title="@string/phone_profiles_pref_applicationEventLocationUpdateInPowerSaveMode"
+            android:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
+            android:defaultValue="0"
+            android:entries="@array/scanInPowerSaveModeArray"
+            android:entryValues="@array/scanInPowerSaveModeValues"
+            app:useStockLayout="true" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
         android:key="wifiScanningCategory"
         android:title="@string/phone_profiles_pref_category_wifi_scanning"
         android:widgetLayout="@layout/start_activity_preference">

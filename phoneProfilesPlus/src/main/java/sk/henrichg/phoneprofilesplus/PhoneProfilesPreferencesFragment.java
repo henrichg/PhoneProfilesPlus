@@ -44,6 +44,8 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
     static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
     static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
+    static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
+    static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -218,7 +220,6 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
@@ -232,6 +233,18 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 if (preference != null)
                     preferenceCategory.removePreference(preference);
             }
+
+            preference = prefMng.findPreference(PREF_LOCATION_SYSTEM_SETTINGS);
+            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
+                    return false;
+                }
+            });
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
@@ -385,9 +398,6 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         setSummary(GlobalData.PREF_APPLICATION_EDITOR_HEADER);
         setSummary(GlobalData.PREF_NOTIFICATION_TOAST);
         setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR);
-        setSummary(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE);
-        setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE);
-        setSummary(GlobalData.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL);
 
         if (android.os.Build.VERSION.SDK_INT >= 16) {
             setSummary(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
@@ -435,15 +445,21 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         setSummary(GlobalData.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_WIFI_RESCAN);
         setSummary(GlobalData.PREF_APPLICATION_BACKGROUND_PROFILE);
         setSummary(GlobalData.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT);
         setSummary(GlobalData.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH);
-        setSummary(GlobalData.PREF_APPLICATION_EVENT_WIFI_RESCAN);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN);
-        setSummary(GlobalData.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE);
+        setSummary(GlobalData.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME);
+        setSummary(GlobalData.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE);
+
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, preferencesActivity.getApplicationContext())
                     != GlobalData.PREFERENCE_ALLOWED)

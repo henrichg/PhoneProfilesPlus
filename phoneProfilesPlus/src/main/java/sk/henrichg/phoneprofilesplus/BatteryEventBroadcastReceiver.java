@@ -52,6 +52,16 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                     isCharging = _isCharging;
                     batteryPct = pct;
 
+                    boolean powerSaveMode = false;
+                    if ((!isCharging) &&
+                        ((GlobalData.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
+                        (GlobalData.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))))
+                        powerSaveMode = true;
+
+                    if (GlobalData.geofencesScanner != null)
+                        GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode);
+
+
                     /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                     batteryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY) > 0;
                     dataWrapper.invalidateDataWrapper();

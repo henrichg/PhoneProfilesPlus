@@ -946,6 +946,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (resultCode == RESULT_OK)
             {
+                if (GlobalData.geofencesScanner != null) {
+                    boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+                    GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode);
+                }
+
                 boolean restart = data.getBooleanExtra(GlobalData.EXTRA_RESET_EDITOR, false);
 
                 if (restart)

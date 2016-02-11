@@ -703,7 +703,7 @@ public class DataWrapper {
         }
 
         // blockEvents == true -> manual profile activation is set
-        GlobalData.logE("$$$ setEventsBlocked", "DataWrapper.pauseAllEvents, "+blockEvents);
+        GlobalData.logE("$$$ setEventsBlocked", "DataWrapper.pauseAllEvents, " + blockEvents);
         GlobalData.setEventsBlocked(context, blockEvents);
     }
 
@@ -2217,7 +2217,7 @@ public class DataWrapper {
             getDatabaseHandler().unblockAllEvents();
             GlobalData.setForceRunEventRunning(context, false);
 
-            if (GlobalData.geofencesScanner != null) {
+            if ((GlobalData.geofencesScanner != null) && GeofencesScanner.withGeofencingAPI) {
                 GlobalData.geofencesScanner.unregisterAllEventGeofences();
                 GlobalData.geofencesScanner.registerAllEventGeofences();
             }

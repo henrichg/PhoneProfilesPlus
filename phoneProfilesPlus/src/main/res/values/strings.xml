@@ -702,4 +702,9 @@
     <string name="menu_activity_log_clear">Clear log</string>
     <string name="activity_log_clear_alert_title">Clear activity log</string>
     <string name="activity_log_clear_alert_message">Are you sure?</string>
+    <string name="phone_profiles_pref_category_location">Location</string>
+    <string name="phone_profiles_pref_eventLocationSystemSettings">Location system settings</string>
+    <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Setup location parameters in system setting.</string>
+    <string name="phone_profiles_pref_applicationEventLocationUpdateInterval">Location update interval (sec)</string>
+    <string name="phone_profiles_pref_applicationEventLocationUpdateInPowerSaveMode">Location update in Power Save mode</string>
 </resources>
