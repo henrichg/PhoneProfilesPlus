@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -14,6 +15,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.GeofencingRequest;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
@@ -21,12 +24,16 @@ import java.util.List;
 
 public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                          GoogleApiClient.OnConnectionFailedListener,
-                                         ResultCallback<Status>
+                                         ResultCallback<Status>,
+                                         LocationListener
 {
 
     private GoogleApiClient mGoogleApiClient;
     private Context context;
     DataWrapper dataWrapper;
+
+    private Location mLastLocation;
+    protected LocationRequest mLocationRequest;
 
     protected ArrayList<com.google.android.gms.location.Geofence> mGeofenceList;
     private PendingIntent mGeofencePendingIntent;
@@ -44,6 +51,18 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     public static final String GEOFENCE_KEY_PREFIX = "PhoneProfilesPlusGeofence";
 
+    /**
+     * The desired interval for location updates. Inexact. Updates may be more or less frequent.
+     */
+    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+
+    /**
+     * The fastest rate for active location updates. Exact. Updates will never be more frequent
+     * than this value.
+     */
+    public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+
+
     public GeofencesScanner(Context context) {
         this.context = context;
         dataWrapper = new DataWrapper(context, false, false, 0);
@@ -54,6 +73,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+        createLocationRequest();
     }
 
     public void connect() {
@@ -70,14 +90,20 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     public void disconnect() {
-        unregisterAllEventGeofences();
+        //unregisterAllEventGeofences();
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+        }
         mGoogleApiClient.disconnect();
     }
 
     @Override
     public void onConnected(Bundle bundle) {
         //Log.d("GeofencesScanner.onConnected", "xxx");
-        registerAllEventGeofences();
+        if (mGoogleApiClient.isConnected()) {
+            startLocationUpdates();
+        }
+        //registerAllEventGeofences();
     }
 
     @Override
@@ -113,9 +139,51 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     /**
-     * Builds and returns a GeofencingRequest. Specifies the list of geofences to be monitored.
-     * Also specifies how the geofence notifications are initially triggered.
+     * Callback that fires when the location changes.
      */
+    @Override
+    public void onLocationChanged(Location location) {
+        mLastLocation = location;
+
+        List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
+
+        boolean change = false;
+
+        for (Geofence geofence : geofences) {
+
+            Location geofenceLocation = new Location("GL");
+            geofenceLocation.setLatitude(geofence._latitude);
+            geofenceLocation.setLongitude(geofence._longitude);
+
+            float distance = mLastLocation.distanceTo(geofenceLocation);
+
+            int transitionType = 0;
+            if (distance <= geofence._radius)
+                transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
+            else
+                transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
+
+            int savedTransition = dataWrapper.getDatabaseHandler().getGeofenceTransition(geofence._id);
+
+            if (savedTransition != transitionType) {
+                dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofence._id, transitionType);
+                change = true;
+            }
+        }
+
+        if (change) {
+            // send broadcast for calling EventsService
+            Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);
+            context.sendBroadcast(broadcastIntent);
+        }
+
+    }
+
+    /*
+    ///
+    // * Builds and returns a GeofencingRequest. Specifies the list of geofences to be monitored.
+    // * Also specifies how the geofence notifications are initially triggered.
+    ///
     private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
 
@@ -130,14 +198,16 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // Return a GeofencingRequest.
         return builder.build();
     }
+    */
 
-    /**
-     * Gets a PendingIntent to send with the request to add or remove Geofences. Location Services
-     * issues the Intent inside this PendingIntent whenever a geofence transition occurs for the
-     * current list of geofences.
-     *
-     * @return A PendingIntent for the IntentService that handles geofence transitions.
-     */
+    /*
+    ///
+    // * Gets a PendingIntent to send with the request to add or remove Geofences. Location Services
+    // * issues the Intent inside this PendingIntent whenever a geofence transition occurs for the
+    // * current list of geofences.
+    // *
+    // * @return A PendingIntent for the IntentService that handles geofence transitions.
+    ///
     private PendingIntent getGeofencePendingIntent() {
         // Reuse the PendingIntent if we already have it.
         if (mGeofencePendingIntent != null) {
@@ -148,6 +218,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // addGeofences() and removeGeofences().
         return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
+    */
 
     public void registerAllEventGeofences() {
         if (mGoogleApiClient.isConnected() && Permissions.checkLocation(context)) {
@@ -156,6 +227,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             // clear all geofence transitions
             dataWrapper.getDatabaseHandler().clearAllGeofenceTransitions();
 
+            /*
             // Empty list for storing geofences.
             mGeofenceList = new ArrayList<com.google.android.gms.location.Geofence>();
 
@@ -190,30 +262,33 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             } catch (SecurityException securityException) {
                 // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
             }
+            */
         }
     }
 
     public void unregisterAllEventGeofences() {
         if (mGoogleApiClient.isConnected()) {
+            /*
             // Remove geofences.
             LocationServices.GeofencingApi.removeGeofences(
                     mGoogleApiClient,
                     // This is the same pending intent that was used in addGeofences().
                     getGeofencePendingIntent()
             ).setResultCallback(this); // Result processed in onResult().
+            */
         }
     }
 
     public void registerGeofenceForEvent(Event event) {
         if (mGoogleApiClient.isConnected() && Permissions.checkLocation(context)) {
+            dataWrapper.getDatabaseHandler().updateGeofenceTransition(event._eventPreferencesLocation._geofenceId, 0);
+            /*
             //Log.d("GeofencesScanner.registerGeofenceForEvent", "enabled="+event._eventPreferencesLocation._enabled);
             if ((event._eventPreferencesLocation != null) && (event._eventPreferencesLocation._enabled)) {
                 //Log.d("GeofencesScanner.registerGeofenceForEvent", "geofenceId="+event._eventPreferencesLocation._geofenceId);
 
                 Geofence geofence = dataWrapper.getDatabaseHandler().getGeofence(event._eventPreferencesLocation._geofenceId);
                 if (geofence != null) {
-                    dataWrapper.getDatabaseHandler().updateGeofenceTransition(event._eventPreferencesLocation._geofenceId, 0);
-
                     // Empty list for storing geofences.
                     mGeofenceList = new ArrayList<com.google.android.gms.location.Geofence>();
                     mGeofenceList.add(new com.google.android.gms.location.Geofence.Builder()
@@ -240,11 +315,13 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     }
                 }
             }
+            */
         }
     }
 
     public void unregisterGeofenceForEvent(Event event) {
         if (mGoogleApiClient.isConnected()) {
+            /*
             if (event._eventPreferencesLocation != null) {
                 //Log.d("GeofencesScanner.unregisterGeofenceForEvent", "xxx");
 
@@ -256,28 +333,74 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                         geofenceRequestIdList
                 ).setResultCallback(this); // Result processed in onResult().
             }
-
+            */
         }
     }
 
     //-------------------------------------------
 
-    /**
-     * Runs when the result of calling addGeofences() and removeGeofences() becomes available.
-     * Either method can complete successfully or with an error.
-     *
-     * Since this activity implements the {@link ResultCallback} interface, we are required to
-     * define this method.
-     *
-     * @param status The Status returned through a PendingIntent when addGeofences() or
-     *               removeGeofences() get called.
-     */
+    ///
+    // * Runs when the result of calling addGeofences() and removeGeofences() becomes available.
+    // * Either method can complete successfully or with an error.
+    // *
+    // * Since this activity implements the {@link ResultCallback} interface, we are required to
+    // * define this method.
+    // *
+    // * @param status The Status returned through a PendingIntent when addGeofences() or
+    // *               removeGeofences() get called.
+    ///
     public void onResult(Status status) {
         if (status.isSuccess()) {
 
         } else {
-            Log.e("GeofencesScanner", "Error adding geofences: "+status.getStatusCode());
+            Log.e("GeofencesScanner", "Error adding geofences: " + status.getStatusCode());
         }
+    }
+
+    protected void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+
+        // Sets the desired interval for active location updates. This interval is
+        // inexact. You may not receive updates at all if no location sources are available, or
+        // you may receive them slower than requested. You may also receive updates faster than
+        // requested if other applications are requesting location at a faster interval.
+        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
+
+        // Sets the fastest rate for active location updates. This interval is exact, and your
+        // application will never receive updates faster than this value.
+        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
+
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+    }
+
+
+    /**
+     * Requests location updates from the FusedLocationApi.
+     */
+    protected void startLocationUpdates() {
+        // The final argument to {@code requestLocationUpdates()} is a LocationListener
+        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
+        if (Permissions.checkLocation(context)) {
+            try {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            } catch (SecurityException securityException) {
+                // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                return;
+            }
+        }
+    }
+
+    /**
+     * Removes location updates from the FusedLocationApi.
+     */
+    protected void stopLocationUpdates() {
+        // It is a good practice to remove location requests when the activity is in a paused or
+        // stopped state. Doing so helps battery performance and is especially
+        // recommended in applications that request frequent location updates.
+
+        // The final argument to {@code requestLocationUpdates()} is a LocationListener
+        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
     //-------------------------------------------
