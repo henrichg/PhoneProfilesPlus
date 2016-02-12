@@ -177,7 +177,7 @@
     </PreferenceScreen>
 
     <PreferenceScreen
-        android:key="loactionCategory"
+        android:key="locationScanningCategory"
         android:title="@string/phone_profiles_pref_category_location"
         android:widgetLayout="@layout/start_activity_preference">
         <Preference
@@ -188,14 +188,14 @@
         </Preference>
         <sk.henrichg.phoneprofilesplus.NumberPickerPreference
             android:key="applicationEventLocationUpdateInterval"
-            android:summary="@string/phone_profiles_pref_applicationEventLocationUpdateInterval"
-            android:title="@string/phone_profiles_pref_applicationEventLocationUpdateInterval"
+            android:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
+            android:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             android:defaultValue="10"
             henrichg:min="1"
             henrichg:max="300" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventLocationUpdateInPowerSaveMode"
-            android:title="@string/phone_profiles_pref_applicationEventLocationUpdateInPowerSaveMode"
+            android:title="@string/phone_profiles_pref_applicationEventLocationScanInPowerSaveMode"
             android:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
             android:defaultValue="0"
             android:entries="@array/scanInPowerSaveModeArray"

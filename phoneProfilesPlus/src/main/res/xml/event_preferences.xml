@@ -294,9 +294,9 @@
             android:title="@string/event_preferences_locations_enabled"
             android:defaultValue="false" />
         <Preference
-            android:key="eventLocationLocationSettings"
-            android:title="@string/event_preferences_location_LocationSettings_title"
-            android:summary="@string/event_preferences_location_LocationSettings_summary"
+            android:key="eventLocationScanningSystemSettings"
+            android:title="@string/phone_profiles_pref_eventLocationAppSettings"
+            android:summary="@string/phone_profiles_pref_eventLocationAppSettings_summary"
             android:dependency="eventLocationEnabled"
             android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
@@ -320,28 +320,11 @@
             android:title="@string/event_preferences_wifi_enabled"
             android:defaultValue="false" />
         <Preference
-            android:key="eventWiFiScanningSystemSettings"
-            android:title="@string/phone_profiles_pref_eventWiFiScanningSystemSettings"
-            android:summary="@string/phone_profiles_pref_eventWiFiScanningSystemSettings_summary"
-            android:dependency="eventWiFiEnabled"
-            android:widgetLayout="@layout/start_activity_preference" >
-            <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
-                    android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
-                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="wifiScanningCategory" />
-                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="screen" />
-            </intent>
-        </Preference>
-        <Preference
             android:key="eventEnableWiFiScaningAppSettings"
             android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"
             android:summary="@string/menu_settings"
             android:dependency="eventWiFiEnabled"
             android:widgetLayout="@layout/start_activity_preference" >
-            <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
-                android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
-                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="wifiScanningCategory" />
-                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="checkbox" />
-            </intent>
         </Preference>
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/event_preferences_wifi_connection_type"
@@ -367,28 +350,11 @@
             android:title="@string/event_preferences_bluetooth_enabled"
             android:defaultValue="false" />
         <Preference
-            android:key="eventBluetoothScanningSystemSettings"
-            android:title="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings"
-            android:summary="@string/phone_profiles_pref_eventBluetoothScanningSystemSettings_summary"
-            android:dependency="eventBluetoothEnabled"
-            android:widgetLayout="@layout/start_activity_preference" >
-            <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
-                    android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
-                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="bluetoothScanninCategory" />
-                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="screen" />
-            </intent>
-        </Preference>
-        <Preference
             android:key="eventEnableBluetoothScaningAppSettings"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"
             android:summary="@string/menu_settings"
             android:dependency="eventBluetoothEnabled"
             android:widgetLayout="@layout/start_activity_preference" >
-            <intent android:targetPackage="sk.henrichg.phoneprofilesplus"
-                android:targetClass="sk.henrichg.phoneprofilesplus.PhoneProfilesPreferencesActivity" >
-                <extra android:name="extra_phone_profile_preferences_scroll_to" android:value="bluetoothScanninCategory" />
-                <extra android:name="extra_phone_profile_preferences_scroll_to_type" android:value="checkbox" />
-            </intent>
         </Preference>
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/event_preferences_bluetooth_connection_type"

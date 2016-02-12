@@ -195,17 +195,19 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 
             if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable())) {
                 preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
-                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
-                        return false;
-                    }
-                });
+                if (preference != null) {
+                    //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                            return false;
+                        }
+                    });
+                }
             }
             else {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("wifiScanningCategory");
@@ -216,16 +218,18 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
 
             if (locationMode == Settings.Secure.LOCATION_MODE_OFF) {
                 preference = prefMng.findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
-                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
-                        return false;
-                    }
-                });
+                if (preference != null) {
+                    //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_SCANNING_SYSTEM_SETTINGS);
+                            return false;
+                        }
+                    });
+                }
             }
             else {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
