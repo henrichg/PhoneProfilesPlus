@@ -84,7 +84,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivity(intent);
-                        finish();
                     }
                 });
                 TextView infoText20 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text20);
@@ -96,7 +95,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivity(intent);
-                        finish();
                     }
                 });
                 TextView infoText22 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text22);
@@ -118,7 +116,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     intent.addCategory(Intent.CATEGORY_DEFAULT);
                     startActivity(intent);
-                    finish();
                 }
             });
             TextView infoText21 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text21);
@@ -130,7 +127,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     intent.addCategory(Intent.CATEGORY_DEFAULT);
                     startActivity(intent);
-                    finish();
                 }
             });
         }
@@ -145,7 +141,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                         startActivity(intent);
-                        finish();
                     }
                 });
                 news = true;
@@ -160,7 +155,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                     startActivity(intent);
-                    finish();
                 }
             });
         }
@@ -202,7 +196,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "categorySystem");
                 //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -215,7 +208,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "profileActivationCategory");
                 //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivity(intent);
-                finish();
             }
         });
 
