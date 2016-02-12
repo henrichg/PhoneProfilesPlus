@@ -6,7 +6,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class LocationModeChangedBroadcastReceiver extends WakefulBroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "LocationModeChangedBroadcastReceiver";
+    public static final String BROADCAST_RECEIVER_TYPE = "locationModeChanged";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,6 +26,12 @@ public class LocationModeChangedBroadcastReceiver extends WakefulBroadcastReceiv
             if (GlobalData.geofencesScanner != null) {
                 GlobalData.geofencesScanner.unregisterAllEventGeofences();
                 GlobalData.geofencesScanner.registerAllEventGeofences();
+
+                // start service
+                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                startWakefulService(context, eventsServiceIntent);
+
             }
         }
 

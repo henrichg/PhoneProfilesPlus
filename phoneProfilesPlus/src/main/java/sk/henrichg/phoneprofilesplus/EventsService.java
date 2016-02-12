@@ -426,6 +426,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(GeofenceScannerBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_LOCATION;
+        else
+        if (broadcastReceiverType.equals(LocationModeChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_LOCATION;
 
 
         if (eventType > 0)
@@ -508,6 +511,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(GeofenceScannerBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             GeofenceScannerBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(LocationModeChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            LocationModeChangedBroadcastReceiver.completeWakefulIntent(intent);
 
 
         // this broadcast not starts service with wakefull method
