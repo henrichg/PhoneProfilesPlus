@@ -189,7 +189,6 @@ public class EventPreferencesLocation extends EventPreferences {
     private String getGeofenceName(long geofenceId, Context context) {
         if (dataWrapper == null)
             dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
-
         String name = dataWrapper.getDatabaseHandler().getGeofenceName(geofenceId);
         if (name.isEmpty())
             name = context.getString(R.string.event_preferences_locations_location_not_selected);

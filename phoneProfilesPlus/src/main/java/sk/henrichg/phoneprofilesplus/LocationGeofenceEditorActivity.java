@@ -189,6 +189,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         dataWrapper.getDatabaseHandler().updateGeofence(geofence);
                     } else {
                         dataWrapper.getDatabaseHandler().addGeofence(geofence);
+                        // start location updates
+                        GlobalData.geofencesScanner.connectForResolve();
                     }
 
                     dataWrapper.getDatabaseHandler().checkGeofence(geofence._id);

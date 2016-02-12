@@ -69,21 +69,23 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     public void connect() {
         if (!mResolvingError) {
-            mGoogleApiClient.connect();
+            if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
+                mGoogleApiClient.connect();
         }
     };
 
     public void connectForResolve() {
         if (!mGoogleApiClient.isConnecting() &&
                 !mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.connect();
+            if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
+                mGoogleApiClient.connect();
         }
     }
 
     public void disconnect() {
-        unregisterAllEventGeofences();
         if (mGoogleApiClient.isConnected()) {
             stopLocationUpdates();
+            unregisterAllEventGeofences();
         }
         mGoogleApiClient.disconnect();
     }
@@ -93,8 +95,8 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         //Log.d("GeofencesScanner.onConnected", "xxx");
         if (mGoogleApiClient.isConnected()) {
             startLocationUpdates();
+            registerAllEventGeofences();
         }
-        registerAllEventGeofences();
     }
 
     @Override
@@ -208,7 +210,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     public void registerAllEventGeofences() {
-        if (mGoogleApiClient.isConnected() && Permissions.checkLocation(context)) {
+        if (Permissions.checkLocation(context)) {
             //Log.d("GeofencesScanner.registerAllEventGeofences","xxx");
 
             // clear all geofence transitions
