@@ -138,6 +138,8 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     public void onLocationChanged(Location location) {
         mLastLocation = location;
 
+        GlobalData.logE("GeofenceScanner.onLocationChanged", "location="+location);
+
         List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
 
         boolean change = false;
@@ -159,6 +161,10 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             int savedTransition = dataWrapper.getDatabaseHandler().getGeofenceTransition(geofence._id);
 
             if (savedTransition != transitionType) {
+                GlobalData.logE("GeofenceScanner.onLocationChanged", "geofence._name="+geofence._name);
+                GlobalData.logE("GeofenceScanner.onLocationChanged", "transitionType="+transitionType);
+                GlobalData.logE("GeofenceScanner.onLocationChanged", "savedTransition="+savedTransition);
+
                 dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofence._id, transitionType);
                 change = true;
             }
