@@ -372,7 +372,10 @@ public class VolumeDialogPreference extends
 
     public static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");
-        return Integer.parseInt(splits[1]) == 0;
+        if (splits.length > 1)
+            return Integer.parseInt(splits[1]) == 0;
+        else
+            return false;
     }
 
     @Override

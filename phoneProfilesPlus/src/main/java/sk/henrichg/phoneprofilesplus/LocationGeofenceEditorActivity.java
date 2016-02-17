@@ -131,7 +131,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         if (geofenceId > 0) {
             geofence = dataWrapper.getDatabaseHandler().getGeofence(geofenceId);
-            mLocation = new Location(getString(R.string.app_name));
+            mLocation = new Location("LOC");
             mLocation.setLatitude(geofence._latitude);
             mLocation.setLongitude(geofence._longitude);
         }
@@ -359,7 +359,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             public void onMapClick(LatLng point) {
                 //Log.d("Map", "Map clicked");
                 if (mLocation == null)
-                    mLocation = new Location(mLastLocation);
+                    mLocation = new Location("LOC");
                 mLocation.setLatitude(point.latitude);
                 mLocation.setLongitude(point.longitude);
                 refreshActivity(false);
