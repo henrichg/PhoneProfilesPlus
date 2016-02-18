@@ -48,27 +48,41 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
             vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
         else
             vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
+        int interruptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
 
-        GlobalData.logE("RingerModeChangeReceiver.setRingerMode", "ringerMode="+ringerMode);
-        GlobalData.logE("RingerModeChangeReceiver.setRingerMode", "vibrateType="+vibrateType);
-        GlobalData.logE("RingerModeChangeReceiver.setRingerMode", "vibrateWhenRinging="+vibrateWhenRinging);
+        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "ringerMode="+ringerMode);
+        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "vibrateType="+vibrateType);
+        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "vibrateWhenRinging="+vibrateWhenRinging);
+        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "interruptionFilter="+interruptionFilter);
 
         // convert to profile ringerMode
         int pRingerMode = 0;
-        switch (ringerMode) {
-            case AudioManager.RINGER_MODE_NORMAL:
-                if ((vibrateType == AudioManager.VIBRATE_SETTING_ON) || (vibrateWhenRinging == 1))
-                    pRingerMode = 2;
-                else
-                    pRingerMode = 1;
-                break;
-            case AudioManager.RINGER_MODE_VIBRATE:
-                pRingerMode = 3;
-                break;
-            case AudioManager.RINGER_MODE_SILENT:
-                pRingerMode = 4;
-                break;
+        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+            pRingerMode = 5;
         }
+        else {
+            if (interruptionFilter == ActivateProfileHelper.ZENMODE_PRIORITY) {
+                pRingerMode = 4;
+            }
+            else {
+                switch (ringerMode) {
+                    case AudioManager.RINGER_MODE_NORMAL:
+                        if ((vibrateType == AudioManager.VIBRATE_SETTING_ON) || (vibrateWhenRinging == 1))
+                            pRingerMode = 2;
+                        else
+                            pRingerMode = 1;
+                        break;
+                    case AudioManager.RINGER_MODE_VIBRATE:
+                        pRingerMode = 3;
+                        break;
+                    case AudioManager.RINGER_MODE_SILENT:
+                        pRingerMode = 4;
+                        break;
+                }
+            }
+        }
+
+        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "pRingerMode="+pRingerMode);
 
         return pRingerMode;
     }

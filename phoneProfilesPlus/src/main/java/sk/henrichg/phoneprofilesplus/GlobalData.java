@@ -144,7 +144,7 @@ public class GlobalData extends Application {
                                         //"WifiAPStateChangeBroadcastReceiver.onReceive"
                                         //"GeofenceScanner.onLocationChanged"
                                         "##### RingerModeChangeReceiver|"+
-                                        "RingerModeChangeReceiver.setRingerMode|"+
+                                        "RingerModeChangeReceiver.getRingerMode|"+
                                         "PPNotificationListenerService|";
                                         //"### SettingsContentObserver"
             ;

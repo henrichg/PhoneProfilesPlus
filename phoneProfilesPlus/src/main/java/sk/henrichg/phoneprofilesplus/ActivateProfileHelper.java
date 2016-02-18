@@ -363,8 +363,13 @@ public class ActivateProfileHelper {
 
     }
 
-    public void correctSilentMode(/*Profile profile, */AudioManager audioManager) {
-        if (GlobalData.getRingerMode(context) == 4) {
+    public void correctSilentMode(/*Profile profile, */AudioManager audioManager, int linkUnlink) {
+        int ringerMode;
+        if (linkUnlink == PhoneCallService.LINKMODE_NONE)
+            ringerMode = GlobalData.getRingerMode(context);
+        else
+            ringerMode = RingerModeChangeReceiver.getRingerMode(context, audioManager);
+        if (ringerMode == 4) {
         //if (profile._volumeRingerMode == 4) {
             // last profile ringer mode = Silent
             if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
@@ -385,7 +390,7 @@ public class ActivateProfileHelper {
             RingerModeChangeReceiver.internalChange = true;
             audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, profile.getVolumeSystemValue(), 0);
             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
-            correctSilentMode(/*profile, */audioManager);
+            correctSilentMode(/*profile, */audioManager, linkUnlink);
         }
 
         if (profile.getVolumeRingtoneChange() || profile.getVolumeSystemChange()) {
@@ -409,7 +414,7 @@ public class ActivateProfileHelper {
                         RingerModeChangeReceiver.internalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_RING, profile.getVolumeRingtoneValue(), 0);
                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-                        correctSilentMode(/*profile, */audioManager);
+                        correctSilentMode(/*profile, */audioManager, linkUnlink);
                     }
                 }
             }
@@ -421,7 +426,7 @@ public class ActivateProfileHelper {
                         RingerModeChangeReceiver.internalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, profile.getVolumeNotificationValue(), 0);
                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
-                        correctSilentMode(/*profile, */audioManager);
+                        correctSilentMode(/*profile, */audioManager, linkUnlink);
                     }
                 }
             }
@@ -448,7 +453,7 @@ public class ActivateProfileHelper {
                             RingerModeChangeReceiver.internalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
-                            correctSilentMode(/*profile, */audioManager);
+                            correctSilentMode(/*profile, */audioManager, linkUnlink);
                         }
                     } else if (linkUnlink == PhoneCallService.LINKMODE_LINK) {
                         // for separating ringing and notification
@@ -468,7 +473,7 @@ public class ActivateProfileHelper {
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                         }
-                        correctSilentMode(/*profile, */audioManager);
+                        correctSilentMode(/*profile, */audioManager, linkUnlink);
                     }
                 }
             }
@@ -586,12 +591,12 @@ public class ActivateProfileHelper {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (ringerMode == 4) // 4 = silent ringer mode
                     ringerMode = 1;
-                else
+                /*else
                 if ((ringerMode == 5) && (zenMode == 2))
                     zenMode = 1;
                 else
                 if ((ringerMode == 5) && (zenMode == 5))
-                    zenMode = 4;
+                    zenMode = 4;*/
                 else
                     return;
             } else
