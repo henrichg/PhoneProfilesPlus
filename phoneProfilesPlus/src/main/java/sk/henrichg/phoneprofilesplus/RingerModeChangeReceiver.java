@@ -39,14 +39,19 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     }
 
     @SuppressWarnings("deprecation")
-    public static void setRingerMode(Context context, AudioManager audioManager) {
+    public static int getRingerMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
-        //Log.e("RingerModeChangeReceiver",".setRingerMode  ringerMode="+ringerMode);
 
         int vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
-        //Log.e("RingerModeChangeReceiver",".setRingerMode  vibrateType="+vibrateType);
-        int vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
-        //Log.e("RingerModeChangeReceiver",".setRingerMode  vibrateWhenRinging="+vibrateWhenRinging);
+        int vibrateWhenRinging;
+        if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+            vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
+        else
+            vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
+
+        GlobalData.logE("RingerModeChangeReceiver.setRingerMode", "ringerMode="+ringerMode);
+        GlobalData.logE("RingerModeChangeReceiver.setRingerMode", "vibrateType="+vibrateType);
+        GlobalData.logE("RingerModeChangeReceiver.setRingerMode", "vibrateWhenRinging="+vibrateWhenRinging);
 
         // convert to profile ringerMode
         int pRingerMode = 0;
@@ -64,6 +69,12 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
                 pRingerMode = 4;
                 break;
         }
+
+        return pRingerMode;
+    }
+
+    public static void setRingerMode(Context context, AudioManager audioManager) {
+        int pRingerMode = getRingerMode(context, audioManager);
         if (pRingerMode != 0) {
             //Log.e("RingerModeChangeReceiver",".setRingerMode  new ringerMode="+pRingerMode);
             GlobalData.setRingerMode(context, pRingerMode);

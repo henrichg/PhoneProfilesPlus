@@ -555,18 +555,27 @@ public class ActivateProfileHelper {
     }
 
     @SuppressWarnings("deprecation")
-    public void setRingerMode(Profile profile, AudioManager audioManager, boolean forPriority)
+    public void setRingerMode(Profile profile, AudioManager audioManager, boolean forPriority, int linkUnlink)
     {
         GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "ringerMode=" + audioManager.getRingerMode());
 
-        if (profile._volumeRingerMode != 0) {
-            GlobalData.setRingerMode(context, profile._volumeRingerMode);
-            if (profile._volumeZenMode != 0)
-                GlobalData.setZenMode(context, profile._volumeZenMode);
+        int ringerMode;
+        int zenMode;
+
+        if (linkUnlink == PhoneCallService.LINKMODE_NONE) {
+            if (profile._volumeRingerMode != 0) {
+                GlobalData.setRingerMode(context, profile._volumeRingerMode);
+                if (profile._volumeZenMode != 0)
+                    GlobalData.setZenMode(context, profile._volumeZenMode);
+            }
+            ringerMode = GlobalData.getRingerMode(context);
+            zenMode = GlobalData.getZenMode(context);
+        }
+        else {
+            ringerMode = RingerModeChangeReceiver.getRingerMode(context, audioManager);
+            zenMode = PPNotificationListenerService.getZenMode(context, audioManager);
         }
 
-        int ringerMode = GlobalData.getRingerMode(context);
-        int zenMode = GlobalData.getZenMode(context);
 
         // for Lollipop 4=priority mode, for pre-lillipop 4=silent ringer mode
         // priority mode must by invoked be 2 calls of setRingerMode:

@@ -41,7 +41,7 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =
@@ -142,7 +142,11 @@ public class GlobalData extends Application {
                                         //"[BTScan] DataWrapper"
                                         //"*** ScannerService.onHandleIntent|"+
                                         //"WifiAPStateChangeBroadcastReceiver.onReceive"
-                                        "GeofenceScanner.onLocationChanged"
+                                        //"GeofenceScanner.onLocationChanged"
+                                        "##### RingerModeChangeReceiver|"+
+                                        "RingerModeChangeReceiver.setRingerMode|"+
+                                        "PPNotificationListenerService|";
+                                        //"### SettingsContentObserver"
             ;
 
 

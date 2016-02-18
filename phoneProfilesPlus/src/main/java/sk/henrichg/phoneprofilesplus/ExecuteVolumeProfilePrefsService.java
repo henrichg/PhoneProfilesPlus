@@ -36,7 +36,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
                 // set ringer mode to Ring for proper change ringer mode to Silent
-                aph.setRingerMode(profile, audioManager, true);
+                aph.setRingerMode(profile, audioManager, true, linkUnlink);
 
                 aph.setVolumes(profile, audioManager, linkUnlink);
 
@@ -47,7 +47,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 }
 
                 // set ringer mode after volume because volumes change silent/vibrate
-                aph.setRingerMode(profile, audioManager, false);
+                aph.setRingerMode(profile, audioManager, false, linkUnlink);
 
                 try {
                     Thread.sleep(200);

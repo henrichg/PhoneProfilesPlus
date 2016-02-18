@@ -47,8 +47,8 @@ public class SettingsContentObserver  extends ContentObserver {
     private int volumeChangeDetect(int volumeStream, int previousVolume, AudioManager audioManager) {
 
         int currentVolume = audioManager.getStreamVolume(volumeStream);
-        //Log.e("### SettingsContentObserver", "channel="+volumeStream+" currentVolume="+currentVolume);
-        //Log.e("### SettingsContentObserver", "channel="+volumeStream+" previousVolume="+previousVolume);
+        GlobalData.logE("### SettingsContentObserver", "channel=" + volumeStream + " currentVolume=" + currentVolume);
+        GlobalData.logE("### SettingsContentObserver", "channel=" + volumeStream + " previousVolume=" + previousVolume);
 
         int delta=previousVolume-currentVolume;
 

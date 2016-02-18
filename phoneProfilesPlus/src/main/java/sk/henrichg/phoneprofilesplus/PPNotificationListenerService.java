@@ -122,8 +122,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {
+        GlobalData.logE(TAG, "onInterruptionFilterChanged(" + interruptionFilter + ')');
         if (!RingerModeChangeReceiver.internalChange) {
-            //Log.e(TAG, "onInterruptionFilterChanged(" + interruptionFilter + ')');
 
             final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
             int ringerMode = audioManager.getRingerMode();
@@ -172,7 +172,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     }
 
-    public static void setZenMode(Context context, AudioManager audioManager) {
+    public static int getZenMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
 
         //Log.e(TAG, "setZenMode(" + ringerMode + ')');
@@ -180,6 +180,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         // convert to profile zenMode
         int zenMode = 0;
         int interruptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
+        GlobalData.logE(TAG, "getZenMode(" + interruptionFilter + ')');
         switch (interruptionFilter) {
             case ActivateProfileHelper.ZENMODE_ALL:
                 if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
@@ -200,6 +201,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 zenMode = 6;
                 break;
         }
+        return zenMode;
+    }
+
+    public static void setZenMode(Context context, AudioManager audioManager) {
+        int zenMode = getZenMode(context, audioManager);
         if (zenMode != 0) {
             GlobalData.setRingerMode(context, 5);
             GlobalData.setZenMode(context, zenMode);
