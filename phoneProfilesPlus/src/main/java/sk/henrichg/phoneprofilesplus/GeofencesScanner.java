@@ -32,7 +32,6 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     private Context context;
     DataWrapper dataWrapper;
 
-    private Location mLastLocation;
     protected LocationRequest mLocationRequest;
     public boolean mPowerSaveMode = false;
 
@@ -136,8 +135,6 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
      */
     @Override
     public void onLocationChanged(Location location) {
-        mLastLocation = location;
-
         GlobalData.logE("GeofenceScanner.onLocationChanged", "location="+location);
 
         List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
@@ -150,10 +147,11 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             geofenceLocation.setLatitude(geofence._latitude);
             geofenceLocation.setLongitude(geofence._longitude);
 
-            float distance = mLastLocation.distanceTo(geofenceLocation);
+            float distance = location.distanceTo(geofenceLocation);
+            float radius = location.getAccuracy()+geofence._radius;
 
             int transitionType = 0;
-            if (distance <= geofence._radius)
+            if (distance <= radius)
                 transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
             else
                 transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
