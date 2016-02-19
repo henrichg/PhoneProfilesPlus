@@ -2270,7 +2270,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         KEY_DEVICE_NFC + "," +
                                         KEY_VOLUME_RINGER_MODE + "," +
                                         KEY_DEVICE_WIFI_AP + "," +
-                                        KEY_DEVICE_POWER_SAVE_MODE +
+                                        KEY_DEVICE_POWER_SAVE_MODE + "," +
+                                        KEY_VOLUME_ZEN_MODE +
                             " FROM " + TABLE_PROFILES;
         final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                                         KEY_E_WIFI_ENABLED + "," +
@@ -2379,9 +2380,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
                                     PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
                             if (!notRemove) {
-                                // remove ringer mode "Interruptions"
+                                int zenMode = cursor.getInt(12);
+                                int ringerMode = 0;
+                                switch (zenMode) {
+                                    case 1:
+                                        ringerMode = 1;
+                                        break;
+                                    case 2:
+                                        ringerMode = 4;
+                                        break;
+                                    case 3:
+                                        ringerMode = 4;
+                                        break;
+                                    case 4:
+                                        ringerMode = 2;
+                                        break;
+                                    case 5:
+                                        ringerMode = 3;
+                                        break;
+                                    case 6:
+                                        ringerMode = 4;
+                                        break;
+                                }
                                 values.clear();
-                                values.put(KEY_VOLUME_RINGER_MODE, 0);
+                                values.put(KEY_VOLUME_RINGER_MODE, ringerMode);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                         new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                             }
