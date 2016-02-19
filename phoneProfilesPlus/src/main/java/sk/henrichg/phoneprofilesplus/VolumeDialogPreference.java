@@ -366,6 +366,8 @@ public class VolumeDialogPreference extends
             // set ringer mode after volume because volumes change silent/vibrate
             audioManager.setRingerMode(defaultRingerMode);
 
+            RingerModeChangeReceiver.setAlarmForDisableInternalChange(_context);
+
         //}
 
     }

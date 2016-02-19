@@ -143,10 +143,13 @@ public class GlobalData extends Application {
                                         //"*** ScannerService.onHandleIntent|"+
                                         //"WifiAPStateChangeBroadcastReceiver.onReceive"
                                         //"GeofenceScanner.onLocationChanged"
-                                        "##### RingerModeChangeReceiver|"+
+                                        "RingerModeChangeReceiver.onReceive|"+
                                         "RingerModeChangeReceiver.getRingerMode|"+
-                                        "PPNotificationListenerService|";
+                                        "PPNotificationListenerService|"+
+                                        "ExecuteVolumeProfilePrefsService|"+
+                                        "ActivateProfileHelper.setZenMode|"+
                                         //"### SettingsContentObserver"
+                                        "ActivateProfileHelper.setRingerMode"
             ;
 
 
