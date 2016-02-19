@@ -304,6 +304,7 @@
             android:defaultValue="0"
             android:key="eventLocationGeofenceId"
             android:title="@string/event_preferences_locations_location"
+            henrichg:onlyEdit="0"
             android:dependency="eventLocationEnabled" />
         <CheckBoxPreference
             android:key="eventLocationStartWhenOutside"

@@ -31,6 +31,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     private PreferenceManager prefMng;
     private SharedPreferences preferences;
     private static Activity preferencesActivity = null;
+    private static LocationGeofencePreference changedLocationGeofencePreference;
     private String extraScrollTo;
     //private String extraScrollToType;
 
@@ -46,6 +47,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
     static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
     static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
+    static final String PREF_LOCATION_EDITOR = "applicationEventLocationsEditor";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -249,6 +251,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                     return false;
                 }
             });
+
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
@@ -489,6 +492,10 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             editor.commit();
         }
 
+        final boolean enabled = GlobalData.isLocationEnabled(preferencesActivity.getApplicationContext());
+        Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
+        preference.setEnabled(enabled);
+
     }
 
     @Override
@@ -573,6 +580,22 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             preferencesActivity.finishAffinity();
         }
 
+        if (requestCode == RESULT_LOCATION_SYSTEM_SETTINGS) {
+            final boolean enabled = GlobalData.isLocationEnabled(preferencesActivity.getApplicationContext());
+            Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
+            preference.setEnabled(enabled);
+        }
+
+        if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
+            //Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
+            if (changedLocationGeofencePreference != null) {
+                if(resultCode == Activity.RESULT_OK){
+                    long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
+                    changedLocationGeofencePreference.setGeofenceFromEditor(geofenceId);
+                }
+            }
+        }
+
     }
 
     @Override
@@ -585,6 +608,11 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     static public Activity getPreferencesActivity()
     {
         return preferencesActivity;
+    }
+
+    static public void setChangedLocationGeofencePreference(LocationGeofencePreference changedLocationGeofencePref)
+    {
+        changedLocationGeofencePreference = changedLocationGeofencePref;
     }
 
 }

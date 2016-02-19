@@ -39,6 +39,9 @@
         <attr name="dMax" format="integer" />
         <attr name="dMin" format="integer" />
     </declare-styleable>
+    <declare-styleable name="LocationGeofencePreference">
+        <attr name="onlyEdit" format="integer" />
+    </declare-styleable>
 
     <declare-styleable name="ScrimInsetsView">
         <attr format="reference|color" name="insetForeground" />

@@ -186,6 +186,11 @@
             android:summary="@string/phone_profiles_pref_eventLocationSystemSettings_summary"
             android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
+        <sk.henrichg.phoneprofilesplus.LocationGeofencePreference
+            android:defaultValue="0"
+            android:key="applicationEventLocationsEditor"
+            android:title="@string/phone_profiles_pref_applicationEventLocationsEditor"
+            henrichg:onlyEdit="1" />
         <sk.henrichg.phoneprofilesplus.NumberPickerPreference
             android:key="applicationEventLocationUpdateInterval"
             android:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"

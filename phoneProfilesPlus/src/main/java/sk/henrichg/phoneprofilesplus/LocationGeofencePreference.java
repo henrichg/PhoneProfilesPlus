@@ -25,6 +25,8 @@ public class LocationGeofencePreference extends DialogPreference {
 
     Context context;
 
+    int onlyEdit;
+
     private MaterialDialog mDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
@@ -39,7 +41,13 @@ public class LocationGeofencePreference extends DialogPreference {
 
     public LocationGeofencePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        
+        TypedArray locationGeofenceType = context.obtainStyledAttributes(attrs,
+                R.styleable.LocationGeofencePreference, 0, 0);
+
+        onlyEdit = locationGeofenceType.getInt(R.styleable.LocationGeofencePreference_onlyEdit, 0);
+
+        locationGeofenceType.recycle();
+
         this.context = context;
 
         dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
@@ -48,9 +56,11 @@ public class LocationGeofencePreference extends DialogPreference {
     @Override
     protected void showDialog(Bundle state) {
 
-        long value = 0;
-        value = getPersistedLong(value);
-        dataWrapper.getDatabaseHandler().checkGeofence(value);
+        if (onlyEdit == 0) {
+            long value = 0;
+            value = getPersistedLong(value);
+            dataWrapper.getDatabaseHandler().checkGeofence(value);
+        }
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
@@ -171,37 +181,40 @@ public class LocationGeofencePreference extends DialogPreference {
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        if(restoreValue)
-        {
-            long value = 0;
-            value = getPersistedLong(value);
-            dataWrapper.getDatabaseHandler().checkGeofence(value);
+        if (onlyEdit == 0) {
+            if (restoreValue) {
+                long value = 0;
+                value = getPersistedLong(value);
+                dataWrapper.getDatabaseHandler().checkGeofence(value);
+            } else {
+                long value = (long) defaultValue;
+                persistLong(value);
+                dataWrapper.getDatabaseHandler().checkGeofence(value);
+            }
         }
-        else
-        {
-            long value = (long)defaultValue;
-            persistLong(value);
-            dataWrapper.getDatabaseHandler().checkGeofence(value);
-        }
-        
     }    
 
     private void persistGeofence(boolean reset) {
-        if (shouldPersist()) {
-            long value = dataWrapper.getDatabaseHandler().getCheckedGeofence();
-            if (callChangeListener(value)) {
-                if (reset)
-                    persistLong(0);
-                persistLong(value);
+        if (onlyEdit == 0) {
+            if (shouldPersist()) {
+                long value = dataWrapper.getDatabaseHandler().getCheckedGeofence();
+                if (callChangeListener(value)) {
+                    if (reset)
+                        persistLong(0);
+                    persistLong(value);
+                }
             }
         }
     }
 
     public void updateGUIWithGeofence(long geofenceId)
     {
-        String name = dataWrapper.getDatabaseHandler().getGeofenceName(geofenceId);
-        if (name.isEmpty())
-            name = "["+context.getString(R.string.event_preferences_locations_location_not_selected)+"]";
+        String name = "";
+        if (onlyEdit == 0) {
+            name = dataWrapper.getDatabaseHandler().getGeofenceName(geofenceId);
+            if (name.isEmpty())
+                name = "[" + context.getString(R.string.event_preferences_locations_location_not_selected) + "]";
+        }
 
         this.geofenceName.setText(name);
     }
@@ -221,8 +234,14 @@ public class LocationGeofencePreference extends DialogPreference {
         intent.putExtra(EXTRA_GEOFENCE_ID, geofenceId);
 
         // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
-        EventPreferencesFragment.setChangedLocationGeofencePreference(this);
-        EventPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
+        if (onlyEdit == 0) {
+            EventPreferencesFragment.setChangedLocationGeofencePreference(this);
+            EventPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
+        }
+        else {
+            PhoneProfilesPreferencesFragment.setChangedLocationGeofencePreference(this);
+            PhoneProfilesPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
+        }
     }
 
     public void setGeofenceFromEditor(long geofenceId) {
