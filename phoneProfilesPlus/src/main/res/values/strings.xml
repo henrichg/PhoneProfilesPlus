@@ -709,4 +709,5 @@
     <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Location scan in Power Save mode</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings">Location system settings</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Please enable Location in System Settings. Without this, location scanning will not working.</string>
+    <string name="array_pref_ringerModeArray_silentM">Only alarms</string>
 </resources>
