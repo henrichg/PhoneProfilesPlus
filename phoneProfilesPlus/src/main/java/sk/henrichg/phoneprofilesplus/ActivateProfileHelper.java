@@ -608,12 +608,12 @@ public class ActivateProfileHelper {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (ringerMode == 4) // 4 = silent ringer mode
                     ringerMode = 1;
-                /*else
-                if ((ringerMode == 5) && (zenMode == 2))
+                else
+                if ((ringerMode == 5) && (zenMode == 2) && (linkUnlink == PhoneCallService.LINKMODE_NONE))
                     zenMode = 1;
                 else
-                if ((ringerMode == 5) && (zenMode == 5))
-                    zenMode = 4;*/
+                if ((ringerMode == 5) && (zenMode == 5) && (linkUnlink == PhoneCallService.LINKMODE_NONE))
+                    zenMode = 4;
                 else
                     return;
             } else

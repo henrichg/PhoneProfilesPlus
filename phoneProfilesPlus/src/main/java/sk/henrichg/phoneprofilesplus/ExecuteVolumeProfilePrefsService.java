@@ -57,13 +57,11 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 // set ringer mode to Ring for proper change ringer mode to Silent
                 aph.setRingerMode(profile, audioManager, true, linkUnlink);
 
-                /*
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
                     //System.out.println(e);
                 }
-                */
 
                 GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode="+audioManager.getMode());
 
