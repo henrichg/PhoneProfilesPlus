@@ -166,24 +166,16 @@ public class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setSystemEventForStart(Context context)
     {
-        //Log.d("EventPreferencesLocation.setSystemRunningEvent", "xxx");
-        if ((GlobalData.geofencesScanner != null) && GeofencesScanner.withGeofencingAPI) {
-            GlobalData.geofencesScanner.registerGeofenceForEvent(_event);
-        }
     }
 
     @Override
     public void setSystemEventForPause(Context context)
     {
-        //Log.d("EventPreferencesLocation.setSystemPauseEvent", "xxx");
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
-        if ((GlobalData.geofencesScanner != null) && GeofencesScanner.withGeofencingAPI) {
-            GlobalData.geofencesScanner.unregisterGeofenceForEvent(_event);
-        }
     }
 
     private String getGeofenceName(long geofenceId, Context context) {

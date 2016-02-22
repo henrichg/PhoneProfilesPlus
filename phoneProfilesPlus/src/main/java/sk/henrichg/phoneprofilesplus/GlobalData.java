@@ -41,7 +41,7 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =
@@ -143,13 +143,14 @@ public class GlobalData extends Application {
                                         //"*** ScannerService.onHandleIntent|"+
                                         //"WifiAPStateChangeBroadcastReceiver.onReceive"
                                         //"GeofenceScanner.onLocationChanged"
-                                        "RingerModeChangeReceiver.onReceive|"+
-                                        "RingerModeChangeReceiver.getRingerMode|"+
-                                        "PPNotificationListenerService|"+
-                                        "ExecuteVolumeProfilePrefsService|"+
-                                        "ActivateProfileHelper.setZenMode|"+
+                                        //"RingerModeChangeReceiver.onReceive|"+
+                                        //"RingerModeChangeReceiver.getRingerMode|"+
+                                        //"PPNotificationListenerService|"+
+                                        //"ExecuteVolumeProfilePrefsService|"+
+                                        //"ActivateProfileHelper.setZenMode|"+
                                         //"### SettingsContentObserver"
-                                        "ActivateProfileHelper.setRingerMode"
+                                        //"ActivateProfileHelper.setRingerMode"
+                                        "GeofenceScannerAlarmBroadcastReceiver"
             ;
 
 
@@ -352,6 +353,7 @@ public class GlobalData extends Application {
     private static final String PREF_FORCE_ONE_BLUETOOTH_SCAN = "forceOneBluetoothScanInt";
     private static final String PREF_FORCE_ONE_LE_BLUETOOTH_SCAN = "forceOneLEBluetoothScanInt";
     private static final String PREF_FORCE_ONE_WIFI_SCAN = "forceOneWifiScanInt";
+    private static final String PREF_FORCE_ONE_GEOFENCE_SCAN = "forceOneGeofenceScanInt";
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
     private static final String PREF_RINGER_VOLUME = "ringer_volume";
     private static final String PREF_NOTIFICATION_VOLUME = "notification_volume";
@@ -1046,6 +1048,20 @@ public class GlobalData extends Application {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
         editor.putInt(PREF_FORCE_ONE_LE_BLUETOOTH_SCAN, forceScan);
+        editor.commit();
+    }
+
+    static public int getForceOneGeofenceScan(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_FORCE_ONE_GEOFENCE_SCAN, FORCE_ONE_SCAN_DISABLED);
+    }
+
+    static public void setForceOneGeofenceScan(Context context, int forceScan)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putInt(PREF_FORCE_ONE_GEOFENCE_SCAN, forceScan);
         editor.commit();
     }
 

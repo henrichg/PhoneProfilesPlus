@@ -669,7 +669,11 @@
                 <action android:name="android.location.PROVIDERS_CHANGED"/>
             </intent-filter>
         </receiver>
-
+        <receiver
+            android:name=".GeofenceScannerAlarmBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
     </application>
 
 </manifest>

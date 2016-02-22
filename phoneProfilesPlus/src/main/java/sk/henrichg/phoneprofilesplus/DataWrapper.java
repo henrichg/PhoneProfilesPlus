@@ -799,6 +799,7 @@ public class DataWrapper {
 
         WifiScanAlarmBroadcastReceiver.setAlarm(context, false, true);
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
+        GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, true);
         SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
 
         if (!getIsManualProfileActivation()) {
@@ -2215,11 +2216,6 @@ public class DataWrapper {
             }
             getDatabaseHandler().unblockAllEvents();
             GlobalData.setForceRunEventRunning(context, false);
-
-            if ((GlobalData.geofencesScanner != null) && GeofencesScanner.withGeofencingAPI) {
-                GlobalData.geofencesScanner.unregisterAllEventGeofences();
-                GlobalData.geofencesScanner.registerAllEventGeofences();
-            }
         }
 
         if (!keepActivatedProfile)

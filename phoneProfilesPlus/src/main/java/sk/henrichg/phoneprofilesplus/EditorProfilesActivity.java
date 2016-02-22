@@ -594,7 +594,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // stop bluetooth scanner
                 BluetoothScanAlarmBroadcastReceiver.initialize(getApplicationContext());
                 BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
-
+                // stop geofences scanner
+                GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
                 GlobalData.stopGeofenceScanner();
             }
             else
@@ -663,6 +664,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             SearchCalendarEventsBroadcastReceiver.removeAlarm(getApplicationContext());
             WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
+            BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
+            GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
+            GlobalData.stopGeofenceScanner();
 
             // remove alarm for profile duration
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(getApplicationContext());
@@ -673,8 +677,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
             ActivateProfileHelper.removeBrightnessView(getApplicationContext());
-
-            GlobalData.stopGeofenceScanner();
 
             getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 

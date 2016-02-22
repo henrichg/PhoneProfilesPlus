@@ -195,7 +195,7 @@
             android:key="applicationEventLocationUpdateInterval"
             android:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
-            android:defaultValue="10"
+            android:defaultValue="1"
             henrichg:min="1"
             henrichg:max="300" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference

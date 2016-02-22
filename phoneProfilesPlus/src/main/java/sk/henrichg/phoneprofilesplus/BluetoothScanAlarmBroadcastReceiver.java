@@ -414,7 +414,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     ScanSettings.Builder builder = new ScanSettings.Builder();
 
-                    int forceScan = GlobalData.getForceOneWifiScan(context);
+                    int forceScan = GlobalData.getForceOneBluetoothScan(context);
                     if ((forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED) || (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
                         builder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
                     else

@@ -705,7 +705,7 @@
     <string name="phone_profiles_pref_category_location">Location</string>
     <string name="phone_profiles_pref_eventLocationAppSettings">Location settings</string>
     <string name="phone_profiles_pref_eventLocationAppSettings_summary">Setup location parameters in application settings.</string>
-    <string name="phone_profiles_pref_applicationEventLocationScanInterval">Location scan interval (sec)</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanInterval">Location scan interval (min)</string>
     <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Location scan in Power Save mode</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings">Location system settings</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Please enable Location in System Settings. Without this, location scanning will not working.</string>
