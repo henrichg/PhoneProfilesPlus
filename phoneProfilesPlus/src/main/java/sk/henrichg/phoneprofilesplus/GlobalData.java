@@ -1838,6 +1838,7 @@ public class GlobalData extends Application {
     }
 
     public static void startGeofenceScanner(Context context) {
+
         if (GlobalData.geofencesScanner != null) {
             GlobalData.geofencesScanner.disconnect();
             GlobalData.geofencesScanner = null;
@@ -1854,6 +1855,10 @@ public class GlobalData extends Application {
             GlobalData.geofencesScanner.disconnect();
             GlobalData.geofencesScanner = null;
         }
+    }
+
+    public static boolean isGeofenceScannerStarted() {
+        return (GlobalData.geofencesScanner != null);
     }
 
     //--------------------------------------------------------------------------

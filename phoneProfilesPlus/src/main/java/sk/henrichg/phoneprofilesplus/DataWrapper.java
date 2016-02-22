@@ -802,6 +802,7 @@ public class DataWrapper {
         SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
 
         if (!getIsManualProfileActivation()) {
+            // GeofenceScanner will be started from EventsService
             Intent intent = new Intent();
             intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
             intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false);
@@ -810,6 +811,11 @@ public class DataWrapper {
         else
         {
             GlobalData.setApplicationStarted(context, true);
+
+            // first start of GeofenceScanner
+            if (!GlobalData.isGeofenceScannerStarted())
+                GlobalData.startGeofenceScanner(context);
+
             activateProfileOnBoot();
         }
     }

@@ -37,6 +37,9 @@ public class EventsService extends IntentService
 
         GlobalData.setApplicationStarted(context, true);
 
+        // first start of GeofenceScanner
+        if (!GlobalData.isGeofenceScannerStarted())
+            GlobalData.startGeofenceScanner(context);
 
         if (!GlobalData.getGlobalEventsRuning(context))
             // events are globally stopped
