@@ -25,7 +25,7 @@ public class LocationGeofencePreference extends DialogPreference {
 
     Context context;
 
-    int onlyEdit;
+    public int onlyEdit;
 
     private MaterialDialog mDialog;
     //private LinearLayout progressLinearLayout;
@@ -66,24 +66,36 @@ public class LocationGeofencePreference extends DialogPreference {
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
                 //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
                 .autoDismiss(false)
-                .content(getDialogMessage())
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
-                        persistGeofence(false);
-                        mDialog.dismiss();
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
-                        mDialog.dismiss();
-                    }
-                });
+                .content(getDialogMessage());
 
+        if (onlyEdit == 0) {
+            mBuilder.positiveText(getPositiveButtonText())
+                    .negativeText(getNegativeButtonText());
+            mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    persistGeofence(false);
+                    mDialog.dismiss();
+                }
+            });
+            mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    mDialog.dismiss();
+                }
+            });
+
+        }
+        else {
+            mBuilder.positiveText(getPositiveButtonText());
+            mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    mDialog.dismiss();
+                }
+            });
+        }
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_location_pref_dialog, null);
         onBindDialogView(layout);
 
@@ -116,13 +128,17 @@ public class LocationGeofencePreference extends DialogPreference {
                 */
                 //listAdapter.selectedRB = viewHolder.radioButton;
 
-                long gid = (long) viewHolder.radioButton.getTag();
-                dataWrapper.getDatabaseHandler().checkGeofence(gid);
+                long gid = (long) viewHolder.geofenceId;
+                if (onlyEdit == 0) {
+                    dataWrapper.getDatabaseHandler().checkGeofence(gid);
+                    //viewHolder.radioButton.setChecked(true);
+                    updateGUIWithGeofence(gid);
+                    refreshListView();
+                }
+                else {
+                    startEditor(gid);
+                }
 
-                //viewHolder.radioButton.setChecked(true);
-                updateGUIWithGeofence(gid);
-
-                refreshListView();
             }
 
         });

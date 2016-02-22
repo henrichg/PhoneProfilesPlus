@@ -41,11 +41,19 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.location_preference_list_item, parent, false);
+        View view;
+
+        if (preference.onlyEdit == 0)
+            view = inflater.inflate(R.layout.location_preference_list_item, parent, false);
+        else
+            view = inflater.inflate(R.layout.location_preference_list_item_no_rb, parent, false);
 
         ViewHolder rowData  = new ViewHolder();
 
-        rowData.radioButton = (RadioButton) view.findViewById(R.id.location_pref_dlg_item_radiobtn);
+        if (preference.onlyEdit == 0)
+            rowData.radioButton = (RadioButton) view.findViewById(R.id.location_pref_dlg_item_radiobtn);
+        else
+            rowData.radioButton = null;
         rowData.name  = (TextView) view.findViewById(R.id.location_pref_dlg_item_name);
         rowData.itemEditMenu = (ImageView) view.findViewById(R.id.location_pref_dlg_item_edit_menu);
 
@@ -66,8 +74,13 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     private void getView(final ViewHolder rowData, Context context, Cursor cursor, boolean newView) {
         boolean checked = cursor.getInt(KEY_G_CHECKED) == 1;
         long id = cursor.getLong(KEY_G_ID);
-        rowData.radioButton.setChecked(checked);
-        rowData.radioButton.setTag(id);
+
+        rowData.geofenceId = id;
+
+        if (preference.onlyEdit == 0) {
+            rowData.radioButton.setChecked(checked);
+            rowData.radioButton.setTag(id);
+        }
         if (preference.dataWrapper.getDatabaseHandler().isGeofenceUsed(id, false))
             rowData.name.setTypeface(null, Typeface.BOLD);
         else
@@ -78,9 +91,10 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         //    Log.d("LocationGeofencesPreferenceAdapter.getView", "checked id=" + id);
         //}
 
-        rowData.radioButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                RadioButton rb = (RadioButton) v;
+        if (preference.onlyEdit == 0) {
+            rowData.radioButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    RadioButton rb = (RadioButton) v;
 
                 /*
                 if (selectedRB != null) {
@@ -89,15 +103,16 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
                 selectedRB = rb;
                 */
 
-                long id = (long) rb.getTag();
-                preference.dataWrapper.getDatabaseHandler().checkGeofence(id);
+                    long id = (long) rb.getTag();
+                    preference.dataWrapper.getDatabaseHandler().checkGeofence(id);
 
-                //rowData.radioButton.setChecked(true);
-                preference.updateGUIWithGeofence(id);
+                    //rowData.radioButton.setChecked(true);
+                    preference.updateGUIWithGeofence(id);
 
-                preference.refreshListView();
-            }
-        });
+                    preference.refreshListView();
+                }
+            });
+        }
 
         rowData.itemEditMenu.setTag(id);
         final ImageView itemEditMenu = rowData.itemEditMenu;
@@ -114,6 +129,7 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         RadioButton radioButton;
         TextView name;
         ImageView itemEditMenu;
+        long geofenceId;
     }
 
     public void reload(DataWrapper dataWrapper) {
