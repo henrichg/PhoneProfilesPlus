@@ -22,7 +22,9 @@
     <color name="altype_eventEnd">#FFFF0000</color>
     <color name="altype_other">#FFC0C000</color>
 
-    <color name="map_marker_stroke">#FF33b5e5</color>
-    <color name="map_marker_fill">#7733b5e5</color>
+    <color name="map_edited_location_marker_stroke">#FFDC8160</color>
+    <color name="map_edited_location_marker_fill">#77DC8160</color>
+    <color name="map_last_location_marker_stroke">#FF84d2ef</color>
+    <color name="map_last_location_marker_fill">#7784d2ef</color>
 
 </resources>

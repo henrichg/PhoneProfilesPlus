@@ -49,6 +49,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private GoogleMap mMap;
     private Marker editedMarker;
     private Circle editedRadius;
+    private Circle lastLocationRadius;
 
     // Request code to use when launching the resolution activity
     private static final int REQUEST_RESOLVE_ERROR = 1001;
@@ -368,35 +369,51 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     private void updateEditedMarker(boolean setMapCamera) {
-        if ((mMap != null) && (mLocation != null)) {
+        if (mMap != null) {
 
-            LatLng editedGeofence = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-
-            if (editedMarker == null) {
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(editedGeofence);
-                editedMarker = mMap.addMarker(markerOptions);
+            if (mLastLocation != null) {
+                LatLng lastLocationGeofence = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                if (lastLocationRadius == null) {
+                    lastLocationRadius = mMap.addCircle(new CircleOptions()
+                            .center(lastLocationGeofence)
+                            .radius(mLastLocation.getAccuracy())
+                            .strokeColor(ContextCompat.getColor(this, R.color.map_last_location_marker_stroke))
+                            .fillColor(ContextCompat.getColor(this, R.color.map_last_location_marker_fill))
+                            .strokeWidth(5)
+                            .zIndex(1));
+                } else {
+                    lastLocationRadius.setRadius(mLastLocation.getAccuracy());
+                    lastLocationRadius.setCenter(lastLocationGeofence);
+                }
             }
-            else
-                editedMarker.setPosition(editedGeofence);
-            editedMarker.setTitle(geofenceNameEditText.getText().toString());
 
-            if (editedRadius == null) {
-                editedRadius = mMap.addCircle(new CircleOptions()
-                        .center(editedGeofence)
-                        .radius(geofence._radius)
-                        .strokeColor(ContextCompat.getColor(this, R.color.map_marker_stroke))
-                        .fillColor(ContextCompat.getColor(this, R.color.map_marker_fill))
-                        .strokeWidth(5));
-            }
-            else {
-                editedRadius.setRadius(geofence._radius);
-                editedRadius.setCenter(editedGeofence);
-            }
-            radiusLabel.setText(String.valueOf(Math.round(geofence._radius)));
+            if (mLocation != null) {
+                LatLng editedGeofence = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+                if (editedMarker == null) {
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(editedGeofence);
+                    editedMarker = mMap.addMarker(markerOptions);
+                } else
+                    editedMarker.setPosition(editedGeofence);
+                editedMarker.setTitle(geofenceNameEditText.getText().toString());
 
-            if (setMapCamera)
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
+                if (editedRadius == null) {
+                    editedRadius = mMap.addCircle(new CircleOptions()
+                            .center(editedGeofence)
+                            .radius(geofence._radius)
+                            .strokeColor(ContextCompat.getColor(this, R.color.map_edited_location_marker_stroke))
+                            .fillColor(ContextCompat.getColor(this, R.color.map_edited_location_marker_fill))
+                            .strokeWidth(5)
+                            .zIndex(2));
+                } else {
+                    editedRadius.setRadius(geofence._radius);
+                    editedRadius.setCenter(editedGeofence);
+                }
+                radiusLabel.setText(String.valueOf(Math.round(geofence._radius)));
+
+                if (setMapCamera)
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
+            }
         }
     }
 
