@@ -595,16 +595,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 BluetoothScanAlarmBroadcastReceiver.initialize(getApplicationContext());
                 BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
 
-                if (GlobalData.geofencesScanner != null) {
-                    GlobalData.geofencesScanner.disconnect();
-                    GlobalData.geofencesScanner = null;
-                }
+                GlobalData.stopGeofenceScanner();
             }
             else
             {
                 dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
 
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
+
+                GlobalData.startGeofenceScanner(getApplicationContext());
 
                 // setup for next start
                 dataWrapper.firstStartEvents(false);
@@ -675,10 +674,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
             ActivateProfileHelper.removeBrightnessView(getApplicationContext());
 
-            if (GlobalData.geofencesScanner != null) {
-                GlobalData.geofencesScanner.disconnect();
-                GlobalData.geofencesScanner = null;
-            }
+            GlobalData.stopGeofenceScanner();
 
             getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 

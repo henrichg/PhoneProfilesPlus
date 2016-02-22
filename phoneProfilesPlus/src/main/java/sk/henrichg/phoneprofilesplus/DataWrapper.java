@@ -801,13 +801,6 @@ public class DataWrapper {
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
         SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
 
-        if (GlobalData.geofencesScanner != null) {
-            GlobalData.geofencesScanner.disconnect();
-            GlobalData.geofencesScanner = null;
-        }
-        GlobalData.geofencesScanner = new GeofencesScanner(context);
-        GlobalData.geofencesScanner.connect();
-
         if (!getIsManualProfileActivation()) {
             Intent intent = new Intent();
             intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);

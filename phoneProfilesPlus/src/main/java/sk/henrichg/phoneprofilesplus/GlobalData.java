@@ -1834,6 +1834,25 @@ public class GlobalData extends Application {
         }
     }
 
+    public static void startGeofenceScanner(Context context) {
+        if (GlobalData.geofencesScanner != null) {
+            GlobalData.geofencesScanner.disconnect();
+            GlobalData.geofencesScanner = null;
+        }
+
+        if (GlobalData.getApplicationStarted(context) && GlobalData.getGlobalEventsRuning(context)) {
+            GlobalData.geofencesScanner = new GeofencesScanner(context);
+            GlobalData.geofencesScanner.connect();
+        }
+    }
+
+    public static void stopGeofenceScanner() {
+        if (GlobalData.geofencesScanner != null) {
+            GlobalData.geofencesScanner.disconnect();
+            GlobalData.geofencesScanner = null;
+        }
+    }
+
     //--------------------------------------------------------------------------
 
     // others ------------------------------------------------------------------

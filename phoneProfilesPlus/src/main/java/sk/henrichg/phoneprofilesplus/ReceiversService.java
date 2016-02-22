@@ -93,6 +93,8 @@ public class ReceiversService extends Service {
             getContentResolver().unregisterContentObserver(settingsContentObserver);
         settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
         getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
+
+        GlobalData.startGeofenceScanner(getApplicationContext());
     }
 
     @Override
