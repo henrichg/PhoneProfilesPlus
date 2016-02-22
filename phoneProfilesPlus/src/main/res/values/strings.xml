@@ -711,4 +711,5 @@
     <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Please enable Location in System Settings. Without this, location scanning will not working.</string>
     <string name="array_pref_ringerModeArray_silentM">Only alarms</string>
     <string name="phone_profiles_pref_applicationEventLocationsEditor">Locations editor</string>
+    <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Use GPS when not in Power Save mode</string>
 </resources>

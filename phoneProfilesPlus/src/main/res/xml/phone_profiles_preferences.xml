@@ -206,6 +206,10 @@
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationEventLocationUseGPS"
+            android:title="@string/phone_profiles_pref_applicationEventLocationsUseGPS"
+            android:defaultValue="false" />
     </PreferenceScreen>
 
     <PreferenceScreen

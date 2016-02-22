@@ -28,7 +28,7 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
             boolean powerSaveMode = powerManager.isPowerSaveMode();
 
             if (GlobalData.geofencesScanner != null)
-                GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode);
+                GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode, false);
 
             //if (!powerSaveMode)
             //{

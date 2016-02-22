@@ -61,7 +61,7 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                             powerSaveMode = true;
 
                         if (GlobalData.geofencesScanner != null)
-                            GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode);
+                            GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode, false);
                     }
 
 
