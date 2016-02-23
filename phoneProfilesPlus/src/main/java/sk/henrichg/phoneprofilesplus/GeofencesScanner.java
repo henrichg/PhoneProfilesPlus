@@ -135,7 +135,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
         List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
 
-        boolean change = false;
+        //boolean change = false;
 
         for (Geofence geofence : geofences) {
 
@@ -160,15 +160,17 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 GlobalData.logE("GeofenceScanner.onLocationChanged", "savedTransition="+savedTransition);
 
                 dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofence._id, transitionType);
-                change = true;
+                //change = true;
             }
         }
 
+        /* moved to GeofenceScannerAlarmBroadcastReceiver
         if (change) {
             // send broadcast for calling EventsService
             Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);
             context.sendBroadcast(broadcastIntent);
         }
+        */
 
     }
 

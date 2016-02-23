@@ -42,8 +42,13 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (GlobalData.getGlobalEventsRuning(context)) {
-            if (GlobalData.geofencesScanner.mUpdatesStarted)
+            if (GlobalData.geofencesScanner.mUpdatesStarted) {
                 GlobalData.geofencesScanner.stopLocationUpdates();
+
+                // send broadcast for calling EventsService
+                Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);
+                context.sendBroadcast(broadcastIntent);
+            }
             else
                 GlobalData.geofencesScanner.startLocationUpdates();
         }
@@ -107,7 +112,8 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
                 if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
                     if (shortInterval)
-                        calendar.add(Calendar.SECOND, 10);
+                        calendar.add(Calendar.SECOND, 2);
+                        //calendar.add(Calendar.SECOND, 10);
                     else
                         //calendar.add(Calendar.MINUTE, interval);
                         calendar.add(Calendar.SECOND, interval);
