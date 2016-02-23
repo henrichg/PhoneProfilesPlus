@@ -714,4 +714,6 @@
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Use GPS when not in Power Save mode</string>
     <string name="menu_activity_log_pause">Pause logging</string>
     <string name="menu_activity_log_play">Start logging</string>
+    <string name="altype_pausedLogging">Logging paused</string>
+    <string name="altype_startedLogging">Logging started</string>
 </resources>

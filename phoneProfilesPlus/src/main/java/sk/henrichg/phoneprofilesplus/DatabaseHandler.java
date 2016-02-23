@@ -80,6 +80,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int ALTYPE_APPLICATIONSTART = 9;
     public static final int ALTYPE_APPLICATIONEXIT = 10;
     public static final int ALTYPE_DATAIMPORT = 11;
+    public static final int ALTYPE_PAUSEDLOGGING = 12;
+    public static final int ALTYPE_STARTEDLOGGING = 13;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";

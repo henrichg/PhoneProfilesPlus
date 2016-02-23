@@ -122,7 +122,14 @@ public class ActivityLogActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_activity_log_play_pause:
                 boolean enabled = GlobalData.getActivityLogEnabled(getApplicationContext());
+                if (enabled)
+                    dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PAUSEDLOGGING, null, null, null, 0);
                 GlobalData.setActivityLogEnabled(getApplicationContext(), !enabled);
+                if (!enabled)
+                    dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_STARTEDLOGGING, null, null, null, 0);
+                activityLogAdapter.reload(dataWrapper);
+                //listView.smoothScrollToPosition(0);
+                listView.setSelection(0);
                 invalidateOptionsMenu();
                 return true;
             default:

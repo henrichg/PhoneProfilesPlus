@@ -57,6 +57,8 @@ public class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(DatabaseHandler.ALTYPE_APPLICATIONSTART, R.string.altype_applicationStart);
         activityTypeStrings.put(DatabaseHandler.ALTYPE_APPLICATIONEXIT, R.string.altype_applicationExit);
         activityTypeStrings.put(DatabaseHandler.ALTYPE_DATAIMPORT, R.string.altype_dataImport);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_PAUSEDLOGGING, R.string.altype_pausedLogging);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_STARTEDLOGGING, R.string.altype_startedLogging);
 
         activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEACTIVATION, R.color.altype_profile);
         activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, R.color.altype_profile);
@@ -76,6 +78,8 @@ public class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONSTART, R.color.altype_other);
         activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONEXIT, R.color.altype_other);
         activityTypeColors.put(DatabaseHandler.ALTYPE_DATAIMPORT, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_PAUSEDLOGGING, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_STARTEDLOGGING, R.color.altype_other);
 
     }
 
