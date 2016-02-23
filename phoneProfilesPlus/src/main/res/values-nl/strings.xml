@@ -112,6 +112,7 @@
   <string name="phone_profiles_pref_applicationLanguage_nl">Nederlands</string>
   <string name="phone_profiles_pref_applicationLanguage_sv_SE">Svenska</string>
   <string name="phone_profiles_pref_applicationLanguage_hu">Magyar</string>
+  <string name="phone_profiles_pref_applicationLanguage_zh_TW">Traditional (Chinese)</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-snelkoppeling</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Start bij het opstarten van de telefoon</string>
   <string name="array_pref_value_system">system</string>
@@ -129,6 +130,7 @@
   <string name="array_pref_value_nl">nl</string>
   <string name="array_pref_value_sv_SE">sv-SE</string>
   <string name="array_pref_value_hu">hu</string>
+  <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Niet toegestaan</string>
   <string name="menu_export">App. gegevens exporteren</string>
   <string name="menu_import">App. gegevens importeren</string>
@@ -700,4 +702,18 @@ Toch activeren?</string>
   <string name="menu_activity_log_clear">Log leegmaken</string>
   <string name="activity_log_clear_alert_title">Leegmaken activiteitenlogboek</string>
   <string name="activity_log_clear_alert_message">Weet je het zeker?</string>
+  <string name="phone_profiles_pref_category_location">Locatie</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings">Locatie instellingen</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings_summary">Stel locatie parameters in bij applicatie instellingen.</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInterval">Locatie scan interval (min)</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Locatie scan in Energiebesparende modus</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings">Locatie systeem instellingen</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Activeer locatie in systeem instellingen. Zonder kan locatie scanning niet werken.</string>
+  <string name="array_pref_ringerModeArray_silentM">Alleen alarmen</string>
+  <string name="phone_profiles_pref_applicationEventLocationsEditor">Locatie editor</string>
+  <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Gebruik GPS wanneer niet in Energiebesparende modus</string>
+  <string name="menu_activity_log_pause">Pause logging</string>
+  <string name="menu_activity_log_play">Start logging</string>
+  <string name="altype_pausedLogging">Logging paused</string>
+  <string name="altype_startedLogging">Logging started</string>
 </resources>

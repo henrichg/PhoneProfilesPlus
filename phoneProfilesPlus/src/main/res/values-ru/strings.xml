@@ -112,6 +112,7 @@
   <string name="phone_profiles_pref_applicationLanguage_nl">Nederlands</string>
   <string name="phone_profiles_pref_applicationLanguage_sv_SE">Svenska</string>
   <string name="phone_profiles_pref_applicationLanguage_hu">Magyar</string>
+  <string name="phone_profiles_pref_applicationLanguage_zh_TW">中文 (繁體)</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-ярлык</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Запускать при загрузке телефона</string>
   <string name="array_pref_value_system">system</string>
@@ -129,6 +130,7 @@
   <string name="array_pref_value_nl">nl</string>
   <string name="array_pref_value_sv_SE">sv-SE</string>
   <string name="array_pref_value_hu">hu</string>
+  <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Не разрешено</string>
   <string name="menu_export">Экспорт данных</string>
   <string name="menu_import">Импорт данных</string>
@@ -699,4 +701,18 @@
   <string name="menu_activity_log_clear">Очистить журнал</string>
   <string name="activity_log_clear_alert_title">Очистить текущий журнал</string>
   <string name="activity_log_clear_alert_message">Вы уверены?</string>
+  <string name="phone_profiles_pref_category_location">Местоположение</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings">Настройки местоположения</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings_summary">Установить параметры местоположения в настройках приложения.</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInterval">Интервал сканирования местоположения (мин)</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Сканирование местоположения в режиме энергосбережения</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings">Системные настройки местоположения</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Пожалуйста, включите Настройки -> Местоположение. Без этого сканирование местоположения не будет работать.</string>
+  <string name="array_pref_ringerModeArray_silentM">Только уведомления</string>
+  <string name="phone_profiles_pref_applicationEventLocationsEditor">Редактирование местоположения</string>
+  <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Использовать GPS когда НЕ ВКЛЮЧЕН режим энергосбережения</string>
+  <string name="menu_activity_log_pause">Pause logging</string>
+  <string name="menu_activity_log_play">Start logging</string>
+  <string name="altype_pausedLogging">Logging paused</string>
+  <string name="altype_startedLogging">Logging started</string>
 </resources>

@@ -112,6 +112,7 @@
   <string name="phone_profiles_pref_applicationLanguage_nl">Nederlands</string>
   <string name="phone_profiles_pref_applicationLanguage_sv_SE">Svenska</string>
   <string name="phone_profiles_pref_applicationLanguage_hu">Magyar</string>
+  <string name="phone_profiles_pref_applicationLanguage_zh_TW">中文 (繁體)</string>
   <string name="title_activity_shortcut_creator">Raccourci PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Lancer au démarrage du téléphone</string>
   <string name="array_pref_value_system">system</string>
@@ -129,6 +130,7 @@
   <string name="array_pref_value_nl">nl</string>
   <string name="array_pref_value_sv_SE">sv-SE</string>
   <string name="array_pref_value_hu">hu</string>
+  <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Non autorisé</string>
   <string name="menu_export">Exporter les données de l\'application</string>
   <string name="menu_import">Importer les données de l\'application</string>
@@ -699,4 +701,18 @@
   <string name="menu_activity_log_clear">Effacer le journal</string>
   <string name="activity_log_clear_alert_title">Effacer le Journal d\'activité</string>
   <string name="activity_log_clear_alert_message">Etes-vous sûr?</string>
+  <string name="phone_profiles_pref_category_location">Emplacement</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings">Paramètres d\'emplacement</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings_summary">Configuration des paramètres de localisation dans les paramètres de l\'application.</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInterval">Intervalle d\'analyse de position (min)</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Localiser mode économie d\'énergie</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings">Paramètres de localisation système</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings_summary">S\'il vous plaît activer la localisation dans le Panneau de configuration. Sans cela, le scan de localisation ne fonctionne ne pas.</string>
+  <string name="array_pref_ringerModeArray_silentM">Alarmes seulement</string>
+  <string name="phone_profiles_pref_applicationEventLocationsEditor">Éditeur de localisation</string>
+  <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Utiliser le GPS en dehors du mode économie d\'énergie</string>
+  <string name="menu_activity_log_pause">Pause logging</string>
+  <string name="menu_activity_log_play">Start logging</string>
+  <string name="altype_pausedLogging">Logging paused</string>
+  <string name="altype_startedLogging">Logging started</string>
 </resources>

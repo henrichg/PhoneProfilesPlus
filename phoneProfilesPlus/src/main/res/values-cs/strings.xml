@@ -112,6 +112,7 @@
   <string name="phone_profiles_pref_applicationLanguage_nl">Nederlands</string>
   <string name="phone_profiles_pref_applicationLanguage_sv_SE">Svenska</string>
   <string name="phone_profiles_pref_applicationLanguage_hu">Magyar</string>
+  <string name="phone_profiles_pref_applicationLanguage_zh_TW">中文 (繁體)</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-odkaz</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Spustit při startu telefonu</string>
   <string name="array_pref_value_system">system</string>
@@ -129,6 +130,7 @@
   <string name="array_pref_value_nl">nl</string>
   <string name="array_pref_value_sv_SE">sv-SE</string>
   <string name="array_pref_value_hu">hu</string>
+  <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Není možné</string>
   <string name="menu_export">Export apl. dat</string>
   <string name="menu_import">Import apl. dat</string>
@@ -699,4 +701,18 @@
   <string name="menu_activity_log_clear">Vymazat log</string>
   <string name="activity_log_clear_alert_title">Vymazat log aktivity</string>
   <string name="activity_log_clear_alert_message">Jste si jistý?</string>
+  <string name="phone_profiles_pref_category_location">Location</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings">Location settings</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings_summary">Setup location parameters in application settings.</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInterval">Location scan interval (min)</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Location scan in Power Save mode</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings">Location system settings</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Please enable Location in System Settings. Without this, location scanning will not working.</string>
+  <string name="array_pref_ringerModeArray_silentM">Only alarms</string>
+  <string name="phone_profiles_pref_applicationEventLocationsEditor">Locations editor</string>
+  <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Use GPS when not in Power Save mode</string>
+  <string name="menu_activity_log_pause">Pause logging</string>
+  <string name="menu_activity_log_play">Start logging</string>
+  <string name="altype_pausedLogging">Logging paused</string>
+  <string name="altype_startedLogging">Logging started</string>
 </resources>

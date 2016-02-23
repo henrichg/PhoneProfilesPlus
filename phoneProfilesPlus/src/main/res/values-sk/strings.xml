@@ -112,6 +112,7 @@
   <string name="phone_profiles_pref_applicationLanguage_nl">Nederlands</string>
   <string name="phone_profiles_pref_applicationLanguage_sv_SE">Svenska</string>
   <string name="phone_profiles_pref_applicationLanguage_hu">Magyar</string>
+  <string name="phone_profiles_pref_applicationLanguage_zh_TW">中文 (繁體)</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-odkaz</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Spusti pri štarte telefónu</string>
   <string name="array_pref_value_system">system</string>
@@ -129,6 +130,7 @@
   <string name="array_pref_value_nl">nl</string>
   <string name="array_pref_value_sv_SE">sv-SE</string>
   <string name="array_pref_value_hu">hu</string>
+  <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Nie je možné</string>
   <string name="menu_export">Export apl. dát</string>
   <string name="menu_import">Import apl. dát</string>
@@ -699,4 +701,18 @@
   <string name="menu_activity_log_clear">Vymazať log</string>
   <string name="activity_log_clear_alert_title">Vymazať log aktivity</string>
   <string name="activity_log_clear_alert_message">Ste si istý?</string>
+  <string name="phone_profiles_pref_category_location">Poloha</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings">Nastavenia polohy</string>
+  <string name="phone_profiles_pref_eventLocationAppSettings_summary">Nastav parametre polohy v nastaveniach aplikácie.</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInterval">Interval skenovania polohy (min.)</string>
+  <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Skenovanie polohy v režime Šetrič batérie</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings">Systémové nastavenia polohy</string>
+  <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Prosím, zapnite Polohu v nastaveniach systému. Bez toho, skenovanie polohy nebude fungovať.</string>
+  <string name="array_pref_ringerModeArray_silentM">Len budíky</string>
+  <string name="phone_profiles_pref_applicationEventLocationsEditor">Editor polôh</string>
+  <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Použiť GPS, ak nie je úsporný režim</string>
+  <string name="menu_activity_log_pause">Zastaviť logovanie</string>
+  <string name="menu_activity_log_play">Spustiť logovanie</string>
+  <string name="altype_pausedLogging">Logovanie zastavené</string>
+  <string name="altype_startedLogging">Logovanie spustené</string>
 </resources>
