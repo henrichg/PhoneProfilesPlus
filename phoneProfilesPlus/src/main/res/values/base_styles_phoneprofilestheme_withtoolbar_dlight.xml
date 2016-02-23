@@ -48,6 +48,8 @@
 
         <item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item>
         <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload</item>
+        <item name="actionActivityLogPlayIcon">@drawable/ic_action_activity_log_play</item>
+        <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause</item>
 
         <item name="alertDialogTheme">@style/AlertDialogStyle</item>
         <item name="dialogTheme">@style/DialogStyle</item>

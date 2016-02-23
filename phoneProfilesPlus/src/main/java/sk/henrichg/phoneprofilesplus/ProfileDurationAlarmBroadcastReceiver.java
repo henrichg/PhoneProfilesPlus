@@ -43,7 +43,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             if (activateProfileId == GlobalData.PROFILE_NO_ACTIVATE)
                                 activateProfileId = 0;
 
-                            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, null,
+                            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, null,
                                                                             dataWrapper.getProfileNameWithManualIndicator(profile, true, true),
                                                                             profile._icon, 0);
                         }
@@ -51,17 +51,17 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         {
                             activateProfileId = GlobalData.getActivatedProfileForDuration(context);
 
-                            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, null,
+                            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, null,
                                     dataWrapper.getProfileNameWithManualIndicator(profile, true, true),
                                     profile._icon, 0);
                         }
                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_RESTARTEVENTS)
                         {
-                            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
+                            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
                                     dataWrapper.getProfileNameWithManualIndicator(profile, true, true),
                                     profile._icon, 0);
 
-                            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+                            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
                             GlobalData.logE("$$$ restartEvents", "from ProfileDurationAlarmBroadcastReceiver");
                             dataWrapper.restartEventsWithDelay(3, true);

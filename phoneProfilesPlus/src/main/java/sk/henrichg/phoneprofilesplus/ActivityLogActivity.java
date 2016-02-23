@@ -1,7 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.DialogInterface;
+import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -73,6 +75,27 @@ public class ActivityLogActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        /*MenuItem menuItem = menu.findItem(R.id.menu_settingsX);
+        menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
+        MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
+        if (GlobalData.getActivityLogEnabled(getApplicationContext())) {
+            TypedArray a = getTheme().obtainStyledAttributes(GUIData.getTheme(false, false), new int[]{R.attr.actionActivityLogPauseIcon});
+            int attributeResourceId = a.getResourceId(0, 0);
+            menuItem.setIcon(attributeResourceId);
+            menuItem.setTitle(R.string.menu_activity_log_pause);
+        }
+        else {
+            TypedArray a = getTheme().obtainStyledAttributes(GUIData.getTheme(false, false), new int[] {R.attr.actionActivityLogPlayIcon});
+            int attributeResourceId = a.getResourceId(0, 0);
+            menuItem.setIcon(attributeResourceId);
+            menuItem.setTitle(R.string.menu_activity_log_play);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
@@ -96,6 +119,11 @@ public class ActivityLogActivity extends AppCompatActivity {
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
                 dialogBuilder.show();
+                return true;
+            case R.id.menu_activity_log_play_pause:
+                boolean enabled = GlobalData.getActivityLogEnabled(getApplicationContext());
+                GlobalData.setActivityLogEnabled(getApplicationContext(), !enabled);
+                invalidateOptionsMenu();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

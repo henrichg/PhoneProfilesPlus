@@ -28,7 +28,7 @@ public class RestartEventsFromNotificationActivity extends Activity
         GUIData.setTheme(this, true, false);
         GUIData.setLanguage(getBaseContext());
 
-        dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
         GlobalData.logE("$$$ restartEvents", "from RestartEventsFromNotificationActivity.onStart");
         dataWrapper.restartEventsWithAlert(this);

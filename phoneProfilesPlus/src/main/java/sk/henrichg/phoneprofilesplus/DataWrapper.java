@@ -1106,7 +1106,7 @@ public class DataWrapper {
         activateProfileHelper.updateWidget();
 
         if (log && (profile != null)) {
-            getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
+            addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                     getProfileNameWithManualIndicator(profile, true, profileDuration > 0),
                     profileIcon, profileDuration);
         }
@@ -2492,4 +2492,11 @@ public class DataWrapper {
         }
         return false;
     }
+
+    public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,
+                               int durationDelay) {
+        if (GlobalData.getActivityLogEnabled(context))
+            getDatabaseHandler().addActivityLog(logType, eventName, profileName, profileIcon, durationDelay);
+    }
+
 }

@@ -899,7 +899,7 @@ public class Event {
         dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
         if (log && (status != this._status)) {
-            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, _name, null, null, 0);
+            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, _name, null, null, 0);
         }
 
         long activatedProfileId = 0;
@@ -1027,7 +1027,7 @@ public class Event {
 
                 EventsService.restartAtEndOfEvent = true;
 
-                dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
                 GlobalData.logE("$$$ restartEvents", "from Event.doActivateEndProfile");
                 dataWrapper.restartEventsWithDelay(3, true);
@@ -1140,7 +1140,7 @@ public class Event {
             else if (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE)
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
 
-            dataWrapper.getDatabaseHandler().addActivityLog(alType, _name, null, null, 0);
+            dataWrapper.addActivityLog(alType, _name, null, null, 0);
         }
 
 
@@ -1357,7 +1357,7 @@ public class Event {
         dataWrapper.getDatabaseHandler().updateEventInDelay(this);
 
         if (log && _isInDelay) {
-            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, _name, null, null, _delayStart);
+            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, _name, null, null, _delayStart);
         }
 
         return;

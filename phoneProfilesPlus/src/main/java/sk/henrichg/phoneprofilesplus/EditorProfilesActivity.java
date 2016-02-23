@@ -570,7 +570,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }	
             return super.onOptionsItemSelected(item);
         case R.id.menu_restart_events:
-            getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+            getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
             // ignoruj manualnu aktivaciu profilu
             // a odblokuj forceRun eventy
@@ -581,7 +581,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             DataWrapper dataWrapper = getDataWrapper();
             if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
             {
-                dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
+                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
 
                 // no setup for next start
                 dataWrapper.removeAllEventDelays(false);
@@ -600,7 +600,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             else
             {
-                dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
+                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
 
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
 
@@ -678,7 +678,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
             ActivateProfileHelper.removeBrightnessView(getApplicationContext());
 
-            getDataWrapper().getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
+            getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
             Handler handler=new Handler();
             Runnable r=new Runnable() {
@@ -1178,7 +1178,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             dataWrapper.restartEventsWithDelay(1, false);
                         }
 
-                        dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
+                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
 
                         // toast notification
                         Toast msg = Toast.makeText(getApplicationContext(),

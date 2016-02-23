@@ -484,7 +484,7 @@ public class Profile {
                 profileDuration = withProfile._duration;
             */
 
-            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
+            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                                     dataWrapper.getProfileNameWithManualIndicator(withProfile, true, profileDuration > 0),
                                     profileIcon, profileDuration);
 

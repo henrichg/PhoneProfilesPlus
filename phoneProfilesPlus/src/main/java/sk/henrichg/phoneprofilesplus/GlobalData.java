@@ -366,6 +366,7 @@ public class GlobalData extends Application {
     private static final String PREF_MERGED_PERRMISSIONS_COUNT = "merged_permissions_count";
     private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION = "show_enable_location_notification";
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
+    private static final String PREF_ACTIVITY_LOG_ENABLED = "activity_log_enabled";
 
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
     public static final int FORCE_ONE_SCAN_ENABLED = 1;
@@ -1272,6 +1273,19 @@ public class GlobalData extends Application {
         editor.commit();
     }
 
+    static public boolean getActivityLogEnabled(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_ACTIVITY_LOG_ENABLED, true);
+    }
+
+    static public void setActivityLogEnabled(Context context, boolean enabled)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putBoolean(PREF_ACTIVITY_LOG_ENABLED, enabled);
+        editor.commit();
+    }
 
     // ----- Check if preference is allowed in device -------------------------------------
 

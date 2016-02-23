@@ -81,5 +81,7 @@
     <attr name="actionSourceProfileIcon" format="reference" />
     <attr name="actionSourceProfileIconInverse" format="reference" />
     <attr name="actionHelpIcon" format="reference" />
+    <attr name="actionActivityLogPlayIcon" format="reference" />
+    <attr name="actionActivityLogPauseIcon" format="reference" />
 
 </resources>
