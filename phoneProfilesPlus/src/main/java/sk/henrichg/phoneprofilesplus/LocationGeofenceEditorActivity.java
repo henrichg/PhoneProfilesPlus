@@ -338,6 +338,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             mLocation = new Location(mLastLocation);
             refreshActivity(true);
         }
+        else
+            updateEditedMarker(false);
     }
 
     /**
