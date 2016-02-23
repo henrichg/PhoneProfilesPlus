@@ -711,8 +711,8 @@
   <string name="array_pref_ringerModeArray_silentM">Len budíky</string>
   <string name="phone_profiles_pref_applicationEventLocationsEditor">Editor polôh</string>
   <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Použiť GPS, ak nie je úsporný režim</string>
-  <string name="menu_activity_log_pause">Zastaviť logovanie</string>
-  <string name="menu_activity_log_play">Spustiť logovanie</string>
+  <string name="menu_activity_log_pause">Zastav logovanie</string>
+  <string name="menu_activity_log_play">Spusti logovanie</string>
   <string name="altype_pausedLogging">Logovanie zastavené</string>
   <string name="altype_startedLogging">Logovanie spustené</string>
 </resources>
