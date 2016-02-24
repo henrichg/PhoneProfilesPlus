@@ -16,13 +16,13 @@ public class AddProfileAdapter extends BaseAdapter {
     public List<Profile> profileList;
     AddProfileDialog dialog;
 
-    //private Context context;
+    private Context context;
 
     private LayoutInflater inflater = null;
 
     public AddProfileAdapter(AddProfileDialog dialog, Context c, List<Profile> profileList)
     {
-        //context = c;
+        context = c;
 
         this.dialog = dialog;
         this.profileList = profileList;
@@ -93,7 +93,10 @@ public class AddProfileAdapter extends BaseAdapter {
         {
             holder.radioBtn.setChecked(false);
 
-            holder.profileLabel.setText(profile._name);
+            if (position == 0)
+                holder.profileLabel.setText(context.getString(R.string.new_empty_profile));
+            else
+                holder.profileLabel.setText(profile._name);
             holder.profileIcon.setVisibility(View.VISIBLE);
             if (profile.getIsIconResourceID())
             {
