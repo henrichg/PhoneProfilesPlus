@@ -178,6 +178,7 @@ public class EditorProfileListFragment extends Fragment {
         */
 
         final Activity activity = getActivity();
+        final EditorProfileListFragment fragment = this;
 
         Toolbar bottomToolbar = (Toolbar)getActivity().findViewById(R.id.editor_list_bottom_bar);
         Menu menu = bottomToolbar.getMenu();
@@ -188,18 +189,8 @@ public class EditorProfileListFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_add_profile:
-                        new MaterialDialog.Builder(activity)
-                                .title(R.string.new_profile_predefined_profiles_dialog)
-                                .items(R.array.addProfilePredefinedArray)
-                                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                                    @Override
-                                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                        startProfilePreferencesActivity(null, which);
-                                        return true;
-                                    }
-                                })
-                                        //.positiveText(R.string.choose)
-                                .show();
+                        AddProfileDialog dialog = new AddProfileDialog(activity, fragment);
+                        dialog.show();
                         return true;
                     case R.id.menu_delete_all_profiles:
                         deleteAllProfiles();
@@ -406,7 +397,7 @@ public class EditorProfileListFragment extends Fragment {
         }
     }
 
-    private void startProfilePreferencesActivity(Profile profile, int predefinedProfileIndex)
+    public void startProfilePreferencesActivity(Profile profile, int predefinedProfileIndex)
     {
         Profile _profile = profile;
         int editMode;

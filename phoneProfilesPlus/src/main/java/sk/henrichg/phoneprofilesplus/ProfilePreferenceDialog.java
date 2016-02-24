@@ -54,9 +54,6 @@ public class ProfilePreferenceDialog
 
         listView = (ListView)mDialog.getCustomView().findViewById(R.id.profile_pref_dlg_listview);
 
-        profileList = ProfilePreference.dataWrapper.getProfileList();
-        Collections.sort(profileList, new AlphabeticallyComparator());
-
         profilePreferenceAdapter = new ProfilePreferenceAdapter(this, _context, profileId, profileList);
         listView.setAdapter(profilePreferenceAdapter);
 
