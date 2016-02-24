@@ -135,7 +135,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
         List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
 
-        boolean change = false;
+        //boolean change = false;
 
         for (Geofence geofence : geofences) {
 
@@ -160,15 +160,17 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 GlobalData.logE("GeofenceScanner.onLocationChanged", "savedTransition="+savedTransition);
 
                 dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofence._id, transitionType);
-                change = true;
+                //change = true;
             }
         }
 
+        /* moved to GeofenceScannerAlarmBroadcastReceiver
         if (change) {
             // send broadcast for calling EventsService
             Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);
             context.sendBroadcast(broadcastIntent);
         }
+        */
 
     }
 
@@ -197,7 +199,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
          * The desired interval for location updates. Inexact. Updates may be more or less frequent.
          */
         //int interval = GlobalData.applicationEventLocationUpdateInterval * 60;
-        int interval = 10;
+        int interval = 5;
         if (mPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
             interval = 2 * interval;
         final long UPDATE_INTERVAL_IN_MILLISECONDS = interval * 1000;
