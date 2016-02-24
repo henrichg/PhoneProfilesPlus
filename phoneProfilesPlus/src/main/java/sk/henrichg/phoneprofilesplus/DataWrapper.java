@@ -843,7 +843,7 @@ public class DataWrapper {
     {
         if (profileList == null)
         {
-            return 0;
+            return getDatabaseHandler().getProfileIdByName(name);
         }
         else
         {

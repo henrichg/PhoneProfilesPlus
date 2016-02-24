@@ -165,6 +165,7 @@ public class EditorEventListFragment extends Fragment {
         */
 
         final Activity activity = getActivity();
+        final EditorEventListFragment fragment = this;
 
         Toolbar bottomToolbar = (Toolbar)getActivity().findViewById(R.id.editor_list_bottom_bar);
         Menu menu = bottomToolbar.getMenu();
@@ -175,18 +176,8 @@ public class EditorEventListFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_add_event:
-                        new MaterialDialog.Builder(activity)
-                                .title(R.string.new_event_predefined_events_dialog)
-                                .items(R.array.addEventPredefinedArray)
-                                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                                    @Override
-                                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                        startEventPreferencesActivity(null, which);
-                                        return true;
-                                    }
-                                })
-                                        //.positiveText(R.string.choose)
-                                .show();
+                        AddEventDialog dialog = new AddEventDialog(activity, fragment);
+                        dialog.show();
                         return true;
                     case R.id.menu_delete_all_events:
                         deleteAllEvents();
@@ -237,10 +228,10 @@ public class EditorEventListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            List<Event> eventList = dataWrapper.getEventList();
-
-            EditorEventListFragment.sortList(eventList, orderType, dataWrapper);
             dataWrapper.getProfileList();
+
+            List<Event> eventList = dataWrapper.getEventList();
+            EditorEventListFragment.sortList(eventList, orderType, dataWrapper);
 
             return null;
         }
@@ -252,6 +243,11 @@ public class EditorEventListFragment extends Fragment {
             EditorEventListFragment fragment = this.fragmentWeakRef.get(); 
             
             if ((fragment != null) && (fragment.isAdded())) {
+                // get local profileList
+                List<Profile> profileList = dataWrapper.getProfileList();
+                // set local profile list into activity dataWrapper
+                fragment.dataWrapper.setProfileList(profileList, false);
+
                 // get local eventList
                 List<Event> eventList = dataWrapper.getEventList();
                 // set local event list into activity dataWrapper
@@ -323,7 +319,7 @@ public class EditorEventListFragment extends Fragment {
         }
     }
 
-    private void startEventPreferencesActivity(Event event, int predefinedEventIndex)
+    public void startEventPreferencesActivity(Event event, int predefinedEventIndex)
     {
 
         Event _event = event;

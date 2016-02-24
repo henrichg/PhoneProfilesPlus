@@ -2143,6 +2143,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    public long getProfileIdByName(String name)
+    {
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        long id = 0;
+
+        Cursor cursor = db.query(TABLE_PROFILES,
+                new String[] { KEY_ID },
+                KEY_NAME + "=?",
+                new String[] { name }, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            int rc = cursor.getCount();
+
+            if (rc == 1)
+            {
+                id = Long.parseLong(cursor.getString(0));
+            }
+
+            cursor.close();
+        }
+
+        //db.close();
+
+        // return id
+        return id;
+
+    }
+
     public void setPOrder(List<Profile> list)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
