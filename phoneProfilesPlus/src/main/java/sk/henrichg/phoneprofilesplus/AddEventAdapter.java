@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Html;
@@ -18,6 +19,11 @@ import java.util.List;
 public class AddEventAdapter extends BaseAdapter {
 
     public List<Event> eventList;
+    private String[] profileNamesArray;
+    private TypedArray profileIconsTypedArray;
+    private int[] profileIconsArray;
+    private int defaultColor;
+
     AddEventDialog dialog;
 
     private Context context;
@@ -32,6 +38,13 @@ public class AddEventAdapter extends BaseAdapter {
         this.eventList = eventList;
 
         inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        profileNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
+        profileIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedStartProfileIconsArray);
+        profileIconsArray = new int[profileIconsTypedArray.length()];
+        for (int i = 0; i < profileIconsTypedArray.length(); i++) {
+            profileIconsArray[i] = profileIconsTypedArray.getResourceId(i, -1);
+        }
     }
 
     public int getCount() {
@@ -87,6 +100,7 @@ public class AddEventAdapter extends BaseAdapter {
                 holder.profileEndIndicator = (ImageView)vi.findViewById(R.id.event_pref_dlg_item_profile_end_pref_indicator);
             }
             vi.setTag(holder);
+            defaultColor = holder.eventName.getTextColors().getDefaultColor();
         }
         else
         {
@@ -133,6 +147,7 @@ public class AddEventAdapter extends BaseAdapter {
                 if (event._delayStart > 0)
                     profileName = "[" + event._delayStart + "] " + profileName;
                 holder.profileStartName.setText(profileName);
+                holder.profileStartName.setTextColor(defaultColor);
                 if (profile.getIsIconResourceID())
                 {
                     if (profile._iconBitmap != null)
@@ -160,8 +175,15 @@ public class AddEventAdapter extends BaseAdapter {
             }
             else
             {
-                holder.profileStartName.setText(R.string.profile_preference_profile_not_set);
-                holder.profileStartIcon.setImageResource(R.drawable.ic_profile_default);
+                String profileName = profileNamesArray[position];
+                if (position > 0) {
+                    profileName = "(*) " + profileName;
+                    holder.profileStartName.setTextColor(Color.RED);
+                }
+                else
+                    holder.profileStartName.setTextColor(defaultColor);
+                holder.profileStartName.setText(profileName);
+                holder.profileStartIcon.setImageResource(profileIconsArray[position]);
                 if (GlobalData.applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
@@ -178,8 +200,7 @@ public class AddEventAdapter extends BaseAdapter {
                 holder.profileEndName.setVisibility(View.GONE);
                 if (holder.profileEndIndicator != null)
                     holder.profileEndIndicator.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 holder.profileEndIcon.setVisibility(View.VISIBLE);
                 holder.profileEndName.setVisibility(View.VISIBLE);
                 if (holder.profileEndIndicator != null)
@@ -193,6 +214,7 @@ public class AddEventAdapter extends BaseAdapter {
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                     holder.profileEndName.setText(profileName);
+                    holder.profileEndName.setTextColor(defaultColor);
                     if (profile.getIsIconResourceID()) {
                         if (profile._iconBitmap != null)
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);

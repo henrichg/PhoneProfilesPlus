@@ -701,13 +701,23 @@
     <item>0</item>
     <item>1</item>
 </string-array>
-<string-array name="addProfilePredefinedArray">
+<string-array name="addProfilePredefinedNamesArray">
     <item>@string/new_empty_profile</item>
     <item>@string/default_profile_name_home</item>
     <item>@string/default_profile_name_outdoor</item>
     <item>@string/default_profile_name_work</item>
     <item>@string/default_profile_name_meeting</item>
     <item>@string/default_profile_name_sleep</item>
+    <item>@string/default_profile_name_battery_low</item>
+</string-array>
+<string-array name="addProfilePredefinedIconsArray">
+    <item>@drawable/ic_profile_default</item>
+    <item>@drawable/ic_profile_home_2</item>
+    <item>@drawable/ic_profile_outdoors_1</item>
+    <item>@drawable/ic_profile_work_5</item>
+    <item>@drawable/ic_profile_meeting_2</item>
+    <item>@drawable/ic_profile_sleep</item>
+    <item>@drawable/ic_profile_battery_1</item>
 </string-array>
 <string-array name="addEventPredefinedArray">
     <item>@string/new_empty_event</item>
@@ -716,5 +726,21 @@
     <item>@string/default_event_name_during_the_work</item>
     <item>@string/default_event_name_overnight</item>
     <item>@string/default_event_name_low_battery</item>
+</string-array>
+<string-array name="addEventPredefinedStartProfilesArray">
+    <item>@string/profile_preference_profile_not_set</item>
+    <item>@string/default_profile_name_home</item>
+    <item>@string/default_profile_name_home</item>
+    <item>@string/default_profile_name_work</item>
+    <item>@string/default_profile_name_sleep</item>
+    <item>@string/default_profile_name_battery_low</item>
+</string-array>
+<string-array name="addEventPredefinedStartProfileIconsArray">
+    <item>@drawable/ic_profile_default</item>
+    <item>@drawable/ic_profile_home_2</item>
+    <item>@drawable/ic_profile_home_2</item>
+    <item>@drawable/ic_profile_work_5</item>
+    <item>@drawable/ic_profile_sleep</item>
+    <item>@drawable/ic_profile_battery_1</item>
 </string-array>
 </resources>

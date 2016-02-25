@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -37,10 +38,13 @@ public class AddEventDialog
         event = eventListFragment.dataWrapper.getNoinitializedEvent(context.getResources().getString(R.string.event_name_default));
         //event.generatePreferencesIndicator(context, monochrome, monochromeValue);
         eventList.add(event);
+        boolean profileNotExists = false;
         for (int index = 0; index < 5; index++) {
             event = eventListFragment.dataWrapper.getDefaultEvent(index, false);
             //profile.generateIconBitmap(context, monochrome, monochromeValue);
             //profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+            if (event._fkProfileStart == 0)
+                profileNotExists = true;
             eventList.add(event);
         }
 
@@ -53,6 +57,9 @@ public class AddEventDialog
         mDialog = dialogBuilder.build();
 
         listView = (ListView)mDialog.getCustomView().findViewById(R.id.event_pref_dlg_listview);
+        TextView help = (TextView)mDialog.getCustomView().findViewById(R.id.event_pref_dlg_help);
+        if (!profileNotExists)
+            help.setVisibility(View.GONE);
 
         addEventAdapter = new AddEventAdapter(this, _context, eventList);
         listView.setAdapter(addEventAdapter);

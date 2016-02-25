@@ -944,7 +944,7 @@ public class DataWrapper {
                 event = getNoinitializedEvent(context.getString(R.string.default_event_name_overnight));
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_sleep));
                 //event._undoneProfile = false;
-                event._atEndDo = Event.EATENDDO_NONE;
+                event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
                 event._eventPreferencesTime._enabled = true;
                 event._eventPreferencesTime._monday = true;
                 event._eventPreferencesTime._tuesday = true;
@@ -971,7 +971,7 @@ public class DataWrapper {
                 event = getNoinitializedEvent(context.getString(R.string.default_event_name_low_battery));
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_battery_low));
                 //event._undoneProfile = false;
-                event._atEndDo = Event.EATENDDO_NONE;
+                event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
                 event._priority = Event.EPRIORITY_HIGHEST;
                 event._forceRun = true;
                 event._eventPreferencesBattery._enabled = true;
