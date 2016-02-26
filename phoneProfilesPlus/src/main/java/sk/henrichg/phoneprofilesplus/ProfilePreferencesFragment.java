@@ -328,7 +328,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DURATION);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_AFTER_DURATION_DO);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
