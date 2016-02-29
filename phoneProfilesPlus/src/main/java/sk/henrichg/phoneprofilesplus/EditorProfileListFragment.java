@@ -26,7 +26,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.lang.ref.WeakReference;

@@ -21,8 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
