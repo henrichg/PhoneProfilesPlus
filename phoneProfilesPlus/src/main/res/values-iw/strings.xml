@@ -447,7 +447,7 @@
   <string name="array_pref_zenModeArray_all">כולם</string>
   <string name="array_pref_zenModeArray_priority">עדיפות</string>
   <string name="array_pref_zenModeArray_none">ללא</string>
-  <string name="profile_preferences_deviceMobileData_21">(R) Mobile data</string>
+  <string name="profile_preferences_deviceMobileData_21">(R) נתונים ניידים</string>
   <string name="preference_profile_adaptiveBrightness">מסתגלת</string>
   <string name="profile_preferences_deviceKeyguard">מסך הנעילה</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">הסתרת שם הפרופיל (Widget)</string>
@@ -549,10 +549,10 @@
   <string name="event_preferences_volumeNotificationsAccessSettings_summary">יש לאפשר ל-PhoneProfilesPlus \"גישה להודעות\" בהגדרות המערכת, כדי לאפשר מאפייני הודעות.</string>
   <string name="array_pref_zenModeArray_alarms">מעורר/אזעקה בלבד</string>
   <string name="profile_preferences_zenMode_alarms_summary">התפרצויות מעורר/אזעקה בלבד</string>
-  <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
-  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">Even if Wi-fi is disabled</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">Even if Bluetooth is disabled</string>
-  <string name="permission_group_name_write_settings">Modify system settings</string>
+  <string name="phone_profiles_pref_applicationShortcutEmblem">הוספת סמל לקיצור הדרך</string>
+  <string name="phone_profiles_pref_applicationEventWifiEnableWifi_summary">גם אם Wi-fi אינו מאופשר</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary">גם אם Bluetooth אינו מאופשר</string>
+  <string name="permission_group_name_write_settings">שינוי הגדרות מערכת</string>
   <string name="permission_group_name_storage">אחסון</string>
   <string name="permission_group_name_phone">טלפון</string>
   <string name="permissions_alert_title">בקשת הרשאות</string>
@@ -711,8 +711,9 @@
   <string name="array_pref_ringerModeArray_silentM">התרעות בלבד</string>
   <string name="phone_profiles_pref_applicationEventLocationsEditor">עורך מיקומים</string>
   <string name="phone_profiles_pref_applicationEventLocationsUseGPS">שימוש ב-GPS כאשר לא במצב חיסכון בצריכת חשמל</string>
-  <string name="menu_activity_log_pause">Pause logging</string>
-  <string name="menu_activity_log_play">Start logging</string>
-  <string name="altype_pausedLogging">Logging paused</string>
-  <string name="altype_startedLogging">Logging started</string>
+  <string name="menu_activity_log_pause">השהיית רישום פעולות</string>
+  <string name="menu_activity_log_play">הפעלת רישום פעולות</string>
+  <string name="altype_pausedLogging">רישום פעולות מושהה</string>
+  <string name="altype_startedLogging">רישום פעולות מופעל</string>
+  <string name="event_pref_dialog_help">(*) לא נמצא פרופיל </string>
 </resources>

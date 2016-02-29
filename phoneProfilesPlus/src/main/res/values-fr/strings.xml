@@ -711,8 +711,9 @@
   <string name="array_pref_ringerModeArray_silentM">Alarmes seulement</string>
   <string name="phone_profiles_pref_applicationEventLocationsEditor">Éditeur de localisation</string>
   <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Utiliser le GPS en dehors du mode économie d\'énergie</string>
-  <string name="menu_activity_log_pause">Pause logging</string>
-  <string name="menu_activity_log_play">Start logging</string>
-  <string name="altype_pausedLogging">Logging paused</string>
-  <string name="altype_startedLogging">Logging started</string>
+  <string name="menu_activity_log_pause">Journal de pause</string>
+  <string name="menu_activity_log_play">Démarrer la journalisation</string>
+  <string name="altype_pausedLogging">Enregistrement en pause</string>
+  <string name="altype_startedLogging">Enregistrement commencé</string>
+  <string name="event_pref_dialog_help">(*) Profil introuvable</string>
 </resources>

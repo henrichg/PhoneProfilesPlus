@@ -711,8 +711,9 @@
   <string name="array_pref_ringerModeArray_silentM">Только уведомления</string>
   <string name="phone_profiles_pref_applicationEventLocationsEditor">Редактирование местоположения</string>
   <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Использовать GPS когда НЕ ВКЛЮЧЕН режим энергосбережения</string>
-  <string name="menu_activity_log_pause">Pause logging</string>
-  <string name="menu_activity_log_play">Start logging</string>
-  <string name="altype_pausedLogging">Logging paused</string>
-  <string name="altype_startedLogging">Logging started</string>
+  <string name="menu_activity_log_pause">Приостановить логирование</string>
+  <string name="menu_activity_log_play">Запустить логирование</string>
+  <string name="altype_pausedLogging">Логирование приостановлено</string>
+  <string name="altype_startedLogging">Логирование запущено</string>
+  <string name="event_pref_dialog_help">(*) Профиль не найден</string>
 </resources>

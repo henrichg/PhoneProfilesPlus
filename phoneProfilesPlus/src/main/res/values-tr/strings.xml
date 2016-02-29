@@ -711,8 +711,9 @@
   <string name="array_pref_ringerModeArray_silentM">Sadece alarmlar</string>
   <string name="phone_profiles_pref_applicationEventLocationsEditor">Konum Düzenleyicisi</string>
   <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Güç tasarrufu modunda olmadığı zaman GPS etkin olsun</string>
-  <string name="menu_activity_log_pause">Pause logging</string>
-  <string name="menu_activity_log_play">Start logging</string>
-  <string name="altype_pausedLogging">Logging paused</string>
-  <string name="altype_startedLogging">Logging started</string>
+  <string name="menu_activity_log_pause">Günlüğü durdur</string>
+  <string name="menu_activity_log_play">Günlüğü başlat</string>
+  <string name="altype_pausedLogging">Günlük durduruldu</string>
+  <string name="altype_startedLogging">Günlük başladı</string>
+  <string name="event_pref_dialog_help">(*) Profil bulunamadı</string>
 </resources>

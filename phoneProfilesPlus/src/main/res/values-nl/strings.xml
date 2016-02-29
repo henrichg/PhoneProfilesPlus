@@ -712,8 +712,9 @@ Toch activeren?</string>
   <string name="array_pref_ringerModeArray_silentM">Alleen alarmen</string>
   <string name="phone_profiles_pref_applicationEventLocationsEditor">Locatie editor</string>
   <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Gebruik GPS wanneer niet in Energiebesparende modus</string>
-  <string name="menu_activity_log_pause">Pause logging</string>
-  <string name="menu_activity_log_play">Start logging</string>
-  <string name="altype_pausedLogging">Logging paused</string>
-  <string name="altype_startedLogging">Logging started</string>
+  <string name="menu_activity_log_pause">Loggen pauzeren</string>
+  <string name="menu_activity_log_play">Start loggen</string>
+  <string name="altype_pausedLogging">Loggen gepauseerd</string>
+  <string name="altype_startedLogging">Loggen gestart</string>
+  <string name="event_pref_dialog_help">(*) Profiel niet gevonden</string>
 </resources>

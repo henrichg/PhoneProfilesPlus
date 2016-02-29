@@ -715,4 +715,5 @@
   <string name="menu_activity_log_play">Spusti logovanie</string>
   <string name="altype_pausedLogging">Logovanie zastavené</string>
   <string name="altype_startedLogging">Logovanie spustené</string>
+  <string name="event_pref_dialog_help">(*) Profil sa nenašiel</string>
 </resources>

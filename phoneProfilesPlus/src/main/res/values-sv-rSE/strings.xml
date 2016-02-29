@@ -715,4 +715,5 @@
   <string name="menu_activity_log_play">Start logging</string>
   <string name="altype_pausedLogging">Logging paused</string>
   <string name="altype_startedLogging">Logging started</string>
+  <string name="event_pref_dialog_help">(*) Profile not found</string>
 </resources>
