@@ -2,7 +2,9 @@
 <manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:versionCode="1872"
-          android:versionName="3.3.3.2b">
+          android:versionName="3.3.3.2b"
+          android:installLocation="internalOnly" >
+    <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
 
     <!--
     <uses-sdk
@@ -281,8 +283,7 @@
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
         <!--
