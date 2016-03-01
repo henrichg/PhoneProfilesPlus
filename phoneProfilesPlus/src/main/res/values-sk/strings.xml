@@ -716,4 +716,6 @@
   <string name="altype_pausedLogging">Logovanie zastavené</string>
   <string name="altype_startedLogging">Logovanie spustené</string>
   <string name="event_pref_dialog_help">(*) Profil sa nenašiel</string>
+  <string name="permissions_for_brightness_dialog_text1">Nastavenie jasu vyžaduje niektoré povolenia.</string>
+  <string name="permissions_for_brightness_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách.</string>
 </resources>
