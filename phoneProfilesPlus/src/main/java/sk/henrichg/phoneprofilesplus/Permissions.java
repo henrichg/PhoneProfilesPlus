@@ -270,7 +270,7 @@ public class Permissions {
     public static boolean checkScreenBrightness(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = Settings.System.canWrite(context);
-            Log.d("Permissions.checkScreenBrightness", "granted="+granted);
+            //Log.d("Permissions.checkScreenBrightness", "granted="+granted);
             if (granted)
                 GlobalData.setShowRequestWriteSettingsPermission(context, true);
             return granted;

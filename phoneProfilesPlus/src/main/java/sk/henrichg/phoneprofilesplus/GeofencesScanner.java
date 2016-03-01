@@ -184,7 +184,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     protected void createLocationRequest() {
         GlobalData.loadPreferences(context);
 
-        Log.d("GeofenceScanner.createLocationRequest", "xxx");
+        //Log.d("GeofenceScanner.createLocationRequest", "xxx");
 
         // check power save mode
         mPowerSaveMode = DataWrapper.isPowerSaveMode(context);
@@ -222,11 +222,11 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
 
         if ((!GlobalData.applicationEventLocationUseGPS) || mPowerSaveMode) {
-            Log.d("GeofenceScanner.createLocationRequest","PRIORITY_BALANCED_POWER_ACCURACY");
+            //Log.d("GeofenceScanner.createLocationRequest","PRIORITY_BALANCED_POWER_ACCURACY");
             mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         }
         else {
-            Log.d("GeofenceScanner.createLocationRequest","PRIORITY_HIGH_ACCURACY");
+            //Log.d("GeofenceScanner.createLocationRequest","PRIORITY_HIGH_ACCURACY");
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         }
     }
