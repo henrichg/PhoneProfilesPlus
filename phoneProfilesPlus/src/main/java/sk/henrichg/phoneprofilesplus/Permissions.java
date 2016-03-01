@@ -10,6 +10,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class Permissions {
     public static final int GRANT_TYPE_CALENDAR_DIALOG = 10;
     public static final int GRANT_TYPE_CONTACT_DIALOG = 11;
     public static final int GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY = 12;
+    public static final int GRANT_TYPE_BRIGHTNESS_DIALOG = 13;
 
     public static final String EXTRA_GRANT_TYPE = "grant_type";
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
@@ -74,6 +76,7 @@ public class Permissions {
     public static ContactsMultiSelectDialogPreference contactsMultiSelectDialogPreference = null;
     public static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
     public static LocationGeofenceEditorActivity locationGeofenceEditorActivity = null;
+    public static BrightnessDialogPreference brightnessDialogPreference = null;
 
 
     public static class PermissionType implements Parcelable {
@@ -267,6 +270,7 @@ public class Permissions {
     public static boolean checkScreenBrightness(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = Settings.System.canWrite(context);
+            Log.d("Permissions.checkScreenBrightness", "granted="+granted);
             if (granted)
                 GlobalData.setShowRequestWriteSettingsPermission(context, true);
             return granted;
@@ -617,6 +621,24 @@ public class Permissions {
             intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
             intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
             profileIconPreference = preference;
+            context.startActivity(intent);
+        }
+        return granted;
+    }
+
+    public static boolean grantBrightnessDialogPermissions(Context context, BrightnessDialogPreference preference) {
+        boolean granted = checkScreenBrightness(context);
+        if (!granted) {
+            List<PermissionType>  permissions = new ArrayList<PermissionType>();
+            permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
+
+            Intent intent = new Intent(context, GrantPermissionActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_BRIGHTNESS_DIALOG);
+            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+            brightnessDialogPreference = preference;
             context.startActivity(intent);
         }
         return granted;
