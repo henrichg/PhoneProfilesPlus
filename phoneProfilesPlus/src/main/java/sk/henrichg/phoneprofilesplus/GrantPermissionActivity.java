@@ -661,7 +661,7 @@ public class GrantPermissionActivity extends Activity {
         if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
             finish();
             if (Permissions.brightnessDialogPreference != null)
-                ;
+                Permissions.brightnessDialogPreference.enableViews();
         }
         else {
             //finishAffinity();
