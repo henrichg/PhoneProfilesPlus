@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionCode="1880"
+          android:versionCode="1882"
           android:versionName="3.3.4"
           android:installLocation="internalOnly" >
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
@@ -411,10 +411,6 @@
         <service
             android:name=".FetchAddressIntentService"
             android:exported="false"/>
-        <service
-            android:name=".GeofencesScannerService"
-            android:exported="false">
-        </service>
 
         <receiver
             android:name=".RestartEventsBroadcastReceiver"
