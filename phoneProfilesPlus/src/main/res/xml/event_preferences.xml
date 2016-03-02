@@ -103,7 +103,7 @@
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/event_preferences_category_events"
+        android:title="@string/event_preferences_category_system_events"
         android:key="eventEventsCategory" >
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventTimeParameters"
