@@ -33,9 +33,11 @@ public class Event {
     public boolean _blocked;
     public int _priority;
     public int _delayStart;
-    public boolean _isInDelay;
+    public boolean _isInDelayStart;
     public boolean _manualProfileActivation;
     public long _fkProfileStartWhenActivated;
+    public int _delayEnd;
+    public boolean _isInDelayEnd;
 
     public EventPreferencesTime _eventPreferencesTime;
     public EventPreferencesBattery _eventPreferencesBattery;
@@ -84,6 +86,7 @@ public class Event {
     static final String PREF_EVENT_AT_END_DO = "eventAtEndDo";
     static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
     static final String PREF_EVENT_START_WHEN_ACTIVATED_PROFILE = "eventStartWhenActivatedProfile";
+    static final String PREF_EVENT_DELAY_END = "eventDelayEnd";
 
     // Empty constructor
     public Event(){
@@ -102,10 +105,12 @@ public class Event {
                  //boolean undoneProfile,
                  int priority,
                  int delayStart,
-                 boolean isInDelay,
+                 boolean isInDelayStart,
                  int atEndDo,
                  boolean manualProfileActivation,
-                 long fkProfileStartWhenActivated)
+                 long fkProfileStartWhenActivated,
+                 int delayEnd,
+                 boolean isInDelayEnd)
     {
         this._id = id;
         this._name = name;
@@ -118,11 +123,13 @@ public class Event {
         //this._undoneProfile = undoneProfile;
         this._priority = priority;
         this._delayStart = delayStart;
-        this._isInDelay = isInDelay;
+        this._isInDelayStart = isInDelayStart;
         this._atEndDo = atEndDo;
         this._manualProfileActivation = manualProfileActivation;
         this._fkProfileStartWhenActivated = fkProfileStartWhenActivated;
-        
+        this._delayEnd = delayEnd;
+        this._isInDelayEnd = isInDelayEnd;
+
         createEventPreferences();
 
         //Log.e("Event", "this._fkProfileEnd=" + this._fkProfileEnd);
@@ -139,10 +146,12 @@ public class Event {
                  //boolean undoneProfile,
                  int priority,
                  int delayStart,
-                 boolean isInDelay,
+                 boolean isInDelayStart,
                  int atEndDo,
                  boolean manualProfileActivation,
-                 long fkProfileStartWhenActivated)
+                 long fkProfileStartWhenActivated,
+                 int delayEnd,
+                 boolean isInDelayEnd)
     {
         this._name = name;
         this._fkProfileStart = fkProfileStart;
@@ -154,10 +163,12 @@ public class Event {
         //this._undoneProfile = undoneProfile;
         this._priority = priority;
         this._delayStart = delayStart;
-        this._isInDelay = isInDelay;
+        this._isInDelayStart = isInDelayStart;
         this._atEndDo = atEndDo;
         this._manualProfileActivation = manualProfileActivation;
         this._fkProfileStartWhenActivated = fkProfileStartWhenActivated;
+        this._delayEnd = delayEnd;
+        this._isInDelayEnd = isInDelayEnd;
 
         createEventPreferences();
     }
@@ -175,11 +186,13 @@ public class Event {
         //this._undoneProfile = event._undoneProfile;
         this._priority = event._priority;
         this._delayStart = event._delayStart;
-        this._isInDelay = event._isInDelay;
+        this._isInDelayStart = event._isInDelayStart;
         this._atEndDo = event._atEndDo;
         this._manualProfileActivation = event._manualProfileActivation;
         this._fkProfileStartWhenActivated = event._fkProfileStartWhenActivated;
-        
+        this._delayEnd = event._delayEnd;
+        this._isInDelayEnd = event._isInDelayEnd;
+
         copyEventPreferences(event);
     }
 
@@ -393,6 +406,12 @@ public class Event {
         if (iDelayStart < 0) iDelayStart = 0;
         this._delayStart = iDelayStart;
 
+        String sDelayEnd = preferences.getString(PREF_EVENT_DELAY_END, "0");
+        if (sDelayEnd.isEmpty()) sDelayEnd = "0";
+        int iDelayEnd = Integer.parseInt(sDelayEnd);
+        if (iDelayEnd < 0) iDelayEnd = 0;
+        this._delayEnd = iDelayEnd;
+
 
         this._eventPreferencesTime.saveSharedPreferences(preferences);
         this._eventPreferencesBattery.saveSharedPreferences(preferences);
@@ -484,6 +503,18 @@ public class Event {
             }
             GUIData.setPreferenceTitleStyle(preference, delay > 0, false, false);
         }
+        if (key.equals(PREF_EVENT_DELAY_END))
+        {
+            Preference preference = prefMng.findPreference(key);
+            preference.setSummary(value);
+            int delay;
+            try {
+                delay = Integer.parseInt(value);
+            } catch (Exception e) {
+                delay = 0;
+            }
+            GUIData.setPreferenceTitleStyle(preference, delay > 0, false, false);
+        }
         if (key.equals(PREF_EVENT_FORCE_RUN) ||
                 key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION)) {
             Preference preference = prefMng.findPreference(key);
@@ -498,23 +529,28 @@ public class Event {
                 key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
                 key.equals(PREF_EVENT_NOTIFICATION_SOUND) ||
                 key.equals(PREF_EVENT_DELAY_START) ||
+                key.equals(PREF_EVENT_DELAY_END) ||
                 key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
             //boolean forceRunChanged = false;
             boolean manualProfileActivationChanged = false;
             boolean profileStartWhenActivatedChanged = false;
-            boolean delayStarChanged = false;
+            boolean delayStartChanged = false;
+            boolean delayEndChanged = false;
             boolean notificationSoundChanged = false;
 
             long fkProfileStartWhenActivated;
-            int delay;
+            int delayStart;
+            int delayEnd;
 
             if (preferences == null) {
                 //forceRunChanged = this._forceRun;
                 manualProfileActivationChanged = this._manualProfileActivation;
                 profileStartWhenActivatedChanged = this._fkProfileStartWhenActivated != GlobalData.PROFILE_NO_ACTIVATE;
                 fkProfileStartWhenActivated = this._fkProfileStartWhenActivated;
-                delayStarChanged = this._delayStart != 0;
-                delay = this._delayStart;
+                delayStartChanged = this._delayStart != 0;
+                delayEndChanged = this._delayEnd != 0;
+                delayStart = this._delayStart;
+                delayEnd = this._delayEnd;
                 notificationSoundChanged = !this._notificationSound.isEmpty();
             }
             else {
@@ -522,17 +558,19 @@ public class Event {
                 manualProfileActivationChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
                 fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(GlobalData.PROFILE_NO_ACTIVATE)));
                 profileStartWhenActivatedChanged = fkProfileStartWhenActivated != GlobalData.PROFILE_NO_ACTIVATE;
-                delayStarChanged = !preferences.getString(PREF_EVENT_DELAY_START, "0").equals("0");
-                delay = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_START, "0"));
+                delayStartChanged = !preferences.getString(PREF_EVENT_DELAY_START, "0").equals("0");
+                delayEndChanged = !preferences.getString(PREF_EVENT_DELAY_END, "0").equals("0");
+                delayStart = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_START, "0"));
+                delayEnd = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_END, "0"));
                 notificationSoundChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "").isEmpty();
             }
-            boolean bold = (//forceRunChanged ||
-                            manualProfileActivationChanged ||
-                            profileStartWhenActivatedChanged ||
-                            delayStarChanged ||
-                            notificationSoundChanged);
             Preference preference = prefMng.findPreference("eventStartOthersCategory");
             if (preference != null) {
+                boolean bold = (//forceRunChanged ||
+                        manualProfileActivationChanged ||
+                                profileStartWhenActivatedChanged ||
+                                delayStartChanged ||
+                                notificationSoundChanged);
                 GUIData.setPreferenceTitleStyle(preference, bold, false, false);
                 if (bold) {
                     String summary = "";
@@ -550,14 +588,30 @@ public class Event {
                         if (profile != null)
                             summary = summary + ": " + profile._name;
                     }
-                    if (delayStarChanged) {
+                    if (delayStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + delay;
+                        summary = summary + delayStart;
                     }
                     if (notificationSoundChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_notificationSound);
+                    }
+                    preference.setSummary(summary);
+                }
+                else
+                    preference.setSummary("");
+            }
+            preference = prefMng.findPreference("eventEndOthersCategory");
+            if (preference != null) {
+                boolean bold = (delayEndChanged);
+                GUIData.setPreferenceTitleStyle(preference, bold, false, false);
+                if (bold) {
+                    String summary = "";
+                    if (delayEndChanged) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        summary = summary + context.getString(R.string.event_preferences_delayEnd) + ": ";
+                        summary = summary + delayEnd;
                     }
                     preference.setSummary(summary);
                 }
@@ -575,6 +629,7 @@ public class Event {
             key.equals(PREF_EVENT_NOTIFICATION_SOUND) ||
             key.equals(PREF_EVENT_PRIORITY) ||
             key.equals(PREF_EVENT_DELAY_START) ||
+            key.equals(PREF_EVENT_DELAY_END) ||
             key.equals(PREF_EVENT_AT_END_DO) ||
             key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
             setSummary(prefMng, key, preferences.getString(key, ""), context);
@@ -622,6 +677,7 @@ public class Event {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND, preferences, context);
         setSummary(prefMng, PREF_EVENT_PRIORITY, preferences, context);
         setSummary(prefMng, PREF_EVENT_DELAY_START, preferences, context);
+        setSummary(prefMng, PREF_EVENT_DELAY_END, preferences, context);
         setSummary(prefMng, PREF_EVENT_AT_END_DO, preferences, context);
         setSummary(prefMng, PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, preferences, context);
         setSummary(prefMng, PREF_EVENT_FORCE_RUN, preferences, context);
@@ -673,6 +729,9 @@ public class Event {
         if (_eventPreferencesSMS._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesSMS.getPreferencesDescription(true, context);
 
+        if (_eventPreferencesLocation._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
+        description = description + _eventPreferencesLocation.getPreferencesDescription(true, context);
+
         if (_eventPreferencesWifi._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesWifi.getPreferencesDescription(true, context);
 
@@ -691,9 +750,6 @@ public class Event {
         if (_eventPreferencesApplication._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesApplication.getPreferencesDescription(true, context);
 
-        if (_eventPreferencesLocation._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesLocation.getPreferencesDescription(true, context);
-
         //description = description.replace(' ', '\u00A0');
 
         return description;
@@ -701,32 +757,6 @@ public class Event {
 
     private boolean canActivateReturnProfile()
     {
-        /*
-        boolean canActivate = false;
-
-        if (this._eventPreferencesTime._enabled)
-            canActivate = canActivate || this._eventPreferencesTime.activateReturnProfile();
-        if (this._eventPreferencesBattery._enabled)
-            canActivate = canActivate || this._eventPreferencesBattery.activateReturnProfile();
-        if (this._eventPreferencesCall._enabled)
-            canActivate = canActivate || this._eventPreferencesCall.activateReturnProfile();
-        if (this._eventPreferencesPeripherals._enabled)
-            canActivate = canActivate || this._eventPreferencesPeripherals.activateReturnProfile();
-        if (this._eventPreferencesCalendar._enabled)
-            canActivate = canActivate || this._eventPreferencesCalendar.activateReturnProfile();
-        if (this._eventPreferencesWifi._enabled)
-            canActivate = canActivate || this._eventPreferencesWifi.activateReturnProfile();
-        if (this._eventPreferencesScreen._enabled)
-            canActivate = canActivate || this._eventPreferencesScreen.activateReturnProfile();
-        if (this._eventPreferencesBluetooth._enabled)
-            canActivate = canActivate || this._eventPreferencesBluetooth.activateReturnProfile();
-        if (this._eventPreferencesSMS._enabled)
-            canActivate = canActivate || this._eventPreferencesSMS.activateReturnProfile();
-        if (this._eventPreferencesNotification._enabled)
-            canActivate = canActivate || this._eventPreferencesNotification.activateReturnProfile();
-
-        return canActivate;
-        */
         return true;
     }
 
@@ -1349,14 +1379,14 @@ public class Event {
             //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
             //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
 
-            this._isInDelay = true;
+            this._isInDelayStart = true;
         }
         else
-            this._isInDelay = false;
+            this._isInDelayStart = false;
 
-        dataWrapper.getDatabaseHandler().updateEventInDelay(this);
+        dataWrapper.getDatabaseHandler().updateEventInDelayStart(this);
 
-        if (log && _isInDelay) {
+        if (log && _isInDelayStart) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, _name, null, null, _delayStart);
         }
 
@@ -1378,8 +1408,8 @@ public class Event {
             pendingIntent.cancel();
         }
 
-        this._isInDelay = false;
-        dataWrapper.getDatabaseHandler().updateEventInDelay(this);
+        this._isInDelayStart = false;
+        dataWrapper.getDatabaseHandler().updateEventInDelayStart(this);
     }
 
 }

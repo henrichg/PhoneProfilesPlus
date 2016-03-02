@@ -133,10 +133,13 @@ public class EventDetailsFragment extends Fragment {
             switch (_eventStatus)
             {
                 case Event.ESTATUS_RUNNING:
-                    statusRes = R.drawable.ic_event_status_running;
+                    if (event._isInDelayEnd)
+                        statusRes = R.drawable.ic_event_status_running_delay;
+                    else
+                        statusRes = R.drawable.ic_event_status_running;
                     break;
                 case Event.ESTATUS_PAUSE:
-                    if (event._isInDelay)
+                    if (event._isInDelayStart)
                         statusRes = R.drawable.ic_event_status_pause_delay;
                     else
                         statusRes = R.drawable.ic_event_status_pause;
@@ -252,6 +255,8 @@ public class EventDetailsFragment extends Fragment {
                 profile = dataWrapper.getProfileById(event._fkProfileEnd, false);
                 if (profile != null) {
                     String profileName = profile._name;
+                    if (event._delayStart > 0)
+                        profileName = "[" + event._delayStart + "] " + profileName;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                         profileName = profileName + " + " + getResources().getString(R.string.event_prefernce_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
@@ -278,16 +283,18 @@ public class EventDetailsFragment extends Fragment {
                             profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
                     //}
                 } else {
-                    String profileName;
+                    String profileName = "";
+                    if (event._delayEnd > 0)
+                        profileName = "[" + event._delayEnd + "] " + profileName;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = getResources().getString(R.string.event_prefernce_profile_undone);
+                        profileName = profileName + getResources().getString(R.string.event_prefernce_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                        profileName = getResources().getString(R.string.event_preference_profile_restartEvents);
+                        profileName = profileName + getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {
                         if (event._fkProfileEnd == GlobalData.PROFILE_NO_ACTIVATE)
-                            profileName = getResources().getString(R.string.profile_preference_profile_end_no_activate);
+                            profileName = profileName + getResources().getString(R.string.profile_preference_profile_end_no_activate);
                         else
-                            profileName = getResources().getString(R.string.profile_preference_profile_not_set);
+                            profileName = profileName + getResources().getString(R.string.profile_preference_profile_not_set);
                     }
                     profileEndName.setText(profileName);
                     profileEndIcon.setImageResource(R.drawable.ic_empty);

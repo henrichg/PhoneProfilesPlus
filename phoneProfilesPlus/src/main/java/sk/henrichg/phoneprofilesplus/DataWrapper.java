@@ -795,7 +795,7 @@ public class DataWrapper {
         }
         */
 
-        removeAllEventDelays(true);
+        resetAllEventsInDelayStart(true);
 
         WifiScanAlarmBroadcastReceiver.setAlarm(context, false, true);
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
@@ -835,7 +835,9 @@ public class DataWrapper {
                 false,
                 Event.EATENDDO_UNDONE_PROFILE,
                 false,
-                GlobalData.PROFILE_NO_ACTIVATE
+                GlobalData.PROFILE_NO_ACTIVATE,
+                0,
+                false
          );
     }
 
@@ -2144,7 +2146,7 @@ public class DataWrapper {
 
         //GlobalData.logE("@@@ DataWrapper.doEventService","restartEvent="+restartEvent);
 
-        if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelay)
+        if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelayStart)
         {
             GlobalData.logE("DataWrapper.doEventService"," do new event status");
 
@@ -2156,11 +2158,11 @@ public class DataWrapper {
                 if (!forDelayAlarm)
                 {
                     // called not for delay alarm
-                    if (!event._isInDelay) {
+                    if (!event._isInDelayStart) {
                         // if not delay alarm is set, set it
                         event.setDelayAlarm(this, true, false, true); // for start delay
                     }
-                    if (!event._isInDelay)
+                    if (!event._isInDelayStart)
                     {
                         // no delay alarm is set
                         // start event
@@ -2168,7 +2170,7 @@ public class DataWrapper {
                     }
                 }
 
-                if (forDelayAlarm && event._isInDelay)
+                if (forDelayAlarm && event._isInDelayStart)
                 {
                     // called for delay alarm
                     // start event
@@ -2233,7 +2235,7 @@ public class DataWrapper {
         GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithRescan");
 
         // remove all event delay alarms
-        removeAllEventDelays(false);
+        resetAllEventsInDelayStart(false);
         // ignoruj manualnu aktivaciu profilu
         // a odblokuj forceRun eventy
         GlobalData.logE("$$$ restartEvents","from DataWrapper.restartEventsWithRescan");
@@ -2448,7 +2450,7 @@ public class DataWrapper {
             return "";
     }
 
-    public void removeAllEventDelays(boolean onlyFromDb)
+    public void resetAllEventsInDelayStart(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
             for (Event event : getEventList()) {
@@ -2456,7 +2458,7 @@ public class DataWrapper {
                 event.removeDelayAlarm(this, false);
             }
         }
-        getDatabaseHandler().removeAllEventsInDelay();
+        getDatabaseHandler().resetAllEventsInDelayStart();
     }
 
     public static boolean isPowerSaveMode(Context context) {

@@ -305,10 +305,13 @@ public class EditorEventListAdapter extends BaseAdapter
             switch (eventStatus)
             {
                 case Event.ESTATUS_RUNNING:
-                    statusRes = R.drawable.ic_event_status_running;
+                    if (event._isInDelayEnd)
+                        statusRes = R.drawable.ic_event_status_running_delay;
+                    else
+                        statusRes = R.drawable.ic_event_status_running;
                     break;
                 case Event.ESTATUS_PAUSE:
-                    if (event._isInDelay)
+                    if (event._isInDelayStart)
                         statusRes = R.drawable.ic_event_status_pause_delay;
                     else
                         statusRes = R.drawable.ic_event_status_pause;
@@ -424,6 +427,8 @@ public class EditorEventListAdapter extends BaseAdapter
                 profile = dataWrapper.getProfileById(event._fkProfileEnd, false);
                 if (profile != null) {
                     String profileName = profile._name;
+                    if (event._delayEnd > 0)
+                        profileName = "[" + event._delayEnd + "] " + profileName;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                         profileName = profileName + " + " + vi.getResources().getString(R.string.event_prefernce_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
@@ -450,16 +455,18 @@ public class EditorEventListAdapter extends BaseAdapter
                             holder.profileEndIndicator.setImageBitmap(profile._preferencesIndicator);
                     }
                 } else {
-                    String profileName;
+                    String profileName = "";
+                    if (event._delayEnd > 0)
+                        profileName = "[" + event._delayEnd + "] ";
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = vi.getResources().getString(R.string.event_prefernce_profile_undone);
+                        profileName = profileName + vi.getResources().getString(R.string.event_prefernce_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                        profileName = vi.getResources().getString(R.string.event_preference_profile_restartEvents);
+                        profileName = profileName + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {
                         if (event._fkProfileEnd == GlobalData.PROFILE_NO_ACTIVATE)
-                            profileName = vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
+                            profileName = profileName + vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
                         else
-                            profileName = vi.getResources().getString(R.string.profile_preference_profile_not_set);
+                            profileName = profileName + vi.getResources().getString(R.string.profile_preference_profile_not_set);
                     }
                     holder.profileEndName.setText(profileName);
                     holder.profileEndIcon.setImageResource(R.drawable.ic_empty);
