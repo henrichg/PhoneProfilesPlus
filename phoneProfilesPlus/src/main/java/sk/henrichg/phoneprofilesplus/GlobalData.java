@@ -61,7 +61,7 @@ public class GlobalData extends Application {
                                         "##### WifiConnectionBroadcastReceiver.onReceive|"+
                                         "##### WifiStateChangedBroadcastReceiver.onReceive|"+
                                         "##### WifiScanAlarmBroadcastReceiver.onReceive|"+
-                                        "##### EventDelayBroadcastReceiver.onReceive|"+
+                                        "##### EventDelayStartBroadcastReceiver.onReceive|"+
                                         "##### ProfileDurationAlarmBroadcastReceiver.onReceive|"+
                                         "##### BluetoothConnectionBroadcastReceiver.onReceive|"+
                                         "##### BluetoothStateChangedBroadcastReceiver.onReceive|"+
@@ -102,7 +102,7 @@ public class GlobalData extends Application {
                                          //"@@@ BluetoothStateChangedBroadcastReceiver|"+
                                          //"@@@ ScreenOnOffBroadcastReceiver"
                                          //"@@@ RestartEventsBroadcastReceiver|"+
-                                         //"@@@ EventDelayBroadcastReceiver|"+
+                                         //"@@@ EventDelayStartBroadcastReceiver|"+
                                          //"@@@ BootUpReceiver|"+
                                          //"@@@ PackageReplacedReceiver|"+
                                          //"DataWrapper.doEventService|"+

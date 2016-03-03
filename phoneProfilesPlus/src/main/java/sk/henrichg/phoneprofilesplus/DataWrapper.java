@@ -796,6 +796,7 @@ public class DataWrapper {
         */
 
         resetAllEventsInDelayStart(true);
+        resetAllEventsInDelayEnd(true);
 
         WifiScanAlarmBroadcastReceiver.setAlarm(context, false, true);
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
@@ -1415,7 +1416,8 @@ public class DataWrapper {
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
     public void doEventService(/*Intent intent, */Event event, boolean statePause,
                                     boolean restartEvent, boolean interactive,
-                                    boolean forDelayAlarm, boolean reactivate,
+                                    boolean forDelayStartAlarm, boolean forDelayEndAlarm,
+                                    boolean reactivate,
                                     Profile mergedProfile)
     {
         if (!Permissions.grantEventPermissions(context, event, true))
@@ -2146,7 +2148,7 @@ public class DataWrapper {
 
         //GlobalData.logE("@@@ DataWrapper.doEventService","restartEvent="+restartEvent);
 
-        if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelayStart)
+        if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelayStart || event._isInDelayEnd)
         {
             GlobalData.logE("DataWrapper.doEventService"," do new event status");
 
@@ -2155,12 +2157,12 @@ public class DataWrapper {
                 GlobalData.logE("$$$ DataWrapper.doEventService","start event");
                 GlobalData.logE("$$$ DataWrapper.doEventService","event._name="+event._name);
 
-                if (!forDelayAlarm)
+                if (!forDelayStartAlarm)
                 {
                     // called not for delay alarm
                     if (!event._isInDelayStart) {
                         // if not delay alarm is set, set it
-                        event.setDelayAlarm(this, true, false, true); // for start delay
+                        event.setDelayStartAlarm(this, true, false, true); // for start delay
                     }
                     if (!event._isInDelayStart)
                     {
@@ -2170,7 +2172,7 @@ public class DataWrapper {
                     }
                 }
 
-                if (forDelayAlarm && event._isInDelayStart)
+                if (forDelayStartAlarm && event._isInDelayStart)
                 {
                     // called for delay alarm
                     // start event
@@ -2185,7 +2187,26 @@ public class DataWrapper {
                 GlobalData.logE("$$$ DataWrapper.doEventService","pause event");
                 GlobalData.logE("$$$ DataWrapper.doEventService","event._name="+event._name);
 
-                event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
+                if (!forDelayEndAlarm) {
+                    // called not for delay alarm
+                    if (!event._isInDelayEnd) {
+                        // if not delay alarm is set, set it
+                        event.setDelayEndAlarm(this, true, false, true); // for end delay
+                    }
+                    if (!event._isInDelayEnd)
+                    {
+                        // no delay alarm is set
+                        // pause event
+                        event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
+                    }
+                }
+
+                if (forDelayEndAlarm && event._isInDelayEnd)
+                {
+                    // called for delay alarm
+                    // pause event
+                    event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
+                }
             }
         }
 
@@ -2236,6 +2257,7 @@ public class DataWrapper {
 
         // remove all event delay alarms
         resetAllEventsInDelayStart(false);
+        resetAllEventsInDelayEnd(false);
         // ignoruj manualnu aktivaciu profilu
         // a odblokuj forceRun eventy
         GlobalData.logE("$$$ restartEvents","from DataWrapper.restartEventsWithRescan");
@@ -2454,8 +2476,19 @@ public class DataWrapper {
     {
         if (!onlyFromDb) {
             for (Event event : getEventList()) {
-                event.removeDelayAlarm(this, true);
-                event.removeDelayAlarm(this, false);
+                event.removeDelayStartAlarm(this, true);
+                event.removeDelayStartAlarm(this, false);
+            }
+        }
+        getDatabaseHandler().resetAllEventsInDelayStart();
+    }
+
+    public void resetAllEventsInDelayEnd(boolean onlyFromDb)
+    {
+        if (!onlyFromDb) {
+            for (Event event : getEventList()) {
+                event.removeDelayEndAlarm(this, true);
+                event.removeDelayEndAlarm(this, false);
             }
         }
         getDatabaseHandler().resetAllEventsInDelayStart();

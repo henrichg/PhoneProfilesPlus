@@ -721,4 +721,5 @@
     <string name="permissions_for_brightness_dialog_text2">Please grant them in next dialogs.</string>
     <string name="event_preferences_delayEnd">Delay (sec)</string>
     <string name="event_preferences_category_system_events">System events</string>
+    <string name="altype_eventEndDelay">event end with delay</string>
 </resources>

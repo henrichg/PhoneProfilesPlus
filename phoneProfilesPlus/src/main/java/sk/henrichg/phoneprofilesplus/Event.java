@@ -823,7 +823,8 @@ public class Event {
                             Profile mergedProfile)
     {
         // remove delay alarm
-        removeDelayAlarm(dataWrapper, true); // for start delay
+        removeDelayStartAlarm(dataWrapper, true); // for start delay
+        removeDelayEndAlarm(dataWrapper, true); // for end delay
 
         if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
@@ -1083,7 +1084,8 @@ public class Event {
                             boolean allowRestart)
     {
         // remove delay alarm
-        removeDelayAlarm(dataWrapper, true); // for start delay
+        removeDelayStartAlarm(dataWrapper, true); // for start delay
+        removeDelayEndAlarm(dataWrapper, true); // for end delay
 
         if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
@@ -1211,7 +1213,8 @@ public class Event {
                             boolean allowRestart)
     {
         // remove delay alarm
-        removeDelayAlarm(dataWrapper, true); // for start delay
+        removeDelayStartAlarm(dataWrapper, true); // for start delay
+        removeDelayEndAlarm(dataWrapper, true); // for end delay
 
         if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
@@ -1312,12 +1315,12 @@ public class Event {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    public void setDelayAlarm(DataWrapper dataWrapper,
+    public void setDelayStartAlarm(DataWrapper dataWrapper,
                               boolean forStart,
                               boolean ignoreGlobalPref,
                               boolean log)
     {
-        removeDelayAlarm(dataWrapper, forStart);
+        removeDelayStartAlarm(dataWrapper, forStart);
 
         if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
@@ -1330,7 +1333,7 @@ public class Event {
         if (GlobalData.getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
-            GlobalData.logE("Event.setDelayAlarm","event_id="+this._id+" events blocked");
+            GlobalData.logE("Event.setDelayStartAlarm","event_id="+this._id+" events blocked");
 
 
             if (!_forceRun)
@@ -1341,9 +1344,9 @@ public class Event {
                 return;
         }
 
-        GlobalData.logE("@@@ Event.setDelayAlarm","event_id="+this._id+"-----------------------------------");
-        GlobalData.logE("@@@ Event.setDelayAlarm","-- event_name="+this._name);
-        GlobalData.logE("@@@ Event.setDelayAlarm","-- delay="+this._delayStart);
+        GlobalData.logE("@@@ Event.setDelayStartAlarm","event_id="+this._id+"-----------------------------------");
+        GlobalData.logE("@@@ Event.setDelayStartAlarm","-- event_name="+this._name);
+        GlobalData.logE("@@@ Event.setDelayStartAlarm","-- delay="+this._delayStart);
 
         if (this._delayStart > 0)
         {
@@ -1357,11 +1360,11 @@ public class Event {
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String result = sdf.format(alarmTime);
             if (forStart)
-                GlobalData.logE("Event.setDelayAlarm","startTime="+result);
+                GlobalData.logE("Event.setDelayStartAlarm","startTime="+result);
             else
-                GlobalData.logE("Event.setDelayAlarm","endTime="+result);
+                GlobalData.logE("Event.setDelayStartAlarm","endTime="+result);
 
-            Intent intent = new Intent(dataWrapper.context, EventDelayBroadcastReceiver.class);
+            Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
             intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
             intent.putExtra(GlobalData.EXTRA_START_SYSTEM_EVENT, forStart);
 
@@ -1393,16 +1396,16 @@ public class Event {
         return;
     }
 
-    public void removeDelayAlarm(DataWrapper dataWrapper, boolean forStart)
+    public void removeDelayStartAlarm(DataWrapper dataWrapper, boolean forStart)
     {
         AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
-        Intent intent = new Intent(dataWrapper.context, EventDelayBroadcastReceiver.class);
+        Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("Event.removeDelayAlarm","alarm found");
+            GlobalData.logE("Event.removeDelayStartAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
@@ -1410,6 +1413,107 @@ public class Event {
 
         this._isInDelayStart = false;
         dataWrapper.getDatabaseHandler().updateEventInDelayStart(this);
+    }
+
+    @SuppressLint({"SimpleDateFormat", "NewApi"})
+    public void setDelayEndAlarm(DataWrapper dataWrapper,
+                                   boolean forStart,
+                                   boolean ignoreGlobalPref,
+                                   boolean log)
+    {
+        removeDelayEndAlarm(dataWrapper, forStart);
+
+        if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
+            // events are globally stopped
+            return;
+
+        if (!this.isRunnable())
+            // event is not runnable, no pause it
+            return;
+
+        if (GlobalData.getEventsBlocked(dataWrapper.context))
+        {
+            // blocked by manual profile activation
+            GlobalData.logE("Event.setDelayEndAlarm","event_id="+this._id+" events blocked");
+
+
+            if (!_forceRun)
+                // event is not forceRun
+                return;
+            if (_blocked)
+                // forceRun event is temporary blocked
+                return;
+        }
+
+        GlobalData.logE("@@@ Event.setDelayEndAlarm","event_id="+this._id+"-----------------------------------");
+        GlobalData.logE("@@@ Event.setDelayEndAlarm","-- event_name="+this._name);
+        GlobalData.logE("@@@ Event.setDelayEndAlarm","-- delay="+this._delayEnd);
+
+        if (this._delayEnd > 0)
+        {
+            // delay for end is > 0
+            // set alarm
+
+            Calendar now = Calendar.getInstance();
+            now.add(Calendar.SECOND, this._delayEnd);
+            long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
+
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String result = sdf.format(alarmTime);
+            if (forStart)
+                GlobalData.logE("Event.setDelayEndAlarm","startTime="+result);
+            else
+                GlobalData.logE("Event.setDelayEndAlarm","endTime="+result);
+
+            Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
+            intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
+            intent.putExtra(GlobalData.EXTRA_START_SYSTEM_EVENT, forStart);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
+
+            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            else
+            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            else
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
+            //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
+
+            this._isInDelayEnd = true;
+        }
+        else
+            this._isInDelayEnd = false;
+
+        dataWrapper.getDatabaseHandler().updateEventInDelayEnd(this);
+
+        if (log && _isInDelayEnd) {
+            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTENDDELAY, _name, null, null, _delayEnd);
+        }
+
+        return;
+    }
+
+    public void removeDelayEndAlarm(DataWrapper dataWrapper, boolean forStart)
+    {
+        AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
+
+        Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
+        if (pendingIntent != null)
+        {
+            GlobalData.logE("Event.removeDelayEndAlarm","alarm found");
+
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
+
+        this._isInDelayEnd = false;
+        dataWrapper.getDatabaseHandler().updateEventInDelayEnd(this);
     }
 
 }

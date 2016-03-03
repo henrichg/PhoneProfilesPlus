@@ -145,10 +145,12 @@ public class EventsService extends IntentService
             }
         }
 
-        boolean forDelayAlarm = broadcastReceiverType.equals(EventDelayBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
+        boolean forDelayStartAlarm = broadcastReceiverType.equals(EventDelayStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
+        boolean forDelayEndAlarm = broadcastReceiverType.equals(EventDelayEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
 
         //GlobalData.logE("@@@ EventsService.onHandleIntent","isRestart="+isRestart);
-        GlobalData.logE("@@@ EventsService.onHandleIntent","forDelayAlarm="+forDelayAlarm);
+        GlobalData.logE("@@@ EventsService.onHandleIntent","forDelayStartAlarm="+forDelayStartAlarm);
+        GlobalData.logE("@@@ EventsService.onHandleIntent","forDelayEndAlarm="+forDelayEndAlarm);
 
         // get running events count
         List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
@@ -179,7 +181,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj aj ked uz je zapauznuty
-                    dataWrapper.doEventService(/*intent, */_event, true, true, interactive, forDelayAlarm, true, mergedProfile);
+                    dataWrapper.doEventService(/*intent, */_event, true, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile);
             }
             // 2. start events
             dataWrapper.sortEventsByPriorityAsc();
@@ -192,7 +194,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
                     // spustaj len ak este nebezi
-                    dataWrapper.doEventService(/*intent, */_event, false, false, interactive, forDelayAlarm, true, mergedProfile);
+                    dataWrapper.doEventService(/*intent, */_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile);
             }
         }
         else
@@ -212,7 +214,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj len ak este nie je zapauznuty
-                    dataWrapper.doEventService(/*intent, */_event, true, false, interactive, forDelayAlarm, false, mergedProfile);
+                    dataWrapper.doEventService(/*intent, */_event, true, false, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile);
             }
             //2. start events
             dataWrapper.sortEventsByPriorityAsc();
@@ -225,7 +227,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
                     // spustaj len ak este nebezi
-                    dataWrapper.doEventService(/*intent, */_event, false, false, interactive, forDelayAlarm, false, mergedProfile);
+                    dataWrapper.doEventService(/*intent, */_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile);
             }
         }
 
@@ -376,7 +378,7 @@ public class EventsService extends IntentService
         if (broadcastReceiverType.equals(DockConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_PERIPHERAL;
         /*else
-        if (broadcastReceiverType.equals(EventDelayBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventDelayStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_????;*/
         else
         if (broadcastReceiverType.equals(EventsCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
@@ -464,8 +466,11 @@ public class EventsService extends IntentService
         if (broadcastReceiverType.equals(DockConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             DockConnectionBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(EventDelayBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            EventDelayBroadcastReceiver.completeWakefulIntent(intent);
+        if (broadcastReceiverType.equals(EventDelayStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            EventDelayStartBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(EventDelayEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            EventDelayEndBroadcastReceiver.completeWakefulIntent(intent);
         else
         if (broadcastReceiverType.equals(EventsCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             EventsCalendarBroadcastReceiver.completeWakefulIntent(intent);

@@ -492,7 +492,12 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".EventDelayBroadcastReceiver"
+            android:name=".EventDelayStartBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".EventDelayEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>

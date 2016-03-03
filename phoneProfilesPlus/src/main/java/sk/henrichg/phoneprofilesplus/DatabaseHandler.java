@@ -82,6 +82,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int ALTYPE_DATAIMPORT = 11;
     public static final int ALTYPE_PAUSEDLOGGING = 12;
     public static final int ALTYPE_STARTEDLOGGING = 13;
+    public static final int ALTYPE_EVENTENDDELAY = 14;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -2748,7 +2749,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         try {
             // updating row
             r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                new String[] { String.valueOf(event._id) });
+                    new String[]{String.valueOf(event._id)});
             updateEventPreferences(event, db);
 
             db.setTransactionSuccessful();
@@ -2947,14 +2948,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void getEventPreferencesBattery(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
-                                 new String[] { KEY_E_BATTERY_ENABLED,
-                                                KEY_E_BATTERY_LEVEL_LOW,
-                                                KEY_E_BATTERY_LEVEL_HIGHT,
-                                                KEY_E_BATTERY_CHARGING,
-                                                KEY_E_BATTERY_POWER_SAVE_MODE
-                                                },
-                                 KEY_E_ID + "=?",
-                                 new String[] { String.valueOf(event._id) }, null, null, null, null);
+                new String[]{KEY_E_BATTERY_ENABLED,
+                        KEY_E_BATTERY_LEVEL_LOW,
+                        KEY_E_BATTERY_LEVEL_HIGHT,
+                        KEY_E_BATTERY_CHARGING,
+                        KEY_E_BATTERY_POWER_SAVE_MODE
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
         if (cursor != null)
         {
             cursor.moveToFirst();
@@ -3929,6 +3930,102 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //db.close();
         
+        return r;
+
+    }
+
+    public boolean getEventInDelayEnd(Event event)
+    {
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        int eventInDelay = 0;
+
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[] {
+                        KEY_E_IS_IN_DELAY_END
+                },
+                KEY_E_ID + "=?",
+                new String[] { String.valueOf(event._id) }, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                eventInDelay = Integer.parseInt(cursor.getString(0));
+            }
+
+            cursor.close();
+        }
+
+        //db.close();
+
+        return (eventInDelay == 1);
+
+    }
+
+    public int updateEventInDelayEnd(Event event)
+    {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
+
+        int r = 0;
+
+        db.beginTransaction();
+
+        try {
+            // updating row
+            r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    new String[] { String.valueOf(event._id) });
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.updateEventInDelayEnd", e.toString());
+            r = 0;
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+
+        return r;
+
+    }
+
+    public int resetAllEventsInDelayEnd()
+    {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_E_IS_IN_DELAY_END, 0);
+
+        int r = 0;
+
+        db.beginTransaction();
+
+        try {
+            // updating rows
+            r = db.update(TABLE_EVENTS, values, null, null);
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.resetAllEventsInDelayEnd", e.toString());
+            r = 0;
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+
         return r;
 
     }

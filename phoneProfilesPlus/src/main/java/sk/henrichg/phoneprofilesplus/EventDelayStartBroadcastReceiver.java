@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class EventDelayBroadcastReceiver extends WakefulBroadcastReceiver {
+public class EventDelayStartBroadcastReceiver extends WakefulBroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "eventDelay";
+    public static final String BROADCAST_RECEIVER_TYPE = "eventDelayStart";
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("##### EventDelayBroadcastReceiver.onReceive", "xxx");
+        GlobalData.logE("##### EventDelayStartBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -21,7 +21,7 @@ public class EventDelayBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ EventDelayBroadcastReceiver.onReceive","xxx");
+            GlobalData.logE("@@@ EventDelayStartBroadcastReceiver.onReceive","xxx");
 
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);

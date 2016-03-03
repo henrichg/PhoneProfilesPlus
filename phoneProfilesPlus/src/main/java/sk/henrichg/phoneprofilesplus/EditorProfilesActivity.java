@@ -585,6 +585,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 // no setup for next start
                 dataWrapper.resetAllEventsInDelayStart(false);
+                dataWrapper.resetAllEventsInDelayEnd(false);
                 // no set system events, unblock all events, no activate return profile
                 dataWrapper.pauseAllEvents(true, false/*, false*/);
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), false);
