@@ -2189,7 +2189,7 @@ public class DataWrapper {
 
                 if (!forDelayEndAlarm) {
                     // called not for delay alarm
-                    if (!event._isInDelayEnd) {
+                    if ((!restartEvent) && (!event._isInDelayEnd)) {
                         // if not delay alarm is set, set it
                         event.setDelayEndAlarm(this, true, false, true); // for end delay
                     }
