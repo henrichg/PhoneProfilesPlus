@@ -1440,9 +1440,9 @@ public class DataWrapper {
         boolean applicationPassed = true;
         boolean locationPassed = true;
 
-        GlobalData.logE("DataWrapper.doEventService","--- start --------------------------");
-        GlobalData.logE("DataWrapper.doEventService","------- event._id="+event._id);
-        GlobalData.logE("DataWrapper.doEventService","------- event._name="+event._name);
+        GlobalData.logE("%%% DataWrapper.doEventService","--- start --------------------------");
+        GlobalData.logE("%%% DataWrapper.doEventService","------- event._id="+event._id);
+        GlobalData.logE("%%% DataWrapper.doEventService","------- event._name="+event._name);
 
         if (event._eventPreferencesTime._enabled)
         {
