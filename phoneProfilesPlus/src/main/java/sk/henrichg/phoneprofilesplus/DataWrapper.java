@@ -1454,7 +1454,7 @@ public class DataWrapper {
 
             String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                                 " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
-            GlobalData.logE("DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
+            GlobalData.logE("%%% DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
             //startAlarmTime -= (1000 * 30); // decrease 30 seconds
 
@@ -1462,7 +1462,7 @@ public class DataWrapper {
 
             alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                          " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
-            GlobalData.logE("DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
+            GlobalData.logE("%%% DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
 
             //endAlarmTime -= (1000 * 30); // decrease 30 seconds
 
@@ -1477,9 +1477,10 @@ public class DataWrapper {
             long nowAlarmTime = now.getTimeInMillis();
             alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
                  " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
-            GlobalData.logE("DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
+            GlobalData.logE("%%% DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
 
             timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime <= endAlarmTime));
+            GlobalData.logE("%%% DataWrapper.doEventService","timePassed="+timePassed);
 
             //eventStart = eventStart && timePassed;
         }
@@ -2154,8 +2155,8 @@ public class DataWrapper {
 
             if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause))
             {
-                GlobalData.logE("$$$ DataWrapper.doEventService","start event");
-                GlobalData.logE("$$$ DataWrapper.doEventService","event._name="+event._name);
+                GlobalData.logE("%%% DataWrapper.doEventService","start event");
+                GlobalData.logE("%%% DataWrapper.doEventService","event._name="+event._name);
 
                 if (!forDelayStartAlarm)
                 {
@@ -2184,8 +2185,8 @@ public class DataWrapper {
             {
                 // when pausing and it is for restart events, force pause
 
-                GlobalData.logE("$$$ DataWrapper.doEventService","pause event");
-                GlobalData.logE("$$$ DataWrapper.doEventService","event._name="+event._name);
+                GlobalData.logE("%%% DataWrapper.doEventService","pause event");
+                GlobalData.logE("%%% DataWrapper.doEventService","event._name="+event._name);
 
                 if (!forDelayEndAlarm) {
                     // called not for delay alarm
