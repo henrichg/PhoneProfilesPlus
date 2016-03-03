@@ -2211,7 +2211,7 @@ public class DataWrapper {
             }
         }
 
-        GlobalData.logE("DataWrapper.doEventService","--- end --------------------------");
+        GlobalData.logE("%%% DataWrapper.doEventService","--- end --------------------------");
     }
 
     public void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile)
