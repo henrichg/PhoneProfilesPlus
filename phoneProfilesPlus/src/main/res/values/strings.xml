@@ -719,7 +719,6 @@
     <string name="event_pref_dialog_help">(*) Profile not found</string>
     <string name="permissions_for_brightness_dialog_text1">Selecting brightness requires some permissions.</string>
     <string name="permissions_for_brightness_dialog_text2">Please grant them in next dialogs.</string>
-    <string name="event_preferences_delayEnd">Delay (sec)</string>
     <string name="event_preferences_category_sensors">Parameters of sensors</string>
     <string name="altype_eventEndDelay">event end with delay</string>
     <string name="info_notification_event_states_running_delay">Running with delay: event is running, but parameters are no longer satisfied. Event is waiting in the delay.</string>

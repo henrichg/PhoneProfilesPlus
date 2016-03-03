@@ -95,8 +95,8 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventDelayEnd"
-                android:summary="@string/event_preferences_delayEnd"
-                android:title="@string/event_preferences_delayEnd"
+                android:summary="@string/event_preferences_delayStart"
+                android:title="@string/event_preferences_delayStart"
                 android:defaultValue="0"
                 henrichg:dMin="0"
                 henrichg:dMax="86400" />

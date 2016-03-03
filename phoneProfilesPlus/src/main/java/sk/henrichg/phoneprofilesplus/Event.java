@@ -610,7 +610,7 @@ public class Event {
                     String summary = "";
                     if (delayEndChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_delayEnd) + ": ";
+                        summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
                         summary = summary + delayEnd;
                     }
                     preference.setSummary(summary);
