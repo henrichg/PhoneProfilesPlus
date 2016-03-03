@@ -308,6 +308,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:text="@string/info_notification_event_states_running_delay"
+                android:id="@+id/activity_info_notification_dialog_info_text35"
+                android:drawableLeft="@drawable/ic_event_status_running_delay"
+                android:drawableStart="@drawable/ic_event_status_running_delay"
+                android:drawablePadding="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="@string/info_notification_event_states_stopped"
                 android:id="@+id/activity_info_notification_dialog_info_text33"
