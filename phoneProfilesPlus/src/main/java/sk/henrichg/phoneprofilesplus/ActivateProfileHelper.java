@@ -900,9 +900,9 @@ public class ActivateProfileHelper {
                     break;
                 case 6:
                     screenTimeoutUnlock(context);
-                    if (android.os.Build.VERSION.SDK_INT < 19)
-                        Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
-                    else
+                    //if (android.os.Build.VERSION.SDK_INT < 19)
+                    //    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
+                    //else
                         screenTimeoutLock(context);
                     //Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 18000000);
                     break;
