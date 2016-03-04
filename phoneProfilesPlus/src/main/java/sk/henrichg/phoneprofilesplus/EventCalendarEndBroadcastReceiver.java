@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class EventsCalendarBroadcastReceiver extends WakefulBroadcastReceiver {
+public class EventCalendarEndBroadcastReceiver extends WakefulBroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "eventsCalendar";
+    public static final String BROADCAST_RECEIVER_TYPE = "eventCalendarEnd";
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("##### EventsCalendarBroadcastReceiver.onReceive", "xxx");
+        GlobalData.logE("##### EventCalendarStartBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -21,13 +21,13 @@ public class EventsCalendarBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ EventsCalendarBroadcastReceiver.onReceive","xxx");
+            GlobalData.logE("@@@ EventCalendarStartBroadcastReceiver.onReceive","xxx");
 
             /*boolean calendarEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
-            GlobalData.logE("EventsCalendarBroadcastReceiver.onReceive","calendarEventsExists="+calendarEventsExists);
+            GlobalData.logE("EventCalendarStartBroadcastReceiver.onReceive","calendarEventsExists="+calendarEventsExists);
             dataWrapper.invalidateDataWrapper();
 
             if (calendarEventsExists)

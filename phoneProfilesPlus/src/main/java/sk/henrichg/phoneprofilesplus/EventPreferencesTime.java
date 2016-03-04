@@ -450,7 +450,8 @@ public class EventPreferencesTime extends EventPreferences {
         // from broadcast will by called EventsService
 
 
-        removeAlarm(context);
+        removeAlarm(true, context);
+        removeAlarm(false, context);
 
         if (!(isRunable() && _enabled))
             return;
@@ -466,7 +467,8 @@ public class EventPreferencesTime extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsService
 
-        removeAlarm(context);
+        removeAlarm(true, context);
+        removeAlarm(false, context);
 
         if (!(isRunable() && _enabled))
             return;
@@ -479,16 +481,21 @@ public class EventPreferencesTime extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        removeAlarm(context);
+        removeAlarm(true, context);
+        removeAlarm(false, context);
 
         GlobalData.logE("EventPreferencesTime.removeSystemEvent","xxx");
     }
 
-    public void removeAlarm(Context context)
+    public void removeAlarm(boolean startEvent, Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-        Intent intent = new Intent(context, EventsTimeBroadcastReceiver.class);
+        Intent intent;
+        if (startEvent)
+            intent = new Intent(context, EventTimeStartBroadcastReceiver.class);
+        else
+            intent = new Intent(context, EventTimeEndBroadcastReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
@@ -510,7 +517,12 @@ public class EventPreferencesTime extends EventPreferences {
         else
             GlobalData.logE("EventPreferencesTime.setAlarm","endTime="+result);
 
-        Intent intent = new Intent(context, EventsTimeBroadcastReceiver.class);
+        Intent intent;
+        if (startEvent)
+            intent = new Intent(context, EventTimeStartBroadcastReceiver.class);
+        else
+            intent = new Intent(context, EventTimeEndBroadcastReceiver.class);
+
         intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
         intent.putExtra(GlobalData.EXTRA_START_SYSTEM_EVENT, startEvent);
 

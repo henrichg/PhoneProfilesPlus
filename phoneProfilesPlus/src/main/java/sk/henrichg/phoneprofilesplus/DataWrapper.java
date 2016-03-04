@@ -1414,18 +1414,16 @@ public class DataWrapper {
 
     @SuppressWarnings("deprecation")
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
-    public void doEventService(/*Intent intent, */Event event, boolean statePause,
+    public void doEventService(Event event, boolean statePause,
                                     boolean restartEvent, boolean interactive,
                                     boolean forDelayStartAlarm, boolean forDelayEndAlarm,
-                                    boolean reactivate,
-                                    Profile mergedProfile)
+                                    boolean reactivate, Profile mergedProfile,
+                                    String broadcastType)
     {
         if (!Permissions.grantEventPermissions(context, event, true))
             return;
 
         int newEventStatus = Event.ESTATUS_NONE;
-
-        //boolean eventStart = true;
 
         boolean timePassed = true;
         boolean batteryPassed = true;
@@ -1456,30 +1454,25 @@ public class DataWrapper {
                                 " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
             GlobalData.logE("%%% DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
-            //startAlarmTime -= (1000 * 30); // decrease 30 seconds
-
             endAlarmTime = event._eventPreferencesTime.computeAlarm(false);
 
             alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                          " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
             GlobalData.logE("%%% DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
 
-            //endAlarmTime -= (1000 * 30); // decrease 30 seconds
-
             Calendar now = Calendar.getInstance();
-            // round time
-            if (now.get(Calendar.SECOND) > 0)
-            {
-                now.add(Calendar.MINUTE, 1);
-                now.set(Calendar.SECOND, 0);
-            }
-
             long nowAlarmTime = now.getTimeInMillis();
             alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
                  " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
             GlobalData.logE("%%% DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
 
-            timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime <= endAlarmTime));
+            if (broadcastType.equals(EventTimeStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                timePassed = true;
+            else
+            if (broadcastType.equals(EventTimeEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                timePassed = false;
+            else
+                timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
             GlobalData.logE("%%% DataWrapper.doEventService","timePassed="+timePassed);
 
             //eventStart = eventStart && timePassed;
@@ -1759,30 +1752,25 @@ public class DataWrapper {
                                     " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
                 GlobalData.logE("DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
-                //startAlarmTime -= (1000 * 30); // decrease 30 seconds
-
                 endAlarmTime = event._eventPreferencesCalendar.computeAlarm(false);
 
                 alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                              " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
                 GlobalData.logE("DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
 
-                //endAlarmTime -= (1000 * 30); // decrease 30 seconds
-
                 Calendar now = Calendar.getInstance();
-                // round time
-                if (now.get(Calendar.SECOND) > 0)
-                {
-                    now.add(Calendar.MINUTE, 1);
-                    now.set(Calendar.SECOND, 0);
-                }
-
                 long nowAlarmTime = now.getTimeInMillis();
                 alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
                      " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
                 GlobalData.logE("DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
 
-                calendarPassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime <= endAlarmTime));
+                if (broadcastType.equals(EventCalendarStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    calendarPassed = true;
+                else
+                if (broadcastType.equals(EventCalendarEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    calendarPassed = false;
+                else
+                    calendarPassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
             }
             else
                 calendarPassed = false;
@@ -2040,7 +2028,13 @@ public class DataWrapper {
             alarmTimeS = sdf.format(nowAlarmTime);
             GlobalData.logE("DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
 
-            smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime <= endAlarmTime));
+            if (broadcastType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                smsPassed = true;
+            else
+            if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                smsPassed = false;
+            else
+                smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
         }
 
         if (event._eventPreferencesNotification._enabled)
@@ -2064,7 +2058,13 @@ public class DataWrapper {
                 alarmTimeS = sdf.format(nowAlarmTime);
                 GlobalData.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
 
-                notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime <= endAlarmTime));
+                if (broadcastType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    notificationPassed = true;
+                else
+                if (broadcastType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    notificationPassed = false;
+                else
+                    notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
             }
             else {
                 notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);

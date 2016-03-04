@@ -51,11 +51,11 @@ public class GlobalData extends Application {
                                         "##### DashClockBroadcastReceiver.onReceive|"+
                                         "##### SetRadioPrefsForProfileBroadcastReceiver.onReceive|"+
                                         "##### RestartEventsBroadcastReceiver.onReceive|"+
-                                        "##### EventsTimeBroadcastReceiver.onReceive|"+
+                                        "##### EventTimeStartBroadcastReceiver.onReceive|"+
                                         "##### RefreshGUIBroadcastReceiver.onReceive|"+
                                         "##### PhoneCallBroadcastReceiver.onReceive|"+
                                         "##### DockConnectionBroadcastReceiver.onReceive|"+
-                                        "##### EventsCalendarBroadcastReceiver.onReceive|"+
+                                        "##### EventCalendarStartBroadcastReceiver.onReceive|"+
                                         "##### CalendarProviderChangedBroadcastReceiver.onReceive|"+
                                         "##### SearchCalendarEventsBroadcastReceiver.onReceive|"+
                                         "##### WifiConnectionBroadcastReceiver.onReceive|"+
@@ -87,8 +87,8 @@ public class GlobalData extends Application {
                                         //"BluetoothLEScanCallback21"
                                          //"@@@ BatteryEventBroadcastReceiver|"+
                                          //"@@@ CalendarProviderChangedBroadcastReceiver|"+
-                                         //"@@@ EventsCalendarBroadcastReceiver|"+
-                                         //"@@@ EventsTimeBroadcastReceiver|"+
+                                         //"@@@ EventCalendarStartBroadcastReceiver|"+
+                                         //"@@@ EventTimeStartBroadcastReceiver|"+
                                          //"HeadsetConnectionBroadcastReceiver"
                                          //"@@@ SearchCalendarEventsBroadcastReceiver|"+
                                          //"@@@ WifiConnectionBroadcastReceiver|"+
