@@ -83,5 +83,6 @@
     <attr name="actionHelpIcon" format="reference" />
     <attr name="actionActivityLogPlayIcon" format="reference" />
     <attr name="actionActivityLogPauseIcon" format="reference" />
+    <attr name="actionProfileActivtionDuration" format="reference" />
 
 </resources>

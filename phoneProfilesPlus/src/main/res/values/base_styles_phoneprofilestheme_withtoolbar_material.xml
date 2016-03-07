@@ -58,6 +58,9 @@
         <item name="actionSourceProfileIcon">@drawable/ic_action_source_profile_dark</item>
         <item name="actionSourceProfileIconInverse">@drawable/ic_action_source_profile</item>
         <item name="actionHelpIcon">@drawable/ic_action_help</item>
+
+        <item name="actionProfileActivtionDuration">@drawable/ic_action_profile_activation_duration</item>
+
     </style>
 
     <style name="PopupMenu_material" parent="@style/Widget.AppCompat.Light.PopupMenu">
