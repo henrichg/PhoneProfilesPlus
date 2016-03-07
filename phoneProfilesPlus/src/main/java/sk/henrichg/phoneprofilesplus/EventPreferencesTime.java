@@ -524,7 +524,6 @@ public class EventPreferencesTime extends EventPreferences {
             intent = new Intent(context, EventTimeEndBroadcastReceiver.class);
 
         intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
-        intent.putExtra(GlobalData.EXTRA_START_SYSTEM_EVENT, startEvent);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 

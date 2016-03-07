@@ -191,7 +191,9 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
                     origEvent._manualProfileActivation,
                     origEvent._fkProfileStartWhenActivated,
                     origEvent._delayEnd,
-                    origEvent._isInDelayEnd
+                    origEvent._isInDelayEnd,
+                    origEvent._startStatusTime,
+                    origEvent._pauseStatusTime
             );
             event.copyEventPreferences(origEvent);
             showSaveMenu = true;

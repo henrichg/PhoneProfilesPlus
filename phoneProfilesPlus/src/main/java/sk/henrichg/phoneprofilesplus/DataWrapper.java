@@ -838,7 +838,9 @@ public class DataWrapper {
                 false,
                 GlobalData.PROFILE_NO_ACTIVATE,
                 0,
-                false
+                false,
+                0,
+                0
          );
     }
 
@@ -2161,9 +2163,18 @@ public class DataWrapper {
                 if (!forDelayStartAlarm)
                 {
                     // called not for delay alarm
-                    if (!event._isInDelayStart) {
-                        // if not delay alarm is set, set it
-                        event.setDelayStartAlarm(this, true, false, true); // for start delay
+                    if (restartEvent) {
+                        event._isInDelayStart = false;
+                    }
+                    else {
+                        if (!event._isInDelayStart) {
+                            // if not delay alarm is set, set it
+                            event.setDelayStartAlarm(this); // for start delay
+                        }
+                        if (event._isInDelayStart) {
+                            // if delay timeouted, start event
+                            event.checkDelayStart(this);
+                        }
                     }
                     if (!event._isInDelayStart)
                     {
@@ -2190,9 +2201,18 @@ public class DataWrapper {
 
                 if (!forDelayEndAlarm) {
                     // called not for delay alarm
-                    if ((!restartEvent) && (!event._isInDelayEnd)) {
-                        // if not delay alarm is set, set it
-                        event.setDelayEndAlarm(this, true, false, true); // for end delay
+                    if (restartEvent) {
+                        event._isInDelayEnd = false;
+                    }
+                    else {
+                        if (!event._isInDelayEnd) {
+                            // if not delay alarm is set, set it
+                            event.setDelayEndAlarm(this); // for end delay
+                        }
+                        if (event._isInDelayEnd) {
+                            // if delay timeouted, pause event
+                            event.checkDelayEnd(this);
+                        }
                     }
                     if (!event._isInDelayEnd)
                     {
@@ -2477,8 +2497,8 @@ public class DataWrapper {
     {
         if (!onlyFromDb) {
             for (Event event : getEventList()) {
-                event.removeDelayStartAlarm(this, true);
-                event.removeDelayStartAlarm(this, false);
+                event.removeDelayStartAlarm(this);
+                event.removeDelayStartAlarm(this);
             }
         }
         getDatabaseHandler().resetAllEventsInDelayStart();
@@ -2488,8 +2508,8 @@ public class DataWrapper {
     {
         if (!onlyFromDb) {
             for (Event event : getEventList()) {
-                event.removeDelayEndAlarm(this, true);
-                event.removeDelayEndAlarm(this, false);
+                event.removeDelayEndAlarm(this);
+                event.removeDelayEndAlarm(this);
             }
         }
         getDatabaseHandler().resetAllEventsInDelayStart();

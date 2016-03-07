@@ -167,7 +167,7 @@ public class GlobalData extends Application {
     static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
     static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
     //static final String EXTRA_PREFERENCES_STARTUP_SOURCE = "preferences_startup_source";
-    static final String EXTRA_START_SYSTEM_EVENT = "start_system_event";
+    //static final String EXTRA_START_SYSTEM_EVENT = "start_system_event";
     static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
     static final String EXTRA_SCANNER_TYPE = "scanner_type";
     static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";

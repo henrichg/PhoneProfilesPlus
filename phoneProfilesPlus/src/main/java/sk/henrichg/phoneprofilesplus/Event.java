@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class Event {
 
@@ -38,6 +39,8 @@ public class Event {
     public long _fkProfileStartWhenActivated;
     public int _delayEnd;
     public boolean _isInDelayEnd;
+    public long _startStatusTime;
+    public long _pauseStatusTime;
 
     public EventPreferencesTime _eventPreferencesTime;
     public EventPreferencesBattery _eventPreferencesBattery;
@@ -110,7 +113,9 @@ public class Event {
                  boolean manualProfileActivation,
                  long fkProfileStartWhenActivated,
                  int delayEnd,
-                 boolean isInDelayEnd)
+                 boolean isInDelayEnd,
+                 long startStatusTime,
+                 long pauseStatusTime)
     {
         this._id = id;
         this._name = name;
@@ -129,6 +134,8 @@ public class Event {
         this._fkProfileStartWhenActivated = fkProfileStartWhenActivated;
         this._delayEnd = delayEnd;
         this._isInDelayEnd = isInDelayEnd;
+        this._startStatusTime = startStatusTime;
+        this._pauseStatusTime = pauseStatusTime;
 
         createEventPreferences();
 
@@ -151,7 +158,9 @@ public class Event {
                  boolean manualProfileActivation,
                  long fkProfileStartWhenActivated,
                  int delayEnd,
-                 boolean isInDelayEnd)
+                 boolean isInDelayEnd,
+                 long startStatusTime,
+                 long pauseStatusTime)
     {
         this._name = name;
         this._fkProfileStart = fkProfileStart;
@@ -169,6 +178,8 @@ public class Event {
         this._fkProfileStartWhenActivated = fkProfileStartWhenActivated;
         this._delayEnd = delayEnd;
         this._isInDelayEnd = isInDelayEnd;
+        this._startStatusTime = startStatusTime;
+        this._pauseStatusTime = pauseStatusTime;
 
         createEventPreferences();
     }
@@ -192,6 +203,8 @@ public class Event {
         this._fkProfileStartWhenActivated = event._fkProfileStartWhenActivated;
         this._delayEnd = event._delayEnd;
         this._isInDelayEnd = event._isInDelayEnd;
+        this._startStatusTime = event._startStatusTime;
+        this._pauseStatusTime = event._pauseStatusTime;
 
         copyEventPreferences(event);
     }
@@ -823,8 +836,8 @@ public class Event {
                             Profile mergedProfile)
     {
         // remove delay alarm
-        removeDelayStartAlarm(dataWrapper, true); // for start delay
-        removeDelayEndAlarm(dataWrapper, true); // for end delay
+        removeDelayStartAlarm(dataWrapper); // for start delay
+        removeDelayEndAlarm(dataWrapper); // for end delay
 
         if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
@@ -927,6 +940,9 @@ public class Event {
         setSystemEvent(dataWrapper.context, ESTATUS_RUNNING);
         int status = this._status;
         this._status = ESTATUS_RUNNING;
+        Calendar now = Calendar.getInstance();
+        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        this._startStatusTime = now.getTimeInMillis() - gmtOffset;
         dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
         if (log && (status != this._status)) {
@@ -1084,8 +1100,8 @@ public class Event {
                             boolean allowRestart)
     {
         // remove delay alarm
-        removeDelayStartAlarm(dataWrapper, true); // for start delay
-        removeDelayEndAlarm(dataWrapper, true); // for end delay
+        removeDelayStartAlarm(dataWrapper); // for start delay
+        removeDelayEndAlarm(dataWrapper); // for end delay
 
         if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
@@ -1157,6 +1173,9 @@ public class Event {
             setSystemEvent(dataWrapper.context, ESTATUS_PAUSE);
         int status = this._status;
         this._status = ESTATUS_PAUSE;
+        Calendar now = Calendar.getInstance();
+        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
         dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
         if (log && (status != this._status)) {
@@ -1213,8 +1232,8 @@ public class Event {
                             boolean allowRestart)
     {
         // remove delay alarm
-        removeDelayStartAlarm(dataWrapper, true); // for start delay
-        removeDelayEndAlarm(dataWrapper, true); // for end delay
+        removeDelayStartAlarm(dataWrapper); // for start delay
+        removeDelayEndAlarm(dataWrapper); // for end delay
 
         if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
@@ -1315,14 +1334,11 @@ public class Event {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    public void setDelayStartAlarm(DataWrapper dataWrapper,
-                              boolean forStart,
-                              boolean ignoreGlobalPref,
-                              boolean log)
+    public void setDelayStartAlarm(DataWrapper dataWrapper)
     {
-        removeDelayStartAlarm(dataWrapper, forStart);
+        removeDelayStartAlarm(dataWrapper);
 
-        if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if (!GlobalData.getGlobalEventsRuning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -1359,14 +1375,10 @@ public class Event {
 
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String result = sdf.format(alarmTime);
-            if (forStart)
-                GlobalData.logE("Event.setDelayStartAlarm","startTime="+result);
-            else
-                GlobalData.logE("Event.setDelayStartAlarm","endTime="+result);
+            GlobalData.logE("Event.setDelayStartAlarm","startTime="+result);
 
             Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
             intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
-            intent.putExtra(GlobalData.EXTRA_START_SYSTEM_EVENT, forStart);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -1389,14 +1401,24 @@ public class Event {
 
         dataWrapper.getDatabaseHandler().updateEventInDelayStart(this);
 
-        if (log && _isInDelayStart) {
+        if (_isInDelayStart) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, _name, null, null, _delayStart);
         }
 
         return;
     }
 
-    public void removeDelayStartAlarm(DataWrapper dataWrapper, boolean forStart)
+    public void checkDelayStart(DataWrapper dataWrapper) {
+        Calendar now = Calendar.getInstance();
+        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        long nowTime = now.getTimeInMillis() - gmtOffset;
+        long delayTime = this._startStatusTime + this._delayStart;
+
+        if (delayTime > nowTime)
+            this._isInDelayStart = false;
+    }
+
+    public void removeDelayStartAlarm(DataWrapper dataWrapper)
     {
         AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
@@ -1416,14 +1438,11 @@ public class Event {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    public void setDelayEndAlarm(DataWrapper dataWrapper,
-                                   boolean forStart,
-                                   boolean ignoreGlobalPref,
-                                   boolean log)
+    public void setDelayEndAlarm(DataWrapper dataWrapper)
     {
-        removeDelayEndAlarm(dataWrapper, forStart);
+        removeDelayEndAlarm(dataWrapper);
 
-        if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if (!GlobalData.getGlobalEventsRuning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -1460,14 +1479,10 @@ public class Event {
 
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String result = sdf.format(alarmTime);
-            if (forStart)
-                GlobalData.logE("Event.setDelayEndAlarm","startTime="+result);
-            else
-                GlobalData.logE("Event.setDelayEndAlarm","endTime="+result);
+            GlobalData.logE("Event.setDelayEndAlarm","endTime="+result);
 
             Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
             intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
-            intent.putExtra(GlobalData.EXTRA_START_SYSTEM_EVENT, forStart);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -1490,14 +1505,24 @@ public class Event {
 
         dataWrapper.getDatabaseHandler().updateEventInDelayEnd(this);
 
-        if (log && _isInDelayEnd) {
+        if (_isInDelayEnd) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTENDDELAY, _name, null, null, _delayEnd);
         }
 
         return;
     }
 
-    public void removeDelayEndAlarm(DataWrapper dataWrapper, boolean forStart)
+    public void checkDelayEnd(DataWrapper dataWrapper) {
+        Calendar now = Calendar.getInstance();
+        int gmtOffset = TimeZone.getDefault().getRawOffset();
+        long nowTime = now.getTimeInMillis() - gmtOffset;
+        long delayTime = this._pauseStatusTime + this._delayEnd;
+
+        if (delayTime > nowTime)
+            this._isInDelayEnd = false;
+    }
+
+    public void removeDelayEndAlarm(DataWrapper dataWrapper)
     {
         AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
