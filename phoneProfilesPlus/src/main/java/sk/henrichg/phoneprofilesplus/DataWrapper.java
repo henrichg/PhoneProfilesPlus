@@ -2240,12 +2240,12 @@ public class DataWrapper {
             // events are globally stopped
             return;
 
-        GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEvents");
+        GlobalData.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
         if (GlobalData.getEventsBlocked(context) && (!unblockEventsRun))
             return;
 
-        GlobalData.logE("DataWrapper.restartEvents","events are not blocked");
+        GlobalData.logE("DataWrapper.restartEvents", "events are not blocked");
 
         //Profile activatedProfile = getActivatedProfile();
 
@@ -2518,35 +2518,39 @@ public class DataWrapper {
     public static boolean isPowerSaveMode(Context context) {
         // Internal Power save mode
         if (Build.VERSION.SDK_INT < 21) {
-            boolean isCharging;
-            int batteryPct;
+            return GlobalData.isPowerSaveMode;
+            /*else {
+                boolean isCharging;
+                int batteryPct;
 
-            // get battery status
-            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            Intent batteryStatus = context.registerReceiver(null, ifilter);
+                // get battery status
+                IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                Intent batteryStatus = context.registerReceiver(null, ifilter);
 
-            if (batteryStatus != null) {
-                int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-                isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                        status == BatteryManager.BATTERY_STATUS_FULL;
+                if (batteryStatus != null) {
+                    int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                    isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                            status == BatteryManager.BATTERY_STATUS_FULL;
 
-                int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+                    int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                    int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 
-                batteryPct = Math.round(level / (float) scale * 100);
+                    batteryPct = Math.round(level / (float) scale * 100);
 
-                if ((!isCharging) &&
-                    ((GlobalData.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
-                    (GlobalData.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15)))) {
-                    return true;
+                    if ((!isCharging) &&
+                            ((GlobalData.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
+                                    (GlobalData.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15)))) {
+                        return true;
+                    }
                 }
-            }
+            }*/
         }
         else {
-            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            return powerManager.isPowerSaveMode();
+            //PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            //return powerManager.isPowerSaveMode();
+            return GlobalData.isPowerSaveMode;
         }
-        return false;
+        //return false;
     }
 
     public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,

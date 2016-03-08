@@ -446,6 +446,7 @@ public class GlobalData extends Application {
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
 
+    public static boolean isPowerSaveMode = false;
     public static GeofencesScanner geofencesScanner = null;
 
     @Override

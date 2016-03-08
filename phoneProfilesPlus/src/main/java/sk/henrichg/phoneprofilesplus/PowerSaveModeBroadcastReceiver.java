@@ -22,13 +22,14 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
 
         GlobalData.loadPreferences(context);
 
+        boolean oldPowerSaveMode = GlobalData.isPowerSaveMode;
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        GlobalData.isPowerSaveMode = powerManager.isPowerSaveMode();
+
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            boolean powerSaveMode = powerManager.isPowerSaveMode();
-
             if (GlobalData.geofencesScanner != null)
-                GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode, false);
+                GlobalData.geofencesScanner.resetLocationUpdates(oldPowerSaveMode, false);
 
             //if (!powerSaveMode)
             //{
