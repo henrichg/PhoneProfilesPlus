@@ -4,50 +4,57 @@
                  android:layout_width="match_parent"
                  android:layout_height="75dp" >
 
-    <ImageView
-        android:id="@+id/act_prof_list_item_duration"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:padding="5dp"
-        android:scaleType="center"
-        android:clickable="true"
-        android:background="?attr/actionProfileToolBackground"
-        android:contentDescription="@string/empty_string"
-        android:src="?attr/actionProfileActivtionDuration" />
+    <TextView
+        android:id="@+id/act_prof_list_item_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:singleLine="false"
+        android:text="@string/profile_name_default"
+        android:textSize="12sp" />
 
     <RelativeLayout
         android:id="@+id/act_prof_list_item_icon_root"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_above="@+id/act_prof_list_item_profile_name">
+
+        <ImageView
+            android:id="@+id/act_prof_list_item_duration"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:padding="5dp"
+            android:scaleType="center"
+            android:clickable="true"
+            android:background="?attr/actionProfileToolBackground"
+            android:contentDescription="@string/empty_string"
+            android:src="?attr/actionProfileActivtionDuration" />
 
         <ImageView
             android:id="@+id/act_prof_list_item_profile_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/act_prof_list_item_duration"
+            android:layout_toStartOf="@+id/act_prof_list_item_duration"
             android:adjustViewBounds="true"
             android:maxHeight="40dp"
             android:maxWidth="40dp"
-            android:scaleType="centerCrop"
+            android:scaleType="@integer/profilePrefIndicatorScaleType"
             android:src="@drawable/ic_profile_default"
             android:contentDescription="@string/empty_string"/>
-
-        <TextView
-            android:id="@+id/act_prof_list_item_profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/act_prof_activated_profile_icon"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:singleLine="false"
-            android:layout_below="@+id/act_prof_list_item_profile_icon"
-            android:text="@string/profile_name_default"
-            android:textSize="12sp" />
 
     </RelativeLayout>
 
