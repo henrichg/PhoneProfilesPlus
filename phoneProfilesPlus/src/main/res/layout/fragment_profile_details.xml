@@ -82,7 +82,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/empty_string"
                 android:scaleType="@integer/profilePrefIndicatorScaleType"
-                android:src="@drawable/ic_profile_activated"
+                android:src="@drawable/ic_profile_show_in_activator_on"
                 android:paddingLeft="10dp"
                 android:paddingStart="10dp" />
 

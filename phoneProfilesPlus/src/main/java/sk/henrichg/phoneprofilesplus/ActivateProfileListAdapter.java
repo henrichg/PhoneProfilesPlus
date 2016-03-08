@@ -16,10 +16,10 @@ public class ActivateProfileListAdapter extends BaseAdapter
 {
 
     private List<Profile> profileList;
-    private Fragment fragment;
+    private ActivateProfileListFragment fragment;
     private DataWrapper dataWrapper;
 
-    public ActivateProfileListAdapter(Fragment f, List<Profile> pl, DataWrapper dataWrapper)
+    public ActivateProfileListAdapter(ActivateProfileListFragment f, List<Profile> pl, DataWrapper dataWrapper)
     {
         fragment = f;
         profileList = pl;
@@ -206,16 +206,6 @@ public class ActivateProfileListAdapter extends BaseAdapter
             //profilePrefIndicatorImageView.setImageBitmap(bitmap);
             holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
         }
-
-      /*ImageView profileItemEditMenu = (ImageView)vi.findViewById(R.id.act_prof_list_item_edit_menu);
-        profileItemEditMenu.setTag(position);
-        profileItemEditMenu.setOnClickListener(new OnClickListener() {
-
-                public void onClick(View v) {
-                    activity.openContextMenu(v);
-                }
-            });
-*/		
 
         return vi;
     }

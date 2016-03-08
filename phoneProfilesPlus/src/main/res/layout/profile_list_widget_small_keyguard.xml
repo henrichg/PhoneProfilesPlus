@@ -51,6 +51,7 @@
                 android:textSize="17sp"
                 android:singleLine="true" />
 
+            <!--
             <ImageView
                 android:id="@+id/widget_profile_list_header_profile_activated"
                 android:layout_width="wrap_content"
@@ -64,6 +65,7 @@
                 android:maxWidth="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_profile_activated" />
+                -->
 
             <ImageView
                 android:id="@+id/widget_profile_list_header_profile_pref_indicator"

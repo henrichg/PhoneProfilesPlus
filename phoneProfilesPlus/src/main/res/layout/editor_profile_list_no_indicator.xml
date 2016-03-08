@@ -51,6 +51,7 @@
                 android:textStyle="bold"
                 android:singleLine="true" />
 
+            <!--
             <ImageView
                 android:id="@+id/activated_profile_activated"
                 android:layout_width="wrap_content"
@@ -64,6 +65,7 @@
                 android:maxWidth="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_profile_activated" />
+                -->
 
         </RelativeLayout>
 

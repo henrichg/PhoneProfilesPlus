@@ -105,11 +105,12 @@ public class ActivateProfileListFragment extends Fragment {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            if (!GlobalData.applicationLongClickActivation)
-                //activateProfileWithAlert(position);
-                activateProfile((Profile)profileListAdapter.getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
+                if (!GlobalData.applicationLongClickActivation)
+                    //activateProfileWithAlert(position);
+                    activateProfile((Profile)profileListAdapter.getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
 
             }
+
 
         });
 
@@ -117,11 +118,11 @@ public class ActivateProfileListFragment extends Fragment {
 
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            if (GlobalData.applicationLongClickActivation)
-                //activateProfileWithAlert(position);
-                activateProfile((Profile)profileListAdapter.getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
+                if (GlobalData.applicationLongClickActivation)
+                    //activateProfileWithAlert(position);
+                    activateProfile((Profile)profileListAdapter.getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
 
-            return false;
+                return false;
             }
 
         });
@@ -318,7 +319,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
     }
 
-    private void activateProfile(Profile profile, int startupSource)
+    public void activateProfile(Profile profile, int startupSource)
     {
         dataWrapper.activateProfile(profile._id, startupSource, getActivity(), "");
     }
