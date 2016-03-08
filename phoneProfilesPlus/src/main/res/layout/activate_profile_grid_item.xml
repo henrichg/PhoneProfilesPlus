@@ -52,27 +52,21 @@
 
     </RelativeLayout>
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|end|top" >
-
-        <ImageView
-            android:id="@+id/act_prof_list_item_duration"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="15dp"
-            android:paddingLeft="15dp"
-            android:paddingStart="15dp"
-            android:scaleType="center"
-            android:clickable="true"
-            android:background="?attr/actionProfileToolBackground"
-            android:contentDescription="@string/empty_string"
-            android:src="?attr/actionProfileActivtionDuration" />
-
-    </FrameLayout>
+    <ImageView
+        android:id="@+id/act_prof_list_item_duration"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="right|end|top"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
+        android:scaleType="center"
+        android:clickable="true"
+        android:background="?attr/actionProfileToolBackground"
+        android:contentDescription="@string/empty_string"
+        android:src="?attr/actionProfileActivtionDuration" />
 
 </FrameLayout>
