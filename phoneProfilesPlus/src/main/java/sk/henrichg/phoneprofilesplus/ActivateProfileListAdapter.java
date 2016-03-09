@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -107,7 +108,7 @@ public class ActivateProfileListAdapter extends BaseAdapter
     }
 
     static class ViewHolder {
-          RelativeLayout listItemRoot;
+          ViewGroup listItemRoot;
           ImageView profileIcon;
           TextView profileName;
           ImageView profileIndicator;
@@ -138,7 +139,7 @@ public class ActivateProfileListAdapter extends BaseAdapter
             else
             {
                 vi = inflater.inflate(R.layout.activate_profile_grid_item, parent, false);
-                holder.listItemRoot = (RelativeLayout)vi.findViewById(R.id.act_prof_list_item_root);
+                holder.listItemRoot = (LinearLayout)vi.findViewById(R.id.act_prof_list_item_root);
                 holder.profileName = (TextView)vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = (ImageView)vi.findViewById(R.id.act_prof_list_item_profile_icon);
             }
