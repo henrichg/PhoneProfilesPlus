@@ -39,7 +39,8 @@
             android:layout_gravity="center_horizontal"
             android:singleLine="false"
             android:text="@string/profile_name_default"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:gravity="center_horizontal" />
 
     </LinearLayout>
 
