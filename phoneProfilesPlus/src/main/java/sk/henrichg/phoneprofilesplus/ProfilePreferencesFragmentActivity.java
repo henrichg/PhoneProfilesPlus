@@ -223,7 +223,8 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
                     origProfile._deviceKeyguard,
                     origProfile._vibrationOnTouch,
                     origProfile._deviceWiFiAP,
-                    origProfile._devicePowerSaveMode);
+                    origProfile._devicePowerSaveMode,
+                    origProfile._showDurationButton);
             showSaveMenu = true;
         }
         else

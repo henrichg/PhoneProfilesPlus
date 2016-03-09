@@ -51,6 +51,7 @@ public class Profile {
     public int _vibrationOnTouch;
     public int _deviceWiFiAP;
     public int _devicePowerSaveMode;
+    public boolean _showDurationButton;
 
 
     public Bitmap _iconBitmap;
@@ -115,7 +116,8 @@ public class Profile {
                    int deviceKeyguard,
                    int vibrationOnTouch,
                    int deviceWifiAP,
-                   int devicePowerSaveMode)
+                   int devicePowerSaveMode,
+                   boolean showDurationButton)
     {
         this._id = id;
         this._name = name;
@@ -161,6 +163,7 @@ public class Profile {
         this._vibrationOnTouch = vibrationOnTouch;
         this._deviceWiFiAP = deviceWifiAP;
         this._devicePowerSaveMode = devicePowerSaveMode;
+        this._showDurationButton = showDurationButton;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -208,7 +211,8 @@ public class Profile {
                    int deviceKeyguard,
                    int vibrationOnTouch,
                    int deviceWiFiAP,
-                   int devicePowerSaveMode)
+                   int devicePowerSaveMode,
+                   boolean showDurationButton)
     {
         this._name = name;
         this._icon = icon;
@@ -252,6 +256,7 @@ public class Profile {
         this._vibrationOnTouch = vibrationOnTouch;
         this._deviceWiFiAP = deviceWiFiAP;
         this._devicePowerSaveMode = devicePowerSaveMode;
+        this._showDurationButton = showDurationButton;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -302,6 +307,7 @@ public class Profile {
         this._vibrationOnTouch = profile._vibrationOnTouch;
         this._deviceWiFiAP = profile._deviceWiFiAP;
         this._devicePowerSaveMode = profile._devicePowerSaveMode;
+        this._showDurationButton = profile._showDurationButton;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -321,7 +327,6 @@ public class Profile {
             this._preferencesIndicator = withProfile._preferencesIndicator;
             this._duration = 0;
             this._afterDurationDo = AFTERDURATIONDO_NOTHING;
-
 
             if (withProfile._volumeRingerMode != 0)
                 this._volumeRingerMode = withProfile._volumeRingerMode;

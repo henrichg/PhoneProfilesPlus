@@ -854,7 +854,8 @@ public class GlobalData extends Application {
                                profile._deviceKeyguard,
                                profile._vibrationOnTouch,
                                profile._deviceWiFiAP,
-                               profile._devicePowerSaveMode);
+                               profile._devicePowerSaveMode,
+                               profile._showDurationButton);
 
             if (profile._volumeRingerMode == 99)
                 mappedProfile._volumeRingerMode = defaultProfile._volumeRingerMode;
