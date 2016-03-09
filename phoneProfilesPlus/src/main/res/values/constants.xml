@@ -2,4 +2,5 @@
 <resources>
     <bool name="api_v18">false</bool>
     <integer name="profilePrefIndicatorScaleType">2</integer>
+    <dimen name="gridView_horizontalSpacing">5dp</dimen>
 </resources>

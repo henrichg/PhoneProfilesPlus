@@ -93,7 +93,7 @@
         android:padding="10dp"
         android:columnWidth="100dp"
         android:gravity="center"
-        android:horizontalSpacing="5dp"
+        android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
         android:verticalSpacing="5dp"
         android:numColumns="3"
         android:stretchMode="columnWidth"
