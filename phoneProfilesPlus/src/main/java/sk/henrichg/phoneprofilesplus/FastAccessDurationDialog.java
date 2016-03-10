@@ -1,10 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -19,12 +18,16 @@ import com.afollestad.materialdialogs.internal.MDButton;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.pinball83.maskededittext.MaskedEditText;
 
-public class DurationDialogPreference2 extends DialogPreference
-                                        implements SeekBar.OnSeekBarChangeListener {
-
-    private String value;
+public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     private int mMin, mMax;
+    private Profile mProfile;
+
+    DataWrapper mDataWrapper;
+    int mStartupSource;
+    Activity mActivity;
+
+    //Context mContext;
 
     MaterialDialog mDialog;
     private MaskedEditText mValue;
@@ -32,31 +35,30 @@ public class DurationDialogPreference2 extends DialogPreference
     private SeekBar mSeekBarMinutes;
     private SeekBar mSeekBarSeconds;
 
-    private int mColor = 0;
+    //private int mColor = 0;
 
-    public DurationDialogPreference2(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        TypedArray durationDialogType = context.obtainStyledAttributes(attrs,
-                R.styleable.DurationDialogPreference, 0, 0);
+    public FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper, int startupSource) {
 
-        mMax = durationDialogType.getInt(R.styleable.DurationDialogPreference_dMax, 5);
-        mMin = durationDialogType.getInt(R.styleable.DurationDialogPreference_dMin, 0);
+        mMax = 86400;
+        mMin = 0;
 
-        durationDialogType.recycle();
+        mActivity = activity;
+        //mContext = activity.getBaseContext();
+        mProfile = profile;
+        mDataWrapper = dataWrapper;
+        mStartupSource = startupSource;
 
+        /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
-    }
+            */
 
-    @Override
-    protected void showDialog(Bundle state) {
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                        //.disableDefaultFonts()
-                .icon(getDialogIcon())
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .content(getDialogMessage())
+
+        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(mActivity)
+                .title(profile._name)
+                .positiveText(android.R.string.ok)
+                .negativeText(android.R.string.cancel)
+                .customView(R.layout.activity_duration_pref_dialog2, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
@@ -68,18 +70,16 @@ public class DurationDialogPreference2 extends DialogPreference
                         if (iValue < mMin) iValue = mMin;
                         if (iValue > mMax) iValue = mMax;
 
-                        value = String.valueOf(iValue);
+                        mProfile._duration = iValue;
+                        mDataWrapper.getDatabaseHandler().updateProfile(mProfile);
+                        mDataWrapper.activateProfile(mProfile._id, mStartupSource, mActivity, "");
 
-                        if (callChangeListener(value)) {
-                            //persistInt(mNumberPicker.getValue());
-                            persistString(value);
-                            setSummaryDDP();
-                        }
                     }
                 });
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_duration_pref_dialog2, null);
-        onBindDialogView(layout);
+        mDialog = mBuilder.build();
+
+        View layout = mDialog.getCustomView();
 
         TextView mTextViewRange = (TextView) layout.findViewById(R.id.duration_pref_dlg_range);
         mValue = (MaskedEditText) layout.findViewById(R.id.duration_pref_dlg_value);
@@ -170,7 +170,7 @@ public class DurationDialogPreference2 extends DialogPreference
         minutes = (mMin % 3600) / 60;
         seconds = mMin % 60;
         final String sMin = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        int iValue = Integer.valueOf(value);
+        int iValue = mProfile._duration;
         hours = iValue / 3600;
         minutes = (iValue % 3600) / 60;
         seconds = iValue % 60;
@@ -186,46 +186,8 @@ public class DurationDialogPreference2 extends DialogPreference
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
-        mBuilder.customView(layout, false);
-
-        mDialog = mBuilder.build();
-        if (state != null)
-            mDialog.onRestoreInstanceState(state);
-
-        mDialog.setOnDismissListener(this);
-        mDialog.show();
     }
 
-    @Override
-    protected Object onGetDefaultValue(TypedArray ta, int index)
-    {
-        super.onGetDefaultValue(ta, index);
-        return ta.getString(index);
-    }
-
-    @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-
-        if(restoreValue)
-        {
-            value = getPersistedString(value);
-        }
-        else
-        {
-            value = (String)defaultValue;
-            persistString(value);
-        }
-        setSummaryDDP();
-    }
-
-    private void setSummaryDDP()
-    {
-        int iValue = Integer.parseInt(value);
-        int hours = iValue / 3600;
-        int minutes = (iValue % 3600) / 60;
-        int seconds = iValue % 60;
-        setSummary(String.format("%02d:%02d:%02d", hours, minutes, seconds));
-    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -255,4 +217,9 @@ public class DurationDialogPreference2 extends DialogPreference
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
+
+    public void show() {
+        mDialog.show();
+    }
+
 }

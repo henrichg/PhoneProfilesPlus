@@ -154,7 +154,7 @@ public class ActivateProfileListAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        Profile profile = (Profile)getItem(position);
+        final Profile profile = (Profile)getItem(position);
 
         if (profile._checked && (!GlobalData.applicationActivatorHeader))
         {
@@ -219,6 +219,16 @@ public class ActivateProfileListAdapter extends BaseAdapter
                 params.gravity = Gravity.LEFT | Gravity.START;
                 holder.profileIcon.setLayoutParams(params);
             }
+            holder.durationButton.setTag(position);
+            holder.durationButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = (int) v.getTag();
+                    final Profile profile = (Profile)getItem(position);
+                    FastAccessDurationDialog dialog = new FastAccessDurationDialog(fragment.getActivity(), profile, dataWrapper, GlobalData.STARTUP_SOURCE_ACTIVATOR);
+                    dialog.show();
+                }
+            });
         }
         else {
             holder.durationButton.setVisibility(View.GONE);
