@@ -332,15 +332,11 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             key.equals(GlobalData.PREF_PROFILE_AFTER_DURATION_DO) ||
             key.equals(GlobalData.PREF_PROFILE_SHOW_DURATION_BUTTON)) {
             String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DURATION);
-            if (!title.isEmpty()) {
+            String afterDurationDoTitle = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_AFTER_DURATION_DO);
+            if ((!afterDurationDoTitle.isEmpty()) && (!title.isEmpty())) {
                 _bold = true;
-                summary = summary + title;
-            }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_AFTER_DURATION_DO);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
+                summary = summary + title + " • ";
+                summary = summary + afterDurationDoTitle;
             }
             title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_SHOW_DURATION_BUTTON);
             if (!title.isEmpty()) {

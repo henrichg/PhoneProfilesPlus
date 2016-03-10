@@ -10,6 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/MaskedEditText" />
             <option value="$PROJECT_DIR$/dragSortListView" />
             <option value="$PROJECT_DIR$/phoneProfilesPlus" />
           </set>

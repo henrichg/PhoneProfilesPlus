@@ -1,2 +1,2 @@
-include ':dragSortListView'
+include ':dragSortListView', ':MaskedEditText'
 include ':phoneProfilesPlus'
