@@ -23,25 +23,25 @@
         android:layout_height="wrap_content" >
 
         <!--
-        <TextView
-            android:id="@+id/duration_pref_dlg_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:textSize="18sp"
-            android:text="00:00:00"/>
-            -->
-
         <br.com.sapereaude.maskedEditText.MaskedEditText
             android:id="@+id/duration_pref_dlg_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
             android:textSize="18sp"
-            mask:mask="##:##:##"
-            />
+            mask:mask="##:##:##" />
+            -->
+
+        <TextView
+            android:id="@+id/duration_pref_dlg_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:textSize="18sp" />
 
         <SeekBar
             android:id="@+id/duration_pref_dlg_hours"
