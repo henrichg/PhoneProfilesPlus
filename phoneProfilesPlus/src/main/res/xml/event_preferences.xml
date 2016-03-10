@@ -56,7 +56,7 @@
                 android:title="@string/event_preferences_manualProfileActivation"
                 android:defaultValue="false"
                 android:disableDependentsState="true"/>
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
                 android:key="eventDelayStart"
                 android:summary="@string/event_preferences_delayStart"
                 android:title="@string/event_preferences_delayStart"
@@ -93,7 +93,7 @@
             android:title="@string/event_preferences_category_startofeventOthers"
             android:key="eventEndOthersCategory"
             android:widgetLayout="@layout/start_activity_preference" >
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
                 android:key="eventDelayEnd"
                 android:summary="@string/event_preferences_delayStart"
                 android:title="@string/event_preferences_delayStart"
@@ -291,7 +291,7 @@
                 android:entryValues="@array/eventCallContactListTypeValues"
                 android:dependency="eventSMSEnabled"
                 app:useStockLayout="true" />
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
                 android:key="eventSMSDuration"
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
@@ -462,7 +462,7 @@
                 android:title="@string/event_preferences_notifications_end_when_removed"
                 android:defaultValue="false"
                 android:dependency="eventNotificationEnabled" />
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
                 android:key="eventNotificationDuration"
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
