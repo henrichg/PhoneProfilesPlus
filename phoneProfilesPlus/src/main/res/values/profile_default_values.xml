@@ -5,7 +5,7 @@
     <bool name="prf_pref_showInActivator">true</bool>
     <string name="prf_pref_duration">0</string>
     <string name="prf_pref_afterDurationDo">0</string>
-    <bool name="prf_pref_showDurationButton">false</bool>
+    <bool name="prf_pref_askForDuration">false</bool>
     <string name="prf_pref_volumeRingerMode">0</string>
     <string name="prf_pref_volumeZenMode">0</string>
     <string name="prf_pref_vibrationOnTouch">0</string>

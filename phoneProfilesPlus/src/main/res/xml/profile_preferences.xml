@@ -44,9 +44,9 @@
             android:entryValues="@array/afterProfileDurationDoValues"
             app:useStockLayout="true" />
         <CheckBoxPreference
-            android:key="prf_pref_showDurationButton"
-            android:title="@string/profile_preferences_showDurationButton"
-            android:defaultValue="@bool/prf_pref_showDurationButton" />
+            android:key="prf_pref_askForDuration"
+            android:title="@string/profile_preferences_askForDuration"
+            android:defaultValue="@bool/prf_pref_askForDuration" />
     </PreferenceScreen>
     <PreferenceScreen
         android:title="@string/profile_preferences_category_sound_profile"

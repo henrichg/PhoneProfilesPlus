@@ -25,7 +25,10 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
 
     DataWrapper mDataWrapper;
     int mStartupSource;
+    boolean mInteractive;
     Activity mActivity;
+    String mEventNotificationSound;
+    boolean mLog;
 
     //Context mContext;
 
@@ -37,7 +40,8 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
 
     //private int mColor = 0;
 
-    public FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper, int startupSource) {
+    public FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper, int startupSource, boolean interactive,
+                                    String eventNotificationSound, boolean log) {
 
         mMax = 86400;
         mMin = 0;
@@ -47,6 +51,9 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
         mProfile = profile;
         mDataWrapper = dataWrapper;
         mStartupSource = startupSource;
+        mInteractive = interactive;
+        mEventNotificationSound = eventNotificationSound;
+        mLog = log;
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
@@ -55,7 +62,7 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
 
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(mActivity)
-                .title(profile._name)
+                .title(mActivity.getString(R.string.profile_preferences_duration))
                 .positiveText(android.R.string.ok)
                 .negativeText(android.R.string.cancel)
                 .customView(R.layout.activity_duration_pref_dialog2, false)
@@ -72,8 +79,7 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
 
                         mProfile._duration = iValue;
                         mDataWrapper.getDatabaseHandler().updateProfile(mProfile);
-                        mDataWrapper.activateProfile(mProfile._id, mStartupSource, mActivity, "");
-
+                        mDataWrapper._activateProfile(mProfile, false, mStartupSource, mInteractive, mActivity, mEventNotificationSound, mLog);
                     }
                 });
 

@@ -1195,6 +1195,7 @@ public class DataWrapper {
             final int _startupSource = startupSource;
             final Activity _activity = activity;
             final String _eventNotificationSound = eventNotificationSound;
+            final DataWrapper _dataWrapper = this;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(activity.getResources().getString(R.string.profile_string_0) + ": " + profile._name);
@@ -1208,9 +1209,11 @@ public class DataWrapper {
                     if (Permissions.grantProfilePermissions(context, _profile, false, false,
                             forGUI, monochrome, monochromeValue,
                             _startupSource, _interactive, _activity,
-                            _eventNotificationSound, true))
-                        _activateProfile(_profile, false, _startupSource, _interactive, _activity,
-                                            _eventNotificationSound, true);
+                            _eventNotificationSound, true) && _profile._askForDuration) {
+                        FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
+                                                                _interactive, _eventNotificationSound, true);
+                        dlg.show();
+                    }
                     else {
                         Intent returnIntent = new Intent();
                         _activity.setResult(Activity.RESULT_CANCELED,returnIntent);
@@ -1253,8 +1256,15 @@ public class DataWrapper {
                                         forGUI, monochrome, monochromeValue,
                                         startupSource, interactive, null,
                                         eventNotificationSound, true);
-            if (granted)
-                _activateProfile(profile, false, startupSource, interactive, activity, eventNotificationSound, true);
+            if (granted) {
+                if (profile._askForDuration && interactive) {
+                    FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this, startupSource,
+                                                            interactive, eventNotificationSound, true);
+                    dlg.show();
+                }
+                else
+                    _activateProfile(profile, false, startupSource, interactive, activity, eventNotificationSound, true);
+            }
         }
     }
 

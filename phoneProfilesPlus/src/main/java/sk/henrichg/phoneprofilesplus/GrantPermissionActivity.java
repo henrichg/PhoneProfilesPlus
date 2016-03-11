@@ -669,8 +669,14 @@ public class GrantPermissionActivity extends Activity {
             Permissions.removeProfileNotification(context);
             if (eventNotificationSound == null)
                 eventNotificationSound = "";
-            dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
-                    Permissions.profileActivationActivity, eventNotificationSound, log);
+            if ((Permissions.profileActivationActivity != null) && (profile._askForDuration)) {
+                FastAccessDurationDialog dlg = new FastAccessDurationDialog(Permissions.profileActivationActivity,
+                        profile, dataWrapper, startupSource, interactive, eventNotificationSound, log);
+                dlg.show();
+            }
+            else
+                dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
+                        Permissions.profileActivationActivity, eventNotificationSound, log);
         }
         Permissions.releaseReferences();
         if (mergedNotification)
