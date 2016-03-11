@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
+
+    <TextView
+        android:id="@+id/duration_pref_dlg_range"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:textSize="15sp"
+        android:text="00:00:00 - 00:05:00"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.github.pinball83.maskededittext.MaskedEditText
+            android:id="@+id/duration_pref_dlg_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:textSize="20sp"
+            app:mask="**:**:**"
+            app:notMaskedSymbol = "*"
+            app:replacementChar = "0"
+            app:deleteChar = "0"
+            app:format = "[1][2]:[3][4]:[5][6]"/>
+
+        <!--
+        <TextView
+            android:id="@+id/duration_pref_dlg_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:textSize="18sp" />
+            -->
+
+        <SeekBar
+            android:id="@+id/duration_pref_dlg_hours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:max="24" />
+        <SeekBar
+            android:id="@+id/duration_pref_dlg_minutes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:max="59" />
+        <SeekBar
+            android:id="@+id/duration_pref_dlg_seconds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:max="59" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fast_access_duration_dlg_after_do_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:textSize="15sp"
+        android:text="@string/profile_preferences_afterDurationDo" />
+
+    <Spinner
+        android:id="@+id/fast_access_duration_dlg_after_do_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:entries="@array/afterProfileDurationDoArray" />
+
+</LinearLayout>

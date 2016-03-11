@@ -1209,10 +1209,14 @@ public class DataWrapper {
                     if (Permissions.grantProfilePermissions(context, _profile, false, false,
                             forGUI, monochrome, monochromeValue,
                             _startupSource, _interactive, _activity,
-                            _eventNotificationSound, true) && _profile._askForDuration) {
-                        FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
-                                                                _interactive, _eventNotificationSound, true);
-                        dlg.show();
+                            _eventNotificationSound, true)) {
+                        if (_profile._askForDuration) {
+                            FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
+                                    _interactive, _eventNotificationSound, true);
+                            dlg.show();
+                        }
+                        else
+                            _activateProfile(_profile, false, _startupSource, _interactive, _activity, _eventNotificationSound, true);
                     }
                     else {
                         Intent returnIntent = new Intent();
@@ -1246,11 +1250,17 @@ public class DataWrapper {
         else
         {
             boolean granted;
-            if (interactive)
+            if (interactive) {
+                // set theme and language for dialog alert ;-)
+                // not working on Android 2.3.x
+                GUIData.setTheme(activity, true, false);
+                GUIData.setLanguage(activity.getBaseContext());
+
                 granted = Permissions.grantProfilePermissions(context, profile, false, false,
-                                        forGUI, monochrome, monochromeValue,
-                                        startupSource, interactive, activity,
-                                        eventNotificationSound, true);
+                        forGUI, monochrome, monochromeValue,
+                        startupSource, interactive, activity,
+                        eventNotificationSound, true);
+            }
             else
                 granted = Permissions.grantProfilePermissions(context, profile, false, true,
                                         forGUI, monochrome, monochromeValue,
@@ -1268,7 +1278,7 @@ public class DataWrapper {
         }
     }
 
-    private void finishActivity(int startupSource, boolean afterActivation, Activity _activity)
+    public void finishActivity(int startupSource, boolean afterActivation, Activity _activity)
     {
         if (_activity == null)
             return;
