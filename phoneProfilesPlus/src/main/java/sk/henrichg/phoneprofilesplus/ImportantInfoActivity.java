@@ -129,6 +129,15 @@ public class ImportantInfoActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            TextView infoText10a = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text10a);
+            infoText10a.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    startActivity(intent);
+                }
+            });
         }
 
         if (news1772) {
@@ -176,6 +185,8 @@ public class ImportantInfoActivity extends AppCompatActivity {
             infoText21.setVisibility(View.GONE);
             TextView infoText22 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text22);
             infoText22.setVisibility(View.GONE);
+            TextView infoText10a = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text10a);
+            infoText10a.setVisibility(View.GONE);
         }
 
         if (android.os.Build.VERSION.SDK_INT < 21) {

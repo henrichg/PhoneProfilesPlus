@@ -48,6 +48,8 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
     static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
     static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
     static final String PREF_LOCATION_EDITOR = "applicationEventLocationsEditor";
+    static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
+    static final int RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = 1995;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -252,6 +254,18 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
                 }
             });
 
+            preference = prefMng.findPreference(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
+            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    startActivityForResult(intent, RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
+                    return false;
+                }
+            });
+
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
@@ -268,6 +282,12 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
             preference = findPreference(PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
+
+            preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
+            preference = findPreference(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
+
         }
         if (!ScannerService.bluetoothLESupported(preferencesActivity.getApplicationContext())) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");

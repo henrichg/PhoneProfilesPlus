@@ -81,6 +81,12 @@
             android:summary="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
             android:defaultValue="true" />
         <Preference
+            android:key="applicationBatteryOptimization"
+            android:title="@string/phone_profiles_pref_applicationBatteryOptimization"
+            android:summary="@string/empty_string"
+            android:widgetLayout="@layout/start_activity_preference"> >
+        </Preference>
+        <Preference
             android:key="applicationPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
             android:summary="@string/empty_string"

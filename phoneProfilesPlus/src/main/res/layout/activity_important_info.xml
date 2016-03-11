@@ -402,7 +402,8 @@
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_android_doze_mode"
                 android:id="@+id/activity_info_notification_dialog_info_text10a"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="?attr/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"
