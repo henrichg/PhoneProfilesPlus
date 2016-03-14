@@ -21,7 +21,6 @@
         android:gravity="center"
         android:clipToPadding="false"
         android:choiceMode="singleChoice"
-        android:scrollbarStyle="outsideOverlay"
-        android:divider="@android:color/transparent" />
+        android:scrollbarStyle="outsideOverlay" />
 
 </RelativeLayout>

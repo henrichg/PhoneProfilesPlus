@@ -1,12 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class AddEventDialog
     private Context _context;
     public EditorEventListFragment eventListFragment;
 
-    private AppCompatDialog mDialog;
+    private MaterialDialog mDialog;
     private ListView listView;
 
     public AddEventDialog(Context context, EditorEventListFragment eventListFragment)
@@ -47,12 +48,16 @@ public class AddEventDialog
             eventList.add(event);
         }
 
-        mDialog = new AppCompatDialog(context);
-        mDialog.setTitle(R.string.new_event_predefined_events_dialog);
-        mDialog.setContentView(R.layout.activity_event_pref_dialog);
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
+                           .title(R.string.new_event_predefined_events_dialog)
+                            //.disableDefaultFonts()
+                            .autoDismiss(false)
+                            .customView(R.layout.activity_event_pref_dialog, false);
 
-        listView = (ListView)mDialog.findViewById(R.id.event_pref_dlg_listview);
-        TextView help = (TextView)mDialog.findViewById(R.id.event_pref_dlg_help);
+        mDialog = dialogBuilder.build();
+
+        listView = (ListView)mDialog.getCustomView().findViewById(R.id.event_pref_dlg_listview);
+        TextView help = (TextView)mDialog.getCustomView().findViewById(R.id.event_pref_dlg_help);
         if (!profileNotExists)
             help.setVisibility(View.GONE);
 
