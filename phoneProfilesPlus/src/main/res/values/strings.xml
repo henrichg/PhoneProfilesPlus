@@ -722,7 +722,6 @@
     <string name="event_preferences_category_sensors">Parameters of sensors</string>
     <string name="altype_eventEndDelay">event end with delay</string>
     <string name="info_notification_event_states_running_delay">Running with delay: event is running, but parameters are no longer satisfied. Event is waiting in the delay.</string>
-    <string name="profile_preferences_showDurationButton">Show Duration button</string>
     <string name="profile_preferences_askForDuration">Ask for Duration</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Battery optimization</string>
 </resources>
