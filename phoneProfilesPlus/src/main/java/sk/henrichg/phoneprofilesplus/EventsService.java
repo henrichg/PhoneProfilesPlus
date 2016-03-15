@@ -407,9 +407,10 @@ public class EventsService extends IntentService
         /*else
         if (broadcastReceiverType.equals(RestartEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_???;*/
-        else
+        /*else
+        // call doEventService for all screen on/off changes
         if (broadcastReceiverType.equals(ScreenOnOffBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_SCREEN;
+            eventType = DatabaseHandler.ETYPE_SCREEN;*/
         else
         if (broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_CALENDAR;
