@@ -212,6 +212,14 @@
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationEventLocationRescan"
+            android:summary="@string/phone_profiles_pref_applicationEventRescan_none"
+            android:key="applicationEventLocationRescan"
+            android:defaultValue="0"
+            android:entries="@array/applicationEventRescanArray"
+            android:entryValues="@array/applicationEventRescanValues"
+            app:useStockLayout="true" />
         <CheckBoxPreference
             android:key="applicationEventLocationUseGPS"
             android:title="@string/phone_profiles_pref_applicationEventLocationsUseGPS"

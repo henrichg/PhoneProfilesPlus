@@ -801,7 +801,8 @@ public class DataWrapper {
 
         WifiScanAlarmBroadcastReceiver.setAlarm(context, false, true);
         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
-        GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false, true);
+        // not needed, will be started via GlobalData.startGeofenceScanner()
+        //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
         SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
 
         if (!getIsManualProfileActivation()) {
