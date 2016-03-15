@@ -92,6 +92,9 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             } else { */
                 removeAlarm(context/*, false*/);
 
+                if (startScanning)
+                    GlobalData.geofencesScanner.mUpdatesStarted = false;
+
                 Calendar calendar = Calendar.getInstance();
 
                 //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
