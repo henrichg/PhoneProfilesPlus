@@ -2314,13 +2314,19 @@ public class DataWrapper {
             //sendBroadcast(context);
             //setAlarm(context, true);
         }
-
         if (GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_RESTART_EVENTS) ||
             GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
             // rescan bluetooth
             BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
         }
+        if (GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_RESTART_EVENTS) ||
+            GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        {
+            // send broadcast for location scan
+            GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true);
+        }
+
 
         if (showToast)
         {

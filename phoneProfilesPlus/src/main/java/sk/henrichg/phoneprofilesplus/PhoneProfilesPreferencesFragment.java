@@ -486,6 +486,7 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         setSummary(GlobalData.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_LOCATION_RESCAN);
 
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, preferencesActivity.getApplicationContext())
