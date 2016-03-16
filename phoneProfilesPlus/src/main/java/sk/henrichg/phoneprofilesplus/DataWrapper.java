@@ -799,8 +799,8 @@ public class DataWrapper {
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
-        WifiScanAlarmBroadcastReceiver.setAlarm(context, false, true);
-        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
+        WifiScanAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
+        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
         // not needed, will be started via GlobalData.startGeofenceScanner()
         //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
         SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
@@ -2311,14 +2311,16 @@ public class DataWrapper {
         {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                 // rescan wifi
-                WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
+                //WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
         }
         if (GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_RESTART_EVENTS) ||
             GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
         {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
                 // rescan bluetooth
-                BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
+                BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
         }
         if (GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_RESTART_EVENTS) ||
             GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
@@ -2349,7 +2351,7 @@ public class DataWrapper {
             return;
         */
 
-        GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithAlert");
+        GlobalData.logE("$$$ restartEvents", "in DataWrapper.restartEventsWithAlert");
 
         if (GlobalData.applicationActivateWithAlert || (activity instanceof EditorProfilesActivity))
         {

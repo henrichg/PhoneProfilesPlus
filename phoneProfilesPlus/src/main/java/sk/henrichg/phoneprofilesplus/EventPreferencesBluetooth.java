@@ -216,8 +216,8 @@ public class EventPreferencesBluetooth extends EventPreferences {
     public void setSystemEventForStart(Context context)
     {
         if (((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
-            (!BluetoothScanAlarmBroadcastReceiver.isAlarmSet(context, false)))
-            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, false, true);
+            (!BluetoothScanAlarmBroadcastReceiver.isAlarmSet(context/*, false*/)))
+            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
     }
 
     @Override

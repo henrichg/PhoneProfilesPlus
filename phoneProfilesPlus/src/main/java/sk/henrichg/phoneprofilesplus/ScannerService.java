@@ -149,8 +149,8 @@ public class ScannerService extends IntentService
                 if (!scan) {
                    // wifi scan events not exists
                    GlobalData.logE("*** ScannerService.onHandleIntent","alarms removed");
-                   WifiScanAlarmBroadcastReceiver.removeAlarm(context, false);
-                   WifiScanAlarmBroadcastReceiver.removeAlarm(context, true);
+                   WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+                   //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, true*/);
                 }
                 else {
                     GlobalData.logE("*** ScannerService.onHandleIntent","can scan");
@@ -295,8 +295,8 @@ public class ScannerService extends IntentService
                 }
                 if (!scan) {
                     // bluetooth scan events not exists
-                    BluetoothScanAlarmBroadcastReceiver.removeAlarm(context, false);
-                    BluetoothScanAlarmBroadcastReceiver.removeAlarm(context, true);
+                    BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+                    //BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, true*/);
                 }
                 else {
 

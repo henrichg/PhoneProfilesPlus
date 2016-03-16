@@ -591,10 +591,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), false);
                 // stop Wifi scanner
                 WifiScanAlarmBroadcastReceiver.initialize(getApplicationContext());
-                WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
+                WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
                 // stop bluetooth scanner
                 BluetoothScanAlarmBroadcastReceiver.initialize(getApplicationContext());
-                BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
+                BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
                 // stop geofences scanner
                 GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
                 GlobalData.stopGeofenceScanner();
@@ -664,8 +664,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             Permissions.removeNotifications(getApplicationContext());
 
             SearchCalendarEventsBroadcastReceiver.removeAlarm(getApplicationContext());
-            WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
-            BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext(), false);
+            WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
+            BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
             GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
             GlobalData.stopGeofenceScanner();
 

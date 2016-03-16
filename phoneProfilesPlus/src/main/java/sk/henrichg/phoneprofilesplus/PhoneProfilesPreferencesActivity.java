@@ -20,6 +20,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     private String activeTheme;
     private int wifiScanInterval;
     private int bluetoothScanInterval;
+    private int locationScanInterval;
     //private String activeBackgroundProfile;
 
     private boolean invalidateEditor = false;
@@ -89,6 +90,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         showEditorHeader = preferences.getBoolean(GlobalData.PREF_APPLICATION_EDITOR_HEADER, true);
         wifiScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "10"));
         bluetoothScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
+        locationScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
 
         fragment = new PhoneProfilesPreferencesFragment();
 
@@ -192,17 +194,23 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             invalidateEditor = true;
         }
 
+        DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), false, false, 0);
         if (wifiScanInterval != GlobalData.applicationEventWifiScanInterval)
         {
-            if (WifiScanAlarmBroadcastReceiver.isAlarmSet(getApplicationContext(), false))
-                WifiScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), false, true);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
+                WifiScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), /*false,*/ true);
         }
-
         if (bluetoothScanInterval != GlobalData.applicationEventBluetoothScanInterval)
         {
-            if (BluetoothScanAlarmBroadcastReceiver.isAlarmSet(getApplicationContext(), false))
-                BluetoothScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), false, true);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
+                BluetoothScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), /*false,*/ true);
         }
+        if (locationScanInterval != GlobalData.applicationEventLocationUpdateInterval)
+        {
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
+                GeofenceScannerAlarmBroadcastReceiver.setAlarm(getApplicationContext(), /*false,*/ true);
+        }
+        dataWrapper.invalidateDataWrapper();
 
         /*
         if (activeBackgroundProfile != GlobalData.applicationBackgroundProfile)

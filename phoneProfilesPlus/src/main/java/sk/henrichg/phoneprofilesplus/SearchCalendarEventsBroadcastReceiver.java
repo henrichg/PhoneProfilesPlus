@@ -19,9 +19,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
         GlobalData.logE("##### SearchCalendarEventsBroadcastReceiver.onReceive", "xxx");
 
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
-            setAlarm(context, false);
-        }
+        setAlarm(context, false);
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -64,27 +62,20 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
         Intent intent = new Intent(context, SearchCalendarEventsBroadcastReceiver.class);
 
         Calendar calendar = Calendar.getInstance();
-
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
-            if (shortInterval)
-                calendar.add(Calendar.SECOND, 5);
-            else
-                calendar.add(Calendar.DAY_OF_YEAR, 1);
-            long alarmTime = calendar.getTimeInMillis();
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            else
-                alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-        }
-        else {
+        if (shortInterval)
             calendar.add(Calendar.SECOND, 5);
-            long alarmTime = calendar.getTimeInMillis();
-            alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP,
-                    alarmTime,
-                    AlarmManager.INTERVAL_DAY,
-                    alarmIntent);
-        }
+        else
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+        long alarmTime = calendar.getTimeInMillis();
+
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        else
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
     }
 
     public static void removeAlarm(Context context)

@@ -40,11 +40,9 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         GlobalData.logE("##### WifiScanAlarmBroadcastReceiver.onReceive", "xxx");
 
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
-            int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
-            if (oneshot == 0)
-                setAlarm(context, false, false);
-        }
+        //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
+        //if (oneshot == 0)
+            setAlarm(context, /*false,*/ false);
 
         //if (scanResults == null)
         //    scanResults = new ArrayList<WifiSSIDData>();
@@ -54,8 +52,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) !=
                 GlobalData.PREFERENCE_ALLOWED) {
-            removeAlarm(context, false);
-            removeAlarm(context, true);
+            removeAlarm(context/*, false*/);
+            //removeAlarm(context/*, true*/);
             return;
         }
 
@@ -140,9 +138,9 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    public static void setAlarm(Context context, boolean oneshot, boolean shortInterval)
+    public static void setAlarm(Context context, /*boolean oneshot,*/ boolean shortInterval)
     {
-        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot);
+        //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot);
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context)
                 == GlobalData.PREFERENCE_ALLOWED)
@@ -153,7 +151,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Intent intent = new Intent(context, WifiScanAlarmBroadcastReceiver.class);
 
-            if (oneshot)
+            /*if (oneshot)
             {
                 removeAlarm(context, true);
 
@@ -177,8 +175,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS);
             }
             else
-            {
-                removeAlarm(context, false);
+            {*/
+                removeAlarm(context/*, false*/);
 
                 Calendar calendar = Calendar.getInstance();
 
@@ -190,72 +188,70 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 if (isPowerSaveMode && GlobalData.applicationEventWifiScanInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
 
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
-                    if (shortInterval)
-                        calendar.add(Calendar.SECOND, 10);
-                    else
-                        calendar.add(Calendar.MINUTE, interval);
-                    long alarmTime = calendar.getTimeInMillis();
-
-                    intent.putExtra(EXTRA_ONESHOT, 0);
-                    PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
-                    if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                    else
-                        alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                }
-                else {
+                if (shortInterval)
                     calendar.add(Calendar.SECOND, 10);
-                    long alarmTime = calendar.getTimeInMillis();
+                else
+                    calendar.add(Calendar.MINUTE, interval);
+                long alarmTime = calendar.getTimeInMillis();
 
-                    intent.putExtra(EXTRA_ONESHOT, 0);
-                    PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
-                    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, interval * 60 * 1000, alarmIntent);
-                }
-            }
+                intent.putExtra(EXTRA_ONESHOT, 0);
+                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot + "; alarm is set");
+                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                    alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+                else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+                    alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+                else
+                    alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            //}
+
+            //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot + "; alarm is set");
+            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm", "alarm is set");
 
         }
         else
             GlobalData.logE("WifiScanAlarmBroadcastReceiver.setAlarm","WifiHardware=false");
     }
 
-    public static void removeAlarm(Context context, boolean oneshot)
+    public static void removeAlarm(Context context/*, boolean oneshot*/)
     {
-        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot);
+        //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         Intent intent = new Intent(context, WifiScanAlarmBroadcastReceiver.class);
         PendingIntent pendingIntent;
-        if (oneshot)
-            pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
-        else
+        //if (oneshot)
+        //    pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
+        //else
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
+            //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
+            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
         else
-            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
+            //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
+            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.removeAlarm","alarm not found");
     }
 
-    public static boolean isAlarmSet(Context context, boolean oneshot)
+    public static boolean isAlarmSet(Context context/*, boolean oneshot*/)
     {
         Intent intent = new Intent(context, WifiScanAlarmBroadcastReceiver.class);
         PendingIntent pendingIntent;
-        if (oneshot)
-            pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
-        else
+        //if (oneshot)
+        //    pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
+        //else
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
 
         if (pendingIntent != null)
-            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
+            //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
+            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.isAlarmSet","alarm found");
         else
-            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm not found");
+            //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm not found");
+            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.isAlarmSet","alarm not found");
 
         return (pendingIntent != null);
     }

@@ -36,11 +36,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         GlobalData.logE("##### BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
-            int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
-            if (oneshot == 0)
-                setAlarm(context, false, false);
-        }
+        //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
+        //if (oneshot == 0)
+            setAlarm(context, /*false,*/ false);
 
         //if (scanResults == null)
         //    scanResults = new ArrayList<BluetoothDeviceData>();
@@ -50,8 +48,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
                 GlobalData.PREFERENCE_ALLOWED) {
-            removeAlarm(context, false);
-            removeAlarm(context, true);
+            removeAlarm(context/*, false*/);
+            //removeAlarm(context/*, true*/);
             return;
         }
 
@@ -129,9 +127,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("NewApi")
-    public static void setAlarm(Context context, boolean oneshot, boolean shortInterval)
+    public static void setAlarm(Context context, /*boolean oneshot,*/ boolean shortInterval)
     {
-        GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
+        //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
                 == GlobalData.PREFERENCE_ALLOWED)
@@ -142,7 +140,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Intent intent = new Intent(context, BluetoothScanAlarmBroadcastReceiver.class);
 
-            if (oneshot)
+            /*if (oneshot)
             {
                 removeAlarm(context, true);
 
@@ -170,8 +168,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             }
             else
-            {
-                removeAlarm(context, false);
+            {*/
+                removeAlarm(context/*, false*/);
 
                 Calendar calendar = Calendar.getInstance();
 
@@ -183,30 +181,22 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("0"))
                     interval = 2 * interval;
 
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19)) {
-                    if (shortInterval)
-                        calendar.add(Calendar.SECOND, 10);
-                    else
-                        calendar.add(Calendar.MINUTE, interval);
-                    long alarmTime = calendar.getTimeInMillis();
-
-                    intent.putExtra(EXTRA_ONESHOT, 0);
-                    PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
-                    if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                    else
-                        alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                }
-                else {
+                if (shortInterval)
                     calendar.add(Calendar.SECOND, 10);
-                    long alarmTime = calendar.getTimeInMillis();
+                else
+                    calendar.add(Calendar.MINUTE, interval);
+                long alarmTime = calendar.getTimeInMillis();
 
-                    intent.putExtra(EXTRA_ONESHOT, 0);
-                    PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
-                    alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, interval * 60 * 1000, alarmIntent);
-                }
+                intent.putExtra(EXTRA_ONESHOT, 0);
+                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            }
+                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                    alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+                else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+                    alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+                else
+                    alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            //}
 
             GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "alarm is set");
 
@@ -215,41 +205,45 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             GlobalData.logE("BluetoothScanAlarmBroadcastReceiver.setAlarm","BluetoothHardware=false");
     }
 
-    public static void removeAlarm(Context context, boolean oneshot)
+    public static void removeAlarm(Context context/*, boolean oneshot*/)
     {
-        GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
+        //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         Intent intent = new Intent(context, BluetoothScanAlarmBroadcastReceiver.class);
         PendingIntent pendingIntent;
-        if (oneshot)
-            pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
-        else
+        //if (oneshot)
+        //    pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
+        //else
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
+            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
+            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
         else
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
+            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
+            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","alarm not found");
     }
 
-    public static boolean isAlarmSet(Context context, boolean oneshot)
+    public static boolean isAlarmSet(Context context/*, boolean oneshot*/)
     {
         Intent intent = new Intent(context, BluetoothScanAlarmBroadcastReceiver.class);
         PendingIntent pendingIntent;
-        if (oneshot)
-            pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
-        else
+        //if (oneshot)
+        //    pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
+        //else
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
 
         if (pendingIntent != null)
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
+            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
+            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet","alarm found");
         else
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
+            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
+            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet", "alarm not found");
 
         return (pendingIntent != null);
     }

@@ -612,8 +612,14 @@ public class GrantPermissionActivity extends Activity {
             if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true);
             dataWrapper.restartEvents(false, true);
-            WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
-            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+            //WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
+            //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
+                WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
+                BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
+                GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false);
             finish();
         }
         else
@@ -641,8 +647,14 @@ public class GrantPermissionActivity extends Activity {
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
-                    BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                    //WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
+                    //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
+                        WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
+                        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
+                        GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false);
                     break;
                 }
             }
@@ -653,8 +665,14 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.locationGeofenceEditorActivity.refreshActivity(true);
             }
             dataWrapper.restartEvents(false, true);
-            WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
-            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+            //WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
+            //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
+                WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
+                BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
+                GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, false);
             finish();
         }
         else

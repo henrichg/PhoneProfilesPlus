@@ -65,14 +65,16 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                 {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                         // send broadcast for one wifi scan
-                        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                        //WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
+                        WifiScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
                 }
                 if (GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
                     GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
                 {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
                         // send broadcast for one bluetooth scan
-                        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                        //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ false);
+                        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*true,*/ true);
                 }
                 if (GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
                     GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
