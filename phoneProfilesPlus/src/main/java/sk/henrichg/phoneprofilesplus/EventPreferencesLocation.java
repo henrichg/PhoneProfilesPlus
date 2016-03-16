@@ -166,6 +166,8 @@ public class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setSystemEventForStart(Context context)
     {
+        if (!GeofenceScannerAlarmBroadcastReceiver.isAlarmSet(context/*, false*/))
+            GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
     }
 
     @Override

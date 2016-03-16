@@ -82,9 +82,8 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     public void onConnected(Bundle bundle) {
         //Log.d("GeofencesScanner.onConnected", "xxx");
         if (mGoogleApiClient.isConnected()) {
-            //startLocationUpdates();
             mUpdatesStarted = false;
-            GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
+            //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
             clearAllEventGeofences();
         }
     }
@@ -268,7 +267,6 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         if ((forceReset) || (GlobalData.isPowerSaveMode != oldPowerSaveMode)) {
             stopLocationUpdates();
             createLocationRequest();
-            //startLocationUpdates();
             GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
         }
     }

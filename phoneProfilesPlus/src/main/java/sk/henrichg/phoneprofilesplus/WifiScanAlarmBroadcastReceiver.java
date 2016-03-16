@@ -40,6 +40,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         GlobalData.logE("##### WifiScanAlarmBroadcastReceiver.onReceive", "xxx");
 
+        GlobalData.loadPreferences(context);
+
         //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
         //if (oneshot == 0)
             setAlarm(context, /*false,*/ false);
@@ -65,11 +67,9 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             // application is not started
         //	return;
 
-        GlobalData.loadPreferences(context);
-
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive","xxx");
+            GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive", "xxx");
 
             //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
             //GlobalData.logE("$$$ WifiAP", "WifiScanAlarmBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);

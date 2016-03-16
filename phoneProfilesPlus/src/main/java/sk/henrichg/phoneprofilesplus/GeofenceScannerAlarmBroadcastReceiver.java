@@ -20,11 +20,20 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
         GlobalData.logE("##### GeofenceScannerAlarmBroadcastReceiver.onReceive", "xxx");
 
-        //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
-        //if (oneshot == 0)
-            setAlarm(context, /*false,*/ false);
-
         GlobalData.loadPreferences(context);
+
+        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+        if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
+            //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
+            //if (oneshot == 0)
+            setAlarm(context, /*false,*/ false);
+            dataWrapper.invalidateDataWrapper();
+        }
+        else {
+            removeAlarm(context);
+            dataWrapper.invalidateDataWrapper();
+            return;
+        }
 
         if (!GlobalData.isGeofenceScannerStarted()) {
             removeAlarm(context/*, false*/);

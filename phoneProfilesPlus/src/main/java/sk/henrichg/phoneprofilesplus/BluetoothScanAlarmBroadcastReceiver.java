@@ -36,6 +36,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         GlobalData.logE("##### BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
+        GlobalData.loadPreferences(context);
+
         //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
         //if (oneshot == 0)
             setAlarm(context, /*false,*/ false);
@@ -60,8 +62,6 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         //if (!GlobalData.getApplicationStarted(context))
             // application is not started
         //	return;
-
-        GlobalData.loadPreferences(context);
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
