@@ -28,12 +28,11 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     private Context context;
     DataWrapper dataWrapper;
 
+    Location lastLocation;
+
     protected LocationRequest mLocationRequest;
     //public boolean mPowerSaveMode = false;
     public boolean mUpdatesStarted = false;
-
-    protected ArrayList<com.google.android.gms.location.Geofence> mGeofenceList;
-    private PendingIntent mGeofencePendingIntent;
 
     // Bool to track whether the app is already resolving an error
     public boolean mResolvingError = false;
@@ -41,12 +40,6 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     public static final int REQUEST_RESOLVE_ERROR = 1001;
     // Unique tag for the error dialog fragment
     public static final String DIALOG_ERROR = "dialog_error";
-
-    //private static final long GEOFENCE_EXPIRATION_IN_HOURS = 12;
-    //private static final long GEOFENCE_EXPIRATION_IN_MILISECONDS =
-    //        GEOFENCE_EXPIRATION_IN_HOURS * 60 * 60 * 1000;
-
-    public static final String GEOFENCE_KEY_PREFIX = "PhoneProfilesPlusGeofence";
 
     public GeofencesScanner(Context context) {
         this.context = context;
@@ -59,6 +52,8 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 .addOnConnectionFailedListener(this)
                 .build();
         createLocationRequest();
+
+        lastLocation = new Location("GL");
     }
 
     public void connect() {
@@ -133,6 +128,11 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     public void onLocationChanged(Location location) {
         GlobalData.logE("GeofenceScanner.onLocationChanged", "location=" + location);
 
+        lastLocation.set(location);
+        //updateGeofencesInDB();
+    }
+
+    public void updateGeofencesInDB() {
         List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
 
         //boolean change = false;
@@ -143,8 +143,8 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             geofenceLocation.setLatitude(geofence._latitude);
             geofenceLocation.setLongitude(geofence._longitude);
 
-            float distance = location.distanceTo(geofenceLocation);
-            float radius = location.getAccuracy()+geofence._radius;
+            float distance = lastLocation.distanceTo(geofenceLocation);
+            float radius = lastLocation.getAccuracy()+geofence._radius;
 
             int transitionType = 0;
             if (distance <= radius)
@@ -155,23 +155,14 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             int savedTransition = dataWrapper.getDatabaseHandler().getGeofenceTransition(geofence._id);
 
             if (savedTransition != transitionType) {
-                GlobalData.logE("GeofenceScanner.onLocationChanged", "geofence._name="+geofence._name);
-                GlobalData.logE("GeofenceScanner.onLocationChanged", "transitionType="+transitionType);
-                GlobalData.logE("GeofenceScanner.onLocationChanged", "savedTransition="+savedTransition);
+                GlobalData.logE("GeofenceScanner.updateGeofencesInDB", "geofence._name="+geofence._name);
+                GlobalData.logE("GeofenceScanner.updateGeofencesInDB", "transitionType="+transitionType);
+                GlobalData.logE("GeofenceScanner.updateGeofencesInDB", "savedTransition="+savedTransition);
 
                 dataWrapper.getDatabaseHandler().updateGeofenceTransition(geofence._id, transitionType);
                 //change = true;
             }
         }
-
-        /* moved to GeofenceScannerAlarmBroadcastReceiver
-        if (change) {
-            // send broadcast for calling EventsService
-            Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);
-            context.sendBroadcast(broadcastIntent);
-        }
-        */
-
     }
 
     public void clearAllEventGeofences() {
