@@ -59,24 +59,29 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
 
             if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
             {
+                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                 if (GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
                     GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
                 {
-                    // send broadcast for one wifi scan
-                    WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
+                        // send broadcast for one wifi scan
+                        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
                 }
                 if (GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
                     GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
                 {
-                    // send broadcast for one bluetooth scan
-                    BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
+                        // send broadcast for one bluetooth scan
+                        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, false);
                 }
                 if (GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
                     GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
                 {
-                    // send broadcast for location scan
-                    GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true);
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
+                        // send broadcast for location scan
+                        GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true);
                 }
+                dataWrapper.invalidateDataWrapper();
             }
         }
 

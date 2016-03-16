@@ -214,9 +214,9 @@
             app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventLocationRescan"
-            android:summary="@string/phone_profiles_pref_applicationEventRescan_none"
+            android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
             android:key="applicationEventLocationRescan"
-            android:defaultValue="0"
+            android:defaultValue="1"
             android:entries="@array/applicationEventRescanArray"
             android:entryValues="@array/applicationEventRescanValues"
             app:useStockLayout="true" />
@@ -258,9 +258,9 @@
             app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventWifiRescan"
-            android:summary="@string/phone_profiles_pref_applicationEventRescan_none"
+            android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
             android:key="applicationEventWifiRescan"
-            android:defaultValue="0"
+            android:defaultValue="1"
             android:entries="@array/applicationEventRescanArray"
             android:entryValues="@array/applicationEventRescanValues"
             app:useStockLayout="true" />
@@ -305,9 +305,9 @@
             app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
-            android:summary="@string/phone_profiles_pref_applicationEventRescan_none"
+            android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
             android:key="applicationEventBluetoothRescan"
-            android:defaultValue="0"
+            android:defaultValue="1"
             android:entries="@array/applicationEventRescanArray"
             android:entryValues="@array/applicationEventRescanValues"
             app:useStockLayout="true" />
