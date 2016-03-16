@@ -1514,7 +1514,7 @@ public class ActivateProfileHelper {
 
     }
 
-    private String getTransactionCode(Context context) throws Exception {
+    private String getTransactionCode(Context context, String fieldName) throws Exception {
         try {
             final TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             final Class<?> mTelephonyClass = Class.forName(mTelephonyManager.getClass().getName());
@@ -1523,7 +1523,7 @@ public class ActivateProfileHelper {
             final Object mTelephonyStub = mTelephonyMethod.invoke(mTelephonyManager);
             final Class<?> mTelephonyStubClass = Class.forName(mTelephonyStub.getClass().getName());
             final Class<?> mClass = mTelephonyStubClass.getDeclaringClass();
-            final Field field = mClass.getDeclaredField("TRANSACTION_setDataEnabled");
+            final Field field = mClass.getDeclaredField(fieldName);
             field.setAccessible(true);
             return String.valueOf(field.getInt(null));
         } catch (Exception e) {
@@ -1545,7 +1545,7 @@ public class ActivateProfileHelper {
                     // Get the current state of the mobile network.
                     state = enable ? 1 : 0;
                     // Get the value of the "TRANSACTION_setDataEnabled" field.
-                    String transactionCode = getTransactionCode(context);
+                    String transactionCode = getTransactionCode(context, "TRANSACTION_setDataEnabled");
                     // Android 5.1+ (API 22) and later.
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
@@ -1563,7 +1563,7 @@ public class ActivateProfileHelper {
                                     commandWait(command);
                                     //RootTools.closeAllShells();
                                 } catch (Exception e) {
-                                    Log.e("AirPlaneMode_SDK17.setAirplaneMode", "Error on run su");
+                                    Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
                                 }
                             }
                         }
@@ -1578,7 +1578,7 @@ public class ActivateProfileHelper {
                                 commandWait(command);
                                 //RootTools.closeAllShells();
                             } catch (Exception e) {
-                                Log.e("AirPlaneMode_SDK17.setAirplaneMode", "Error on run su");
+                                Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
                             }
                         }
                     }
@@ -1638,6 +1638,53 @@ public class ActivateProfileHelper {
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    private void setPreferredNetworkType(Context context, int networkType)
+    {
+        if (GlobalData.grantRoot(false))
+        {
+            try {
+                // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
+                String transactionCode = getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
+                if (Build.VERSION.SDK_INT >= 23) {
+                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                    // Loop through the subscription list i.e. SIM list.
+                    for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
+                        if (transactionCode != null && transactionCode.length() > 0) {
+                            // Get the active subscription ID for a given SIM card.
+                            int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
+                            // Execute the command via `su` to turn off
+                            // mobile network for a subscription service.
+                            String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + networkType;
+                            Command command = new Command(0, false, command1);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                commandWait(command);
+                                //RootTools.closeAllShells();
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                            }
+                        }
+                    }
+                } else  {
+                    if (transactionCode != null && transactionCode.length() > 0) {
+                        // Execute the command via `su` to turn off mobile network.
+                        String command1 = "service call phone " + transactionCode + " i32 " + networkType;
+                        Command command = new Command(0, false, command1);
+                        try {
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            commandWait(command);
+                            //RootTools.closeAllShells();
+                        } catch (Exception e) {
+                            Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                        }
+                    }
+                }
+            } catch(Exception e) {
+                e.printStackTrace();
             }
         }
     }
