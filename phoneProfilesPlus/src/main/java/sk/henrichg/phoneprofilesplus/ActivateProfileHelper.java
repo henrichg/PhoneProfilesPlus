@@ -61,6 +61,8 @@ public class ActivateProfileHelper {
     private NotificationManager notificationManager;
     private Handler brightnessHandler;
 
+    private int networkType = -1;
+
     public static boolean lockRefresh = false;
 
     public static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
@@ -1554,8 +1556,6 @@ public class ActivateProfileHelper {
                             if (transactionCode != null && transactionCode.length() > 0) {
                                 // Get the active subscription ID for a given SIM card.
                                 int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
-                                // Execute the command via `su` to turn off
-                                // mobile network for a subscription service.
                                 String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + state;
                                 Command command = new Command(0, false, command1);
                                 try {
@@ -1570,7 +1570,6 @@ public class ActivateProfileHelper {
                     } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
                         // Android 5.0 (API 21) only.
                         if (transactionCode != null && transactionCode.length() > 0) {
-                            // Execute the command via `su` to turn off mobile network.
                             String command1 = "service call phone " + transactionCode + " i32 " + state;
                             Command command = new Command(0, false, command1);
                             try {
@@ -1642,6 +1641,52 @@ public class ActivateProfileHelper {
         }
     }
 
+    private int getPreferredNetworkType(Context context) {
+        if (GlobalData.grantRoot(false))
+        {
+            try {
+                // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
+                String transactionCode = getTransactionCode(context, "TRANSACTION_getPreferredNetworkType");
+                if (transactionCode != null && transactionCode.length() > 0) {
+                    String command1 = "service call phone " + transactionCode + " i32";
+                    Command command = new Command(0, false, command1) {
+                        @Override
+                        public void commandOutput(int id, String line) {
+                            super.commandOutput(id, line);
+                            String splits[] = line.split(" ");
+                            try {
+                                networkType = Integer.parseInt(splits[2]);
+                            } catch (Exception e) {
+                                networkType = -1;
+                            }
+                        }
+
+                        @Override
+                        public void commandTerminated(int id, String reason) {
+                            super.commandTerminated(id, reason);
+                        }
+
+                        @Override
+                        public void commandCompleted(int id, int exitcode) {
+                            super.commandCompleted(id, exitcode);
+                        }
+                    };
+                    try {
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        commandWait(command);
+                        //RootTools.closeAllShells();
+                    } catch (Exception e) {
+                        Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                    }
+                }
+
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return networkType;
+    }
+
     private void setPreferredNetworkType(Context context, int networkType)
     {
         if (GlobalData.grantRoot(false))
@@ -1656,8 +1701,6 @@ public class ActivateProfileHelper {
                         if (transactionCode != null && transactionCode.length() > 0) {
                             // Get the active subscription ID for a given SIM card.
                             int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
-                            // Execute the command via `su` to turn off
-                            // mobile network for a subscription service.
                             String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + networkType;
                             Command command = new Command(0, false, command1);
                             try {
@@ -1671,7 +1714,6 @@ public class ActivateProfileHelper {
                     }
                 } else  {
                     if (transactionCode != null && transactionCode.length() > 0) {
-                        // Execute the command via `su` to turn off mobile network.
                         String command1 = "service call phone " + transactionCode + " i32 " + networkType;
                         Command command = new Command(0, false, command1);
                         try {
