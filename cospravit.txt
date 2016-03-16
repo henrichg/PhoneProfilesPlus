@@ -922,3 +922,174 @@ Na pause udalosti s lokaciou:
 - Aktivator/Editor/Widget- nezmesti sa nazov profilu, zavadzia ta kvacka tam
 - Tlacitka Zrusit/OK - na Android 4.1 maju tenke pismo, ale MaterialDialog to ma OK
 
+
+-------------------------------------------------
+
+    public static int o(Context context)
+    {
+        return ((TelephonyManager)context.getSystemService("phone")).getPhoneType();
+    }
+
+    public static int[] q(Context context)
+    {
+        int ai[] = new int[7];
+        int[] _tmp = ai;
+        ai[0] = 0;
+        ai[1] = 1;
+        ai[2] = 2;
+        ai[3] = 3;
+        ai[4] = 9;
+        ai[5] = 11;
+        ai[6] = 12;
+        int ai1[] = new int[5];
+        int[] _tmp1 = ai1;
+        ai1[0] = 4;
+        ai1[1] = 5;
+        ai1[2] = 6;
+        ai1[3] = 8;
+        ai1[4] = 11;
+        int i1 = o(context);
+        if (i1 == 1)
+        {
+            return ai;
+        }
+        if (i1 == 2)
+        {
+            return ai1;
+        } else
+        {
+            int j1 = ai.length;
+            int k1 = ai1.length;
+            context = new int[j1 + k1];
+            System.arraycopy(ai, 0, context, 0, j1);
+            System.arraycopy(ai1, 0, context, j1, k1);
+            return context;
+        }
+    }
+
+    public static String a(int i1, boolean flag)
+    {
+        switch (i1)
+        {
+        default:
+            return "Unknown";
+
+        case 0: // '\0'
+            if (flag)
+            {
+                return "3G/2G";
+            } else
+            {
+                return "3G/2G - WCDMA/GSM (WCDMA preferred)";
+            }
+
+        case 1: // '\001'
+            if (flag)
+            {
+                return "2G";
+            } else
+            {
+                return "2G - GSM";
+            }
+
+        case 2: // '\002'
+            if (flag)
+            {
+                return "3G";
+            } else
+            {
+                return "3G - WCDMA";
+            }
+
+        case 3: // '\003'
+            if (flag)
+            {
+                return "2G/3G";
+            } else
+            {
+                return "2G/3G - GSM/WCDMA (auto)";
+            }
+
+        case 4: // '\004'
+            if (flag)
+            {
+                return "2G/3G";
+            } else
+            {
+                return "2G/3G - CDMA, EvDo";
+            }
+
+        case 5: // '\005'
+            if (flag)
+            {
+                return "2G";
+            } else
+            {
+                return "2G - CDMA";
+            }
+
+        case 6: // '\006'
+            if (flag)
+            {
+                return "3G";
+            } else
+            {
+                return "3G - EvDo";
+            }
+
+        case 7: // '\007'
+            if (flag)
+            {
+                return "2G/3G";
+            } else
+            {
+                return "2G/3G - GSM/WCDMA, CDMA, EvDo";
+            }
+
+        case 8: // '\b'
+            if (flag)
+            {
+                return "2G/3G/4G";
+            } else
+            {
+                return "2G/3G/4G - CDMA, EvDo, LTE";
+            }
+
+        case 9: // '\t'
+            if (flag)
+            {
+                return "2G/3G/4G";
+            } else
+            {
+                return "2G/3G/4G - GSM/WCDMA, LTE";
+            }
+
+        case 10: // '\n'
+            if (flag)
+            {
+                return "2G/3G/4G";
+            } else
+            {
+                return "2G/3G/4G - GSM/WCDMA, CDMA, EvDo, LTE";
+            }
+
+        case 11: // '\013'
+            if (flag)
+            {
+                return "4G";
+            } else
+            {
+                return "4G - LTE";
+            }
+
+        case 12: // '\f'
+            break;
+        }
+        if (flag)
+        {
+            return "3G/4G";
+        } else
+        {
+            return "3G/4G - WCDMA/LTE";
+        }
+    }
