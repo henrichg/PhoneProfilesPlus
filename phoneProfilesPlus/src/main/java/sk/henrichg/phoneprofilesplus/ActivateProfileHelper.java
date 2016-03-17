@@ -116,6 +116,20 @@ public class ActivateProfileHelper {
             }
         }
 
+        // nahodenie network type
+        if (!onlyCheckForPPHelper) {
+            if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, context) == GlobalData.PREFERENCE_ALLOWED) {
+                if (profile._deviceNetworkType >= 100) {
+                    setPreferredNetworkType(context, profile._deviceNetworkType - 100);
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        System.out.println(e);
+                    }
+                }
+            }
+        }
+
         // nahodenie mobilnych dat
         if (!onlyCheckForPPHelper) {
             if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.PREFERENCE_ALLOWED) {

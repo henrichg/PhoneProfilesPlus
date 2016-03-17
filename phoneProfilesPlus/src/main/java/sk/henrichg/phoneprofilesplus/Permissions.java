@@ -370,7 +370,7 @@ public class Permissions {
                 if (granted)
                     GlobalData.setShowRequestWriteSettingsPermission(context, true);
             }
-            if (profile._deviceMobileData != 0)
+            if ((profile._deviceMobileData != 0) || (profile._deviceNetworkType != 0))
                 granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
             return granted;
         }
