@@ -1468,8 +1468,8 @@ public class DataWrapper {
             long endAlarmTime;
 
             startAlarmTime = event._eventPreferencesTime.computeAlarm(true);
-            if (broadcastType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                startAlarmTime -= 30 * 1000;
+            //if (broadcastType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            //    startAlarmTime -= 30 * 1000;
 
             String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                                 " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
@@ -1477,7 +1477,7 @@ public class DataWrapper {
 
             endAlarmTime = event._eventPreferencesTime.computeAlarm(false);
             if (broadcastType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                endAlarmTime += 30 * 1000;
+                endAlarmTime += 60 * 1000;
 
             alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                          " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
@@ -1765,8 +1765,8 @@ public class DataWrapper {
             if (event._eventPreferencesCalendar._eventFound)
             {
                 startAlarmTime = event._eventPreferencesCalendar.computeAlarm(true);
-                if (broadcastType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                    startAlarmTime -= 30 * 1000;
+                //if (broadcastType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                //    startAlarmTime -= 30 * 1000;
 
                 String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                                     " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
@@ -1774,7 +1774,7 @@ public class DataWrapper {
 
                 endAlarmTime = event._eventPreferencesCalendar.computeAlarm(false);
                 if (broadcastType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                    endAlarmTime += 30 * 1000;
+                    endAlarmTime += 60 * 1000;
 
                 alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                              " " + DateFormat.getTimeFormat(context).format(endAlarmTime);

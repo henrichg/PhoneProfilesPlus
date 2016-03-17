@@ -1379,7 +1379,7 @@ public class Event {
             GlobalData.logE("Event.setDelayStartAlarm","startTime="+result);
 
             Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
-            intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
+            //intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -1483,7 +1483,7 @@ public class Event {
             GlobalData.logE("Event.setDelayEndAlarm","endTime="+result);
 
             Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
-            intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
+            //intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
