@@ -381,16 +381,10 @@ public class EventsService extends IntentService
         if (broadcastReceiverType.equals(EventDelayStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_????;*/
         else
-        if (broadcastReceiverType.equals(EventCalendarStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_CALENDAR;
         else
-        if (broadcastReceiverType.equals(EventCalendarEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_CALENDAR;
-        else
-        if (broadcastReceiverType.equals(EventTimeStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_TIME;
-        else
-        if (broadcastReceiverType.equals(EventTimeEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+        if (broadcastReceiverType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_TIME;
         else
         if (broadcastReceiverType.equals(HeadsetConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
@@ -479,17 +473,11 @@ public class EventsService extends IntentService
         if (broadcastReceiverType.equals(EventDelayEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             EventDelayEndBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(EventCalendarStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            EventCalendarStartBroadcastReceiver.completeWakefulIntent(intent);
+        if (broadcastReceiverType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            EventCalendarBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(EventCalendarEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            EventCalendarEndBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(EventTimeStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            EventTimeStartBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(EventTimeEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            EventTimeEndBroadcastReceiver.completeWakefulIntent(intent);
+        if (broadcastReceiverType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            EventTimeBroadcastReceiver.completeWakefulIntent(intent);
         else
         if (broadcastReceiverType.equals(HeadsetConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             HeadsetConnectionBroadcastReceiver.completeWakefulIntent(intent);

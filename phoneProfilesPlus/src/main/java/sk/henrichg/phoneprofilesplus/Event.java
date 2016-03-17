@@ -384,6 +384,7 @@ public class Event {
         editor.putString(PREF_EVENT_AT_END_DO, Integer.toString(this._atEndDo));
         editor.putBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, this._manualProfileActivation);
         editor.putString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(this._fkProfileStartWhenActivated));
+        editor.putString(PREF_EVENT_DELAY_END, Integer.toString(this._delayEnd));
         this._eventPreferencesTime.loadSharedPreferences(preferences);
         this._eventPreferencesBattery.loadSharedPreferences(preferences);
         this._eventPreferencesCall.loadSharedPreferences(preferences);

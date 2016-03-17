@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class EventCalendarEndBroadcastReceiver extends WakefulBroadcastReceiver {
+public class EventTimeBroadcastReceiver extends WakefulBroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "eventCalendarEnd";
+    public static final String BROADCAST_RECEIVER_TYPE = "eventTimeStart";
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("##### EventCalendarStartBroadcastReceiver.onReceive", "xxx");
+        GlobalData.logE("##### EventTimeBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -21,16 +21,16 @@ public class EventCalendarEndBroadcastReceiver extends WakefulBroadcastReceiver 
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ EventCalendarStartBroadcastReceiver.onReceive","xxx");
+            GlobalData.logE("@@@ EventTimeBroadcastReceiver.onReceive","xxx");
 
-            /*boolean calendarEventsExists = false;
+            /*boolean timeEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-            calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
-            GlobalData.logE("EventCalendarStartBroadcastReceiver.onReceive","calendarEventsExists="+calendarEventsExists);
+            timeEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_TIME) > 0;
+            GlobalData.logE("EventTimeBroadcastReceiver.onReceive","timeEventsExists="+timeEventsExists);
             dataWrapper.invalidateDataWrapper();
 
-            if (calendarEventsExists)
+            if (timeEventsExists)
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);

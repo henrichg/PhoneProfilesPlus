@@ -423,12 +423,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".EventTimeStartBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".EventTimeEndBroadcastReceiver"
+            android:name=".EventTimeBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
@@ -456,12 +451,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".EventCalendarStartBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".EventCalendarEndBroadcastReceiver"
+            android:name=".EventCalendarBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>

@@ -1459,6 +1459,7 @@ public class DataWrapper {
         GlobalData.logE("%%% DataWrapper.doEventService","--- start --------------------------");
         GlobalData.logE("%%% DataWrapper.doEventService","------- event._id="+event._id);
         GlobalData.logE("%%% DataWrapper.doEventService","------- event._name="+event._name);
+        GlobalData.logE("%%% DataWrapper.doEventService","------- broadcastType="+broadcastType);
 
         if (event._eventPreferencesTime._enabled)
         {
@@ -1467,12 +1468,16 @@ public class DataWrapper {
             long endAlarmTime;
 
             startAlarmTime = event._eventPreferencesTime.computeAlarm(true);
+            if (broadcastType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                startAlarmTime -= 30 * 1000;
 
             String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                                 " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
             GlobalData.logE("%%% DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
             endAlarmTime = event._eventPreferencesTime.computeAlarm(false);
+            if (broadcastType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                endAlarmTime += 30 * 1000;
 
             alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                          " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
@@ -1484,13 +1489,8 @@ public class DataWrapper {
                  " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
             GlobalData.logE("%%% DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
 
-            if (broadcastType.equals(EventTimeStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                timePassed = true;
-            else
-            if (broadcastType.equals(EventTimeEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                timePassed = false;
-            else
-                timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
+            timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
+
             GlobalData.logE("%%% DataWrapper.doEventService","timePassed="+timePassed);
 
             //eventStart = eventStart && timePassed;
@@ -1765,12 +1765,16 @@ public class DataWrapper {
             if (event._eventPreferencesCalendar._eventFound)
             {
                 startAlarmTime = event._eventPreferencesCalendar.computeAlarm(true);
+                if (broadcastType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    startAlarmTime -= 30 * 1000;
 
                 String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
                                     " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
                 GlobalData.logE("DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
                 endAlarmTime = event._eventPreferencesCalendar.computeAlarm(false);
+                if (broadcastType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    endAlarmTime += 30 * 1000;
 
                 alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                              " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
@@ -1782,13 +1786,7 @@ public class DataWrapper {
                      " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
                 GlobalData.logE("DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
 
-                if (broadcastType.equals(EventCalendarStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                    calendarPassed = true;
-                else
-                if (broadcastType.equals(EventCalendarEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                    calendarPassed = false;
-                else
-                    calendarPassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
+                calendarPassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
             }
             else
                 calendarPassed = false;

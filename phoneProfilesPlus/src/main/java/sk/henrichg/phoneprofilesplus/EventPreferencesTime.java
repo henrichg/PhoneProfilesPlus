@@ -491,11 +491,7 @@ public class EventPreferencesTime extends EventPreferences {
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-        Intent intent;
-        if (startEvent)
-            intent = new Intent(context, EventTimeStartBroadcastReceiver.class);
-        else
-            intent = new Intent(context, EventTimeEndBroadcastReceiver.class);
+        Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
@@ -517,11 +513,7 @@ public class EventPreferencesTime extends EventPreferences {
         else
             GlobalData.logE("EventPreferencesTime.setAlarm","endTime="+result);
 
-        Intent intent;
-        if (startEvent)
-            intent = new Intent(context, EventTimeStartBroadcastReceiver.class);
-        else
-            intent = new Intent(context, EventTimeEndBroadcastReceiver.class);
+        Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
 
         intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
 

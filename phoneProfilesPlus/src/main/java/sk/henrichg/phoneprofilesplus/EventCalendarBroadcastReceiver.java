@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class EventTimeEndBroadcastReceiver extends WakefulBroadcastReceiver {
+public class EventCalendarBroadcastReceiver extends WakefulBroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "eventTimeEnd";
+    public static final String BROADCAST_RECEIVER_TYPE = "eventCalendarStart";
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("##### EventTimeEndBroadcastReceiver.onReceive", "xxx");
+        GlobalData.logE("##### EventCalendarBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -21,16 +21,16 @@ public class EventTimeEndBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ EventTimeEndBroadcastReceiver.onReceive","xxx");
+            GlobalData.logE("@@@ EventCalendarBroadcastReceiver.onReceive","xxx");
 
-            /*boolean timeEventsExists = false;
+            /*boolean calendarEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-            timeEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_TIME) > 0;
-            GlobalData.logE("EventTimeStartBroadcastReceiver.onReceive","timeEventsExists="+timeEventsExists);
+            calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
+            GlobalData.logE("EventCalendarBroadcastReceiver.onReceive","calendarEventsExists="+calendarEventsExists);
             dataWrapper.invalidateDataWrapper();
 
-            if (timeEventsExists)
+            if (calendarEventsExists)
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
