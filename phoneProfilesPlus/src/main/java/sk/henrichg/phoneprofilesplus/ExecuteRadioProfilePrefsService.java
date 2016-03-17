@@ -18,6 +18,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
     private static final String PPHELPER_BLUETOOTH_CHANGE = "bluetoothChange";
     private static final String PPHELPER_MOBILE_DATA_CHANGE = "mobileDataChange";
     private static final String PPHELPER_WIFI_AP_CHANGE = "WiFiAPChange";
+    private static final String PPHELPER_NETWORK_TYPE_CHANGE = "networkTypeChange";
 
     public ExecuteRadioProfilePrefsService() {
         super("ExecuteRadioProfilePrefsService");
@@ -68,6 +69,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
                 ppHelperIntent.putExtra(PPHELPER_BLUETOOTH_CHANGE, profile._deviceBluetooth);
                 ppHelperIntent.putExtra(PPHELPER_MOBILE_DATA_CHANGE, profile._deviceMobileData);
                 ppHelperIntent.putExtra(PPHELPER_WIFI_AP_CHANGE, profile._deviceWiFiAP);
+                ppHelperIntent.putExtra(PPHELPER_NETWORK_TYPE_CHANGE, profile._deviceNetworkType);
                 context.sendBroadcast(ppHelperIntent);
 
                 // run execute radios from ActivateProfileHelper - only check
