@@ -168,7 +168,9 @@ public class ProfilePreferencesIndicator {
             // wallpaper
             if (profile._deviceWallpaperChange == 1)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_wallpaper;
-
+            // network type
+            if (profile._deviceNetworkType != 0)
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type;
         }
         else
             countDrawables = -1;

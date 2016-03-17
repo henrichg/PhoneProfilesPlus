@@ -41,4 +41,5 @@
     <string name="prf_pref_deviceRunApplicationPackageName">-</string>
     <string name="prf_pref_deviceWallpaperChange">0</string>
     <string name="prf_pref_deviceWallpaper">-|0</string>
+    <string name="prf_pref_deviceNetworkType">0</string>
 </resources>

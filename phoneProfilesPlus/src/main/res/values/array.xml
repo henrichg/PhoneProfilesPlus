@@ -743,4 +743,85 @@
     <item>@drawable/ic_profile_sleep</item>
     <item>@drawable/ic_profile_battery_1</item>
 </string-array>
+<string-array name="networkTypeGSMArray">
+    <item>@string/array_pref_no_change</item>
+    <item>@string/array_pref_default_profile</item>
+    <item>3G/2G - WCDMA/GSM (WCDMA preferred)</item>
+    <item>2G - GSM</item>
+    <item>3G - WCDMA</item>
+    <item>2G/3G - GSM/WCDMA (auto)</item>
+    <item>2G/3G/4G - GSM/WCDMA, LTE</item>
+    <item>4G - LTE</item>
+    <item>3G/4G - WCDMA/LTE</item>
+</string-array>
+<string-array name="networkTypeGSMValues">
+    <item>0</item>
+    <item>99</item>
+    <item>100</item>
+    <item>101</item>
+    <item>102</item>
+    <item>103</item>
+    <item>109</item>
+    <item>111</item>
+    <item>112</item>
+</string-array>
+<string-array name="networkTypeGSMDPArray">
+    <item>@string/array_pref_no_change</item>
+    <item>3G/2G - WCDMA/GSM (WCDMA preferred)</item>
+    <item>2G - GSM</item>
+    <item>3G - WCDMA</item>
+    <item>2G/3G - GSM/WCDMA (auto)</item>
+    <item>2G/3G/4G - GSM/WCDMA, LTE</item>
+    <item>4G - LTE</item>
+    <item>3G/4G - WCDMA/LTE</item>
+</string-array>
+<string-array name="networkTypeGSMDPValues">
+    <item>0</item>
+    <item>100</item>
+    <item>101</item>
+    <item>102</item>
+    <item>103</item>
+    <item>109</item>
+    <item>111</item>
+    <item>112</item>
+</string-array>
+<string-array name="networkTypeCDMAArray">
+    <item>@string/array_pref_no_change</item>
+    <item>@string/array_pref_default_profile</item>
+    <item>2G/3G - CDMA, EvDo</item>
+    <item>2G - CDMA</item>
+    <item>3G - EvDo</item>
+    <item>2G/3G - GSM/WCDMA, CDMA, EvDo</item>
+    <item>2G/3G/4G - CDMA, EvDo, LTE</item>
+    <item>2G/3G/4G - GSM/WCDMA, CDMA, EvDo, LTE</item>
+</string-array>
+<string-array name="networkTypeCDMAValues">
+    <item>0</item>
+    <item>99</item>
+    <item>104</item>
+    <item>105</item>
+    <item>106</item>
+    <item>107</item>
+    <item>108</item>
+    <item>110</item>
+</string-array>
+<string-array name="networkTypeCDMADPArray">
+    <item>@string/array_pref_no_change</item>
+    <item>2G/3G - CDMA, EvDo</item>
+    <item>2G - CDMA</item>
+    <item>3G - EvDo</item>
+    <item>2G/3G - GSM/WCDMA, CDMA, EvDo</item>
+    <item>2G/3G/4G - CDMA, EvDo, LTE</item>
+    <item>2G/3G/4G - GSM/WCDMA, CDMA, EvDo, LTE</item>
+</string-array>
+<string-array name="networkTypeCDMADPValues">
+    <item>0</item>
+    <item>104</item>
+    <item>105</item>
+    <item>106</item>
+    <item>107</item>
+    <item>108</item>
+    <item>110</item>
+</string-array>
+
 </resources>

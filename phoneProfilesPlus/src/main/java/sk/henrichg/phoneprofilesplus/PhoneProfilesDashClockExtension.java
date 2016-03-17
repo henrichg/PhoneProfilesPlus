@@ -225,6 +225,9 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             // wallpaper
             if (profile._deviceWallpaperChange == 1)
                 indicator1 = addIntoIndicator(indicator1, "wlp");
+            // Network type
+            if (profile._deviceNetworkType != 0)
+                indicator1 = addIntoIndicator(indicator1, "ntt");
         }
         /////////////////////////////////////////////////////////////
 

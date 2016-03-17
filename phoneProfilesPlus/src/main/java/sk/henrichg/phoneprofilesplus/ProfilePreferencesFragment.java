@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.telephony.TelephonyManager;
 
 import com.fnp.materialpreferences.PreferenceFragment;
 
@@ -213,6 +215,38 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
                 preferenceCategory.removePreference(preference);
+            }
+        }
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+        {
+            ListPreference networkTypePreference = (ListPreference) prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            final int phoneType = telephonyManager.getPhoneType();
+
+            if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
+                if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
+                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
+                }
+                else {
+                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMArray));
+                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMValues));
+                }
+                networkTypePreference.setValue(Integer.toString(profile._deviceNetworkType));
+                setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
+            }
+
+            if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
+                if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
+                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
+                }
+                else {
+                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMAArray));
+                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMAValues));
+                }
+                networkTypePreference.setValue(Integer.toString(profile._deviceNetworkType));
+                setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
             }
         }
     }
@@ -459,13 +493,20 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_GPS) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
-                key.equals(GlobalData.PREF_PROFILE_DEVICE_NFC)) {
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_NFC) ||
+                key.equals(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
             String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
             title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -700,7 +741,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             key.equals(GlobalData.PREF_PROFILE_DEVICE_GPS) ||
             key.equals(GlobalData.PREF_PROFILE_DEVICE_NFC) ||
             key.equals(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP) ||
-            key.equals(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
+            key.equals(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
+            key.equals(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE))
         {
             if (key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
                 // set mobile data preference title
@@ -973,6 +1015,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             setSummary(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH);
             setSummary(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
             setSummary(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);
 
             // disable depended preferences
             disableDependedPref(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);

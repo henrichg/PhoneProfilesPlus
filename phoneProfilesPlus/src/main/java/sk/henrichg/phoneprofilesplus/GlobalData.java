@@ -14,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -154,6 +155,7 @@ public class GlobalData extends Application {
     static final String PREF_PROFILE_DEVICE_POWER_SAVE_MODE = "prf_pref_devicePowerSaveMode";
     //static final String PREF_PROFILE_SHOW_DURATION_BUTTON = "prf_pref_showDurationButton";
     static final String PREF_PROFILE_ASK_FOR_DURATION = "prf_pref_askForDuration";
+    static final String PREF_PROFILE_DEVICE_NETWORK_TYPE = "prf_pref_deviceNetworkType";
 
     // no preferences, bud checked from isPreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
@@ -628,7 +630,8 @@ public class GlobalData extends Application {
                 x.getKey().equals(PREF_PROFILE_DEVICE_KEYGUARD) ||
                 x.getKey().equals(PREF_PROFILE_VIBRATION_ON_TOUCH) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_WIFI_AP) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
+                x.getKey().equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
+                x.getKey().equals(PREF_PROFILE_DEVICE_NETWORK_TYPE))
             {
                 if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
                 else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
@@ -701,6 +704,7 @@ public class GlobalData extends Application {
         profile._vibrationOnTouch = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
         profile._deviceWiFiAP = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, "2")); // OFF
         profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0"));
+        profile._deviceNetworkType = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
 
         return profile;
     }
@@ -755,7 +759,8 @@ public class GlobalData extends Application {
                                profile._vibrationOnTouch,
                                profile._deviceWiFiAP,
                                profile._devicePowerSaveMode,
-                               profile._askForDuration);
+                               profile._askForDuration,
+                               profile._deviceNetworkType);
 
             if (profile._volumeRingerMode == 99)
                 mappedProfile._volumeRingerMode = defaultProfile._volumeRingerMode;
@@ -832,6 +837,8 @@ public class GlobalData extends Application {
                 mappedProfile._deviceWiFiAP = defaultProfile._deviceWiFiAP;
             if (profile._devicePowerSaveMode == 99)
                 mappedProfile._devicePowerSaveMode = defaultProfile._devicePowerSaveMode;
+            if (profile._deviceNetworkType == 99)
+                mappedProfile._deviceNetworkType = defaultProfile._deviceNetworkType;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -1430,6 +1437,34 @@ public class GlobalData extends Application {
                     else
                         featurePresented = PREFERENCE_UPGRADE_PPHELPER;
                 }*/
+                }
+            }
+        }
+        else
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+            {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                final int phoneType = telephonyManager.getPhoneType();
+                if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
+                    if (PhoneProfilesHelper.isPPHelperInstalled(context, 56)) {
+                        // je nainstalovany PhonProfilesHelper
+                        featurePresented = PREFERENCE_ALLOWED;
+                    } else {
+                        if (isRooted(false)) {
+                            // zariadenie je rootnute
+                            if (serviceBinaryExists())
+                                featurePresented = PREFERENCE_ALLOWED;
+                        /*else {
+                            // "service" binary not exists
+                            if (PhoneProfilesHelper.PPHelperVersion == -1)
+                                featurePresented = PREFERENCE_INSTALL_PPHELPER;
+                            else
+                                featurePresented = PREFERENCE_UPGRADE_PPHELPER;
+                        }*/
+                        }
+                    }
                 }
             }
         }

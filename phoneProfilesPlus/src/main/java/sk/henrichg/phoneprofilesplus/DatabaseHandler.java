@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1560;
+    private static final int DATABASE_VERSION = 1570;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -130,6 +130,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_POWER_SAVE_MODE = "devicePowerSaveMode";
     private static final String KEY_SHOW_DURATION_BUTTON = "showDurationButton";
     private static final String KEY_ASK_FOR_DURATION = "askForDuration";
+    private static final String KEY_DEVICE_NETWORK_TYPE = "deviceNetworkType";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -341,7 +342,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DEVICE_WIFI_AP + " INTEGER,"
                 + KEY_DEVICE_POWER_SAVE_MODE + " INTEGER,"
                 + KEY_SHOW_DURATION_BUTTON + " INTEGER,"
-                + KEY_ASK_FOR_DURATION + " INTEGER"
+                + KEY_ASK_FOR_DURATION + " INTEGER,"
+                + KEY_DEVICE_NETWORK_TYPE + " INTEGER"
                 + ")";
     }
 
@@ -1540,6 +1542,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_ASK_FOR_DURATION + "=0");
         }
 
+        if (oldVersion < 1570)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE + " INTEGER");
+            if (!mergedTableCreate) {
+                db.execSQL("ALTER TABLE " + TABLE_MERGED_PROFILE + " ADD COLUMN " + KEY_DEVICE_NETWORK_TYPE + " INTEGER");
+            }
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE + "=0");
+        }
+
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -1601,6 +1616,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
         values.put(KEY_SHOW_DURATION_BUTTON, 0);
         values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
+        values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
 
         // Inserting Row
         if (!merged) {
@@ -1667,7 +1683,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_WIFI_AP,
                         KEY_DEVICE_POWER_SAVE_MODE,
                         KEY_SHOW_DURATION_BUTTON,
-                        KEY_ASK_FOR_DURATION
+                        KEY_ASK_FOR_DURATION,
+                        KEY_DEVICE_NETWORK_TYPE
                 },
                 KEY_ID + "=?",
                 new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -1723,7 +1740,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(40)),
                                               Integer.parseInt(cursor.getString(41)),
                                               Integer.parseInt(cursor.getString(42)),
-                                              (Integer.parseInt(cursor.getString(44)) == 1) ? true : false
+                                              (Integer.parseInt(cursor.getString(44)) == 1) ? true : false,
+                                              Integer.parseInt(cursor.getString(45))
                                               );
             }
 
@@ -1785,7 +1803,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                          KEY_DEVICE_WIFI_AP + ","+
                                          KEY_DEVICE_POWER_SAVE_MODE + "," +
                                          KEY_SHOW_DURATION_BUTTON + "," +
-                                         KEY_ASK_FOR_DURATION +
+                                         KEY_ASK_FOR_DURATION + "," +
+                                         KEY_DEVICE_NETWORK_TYPE +
                              " FROM " + TABLE_PROFILES;
 
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -1841,6 +1860,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 profile._deviceWiFiAP = Integer.parseInt(cursor.getString(41));
                 profile._devicePowerSaveMode = Integer.parseInt(cursor.getString(42));
                 profile._askForDuration = ((Integer.parseInt(cursor.getString(44)) == 1) ? true : false);
+                profile._deviceNetworkType = Integer.parseInt(cursor.getString(45));
                 // Adding contact to list
                 profileList.add(profile);
             } while (cursor.moveToNext());
@@ -1903,6 +1923,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
         values.put(KEY_SHOW_DURATION_BUTTON, 0);
         values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
+        values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
 
         // updating row
         int r = db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -2143,7 +2164,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 KEY_DEVICE_WIFI_AP,
                                                 KEY_DEVICE_POWER_SAVE_MODE,
                                                 KEY_SHOW_DURATION_BUTTON,
-                                                KEY_ASK_FOR_DURATION
+                                                KEY_ASK_FOR_DURATION,
+                                                KEY_DEVICE_NETWORK_TYPE
                                                 },
                                  KEY_CHECKED + "=?",
                                  new String[] { "1" }, null, null, null, null);
@@ -2199,7 +2221,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(40)),
                                               Integer.parseInt(cursor.getString(41)),
                                               Integer.parseInt(cursor.getString(42)),
-                                              (Integer.parseInt(cursor.getString(44)) == 1) ? true : false
+                                              (Integer.parseInt(cursor.getString(44)) == 1) ? true : false,
+                                              Integer.parseInt(cursor.getString(45))
                                               );
             }
             else
@@ -2379,7 +2402,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         KEY_VOLUME_RINGER_MODE + "," +
                                         KEY_DEVICE_WIFI_AP + "," +
                                         KEY_DEVICE_POWER_SAVE_MODE + "," +
-                                        KEY_VOLUME_ZEN_MODE +
+                                        KEY_VOLUME_ZEN_MODE + "," +
+                                        KEY_DEVICE_NETWORK_TYPE +
                             " FROM " + TABLE_PROFILES;
         final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                                         KEY_E_WIFI_ENABLED + "," +
@@ -2523,6 +2547,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         {
                             values.clear();
                             values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
+                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                        }
+
+                        if ((Integer.parseInt(cursor.getString(13)) != 0) &&
+                                (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, context)
+                                        == GlobalData.PREFERENCE_NOT_ALLOWED))
+                        {
+                            values.clear();
+                            values.put(KEY_DEVICE_NETWORK_TYPE, 0);
                             db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                     new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                         }
@@ -5298,6 +5332,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     if (exportedDBObj.getVersion() < 1560)
                                     {
                                         values.put(KEY_ASK_FOR_DURATION, 0);
+                                    }
+                                    if (exportedDBObj.getVersion() < 1570)
+                                    {
+                                        values.put(KEY_DEVICE_NETWORK_TYPE, 0);
                                     }
 
                                 ///////////////////////////////////////////////////////
