@@ -800,10 +800,12 @@ public class DataWrapper {
         resetAllEventsInDelayStart(true);
         resetAllEventsInDelayEnd(true);
 
+        WifiScanAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
+        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
+        GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
         SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
 
         if (!getIsManualProfileActivation()) {
-            // alarms will by started from events via restart events
             // GeofenceScanner will be started from EventsService
             Intent intent = new Intent();
             intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
@@ -813,9 +815,6 @@ public class DataWrapper {
         else
         {
             GlobalData.setApplicationStarted(context, true);
-            WifiScanAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
-            BluetoothScanAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
-            GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
             activateProfileOnBoot();
         }
     }
