@@ -55,6 +55,12 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                     ((GlobalData.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
                      (GlobalData.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))))
                     GlobalData.isPowerSaveMode = true;
+                else {
+                    if (isCharging)
+                        GlobalData.isPowerSaveMode = false;
+                    else
+                        GlobalData.isPowerSaveMode = oldPowerSaveMode;
+                }
 
                 if (GlobalData.getGlobalEventsRuning(context)) {
 

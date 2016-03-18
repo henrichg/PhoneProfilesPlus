@@ -118,8 +118,12 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
                         interval = 2 * interval;
                     interval = interval - updateDuration;
                 }
-                else
+                else {
                     interval = updateDuration;
+                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                    if (isPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("0"))
+                        interval = 2 * interval;
+                }
 
                 if (startScanning) {
                     calendar.add(Calendar.SECOND, 2);

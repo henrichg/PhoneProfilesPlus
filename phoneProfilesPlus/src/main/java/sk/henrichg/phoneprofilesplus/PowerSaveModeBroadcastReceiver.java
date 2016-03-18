@@ -23,10 +23,13 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
         GlobalData.loadPreferences(context);
 
         boolean oldPowerSaveMode = GlobalData.isPowerSaveMode;
+        GlobalData.isPowerSaveMode = false;
         if (GlobalData.applicationPowerSaveModeInternal.equals("3")) {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             GlobalData.isPowerSaveMode = powerManager.isPowerSaveMode();
         }
+        else
+            GlobalData.isPowerSaveMode = oldPowerSaveMode;
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
