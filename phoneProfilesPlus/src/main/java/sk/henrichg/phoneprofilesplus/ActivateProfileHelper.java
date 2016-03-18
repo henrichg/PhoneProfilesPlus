@@ -1530,26 +1530,6 @@ public class ActivateProfileHelper {
 
     }
 
-    private String getTransactionCode(Context context, String fieldName) throws Exception {
-        try {
-            final TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            final Class<?> mTelephonyClass = Class.forName(mTelephonyManager.getClass().getName());
-            final Method mTelephonyMethod = mTelephonyClass.getDeclaredMethod("getITelephony");
-            mTelephonyMethod.setAccessible(true);
-            final Object mTelephonyStub = mTelephonyMethod.invoke(mTelephonyManager);
-            final Class<?> mTelephonyStubClass = Class.forName(mTelephonyStub.getClass().getName());
-            final Class<?> mClass = mTelephonyStubClass.getDeclaringClass();
-            final Field field = mClass.getDeclaredField(fieldName);
-            field.setAccessible(true);
-            return String.valueOf(field.getInt(null));
-        } catch (Exception e) {
-            // The "TRANSACTION_setDataEnabled" field is not available,
-            // or named differently in the current API level, so we throw
-            // an exception and inform users that the method is not available.
-            throw e;
-        }
-    }
-
     private void setMobileData(Context context, boolean enable)
     {
         if (android.os.Build.VERSION.SDK_INT >= 21)
@@ -1561,7 +1541,7 @@ public class ActivateProfileHelper {
                     // Get the current state of the mobile network.
                     state = enable ? 1 : 0;
                     // Get the value of the "TRANSACTION_setDataEnabled" field.
-                    String transactionCode = getTransactionCode(context, "TRANSACTION_setDataEnabled");
+                    String transactionCode = GlobalData.getTransactionCode(context, "TRANSACTION_setDataEnabled");
                     // Android 5.1+ (API 22) and later.
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
@@ -1660,7 +1640,7 @@ public class ActivateProfileHelper {
         {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
-                String transactionCode = getTransactionCode(context, "TRANSACTION_getPreferredNetworkType");
+                String transactionCode = GlobalData.getTransactionCode(context, "TRANSACTION_getPreferredNetworkType");
                 if (transactionCode != null && transactionCode.length() > 0) {
                     String command1 = "service call phone " + transactionCode + " i32";
                     Command command = new Command(0, false, command1) {
@@ -1707,7 +1687,7 @@ public class ActivateProfileHelper {
         {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
-                String transactionCode = getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
+                String transactionCode = GlobalData.getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
                 if (Build.VERSION.SDK_INT >= 23) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     // Loop through the subscription list i.e. SIM list.

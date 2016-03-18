@@ -28,6 +28,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1266,7 +1267,7 @@ public class GlobalData extends Application {
                     {
                         if (isRooted(false)) {
                             // zariadenie je rootnute
-                            if (serviceBinaryExists())
+                            if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
                                 featurePresented = PREFERENCE_ALLOWED;
                             else {
                                 // "service" binary not exists
@@ -1458,7 +1459,7 @@ public class GlobalData extends Application {
                     } else {
                         if (isRooted(false)) {
                             // zariadenie je rootnute
-                            if (serviceBinaryExists())
+                            if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_NETWORK_TYPE))
                                 featurePresented = PREFERENCE_ALLOWED;
                         /*else {
                             // "service" binary not exists
@@ -1517,6 +1518,41 @@ public class GlobalData extends Application {
             return false;
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+
+    static public String getTransactionCode(Context context, String fieldName) throws Exception {
+        try {
+            final TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            final Class<?> mTelephonyClass = Class.forName(mTelephonyManager.getClass().getName());
+            final Method mTelephonyMethod = mTelephonyClass.getDeclaredMethod("getITelephony");
+            mTelephonyMethod.setAccessible(true);
+            final Object mTelephonyStub = mTelephonyMethod.invoke(mTelephonyManager);
+            final Class<?> mTelephonyStubClass = Class.forName(mTelephonyStub.getClass().getName());
+            final Class<?> mClass = mTelephonyStubClass.getDeclaringClass();
+            final Field field = mClass.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            return String.valueOf(field.getInt(null));
+        } catch (Exception e) {
+            // The "TRANSACTION_setDataEnabled" field is not available,
+            // or named differently in the current API level, so we throw
+            // an exception and inform users that the method is not available.
+            throw e;
+        }
+    }
+
+    static boolean telephonyServiceExists(Context context, String preference) {
+        try {
+            if (preference.equals(PREF_PROFILE_DEVICE_MOBILE_DATA)) {
+                String s = getTransactionCode(context, "TRANSACTION_setDataEnabled");
+            }
+            else
+            if (preference.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                String s = getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
+            }
+            return true;
+        } catch(Exception e) {
             return false;
         }
     }
