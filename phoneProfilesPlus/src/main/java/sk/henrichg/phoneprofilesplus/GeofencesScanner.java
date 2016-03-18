@@ -125,7 +125,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
      */
     @Override
     public void onLocationChanged(Location location) {
-        GlobalData.logE("GeofenceScanner.onLocationChanged", "location=" + location);
+        GlobalData.logE("##### GeofenceScanner.onLocationChanged", "location=" + location);
 
         lastLocation.set(location);
         //updateGeofencesInDB();
@@ -233,6 +233,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
             if ((mLocationRequest != null) && Permissions.checkLocation(context)) {
                 try {
+                    GlobalData.logE("##### GeofenceScanner.startLocationUpdates", "xxx");
                     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
                     mUpdatesStarted = true;
                 } catch (SecurityException securityException) {
@@ -257,7 +258,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
 
         if ((mGoogleApiClient != null) && (mGoogleApiClient.isConnected())) {
-
+            GlobalData.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mUpdatesStarted = false;
         }

@@ -46,7 +46,11 @@ public class GlobalData extends Application {
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =
-                                        "%%% DataWrapper.doEventService"
+                                        "##### BluetoothScanAlarmBroadcastReceiver.onReceive|"+
+                                        "##### WifiScanAlarmBroadcastReceiver.onReceive|"+
+                                        "##### GeofenceScannerAlarmBroadcastReceiver.onReceive|"+
+                                        "##### GeofenceScannerBroadcastReceiver.onReceive|"+
+                                        "##### GeofenceScanner"
             ;
 
 
