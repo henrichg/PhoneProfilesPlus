@@ -1815,7 +1815,7 @@ public class GlobalData extends Application {
             GlobalData.geofencesScanner = null;
         }
 
-        if (GlobalData.getApplicationStarted(context) && GlobalData.getGlobalEventsRuning(context)) {
+        if (GlobalData.getApplicationStarted(context)) {
             GlobalData.geofencesScanner = new GeofencesScanner(context);
             GlobalData.geofencesScanner.connect();
         }
