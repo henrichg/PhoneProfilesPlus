@@ -14,7 +14,7 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
-        GlobalData.logE("##### PowerSaveModeBroadcastReceiver.onReceive","xxx");
+        GlobalData.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -23,8 +23,10 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
         GlobalData.loadPreferences(context);
 
         boolean oldPowerSaveMode = GlobalData.isPowerSaveMode;
-        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        GlobalData.isPowerSaveMode = powerManager.isPowerSaveMode();
+        if (GlobalData.applicationPowerSaveModeInternal.equals("3")) {
+            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            GlobalData.isPowerSaveMode = powerManager.isPowerSaveMode();
+        }
 
         if (GlobalData.getGlobalEventsRuning(context))
         {

@@ -726,4 +726,7 @@
     <string name="phone_profiles_pref_applicationBatteryOptimization">Battery optimization</string>
     <string name="phone_profiles_pref_applicationEventLocationRescan">Rescan location</string>
     <string name="profile_preferences_deviceNetworkType">(R) Mobile network type</string>
+    <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>
+    <string name="phone_profiles_pref_applicationBatterySaver">Battery Saver</string>
+    <string name="phone_profiles_pref_applicationBatterySaver_system">System settings configuration</string>
 </resources>

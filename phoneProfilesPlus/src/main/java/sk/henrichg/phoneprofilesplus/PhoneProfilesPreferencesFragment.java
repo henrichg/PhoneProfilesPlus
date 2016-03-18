@@ -125,12 +125,12 @@ public class PhoneProfilesPreferencesFragment extends PreferenceFragment
         */
 
         if (Build.VERSION.SDK_INT >= 21) {
-            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
-            Preference preference = findPreference(PREF_POWER_SAVE_MODE_INTERNAL);
-            if (preference != null)
-                preferenceCategory.removePreference(preference);
+            //PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
+            //Preference preference = findPreference(PREF_POWER_SAVE_MODE_INTERNAL);
+            //if (preference != null)
+            //    preferenceCategory.removePreference(preference);
 
-            preference = prefMng.findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
+            Preference preference = prefMng.findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override

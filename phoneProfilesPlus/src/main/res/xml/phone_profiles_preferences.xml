@@ -86,12 +86,6 @@
             android:summary="@string/empty_string"
             android:widgetLayout="@layout/start_activity_preference"> >
         </Preference>
-        <Preference
-            android:key="applicationPowerSaveMode"
-            android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
-            android:summary="@string/empty_string"
-            android:widgetLayout="@layout/start_activity_preference"> >
-        </Preference>
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationPowerSaveModeInternal"
             android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
@@ -100,6 +94,12 @@
             android:entries="@array/powerSaveModeArray"
             android:entryValues="@array/powerSaveModeValues"
             app:useStockLayout="true" />
+        <Preference
+            android:key="applicationPowerSaveMode"
+            android:title="@string/phone_profiles_pref_applicationBatterySaver"
+            android:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+            android:widgetLayout="@layout/start_activity_preference"> >
+        </Preference>
     </PreferenceScreen>
 
     <PreferenceScreen
