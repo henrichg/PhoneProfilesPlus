@@ -178,7 +178,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                 int interval = GlobalData.applicationEventBluetoothScanInterval;
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("0"))
+                if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
 
                 if (shortInterval)
