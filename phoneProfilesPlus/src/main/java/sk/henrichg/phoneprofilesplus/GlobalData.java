@@ -551,8 +551,8 @@ public class GlobalData extends Application {
         applicationEventWifiScanInterval = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "10"));
         applicationEventWifiEnableWifi = preferences.getBoolean(PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, true);
         applicationBackgroundProfile = preferences.getString(PREF_APPLICATION_BACKGROUND_PROFILE, "-999");
-        applicationActivatorGridLayout = preferences.getBoolean(PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, false);
-        applicationWidgetListGridLayout = preferences.getBoolean(PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, false);
+        applicationActivatorGridLayout = preferences.getBoolean(PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, true);
+        applicationWidgetListGridLayout = preferences.getBoolean(PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, true);
         applicationEventBluetoothScanInterval = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
         applicationEventBluetoothEnableBluetooth = preferences.getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true);
         applicationEventWifiRescan = preferences.getString(PREF_APPLICATION_EVENT_WIFI_RESCAN, "1");
@@ -560,12 +560,12 @@ public class GlobalData extends Application {
         applicationWidgetIconHideProfileName = preferences.getBoolean(PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, false);
         applicationUnlinkRingerNotificationVolumes = preferences.getBoolean(PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, false);
         applicationShortcutEmblem = preferences.getBoolean(PREF_APPLICATION_SHORTCUT_EMBLEM, true);
-        applicationEventWifiScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE, "0");
-        applicationEventBluetoothScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE, "0");
-        applicationPowerSaveModeInternal = preferences.getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "0");
+        applicationEventWifiScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE, "1");
+        applicationEventBluetoothScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE, "1");
+        applicationPowerSaveModeInternal = preferences.getString(PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL, "2");
         applicationEventBluetoothLEScanDuration = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION, "10"));
         applicationEventLocationUpdateInterval  = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
-        applicationEventLocationUpdateInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE, "0");
+        applicationEventLocationUpdateInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE, "1");
         applicationEventLocationUseGPS = preferences.getBoolean(PREF_APPLICATION_EVENT_LOCATION_USE_GPS, false);
         applicationEventLocationRescan = preferences.getString(PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
 

@@ -89,8 +89,8 @@
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationPowerSaveModeInternal"
             android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
-            android:summary="@string/array_pref_powerSaveMode_off"
-            android:defaultValue="0"
+            android:summary="@string/array_pref_powerSaveMode_15"
+            android:defaultValue="2"
             android:entries="@array/powerSaveModeArray"
             android:entryValues="@array/powerSaveModeValues"
             app:useStockLayout="true" />
@@ -207,8 +207,8 @@
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventLocationUpdateInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventLocationScanInPowerSaveMode"
-            android:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
-            android:defaultValue="0"
+            android:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+            android:defaultValue="1"
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
@@ -251,8 +251,8 @@
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventWifiScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
-            android:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
-            android:defaultValue="0"
+            android:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+            android:defaultValue="1"
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
@@ -298,8 +298,8 @@
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventBluetoothScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode"
-            android:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
-            android:defaultValue="0"
+            android:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+            android:defaultValue="1"
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
@@ -336,7 +336,7 @@
         <CheckBoxPreference
             android:key="applicationActivatorGridLayout"
             android:title="@string/phone_profiles_pref_applicationGridLayout"
-            android:defaultValue="false" />
+            android:defaultValue="true" />
     </PreferenceScreen>
     
     <PreferenceScreen
@@ -376,7 +376,7 @@
         <CheckBoxPreference
             android:key="applicationWidgetListGridLayout"
             android:title="@string/phone_profiles_pref_applicationGridLayout"
-            android:defaultValue="false" />
+            android:defaultValue="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetBackground"
             android:summary="25%"
