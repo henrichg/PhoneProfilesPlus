@@ -593,8 +593,11 @@ public class ActivateProfileHelper {
     {
         GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "ringerMode=" + audioManager.getRingerMode());
 
-        int ringerMode;
-        int zenMode;
+        int ringerMode, oldRingerMode;
+        int zenMode, oldZenMode;
+
+        oldRingerMode = GlobalData.getRingerMode(context);
+        oldZenMode = GlobalData.getZenMode(context);
 
         if (linkUnlink == PhoneCallService.LINKMODE_NONE) {
             if (profile._volumeRingerMode != 0) {
@@ -622,13 +625,16 @@ public class ActivateProfileHelper {
         // this call sequence sets Lollipop priority mode (check ExecuteVolumeProfilePrefsService, how is called setRingerMode)
         if (forPriority) {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
-                if (ringerMode == 4) // 4 = silent ringer mode
+                boolean isAlreadySet = (ringerMode == oldRingerMode);
+                if (isAlreadySet && (oldRingerMode == 5))
+                    isAlreadySet = (zenMode == oldZenMode);
+                if ((ringerMode == 4) && isAlreadySet) // 4 = silent ringer mode
                     ringerMode = 1;
                 else
-                if ((ringerMode == 5) && (zenMode == 2) && (linkUnlink == PhoneCallService.LINKMODE_NONE))
+                if ((ringerMode == 5) && (zenMode == 2) && isAlreadySet && (linkUnlink == PhoneCallService.LINKMODE_NONE))
                     zenMode = 1;
                 else
-                if ((ringerMode == 5) && (zenMode == 5) && (linkUnlink == PhoneCallService.LINKMODE_NONE))
+                if ((ringerMode == 5) && (zenMode == 5) &&  isAlreadySet && (linkUnlink == PhoneCallService.LINKMODE_NONE))
                     zenMode = 4;
                 else
                     return;
