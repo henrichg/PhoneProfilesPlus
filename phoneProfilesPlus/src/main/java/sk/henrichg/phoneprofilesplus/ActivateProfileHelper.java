@@ -590,7 +590,7 @@ public class ActivateProfileHelper {
     }
 
     @SuppressWarnings("deprecation")
-    public void setRingerMode(Profile profile, AudioManager audioManager, boolean forPriority, int linkUnlink)
+    public boolean setRingerMode(Profile profile, AudioManager audioManager, boolean forPriority, int linkUnlink)
     {
         GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "andioM.ringerMode=" + audioManager.getRingerMode());
 
@@ -645,9 +645,9 @@ public class ActivateProfileHelper {
                     GlobalData.logE("ActivateProfileHelper.setRingerMode", "set for reset priority");
                 }
                 else
-                    return;
+                    return false;
             } else
-                return;
+                return false;
         }
 
         if (Permissions.checkSavedProfileRingerMode(context)) {
@@ -751,6 +751,7 @@ public class ActivateProfileHelper {
                     break;
             }
         }
+        return true;
     }
 
     public void executeForWallpaper(Profile profile) {
