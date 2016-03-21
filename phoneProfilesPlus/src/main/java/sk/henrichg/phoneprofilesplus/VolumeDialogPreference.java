@@ -215,8 +215,7 @@ public class VolumeDialogPreference extends
         //SettingsContentObserver.internalChange = true;
         RingerModeChangeReceiver.internalChange = true;
 
-        ActivateProfileHelper.setZenMode(_context, ActivateProfileHelper.ZENMODE_ALL);
-        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        ActivateProfileHelper.setZenMode(_context, ActivateProfileHelper.ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
 
         if (volumeType.equalsIgnoreCase("RINGTONE"))
             audioManager.setStreamVolume(AudioManager.STREAM_RING, value, AudioManager.FLAG_PLAY_SOUND);
@@ -333,11 +332,6 @@ public class VolumeDialogPreference extends
             //SettingsContentObserver.internalChange = true;
             RingerModeChangeReceiver.internalChange = true;
 
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
-                // set ringer mode to Ring for proper change ringer mode to Priority
-                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-            }
-
             /*
             Log.e("#### VolumeDialogPreference", "defaultValueSystem=" + defaultValueSystem);
             Log.e("#### VolumeDialogPreference", "defaultValueRing=" + defaultValueRing);
@@ -354,17 +348,24 @@ public class VolumeDialogPreference extends
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM, defaultValueAlarm, 0);
             //audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, defaultValueVoice, 0);
 
+
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                // set ringer mode to Ring for proper change ringer mode to Priority
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+            }
+
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 //System.out.println(e);
             }
 
-            ActivateProfileHelper.setZenMode(_context, defaultZenMode);
-
             //Log.e("#### VolumeDialogPreference", "defaultRingerMode=" + defaultRingerMode);
             // set ringer mode after volume because volumes change silent/vibrate
             audioManager.setRingerMode(defaultRingerMode);
+
+            ActivateProfileHelper.setZenMode(_context, defaultZenMode, audioManager, defaultRingerMode);
+
 
             RingerModeChangeReceiver.setAlarmForDisableInternalChange(_context);
 
