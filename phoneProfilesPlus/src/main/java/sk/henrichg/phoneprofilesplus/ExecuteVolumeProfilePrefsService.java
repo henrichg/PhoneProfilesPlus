@@ -48,17 +48,17 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                     }
                 }
 
-                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode="+audioManager.getMode());
+                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode=" + audioManager.getMode());
 
                 aph.setVolumes(profile, audioManager, linkUnlink);
 
                 /*try {
-                    Thread.sleep(200);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     //System.out.println(e);
                 }*/
 
-                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode="+audioManager.getMode());
+                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode=" + audioManager.getMode());
 
                 // set ringer mode after volume because volumes change silent/vibrate
                 aph.setRingerMode(profile, audioManager, false, linkUnlink);
