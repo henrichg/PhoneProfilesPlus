@@ -351,12 +351,14 @@ public class VolumeDialogPreference extends
             Log.e("#### VolumeDialogPreference", "defaultValueVoice=" + defaultValueVoice);
             */
             // set default volumes
-            audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, defaultValueSystem, 0);
-            audioManager.setStreamVolume(AudioManager.STREAM_RING, defaultValueRing, 0);
-            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, defaultValueNotification, 0);
+            if (!((defaultZenMode == ActivateProfileHelper.ZENMODE_NONE) || (defaultZenMode == ActivateProfileHelper.ZENMODE_ALARMS))) {
+                audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, defaultValueSystem, 0);
+                audioManager.setStreamVolume(AudioManager.STREAM_RING, defaultValueRing, 0);
+                audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, defaultValueNotification, 0);
+            }
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, defaultValueMusic, 0);
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM, defaultValueAlarm, 0);
-            //audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, defaultValueVoice, 0);
+            audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, defaultValueVoice, 0);
 
 
             //Log.e("#### VolumeDialogPreference", "defaultRingerMode=" + defaultRingerMode);
