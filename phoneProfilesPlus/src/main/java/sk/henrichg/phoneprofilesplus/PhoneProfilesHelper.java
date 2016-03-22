@@ -98,7 +98,7 @@ public class PhoneProfilesHelper {
         errorNoRoot = false;
 
         if (!Permissions.grantInstallPPHelperPermissions(activity.getApplicationContext(), activity)) {
-            Log.e("PhoneProfilesHelper.doInstallPPHelper", "No WRITE_EXTERNAL_STORAGE granted");
+            GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "No WRITE_EXTERNAL_STORAGE granted");
             return false;
         }
 
@@ -111,7 +111,7 @@ public class PhoneProfilesHelper {
 
         if (!GlobalData.grantRoot(false))
         {
-            Log.e("PhoneProfilesHelper.doInstallPPHelper", "Grant root failed");
+            GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "Grant root failed");
             errorNoRoot = true;
             return false;
         }
@@ -121,7 +121,7 @@ public class PhoneProfilesHelper {
         try {
             files = assetManager.list("");
         } catch (IOException e) {
-            Log.e("PhoneProfilesHelper.doInstallPPHelper", "Failed to get asset file list.", e);
+            GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "Failed to get asset file list.   "+e);
             OK = false;
         }
 
@@ -152,7 +152,7 @@ public class PhoneProfilesHelper {
 
                     OK = true;
                 } catch(IOException e) {
-                    Log.e("PhoneProfilesHelper.doInstallPPHelper", "Failed to copy asset file: " + filename, e);
+                    GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "Failed to copy asset file: " + filename + "   e="+e);
                     OK = false;
                 }
 
@@ -177,7 +177,7 @@ public class PhoneProfilesHelper {
                 Shell.defaultContext = Shell.ShellContext.RECOVERY;
             OK = RootTools.remount("/system", "RW");
             if (!OK)
-                Log.e("PhoneProfilesHelper.doInstallPPHelper", "remount RW ERROR");
+                GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "remount RW ERROR");
             if (OK)
                 //OK =
                 //RootTools.deleteFileOrDirectory(destinationFile, false);
@@ -187,7 +187,7 @@ public class PhoneProfilesHelper {
             if (OK)
                 OK = RootTools.copyFile(sourceFile, destinationFile, false, false);
             if (!OK)
-                Log.e("PhoneProfilesHelper.doInstallPPHelper", "copy file ERROR");
+                GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "copy file ERROR");
             if (OK)
             {
                 String command1 = "chmod 644 "+destinationFile;
@@ -204,7 +204,7 @@ public class PhoneProfilesHelper {
                 }
             }
             if (!OK)
-                Log.e("PhoneProfilesHelper.doInstallPPHelper", "chmod ERROR");
+                GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "chmod ERROR");
             if (OK)
             //	OK =
                 RootTools.remount("/system", "RO");
@@ -218,9 +218,9 @@ public class PhoneProfilesHelper {
             if (GlobalData.isSELinuxEnforcing())
                 Shell.defaultContext = Shell.ShellContext.NORMAL;
             if (OK)
-                Log.e("PhoneProfilesHelper.doInstallPPHelper", "PhoneProfilesHelper installed");
+                GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "PhoneProfilesHelper installed");
             else
-                Log.e("PhoneProfilesHelper.doInstallPPHelper", "PhoneProfilesHelper installation failed!");
+                GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "PhoneProfilesHelper installation failed!");
 
             /*
             String command1 = "mount -o remount,rw /system"; 			//mounts the system partition to be writeable
@@ -381,7 +381,7 @@ public class PhoneProfilesHelper {
 
         if (!GlobalData.grantRoot(false))
         {
-            Log.e("PhoneProfilesHelper.doUninstallPPHelper", "Grant root failed");
+            GlobalData.logE("PhoneProfilesHelper.doUninstallPPHelper", "Grant root failed");
             errorNoRoot = true;
             return false;
         }
@@ -396,12 +396,12 @@ public class PhoneProfilesHelper {
             Shell.defaultContext = Shell.ShellContext.RECOVERY;
         OK = RootTools.remount("/system", "RW");
         if (!OK)
-            Log.e("PhoneProfilesHelper.doUninstallPPHelper", "remount RW ERROR");
+            GlobalData.logE("PhoneProfilesHelper.doUninstallPPHelper", "remount RW ERROR");
         if (OK)
             //OK = RootTools.deleteFileOrDirectory(destinationFile, true);
             OK = deleteFile_su(destinationFile);
         if (!OK)
-            Log.e("PhoneProfilesHelper.doUninstallPPHelper", "delete file ERROR");
+            GlobalData.logE("PhoneProfilesHelper.doUninstallPPHelper", "delete file ERROR");
         if (OK)
             //OK =
             RootTools.remount("/system", "RO");
