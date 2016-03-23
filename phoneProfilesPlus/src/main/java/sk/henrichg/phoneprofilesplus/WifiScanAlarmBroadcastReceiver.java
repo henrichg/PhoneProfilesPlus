@@ -114,6 +114,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         unlock();
 
+        clearScanResults(context)
+        ;
         /*
         ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         //NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -554,6 +556,16 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             String json = gson.toJson(scanResults.get(i));
             editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
         }
+
+        editor.commit();
+    }
+
+    public static void clearScanResults(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.clear();
+        editor.putInt(SCAN_RESULT_COUNT_PREF, 0);
 
         editor.commit();
     }
