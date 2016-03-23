@@ -165,17 +165,21 @@ public class PhoneProfilesHelper {
             //// copy PhoneProfilesHelper.apk from apk into system partition
             OK = false;
 
-            String sourceFile = System.getenv("EXTERNAL_STORAGE")+GlobalData.EXPORT_PATH+"/PhoneProfilesHelper.x";
-            //String sourceFile = sd+GlobalData.EXPORT_PATH+"/PhoneProfilesHelper.x";
+            //String sourceFile = System.getenv("EXTERNAL_STORAGE")+GlobalData.EXPORT_PATH+"/PhoneProfilesHelper.x";
+            String sourceFile = Environment.getExternalStorageDirectory().getPath()+GlobalData.EXPORT_PATH+"/PhoneProfilesHelper.x";
             String destinationFile = "PhoneProfilesHelper.apk";
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2)
                 destinationFile = "/system/priv-app/"+destinationFile;
             else
                 destinationFile = "/system/app/"+destinationFile;
+            GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "copy file:");
+            GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "   sourceFile="+sourceFile);
+            GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "   destinationFile="+destinationFile);
 
             if (GlobalData.isSELinuxEnforcing())
                 Shell.defaultContext = Shell.ShellContext.RECOVERY;
             OK = RootTools.remount("/system", "RW");
+            boolean remountOK = OK;
             if (!OK)
                 GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "remount RW ERROR");
             if (OK)
@@ -205,7 +209,7 @@ public class PhoneProfilesHelper {
             }
             if (!OK)
                 GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "chmod ERROR");
-            if (OK)
+            if (remountOK)
             //	OK =
                 RootTools.remount("/system", "RO");
             //if (!OK)
@@ -395,6 +399,7 @@ public class PhoneProfilesHelper {
         if (GlobalData.isSELinuxEnforcing())
             Shell.defaultContext = Shell.ShellContext.RECOVERY;
         OK = RootTools.remount("/system", "RW");
+        boolean remountOK = OK;
         if (!OK)
             GlobalData.logE("PhoneProfilesHelper.doUninstallPPHelper", "remount RW ERROR");
         if (OK)
@@ -402,7 +407,7 @@ public class PhoneProfilesHelper {
             OK = deleteFile_su(destinationFile);
         if (!OK)
             GlobalData.logE("PhoneProfilesHelper.doUninstallPPHelper", "delete file ERROR");
-        if (OK)
+        if (remountOK)
             //OK =
             RootTools.remount("/system", "RO");
         //if (!OK)
