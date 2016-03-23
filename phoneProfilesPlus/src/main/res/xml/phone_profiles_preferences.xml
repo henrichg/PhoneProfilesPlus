@@ -354,7 +354,7 @@
         <CheckBoxPreference
             android:key="applicationEditorSaveEditorState"
             android:title="@string/phone_profiles_pref_applicationEditorSaveEditorState"
-            android:defaultValue="false" />
+            android:defaultValue="true" />
         <CheckBoxPreference
             android:key="applicationEditorAutoCloseDrawer"
             android:title="@string/phone_profiles_pref_applicationAutoCloseDrawer"

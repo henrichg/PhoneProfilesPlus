@@ -227,22 +227,40 @@ public class DataWrapper {
             case 3:
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", 4);
                 profile._showInActivator = true;
-                profile._volumeRingerMode = 4;
-                profile._volumeRingtone = getVolumeLevelString(0, maximumValueRing) + "|0|0";
-                profile._volumeNotification = getVolumeLevelString(0, maximumValueNotification) + "|0|0";
-                profile._volumeAlarm = getVolumeLevelString(0, maximumValueAlarm) + "|0|0";
-                profile._volumeMedia = getVolumeLevelString(0, maximumValueMusic) + "|0|0";
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    profile._volumeRingerMode = 5;
+                    profile._volumeZenMode = 3; // NONE
+                }
+                else if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    profile._volumeRingerMode = 5;
+                    profile._volumeZenMode = 3; // NONE
+                }
+                else
+                    profile._volumeRingerMode = 4;
+                profile._volumeRingtone = getVolumeLevelString(57, maximumValueRing) + "|0|0";
+                profile._volumeNotification = getVolumeLevelString(71, maximumValueNotification) + "|0|0";
+                profile._volumeAlarm = getVolumeLevelString(57, maximumValueAlarm) + "|0|0";
+                profile._volumeMedia = getVolumeLevelString(80, maximumValueMusic) + "|0|0";
                 profile._deviceWiFi = 0;
                 //profile._deviceBrightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|1|1|0";
                 break;
             case 4:
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", 5);
                 profile._showInActivator = true;
-                profile._volumeRingerMode = 4;
-                profile._volumeRingtone = getVolumeLevelString(0, maximumValueRing) + "|0|0";
-                profile._volumeNotification = getVolumeLevelString(0, maximumValueNotification) + "|0|0";
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                    profile._volumeRingerMode = 5;
+                    profile._volumeZenMode = 6; // ZENMODE_ALARMS
+                }
+                else if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    profile._volumeRingerMode = 5;
+                    profile._volumeZenMode = 3; // NONE
+                }
+                else
+                    profile._volumeRingerMode = 4;
+                profile._volumeRingtone = getVolumeLevelString(71, maximumValueRing) + "|0|0";
+                profile._volumeNotification = getVolumeLevelString(86, maximumValueNotification) + "|0|0";
                 profile._volumeAlarm = getVolumeLevelString(100, maximumValueAlarm) + "|0|0";
-                profile._volumeMedia = getVolumeLevelString(0, maximumValueMusic) + "|0|0";
+                profile._volumeMedia = getVolumeLevelString(80, maximumValueMusic) + "|0|0";
                 profile._deviceWiFi = 0;
                 //profile._deviceBrightness = "10|0|0|0";
                 break;
