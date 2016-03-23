@@ -68,7 +68,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         long alarmTime = calendar.getTimeInMillis();
 
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
 
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
             alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);

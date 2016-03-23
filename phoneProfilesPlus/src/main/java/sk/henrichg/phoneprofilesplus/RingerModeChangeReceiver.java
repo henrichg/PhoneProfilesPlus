@@ -109,7 +109,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         //Context context = getApplicationContext();
         Intent _intent = new Intent(context, DisableInernalChangeBroadcastReceiver.class);
         //intent.putExtra(EXTRA_ONESHOT, 1);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 1, _intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 1, _intent, 0);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, 3);

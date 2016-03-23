@@ -370,7 +370,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 
         //intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, 0);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 

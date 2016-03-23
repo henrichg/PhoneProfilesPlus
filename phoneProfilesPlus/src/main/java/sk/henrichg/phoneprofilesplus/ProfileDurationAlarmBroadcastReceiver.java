@@ -104,7 +104,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             Intent intent = new Intent(context, ProfileDurationAlarmBroadcastReceiver.class);
             intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
