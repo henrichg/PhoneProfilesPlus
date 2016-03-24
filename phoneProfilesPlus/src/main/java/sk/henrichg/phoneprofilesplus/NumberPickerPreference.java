@@ -2,23 +2,29 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 
+import java.lang.reflect.Field;
+
 public class NumberPickerPreference extends DialogPreference {
-	
-	private String value;
-	
-	private int mMin, mMax;
+
+    private String value;
+
+    private int mMin, mMax;
     
     private String mMaxExternalKey, mMinExternalKey;
 
@@ -90,6 +96,10 @@ public class NumberPickerPreference extends DialogPreference {
         mNumberPicker.setMinValue(mMin);
         mNumberPicker.setValue(Integer.valueOf(value));
         mNumberPicker.setWrapSelectorWheel(false);
+        TypedValue tv = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+        GUIData.setSeparatorColorForNumberPicker(mNumberPicker, tv.data);
+        GUIData.updateTextAttributesForNumberPicker(mNumberPicker, 18);
 
         mBuilder.customView(layout, false);
 
@@ -104,7 +114,7 @@ public class NumberPickerPreference extends DialogPreference {
     @Override
     protected Object onGetDefaultValue(TypedArray ta, int index)
     {
-		super.onGetDefaultValue(ta, index);
+        super.onGetDefaultValue(ta, index);
         return ta.getString(index);
     }
 
@@ -117,10 +127,10 @@ public class NumberPickerPreference extends DialogPreference {
         }
         else
         {
-        	value = (String)defaultValue;
+            value = (String)defaultValue;
             persistString(value);
         }
         
-    }    
+    }
 
 }

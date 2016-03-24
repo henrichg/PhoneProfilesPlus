@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.preference.Preference;
@@ -19,7 +21,11 @@ import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.NumberPicker;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.Collator;
 import java.util.Locale;
@@ -284,6 +290,59 @@ public class GUIData {
         Drawable res = drawable.mutate();
         res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         return res;
+    }
+
+    public static float pixelsToSp(Context context, float px) {
+        return px / context.getResources().getDisplayMetrics().scaledDensity;
+    }
+
+    public static float spToPixels(Context context, float sp) {
+        return sp * context.getResources().getDisplayMetrics().scaledDensity;
+    }
+
+    /**
+     * Uses reflection to access divider private attribute and override its color
+     * Use Color.Transparent if you wish to hide them
+     */
+    public static void setSeparatorColorForNumberPicker(NumberPicker picker, int separatorColor) {
+        Field[] pickerFields = NumberPicker.class.getDeclaredFields();
+        for (Field pf : pickerFields) {
+            if (pf.getName().equals("mSelectionDivider")) {
+                pf.setAccessible(true);
+                try {
+                    pf.set(picker, new ColorDrawable(separatorColor));
+                } catch (IllegalAccessException | IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+    public static void updateTextAttributesForNumberPicker(NumberPicker picker, /*int textColor,*/ int textSizeSP) {
+        for (int i = 0; i < picker.getChildCount(); i++){
+            View child = picker.getChildAt(i);
+            if (child instanceof EditText) {
+                try {
+                    Field selectorWheelPaintField = NumberPicker.class.getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+
+                    Paint wheelPaint = ((Paint)selectorWheelPaintField.get(picker));
+                    //wheelPaint.setColor(textColor);
+                    wheelPaint.setTextSize(spToPixels(picker.getContext(), textSizeSP));
+
+                    EditText editText = ((EditText) child);
+                    //editText.setTextColor(textColor);
+                    editText.setTextSize(textSizeSP);
+
+                    picker.invalidate();
+                    break;
+                }
+                catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

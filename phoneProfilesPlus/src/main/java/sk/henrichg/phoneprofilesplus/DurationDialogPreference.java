@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.NumberPicker;
@@ -83,6 +84,15 @@ public class DurationDialogPreference extends DialogPreference {
         mNumberPickerHours = (NumberPicker) layout.findViewById(R.id.duration_pref_dlg_hours);
         mNumberPickerMinutes = (NumberPicker) layout.findViewById(R.id.duration_pref_dlg_minutes);
         mNumberPickerSeconds = (NumberPicker) layout.findViewById(R.id.duration_pref_dlg_seconds);
+
+        TypedValue tv = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+        GUIData.setSeparatorColorForNumberPicker(mNumberPickerHours, tv.data);
+        GUIData.updateTextAttributesForNumberPicker(mNumberPickerHours, 18);
+        GUIData.setSeparatorColorForNumberPicker(mNumberPickerMinutes, tv.data);
+        GUIData.updateTextAttributesForNumberPicker(mNumberPickerMinutes, 18);
+        GUIData.setSeparatorColorForNumberPicker(mNumberPickerSeconds, tv.data);
+        GUIData.updateTextAttributesForNumberPicker(mNumberPickerSeconds, 18);
 
         // Initialize state
         int hours;
