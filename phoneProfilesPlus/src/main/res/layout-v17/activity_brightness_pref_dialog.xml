@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dip"
+    android:paddingRight="16dip"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/brightnessPrefDialogNoChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brightness_pref_dialog_no_change_chb" />
+
+    <CheckBox
+        android:id="@+id/brightnessPrefDialogDefaultProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brightness_pref_dialog_default_profile_chb" />
+    
+    <CheckBox
+        android:id="@+id/brightnessPrefDialogAutomatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brightness_pref_dialog_automatic_chb" />
+
+    <TextView
+        android:id="@+id/brightnessPrefDialogValueText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="0"
+        android:textSize="32sp" />
+
+    <SeekBar
+        android:id="@+id/brightnessPrefDialogSeekbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/brightnessPrefDialogAdaptiveLevelRoot"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/brightness_pref_dialog_adaptive_level_root_required" />
+
+</LinearLayout>

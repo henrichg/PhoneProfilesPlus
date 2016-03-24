@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout 
+        android:id="@+id/bluetooth_name_pref_dlg_linla_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+        
+        <ProgressBar
+            android:id="@+id/bluetooth_name_pref_dlg_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+    </LinearLayout>
+
+    <RelativeLayout 
+        android:id="@+id/bluetooth_name_pref_dlg_rella_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start" >
+
+        <LinearLayout
+            android:id="@+id/bluetooth_name_pref_dlg_et_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" >
+
+            <View
+                android:id="@+id/bluetooth_name_pref_dlg_buttonBarDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="?attr/dialogDivider" />
+
+            <TextView
+                android:id="@+id/bluetooth_name_pref_dlg_helpText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/pref_dlg_info_about_wildcards_1"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/bluetooth_name_pref_dlg_et_btn2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/bluetooth_name_pref_dlg_helpIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="50dp"
+                    android:maxWidth="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_action_profileicon_help"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true" />
+
+                <EditText
+                    android:id="@+id/bluetooth_name_pref_dlg_bt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_toStartOf = "@+id/bluetooth_name_pref_dlg_helpIcon"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textNoSuggestions" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bluetooth_name_pref_dlg_linla_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_above="@+id/bluetooth_name_pref_dlg_et_btn"
+            android:layout_alignParentTop="true"
+            >
+
+            <View
+                android:id="@+id/bluetooth_name_pref_dlg_titleBarDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dialogDivider" />
+
+            <ListView
+                android:id="@+id/bluetooth_name_pref_dlg_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:clipToPadding="false"
+                android:choiceMode="singleChoice"
+                android:scrollbarStyle="outsideOverlay"
+                android:divider="@android:color/transparent" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

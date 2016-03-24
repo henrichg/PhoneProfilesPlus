@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout   xmlns:android="http://schemas.android.com/apk/res/android"
+               android:layout_width="match_parent"
+               android:layout_height="75dp" >
+
+    <LinearLayout
+        android:id="@+id/act_prof_list_item_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/act_prof_list_item_profile_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="start"
+            android:adjustViewBounds="true"
+            android:maxHeight="45dp"
+            android:maxWidth="45dp"
+            android:scaleType="@integer/profilePrefIndicatorScaleType"
+            android:src="@drawable/ic_profile_default"
+            android:contentDescription="@string/empty_string"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/act_prof_list_item_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@string/profile_name_default"
+            android:textSize="12sp"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/act_prof_list_item_duration"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end|top"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="15dp"
+        android:paddingStart="15dp"
+        android:scaleType="center"
+        android:clickable="true"
+        android:background="?attr/actionProfileToolBackground"
+        android:contentDescription="@string/empty_string"
+        android:src="?attr/actionProfileActivtionDuration" />
+
+</FrameLayout>

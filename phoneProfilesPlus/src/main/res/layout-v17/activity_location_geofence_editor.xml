@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LocationGeofenceEditorActivity">
+
+    <LinearLayout
+        android:id="@+id/location_editor_et_btn3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/location_editor_buttonBarDivider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:background="?attr/dialogDivider" />
+
+        <RelativeLayout
+            android:id="@+id/location_editor_et_btn4"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/location_editor_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="@android:string/ok"
+                android:textColor="?attr/colorAccent"
+                android:background="?attr/selectableItemBackground"/>
+
+            <Button
+                android:id="@+id/location_editor_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf = "@+id/location_editor_ok"
+                android:layout_centerVertical="true"
+                android:text="@android:string/cancel"
+                android:textColor="?attr/colorAccent"
+                android:background="?attr/selectableItemBackground" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/location_editor_et_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/location_editor_et_btn3"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/location_editor_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:background="?attr/dialogDivider" />
+
+        <!--
+        <TextView
+            android:id="@+id/location_pref_dlg_helpText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/pref_dlg_info_about_wildcards_1"
+            android:visibility="gone" />
+        -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp" >
+
+            <TextView
+                android:id="@+id/location_pref_dlg_radius_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="@string/event_preferences_location_radius" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/location_pref_dlg_radius_label"
+                android:layout_centerVertical="true" >
+
+                <TextView
+                    android:id="@+id/location_pref_dlg_radius_seekbar_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="1" />
+
+                <SeekBar
+                    android:id="@+id/location_pref_dlg_radius_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/location_pref_dlg_radius_seekbar_label"
+                    android:max="50" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/location_editor_et_btn2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/location_editor_my_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_location_my_location"
+                android:background="?attr/selectableItemBackground" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/location_editor_address_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf = "@+id/location_editor_my_location"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_location_address"
+                android:background="?attr/selectableItemBackground" />
+
+            <EditText
+                android:id="@+id/location_editor_geofence_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toStartOf = "@+id/location_editor_address_btn"
+                android:layout_centerVertical="true"
+                android:selectAllOnFocus="true"
+                android:inputType="textNoSuggestions" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/location_editor_linla_map"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:orientation="vertical"
+        android:layout_above="@+id/location_editor_et_btn"
+        android:layout_alignParentTop="true"
+        >
+
+        <TextView
+            android:id="@+id/location_editor_address_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentBottom="true"
+            android:text="@string/empty_string"
+            android:singleLine="true"/>
+
+        <fragment android:id="@+id/location_editor_map"
+                  android:name="com.google.android.gms.maps.SupportMapFragment"
+                  xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:map="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_above="@+id/location_editor_address_text"
+                  android:layout_alignParentTop="true"
+                  tools:context="sk.henrichg.phoneprofilesplus.LocationGeofenceEditorActivity"
+                  map:cameraZoom="15" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

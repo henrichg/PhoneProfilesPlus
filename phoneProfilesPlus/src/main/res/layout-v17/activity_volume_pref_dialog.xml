@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dip"
+    android:paddingRight="16dip"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/volumePrefDialogNoChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/volume_pref_dialog_no_change_chb" />
+
+    <CheckBox
+        android:id="@+id/volumePrefDialogDefaultProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/volume_pref_dialog_default_profile_chb" />
+    
+    <TextView
+        android:id="@+id/volumePrefDialogValueText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="1"
+        android:textSize="32sp" />
+
+    <SeekBar
+        android:id="@+id/volumePrefDialogSeekbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
