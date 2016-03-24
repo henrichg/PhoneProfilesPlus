@@ -68,6 +68,14 @@ public class GUIData {
         Locale.setDefault(appLocale);
         Configuration appConfig = new Configuration();
         appConfig.locale = appLocale;
+        /*  not working :-/
+        if (android.os.Build.VERSION.SDK_INT == 17) {
+            // workaround for Android 4.2 and wrong RTL layout
+            int screenLayout = Resources.getSystem().getConfiguration().screenLayout;
+            if ((screenLayout & Configuration.SCREENLAYOUT_LAYOUTDIR_RTL) > 0)
+                appConfig.screenLayout = screenLayout ^ Configuration.SCREENLAYOUT_LAYOUTDIR_MASK;
+        }
+        */
         context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
 
         // collator for application locale sorting
