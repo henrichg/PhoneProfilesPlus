@@ -105,6 +105,7 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textSize="14sp"
+                    android:textColor="@android:color/white"
                     android:clickable="true"
                     android:text="@string/editor_drawer_order_label" />
 

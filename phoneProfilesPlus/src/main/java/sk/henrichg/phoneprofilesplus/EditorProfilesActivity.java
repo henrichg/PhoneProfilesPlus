@@ -374,7 +374,14 @@ public class EditorProfilesActivity extends AppCompatActivity
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        
+        TextView orderLabel = (TextView)findViewById(R.id.editor_list_bottom_bar_order_title);
+        orderLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderSpinner.performClick();
+            }
+        });
+
         
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
         //getSupportActionBar().setTitle(R.string.title_activity_phone_profiles);
