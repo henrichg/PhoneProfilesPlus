@@ -716,4 +716,16 @@
   <string name="altype_pausedLogging">Reg. eventi sospesa</string>
   <string name="altype_startedLogging">Reg. eventi avviata</string>
   <string name="event_pref_dialog_help">(*) Profilo non trovato</string>
+  <string name="permissions_for_brightness_dialog_text1">La selezione della luminosità richiede alcune autorizzazioni.</string>
+  <string name="permissions_for_brightness_dialog_text2">Si prega di concederle nella finestra successiva.</string>
+  <string name="event_preferences_category_sensors">Parametri dei sensori</string>
+  <string name="altype_eventEndDelay">fine evento ritardato</string>
+  <string name="info_notification_event_states_running_delay">In esecuzione con ritardo: l\'evento è in esecuzione, ma i parametri non sono più rispettati. L\'evento è in attesa.</string>
+  <string name="profile_preferences_askForDuration">Chiedere la durata</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization">Ottimizzazione della batteria</string>
+  <string name="phone_profiles_pref_applicationEventLocationRescan">Rianalizza posizione</string>
+  <string name="profile_preferences_deviceNetworkType">(R) Tipo di rete mobile</string>
+  <string name="array_pref_powerSaveMode_useSystem">Usa risparmio batteria</string>
+  <string name="phone_profiles_pref_applicationBatterySaver">Risparmio Batteria</string>
+  <string name="phone_profiles_pref_applicationBatterySaver_system">Configurazione impostazioni di sistema</string>
 </resources>

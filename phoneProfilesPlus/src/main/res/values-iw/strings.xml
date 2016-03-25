@@ -716,4 +716,16 @@
   <string name="altype_pausedLogging">רישום פעולות מושהה</string>
   <string name="altype_startedLogging">רישום פעולות מופעל</string>
   <string name="event_pref_dialog_help">(*) לא נמצא פרופיל </string>
+  <string name="permissions_for_brightness_dialog_text1">בחירת בהירות דורשת הרשאות מסוימות.</string>
+  <string name="permissions_for_brightness_dialog_text2">אנא התירו אותן בתיבות דו-שיח הבאות.</string>
+  <string name="event_preferences_category_sensors">פרמטרים של חיישנים</string>
+  <string name="altype_eventEndDelay">סיום אירוע עם השהייה</string>
+  <string name="info_notification_event_states_running_delay">פועל עם השהיה: אירוע מופעל, אך הפרמטרים כבר לא מתקיימים. האירוע ממתין בהשהיה.</string>
+  <string name="profile_preferences_askForDuration">בקשה להגדרת משך-זמן</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization">מיטוב הסוללה</string>
+  <string name="phone_profiles_pref_applicationEventLocationRescan">סריקה מחדש של מיקום</string>
+  <string name="profile_preferences_deviceNetworkType">(R) סוג הרשת הסלולרית</string>
+  <string name="array_pref_powerSaveMode_useSystem">שימוש בחיסכון בסוללה</string>
+  <string name="phone_profiles_pref_applicationBatterySaver">חיסכון בסוללה</string>
+  <string name="phone_profiles_pref_applicationBatterySaver_system">תצורת הגדרות מערכת</string>
 </resources>

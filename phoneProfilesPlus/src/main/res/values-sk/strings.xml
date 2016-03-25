@@ -710,7 +710,7 @@
   <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Prosím, zapnite Polohu v nastaveniach systému. Bez toho, skenovanie polohy nebude fungovať.</string>
   <string name="array_pref_ringerModeArray_silentM">Len budíky</string>
   <string name="phone_profiles_pref_applicationEventLocationsEditor">Editor polôh</string>
-  <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Použiť GPS, ak nie je úsporný režim</string>
+  <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Použiť GPS, ak nie je Režim šetrenia batérie</string>
   <string name="menu_activity_log_pause">Zastav logovanie</string>
   <string name="menu_activity_log_play">Spusti logovanie</string>
   <string name="altype_pausedLogging">Logovanie zastavené</string>
@@ -718,4 +718,14 @@
   <string name="event_pref_dialog_help">(*) Profil sa nenašiel</string>
   <string name="permissions_for_brightness_dialog_text1">Nastavenie jasu vyžaduje niektoré povolenia.</string>
   <string name="permissions_for_brightness_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách.</string>
+  <string name="event_preferences_category_sensors">Parametre senzorov</string>
+  <string name="altype_eventEndDelay">koniec udalosti s pozdržaním</string>
+  <string name="info_notification_event_states_running_delay">Beží s pozdržaním: udalosť je spustená, ale parametre už nie sú splnené. Udalosť čaká v pozdržaní.</string>
+  <string name="profile_preferences_askForDuration">Pýtať si trvanie</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization">Optimalizácia batérie</string>
+  <string name="phone_profiles_pref_applicationEventLocationRescan">Preskenuj polohu</string>
+  <string name="profile_preferences_deviceNetworkType">(R) Typ mobilnej siete</string>
+  <string name="array_pref_powerSaveMode_useSystem">Používaj Šetrič batérie</string>
+  <string name="phone_profiles_pref_applicationBatterySaver">Šetrič batérie</string>
+  <string name="phone_profiles_pref_applicationBatterySaver_system">Konfigurácia v systémových nastaveniach</string>
 </resources>

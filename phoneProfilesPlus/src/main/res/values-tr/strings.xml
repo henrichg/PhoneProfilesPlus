@@ -530,7 +530,7 @@
   <string name="important_into_sony_stamina_mode">Sony cihazınız var ve \"Güç yönetimi\"nde \"Stamina\" mod etkin ise lütfen PhoneProfilesPlus\'ı \"Etkin bekleme uygulamaları\" içine ekleyin. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
   <string name="important_info_profile_settings">Bazı profil özellikleri sistem ayarlarında değişiklikleri gerektirir. Bu Tercihler \"(S)\" ile işaretlenmiştir.</string>
   <string name="profile_preferences_volumeNotificationsAccessSettings_title">Bildirim erişimi</string>
-  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">\"Kesinti türü\" profil tercihini etkinleştirmek için \"Bildirim Erişimi\" sistem ayarlarında PhoneProfilesPlus\'a izin verin.</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">\"Kesinti türü\" profil tercihini etkinleştirmek için sistem ayarlarında \"Bildirim Erişimi\"inde PhoneProfilesPlus\'a izin verin.</string>
   <string name="array_pref_zenModeArray_allWithVibration">Hepsi titreşim ile</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Öncelik titreşim ile</string>
   <string name="important_info_news">Haberler</string>
@@ -546,7 +546,7 @@
   <string name="event_preferences_category_eventNotificationsParameters">Bildirim parametreleri</string>
   <string name="event_preferences_notifications_enabled">Bildirim gönder</string>
   <string name="event_preferences_notifications_applications">Uygulamalar</string>
-  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Bildirim parametrelerini etkinleştirmek için \"Bildirim Erişimi\" sistem ayarlarında PhoneProfilesPlus\'a izin verin.</string>
+  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Bildirim parametrelerini etkinleştirmek için sistem ayarlarında \"Bildirim Erişimi\"nde PhoneProfilesPlus\'a izin verin.</string>
   <string name="array_pref_zenModeArray_alarms">Sadece alarmlar</string>
   <string name="profile_preferences_zenMode_alarms_summary">Sadece alarm kesintileri</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Amblem için kısayol ekle</string>
@@ -618,8 +618,8 @@
   <string name="array_pref_powerSaveMode_off">Kapalı</string>
   <string name="array_pref_powerSaveMode_5">Pil %5 iken aç</string>
   <string name="array_pref_powerSaveMode_15">Pil %15 iken aç</string>
-  <string name="important_info_profile_ringerMode_root">(Marshmallow) Android 6\'da sistem ayarı olan \"Çalarken titret\"i değiştirmek kök erişimi olmayan cihazda değiştirmek mümkün değil.</string>
-  <string name="important_info_profile_adaptiveBrightness_root">(Marshmallow) Android 6\'da sistem ayarı olan \"Otomatik parlaklık\"ı değiştirmek kök erişimi olmayan cihazda değiştirmek mümkün değil.</string>
+  <string name="important_info_profile_ringerMode_root">(Marshmallow) Android 6\'da sistem ayarı olan \"Çalarken titret\"i değiştirmek, kök erişimi olmayan cihazda mümkün değil.</string>
+  <string name="important_info_profile_adaptiveBrightness_root">(Marshmallow) Android 6\'da sistem ayarı olan \"Otomatik parlaklık\"ı değiştirmek, kök erişimi olmayan cihazda mümkün değil.</string>
   <string name="important_info_profile_wifiScanning_location">(Marshmallow) Android 6\'da Wi-Fi tarama için Konum ayarlarında Konum ve \"Wi-Fi tarama\" etkinleştirilmelidir.</string>
   <string name="important_info_profile_bluetoothScanning_location">(Marshmallow) Android 6\'da Bluetooth LE tarama için Konum ayarlarında Konum ve \"Bluetooth tarama\" etkinleştirilmelidir.</string>
   <string name="profile_preferences_devicePowerSaveMode">(R) Güç tasarrufu modu</string>
@@ -663,7 +663,7 @@
   <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
   <string name="important_info_android_doze_mode">Android 6\'da uygulanan \"Doze modu\" ve \"Uygulama bekleme\" vardır. Profil etkinleştirme ile ilgili sorunlar ile karşılaştığınız zaman, eğer bir cihaza bir süre takmadan ekranı kapalı bırakırsanız, PhoneProfilesPlus\'a \"Batarya\"-&gt; \"batarya optimizasyon\"-&gt;\"Optimizasyon yok\" eklemeniz gerekir.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Çalarken titret</string>
-  <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">Android 6\'bu sistem ayarı yalnızca köklü aygıtlarda değiştirilebilir. Etkilenen zil modları ve titreşim ile kesinti türleri vardır.</string>
+  <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">Android 6\'da bu sistem ayarı yalnızca köklü aygıtlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli kesinti türleridir.</string>
   <string name="info_notification_event_states">Etkinlik 4 durumda olabilir:</string>
   <string name="info_notification_event_states_running">Çalışan: olay başlamış ve çalışır durumdadır. Olay parametreleri karşılanır.</string>
   <string name="info_notification_event_states_paused">Duraklatıldı: etkinlik çalışmıyor. Etkinlik şartları yerine gelmiş değildir.</string>
@@ -674,7 +674,7 @@
   <string name="event_preferences_calendar_ignore_all_day_events">\"Tüm gün\" etkinliklerini yoksayar</string>
   <string name="important_info_default_profile">Herhangi bir etkinlik. çalışmadığı zaman, ayarlamışsa \"varsayılan profil\" çalıştırılır. profilidir yapılandırıldığında. Varsayılan profili, uygulama ayarlarında \"Profil etkinleştirme\" içinde ayarlayabilirsiniz. Ayarlamak için buraya tıklatın.</string>
   <string name="info_notification_unlink_ringer_notification_volumes2">Cihazınızda zil sesi ve bildirim ses seviyeleri ayrılmamışsa, seviyeleri ayrı tutmaya izin verin.</string>
-  <string name="important_info_how_does_volume_separation_work">\"Seviye ayırma\" nasıl çalışır: Profil etkinleştirme, profil bildirim ses seviyesini zil ses seviyesine ayarlar. Arama zili algılandığında, zil sesi seviyesi profilinden ayarlanır. Çağrı bitiminden sonra bildirim ses seviyesi, profilinden geri ayarlanır.</string>
+  <string name="important_info_how_does_volume_separation_work">\"Seviye ayırma\" nasıl çalışır: Profil etkinleştirme, profil bildirim ses seviyesini zil ses seviyesine ayarlar. Arama algılandığında, bildirim ses seviyesi profil tarafından otomatik olarak seçtiğiniz zil sesi seviyesine ayarlanır. Çağrı bitiminden sonra bildirim ses seviyesi, tekrar otomatik olarak profil tarafından geri ayarlanır.</string>
   <string name="event_type_locations">Konum</string>
   <string name="event_preferences_category_eventLocationsParameters">Konum parametreleri</string>
   <string name="event_preferences_locations_enabled">Konumu etkinleştir</string>
@@ -716,4 +716,16 @@
   <string name="altype_pausedLogging">Günlük durduruldu</string>
   <string name="altype_startedLogging">Günlük başladı</string>
   <string name="event_pref_dialog_help">(*) Profil bulunamadı</string>
+  <string name="permissions_for_brightness_dialog_text1">Parlaklığın seçilebilmesi bazı izinler gerektirir.</string>
+  <string name="permissions_for_brightness_dialog_text2">Lütfen sonraki iletişim kutularında istenilen imtiyazları verin.</string>
+  <string name="event_preferences_category_sensors">Sensörlerin parametreleri</string>
+  <string name="altype_eventEndDelay">etkinlik gecikmeli bitiyor</string>
+  <string name="info_notification_event_states_running_delay">Gecikme ile çalışan: etkinlik çalışıyor, fakat parametreleri artık algılamıyor. Olay gecikme bekliyor.</string>
+  <string name="profile_preferences_askForDuration">Süresi için sor</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization">Pilin en iyi duruma getirilmesi</string>
+  <string name="phone_profiles_pref_applicationEventLocationRescan">Konumu tekrar tara</string>
+  <string name="profile_preferences_deviceNetworkType">(R) Mobil ağ türü</string>
+  <string name="array_pref_powerSaveMode_useSystem">Pil Tasarrufunu Etkinleştir</string>
+  <string name="phone_profiles_pref_applicationBatterySaver">Pil Tasarrufu</string>
+  <string name="phone_profiles_pref_applicationBatterySaver_system">Sistem ayarlarını yapılandırma</string>
 </resources>

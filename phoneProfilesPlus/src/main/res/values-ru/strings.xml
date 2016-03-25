@@ -642,7 +642,7 @@
   <string name="accessibility_service_name">PhoneProfilesPlus</string>
   <string name="accessibility_service_description">Разрешить PhoneProfilesPlus обнаруживать, какое приложение запущено. Это необходимо для событий с включёнными \"Параметрами приложений\".</string>
   <string name="event_type_applications">Приложения</string>
-  <string name="event_preferences_category_eventApplicationsParameters">Параметры прилоржений</string>
+  <string name="event_preferences_category_eventApplicationsParameters">Параметры приложений</string>
   <string name="event_preferences_applications_enabled">Активировать приложения</string>
   <string name="event_preferences_applications_applications">Приложения</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Настройки доступности</string>
@@ -716,4 +716,16 @@
   <string name="altype_pausedLogging">Логирование приостановлено</string>
   <string name="altype_startedLogging">Логирование запущено</string>
   <string name="event_pref_dialog_help">(*) Профиль не найден</string>
+  <string name="permissions_for_brightness_dialog_text1">Выбор яркости требует дополнительных разрешений.</string>
+  <string name="permissions_for_brightness_dialog_text2">Добавьте разрешения в следующих диалогах.</string>
+  <string name="event_preferences_category_sensors">Параметры сенсоров</string>
+  <string name="altype_eventEndDelay">Остановка события с задержкой</string>
+  <string name="info_notification_event_states_running_delay">Запущено с задержкой: событие запущено, но параметры не соответствуют условиям. Событие в состоянии ожидания.</string>
+  <string name="profile_preferences_askForDuration">Запрос продолжительности</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization">Оптимизация батареи</string>
+  <string name="phone_profiles_pref_applicationEventLocationRescan">Переопределить местоположение</string>
+  <string name="profile_preferences_deviceNetworkType">(R) Тип мобильной сети</string>
+  <string name="array_pref_powerSaveMode_useSystem">Использовать режим энергосбережения</string>
+  <string name="phone_profiles_pref_applicationBatterySaver">Энергосбережение</string>
+  <string name="phone_profiles_pref_applicationBatterySaver_system">Системные настройки</string>
 </resources>

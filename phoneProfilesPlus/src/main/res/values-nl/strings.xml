@@ -398,8 +398,8 @@ Toch activeren?</string>
   <string name="event_preferences_screen_enabled">Scherm inschakelen</string>
   <string name="event_preferences_screen_event_type">Event type</string>
   <string name="event_preferences_delayStart">Vertraging (sec)</string>
-  <string name="profile_preferences_duration">Duur (sec)</string>
-  <string name="profile_preferences_afterDurationDo">Bij einde duur doe</string>
+  <string name="profile_preferences_duration">Tijdsduur (sec)</string>
+  <string name="profile_preferences_afterDurationDo">Bij einde tijdsduur doe</string>
   <string name="array_pref_afterProfileDurationDo_nothing">Niets</string>
   <string name="array_pref_afterProfileDurationDo_undoProfile">Profiel ongedaan maken</string>
   <string name="array_pref_afterProfileDurationDo_backgroundProfile">Standaardprofiel activeren</string>
@@ -463,9 +463,9 @@ Toch activeren?</string>
   <string name="title_activity_activity_log">Activiteitenlog</string>
   <string name="menu_activity_log">Activiteitenlog</string>
   <string name="altype_profileActivation">profiel activeren</string>
-  <string name="altype_afterDuration_undoProfile">na duur - Profiel ongedaan maken</string>
-  <string name="altype_afterDuration_backgroundProfile">na duur - standaardprofiel</string>
-  <string name="altype_afterDuration_restartEvents">na duur - event herstarten</string>
+  <string name="altype_afterDuration_undoProfile">na tijdsduur - Profiel ongedaan maken</string>
+  <string name="altype_afterDuration_backgroundProfile">na tijdsduur - standaardprofiel</string>
+  <string name="altype_afterDuration_restartEvents">na tijdsduur - event herstarten</string>
   <string name="altype_eventStart">start event</string>
   <string name="altype_eventStartDelay">start event met vertaging</string>
   <string name="altype_eventEnd_none">pauzeer event</string>
@@ -539,7 +539,7 @@ Toch activeren?</string>
   <string name="profile_preferences_zenMode_none_summary">Zonder onderbrekingen. Zelfs geen alarmen</string>
   <string name="profile_preferences_zenMode_priority_summary">Alleen prioriteit onderbrekingen</string>
   <string name="profile_preferences_zenMode_all_summary">Alle onderbrekingen</string>
-  <string name="event_preferences_duration">Duur (sec)</string>
+  <string name="event_preferences_duration">Tijdsduur (sec)</string>
   <string name="pref_event_duration">Duur</string>
   <string name="applications_multiselect_summary_text_selected">Geselecteerd</string>
   <string name="applications_multiselect_summary_text_not_selected">Niet geselecteerd</string>
@@ -627,10 +627,10 @@ Toch activeren?</string>
   <string name="event_preferences_bluetooth_devices_type">Gescande apparaten type</string>
   <string name="array_event_pref_bluetoothDevicesType_classic">Klassieke [CE]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Lage energie [LE]</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duur (sec)</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan tijdsduur (sec)</string>
   <string name="phone_profiles_pref_category_wifi_scanning">Wi-Fi scannen</string>
   <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth scannen</string>
-  <string name="profile_preferences_category_activation_duration">Activatie duur</string>
+  <string name="profile_preferences_category_activation_duration">Activatie tijdsduur</string>
   <string name="profile_preferences_category_sound_profile">Geluidsprofiel</string>
   <string name="profile_preferences_category_radios">Radio\'s</string>
   <string name="profile_preferences_category_screen">Scherm</string>
@@ -717,4 +717,16 @@ Toch activeren?</string>
   <string name="altype_pausedLogging">Loggen gepauseerd</string>
   <string name="altype_startedLogging">Loggen gestart</string>
   <string name="event_pref_dialog_help">(*) Profiel niet gevonden</string>
+  <string name="permissions_for_brightness_dialog_text1">Selecteren van helderheid heeft machtigingen nodig.</string>
+  <string name="permissions_for_brightness_dialog_text2">Sta het toe in de volgende schermen.</string>
+  <string name="event_preferences_category_sensors">Parameters van sensors</string>
+  <string name="altype_eventEndDelay">event einde met vertraging</string>
+  <string name="info_notification_event_states_running_delay">Uitvoeren met vertraging: Event draait, maar parameters voldoen niet meer. Event wacht gedurende de vertraging.</string>
+  <string name="profile_preferences_askForDuration">Vraag naar tijdsduur</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization">Batterij optimalisatie</string>
+  <string name="phone_profiles_pref_applicationEventLocationRescan">Locatie opnieuw scannen</string>
+  <string name="profile_preferences_deviceNetworkType">(R) Mobiel netwerk type</string>
+  <string name="array_pref_powerSaveMode_useSystem">Gebruik accubesparing</string>
+  <string name="phone_profiles_pref_applicationBatterySaver">Accubesparing</string>
+  <string name="phone_profiles_pref_applicationBatterySaver_system">Configuratie systeem instellingen</string>
 </resources>

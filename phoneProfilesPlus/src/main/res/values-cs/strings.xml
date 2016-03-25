@@ -716,4 +716,16 @@
   <string name="altype_pausedLogging">Logování pozastaveno</string>
   <string name="altype_startedLogging">Logování spuštěno</string>
   <string name="event_pref_dialog_help">(*) Profil nebyl nalezen.</string>
+  <string name="permissions_for_brightness_dialog_text1">Nastavení jasu vyžaduje některá povolení.</string>
+  <string name="permissions_for_brightness_dialog_text2">Prosím, povolte je v následujících dialogových oknech.</string>
+  <string name="event_preferences_category_sensors">Parametry senzorů</string>
+  <string name="altype_eventEndDelay">konec události s pozdržením</string>
+  <string name="info_notification_event_states_running_delay">Běží s pozdržením: událost je spuštěna, ale parametry již nejsou splněny. Událost čeká v pozdržení.</string>
+  <string name="profile_preferences_askForDuration">Dotaz na Trvání</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization">Optimalizace baterie</string>
+  <string name="phone_profiles_pref_applicationEventLocationRescan">Přeskenuj polohu</string>
+  <string name="profile_preferences_deviceNetworkType">(R) Typ mobilní sítě</string>
+  <string name="array_pref_powerSaveMode_useSystem">Použij Spořič baterie</string>
+  <string name="phone_profiles_pref_applicationBatterySaver">Spořič baterie</string>
+  <string name="phone_profiles_pref_applicationBatterySaver_system">Konfigurace v systémových nastaveních</string>
 </resources>

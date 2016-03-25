@@ -716,4 +716,16 @@
   <string name="altype_pausedLogging">Enregistrement en pause</string>
   <string name="altype_startedLogging">Enregistrement commencé</string>
   <string name="event_pref_dialog_help">(*) Profil introuvable</string>
+  <string name="permissions_for_brightness_dialog_text1">Ajuster la luminosité requiert certaines autorisations.</string>
+  <string name="permissions_for_brightness_dialog_text2">S\'il vous plaît accordez les dans les boîtes de dialogue suivantes.</string>
+  <string name="event_preferences_category_sensors">Paramètres des capteurs</string>
+  <string name="altype_eventEndDelay">fin de l\'événement retardé</string>
+  <string name="info_notification_event_states_running_delay">Lancement retardé : événement est en cours d\'exécution, mais les paramètres ne sont plus remplies. L\'événement est en attente.</string>
+  <string name="profile_preferences_askForDuration">Demandez pour la durée</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization">Optimisation de la batterie</string>
+  <string name="phone_profiles_pref_applicationEventLocationRescan">Rescan emplacement</string>
+  <string name="profile_preferences_deviceNetworkType">(R) type de réseau mobile</string>
+  <string name="array_pref_powerSaveMode_useSystem">Utiliser l\'économiseur de batterie</string>
+  <string name="phone_profiles_pref_applicationBatterySaver">Économiseur de batterie</string>
+  <string name="phone_profiles_pref_applicationBatterySaver_system">Configuration des paramètres système</string>
 </resources>
