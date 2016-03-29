@@ -46,19 +46,18 @@ public class GlobalData extends Application {
     private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
-    public static String logFilterTags = "PhoneProfilesHelper.doInstallPPHelper"+
-                                         "|PhoneProfilesHelper.doUninstallPPHelper"+
+    public static String logFilterTags =  "PhoneProfilesHelper.doInstallPPHelper"
+                                         +"|PhoneProfilesHelper.doUninstallPPHelper"
 
-                                         "|$$$ ScannerService.onHandleIntent"+
-                                         "|$$$ WifiScanAlarmBroadcastReceiver.startScan"+
-                                         "|$$$ WifiScanBroadcastReceiver.onReceive"
+                                         //+"|$$$ ScannerService.onHandleIntent"
+                                         //+"|$$$ WifiScanAlarmBroadcastReceiver.startScan"
+                                         //+"|$$$ WifiScanBroadcastReceiver.onReceive"
 
-                                        /*"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"+
-                                        "|##### WifiScanAlarmBroadcastReceiver.onReceive"+
-                                        "|##### GeofenceScannerAlarmBroadcastReceiver.onReceive"+
-                                        "|##### GeofenceScannerBroadcastReceiver.onReceive"+
-                                        "|##### GeofenceScanner"*/
-                                        //"|ActivateProfileHelper.setRingerMode"
+                                         +"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
+                                         +"|##### WifiScanAlarmBroadcastReceiver.onReceive"
+                                         +"|##### GeofenceScannerAlarmBroadcastReceiver.onReceive"
+                                         //+"|##### GeofenceScannerBroadcastReceiver.onReceive"
+                                         //+"|##### GeofenceScanner"
             ;
 
 

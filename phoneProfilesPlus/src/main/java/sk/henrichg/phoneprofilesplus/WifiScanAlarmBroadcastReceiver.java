@@ -511,28 +511,25 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     //public static void getScanResults(Context context)
     public static List<WifiSSIDData> getScanResults(Context context)
     {
-        //if (scanResults == null)
-        //    scanResults = new ArrayList<WifiSSIDData>();
-
-        //scanResults.clear();
-
-        List<WifiSSIDData> scanResults = new ArrayList<WifiSSIDData>();
-
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
 
-        int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
+        if (count > -1) {
+            List<WifiSSIDData> scanResults = new ArrayList<WifiSSIDData>();
 
-        Gson gson = new Gson();
+            Gson gson = new Gson();
 
-        for (int i = 0; i < count; i++) {
-            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
-            if (!json.isEmpty()) {
-                WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
-                scanResults.add(device);
+            for (int i = 0; i < count; i++) {
+                String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                if (!json.isEmpty()) {
+                    WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
+                    scanResults.add(device);
+                }
             }
+            return scanResults;
         }
-
-        return scanResults;
+        else
+            return null;
     }
 
     //private static void saveScanResults(Context context)
@@ -564,7 +561,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.clear();
-        editor.putInt(SCAN_RESULT_COUNT_PREF, 0);
+        editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
 
         editor.commit();
     }

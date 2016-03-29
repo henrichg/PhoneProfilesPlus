@@ -589,29 +589,26 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     //public static void getScanResults(Context context)
     public static List<BluetoothDeviceData> getScanResults(Context context)
     {
-        //if (scanResults == null)
-        //    scanResults = new ArrayList<BluetoothDeviceData>();
-
-        //scanResults.clear();
-
-        List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
-
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
 
-        int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
+        if (count >= 0) {
+            List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
 
-        Gson gson = new Gson();
+            Gson gson = new Gson();
 
-        for (int i = 0; i < count; i++)
-        {
-            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
-            if (!json.isEmpty()) {
-                BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
-                scanResults.add(device);
+            for (int i = 0; i < count; i++) {
+                String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                if (!json.isEmpty()) {
+                    BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
+                    scanResults.add(device);
+                }
             }
-        }
 
-        return scanResults;
+            return scanResults;
+        }
+        else
+            return null;
     }
 
     public static void clearScanResults(Context context) {
@@ -619,7 +616,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.clear();
-        editor.putInt(SCAN_RESULT_COUNT_PREF, 0);
+        editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
 
         editor.commit();
     }

@@ -569,7 +569,7 @@ public class ScannerService extends IntentService
                 boolean isSSIDScannedNotInFront = dataWrapper.getDatabaseHandler().isSSIDScanned(SSID, EventPreferencesWifi.CTYPE_NOTINFRONT);
                 unlock();
 
-                if ((isSSIDScannedInFront) && (!isSSIDScannedNotInFront) && (scanResults.size() != 0))
+                if ((isSSIDScannedInFront) && (!isSSIDScannedNotInFront) && (scanResults != null) && (scanResults.size() != 0))
                 {
                     // INFRONT events exists for connected SSID and
                     // NOTINFRONT events not exists for connected SSID and
