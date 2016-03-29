@@ -165,8 +165,13 @@ public class PhoneProfilesHelper {
             //// copy PhoneProfilesHelper.apk from apk into system partition
             OK = false;
 
-            //String sourceFile = System.getenv("EXTERNAL_STORAGE")+GlobalData.EXPORT_PATH+"/PhoneProfilesHelper.x";
-            String sourceFile = Environment.getExternalStorageDirectory().getPath()+GlobalData.EXPORT_PATH+"/PhoneProfilesHelper.x";
+            String sourceDir = System.getenv("EXTERNAL_STORAGE")+GlobalData.EXPORT_PATH;
+            sd = new File(sourceDir);
+            if (!(sd.exists() && sd.isDirectory())) {
+                sourceDir = Environment.getExternalStorageDirectory().getPath()+GlobalData.EXPORT_PATH;
+            }
+            String sourceFile = sourceDir+"/PhoneProfilesHelper.x";
+
             String destinationFile = "PhoneProfilesHelper.apk";
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2)
                 destinationFile = "/system/priv-app/"+destinationFile;
