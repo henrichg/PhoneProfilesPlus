@@ -165,21 +165,11 @@ public class PhoneProfilesHelper {
             //// copy PhoneProfilesHelper.apk from apk into system partition
             OK = false;
 
-            String sourceDir = System.getenv("EXTERNAL_STORAGE")+GlobalData.EXPORT_PATH;
-            sd = new File(sourceDir);
-            if (!(sd.exists() && sd.isDirectory())) {
-                sourceDir = Environment.getExternalStorageDirectory().getPath()+GlobalData.EXPORT_PATH;
-            }
-            String sourceFile = sourceDir+"/PhoneProfilesHelper.x";
-
             String destinationFile = "PhoneProfilesHelper.apk";
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2)
                 destinationFile = "/system/priv-app/"+destinationFile;
             else
                 destinationFile = "/system/app/"+destinationFile;
-            GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "copy file:");
-            GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "   sourceFile="+sourceFile);
-            GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "   destinationFile="+destinationFile);
 
             if (GlobalData.isSELinuxEnforcing())
                 Shell.defaultContext = Shell.ShellContext.RECOVERY;
@@ -193,8 +183,23 @@ public class PhoneProfilesHelper {
                 deleteFile_su(destinationFile);
             //if (!OK)
             //	Log.e("PhoneProfilesHelper.doInstallPPHelper", "delete file ERROR");
-            if (OK)
+            if (OK) {
+                String sourceDir = System.getenv("EXTERNAL_STORAGE")+GlobalData.EXPORT_PATH;
+                String sourceFile = sourceDir+"/PhoneProfilesHelper.x";
+                GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "copy file (1):");
+                GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "   sourceFile="+sourceFile);
+                GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "   destinationFile="+destinationFile);
                 OK = RootTools.copyFile(sourceFile, destinationFile, false, false);
+                if (!OK) {
+                    GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "copy file ERROR");
+                    sourceDir = Environment.getExternalStorageDirectory().getPath()+GlobalData.EXPORT_PATH;
+                    sourceFile = sourceDir+"/PhoneProfilesHelper.x";
+                    GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "copy file (2):");
+                    GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "   sourceFile="+sourceFile);
+                    GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "   destinationFile="+destinationFile);
+                    OK = RootTools.copyFile(sourceFile, destinationFile, false, false);
+                }
+            }
             if (!OK)
                 GlobalData.logE("PhoneProfilesHelper.doInstallPPHelper", "copy file ERROR");
             if (OK)
