@@ -38,48 +38,43 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
             {
                 GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "xxx");
 
-                if ((android.os.Build.VERSION.SDK_INT < 23) || (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false))) {
+                GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
 
-                    GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "resultsUpdated=true");
-
-                    WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
+                WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
+                //if ((android.os.Build.VERSION.SDK_INT < 23) || (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)))
                     WifiScanAlarmBroadcastReceiver.fillScanResults(context);
-                    //WifiScanAlarmBroadcastReceiver.unlock();
+                //WifiScanAlarmBroadcastReceiver.unlock();
 
-                    List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
-                    if (scanResults != null) {
-                        for (WifiSSIDData result : scanResults) {
-                            GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
-                        }
-                    }
-
-                    /*
-                    if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
-                    {
-                        GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive","disable wifi");
-                        WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
-                        // not call this, due WifiConnectionBroadcastReceiver
-                        //WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-                    }
-                    */
-
-                    WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-
-                    int forceOneScan = GlobalData.getForceOneWifiScan(context);
-                    GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
-
-                    if ((forceOneScan != GlobalData.FORCE_ONE_SCAN_ENABLED) &&
-                        (forceOneScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) // not start service for force scan
-                    {
-                        // start service
-                        Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                        eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                        startWakefulService(context, eventsServiceIntent);
+                List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
+                if (scanResults != null) {
+                    for (WifiSSIDData result : scanResults) {
+                        GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
                     }
                 }
-                else
-                    GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "resultsUpdated=false");
 
+                /*
+                if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
+                {
+                    GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive","disable wifi");
+                    WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
+                    // not call this, due WifiConnectionBroadcastReceiver
+                    //WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
+                }
+                */
+
+                WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+
+                int forceOneScan = GlobalData.getForceOneWifiScan(context);
+                GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+
+                if ((forceOneScan != GlobalData.FORCE_ONE_SCAN_ENABLED) &&
+                    (forceOneScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) // not start service for force scan
+                {
+                    // start service
+                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                    eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                    startWakefulService(context, eventsServiceIntent);
+                }
             }
 
         }

@@ -324,7 +324,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         Editor editor = preferences.edit();
         editor.putBoolean(GlobalData.PREF_EVENT_WIFI_WAIT_FOR_RESULTS, waitForResults);
         editor.commit();
-        GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setWaitForResults", "waitForResults=" + waitForResults);
+        GlobalData.logE("$$$ WifiScanAlarmBroadcastReceiver.setWaitForResults", "waitForResults=" + waitForResults);
     }
 
     static public void startScan(Context context)

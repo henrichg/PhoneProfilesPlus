@@ -47,7 +47,11 @@ public class GlobalData extends Application {
     private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags = "PhoneProfilesHelper.doInstallPPHelper"+
-                                         "|PhoneProfilesHelper.doUninstallPPHelper"
+                                         "|PhoneProfilesHelper.doUninstallPPHelper"+
+
+                                         "|$$$ ScannerService.onHandleIntent"+
+                                         "|$$$ WifiScanAlarmBroadcastReceiver.startScan"+
+                                         "|$$$ WifiScanBroadcastReceiver.onReceive"
 
                                         /*"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"+
                                         "|##### WifiScanAlarmBroadcastReceiver.onReceive"+
