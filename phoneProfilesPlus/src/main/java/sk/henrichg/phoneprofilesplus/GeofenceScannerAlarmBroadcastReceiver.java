@@ -133,7 +133,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
                 long alarmTime = calendar.getTimeInMillis();
 
                 //intent.putExtra(EXTRA_ONESHOT, 0);
-                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
+                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
                 if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
                     alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);

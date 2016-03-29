@@ -98,7 +98,7 @@ public class SettingsContentObserver  extends ContentObserver {
         //Context context = getApplicationContext();
         Intent _intent = new Intent(context, DisableInernalChangeBroadcastReceiver.class);
         //intent.putExtra(EXTRA_ONESHOT, 1);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 1, _intent, 0);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 1, _intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, 5);

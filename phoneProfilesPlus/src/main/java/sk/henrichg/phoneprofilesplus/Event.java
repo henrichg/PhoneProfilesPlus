@@ -1381,7 +1381,7 @@ public class Event {
             Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
             //intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
@@ -1485,7 +1485,7 @@ public class Event {
             Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
             //intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
