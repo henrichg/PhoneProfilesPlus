@@ -1826,6 +1826,8 @@ public class DataWrapper {
 
             List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
 
+            boolean done = false;
+
             if (isWifiEnabled)
             {
                 GlobalData.logE("DataWrapper.doEventService","wifiStateEnabled=true");
@@ -1848,8 +1850,10 @@ public class DataWrapper {
                     if (wifiPassed)
                     {
                         // event SSID is connected
+                        done = true;
 
-                        if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)
+                        if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) ||
+                            (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
                             // for this connectionTypes, wifi must not be connected to event SSID
                             wifiPassed = false;
                     }
@@ -1859,9 +1863,11 @@ public class DataWrapper {
                 {
                     GlobalData.logE("@@@ DataWrapper.doEventService", "wifi not connected");
 
-                    if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)
+                    if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) {
                         // for this connectionTypes, wifi must not be connected to event SSID
+                        done = true;
                         wifiPassed = true;
+                    }
                 }
 
             }
@@ -1871,8 +1877,10 @@ public class DataWrapper {
             if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
                 (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
             {
-                if (!wifiPassed)
+                if (!done)
                 {
+                    wifiPassed = false;
+
                     List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
 
                     //if (WifiScanAlarmBroadcastReceiver.scanResults != null)
@@ -1959,6 +1967,8 @@ public class DataWrapper {
             BluetoothAdapter bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
             boolean isBluetoothEnabled = bluetooth.isEnabled();
 
+            boolean done = false;
+
             if (isBluetoothEnabled)
             {
                 GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetoothEnabled=true");
@@ -1971,27 +1981,32 @@ public class DataWrapper {
 
                     if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, event._eventPreferencesBluetooth._adapterName)) {
                         // event BT adapter is connected
+                        done = true;
 
                         bluetoothPassed = true;
 
-                        if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)
+                        if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) ||
+                            (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
                             // for this connectionTypes, BT must not be connected to event BT adapter
                             bluetoothPassed = false;
                     }
                     else {
-                        if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)
+                        if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) {
                             // for this connectionTypes, BT must not be connected to event BT adapter
+                            done = true;
                             bluetoothPassed = true;
+                        }
                     }
                 }
                 else
                 {
                     GlobalData.logE("[BTScan] DataWrapper.doEventService", "bluetooth not connected");
 
-                    if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)
+                    if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) {
                         // for this connectionTypes, BT must not be connected to event BT adapter
+                        done = true;
                         bluetoothPassed = true;
-
+                    }
                 }
             }
             else
@@ -2002,7 +2017,9 @@ public class DataWrapper {
             if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
                 (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
             {
-                if (!bluetoothPassed)
+                bluetoothPassed = false;
+
+                if (!done)
                 {
                     List<BluetoothDeviceData> scanResults = BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
 
