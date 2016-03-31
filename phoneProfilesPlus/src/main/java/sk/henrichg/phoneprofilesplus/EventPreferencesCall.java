@@ -112,19 +112,25 @@ public class EventPreferencesCall extends EventPreferences {
         if (key.equals(PREF_EVENT_CALL_EVENT) || key.equals(PREF_EVENT_CALL_CONTACT_LIST_TYPE))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(value);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
         }
         if (key.equals(PREF_EVENT_CALL_CONTACTS))
         {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            if (preference != null) {
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            }
         }
         if (key.equals(PREF_EVENT_CALL_CONTACT_GROUPS))
         {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            if (preference != null) {
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            }
         }
     }
 

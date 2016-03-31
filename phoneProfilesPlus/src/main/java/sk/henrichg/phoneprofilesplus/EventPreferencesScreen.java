@@ -102,9 +102,11 @@ public class EventPreferencesScreen extends EventPreferences {
         if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(value);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
         }
     }
 
@@ -144,31 +146,35 @@ public class EventPreferencesScreen extends EventPreferences {
         final Preference eventTypePreference = prefMng.findPreference(PREF_EVENT_SCREEN_EVENT_TYPE);
         final PreferenceManager _prefMng = prefMng;
 
-        eventTypePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                String sNewValue = (String)newValue;
-                int iNewValue;
-                if (sNewValue.isEmpty())
-                    iNewValue = 100;
-                else
-                    iNewValue = Integer.parseInt(sNewValue);
-                
-                setWhenUnlockedTitle(_prefMng, iNewValue);
-                
-                return true;
-            }
-        });
+        if (eventTypePreference != null) {
+            eventTypePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String sNewValue = (String) newValue;
+                    int iNewValue;
+                    if (sNewValue.isEmpty())
+                        iNewValue = 100;
+                    else
+                        iNewValue = Integer.parseInt(sNewValue);
+
+                    setWhenUnlockedTitle(_prefMng, iNewValue);
+
+                    return true;
+                }
+            });
+        }
     }
 
     private void setWhenUnlockedTitle(PreferenceManager prefMng, int value)
     {
         final CheckBoxPreference whenUnlockedPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SCREEN_WHEN_UNLOCKED);
 
-        if (value == 0)
-            whenUnlockedPreference.setTitle(R.string.event_preferences_screen_start_when_unlocked);
-        else
-            whenUnlockedPreference.setTitle(R.string.event_preferences_screen_end_when_unlocked);
+        if (whenUnlockedPreference != null) {
+            if (value == 0)
+                whenUnlockedPreference.setTitle(R.string.event_preferences_screen_start_when_unlocked);
+            else
+                whenUnlockedPreference.setTitle(R.string.event_preferences_screen_end_when_unlocked);
+        }
     }
 
     @Override

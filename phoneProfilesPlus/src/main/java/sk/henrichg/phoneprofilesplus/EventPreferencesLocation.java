@@ -95,13 +95,15 @@ public class EventPreferencesLocation extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (key.equals(PREF_EVENT_LOCATION_GEOFENCE_ID)) {
                 Preference preference = prefMng.findPreference(key);
-                long lValue;
-                if (!value.isEmpty())
-                    lValue = Long.valueOf(value);
-                else
-                    lValue = 0;
-                preference.setSummary(getGeofenceName(lValue, context));
-                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+                if (preference != null) {
+                    long lValue;
+                    if (!value.isEmpty())
+                        lValue = Long.valueOf(value);
+                    else
+                        lValue = 0;
+                    preference.setSummary(getGeofenceName(lValue, context));
+                    GUIData.setPreferenceTitleStyle(preference, false, true, false);
+                }
             }
         //}
     }
@@ -151,9 +153,9 @@ public class EventPreferencesLocation extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final boolean enabled = GlobalData.isLocationEnabled(context.getApplicationContext());
             Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCE_ID);
-            preference.setEnabled(enabled);
+            if (preference != null) preference.setEnabled(enabled);
             preference = prefMng.findPreference(PREF_EVENT_LOCATION_WHEN_OUTSIDE);
-            preference.setEnabled(enabled);
+        if (preference != null) preference.setEnabled(enabled);
         //}
     }
 

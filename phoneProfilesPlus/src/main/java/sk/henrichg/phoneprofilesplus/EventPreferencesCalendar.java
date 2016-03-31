@@ -187,26 +187,32 @@ public class EventPreferencesCalendar extends EventPreferences {
         if (key.equals(PREF_EVENT_CALENDAR_CALENDARS))
         {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            if (preference != null) {
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            }
         }
         if (key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
             key.equals(PREF_EVENT_CALENDAR_AVAILABILITY))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(value);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
         }
         if (key.equals(PREF_EVENT_CALENDAR_SEARCH_STRING))
         {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(value);
-            String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
-                    context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
-                    context.getString(R.string.calendar_pref_dlg_info_about_wildcards) + " " +
-                    context.getString(R.string.pref_dlg_info_about_wildcards_3);
-            ((EditTextPreference)preference).setDialogMessage(helpString);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            if (preference != null) {
+                preference.setSummary(value);
+                String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
+                        context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
+                        context.getString(R.string.calendar_pref_dlg_info_about_wildcards) + " " +
+                        context.getString(R.string.pref_dlg_info_about_wildcards_3);
+                ((EditTextPreference) preference).setDialogMessage(helpString);
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            }
         }
     }
 

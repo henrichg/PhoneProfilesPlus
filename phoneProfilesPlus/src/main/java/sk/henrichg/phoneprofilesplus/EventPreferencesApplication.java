@@ -176,9 +176,11 @@ public class EventPreferencesApplication extends EventPreferences {
             final boolean enabled =
                     ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
             Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
-            //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
-            applicationsPreference.setEnabled(enabled);
-            //durationPreference.setEnabled(enabled);
+            if (applicationsPreference != null) {
+                //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
+                applicationsPreference.setEnabled(enabled);
+                //durationPreference.setEnabled(enabled);
+            }
         //}
         /*else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");

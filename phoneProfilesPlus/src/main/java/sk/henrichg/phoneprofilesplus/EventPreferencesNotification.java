@@ -135,7 +135,9 @@ public class EventPreferencesNotification extends EventPreferences {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)) {
                 Preference preference = prefMng.findPreference(key);
-                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+                if (preference != null) {
+                    GUIData.setPreferenceTitleStyle(preference, false, true, false);
+                }
             }
             /*if (key.equals(PREF_EVENT_NOTIFICATION_DURATION)) {
                 Preference preference = prefMng.findPreference(key);
@@ -147,7 +149,9 @@ public class EventPreferencesNotification extends EventPreferences {
             }*/
             if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
                 Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
-                preference.setEnabled(value.equals("false"));
+                if (preference != null) {
+                    preference.setEnabled(value.equals("false"));
+                }
             }
         }
     }
@@ -206,13 +210,18 @@ public class EventPreferencesNotification extends EventPreferences {
             Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
             Preference endWhenRemovedPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED);
             Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
-            applicationsPreference.setEnabled(enabled);
-            endWhenRemovedPreference.setEnabled(enabled);
+            if (applicationsPreference != null)
+                applicationsPreference.setEnabled(enabled);
+            if (endWhenRemovedPreference != null)
+                endWhenRemovedPreference.setEnabled(enabled);
 
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            boolean endWhenRemoved = preferences.getBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, false);
-            enabled = enabled && (!endWhenRemoved);
-            durationPreference.setEnabled(enabled);
+            if (preferences != null) {
+                boolean endWhenRemoved = preferences.getBoolean(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED, false);
+                enabled = enabled && (!endWhenRemoved);
+                if (durationPreference != null)
+                    durationPreference.setEnabled(enabled);
+            }
 
         }
         else {

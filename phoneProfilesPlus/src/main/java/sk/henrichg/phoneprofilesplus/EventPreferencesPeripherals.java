@@ -85,9 +85,11 @@ public class EventPreferencesPeripherals extends EventPreferences {
         if (key.equals(PREF_EVENT_PERIPHERAL_TYPE))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(value);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
         }
     }
 

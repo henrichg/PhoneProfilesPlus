@@ -118,7 +118,9 @@ public class EventPreferencesBattery extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_BATTERY_LEVEL_LOW) || key.equals(PREF_EVENT_BATTERY_LEVEL_HIGHT))
         {
-            prefMng.findPreference(key).setSummary(value + "%");
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null)
+                preference.setSummary(value + "%");
         }
     }
 
@@ -165,69 +167,71 @@ public class EventPreferencesBattery extends EventPreferences {
         final PreferenceManager _prefMng = prefMng;
         final Context _context = context;
 
-        lowLevelPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                String sNewValue = (String)newValue;
-                int iNewValue;
-                if (sNewValue.isEmpty())
-                    iNewValue = 0;
-                else
-                    iNewValue = Integer.parseInt(sNewValue);
-                
-                String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_HIGHT, "100");
-                int iHightLevelValue;
-                if (sHightLevelValue.isEmpty())
-                    iHightLevelValue = 100;
-                else
-                    iHightLevelValue = Integer.parseInt(sHightLevelValue);
+        if (lowLevelPreference != null) {
+            lowLevelPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String sNewValue = (String) newValue;
+                    int iNewValue;
+                    if (sNewValue.isEmpty())
+                        iNewValue = 0;
+                    else
+                        iNewValue = Integer.parseInt(sNewValue);
 
-                boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
-                
-                if (!OK)
-                {
-                    Toast msg = Toast.makeText(_context,
-                            _context.getResources().getString(R.string.event_preferences_battery_level_low) + ": " +
-                            _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
-                            Toast.LENGTH_SHORT);
-                    msg.show();
+                    String sHightLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_HIGHT, "100");
+                    int iHightLevelValue;
+                    if (sHightLevelValue.isEmpty())
+                        iHightLevelValue = 100;
+                    else
+                        iHightLevelValue = Integer.parseInt(sHightLevelValue);
+
+                    boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
+
+                    if (!OK) {
+                        Toast msg = Toast.makeText(_context,
+                                _context.getResources().getString(R.string.event_preferences_battery_level_low) + ": " +
+                                        _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
+                                Toast.LENGTH_SHORT);
+                        msg.show();
+                    }
+
+                    return OK;
                 }
-                
-                return OK;
-            }
-        });
+            });
+        }
 
-        hightLevelPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                String sNewValue = (String)newValue;
-                int iNewValue;
-                if (sNewValue.isEmpty())
-                    iNewValue = 100;
-                else
-                    iNewValue = Integer.parseInt(sNewValue);
-                
-                String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_LOW, "0");
-                int iLowLevelValue;
-                if (sLowLevelValue.isEmpty())
-                    iLowLevelValue = 0;
-                else
-                    iLowLevelValue = Integer.parseInt(sLowLevelValue);
+        if (hightLevelPreference != null) {
+            hightLevelPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String sNewValue = (String) newValue;
+                    int iNewValue;
+                    if (sNewValue.isEmpty())
+                        iNewValue = 100;
+                    else
+                        iNewValue = Integer.parseInt(sNewValue);
 
-                boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 100));
-                
-                if (!OK)
-                {
-                    Toast msg = Toast.makeText(_context,
-                            _context.getResources().getString(R.string.event_preferences_battery_level_hight) + ": " +
-                            _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
-                            Toast.LENGTH_SHORT);
-                    msg.show();
+                    String sLowLevelValue = _prefMng.getSharedPreferences().getString(PREF_EVENT_BATTERY_LEVEL_LOW, "0");
+                    int iLowLevelValue;
+                    if (sLowLevelValue.isEmpty())
+                        iLowLevelValue = 0;
+                    else
+                        iLowLevelValue = Integer.parseInt(sLowLevelValue);
+
+                    boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 100));
+
+                    if (!OK) {
+                        Toast msg = Toast.makeText(_context,
+                                _context.getResources().getString(R.string.event_preferences_battery_level_hight) + ": " +
+                                        _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
+                                Toast.LENGTH_SHORT);
+                        msg.show();
+                    }
+
+                    return OK;
                 }
-                
-                return OK;
-            }
-        });
+            });
+        }
 
     }
 

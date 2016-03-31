@@ -24,7 +24,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     private int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
     private int predefinedEventIndex = 0;
 
-    EventPreferencesFragment fragment;
+    EventPreferencesNestedFragment fragment;
 
     private int resultCode = RESULT_CANCELED;
 
@@ -70,7 +70,21 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         newEventMode = getIntent().getIntExtra(GlobalData.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
         predefinedEventIndex = getIntent().getIntExtra(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
-        fragment = new EventPreferencesFragment();
+        fragment = createFragment(false);
+
+        if (savedInstanceState == null) {
+            loadPreferences(newEventMode, predefinedEventIndex);
+        }
+
+        setPreferenceFragment(fragment);
+    }
+
+    private EventPreferencesNestedFragment createFragment(boolean nested) {
+        EventPreferencesNestedFragment fragment;
+        if (nested)
+            fragment = new EventPreferencesNestedFragment();
+        else
+            fragment = new EventPreferencesFragment();
 
         Bundle arguments = new Bundle();
         arguments.putLong(GlobalData.EXTRA_EVENT_ID, event_id);
@@ -78,11 +92,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         arguments.putInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         fragment.setArguments(arguments);
 
-        if (savedInstanceState == null) {
-            loadPreferences(newEventMode, predefinedEventIndex);
-        }
-
-        setPreferenceFragment(fragment);
+        return fragment;
     }
 
     @Override
@@ -282,6 +292,6 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
     @Override
     public PreferenceFragment onCreateNestedPreferenceFragment() {
-        return new NestedPreferenceFragment();
+        return createFragment(true);
     }
 }

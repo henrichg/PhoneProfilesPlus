@@ -98,21 +98,27 @@ public class EventPreferencesWifi extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(context.getResources().getString(R.string.menu_settings)+": "+
-                    context.getResources().getString(R.string.phone_profiles_pref_applicationEventWifiEnableWifi));
+            if (preference != null) {
+                preference.setSummary(context.getResources().getString(R.string.menu_settings) + ": " +
+                        context.getResources().getString(R.string.phone_profiles_pref_applicationEventWifiEnableWifi));
+            }
         }
         if (key.equals(PREF_EVENT_WIFI_SSID))
         {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(value);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            if (preference != null) {
+                preference.setSummary(value);
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            }
         }
         if (key.equals(PREF_EVENT_WIFI_CONNECTION_TYPE))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(value);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
         }
     }
 
@@ -136,9 +142,12 @@ public class EventPreferencesWifi extends EventPreferences {
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context)
                 != GlobalData.PREFERENCE_ALLOWED)
         {
-            prefMng.findPreference(PREF_EVENT_WIFI_ENABLED).setEnabled(false);
-            prefMng.findPreference(PREF_EVENT_WIFI_SSID).setEnabled(false);
-            prefMng.findPreference(PREF_EVENT_WIFI_CONNECTION_TYPE).setEnabled(false);
+            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_ENABLED);
+            if (preference != null) preference.setEnabled(false);
+            preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
+            if (preference != null) preference.setEnabled(false);
+            preference = prefMng.findPreference(PREF_EVENT_WIFI_CONNECTION_TYPE);
+            if (preference != null) preference.setEnabled(false);
         }
 
     }

@@ -207,8 +207,7 @@ public class GUIData {
             new Handler().post(new Runnable() {
 
                 @Override
-                public void run()
-                {
+                public void run() {
                     Intent intent = _activity.getIntent();
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     _activity.overridePendingTransition(0, 0);
@@ -225,26 +224,25 @@ public class GUIData {
 
     public static void setPreferenceTitleStyle(Preference preference, boolean bold, boolean underline, boolean errorColor)
     {
-        CharSequence title = preference.getTitle();
-        Spannable sbt = new SpannableString(title);
-        Object spansToRemove[] = sbt.getSpans(0, title.length(), Object.class);
-        for(Object span: spansToRemove){
-            if(span instanceof CharacterStyle)
-                sbt.removeSpan(span);
-        }
-        if (bold || underline)
-        {
-            if (bold)
-                sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            if (underline)
-                sbt.setSpan(new UnderlineSpan(), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            if (errorColor)
-                sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            preference.setTitle(sbt);
-        }
-        else
-        {
-            preference.setTitle(sbt);
+        if (preference != null) {
+            CharSequence title = preference.getTitle();
+            Spannable sbt = new SpannableString(title);
+            Object spansToRemove[] = sbt.getSpans(0, title.length(), Object.class);
+            for (Object span : spansToRemove) {
+                if (span instanceof CharacterStyle)
+                    sbt.removeSpan(span);
+            }
+            if (bold || underline) {
+                if (bold)
+                    sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                if (underline)
+                    sbt.setSpan(new UnderlineSpan(), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                if (errorColor)
+                    sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                preference.setTitle(sbt);
+            } else {
+                preference.setTitle(sbt);
+            }
         }
     }
 
