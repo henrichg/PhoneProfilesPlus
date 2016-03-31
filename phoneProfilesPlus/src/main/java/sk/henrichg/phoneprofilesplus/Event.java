@@ -581,7 +581,7 @@ public class Event {
             Preference preference = prefMng.findPreference("eventStartOthersCategory");
             if (preference != null) {
                 boolean bold = (//forceRunChanged ||
-                        manualProfileActivationChanged ||
+                                manualProfileActivationChanged ||
                                 profileStartWhenActivatedChanged ||
                                 delayStartChanged ||
                                 notificationSoundChanged);
