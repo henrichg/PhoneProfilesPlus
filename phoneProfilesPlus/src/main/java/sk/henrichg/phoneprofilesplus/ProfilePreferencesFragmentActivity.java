@@ -22,7 +22,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
     int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
     int predefinedProfileIndex = 0;
 
-    private ProfilePreferencesFragment fragment;
+    private ProfilePreferencesNestedFragment fragment;
 
     private int resultCode = RESULT_CANCELED;
 
@@ -74,7 +74,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
             getSupportActionBar().setTitle(R.string.title_activity_profile_preferences);
         */
 
-        fragment = createFragment();
+        fragment = createFragment(false);
 
         if (savedInstanceState == null) {
             loadPreferences(newProfileMode, predefinedProfileIndex);
@@ -84,8 +84,12 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
 
     }
 
-    private ProfilePreferencesFragment createFragment() {
-        ProfilePreferencesFragment fragment = new ProfilePreferencesFragment();
+    private ProfilePreferencesNestedFragment createFragment(boolean nested) {
+        ProfilePreferencesNestedFragment fragment;
+        if (nested)
+            fragment = new ProfilePreferencesNestedFragment();
+        else
+            fragment = new ProfilePreferencesFragment();
 
         Bundle arguments = new Bundle();
         arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile_id);
@@ -423,8 +427,6 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
 
     @Override
     public PreferenceFragment onCreateNestedPreferenceFragment() {
-        //ProfilePreferencesFragment fragment = createFragment();
-        //fragment.nested = true;
-        return new NestedPreferenceFragment();
+        return createFragment(true);
     }
 }
