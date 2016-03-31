@@ -42,9 +42,9 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
     static final String PREFS_NAME_FRAGMENT = "profile_preferences_fragment";
     static final String PREFS_NAME_DEFAULT_PROFILE = GlobalData.DEFAULT_PROFILE_PREFS_NAME;
 
-    static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
-    static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
-    static final String PREF_UNLINK_VOLUMES_APP_PREFERENCES = "prf_pref_volumeUnlinkVolumesAppSettings";
+    //static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
+    //static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
+    //static final String PREF_UNLINK_VOLUMES_APP_PREFERENCES = "prf_pref_volumeUnlinkVolumesAppSettings";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

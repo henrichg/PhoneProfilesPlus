@@ -15,8 +15,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
                         implements PreferenceFragment.OnCreateNestedPreferenceFragment
 {
 
-    private SharedPreferences preferences;
-
     private boolean showEditorPrefIndicator;
     private boolean showEditorHeader;
     private String activeLanguage;
@@ -28,7 +26,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
     private boolean invalidateEditor = false;
 
-    PhoneProfilesPreferencesFragment fragment;
+    PhoneProfilesPreferencesNestedFragment fragment;
 
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
@@ -46,20 +44,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         super.onCreate(savedInstanceState);
 
         //setContentView(R.layout.activity_phone_profiles_preferences);
-
-        String extraScrollTo = "";
-        //String extraScrollToType = "";
-
-        Intent intent = getIntent();
-        if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
-            // activity is started from lockscreen, scroll to notifications cattegory
-            extraScrollTo = "categoryNotifications";
-            //extraScrollToType = "category";
-        }
-        else {
-            extraScrollTo = intent.getStringExtra(EXTRA_SCROLL_TO);
-            //extraScrollToType = intent.getStringExtra(EXTRA_SCROLL_TO_TYPE);
-        }
 
         /*
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
@@ -86,7 +70,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         //getSupportActionBar().setTitle(R.string.title_activity_phone_profiles_preferences);
 
 
-        preferences = getApplicationContext().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, MODE_PRIVATE);
         activeLanguage = preferences.getString(GlobalData.PREF_APPLICATION_LANGUAGE, "system");
         activeTheme = preferences.getString(GlobalData.PREF_APPLICATION_THEME, "material");
         showEditorPrefIndicator = preferences.getBoolean(GlobalData.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
@@ -95,40 +79,39 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         bluetoothScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
         locationScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
 
-        fragment = new PhoneProfilesPreferencesFragment();
+        fragment = createFragment(false);
+
+        setPreferenceFragment(fragment);
+    }
+
+    private PhoneProfilesPreferencesNestedFragment createFragment(boolean nested) {
+        PhoneProfilesPreferencesNestedFragment fragment;
+        if (nested)
+            fragment = new PhoneProfilesPreferencesNestedFragment();
+        else
+            fragment = new PhoneProfilesPreferencesFragment();
+
+        String extraScrollTo = "";
+        //String extraScrollToType = "";
+
+        Intent intent = getIntent();
+        if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
+            // activity is started from lockscreen, scroll to notifications cattegory
+            extraScrollTo = "categoryNotifications";
+            //extraScrollToType = "category";
+        }
+        else {
+            extraScrollTo = intent.getStringExtra(EXTRA_SCROLL_TO);
+            //extraScrollToType = intent.getStringExtra(EXTRA_SCROLL_TO_TYPE);
+        }
 
         Bundle args = new Bundle();
         args.putString(EXTRA_SCROLL_TO, extraScrollTo);
         //args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
         fragment.setArguments(args);
 
-        setPreferenceFragment(fragment);
+        return fragment;
     }
-
-    /*
-    @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
-        super.onConfigurationChanged(newConfig);
-
-        getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
-        GUIData.reloadActivity(this, false);
-    }
-    */
-
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
-        }
-    }
-    */
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -244,6 +227,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
     @Override
     public PreferenceFragment onCreateNestedPreferenceFragment() {
-        return new NestedPreferenceFragment();
+        return createFragment(true);
     }
 }
