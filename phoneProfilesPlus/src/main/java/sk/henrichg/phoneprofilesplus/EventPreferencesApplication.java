@@ -110,6 +110,7 @@ public class EventPreferencesApplication extends EventPreferences {
         return descr;
     }
 
+    @Override
     public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -128,6 +129,7 @@ public class EventPreferencesApplication extends EventPreferences {
         //}
     }
 
+    @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)/* ||
@@ -137,12 +139,14 @@ public class EventPreferencesApplication extends EventPreferences {
         }
     }
 
+    @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_APPLICATION_APPLICATIONS, preferences, context);
         //setSummary(prefMng, PREF_EVENT_NOTIFICATION_DURATION, preferences, context);
     }
 
+    @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications);
         if (preferences != null)
