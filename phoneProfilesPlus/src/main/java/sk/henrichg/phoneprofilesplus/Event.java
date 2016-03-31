@@ -93,7 +93,7 @@ public class Event {
 
     // Empty constructor
     public Event(){
-
+        createEventPreferences();
     }
 
     // constructor

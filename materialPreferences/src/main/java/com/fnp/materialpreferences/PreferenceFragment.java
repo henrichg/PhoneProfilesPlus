@@ -1,6 +1,7 @@
 package com.fnp.materialpreferences;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.os.Build;
@@ -27,14 +28,64 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
 
     private PreferenceScreen mPreferenceScreen;
 
+    public boolean nested = false;
+
+    /**
+     * The fragment's current callback objects
+     */
+    private OnCreateNestedPreferenceFragment onCreateNestedPreferenceFragmentCallback = sDummyOnCreateNestedPreferenceFragmentCallback;
+
+    /**
+     * A callback interface that all activities containing this fragment must
+     * implement. This mechanism allows activities to be notified.
+     */
+    // invoked when nested fragment is created
+    public interface OnCreateNestedPreferenceFragment {
+        public PreferenceFragment onCreateNestedPreferenceFragment();
+    }
+
+    /**
+     * A dummy implementation of the Callbacks interface that does
+     * nothing. Used only when this fragment is not attached to an activity.
+     */
+    private static OnCreateNestedPreferenceFragment sDummyOnCreateNestedPreferenceFragmentCallback = new OnCreateNestedPreferenceFragment() {
+        public PreferenceFragment onCreateNestedPreferenceFragment() {
+            return null;
+        }
+    };
+
+    public PreferenceFragment() {
+        nested = false;
+    }
+
     public void savePreferenceScreen(PreferenceScreen preferenceScreen) {
         mPreferenceScreen = preferenceScreen;
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // Activities containing this fragment must implement its callbacks.
+        if (!(activity instanceof OnCreateNestedPreferenceFragment)) {
+            throw new IllegalStateException(
+                    "Activity must implement fragment's callbacks.");
+        }
+        onCreateNestedPreferenceFragmentCallback = (OnCreateNestedPreferenceFragment) activity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        // Reset the active callbacks interface to the dummy implementation.
+        onCreateNestedPreferenceFragmentCallback = sDummyOnCreateNestedPreferenceFragmentCallback;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (addPreferencesFromResource() != -1) {
+        if ((!nested) && (addPreferencesFromResource() != -1)) {
             addPreferencesFromResource(addPreferencesFromResource());
         }
 
@@ -171,7 +222,8 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             //Close the default view without mp_toolbar and create our own Fragment version
             dialog.dismiss();
 
-            NestedPreferenceFragment fragment = new NestedPreferenceFragment();
+            PreferenceFragment fragment = onCreateNestedPreferenceFragmentCallback.onCreateNestedPreferenceFragment();
+            //NestedPreferenceFragment fragment = new NestedPreferenceFragment();
 
             //Save the preference screen so it can bet set when the transaction is done
             fragment.savePreferenceScreen(preference);

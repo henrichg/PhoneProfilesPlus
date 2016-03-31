@@ -10,11 +10,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.fnp.materialpreferences.NestedPreferenceFragment;
 import com.fnp.materialpreferences.PreferenceActivity;
+import com.fnp.materialpreferences.PreferenceFragment;
 
 import java.util.List;
 
 public class EventPreferencesFragmentActivity extends PreferenceActivity
+                                implements PreferenceFragment.OnCreateNestedPreferenceFragment
 {
 
     private long event_id = 0;
@@ -67,23 +70,19 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         newEventMode = getIntent().getIntExtra(GlobalData.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
         predefinedEventIndex = getIntent().getIntExtra(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
+        fragment = new EventPreferencesFragment();
+
+        Bundle arguments = new Bundle();
+        arguments.putLong(GlobalData.EXTRA_EVENT_ID, event_id);
+        arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
+        arguments.putInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+        fragment.setArguments(arguments);
+
         if (savedInstanceState == null) {
-            fragment = new EventPreferencesFragment();
-
-            Bundle arguments = new Bundle();
-            arguments.putLong(GlobalData.EXTRA_EVENT_ID, event_id);
-            arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
-            arguments.putInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
-            fragment.setArguments(arguments);
-
             loadPreferences(newEventMode, predefinedEventIndex);
-
-            setPreferenceFragment(fragment);
-        }
-        else {
-            fragment = (EventPreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_event_preferences_container);
         }
 
+        setPreferenceFragment(fragment);
     }
 
     @Override
@@ -281,4 +280,8 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         }
     }
 
+    @Override
+    public PreferenceFragment onCreateNestedPreferenceFragment() {
+        return new NestedPreferenceFragment();
+    }
 }

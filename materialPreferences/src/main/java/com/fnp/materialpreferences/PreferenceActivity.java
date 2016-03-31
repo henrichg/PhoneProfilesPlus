@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public abstract class PreferenceActivity extends AppCompatPreferenceActivity {
+public abstract class PreferenceActivity extends AppCompatPreferenceActivity
+{
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void setPreferenceFragment(PreferenceFragment preferenceFragment) {
@@ -59,4 +60,5 @@ public abstract class PreferenceActivity extends AppCompatPreferenceActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

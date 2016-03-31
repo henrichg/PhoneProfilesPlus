@@ -63,7 +63,8 @@ public class EventPreferencesFragment extends PreferenceFragment
             event_id = getArguments().getLong(GlobalData.EXTRA_EVENT_ID);
         predefinedEventIndex = getArguments().getInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX);
 
-        event = EventPreferencesFragmentActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        //event = EventPreferencesFragmentActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        event = new Event();
 
         //prefMng = getPreferenceManager();
         preferences = prefMng.getSharedPreferences();
@@ -220,7 +221,7 @@ public class EventPreferencesFragment extends PreferenceFragment
     public void onDestroy()
     {
         preferences.unregisterOnSharedPreferenceChangeListener(this);
-        event = null;
+        //event = null;
 
         if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();

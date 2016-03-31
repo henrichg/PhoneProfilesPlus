@@ -26,7 +26,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private DataWrapper dataWrapper;
-    private Profile profile;
+    //private Profile profile;
     //private boolean first_start_activity;
     private int new_profile_mode;
     private int predefineProfileIndex;
@@ -70,8 +70,9 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             profile_id = getArguments().getLong(GlobalData.EXTRA_PROFILE_ID);
         predefineProfileIndex = getArguments().getInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX);
 
-        profile = ProfilePreferencesFragmentActivity.createProfile(context.getApplicationContext(), profile_id, new_profile_mode, predefineProfileIndex, true);
+        //profile = ProfilePreferencesFragmentActivity.createProfile(context.getApplicationContext(), profile_id, new_profile_mode, predefineProfileIndex, true);
 
+        prefMng = getPreferenceManager();
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);
 
@@ -98,6 +99,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             PREFS_NAME = PREFS_NAME_FRAGMENT;
 
         prefMng = getPreferenceManager();
+
         prefMng.setSharedPreferencesName(PREFS_NAME);
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
@@ -152,47 +154,56 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                     PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
 
             Preference zenModePreference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
-            zenModePreference.setEnabled((profile._volumeRingerMode == 5) && canEnableZenMode);
+            if (zenModePreference != null) {
+                String value = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, "");
+                zenModePreference.setEnabled((value.equals("5")) && canEnableZenMode);
+            }
 
             Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
-            //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                    startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
-                    return false;
-                }
-            });
+            if (notificationAccessPreference != null) {
+                //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                        startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                        return false;
+                    }
+                });
+            }
 
             Preference volumeUnlinkPreference = prefMng.findPreference(PREF_UNLINK_VOLUMES_APP_PREFERENCES);
-            //volumeUnlinkPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            if (volumeUnlinkPreference != null) {
+                //volumeUnlinkPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            }
 
-            ringerModePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    String sNewValue = (String) newValue;
-                    int iNewValue;
-                    if (sNewValue.isEmpty())
-                        iNewValue = 0;
-                    else
-                        iNewValue = Integer.parseInt(sNewValue);
+            if (ringerModePreference != null) {
+                ringerModePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        String sNewValue = (String) newValue;
+                        int iNewValue;
+                        if (sNewValue.isEmpty())
+                            iNewValue = 0;
+                        else
+                            iNewValue = Integer.parseInt(sNewValue);
 
                     /*final boolean canEnableZenMode =
                             (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                                     (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
                             );*/
-                    final boolean canEnableZenMode =
-                            PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
+                        final boolean canEnableZenMode =
+                                PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
 
-                    Preference zenModePreference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
+                        Preference zenModePreference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
 
-                    zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode);
-                    GUIData.setPreferenceTitleStyle(zenModePreference, false, false, false);
+                        zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode);
+                        GUIData.setPreferenceTitleStyle(zenModePreference, false, false, false);
 
-                    return true;
-                }
-            });
+                        return true;
+                    }
+                });
+            }
         }
         else
         {
@@ -221,33 +232,35 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
         {
             ListPreference networkTypePreference = (ListPreference) prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);
-            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            final int phoneType = telephonyManager.getPhoneType();
+            if (networkTypePreference != null) {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                final int phoneType = telephonyManager.getPhoneType();
 
-            if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
-                if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
-                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
-                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
+                if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
+                    if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
+                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
+                    } else {
+                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMArray));
+                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMValues));
+                    }
+                    String value = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
+                    networkTypePreference.setValue(value);
+                    setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
                 }
-                else {
-                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMArray));
-                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMValues));
-                }
-                networkTypePreference.setValue(Integer.toString(profile._deviceNetworkType));
-                setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
-            }
 
-            if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
-                if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
-                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
-                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
+                if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
+                    if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
+                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
+                    } else {
+                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMAArray));
+                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMAValues));
+                    }
+                    String value = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
+                    networkTypePreference.setValue(value);
+                    setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
                 }
-                else {
-                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMAArray));
-                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMAValues));
-                }
-                networkTypePreference.setValue(Integer.toString(profile._deviceNetworkType));
-                setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
             }
         }
     }
@@ -280,12 +293,12 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     public void onDestroy()
     {
         preferences.unregisterOnSharedPreferenceChangeListener(this);
-        profile = null;
-        
+        //profile = null;
+
         if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
         dataWrapper = null;
-        
+
         super.onDestroy();
     }
 
@@ -640,25 +653,31 @@ public class ProfilePreferencesFragment extends PreferenceFragment
     {
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(context.getResources().getString(R.string.menu_settings)+": "+
-                    context.getResources().getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes));
+            if (preference != null) {
+                preference.setSummary(context.getResources().getString(R.string.menu_settings) + ": " +
+                        context.getResources().getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes));
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_NAME))
         {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(value.toString());
-            GUIData.setPreferenceTitleStyle(preference, false, true, false);
-            setCategorySummary(preference, false);
+            if (preference != null) {
+                preference.setSummary(value.toString());
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+                setCategorySummary(preference, false);
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE))
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(sValue);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
-            setCategorySummary(listPreference, index > 0);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(sValue);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                setCategorySummary(listPreference, index > 0);
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE))
         {
@@ -674,36 +693,40 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 if (!canEnableZenMode)
                 {
                     ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-                    listPreference.setEnabled(false);
-                    listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
-                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
-                    setCategorySummary(listPreference, false);
+                    if (listPreference != null) {
+                        listPreference.setEnabled(false);
+                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
+                        GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
+                        setCategorySummary(listPreference, false);
+                    }
                 }
                 else
                 {
                     String sValue = value.toString();
                     ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-                    int index = listPreference.findIndexOfValue(sValue);
-                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                    int iValue = Integer.parseInt(sValue);
-                    if ((iValue != 0) && (iValue != 99)) {
-                        String[] summaryArray = getResources().getStringArray(R.array.zenModeSummaryArray);
-                        summary = summary + " - " + summaryArray[iValue-1];
-                    }
-                    listPreference.setSummary(summary);
+                    if (listPreference != null) {
+                        int index = listPreference.findIndexOfValue(sValue);
+                        CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                        int iValue = Integer.parseInt(sValue);
+                        if ((iValue != 0) && (iValue != 99)) {
+                            String[] summaryArray = getResources().getStringArray(R.array.zenModeSummaryArray);
+                            summary = summary + " - " + summaryArray[iValue - 1];
+                        }
+                        listPreference.setSummary(summary);
 
-                    final String sRingerMode = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, "");
-                    int iRingerMode;
-                    if (sRingerMode.isEmpty())
-                        iRingerMode = 0;
-                    else
-                        iRingerMode = Integer.parseInt(sRingerMode);
+                        final String sRingerMode = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, "");
+                        int iRingerMode;
+                        if (sRingerMode.isEmpty())
+                            iRingerMode = 0;
+                        else
+                            iRingerMode = Integer.parseInt(sRingerMode);
 
-                    if (iRingerMode == 5) {
-                        GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
-                        setCategorySummary(listPreference, index > 0);
+                        if (iRingerMode == 5) {
+                            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                            setCategorySummary(listPreference, index > 0);
+                        }
+                        listPreference.setEnabled(iRingerMode == 5);
                     }
-                    listPreference.setEnabled(iRingerMode == 5);
                 }
             }
         }
@@ -713,11 +736,13 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(sValue);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
-            setCategorySummary(listPreference, index > 0);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(sValue);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                setCategorySummary(listPreference, index > 0);
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_SOUND_RINGTONE) ||
             key.equals(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION) ||
@@ -725,8 +750,12 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         {
             String ringtoneUri = value.toString();
 
-            if (ringtoneUri.isEmpty())
-                prefMng.findPreference(key).setSummary(R.string.preferences_notificationSound_None);
+            if (ringtoneUri.isEmpty()) {
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
+                    preference.setSummary(R.string.preferences_notificationSound_None);
+                }
+            }
             else
             {
                 Uri uri = Uri.parse(ringtoneUri);
@@ -736,7 +765,10 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                     ringtoneName = "";
                 else
                     ringtoneName = ringtone.getTitle(context);
-                prefMng.findPreference(key).setSummary(ringtoneName);
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
+                    preference.setSummary(ringtoneName);
+                }
             }
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
@@ -755,60 +787,79 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 // set mobile data preference title
                 if (android.os.Build.VERSION.SDK_INT >= 21) {
                     Preference mobileDataPreference = prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA);
-                    mobileDataPreference.setTitle(R.string.profile_preferences_deviceMobileData_21);
+                    if (mobileDataPreference != null) {
+                        mobileDataPreference.setTitle(R.string.profile_preferences_deviceMobileData_21);
+                    }
                 }
                 else {
                     Preference mobileDataPreference = prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA);
-                    mobileDataPreference.setTitle(R.string.profile_preferences_deviceMobileData);
+                    if (mobileDataPreference != null) {
+                        mobileDataPreference.setTitle(R.string.profile_preferences_deviceMobileData);
+                    }
                 }
             }
             int canChange = GlobalData.isPreferenceAllowed(key, context);
             if (canChange != GlobalData.PREFERENCE_ALLOWED)
             {
                 ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-                listPreference.setEnabled(false);
-                if (canChange == GlobalData.PREFERENCE_NOT_ALLOWED)
-                    listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
-                else
-                if (canChange == GlobalData.PREFERENCE_INSTALL_PPHELPER)
-                    listPreference.setSummary(getResources().getString(R.string.profile_preferences_install_pphelper));
-                else
-                if (canChange == GlobalData.PREFERENCE_UPGRADE_PPHELPER)
-                    listPreference.setSummary(getResources().getString(R.string.profile_preferences_upgrade_pphelper));
-                GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
-                setCategorySummary(listPreference, false);
+                if (listPreference != null) {
+                    listPreference.setEnabled(false);
+                    if (canChange == GlobalData.PREFERENCE_NOT_ALLOWED)
+                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
+                    else if (canChange == GlobalData.PREFERENCE_INSTALL_PPHELPER)
+                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_install_pphelper));
+                    else if (canChange == GlobalData.PREFERENCE_UPGRADE_PPHELPER)
+                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_upgrade_pphelper));
+                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
+                    setCategorySummary(listPreference, false);
+                }
             }
             else
             {
                 String sValue = value.toString();
                 ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-                int index = listPreference.findIndexOfValue(sValue);
-                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                listPreference.setSummary(summary);
-                //if (key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA))
-                //    Log.e("ProfilePreferencesFragment", "index="+index);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
-                setCategorySummary(listPreference, index > 0);
+                if (listPreference != null) {
+                    int index = listPreference.findIndexOfValue(sValue);
+                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    listPreference.setSummary(summary);
+                    //if (key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA))
+                    //    Log.e("ProfilePreferencesFragment", "index="+index);
+                    GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                    setCategorySummary(listPreference, index > 0);
+                }
             }
 
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            boolean secureKeyguard;
-            KeyguardManager keyguardManager = (KeyguardManager)context.getSystemService(Activity.KEYGUARD_SERVICE);
-            if (android.os.Build.VERSION.SDK_INT >= 16)
-                secureKeyguard = keyguardManager.isKeyguardSecure();
-            else
-                secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
-            listPreference.setEnabled(!secureKeyguard);
-            if (secureKeyguard) {
-                GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
-                setCategorySummary(listPreference, false);
-                listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
+            if (listPreference != null) {
+                boolean secureKeyguard;
+                KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
+                if (android.os.Build.VERSION.SDK_INT >= 16)
+                    secureKeyguard = keyguardManager.isKeyguardSecure();
+                else
+                    secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
+                listPreference.setEnabled(!secureKeyguard);
+                if (secureKeyguard) {
+                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
+                    setCategorySummary(listPreference, false);
+                    listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed));
+                } else {
+                    String sValue = value.toString();
+                    int index = listPreference.findIndexOfValue(sValue);
+                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    listPreference.setSummary(summary);
+                    GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                    setCategorySummary(listPreference, index > 0);
+                }
             }
-            else {
-                String sValue = value.toString();
+        }
+        if (key.equals(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT))
+        {
+            String sValue = value.toString();
+            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
@@ -816,25 +867,17 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 setCategorySummary(listPreference, index > 0);
             }
         }
-        if (key.equals(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT))
-        {
-            String sValue = value.toString();
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(sValue);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
-            setCategorySummary(listPreference, index > 0);
-        }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE))
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(sValue);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
-            setCategorySummary(listPreference, index > 0);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(sValue);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                setCategorySummary(listPreference, index > 0);
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
             key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS) ||
@@ -845,40 +888,48 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(sValue);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
-            setCategorySummary(listPreference, index > 0);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(sValue);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                setCategorySummary(listPreference, index > 0);
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_DURATION))
         {
             Preference preference = prefMng.findPreference(key);
-            String sValue = value.toString();
-            int iValue = 0;
-            if (!sValue.isEmpty())
-                iValue = Integer.valueOf(sValue);
-            //preference.setSummary(sValue);
-            GUIData.setPreferenceTitleStyle(preference, iValue > 0, false, false);
-            setCategorySummary(preference, iValue > 0);
+            if (preference != null) {
+                String sValue = value.toString();
+                int iValue = 0;
+                if (!sValue.isEmpty())
+                    iValue = Integer.valueOf(sValue);
+                //preference.setSummary(sValue);
+                GUIData.setPreferenceTitleStyle(preference, iValue > 0, false, false);
+                setCategorySummary(preference, iValue > 0);
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_AFTER_DURATION_DO))
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(sValue);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
-            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
-            setCategorySummary(listPreference, index > 0);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(sValue);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                setCategorySummary(listPreference, index > 0);
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_ASK_FOR_DURATION))
         {
             String sValue = value.toString();
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
-            boolean show = sValue.equals("true");
-            GUIData.setPreferenceTitleStyle(checkBoxPreference, show, false, false);
-            setCategorySummary(checkBoxPreference, show);
+            if (checkBoxPreference != null) {
+                boolean show = sValue.equals("true");
+                GUIData.setPreferenceTitleStyle(checkBoxPreference, show, false, false);
+                setCategorySummary(checkBoxPreference, show);
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGTONE) ||
             key.equals(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION) ||
@@ -888,18 +939,22 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             key.equals(GlobalData.PREF_PROFILE_VOLUME_VOICE))
         {
             Preference preference = prefMng.findPreference(key);
-            String sValue = value.toString();
-            boolean change = VolumeDialogPreference.changeEnabled(sValue);
-            GUIData.setPreferenceTitleStyle(preference, change, false, false);
-            setCategorySummary(preference, change);
+            if (preference != null) {
+                String sValue = value.toString();
+                boolean change = VolumeDialogPreference.changeEnabled(sValue);
+                GUIData.setPreferenceTitleStyle(preference, change, false, false);
+                setCategorySummary(preference, change);
+            }
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS))
         {
             Preference preference = prefMng.findPreference(key);
-            String sValue = value.toString();
-            boolean change = BrightnessDialogPreference.changeEnabled(sValue);
-            GUIData.setPreferenceTitleStyle(preference, change, false, false);
-            setCategorySummary(preference, change);
+            if (preference != null) {
+                String sValue = value.toString();
+                boolean change = BrightnessDialogPreference.changeEnabled(sValue);
+                GUIData.setPreferenceTitleStyle(preference, change, false, false);
+                setCategorySummary(preference, change);
+            }
         }
 
     }
@@ -927,27 +982,37 @@ public class ProfilePreferencesFragment extends PreferenceFragment
         if (key.equals(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            prefMng.findPreference(GlobalData.PREF_PROFILE_SOUND_RINGTONE).setEnabled(enabled);
+            Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_SOUND_RINGTONE);
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
         if (key.equals(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            prefMng.findPreference(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION).setEnabled(enabled);
+            Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION);
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
         if (key.equals(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            prefMng.findPreference(GlobalData.PREF_PROFILE_SOUND_ALARM).setEnabled(enabled);
+            Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_SOUND_ALARM);
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER).setEnabled(enabled);
+            Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER);
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));
-            prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME).setEnabled(enabled);
+            Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP))
         {
@@ -957,7 +1022,9 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 editor.putString(GlobalData.PREF_PROFILE_DEVICE_WIFI, NO_CHANGE);
                 editor.commit();
             }
-            prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_WIFI).setEnabled(enabled);
+            Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_WIFI);
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
 
     }
@@ -975,8 +1042,8 @@ public class ProfilePreferencesFragment extends PreferenceFragment
 
     private void updateSharedPreference()
     {
-        if (profile != null)
-        {
+        //if (profile != null)
+        //{
 
             // updating activity with selected profile preferences
 
@@ -1032,7 +1099,7 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
             disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
 
-        }
+        //}
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,

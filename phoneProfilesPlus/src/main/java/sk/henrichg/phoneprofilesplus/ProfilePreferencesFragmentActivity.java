@@ -13,8 +13,10 @@ import android.view.MenuItem;
 
 import com.fnp.materialpreferences.NestedPreferenceFragment;
 import com.fnp.materialpreferences.PreferenceActivity;
+import com.fnp.materialpreferences.PreferenceFragment;
 
 public class ProfilePreferencesFragmentActivity extends PreferenceActivity
+                        implements PreferenceFragment.OnCreateNestedPreferenceFragment
 {
     private long profile_id = 0;
     int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
@@ -72,7 +74,18 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
             getSupportActionBar().setTitle(R.string.title_activity_profile_preferences);
         */
 
-        fragment = new ProfilePreferencesFragment();
+        fragment = createFragment();
+
+        if (savedInstanceState == null) {
+            loadPreferences(newProfileMode, predefinedProfileIndex);
+        }
+
+        setPreferenceFragment(fragment);
+
+    }
+
+    private ProfilePreferencesFragment createFragment() {
+        ProfilePreferencesFragment fragment = new ProfilePreferencesFragment();
 
         Bundle arguments = new Bundle();
         arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile_id);
@@ -84,30 +97,8 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         arguments.putInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         fragment.setArguments(arguments);
 
-        if (savedInstanceState == null) {
-            loadPreferences(newProfileMode, predefinedProfileIndex);
-        }
-        else {
-            int res = android.R.id.content;
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-                res = com.fnp.materialpreferences.R.id.content;
-            Fragment nFragment = (Fragment)getFragmentManager().findFragmentById(res);
-            if (nFragment instanceof NestedPreferenceFragment)
-                fragment.doOnActivityCreated(savedInstanceState);
-        }
-
-        setPreferenceFragment(fragment);
-
+        return fragment;
     }
-
-    /*
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        fragment = (ProfilePreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_profile_preferences_container);
-        fragment.doOnActivityCreated(savedInstanceState);
-    }
-    */
 
     @Override
     protected void onDestroy()
@@ -430,4 +421,10 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         }
     }
 
+    @Override
+    public PreferenceFragment onCreateNestedPreferenceFragment() {
+        //ProfilePreferencesFragment fragment = createFragment();
+        //fragment.nested = true;
+        return new NestedPreferenceFragment();
+    }
 }

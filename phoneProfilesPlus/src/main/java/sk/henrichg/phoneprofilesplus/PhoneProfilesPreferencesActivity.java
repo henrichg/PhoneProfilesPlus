@@ -7,9 +7,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceScreen;
 
+import com.fnp.materialpreferences.NestedPreferenceFragment;
 import com.fnp.materialpreferences.PreferenceActivity;
+import com.fnp.materialpreferences.PreferenceFragment;
 
 public class PhoneProfilesPreferencesActivity extends PreferenceActivity
+                        implements PreferenceFragment.OnCreateNestedPreferenceFragment
 {
 
     private SharedPreferences preferences;
@@ -92,20 +95,14 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         bluetoothScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
         locationScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
 
-        if (savedInstanceState == null) {
-            fragment = new PhoneProfilesPreferencesFragment();
+        fragment = new PhoneProfilesPreferencesFragment();
 
-            Bundle args = new Bundle();
-            args.putString(EXTRA_SCROLL_TO, extraScrollTo);
-            //args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
-            fragment.setArguments(args);
+        Bundle args = new Bundle();
+        args.putString(EXTRA_SCROLL_TO, extraScrollTo);
+        //args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
+        fragment.setArguments(args);
 
-            setPreferenceFragment(fragment);
-        }
-        else {
-            fragment = (PhoneProfilesPreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_phone_profiles_preferences_container);
-        }
-
+        setPreferenceFragment(fragment);
     }
 
     /*
@@ -245,4 +242,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
     }
 
+    @Override
+    public PreferenceFragment onCreateNestedPreferenceFragment() {
+        return new NestedPreferenceFragment();
+    }
 }

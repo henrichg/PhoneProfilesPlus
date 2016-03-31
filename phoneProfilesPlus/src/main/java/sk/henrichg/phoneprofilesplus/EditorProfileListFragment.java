@@ -106,7 +106,6 @@ public class EditorProfileListFragment extends Fragment {
         onStartProfilePreferencesCallback = sDummyOnStartProfilePreferencesCallback;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
