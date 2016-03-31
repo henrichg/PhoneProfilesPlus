@@ -238,6 +238,8 @@
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceNetworkType"
             android:defaultValue="@string/prf_pref_deviceNetworkType"
+            android:entries="@array/networkTypeNotSupportedArray"
+            android:entryValues="@array/networkTypeNotSupportedValues"
             app:useStockLayout="true" />
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:title="@string/profile_preferences_deviceMobileData"

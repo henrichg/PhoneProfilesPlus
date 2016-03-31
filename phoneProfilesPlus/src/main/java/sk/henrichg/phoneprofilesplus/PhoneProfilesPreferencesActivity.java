@@ -92,16 +92,19 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         bluetoothScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
         locationScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
 
-        fragment = new PhoneProfilesPreferencesFragment();
-
         if (savedInstanceState == null) {
+            fragment = new PhoneProfilesPreferencesFragment();
+
             Bundle args = new Bundle();
             args.putString(EXTRA_SCROLL_TO, extraScrollTo);
             //args.putString(EXTRA_SCROLL_TO_TYPE, extraScrollToType);
             fragment.setArguments(args);
-        }
 
-        setPreferenceFragment(fragment);
+            setPreferenceFragment(fragment);
+        }
+        else {
+            fragment = (PhoneProfilesPreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_phone_profiles_preferences_container);
+        }
 
     }
 

@@ -823,5 +823,10 @@
     <item>108</item>
     <item>110</item>
 </string-array>
-
+<string-array name="networkTypeNotSupportedArray">
+    <item>@string/array_pref_no_change</item>
+</string-array>
+<string-array name="networkTypeNotSupportedValues">
+    <item>0</item>
+</string-array>
 </resources>

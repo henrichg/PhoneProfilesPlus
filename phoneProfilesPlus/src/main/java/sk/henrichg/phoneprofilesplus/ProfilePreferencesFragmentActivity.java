@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.fnp.materialpreferences.NestedPreferenceFragment;
 import com.fnp.materialpreferences.PreferenceActivity;
 
 public class ProfilePreferencesFragmentActivity extends PreferenceActivity
@@ -18,7 +20,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
     int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
     int predefinedProfileIndex = 0;
 
-    ProfilePreferencesFragment fragment;
+    private ProfilePreferencesFragment fragment;
 
     private int resultCode = RESULT_CANCELED;
 
@@ -72,23 +74,40 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
 
         fragment = new ProfilePreferencesFragment();
 
-        if (savedInstanceState == null) {
-            Bundle arguments = new Bundle();
-            arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile_id);
-            arguments.putInt(GlobalData.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-            if (profile_id == GlobalData.DEFAULT_PROFILE_ID)
-                ProfilePreferencesFragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
-            else
-                ProfilePreferencesFragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
-            arguments.putInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
-            fragment.setArguments(arguments);
+        Bundle arguments = new Bundle();
+        arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile_id);
+        arguments.putInt(GlobalData.EXTRA_NEW_PROFILE_MODE, newProfileMode);
+        if (profile_id == GlobalData.DEFAULT_PROFILE_ID)
+            ProfilePreferencesFragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
+        else
+            ProfilePreferencesFragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
+        arguments.putInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        fragment.setArguments(arguments);
 
+        if (savedInstanceState == null) {
             loadPreferences(newProfileMode, predefinedProfileIndex);
+        }
+        else {
+            int res = android.R.id.content;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                res = com.fnp.materialpreferences.R.id.content;
+            Fragment nFragment = (Fragment)getFragmentManager().findFragmentById(res);
+            if (nFragment instanceof NestedPreferenceFragment)
+                fragment.doOnActivityCreated(savedInstanceState);
         }
 
         setPreferenceFragment(fragment);
 
     }
+
+    /*
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        fragment = (ProfilePreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_profile_preferences_container);
+        fragment.doOnActivityCreated(savedInstanceState);
+    }
+    */
 
     @Override
     protected void onDestroy()

@@ -67,9 +67,9 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         newEventMode = getIntent().getIntExtra(GlobalData.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
         predefinedEventIndex = getIntent().getIntExtra(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
-        fragment = new EventPreferencesFragment();
-
         if (savedInstanceState == null) {
+            fragment = new EventPreferencesFragment();
+
             Bundle arguments = new Bundle();
             arguments.putLong(GlobalData.EXTRA_EVENT_ID, event_id);
             arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
@@ -78,11 +78,11 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
             loadPreferences(newEventMode, predefinedEventIndex);
 
-            /*getFragmentManager().beginTransaction()
-                    .replace(R.id.activity_event_preferences_container, fragment, "EventPreferencesFragment").commit();*/
+            setPreferenceFragment(fragment);
         }
-
-        setPreferenceFragment(fragment);
+        else {
+            fragment = (EventPreferencesFragment)getFragmentManager().findFragmentById(R.id.activity_event_preferences_container);
+        }
 
     }
 

@@ -18,6 +18,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.fnp.materialpreferences.PreferenceFragment;
 
@@ -111,9 +112,9 @@ public class ProfilePreferencesFragment extends PreferenceFragment
             return R.xml.profile_preferences;
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void doOnActivityCreated(Bundle savedInstanceState) {
+
+        Log.d("------ ProfilePreferencesFragment.onActivityCreated", "xxxx");
 
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
@@ -249,6 +250,12 @@ public class ProfilePreferencesFragment extends PreferenceFragment
                 setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
             }
         }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        doOnActivityCreated(savedInstanceState);
     }
 
     @Override
