@@ -67,7 +67,6 @@
             android:textSize="15sp"
             android:singleLine="true" />
 
-        <!--
         <ImageView
             android:id="@+id/profile_list_item_show_in_activator"
             android:layout_width="15dp"
@@ -81,7 +80,6 @@
             android:src="@drawable/ic_profile_activated"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp" />
-            -->
 
     </RelativeLayout>
     
