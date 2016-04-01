@@ -20,5 +20,7 @@
     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
     android:textColor="?attr/colorAccent"
     android:paddingLeft="?attr/listPreferredItemPaddingLeft"
+    android:paddingStart="?attr/listPreferredItemPaddingLeft"
     android:paddingRight="?attr/listPreferredItemPaddingRight"
+    android:paddingEnd="?attr/listPreferredItemPaddingRight"
     android:paddingTop="16dip" />
