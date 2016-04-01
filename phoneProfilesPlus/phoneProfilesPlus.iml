@@ -70,7 +70,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/23.2.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.2.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/commons/0.8.5.6/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.afollestad.material-dialogs/core/0.8.5.6/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.pinball83/masked-edittext/1.0.3/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars" />
@@ -91,26 +90,25 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="dashclock-api-2.0.0" level="project" />
-    <orderEntry type="library" exported="" name="core-0.8.5.6" level="project" />
-    <orderEntry type="library" exported="" name="play-services-location-8.4.0" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.4" level="project" />
-    <orderEntry type="library" exported="" name="gridlayout-v7-23.2.1" level="project" />
-    <orderEntry type="library" exported="" name="masked-edittext-1.0.3" level="project" />
-    <orderEntry type="library" exported="" name="play-services-base-8.4.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-maps-8.4.0" level="project" />
-    <orderEntry type="library" exported="" name="recyclerview-v7-23.2.0" level="project" />
-    <orderEntry type="library" exported="" name="library-1.1.4" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.2.1" level="project" />
-    <orderEntry type="library" exported="" name="commons-0.8.5.6" level="project" />
-    <orderEntry type="library" exported="" name="systembartint-1.0.4" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-23.2.1" level="project" />
-    <orderEntry type="library" exported="" name="animated-vector-drawable-23.2.1" level="project" />
-    <orderEntry type="library" exported="" name="support-vector-drawable-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="play-services-base-8.4.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-basement-8.4.0" level="project" />
+    <orderEntry type="library" exported="" name="core-0.8.5.6" level="project" />
+    <orderEntry type="library" exported="" name="systembartint-1.0.4" level="project" />
+    <orderEntry type="library" exported="" name="play-services-maps-8.4.0" level="project" />
+    <orderEntry type="library" exported="" name="gridlayout-v7-23.2.1" level="project" />
     <orderEntry type="library" exported="" name="RootTools" level="project" />
+    <orderEntry type="library" exported="" name="masked-edittext-1.0.3" level="project" />
+    <orderEntry type="library" exported="" name="dashclock-api-2.0.0" level="project" />
+    <orderEntry type="library" exported="" name="animated-vector-drawable-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="recyclerview-v7-23.2.0" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="support-vector-drawable-23.2.1" level="project" />
+    <orderEntry type="library" exported="" name="play-services-location-8.4.0" level="project" />
+    <orderEntry type="library" exported="" name="library-1.1.4" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.2.1" level="project" />
-    <orderEntry type="module" module-name="dragSortListView" exported="" />
+    <orderEntry type="library" exported="" name="gson-2.4" level="project" />
     <orderEntry type="module" module-name="materialPreferences" exported="" />
+    <orderEntry type="module" module-name="dragSortListView" exported="" />
   </component>
 </module>

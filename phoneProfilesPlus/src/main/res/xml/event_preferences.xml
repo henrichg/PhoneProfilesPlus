@@ -13,13 +13,13 @@
             android:key="eventEnabled"
             android:title="@string/event_preferences_eventEnabled"
             android:defaultValue="false" />
-        <com.afollestad.materialdialogs.prefs.MaterialEditTextPreference
+        <sk.henrichg.phoneprofilesplus.MaterialEditTextPreference
             android:key="eventName"
             android:summary="@string/event_preferences_eventName"
             android:title="@string/event_preferences_eventName"
             android:selectAllOnFocus="true"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/event_preferences_priority"
             android:summary="@string/array_event_pref_priorityMedium"
             android:key="eventPriority"
@@ -81,7 +81,7 @@
             android:key="eventProfileEnd"
             android:title="@string/event_preferences_eventProfileEnd"
             henrichg:addNoActivateItem="1" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/event_preferences_atEndDo"
             android:summary="@string/event_preferences_undoneProfile"
             android:key="eventAtEndDo"
@@ -154,7 +154,7 @@
                 android:defaultValue=""
                 android:title="@string/event_preferences_calendar_calendars"
                 android:dependency="eventCalendarEnabled" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_calendar_search_field"
                 android:summary="@string/array_event_pref_calendarSearchField_eventName"
                 android:key="eventCalendarSearchField"
@@ -163,7 +163,7 @@
                 android:entryValues="@array/eventCalendarSearchFieldValues"
                 android:dependency="eventCalendarEnabled"
                 app:useStockLayout="true" />
-            <com.afollestad.materialdialogs.prefs.MaterialEditTextPreference
+            <sk.henrichg.phoneprofilesplus.MaterialEditTextPreference
                 android:key="eventCalendarSearchString"
                 android:summary="@string/event_preferences_calendar_search_string"
                 android:title="@string/event_preferences_calendar_search_string"
@@ -175,7 +175,7 @@
                 android:title="@string/event_preferences_calendar_ignore_all_day_events"
                 android:defaultValue="false"
                 android:dependency="eventCalendarEnabled" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preference_calendar_availability"
                 android:summary="@string/array_event_pref_calendarSearchField_eventName"
                 android:key="eventCalendarAvailability"
@@ -228,7 +228,7 @@
                 android:key="eventCallEnabled"
                 android:title="@string/event_preferences_call_enabled"
                 android:defaultValue="false" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_call_event"
                 android:summary="@string/array_event_pref_ringing"
                 android:key="eventCallEvent"
@@ -247,7 +247,7 @@
                 android:defaultValue=""
                 android:title="@string/event_preferences_call_contacts"
                 android:dependency="eventCallEnabled" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_ccontactListType"
                 android:summary="@string/array_event_pref_contact_list_type_white_list"
                 android:key="eventCallContactListType"
@@ -282,7 +282,7 @@
                 android:defaultValue=""
                 android:title="@string/event_preferences_sms_contacts"
                 android:dependency="eventSMSEnabled" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_ccontactListType"
                 android:summary="@string/array_event_pref_contact_list_type_white_list"
                 android:key="eventSMSContactListType"
@@ -342,7 +342,7 @@
                 android:dependency="eventWiFiEnabled"
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_wifi_connection_type"
                 android:summary="@string/array_event_pref_wifiConnectionType_connected"
                 android:key="eventWiFiConnectionType"
@@ -372,7 +372,7 @@
                 android:dependency="eventBluetoothEnabled"
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_bluetooth_connection_type"
                 android:summary="@string/array_event_pref_bluetoothConnectionType_connected"
                 android:key="eventBluetoothConnectionType"
@@ -381,7 +381,7 @@
                 android:entryValues="@array/eventBluetoothConnectionTypeValues"
                 android:dependency="eventBluetoothEnabled"
                 app:useStockLayout="true" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_bluetooth_devices_type"
                 android:summary="@string/array_event_pref_bluetoothDevicesType_classic"
                 android:key="eventBluetoothDevicesType"
@@ -404,7 +404,7 @@
                 android:key="eventPeripheralEnabled"
                 android:title="@string/event_preferences_peripheral_enabled"
                 android:defaultValue="false" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_peripheral_type"
                 android:summary="@string/array_event_pref_peripheralType_deskDock"
                 android:key="eventPeripheralType"
@@ -422,7 +422,7 @@
                 android:key="eventScreenEnabled"
                 android:title="@string/event_preferences_screen_enabled"
                 android:defaultValue="false" />
-            <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_screen_event_type"
                 android:summary="@string/array_event_pref_eventScreenEventType_screenOff"
                 android:key="eventScreenEventType"

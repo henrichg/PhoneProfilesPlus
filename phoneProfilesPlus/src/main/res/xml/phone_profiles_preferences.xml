@@ -10,7 +10,7 @@
         android:title="@string/phone_profiles_pref_category_gui"
         android:key="applicationInterfaceCategory"
         android:widgetLayout="@layout/start_activity_preference">
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationLanguage"
             android:summary="@string/phone_profiles_pref_applicationLanguage_system"
             android:key="applicationLanguage"
@@ -19,7 +19,7 @@
             android:entries="@array/languageArray"
             android:entryValues="@array/languageValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationHomeLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationHomeLauncher"
@@ -27,7 +27,7 @@
             android:entries="@array/laucherArray"
             android:entryValues="@array/launcherValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationWidgetLauncher"
@@ -35,7 +35,7 @@
             android:entries="@array/laucherArray"
             android:entryValues="@array/launcherValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_notificationLauncher"
             android:summary="@string/array_pref_launcher_activator"
             android:key="applicationNotificationLauncher"
@@ -43,7 +43,7 @@
             android:entries="@array/laucherArray"
             android:entryValues="@array/launcherValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationTheme"
             android:summary="@string/phone_profiles_pref_applicationTheme_dlight"
             android:key="applicationTheme"
@@ -86,7 +86,7 @@
             android:summary="@string/empty_string"
             android:widgetLayout="@layout/start_activity_preference"> >
         </Preference>
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:key="applicationPowerSaveModeInternal"
             android:title="@string/phone_profiles_pref_applicationPowerSaveMode"
             android:summary="@string/array_pref_powerSaveMode_15"
@@ -151,7 +151,7 @@
             henrichg:dMin="0"
             henrichg:dMax="300"
             android:dependency="notificationStatusBarPermanent" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_notificationStatusBarStyle"
             android:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
             android:key="notificationStatusBarStyle"
@@ -204,7 +204,7 @@
             android:defaultValue="5"
             henrichg:min="1"
             henrichg:max="300" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:key="applicationEventLocationUpdateInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventLocationScanInPowerSaveMode"
             android:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
@@ -212,7 +212,7 @@
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventLocationRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
             android:key="applicationEventLocationRescan"
@@ -248,7 +248,7 @@
             android:defaultValue="10"
             henrichg:min="1"
             henrichg:max="300" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:key="applicationEventWifiScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
             android:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
@@ -256,7 +256,7 @@
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventWifiRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
             android:key="applicationEventWifiRescan"
@@ -295,7 +295,7 @@
             android:defaultValue="10"
             henrichg:min="5"
             henrichg:max="30" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:key="applicationEventBluetoothScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode"
             android:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
@@ -303,7 +303,7 @@
             android:entries="@array/scanInPowerSaveModeArray"
             android:entryValues="@array/scanInPowerSaveModeValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
             android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
             android:key="applicationEventBluetoothRescan"
@@ -377,7 +377,7 @@
             android:key="applicationWidgetListGridLayout"
             android:title="@string/phone_profiles_pref_applicationGridLayout"
             android:defaultValue="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetBackground"
             android:summary="25%"
             android:key="applicationWidgetListBackground"
@@ -385,7 +385,7 @@
             android:entries="@array/widgetBackgroundArray"
             android:entryValues="@array/widgetBackgroundValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
             android:summary="0"
             android:key="applicationWidgetListLightnessB"
@@ -393,7 +393,7 @@
             android:entries="@array/widgetLightnessArray"
             android:entryValues="@array/widgetLightnessValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
             android:summary="100"
             android:key="applicationWidgetListLightnessT"
@@ -401,7 +401,7 @@
             android:entries="@array/widgetLightnessArray"
             android:entryValues="@array/widgetLightnessValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetIconColor"
             android:summary="0"
             android:key="applicationWidgetListIconColor"
@@ -409,7 +409,7 @@
             android:entries="@array/widgetColorArray"
             android:entryValues="@array/widgetColorValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
             android:summary="100"
             android:key="applicationWidgetListIconLightness"
@@ -427,7 +427,7 @@
             android:key="applicationWidgetIconHideProfileName"
             android:title="@string/phone_profiles_pref_applicationWidgetIconHideProfileName"
             android:defaultValue="false" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetIconColor"
             android:summary="0"
             android:key="applicationWidgetIconColor"
@@ -435,7 +435,7 @@
             android:entries="@array/widgetColorArray"
             android:entryValues="@array/widgetColorValues"
             app:useStockLayout="true" />
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
             android:summary="100"
             android:key="applicationWidgetIconLightness"
