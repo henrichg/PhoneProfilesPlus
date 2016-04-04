@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceScreen;
 
-import com.fnp.materialpreferences.NestedPreferenceFragment;
 import com.fnp.materialpreferences.PreferenceActivity;
 import com.fnp.materialpreferences.PreferenceFragment;
 

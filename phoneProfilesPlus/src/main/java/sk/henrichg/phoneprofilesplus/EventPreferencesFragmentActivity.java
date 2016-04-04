@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.fnp.materialpreferences.NestedPreferenceFragment;
 import com.fnp.materialpreferences.PreferenceActivity;
 import com.fnp.materialpreferences.PreferenceFragment;
 

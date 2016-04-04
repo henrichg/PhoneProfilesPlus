@@ -56,7 +56,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Log.d("------ ProfilePreferencesFragment.onActivityCreated", "xxxx");
+        //Log.d("------ ProfilePreferencesFragment.onActivityCreated", "xxxx");
 
         String PREFS_NAME;
         if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)

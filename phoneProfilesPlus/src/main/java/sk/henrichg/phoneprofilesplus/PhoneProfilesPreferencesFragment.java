@@ -1,28 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.preference.TwoStatePreference;
-import android.provider.Settings;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.CharacterStyle;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
-
-import com.fnp.materialpreferences.PreferenceFragment;
 
 public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNestedFragment
                                               implements SharedPreferences.OnSharedPreferenceChangeListener

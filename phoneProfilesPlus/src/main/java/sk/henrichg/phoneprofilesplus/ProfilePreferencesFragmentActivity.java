@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.fnp.materialpreferences.NestedPreferenceFragment;
 import com.fnp.materialpreferences.PreferenceActivity;
 import com.fnp.materialpreferences.PreferenceFragment;
 

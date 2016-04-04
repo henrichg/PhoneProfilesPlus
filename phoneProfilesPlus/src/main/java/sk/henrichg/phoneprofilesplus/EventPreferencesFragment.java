@@ -2,14 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
-import android.provider.Settings;
-
-import com.fnp.materialpreferences.PreferenceFragment;
  
 public class EventPreferencesFragment extends EventPreferencesNestedFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
