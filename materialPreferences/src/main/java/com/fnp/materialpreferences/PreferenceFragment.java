@@ -174,8 +174,8 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
         //Apply custom layouts on pre-Lollipop
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             if (preference instanceof PreferenceScreen && preference.getLayoutResource()
-                    != R.layout.mp_preference_material) {
-                preference.setLayoutResource(R.layout.mp_preference_material);
+                    != R.layout.mp_preference_material_widget) {
+                preference.setLayoutResource(R.layout.mp_preference_material_widget);
             } else if (preference instanceof PreferenceCategory &&
                     preference.getLayoutResource() != R.layout.mp_preference_category) {
                 preference.setLayoutResource(R.layout.mp_preference_category);
