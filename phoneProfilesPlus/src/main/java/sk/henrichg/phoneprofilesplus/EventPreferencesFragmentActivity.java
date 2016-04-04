@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.fnp.materialpreferences.PreferenceActivity;
 import com.fnp.materialpreferences.PreferenceFragment;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.List;
 
@@ -43,7 +47,6 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
         //setContentView(R.layout.activity_event_preferences);
 
-        /*
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -59,7 +62,6 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
-        */
 
         //getSupportActionBar().setHomeButtonEnabled(true);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);

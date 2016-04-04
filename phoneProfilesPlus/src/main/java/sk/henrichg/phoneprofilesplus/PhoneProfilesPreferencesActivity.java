@@ -3,12 +3,16 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceScreen;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.fnp.materialpreferences.PreferenceActivity;
 import com.fnp.materialpreferences.PreferenceFragment;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class PhoneProfilesPreferencesActivity extends PreferenceActivity
                         implements PreferenceFragment.OnCreateNestedPreferenceFragment
@@ -44,7 +48,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         //setContentView(R.layout.activity_phone_profiles_preferences);
 
-        /*
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -60,7 +63,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
-        */
 
         invalidateEditor = false;
 
