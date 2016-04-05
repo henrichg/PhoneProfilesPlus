@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionCode="1914"
-          android:versionName="3.3.5.2b"
+          android:versionCode="1920"
+          android:versionName="3.3.5.2"
           android:installLocation="internalOnly" >
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
 
