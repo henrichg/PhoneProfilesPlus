@@ -423,8 +423,8 @@ public class ActivateProfileHelper {
         int ringerMode = GlobalData.getRingerMode(context);
         int zenMode = GlobalData.getZenMode(context);
 
-        // for inneruption types NONE and ONLY_ALARMS not set syste, ringer, npotification volume
-        if (!((ringerMode == 5) && (zenMode == 3) || (zenMode == 6))) {
+        // for inneruption types NONE and ONLY_ALARMS not set system, ringer, npotification volume
+        if (!((ringerMode == 5) && ((zenMode == 3) || (zenMode == 6)))) {
 
             if (profile.getVolumeSystemChange()) {
                 //RingerModeChangeReceiver.internalChange = true;
