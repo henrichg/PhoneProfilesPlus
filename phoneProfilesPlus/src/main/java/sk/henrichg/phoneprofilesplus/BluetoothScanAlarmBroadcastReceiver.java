@@ -624,6 +624,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     public static void saveScanResults(Context context, List<BluetoothDeviceData> scanResults)
     {
         List<BluetoothDeviceData> savedScanResults = getScanResults(context);
+        if (savedScanResults == null)
+            savedScanResults = new ArrayList<BluetoothDeviceData>();
 
         for (BluetoothDeviceData device : scanResults) {
             boolean found = false;
@@ -658,6 +660,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static void addScanResult(Context context, BluetoothDeviceData device) {
         List<BluetoothDeviceData> savedScanResults = getScanResults(context);
+        if (savedScanResults == null)
+            savedScanResults = new ArrayList<BluetoothDeviceData>();
 
         boolean found = false;
         for (BluetoothDeviceData _device : savedScanResults) {

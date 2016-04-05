@@ -689,7 +689,8 @@ public class ScannerService extends IntentService
                 unlock();
 
                 List<BluetoothDeviceData> scanResults = BluetoothScanAlarmBroadcastReceiver.getScanResults(dataWrapper.context);
-                if ((isBluetoothNameScannedInFront) && (!isBluetoothNameScannedNotInFront) && (scanResults.size() != 0))
+                if ((isBluetoothNameScannedInFront) && (!isBluetoothNameScannedNotInFront) &&
+                        (scanResults != null) && (scanResults.size() != 0))
                 {
                     // INFRONT events exists for connected BT adapter and
                     // NOTINFRONT events not exists for connected BT adapter and
