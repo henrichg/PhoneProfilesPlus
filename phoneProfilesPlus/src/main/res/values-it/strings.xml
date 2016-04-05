@@ -50,7 +50,7 @@
   <string name="phone_profiles_pref_applicationClose">Chiudi dopo aver attivato il profilo</string>
   <string name="phone_profiles_pref_applicationPrefIndicator">Indicatore di preferenze</string>
   <string name="phone_profiles_pref_applicationHeader">Visualizza profilo attivato</string>
-  <string name="phone_profiles_pref_applicationAlert">Avviso di attivazione del profilo</string>
+  <string name="phone_profiles_pref_applicationAlert">Conferma attivazione profilo</string>
   <string name="phone_profiles_pref_notificationsToast">Mostra notifica popup</string>
   <string name="phone_profiles_pref_notificationStatusBar">Visualizza notifica nella barra di stato</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Stile icona di notifica</string>
@@ -133,7 +133,7 @@
   <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Non consentito</string>
   <string name="menu_export">Esporta dati di app.</string>
-  <string name="menu_import">Importa dati di app.</string>
+  <string name="menu_import">Importa dati app.</string>
   <string name="toast_export_ok">Dati app. esportati</string>
   <string name="toast_import_ok">Dati app. importati</string>
   <string name="import_profiles_alert_title">Importa dati di app.</string>
