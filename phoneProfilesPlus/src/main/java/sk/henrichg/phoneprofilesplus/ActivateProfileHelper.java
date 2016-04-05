@@ -423,8 +423,11 @@ public class ActivateProfileHelper {
         int ringerMode = GlobalData.getRingerMode(context);
         int zenMode = GlobalData.getZenMode(context);
 
-        // for inneruption types NONE and ONLY_ALARMS not set system, ringer, npotification volume
-        if (!((ringerMode == 5) && ((zenMode == 3) || (zenMode == 6)))) {
+        // for interruption types NONE and ONLY_ALARMS not set system, ringer, npotification volume
+        // Android 6 - priority mode = ONLY_ALARMS
+        if (!(  ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                ((ringerMode == 5) && ((zenMode == 3) || (zenMode == 6)))
+             )) {
 
             if (profile.getVolumeSystemChange()) {
                 //RingerModeChangeReceiver.internalChange = true;
