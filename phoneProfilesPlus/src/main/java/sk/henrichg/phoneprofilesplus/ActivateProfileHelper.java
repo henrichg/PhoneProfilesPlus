@@ -615,7 +615,7 @@ public class ActivateProfileHelper {
         if (linkUnlink == PhoneCallService.LINKMODE_NONE) {
             if (profile._volumeRingerMode != 0) {
                 GlobalData.setRingerMode(context, profile._volumeRingerMode);
-                if (profile._volumeZenMode != 0)
+                if ((profile._volumeRingerMode == 5) && (profile._volumeZenMode != 0))
                     GlobalData.setZenMode(context, profile._volumeZenMode);
             }
             ringerMode = GlobalData.getRingerMode(context);
