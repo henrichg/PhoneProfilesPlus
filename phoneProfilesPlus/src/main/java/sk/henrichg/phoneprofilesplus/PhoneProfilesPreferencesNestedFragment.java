@@ -224,20 +224,6 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     preferenceCategory.removePreference(preference);
             }
 
-            preference = prefMng.findPreference(PREF_LOCATION_SYSTEM_SETTINGS);
-            if (preference != null) {
-                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
-                        return false;
-                    }
-                });
-            }
-
             preference = prefMng.findPreference(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
             if (preference != null) {
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -281,6 +267,20 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
+        Preference preference = prefMng.findPreference(PREF_LOCATION_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
+                    return false;
+                }
+            });
+        }
+
     }
 
     private void setTitleStyle(Preference preference, boolean bold, boolean underline)

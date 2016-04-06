@@ -629,12 +629,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     String sValue = value.toString();
                     ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
                     if (listPreference != null) {
+                        int iValue = Integer.parseInt(sValue);
                         int index = listPreference.findIndexOfValue(sValue);
                         CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                        int iValue = Integer.parseInt(sValue);
                         if ((iValue != 0) && (iValue != 99)) {
-                            String[] summaryArray = getResources().getStringArray(R.array.zenModeSummaryArray);
-                            summary = summary + " - " + summaryArray[iValue - 1];
+                            if (!((iValue == 6) && (android.os.Build.VERSION.SDK_INT < 23))) {
+                                String[] summaryArray = getResources().getStringArray(R.array.zenModeSummaryArray);
+                                summary = summary + " - " + summaryArray[iValue - 1];
+                            }
                         }
                         listPreference.setSummary(summary);
 
