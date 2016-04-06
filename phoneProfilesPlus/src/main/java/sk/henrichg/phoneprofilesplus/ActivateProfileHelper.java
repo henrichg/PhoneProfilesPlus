@@ -670,6 +670,7 @@ public class ActivateProfileHelper {
             switch (ringerMode) {
                 case 1:  // Ring
                     //RingerModeChangeReceiver.internalChange = true;
+                    setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     try {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
@@ -685,6 +686,7 @@ public class ActivateProfileHelper {
                     break;
                 case 2:  // Ring & Vibrate
                     //RingerModeChangeReceiver.internalChange = true;
+                    setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     try {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
@@ -700,6 +702,7 @@ public class ActivateProfileHelper {
                     break;
                 case 3:  // Vibrate
                     //RingerModeChangeReceiver.internalChange = true;
+                    setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                     try {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
