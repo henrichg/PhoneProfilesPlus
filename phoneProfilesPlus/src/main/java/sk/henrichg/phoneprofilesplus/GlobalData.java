@@ -54,10 +54,11 @@ public class GlobalData extends Application {
                                          //+"|$$$ WifiScanBroadcastReceiver.onReceive"
 
                                          //+"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
-                                         //+"|##### WifiScanAlarmBroadcastReceiver.onReceive"
+                                         +"|##### WifiScanAlarmBroadcastReceiver.onReceive"
                                          //+"|##### GeofenceScannerAlarmBroadcastReceiver.onReceive"
                                          //+"|##### GeofenceScannerBroadcastReceiver.onReceive"
                                          //+"|##### GeofenceScanner"
+                                         //+"|ScreenOnOffBroadcastReceiver"
             ;
 
 
