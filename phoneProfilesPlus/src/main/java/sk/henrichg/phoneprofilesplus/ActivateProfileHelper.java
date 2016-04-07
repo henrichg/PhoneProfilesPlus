@@ -924,35 +924,39 @@ public class ActivateProfileHelper {
         if (Permissions.checkProfileScreenTimeout(context, profile)) {
             switch (profile._deviceScreenTimeout) {
                 case 1:
-                    screenTimeoutUnlock(context);
+                    //screenTimeoutUnlock(context);
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                     break;
                 case 2:
-                    screenTimeoutUnlock(context);
+                    //screenTimeoutUnlock(context);
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
                     break;
                 case 3:
-                    screenTimeoutUnlock(context);
+                    //screenTimeoutUnlock(context);
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
                     break;
                 case 4:
-                    screenTimeoutUnlock(context);
+                    //screenTimeoutUnlock(context);
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
                     break;
                 case 5:
-                    screenTimeoutUnlock(context);
+                    //screenTimeoutUnlock(context);
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
                     break;
                 case 6:
-                    screenTimeoutUnlock(context);
+                    //screenTimeoutUnlock(context);
                     //if (android.os.Build.VERSION.SDK_INT < 19)
                     //    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
                     //else
-                        screenTimeoutLock(context);
-                    //Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 18000000);
+                    //    screenTimeoutLock(context);
+                    //2147483647 = Integer.MAX_VALUE
+                    //18000000   = 5 hours
+                    //86400000   = 24 hounrs
+                    //43200000   = 12 hours
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 86400000); //18000000);
                     break;
                 case 7:
-                    screenTimeoutUnlock(context);
+                    //screenTimeoutUnlock(context);
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
                     break;
             }
@@ -1176,11 +1180,14 @@ public class ActivateProfileHelper {
     private static void screenTimeoutLock(Context context)
     {
         WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        if (GUIData.keepScreenOnView != null)
+
+        /*if (GUIData.keepScreenOnView != null)
         {
             windowManager.removeView(GUIData.keepScreenOnView);
             GUIData.keepScreenOnView = null;
-        }
+        }*/
+        screenTimeoutUnlock(context);
+
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 1, 1,
                 WindowManager.LayoutParams.TYPE_TOAST,
@@ -1189,8 +1196,12 @@ public class ActivateProfileHelper {
                 PixelFormat.TRANSLUCENT
         );
         params.gravity = Gravity.RIGHT | Gravity.TOP;
-        GUIData.keepScreenOnView = new BrightnessView(context);
-        windowManager.addView(GUIData.keepScreenOnView, params);
+        if (GUIData.keepScreenOnView == null) {
+            GUIData.keepScreenOnView = new BrightnessView(context);
+            windowManager.addView(GUIData.keepScreenOnView, params);
+        }
+        else
+            windowManager.updateViewLayout(GUIData.keepScreenOnView, params);
     }
 
     public static void screenTimeoutUnlock(Context context)
@@ -1198,8 +1209,19 @@ public class ActivateProfileHelper {
         if (GUIData.keepScreenOnView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-            windowManager.removeView(GUIData.keepScreenOnView);
-            GUIData.keepScreenOnView = null;
+
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                    1, 1,
+                    WindowManager.LayoutParams.TYPE_TOAST,
+                    //TYPE_SYSTEM_ALERT,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    PixelFormat.TRANSLUCENT
+            );
+            params.gravity = Gravity.RIGHT | Gravity.TOP;
+            windowManager.updateViewLayout(GUIData.keepScreenOnView, params);
+
+            //windowManager.removeView(GUIData.keepScreenOnView);
+            //GUIData.keepScreenOnView = null;
         }
 
         GlobalData.logE("@@@ screenTimeoutLock.unlock", "xxx");
