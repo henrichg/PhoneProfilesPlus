@@ -1,7 +1,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="NotificationText" parent="android:TextAppearance.Material.Notification" />
-    <style name="NotificationTitle" parent="android:TextAppearance.Material.Notification.Title" >
-    </style>
-    
+    <style name="NotificationTitle" parent="android:TextAppearance.Material.Notification.Title" />
+
+    <color name="notificationBackground21">#fffafafa</color>
+
 </resources>

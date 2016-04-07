@@ -1405,11 +1405,13 @@ public class ActivateProfileHelper {
             else
                 contentView.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
 
+            /*
             if (android.os.Build.VERSION.SDK_INT >= 20)
                 contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart);
             else
                 contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart_dark);
             contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+            */
 
             notification.contentView = contentView;
 

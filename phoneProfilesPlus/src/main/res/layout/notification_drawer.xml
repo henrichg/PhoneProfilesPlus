@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp" >
+    android:padding="5dp"
+    android:background="@color/notificationBackground" >
    
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,7 +38,7 @@
             android:paddingLeft="10dp"
             android:paddingStart="10dp"
             android:text="@string/profile_name_default"
-            style="@style/NotificationTitle"
+            android:textAppearance="@style/NotificationTitle"
             android:singleLine="true" />
 
         <ImageView

@@ -2,5 +2,7 @@
 
     <style name="NotificationText" parent="android:TextAppearance.StatusBar.EventContent" />
     <style name="NotificationTitle" parent="android:TextAppearance.StatusBar.EventContent.Title" />
-    
+
+    <color name="notificationBackground">#FF181818</color>
+
 </resources>

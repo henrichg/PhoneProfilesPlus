@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp" >
+    android:padding="5dp"
+    android:background="@color/notificationBackground21">
    
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
             android:layout_toEndOf="@+id/notification_activated_profile_icon"
             android:layout_marginStart="5dp"
             android:text="@string/profile_name_default"
-            style="@style/NotificationTitle"
+            android:textAppearance="@style/NotificationTitle"
             android:singleLine="true" />
 
         <ImageView
@@ -59,7 +60,7 @@
             android:maxHeight="48dp"
             android:maxWidth="48dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_action_events_restart_dark" />
+            android:src="@drawable/ic_action_events_restart" />
 
     </RelativeLayout>
 
