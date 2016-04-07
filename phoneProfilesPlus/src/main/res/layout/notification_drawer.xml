@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp"
-    android:background="@color/notificationBackground" >
+    android:padding="5dp" >
    
     <RelativeLayout
         android:layout_width="match_parent"

@@ -3,6 +3,6 @@
     <style name="NotificationText" parent="android:TextAppearance.Material.Notification" />
     <style name="NotificationTitle" parent="android:TextAppearance.Material.Notification.Title" />
 
-    <color name="notificationBackground21">#fffafafa</color>
+    <!-- <color name="notificationBackground21">#fffafafa</color> -->
 
 </resources>

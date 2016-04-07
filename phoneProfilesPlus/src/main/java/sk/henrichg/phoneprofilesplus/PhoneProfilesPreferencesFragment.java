@@ -93,6 +93,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(GlobalData.PREF_APPLICATION_EDITOR_HEADER);
         setSummary(GlobalData.PREF_NOTIFICATION_TOAST);
         setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR);
+        setSummary(GlobalData.PREF_NOTIFICATION_TEXT_COLOR);
 
         if (android.os.Build.VERSION.SDK_INT >= 16) {
             setSummary(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);

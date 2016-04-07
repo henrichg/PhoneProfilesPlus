@@ -729,4 +729,7 @@
     <string name="array_pref_powerSaveMode_useSystem">Use Battery saver</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Battery Saver</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">System settings configuration</string>
+    <string name="phone_profiles_pref_notificationTextColor">Text color</string>
+    <string name="array_pref_color_white">White</string>
+    <string name="array_pref_color_black">Black</string>
 </resources>

@@ -829,4 +829,14 @@
 <string-array name="networkTypeNotSupportedValues">
     <item>0</item>
 </string-array>
+<string-array name="notificationTextColorArray">
+    <item>@string/array_pref_no_change</item>
+    <item>@string/array_pref_color_black</item>
+    <item>@string/array_pref_color_white</item>
+</string-array>
+<string-array name="notificationTextColorValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
 </resources>

@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.KeyguardManager;
@@ -18,6 +19,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.location.LocationManager;
 import android.media.AudioManager;
@@ -1110,7 +1112,9 @@ public class ActivateProfileHelper {
         // set power save mode
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context) == GlobalData.PREFERENCE_ALLOWED) {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            boolean _isPowerSaveMode = powerManager.isPowerSaveMode();
+            boolean _isPowerSaveMode = false;
+            if (Build.VERSION.SDK_INT >= 21)
+                _isPowerSaveMode = powerManager.isPowerSaveMode();
             boolean _setPowerSaveMode = false;
             switch (profile._devicePowerSaveMode) {
                 case 1:
@@ -1396,6 +1400,11 @@ public class ActivateProfileHelper {
 
             Notification notification = notificationBuilder.build();
 
+            if (GlobalData.notificationTextColor.equals("1"))
+                contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+            else
+            if (GlobalData.notificationTextColor.equals("2"))
+                contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
             contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
 
             //contentView.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator,
@@ -1405,13 +1414,11 @@ public class ActivateProfileHelper {
             else
                 contentView.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
 
-            /*
-            if (android.os.Build.VERSION.SDK_INT >= 20)
+            if (GlobalData.notificationTextColor.equals("1"))
                 contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart);
             else
+            if (GlobalData.notificationTextColor.equals("2"))
                 contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart_dark);
-            contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
-            */
 
             notification.contentView = contentView;
 
