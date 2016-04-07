@@ -222,6 +222,11 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
+        Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_DURATION);
+        if (preference != null)
+        {
+            preference.setTitle("[M] " + context.getString(R.string.profile_preferences_duration));
+        }
     }
 
     @Override
