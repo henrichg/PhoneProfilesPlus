@@ -1444,7 +1444,6 @@ public class ActivateProfileHelper {
         notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
     }
 
-    @SuppressLint("NewApi")
     private void setAlarmForNotificationCancel(boolean forceShow)
     {
         if (!forceShow) {
@@ -1475,6 +1474,19 @@ public class ActivateProfileHelper {
         //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
         //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
 
+    }
+
+    public void setAlarmForRecreateNotification()
+    {
+        Intent intent = new Intent(context, RecreateNotificationBroadcastReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+
+        Calendar now = Calendar.getInstance();
+        long time = now.getTimeInMillis() + 500;
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
 
     public void updateWidget()

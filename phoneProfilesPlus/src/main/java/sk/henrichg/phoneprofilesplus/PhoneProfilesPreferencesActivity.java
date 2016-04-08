@@ -140,7 +140,9 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), true, false, 0);
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
-        dataWrapper.getActivateProfileHelper().showNotification(dataWrapper.getActivatedProfileFromDB(), "");
+        dataWrapper.getActivateProfileHelper().removeNotification();
+        dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+        //dataWrapper.getActivateProfileHelper().showNotification(dataWrapper.getActivatedProfileFromDB(), "");
         dataWrapper.getActivateProfileHelper().updateWidget();
         dataWrapper.invalidateDataWrapper();
     }
