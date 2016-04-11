@@ -177,7 +177,7 @@ public class ScannerService extends IntentService
                         }
                     }
 
-                    if (canScanWifi(dataWrapper)) {
+                    if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
 
                         GlobalData.logE("*** ScannerService.onHandleIntent","scan started");
 
@@ -324,7 +324,7 @@ public class ScannerService extends IntentService
                         }
                     }
 
-                    if (canScanBluetooth(dataWrapper)) {
+                    if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
                         BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
                         BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
