@@ -97,13 +97,10 @@ public class EventsService extends IntentService
             GlobalData.logE("EventsService.onHandleIntent","search for calendar events");
             for (Event _event : eventList)
             {
-                if (_event.getStatus() != Event.ESTATUS_STOP)
+                if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP))
                 {
-                    if (_event._eventPreferencesCalendar._enabled)
-                    {
-                        GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
-                        _event._eventPreferencesCalendar.searchEvent(context);
-                    }
+                    GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
+                    _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
                 }
             }
         }
