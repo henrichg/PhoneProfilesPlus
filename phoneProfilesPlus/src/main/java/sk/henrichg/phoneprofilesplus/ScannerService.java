@@ -605,12 +605,13 @@ public class ScannerService extends IntentService
             {
                 boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
                 boolean isScanAlwaysAvailable = false;
-                if (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+                // removed, because no broadcast is received when screen is off
+                /*if (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     // from dialog preference wifi must be enabled for saved wifi configuration
                     // (see WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList)
                     if (android.os.Build.VERSION.SDK_INT >= 18)
                         isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
-                }
+                }*/
                 GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
                 isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
                 if (!isWifiEnabled)
