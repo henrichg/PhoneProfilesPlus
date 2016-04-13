@@ -1527,8 +1527,8 @@ public class DataWrapper {
             GlobalData.logE("%%% DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
             endAlarmTime = event._eventPreferencesTime.computeAlarm(false);
-            if (broadcastType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                endAlarmTime += 60 * 1000;
+            //if (broadcastType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            //    endAlarmTime += 60 * 1000;
 
             alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                          " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
@@ -1824,8 +1824,8 @@ public class DataWrapper {
                 GlobalData.logE("DataWrapper.doEventService","startAlarmTime="+alarmTimeS);
 
                 endAlarmTime = event._eventPreferencesCalendar.computeAlarm(false);
-                if (broadcastType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                    endAlarmTime += 60 * 1000;
+                //if (broadcastType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                //    endAlarmTime += 60 * 1000;
 
                 alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
                              " " + DateFormat.getTimeFormat(context).format(endAlarmTime);

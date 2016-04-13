@@ -326,16 +326,12 @@ public class EventPreferencesNotification extends EventPreferences {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
         else
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
         else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-
-        //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
     }
 
     /*
