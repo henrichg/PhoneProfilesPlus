@@ -382,6 +382,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
+        //
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
         else
