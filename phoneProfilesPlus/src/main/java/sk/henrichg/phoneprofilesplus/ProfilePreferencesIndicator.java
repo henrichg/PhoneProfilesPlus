@@ -73,6 +73,11 @@ public class ProfilePreferencesIndicator {
                 if (profile._volumeRingerMode == 4)
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off;
             }
+            // vibration on touch
+            if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;
+            if (profile._vibrationOnTouch == 2)
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off;
             // volume level
             if (profile.getVolumeAlarmChange() ||
                 profile.getVolumeMediaChange() ||
@@ -101,6 +106,9 @@ public class ProfilePreferencesIndicator {
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync;
             if (profile._deviceAutosync == 2)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off;
+            // network type
+            if (profile._deviceNetworkType != 0)
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type;
             // mobile data
             if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3))
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata;
@@ -157,6 +165,11 @@ public class ProfilePreferencesIndicator {
             else
             if (profile._deviceAutoRotate != 0)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
+            // notification led
+            if ((profile._notificationLed == 1) || (profile._notificationLed == 3))
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led;
+            if (profile._notificationLed == 2)
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off;
             // power save mode
             if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode;
@@ -168,9 +181,6 @@ public class ProfilePreferencesIndicator {
             // wallpaper
             if (profile._deviceWallpaperChange == 1)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_wallpaper;
-            // network type
-            if (profile._deviceNetworkType != 0)
-                drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type;
         }
         else
             countDrawables = -1;

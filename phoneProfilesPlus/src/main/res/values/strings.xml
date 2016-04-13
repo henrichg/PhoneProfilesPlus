@@ -732,4 +732,6 @@
     <string name="phone_profiles_pref_notificationTextColor">Text color</string>
     <string name="array_pref_color_white">White</string>
     <string name="array_pref_color_black">Black</string>
+    <string name="profile_preferences_notificationLed">Notification LED</string>
+    <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
 </resources>

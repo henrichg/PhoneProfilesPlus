@@ -606,6 +606,27 @@ public class ActivateProfileHelper {
         }
     }
 
+    private void setNotificationLed(int value) {
+        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_NOTIFICATION_LED, context)
+                == GlobalData.PREFERENCE_ALLOWED) {
+            if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+                Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
+            else {
+                String command1 = "settings put system " + "notification_light_pulse" + " " + value;
+                //if (GlobalData.isSELinuxEnforcing())
+                //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                Command command = new Command(0, false, command1); //, command2);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    commandWait(command);
+                    //RootTools.closeAllShells();
+                } catch (Exception e) {
+                    Log.e("ActivateProfileHelper.setNotificationLed", "Error on run su: " + e.toString());
+                }
+            }
+        }
+    }
+
     @SuppressWarnings("deprecation")
     public boolean setRingerMode(Profile profile, AudioManager audioManager, boolean forPriority, int linkUnlink)
     {
@@ -1098,6 +1119,18 @@ public class ActivateProfileHelper {
                     break;
             }
         }
+
+        // set notification led
+        //if (Permissions.checkProfileNotificationLed(context, profile)) { not needed for Android 6+, because root is required
+        switch (profile._notificationLed) {
+            case 1:
+                setNotificationLed(1);
+                break;
+            case 2:
+                setNotificationLed(0);
+                break;
+        }
+        //}
 
         // nahodenie pozadia
         if (Permissions.checkProfileWallpaper(context, profile)) {

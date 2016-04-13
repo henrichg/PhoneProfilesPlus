@@ -128,6 +128,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 if (profile._volumeRingerMode == 4)
                     indicator1 = addIntoIndicator(indicator1, "sil");
             }
+            // vibration on touch
+            if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
+                indicator1 = addIntoIndicator(indicator1, "vt1");
+            if (profile._vibrationOnTouch == 2)
+                indicator1 = addIntoIndicator(indicator1, "vt0");
             // volume level
             if (profile.getVolumeAlarmChange() ||
                 profile.getVolumeMediaChange() ||
@@ -156,6 +161,9 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 indicator1 = addIntoIndicator(indicator1, "as1");
             if (profile._deviceAutosync == 2)
                 indicator1 = addIntoIndicator(indicator1, "as0");
+            // Network type
+            if (profile._deviceNetworkType != 0)
+                indicator1 = addIntoIndicator(indicator1, "ntt");
             // mobile data
             if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3))
                 indicator1 = addIntoIndicator(indicator1, "md1");
@@ -214,6 +222,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             else
             if (profile._deviceAutoRotate != 0)
                 indicator1 = addIntoIndicator(indicator1, "rot");
+            // notification led
+            if ((profile._notificationLed == 1) || (profile._notificationLed == 3))
+                indicator1 = addIntoIndicator(indicator1, "nl1");
+            if (profile._notificationLed == 2)
+                indicator1 = addIntoIndicator(indicator1, "nl0");
             // power save mode
             if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
                 indicator1 = addIntoIndicator(indicator1, "ps1");
@@ -225,9 +238,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             // wallpaper
             if (profile._deviceWallpaperChange == 1)
                 indicator1 = addIntoIndicator(indicator1, "wlp");
-            // Network type
-            if (profile._deviceNetworkType != 0)
-                indicator1 = addIntoIndicator(indicator1, "ntt");
         }
         /////////////////////////////////////////////////////////////
 

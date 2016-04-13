@@ -169,6 +169,7 @@ public class GlobalData extends Application {
     //static final String PREF_PROFILE_SHOW_DURATION_BUTTON = "prf_pref_showDurationButton";
     static final String PREF_PROFILE_ASK_FOR_DURATION = "prf_pref_askForDuration";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE = "prf_pref_deviceNetworkType";
+    static final String PREF_PROFILE_NOTIFICATION_LED = "prf_pref_notificationLed";
 
     // no preferences, bud checked from isPreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
@@ -650,7 +651,8 @@ public class GlobalData extends Application {
                 x.getKey().equals(PREF_PROFILE_VIBRATION_ON_TOUCH) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_WIFI_AP) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_NETWORK_TYPE))
+                x.getKey().equals(PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
+                x.getKey().equals(PREF_PROFILE_NOTIFICATION_LED))
             {
                 if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
                 else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
@@ -724,6 +726,7 @@ public class GlobalData extends Application {
         profile._deviceWiFiAP = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, "2")); // OFF
         profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0"));
         profile._deviceNetworkType = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
+        profile._notificationLed = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_NOTIFICATION_LED, "0"));
 
         return profile;
     }
@@ -779,7 +782,8 @@ public class GlobalData extends Application {
                                profile._deviceWiFiAP,
                                profile._devicePowerSaveMode,
                                profile._askForDuration,
-                               profile._deviceNetworkType);
+                               profile._deviceNetworkType,
+                               profile._notificationLed);
 
             if (profile._volumeRingerMode == 99)
                 mappedProfile._volumeRingerMode = defaultProfile._volumeRingerMode;
@@ -858,6 +862,8 @@ public class GlobalData extends Application {
                 mappedProfile._devicePowerSaveMode = defaultProfile._devicePowerSaveMode;
             if (profile._deviceNetworkType == 99)
                 mappedProfile._deviceNetworkType = defaultProfile._deviceNetworkType;
+            if (profile._notificationLed == 99)
+                mappedProfile._notificationLed = defaultProfile._notificationLed;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -1486,6 +1492,27 @@ public class GlobalData extends Application {
                     }
                 }
             }
+        }
+        else
+        if (preferenceKey.equals(PREF_PROFILE_NOTIFICATION_LED))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                if (isRooted(false)) {
+                    // zariadenie je rootnute
+                    if (settingsBinaryExists())
+                        featurePresented = PREFERENCE_ALLOWED;
+                /*else
+                {
+                    // "settings" binnary not exists
+                    if (PhoneProfilesHelper.PPHelperVersion == -1)
+                        featurePresented = PREFERENCE_INSTALL_PPHELPER;
+                    else
+                        featurePresented = PREFERENCE_UPGRADE_PPHELPER;
+                }*/
+                }
+            }
+            else
+                featurePresented = PREFERENCE_ALLOWED;
         }
         else
             featurePresented = PREFERENCE_ALLOWED;

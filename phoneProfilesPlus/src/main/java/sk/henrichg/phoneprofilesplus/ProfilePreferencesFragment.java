@@ -145,6 +145,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             setSummary(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
             setSummary(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
             setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);
+            setSummary(GlobalData.PREF_PROFILE_NOTIFICATION_LED);
 
             // disable depended preferences
             disableDependedPref(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
