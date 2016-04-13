@@ -287,7 +287,6 @@ public class GlobalData extends Application {
     public static final int FORCE_ONE_SCAN_AND_DO_EVENTS = 2;
     public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
 
-    //
     // alarm time offset (miliseconds) for events with generated alarms
     public static final int EVENT_ALARM_TIME_OFFSET = 15000;
 
