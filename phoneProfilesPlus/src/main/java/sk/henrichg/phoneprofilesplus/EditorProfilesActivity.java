@@ -680,7 +680,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(getApplicationContext());
             GlobalData.setActivatedProfileForDuration(getApplicationContext(), 0);
 
-            stopService(new Intent(getApplicationContext(), ReceiversService.class));
+            stopService(new Intent(getApplicationContext(), PhoneProfilesService.class));
             stopService(new Intent(getApplicationContext(), KeyguardService.class));
 
             ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());

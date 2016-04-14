@@ -22,7 +22,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 GlobalData.setApplicationStarted(context, false);
 
                 // start ReceiverService
-                context.startService(new Intent(context.getApplicationContext(), ReceiversService.class));
+                context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
 
 
             }

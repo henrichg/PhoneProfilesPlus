@@ -38,7 +38,7 @@ public class LauncherActivity extends Activity {
         else
         {
             // start ReceiverService
-            startService(new Intent(getApplicationContext(), ReceiversService.class));
+            startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
 
             if (startupSource == 0)
             {

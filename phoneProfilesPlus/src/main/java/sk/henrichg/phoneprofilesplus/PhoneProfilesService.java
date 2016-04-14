@@ -3,12 +3,19 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.util.Log;
 
 
-public class ReceiversService extends Service {
+public class PhoneProfilesService extends Service
+                                    implements SensorEventListener
+{
 
     private final BatteryEventBroadcastReceiver batteryEventReceiver = new BatteryEventBroadcastReceiver();
     private final HeadsetConnectionBroadcastReceiver headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
@@ -22,10 +29,20 @@ public class ReceiversService extends Service {
 
     private static SettingsContentObserver settingsContentObserver = null;
 
+    // device flip
+    private static SensorManager mSensorManager = null;
+    private static boolean mStarted = false;
+
+    private float mGZ = 0; //gravity acceleration along the z axis
+    private int mEventCountSinceGZChanged = 0;
+    private static final int MAX_COUNT_GZ_CHANGE = 10;
+
+
+
     @Override
     public void onCreate()
     {
-        GlobalData.logE("$$$ ReceiversService.onCreate", "xxxxx");
+        GlobalData.logE("$$$ PhoneProfilesService.onCreate", "xxxxx");
 
         // start service for first start
         Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
@@ -100,7 +117,7 @@ public class ReceiversService extends Service {
     @Override
     public void onDestroy()
     {
-        GlobalData.logE("ReceiversService.onDestroy", "xxxxx");
+        GlobalData.logE("PhoneProfilesService.onDestroy", "xxxxx");
 
         getApplicationContext().unregisterReceiver(batteryEventReceiver);
         getApplicationContext().unregisterReceiver(headsetPlugReceiver);
@@ -125,7 +142,18 @@ public class ReceiversService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        GlobalData.logE("$$$ ReceiversService.onStartCommand", "xxxxx");
+        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
+
+
+        if (!mStarted) {
+            mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+            mSensorManager.registerListener(this,
+                    mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                    SensorManager.SENSOR_DELAY_GAME);
+
+            mStarted = true;
+        }
 
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
@@ -133,18 +161,52 @@ public class ReceiversService extends Service {
     }
 
     @Override
-    public void onTaskRemoved(Intent rootIntent)
-    {
-        GlobalData.logE("$$$ ReceiversService.onTaskRemoved", "xxxxx");
-
-        ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
-        super.onTaskRemoved(rootIntent);
-    }
-
-    @Override
     public IBinder onBind(Intent intent)
     {
         return null;
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        int type = event.sensor.getType();
+        if (type == Sensor.TYPE_ACCELEROMETER) {
+            float gz = event.values[2];
+            if (mGZ == 0) {
+                mGZ = gz;
+            } else {
+                if ((mGZ * gz) < 0) {
+                    mEventCountSinceGZChanged++;
+                    if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+                        mGZ = gz;
+                        mEventCountSinceGZChanged = 0;
+                        if (gz > 0) {
+                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
+                        } else if (gz < 0) {
+                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+                        }
+                    }
+                } else {
+                    if (mEventCountSinceGZChanged > 0) {
+                        mGZ = gz;
+                        mEventCountSinceGZChanged = 0;
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent)
+    {
+        GlobalData.logE("$$$ PhoneProfilesService.onTaskRemoved", "xxxxx");
+
+        ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+        super.onTaskRemoved(rootIntent);
     }
 
 }

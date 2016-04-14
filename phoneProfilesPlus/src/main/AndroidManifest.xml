@@ -360,7 +360,7 @@
             android:exported="false">
         </service>
         <service
-            android:name=".ReceiversService"
+            android:name=".PhoneProfilesService"
             android:exported="false"
             android:stopWithTask="false">
         </service>

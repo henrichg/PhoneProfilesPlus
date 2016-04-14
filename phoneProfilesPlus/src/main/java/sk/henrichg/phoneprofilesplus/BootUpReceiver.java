@@ -23,7 +23,7 @@ public class BootUpReceiver extends BroadcastReceiver {
         {
 
             // start ReceiverService
-            context.startService(new Intent(context.getApplicationContext(), ReceiversService.class));
+            context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
 
             // start service for first start
             //Intent firstStartServiceIntent = new Intent(context, FirstStartService.class);
@@ -55,7 +55,7 @@ public class BootUpReceiver extends BroadcastReceiver {
             //}
 
             // start ReceiverService
-            context.startService(new Intent(context.getApplicationContext(), ReceiversService.class));
+            context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
 
             DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
             dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);

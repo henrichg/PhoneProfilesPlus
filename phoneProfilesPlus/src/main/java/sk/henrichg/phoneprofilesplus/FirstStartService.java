@@ -79,7 +79,7 @@ public class FirstStartService extends IntentService {
         ImportantInfoNotification.showInfoNotification(context);
 
         // start ReceiverService
-        context.startService(new Intent(context.getApplicationContext(), ReceiversService.class));
+        context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
 
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         GlobalData.setActivatedProfileForDuration(context, 0);
