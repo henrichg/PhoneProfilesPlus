@@ -81,6 +81,12 @@
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.sensor.compass"
+        android:required="false"/>
 
     <application
         android:name=".GlobalData"
@@ -329,7 +335,7 @@
         <receiver
             android:name=".DashClockBroadcastReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_DASHCLOCK"/>
 
@@ -345,7 +351,7 @@
         <receiver
             android:name=".SetRadioPrefsForProfileBroadcastReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="sk.henrichg.phoneprofilesplus.SetRadiosForProfile.ACTION"/>
             </intent-filter>
@@ -417,7 +423,7 @@
         <receiver
             android:name=".RestartEventsBroadcastReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.RESTART_EVENTS"/>
 
@@ -432,7 +438,7 @@
         <receiver
             android:name=".RefreshGUIBroadcastReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_GUI"/>
 
@@ -569,7 +575,7 @@
         <receiver
             android:name=".AlarmClockBroadcastReceiver"
             android:enabled="false"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
 
                 <!--
@@ -632,7 +638,7 @@
         <receiver
             android:name=".PermissionsNotificationDeletedReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED"/>
             </intent-filter>
@@ -640,7 +646,7 @@
         <receiver
             android:name=".DeviceIdleModeBroadcastReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
         </receiver>
         <receiver
             android:name=".DisableInernalChangeBroadcastReceiver"
@@ -655,7 +661,7 @@
         <receiver
             android:name=".WifiAPStateChangeBroadcastReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED"/>
             </intent-filter>
@@ -668,7 +674,7 @@
         <receiver
             android:name=".LocationModeChangedBroadcastReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.location.MODE_CHANGED"/>
                 <action android:name="android.location.PROVIDERS_CHANGED"/>
@@ -677,12 +683,17 @@
         <receiver
             android:name=".GeofenceScannerAlarmBroadcastReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
         </receiver>
         <receiver
             android:name=".RecreateNotificationBroadcastReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".DeviceFlipBroadcatReceiver"
+            android:enabled="true"
+            android:exported="false">
         </receiver>
     </application>
 

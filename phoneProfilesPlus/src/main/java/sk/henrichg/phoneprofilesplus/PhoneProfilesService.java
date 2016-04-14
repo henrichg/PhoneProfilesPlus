@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.Sensor;
@@ -33,11 +34,18 @@ public class PhoneProfilesService extends Service
     private static SensorManager mSensorManager = null;
     private static boolean mStarted = false;
 
-    private float mGZ = 0; //gravity acceleration along the z axis
+    //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
     private static final int MAX_COUNT_GZ_CHANGE = 10;
 
+    private float[] mGravity = null;
+    private float[] mGeomagnetic = null;
 
+    public static final int DEVICE_FLIP_UNKNOWN = 0;
+    public static final int DEVICE_FLIP_UP = 1;
+    public static final int DEVICE_FLIP_DOWN = 2;
+
+    private static int mDiaplayUpDown = DEVICE_FLIP_UNKNOWN;
 
     @Override
     public void onCreate()
@@ -139,21 +147,36 @@ public class PhoneProfilesService extends Service
 
     }
 
+    public void startListeningSensors() {
+        if (mSensorManager == null)
+            mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        if (!mStarted) {
+            mSensorManager.registerListener(this,
+                    mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+            mSensorManager.registerListener(this,
+                    mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+
+            mStarted = true;
+        }
+    }
+
+    public void stopListeningSensors() {
+        if (mSensorManager == null)
+            mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        mSensorManager.unregisterListener(this);
+        mStarted = false;
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
 
-
-        if (!mStarted) {
-            mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-            mSensorManager.registerListener(this,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                    SensorManager.SENSOR_DELAY_GAME);
-
-            mStarted = true;
-        }
+        startListeningSensors();
 
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.
@@ -168,7 +191,7 @@ public class PhoneProfilesService extends Service
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        int type = event.sensor.getType();
+        /*int type = event.sensor.getType();
         if (type == Sensor.TYPE_ACCELEROMETER) {
             float gz = event.values[2];
             if (mGZ == 0) {
@@ -190,6 +213,48 @@ public class PhoneProfilesService extends Service
                         mGZ = gz;
                         mEventCountSinceGZChanged = 0;
                     }
+                }
+            }
+        }*/
+
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+            mGravity = event.values;
+        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+            mGeomagnetic = event.values;
+        if (mGravity != null && mGeomagnetic != null) {
+            float R[] = new float[9];
+            float I[] = new float[9];
+            boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+            if (success) {
+                mEventCountSinceGZChanged++;
+                if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+                    float orientation[] = new float[3];
+                    //orientation[0]: azimuth, rotation around the -Z axis, i.e. the opposite direction of Z axis.
+                    //orientation[1]: pitch, rotation around the -X axis, i.e the opposite direction of X axis.
+                    //orientation[2]: roll, rotation around the Y axis.
+                    SensorManager.getOrientation(R, orientation);
+                    float absRoll = java.lang.Math.abs(orientation[2]);
+                    int deviceFlip = DEVICE_FLIP_UNKNOWN;
+                    if (absRoll < 0.1)
+                        deviceFlip = DEVICE_FLIP_UP;
+                    if (absRoll > 3.0)
+                        deviceFlip = DEVICE_FLIP_DOWN;
+                    if ((deviceFlip != DEVICE_FLIP_UNKNOWN) && (deviceFlip != mDiaplayUpDown)) {
+                        GlobalData.logE("PhoneProfilesService.onSensorChanged", "absRoll="+absRoll);
+
+                        mDiaplayUpDown = deviceFlip;
+
+                        if (mDiaplayUpDown == DEVICE_FLIP_UP)
+                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
+                        if (mDiaplayUpDown == DEVICE_FLIP_DOWN)
+                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+
+                        Intent broadcastIntent = new Intent(this, DeviceFlipBroadcatReceiver.class);
+                        sendBroadcast(broadcastIntent);
+
+                    }
+
+                    mEventCountSinceGZChanged = 0;
                 }
             }
         }
