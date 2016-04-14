@@ -44,7 +44,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
         //if (oneshot == 0)
-            setAlarm(context, /*false,*/ false);
+            setAlarm(context, false, false);
 
         //if (scanResults == null)
         //    scanResults = new ArrayList<WifiSSIDData>();
@@ -140,7 +140,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    public static void setAlarm(Context context, /*boolean oneshot,*/ boolean shortInterval)
+    public static void setAlarm(Context context, boolean shortInterval, boolean forScreenOn)
     {
         //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot);
 
@@ -153,59 +153,37 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Intent intent = new Intent(context, WifiScanAlarmBroadcastReceiver.class);
 
-            /*if (oneshot)
-            {
-                removeAlarm(context, true);
+            removeAlarm(context);
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.SECOND, 2);
-                long alarmTime = calendar.getTimeInMillis();
+            Calendar calendar = Calendar.getInstance();
 
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
+            //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
-                intent.putExtra(EXTRA_ONESHOT, 1);
-                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                    alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            int interval = GlobalData.applicationEventWifiScanInterval;
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            if (isPowerSaveMode && GlobalData.applicationEventWifiScanInPowerSaveMode.equals("1"))
+                interval = 2 * interval;
+
+            if (shortInterval) {
+                if (forScreenOn)
+                    calendar.add(Calendar.SECOND, 1);
                 else
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-                    alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                else
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-
-                GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS);
+                    calendar.add(Calendar.SECOND, 5);
             }
             else
-            {*/
-                removeAlarm(context/*, false*/);
+                calendar.add(Calendar.MINUTE, interval);
+            long alarmTime = calendar.getTimeInMillis();
 
-                Calendar calendar = Calendar.getInstance();
+            intent.putExtra(EXTRA_ONESHOT, 0);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-                //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
-
-                int interval = GlobalData.applicationEventWifiScanInterval;
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                if (isPowerSaveMode && GlobalData.applicationEventWifiScanInPowerSaveMode.equals("1"))
-                    interval = 2 * interval;
-
-                if (shortInterval)
-                    calendar.add(Calendar.SECOND, 10);
-                else
-                    calendar.add(Calendar.MINUTE, interval);
-                long alarmTime = calendar.getTimeInMillis();
-
-                intent.putExtra(EXTRA_ONESHOT, 0);
-                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                    alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-                    alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                else
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            //}
+            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+                alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            else
+                alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
 
             //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot + "; alarm is set");
             GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm", "alarm is set");

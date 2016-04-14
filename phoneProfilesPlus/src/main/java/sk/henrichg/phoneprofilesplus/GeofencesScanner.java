@@ -83,7 +83,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             clearAllEventGeofences();
             if (GlobalData.getApplicationStarted(context)) {
                 mUpdatesStarted = false;
-                GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
+                GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
             }
         }
     }
@@ -268,7 +268,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         if ((forceReset) || (GlobalData.isPowerSaveMode != oldPowerSaveMode)) {
             stopLocationUpdates();
             createLocationRequest();
-            GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
+            GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
         }
     }
 

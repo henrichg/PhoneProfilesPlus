@@ -40,7 +40,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
         //if (oneshot == 0)
-            setAlarm(context, /*false,*/ false);
+            setAlarm(context, false, false);
 
         //if (scanResults == null)
         //    scanResults = new ArrayList<BluetoothDeviceData>();
@@ -129,7 +129,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("NewApi")
-    public static void setAlarm(Context context, /*boolean oneshot,*/ boolean shortInterval)
+    public static void setAlarm(Context context, boolean shortInterval, boolean forScreenOn)
     {
         //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
 
@@ -142,63 +142,37 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Intent intent = new Intent(context, BluetoothScanAlarmBroadcastReceiver.class);
 
-            /*if (oneshot)
-            {
-                removeAlarm(context, true);
+            removeAlarm(context);
 
-                Calendar calendar = Calendar.getInstance();
-                //calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.add(Calendar.SECOND, 2);
+            Calendar calendar = Calendar.getInstance();
 
-                long alarmTime = calendar.getTimeInMillis();
+            //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
-                //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
+            int interval = GlobalData.applicationEventBluetoothScanInterval;
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
+                interval = 2 * interval;
 
-                intent.putExtra(EXTRA_ONESHOT, 1);
-                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                    alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            if (shortInterval) {
+                if (forScreenOn)
+                    calendar.add(Calendar.SECOND, 1);
                 else
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-                    alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                else
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-
-                GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS);
-                GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS);
-
+                    calendar.add(Calendar.SECOND, 5);
             }
             else
-            {*/
-                removeAlarm(context/*, false*/);
+                calendar.add(Calendar.MINUTE, interval);
+            long alarmTime = calendar.getTimeInMillis();
 
-                Calendar calendar = Calendar.getInstance();
+            intent.putExtra(EXTRA_ONESHOT, 0);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-                //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
-
-                int interval = GlobalData.applicationEventBluetoothScanInterval;
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
-                    interval = 2 * interval;
-
-                if (shortInterval)
-                    calendar.add(Calendar.SECOND, 10);
-                else
-                    calendar.add(Calendar.MINUTE, interval);
-                long alarmTime = calendar.getTimeInMillis();
-
-                intent.putExtra(EXTRA_ONESHOT, 0);
-                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                    alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-                    alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                else
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            //}
+            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+                alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            else
+                alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
 
             GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "alarm is set");
 

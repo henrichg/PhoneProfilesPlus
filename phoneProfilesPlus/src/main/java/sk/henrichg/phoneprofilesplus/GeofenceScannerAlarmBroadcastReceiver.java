@@ -26,7 +26,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
         if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
             //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
             //if (oneshot == 0)
-            setAlarm(context, /*false,*/ false);
+            setAlarm(context, false, false);
             dataWrapper.invalidateDataWrapper();
         }
         else {
@@ -64,7 +64,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
 
     @SuppressLint("NewApi")
-    public static void setAlarm(Context context, /*boolean oneshot,*/ boolean startScanning)
+    public static void setAlarm(Context context, boolean startScanning, boolean forScreenOn)
     {
         //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
 
@@ -74,74 +74,50 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
             Intent intent = new Intent(context, GeofenceScannerAlarmBroadcastReceiver.class);
 
-            /*
-            if (oneshot) {
-                removeAlarm(context, true);
+            removeAlarm(context);
 
-                Calendar calendar = Calendar.getInstance();
-                //calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.add(Calendar.SECOND, 2);
+            if (startScanning)
+                GlobalData.geofencesScanner.mUpdatesStarted = false;
 
-                long alarmTime = calendar.getTimeInMillis();
+            Calendar calendar = Calendar.getInstance();
 
-                //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
+            //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
-                intent.putExtra(EXTRA_ONESHOT, 1);
-                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                    alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-                    alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            int updateDuration = 30;
+            int interval = 0;
+            if (GlobalData.geofencesScanner.mUpdatesStarted) {
+                interval = GlobalData.applicationEventLocationUpdateInterval * 60;
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                if (isPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
+                    interval = 2 * interval;
+                interval = interval - updateDuration;
+            }
+            else {
+                interval = updateDuration;
+            }
+
+            if (startScanning) {
+                if (forScreenOn)
+                    calendar.add(Calendar.SECOND, 1);
                 else
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-
-                GlobalData.setForceOneGeofenceScan(context, GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS);
-
-            } else { */
-                removeAlarm(context/*, false*/);
-
-                if (startScanning)
-                    GlobalData.geofencesScanner.mUpdatesStarted = false;
-
-                Calendar calendar = Calendar.getInstance();
-
-                //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
-
-                int updateDuration = 30;
-                int interval = 0;
-                if (GlobalData.geofencesScanner.mUpdatesStarted) {
-                    interval = GlobalData.applicationEventLocationUpdateInterval * 60;
-                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                    if (isPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
-                        interval = 2 * interval;
-                    interval = interval - updateDuration;
-                }
-                else {
-                    interval = updateDuration;
-                }
-
-                if (startScanning) {
                     calendar.add(Calendar.SECOND, 2);
-                    //calendar.add(Calendar.SECOND, 10);
-                }
-                else {
-                    //calendar.add(Calendar.MINUTE, interval);
-                    calendar.add(Calendar.SECOND, interval);
-                }
-                long alarmTime = calendar.getTimeInMillis();
+            }
+            else {
+                //calendar.add(Calendar.MINUTE, interval);
+                calendar.add(Calendar.SECOND, interval);
+            }
+            long alarmTime = calendar.getTimeInMillis();
 
-                //intent.putExtra(EXTRA_ONESHOT, 0);
-                PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            //intent.putExtra(EXTRA_ONESHOT, 0);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-                if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                    alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-                    alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-                else
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            //}
+            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+                alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            else
+                alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         }
 
         GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "alarm is set");

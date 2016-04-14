@@ -169,7 +169,7 @@ public class EventPreferencesLocation extends EventPreferences {
     public void setSystemEventForStart(Context context)
     {
         if (!GeofenceScannerAlarmBroadcastReceiver.isAlarmSet(context/*, false*/))
-            GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
+            GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
     }
 
     @Override

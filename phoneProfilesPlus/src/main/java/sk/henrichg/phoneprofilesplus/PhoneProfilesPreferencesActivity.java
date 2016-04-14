@@ -184,17 +184,17 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         if (wifiScanInterval != GlobalData.applicationEventWifiScanInterval)
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
-                WifiScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), /*false,*/ true);
+                WifiScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
         }
         if (bluetoothScanInterval != GlobalData.applicationEventBluetoothScanInterval)
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
-                BluetoothScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), /*false,*/ true);
+                BluetoothScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
         }
         if (locationScanInterval != GlobalData.applicationEventLocationUpdateInterval)
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
-                GeofenceScannerAlarmBroadcastReceiver.setAlarm(getApplicationContext(), /*false,*/ true);
+                GeofenceScannerAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
         }
         dataWrapper.invalidateDataWrapper();
 

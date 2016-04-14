@@ -182,7 +182,7 @@ public class EventPreferencesWifi extends EventPreferences {
     {
         if (((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
             (!WifiScanAlarmBroadcastReceiver.isAlarmSet(context/*, false*/)))
-            WifiScanAlarmBroadcastReceiver.setAlarm(context, /*false,*/ true);
+            WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
     }
 
     @Override
