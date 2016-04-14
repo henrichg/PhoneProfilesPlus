@@ -342,6 +342,12 @@
             android:entries="@array/displayRotationArray11"
             android:entryValues="@array/displayRotationValues11"
             app:useStockLayout="true" />
+        <Preference
+            android:key="prf_pref_notificationLedInfo"
+            android:title="@string/profile_preferences_notificationLed"
+            android:summary="@string/profile_preferences_notificationLedInfo_summary"
+            android:widgetLayout="@layout/info_preference"
+            android:dependency="prf_pref_notificationLed" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/profile_preferences_notificationLed"
             android:summary="@string/array_pref_no_change"

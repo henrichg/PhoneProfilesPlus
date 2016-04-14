@@ -734,4 +734,5 @@
     <string name="array_pref_color_black">Black</string>
     <string name="profile_preferences_notificationLed">Notification LED</string>
     <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
+    <string name="profile_preferences_notificationLedInfo_summary">Experimental. It may not work on your device</string>
 </resources>
