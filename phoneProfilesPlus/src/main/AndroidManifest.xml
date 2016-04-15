@@ -87,6 +87,9 @@
     <uses-feature
         android:name="android.hardware.sensor.compass"
         android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.sensor.proximity"
+        android:required="false"/>
 
     <application
         android:name=".GlobalData"
