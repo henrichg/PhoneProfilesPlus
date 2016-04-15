@@ -171,6 +171,11 @@ public class PhoneProfilesService extends Service
                 mStarted = true;
             }
         }
+        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
+            mSensorManager.registerListener(this,
+                    mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     public void stopListeningSensors() {
@@ -201,6 +206,13 @@ public class PhoneProfilesService extends Service
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+            if (event.values[0] == 0) {
+                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is near.");
+            } else {
+                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is far");
+            }
+        }
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             // Isolate the force of gravity with the low-pass filter.
             mGravity[0] = alpha * mGravity[0] + (1 - alpha) * event.values[0];
