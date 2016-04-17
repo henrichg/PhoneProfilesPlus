@@ -42,6 +42,7 @@ public class PhoneProfilesService extends Service
     private final float alpha = (float) 0.8;
     private float mGravity[] = new float[3];
     private float mGeomagnetic[] = new float[3];
+    private float mProximity = -1;
 
     public static final int DEVICE_FLIP_UNKNOWN = 0;
     public static final int DEVICE_FLIP_DISPLAY_UP = 1;
@@ -163,10 +164,10 @@ public class PhoneProfilesService extends Service
             if (!mStarted) {
                 mSensorManager.registerListener(this,
                         mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                        SensorManager.SENSOR_DELAY_NORMAL);
+                        SensorManager.SENSOR_DELAY_UI);
                 mSensorManager.registerListener(this,
                         mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-                        SensorManager.SENSOR_DELAY_NORMAL);
+                        SensorManager.SENSOR_DELAY_UI);
 
                 mStarted = true;
             }
@@ -174,7 +175,7 @@ public class PhoneProfilesService extends Service
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
             mSensorManager.registerListener(this,
                     mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                    SensorManager.SENSOR_DELAY_NORMAL);
+                    SensorManager.SENSOR_DELAY_UI);
         }
     }
 
@@ -207,10 +208,13 @@ public class PhoneProfilesService extends Service
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-            if (event.values[0] == 0) {
-                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is near.");
-            } else {
-                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is far");
+            if (event.values[0] != mProximity) {
+                mProximity = event.values[0];
+                if (mProximity == 0) {
+                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is near.");
+                } else {
+                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is far");
+                }
             }
         }
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {

@@ -52,12 +52,12 @@ public class GlobalData extends Application {
                                          +"|PhoneProfilesService"
 
                                          //+"|$$$ ScannerService.onHandleIntent"
-                                         +"|$$$ WifiScanAlarmBroadcastReceiver.startScan"
+                                         //+"|$$$ WifiScanAlarmBroadcastReceiver.startScan"
                                          +"|##### WifiScanBroadcastReceiver.onReceive"
-                                         //+"|$$$ WifiScanBroadcastReceiver.onReceive"
+                                         +"|$$$ WifiScanBroadcastReceiver.onReceive"
 
                                          //+"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
-                                         //+"|##### WifiScanAlarmBroadcastReceiver.onReceive"
+                                         +"|##### WifiScanAlarmBroadcastReceiver.onReceive"
                                          //+"|##### GeofenceScannerAlarmBroadcastReceiver.onReceive"
                                          //+"|##### GeofenceScannerBroadcastReceiver.onReceive"
                                          //+"|##### GeofenceScanner"
