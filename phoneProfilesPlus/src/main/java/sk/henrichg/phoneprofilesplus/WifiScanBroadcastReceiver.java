@@ -48,9 +48,9 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
                 List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
                 if (scanResults != null) {
                     GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults.size="+scanResults.size());
-                    for (WifiSSIDData result : scanResults) {
-                        GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
-                    }
+                    //for (WifiSSIDData result : scanResults) {
+                    //    GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
+                    //}
                 }
                 else
                     GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults=null");

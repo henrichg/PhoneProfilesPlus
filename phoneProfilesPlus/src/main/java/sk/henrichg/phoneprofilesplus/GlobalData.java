@@ -52,8 +52,8 @@ public class GlobalData extends Application {
                                          +"|PhoneProfilesService"
 
                                          //+"|$$$ ScannerService.onHandleIntent"
-                                         //+"|$$$ WifiScanAlarmBroadcastReceiver.startScan"
-                                         //+"|##### WifiScanBroadcastReceiver.onReceive"
+                                         +"|$$$ WifiScanAlarmBroadcastReceiver.startScan"
+                                         +"|##### WifiScanBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiScanBroadcastReceiver.onReceive"
 
                                          //+"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
