@@ -273,8 +273,8 @@ public class PhoneProfilesService extends Service
                     mEventCountSinceGZChanged = 0;
 
                     //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
-                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
-                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
 
                     mTmpSideUp = side;
                 }
