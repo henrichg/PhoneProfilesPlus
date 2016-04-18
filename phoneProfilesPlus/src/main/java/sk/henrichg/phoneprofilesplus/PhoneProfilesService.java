@@ -47,13 +47,12 @@ public class PhoneProfilesService extends Service
     public static final int DEVICE_FLIP_UNKNOWN = 0;
     public static final int DEVICE_FLIP_DISPLAY_UP = 1;
     public static final int DEVICE_FLIP_DISPLAY_DOWN = 2;
-    public static final int DEVICE_FLIP_UP_DOWN_SIDE_UP = 1;
-    public static final int DEVICE_FLIP_RIGHT_SIDE_UP = 2;
-    public static final int DEVICE_FLIP_LEFT_SIDE_UP = 3;
+    public static final int DEVICE_FLIP_RIGHT_SIDE_UP = 3;
+    public static final int DEVICE_FLIP_LEFT_SIDE_UP = 4;
+    public static final int DEVICE_FLIP_UP_SIDE_UP = 5;
+    public static final int DEVICE_FLIP_DOWN_SIDE_UP = 6;
 
-    private static int mDisplayUpDown = DEVICE_FLIP_UNKNOWN;
     private static int mSideUp = DEVICE_FLIP_UNKNOWN;
-    private static int mTmpDisplayUpDown = DEVICE_FLIP_UNKNOWN;
     private static int mTmpSideUp = DEVICE_FLIP_UNKNOWN;
 
     @Override
@@ -247,58 +246,54 @@ public class PhoneProfilesService extends Service
                 float pitch = (float)Math.toDegrees(orientation[1]);
                 float roll = (float)Math.toDegrees(orientation[2]);
 
-                int display;// = DEVICE_FLIP_UNKNOWN;
-                int side;// = DEVICE_FLIP_UNKNOWN;
-                if (pitch > -45 && pitch < 45) {
-                    // portrait orientation
-                    if (roll > -135 && roll < 135)
-                        display = DEVICE_FLIP_DISPLAY_UP;
-                    else
-                        display = DEVICE_FLIP_DISPLAY_DOWN;
-                    side = DEVICE_FLIP_UP_DOWN_SIDE_UP;
-                }
-                else {
-                    // landscape orientation
-                    if (Math.abs(roll) > 0 && Math.abs(roll) < 175)
-                        display = DEVICE_FLIP_DISPLAY_UP;
-                    else
-                        display = DEVICE_FLIP_DISPLAY_DOWN;
+                //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
 
-                    if (pitch < -45)
-                        side = DEVICE_FLIP_RIGHT_SIDE_UP;
-                    else
-                    if (pitch > 45)
-                        side = DEVICE_FLIP_LEFT_SIDE_UP;
-                    else
-                        side = DEVICE_FLIP_UP_DOWN_SIDE_UP;
+                int side = DEVICE_FLIP_UNKNOWN;
+                if (pitch > -30 && pitch < 30) {
+                    if (roll > -30 && roll < 30)
+                        side = DEVICE_FLIP_DISPLAY_UP;
+                    if (roll > 150 && roll < 180)
+                        side = DEVICE_FLIP_DISPLAY_DOWN;
+                    if (roll > -180 && roll < -150)
+                        side = DEVICE_FLIP_DISPLAY_DOWN;
+                    if (roll > 60 && roll < 120)
+                        side = DEVICE_FLIP_UP_SIDE_UP;
+                    if (roll > -120 && roll < -60)
+                        side = DEVICE_FLIP_DOWN_SIDE_UP;
+                }
+                if (pitch > 30 && pitch < 90) {
+                    side = DEVICE_FLIP_LEFT_SIDE_UP;
+                }
+                if (pitch > -90 && pitch < -30) {
+                    side = DEVICE_FLIP_RIGHT_SIDE_UP;
                 }
 
-                if ((display != mTmpDisplayUpDown) || (side != mTmpSideUp)) {
+                if ((mTmpSideUp == DEVICE_FLIP_UNKNOWN) || ((side != DEVICE_FLIP_UNKNOWN) && (side != mTmpSideUp))) {
                     mEventCountSinceGZChanged = 0;
 
                     //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
-                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
-                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
 
-                    mTmpDisplayUpDown = display;
                     mTmpSideUp = side;
                 }
                 else {
                     ++mEventCountSinceGZChanged;
                     if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
 
-                        if ((mTmpDisplayUpDown != mDisplayUpDown) || (mTmpSideUp != mSideUp)) {
+                        if (mTmpSideUp != mSideUp) {
 
-                            mDisplayUpDown = mTmpDisplayUpDown;
                             mSideUp = mTmpSideUp;
 
-                            if (mDisplayUpDown == DEVICE_FLIP_DISPLAY_UP)
+                            if (mSideUp == DEVICE_FLIP_DISPLAY_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
-                            if (mDisplayUpDown == DEVICE_FLIP_DISPLAY_DOWN)
+                            if (mSideUp == DEVICE_FLIP_DISPLAY_DOWN)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
-
-                            if (mSideUp == DEVICE_FLIP_UP_DOWN_SIDE_UP)
-                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now up/dow side is facing up.");
+                            if (mSideUp == DEVICE_FLIP_UP_SIDE_UP)
+                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now up side is facing up.");
+                            if (mSideUp == DEVICE_FLIP_DOWN_SIDE_UP)
+                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now down side is facing up.");
                             if (mSideUp == DEVICE_FLIP_RIGHT_SIDE_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
                             if (mSideUp == DEVICE_FLIP_LEFT_SIDE_UP)
