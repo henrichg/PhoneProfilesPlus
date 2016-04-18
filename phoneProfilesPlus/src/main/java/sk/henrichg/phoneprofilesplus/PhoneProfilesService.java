@@ -37,7 +37,7 @@ public class PhoneProfilesService extends Service
 
     //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
-    private static final int MAX_COUNT_GZ_CHANGE = 20;
+    private static final int MAX_COUNT_GZ_CHANGE = 30;
 
     private final float alpha = (float) 0.8;
     private float mGravity[] = new float[3];
