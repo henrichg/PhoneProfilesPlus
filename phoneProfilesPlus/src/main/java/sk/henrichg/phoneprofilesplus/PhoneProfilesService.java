@@ -252,15 +252,15 @@ public class PhoneProfilesService extends Service
 
                 int side = DEVICE_FLIP_UNKNOWN;
                 if (pitch > -30 && pitch < 30) {
-                    if (roll > -30 && roll < 30)
+                    if (roll > -60 && roll < 60)
                         side = DEVICE_FLIP_DISPLAY_UP;
                     if (roll > 150 && roll < 180)
                         side = DEVICE_FLIP_DISPLAY_DOWN;
                     if (roll > -180 && roll < -150)
                         side = DEVICE_FLIP_DISPLAY_DOWN;
-                    if (roll > 60 && roll < 120)
+                    if (roll > 65 && roll < 115)
                         side = DEVICE_FLIP_UP_SIDE_UP;
-                    if (roll > -120 && roll < -60)
+                    if (roll > -115 && roll < -65)
                         side = DEVICE_FLIP_DOWN_SIDE_UP;
                 }
                 if (pitch > 30 && pitch < 90) {
@@ -270,7 +270,7 @@ public class PhoneProfilesService extends Service
                     side = DEVICE_FLIP_RIGHT_SIDE_UP;
                 }
 
-                if ((mTmpSideUp == DEVICE_FLIP_UNKNOWN) || ((side != DEVICE_FLIP_UNKNOWN) && (side != mTmpSideUp))) {
+                if ((mTmpSideUp == DEVICE_FLIP_UNKNOWN) || (/*(side != DEVICE_FLIP_UNKNOWN) &&*/ (side != mTmpSideUp))) {
                     mEventCountSinceGZChanged = 0;
 
                     //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
@@ -303,6 +303,8 @@ public class PhoneProfilesService extends Service
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
                             if (mSideUp == DEVICE_FLIP_LEFT_SIDE_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
+                            if (mSideUp == DEVICE_FLIP_UNKNOWN)
+                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
 
                             Intent broadcastIntent = new Intent(this, DeviceFlipBroadcatReceiver.class);
                             sendBroadcast(broadcastIntent);
