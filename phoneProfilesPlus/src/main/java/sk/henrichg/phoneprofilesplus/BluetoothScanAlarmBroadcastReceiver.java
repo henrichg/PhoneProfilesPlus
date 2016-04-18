@@ -156,7 +156,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             if (shortInterval) {
                 if (forScreenOn)
-                    calendar.add(Calendar.SECOND, 1);
+                    calendar.add(Calendar.SECOND, 2);
                 else
                     calendar.add(Calendar.SECOND, 5);
             }

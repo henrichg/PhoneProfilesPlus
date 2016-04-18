@@ -99,7 +99,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
             if (startScanning) {
                 if (forScreenOn)
-                    calendar.add(Calendar.SECOND, 1);
+                    calendar.add(Calendar.SECOND, 2);
                 else
                     calendar.add(Calendar.SECOND, 2);
             }
