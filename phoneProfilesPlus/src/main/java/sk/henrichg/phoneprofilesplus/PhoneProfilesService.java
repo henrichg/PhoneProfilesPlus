@@ -37,7 +37,7 @@ public class PhoneProfilesService extends Service
 
     //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
-    private static final int MAX_COUNT_GZ_CHANGE = 30;
+    private static final int MAX_COUNT_GZ_CHANGE = 20;
 
     private final float alpha = (float) 0.8;
     private float mGravity[] = new float[3];
@@ -53,6 +53,8 @@ public class PhoneProfilesService extends Service
 
     private static int mDisplayUpDown = DEVICE_FLIP_UNKNOWN;
     private static int mSideUp = DEVICE_FLIP_UNKNOWN;
+    private static int mTmpDisplayUpDown = DEVICE_FLIP_UNKNOWN;
+    private static int mTmpSideUp = DEVICE_FLIP_UNKNOWN;
 
     @Override
     public void onCreate()
@@ -164,19 +166,19 @@ public class PhoneProfilesService extends Service
             if (!mStarted) {
                 mSensorManager.registerListener(this,
                         mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                        SensorManager.SENSOR_DELAY_UI);
+                        SensorManager.SENSOR_DELAY_NORMAL);
                 mSensorManager.registerListener(this,
                         mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-                        SensorManager.SENSOR_DELAY_UI);
+                        SensorManager.SENSOR_DELAY_NORMAL);
 
                 mStarted = true;
             }
         }
-        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
+        /*if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
             mSensorManager.registerListener(this,
                     mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                    SensorManager.SENSOR_DELAY_UI);
-        }
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }*/
     }
 
     public void stopListeningSensors() {
@@ -233,73 +235,79 @@ public class PhoneProfilesService extends Service
             float I[] = new float[9];
             boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
             if (success) {
-                mEventCountSinceGZChanged++;
-                if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
-                    float orientation[] = new float[3];
-                    //orientation[0]: azimuth, rotation around the -Z axis, i.e. the opposite direction of Z axis.
-                    //orientation[1]: pitch, rotation around the -X axis, i.e the opposite direction of X axis.
-                    //orientation[2]: roll, rotation around the Y axis.
+                float orientation[] = new float[3];
+                //orientation[0]: azimuth, rotation around the -Z axis, i.e. the opposite direction of Z axis.
+                //orientation[1]: pitch, rotation around the -X axis, i.e the opposite direction of X axis.
+                //orientation[2]: roll, rotation around the Y axis.
 
-                    SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, I);
-                    SensorManager.getOrientation(I, orientation);
+                SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, I);
+                SensorManager.getOrientation(I, orientation);
 
-                    float azimuth = (float)Math.toDegrees(orientation[0]);
-                    float pitch = (float)Math.toDegrees(orientation[1]);
-                    float roll = (float)Math.toDegrees(orientation[2]);
-                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
-                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch="+pitch);
-                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll="+roll);
+                //float azimuth = (float)Math.toDegrees(orientation[0]);
+                float pitch = (float)Math.toDegrees(orientation[1]);
+                float roll = (float)Math.toDegrees(orientation[2]);
 
+                int display;// = DEVICE_FLIP_UNKNOWN;
+                int side;// = DEVICE_FLIP_UNKNOWN;
+                if (pitch > -45 && pitch < 45) {
+                    // portrait orientation
+                    if (roll > -135 && roll < 135)
+                        display = DEVICE_FLIP_DISPLAY_UP;
+                    else
+                        display = DEVICE_FLIP_DISPLAY_DOWN;
+                    side = DEVICE_FLIP_UP_DOWN_SIDE_UP;
+                }
+                else {
+                    // landscape orientation
+                    if (Math.abs(roll) > 0 && Math.abs(roll) < 175)
+                        display = DEVICE_FLIP_DISPLAY_UP;
+                    else
+                        display = DEVICE_FLIP_DISPLAY_DOWN;
 
-                    int display;// = DEVICE_FLIP_UNKNOWN;
-                    int side;// = DEVICE_FLIP_UNKNOWN;
-                    if (pitch > -45 && pitch < 45) {
-                        // portrait orientation
-                        if (roll > -135 && roll < 135)
-                            display = DEVICE_FLIP_DISPLAY_UP;
-                        else
-                            display = DEVICE_FLIP_DISPLAY_DOWN;
+                    if (pitch < -45)
+                        side = DEVICE_FLIP_RIGHT_SIDE_UP;
+                    else
+                    if (pitch > 45)
+                        side = DEVICE_FLIP_LEFT_SIDE_UP;
+                    else
                         side = DEVICE_FLIP_UP_DOWN_SIDE_UP;
-                    }
-                    else {
-                        // landscape orientation
-                        if (roll > 0 && roll < 175)
-                            display = DEVICE_FLIP_DISPLAY_UP;
-                        else
-                            display = DEVICE_FLIP_DISPLAY_DOWN;
+                }
 
-                        if (pitch < -45)
-                            side = DEVICE_FLIP_RIGHT_SIDE_UP;
-                        else
-                        if (pitch > 45)
-                            side = DEVICE_FLIP_LEFT_SIDE_UP;
-                        else
-                            side = DEVICE_FLIP_UP_DOWN_SIDE_UP;
-                    }
-
-                    if ((display != mDisplayUpDown) || (side != mSideUp)) {
-
-                        //if (display != DEVICE_FLIP_UNKNOWN)
-                            mDisplayUpDown = display;
-                        //if (side != DEVICE_FLIP_UNKNOWN)
-                            mSideUp = side;
-
-                        if (mDisplayUpDown == DEVICE_FLIP_DISPLAY_UP)
-                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
-                        if (mDisplayUpDown == DEVICE_FLIP_DISPLAY_DOWN)
-                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
-
-                        if (mSideUp == DEVICE_FLIP_UP_DOWN_SIDE_UP)
-                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now up/dow side is facing up.");
-                        if (mSideUp == DEVICE_FLIP_RIGHT_SIDE_UP)
-                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
-                        if (mSideUp == DEVICE_FLIP_LEFT_SIDE_UP)
-                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
-
-                        Intent broadcastIntent = new Intent(this, DeviceFlipBroadcatReceiver.class);
-                        sendBroadcast(broadcastIntent);
-                    }
+                if ((display != mTmpDisplayUpDown) || (side != mTmpSideUp)) {
                     mEventCountSinceGZChanged = 0;
+
+                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
+                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+
+                    mTmpDisplayUpDown = display;
+                    mTmpSideUp = side;
+                }
+                else {
+                    ++mEventCountSinceGZChanged;
+                    if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+
+                        if ((mTmpDisplayUpDown != mDisplayUpDown) || (mTmpSideUp != mSideUp)) {
+
+                            mDisplayUpDown = mTmpDisplayUpDown;
+                            mSideUp = mTmpSideUp;
+
+                            if (mDisplayUpDown == DEVICE_FLIP_DISPLAY_UP)
+                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
+                            if (mDisplayUpDown == DEVICE_FLIP_DISPLAY_DOWN)
+                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+
+                            if (mSideUp == DEVICE_FLIP_UP_DOWN_SIDE_UP)
+                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now up/dow side is facing up.");
+                            if (mSideUp == DEVICE_FLIP_RIGHT_SIDE_UP)
+                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
+                            if (mSideUp == DEVICE_FLIP_LEFT_SIDE_UP)
+                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
+
+                            Intent broadcastIntent = new Intent(this, DeviceFlipBroadcatReceiver.class);
+                            sendBroadcast(broadcastIntent);
+                        }
+                    }
                 }
             }
         }
