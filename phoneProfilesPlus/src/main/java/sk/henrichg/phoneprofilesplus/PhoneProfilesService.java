@@ -37,7 +37,7 @@ public class PhoneProfilesService extends Service
 
     //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
-    private static final int MAX_COUNT_GZ_CHANGE = 30;
+    private static final int MAX_COUNT_GZ_CHANGE = 25;
 
     private final float alpha = (float) 0.8;
     private float mGravity[] = new float[3];
@@ -52,6 +52,7 @@ public class PhoneProfilesService extends Service
     public static final int DEVICE_FLIP_UP_SIDE_UP = 5;
     public static final int DEVICE_FLIP_DOWN_SIDE_UP = 6;
 
+    private static int mDisplayUp = DEVICE_FLIP_UNKNOWN;
     private static int mSideUp = DEVICE_FLIP_UNKNOWN;
     private static int mTmpSideUp = DEVICE_FLIP_UNKNOWN;
 
@@ -286,10 +287,14 @@ public class PhoneProfilesService extends Service
 
                             mSideUp = mTmpSideUp;
 
-                            if (mSideUp == DEVICE_FLIP_DISPLAY_UP)
+                            if ((mSideUp == DEVICE_FLIP_DISPLAY_UP) || (mSideUp == DEVICE_FLIP_DISPLAY_DOWN))
+                                mDisplayUp = mSideUp;
+
+                            if (mDisplayUp == DEVICE_FLIP_DISPLAY_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
-                            if (mSideUp == DEVICE_FLIP_DISPLAY_DOWN)
+                            if (mDisplayUp == DEVICE_FLIP_DISPLAY_DOWN)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+
                             if (mSideUp == DEVICE_FLIP_UP_SIDE_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now up side is facing up.");
                             if (mSideUp == DEVICE_FLIP_DOWN_SIDE_UP)
