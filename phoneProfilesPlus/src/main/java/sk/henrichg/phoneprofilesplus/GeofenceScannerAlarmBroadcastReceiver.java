@@ -62,6 +62,12 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
     }
 
+    public static void sendBroadcast(Context context)
+    {
+        GlobalData.geofencesScanner.mUpdatesStarted = false;
+        Intent broadcastIntent = new Intent(context, GeofenceScannerAlarmBroadcastReceiver.class);
+        context.sendBroadcast(broadcastIntent);
+    }
 
     @SuppressLint("NewApi")
     public static void setAlarm(Context context, boolean startScanning, boolean forScreenOn)

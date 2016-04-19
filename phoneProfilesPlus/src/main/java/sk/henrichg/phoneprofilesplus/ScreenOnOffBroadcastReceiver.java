@@ -65,21 +65,24 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                 {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                         // send broadcast for one wifi scan
-                        WifiScanAlarmBroadcastReceiver.setAlarm(context, true, true);
+                        //WifiScanAlarmBroadcastReceiver.setAlarm(context, true, true);
+                        WifiScanAlarmBroadcastReceiver.sendBroadcast(context);
                 }
                 if (GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
                     GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
                 {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
                         // send broadcast for one bluetooth scan
-                        BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, true);
+                        //BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, true);
+                        BluetoothScanAlarmBroadcastReceiver.sendBroadcast(context);
                 }
                 if (GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
                     GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
                 {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
                         // send broadcast for location scan
-                        GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, true);
+                        //GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, true);
+                        GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(context);
                 }
                 dataWrapper.invalidateDataWrapper();
             }
