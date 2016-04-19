@@ -37,12 +37,12 @@ public class PhoneProfilesService extends Service
 
     //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
-    private static final int MAX_COUNT_GZ_CHANGE = 25;
+    private static final int MAX_COUNT_GZ_CHANGE = 5;
 
     private final float alpha = (float) 0.8;
     private float mGravity[] = new float[3];
     private float mGeomagnetic[] = new float[3];
-    private float mProximity = -1;
+    private float mProximity = -100;
 
     public static final int DEVICE_FLIP_UNKNOWN = 0;
     public static final int DEVICE_FLIP_DISPLAY_UP = 1;
@@ -166,19 +166,19 @@ public class PhoneProfilesService extends Service
             if (!mStarted) {
                 mSensorManager.registerListener(this,
                         mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                        SensorManager.SENSOR_DELAY_NORMAL);
+                        1000000);//SensorManager.SENSOR_DELAY_NORMAL);
                 mSensorManager.registerListener(this,
                         mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-                        SensorManager.SENSOR_DELAY_NORMAL);
+                        1000000);//SensorManager.SENSOR_DELAY_NORMAL);
 
                 mStarted = true;
             }
         }
-        /*if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
+        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
             mSensorManager.registerListener(this,
                     mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                    SensorManager.SENSOR_DELAY_NORMAL);
-        }*/
+                    1000000);//SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     public void stopListeningSensors() {
