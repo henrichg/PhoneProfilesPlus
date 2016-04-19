@@ -52,8 +52,13 @@ public class PhoneProfilesService extends Service
     public static final int DEVICE_FLIP_UP_SIDE_UP = 5;
     public static final int DEVICE_FLIP_DOWN_SIDE_UP = 6;
 
+    public static final int DEVICE_FLIP_DEVICE_IS_NEAR = 7;
+    public static final int DEVICE_FLIP_DEVICE_IS_FAR = 8;
+
     private static int mDisplayUp = DEVICE_FLIP_UNKNOWN;
     private static int mSideUp = DEVICE_FLIP_UNKNOWN;
+    private static int mDeviceDistance = DEVICE_FLIP_UNKNOWN;
+
     private static int mTmpSideUp = DEVICE_FLIP_UNKNOWN;
 
     @Override
@@ -210,13 +215,18 @@ public class PhoneProfilesService extends Service
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+            //GlobalData.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
             if (event.values[0] != mProximity) {
                 mProximity = event.values[0];
                 if (mProximity == 0) {
+                    mDeviceDistance = DEVICE_FLIP_DEVICE_IS_NEAR;
                     GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is near.");
                 } else {
+                    mDeviceDistance = DEVICE_FLIP_DEVICE_IS_FAR;
                     GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is far");
                 }
+                Intent broadcastIntent = new Intent(this, DeviceFlipBroadcatReceiver.class);
+                sendBroadcast(broadcastIntent);
             }
         }
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
