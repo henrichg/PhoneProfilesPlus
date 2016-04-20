@@ -41,6 +41,9 @@ public class EventsService extends IntentService
         if (!GlobalData.isGeofenceScannerStarted())
             GlobalData.startGeofenceScanner(context);
 
+        if (!GlobalData.isOrientationScannerStarted())
+            GlobalData.startOrientationScanner(context);
+
         if (!GlobalData.getGlobalEventsRuning(context))
             // events are globally stopped
             return;
@@ -432,6 +435,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(LocationModeChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_LOCATION;
+        else
+        if (broadcastReceiverType.equals(DeviceOrientationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_ORIENTATION;
 
 
         if (eventType > 0)
@@ -520,6 +526,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(LocationModeChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             LocationModeChangedBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(DeviceOrientationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            DeviceOrientationBroadcastReceiver.completeWakefulIntent(intent);
 
 
         // this broadcast not starts service with wakefull method

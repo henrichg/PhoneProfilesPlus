@@ -605,6 +605,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // stop geofences scanner
                 GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
                 GlobalData.stopGeofenceScanner();
+                // stop orientation scanner
+                GlobalData.stopOrientationScanner();
             }
             else
             {
@@ -613,6 +615,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
 
                 GlobalData.startGeofenceScanner(getApplicationContext());
+                GlobalData.startOrientationScanner(getApplicationContext());
 
                 // setup for next start
                 dataWrapper.firstStartEvents(false);
@@ -674,6 +677,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
             BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
             GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
+            GlobalData.stopGeofenceScanner();
             GlobalData.stopGeofenceScanner();
 
             // remove alarm for profile duration

@@ -29,8 +29,8 @@ public class PhoneProfilesService extends Service
 
     private static SettingsContentObserver settingsContentObserver = null;
 
-    private static SensorManager mSensorManager = null;
-    private static boolean mStarted = false;
+    public static SensorManager mSensorManager = null;
+    public static boolean mStarted = false;
 
     //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
@@ -63,6 +63,8 @@ public class PhoneProfilesService extends Service
     public void onCreate()
     {
         GlobalData.logE("$$$ PhoneProfilesService.onCreate", "xxxxx");
+
+        GlobalData.phoneProfilesService = this;
 
         // start service for first start
         Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
@@ -132,6 +134,7 @@ public class PhoneProfilesService extends Service
         getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
 
         GlobalData.startGeofenceScanner(getApplicationContext());
+        GlobalData.startOrientationScanner(getApplicationContext());
     }
 
     @Override
@@ -157,6 +160,9 @@ public class PhoneProfilesService extends Service
         if (settingsContentObserver != null)
             getContentResolver().unregisterContentObserver(settingsContentObserver);
 
+        GlobalData.stopGeofenceScanner();
+        GlobalData.phoneProfilesService = null;
+
     }
 
     public void startListeningSensors() {
@@ -164,7 +170,7 @@ public class PhoneProfilesService extends Service
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER) &&
-            getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS)) {
+                getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS)) {
 
             if (!mStarted) {
                 mSensorManager.registerListener(this,
@@ -186,10 +192,10 @@ public class PhoneProfilesService extends Service
     }
 
     public void stopListeningSensors() {
-        if (mSensorManager == null)
-            mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-        mSensorManager.unregisterListener(this);
+        if (mSensorManager != null) {
+            mSensorManager.unregisterListener(this);
+            mSensorManager = null;
+        }
         mStarted = false;
     }
 
@@ -197,8 +203,6 @@ public class PhoneProfilesService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
-
-        startListeningSensors();
 
         // We want this service to continue running until it is explicitly
         // stopped, so return sticky.

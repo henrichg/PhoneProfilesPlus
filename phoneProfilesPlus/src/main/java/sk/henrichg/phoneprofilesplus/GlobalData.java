@@ -3,12 +3,15 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
@@ -367,6 +370,8 @@ public class GlobalData extends Application {
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
+
+    public static PhoneProfilesService phoneProfilesService = null;
 
     public static boolean isPowerSaveMode = false;
     public static GeofencesScanner geofencesScanner = null;
@@ -1911,6 +1916,27 @@ public class GlobalData extends Application {
 
     public static boolean isGeofenceScannerStarted() {
         return (GlobalData.geofencesScanner != null);
+    }
+
+    public static void startOrientationScanner(Context context) {
+        Log.d("GlobalData.startOrientationScanner", "xxx");
+        if (phoneProfilesService != null) {
+            if (phoneProfilesService.mStarted)
+                phoneProfilesService.stopListeningSensors();
+
+            if (GlobalData.getApplicationStarted(context))
+                phoneProfilesService.startListeningSensors();
+        }
+    }
+
+    public static void stopOrientationScanner() {
+        Log.d("GlobalData.stopOrientationScanner", "xxx");
+        if (phoneProfilesService != null)
+            phoneProfilesService.stopListeningSensors();
+    }
+
+    public static boolean isOrientationScannerStarted() {
+        return (phoneProfilesService != null && phoneProfilesService.mStarted);
     }
 
     //--------------------------------------------------------------------------
