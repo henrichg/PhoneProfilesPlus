@@ -198,16 +198,16 @@ public class EventPreferencesSMS extends EventPreferences {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CATEGORY);
         if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable());
             preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 
     @Override
-    public boolean isRunable()
+    public boolean isRunnable()
     {
 
-        boolean runable = super.isRunable();
+        boolean runable = super.isRunnable();
 
         runable = runable && ((_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||
                               (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
@@ -264,7 +264,7 @@ public class EventPreferencesSMS extends EventPreferences {
 
         removeAlarm(context);
 
-        if (!(isRunable() && _enabled))
+        if (!(isRunnable() && _enabled))
             return;
 
         setAlarm(computeAlarm(), context);

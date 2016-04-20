@@ -76,18 +76,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         //RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
         //notificationSoundPreference.setEnabled(GlobalData.notificationStatusBar);
 
-        event._eventPreferencesTime.checkPreferences(prefMng, context);
-        event._eventPreferencesBattery.checkPreferences(prefMng, context);
-        event._eventPreferencesCall.checkPreferences(prefMng, context);
-        event._eventPreferencesCalendar.checkPreferences(prefMng, context);
-        event._eventPreferencesPeripherals.checkPreferences(prefMng, context);
-        event._eventPreferencesWifi.checkPreferences(prefMng, context);
-        event._eventPreferencesScreen.checkPreferences(prefMng, context);
-        event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
-        event._eventPreferencesSMS.checkPreferences(prefMng, context);
-        event._eventPreferencesNotification.checkPreferences(prefMng, context);
-        event._eventPreferencesApplication.checkPreferences(prefMng, context);
-        event._eventPreferencesLocation.checkPreferences(prefMng, context);
+        event.checkPreferences(prefMng, context);
 
         Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {

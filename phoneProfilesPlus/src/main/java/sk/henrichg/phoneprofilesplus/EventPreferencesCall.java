@@ -99,8 +99,8 @@ public class EventPreferencesCall extends EventPreferences {
             String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
             descr = descr + ": " + callEvents[this._callEvent] + "; ";
             descr = descr + context.getString(R.string.pref_event_call_contactListType);
-            String[] cntactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-            descr = descr + ": " + cntactListTypes[this._contactListType];
+            String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
+            descr = descr + ": " + contactListTypes[this._contactListType];
         }
 
         return descr;
@@ -163,16 +163,16 @@ public class EventPreferencesCall extends EventPreferences {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CATEGORY);
         if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable());
             preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 
     @Override
-    public boolean isRunable()
+    public boolean isRunnable()
     {
 
-        boolean runable = super.isRunable();
+        boolean runable = super.isRunnable();
 
         runable = runable && ((_contactListType == CONTACT_LIST_TYPE_NOT_USE) ||
                               (!(_contacts.isEmpty() && _contactGroups.isEmpty())));

@@ -54,6 +54,7 @@ public class Event {
     public EventPreferencesNotification _eventPreferencesNotification;
     public EventPreferencesApplication _eventPreferencesApplication;
     public EventPreferencesLocation _eventPreferencesLocation;
+    public EventPreferencesOrientation _eventPreferencesOrientation;
 
     public static final int ESTATUS_STOP = 0;
     public static final int ESTATUS_PAUSE = 1;
@@ -269,6 +270,11 @@ public class Event {
         this._eventPreferencesLocation = new EventPreferencesLocation(this, false, 0, false);
     }
 
+    private void createEventPreferencesOrientation()
+    {
+        this._eventPreferencesOrientation = new EventPreferencesOrientation(this, false, "", 0);
+    }
+
     public void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -283,6 +289,7 @@ public class Event {
         createEventPreferencesNotification();
         createEventPreferencesApplication();
         createEventPreferencesLocation();
+        createEventPreferencesOrientation();
     }
 
     public void copyEventPreferences(Event fromEvent)
@@ -311,6 +318,8 @@ public class Event {
             createEventPreferencesApplication();
         if (this._eventPreferencesLocation == null)
             createEventPreferencesLocation();
+        if (this._eventPreferencesOrientation == null)
+            createEventPreferencesOrientation();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -323,6 +332,7 @@ public class Event {
         this._eventPreferencesNotification.copyPreferences(fromEvent);
         this._eventPreferencesApplication.copyPreferences(fromEvent);
         this._eventPreferencesLocation.copyPreferences(fromEvent);
+        this._eventPreferencesOrientation.copyPreferences(fromEvent);
     }
 
     public boolean isRunnable()
@@ -339,32 +349,35 @@ public class Event {
               this._eventPreferencesSMS._enabled ||
               this._eventPreferencesNotification._enabled ||
               this._eventPreferencesApplication._enabled ||
-              this._eventPreferencesLocation._enabled))
+              this._eventPreferencesLocation._enabled ||
+              this._eventPreferencesOrientation._enabled))
             runnable = false;
         if (this._eventPreferencesTime._enabled)
-            runnable = runnable && this._eventPreferencesTime.isRunable();
+            runnable = runnable && this._eventPreferencesTime.isRunnable();
         if (this._eventPreferencesBattery._enabled)
-            runnable = runnable && this._eventPreferencesBattery.isRunable();
+            runnable = runnable && this._eventPreferencesBattery.isRunnable();
         if (this._eventPreferencesCall._enabled)
-            runnable = runnable && this._eventPreferencesCall.isRunable();
+            runnable = runnable && this._eventPreferencesCall.isRunnable();
         if (this._eventPreferencesPeripherals._enabled)
-            runnable = runnable && this._eventPreferencesPeripherals.isRunable();
+            runnable = runnable && this._eventPreferencesPeripherals.isRunnable();
         if (this._eventPreferencesCalendar._enabled)
-            runnable = runnable && this._eventPreferencesCalendar.isRunable();
+            runnable = runnable && this._eventPreferencesCalendar.isRunnable();
         if (this._eventPreferencesWifi._enabled)
-            runnable = runnable && this._eventPreferencesWifi.isRunable();
+            runnable = runnable && this._eventPreferencesWifi.isRunnable();
         if (this._eventPreferencesScreen._enabled)
-            runnable = runnable && this._eventPreferencesScreen.isRunable();
+            runnable = runnable && this._eventPreferencesScreen.isRunnable();
         if (this._eventPreferencesBluetooth._enabled)
-            runnable = runnable && this._eventPreferencesBluetooth.isRunable();
+            runnable = runnable && this._eventPreferencesBluetooth.isRunnable();
         if (this._eventPreferencesSMS._enabled)
-            runnable = runnable && this._eventPreferencesSMS.isRunable();
+            runnable = runnable && this._eventPreferencesSMS.isRunnable();
         if (this._eventPreferencesNotification._enabled)
-            runnable = runnable && this._eventPreferencesNotification.isRunable();
+            runnable = runnable && this._eventPreferencesNotification.isRunnable();
         if (this._eventPreferencesApplication._enabled)
-            runnable = runnable && this._eventPreferencesApplication.isRunable();
+            runnable = runnable && this._eventPreferencesApplication.isRunnable();
         if (this._eventPreferencesLocation._enabled)
-            runnable = runnable && this._eventPreferencesLocation.isRunable();
+            runnable = runnable && this._eventPreferencesLocation.isRunnable();
+        if (this._eventPreferencesOrientation._enabled)
+            runnable = runnable && this._eventPreferencesOrientation.isRunnable();
         return runnable;
     }
 
@@ -397,6 +410,7 @@ public class Event {
         this._eventPreferencesNotification.loadSharedPreferences(preferences);
         this._eventPreferencesApplication.loadSharedPreferences(preferences);
         this._eventPreferencesLocation.loadSharedPreferences(preferences);
+        this._eventPreferencesOrientation.loadSharedPreferences(preferences);
         editor.commit();
     }
 
@@ -439,6 +453,7 @@ public class Event {
         this._eventPreferencesNotification.saveSharedPreferences(preferences);
         this._eventPreferencesApplication.saveSharedPreferences(preferences);
         this._eventPreferencesLocation.saveSharedPreferences(preferences);
+        this._eventPreferencesOrientation.saveSharedPreferences(preferences);
 
         if (!this.isRunnable())
             this._status = ESTATUS_STOP;
@@ -677,6 +692,8 @@ public class Event {
         _eventPreferencesApplication.setCategorySummary(prefMng, key, preferences, context);
         _eventPreferencesLocation.setSummary(prefMng, key, preferences, context);
         _eventPreferencesLocation.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesOrientation.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesOrientation.setCategorySummary(prefMng, key, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -721,6 +738,8 @@ public class Event {
         _eventPreferencesApplication.setCategorySummary(prefMng, "", preferences, context);
         _eventPreferencesLocation.setAllSummary(prefMng, preferences, context);
         _eventPreferencesLocation.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesOrientation.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesOrientation.setCategorySummary(prefMng, "", preferences, context);
     }
 
     public String getPreferencesDescription(Context context)
@@ -764,9 +783,28 @@ public class Event {
         if (_eventPreferencesApplication._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesApplication.getPreferencesDescription(true, context);
 
+        if (_eventPreferencesOrientation._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
+        description = description + _eventPreferencesOrientation.getPreferencesDescription(true, context);
+
         //description = description.replace(' ', '\u00A0');
 
         return description;
+    }
+
+    public void checkPreferences(PreferenceManager prefMng, Context context) {
+        _eventPreferencesTime.checkPreferences(prefMng, context);
+        _eventPreferencesBattery.checkPreferences(prefMng, context);
+        _eventPreferencesCall.checkPreferences(prefMng, context);
+        _eventPreferencesPeripherals.checkPreferences(prefMng, context);
+        _eventPreferencesCalendar.checkPreferences(prefMng, context);
+        _eventPreferencesWifi.checkPreferences(prefMng, context);
+        _eventPreferencesScreen.checkPreferences(prefMng, context);
+        _eventPreferencesBluetooth.checkPreferences(prefMng, context);
+        _eventPreferencesSMS.checkPreferences(prefMng, context);
+        _eventPreferencesNotification.checkPreferences(prefMng, context);
+        _eventPreferencesApplication.checkPreferences(prefMng, context);
+        _eventPreferencesLocation.checkPreferences(prefMng, context);
+        _eventPreferencesOrientation.checkPreferences(prefMng, context);
     }
 
     private boolean canActivateReturnProfile()
@@ -1295,6 +1333,7 @@ public class Event {
             _eventPreferencesNotification.setSystemEventForStart(context);
             _eventPreferencesApplication.setSystemEventForStart(context);
             _eventPreferencesLocation.setSystemEventForStart(context);
+            _eventPreferencesOrientation.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -1313,6 +1352,7 @@ public class Event {
             _eventPreferencesNotification.setSystemEventForPause(context);
             _eventPreferencesApplication.setSystemEventForPause(context);
             _eventPreferencesLocation.setSystemEventForPause(context);
+            _eventPreferencesOrientation.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -1331,6 +1371,7 @@ public class Event {
             _eventPreferencesNotification.removeSystemEvent(context);
             _eventPreferencesApplication.removeSystemEvent(context);
             _eventPreferencesLocation.removeSystemEvent(context);
+            _eventPreferencesOrientation.removeSystemEvent(context);
         }
     }
 

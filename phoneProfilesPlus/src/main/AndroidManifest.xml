@@ -694,7 +694,7 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".DeviceFlipBroadcatReceiver"
+            android:name=".DeviceOrientationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>

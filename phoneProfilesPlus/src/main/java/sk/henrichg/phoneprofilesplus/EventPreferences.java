@@ -24,7 +24,7 @@ public class EventPreferences {
     {
     }
 
-    public boolean isRunable()
+    public boolean isRunnable()
     {
         return true;
     }

@@ -861,4 +861,30 @@
     <item>1</item>
     <item>2</item>
 </string-array>
+<string-array name="eventOrientationSidesArray">
+    <item>@string/array_event_pref_orientationSides_displayUp</item>
+    <item>@string/array_event_pref_orientationSides_displayDown</item>
+    <item>@string/array_event_pref_orientationSides_rightSide</item>
+    <item>@string/array_event_pref_orientationSides_leftSide</item>
+    <item>@string/array_event_pref_orientationSides_upSide</item>
+    <item>@string/array_event_pref_orientationSides_downSide</item>
+</string-array>
+<string-array name="eventOrientationSidesValues">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>6</item>
+</string-array>
+<string-array name="eventOrientationDistanceTypeArray">
+    <item>@string/array_event_pref_orientationDistanceType_noCheck</item>
+    <item>@string/array_event_pref_orientationDistanceType_near</item>
+    <item>@string/array_event_pref_orientationDistanceType_far</item>
+</string-array>
+<string-array name="eventOrientationDistanceTypeValues">
+    <item>0</item>
+    <item>7</item>
+    <item>8</item>
+</string-array>
 </resources>

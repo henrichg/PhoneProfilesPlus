@@ -735,4 +735,18 @@
     <string name="profile_preferences_notificationLed">Notification LED</string>
     <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
     <string name="profile_preferences_notificationLedInfo_summary">Experimental. It may not work on your device</string>
+    <string name="event_type_orientation">Orientation</string>
+    <string name="event_preferences_category_eventOrientationParameters">Orientation parameters</string>
+    <string name="event_preferences_orientation_enabled">Enabled orientation</string>
+    <string name="event_preferences_orientation_sides">Sides</string>
+    <string name="array_event_pref_orientationSides_displayUp">Display up</string>
+    <string name="array_event_pref_orientationSides_displayDown">Display down</string>
+    <string name="array_event_pref_orientationSides_rightSide">Right side up</string>
+    <string name="array_event_pref_orientationSides_leftSide">Left side up</string>
+    <string name="array_event_pref_orientationSides_upSide">Up side up</string>
+    <string name="array_event_pref_orientationSides_downSide">Down side up</string>
+    <string name="event_preferences_orientation_distance">Distance</string>
+    <string name="array_event_pref_orientationDistanceType_noCheck">No check</string>
+    <string name="array_event_pref_orientationDistanceType_near">Near</string>
+    <string name="array_event_pref_orientationDistanceType_far">Far</string>
 </resources>

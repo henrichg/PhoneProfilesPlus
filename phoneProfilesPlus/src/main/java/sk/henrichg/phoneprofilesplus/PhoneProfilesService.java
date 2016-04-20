@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -12,7 +11,6 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.util.Log;
 
 
 public class PhoneProfilesService extends Service
@@ -31,35 +29,35 @@ public class PhoneProfilesService extends Service
 
     private static SettingsContentObserver settingsContentObserver = null;
 
-    // device flip
     private static SensorManager mSensorManager = null;
     private static boolean mStarted = false;
 
     //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
-    private static final int MAX_COUNT_GZ_CHANGE = 5;
+    private static final int MAX_COUNT_GZ_CHANGE = 7;
 
     private final float alpha = (float) 0.8;
     private float mGravity[] = new float[3];
     private float mGeomagnetic[] = new float[3];
     private float mProximity = -100;
+    private float mMaxProximityDistance;
 
-    public static final int DEVICE_FLIP_UNKNOWN = 0;
-    public static final int DEVICE_FLIP_DISPLAY_UP = 1;
-    public static final int DEVICE_FLIP_DISPLAY_DOWN = 2;
-    public static final int DEVICE_FLIP_RIGHT_SIDE_UP = 3;
-    public static final int DEVICE_FLIP_LEFT_SIDE_UP = 4;
-    public static final int DEVICE_FLIP_UP_SIDE_UP = 5;
-    public static final int DEVICE_FLIP_DOWN_SIDE_UP = 6;
+    public static final int DEVICE_ORIENTATION_UNKNOWN = 0;
+    public static final int DEVICE_ORIENTATION_DISPLAY_UP = 1;
+    public static final int DEVICE_ORIENTATION_DISPLAY_DOWN = 2;
+    public static final int DEVICE_ORIENTATION_RIGHT_SIDE_UP = 3;
+    public static final int DEVICE_ORIENTATION_LEFT_SIDE_UP = 4;
+    public static final int DEVICE_ORIENTATION_UP_SIDE_UP = 5;
+    public static final int DEVICE_ORIENTATION_DOWN_SIDE_UP = 6;
 
-    public static final int DEVICE_FLIP_DEVICE_IS_NEAR = 7;
-    public static final int DEVICE_FLIP_DEVICE_IS_FAR = 8;
+    public static final int DEVICE_ORIENTATION_DEVICE_IS_NEAR = 7;
+    public static final int DEVICE_ORIENTATION_DEVICE_IS_FAR = 8;
 
-    private static int mDisplayUp = DEVICE_FLIP_UNKNOWN;
-    private static int mSideUp = DEVICE_FLIP_UNKNOWN;
-    private static int mDeviceDistance = DEVICE_FLIP_UNKNOWN;
+    private static int mDisplayUp = DEVICE_ORIENTATION_UNKNOWN;
+    private static int mSideUp = DEVICE_ORIENTATION_UNKNOWN;
+    private static int mDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
 
-    private static int mTmpSideUp = DEVICE_FLIP_UNKNOWN;
+    private static int mTmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
 
     @Override
     public void onCreate()
@@ -180,8 +178,9 @@ public class PhoneProfilesService extends Service
             }
         }
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
-            mSensorManager.registerListener(this,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+            Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+            mMaxProximityDistance = sensor.getMaximumRange();
+            mSensorManager.registerListener(this, sensor,
                     1000000);//SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
@@ -215,18 +214,20 @@ public class PhoneProfilesService extends Service
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-            //GlobalData.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
-            if (event.values[0] != mProximity) {
-                mProximity = event.values[0];
-                if (mProximity == 0) {
-                    mDeviceDistance = DEVICE_FLIP_DEVICE_IS_NEAR;
-                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is near.");
-                } else {
-                    mDeviceDistance = DEVICE_FLIP_DEVICE_IS_FAR;
-                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is far");
+            GlobalData.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
+            if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
+                if (event.values[0] != mProximity) {
+                    mProximity = event.values[0];
+                    if (mProximity == 0) {
+                        mDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_NEAR;
+                        GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is near.");
+                    } else {
+                        mDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_FAR;
+                        GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is far");
+                    }
+                    Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
+                    sendBroadcast(broadcastIntent);
                 }
-                Intent broadcastIntent = new Intent(this, DeviceFlipBroadcatReceiver.class);
-                sendBroadcast(broadcastIntent);
             }
         }
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
@@ -260,27 +261,27 @@ public class PhoneProfilesService extends Service
                 //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
                 //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
 
-                int side = DEVICE_FLIP_UNKNOWN;
+                int side = DEVICE_ORIENTATION_UNKNOWN;
                 if (pitch > -30 && pitch < 30) {
                     if (roll > -60 && roll < 60)
-                        side = DEVICE_FLIP_DISPLAY_UP;
+                        side = DEVICE_ORIENTATION_DISPLAY_UP;
                     if (roll > 150 && roll < 180)
-                        side = DEVICE_FLIP_DISPLAY_DOWN;
+                        side = DEVICE_ORIENTATION_DISPLAY_DOWN;
                     if (roll > -180 && roll < -150)
-                        side = DEVICE_FLIP_DISPLAY_DOWN;
+                        side = DEVICE_ORIENTATION_DISPLAY_DOWN;
                     if (roll > 65 && roll < 115)
-                        side = DEVICE_FLIP_UP_SIDE_UP;
+                        side = DEVICE_ORIENTATION_UP_SIDE_UP;
                     if (roll > -115 && roll < -65)
-                        side = DEVICE_FLIP_DOWN_SIDE_UP;
+                        side = DEVICE_ORIENTATION_DOWN_SIDE_UP;
                 }
                 if (pitch > 30 && pitch < 90) {
-                    side = DEVICE_FLIP_LEFT_SIDE_UP;
+                    side = DEVICE_ORIENTATION_LEFT_SIDE_UP;
                 }
                 if (pitch > -90 && pitch < -30) {
-                    side = DEVICE_FLIP_RIGHT_SIDE_UP;
+                    side = DEVICE_ORIENTATION_RIGHT_SIDE_UP;
                 }
 
-                if ((mTmpSideUp == DEVICE_FLIP_UNKNOWN) || (/*(side != DEVICE_FLIP_UNKNOWN) &&*/ (side != mTmpSideUp))) {
+                if ((mTmpSideUp == DEVICE_ORIENTATION_UNKNOWN) || (/*(side != DEVICE_ORIENTATION_UNKNOWN) &&*/ (side != mTmpSideUp))) {
                     mEventCountSinceGZChanged = 0;
 
                     //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
@@ -297,26 +298,26 @@ public class PhoneProfilesService extends Service
 
                             mSideUp = mTmpSideUp;
 
-                            if ((mSideUp == DEVICE_FLIP_DISPLAY_UP) || (mSideUp == DEVICE_FLIP_DISPLAY_DOWN))
+                            if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
                                 mDisplayUp = mSideUp;
 
-                            if (mDisplayUp == DEVICE_FLIP_DISPLAY_UP)
+                            if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
-                            if (mDisplayUp == DEVICE_FLIP_DISPLAY_DOWN)
+                            if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
 
-                            if (mSideUp == DEVICE_FLIP_UP_SIDE_UP)
+                            if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now up side is facing up.");
-                            if (mSideUp == DEVICE_FLIP_DOWN_SIDE_UP)
+                            if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now down side is facing up.");
-                            if (mSideUp == DEVICE_FLIP_RIGHT_SIDE_UP)
+                            if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
-                            if (mSideUp == DEVICE_FLIP_LEFT_SIDE_UP)
+                            if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
-                            if (mSideUp == DEVICE_FLIP_UNKNOWN)
+                            if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
                                 GlobalData.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
 
-                            Intent broadcastIntent = new Intent(this, DeviceFlipBroadcatReceiver.class);
+                            Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
                             sendBroadcast(broadcastIntent);
                         }
                     }

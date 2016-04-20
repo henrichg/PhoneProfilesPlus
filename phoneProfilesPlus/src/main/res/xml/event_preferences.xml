@@ -492,5 +492,31 @@
                 android:title="@string/event_preferences_applications_applications"
                 android:dependency="eventApplicationEnabled" />
         </PreferenceScreen>
+        <PreferenceScreen
+            android:key="eventOrientationCategory"
+            android:title="@string/event_preferences_category_eventOrientationParameters"
+            android:widgetLayout="@layout/start_activity_preference" >
+            <CheckBoxPreference
+                android:key="eventOrientationEnabled"
+                android:title="@string/event_preferences_orientation_enabled"
+                android:defaultValue="false" />
+            <sk.henrichg.phoneprofilesplus.MaterialMultiSelectListPreference
+                android:key="eventOrientationSides"
+                android:title="@string/event_preferences_orientation_sides"
+                android:defaultValue="@array/emptyArray"
+                android:entries="@array/eventOrientationSidesArray"
+                android:entryValues="@array/eventOrientationSidesValues"
+                android:dependency="eventOrientationEnabled"
+                app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/event_preferences_orientation_distance"
+                android:summary="@string/array_event_pref_orientationDistanceType_noCheck"
+                android:key="eventOrientationDistance"
+                android:defaultValue="0"
+                android:entries="@array/eventOrientationDistanceTypeArray"
+                android:entryValues="@array/eventOrientationDistanceTypeValues"
+                android:dependency="eventOrientationEnabled"
+                app:useStockLayout="true" />
+        </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>

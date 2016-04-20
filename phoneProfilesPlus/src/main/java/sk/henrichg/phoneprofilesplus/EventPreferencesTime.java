@@ -295,16 +295,16 @@ public class EventPreferencesTime extends EventPreferences {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
         if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable());
             preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 
     @Override
-    public boolean isRunable()
+    public boolean isRunnable()
     {
 
-        boolean runable = super.isRunable();
+        boolean runable = super.isRunnable();
 
         boolean dayOfWeek = false;
         dayOfWeek = dayOfWeek || this._sunday;
@@ -455,7 +455,7 @@ public class EventPreferencesTime extends EventPreferences {
         removeAlarm(true, context);
         removeAlarm(false, context);
 
-        if (!(isRunable() && _enabled))
+        if (!(isRunnable() && _enabled))
             return;
 
         setAlarm(true, computeAlarm(true), context);
@@ -472,7 +472,7 @@ public class EventPreferencesTime extends EventPreferences {
         removeAlarm(true, context);
         removeAlarm(false, context);
 
-        if (!(isRunable() && _enabled))
+        if (!(isRunnable() && _enabled))
             return;
 
         setAlarm(false, computeAlarm(false), context);

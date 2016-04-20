@@ -245,16 +245,16 @@ public class EventPreferencesCalendar extends EventPreferences {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
         if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunable());
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable());
             preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 
     @Override
-    public boolean isRunable()
+    public boolean isRunnable()
     {
 
-        boolean runable = super.isRunable();
+        boolean runable = super.isRunnable();
 
         runable = runable && (!_calendars.isEmpty());
         runable = runable && (!_searchString.isEmpty());
@@ -310,7 +310,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 
         searchEvent(context);
 
-        if (!(isRunable() && _enabled && _eventFound))
+        if (!(isRunnable() && _enabled && _eventFound))
             return;
 
         setAlarm(true, computeAlarm(true), context);
@@ -329,7 +329,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 
         searchEvent(context);
 
-        if (!(isRunable() && _enabled && _eventFound))
+        if (!(isRunnable() && _enabled && _eventFound))
             return;
 
         setAlarm(false, computeAlarm(false), context);
@@ -393,7 +393,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 
     public void searchEvent(Context context)
     {
-        if (!(isRunable() && _enabled && Permissions.checkCalendar(context)))
+        if (!(isRunnable() && _enabled && Permissions.checkCalendar(context)))
         {
             _startTime = 0;
             _endTime = 0;

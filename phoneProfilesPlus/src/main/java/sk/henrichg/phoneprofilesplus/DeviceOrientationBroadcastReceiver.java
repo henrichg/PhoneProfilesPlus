@@ -5,14 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class DeviceFlipBroadcatReceiver extends WakefulBroadcastReceiver {
+public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "deviceFlip";
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("##### DeviceFlipBroadcatReceiver.onReceive", "xxx");
+        GlobalData.logE("##### DeviceOrientationBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -22,7 +22,7 @@ public class DeviceFlipBroadcatReceiver extends WakefulBroadcastReceiver {
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ DeviceFlipBroadcatReceiver.onReceive", "xxx");
+            GlobalData.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "xxx");
 
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);

@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1580;
+    private static final int DATABASE_VERSION = 1600;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -60,6 +60,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int ETYPE_NOTIFICATION = 12;
     public static final int ETYPE_APPLICATION = 13;
     public static final int ETYPE_LOCATION = 14;
+    public static final int ETYPE_ORIENTATION = 15;
 
     // activity log types
     public static final int ALTYPE_PROFILEACTIVATION = 1;
@@ -210,6 +211,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_IS_IN_DELAY_END = "isInDelayEnd";
     private static final String KEY_E_START_STATUS_TIME = "startStatusTime";
     private static final String KEY_E_PAUSE_STATUS_TIME = "pauseStatusTime";
+    private static final String KEY_E_ORIENTATION_ENABLED = "orientationEnabled";
+    private static final String KEY_E_ORIENTATION_SIDES = "orientationSides";
+    private static final String KEY_E_ORIENTATION_DISTANCE = "orientationDistance";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -433,7 +437,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_DELAY_END + " INTEGER,"
                 + KEY_E_IS_IN_DELAY_END + " INTEGER,"
                 + KEY_E_START_STATUS_TIME + " INTEGER,"
-                + KEY_E_PAUSE_STATUS_TIME + " INTEGER"
+                + KEY_E_PAUSE_STATUS_TIME + " INTEGER,"
+                + KEY_E_ORIENTATION_ENABLED + " INTEGER,"
+                + KEY_E_ORIENTATION_SIDES + " TEXT,"
+                + KEY_E_ORIENTATION_DISTANCE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1569,6 +1576,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_NOTIFICATION_LED + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_NOTIFICATION_LED + "=0");
         }
+
+        if (oldVersion < 1600)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_ENABLED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_SIDES + " TEXT");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_DISTANCE + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_SIDES + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_DISTANCE + "=0");
+        }
+
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
 
@@ -3017,6 +3038,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesNotification(event, db);
         getEventPreferencesApplication(event, db);
         getEventPreferencesLocation(event, db);
+        getEventPreferencesOrientation(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -3383,6 +3405,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesOrientation(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_ORIENTATION_ENABLED,
+                        KEY_E_ORIENTATION_SIDES,
+                        KEY_E_ORIENTATION_DISTANCE
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesOrientation eventPreferences = event._eventPreferencesOrientation;
+
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
+                eventPreferences._sides = cursor.getString(1);
+                eventPreferences._distance = cursor.getInt(2);
+            }
+            cursor.close();
+        }
+    }
+
     public int updateEventPreferences(Event event) {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -3417,6 +3463,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             r = updateEventPreferencesApplication(event, db);
         if (r != 0)
             r = updateEventPreferencesLocation(event, db);
+        if (r != 0)
+            r = updateEventPreferencesOrientation(event, db);
 
         return r;
     }
@@ -3641,6 +3689,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
+    private int updateEventPreferencesOrientation(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesOrientation eventPreferences = event._eventPreferencesOrientation;
+
+        values.put(KEY_E_ORIENTATION_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_ORIENTATION_SIDES, eventPreferences._sides);
+        values.put(KEY_E_ORIENTATION_DISTANCE, eventPreferences._distance);
+
+        // updating row
+        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+
+        return r;
+    }
+
     public int getEventStatus(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -3857,6 +3921,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else
         if (eventType == ETYPE_LOCATION)
             eventTypeChecked = eventTypeChecked + KEY_E_LOCATION_ENABLED + "=1";
+        else
+        if (eventType == ETYPE_ORIENTATION)
+            eventTypeChecked = eventTypeChecked + KEY_E_ORIENTATION_ENABLED + "=1";
 
         countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                      " WHERE " + eventTypeChecked;
@@ -5692,6 +5759,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 if (exportedDBObj.getVersion() < 1540) {
                                     values.put(KEY_E_START_STATUS_TIME, 0);
                                     values.put(KEY_E_PAUSE_STATUS_TIME, 0);
+                                }
+
+                                if (exportedDBObj.getVersion() < 1600) {
+                                    values.put(KEY_E_ORIENTATION_ENABLED, 0);
+                                    values.put(KEY_E_ORIENTATION_SIDES, "");
+                                    values.put(KEY_E_ORIENTATION_DISTANCE, 0);
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper
