@@ -1508,6 +1508,7 @@ public class DataWrapper {
         boolean notificationPassed = true;
         boolean applicationPassed = true;
         boolean locationPassed = true;
+        boolean orientationPassed = true;
 
         GlobalData.logE("%%% DataWrapper.doEventService","--- start --------------------------");
         GlobalData.logE("%%% DataWrapper.doEventService","------- event._id="+event._id);
@@ -2187,6 +2188,34 @@ public class DataWrapper {
                 locationPassed = !locationPassed;
         }
 
+        if (event._eventPreferencesOrientation._enabled)
+        {
+            if (GlobalData.isOrientationScannerStarted()) {
+                orientationPassed = false;
+
+                String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
+                for (int i = 0; i < splits.length; i++) {
+                    try {
+                        int side = Integer.valueOf(splits[i]);
+                        if ((side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_UP) ||
+                            (side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_DOWN)) {
+                            if (side == PhoneProfilesService.mDisplayUp) {
+                                orientationPassed = true;
+                                break;
+                            }
+                        }
+                        else {
+                            if (side == PhoneProfilesService.mSideUp) {
+                                orientationPassed = true;
+                                break;
+                            }
+                        }
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        }
+
         GlobalData.logE("DataWrapper.doEventService","timePassed="+timePassed);
         GlobalData.logE("DataWrapper.doEventService","batteryPassed="+batteryPassed);
         GlobalData.logE("DataWrapper.doEventService","callPassed="+callPassed);
@@ -2199,6 +2228,7 @@ public class DataWrapper {
         GlobalData.logE("DataWrapper.doEventService","notificationPassed="+notificationPassed);
         GlobalData.logE("DataWrapper.doEventService","applicationPassed="+applicationPassed);
         GlobalData.logE("DataWrapper.doEventService","locationPassed="+locationPassed);
+        GlobalData.logE("DataWrapper.doEventService","orientationPassed="+orientationPassed);
 
         //GlobalData.logE("DataWrapper.doEventService","eventStart="+eventStart);
         GlobalData.logE("DataWrapper.doEventService","restartEvent="+restartEvent);
@@ -2217,7 +2247,8 @@ public class DataWrapper {
             smsPassed &&
             notificationPassed &&
             applicationPassed &&
-            locationPassed)
+            locationPassed &&
+            orientationPassed)
         {
             // podmienky sedia, vykoname, co treba
 

@@ -53,9 +53,9 @@ public class PhoneProfilesService extends Service
     public static final int DEVICE_ORIENTATION_DEVICE_IS_NEAR = 7;
     public static final int DEVICE_ORIENTATION_DEVICE_IS_FAR = 8;
 
-    private static int mDisplayUp = DEVICE_ORIENTATION_UNKNOWN;
-    private static int mSideUp = DEVICE_ORIENTATION_UNKNOWN;
-    private static int mDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
+    public static int mDisplayUp = DEVICE_ORIENTATION_UNKNOWN;
+    public static int mSideUp = DEVICE_ORIENTATION_UNKNOWN;
+    public static int mDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
 
     private static int mTmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
 
