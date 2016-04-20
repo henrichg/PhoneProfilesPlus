@@ -1496,6 +1496,8 @@ public class DataWrapper {
 
         int newEventStatus = Event.ESTATUS_NONE;
 
+        boolean ignoreChange = false;
+
         boolean timePassed = true;
         boolean batteryPassed = true;
         boolean callPassed = true;
@@ -1736,7 +1738,7 @@ public class DataWrapper {
 
             }
             else
-                callPassed = false;
+                ignoreChange = true;
         }
 
         if (event._eventPreferencesPeripherals._enabled)
@@ -2190,31 +2192,55 @@ public class DataWrapper {
 
         if (event._eventPreferencesOrientation._enabled)
         {
-            if (GlobalData.isOrientationScannerStarted()) {
-                orientationPassed = false;
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
-                String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
-                for (int i = 0; i < splits.length; i++) {
-                    try {
-                        int side = Integer.valueOf(splits[i]);
-                        if ((side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_UP) ||
-                            (side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_DOWN)) {
-                            if (side == PhoneProfilesService.mDisplayUp) {
-                                orientationPassed = true;
-                                break;
+            if ((callEventType == PhoneCallService.CALL_EVENT_UNDEFINED) ||
+                (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED))
+                // ignore changed during call
+                ignoreChange = true;
+            else
+            {
+
+                if (GlobalData.isOrientationScannerStarted()) {
+                    boolean sidePassed = true;
+                    String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
+                    if (splits.length > 0) {
+                        sidePassed = false;
+                        for (int i = 0; i < splits.length; i++) {
+                            try {
+                                int side = Integer.valueOf(splits[i]);
+                                if ((side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_UP) ||
+                                        (side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_DOWN)) {
+                                    if (side == PhoneProfilesService.mDisplayUp) {
+                                        sidePassed = true;
+                                        break;
+                                    }
+                                } else {
+                                    if (side == PhoneProfilesService.mSideUp) {
+                                        sidePassed = true;
+                                        break;
+                                    }
+                                }
+                            } catch (Exception e) {
                             }
                         }
-                        else {
-                            if (side == PhoneProfilesService.mSideUp) {
-                                orientationPassed = true;
-                                break;
-                            }
-                        }
-                    } catch (Exception e) {
                     }
+
+                    boolean distancePassed = true;
+                    if (event._eventPreferencesOrientation._distance != 0) {
+                        distancePassed = false;
+                        if (event._eventPreferencesOrientation._distance == PhoneProfilesService.mDeviceDistance)
+                            distancePassed = true;
+                    }
+
+                    orientationPassed = sidePassed && distancePassed;
                 }
             }
         }
+
+        GlobalData.logE("DataWrapper.doEventService","ignoreChange="+ignoreChange);
 
         GlobalData.logE("DataWrapper.doEventService","timePassed="+timePassed);
         GlobalData.logE("DataWrapper.doEventService","batteryPassed="+batteryPassed);
@@ -2266,82 +2292,72 @@ public class DataWrapper {
 
         //GlobalData.logE("@@@ DataWrapper.doEventService","restartEvent="+restartEvent);
 
-        if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelayStart || event._isInDelayEnd)
-        {
-            GlobalData.logE("DataWrapper.doEventService"," do new event status");
+        if (!ignoreChange) {
+            if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelayStart || event._isInDelayEnd) {
+                GlobalData.logE("DataWrapper.doEventService", " do new event status");
 
-            if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause))
-            {
-                GlobalData.logE("%%% DataWrapper.doEventService","start event");
-                GlobalData.logE("%%% DataWrapper.doEventService","event._name="+event._name);
+                if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause)) {
+                    GlobalData.logE("%%% DataWrapper.doEventService", "start event");
+                    GlobalData.logE("%%% DataWrapper.doEventService", "event._name=" + event._name);
 
-                if (!forDelayStartAlarm)
-                {
-                    // called not for delay alarm
-                    if (restartEvent) {
-                        event._isInDelayStart = false;
-                    }
-                    else {
+                    if (!forDelayStartAlarm) {
+                        // called not for delay alarm
+                        if (restartEvent) {
+                            event._isInDelayStart = false;
+                        } else {
+                            if (!event._isInDelayStart) {
+                                // if not delay alarm is set, set it
+                                event.setDelayStartAlarm(this); // for start delay
+                            }
+                            if (event._isInDelayStart) {
+                                // if delay timeouted, start event
+                                event.checkDelayStart(this);
+                            }
+                        }
                         if (!event._isInDelayStart) {
-                            // if not delay alarm is set, set it
-                            event.setDelayStartAlarm(this); // for start delay
-                        }
-                        if (event._isInDelayStart) {
-                            // if delay timeouted, start event
-                            event.checkDelayStart(this);
+                            // no delay alarm is set
+                            // start event
+                            event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
                         }
                     }
-                    if (!event._isInDelayStart)
-                    {
-                        // no delay alarm is set
+
+                    if (forDelayStartAlarm && event._isInDelayStart) {
+                        // called for delay alarm
                         // start event
                         event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
                     }
-                }
+                } else if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause) {
+                    // when pausing and it is for restart events, force pause
 
-                if (forDelayStartAlarm && event._isInDelayStart)
-                {
-                    // called for delay alarm
-                    // start event
-                    event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
-                }
-            }
-            else
-            if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause)
-            {
-                // when pausing and it is for restart events, force pause
+                    GlobalData.logE("%%% DataWrapper.doEventService", "pause event");
+                    GlobalData.logE("%%% DataWrapper.doEventService", "event._name=" + event._name);
 
-                GlobalData.logE("%%% DataWrapper.doEventService","pause event");
-                GlobalData.logE("%%% DataWrapper.doEventService","event._name="+event._name);
-
-                if (!forDelayEndAlarm) {
-                    // called not for delay alarm
-                    if (restartEvent) {
-                        event._isInDelayEnd = false;
-                    }
-                    else {
+                    if (!forDelayEndAlarm) {
+                        // called not for delay alarm
+                        if (restartEvent) {
+                            event._isInDelayEnd = false;
+                        } else {
+                            if (!event._isInDelayEnd) {
+                                // if not delay alarm is set, set it
+                                event.setDelayEndAlarm(this); // for end delay
+                            }
+                            if (event._isInDelayEnd) {
+                                // if delay timeouted, pause event
+                                event.checkDelayEnd(this);
+                            }
+                        }
                         if (!event._isInDelayEnd) {
-                            // if not delay alarm is set, set it
-                            event.setDelayEndAlarm(this); // for end delay
-                        }
-                        if (event._isInDelayEnd) {
-                            // if delay timeouted, pause event
-                            event.checkDelayEnd(this);
+                            // no delay alarm is set
+                            // pause event
+                            event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
                         }
                     }
-                    if (!event._isInDelayEnd)
-                    {
-                        // no delay alarm is set
+
+                    if (forDelayEndAlarm && event._isInDelayEnd) {
+                        // called for delay alarm
                         // pause event
                         event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
                     }
-                }
-
-                if (forDelayEndAlarm && event._isInDelayEnd)
-                {
-                    // called for delay alarm
-                    // pause event
-                    event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
                 }
             }
         }

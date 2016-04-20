@@ -192,7 +192,7 @@ public class EventPreferencesOrientation extends EventPreferences {
 
         boolean runnable = super.isRunnable();
 
-        runnable = runnable && (!_sides.isEmpty() && (_distance != 0));
+        runnable = runnable && (!_sides.isEmpty() || (_distance != 0));
 
         return runnable;
     }
