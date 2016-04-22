@@ -2212,7 +2212,7 @@ public class DataWrapper {
                             try {
                                 int side = Integer.valueOf(splits[i]);
                                 if ((side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_UP) ||
-                                        (side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_DOWN)) {
+                                    (side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_DOWN)) {
                                     if (side == PhoneProfilesService.mDisplayUp) {
                                         sidePassed = true;
                                         break;

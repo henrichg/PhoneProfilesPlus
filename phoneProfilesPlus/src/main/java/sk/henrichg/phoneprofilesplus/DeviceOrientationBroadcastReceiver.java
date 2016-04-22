@@ -24,6 +24,31 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
         {
             GlobalData.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "xxx");
 
+            if (PhoneProfilesService.mDeviceDistance == PhoneProfilesService.DEVICE_ORIENTATION_DEVICE_IS_NEAR)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is near.");
+            else
+            if (PhoneProfilesService.mDeviceDistance == PhoneProfilesService.DEVICE_ORIENTATION_DEVICE_IS_FAR)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is far");
+            else
+            if (PhoneProfilesService.mDeviceDistance == PhoneProfilesService.DEVICE_ORIENTATION_UNKNOWN)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "unknown distance");
+
+            if (PhoneProfilesService.mDisplayUp == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_UP)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now screen is facing up.");
+            if (PhoneProfilesService.mDisplayUp == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_DOWN)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now screen is facing down.");
+
+            if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_UP_SIDE_UP)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now up side is facing up.");
+            if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_DOWN_SIDE_UP)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now down side is facing up.");
+            if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_RIGHT_SIDE_UP)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now right side is facing up.");
+            if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_LEFT_SIDE_UP)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now left side is facing up.");
+            if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_UNKNOWN)
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "unknown side.");
+
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
             eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);

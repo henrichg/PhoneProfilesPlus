@@ -53,6 +53,7 @@ public class GlobalData extends Application {
                                          +"|PhoneProfilesHelper.doUninstallPPHelper"
 
                                          +"|PhoneProfilesService"
+                                         +"|DeviceOrientationBroadcastReceiver"
 
                                          //+"|$$$ ScannerService.onHandleIntent"
                                          //+"|$$$ WifiScanAlarmBroadcastReceiver.startScan"

@@ -1,6 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -11,6 +16,8 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+
+import java.util.Calendar;
 
 
 public class PhoneProfilesService extends Service
@@ -57,7 +64,10 @@ public class PhoneProfilesService extends Service
     public static int mSideUp = DEVICE_ORIENTATION_UNKNOWN;
     public static int mDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
 
-    private static int mTmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
+    private static int tmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
+    private static int tmpDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
+    private static long tmpSideTimestamp = 0;
+    private static long tmpDistanceTimestamp = 0;
 
     @Override
     public void onCreate()
@@ -218,19 +228,17 @@ public class PhoneProfilesService extends Service
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-            GlobalData.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
+            //GlobalData.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
             if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
-                if (event.values[0] != mProximity) {
-                    mProximity = event.values[0];
-                    if (mProximity == 0) {
-                        mDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_NEAR;
-                        GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is near.");
-                    } else {
-                        mDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_FAR;
-                        GlobalData.logE("PhoneProfilesService.onSensorChanged", "now device is far");
-                    }
-                    Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                    sendBroadcast(broadcastIntent);
+                mProximity = event.values[0];
+                if (mProximity == 0)
+                    tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_NEAR;
+                else
+                    tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_FAR;
+
+                if (tmpDeviceDistance != mDeviceDistance) {
+                    mDeviceDistance = tmpDeviceDistance;
+                    setAlarm(this);
                 }
             }
         }
@@ -285,44 +293,49 @@ public class PhoneProfilesService extends Service
                     side = DEVICE_ORIENTATION_RIGHT_SIDE_UP;
                 }
 
-                if ((mTmpSideUp == DEVICE_ORIENTATION_UNKNOWN) || (/*(side != DEVICE_ORIENTATION_UNKNOWN) &&*/ (side != mTmpSideUp))) {
+                if ((tmpSideUp == DEVICE_ORIENTATION_UNKNOWN) || (/*(side != DEVICE_ORIENTATION_UNKNOWN) &&*/ (side != tmpSideUp))) {
                     mEventCountSinceGZChanged = 0;
 
                     //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
                     //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
                     //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
 
-                    mTmpSideUp = side;
+                    tmpSideUp = side;
+                    tmpSideTimestamp = event.timestamp;
                 }
                 else {
-                    ++mEventCountSinceGZChanged;
-                    if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+                    if (event.timestamp - tmpSideTimestamp >= 1000000000L) {
+                        ++mEventCountSinceGZChanged;
+                        if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
 
-                        if (mTmpSideUp != mSideUp) {
+                            if (tmpSideUp != mSideUp) {
 
-                            mSideUp = mTmpSideUp;
+                                mSideUp = tmpSideUp;
 
-                            if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
-                                mDisplayUp = mSideUp;
+                                if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
+                                    mDisplayUp = mSideUp;
 
-                            if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
-                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
-                            if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
-                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+                                /*
+                                if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
+                                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
+                                if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
+                                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
 
-                            if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
-                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now up side is facing up.");
-                            if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
-                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now down side is facing up.");
-                            if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
-                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
-                            if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
-                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
-                            if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
-                                GlobalData.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
+                                if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
+                                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now up side is facing up.");
+                                if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
+                                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now down side is facing up.");
+                                if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
+                                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
+                                if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
+                                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
+                                if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
+                                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
+                                */
 
-                            Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                            sendBroadcast(broadcastIntent);
+                                Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
+                                sendBroadcast(broadcastIntent);
+                            }
                         }
                     }
                 }
@@ -333,6 +346,55 @@ public class PhoneProfilesService extends Service
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+
+    @SuppressLint("NewApi")
+    public static void setAlarm(Context context)
+    {
+        //GlobalData.logE("PhoneProfilesService.setAlarm", "oneshot=" + oneshot);
+
+        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(context, DeviceOrientationBroadcastReceiver.class);
+
+        removeAlarm(context);
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.add(Calendar.SECOND, 3);
+        long alarmTime = calendar.getTimeInMillis();
+
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        else
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+
+        //GlobalData.logE("PhoneProfilesService.setAlarm", "alarm is set");
+    }
+
+
+    public static void removeAlarm(Context context)
+    {
+        //GlobalData.logE("PhoneProfilesService.removeAlarm", "oneshot=" + oneshot);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+        Intent intent = new Intent(context, DeviceOrientationBroadcastReceiver.class);
+        PendingIntent pendingIntent;
+        pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+        if (pendingIntent != null)
+        {
+            //GlobalData.logE("PhoneProfilesService.removeAlarm","alarm found");
+
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
+        //else
+        //    GlobalData.logE("PhoneProfilesService.removeAlarm","alarm not found");
     }
 
     @Override
