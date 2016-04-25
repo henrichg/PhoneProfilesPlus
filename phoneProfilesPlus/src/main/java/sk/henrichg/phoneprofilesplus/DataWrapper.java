@@ -27,6 +27,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -2219,40 +2220,44 @@ public class DataWrapper {
                     if (!lApplicationPassed) {
 
                         boolean lDisplayPassed = true;
-                        String[] splits = event._eventPreferencesOrientation._display.split("\\|");
-                        if (splits.length > 0) {
-                            lDisplayPassed = false;
-                            for (int i = 0; i < splits.length; i++) {
-                                try {
-                                    int side = Integer.valueOf(splits[i]);
-                                    if (side == PhoneProfilesService.mDisplayUp) {
-                                        lDisplayPassed = true;
-                                        break;
+                        if (!event._eventPreferencesOrientation._display.isEmpty()) {
+                            String[] splits = event._eventPreferencesOrientation._display.split("\\|");
+                            if (splits.length > 0) {
+                                lDisplayPassed = false;
+                                for (int i = 0; i < splits.length; i++) {
+                                    try {
+                                        int side = Integer.valueOf(splits[i]);
+                                        if (side == PhoneProfilesService.mDisplayUp) {
+                                            lDisplayPassed = true;
+                                            break;
+                                        }
+                                    } catch (Exception e) {
                                     }
-                                } catch (Exception e) {
                                 }
                             }
                         }
 
                         boolean lSidePassed = true;
-                        splits = event._eventPreferencesOrientation._sides.split("\\|");
-                        if (splits.length > 0) {
-                            lSidePassed = false;
-                            for (int i = 0; i < splits.length; i++) {
-                                try {
-                                    int side = Integer.valueOf(splits[i]);
-                                    if (side == PhoneProfilesService.DEVICE_ORIENTATION_HORIZONTAL) {
-                                        if (PhoneProfilesService.mSideUp == PhoneProfilesService.mDisplayUp) {
-                                            lSidePassed = true;
-                                            break;
+                        if (!event._eventPreferencesOrientation._sides.isEmpty()) {
+                            String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
+                            if (splits.length > 0) {
+                                lSidePassed = false;
+                                for (int i = 0; i < splits.length; i++) {
+                                    try {
+                                        int side = Integer.valueOf(splits[i]);
+                                        if (side == PhoneProfilesService.DEVICE_ORIENTATION_HORIZONTAL) {
+                                            if (PhoneProfilesService.mSideUp == PhoneProfilesService.mDisplayUp) {
+                                                lSidePassed = true;
+                                                break;
+                                            }
+                                        } else {
+                                            if (side == PhoneProfilesService.mSideUp) {
+                                                lSidePassed = true;
+                                                break;
+                                            }
                                         }
-                                    } else {
-                                        if (side == PhoneProfilesService.mSideUp) {
-                                            lSidePassed = true;
-                                            break;
-                                        }
+                                    } catch (Exception e) {
                                     }
-                                } catch (Exception e) {
                                 }
                             }
                         }
@@ -2263,6 +2268,10 @@ public class DataWrapper {
                             if (event._eventPreferencesOrientation._distance == PhoneProfilesService.mDeviceDistance)
                                 lDistancePassed = true;
                         }
+
+                        Log.d("DataWrapper.doEventService","lDisplayPassed="+lDisplayPassed);
+                        Log.d("DataWrapper.doEventService","lSidePassed="+lSidePassed);
+                        Log.d("DataWrapper.doEventService","lDistancePassed="+lDistancePassed);
 
                         orientationPassed = lDisplayPassed && lSidePassed && lDistancePassed;
                     }
