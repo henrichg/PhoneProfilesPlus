@@ -2195,25 +2195,40 @@ public class DataWrapper {
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
-            if ((callEventType == PhoneCallService.CALL_EVENT_UNDEFINED) ||
-                (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED))
-                // ignore changed during call
+            if (Permissions.checkEventPhoneBroadcast(context, event) &&
+                (callEventType != PhoneCallService.CALL_EVENT_UNDEFINED) &&
+                (callEventType != PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) &&
+                (callEventType != PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED))
+                // ignore changes during call
                 ignoreChange = true;
             else
             {
-
                 if (GlobalData.isOrientationScannerStarted()) {
+                    boolean displayPassed = true;
+                    String[] splits = event._eventPreferencesOrientation._display.split("\\|");
+                    if (splits.length > 0) {
+                        displayPassed = false;
+                        for (int i = 0; i < splits.length; i++) {
+                            try {
+                                int side = Integer.valueOf(splits[i]);
+                                if (side == PhoneProfilesService.mDisplayUp) {
+                                    displayPassed = true;
+                                    break;
+                                }
+                            } catch (Exception e) {
+                            }
+                        }
+                    }
+
                     boolean sidePassed = true;
-                    String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
+                    splits = event._eventPreferencesOrientation._sides.split("\\|");
                     if (splits.length > 0) {
                         sidePassed = false;
                         for (int i = 0; i < splits.length; i++) {
                             try {
                                 int side = Integer.valueOf(splits[i]);
-                                if ((side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_UP) ||
-                                    (side == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_DOWN)) {
-                                    if (side == PhoneProfilesService.mDisplayUp) {
+                                if (side == PhoneProfilesService.DEVICE_ORIENTATION_HORIZONTAL) {
+                                    if (PhoneProfilesService.mSideUp == PhoneProfilesService.mDisplayUp) {
                                         sidePassed = true;
                                         break;
                                     }
@@ -2235,7 +2250,7 @@ public class DataWrapper {
                             distancePassed = true;
                     }
 
-                    orientationPassed = sidePassed && distancePassed;
+                    orientationPassed = displayPassed && sidePassed && distancePassed;
                 }
             }
         }

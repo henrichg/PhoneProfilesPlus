@@ -501,6 +501,14 @@
                 android:title="@string/event_preferences_orientation_enabled"
                 android:defaultValue="false" />
             <sk.henrichg.phoneprofilesplus.MaterialMultiSelectListPreference
+                android:key="eventOrientationDisplay"
+                android:title="@string/event_preferences_orientation_display"
+                android:defaultValue="@array/emptyArray"
+                android:entries="@array/eventOrientationDisplayArray"
+                android:entryValues="@array/eventOrientationDisplayValues"
+                android:dependency="eventOrientationEnabled"
+                app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialMultiSelectListPreference
                 android:key="eventOrientationSides"
                 android:title="@string/event_preferences_orientation_sides"
                 android:defaultValue="@array/emptyArray"

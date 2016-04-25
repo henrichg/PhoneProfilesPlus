@@ -50,12 +50,14 @@ public class PhoneProfilesService extends Service
     private float mMaxProximityDistance;
 
     public static final int DEVICE_ORIENTATION_UNKNOWN = 0;
-    public static final int DEVICE_ORIENTATION_DISPLAY_UP = 1;
-    public static final int DEVICE_ORIENTATION_DISPLAY_DOWN = 2;
     public static final int DEVICE_ORIENTATION_RIGHT_SIDE_UP = 3;
     public static final int DEVICE_ORIENTATION_LEFT_SIDE_UP = 4;
     public static final int DEVICE_ORIENTATION_UP_SIDE_UP = 5;
     public static final int DEVICE_ORIENTATION_DOWN_SIDE_UP = 6;
+    public static final int DEVICE_ORIENTATION_HORIZONTAL = 9;
+
+    public static final int DEVICE_ORIENTATION_DISPLAY_UP = 1;
+    public static final int DEVICE_ORIENTATION_DISPLAY_DOWN = 2;
 
     public static final int DEVICE_ORIENTATION_DEVICE_IS_NEAR = 7;
     public static final int DEVICE_ORIENTATION_DEVICE_IS_FAR = 8;
@@ -67,7 +69,7 @@ public class PhoneProfilesService extends Service
     private static int tmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
     private static int tmpDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
     private static long tmpSideTimestamp = 0;
-    private static long tmpDistanceTimestamp = 0;
+    //private static long tmpDistanceTimestamp = 0;
 
     @Override
     public void onCreate()

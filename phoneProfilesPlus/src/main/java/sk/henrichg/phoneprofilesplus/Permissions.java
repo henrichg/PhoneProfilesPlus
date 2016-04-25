@@ -544,7 +544,7 @@ public class Permissions {
     public static boolean checkEventPhoneBroadcast(Context context, Event event) {
         if (event == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (event._eventPreferencesCall._enabled) {
+            if (event._eventPreferencesCall._enabled || event._eventPreferencesOrientation._enabled) {
                 boolean granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
                 granted = granted && (ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED);
                 return granted;

@@ -738,9 +738,11 @@
     <string name="event_type_orientation">Orientation</string>
     <string name="event_preferences_category_eventOrientationParameters">Orientation parameters</string>
     <string name="event_preferences_orientation_enabled">Enabled orientation</string>
+    <string name="event_preferences_orientation_display">Display</string>
     <string name="event_preferences_orientation_sides">Sides</string>
     <string name="array_event_pref_orientationSides_displayUp">Display up</string>
     <string name="array_event_pref_orientationSides_displayDown">Display down</string>
+    <string name="array_event_pref_orientationSides_horizontal">Horizontal</string>
     <string name="array_event_pref_orientationSides_rightSide">Right side up</string>
     <string name="array_event_pref_orientationSides_leftSide">Left side up</string>
     <string name="array_event_pref_orientationSides_upSide">Up side up</string>

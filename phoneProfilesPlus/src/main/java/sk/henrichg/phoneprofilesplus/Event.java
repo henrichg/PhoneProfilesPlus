@@ -272,7 +272,7 @@ public class Event {
 
     private void createEventPreferencesOrientation()
     {
-        this._eventPreferencesOrientation = new EventPreferencesOrientation(this, false, "", 0);
+        this._eventPreferencesOrientation = new EventPreferencesOrientation(this, false, "", "", 0);
     }
 
     public void createEventPreferences()

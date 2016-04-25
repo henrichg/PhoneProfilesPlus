@@ -861,17 +861,23 @@
     <item>1</item>
     <item>2</item>
 </string-array>
-<string-array name="eventOrientationSidesArray">
+<string-array name="eventOrientationDisplayArray">
     <item>@string/array_event_pref_orientationSides_displayUp</item>
     <item>@string/array_event_pref_orientationSides_displayDown</item>
+</string-array>
+<string-array name="eventOrientationDisplayValues">
+    <item>1</item>
+    <item>2</item>
+</string-array>
+<string-array name="eventOrientationSidesArray">
+    <item>@string/array_event_pref_orientationSides_horizontal</item>
     <item>@string/array_event_pref_orientationSides_rightSide</item>
     <item>@string/array_event_pref_orientationSides_leftSide</item>
     <item>@string/array_event_pref_orientationSides_upSide</item>
     <item>@string/array_event_pref_orientationSides_downSide</item>
 </string-array>
 <string-array name="eventOrientationSidesValues">
-    <item>1</item>
-    <item>2</item>
+    <item>9</item>
     <item>3</item>
     <item>4</item>
     <item>5</item>
