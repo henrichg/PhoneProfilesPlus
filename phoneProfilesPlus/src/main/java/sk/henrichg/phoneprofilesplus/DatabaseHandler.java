@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1610;
+    private static final int DATABASE_VERSION = 1620;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -215,6 +215,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_ORIENTATION_SIDES = "orientationSides";
     private static final String KEY_E_ORIENTATION_DISTANCE = "orientationDistance";
     private static final String KEY_E_ORIENTATION_DISPLAY = "orientationDisplay";
+    private static final String KEY_E_ORIENTATION_IGNORE_APPLICATIONS = "orientationIgnoreApplications";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -442,7 +443,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_ORIENTATION_ENABLED + " INTEGER,"
                 + KEY_E_ORIENTATION_SIDES + " TEXT,"
                 + KEY_E_ORIENTATION_DISTANCE + " INTEGER,"
-                + KEY_E_ORIENTATION_DISPLAY + " TEXT"
+                + KEY_E_ORIENTATION_DISPLAY + " TEXT,"
+                + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + " TEXT"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1599,6 +1601,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_DISPLAY + "=\"\"");
+        }
+
+        if (oldVersion < 1620)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + " TEXT");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + "=\"\"");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -3420,7 +3431,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{KEY_E_ORIENTATION_ENABLED,
                         KEY_E_ORIENTATION_SIDES,
                         KEY_E_ORIENTATION_DISTANCE,
-                        KEY_E_ORIENTATION_DISPLAY
+                        KEY_E_ORIENTATION_DISPLAY,
+                        KEY_E_ORIENTATION_IGNORE_APPLICATIONS
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3436,6 +3448,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._sides = cursor.getString(1);
                 eventPreferences._distance = cursor.getInt(2);
                 eventPreferences._display = cursor.getString(3);
+                eventPreferences._ignoredApplications = cursor.getString(4);
             }
             cursor.close();
         }
@@ -3710,6 +3723,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_ORIENTATION_SIDES, eventPreferences._sides);
         values.put(KEY_E_ORIENTATION_DISTANCE, eventPreferences._distance);
         values.put(KEY_E_ORIENTATION_DISPLAY, eventPreferences._display);
+        values.put(KEY_E_ORIENTATION_IGNORE_APPLICATIONS, eventPreferences._ignoredApplications);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -5782,6 +5796,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                 if (exportedDBObj.getVersion() < 1610) {
                                     values.put(KEY_E_ORIENTATION_DISPLAY, "");
+                                }
+
+                                if (exportedDBObj.getVersion() < 1620) {
+                                    values.put(KEY_E_ORIENTATION_IGNORE_APPLICATIONS, "");
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper

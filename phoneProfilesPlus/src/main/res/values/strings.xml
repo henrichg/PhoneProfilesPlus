@@ -751,4 +751,6 @@
     <string name="array_event_pref_orientationDistanceType_noCheck">No check</string>
     <string name="array_event_pref_orientationDistanceType_near">Near</string>
     <string name="array_event_pref_orientationDistanceType_far">Far</string>
+    <string name="event_preferences_orientation_ignoreApplications">Ignore applications</string>
+    <string name="event_preferences_orientation_AccessibilitySettings_summary">Allow PhoneProfilesPlus in \"Accessibility\" system settings, for enabling \"Ignore applications\" parameter.</string>
 </resources>

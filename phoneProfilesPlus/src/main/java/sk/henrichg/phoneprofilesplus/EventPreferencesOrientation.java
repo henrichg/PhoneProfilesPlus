@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -22,6 +23,7 @@ public class EventPreferencesOrientation extends EventPreferences {
     public String _display;
     public String _sides;
     public int _distance;
+    public String _ignoredApplications;
 
     static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategory";
 
@@ -29,18 +31,21 @@ public class EventPreferencesOrientation extends EventPreferences {
     static final String PREF_EVENT_ORIENTATION_DISPLAY = "eventOrientationDisplay";
     static final String PREF_EVENT_ORIENTATION_SIDES = "eventOrientationSides";
     static final String PREF_EVENT_ORIENTATION_DISTANCE = "eventOrientationDistance";
+    static final String PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS = "eventOrientationIgnoredApplications";
 
     public EventPreferencesOrientation(Event event,
                                        boolean enabled,
                                        String display,
                                        String sides,
-                                       int distance)
+                                       int distance,
+                                       String ignoredApplications)
     {
         super(event, enabled);
 
         this._display = display;
         this._sides = sides;
         this._distance = distance;
+        this._ignoredApplications = ignoredApplications;
     }
 
     @Override
@@ -50,6 +55,7 @@ public class EventPreferencesOrientation extends EventPreferences {
         this._display = ((EventPreferencesOrientation)fromEvent._eventPreferencesOrientation)._display;
         this._sides = ((EventPreferencesOrientation)fromEvent._eventPreferencesOrientation)._sides;
         this._distance = ((EventPreferencesOrientation)fromEvent._eventPreferencesOrientation)._distance;
+        this._ignoredApplications = ((EventPreferencesOrientation)fromEvent._eventPreferencesOrientation)._ignoredApplications;
     }
 
     @Override
@@ -67,6 +73,7 @@ public class EventPreferencesOrientation extends EventPreferences {
         editor.putStringSet(PREF_EVENT_ORIENTATION_SIDES, set);
 
         editor.putString(PREF_EVENT_ORIENTATION_DISTANCE, String.valueOf(this._distance));
+        editor.putString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, this._ignoredApplications);
         editor.commit();
     }
 
@@ -98,6 +105,7 @@ public class EventPreferencesOrientation extends EventPreferences {
         this._sides = sides;
 
         this._distance = Integer.parseInt(preferences.getString(PREF_EVENT_ORIENTATION_DISTANCE, "0"));
+        this._ignoredApplications = preferences.getString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, "");
     }
 
     @Override
@@ -148,6 +156,27 @@ public class EventPreferencesOrientation extends EventPreferences {
             int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
             if (i != -1)
                 descr = descr + "; " + distanceNames[i];
+
+            String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
+                String[] splits = this._ignoredApplications.split("\\|");
+                if (splits.length == 1) {
+                    PackageManager packageManager = context.getPackageManager();
+                    ApplicationInfo app;
+                    try {
+                        app = packageManager.getApplicationInfo(splits[0], 0);
+                        if (app != null)
+                            selectedApplications = packageManager.getApplicationLabel(app).toString();
+                    } catch (PackageManager.NameNotFoundException e) {
+                        //e.printStackTrace();
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                    }
+                }
+                else
+                    selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+            }
+            descr = descr + "; " + selectedApplications;
+
         }
 
         return descr;
@@ -176,6 +205,11 @@ public class EventPreferencesOrientation extends EventPreferences {
             }
             //GUIData.setPreferenceTitleStyle(listPreference, false, true, false);
         }
+        if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
+            Preference preference = prefMng.findPreference(key);
+            //GUIData.setPreferenceTitleStyle(preference, false, true, false);
+        }
+
     }
 
     @Override
@@ -221,6 +255,12 @@ public class EventPreferencesOrientation extends EventPreferences {
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
+
+        if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS))
+        {
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
+        }
+
     }
 
     @Override
@@ -229,11 +269,12 @@ public class EventPreferencesOrientation extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_ORIENTATION_DISPLAY, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_SIDES, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_DISTANCE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, preferences, context);
     }
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        EventPreferencesOrientation tmp = new EventPreferencesOrientation(this._event, this._enabled, this._display, this._sides, this._distance);
+        EventPreferencesOrientation tmp = new EventPreferencesOrientation(this._event, this._enabled, this._display, this._sides, this._distance, this._ignoredApplications);
         if (preferences != null)
             tmp.saveSharedPreferences(preferences);
 
@@ -271,6 +312,12 @@ public class EventPreferencesOrientation extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (preference != null) {
             preference.setEnabled(enabled);
+        }
+        enabled =
+                ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
+        Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
+        if (applicationsPreference != null) {
+            applicationsPreference.setEnabled(enabled);
         }
     }
 

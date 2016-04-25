@@ -25,7 +25,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
     static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
-    static final String PREF_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
+    static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
     static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
     static final String PREF_LOCATION_SETTINGS = "eventLocationScanningSystemSettings";
     static final int RESULT_LOCATION_SETTINGS = 1983;
@@ -33,6 +33,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     static final int RESULT_WIFI_SCANNING_SETTINGS = 1984;
     static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
     static final int RESULT_BLUETOOTH_SCANNING_SETTINGS = 1985;
+    static final String PREF_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
 
     @Override
     public int addPreferencesFromResource() {
@@ -90,7 +91,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        Preference accessibilityPreference = prefMng.findPreference(PREF_ACCESSIBILITY_SETTINGS);
+        Preference accessibilityPreference = prefMng.findPreference(PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -102,7 +103,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-
         Preference preference = prefMng.findPreference(PREF_LOCATION_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -118,7 +118,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-
         preference = prefMng.findPreference(PREF_WIFI_SCANNING_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -134,7 +133,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-
         preference = prefMng.findPreference(PREF_BLUETOOTH_SCANNING_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -146,6 +144,18 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "bluetoothScanninCategory");
                     //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                     startActivityForResult(intent, RESULT_BLUETOOTH_SCANNING_SETTINGS);
+                    return false;
+                }
+            });
+        }
+        Preference orientationPreference = prefMng.findPreference(PREF_ORIENTATION_ACCESSIBILITY_SETTINGS);
+        if (orientationPreference != null) {
+            //orientationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            orientationPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                    startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                     return false;
                 }
             });
@@ -169,6 +179,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         }
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
             event._eventPreferencesApplication.checkPreferences(prefMng, context);
+            event._eventPreferencesOrientation.checkPreferences(prefMng, context);
         }
         if (requestCode == RESULT_WIFI_SCANNING_SETTINGS) {
             event._eventPreferencesWifi.checkPreferences(prefMng, context);

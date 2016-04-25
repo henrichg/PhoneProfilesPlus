@@ -525,6 +525,18 @@
                 android:entryValues="@array/eventOrientationDistanceTypeValues"
                 android:dependency="eventOrientationEnabled"
                 app:useStockLayout="true" />
+            <Preference
+                android:key="eventOrientationAccessibilitySettings"
+                android:title="@string/event_preferences_applications_AccessibilitySettings_title"
+                android:summary="@string/event_preferences_orientation_AccessibilitySettings_summary"
+                android:dependency="eventOrientationEnabled"
+                android:widgetLayout="@layout/start_activity_preference" >
+            </Preference>
+            <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
+                android:defaultValue="-"
+                android:key="eventOrientationIgnoredApplications"
+                android:title="@string/event_preferences_orientation_ignoreApplications"
+                android:dependency="eventOrientationEnabled" />
         </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>
