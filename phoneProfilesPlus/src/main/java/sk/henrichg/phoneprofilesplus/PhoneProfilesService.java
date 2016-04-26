@@ -181,25 +181,28 @@ public class PhoneProfilesService extends Service
         if (mSensorManager == null)
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER) &&
-                getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS)) {
-
-            if (!mStarted) {
-                mSensorManager.registerListener(this,
-                        mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+        if (!mStarted) {
+            Sensor accelerometer = GlobalData.getAccelerometerSensor(this);
+            GlobalData.logE("PhoneProfilesService.startListeningSensors","accelerometer="+accelerometer);
+            Sensor magneticField = GlobalData.getMagneticFieldSensor(this);
+            GlobalData.logE("PhoneProfilesService.startListeningSensors","magneticField="+magneticField);
+            if ((accelerometer != null) && (magneticField != null)) {
+                mSensorManager.registerListener(this, accelerometer,
                         1000000);//SensorManager.SENSOR_DELAY_NORMAL);
-                mSensorManager.registerListener(this,
-                        mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+                mSensorManager.registerListener(this, magneticField,
                         1000000);//SensorManager.SENSOR_DELAY_NORMAL);
             }
+            Sensor proximity = GlobalData.getProximitySensor(this);
+            GlobalData.logE("PhoneProfilesService.startListeningSensors","proximity="+proximity);
+            if (proximity != null) {
+                mMaxProximityDistance = proximity.getMaximumRange();
+                mSensorManager.registerListener(this, proximity,
+                        1000000);//SensorManager.SENSOR_DELAY_NORMAL);
+            }
+            Sensor orientation = GlobalData.getOrientationSensor(this);
+            GlobalData.logE("PhoneProfilesService.startListeningSensors","orientation="+orientation);
+            mStarted = true;
         }
-        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
-            Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-            mMaxProximityDistance = sensor.getMaximumRange();
-            mSensorManager.registerListener(this, sensor,
-                    1000000);//SensorManager.SENSOR_DELAY_NORMAL);
-        }
-        mStarted = true;
     }
 
     public void stopListeningSensors() {

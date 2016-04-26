@@ -2222,9 +2222,8 @@ public class DataWrapper {
                     }
                     if (!lApplicationPassed) {
 
-                        boolean enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER) &&
-                                            context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS);
-
+                        boolean enabled = (GlobalData.getAccelerometerSensor(context) != null) &&
+                                          (GlobalData.getMagneticFieldSensor(context) != null);
                         boolean lDisplayPassed = true;
                         if (enabled) {
                             if (!event._eventPreferencesOrientation._display.isEmpty()) {
@@ -2272,8 +2271,7 @@ public class DataWrapper {
                             }
                         }
 
-                        enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY);
-
+                        enabled = GlobalData.getProximitySensor(context) != null;
                         boolean lDistancePassed = true;
                         if (enabled) {
                             if (event._eventPreferencesOrientation._distance != 0) {

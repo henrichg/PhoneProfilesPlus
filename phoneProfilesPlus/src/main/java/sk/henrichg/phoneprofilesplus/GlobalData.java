@@ -1941,6 +1941,28 @@ public class GlobalData extends Application {
         return (phoneProfilesService != null && phoneProfilesService.mStarted);
     }
 
+    public static Sensor getAccelerometerSensor(Context context) {
+        if (PhoneProfilesService.mSensorManager == null)
+            PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
+    public static Sensor getMagneticFieldSensor(Context context) {
+        if (PhoneProfilesService.mSensorManager == null)
+            PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+    }
+    public static Sensor getProximitySensor(Context context) {
+        if (PhoneProfilesService.mSensorManager == null)
+            PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+    }
+    @SuppressWarnings("deprecation")
+    public static Sensor getOrientationSensor(Context context) {
+        if (PhoneProfilesService.mSensorManager == null)
+            PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+    }
+
     //--------------------------------------------------------------------------
 
     // others ------------------------------------------------------------------

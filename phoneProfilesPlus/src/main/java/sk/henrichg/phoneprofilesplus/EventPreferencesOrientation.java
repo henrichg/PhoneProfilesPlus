@@ -300,8 +300,8 @@ public class EventPreferencesOrientation extends EventPreferences {
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        boolean enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER) &&
-                                context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS);
+        boolean enabled = (GlobalData.getAccelerometerSensor(context) != null) &&
+                          (GlobalData.getMagneticFieldSensor(context) != null);
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
         if (preference != null) {
             if (!enabled)

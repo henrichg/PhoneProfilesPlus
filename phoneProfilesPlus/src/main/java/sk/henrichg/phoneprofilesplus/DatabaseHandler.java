@@ -5894,8 +5894,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                     }
                     if (Integer.parseInt(cursor.getString(4)) != 0) {
-                        boolean enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER) &&
-                                            context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS);
+                        boolean enabled = (GlobalData.getAccelerometerSensor(context.getApplicationContext()) != null) &&
+                                          (GlobalData.getMagneticFieldSensor(context.getApplicationContext()) != null);
                         if (!enabled) {
                             values.clear();
                             values.put(KEY_E_ORIENTATION_DISPLAY, "");
@@ -5903,7 +5903,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
                                     new String[]{String.valueOf(Integer.parseInt(cursor.getString(0)))});
                         }
-                        enabled = ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
+                        enabled = (GlobalData.getProximitySensor(context.getApplicationContext()) != null) &&
+                                  ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
                         if (!enabled) {
                             values.clear();
                             values.put(KEY_E_ORIENTATION_DISTANCE, 0);
