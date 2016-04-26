@@ -229,7 +229,8 @@ public class EventPreferencesOrientation extends EventPreferences {
                     }
                 }
             }
-            //sides = set.toString();
+            else
+                sides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             setSummary(prefMng, key, sides, context);
         }
 
@@ -247,7 +248,8 @@ public class EventPreferencesOrientation extends EventPreferences {
                     }
                 }
             }
-            //sides = set.toString();
+            else
+                sides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             setSummary(prefMng, key, sides, context);
         }
 

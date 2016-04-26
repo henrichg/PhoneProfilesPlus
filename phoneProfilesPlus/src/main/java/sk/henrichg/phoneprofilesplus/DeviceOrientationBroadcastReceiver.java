@@ -7,7 +7,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "deviceFlip";
+    public static final String BROADCAST_RECEIVER_TYPE = "deviceOrientation";
 
     @Override
     public void onReceive(Context context, Intent intent) {

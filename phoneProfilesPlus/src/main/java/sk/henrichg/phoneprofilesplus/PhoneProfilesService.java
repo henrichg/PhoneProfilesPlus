@@ -191,8 +191,6 @@ public class PhoneProfilesService extends Service
                 mSensorManager.registerListener(this,
                         mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
                         1000000);//SensorManager.SENSOR_DELAY_NORMAL);
-
-                mStarted = true;
             }
         }
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY)) {
@@ -201,6 +199,7 @@ public class PhoneProfilesService extends Service
             mSensorManager.registerListener(this, sensor,
                     1000000);//SensorManager.SENSOR_DELAY_NORMAL);
         }
+        mStarted = true;
     }
 
     public void stopListeningSensors() {
