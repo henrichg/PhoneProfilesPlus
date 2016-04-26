@@ -54,6 +54,7 @@ public class GlobalData extends Application {
 
                                          +"|PhoneProfilesService"
                                          +"|DeviceOrientationBroadcastReceiver"
+                                         +"|**** DataWrapper.doEventService"
 
                                          //+"|$$$ ScannerService.onHandleIntent"
                                          //+"|$$$ WifiScanAlarmBroadcastReceiver.startScan"

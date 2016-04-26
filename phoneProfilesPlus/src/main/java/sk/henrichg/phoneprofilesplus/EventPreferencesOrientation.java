@@ -302,19 +302,24 @@ public class EventPreferencesOrientation extends EventPreferences {
                                 context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS);
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
         if (preference != null) {
+            if (!enabled)
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
             preference.setEnabled(enabled);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
+            if (!enabled)
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
             preference.setEnabled(enabled);
         }
         enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY);
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (preference != null) {
+            if (!enabled)
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
             preference.setEnabled(enabled);
         }
-        enabled =
-                ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
+        enabled = ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(enabled);

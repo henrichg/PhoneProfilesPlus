@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -2449,248 +2450,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         //db.close();
 
-    }
-
-    public int disableNotAllowedPreferences(Context context)
-    {
-        int ret = 0;
-
-        final String selectProfilesQuery = "SELECT " + KEY_ID + "," +
-                                        KEY_DEVICE_AIRPLANE_MODE + "," +
-                                        KEY_DEVICE_WIFI + "," +
-                                        KEY_DEVICE_BLUETOOTH + "," +
-                                        KEY_DEVICE_MOBILE_DATA + "," +
-                                        KEY_DEVICE_MOBILE_DATA_PREFS + "," +
-                                        KEY_DEVICE_GPS + "," +
-                                        KEY_DEVICE_LOCATION_SERVICE_PREFS + "," +
-                                        KEY_DEVICE_NFC + "," +
-                                        KEY_VOLUME_RINGER_MODE + "," +
-                                        KEY_DEVICE_WIFI_AP + "," +
-                                        KEY_DEVICE_POWER_SAVE_MODE + "," +
-                                        KEY_VOLUME_ZEN_MODE + "," +
-                                        KEY_DEVICE_NETWORK_TYPE + "," +
-                                        KEY_NOTIFICATION_LED +
-                            " FROM " + TABLE_PROFILES;
-        final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
-                                        KEY_E_WIFI_ENABLED + "," +
-                                        KEY_E_BLUETOOTH_ENABLED + "," +
-                                        KEY_E_NOTIFICATION_ENABLED +
-                            " FROM " + TABLE_EVENTS;
-
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        db.beginTransaction();
-        try {
-
-            Cursor cursor = db.rawQuery(selectProfilesQuery, null);
-
-            if (cursor.moveToFirst()) {
-                do {
-                        if ((Integer.parseInt(cursor.getString(1)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_AIRPLANE_MODE, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(2)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_WIFI, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(3)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_BLUETOOTH, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(4)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_MOBILE_DATA, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(5)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(6)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_GPS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_GPS, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(7)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(8)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NFC, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_NFC, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(10)) != 0) &&
-                                (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_WIFI_AP, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if (Integer.parseInt(cursor.getString(9)) == 5) {
-                            /*boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
-                                    (PPNotificationListenerService.isNotificationListenerServiceEnabled(context) ||
-                                            (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
-                                    );*/
-                            boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
-                                    PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
-                            if (!notRemove) {
-                                int zenMode = cursor.getInt(12);
-                                int ringerMode = 0;
-                                switch (zenMode) {
-                                    case 1:
-                                        ringerMode = 1;
-                                        break;
-                                    case 2:
-                                        ringerMode = 4;
-                                        break;
-                                    case 3:
-                                        ringerMode = 4;
-                                        break;
-                                    case 4:
-                                        ringerMode = 2;
-                                        break;
-                                    case 5:
-                                        ringerMode = 3;
-                                        break;
-                                    case 6:
-                                        ringerMode = 4;
-                                        break;
-                                }
-                                values.clear();
-                                values.put(KEY_VOLUME_RINGER_MODE, ringerMode);
-                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                        new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                            }
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(11)) != 0) &&
-                                (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context)
-                                        == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(13)) != 0) &&
-                                (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, context)
-                                        == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_DEVICE_NETWORK_TYPE, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                        if ((Integer.parseInt(cursor.getString(14)) != 0) &&
-                                (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_NOTIFICATION_LED, context)
-                                        == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_NOTIFICATION_LED, 0);
-                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
-                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                } while (cursor.moveToNext());
-            }
-
-            cursor.close();
-
-            //-----------------------
-
-            cursor = db.rawQuery(selectEventsQuery, null);
-
-            if (cursor.moveToFirst()) {
-                do {
-                        if ((Integer.parseInt(cursor.getString(1)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_E_WIFI_ENABLED, 0);
-                            db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
-                               new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-                        if ((Integer.parseInt(cursor.getString(2)) != 0) &&
-                                (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
-                        {
-                            values.clear();
-                            values.put(KEY_E_BLUETOOTH_ENABLED, 0);
-                            db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
-                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-                        if ((Integer.parseInt(cursor.getString(3)) != 0) &&
-                                (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2))
-                        {
-                            values.clear();
-                            values.put(KEY_E_NOTIFICATION_ENABLED, 0);
-                            db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
-                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
-                        }
-
-                } while (cursor.moveToNext());
-            }
-
-            cursor.close();
-
-            db.setTransactionSuccessful();
-
-            ret = 1;
-       } catch (Exception e){
-            //Error in between database transaction
-           ret = 0;
-       } finally {
-           db.endTransaction();
-       }	
-
-       //db.close();
-
-       return ret;
     }
 
     public void saveMergedProfile(Profile profile) {
@@ -5908,6 +5667,267 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
         deactivateProfile();
         unblockAllEvents();
+
+        return ret;
+    }
+
+    public int disableNotAllowedPreferences(Context context)
+    {
+        int ret = 0;
+
+        final String selectProfilesQuery = "SELECT " + KEY_ID + "," +
+                                                    KEY_DEVICE_AIRPLANE_MODE + "," +
+                                                    KEY_DEVICE_WIFI + "," +
+                                                    KEY_DEVICE_BLUETOOTH + "," +
+                                                    KEY_DEVICE_MOBILE_DATA + "," +
+                                                    KEY_DEVICE_MOBILE_DATA_PREFS + "," +
+                                                    KEY_DEVICE_GPS + "," +
+                                                    KEY_DEVICE_LOCATION_SERVICE_PREFS + "," +
+                                                    KEY_DEVICE_NFC + "," +
+                                                    KEY_VOLUME_RINGER_MODE + "," +
+                                                    KEY_DEVICE_WIFI_AP + "," +
+                                                    KEY_DEVICE_POWER_SAVE_MODE + "," +
+                                                    KEY_VOLUME_ZEN_MODE + "," +
+                                                    KEY_DEVICE_NETWORK_TYPE + "," +
+                                                    KEY_NOTIFICATION_LED +
+                                         " FROM " + TABLE_PROFILES;
+        final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
+                                                    KEY_E_WIFI_ENABLED + "," +
+                                                    KEY_E_BLUETOOTH_ENABLED + "," +
+                                                    KEY_E_NOTIFICATION_ENABLED + "," +
+                                                    KEY_E_ORIENTATION_ENABLED +
+                                           " FROM " + TABLE_EVENTS;
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        db.beginTransaction();
+        try {
+
+            Cursor cursor = db.rawQuery(selectProfilesQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    if ((Integer.parseInt(cursor.getString(1)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_AIRPLANE_MODE, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(2)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_WIFI, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(3)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_BLUETOOTH, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(4)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_MOBILE_DATA, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(5)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(6)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_GPS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_GPS, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(7)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(8)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NFC, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_NFC, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(10)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_WIFI_AP, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if (Integer.parseInt(cursor.getString(9)) == 5) {
+                            /*boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
+                                    (PPNotificationListenerService.isNotificationListenerServiceEnabled(context) ||
+                                            (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
+                                    );*/
+                        boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
+                                PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
+                        if (!notRemove) {
+                            int zenMode = cursor.getInt(12);
+                            int ringerMode = 0;
+                            switch (zenMode) {
+                                case 1:
+                                    ringerMode = 1;
+                                    break;
+                                case 2:
+                                    ringerMode = 4;
+                                    break;
+                                case 3:
+                                    ringerMode = 4;
+                                    break;
+                                case 4:
+                                    ringerMode = 2;
+                                    break;
+                                case 5:
+                                    ringerMode = 3;
+                                    break;
+                                case 6:
+                                    ringerMode = 4;
+                                    break;
+                            }
+                            values.clear();
+                            values.put(KEY_VOLUME_RINGER_MODE, ringerMode);
+                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                    new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                        }
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(11)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context)
+                                    == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(13)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, context)
+                                    == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_NETWORK_TYPE, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(14)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_NOTIFICATION_LED, context)
+                                    == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_NOTIFICATION_LED, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+
+            //-----------------------
+
+            cursor = db.rawQuery(selectEventsQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    if ((Integer.parseInt(cursor.getString(1)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_E_WIFI_ENABLED, 0);
+                        db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+                    if ((Integer.parseInt(cursor.getString(2)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_E_BLUETOOTH_ENABLED, 0);
+                        db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+                    if ((Integer.parseInt(cursor.getString(3)) != 0) &&
+                            (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2))
+                    {
+                        values.clear();
+                        values.put(KEY_E_NOTIFICATION_ENABLED, 0);
+                        db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+                    if (Integer.parseInt(cursor.getString(4)) != 0) {
+                        boolean enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER) &&
+                                            context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS);
+                        if (!enabled) {
+                            values.clear();
+                            values.put(KEY_E_ORIENTATION_DISPLAY, "");
+                            values.put(KEY_E_ORIENTATION_SIDES, "");
+                            db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                    new String[]{String.valueOf(Integer.parseInt(cursor.getString(0)))});
+                        }
+                        enabled = ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
+                        if (!enabled) {
+                            values.clear();
+                            values.put(KEY_E_ORIENTATION_DISTANCE, 0);
+                            db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                    new String[]{String.valueOf(Integer.parseInt(cursor.getString(0)))});
+                        }
+                    }
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+
+            db.setTransactionSuccessful();
+
+            ret = 1;
+        } catch (Exception e){
+            //Error in between database transaction
+            ret = 0;
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
 
         return ret;
     }
