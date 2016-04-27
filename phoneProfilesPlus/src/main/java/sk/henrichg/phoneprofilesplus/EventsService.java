@@ -28,6 +28,8 @@ public class EventsService extends IntentService
 
         GlobalData.logE("$$$ EventsService.onHandleIntent","-- start --------------------------------");
 
+        broadcastReceiverType = intent.getStringExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE);
+
         restartAtEndOfEvent = false;
 
         // disabled for firstStartEvents
@@ -41,18 +43,19 @@ public class EventsService extends IntentService
         if (!GlobalData.isGeofenceScannerStarted())
             GlobalData.startGeofenceScanner(context);
 
-        if (!GlobalData.isOrientationScannerStarted())
-            GlobalData.startOrientationScanner(context);
-
         if (!GlobalData.getGlobalEventsRuning(context))
             // events are globally stopped
             return;
 
         GlobalData.loadPreferences(context);
 
-        broadcastReceiverType = intent.getStringExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE);
-
         dataWrapper = new DataWrapper(context, true, false, 0);
+
+        // start orientation listeners only when events exists
+        if (!GlobalData.isOrientationScannerStarted()) {
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
+                GlobalData.startOrientationScanner(context);
+        }
 
         if (!eventsExists(broadcastReceiverType)) {
             doEndService(intent);
