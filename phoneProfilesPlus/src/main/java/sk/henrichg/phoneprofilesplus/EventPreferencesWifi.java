@@ -180,7 +180,8 @@ public class EventPreferencesWifi extends EventPreferences {
     @Override
     public void setSystemEventForStart(Context context)
     {
-        if (((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
+        if (_enabled &&
+            ((_connectionType == CTYPE_INFRONT) || (_connectionType == CTYPE_NOTINFRONT)) &&
             (!WifiScanAlarmBroadcastReceiver.isAlarmSet(context/*, false*/)))
             WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
     }

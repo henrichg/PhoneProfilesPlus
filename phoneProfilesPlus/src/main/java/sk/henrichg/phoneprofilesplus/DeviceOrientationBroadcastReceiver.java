@@ -58,6 +58,13 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_UNKNOWN)
                 GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) unknown side.");
 
+            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) == 0) {
+                GlobalData.stopOrientationScanner();
+                dataWrapper.invalidateDataWrapper();
+                return;
+            }
+
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
             eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);

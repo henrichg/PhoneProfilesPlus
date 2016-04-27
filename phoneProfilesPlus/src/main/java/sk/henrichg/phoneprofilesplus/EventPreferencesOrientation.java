@@ -18,6 +18,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.microedition.khronos.opengles.GL;
+
 public class EventPreferencesOrientation extends EventPreferences {
 
     public String _display;
@@ -337,6 +339,8 @@ public class EventPreferencesOrientation extends EventPreferences {
     @Override
     public void setSystemEventForStart(Context context)
     {
+        if (_enabled && (!GlobalData.isOrientationScannerStarted()))
+            GlobalData.startOrientationScanner(context);
     }
 
     @Override

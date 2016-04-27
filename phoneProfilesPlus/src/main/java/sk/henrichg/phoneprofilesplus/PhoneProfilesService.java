@@ -146,7 +146,9 @@ public class PhoneProfilesService extends Service
         getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
 
         GlobalData.startGeofenceScanner(getApplicationContext());
-        GlobalData.startOrientationScanner(getApplicationContext());
+        // not start from this, not needed start listenning sensors when startService() is called (for example from LauncherActivity)
+        // events will start scanner
+        //GlobalData.startOrientationScanner(getApplicationContext());
     }
 
     @Override

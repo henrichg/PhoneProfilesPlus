@@ -37,14 +37,14 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
         if (!GlobalData.isGeofenceScannerStarted()) {
             removeAlarm(context/*, false*/);
-            removeAlarm(context/*, true*/);
+            //removeAlarm(context/*, true*/);
             return;
         }
 
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
             removeAlarm(context/*, false*/);
-            removeAlarm(context/*, true*/);
+            //removeAlarm(context/*, true*/);
             return;
         }
 
