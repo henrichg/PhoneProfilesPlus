@@ -535,7 +535,7 @@
             <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
                 android:defaultValue="-"
                 android:key="eventOrientationIgnoredApplications"
-                android:title="@string/event_preferences_orientation_ignoreApplications"
+                android:title="@string/event_preferences_orientation_ignoreForApplications"
                 android:dependency="eventOrientationEnabled" />
         </PreferenceScreen>
     </PreferenceCategory>
