@@ -42,6 +42,9 @@
     <declare-styleable name="LocationGeofencePreference">
         <attr name="onlyEdit" format="integer" />
     </declare-styleable>
+    <declare-styleable name="ApplicationsMultiSelectDialogPreference">
+        <attr name="addShortcuts" format="integer" />
+    </declare-styleable>
 
     <declare-styleable name="ScrimInsetsView">
         <attr format="reference|color" name="insetForeground" />

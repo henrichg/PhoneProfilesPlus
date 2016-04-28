@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     Context _context = null;
     String value = "";
 
+    int addShortcuts;
+
     // Layout widgets.
     private ListView listView = null;
     private LinearLayout linlaProgress;
@@ -50,6 +53,14 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         super(context, attrs);
 
         _context = context;
+
+        TypedArray typedArray = context.obtainStyledAttributes(attrs,
+                R.styleable.ApplicationsMultiSelectDialogPreference);
+
+        addShortcuts = typedArray.getInteger(
+                R.styleable.ApplicationsMultiSelectDialogPreference_addShortcuts, 0);
+
+        typedArray.recycle();
 
         setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
 
