@@ -840,20 +840,15 @@ public class ActivateProfileHelper {
                     }
                 }
                 else {
-                    ComponentName componentName = new ComponentName(ApplicationsCache.getPackageName(splits[i]),
-                                                                    ApplicationsCache.getActivityName(splits[i]));
-                    if (componentName != null) {
-                        //intent = new Intent(Intent.ACTION_MAIN);
-                        intent = new Intent();
-                        intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                        intent.setComponent(componentName);
-                        try {
-                            context.startActivity(intent);
-                            Thread.sleep(1000);
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }
+                    intent = new Intent(context, LaunchShortcutActivity.class);
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, ApplicationsCache.getPackageName(splits[i]));
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, ApplicationsCache.getActivityName(splits[i]));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    try {
+                        context.startActivity(intent);
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        System.out.println(e);
                     }
                 }
             }
