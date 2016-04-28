@@ -14,19 +14,23 @@ public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
     private LayoutInflater inflater;
     //private Context context;
 
-    public ApplicationsMultiselectPreferenceAdapter(Context context)
+    boolean noShortcuts;
+
+    public ApplicationsMultiselectPreferenceAdapter(Context context, int addShortcuts)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
-        //this.context = context; 
+        //this.context = context;
+
+        noShortcuts = addShortcuts == 0;
     }
 
     public int getCount() {
-        return EditorProfilesActivity.getApplicationsCache().getLength();
+        return EditorProfilesActivity.getApplicationsCache().getLength(noShortcuts);
     }
 
     public Object getItem(int position) {
-        return EditorProfilesActivity.getApplicationsCache().getApplication(position);
+        return EditorProfilesActivity.getApplicationsCache().getApplication(position, noShortcuts);
     }
 
     public long getItemId(int position) {
@@ -38,7 +42,7 @@ public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
         ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
 
         // Application to display
-        Application application = applicationsCahce.getApplication(position);
+        Application application = applicationsCahce.getApplication(position, noShortcuts);
         //System.out.println(String.valueOf(position));
 
         // The child views in each row.

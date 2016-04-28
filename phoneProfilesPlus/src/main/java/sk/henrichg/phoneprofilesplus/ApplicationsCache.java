@@ -24,12 +24,14 @@ public class ApplicationsCache {
     }
 
     private ArrayList<Application> applicationsList;
+    private ArrayList<Application> applicationsNoShortcutsList;
     private boolean cached;
     private boolean cancelled;
 
     public ApplicationsCache()
     {
         applicationsList = new ArrayList<Application>();
+        applicationsNoShortcutsList = new ArrayList<Application>();
         cached = false;
     }
 
@@ -60,6 +62,7 @@ public class ApplicationsCache {
                 newInfo.icon = packageInfo.applicationInfo.loadIcon(packageManager);
 
                 applicationsList.add(newInfo);
+                applicationsNoShortcutsList.add(newInfo);
             }
 
             if (cancelled)
@@ -73,11 +76,9 @@ public class ApplicationsCache {
         {
             ResolveInfo shortcutInfo = shortcuts.get(i);
 
-            Log.d("ApplicationsCache.getApplicationsList", "shortcutInfo="+shortcutInfo);
-            Log.d("ApplicationsCache.getApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
-            Log.d("ApplicationsCache.getApplicationsList", "name="+shortcutInfo.activityInfo.name);
-            Log.d("ApplicationsCache.getApplicationsList", "isDefault="+shortcutInfo.isDefault);
-            Log.d("ApplicationsCache.getApplicationsList", "intentFilter="+shortcutInfo.filter);
+            //Log.d("ApplicationsCache.getApplicationsList", "shortcutInfo="+shortcutInfo);
+            //Log.d("ApplicationsCache.getApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
+            //Log.d("ApplicationsCache.getApplicationsList", "name="+shortcutInfo.activityInfo.name);
 
             Application newInfo = new Application();
 
@@ -94,80 +95,67 @@ public class ApplicationsCache {
         }
 
         Collections.sort(applicationsList, new SortList());
+        Collections.sort(applicationsNoShortcutsList, new SortList());
 
         cached = true;
     }
 
-    public int getLength()
+    public int getLength(boolean noShortcuts)
     {
-        if (cached)
-            return applicationsList.size();
+        if (cached) {
+            if (noShortcuts)
+                return applicationsNoShortcutsList.size();
+            else
+                return applicationsList.size();
+        }
         else
             return 0;
     }
 
-    public List<Application> getList()
+    public List<Application> getList(boolean noShorcuts)
     {
-        if (cached)
-            return applicationsList;
-        else
-            return null;
-    }
-
-    public Application getApplication(int position)
-    {
-        if (cached)
-            return applicationsList.get(position);
-        else
-            return null;
-    }
-
-    public String getPackageName(int position)
-    {
-        if (cached)
-            return applicationsList.get(position).packageName;
-        else
-            return "";
-    }
-
-    public String getActivityName(int position) {
-        if (cached)
-            return applicationsList.get(position).activityName;
-        else
-            return "";
-    }
-
-    public String getApplicationLabel(int position)
-    {
-        if (cached)
-            return applicationsList.get(position).appLabel;
-        else
-            return "";
-    }
-
-    public Drawable getApplicationIcon(int position)
-    {
-        if (cached)
-            return applicationsList.get(position).icon;
-        else
-            return null;
-    }
-
-    public Application findApplication(String packageName, String activityName) {
         if (cached) {
-            for (Application application : applicationsList) {
-                if (application.packageName.equals(packageName) && application.activityName.equals(activityName))
-                    return application;
-            }
+            if (noShorcuts)
+                return applicationsNoShortcutsList;
+            else
+                return applicationsList;
         }
-        return null;
+        else
+            return null;
+    }
+
+    public Application getApplication(int position, boolean noShortcuts)
+    {
+        if (cached) {
+            if (noShortcuts)
+                return applicationsNoShortcutsList.get(position);
+            else
+                return applicationsList.get(position);
+        }
+        else
+            return null;
+    }
+
+    public String getPackageName(int position, boolean noShortcuts)
+    {
+        if (cached) {
+            if (noShortcuts)
+                return applicationsNoShortcutsList.get(position).packageName;
+            else
+                return applicationsList.get(position).packageName;
+        }
+        else
+            return "";
     }
 
     public void clearCache(boolean nullList)
     {
         applicationsList.clear();
-        if (nullList)
+        applicationsNoShortcutsList.clear();
+        if (nullList) {
             applicationsList = null;
+            applicationsNoShortcutsList = null;
+        }
         cached = false;
     }
 
