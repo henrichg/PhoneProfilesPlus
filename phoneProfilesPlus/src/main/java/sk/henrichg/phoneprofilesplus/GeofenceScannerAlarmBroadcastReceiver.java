@@ -72,7 +72,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("NewApi")
     public static void setAlarm(Context context, boolean startScanning, boolean forScreenOn)
     {
-        //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
+        GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "xxx");
 
         if (GlobalData.isGeofenceScannerStarted()) {
 

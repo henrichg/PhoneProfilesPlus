@@ -56,6 +56,8 @@ public class GlobalData extends Application {
                                          +"|DeviceOrientationBroadcastReceiver"
                                          +"|**** DataWrapper.doEventService"
 
+                                         //+"|@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm"
+
                                          //+"|$$$ ScannerService.onHandleIntent"
                                          //+"|$$$ WifiScanAlarmBroadcastReceiver.startScan"
                                          //+"|##### WifiScanBroadcastReceiver.onReceive"
