@@ -2171,7 +2171,11 @@ public class DataWrapper {
             if (!foregroundApplication.isEmpty()) {
                 String[] splits = event._eventPreferencesApplication._applications.split("\\|");
                 for (int i = 0; i < splits.length; i++) {
-                    if (foregroundApplication.equals(splits[i])) {
+                    String packageName = splits[i];
+                    if (ApplicationsCache.isShortcut(splits[i]))
+                        packageName = ApplicationsCache.getPackageName(splits[i]);
+
+                    if (foregroundApplication.equals(packageName)) {
                         applicationPassed = true;
                         break;
                     }
@@ -2214,7 +2218,11 @@ public class DataWrapper {
                     if (!foregroundApplication.isEmpty()) {
                         String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
                         for (int i = 0; i < splits.length; i++) {
-                            if (foregroundApplication.equals(splits[i])) {
+                            String packageName = splits[i];
+                            if (ApplicationsCache.isShortcut(splits[i]))
+                                packageName = ApplicationsCache.getPackageName(splits[i]);
+
+                            if (foregroundApplication.equals(packageName)) {
                                 lApplicationPassed = true;
                                 break;
                             }

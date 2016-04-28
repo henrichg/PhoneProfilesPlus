@@ -163,10 +163,14 @@ public class EventPreferencesOrientation extends EventPreferences {
             if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
                 String[] splits = this._ignoredApplications.split("\\|");
                 if (splits.length == 1) {
+                    String packageName = splits[0];
+                    if (ApplicationsCache.isShortcut(splits[0]))
+                        packageName = ApplicationsCache.getPackageName(splits[0]);
+
                     PackageManager packageManager = context.getPackageManager();
                     ApplicationInfo app;
                     try {
-                        app = packageManager.getApplicationInfo(splits[0], 0);
+                        app = packageManager.getApplicationInfo(packageName, 0);
                         if (app != null)
                             selectedApplications = packageManager.getApplicationLabel(app).toString();
                     } catch (PackageManager.NameNotFoundException e) {

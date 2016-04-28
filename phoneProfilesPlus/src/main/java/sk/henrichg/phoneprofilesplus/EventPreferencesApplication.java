@@ -87,10 +87,14 @@ public class EventPreferencesApplication extends EventPreferences {
             if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                 String[] splits = this._applications.split("\\|");
                 if (splits.length == 1) {
+                    String packageName = splits[0];
+                    if (ApplicationsCache.isShortcut(splits[0]))
+                        packageName = ApplicationsCache.getPackageName(splits[0]);
+
                     PackageManager packageManager = context.getPackageManager();
                     ApplicationInfo app;
                     try {
-                        app = packageManager.getApplicationInfo(splits[0], 0);
+                        app = packageManager.getApplicationInfo(packageName, 0);
                         if (app != null)
                             selectedApplications = packageManager.getApplicationLabel(app).toString();
                     } catch (PackageManager.NameNotFoundException e) {
