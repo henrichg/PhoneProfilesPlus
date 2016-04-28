@@ -1,7 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -9,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -92,7 +96,10 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                                     {
                                         if (!value.isEmpty())
                                             value = value + "|";
-                                        value = value + application.packageName;
+                                        if (application.shortcut)
+                                            value = value + "(s)" + application.packageName + "/" + application.activityName;
+                                        else
+                                            value = value + application.packageName;
                                     }
                                 }
                             }
@@ -219,8 +226,22 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 for (int i = 0; i < splits.length; i++)
                 {
                     String packageName = splits[i];
-                    if (packageName.equals(application.packageName))
-                        application.checked = true;
+                    if (application.shortcut && (packageName.length() > 2)) {
+                        String shortcut = packageName.substring(0, 3);
+                        String[] splits2 = packageName.split("/");
+                        if (shortcut.equals("(s)")) {
+                            packageName = splits2[0].substring(3);
+                            String activityName = splits2[1];
+                            if (packageName.equals(application.packageName) &&
+                                    activityName.equals(application.activityName))
+                                application.checked = true;
+                        }
+                    }
+                    else {
+                        if (packageName.equals(application.packageName)) {
+                            application.checked = true;
+                        }
+                    }
                 }
             }
             // move checked on top
@@ -243,20 +264,27 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         String prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
         if (!value.isEmpty() && !value.equals("-")) {
             String[] splits = value.split("\\|");
+            prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             if (splits.length == 1) {
                 PackageManager packageManager = _context.getPackageManager();
-                ApplicationInfo app;
-                try {
-                    app = packageManager.getApplicationInfo(splits[0], 0);
-                    if (app != null)
-                        prefVolumeDataSummary = packageManager.getApplicationLabel(app).toString();
-                } catch (PackageManager.NameNotFoundException e) {
-                    //e.printStackTrace();
-                    prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                if (!ApplicationsCache.isShortcut(splits[0])) {
+                    ApplicationInfo app;
+                    try {
+                        app = packageManager.getApplicationInfo(splits[0], 0);
+                        if (app != null)
+                            prefVolumeDataSummary = packageManager.getApplicationLabel(app).toString();
+                    } catch (PackageManager.NameNotFoundException e) {
+                        //e.printStackTrace();
+                    }
+                }
+                else {
+                    Intent intent = new Intent();
+                    intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                    ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                    if (info != null)
+                        prefVolumeDataSummary = info.loadLabel(packageManager).toString();
                 }
             }
-            else
-                prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
         }
         setSummary(prefVolumeDataSummary);
     }
@@ -264,55 +292,83 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     private void setIcons() {
         PackageManager packageManager = _context.getPackageManager();
         ApplicationInfo app;
-        try {
 
-            String[] splits = value.split("\\|");
+        String[] splits = value.split("\\|");
 
-            if (splits.length == 1) {
-                packageIcon.setVisibility(View.VISIBLE);
-                packageIcons.setVisibility(View.GONE);
-                app = packageManager.getApplicationInfo(splits[0], 0);
-                if (app != null) {
-                    Drawable icon = packageManager.getApplicationIcon(app);
-                    //CharSequence name = packageManager.getApplicationLabel(app);
-                    packageIcon.setImageDrawable(icon);
-                } else {
+        if (splits.length == 1) {
+            packageIcon.setVisibility(View.VISIBLE);
+            packageIcons.setVisibility(View.GONE);
+
+            if (!ApplicationsCache.isShortcut(splits[0])) {
+                try {
+                    app = packageManager.getApplicationInfo(splits[0], 0);
+                    if (app != null) {
+                        Drawable icon = packageManager.getApplicationIcon(app);
+                        //CharSequence name = packageManager.getApplicationLabel(app);
+                        packageIcon.setImageDrawable(icon);
+                    } else {
+                        packageIcon.setImageResource(R.drawable.ic_empty);
+                    }
+                }
+                catch (PackageManager.NameNotFoundException e) {
+                    //e.printStackTrace();
                     packageIcon.setImageResource(R.drawable.ic_empty);
                 }
             }
             else {
-                packageIcon.setVisibility(View.GONE);
-                packageIcons.setVisibility(View.VISIBLE);
-                packageIcon.setImageResource(R.drawable.ic_empty);
+                Intent intent = new Intent();
+                intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                if (info != null)
+                    packageIcon.setImageDrawable(info.loadIcon(packageManager));
+                else
+                    packageIcon.setImageResource(R.drawable.ic_empty);
+            }
+        }
+        else {
+            packageIcon.setVisibility(View.GONE);
+            packageIcons.setVisibility(View.VISIBLE);
+            packageIcon.setImageResource(R.drawable.ic_empty);
 
-                ImageView packIcon = packageIcon1;
-                for (int i = 0; i < 4; i++)
-                {
-                    if (i == 0) packIcon = packageIcon1;
-                    if (i == 1) packIcon = packageIcon2;
-                    if (i == 2) packIcon = packageIcon3;
-                    if (i == 3) packIcon = packageIcon4;
-                    if (i < splits.length) {
-                        app = packageManager.getApplicationInfo(splits[i], 0);
-                        if (app != null) {
-                            Drawable icon = packageManager.getApplicationIcon(app);
-                            //CharSequence name = packageManager.getApplicationLabel(app);
-                            packIcon.setImageDrawable(icon);
+            ImageView packIcon = packageIcon1;
+            for (int i = 0; i < 4; i++)
+            {
+                if (i == 0) packIcon = packageIcon1;
+                if (i == 1) packIcon = packageIcon2;
+                if (i == 2) packIcon = packageIcon3;
+                if (i == 3) packIcon = packageIcon4;
+                if (i < splits.length) {
+
+                    if (!ApplicationsCache.isShortcut(splits[i])) {
+                        try {
+                            app = packageManager.getApplicationInfo(splits[i], 0);
+                            if (app != null) {
+                                Drawable icon = packageManager.getApplicationIcon(app);
+                                //CharSequence name = packageManager.getApplicationLabel(app);
+                                packIcon.setImageDrawable(icon);
+                            } else {
+                                packIcon.setImageResource(R.drawable.ic_empty);
+                            }
+                        } catch (PackageManager.NameNotFoundException e) {
+                            //e.printStackTrace();
+                            packIcon.setImageResource(R.drawable.ic_empty);
+                        }
+                    }
+                    else {
+                        Intent intent = new Intent();
+                        intent.setClassName(ApplicationsCache.getPackageName(splits[i]), ApplicationsCache.getActivityName(splits[i]));
+                        ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+
+                        if (info != null) {
+                            packIcon.setImageDrawable(info.loadIcon(packageManager));
                         } else {
                             packIcon.setImageResource(R.drawable.ic_empty);
                         }
                     }
-                    else
-                        packIcon.setImageResource(R.drawable.ic_empty);
                 }
+                else
+                    packIcon.setImageResource(R.drawable.ic_empty);
             }
-
-        } catch (PackageManager.NameNotFoundException e) {
-            //e.printStackTrace();
-            packageIcon.setVisibility(View.VISIBLE);
-            packageIcons.setVisibility(View.GONE);
-            packageIcon.setImageResource(R.drawable.ic_empty);
         }
-
     }
 }

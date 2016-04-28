@@ -19,7 +19,7 @@
         android:id="@+id/applications_multiselect_pref_dlg_item_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="3dp"
         android:layout_marginStart="3dp"
         android:layout_toRightOf="@+id/applications_multiselect_pref_dlg_item_checkbox"
@@ -33,7 +33,7 @@
         android:id="@+id/applications_multiselect_pref_dlg_item_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_toRightOf="@+id/applications_multiselect_pref_dlg_item_icon"
@@ -41,5 +41,19 @@
         android:text="@string/empty_string"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/applications_multiselect_pref_dlg_item_app_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/applications_multiselect_pref_dlg_item_icon"
+        android:layout_toEndOf="@+id/applications_multiselect_pref_dlg_item_icon"
+        android:layout_below="@+id/applications_multiselect_pref_dlg_item_app_name"
+        android:text="@string/empty_string"
+        android:singleLine="true"
+        android:enabled="false"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

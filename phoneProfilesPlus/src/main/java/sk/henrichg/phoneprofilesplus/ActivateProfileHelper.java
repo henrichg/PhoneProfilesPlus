@@ -826,15 +826,33 @@ public class ActivateProfileHelper {
             PackageManager packageManager = context.getPackageManager();
 
             for (int i = 0; i < splits.length; i++) {
-                intent = packageManager.getLaunchIntentForPackage(splits[i]);
-                if (intent != null) {
-                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
+                if (!ApplicationsCache.isShortcut(splits[i])) {
+                    intent = packageManager.getLaunchIntentForPackage(splits[i]);
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try {
+                            context.startActivity(intent);
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }
+                else {
+                    ComponentName componentName = new ComponentName(ApplicationsCache.getPackageName(splits[i]),
+                                                                    ApplicationsCache.getActivityName(splits[i]));
+                    if (componentName != null) {
+                        intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                        intent.setComponent(componentName);
+                        try {
+                            context.startActivity(intent);
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
                     }
                 }
             }

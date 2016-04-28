@@ -1,9 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +52,7 @@ public class ApplicationsCache {
             {
                 Application newInfo = new Application();
 
+                newInfo.shortcut = false;
                 newInfo.appLabel = packageInfo.applicationInfo.loadLabel(packageManager).toString();
                 newInfo.packageName = packageInfo.packageName;
                 //newInfo.versionName = packageInfo.versionName;
@@ -57,6 +61,31 @@ public class ApplicationsCache {
 
                 applicationsList.add(newInfo);
             }
+
+            if (cancelled)
+                return;
+        }
+
+        Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
+        List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, PackageManager.MATCH_ALL);
+        //Log.d("ApplicationsCache.getApplicationsList", "shortcuts.size="+shortcuts.size());
+        for (int i = 0; i < shortcuts.size(); i++)
+        {
+            ResolveInfo shortcutInfo = shortcuts.get(i);
+
+            //Log.d("ApplicationsCache.getApplicationsList", "shortcutInfo="+shortcutInfo);
+            //Log.d("ApplicationsCache.getApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
+            //Log.d("ApplicationsCache.getApplicationsList", "name="+shortcutInfo.activityInfo.name);
+
+            Application newInfo = new Application();
+
+            newInfo.shortcut = true;
+            newInfo.appLabel = shortcutInfo.loadLabel(packageManager).toString();
+            newInfo.packageName = shortcutInfo.activityInfo.applicationInfo.packageName;
+            newInfo.activityName = shortcutInfo.activityInfo.name;
+            newInfo.icon = shortcutInfo.loadIcon(packageManager);
+
+            applicationsList.add(newInfo);
 
             if (cancelled)
                 return;
@@ -99,6 +128,13 @@ public class ApplicationsCache {
             return "";
     }
 
+    public String getActivityName(int position) {
+        if (cached)
+            return applicationsList.get(position).activityName;
+        else
+            return "";
+    }
+
     public String getApplicationLabel(int position)
     {
         if (cached)
@@ -113,6 +149,16 @@ public class ApplicationsCache {
             return applicationsList.get(position).icon;
         else
             return null;
+    }
+
+    public Application findApplication(String packageName, String activityName) {
+        if (cached) {
+            for (Application application : applicationsList) {
+                if (application.packageName.equals(packageName) && application.activityName.equals(activityName))
+                    return application;
+            }
+        }
+        return null;
     }
 
     public void clearCache(boolean nullList)
@@ -131,6 +177,43 @@ public class ApplicationsCache {
     public void cancelCaching()
     {
         cancelled = true;
+    }
+
+    public static boolean isShortcut(String value) {
+        if (value.length() > 2) {
+            String shortcut = value.substring(0, 3);
+            if (shortcut.equals("(s)"))
+                return true;
+        }
+        return false;
+    }
+
+    public static String getPackageName(String value) {
+        if (value.length() > 2) {
+            String shortcut = value.substring(0, 3);
+            String[] splits2 = value.split("/");
+            if (shortcut.equals("(s)")) {
+                return splits2[0].substring(3);
+            }
+            return value;
+        }
+        else {
+            return value;
+        }
+    }
+
+    public static String getActivityName(String value) {
+        if (value.length() > 2) {
+            String shortcut = value.substring(0, 3);
+            String[] splits2 = value.split("/");
+            if (shortcut.equals("(s)")) {
+                return splits2[1];
+            }
+            return "";
+        }
+        else {
+            return "";
+        }
     }
 
 }
