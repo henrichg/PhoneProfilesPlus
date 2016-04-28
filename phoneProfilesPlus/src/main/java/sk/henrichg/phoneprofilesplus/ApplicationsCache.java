@@ -73,9 +73,11 @@ public class ApplicationsCache {
         {
             ResolveInfo shortcutInfo = shortcuts.get(i);
 
-            //Log.d("ApplicationsCache.getApplicationsList", "shortcutInfo="+shortcutInfo);
-            //Log.d("ApplicationsCache.getApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
-            //Log.d("ApplicationsCache.getApplicationsList", "name="+shortcutInfo.activityInfo.name);
+            Log.d("ApplicationsCache.getApplicationsList", "shortcutInfo="+shortcutInfo);
+            Log.d("ApplicationsCache.getApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
+            Log.d("ApplicationsCache.getApplicationsList", "name="+shortcutInfo.activityInfo.name);
+            Log.d("ApplicationsCache.getApplicationsList", "isDefault="+shortcutInfo.isDefault);
+            Log.d("ApplicationsCache.getApplicationsList", "intentFilter="+shortcutInfo.filter);
 
             Application newInfo = new Application();
 

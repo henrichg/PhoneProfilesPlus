@@ -843,8 +843,9 @@ public class ActivateProfileHelper {
                     ComponentName componentName = new ComponentName(ApplicationsCache.getPackageName(splits[i]),
                                                                     ApplicationsCache.getActivityName(splits[i]));
                     if (componentName != null) {
-                        intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        //intent = new Intent(Intent.ACTION_MAIN);
+                        intent = new Intent();
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                         intent.setComponent(componentName);
                         try {
