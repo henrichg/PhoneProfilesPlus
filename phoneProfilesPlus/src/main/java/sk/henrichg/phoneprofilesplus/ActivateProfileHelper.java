@@ -1452,6 +1452,7 @@ public class ActivateProfileHelper {
             else
             if (GlobalData.notificationTextColor.equals("2"))
                 contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart_dark);
+            contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
             notification.contentView = contentView;
 
