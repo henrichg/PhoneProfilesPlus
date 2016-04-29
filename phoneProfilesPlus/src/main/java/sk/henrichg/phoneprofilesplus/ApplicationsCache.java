@@ -44,22 +44,26 @@ public class ApplicationsCache {
         applicationsList.clear();
 
         PackageManager packageManager = context.getPackageManager();
-        List<PackageInfo> packs = packageManager.getInstalledPackages(0);
 
-        for (int i = 0; i < packs.size(); i++)
+        Intent appsIntent = new Intent(Intent.ACTION_MAIN);
+        appsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        int flags = 0;
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            flags = PackageManager.MATCH_ALL;
+        List<ResolveInfo> applications = packageManager.queryIntentActivities(appsIntent, flags);
+        for (int i = 0; i < applications.size(); i++)
         {
-            PackageInfo packageInfo = packs.get(i);
+            ResolveInfo applicationInfo = applications.get(i);
 
-            if (packageManager.getLaunchIntentForPackage(packageInfo.packageName) != null)
+            if (packageManager.getLaunchIntentForPackage(applicationInfo.activityInfo.applicationInfo.packageName) != null)
             {
                 Application newInfo = new Application();
 
                 newInfo.shortcut = false;
-                newInfo.appLabel = packageInfo.applicationInfo.loadLabel(packageManager).toString();
-                newInfo.packageName = packageInfo.packageName;
-                //newInfo.versionName = packageInfo.versionName;
-                //newInfo.versionCode = packageInfo.versionCode;
-                newInfo.icon = packageInfo.applicationInfo.loadIcon(packageManager);
+                newInfo.appLabel = applicationInfo.loadLabel(packageManager).toString();
+                newInfo.packageName = applicationInfo.activityInfo.applicationInfo.packageName;
+                newInfo.activityName = applicationInfo.activityInfo.name;
+                newInfo.icon = applicationInfo.loadIcon(packageManager);
 
                 applicationsList.add(newInfo);
                 applicationsNoShortcutsList.add(newInfo);
@@ -70,7 +74,7 @@ public class ApplicationsCache {
         }
 
         Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
-        int flags = 0;
+        flags = 0;
         if (android.os.Build.VERSION.SDK_INT >= 23)
             flags = PackageManager.MATCH_ALL;
         List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, flags);
