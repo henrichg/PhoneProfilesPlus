@@ -70,7 +70,10 @@ public class ApplicationsCache {
         }
 
         Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
-        List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, PackageManager.MATCH_ALL);
+        int flags = 0;
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            flags = PackageManager.MATCH_ALL;
+        List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, flags);
         //Log.d("ApplicationsCache.getApplicationsList", "shortcuts.size="+shortcuts.size());
         for (int i = 0; i < shortcuts.size(); i++)
         {
