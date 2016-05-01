@@ -827,9 +827,23 @@ public class ActivateProfileHelper {
 
             for (int i = 0; i < splits.length; i++) {
                 if (!ApplicationsCache.isShortcut(splits[i])) {
-                    intent = packageManager.getLaunchIntentForPackage(splits[i]);
-                    if (intent != null) {
-                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    if (ApplicationsCache.getActivityName(splits[i]).isEmpty()) {
+                        intent = packageManager.getLaunchIntentForPackage(splits[i]);
+                        if (intent != null) {
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                context.startActivity(intent);
+                                Thread.sleep(1000);
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+                        }
+                    }
+                    else {
+                        intent = new Intent(context, LaunchShortcutActivity.class);
+                        intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, ApplicationsCache.getPackageName(splits[i]));
+                        intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, ApplicationsCache.getActivityName(splits[i]));
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         try {
                             context.startActivity(intent);

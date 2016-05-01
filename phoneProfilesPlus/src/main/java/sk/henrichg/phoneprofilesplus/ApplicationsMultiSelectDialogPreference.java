@@ -108,9 +108,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                                         if (!value.isEmpty())
                                             value = value + "|";
                                         if (application.shortcut)
-                                            value = value + "(s)" + application.packageName + "/" + application.activityName;
-                                        else
-                                            value = value + application.packageName;
+                                            value = value + "(s)";
+                                        value = value + application.packageName + "/" + application.activityName;
                                     }
                                 }
                             }
@@ -236,21 +235,37 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 application.checked = false;
                 for (int i = 0; i < splits.length; i++)
                 {
-                    String packageName = splits[i];
-                    if (application.shortcut && (packageName.length() > 2)) {
-                        String shortcut = packageName.substring(0, 3);
-                        String[] splits2 = packageName.split("/");
+                    String packageName;
+                    String activityName;
+                    String shortcut;
+                    String[] splits2 = value.split("/");
+                    if (splits[i].length() > 2) {
+                        if (splits2.length == 2) {
+                            shortcut = splits2[0].substring(0, 3);
+                            packageName = splits2[0];
+                            activityName = splits2[1];
+                        }
+                        else {
+                            shortcut = value.substring(0, 3);
+                            packageName = value;
+                            activityName = "";
+                        }
                         if (shortcut.equals("(s)")) {
-                            packageName = splits2[0].substring(3);
-                            String activityName = splits2[1];
-                            if (packageName.equals(application.packageName) &&
-                                    activityName.equals(application.activityName))
+                            packageName = packageName.substring(3);
+                        }
+                        boolean shortcutPassed = shortcut.equals("(s)") == application.shortcut;
+                        boolean packagePassed = packageName.equals(application.packageName);
+                        boolean activityPassed = activityName.equals(application.activityName);
+
+                        if (!activityName.isEmpty()) {
+                            if (shortcutPassed && packagePassed && activityPassed)
                                 application.checked = true;
                         }
-                    }
-                    else {
-                        if (packageName.equals(application.packageName)) {
-                            application.checked = true;
+                        else {
+                            if (!shortcut.equals("(s)")) {
+                                if (packagePassed)
+                                    application.checked = true;
+                            }
                         }
                     }
                 }
@@ -279,13 +294,22 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             if (splits.length == 1) {
                 PackageManager packageManager = _context.getPackageManager();
                 if (!ApplicationsCache.isShortcut(splits[0])) {
-                    ApplicationInfo app;
-                    try {
-                        app = packageManager.getApplicationInfo(splits[0], 0);
-                        if (app != null)
-                            prefVolumeDataSummary = packageManager.getApplicationLabel(app).toString();
-                    } catch (PackageManager.NameNotFoundException e) {
-                        //e.printStackTrace();
+                    if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                        ApplicationInfo app;
+                        try {
+                            app = packageManager.getApplicationInfo(splits[0], 0);
+                            if (app != null)
+                                prefVolumeDataSummary = packageManager.getApplicationLabel(app).toString();
+                        } catch (PackageManager.NameNotFoundException e) {
+                            //e.printStackTrace();
+                        }
+                    }
+                    else {
+                        Intent intent = new Intent();
+                        intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                        ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                        if (info != null)
+                            prefVolumeDataSummary = info.loadLabel(packageManager).toString();
                     }
                 }
                 else {
@@ -311,19 +335,29 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             packageIcons.setVisibility(View.GONE);
 
             if (!ApplicationsCache.isShortcut(splits[0])) {
-                try {
-                    app = packageManager.getApplicationInfo(splits[0], 0);
-                    if (app != null) {
-                        Drawable icon = packageManager.getApplicationIcon(app);
-                        //CharSequence name = packageManager.getApplicationLabel(app);
-                        packageIcon.setImageDrawable(icon);
-                    } else {
+                if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                    try {
+                        app = packageManager.getApplicationInfo(splits[0], 0);
+                        if (app != null) {
+                            Drawable icon = packageManager.getApplicationIcon(app);
+                            //CharSequence name = packageManager.getApplicationLabel(app);
+                            packageIcon.setImageDrawable(icon);
+                        } else {
+                            packageIcon.setImageResource(R.drawable.ic_empty);
+                        }
+                    } catch (PackageManager.NameNotFoundException e) {
+                        //e.printStackTrace();
                         packageIcon.setImageResource(R.drawable.ic_empty);
                     }
                 }
-                catch (PackageManager.NameNotFoundException e) {
-                    //e.printStackTrace();
-                    packageIcon.setImageResource(R.drawable.ic_empty);
+                else {
+                    Intent intent = new Intent();
+                    intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                    ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                    if (info != null)
+                        packageIcon.setImageDrawable(info.loadIcon(packageManager));
+                    else
+                        packageIcon.setImageResource(R.drawable.ic_empty);
                 }
             }
             else {
@@ -351,18 +385,31 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 if (i < splits.length) {
 
                     if (!ApplicationsCache.isShortcut(splits[i])) {
-                        try {
-                            app = packageManager.getApplicationInfo(splits[i], 0);
-                            if (app != null) {
-                                Drawable icon = packageManager.getApplicationIcon(app);
-                                //CharSequence name = packageManager.getApplicationLabel(app);
-                                packIcon.setImageDrawable(icon);
+                        if (ApplicationsCache.getActivityName(splits[i]).isEmpty()) {
+                            try {
+                                app = packageManager.getApplicationInfo(splits[i], 0);
+                                if (app != null) {
+                                    Drawable icon = packageManager.getApplicationIcon(app);
+                                    //CharSequence name = packageManager.getApplicationLabel(app);
+                                    packIcon.setImageDrawable(icon);
+                                } else {
+                                    packIcon.setImageResource(R.drawable.ic_empty);
+                                }
+                            } catch (PackageManager.NameNotFoundException e) {
+                                //e.printStackTrace();
+                                packIcon.setImageResource(R.drawable.ic_empty);
+                            }
+                        }
+                        else {
+                            Intent intent = new Intent();
+                            intent.setClassName(ApplicationsCache.getPackageName(splits[i]), ApplicationsCache.getActivityName(splits[i]));
+                            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+
+                            if (info != null) {
+                                packIcon.setImageDrawable(info.loadIcon(packageManager));
                             } else {
                                 packIcon.setImageResource(R.drawable.ic_empty);
                             }
-                        } catch (PackageManager.NameNotFoundException e) {
-                            //e.printStackTrace();
-                            packIcon.setImageResource(R.drawable.ic_empty);
                         }
                     }
                     else {
@@ -382,4 +429,5 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             }
         }
     }
+
 }

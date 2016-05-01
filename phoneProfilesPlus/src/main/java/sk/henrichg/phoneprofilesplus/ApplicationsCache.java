@@ -187,30 +187,38 @@ public class ApplicationsCache {
 
     public static String getPackageName(String value) {
         if (value.length() > 2) {
-            String shortcut = value.substring(0, 3);
+            String packageName;
+            String shortcut;
             String[] splits2 = value.split("/");
-            if (shortcut.equals("(s)")) {
-                return splits2[0].substring(3);
+            if (splits2.length == 2) {
+                shortcut = splits2[0].substring(0, 3);
+                packageName = splits2[0];
             }
-            return value;
+            else {
+                shortcut = value.substring(0, 3);
+                packageName = value;
+            }
+            if (shortcut.equals("(s)")) {
+                return packageName.substring(3);
+            }
+            return packageName;
         }
-        else {
-            return value;
-        }
+        else
+            return "";
     }
 
     public static String getActivityName(String value) {
         if (value.length() > 2) {
-            String shortcut = value.substring(0, 3);
+            String activityName;
             String[] splits2 = value.split("/");
-            if (shortcut.equals("(s)")) {
-                return splits2[1];
-            }
-            return "";
+            if (splits2.length == 2)
+                activityName = splits2[1];
+            else
+                activityName = "";
+            return activityName;
         }
-        else {
+        else
             return "";
-        }
     }
 
 }

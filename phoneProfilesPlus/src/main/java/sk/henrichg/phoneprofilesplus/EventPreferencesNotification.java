@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -105,19 +106,26 @@ public class EventPreferencesNotification extends EventPreferences {
             if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                 String[] splits = this._applications.split("\\|");
                 if (splits.length == 1) {
-                    String packageName = splits[0];
-                    if (ApplicationsCache.isShortcut(splits[0]))
-                        packageName = ApplicationsCache.getPackageName(splits[0]);
+                    String packageName = ApplicationsCache.getPackageName(splits[0]);
 
                     PackageManager packageManager = context.getPackageManager();
-                    ApplicationInfo app;
-                    try {
-                        app = packageManager.getApplicationInfo(packageName, 0);
-                        if (app != null)
-                            selectedApplications = packageManager.getApplicationLabel(app).toString();
-                    } catch (PackageManager.NameNotFoundException e) {
-                        //e.printStackTrace();
-                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                    if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                        ApplicationInfo app;
+                        try {
+                            app = packageManager.getApplicationInfo(packageName, 0);
+                            if (app != null)
+                                selectedApplications = packageManager.getApplicationLabel(app).toString();
+                        } catch (PackageManager.NameNotFoundException e) {
+                            //e.printStackTrace();
+                            selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                        }
+                    }
+                    else {
+                        Intent intent = new Intent();
+                        intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                        ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                        if (info != null)
+                            selectedApplications = info.loadLabel(packageManager).toString();
                     }
                 }
                 else
@@ -362,9 +370,7 @@ public class EventPreferencesNotification extends EventPreferences {
 
         String[] splits = this._applications.split("\\|");
         for (int i = 0; i < splits.length; i++) {
-            String packageName = splits[i];
-            if (ApplicationsCache.isShortcut(splits[i]))
-                packageName = ApplicationsCache.getPackageName(splits[i]);
+            String packageName = ApplicationsCache.getPackageName(splits[i]);
 
             PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(dataWrapper.context, packageName);
             if (notification != null)
