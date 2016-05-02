@@ -58,10 +58,10 @@ public class GlobalData extends Application {
 
                                          //+"|@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm"
 
-                                         +"|$$$ ScannerService.onHandleIntent"
+                                         //+"|$$$ ScannerService.onHandleIntent"
                                          //+"|$$$ WifiScanAlarmBroadcastReceiver.startScan"
                                          //+"|##### WifiScanBroadcastReceiver.onReceive"
-                                         +"|$$$ WifiScanBroadcastReceiver.onReceive"
+                                         //+"|$$$ WifiScanBroadcastReceiver.onReceive"
 
                                          //+"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
                                          //+"|##### WifiScanAlarmBroadcastReceiver.onReceive"
@@ -69,8 +69,8 @@ public class GlobalData extends Application {
                                          //+"|##### GeofenceScannerBroadcastReceiver.onReceive"
                                          //+"|##### GeofenceScanner"
                                          //+"|ScreenOnOffBroadcastReceiver"
-                                         +"|WifiAPStateChangeBroadcastReceiver.onReceive"
-                                         +"|$$$ WifiAP"
+                                         //+"|WifiAPStateChangeBroadcastReceiver.onReceive"
+                                         //+"|$$$ WifiAP"
             ;
 
 
