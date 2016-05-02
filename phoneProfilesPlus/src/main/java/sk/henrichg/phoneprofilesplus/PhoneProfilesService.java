@@ -41,7 +41,7 @@ public class PhoneProfilesService extends Service
 
     //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
-    private static final int MAX_COUNT_GZ_CHANGE = 7;
+    private static final int MAX_COUNT_GZ_CHANGE = 1;
 
     private final float alpha = (float) 0.8;
     private float mGravity[] = new float[3];
@@ -190,16 +190,16 @@ public class PhoneProfilesService extends Service
             GlobalData.logE("PhoneProfilesService.startListeningSensors","magneticField="+magneticField);
             if ((accelerometer != null) && (magneticField != null)) {
                 mSensorManager.registerListener(this, accelerometer,
-                        1000000);//SensorManager.SENSOR_DELAY_NORMAL);
+                        1000000 * 5);
                 mSensorManager.registerListener(this, magneticField,
-                        1000000);//SensorManager.SENSOR_DELAY_NORMAL);
+                        1000000 * 5);
             }
             Sensor proximity = GlobalData.getProximitySensor(this);
             GlobalData.logE("PhoneProfilesService.startListeningSensors","proximity="+proximity);
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
                 mSensorManager.registerListener(this, proximity,
-                        1000000);//SensorManager.SENSOR_DELAY_NORMAL);
+                        1000000 * 5);
             }
             Sensor orientation = GlobalData.getOrientationSensor(this);
             GlobalData.logE("PhoneProfilesService.startListeningSensors","orientation="+orientation);
