@@ -608,10 +608,12 @@ public class ScannerService extends IntentService
                 if (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     // from dialog preference wifi must be enabled for saved wifi configuration
                     // (see WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList)
-                    if (android.os.Build.VERSION.SDK_INT >= 18)
-                        isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
+
+                    // this must be disabled because scanning not working, when wifi is disabled after disabled WiFi AP
+                    //if (android.os.Build.VERSION.SDK_INT >= 18)
+                    //    isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
                 }
-                GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
+                //GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
                 isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
                 if (!isWifiEnabled)
                 {
