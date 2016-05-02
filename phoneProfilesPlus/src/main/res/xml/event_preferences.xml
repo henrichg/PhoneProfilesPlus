@@ -337,8 +337,8 @@
                 android:defaultValue="false" />
             <Preference
                 android:key="eventEnableWiFiScaningAppSettings"
-                android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"
-                android:summary="@string/menu_settings"
+                android:title="@string/phone_profiles_pref_eventWifiAppSettings"
+                android:summary="@string/phone_profiles_pref_eventWifiAppSettings_summary"
                 android:dependency="eventWiFiEnabled"
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
@@ -367,8 +367,8 @@
                 android:defaultValue="false" />
             <Preference
                 android:key="eventEnableBluetoothScaningAppSettings"
-                android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"
-                android:summary="@string/menu_settings"
+                android:title="@string/phone_profiles_pref_eventBluetoothAppSettings"
+                android:summary="@string/phone_profiles_pref_eventBluetoothAppSettings_summary"
                 android:dependency="eventBluetoothEnabled"
                 android:widgetLayout="@layout/start_activity_preference" >
             </Preference>
