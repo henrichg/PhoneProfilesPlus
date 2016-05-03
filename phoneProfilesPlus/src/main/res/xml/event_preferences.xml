@@ -502,6 +502,13 @@
                 android:key="eventOrientationEnabled"
                 android:title="@string/event_preferences_orientation_enabled"
                 android:defaultValue="false" />
+            <Preference
+                android:key="eventEnableOrientationScanningAppSettings"
+                android:title="@string/phone_profiles_pref_eventOrientationAppSettings"
+                android:summary="@string/phone_profiles_pref_eventOrientationAppSettings_summary"
+                android:dependency="eventOrientationEnabled"
+                android:widgetLayout="@layout/start_activity_preference" >
+            </Preference>
             <sk.henrichg.phoneprofilesplus.MaterialMultiSelectListPreference
                 android:key="eventOrientationDisplay"
                 android:title="@string/event_preferences_orientation_display"

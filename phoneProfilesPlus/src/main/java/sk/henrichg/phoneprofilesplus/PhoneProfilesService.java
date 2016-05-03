@@ -78,6 +78,8 @@ public class PhoneProfilesService extends Service
 
         GlobalData.phoneProfilesService = this;
 
+        GlobalData.loadPreferences(getApplicationContext());
+
         // start service for first start
         Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
         getApplicationContext().startService(eventsServiceIntent);
@@ -184,22 +186,30 @@ public class PhoneProfilesService extends Service
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         if (!mStarted) {
+
+            if (GlobalData.isPowerSaveMode && GlobalData.applicationEventOrientationScanInPowerSaveMode.equals("2"))
+                // start scanning in power save mode is not allowed
+                return;
+
+            int interval = GlobalData.applicationEventOrientationScanInterval;
+            if (GlobalData.isPowerSaveMode && GlobalData.applicationEventOrientationScanInPowerSaveMode.equals("1"))
+                interval *= 2;
             Sensor accelerometer = GlobalData.getAccelerometerSensor(this);
             GlobalData.logE("PhoneProfilesService.startListeningSensors","accelerometer="+accelerometer);
             Sensor magneticField = GlobalData.getMagneticFieldSensor(this);
             GlobalData.logE("PhoneProfilesService.startListeningSensors","magneticField="+magneticField);
             if ((accelerometer != null) && (magneticField != null)) {
                 mSensorManager.registerListener(this, accelerometer,
-                        1000000 * 5);
+                        1000000 * interval);
                 mSensorManager.registerListener(this, magneticField,
-                        1000000 * 5);
+                        1000000 * interval);
             }
             Sensor proximity = GlobalData.getProximitySensor(this);
             GlobalData.logE("PhoneProfilesService.startListeningSensors","proximity="+proximity);
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
                 mSensorManager.registerListener(this, proximity,
-                        1000000 * 5);
+                        1000000 * interval);
             }
             Sensor orientation = GlobalData.getOrientationSensor(this);
             GlobalData.logE("PhoneProfilesService.startListeningSensors","orientation="+orientation);
@@ -213,6 +223,13 @@ public class PhoneProfilesService extends Service
             mSensorManager = null;
         }
         mStarted = false;
+    }
+
+    public void resetListeningSensors(boolean oldPowerSaveMode, boolean forceReset) {
+        if ((forceReset) || (GlobalData.isPowerSaveMode != oldPowerSaveMode)) {
+            stopListeningSensors();
+            startListeningSensors();
+        }
     }
 
     @Override

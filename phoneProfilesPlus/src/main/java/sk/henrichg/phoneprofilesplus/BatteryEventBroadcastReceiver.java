@@ -65,6 +65,8 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
 
                     if (GlobalData.geofencesScanner != null)
                         GlobalData.geofencesScanner.resetLocationUpdates(oldPowerSaveMode, false);
+                    if (GlobalData.phoneProfilesService != null)
+                        GlobalData.phoneProfilesService.resetListeningSensors(oldPowerSaveMode, false);
 
                     /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                     batteryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY) > 0;

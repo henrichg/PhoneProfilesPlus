@@ -34,6 +34,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
     static final int RESULT_BLUETOOTH_SCANNING_SETTINGS = 1985;
     static final String PREF_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
+    static final String PREF_ORIENTATION_SCANNING_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
+    static final int RESULT_ORIENTATION_SCANNING_SETTINGS = 1986;
 
     @Override
     public int addPreferencesFromResource() {
@@ -148,6 +150,21 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
+        preference = prefMng.findPreference(PREF_ORIENTATION_SCANNING_APP_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(context, PhoneProfilesPreferencesActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "orientationScanningCategory");
+                    //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    startActivityForResult(intent, RESULT_ORIENTATION_SCANNING_SETTINGS);
+                    return false;
+                }
+            });
+        }
         Preference orientationPreference = prefMng.findPreference(PREF_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (orientationPreference != null) {
             //orientationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -190,7 +207,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         if (requestCode == RESULT_LOCATION_SETTINGS) {
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
         }
-
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
             //Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
             if (EventPreferencesFragment.changedLocationGeofencePreference != null) {
@@ -200,7 +216,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
-
+        if (requestCode == RESULT_ORIENTATION_SCANNING_SETTINGS) {
+            event._eventPreferencesOrientation.checkPreferences(prefMng, context);
+        }
     }
 
     @Override

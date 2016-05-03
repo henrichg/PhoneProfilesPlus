@@ -52,8 +52,8 @@ public class GlobalData extends Application {
     public static String logFilterTags =  "PhoneProfilesHelper.doInstallPPHelper"
                                          +"|PhoneProfilesHelper.doUninstallPPHelper"
 
-                                         +"|PhoneProfilesService"
-                                         +"|DeviceOrientationBroadcastReceiver"
+                                         //+"|PhoneProfilesService"
+                                         //+"|DeviceOrientationBroadcastReceiver"
                                          //+"|**** DataWrapper.doEventService"
 
                                          //+"|@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm"
@@ -253,6 +253,8 @@ public class GlobalData extends Application {
     public static final String PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE = "applicationEventLocationUpdateInPowerSaveMode";
     public static final String PREF_APPLICATION_EVENT_LOCATION_USE_GPS = "applicationEventLocationUseGPS";
     public static final String PREF_APPLICATION_EVENT_LOCATION_RESCAN = "applicationEventLocationRescan";
+    public static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL = "applicationEventOrientationScanInterval";
+    public static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventOrientationScanInPowerSaveMode";
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
@@ -372,6 +374,8 @@ public class GlobalData extends Application {
     public static String applicationEventLocationUpdateInPowerSaveMode;
     public static boolean applicationEventLocationUseGPS;
     public static String applicationEventLocationRescan;
+    public static int applicationEventOrientationScanInterval;
+    public static String applicationEventOrientationScanInPowerSaveMode;
 
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
@@ -597,6 +601,8 @@ public class GlobalData extends Application {
         applicationEventLocationUpdateInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE, "1");
         applicationEventLocationUseGPS = preferences.getBoolean(PREF_APPLICATION_EVENT_LOCATION_USE_GPS, false);
         applicationEventLocationRescan = preferences.getString(PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
+        applicationEventOrientationScanInterval = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "5"));
+        applicationEventOrientationScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, "1");
 
         if (applicationTheme.equals("light"))
         {

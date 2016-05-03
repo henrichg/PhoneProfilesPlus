@@ -24,7 +24,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
     static final int DTYPE_CLASSIC = 0;
     static final int DTYPE_LE = 1;
 
-    static final String PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
+    //static final String PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
     static final String PREF_EVENT_BLUETOOTH_ENABLED = "eventBluetoothEnabled";
     static final String PREF_EVENT_BLUETOOTH_ADAPTER_NAME = "eventBluetoothAdapterNAME";
     static final String PREF_EVENT_BLUETOOTH_CONNECTION_TYPE = "eventBluetoothConnectionType";
@@ -115,13 +115,13 @@ public class EventPreferencesBluetooth extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        if (key.equals(PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS)) {
+        /*if (key.equals(PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.menu_settings) + ": " +
                         context.getResources().getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableBluetooth));
             }
-        }
+        }*/
         if (key.equals(PREF_EVENT_BLUETOOTH_ADAPTER_NAME))
         {
             Preference preference = prefMng.findPreference(key);
@@ -180,7 +180,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_DEVICES_TYPE, preferences, context);

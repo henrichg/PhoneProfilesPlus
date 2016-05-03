@@ -960,6 +960,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                     boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
                     GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
                 }
+                if (GlobalData.phoneProfilesService != null) {
+                    boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+                    GlobalData.phoneProfilesService.resetListeningSensors(powerSaveMode, true);
+                }
 
                 boolean restart = data.getBooleanExtra(GlobalData.EXTRA_RESET_EDITOR, false);
 

@@ -323,6 +323,27 @@
     </PreferenceScreen>
 
     <PreferenceScreen
+        android:key="orientationScanningCategory"
+        android:title="@string/phone_profiles_pref_category_orientation_scanning"
+        android:widgetLayout="@layout/start_activity_preference">
+        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="applicationEventOrientationScanInterval"
+            android:summary="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
+            android:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
+            android:defaultValue="5"
+            henrichg:min="5"
+            henrichg:max="60" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:key="applicationEventOrientationScanInPowerSaveMode"
+            android:title="@string/phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode"
+            android:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+            android:defaultValue="1"
+            android:entries="@array/scanInPowerSaveModeArray"
+            android:entryValues="@array/scanInPowerSaveModeValues"
+            app:useStockLayout="true" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_activator"
         android:key="categoryActivator"
         android:widgetLayout="@layout/start_activity_preference">

@@ -156,6 +156,8 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_IN_POWER_SAVE_MODE);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_LOCATION_RESCAN);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL);
+        setSummary(GlobalData.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE);
 
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, preferencesActivity.getApplicationContext())
