@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 
 public class ExecuteVolumeProfilePrefsService extends IntentService
@@ -23,7 +24,26 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         final ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
         aph.initialize(dataWrapper, null, context);
 
-        int linkUnlink = intent.getIntExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallService.LINKMODE_NONE);
+        //int linkUnlink = intent.getIntExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallService.LINKMODE_NONE);
+
+        // link, unlink volumes during activation of profile
+        // required for phone call events
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+        int linkUnlink = PhoneCallService.LINKMODE_NONE;
+        if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
+            if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) ||
+                (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED)) {
+                linkUnlink = PhoneCallService.LINKMODE_UNLINK;
+                if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED)
+                    linkUnlink = PhoneCallService.LINKMODE_LINK;
+            }
+        }
+
+        if (linkUnlink != PhoneCallService.LINKMODE_NONE)
+            // link, unlink is executed, not needed do it from EventsService
+            PhoneCallService.linkUnlinkExecuted = true;
+
         long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
         boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
         Profile profile = dataWrapper.getProfileById(profile_id, merged);

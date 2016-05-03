@@ -14,6 +14,8 @@ public class PhoneCallService extends IntentService {
     private static boolean savedSpeakerphone = false;
     private static boolean speakerphoneSelected = false;
 
+    public static boolean linkUnlinkExecuted = false;
+
     public static final int CALL_EVENT_UNDEFINED = 0;
     public static final int CALL_EVENT_INCOMING_CALL_RINGING = 1;
     public static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
@@ -53,10 +55,11 @@ public class PhoneCallService extends IntentService {
             }
         }
 
+        /* wait is in EventsService after profile activation
         try {
             Thread.sleep(1000); // // 1 second for EventsService
         } catch (InterruptedException e) {
-        }
+        }*/
 
         PhoneCallBroadcastReceiver.completeWakefulIntent(intent);
     }
@@ -69,41 +72,12 @@ public class PhoneCallService extends IntentService {
         editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
         editor.commit();
 
-        if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
-            if ((eventType == CALL_EVENT_INCOMING_CALL_RINGING) || (eventType == CALL_EVENT_INCOMING_CALL_ENDED)) {
-                /// for linked ringer and notification volume:
-                //    notification volume in profile activation is set after ringer volume
-                //    therefore reset ringer volume
-                Profile profile = dataWrapper.getActivatedProfile();
-                if (profile != null) {
-                    //Log.e("PhoneCallService", "doCallEvent - unlink");
-                    Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-                    volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-                    int linkUnlink = LINKMODE_UNLINK;
-                    if (eventType == CALL_EVENT_INCOMING_CALL_ENDED)
-                        linkUnlink = LINKMODE_LINK;
-                    volumeServiceIntent.putExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, linkUnlink);
-                    context.startService(volumeServiceIntent);
-                    try {
-                        Thread.sleep(1000); // // Delay 1 second for ExecuteVolumeProfilePrefsService
-                    } catch (InterruptedException e) {
-                    }
-                }
-                ///
-            }
-        }
+        linkUnlinkExecuted = false;
 
-        /*boolean callEventsExists = false;
-        if (GlobalData.getGlobalEventsRuning(context))
-            callEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALL) > 0;
-
-        if (callEventsExists)
-        {*/
-            // start service
-            Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
-            context.startService(eventsServiceIntent);
-        //}
+        // start service
+        Intent eventsServiceIntent = new Intent(context, EventsService.class);
+        eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
+        context.startService(eventsServiceIntent);
 
     }
 

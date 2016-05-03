@@ -632,11 +632,11 @@ public class ActivateProfileHelper {
     {
         GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "andioM.ringerMode=" + audioManager.getRingerMode());
 
-        int ringerMode, oldRingerMode;
-        int zenMode, oldZenMode;
+        int ringerMode;//, oldRingerMode;
+        int zenMode;//, oldZenMode;
 
-        oldRingerMode = GlobalData.getRingerMode(context);
-        oldZenMode = GlobalData.getZenMode(context);
+        //oldRingerMode = GlobalData.getRingerMode(context);
+        //oldZenMode = GlobalData.getZenMode(context);
 
         if (linkUnlink == PhoneCallService.LINKMODE_NONE) {
             if (profile._volumeRingerMode != 0) {
@@ -883,7 +883,7 @@ public class ActivateProfileHelper {
         Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
         volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
         volumeServiceIntent.putExtra(GlobalData.EXTRA_MERGED_PROFILE, merged);
-        volumeServiceIntent.putExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallService.LINKMODE_NONE);
+        //volumeServiceIntent.putExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallService.LINKMODE_NONE);
         context.startService(volumeServiceIntent);
         /*AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         // nahodenie ringer modu - aby sa mohli nastavit hlasitosti

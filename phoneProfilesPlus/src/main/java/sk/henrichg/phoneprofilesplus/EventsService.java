@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public class EventsService extends IntentService
     String broadcastReceiverType;
 
     public static boolean restartAtEndOfEvent = false;
+
+    int callEventType;
 
     public static final String BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER = "noBroadcastReceiver";
 
@@ -39,6 +42,11 @@ public class EventsService extends IntentService
 
         GlobalData.setApplicationStarted(context, true);
 
+        GlobalData.loadPreferences(context);
+
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+
         // first start of GeofenceScanner
         if (!GlobalData.isGeofenceScannerStarted())
             GlobalData.startGeofenceScanner(context);
@@ -46,8 +54,6 @@ public class EventsService extends IntentService
         if (!GlobalData.getGlobalEventsRuning(context))
             // events are globally stopped
             return;
-
-        GlobalData.loadPreferences(context);
 
         dataWrapper = new DataWrapper(context, true, false, 0);
 
@@ -58,6 +64,8 @@ public class EventsService extends IntentService
         }
 
         if (!eventsExists(broadcastReceiverType)) {
+            // events not exists
+
             doEndService(intent);
             dataWrapper.invalidateDataWrapper();
 
@@ -271,6 +279,11 @@ public class EventsService extends IntentService
                         if ((activatedProfileId != profileId) || isRestart) {
                             if (mergedProfile == null) {
                                 dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, "", true);
+                                // wait for profile activation
+                                try {
+                                    Thread.sleep(1000); // // 1 second for activating profile from EventsService
+                                } catch (InterruptedException e) {
+                                }
                                 backgroundProfileActivated = true;
                             } else
                                 mergedProfile.mergeProfiles(profileId, dataWrapper);
@@ -282,6 +295,11 @@ public class EventsService extends IntentService
                 {
                     if (mergedProfile == null) {
                         dataWrapper.activateProfileFromEvent(0, interactive, "");
+                        // wait for profile activation
+                        try {
+                            Thread.sleep(1000); // // 1 second for activating profile from EventsService
+                        } catch (InterruptedException e) {
+                        }
                         backgroundProfileActivated = true;
                     }
                     else
@@ -298,6 +316,11 @@ public class EventsService extends IntentService
                         // if not profile activated, activate Default profile
                         if (mergedProfile == null) {
                             dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, "", true);
+                            // wait for profile activation
+                            try {
+                                Thread.sleep(1000); // // 1 second for activating profile from EventsService
+                            } catch (InterruptedException e) {
+                            }
                             backgroundProfileActivated = true;
                         } else
                             mergedProfile.mergeProfiles(profileId, dataWrapper);
@@ -330,6 +353,11 @@ public class EventsService extends IntentService
                         GlobalData.logE("$$$ EventsService.onHandleIntent", "profileId=" + mergedProfile._id);
                         dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                         dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, eventNotificationSound, false);
+                        // wait for profile activation
+                        try {
+                            Thread.sleep(1000); // // 1 second for activating profile from EventsService
+                        } catch (InterruptedException e) {
+                        }
                     } else {
                     /*long prId0 = 0;
                     long prId = 0;
@@ -451,6 +479,27 @@ public class EventsService extends IntentService
 
     private void doEndService(Intent intent)
     {
+        if (!PhoneCallService.linkUnlinkExecuted) {
+            // no profile is activated from EventsService
+            // link, unlink volumes for activated profile
+            boolean linkUnlink = false;
+            if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)
+                linkUnlink = true;
+            if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED)
+                linkUnlink = true;
+            if (linkUnlink) {
+                Profile profile = dataWrapper.getActivatedProfile();
+                profile = GlobalData.getMappedProfile(profile, context);
+                if (profile != null) {
+                    Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
+                    volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                    context.startService(volumeServiceIntent);
+                }
+            }
+        }
+        else
+            PhoneCallService.linkUnlinkExecuted = false;
+
         // completting wake
         if (broadcastReceiverType.equals(BatteryEventBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             BatteryEventBroadcastReceiver.completeWakefulIntent(intent);
