@@ -56,11 +56,11 @@ public class GlobalData extends Application {
                                          //+"|DeviceOrientationBroadcastReceiver"
                                          //+"|**** DataWrapper.doEventService"
 
-                                         +"|ExecuteVolumeProfilePrefsService"
-                                         +"|ActivateProfileHelper.execute"
-                                         +"|ActivateProfileHelper.setRingerMode"
-                                         +"|ActivateProfileHelper.setVolumes"
-                                         +"|EventsService.doEndService"
+                                         //+"|ExecuteVolumeProfilePrefsService"
+                                         //+"|ActivateProfileHelper.execute"
+                                         //+"|ActivateProfileHelper.setRingerMode"
+                                         //+"|ActivateProfileHelper.setVolumes"
+                                         //+"|EventsService.doEndService"
 
                                          //+"|@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm"
 
