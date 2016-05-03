@@ -670,20 +670,20 @@ public class ActivateProfileHelper {
         if (forPriority) {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 //boolean isPrioritySet = (Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1)  == ZENMODE_PRIORITY);
-                boolean isPrioritySet = true;
+                //boolean isPrioritySet = true;
                 GlobalData.logE("ActivateProfileHelper.setRingerMode", "zen_mode=" + Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1));
-                GlobalData.logE("ActivateProfileHelper.setRingerMode", "isPrioritySet=" + isPrioritySet);
-                if ((ringerMode == 4) && isPrioritySet) { // 4 = silent ringer mode
+                //GlobalData.logE("ActivateProfileHelper.setRingerMode", "isPrioritySet=" + isPrioritySet);
+                if ((ringerMode == 4) /*&& isPrioritySet*/) { // 4 = silent ringer mode
                     ringerMode = 1;
                     GlobalData.logE("ActivateProfileHelper.setRingerMode", "set for reset priority");
                 }
                 else
-                if ((ringerMode == 5) && (zenMode == 2) && isPrioritySet && (linkUnlink == PhoneCallService.LINKMODE_NONE)) {
+                if ((ringerMode == 5) && (zenMode == 2) /*&& isPrioritySet && (linkUnlink == PhoneCallService.LINKMODE_NONE)*/) {
                     zenMode = 1;
                     GlobalData.logE("ActivateProfileHelper.setRingerMode", "set for reset priority");
                 }
                 else
-                if ((ringerMode == 5) && (zenMode == 5) &&  isPrioritySet && (linkUnlink == PhoneCallService.LINKMODE_NONE)) {
+                if ((ringerMode == 5) && (zenMode == 5) /*&&  isPrioritySet && (linkUnlink == PhoneCallService.LINKMODE_NONE)*/) {
                     zenMode = 4;
                     GlobalData.logE("ActivateProfileHelper.setRingerMode", "set for reset priority");
                 }
