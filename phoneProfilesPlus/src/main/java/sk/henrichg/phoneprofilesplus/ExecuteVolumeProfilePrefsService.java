@@ -16,6 +16,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
     //@Override
     protected void onHandleIntent(Intent intent) {
 
+        //GlobalData.logE("##### ExecuteVolumeProfilePrefsService.onHandleIntent", "xxx");
+
         final Context context = getApplicationContext();
 
         GlobalData.loadPreferences(context);
@@ -49,6 +51,11 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         Profile profile = dataWrapper.getProfileById(profile_id, merged);
         profile = GlobalData.getMappedProfile(profile, context);
 
+        if (profile != null)
+            GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "profile.name="+profile._name);
+        else
+            GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "profile=null");
+
         if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
             (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
             PhoneCallService.setSpeakerphoneOn(profile);
@@ -63,7 +70,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
                 final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode="+audioManager.getMode());
+                //GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode="+audioManager.getMode());
 
                 // set ringer mode to Ring for proper change ringer mode to Silent
                 if (aph.setRingerMode(profile, audioManager, true, linkUnlink)) {
@@ -74,7 +81,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                     }
                 }
 
-                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode=" + audioManager.getMode());
+                //GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode=" + audioManager.getMode());
 
                 aph.setVolumes(profile, audioManager, linkUnlink);
 
@@ -84,7 +91,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                     //System.out.println(e);
                 }*/
 
-                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode=" + audioManager.getMode());
+                //GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode=" + audioManager.getMode());
 
                 // set ringer mode after volume because volumes change silent/vibrate
                 aph.setRingerMode(profile, audioManager, false, linkUnlink);
@@ -95,7 +102,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                     //System.out.println(e);
                 }
 
-                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode="+audioManager.getMode());
+                //GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode="+audioManager.getMode());
 
                 RingerModeChangeReceiver.internalChange = false;
 

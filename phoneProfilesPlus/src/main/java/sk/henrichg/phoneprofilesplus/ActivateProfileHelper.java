@@ -880,6 +880,7 @@ public class ActivateProfileHelper {
 
         // nahodenie volume
         // run service for execute volumes
+        GlobalData.logE("ActivateProfileHelper.execute", "ExecuteVolumeProfilePrefsService");
         Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
         volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
         volumeServiceIntent.putExtra(GlobalData.EXTRA_MERGED_PROFILE, merged);

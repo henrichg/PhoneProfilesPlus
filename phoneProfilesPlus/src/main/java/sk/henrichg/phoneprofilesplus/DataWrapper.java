@@ -1729,10 +1729,6 @@ public class DataWrapper {
                         //callPassed = true;
                         //eventStart = eventStart && false;
                         callPassed = false;
-                        Editor editor = preferences.edit();
-                        editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-                        editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
-                        editor.commit();
                     }
                 }
                 else

@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaScannerConnection;
@@ -72,6 +73,12 @@ public class FirstStartService extends IntentService {
 
         GlobalData.setActivatedProfileForDuration(context, 0);
         GlobalData.setApplicationInForeground(context, "");
+
+        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+        editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
+        editor.commit();
 
         // show notification about upgrade PPHelper
         PhoneProfilesHelper.showPPHelperUpgradeNotification(context);

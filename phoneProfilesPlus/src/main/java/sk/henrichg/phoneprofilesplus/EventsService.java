@@ -502,6 +502,7 @@ public class EventsService extends IntentService
                 Profile profile = dataWrapper.getActivatedProfile();
                 profile = GlobalData.getMappedProfile(profile, context);
                 if (profile != null) {
+                    GlobalData.logE("EventsService.doEndService", "callEventType="+callEventType);
                     Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
                     volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
                     context.startService(volumeServiceIntent);
@@ -510,6 +511,15 @@ public class EventsService extends IntentService
         }
         else
             PhoneCallService.linkUnlinkExecuted = false;
+
+        if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
+            (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+            editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            editor.commit();
+        }
 
         // completting wake
         if (broadcastReceiverType.equals(BatteryEventBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
