@@ -58,6 +58,8 @@ public class GlobalData extends Application {
 
                                          +"|ExecuteVolumeProfilePrefsService"
                                          +"|ActivateProfileHelper.execute"
+                                         +"|ActivateProfileHelper.setRingerMode"
+                                         +"|ActivateProfileHelper.setVolumes"
                                          +"|EventsService.doEndService"
 
                                          //+"|@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm"
