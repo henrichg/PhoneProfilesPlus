@@ -15,6 +15,7 @@ public class PhoneCallService extends IntentService {
     private static boolean speakerphoneSelected = false;
 
     public static boolean linkUnlinkExecuted = false;
+    public static boolean speakerphoneOnExecuted = false;
 
     public static final int CALL_EVENT_UNDEFINED = 0;
     public static final int CALL_EVENT_INCOMING_CALL_RINGING = 1;
@@ -73,6 +74,7 @@ public class PhoneCallService extends IntentService {
         editor.commit();
 
         linkUnlinkExecuted = false;
+        speakerphoneOnExecuted = false;
 
         // start service
         Intent eventsServiceIntent = new Intent(context, EventsService.class);
@@ -97,8 +99,29 @@ public class PhoneCallService extends IntentService {
         }
     }
 
+    public static void setSpeakerphoneOn(Profile profile) {
+        if (profile != null) {
+
+            if (profile._volumeSpeakerPhone != 0) {
+                savedSpeakerphone = audioManager.isSpeakerphoneOn();
+                boolean changeSpeakerphone = false;
+                if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
+                    changeSpeakerphone = true;
+                if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
+                    changeSpeakerphone = true;
+                if (changeSpeakerphone) {
+                    /// activate SpeakerPhone
+                    audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
+                    speakerphoneSelected = true;
+                }
+
+            }
+        }
+    }
+
     private void callAnswered(boolean incoming, String phoneNumber)
     {
+        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -117,32 +140,7 @@ public class PhoneCallService extends IntentService {
         // audiomode is set to MODE_IN_CALL by system
         //Log.e("PhoneCallService", "callAnswered audioMode=" + audioManager.getMode());
 
-        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-
-        Profile profile = dataWrapper.getActivatedProfile();
-        profile = GlobalData.getMappedProfile(profile, context);
-
-        if (profile != null) {
-
-            if (profile._volumeSpeakerPhone != 0) {
-
-                if (audioManager == null)
-                    audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-
-                savedSpeakerphone = audioManager.isSpeakerphoneOn();
-                boolean changeSpeakerphone = false;
-                if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
-                    changeSpeakerphone = true;
-                if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
-                    changeSpeakerphone = true;
-                if (changeSpeakerphone) {
-                    /// activate SpeakerPhone
-                    audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
-                    speakerphoneSelected = true;
-                }
-
-            }
-        }
+        // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsService and EventsService
 
         if (incoming)
             doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);

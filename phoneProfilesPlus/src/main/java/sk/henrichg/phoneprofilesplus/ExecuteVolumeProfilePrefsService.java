@@ -49,6 +49,12 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         Profile profile = dataWrapper.getProfileById(profile_id, merged);
         profile = GlobalData.getMappedProfile(profile, context);
 
+        if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
+            (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
+            PhoneCallService.setSpeakerphoneOn(profile);
+            PhoneCallService.speakerphoneOnExecuted = true;
+        }
+
         if (profile != null)
         {
             if (Permissions.checkProfileVolumePreferences(context, profile)) {

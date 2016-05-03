@@ -479,6 +479,14 @@ public class EventsService extends IntentService
 
     private void doEndService(Intent intent)
     {
+        if (!PhoneCallService.speakerphoneOnExecuted) {
+            Profile profile = dataWrapper.getActivatedProfile();
+            profile = GlobalData.getMappedProfile(profile, context);
+            PhoneCallService.setSpeakerphoneOn(profile);
+        }
+        else
+            PhoneCallService.speakerphoneOnExecuted = false;
+
         if (!PhoneCallService.linkUnlinkExecuted) {
             // no profile is activated from EventsService
             // link, unlink volumes for activated profile
