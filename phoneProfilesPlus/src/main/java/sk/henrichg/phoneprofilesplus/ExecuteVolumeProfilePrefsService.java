@@ -26,7 +26,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         final ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
         aph.initialize(dataWrapper, null, context);
 
-        //boolean fromEventsService = intent.getBooleanExtra(GlobalData.EXTRA_FROM_EVENTS_SERVICE, false);
+        boolean fromEventsService = intent.getBooleanExtra(GlobalData.EXTRA_FROM_EVENTS_SERVICE, false);
 
         // link, unlink volumes during activation of profile
         // required for phone call events
@@ -109,6 +109,16 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
             }
 
         }
+
+        if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
+            (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+            editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            editor.commit();
+        }
+
+
 
     }
 

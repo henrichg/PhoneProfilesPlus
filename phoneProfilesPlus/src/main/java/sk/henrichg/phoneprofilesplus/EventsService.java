@@ -515,7 +515,7 @@ public class EventsService extends IntentService
                     GlobalData.logE("EventsService.doEndService", "callEventType="+callEventType);
                     Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
                     volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-                    //volumeServiceIntent.putExtra(GlobalData.EXTRA_FROM_EVENTS_SERVICE, true);
+                    volumeServiceIntent.putExtra(GlobalData.EXTRA_FROM_EVENTS_SERVICE, true);
                     context.startService(volumeServiceIntent);
                 }
             }
@@ -530,15 +530,6 @@ public class EventsService extends IntentService
             lIntent.putExtra(GlobalData.EXTRA_OLD_RINGER_MODE, oldRingerMode);
             lIntent.putExtra(GlobalData.EXTRA_OLD_ZEN_MODE, oldZenMode);
             context.startService(lIntent);
-        }
-
-        if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
-            (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-            editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
-            editor.commit();
         }
 
         // completting wake

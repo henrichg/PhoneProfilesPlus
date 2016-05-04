@@ -97,7 +97,7 @@ public class GlobalData extends Application {
     static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
     static final String EXTRA_SCANNER_TYPE = "scanner_type";
     static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
-    //static final String EXTRA_FROM_EVENTS_SERVICE = "from_events_service";
+    static final String EXTRA_FROM_EVENTS_SERVICE = "from_events_service";
     //static final String EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME = "event_notification_package_name";
     //static final String EXTRA_EVENT_NOTIFICATION_TIME = "event_notification_time";
     static final String EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED = "event_notification_posted_removed";

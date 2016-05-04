@@ -255,12 +255,12 @@ public class PhoneProfilesService extends Service
                     if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
                           ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
                         // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
+                        // Android 6 - priority mode = ONLY_ALARMS
 
                         // test old ringer and zen mode
                         if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
                             ((oldRingerMode == 5) && ((oldZenMode == 3) || (oldZenMode == 6))))
-                            // for interruption types NONE and ONLY_ALARMS
-                            // Android 6 - priority mode = ONLY_ALARMS
+                            // old ringer/zen mode is NONE and ONLY_ALARMS
                             simulateRinging = true;
                     }
                 }
