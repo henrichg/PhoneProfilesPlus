@@ -401,6 +401,7 @@ public class ActivateProfileHelper {
                 // volume changed it to vibrate
                 //RingerModeChangeReceiver.internalChange = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_RING, 1, 0);
+                PhoneCallService.ringingVolume = 1;
                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, 1);
             }
         }
@@ -452,6 +453,7 @@ public class ActivateProfileHelper {
                         if (volume != -999) {
                             //RingerModeChangeReceiver.internalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_RING, profile.getVolumeRingtoneValue(), 0);
+                            PhoneCallService.ringingVolume = profile.getVolumeRingtoneValue();
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                             correctVolume0(/*profile, */audioManager, linkUnlink);
                         }
@@ -472,8 +474,10 @@ public class ActivateProfileHelper {
                 if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
 
                     boolean doUnlink = audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
-                    if (android.os.Build.VERSION.SDK_INT >= 21)
-                        doUnlink = doUnlink && (Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_ALL) != ZENMODE_NONE);
+                    if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        int zm = Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_ALL);
+                        doUnlink = (zm != ZENMODE_NONE) && (zm != ZENMODE_ALARMS);
+                    }
                     GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink=" + doUnlink);
                     //Log.e("ActivateProfileHelper", "setVolumes doUnlink=" + doUnlink);
                     //Log.e("ActivateProfileHelper", "setVolumes ringerMode=" + audioManager.getRingerMode());
@@ -490,6 +494,7 @@ public class ActivateProfileHelper {
                             if (volume != -999) {
                                 //RingerModeChangeReceiver.internalChange = true;
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+                                PhoneCallService.ringingVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                 //RingerModeChangeReceiver.internalChange = true;
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
@@ -505,6 +510,7 @@ public class ActivateProfileHelper {
                                 //Log.e("ActivateProfileHelper","setVolumes set ring volume="+volume);
                                 //RingerModeChangeReceiver.internalChange = true;
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+                                PhoneCallService.ringingVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                             }
                             volume = GlobalData.getNotificationVolume(context);
@@ -515,6 +521,11 @@ public class ActivateProfileHelper {
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                             }
                             correctVolume0(/*profile, */audioManager, linkUnlink);
+                        }
+                    }
+                    else {
+                        if (callState == TelephonyManager.CALL_STATE_RINGING) {
+                            PhoneCallService.ringingVolume = profile.getVolumeRingtoneValue();
                         }
                     }
                 }

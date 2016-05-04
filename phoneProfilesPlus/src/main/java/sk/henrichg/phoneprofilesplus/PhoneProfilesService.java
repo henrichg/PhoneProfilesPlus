@@ -262,6 +262,9 @@ public class PhoneProfilesService extends Service
                 else
                     newRingtone = "";
 
+                GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
+                GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
+
                 boolean simulateRinging = false;
 
                 if ((android.os.Build.VERSION.SDK_INT >= 21)) {
@@ -278,7 +281,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if (oldRingtone.equals(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
+                if (oldRingtone.contains(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
                     // tone changed from "PhoneProfiles Silent" to another
                     simulateRinging = true;
 
