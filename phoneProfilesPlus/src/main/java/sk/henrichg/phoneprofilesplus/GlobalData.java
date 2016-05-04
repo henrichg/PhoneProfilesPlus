@@ -61,6 +61,9 @@ public class GlobalData extends Application {
                                          //+"|ActivateProfileHelper.setRingerMode"
                                          //+"|ActivateProfileHelper.setVolumes"
                                          //+"|EventsService.doEndService"
+                                         //+"|EventsService.onHandleIntent"
+                                         +"|PhoneProfilesService.onStartCommand"
+                                         +"|PhoneCallService"
 
                                          //+"|@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm"
 
@@ -97,7 +100,7 @@ public class GlobalData extends Application {
     static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
     static final String EXTRA_SCANNER_TYPE = "scanner_type";
     static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
-    static final String EXTRA_FROM_EVENTS_SERVICE = "from_events_service";
+    //static final String EXTRA_FROM_EVENTS_SERVICE = "from_events_service";
     //static final String EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME = "event_notification_package_name";
     //static final String EXTRA_EVENT_NOTIFICATION_TIME = "event_notification_time";
     static final String EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED = "event_notification_posted_removed";
@@ -107,6 +110,7 @@ public class GlobalData extends Application {
     static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
     static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
     static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
+    static final String EXTRA_OLD_RINGTONE = "old_ringtone";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.provider.Settings;
 
 public class PhoneCallService extends IntentService {
 
@@ -16,6 +19,9 @@ public class PhoneCallService extends IntentService {
 
     public static boolean linkUnlinkExecuted = false;
     public static boolean speakerphoneOnExecuted = false;
+
+    private static boolean ringingCallIsSimulating = false;
+    private static int oldMediaVolume = 0;
 
     public static final int CALL_EVENT_UNDEFINED = 0;
     public static final int CALL_EVENT_INCOMING_CALL_RINGING = 1;
@@ -142,6 +148,8 @@ public class PhoneCallService extends IntentService {
 
         // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsService and EventsService
 
+        stopSimulatingRingingCall(context);
+
         if (incoming)
             doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
         else
@@ -154,6 +162,8 @@ public class PhoneCallService extends IntentService {
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
+        stopSimulatingRingingCall(context);
 
         // audiomode is set to MODE_IN_CALL by system
         //Log.e("PhoneCallService", "callEnded (before back speaker phone) audioMode="+audioManager.getMode());
@@ -190,4 +200,37 @@ public class PhoneCallService extends IntentService {
 
     }
 
+    public static void startSimulatingRingingCall(Context context) {
+        if (!ringingCallIsSimulating) {
+            GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "xxx");
+            if (audioManager == null )
+                audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
+            Ringtone ringtone = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
+            if (ringtone != null) {
+                oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                int ringingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, ringingVolume, 0);
+
+                // play repeating: default ringtone with ringing volume level
+
+                ringingCallIsSimulating = true;
+            }
+        }
+    }
+
+    public static void stopSimulatingRingingCall(Context context) {
+        if (ringingCallIsSimulating) {
+            GlobalData.logE("PhoneCallService.stopSimulatingRingingCall", "xxx");
+            if (audioManager == null )
+                audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+        }
+        ringingCallIsSimulating = false;
+    }
+
+    public static boolean isRingingSimulationRunning() {
+        return ringingCallIsSimulating;
+    }
 }

@@ -13,9 +13,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.provider.Settings;
 
 import java.util.Calendar;
 
@@ -179,6 +182,8 @@ public class PhoneProfilesService extends Service
         GlobalData.stopGeofenceScanner();
         GlobalData.phoneProfilesService = null;
 
+        PhoneCallService.stopSimulatingRingingCall(getApplicationContext());
+
     }
 
     public void startListeningSensors() {
@@ -238,16 +243,24 @@ public class PhoneProfilesService extends Service
         GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
 
         if (intent != null) {
-            if (intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false)) {
-
+            if (intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false) &&
+                (!PhoneCallService.isRingingSimulationRunning()))
+            {
                 GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
 
                 Context context = getApplicationContext();
 
                 int oldRingerMode = intent.getIntExtra(GlobalData.EXTRA_OLD_RINGER_MODE, 0);
                 int oldZenMode = intent.getIntExtra(GlobalData.EXTRA_OLD_ZEN_MODE, 0);
+                String oldRingtone = intent.getStringExtra(GlobalData.EXTRA_OLD_RINGTONE);
                 int newRingerMode = GlobalData.getRingerMode(context);
                 int newZenMode = GlobalData.getZenMode(context);
+                Ringtone ringtone = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
+                String newRingtone;
+                if (ringtone != null)
+                    newRingtone = ringtone.getTitle(context);
+                else
+                    newRingtone = "";
 
                 boolean simulateRinging = false;
 
@@ -265,16 +278,15 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-
-                Profile activatedProfile = dataWrapper.getActivatedProfile();
-                activatedProfile = GlobalData.getMappedProfile(activatedProfile, context);
-
-                if (activatedProfile._soundRingtoneChange == 1)
-                    // tone changed in activated profile
+                if (oldRingtone.equals(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
+                    // tone changed from "PhoneProfiles Silent" to another
                     simulateRinging = true;
 
                 GlobalData.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
+
+                if (simulateRinging)
+                    PhoneCallService.startSimulatingRingingCall(context);
+
             }
         }
 
