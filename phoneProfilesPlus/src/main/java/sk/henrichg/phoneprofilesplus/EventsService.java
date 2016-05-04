@@ -16,7 +16,9 @@ public class EventsService extends IntentService
 
     public static boolean restartAtEndOfEvent = false;
 
-    int callEventType;
+    private int callEventType;
+    public static int oldRingerMode;
+    public static int oldZenMode;
 
     public static final String BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER = "noBroadcastReceiver";
 
@@ -44,18 +46,26 @@ public class EventsService extends IntentService
 
         GlobalData.loadPreferences(context);
 
+        dataWrapper = new DataWrapper(context, true, false, 0);
+
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+
+        oldRingerMode = GlobalData.getRingerMode(context);
+        oldZenMode = GlobalData.getZenMode(context);
 
         // first start of GeofenceScanner
         if (!GlobalData.isGeofenceScannerStarted())
             GlobalData.startGeofenceScanner(context);
 
-        if (!GlobalData.getGlobalEventsRuning(context))
+        if (!GlobalData.getGlobalEventsRuning(context)) {
             // events are globally stopped
-            return;
 
-        dataWrapper = new DataWrapper(context, true, false, 0);
+            doEndService(intent);
+            dataWrapper.invalidateDataWrapper();
+
+            return;
+        }
 
         // start orientation listeners only when events exists
         if (!GlobalData.isOrientationScannerStarted()) {
@@ -505,12 +515,22 @@ public class EventsService extends IntentService
                     GlobalData.logE("EventsService.doEndService", "callEventType="+callEventType);
                     Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
                     volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                    //volumeServiceIntent.putExtra(GlobalData.EXTRA_FROM_EVENTS_SERVICE, true);
                     context.startService(volumeServiceIntent);
                 }
             }
         }
         else
             PhoneCallService.linkUnlinkExecuted = false;
+
+        if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) {
+            // start PhoneProfilesService for ringing call simulation
+            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            lIntent.putExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, true);
+            lIntent.putExtra(GlobalData.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+            lIntent.putExtra(GlobalData.EXTRA_OLD_ZEN_MODE, oldZenMode);
+            context.startService(lIntent);
+        }
 
         if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
             (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {

@@ -26,7 +26,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         final ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
         aph.initialize(dataWrapper, null, context);
 
-        //int linkUnlink = intent.getIntExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallService.LINKMODE_NONE);
+        //boolean fromEventsService = intent.getBooleanExtra(GlobalData.EXTRA_FROM_EVENTS_SERVICE, false);
 
         // link, unlink volumes during activation of profile
         // required for phone call events
