@@ -242,33 +242,39 @@ public class PhoneProfilesService extends Service
 
                 GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
 
-                int oldRingerMode = intent.getIntExtra(GlobalData.EXTRA_OLD_RINGER_MODE, 0);
-                int oldZenMode = intent.getIntExtra(GlobalData.EXTRA_OLD_ZEN_MODE, 0);
-
                 Context context = getApplicationContext();
 
+                int oldRingerMode = intent.getIntExtra(GlobalData.EXTRA_OLD_RINGER_MODE, 0);
+                int oldZenMode = intent.getIntExtra(GlobalData.EXTRA_OLD_ZEN_MODE, 0);
                 int newRingerMode = GlobalData.getRingerMode(context);
                 int newZenMode = GlobalData.getZenMode(context);
+
+                boolean simulateRinging = false;
+
+                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                    if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                          ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
+                        // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
+
+                        // test old ringer and zen mode
+                        if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                            ((oldRingerMode == 5) && ((oldZenMode == 3) || (oldZenMode == 6))))
+                            // for interruption types NONE and ONLY_ALARMS
+                            // Android 6 - priority mode = ONLY_ALARMS
+                            simulateRinging = true;
+                    }
+                }
 
                 DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
                 Profile activatedProfile = dataWrapper.getActivatedProfile();
                 activatedProfile = GlobalData.getMappedProfile(activatedProfile, context);
 
-                boolean simulateRinging = false;
-
-                // test old ringer and zen mode
-                if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
-                    ((oldRingerMode == 5) && ((oldZenMode == 3) || (oldZenMode == 6))))
-                    // for interruption types NONE and ONLY_ALARMS
-                    // Android 6 - priority mode = ONLY_ALARMS
-                    simulateRinging = true;
-
                 if (activatedProfile._soundRingtoneChange == 1)
                     // tone changed in activated profile
                     simulateRinging = true;
 
-                GlobalData.logE("PhoneProfilesService.onStartCommand", "simulateRinging="+simulateRinging);
+                GlobalData.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
             }
         }
 
