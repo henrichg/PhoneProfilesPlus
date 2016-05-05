@@ -42,26 +42,18 @@ public class PhoneProfilesService extends Service
 
     private static SettingsContentObserver settingsContentObserver = null;
 
+    //-----------------------
+
     public static SensorManager mSensorManager = null;
     public static boolean mStarted = false;
 
-    //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
     private static final int MAX_COUNT_GZ_CHANGE = 5;
-
     private final float alpha = (float) 0.8;
     private float mGravity[] = new float[3];
     private float mGeomagnetic[] = new float[3];
     private float mProximity = -100;
     private float mMaxProximityDistance;
-
-    private AudioManager audioManager = null;
-    private boolean ringingCallIsSimulating = false;
-    public static int ringingVolume = 0;
-    private int oldMediaVolume = 0;
-    private MediaPlayer mediaPlayer = null;
-    private int mediaVolume = 0;
-    private int usedStream = AudioManager.STREAM_MUSIC;
 
     public static final int DEVICE_ORIENTATION_UNKNOWN = 0;
     public static final int DEVICE_ORIENTATION_RIGHT_SIDE_UP = 3;
@@ -84,6 +76,16 @@ public class PhoneProfilesService extends Service
     private static int tmpDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
     private static long tmpSideTimestamp = 0;
     //private static long tmpDistanceTimestamp = 0;
+
+    //------------------------
+
+    private AudioManager audioManager = null;
+    private boolean ringingCallIsSimulating = false;
+    public static int ringingVolume = 0;
+    private int oldMediaVolume = 0;
+    private MediaPlayer mediaPlayer = null;
+    private int mediaVolume = 0;
+    private int usedStream = AudioManager.STREAM_MUSIC;
 
     @Override
     public void onCreate()
@@ -197,6 +199,28 @@ public class PhoneProfilesService extends Service
 
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
+        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
+
+        if (intent != null) {
+            doSimulatingRingingCall(intent);
+        }
+
+        // We want this service to continue running until it is explicitly
+        // stopped, so return sticky.
+        return START_STICKY;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent)
+    {
+        return null;
+    }
+
+    //------------------------
+
     public void startListeningSensors() {
         if (mSensorManager == null)
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -246,77 +270,6 @@ public class PhoneProfilesService extends Service
             stopListeningSensors();
             startListeningSensors();
         }
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
-        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
-
-        if (intent != null) {
-            if (intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false) &&
-                (!isRingingSimulationRunning()))
-            {
-                GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
-
-                Context context = getApplicationContext();
-
-                int oldRingerMode = intent.getIntExtra(GlobalData.EXTRA_OLD_RINGER_MODE, 0);
-                int oldZenMode = intent.getIntExtra(GlobalData.EXTRA_OLD_ZEN_MODE, 0);
-                String oldRingtone = intent.getStringExtra(GlobalData.EXTRA_OLD_RINGTONE);
-                int newRingerMode = GlobalData.getRingerMode(context);
-                int newZenMode = GlobalData.getZenMode(context);
-                Ringtone ringtone = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
-                String newRingtone;
-                if (ringtone != null)
-                    newRingtone = ringtone.getTitle(context);
-                else
-                    newRingtone = "";
-
-                GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
-                GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
-
-                boolean simulateRinging = false;
-                int stream = AudioManager.STREAM_RING;
-
-                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                    if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
-                          ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
-                        // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
-                        // Android 6 - priority mode = ONLY_ALARMS
-
-                        // test old ringer and zen mode
-                        if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
-                            ((oldRingerMode == 5) && ((oldZenMode == 3) || (oldZenMode == 6)))) {
-                            // old ringer/zen mode is NONE and ONLY_ALARMS
-                            simulateRinging = true;
-                            stream = AudioManager.STREAM_MUSIC;
-                        }
-                    }
-                }
-
-                //if (oldRingtone.contains(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
-                //    // tone changed from "PhoneProfiles Silent" to another
-                if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
-                    simulateRinging = true;
-
-                GlobalData.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
-
-                if (simulateRinging)
-                    startSimulatingRingingCall(stream);
-
-            }
-        }
-
-        // We want this service to continue running until it is explicitly
-        // stopped, so return sticky.
-        return START_STICKY;
-    }
-
-    @Override
-    public IBinder onBind(Intent intent)
-    {
-        return null;
     }
 
     @Override
@@ -442,7 +395,6 @@ public class PhoneProfilesService extends Service
 
     }
 
-
     @SuppressLint("NewApi")
     public static void setAlarm(Context context)
     {
@@ -492,6 +444,61 @@ public class PhoneProfilesService extends Service
     }
 
     //---------------------------
+
+    private void doSimulatingRingingCall(Intent intent) {
+        if (intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false) &&
+                (!isRingingSimulationRunning()))
+        {
+            GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
+
+            Context context = getApplicationContext();
+
+            int oldRingerMode = intent.getIntExtra(GlobalData.EXTRA_OLD_RINGER_MODE, 0);
+            int oldZenMode = intent.getIntExtra(GlobalData.EXTRA_OLD_ZEN_MODE, 0);
+            String oldRingtone = intent.getStringExtra(GlobalData.EXTRA_OLD_RINGTONE);
+            int newRingerMode = GlobalData.getRingerMode(context);
+            int newZenMode = GlobalData.getZenMode(context);
+            Ringtone ringtone = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
+            String newRingtone;
+            if (ringtone != null)
+                newRingtone = ringtone.getTitle(context);
+            else
+                newRingtone = "";
+
+            GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
+            GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
+
+            boolean simulateRinging = false;
+            int stream = AudioManager.STREAM_RING;
+
+            if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                        ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
+                    // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
+                    // Android 6 - priority mode = ONLY_ALARMS
+
+                    // test old ringer and zen mode
+                    if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                            ((oldRingerMode == 5) && ((oldZenMode == 3) || (oldZenMode == 6)))) {
+                        // old ringer/zen mode is NONE and ONLY_ALARMS
+                        simulateRinging = true;
+                        stream = AudioManager.STREAM_MUSIC;
+                    }
+                }
+            }
+
+            //if (oldRingtone.contains(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
+            //    // tone changed from "PhoneProfiles Silent" to another
+            if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
+                simulateRinging = true;
+
+            GlobalData.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
+
+            if (simulateRinging)
+                startSimulatingRingingCall(stream);
+
+        }
+    }
 
     private void startSimulatingRingingCall(int stream) {
         RingerModeChangeReceiver.internalChange = true;
