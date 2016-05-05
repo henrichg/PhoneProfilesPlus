@@ -13,6 +13,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.os.Handler;
@@ -24,7 +26,8 @@ import java.util.Calendar;
 
 
 public class PhoneProfilesService extends Service
-                                    implements SensorEventListener
+                                    implements SensorEventListener,
+                                                AudioManager.OnAudioFocusChangeListener
 {
 
     private final BatteryEventBroadcastReceiver batteryEventReceiver = new BatteryEventBroadcastReceiver();
@@ -44,13 +47,20 @@ public class PhoneProfilesService extends Service
 
     //private float mGZ = 0; //gravity acceleration along the z axis
     private int mEventCountSinceGZChanged = 0;
-    private static final int MAX_COUNT_GZ_CHANGE = 1;
+    private static final int MAX_COUNT_GZ_CHANGE = 5;
 
     private final float alpha = (float) 0.8;
     private float mGravity[] = new float[3];
     private float mGeomagnetic[] = new float[3];
     private float mProximity = -100;
     private float mMaxProximityDistance;
+
+    private AudioManager audioManager = null;
+    private boolean ringingCallIsSimulating = false;
+    public static int ringingVolume = 0;
+    private int oldMediaVolume = 0;
+    private MediaPlayer mediaPlayer = null;
+    private int mediaVolume = 0;
 
     public static final int DEVICE_ORIENTATION_UNKNOWN = 0;
     public static final int DEVICE_ORIENTATION_RIGHT_SIDE_UP = 3;
@@ -182,7 +192,7 @@ public class PhoneProfilesService extends Service
         GlobalData.stopGeofenceScanner();
         GlobalData.phoneProfilesService = null;
 
-        PhoneCallService.stopSimulatingRingingCall(getApplicationContext());
+        stopSimulatingRingingCall();
 
     }
 
@@ -244,7 +254,7 @@ public class PhoneProfilesService extends Service
 
         if (intent != null) {
             if (intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false) &&
-                (!PhoneCallService.isRingingSimulationRunning()))
+                (!isRingingSimulationRunning()))
             {
                 GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
 
@@ -281,14 +291,14 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if (oldRingtone.contains(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
+                //if (oldRingtone.contains(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
                     // tone changed from "PhoneProfiles Silent" to another
                     simulateRinging = true;
 
                 GlobalData.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
 
                 if (simulateRinging)
-                    PhoneCallService.startSimulatingRingingCall(context);
+                    startSimulatingRingingCall();
 
             }
         }
@@ -475,6 +485,101 @@ public class PhoneProfilesService extends Service
         //else
         //    GlobalData.logE("PhoneProfilesService.removeAlarm","alarm not found");
     }
+
+    //---------------------------
+
+    public void startSimulatingRingingCall() {
+        RingerModeChangeReceiver.internalChange = true;
+        if (!ringingCallIsSimulating) {
+            GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "xxx");
+            if (audioManager == null )
+                audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+            Ringtone ringtone = RingtoneManager.getRingtone(this, Settings.System.DEFAULT_RINGTONE_URI);
+            if (ringtone != null) {
+                // play repeating: default ringtone with ringing volume level
+                try {
+
+                    int result = audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+                    if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                        mediaPlayer = new MediaPlayer();
+                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        mediaPlayer.setDataSource(this, Settings.System.DEFAULT_RINGTONE_URI);
+                        mediaPlayer.prepare();
+                        mediaPlayer.setLooping(true);
+
+                        int oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+                        GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringingVolume="+ringingVolume);
+
+                        int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                        int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+
+                        float percentage = (float)ringingVolume / maximumRingValue * 100.0f;
+                        mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
+
+                        GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "mediaVolume="+mediaVolume);
+
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
+
+                        mediaPlayer.start();
+
+                        ringingCallIsSimulating = true;
+                        GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringing played");
+                    }
+
+                } catch (Exception e) {
+                    GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "exception");
+                    mediaPlayer =  null;
+                }
+            }
+        }
+    }
+
+    public void stopSimulatingRingingCall() {
+        //if (ringingCallIsSimulating) {
+            GlobalData.logE("PhoneCallService.stopSimulatingRingingCall", "xxx");
+            if (audioManager == null )
+                audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringing stopped");
+            }
+            audioManager.abandonAudioFocus(this);
+        //}
+        ringingCallIsSimulating = false;
+        RingerModeChangeReceiver.internalChange = true;
+    }
+
+    public boolean isRingingSimulationRunning() {
+        return ringingCallIsSimulating;
+    }
+
+    @Override
+    public void onAudioFocusChange(int focusChange) {
+        if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+            // Pause playback
+            if (mediaPlayer != null)
+                mediaPlayer.stop();
+        }
+        if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+            // Lower the volume
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+        } else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+            // Resume playback
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
+        } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+            if (mediaPlayer != null)
+                mediaPlayer.stop();
+            audioManager.abandonAudioFocus(this);
+            // Stop playback
+        }
+    }
+
+    //---------------------------
 
     @Override
     public void onTaskRemoved(Intent rootIntent)

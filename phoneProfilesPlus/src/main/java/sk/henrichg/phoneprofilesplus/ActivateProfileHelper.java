@@ -401,7 +401,7 @@ public class ActivateProfileHelper {
                 // volume changed it to vibrate
                 //RingerModeChangeReceiver.internalChange = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_RING, 1, 0);
-                PhoneCallService.ringingVolume = 1;
+                PhoneProfilesService.ringingVolume = 1;
                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, 1);
             }
         }
@@ -453,7 +453,7 @@ public class ActivateProfileHelper {
                         if (volume != -999) {
                             //RingerModeChangeReceiver.internalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_RING, profile.getVolumeRingtoneValue(), 0);
-                            PhoneCallService.ringingVolume = profile.getVolumeRingtoneValue();
+                            PhoneProfilesService.ringingVolume = profile.getVolumeRingtoneValue();
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                             correctVolume0(/*profile, */audioManager, linkUnlink);
                         }
@@ -494,7 +494,7 @@ public class ActivateProfileHelper {
                             if (volume != -999) {
                                 //RingerModeChangeReceiver.internalChange = true;
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-                                PhoneCallService.ringingVolume = volume;
+                                PhoneProfilesService.ringingVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                 //RingerModeChangeReceiver.internalChange = true;
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
@@ -510,7 +510,7 @@ public class ActivateProfileHelper {
                                 //Log.e("ActivateProfileHelper","setVolumes set ring volume="+volume);
                                 //RingerModeChangeReceiver.internalChange = true;
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-                                PhoneCallService.ringingVolume = volume;
+                                PhoneProfilesService.ringingVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                             }
                             volume = GlobalData.getNotificationVolume(context);
@@ -525,7 +525,7 @@ public class ActivateProfileHelper {
                     }
                     else {
                         if (callState == TelephonyManager.CALL_STATE_RINGING) {
-                            PhoneCallService.ringingVolume = profile.getVolumeRingtoneValue();
+                            PhoneProfilesService.ringingVolume = profile.getVolumeRingtoneValue();
                         }
                     }
                 }

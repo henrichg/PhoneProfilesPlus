@@ -21,11 +21,6 @@ public class PhoneCallService extends IntentService {
     public static boolean linkUnlinkExecuted = false;
     public static boolean speakerphoneOnExecuted = false;
 
-    private static boolean ringingCallIsSimulating = false;
-    public static int ringingVolume = 0;
-    private static int oldMediaVolume = 0;
-    private static MediaPlayer mediaPlayer = null;
-
     public static final int CALL_EVENT_UNDEFINED = 0;
     public static final int CALL_EVENT_INCOMING_CALL_RINGING = 1;
     public static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
@@ -151,7 +146,8 @@ public class PhoneCallService extends IntentService {
 
         // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsService and EventsService
 
-        stopSimulatingRingingCall(context);
+        if (GlobalData.phoneProfilesService != null)
+            GlobalData.phoneProfilesService.stopSimulatingRingingCall();
 
         if (incoming)
             doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
@@ -166,7 +162,8 @@ public class PhoneCallService extends IntentService {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        stopSimulatingRingingCall(context);
+        if (GlobalData.phoneProfilesService != null)
+            GlobalData.phoneProfilesService.stopSimulatingRingingCall();
 
         // audiomode is set to MODE_IN_CALL by system
         //Log.e("PhoneCallService", "callEnded (before back speaker phone) audioMode="+audioManager.getMode());
@@ -203,69 +200,4 @@ public class PhoneCallService extends IntentService {
 
     }
 
-    public static void startSimulatingRingingCall(Context context) {
-        RingerModeChangeReceiver.internalChange = true;
-        if (!ringingCallIsSimulating) {
-            GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "xxx");
-            if (audioManager == null )
-                audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-
-            Ringtone ringtone = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
-            if (ringtone != null) {
-                // play repeating: default ringtone with ringing volume level
-
-                //mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
-
-                try {
-                    mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mediaPlayer.setDataSource(context.getApplicationContext(), Settings.System.DEFAULT_RINGTONE_URI);
-                    mediaPlayer.prepare();
-                    mediaPlayer.setLooping(true);
-
-                    oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-
-                    GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringingVolume="+ringingVolume);
-
-                    int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-                    int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
-                    float percentage = (float)ringingVolume / maximumRingValue * 100.0f;
-                    int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
-
-                    GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "mediaVolume="+mediaVolume);
-
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
-
-                    mediaPlayer.start();
-
-                    ringingCallIsSimulating = true;
-                    GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringing played");
-                } catch (Exception e) {
-                    GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "exception");
-                }
-            }
-        }
-    }
-
-    public static void stopSimulatingRingingCall(Context context) {
-        if (ringingCallIsSimulating) {
-            GlobalData.logE("PhoneCallService.stopSimulatingRingingCall", "xxx");
-            if (audioManager == null )
-                audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
-
-                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-                GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringing stopped");
-            }
-        }
-        ringingCallIsSimulating = false;
-        RingerModeChangeReceiver.internalChange = true;
-    }
-
-    public static boolean isRingingSimulationRunning() {
-        return ringingCallIsSimulating;
-    }
 }
