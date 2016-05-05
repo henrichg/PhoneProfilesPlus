@@ -291,7 +291,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                //if (oldRingtone.contains(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
+                if (oldRingtone.contains(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
                     // tone changed from "PhoneProfiles Silent" to another
                     simulateRinging = true;
 
@@ -508,7 +508,7 @@ public class PhoneProfilesService extends Service
                         mediaPlayer.prepare();
                         mediaPlayer.setLooping(true);
 
-                        int oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                        oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
                         GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringingVolume="+ringingVolume);
 

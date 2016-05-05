@@ -62,8 +62,8 @@ public class GlobalData extends Application {
                                          //+"|ActivateProfileHelper.setVolumes"
                                          //+"|EventsService.doEndService"
                                          //+"|EventsService.onHandleIntent"
-                                         +"|PhoneProfilesService.onStartCommand"
-                                         +"|PhoneCallService"
+                                         //+"|PhoneProfilesService.onStartCommand"
+                                         //+"|PhoneCallService"
 
                                          //+"|@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm"
 
