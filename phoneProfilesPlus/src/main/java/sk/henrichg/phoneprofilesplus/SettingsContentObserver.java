@@ -56,8 +56,10 @@ public class SettingsContentObserver  extends ContentObserver {
         {
             //Log.e("### SettingsContentObserver", "channel="+volumeStream+" Decreased");
             if (!RingerModeChangeReceiver.internalChange) {
-                if (volumeStream == AudioManager.STREAM_RING)
+                if (volumeStream == AudioManager.STREAM_RING) {
                     GlobalData.setRingerVolume(context, currentVolume);
+                    PhoneProfilesService.ringingVolume = currentVolume;
+                }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION)
                     GlobalData.setRingerVolume(context, currentVolume);
             }
@@ -66,8 +68,10 @@ public class SettingsContentObserver  extends ContentObserver {
         {
             //Log.e("### SettingsContentObserver", "channel="+volumeStream+" Increased");
             if (!RingerModeChangeReceiver.internalChange) {
-                if (volumeStream == AudioManager.STREAM_RING)
+                if (volumeStream == AudioManager.STREAM_RING) {
                     GlobalData.setRingerVolume(context, currentVolume);
+                    PhoneProfilesService.ringingVolume = currentVolume;
+                }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION)
                     GlobalData.setRingerVolume(context, currentVolume);
             }

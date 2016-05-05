@@ -60,11 +60,7 @@ public class EventsService extends IntentService
         oldRingerMode = GlobalData.getRingerMode(context);
         oldZenMode = GlobalData.getZenMode(context);
 
-        Ringtone ringtone = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
-        if (ringtone != null)
-            oldRingtone = ringtone.getTitle(context);
-        else
-            oldRingtone = "";
+        oldRingtone = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE).getPath();;
 
         // first start of GeofenceScanner
         if (!GlobalData.isGeofenceScannerStarted())

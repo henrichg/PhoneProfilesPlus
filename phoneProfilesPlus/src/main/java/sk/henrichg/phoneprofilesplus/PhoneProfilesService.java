@@ -17,6 +17,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -274,7 +275,12 @@ public class PhoneProfilesService extends Service
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
+        int sensorType = event.sensor.getType();
+
+        //if (event.accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW)
+        //    return;
+
+        if (sensorType == Sensor.TYPE_PROXIMITY) {
             //GlobalData.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
             if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
                 mProximity = event.values[0];
@@ -288,79 +294,80 @@ public class PhoneProfilesService extends Service
                     setAlarm(this);
                 }
             }
+            return;
         }
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            // Isolate the force of gravity with the low-pass filter.
-            mGravity[0] = alpha * mGravity[0] + (1 - alpha) * event.values[0];
-            mGravity[1] = alpha * mGravity[1] + (1 - alpha) * event.values[1];
-            mGravity[2] = alpha * mGravity[2] + (1 - alpha) * event.values[2];
-        }
-        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-            mGeomagnetic[0] = event.values[0];
-            mGeomagnetic[1] = event.values[1];
-            mGeomagnetic[2] = event.values[2];
-        }
-        if (mGravity != null && mGeomagnetic != null) {
-            float R[] = new float[9];
-            float I[] = new float[9];
-            boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
-            if (success) {
-                float orientation[] = new float[3];
-                //orientation[0]: azimuth, rotation around the -Z axis, i.e. the opposite direction of Z axis.
-                //orientation[1]: pitch, rotation around the -X axis, i.e the opposite direction of X axis.
-                //orientation[2]: roll, rotation around the Y axis.
-
-                SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, I);
-                SensorManager.getOrientation(I, orientation);
-
-                //float azimuth = (float)Math.toDegrees(orientation[0]);
-                float pitch = (float)Math.toDegrees(orientation[1]);
-                float roll = (float)Math.toDegrees(orientation[2]);
-
-                //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
-                //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
-
-                int side = DEVICE_ORIENTATION_UNKNOWN;
-                if (pitch > -30 && pitch < 30) {
-                    if (roll > -60 && roll < 60)
-                        side = DEVICE_ORIENTATION_DISPLAY_UP;
-                    if (roll > 150 && roll < 180)
-                        side = DEVICE_ORIENTATION_DISPLAY_DOWN;
-                    if (roll > -180 && roll < -150)
-                        side = DEVICE_ORIENTATION_DISPLAY_DOWN;
-                    if (roll > 65 && roll < 115)
-                        side = DEVICE_ORIENTATION_UP_SIDE_UP;
-                    if (roll > -115 && roll < -65)
-                        side = DEVICE_ORIENTATION_DOWN_SIDE_UP;
+        if ((sensorType == Sensor.TYPE_ACCELEROMETER) || (sensorType == Sensor.TYPE_MAGNETIC_FIELD)) {
+            if (event.timestamp - tmpSideTimestamp >= 250000000L /*1000000000L*/) {
+                tmpSideTimestamp = event.timestamp;
+                if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+                    // Isolate the force of gravity with the low-pass filter.
+                    mGravity[0] = alpha * mGravity[0] + (1 - alpha) * event.values[0];
+                    mGravity[1] = alpha * mGravity[1] + (1 - alpha) * event.values[1];
+                    mGravity[2] = alpha * mGravity[2] + (1 - alpha) * event.values[2];
                 }
-                if (pitch > 30 && pitch < 90) {
-                    side = DEVICE_ORIENTATION_LEFT_SIDE_UP;
+                if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
+                    mGeomagnetic[0] = event.values[0];
+                    mGeomagnetic[1] = event.values[1];
+                    mGeomagnetic[2] = event.values[2];
                 }
-                if (pitch > -90 && pitch < -30) {
-                    side = DEVICE_ORIENTATION_RIGHT_SIDE_UP;
-                }
+                if (mGravity != null && mGeomagnetic != null) {
+                    float R[] = new float[9];
+                    float I[] = new float[9];
+                    boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
+                    if (success) {
+                        float orientation[] = new float[3];
+                        //orientation[0]: azimuth, rotation around the -Z axis, i.e. the opposite direction of Z axis.
+                        //orientation[1]: pitch, rotation around the -X axis, i.e the opposite direction of X axis.
+                        //orientation[2]: roll, rotation around the Y axis.
 
-                if ((tmpSideUp == DEVICE_ORIENTATION_UNKNOWN) || (/*(side != DEVICE_ORIENTATION_UNKNOWN) &&*/ (side != tmpSideUp))) {
-                    mEventCountSinceGZChanged = 0;
+                        SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, I);
+                        SensorManager.getOrientation(I, orientation);
 
-                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
-                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
-                    //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+                        //float azimuth = (float)Math.toDegrees(orientation[0]);
+                        float pitch = (float) Math.toDegrees(orientation[1]);
+                        float roll = (float) Math.toDegrees(orientation[2]);
 
-                    tmpSideUp = side;
-                    tmpSideTimestamp = event.timestamp;
-                }
-                else {
-                    if (event.timestamp - tmpSideTimestamp >= 1000000000L) {
-                        ++mEventCountSinceGZChanged;
-                        if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+                        //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                        //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
 
-                            if (tmpSideUp != mSideUp) {
+                        int side = DEVICE_ORIENTATION_UNKNOWN;
+                        if (pitch > -30 && pitch < 30) {
+                            if (roll > -60 && roll < 60)
+                                side = DEVICE_ORIENTATION_DISPLAY_UP;
+                            if (roll > 150 && roll < 180)
+                                side = DEVICE_ORIENTATION_DISPLAY_DOWN;
+                            if (roll > -180 && roll < -150)
+                                side = DEVICE_ORIENTATION_DISPLAY_DOWN;
+                            if (roll > 65 && roll < 115)
+                                side = DEVICE_ORIENTATION_UP_SIDE_UP;
+                            if (roll > -115 && roll < -65)
+                                side = DEVICE_ORIENTATION_DOWN_SIDE_UP;
+                        }
+                        if (pitch > 30 && pitch < 90) {
+                            side = DEVICE_ORIENTATION_LEFT_SIDE_UP;
+                        }
+                        if (pitch > -90 && pitch < -30) {
+                            side = DEVICE_ORIENTATION_RIGHT_SIDE_UP;
+                        }
 
-                                mSideUp = tmpSideUp;
+                        if ((tmpSideUp == DEVICE_ORIENTATION_UNKNOWN) || (/*(side != DEVICE_ORIENTATION_UNKNOWN) &&*/ (side != tmpSideUp))) {
+                            mEventCountSinceGZChanged = 0;
 
-                                if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
-                                    mDisplayUp = mSideUp;
+                            //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
+                            //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                            //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+
+                            tmpSideUp = side;
+                        } else {
+                            ++mEventCountSinceGZChanged;
+                            if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
+
+                                if (tmpSideUp != mSideUp) {
+
+                                    mSideUp = tmpSideUp;
+
+                                    if ((mSideUp == DEVICE_ORIENTATION_DISPLAY_UP) || (mSideUp == DEVICE_ORIENTATION_DISPLAY_DOWN))
+                                        mDisplayUp = mSideUp;
 
                                 /*
                                 if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
@@ -380,8 +387,11 @@ public class PhoneProfilesService extends Service
                                     GlobalData.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                 */
 
-                                Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                                sendBroadcast(broadcastIntent);
+                                    //Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
+                                    //sendBroadcast(broadcastIntent);
+                                    setAlarm(this);
+
+                                }
                             }
                         }
                     }
@@ -458,12 +468,7 @@ public class PhoneProfilesService extends Service
             String oldRingtone = intent.getStringExtra(GlobalData.EXTRA_OLD_RINGTONE);
             int newRingerMode = GlobalData.getRingerMode(context);
             int newZenMode = GlobalData.getZenMode(context);
-            Ringtone ringtone = RingtoneManager.getRingtone(context, Settings.System.DEFAULT_RINGTONE_URI);
-            String newRingtone;
-            if (ringtone != null)
-                newRingtone = ringtone.getTitle(context);
-            else
-                newRingtone = "";
+            String newRingtone = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE).getPath();
 
             GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
             GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
@@ -523,7 +528,7 @@ public class PhoneProfilesService extends Service
 
                             oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-                            //GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringingVolume=" + ringingVolume);
+                            GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringingVolume=" + ringingVolume);
 
                             int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
                             int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -531,7 +536,7 @@ public class PhoneProfilesService extends Service
                             float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
                             mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
-                            //GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "mediaVolume=" + mediaVolume);
+                            GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "mediaVolume=" + mediaVolume);
 
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
 
@@ -554,6 +559,8 @@ public class PhoneProfilesService extends Service
                         mediaPlayer.setDataSource(this, Settings.System.DEFAULT_RINGTONE_URI);
                         mediaPlayer.prepare();
                         mediaPlayer.setLooping(true);
+
+                        GlobalData.logE("PhoneCallService.startSimulatingRingingCall", "ringingVolume=" + ringingVolume);
 
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, ringingVolume, 0);
 
