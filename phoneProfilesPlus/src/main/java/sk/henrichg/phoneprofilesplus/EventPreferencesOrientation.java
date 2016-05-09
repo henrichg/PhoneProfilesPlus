@@ -10,17 +10,11 @@ import android.content.pm.PackageManager;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.text.Html;
-import android.util.Log;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
-
-import javax.microedition.khronos.opengles.GL;
 
 public class EventPreferencesOrientation extends EventPreferences {
 
