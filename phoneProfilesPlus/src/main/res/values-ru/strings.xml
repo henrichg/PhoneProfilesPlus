@@ -751,16 +751,16 @@
   <string name="array_event_pref_orientationDistanceType_near">Рядом</string>
   <string name="array_event_pref_orientationDistanceType_far">Далеко</string>
   <string name="event_preferences_orientation_ignoreForApplications">Игнорировать для приложений</string>
-  <string name="event_preferences_orientation_AccessibilitySettings_summary">Allow PhoneProfilesPlus in \"Accessibility\" system settings, for enabling \"Ignore for applications\" parameter.</string>
+  <string name="event_preferences_orientation_AccessibilitySettings_summary">Добавить PhoneProfilesPlus в системных настройках \"Accessibility\", в список \"Ignore for applications\".</string>
   <string name="applications_preference_applicationType_application">приложение</string>
   <string name="applications_preference_applicationType_shortcut">ярлык</string>
-  <string name="phone_profiles_pref_eventWifiAppSettings">Wi-fi settings</string>
-  <string name="phone_profiles_pref_eventWifiAppSettings_summary">Setup Wi-fi parameters in application settings.</string>
-  <string name="phone_profiles_pref_eventBluetoothAppSettings">Bluetooth settings</string>
-  <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Setup Bluetooth parameters in application settings.</string>
-  <string name="phone_profiles_pref_category_orientation_scanning">Orientation scanning</string>
-  <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Orientation scan interval (sec)</string>
-  <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Orientation scan in Power Save mode</string>
-  <string name="phone_profiles_pref_eventOrientationAppSettings">Orientation settings</string>
-  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation parameters in application settings.</string>
+  <string name="phone_profiles_pref_eventWifiAppSettings">Настройки Wi-Fi</string>
+  <string name="phone_profiles_pref_eventWifiAppSettings_summary">Параметры Wi-fi в настройках приложения.</string>
+  <string name="phone_profiles_pref_eventBluetoothAppSettings">Настройки Bluetooth</string>
+  <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Параметры Bluetooth в настройках приложения.</string>
+  <string name="phone_profiles_pref_category_orientation_scanning">Определение положения</string>
+  <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Интервал определения положения (сек)</string>
+  <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Определения положения режиме энергосбережения</string>
+  <string name="phone_profiles_pref_eventOrientationAppSettings">Настройки положения</string>
+  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Параметры Положения в настройках приложения.</string>
 </resources>

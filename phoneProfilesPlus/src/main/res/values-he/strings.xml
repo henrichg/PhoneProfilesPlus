@@ -754,13 +754,13 @@
   <string name="event_preferences_orientation_AccessibilitySettings_summary">התרת PhoneProfilesPlus בהגדרות המערכת \"נגישות\" להפעלת פרמטר \"התעלמות עבור יישומים\".</string>
   <string name="applications_preference_applicationType_application">יישום</string>
   <string name="applications_preference_applicationType_shortcut">קיצור דרך</string>
-  <string name="phone_profiles_pref_eventWifiAppSettings">Wi-fi settings</string>
-  <string name="phone_profiles_pref_eventWifiAppSettings_summary">Setup Wi-fi parameters in application settings.</string>
-  <string name="phone_profiles_pref_eventBluetoothAppSettings">Bluetooth settings</string>
-  <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Setup Bluetooth parameters in application settings.</string>
-  <string name="phone_profiles_pref_category_orientation_scanning">Orientation scanning</string>
-  <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Orientation scan interval (sec)</string>
-  <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Orientation scan in Power Save mode</string>
-  <string name="phone_profiles_pref_eventOrientationAppSettings">Orientation settings</string>
-  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation parameters in application settings.</string>
+  <string name="phone_profiles_pref_eventWifiAppSettings">הגדרות Wi-Fi</string>
+  <string name="phone_profiles_pref_eventWifiAppSettings_summary">הגדרת פרמטרים של Wi-Fi בהגדרות יישום.</string>
+  <string name="phone_profiles_pref_eventBluetoothAppSettings">הגדרות Bluetooth</string>
+  <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">הגדרת פרמטרים של Bluetooth בהגדרות יישום.</string>
+  <string name="phone_profiles_pref_category_orientation_scanning">סריקת כיוון המכשיר</string>
+  <string name="phone_profiles_pref_applicationEventOrientationScanInterval">מרווח סריקת כיוון המכשיר (שניות)</string>
+  <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">סריקת כיוון המכשיר במצב חיסכון בצריכת חשמל</string>
+  <string name="phone_profiles_pref_eventOrientationAppSettings">הגדרות כיוון המכשיר</string>
+  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">הגדרת פרמטרים של כיוון המכשיר בהגדרות היישום.</string>
 </resources>

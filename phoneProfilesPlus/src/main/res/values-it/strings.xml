@@ -754,13 +754,13 @@
   <string name="event_preferences_orientation_AccessibilitySettings_summary">Autorizzare PhoneProfilePlus in \"Accessibilità\" nelle impostazioni di sistema, per abilitare i parametri di \"Ignora per applicazioni\".</string>
   <string name="applications_preference_applicationType_application">applicazione</string>
   <string name="applications_preference_applicationType_shortcut">scorciatoia</string>
-  <string name="phone_profiles_pref_eventWifiAppSettings">Wi-fi settings</string>
-  <string name="phone_profiles_pref_eventWifiAppSettings_summary">Setup Wi-fi parameters in application settings.</string>
-  <string name="phone_profiles_pref_eventBluetoothAppSettings">Bluetooth settings</string>
-  <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Setup Bluetooth parameters in application settings.</string>
-  <string name="phone_profiles_pref_category_orientation_scanning">Orientation scanning</string>
-  <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Orientation scan interval (sec)</string>
-  <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Orientation scan in Power Save mode</string>
-  <string name="phone_profiles_pref_eventOrientationAppSettings">Orientation settings</string>
-  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation parameters in application settings.</string>
+  <string name="phone_profiles_pref_eventWifiAppSettings">Impostazioni Wi-Fi</string>
+  <string name="phone_profiles_pref_eventWifiAppSettings_summary">Definire i parametri del Wi-Fi nelle impostazioni dell\'applicazione.</string>
+  <string name="phone_profiles_pref_eventBluetoothAppSettings">Impostazioni Bluetooth</string>
+  <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Definire i parametri del bluetooth nelle impostazioni dell\'applicazione.</string>
+  <string name="phone_profiles_pref_category_orientation_scanning">Scansione orientamento</string>
+  <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Intervallo di scansione dell\'orientamento (sec)</string>
+  <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Scansione dell\'orientamento in modalità di risparmio energetico</string>
+  <string name="phone_profiles_pref_eventOrientationAppSettings">Impostazioni orientamento</string>
+  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Definire i parametri di orientamento nelle impostazioni dell\'applicazione.</string>
 </resources>
