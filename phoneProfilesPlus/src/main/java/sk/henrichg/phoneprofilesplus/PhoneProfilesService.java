@@ -76,7 +76,7 @@ public class PhoneProfilesService extends Service
     private static int tmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
     private static int tmpDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
     private static long tmpSideTimestamp = 0;
-    //private static long tmpDistanceTimestamp = 0;
+    private static long tmpDistanceTimestamp = 0;
 
     //------------------------
 
@@ -282,24 +282,35 @@ public class PhoneProfilesService extends Service
 
         if (sensorType == Sensor.TYPE_PROXIMITY) {
             //GlobalData.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
-            if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
+            //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
+            //if (event.timestamp - tmpDistanceTimestamp >= 250000000L /*1000000000L*/) {
+            //    tmpDistanceTimestamp = event.timestamp;
                 mProximity = event.values[0];
-                if (mProximity == 0)
+                //if (mProximity == 0)
+                if (mProximity < mMaxProximityDistance)
                     tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_NEAR;
                 else
                     tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_FAR;
 
                 if (tmpDeviceDistance != mDeviceDistance) {
                     mDeviceDistance = tmpDeviceDistance;
-                    setAlarm(this);
+                    Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
+                    sendBroadcast(broadcastIntent);
+                    //setAlarm(this);
                 }
-            }
+            //}
             return;
         }
         if ((sensorType == Sensor.TYPE_ACCELEROMETER) || (sensorType == Sensor.TYPE_MAGNETIC_FIELD)) {
+            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+                mGravity = exponentialSmoothing(event.values, mGravity, 0.2f);
+            }
+            if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
+                mGeomagnetic = exponentialSmoothing(event.values, mGeomagnetic, 0.5f);
+            }
             if (event.timestamp - tmpSideTimestamp >= 250000000L /*1000000000L*/) {
                 tmpSideTimestamp = event.timestamp;
-                if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+                /*if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                     // Isolate the force of gravity with the low-pass filter.
                     mGravity[0] = alpha * mGravity[0] + (1 - alpha) * event.values[0];
                     mGravity[1] = alpha * mGravity[1] + (1 - alpha) * event.values[1];
@@ -309,7 +320,7 @@ public class PhoneProfilesService extends Service
                     mGeomagnetic[0] = event.values[0];
                     mGeomagnetic[1] = event.values[1];
                     mGeomagnetic[2] = event.values[2];
-                }
+                }*/
                 if (mGravity != null && mGeomagnetic != null) {
                     float R[] = new float[9];
                     float I[] = new float[9];
@@ -387,9 +398,9 @@ public class PhoneProfilesService extends Service
                                     GlobalData.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                 */
 
-                                    //Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
-                                    //sendBroadcast(broadcastIntent);
-                                    setAlarm(this);
+                                    Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
+                                    sendBroadcast(broadcastIntent);
+                                    //setAlarm(this);
 
                                 }
                             }
@@ -398,6 +409,15 @@ public class PhoneProfilesService extends Service
                 }
             }
         }
+    }
+
+    private float[] exponentialSmoothing(float[] input, float[] output, float alpha) {
+        if (output == null)
+            return input;
+        for (int i=0; i<input.length; i++) {
+            output[i] = output[i] + alpha * (input[i] - output[i]);
+        }
+        return output;
     }
 
     @Override

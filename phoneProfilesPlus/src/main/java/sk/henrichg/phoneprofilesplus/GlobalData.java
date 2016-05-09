@@ -53,7 +53,7 @@ public class GlobalData extends Application {
                                          +"|PhoneProfilesHelper.doUninstallPPHelper"
 
                                          //+"|PhoneProfilesService"
-                                         //+"|DeviceOrientationBroadcastReceiver"
+                                         +"|DeviceOrientationBroadcastReceiver"
                                          //+"|**** DataWrapper.doEventService"
 
                                          //+"|ExecuteVolumeProfilePrefsService"

@@ -22,13 +22,13 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "xxx");
+            GlobalData.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "-----------");
 
             if (PhoneProfilesService.mDeviceDistance == PhoneProfilesService.DEVICE_ORIENTATION_DEVICE_IS_NEAR)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is near.");
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is NEAR.");
             else
             if (PhoneProfilesService.mDeviceDistance == PhoneProfilesService.DEVICE_ORIENTATION_DEVICE_IS_FAR)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is far");
+                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is FAR");
             else
             if (PhoneProfilesService.mDeviceDistance == PhoneProfilesService.DEVICE_ORIENTATION_UNKNOWN)
                 GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "unknown distance");
@@ -57,6 +57,8 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
                 GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now left side is facing up.");
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_UNKNOWN)
                 GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) unknown side.");
+
+            GlobalData.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "-----------");
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) == 0) {

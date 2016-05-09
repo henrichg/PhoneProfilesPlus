@@ -2281,9 +2281,9 @@ public class DataWrapper {
                             }
                         }
 
-                        Log.d("**** DataWrapper.doEventService","lDisplayPassed="+lDisplayPassed);
-                        Log.d("**** DataWrapper.doEventService","lSidePassed="+lSidePassed);
-                        Log.d("**** DataWrapper.doEventService","lDistancePassed="+lDistancePassed);
+                        //Log.d("**** DataWrapper.doEventService","lDisplayPassed="+lDisplayPassed);
+                        //Log.d("**** DataWrapper.doEventService","lSidePassed="+lSidePassed);
+                        //Log.d("**** DataWrapper.doEventService","lDistancePassed="+lDistancePassed);
 
                         orientationPassed = lDisplayPassed && lSidePassed && lDistancePassed;
                     }
