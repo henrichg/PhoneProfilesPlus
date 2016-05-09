@@ -20,10 +20,6 @@ public class LaunchShortcutActivity extends Activity {
 
         packageName = getIntent().getStringExtra(EXTRA_PACKAGE_NAME);
         activityName = getIntent().getStringExtra(EXTRA_ACTIVITY_NAME);
-
-        Log.d("LaunchShortcutActivity.onCreate", "packageName=" + packageName);
-        Log.d("LaunchShortcutActivity.onCreate", "activityName=" + activityName);
-
     }
 
     @Override
@@ -57,17 +53,9 @@ public class LaunchShortcutActivity extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        Log.d("LaunchShortcutActivity.onActivityResult", "xxx");
-
         if (requestCode == 100) {
-            Log.d("LaunchShortcutActivity.onActivityResult", "resultCode="+resultCode);
-            Log.d("LaunchShortcutActivity.onActivityResult", "data="+data);
-
             if ((resultCode == RESULT_OK) && (data != null)) {
                 Intent intent = data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
-
-                Log.d("LaunchShortcutActivity.onActivityResult", "intent=" + intent);
-
                 try {
                     startActivity(intent);
                 } catch (Exception e) {

@@ -2200,7 +2200,6 @@ public class DataWrapper {
                 (callEventType != PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                 // ignore changes during call
                 ignoreChange = true;
-                Log.d("**** DataWrapper.doEventService","ignored for call");
             }
             else
             {
@@ -2288,7 +2287,6 @@ public class DataWrapper {
                     }
                     else {
                         ignoreChange = true;
-                        Log.d("**** DataWrapper.doEventService","ignored for applications");
                     }
                 }
             }

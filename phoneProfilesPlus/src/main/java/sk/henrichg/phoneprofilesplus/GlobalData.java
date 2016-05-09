@@ -52,7 +52,7 @@ public class GlobalData extends Application {
                                          +"|PhoneProfilesHelper.doUninstallPPHelper"
 
                                          //+"|PhoneProfilesService"
-                                         +"|DeviceOrientationBroadcastReceiver"
+                                         //+"|DeviceOrientationBroadcastReceiver"
                                          //+"|**** DataWrapper.doEventService"
 
                                          //+"|ExecuteVolumeProfilePrefsService"
@@ -1943,7 +1943,6 @@ public class GlobalData extends Application {
     }
 
     public static void startOrientationScanner(Context context) {
-        Log.d("GlobalData.startOrientationScanner", "xxx");
         if (phoneProfilesService != null) {
             if (phoneProfilesService.mStarted)
                 phoneProfilesService.stopListeningSensors();
@@ -1954,7 +1953,6 @@ public class GlobalData extends Application {
     }
 
     public static void stopOrientationScanner() {
-        Log.d("GlobalData.stopOrientationScanner", "xxx");
         if (phoneProfilesService != null)
             phoneProfilesService.stopListeningSensors();
     }
