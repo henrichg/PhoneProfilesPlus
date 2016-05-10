@@ -58,7 +58,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
             (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
-            PhoneCallService.setSpeakerphoneOn(profile);
+            PhoneCallService.setSpeakerphoneOn(profile, context);
             PhoneCallService.speakerphoneOnExecuted = true;
         }
 

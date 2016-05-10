@@ -99,10 +99,14 @@ public class PhoneCallService extends IntentService {
         }
     }
 
-    public static void setSpeakerphoneOn(Profile profile) {
+    public static void setSpeakerphoneOn(Profile profile, Context context) {
         if (profile != null) {
 
             if (profile._volumeSpeakerPhone != 0) {
+
+                if (audioManager == null )
+                    audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
                 savedSpeakerphone = audioManager.isSpeakerphoneOn();
                 boolean changeSpeakerphone = false;
                 if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off

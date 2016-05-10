@@ -535,7 +535,7 @@ public class EventsService extends IntentService
                     (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
                 Profile profile = dataWrapper.getActivatedProfile();
                 profile = GlobalData.getMappedProfile(profile, context);
-                PhoneCallService.setSpeakerphoneOn(profile);
+                PhoneCallService.setSpeakerphoneOn(profile, context);
             }
         } else
             PhoneCallService.speakerphoneOnExecuted = false;

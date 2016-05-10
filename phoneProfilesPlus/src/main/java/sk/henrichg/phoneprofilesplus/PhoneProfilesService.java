@@ -627,6 +627,9 @@ public class PhoneProfilesService extends Service
 
     @Override
     public void onAudioFocusChange(int focusChange) {
+        if (audioManager == null )
+            audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
         if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
             // Pause playback
             if (mediaPlayer != null)
