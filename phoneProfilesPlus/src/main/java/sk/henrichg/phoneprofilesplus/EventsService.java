@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 
 import java.util.List;
@@ -57,7 +58,11 @@ public class EventsService extends IntentService
         oldRingerMode = GlobalData.getRingerMode(context);
         oldZenMode = GlobalData.getZenMode(context);
 
-        oldRingtone = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE).getPath();;
+        Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
+        if (uri != null)
+            oldRingtone = uri.getPath();
+        else
+            oldRingtone = "";
 
         // first start of GeofenceScanner
         if (!GlobalData.isGeofenceScannerStarted())

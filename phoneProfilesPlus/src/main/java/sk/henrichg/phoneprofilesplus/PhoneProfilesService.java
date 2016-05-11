@@ -16,6 +16,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -486,7 +487,12 @@ public class PhoneProfilesService extends Service
             String oldRingtone = intent.getStringExtra(GlobalData.EXTRA_OLD_RINGTONE);
             int newRingerMode = GlobalData.getRingerMode(context);
             int newZenMode = GlobalData.getZenMode(context);
-            String newRingtone = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE).getPath();
+            String newRingtone;
+            Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
+            if (uri != null)
+                newRingtone = uri.getPath();
+            else
+                newRingtone = "";
 
             GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
             GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
