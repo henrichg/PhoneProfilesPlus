@@ -609,8 +609,8 @@
   <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Lütfen Konumu ve Bluetooth taramayı Sistem Ayarlarında etkinleştirin. Bu yapılmadan, Bluetooth tarama çalışmayacak.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Güç Tasarrufu modunda Wi-Fi taraması</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Güç tasarrufu modunda Bluetooth taraması</string>
-  <string name="array_pref_scanInPowerSaveMode_1xInterval">1 x aralığı</string>
-  <string name="array_pref_scanInPowerSaveMode_2xInterval">1 x aralığı</string>
+  <string name="array_pref_scanInPowerSaveMode_1xInterval">1x aralıkla</string>
+  <string name="array_pref_scanInPowerSaveMode_2xInterval">2x aralıkla</string>
   <string name="array_pref_scanInPowerSaveMode_noScan">Tarama yapma</string>
   <string name="pref_event_battery_power_save_mode">Güç tasarrufu modu</string>
   <string name="event_preferences_battery_power_save_mode">Güç tasarrufu modu</string>
