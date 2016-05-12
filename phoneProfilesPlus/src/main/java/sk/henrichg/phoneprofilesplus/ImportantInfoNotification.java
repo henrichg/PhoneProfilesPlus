@@ -15,13 +15,13 @@ public class ImportantInfoNotification {
     public static final int VERSION_CODE_FOR_NEWS = 1960;
 
     static public void showInfoNotification(Context context) {
-
         PackageInfo pinfo = null;
         int packageVersionCode = 0;
+        int savedVersionCode = 0;
         try {
             pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             packageVersionCode = pinfo.versionCode;
-            int savedVersionCode = GlobalData.getShowInfoNotificationOnStartVersion(context);
+            savedVersionCode = GlobalData.getShowInfoNotificationOnStartVersion(context);
             if (packageVersionCode > savedVersionCode) {
                 //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
                 boolean show = canShowNotification(packageVersionCode, savedVersionCode);
@@ -33,7 +33,7 @@ public class ImportantInfoNotification {
             //e.printStackTrace();
         }
 
-        if (GlobalData.getShowInfoNotificationOnStart(context, packageVersionCode)) {
+        if ((savedVersionCode == 0) || GlobalData.getShowInfoNotificationOnStart(context, packageVersionCode)) {
 
             showNotification(context,
                     context.getString(R.string.info_notification_title),
