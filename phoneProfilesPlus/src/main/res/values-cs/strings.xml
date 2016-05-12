@@ -763,4 +763,7 @@
   <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Skenování orientace v Úsporném režimu</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings">Nastavení orientace</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Nastav parametry orientace v nastaveních aplikace.</string>
+  <string name="array_pref_screenTimeoutArray_24hours">24 hodin</string>
+  <string name="array_pref_screenTimeoutArray_alwaysOn">Vždy zapnuto</string>
+  <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Když volba \"24 hodin\" nefunguje na vašem zařízení (LG), použijte volbu \"Vždy zapnuto\". Volba \"Vždy zapnuto\", může dělat problémy ve vašem zařízení (Samsung). Tehdy použijte volbu \"24 hodin\".</string>
 </resources>
