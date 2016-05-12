@@ -1024,9 +1024,9 @@ public class ActivateProfileHelper {
                     break;
                 case 8:
                     screenTimeoutUnlock(context);
-                    if (android.os.Build.VERSION.SDK_INT < 19)
-                        Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
-                    else
+                    //if (android.os.Build.VERSION.SDK_INT < 19)  // not working in Sony
+                    //    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
+                    //else
                         screenTimeoutLock(context);
                     break;
             }
