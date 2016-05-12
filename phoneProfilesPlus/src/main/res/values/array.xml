@@ -45,7 +45,7 @@
     <item>@string/array_pref_screenTimeoutArray_5minutes</item>
     <item>@string/array_pref_screenTimeoutArray_10minutes</item>
     <item>@string/array_pref_screenTimeoutArray_24hours</item>
-    <item>@string/array_pref_screenTimeoutArray_never_timeout</item>
+    <item>@string/array_pref_screenTimeoutArray_alwaysOn</item>
 </string-array>
 <string-array name="screenTimeoutValues">
     <item>0</item>

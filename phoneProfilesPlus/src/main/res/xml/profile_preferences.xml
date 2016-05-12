@@ -310,6 +310,11 @@
         android:title="@string/profile_preferences_category_screen"
         android:key="prf_pref_screenCategory"
         android:widgetLayout="@layout/start_activity_preference" >
+        <Preference
+            android:key="prf_pref_deviceScreenTimeoutInfo"
+            android:title="@string/profile_preferences_deviceScreenTimeout"
+            android:summary="@string/profile_preferences_deviceScreenTimeoutInfo_summary"
+            android:widgetLayout="@layout/info_preference" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/profile_preferences_deviceScreenTimeout"
             android:summary="@string/array_pref_no_change"
