@@ -22,7 +22,10 @@ public class RemoveBrightnessViewBroadcastReceiver extends BroadcastReceiver
         WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         if (GUIData.brightneesView != null)
         {
-            windowManager.removeView(GUIData.brightneesView);
+            try {
+                windowManager.removeView(GUIData.brightneesView);
+            } catch (Exception e) {
+            }
             GUIData.brightneesView = null;
         }
     }

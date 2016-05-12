@@ -1287,7 +1287,10 @@ public class ActivateProfileHelper {
         if (GUIData.keepScreenOnView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-            windowManager.removeView(GUIData.keepScreenOnView);
+            try {
+                windowManager.removeView(GUIData.keepScreenOnView);
+            } catch (Exception e) {
+            }
             GUIData.keepScreenOnView = null;
         }
 
@@ -1303,7 +1306,10 @@ public class ActivateProfileHelper {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
             if (GUIData.brightneesView != null)
             {
-                windowManager.removeView(GUIData.brightneesView);
+                try {
+                    windowManager.removeView(GUIData.brightneesView);
+                } catch (Exception e) {
+                }
                 GUIData.brightneesView = null;
             }
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
@@ -1333,7 +1339,10 @@ public class ActivateProfileHelper {
         if (GUIData.brightneesView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-            windowManager.removeView(GUIData.brightneesView);
+            try {
+                windowManager.removeView(GUIData.brightneesView);
+            } catch (Exception e) {
+            }
             GUIData.brightneesView = null;
         }
     }
