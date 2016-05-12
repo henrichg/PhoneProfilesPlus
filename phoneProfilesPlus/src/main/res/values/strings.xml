@@ -764,4 +764,5 @@
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Orientation scan in Power Save mode</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings">Orientation settings</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation parameters in application settings.</string>
+    <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>
 </resources>
