@@ -32,7 +32,7 @@ public class ProfilePreferencesIndicator {
     public static Bitmap paint(Profile _profile, Context context)
     {
 
-        int[] drawables = new int[20];
+        int[] drawables = new int[30];
         int countDrawables = 0;
 
         Profile profile = GlobalData.getMappedProfile(_profile, context);
