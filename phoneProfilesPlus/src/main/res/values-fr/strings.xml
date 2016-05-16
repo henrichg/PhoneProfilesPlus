@@ -763,4 +763,7 @@
   <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Analyse de l\'orientation en mode économie d\'énergie</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings">Paramètres d\'orientation</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Configuration des paramètres d\'Orientation dans les paramètres de l\'application.</string>
+  <string name="array_pref_screenTimeoutArray_24hours">24 heures</string>
+  <string name="array_pref_screenTimeoutArray_alwaysOn">Toujours allumé</string>
+  <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Lorsque l\'option « 24 heures » ne fonctionne ne pas sur votre appareil (LG), utilisez l\'option « Toujours allumé». Cette option , peut avoirdes problèmes sur votre appareil (Samsung). Utilisez alors l\'option « 24 heures ».</string>
 </resources>

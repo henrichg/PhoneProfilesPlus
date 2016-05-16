@@ -661,7 +661,7 @@
   <string name="important_info_profile_activation_text11">- красный цвет: события остановлены - запуск событий может быть возобновлён с помощью пункта меню редактора \"Разрешить запуск событий\".</string>
   <string name="important_info_profile_activation_restart_events_icon">Иконка перезапуска событий:</string>
   <string name="important_info_profile_activation_traffic_light_icon">Значок «Светофор»:</string>
-  <string name="important_info_android_doze_mode">В Android 6 реализован режим \"Doze\" и \"App Standby\". Если вы столкнулись с проблемами с активацией профиля из событий, когда устройство отключилось после выключения экрана, добавьте PhoneProfilesPlus в пункт \"Батарея\" -&gt; \"Экономия заряда батареи\" -&gt; \"Не экономить\".</string>
+  <string name="important_info_android_doze_mode">В Android 6 реализован режим \"Doze\" и \"App Standby\". Если вы столкнулись с проблемами с активацией профиля из событий, когда устройство отключилось после выключения экрана, добавьте PhoneProfilesPlus в список \"Батарея\" -&gt; \"Экономия заряда батареи\" -&gt; \"Не экономят заряд\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Вибрация при звонке</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">В Android 6 системные параметры, такие как режим звонка и вибрация, могут быть изменены только на разблокированных устройствах, имеющих права Суперпользователя.</string>
   <string name="info_notification_event_states">Событие может находиться в 4-х состояниях:</string>
@@ -722,11 +722,11 @@
   <string name="altype_eventEndDelay">Остановка события с задержкой</string>
   <string name="info_notification_event_states_running_delay">Запущено с задержкой: событие запущено, но параметры не соответствуют условиям. Событие в состоянии ожидания.</string>
   <string name="profile_preferences_askForDuration">Запрос продолжительности</string>
-  <string name="phone_profiles_pref_applicationBatteryOptimization">Оптимизация батареи</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization">Экономия заряда батареи</string>
   <string name="phone_profiles_pref_applicationEventLocationRescan">Переопределить местоположение</string>
   <string name="profile_preferences_deviceNetworkType">(R) Тип мобильной сети</string>
-  <string name="array_pref_powerSaveMode_useSystem">Использовать режим энергосбережения</string>
-  <string name="phone_profiles_pref_applicationBatterySaver">Энергосбережение</string>
+  <string name="array_pref_powerSaveMode_useSystem">Использовать системные настройки</string>
+  <string name="phone_profiles_pref_applicationBatterySaver">Режим энергосбережения</string>
   <string name="phone_profiles_pref_applicationBatterySaver_system">Системные настройки</string>
   <string name="phone_profiles_pref_notificationTextColor">Цвет текста</string>
   <string name="array_pref_color_white">Белый</string>
@@ -763,4 +763,7 @@
   <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Определения положения режиме энергосбережения</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings">Настройки положения</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Параметры Положения в настройках приложения.</string>
+  <string name="array_pref_screenTimeoutArray_24hours">24 часа</string>
+  <string name="array_pref_screenTimeoutArray_alwaysOn">Включено всегда</string>
+  <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Если опция «24 часа» не работает на вашем устройстве (LG), попробуйте использовать вариант «Включено всегда». Опция «Включено всегда» может не работать на вашем устройстве (Samsung), попробуйте использовать вариант «24 часа».</string>
 </resources>

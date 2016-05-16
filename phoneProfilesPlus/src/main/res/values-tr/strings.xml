@@ -763,4 +763,7 @@
   <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Güç Tasarrufu Modu\'nda Döndürme Sensörü taraması</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings">Döndürme ayarları</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Uygulama ayarlarında döndürme parametrelerini ayarlayın.</string>
+  <string name="array_pref_screenTimeoutArray_24hours">24 saat</string>
+  <string name="array_pref_screenTimeoutArray_alwaysOn">Her zaman açık</string>
+  <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Cihazınızda 24 saat seçeneği çalışmadığı zaman (LG), \"Her zaman açık\" seçeneğini kullanın. Bu seçenek cihazınızda karşılan sorunları (Samsung) çözebilir. Bundan sonra \"24 saat\" seçeneğini kullanın.</string>
 </resources>

@@ -763,4 +763,7 @@
   <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">סריקת כיוון המכשיר במצב חיסכון בצריכת חשמל</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings">הגדרות כיוון המכשיר</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings_summary">הגדרת פרמטרים של כיוון המכשיר בהגדרות היישום.</string>
+  <string name="array_pref_screenTimeoutArray_24hours">24 שעות</string>
+  <string name="array_pref_screenTimeoutArray_alwaysOn">מופעל תמיד</string>
+  <string name="profile_preferences_deviceScreenTimeoutInfo_summary">כאשר האפשרות \"24 שעות\" לא עובדת במכשירך (LG), יש להשתמש באפשרות \"מופעל תמיד\". האפשרות \"מופעל תמיד\" עלולה להיתקל בבעיות במכשירך (סמסונג) ואז להשתמש באפשרות \"24 שעות\".</string>
 </resources>
