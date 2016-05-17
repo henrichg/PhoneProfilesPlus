@@ -326,7 +326,7 @@ public class VolumeDialogPreference extends
         if (profile != null) {
             Intent volumeServiceIntent = new Intent(_context, ExecuteVolumeProfilePrefsService.class);
             volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-            //volumeServiceIntent.putExtra(GlobalData.EXTRA_LINKUNLINK_VOLUMES, PhoneCallService.LINKMODE_NONE);
+            volumeServiceIntent.putExtra(GlobalData.EXTRA_FOR_PROFILE_ACTIVATION, true);
             _context.startService(volumeServiceIntent);
         } else {
 

@@ -57,8 +57,8 @@ public class GlobalData extends Application {
 
                                          //+"|ExecuteVolumeProfilePrefsService"
                                          //+"|ActivateProfileHelper.execute"
-                                         //+"|ActivateProfileHelper.setRingerMode"
-                                         //+"|ActivateProfileHelper.setVolumes"
+                                         +"|ActivateProfileHelper.setRingerMode"
+                                         +"|ActivateProfileHelper.setVolumes"
                                          //+"|EventsService.doEndService"
                                          //+"|EventsService.onHandleIntent"
                                          //+"|PhoneProfilesService.onStartCommand"
@@ -110,6 +110,7 @@ public class GlobalData extends Application {
     static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
     static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
     static final String EXTRA_OLD_RINGTONE = "old_ringtone";
+    static final String EXTRA_FOR_PROFILE_ACTIVATION = "for_profile_activation";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;

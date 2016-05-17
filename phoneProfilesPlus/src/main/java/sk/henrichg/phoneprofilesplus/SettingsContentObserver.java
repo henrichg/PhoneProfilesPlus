@@ -61,7 +61,7 @@ public class SettingsContentObserver  extends ContentObserver {
                     PhoneProfilesService.ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION)
-                    GlobalData.setRingerVolume(context, currentVolume);
+                    GlobalData.setNotificationVolume(context, currentVolume);
             }
         }
         else if(delta<0)
@@ -73,7 +73,7 @@ public class SettingsContentObserver  extends ContentObserver {
                     PhoneProfilesService.ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION)
-                    GlobalData.setRingerVolume(context, currentVolume);
+                    GlobalData.setNotificationVolume(context, currentVolume);
             }
         }
         return currentVolume;

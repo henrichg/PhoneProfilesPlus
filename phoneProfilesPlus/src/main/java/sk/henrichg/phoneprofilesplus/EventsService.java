@@ -513,7 +513,7 @@ public class EventsService extends IntentService
                     GlobalData.logE("EventsService.doEndService", "callEventType=" + callEventType);
                     Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
                     volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-                    //volumeServiceIntent.putExtra(GlobalData.EXTRA_FROM_EVENTS_SERVICE, true);
+                    volumeServiceIntent.putExtra(GlobalData.EXTRA_FOR_PROFILE_ACTIVATION, false);
                     context.startService(volumeServiceIntent);
                     // wait for link/unlink
                     try {
