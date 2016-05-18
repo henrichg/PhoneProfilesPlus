@@ -57,8 +57,8 @@ public class GlobalData extends Application {
 
                                          //+"|ExecuteVolumeProfilePrefsService"
                                          //+"|ActivateProfileHelper.execute"
-                                         +"|ActivateProfileHelper.setRingerMode"
-                                         +"|ActivateProfileHelper.setVolumes"
+                                         //+"|ActivateProfileHelper.setRingerMode"
+                                         //+"|ActivateProfileHelper.setVolumes"
                                          //+"|EventsService.doEndService"
                                          //+"|EventsService.onHandleIntent"
                                          //+"|PhoneProfilesService.onStartCommand"
@@ -79,6 +79,9 @@ public class GlobalData extends Application {
                                          //+"|ScreenOnOffBroadcastReceiver"
                                          //+"|WifiAPStateChangeBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiAP"
+
+                                         +"|RingerModeChangeReceiver.getRingerMode"
+                                         +"|PPNotificationListenerService"
             ;
 
 

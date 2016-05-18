@@ -62,12 +62,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
 
-        GlobalData.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
+        //GlobalData.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
 
-        GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
+        //GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
         String alarmTimeS = sdf.format(sbn.getPostTime());
-        GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
+        //GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
 
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long time = sbn.getPostTime() + gmtOffset;
@@ -94,7 +94,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
 
-        GlobalData.logE("#### PPNotificationListenerService.onNotificationRemoved","xxx");
+        //GlobalData.logE("#### PPNotificationListenerService.onNotificationRemoved","xxx");
 
         getNotifiedPackages(context);
         removeNotifiedPackage(sbn.getPackageName());
@@ -117,6 +117,26 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //Log.e(TAG, "onListenerHintsChanged(" + hints + ')');
     }
 
+    @SuppressWarnings("deprecation")
+    private static boolean vibrationIsOn(Context context, AudioManager audioManager) {
+        int ringerMode = audioManager.getRingerMode();
+        int vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
+        int vibrateWhenRinging;
+        if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+            vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
+        else
+            vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
+
+        GlobalData.logE(TAG, "vibrationIsOn(ringerMode="+ringerMode+")");
+        GlobalData.logE(TAG, "vibrationIsOn(vibrateType="+vibrateType+")");
+        GlobalData.logE(TAG, "vibrationIsOn(vibrateWhenRinging="+vibrateWhenRinging+")");
+
+        return (ringerMode == AudioManager.RINGER_MODE_VIBRATE) ||
+               (vibrateType == AudioManager.VIBRATE_SETTING_ON) ||
+               (vibrateType == AudioManager.VIBRATE_SETTING_ONLY_SILENT) ||
+               (vibrateWhenRinging == 1);
+    }
+
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {
         GlobalData.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
@@ -124,20 +144,18 @@ public class PPNotificationListenerService extends NotificationListenerService {
             GlobalData.logE(TAG, "onInterruptionFilterChanged(!internalChange)");
 
             final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
-            int ringerMode = audioManager.getRingerMode();
-            //Log.e(TAG, "onInterruptionFilterChanged.ringermode(" + ringerMode + ')');
 
             // convert to profile zenMode
             int zenMode = 0;
             switch (interruptionFilter) {
                 case NotificationListenerService.INTERRUPTION_FILTER_ALL:
-                    if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
+                    if (vibrationIsOn(getApplicationContext(), audioManager))
                         zenMode = 4;
                     else
                         zenMode = 1;
                     break;
                 case NotificationListenerService.INTERRUPTION_FILTER_PRIORITY:
-                    if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
+                    if (vibrationIsOn(getApplicationContext(), audioManager))
                         zenMode = 5;
                     else
                         zenMode = 2;
@@ -149,6 +167,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     zenMode = 6;
                     break;
             }
+            GlobalData.logE(TAG, "onInterruptionFilterChanged(zenMode=" + zenMode + ')');
             if (zenMode != 0) {
                 //Log.e(TAG, "onInterruptionFilterChanged  new zenMode=" + zenMode);
                 GlobalData.setRingerMode(getApplicationContext(), 5);
@@ -160,24 +179,20 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     }
 
-    public static int getZenMode(Context context, AudioManager audioManager) {
-        int ringerMode = audioManager.getRingerMode();
-
-        //Log.e(TAG, "setZenMode(" + ringerMode + ')');
-
+    private static int getZenMode(Context context, AudioManager audioManager) {
         // convert to profile zenMode
         int zenMode = 0;
         int interruptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
         GlobalData.logE(TAG, "getZenMode(interruptionFilter=" + interruptionFilter + ')');
         switch (interruptionFilter) {
             case ActivateProfileHelper.ZENMODE_ALL:
-                if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
+                if (vibrationIsOn(context, audioManager))
                     zenMode = 4;
                 else
                     zenMode = 1;
                 break;
             case ActivateProfileHelper.ZENMODE_PRIORITY:
-                if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
+                if (vibrationIsOn(context, audioManager))
                     zenMode = 5;
                 else
                     zenMode = 2;

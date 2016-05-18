@@ -391,8 +391,9 @@ public class ActivateProfileHelper {
             zenMode = GlobalData.getZenMode(context);
             //ringerMode = RingerModeChangeReceiver.getRingerMode(context, audioManager);
         }*/
-        if ((ringerMode == 1) || (ringerMode == 4) ||
-                ((ringerMode == 5) && ((zenMode == 1) || (zenMode == 2)))) {
+        if ((ringerMode == 1) || (ringerMode == 2) || (ringerMode == 4) ||
+            ((ringerMode == 5) && ((zenMode == 1) || (zenMode == 2)))) {
+            // any "nonVIBRATE" ringer mode is selected
             if (audioManager.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE) {
                 // actual system ringer mode = vibrate
                 // volume changed it to vibrate

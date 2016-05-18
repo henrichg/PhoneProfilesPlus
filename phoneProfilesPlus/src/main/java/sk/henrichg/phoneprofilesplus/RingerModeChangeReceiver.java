@@ -29,22 +29,30 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     }
 
     @SuppressWarnings("deprecation")
-    public static int getRingerMode(Context context, AudioManager audioManager) {
-        int ringerMode = audioManager.getRingerMode();
-
+    private static boolean vibrationIsOn(Context context, AudioManager audioManager) {
         int vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
         int vibrateWhenRinging;
         if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
             vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
         else
             vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
+
+        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "vibrateType="+vibrateType);
+        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "vibrateWhenRinging="+vibrateWhenRinging);
+
+        return (vibrateType == AudioManager.VIBRATE_SETTING_ON) ||
+                (vibrateType == AudioManager.VIBRATE_SETTING_ONLY_SILENT) ||
+                (vibrateWhenRinging == 1);
+    }
+
+    public static int getRingerMode(Context context, AudioManager audioManager) {
+        int ringerMode = audioManager.getRingerMode();
+
         int interruptionFilter = -1;
         if (android.os.Build.VERSION.SDK_INT >= 21)
             interruptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
 
         GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "ringerMode="+ringerMode);
-        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "vibrateType="+vibrateType);
-        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "vibrateWhenRinging="+vibrateWhenRinging);
         GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "interruptionFilter=" + interruptionFilter);
 
         // convert to profile ringerMode
@@ -53,7 +61,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
             if (interruptionFilter == ActivateProfileHelper.ZENMODE_ALL) {
                 switch (ringerMode) {
                     case AudioManager.RINGER_MODE_NORMAL:
-                        if ((vibrateType == AudioManager.VIBRATE_SETTING_ON) || (vibrateWhenRinging == 1))
+                        if (vibrationIsOn(context, audioManager))
                             pRingerMode = 2;
                         else
                             pRingerMode = 1;
@@ -66,18 +74,14 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
                         break;
                 }
             }
-            else {
+            else
                 pRingerMode = 5;
-            }
         }
         else {
-            if (interruptionFilter == ActivateProfileHelper.ZENMODE_PRIORITY) {
-                pRingerMode = 4;
-            }
-            else {
+            if (interruptionFilter == ActivateProfileHelper.ZENMODE_ALL) {
                 switch (ringerMode) {
                     case AudioManager.RINGER_MODE_NORMAL:
-                        if ((vibrateType == AudioManager.VIBRATE_SETTING_ON) || (vibrateWhenRinging == 1))
+                        if (vibrationIsOn(context, audioManager))
                             pRingerMode = 2;
                         else
                             pRingerMode = 1;
@@ -90,6 +94,8 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
                         break;
                 }
             }
+            else
+                pRingerMode = 4;
         }
 
         GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "pRingerMode=" + pRingerMode);
