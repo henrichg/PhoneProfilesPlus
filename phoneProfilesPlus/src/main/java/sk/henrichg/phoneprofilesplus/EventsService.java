@@ -498,52 +498,57 @@ public class EventsService extends IntentService
     }
 
     private void doEndService(Intent intent) {
-        if (!PhoneCallService.linkUnlinkExecuted) {
-            // no profile is activated from EventsService
-            // link, unlink volumes for activated profile
-            boolean linkUnlink = false;
-            if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)
-                linkUnlink = true;
-            if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED)
-                linkUnlink = true;
-            if (linkUnlink) {
-                Profile profile = dataWrapper.getActivatedProfile();
-                profile = GlobalData.getMappedProfile(profile, context);
-                if (profile != null) {
-                    GlobalData.logE("EventsService.doEndService", "callEventType=" + callEventType);
-                    Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-                    volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-                    volumeServiceIntent.putExtra(GlobalData.EXTRA_FOR_PROFILE_ACTIVATION, false);
-                    context.startService(volumeServiceIntent);
-                    // wait for link/unlink
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
+        GlobalData.logE("EventsService.doEndService","broadcastReceiverType="+broadcastReceiverType);
+
+        if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+
+            if (!PhoneCallService.linkUnlinkExecuted) {
+                // no profile is activated from EventsService
+                // link, unlink volumes for activated profile
+                boolean linkUnlink = false;
+                if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)
+                    linkUnlink = true;
+                if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED)
+                    linkUnlink = true;
+                if (linkUnlink) {
+                    Profile profile = dataWrapper.getActivatedProfile();
+                    profile = GlobalData.getMappedProfile(profile, context);
+                    if (profile != null) {
+                        GlobalData.logE("EventsService.doEndService", "callEventType=" + callEventType);
+                        Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
+                        volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                        volumeServiceIntent.putExtra(GlobalData.EXTRA_FOR_PROFILE_ACTIVATION, false);
+                        context.startService(volumeServiceIntent);
+                        // wait for link/unlink
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                        }
                     }
                 }
-            }
-        } else
-            PhoneCallService.linkUnlinkExecuted = false;
+            } else
+                PhoneCallService.linkUnlinkExecuted = false;
 
-        if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) {
-            // start PhoneProfilesService for ringing call simulation
-            Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            lIntent.putExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, true);
-            lIntent.putExtra(GlobalData.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-            lIntent.putExtra(GlobalData.EXTRA_OLD_ZEN_MODE, oldZenMode);
-            lIntent.putExtra(GlobalData.EXTRA_OLD_RINGTONE, oldRingtone);
-            context.startService(lIntent);
+            if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) {
+                // start PhoneProfilesService for ringing call simulation
+                Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                lIntent.putExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, true);
+                lIntent.putExtra(GlobalData.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                lIntent.putExtra(GlobalData.EXTRA_OLD_ZEN_MODE, oldZenMode);
+                lIntent.putExtra(GlobalData.EXTRA_OLD_RINGTONE, oldRingtone);
+                context.startService(lIntent);
+            }
+
+            if (!PhoneCallService.speakerphoneOnExecuted) {
+                if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
+                        (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
+                    Profile profile = dataWrapper.getActivatedProfile();
+                    profile = GlobalData.getMappedProfile(profile, context);
+                    PhoneCallService.setSpeakerphoneOn(profile, context);
+                }
+            } else
+                PhoneCallService.speakerphoneOnExecuted = false;
         }
-
-        if (!PhoneCallService.speakerphoneOnExecuted) {
-            if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
-                    (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
-                Profile profile = dataWrapper.getActivatedProfile();
-                profile = GlobalData.getMappedProfile(profile, context);
-                PhoneCallService.setSpeakerphoneOn(profile, context);
-            }
-        } else
-            PhoneCallService.speakerphoneOnExecuted = false;
 
         // completting wake
         if (broadcastReceiverType.equals(BatteryEventBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
