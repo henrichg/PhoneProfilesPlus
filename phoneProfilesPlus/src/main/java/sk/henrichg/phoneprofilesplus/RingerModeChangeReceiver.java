@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Build;
 import android.provider.Settings;
 
 import java.util.Calendar;
@@ -30,7 +31,9 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
 
     @SuppressWarnings("deprecation")
     private static boolean vibrationIsOn(Context context, AudioManager audioManager) {
-        int vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
+        int vibrateType = -999;
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1)
+            vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
         int vibrateWhenRinging;
         if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
             vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);

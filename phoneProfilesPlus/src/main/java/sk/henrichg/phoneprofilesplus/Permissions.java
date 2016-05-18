@@ -194,23 +194,6 @@ public class Permissions {
             return true;
     }
 
-    public static boolean checkSavedProfileVolumes(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            //Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); -- NOT WORKING
-            int ringerVolume = GlobalData.getRingerVolume(context);
-            int notificationVolume = GlobalData.getNotificationVolume(context);
-            if ((ringerVolume != -999) ||
-                    (notificationVolume != -999)) {
-                //return Settings.System.canWrite(context);
-                return true;
-            }
-            else
-                return true;
-        }
-        else
-            return true;
-    }
-
     public static boolean checkInstallTone(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
             return (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
