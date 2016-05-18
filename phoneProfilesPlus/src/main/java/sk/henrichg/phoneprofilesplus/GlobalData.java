@@ -80,10 +80,10 @@ public class GlobalData extends Application {
                                          //+"|WifiAPStateChangeBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiAP"
 
-                                         +"|RingerModeChangeReceiver.getRingerMode"
-                                         +"|PPNotificationListenerService"
+                                         //+"|RingerModeChangeReceiver.getRingerMode"
+                                         //+"|PPNotificationListenerService"
                                          //+"|ActivateProfileHelper.vibrationIsOn"
-                                         +"|PhoneCallService.startSimulatingRingingCall"
+                                         //+"|PhoneCallService.startSimulatingRingingCall"
                                          //+"|##### ExecuteVolumeProfilePrefsService"
                                          //+"|EventsService.doEndService"
             ;

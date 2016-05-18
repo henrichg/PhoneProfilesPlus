@@ -624,7 +624,7 @@ public class PhoneProfilesService extends Service
             }
         //}
         ringingCallIsSimulating = false;
-        RingerModeChangeReceiver.internalChange = true;
+        RingerModeChangeReceiver.internalChange = false;
     }
 
     public boolean isRingingSimulationRunning() {
