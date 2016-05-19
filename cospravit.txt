@@ -1093,3 +1093,19 @@ Na pause udalosti s lokaciou:
             return "3G/4G - WCDMA/LTE";
         }
     }
+
+
+--------------------------------
+
+Link/ulink + simuacia nocneho hovoru
+
+1. ringer mod a hlasitosti + link/unlink treba robit vzdy, ak aktivujem profil
+2. ak neaktivujem, robim len link/unlink
+3. simulaciu robim, ak aktivacia profilu zmeni ringer mod alebo ton zvonenia
+Toto mam.
+
+Problem je prioritny mod. Ten hned po restarte nezvoni (ak nemam kontakt vo vynimkach),
+ale dalsie hovory zvonia vzdy, je jedno kto vola.
+Skus si pozriet ringer mod priamo z audio managera, ze aky je. Ja by som nemenil hlasitosti,
+ak tento bude vibrate a silent. Mozno to zafunguje aj na zen mody. Testni to aj na android 5.
+

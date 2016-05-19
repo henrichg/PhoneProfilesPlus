@@ -445,7 +445,6 @@ public class ActivateProfileHelper {
                 ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
                 ((ringerMode == 5) && ((zenMode == 3) || (zenMode == 6)))
              )) {
-
             if (forProfileActivation) {
                 if (profile.getVolumeSystemChange()) {
                     //RingerModeChangeReceiver.internalChange = true;
