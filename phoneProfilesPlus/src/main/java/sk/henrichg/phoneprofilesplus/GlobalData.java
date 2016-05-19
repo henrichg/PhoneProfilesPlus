@@ -87,6 +87,8 @@ public class GlobalData extends Application {
                                          //+"|PhoneCallService.startSimulatingRingingCall"
                                          //+"|##### ExecuteVolumeProfilePrefsService"
                                          //+"|EventsService.doEndService"
+
+                                         +"|PhoneProfilesService.playEventNotificationSound"
             ;
 
 

@@ -373,18 +373,26 @@ public class EventsService extends IntentService
                         GlobalData.logE("$$$ EventsService.onHandleIntent", "profileId=" + mergedProfile._id);
                         dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                         dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
+
+                        if (GlobalData.phoneProfilesService != null)
+                            GlobalData.phoneProfilesService.playEventNotificationSound(eventNotificationSound);
+
                         // wait for profile activation
                         try {
                             Thread.sleep(1000); // // 1 second for activating profile from EventsService
                         } catch (InterruptedException e) {
                         }
                     } else {
-                    /*long prId0 = 0;
-                    long prId = 0;
-                    if (activatedProfile0 != null) prId0 = activatedProfile0._id;
-                    if (activatedProfile != null) prId = activatedProfile._id;
-                    if ((prId0 != prId) || (prId == 0))*/
+                        /*long prId0 = 0;
+                        long prId = 0;
+                        if (activatedProfile0 != null) prId0 = activatedProfile0._id;
+                        if (activatedProfile != null) prId = activatedProfile._id;
+                        if ((prId0 != prId) || (prId == 0))*/
                         dataWrapper.updateNotificationAndWidgets(activatedProfile);
+
+                        if (GlobalData.phoneProfilesService != null)
+                            GlobalData.phoneProfilesService.playEventNotificationSound(eventNotificationSound);
+
                     }
                 }
             }
