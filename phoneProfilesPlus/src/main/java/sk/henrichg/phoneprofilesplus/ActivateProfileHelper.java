@@ -896,7 +896,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    public void execute(Profile _profile, boolean merged, boolean _interactive/*, String eventNotificationSound*/)
+    public void execute(Profile _profile, boolean merged, boolean _interactive)
     {
         // rozdelit zvonenie a notifikacie - zial je to oznacene ako @Hide :-(
         //Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
@@ -1359,13 +1359,12 @@ public class ActivateProfileHelper {
         }
     }
 
-    public void showNotification(Profile profile/*, String eventNotificationSound*/)
+    public void showNotification(Profile profile)
     {
         if (lockRefresh)
             // no refres notification
             return;
 
-        //if ((GlobalData.notificationStatusBar) || (!eventNotificationSound.isEmpty()))
         if (GlobalData.notificationStatusBar)
         {
             boolean notificationShowInStatusBar = GlobalData.notificationShowInStatusBar;
@@ -1479,12 +1478,6 @@ public class ActivateProfileHelper {
                 //contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, null);
                 contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
             }
-
-            /*if (!eventNotificationSound.isEmpty())
-            {
-                Uri ringtoneUri=Uri.parse(eventNotificationSound);
-                notificationBuilder.setSound(ringtoneUri);
-            }*/
 
             GlobalData.phoneProfilesNotification = notificationBuilder.build();
 

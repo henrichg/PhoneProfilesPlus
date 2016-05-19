@@ -35,7 +35,6 @@ public class GrantPermissionActivity extends Activity {
     private int monochromeValue;
     private int startupSource;
     private boolean interactive;
-    //private String eventNotificationSound;
     private boolean log;
     private String applicationDataPath;
     private long event_id;
@@ -74,7 +73,6 @@ public class GrantPermissionActivity extends Activity {
         monochromeValue = intent.getIntExtra(Permissions.EXTRA_MONOCHROME_VALUE, 0xFF);
         startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_ACTIVATOR);
         interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
-        //eventNotificationSound = intent.getStringExtra(Permissions.EXTRA_EVENT_NOTIFICATION_SOUND);
         log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
 
@@ -676,19 +674,19 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.brightnessDialogPreference.enableViews();
         }
         else {
+            // Profile permussion
+
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
-            //if (eventNotificationSound == null)
-            //    eventNotificationSound = "";
             if ((Permissions.profileActivationActivity != null) && (profile._askForDuration)) {
                 FastAccessDurationDialog dlg = new FastAccessDurationDialog(Permissions.profileActivationActivity,
-                        profile, dataWrapper, startupSource, interactive, /*eventNotificationSound,*/ log);
+                        profile, dataWrapper, startupSource, interactive, log);
                 dlg.show();
             }
             else
                 dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
-                        Permissions.profileActivationActivity, /*eventNotificationSound,*/ log);
+                        Permissions.profileActivationActivity, log);
         }
         Permissions.releaseReferences();
         if (mergedNotification)

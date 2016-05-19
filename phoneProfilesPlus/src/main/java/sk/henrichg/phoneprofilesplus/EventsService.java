@@ -365,14 +365,14 @@ public class EventsService extends IntentService
                 }
 
                 if (mergedProfile == null)
-                    dataWrapper.updateNotificationAndWidgets(activatedProfile/*, eventNotificationSound*/);
+                    dataWrapper.updateNotificationAndWidgets(activatedProfile);
                 else {
                     if (mergedProfile._id != 0) {
                         // activate merged profile
                         GlobalData.logE("$$$ EventsService.onHandleIntent", "profileName=" + mergedProfile._name);
                         GlobalData.logE("$$$ EventsService.onHandleIntent", "profileId=" + mergedProfile._id);
                         dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                        dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, /*eventNotificationSound,*/ false);
+                        dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
                         // wait for profile activation
                         try {
                             Thread.sleep(1000); // // 1 second for activating profile from EventsService
@@ -384,7 +384,7 @@ public class EventsService extends IntentService
                     if (activatedProfile0 != null) prId0 = activatedProfile0._id;
                     if (activatedProfile != null) prId = activatedProfile._id;
                     if ((prId0 != prId) || (prId == 0))*/
-                        dataWrapper.updateNotificationAndWidgets(activatedProfile/*, eventNotificationSound*/);
+                        dataWrapper.updateNotificationAndWidgets(activatedProfile);
                     }
                 }
             }
