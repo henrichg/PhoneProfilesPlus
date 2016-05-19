@@ -88,7 +88,7 @@ public class GlobalData extends Application {
                                          //+"|##### ExecuteVolumeProfilePrefsService"
                                          //+"|EventsService.doEndService"
 
-                                         +"|PhoneProfilesService.playEventNotificationSound"
+                                         //+"|PhoneProfilesService.playEventNotificationSound"
             ;
 
 
