@@ -75,11 +75,11 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivation) {
                     // set ringer mode to Ring for proper change ringer mode to Silent
                     if (aph.setRingerMode(profile, audioManager, true, linkUnlink, forProfileActivation)) {
-                        /*try {
+                        try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
                             //System.out.println(e);
-                        }*/
+                        }
                     }
                 }
 
@@ -88,11 +88,11 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 aph.setVolumes(profile, audioManager, linkUnlink, forProfileActivation);
 
                 if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivation) {
-                    try {
+                    /*try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         //System.out.println(e);
-                    }
+                    }*/
 
                     //GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode=" + audioManager.getMode());
 
