@@ -896,7 +896,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    public void execute(Profile _profile, boolean merged, boolean _interactive, String eventNotificationSound)
+    public void execute(Profile _profile, boolean merged, boolean _interactive/*, String eventNotificationSound*/)
     {
         // rozdelit zvonenie a notifikacie - zial je to oznacene ako @Hide :-(
         //Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
@@ -1359,13 +1359,14 @@ public class ActivateProfileHelper {
         }
     }
 
-    public void showNotification(Profile profile, String eventNotificationSound)
+    public void showNotification(Profile profile/*, String eventNotificationSound*/)
     {
         if (lockRefresh)
             // no refres notification
             return;
 
-        if ((GlobalData.notificationStatusBar) || (!eventNotificationSound.isEmpty()))
+        //if ((GlobalData.notificationStatusBar) || (!eventNotificationSound.isEmpty()))
+        if (GlobalData.notificationStatusBar)
         {
             boolean notificationShowInStatusBar = GlobalData.notificationShowInStatusBar;
             boolean notificationStatusBarPermanent = GlobalData.notificationStatusBarPermanent;
@@ -1479,13 +1480,13 @@ public class ActivateProfileHelper {
                 contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
             }
 
-            if (!eventNotificationSound.isEmpty())
+            /*if (!eventNotificationSound.isEmpty())
             {
                 Uri ringtoneUri=Uri.parse(eventNotificationSound);
                 notificationBuilder.setSound(ringtoneUri);
-            }
+            }*/
 
-            Notification notification = notificationBuilder.build();
+            GlobalData.phoneProfilesNotification = notificationBuilder.build();
 
             if (GlobalData.notificationTextColor.equals("1"))
                 contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
@@ -1508,28 +1509,38 @@ public class ActivateProfileHelper {
                 contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart_dark);
             contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
-            notification.contentView = contentView;
+            GlobalData.phoneProfilesNotification.contentView = contentView;
 
             if (notificationStatusBarPermanent)
             {
                 //notification.flags |= Notification.FLAG_NO_CLEAR;
-                notification.flags |= Notification.FLAG_ONGOING_EVENT;
+                GlobalData.phoneProfilesNotification.flags |= Notification.FLAG_ONGOING_EVENT;
             }
             else
             {
                 setAlarmForNotificationCancel(forceShow);
             }
-            notificationManager.notify(GlobalData.PROFILE_NOTIFICATION_ID, notification);
+
+            if (GlobalData.phoneProfilesService != null)
+                GlobalData.phoneProfilesService.startForeground(GlobalData.PROFILE_NOTIFICATION_ID, GlobalData.phoneProfilesNotification);
+            else
+                notificationManager.notify(GlobalData.PROFILE_NOTIFICATION_ID, GlobalData.phoneProfilesNotification);
         }
         else
         {
-            notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
+            if (GlobalData.phoneProfilesService != null)
+                GlobalData.phoneProfilesService.stopForeground(true);
+            else
+                notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
         }
     }
 
     public void removeNotification()
     {
-        notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
+        if (GlobalData.phoneProfilesService != null)
+            GlobalData.phoneProfilesService.stopForeground(true);
+        else
+            notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
     }
 
     private void setAlarmForNotificationCancel(boolean forceShow)

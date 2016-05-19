@@ -1167,7 +1167,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         dataWrapper.invalidateProfileList();
                         dataWrapper.invalidateEventList();
 
-                        dataWrapper.updateNotificationAndWidgets(null, "");
+                        dataWrapper.updateNotificationAndWidgets(null/*, ""*/);
                         //dataWrapper.getActivateProfileHelper().showNotification(null, "");
                         //dataWrapper.getActivateProfileHelper().updateWidget();
 
@@ -1638,7 +1638,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             Profile activeProfile = fragment.dataWrapper.getActivatedProfile();
             fragment.updateHeader(activeProfile);
-            fragment.dataWrapper.getActivateProfileHelper().showNotification(activeProfile, "");
+            fragment.dataWrapper.getActivateProfileHelper().showNotification(activeProfile/*, ""*/);
             fragment.dataWrapper.getActivateProfileHelper().updateWidget();
 
         }

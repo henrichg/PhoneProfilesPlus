@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -405,6 +406,8 @@ public class GlobalData extends Application {
 
     public static boolean isPowerSaveMode = false;
     public static GeofencesScanner geofencesScanner = null;
+
+    public static Notification phoneProfilesNotification = null;
 
     @Override
     public void onCreate()

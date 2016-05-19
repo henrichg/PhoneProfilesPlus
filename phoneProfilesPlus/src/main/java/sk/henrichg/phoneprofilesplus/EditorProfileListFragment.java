@@ -531,7 +531,7 @@ public class EditorProfileListFragment extends Fragment {
         //Profile profile = databaseHandler.getActivatedProfile();
         Profile _profile = profileListAdapter.getActivatedProfile();
         updateHeader(_profile);
-        activateProfileHelper.showNotification(_profile, "");
+        activateProfileHelper.showNotification(_profile/*, ""*/);
         activateProfileHelper.updateWidget();
 
         onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
@@ -761,7 +761,7 @@ public class EditorProfileListFragment extends Fragment {
 
     public void activateProfile(Profile profile, boolean interactive)
     {
-        dataWrapper.activateProfile(profile._id, GlobalData.STARTUP_SOURCE_EDITOR, getActivity(), "");
+        dataWrapper.activateProfile(profile._id, GlobalData.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
     }
 
     private void setProfileSelection(Profile profile, boolean refreshIcons) {

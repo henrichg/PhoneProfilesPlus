@@ -456,7 +456,7 @@ public class DataWrapper {
     }
 
     public void activateProfileFromEvent(long profile_id, boolean interactive, boolean manual,
-                                         boolean merged, String eventNotificationSound, boolean log)
+                                         boolean merged, /*String eventNotificationSound,*/ boolean log)
     {
         int startupSource = GlobalData.STARTUP_SOURCE_SERVICE;
         if (manual)
@@ -465,16 +465,16 @@ public class DataWrapper {
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, interactive, null,
-                eventNotificationSound, true)) {
+                /*eventNotificationSound,*/ true)) {
             getActivateProfileHelper().initialize(this, null, context);
-            _activateProfile(profile, merged, startupSource, interactive, null, eventNotificationSound, log);
+            _activateProfile(profile, merged, startupSource, interactive, null, /*eventNotificationSound,*/ log);
         }
     }
 
-    public void updateNotificationAndWidgets(Profile profile, String eventNotificationSound)
+    public void updateNotificationAndWidgets(Profile profile/*, String eventNotificationSound*/)
     {
         getActivateProfileHelper().initialize(this, null, context);
-        getActivateProfileHelper().showNotification(profile, eventNotificationSound);
+        getActivateProfileHelper().showNotification(profile/*, eventNotificationSound*/);
         getActivateProfileHelper().updateWidget();
     }
 
@@ -832,10 +832,10 @@ public class DataWrapper {
                 if (profileId == GlobalData.PROFILE_NO_ACTIVATE)
                     profileId = 0;
             }
-            activateProfile(profileId, GlobalData.STARTUP_SOURCE_BOOT, null, "");
+            activateProfile(profileId, GlobalData.STARTUP_SOURCE_BOOT, null/*, ""*/);
         }
         else
-            activateProfile(0, GlobalData.STARTUP_SOURCE_BOOT, null, "");
+            activateProfile(0, GlobalData.STARTUP_SOURCE_BOOT, null/*, ""*/);
     }
 
     // this is called in boot or first start application
@@ -1090,7 +1090,7 @@ public class DataWrapper {
 
     public void _activateProfile(Profile _profile, boolean merged, int startupSource,
                                     boolean _interactive, Activity _activity,
-                                    String eventNotificationSound, boolean log)
+                                    /*String eventNotificationSound,*/ boolean log)
     {
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -1142,7 +1142,7 @@ public class DataWrapper {
                     (profile._duration > 0))
                 profileDuration = profile._duration;
 
-            activateProfileHelper.execute(profile, merged, interactive, eventNotificationSound);
+            activateProfileHelper.execute(profile, merged, interactive/*, eventNotificationSound*/);
 
             if ((startupSource != GlobalData.STARTUP_SOURCE_SERVICE) &&
                 (startupSource != GlobalData.STARTUP_SOURCE_BOOT) &&
@@ -1170,7 +1170,7 @@ public class DataWrapper {
         }
 
         activatedProfile = getActivatedProfile();
-        activateProfileHelper.showNotification(activatedProfile, eventNotificationSound);
+        activateProfileHelper.showNotification(activatedProfile/*, eventNotificationSound*/);
         activateProfileHelper.updateWidget();
 
         if (log && (profile != null)) {
@@ -1221,7 +1221,7 @@ public class DataWrapper {
     }
 
     private void activateProfileWithAlert(Profile profile, int startupSource, final boolean interactive,
-                                            Activity activity, String eventNotificationSound)
+                                            Activity activity/*, String eventNotificationSound*/)
     {
         boolean isforceRunEvent = false;
 
@@ -1257,7 +1257,7 @@ public class DataWrapper {
             final boolean _interactive = interactive;
             final int _startupSource = startupSource;
             final Activity _activity = activity;
-            final String _eventNotificationSound = eventNotificationSound;
+            //final String _eventNotificationSound = eventNotificationSound;
             final DataWrapper _dataWrapper = this;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -1272,14 +1272,14 @@ public class DataWrapper {
                     if (Permissions.grantProfilePermissions(context, _profile, false, false,
                             forGUI, monochrome, monochromeValue,
                             _startupSource, _interactive, _activity,
-                            _eventNotificationSound, true)) {
+                            /*_eventNotificationSound,*/ true)) {
                         if (_profile._askForDuration) {
                             FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
-                                    _interactive, _eventNotificationSound, true);
+                                    _interactive, /*_eventNotificationSound,*/ true);
                             dlg.show();
                         }
                         else
-                            _activateProfile(_profile, false, _startupSource, _interactive, _activity, _eventNotificationSound, true);
+                            _activateProfile(_profile, false, _startupSource, _interactive, _activity, /*_eventNotificationSound,*/ true);
                     }
                     else {
                         Intent returnIntent = new Intent();
@@ -1322,21 +1322,21 @@ public class DataWrapper {
                 granted = Permissions.grantProfilePermissions(context, profile, false, false,
                         forGUI, monochrome, monochromeValue,
                         startupSource, interactive, activity,
-                        eventNotificationSound, true);
+                        /*eventNotificationSound,*/ true);
             }
             else
                 granted = Permissions.grantProfilePermissions(context, profile, false, true,
                                         forGUI, monochrome, monochromeValue,
                                         startupSource, interactive, null,
-                                        eventNotificationSound, true);
+                                        /*eventNotificationSound,*/ true);
             if (granted) {
                 if (profile._askForDuration && interactive) {
                     FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this, startupSource,
-                                                            interactive, eventNotificationSound, true);
+                                                            interactive, /*eventNotificationSound,*/ true);
                     dlg.show();
                 }
                 else
-                    _activateProfile(profile, false, startupSource, interactive, activity, eventNotificationSound, true);
+                    _activateProfile(profile, false, startupSource, interactive, activity, /*eventNotificationSound,*/ true);
             }
         }
     }
@@ -1376,7 +1376,7 @@ public class DataWrapper {
         }
     }
 
-    public void activateProfile(long profile_id, int startupSource, Activity activity, String eventNotificationSound)
+    public void activateProfile(long profile_id, int startupSource, Activity activity/*, String eventNotificationSound*/)
     {
         Profile profile;
 
@@ -1477,11 +1477,11 @@ public class DataWrapper {
         if (actProfile && (profile != null))
         {
             // aktivacia profilu
-            activateProfileWithAlert(profile, startupSource, interactive, activity, eventNotificationSound);
+            activateProfileWithAlert(profile, startupSource, interactive, activity/*, eventNotificationSound*/);
         }
         else
         {
-            activateProfileHelper.showNotification(profile, eventNotificationSound);
+            activateProfileHelper.showNotification(profile/*, eventNotificationSound*/);
             activateProfileHelper.updateWidget();
 
             // for startActivityForResult

@@ -61,7 +61,7 @@ public class Permissions {
     public static final String EXTRA_MONOCHROME = "monochrome";
     public static final String EXTRA_MONOCHROME_VALUE = "monochrome_value";
     public static final String EXTRA_INTERACTIVE = "interactive";
-    public static final String EXTRA_EVENT_NOTIFICATION_SOUND = "event_notification_sound";
+    //public static final String EXTRA_EVENT_NOTIFICATION_SOUND = "event_notification_sound";
     public static final String EXTRA_LOG = "log";
     public static final String EXTRA_APPLICATION_DATA_PATH = "application_data_path";
 
@@ -543,7 +543,7 @@ public class Permissions {
                                                   boolean onlyNotification,
                                                   boolean forGUI, boolean monochrome, int monochromeValue,
                                                   int startupSource, boolean interactive, Activity activity,
-                                                  String eventNotificationSound, boolean log) {
+                                                  /*String eventNotificationSound,*/ boolean log) {
         List<PermissionType> permissions = checkProfilePermissions(context, profile);
         if (permissions.size() > 0) {
             Intent intent = new Intent(context, GrantPermissionActivity.class);
@@ -562,7 +562,7 @@ public class Permissions {
             intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
             intent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
             intent.putExtra(EXTRA_INTERACTIVE, interactive);
-            intent.putExtra(EXTRA_EVENT_NOTIFICATION_SOUND, eventNotificationSound);
+            //intent.putExtra(EXTRA_EVENT_NOTIFICATION_SOUND, eventNotificationSound);
             intent.putExtra(EXTRA_LOG, log);
             if (!onlyNotification)
                 profileActivationActivity = activity;

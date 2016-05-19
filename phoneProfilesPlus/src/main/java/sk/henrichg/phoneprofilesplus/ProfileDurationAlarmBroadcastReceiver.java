@@ -69,7 +69,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         else
                         {
                             dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
-                            dataWrapper.activateProfile(activateProfileId, GlobalData.STARTUP_SOURCE_SERVICE, null, "");
+                            dataWrapper.activateProfile(activateProfileId, GlobalData.STARTUP_SOURCE_SERVICE, null/*, ""*/);
                         }
                     }
                 }

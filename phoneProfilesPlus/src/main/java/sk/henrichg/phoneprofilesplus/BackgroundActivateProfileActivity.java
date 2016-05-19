@@ -32,7 +32,7 @@ public class BackgroundActivateProfileActivity extends Activity {
     {
         super.onStart();
 
-        dataWrapper.activateProfile(profile_id, startupSource, this, "");
+        dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
     }
 
     @Override

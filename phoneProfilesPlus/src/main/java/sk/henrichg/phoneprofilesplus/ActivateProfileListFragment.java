@@ -321,7 +321,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     public void activateProfile(Profile profile, int startupSource)
     {
-        dataWrapper.activateProfile(profile._id, startupSource, getActivity(), "");
+        dataWrapper.activateProfile(profile._id, startupSource, getActivity()/*, ""*/);
     }
 
     public void refreshGUI(boolean refreshIcons)

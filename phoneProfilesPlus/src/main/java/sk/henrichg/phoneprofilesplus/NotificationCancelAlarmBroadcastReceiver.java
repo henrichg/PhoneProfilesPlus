@@ -12,8 +12,12 @@ public class NotificationCancelAlarmBroadcastReceiver extends BroadcastReceiver 
 
         GlobalData.logE("##### NotificationCancelAlarmBroadcastReceiver.onReceive", "xxx");
 
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
+        if (GlobalData.phoneProfilesService != null)
+            GlobalData.phoneProfilesService.stopForeground(true);
+        else {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
+        }
         
     }
 

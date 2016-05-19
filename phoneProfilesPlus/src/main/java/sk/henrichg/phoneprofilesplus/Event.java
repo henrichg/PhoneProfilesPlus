@@ -1000,24 +1000,24 @@ public class Event {
 
             if (interactive) {
                 if (mergedProfile == null)
-                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, _notificationSound, true);
+                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, /*_notificationSound,*/ true);
                 else {
                     mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
                     if (this._manualProfileActivation) {
                         dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                        dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, _notificationSound, true);
+                        dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, /*_notificationSound,*/ true);
                         mergedProfile._id = 0;
                     }
                 }
             }
             else {
                 if (mergedProfile == null)
-                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, "", true);
+                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, /*"",*/ true);
                 else {
                     mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
                     if (this._manualProfileActivation) {
                         dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                        dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, "", true);
+                        dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, /*"",*/ true);
                         mergedProfile._id = 0;
                     }
                 }
@@ -1025,7 +1025,7 @@ public class Event {
         }
         else
         {
-            dataWrapper.updateNotificationAndWidgets(activatedProfile, "");
+            dataWrapper.updateNotificationAndWidgets(activatedProfile/*, ""*/);
         }
 
         return;
@@ -1072,7 +1072,7 @@ public class Event {
                 {
                     GlobalData.logE("Event.pauseEvent","activate end porfile");
                     if (mergedProfile == null)
-                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, false, "", true);
+                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, false, /*"",*/ true);
                     else
                         mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper);
                     activatedProfileId = _fkProfileEnd;
@@ -1100,7 +1100,7 @@ public class Event {
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
                         if (mergedProfile == null)
-                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, false, "", true);
+                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, false, /*"",*/ true);
                         else
                             mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper);
                         profileActivated = true;
@@ -1124,7 +1124,7 @@ public class Event {
 
         if (!profileActivated)
         {
-            dataWrapper.updateNotificationAndWidgets(activatedProfile, "");
+            dataWrapper.updateNotificationAndWidgets(activatedProfile/*, ""*/);
         }
 
     }

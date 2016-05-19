@@ -46,7 +46,7 @@ public class LauncherActivity extends Activity {
 
                 // pre profil, ktory je prave aktivny, treba aktualizovat notifikaciu a widgety
                 Profile profile = dataWrapper.getActivatedProfile();
-                dataWrapper.getActivateProfileHelper().showNotification(profile, "");
+                dataWrapper.getActivateProfileHelper().showNotification(profile/*, ""*/);
                 dataWrapper.getActivateProfileHelper().updateWidget();
                 startupSource = GlobalData.STARTUP_SOURCE_LAUNCHER;
             }
