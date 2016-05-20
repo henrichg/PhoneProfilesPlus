@@ -569,14 +569,20 @@ public class ActivateProfileHelper {
 
     public static boolean setZenMode(Context context, int zenMode, AudioManager audioManager, int ringerMode)
     {
+        boolean OK = false;
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
             if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
                 int _zenMode = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
                 GlobalData.logE("ActivateProfileHelper.setZenMode","_zenMode="+_zenMode);
 
+                int lRingerMode;
                 if (ringerMode > -1)
-                    audioManager.setRingerMode(ringerMode);
+                    lRingerMode = ringerMode;
+                else
+                    lRingerMode = AudioManager.RINGER_MODE_NORMAL;
+                if (ringerMode == AudioManager.RINGER_MODE_NORMAL)
+                    lRingerMode = AudioManager.RINGER_MODE_SILENT;
 
                 if (zenMode != _zenMode) {
                     int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
@@ -585,17 +591,28 @@ public class ActivateProfileHelper {
                             interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
                             break;
                         case ZENMODE_PRIORITY:
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                            try {
+                                Thread.sleep(500);
+                            } catch (InterruptedException e) {
+                                //System.out.println(e);
+                            }
                             interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_PRIORITY;
                             break;
                         case ZENMODE_NONE:
+                            lRingerMode = AudioManager.RINGER_MODE_SILENT;
                             interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_NONE;
                             break;
                         case ZENMODE_ALARMS:
+                            lRingerMode = AudioManager.RINGER_MODE_SILENT;
                             interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
                             break;
                     }
                     PPNotificationListenerService.requestInterruptionFilter(context, interruptionFilter);
-                    return true;
+
+                    audioManager.setRingerMode(lRingerMode);
+
+                    OK = true;
                 }
             }
 
@@ -615,7 +632,7 @@ public class ActivateProfileHelper {
                 }
             }*/
         }
-        return false;
+        return OK;
     }
 
     private void setVibrateWhenRinging(int value) {

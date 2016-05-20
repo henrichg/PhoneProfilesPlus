@@ -72,7 +72,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
                 //GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode="+audioManager.getMode());
 
-                if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivation) {
+                /*if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivation) {
                     // set ringer mode to Ring for proper change ringer mode to Silent
                     if (aph.setRingerMode(profile, audioManager, true, linkUnlink, forProfileActivation)) {
                         try {
@@ -81,24 +81,25 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                             //System.out.println(e);
                         }
                     }
-                }
+                }*/
+                aph.setRingerMode(profile, audioManager, false, linkUnlink, forProfileActivation);
 
                 //GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode=" + audioManager.getMode());
 
                 aph.setVolumes(profile, audioManager, linkUnlink, forProfileActivation);
 
-                if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivation) {
-                    /*try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        //System.out.println(e);
-                    }*/
+                /*if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivation) {
+                    //try {
+                    //    Thread.sleep(500);
+                    //} catch (InterruptedException e) {
+                    //    //System.out.println(e);
+                    //}
 
                     //GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "audioMode=" + audioManager.getMode());
 
                     // set ringer mode after volume because volumes change silent/vibrate
                     aph.setRingerMode(profile, audioManager, false, linkUnlink, forProfileActivation);
-                }
+                }*/
 
                 try {
                     Thread.sleep(500);
