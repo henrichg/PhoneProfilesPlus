@@ -142,8 +142,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {
         GlobalData.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
+        GlobalData.logE(TAG, "onInterruptionFilterChanged(internalChange="+RingerModeChangeReceiver.internalChange+")");
         if (!RingerModeChangeReceiver.internalChange) {
-            GlobalData.logE(TAG, "onInterruptionFilterChanged(!internalChange)");
 
             final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
