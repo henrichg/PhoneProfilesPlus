@@ -28,6 +28,7 @@ android {
         //abortOnError false
         disable 'MissingTranslation'
         disable 'ManifestResource'
+        disable 'LongLogTag'
     }
 }
 

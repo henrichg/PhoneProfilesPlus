@@ -622,16 +622,20 @@ public class ActivateProfileHelper {
             if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                 Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", value);
             else {
-                String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + value;
-                //if (GlobalData.isSELinuxEnforcing())
-                //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                Command command = new Command(0, false, command1); //, command2);
                 try {
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command);
-                    //RootTools.closeAllShells();
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                    Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, value);
+                } catch (Exception ee) {
+                    String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + value;
+                    //if (GlobalData.isSELinuxEnforcing())
+                    //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                    Command command = new Command(0, false, command1); //, command2);
+                    try {
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        commandWait(command);
+                        //RootTools.closeAllShells();
+                    } catch (Exception e) {
+                        Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                    }
                 }
             }
         }
