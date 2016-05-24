@@ -103,7 +103,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 aph.setRingerMode(profile, audioManager, false, linkUnlink, forProfileActivation);
 
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     //System.out.println(e);
                 }
