@@ -811,7 +811,21 @@ public class ActivateProfileHelper {
                     if (android.os.Build.VERSION.SDK_INT >= 23)
                         setZenMode(context, ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_SILENT);
                     else
+                    if (android.os.Build.VERSION.SDK_INT >= 21)
                         setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                    else {
+                        setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_SILENT);
+                        try {
+                            audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                     setVibrateWhenRinging(0);
                     break;
                 case 5: // Zen mode
