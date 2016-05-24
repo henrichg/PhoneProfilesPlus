@@ -21,6 +21,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 // must by false for avoiding starts/pause events before restart events
                 GlobalData.setApplicationStarted(context, false);
 
+                GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
+
                 // start ReceiverService
                 context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
 
