@@ -418,12 +418,10 @@ public class ActivateProfileHelper {
     public void setVolumes(Profile profile, AudioManager audioManager, int linkUnlink, boolean forProfileActivation)
     {
         if (profile.getVolumeRingtoneChange()) {
-            //if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivaton)
             if (forProfileActivation)
                 GlobalData.setRingerVolume(context, profile.getVolumeRingtoneValue());
         }
         if (profile.getVolumeNotificationChange()) {
-            //if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivaton)
             if (forProfileActivation)
                 GlobalData.setNotificationVolume(context, profile.getVolumeNotificationValue());
         }
@@ -440,14 +438,16 @@ public class ActivateProfileHelper {
         // for interruption types NONE and ONLY_ALARMS
         // not set system, ringer, npotification volume
         // (Android 6 - priority mode = ONLY_ALARMS)
-        if (!(  (vibrationIsOn(audioManager) && !forProfileActivation) ||
-                ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT < 21) && !forProfileActivation) ||
+        if (!(  (vibrationIsOn(audioManager)) ||
+                ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT < 21)) ||
                 ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
-                ((ringerMode == 5) && ((zenMode == 3) || (zenMode == 5) || (zenMode == 6)))
+                ((ringerMode == 5) && ((zenMode == 3) || (zenMode == 4) || (zenMode == 5) || (zenMode == 6)))
              )) {
+
+            GlobalData.logE("ActivateProfileHelper.setVolumes", "ringer/notif/system change");
+
             if (forProfileActivation) {
                 if (profile.getVolumeSystemChange()) {
-                    //RingerModeChangeReceiver.internalChange = true;
                     audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, profile.getVolumeSystemValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
                     correctVolume0(audioManager);
@@ -464,7 +464,6 @@ public class ActivateProfileHelper {
                     int volume = GlobalData.getRingerVolume(context);
                     GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
                     if (volume != -999) {
-                        //RingerModeChangeReceiver.internalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
                         PhoneProfilesService.ringingVolume = volume;
                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
@@ -475,7 +474,6 @@ public class ActivateProfileHelper {
                     int volume = GlobalData.getNotificationVolume(context);
                     GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
                     if (volume != -999) {
-                        //RingerModeChangeReceiver.internalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
                         correctVolume0(audioManager);
@@ -503,11 +501,9 @@ public class ActivateProfileHelper {
                         int volume = GlobalData.getRingerVolume(context);
                         GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-RINGING  ringer volume=" + volume);
                         if (volume != -999) {
-                            //RingerModeChangeReceiver.internalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
                             PhoneProfilesService.ringingVolume = volume;
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
-                            //RingerModeChangeReceiver.internalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                             correctVolume0(audioManager);
@@ -520,7 +516,6 @@ public class ActivateProfileHelper {
                         GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  ringer volume=" + volume);
                         if (volume != -999) {
                             //Log.e("ActivateProfileHelper","setVolumes set ring volume="+volume);
-                            //RingerModeChangeReceiver.internalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
                             PhoneProfilesService.ringingVolume = volume;
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
@@ -529,7 +524,6 @@ public class ActivateProfileHelper {
                         GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  notification volume=" + volume);
                         if (volume != -999) {
                             //Log.e("ActivateProfileHelper","setVolumes set notification volume="+volume);
-                            //RingerModeChangeReceiver.internalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                         }
@@ -549,17 +543,14 @@ public class ActivateProfileHelper {
 
         if (forProfileActivation) {
             if (profile.getVolumeMediaChange()) {
-                //RingerModeChangeReceiver.internalChange = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
             }
             if (profile.getVolumeAlarmChange()) {
-                //RingerModeChangeReceiver.internalChange = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM, profile.getVolumeAlarmValue(), 0);
                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_ALARM, profile.getVolumeAlarmValue());
             }
             if (profile.getVolumeVoiceChange()) {
-                //RingerModeChangeReceiver.internalChange = true;
                 audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL, profile.getVolumeVoiceValue(), 0);
                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
             }
@@ -577,22 +568,22 @@ public class ActivateProfileHelper {
             GlobalData.logE("ActivateProfileHelper.setZenMode", "_ringerMode=" + _ringerMode);
 
             if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
-                if ((zenMode != _zenMode) /*|| (zenMode == ZENMODE_PRIORITY)*/) {
+                audioManager.setRingerMode(ringerMode);
+                if (android.os.Build.VERSION.SDK_INT < 23) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        //System.out.println(e);
+                    }
+                }
+
+                if ((zenMode != _zenMode) || (zenMode == ZENMODE_PRIORITY)) {
                     int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
                     switch (zenMode) {
                         case ZENMODE_ALL:
                             interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
                             break;
                         case ZENMODE_PRIORITY:
-                            if (android.os.Build.VERSION.SDK_INT < 23)
-                                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                            else
-                                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                            /*try {
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                //System.out.println(e);
-                            }*/
                             interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_PRIORITY;
                             break;
                         case ZENMODE_NONE:
@@ -603,16 +594,20 @@ public class ActivateProfileHelper {
                             break;
                     }
                     PPNotificationListenerService.requestInterruptionFilter(context, interruptionFilter);
-                }
-                if (ringerMode != _ringerMode) {
-                    /*if (zenMode == ZENMODE_PRIORITY) {
+                    /* if (GlobalData.grantRoot(false) && (GlobalData.settingsBinaryExists()))
+                    {
+                        String command1 = "settings put global zen_mode " + mode;
+                        //if (GlobalData.isSELinuxEnforcing())
+                        //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                        Command command = new Command(0, false, command1);
                         try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            //System.out.println(e);
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            commandWait(command);
+                            //RootTools.closeAllShells();
+                        } catch (Exception e) {
+                            Log.e("ActivateProfileHelper.setZenMode", e.getMessage());
                         }
                     }*/
-                    audioManager.setRingerMode(ringerMode);
                 }
             }
             else {
@@ -639,22 +634,6 @@ public class ActivateProfileHelper {
                         audioManager.setRingerMode(ringerMode);
                 }
             }
-
-            /* else
-            if (GlobalData.grantRoot(false) && (GlobalData.settingsBinaryExists()))
-            {
-                String command1 = "settings put global zen_mode " + mode;
-                //if (GlobalData.isSELinuxEnforcing())
-                //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                Command command = new Command(0, false, command1);
-                try {
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command);
-                    //RootTools.closeAllShells();
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.setZenMode", e.getMessage());
-                }
-            }*/
         }
         else
             audioManager.setRingerMode(ringerMode);
@@ -728,61 +707,10 @@ public class ActivateProfileHelper {
         GlobalData.logE("ActivateProfileHelper.setRingerMode", "ringerMode=" + ringerMode);
         GlobalData.logE("ActivateProfileHelper.setRingerMode", "zenMode=" + zenMode);
 
-        //PPNotificationListenerService.ringerModeToChange = -1;
-
-        /*
-        // for Lollipop 4=priority mode, for pre-lillipop 4=silent ringer mode
-        // priority mode must by invoked be 2 calls of setRingerMode:
-        // first call of setRingerMode must set ringer mode to normal (1) (not called for pre-lollipop)
-        // second call is normal change ringer mode (4)
-        // this call sequence sets Lollipop priority mode (check ExecuteVolumeProfilePrefsService, how is called setRingerMode)
-        if (firstCall) {
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
-                GlobalData.logE("ActivateProfileHelper.setRingerMode", "zen_mode=" + Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1));
-                if ((ringerMode == 4) ) { // 4 = silent ringer mode
-                    ringerMode = 1;
-                    GlobalData.logE("ActivateProfileHelper.setRingerMode", "set for reset priority");
-                }
-                else
-                if ((ringerMode == 5) && (zenMode == 2)) {
-                    zenMode = 1;
-                    GlobalData.logE("ActivateProfileHelper.setRingerMode", "set for reset priority");
-                }
-                else
-                if ((ringerMode == 5) && (zenMode == 5)) {
-                    zenMode = 4;
-                    GlobalData.logE("ActivateProfileHelper.setRingerMode", "set for reset priority");
-                }
-                else
-                    return false;
-            } else
-                return false;
-        }
-        */
-        if (firstCall) {
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
-                if ((ringerMode != 4) && (ringerMode != 5))
-                    // first call only for Android 5+ and ringer mode 4,5
-                    return false;
-            }
-            else
-                // no first call for Android < 5
-                return false;
-        }
-        else {
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
-                if ((ringerMode == 4) && (ringerMode == 5))
-                    // no second call for Android 5+ and ringer mode 4,5
-                    return false;
-            }
-            // always second call for Android < 5
-        }
-
         if (Permissions.checkSavedProfileRingerMode(context)) {
 
             switch (ringerMode) {
                 case 1:  // Ring
-                    //RingerModeChangeReceiver.internalChange = true;
                     setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL); not needed, called from setZenMode
                     try {
@@ -798,7 +726,6 @@ public class ActivateProfileHelper {
                     setVibrateWhenRinging(0);
                     break;
                 case 2:  // Ring & Vibrate
-                    //RingerModeChangeReceiver.internalChange = true;
                     setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL); not needed, called from setZenMode
                     try {
@@ -814,7 +741,6 @@ public class ActivateProfileHelper {
                     setVibrateWhenRinging(1);
                     break;
                 case 3:  // Vibrate
-                    //RingerModeChangeReceiver.internalChange = true;
                     setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE); not needed, called from setZenMode
                     try {
@@ -830,19 +756,6 @@ public class ActivateProfileHelper {
                     setVibrateWhenRinging(1);
                     break;
                 case 4:  // Silent
-                    //RingerModeChangeReceiver.internalChange = true;
-                    /*audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                    try {
-                        audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    setVibrateWhenRinging(0);*/
                     if (android.os.Build.VERSION.SDK_INT >= 23)
                         setZenMode(context, ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_SILENT);
                     else
@@ -866,34 +779,25 @@ public class ActivateProfileHelper {
                 case 5: // Zen mode
                     switch (zenMode) {
                         case 1:
-                            //RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                             setVibrateWhenRinging(0);
                             break;
                         case 2:
-                            //RingerModeChangeReceiver.internalChange = true;
-                            if (android.os.Build.VERSION.SDK_INT < 23)
-                                setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_NORMAL);
-                            else
-                                setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_SILENT);
+                            setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_NORMAL);
                             setVibrateWhenRinging(0);
                             break;
                         case 3:
-                            //RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_NONE, audioManager, AudioManager.RINGER_MODE_SILENT);
                             break;
                         case 4:
-                            //RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateWhenRinging(1);
                             break;
                         case 5:
-                            //RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateWhenRinging(1);
                             break;
                         case 6:
-                            //RingerModeChangeReceiver.internalChange = true;
                             setZenMode(context, ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_SILENT);
                             break;
                     }
