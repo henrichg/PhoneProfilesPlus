@@ -571,20 +571,23 @@ public class ActivateProfileHelper {
     {
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
-            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
-                int _zenMode = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
-                GlobalData.logE("ActivateProfileHelper.setZenMode","_zenMode="+_zenMode);
-                int _ringerMode = audioManager.getRingerMode();
-                GlobalData.logE("ActivateProfileHelper.setZenMode","_ringerMode="+_ringerMode);
+            int _zenMode = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
+            GlobalData.logE("ActivateProfileHelper.setZenMode", "_zenMode=" + _zenMode);
+            int _ringerMode = audioManager.getRingerMode();
+            GlobalData.logE("ActivateProfileHelper.setZenMode", "_ringerMode=" + _ringerMode);
 
-                if ((zenMode != _zenMode) || (zenMode == ZENMODE_PRIORITY)) {
+            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                if ((zenMode != _zenMode) /*|| (zenMode == ZENMODE_PRIORITY)*/) {
                     int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
                     switch (zenMode) {
                         case ZENMODE_ALL:
                             interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
                             break;
                         case ZENMODE_PRIORITY:
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                            if (android.os.Build.VERSION.SDK_INT < 23)
+                                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                            else
+                                audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                             /*try {
                                 Thread.sleep(500);
                             } catch (InterruptedException e) {
@@ -601,8 +604,40 @@ public class ActivateProfileHelper {
                     }
                     PPNotificationListenerService.requestInterruptionFilter(context, interruptionFilter);
                 }
-                //if (ringerMode != _ringerMode)
+                if (ringerMode != _ringerMode) {
+                    /*if (zenMode == ZENMODE_PRIORITY) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            //System.out.println(e);
+                        }
+                    }*/
                     audioManager.setRingerMode(ringerMode);
+                }
+            }
+            else {
+                switch (zenMode) {
+                    case ZENMODE_PRIORITY:
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            //System.out.println(e);
+                        }
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                        break;
+                    case ZENMODE_ALARMS:
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            //System.out.println(e);
+                        }
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                        break;
+                    default:
+                        audioManager.setRingerMode(ringerMode);
+                }
             }
 
             /* else
@@ -837,7 +872,10 @@ public class ActivateProfileHelper {
                             break;
                         case 2:
                             //RingerModeChangeReceiver.internalChange = true;
-                            setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            if (android.os.Build.VERSION.SDK_INT < 23)
+                                setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                            else
+                                setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_SILENT);
                             setVibrateWhenRinging(0);
                             break;
                         case 3:
