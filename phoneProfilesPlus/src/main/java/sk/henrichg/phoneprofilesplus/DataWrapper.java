@@ -1913,8 +1913,15 @@ public class DataWrapper {
                 }
 
             }
-            else
-                GlobalData.logE("DataWrapper.doEventService","wifiStateEnabled=false");
+            else {
+                GlobalData.logE("DataWrapper.doEventService", "wifiStateEnabled=false");
+                if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
+                    (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)) {
+                    // for this connectionTypes, wifi must not be connected to event SSID
+                    done = true;
+                    wifiPassed = (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED);
+                }
+            }
 
             if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
                 (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
@@ -2051,8 +2058,16 @@ public class DataWrapper {
                     }
                 }
             }
-            else
-                GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetoothEnabled=true");
+            else {
+                GlobalData.logE("[BTScan] DataWrapper.doEventService", "bluetoothEnabled=true");
+
+                if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
+                    (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)) {
+                    // for this connectionTypes, BT must not be connected to event BT adapter
+                    done = true;
+                    bluetoothPassed = (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED);
+                }
+            }
 
             GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetoothPassed="+bluetoothPassed);
 
