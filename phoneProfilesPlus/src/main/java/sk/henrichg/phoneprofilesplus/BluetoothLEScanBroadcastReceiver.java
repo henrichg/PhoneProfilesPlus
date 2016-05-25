@@ -6,7 +6,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
-    public static final String BROADCAST_RECEIVER_TYPE = "bluetoothScan";
+    public static final String BROADCAST_RECEIVER_TYPE = "bluetoothLEScan";
 
     @Override
     public void onReceive(Context context, Intent intent) {
