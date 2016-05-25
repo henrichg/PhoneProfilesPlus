@@ -2583,10 +2583,12 @@ public class DataWrapper {
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         else
         if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-            alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         else
             alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
     }
