@@ -70,6 +70,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
                 final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
+                aph.setRingerMode(profile, audioManager, true, linkUnlink, forProfileActivation);
                 aph.setVolumes(profile, audioManager, linkUnlink, forProfileActivation);
                 aph.setRingerMode(profile, audioManager, false, linkUnlink, forProfileActivation);
 

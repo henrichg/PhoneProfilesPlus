@@ -686,7 +686,7 @@ public class ActivateProfileHelper {
     }
 
     @SuppressWarnings("deprecation")
-    public boolean setRingerMode(Profile profile, AudioManager audioManager, boolean firstCall, int linkUnlink, boolean forProfileActivation)
+    public void setRingerMode(Profile profile, AudioManager audioManager, boolean firstCall, int linkUnlink, boolean forProfileActivation)
     {
         //GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "andioM.ringerMode=" + audioManager.getRingerMode());
 
@@ -701,13 +701,20 @@ public class ActivateProfileHelper {
                     GlobalData.setZenMode(context, profile._volumeZenMode);
             }
         }
+
+        if (firstCall)
+            return;
+
         ringerMode = GlobalData.getRingerMode(context);
         zenMode = GlobalData.getZenMode(context);
 
         GlobalData.logE("ActivateProfileHelper.setRingerMode", "ringerMode=" + ringerMode);
         GlobalData.logE("ActivateProfileHelper.setRingerMode", "zenMode=" + zenMode);
 
-        if (Permissions.checkSavedProfileRingerMode(context)) {
+        //if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivation) {
+        if (forProfileActivation) {
+
+            GlobalData.logE("ActivateProfileHelper.setRingerMode", "ringer mode change");
 
             switch (ringerMode) {
                 case 1:  // Ring
@@ -758,8 +765,7 @@ public class ActivateProfileHelper {
                 case 4:  // Silent
                     if (android.os.Build.VERSION.SDK_INT >= 23)
                         setZenMode(context, ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_SILENT);
-                    else
-                    if (android.os.Build.VERSION.SDK_INT >= 21)
+                    else if (android.os.Build.VERSION.SDK_INT >= 21)
                         setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_NORMAL);
                     else {
                         setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_SILENT);
@@ -804,7 +810,6 @@ public class ActivateProfileHelper {
                     break;
             }
         }
-        return true;
     }
 
     public void executeForWallpaper(Profile profile) {

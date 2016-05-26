@@ -767,5 +767,5 @@
     <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>
     <string name="profile_preferences_deviceScreenTimeoutInfo_summary">When option \"24 hours\" not working on your device (LG), use option \"Always On\". Option \"Always On\", may encountered troubles on your device (Samsung). Then use option \"24 hours\".</string>
-    <string name="phone_profiles_pref_notificationStatusBarRecommended">Recommended</string>
+    <string name="phone_profiles_pref_notificationStatusBarRecommended">Recommended for background service PhoneProfilesService</string>
 </resources>

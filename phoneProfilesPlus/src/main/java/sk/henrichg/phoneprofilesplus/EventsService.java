@@ -301,7 +301,7 @@ public class EventsService extends IntentService
                                 dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, /*"",*/ true);
                                 // wait for profile activation
                                 try {
-                                    Thread.sleep(1000); // // 1 second for activating profile from EventsService
+                                    Thread.sleep(1000); // // 0.5 second for activating profile from EventsService
                                 } catch (InterruptedException e) {
                                 }
                                 backgroundProfileActivated = true;
@@ -317,7 +317,7 @@ public class EventsService extends IntentService
                         dataWrapper.activateProfileFromEvent(0, interactive, "");
                         // wait for profile activation
                         try {
-                            Thread.sleep(1000); // // 1 second for activating profile from EventsService
+                            Thread.sleep(1000); // // 0.5 second for activating profile from EventsService
                         } catch (InterruptedException e) {
                         }
                         backgroundProfileActivated = true;
@@ -338,7 +338,7 @@ public class EventsService extends IntentService
                             dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, /*"",*/ true);
                             // wait for profile activation
                             try {
-                                Thread.sleep(1000); // // 1 second for activating profile from EventsService
+                                Thread.sleep(1000); // // 0.5 second for activating profile from EventsService
                             } catch (InterruptedException e) {
                             }
                             backgroundProfileActivated = true;
@@ -379,7 +379,7 @@ public class EventsService extends IntentService
 
                         // wait for profile activation
                         try {
-                            Thread.sleep(1000); // // 1 second for activating profile from EventsService
+                            Thread.sleep(1000); // // 0.5 second for activating profile from EventsService
                         } catch (InterruptedException e) {
                         }
                     } else {
@@ -527,11 +527,12 @@ public class EventsService extends IntentService
                         volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
                         volumeServiceIntent.putExtra(GlobalData.EXTRA_FOR_PROFILE_ACTIVATION, false);
                         context.startService(volumeServiceIntent);
-                        // wait for link/unlink
-                        try {
-                            Thread.sleep(1000);
+                        // wait for link/unlink - not needed, ActivateProfileHelper.setRingerMode() not change
+                        // ringer mode for link/unlink
+                        /*try {
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
-                        }
+                        }*/
                     }
                 }
             } else
@@ -548,6 +549,8 @@ public class EventsService extends IntentService
             }
 
             if (!PhoneCallService.speakerphoneOnExecuted) {
+                // no profile is activated from EventsService
+                // set speakerphone ON for activated profile
                 if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
                         (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
                     Profile profile = dataWrapper.getActivatedProfile();

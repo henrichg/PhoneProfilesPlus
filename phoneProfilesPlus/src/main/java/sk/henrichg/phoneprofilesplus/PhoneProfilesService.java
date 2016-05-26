@@ -501,6 +501,10 @@ public class PhoneProfilesService extends Service
             else
                 newRingtone = "";
 
+            GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingerMode=" + oldRingerMode);
+            GlobalData.logE("PhoneProfilesService.onStartCommand", "oldZenMode=" + oldZenMode);
+            GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingerMode=" + newRingerMode);
+            GlobalData.logE("PhoneProfilesService.onStartCommand", "newZenMode=" + newZenMode);
             GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
             GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
 
@@ -511,7 +515,7 @@ public class PhoneProfilesService extends Service
                 if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
                         ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
                     // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
-                    // Android 6 - priority mode = ONLY_ALARMS
+                    // Android 6 - ringerMode=4 = ONLY_ALARMS
 
                     // test old ringer and zen mode
                     if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
@@ -521,10 +525,22 @@ public class PhoneProfilesService extends Service
                         stream = AudioManager.STREAM_MUSIC;
                     }
                 }
+
+                if (!simulateRinging) {
+                    if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                          ((newRingerMode == 5) && (newZenMode == 2)))) {
+                        // actual ringer/zen mode is changed to another then PRIORITY
+                        // Android 5 - ringerMode=4 = PRIORITY
+                        if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                                ((oldRingerMode == 5) && (oldZenMode == 2))) {
+                            // old ringer/zen mode is PRIORITY
+                            simulateRinging = true;
+                            stream = AudioManager.STREAM_RING;
+                        }
+                    }
+                }
             }
 
-            //if (oldRingtone.contains(FirstStartService.TONE_NAME) && (!newRingtone.equals(oldRingtone)))
-            //    // tone changed from "PhoneProfiles Silent" to another
             if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
                 simulateRinging = true;
 
