@@ -301,7 +301,7 @@ public class EventsService extends IntentService
                                 dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, /*"",*/ true);
                                 // wait for profile activation
                                 try {
-                                    Thread.sleep(1000); // // 0.5 second for activating profile from EventsService
+                                    Thread.sleep(500); // // 0.5 second for activating profile from EventsService
                                 } catch (InterruptedException e) {
                                 }
                                 backgroundProfileActivated = true;
@@ -317,7 +317,7 @@ public class EventsService extends IntentService
                         dataWrapper.activateProfileFromEvent(0, interactive, "");
                         // wait for profile activation
                         try {
-                            Thread.sleep(1000); // // 0.5 second for activating profile from EventsService
+                            Thread.sleep(500); // // 0.5 second for activating profile from EventsService
                         } catch (InterruptedException e) {
                         }
                         backgroundProfileActivated = true;
@@ -338,7 +338,7 @@ public class EventsService extends IntentService
                             dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, /*"",*/ true);
                             // wait for profile activation
                             try {
-                                Thread.sleep(1000); // // 0.5 second for activating profile from EventsService
+                                Thread.sleep(500); // // 0.5 second for activating profile from EventsService
                             } catch (InterruptedException e) {
                             }
                             backgroundProfileActivated = true;
@@ -379,7 +379,7 @@ public class EventsService extends IntentService
 
                         // wait for profile activation
                         try {
-                            Thread.sleep(1000); // // 0.5 second for activating profile from EventsService
+                            Thread.sleep(500); // // 0.5 second for activating profile from EventsService
                         } catch (InterruptedException e) {
                         }
                     } else {

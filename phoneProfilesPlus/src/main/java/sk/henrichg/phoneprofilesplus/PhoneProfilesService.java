@@ -482,12 +482,13 @@ public class PhoneProfilesService extends Service
     //---------------------------
 
     private void doSimulatingRingingCall(Intent intent) {
-        if (intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false) &&
-                (!isRingingSimulationRunning()))
+        if (intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false))
         {
             GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
 
             Context context = getApplicationContext();
+
+            ringingCallIsSimulating = false;
 
             int oldRingerMode = intent.getIntExtra(GlobalData.EXTRA_OLD_RINGER_MODE, 0);
             int oldZenMode = intent.getIntExtra(GlobalData.EXTRA_OLD_ZEN_MODE, 0);
@@ -523,6 +524,7 @@ public class PhoneProfilesService extends Service
                         // old ringer/zen mode is NONE and ONLY_ALARMS
                         simulateRinging = true;
                         stream = AudioManager.STREAM_MUSIC;
+                        GlobalData.logE("PhoneProfilesService.onStartCommand", "stream=MUSIC");
                     }
                 }
 
@@ -536,6 +538,7 @@ public class PhoneProfilesService extends Service
                             // old ringer/zen mode is PRIORITY
                             simulateRinging = true;
                             stream = AudioManager.STREAM_RING;
+                            GlobalData.logE("PhoneProfilesService.onStartCommand", "stream=RING");
                         }
                     }
                 }
@@ -567,7 +570,7 @@ public class PhoneProfilesService extends Service
                 RingerModeChangeReceiver.internalChange = true;
 
                 usedStream = stream;
-                if (usedStream == AudioManager.STREAM_MUSIC) {
+                if (true /*usedStream == AudioManager.STREAM_MUSIC*/) {
                     // play repeating: default ringtone with ringing volume level
                     try {
                         int result = audioManager.requestAudioFocus(this, usedStream, AudioManager.AUDIOFOCUS_GAIN);
@@ -590,6 +593,10 @@ public class PhoneProfilesService extends Service
 
                             GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "mediaVolume=" + mediaVolume);
 
+                            /*if (android.os.Build.VERSION.SDK_INT >= 23)
+                                audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
+                            else
+                                audioManager.setStreamMute(AudioManager.STREAM_RING, true);*/
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
 
                             ringingMediaPlayer.start();
@@ -637,10 +644,15 @@ public class PhoneProfilesService extends Service
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-            if (usedStream == AudioManager.STREAM_MUSIC) {
+            if (true /*usedStream == AudioManager.STREAM_MUSIC*/) {
                 if (ringingMediaPlayer != null) {
                     if (ringingMediaPlayer.isPlaying())
                         ringingMediaPlayer.stop();
+
+                    /*if (android.os.Build.VERSION.SDK_INT >= 23)
+                        audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
+                    else
+                        audioManager.setStreamMute(AudioManager.STREAM_RING, false);*/
 
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
                     GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing stopped");
@@ -657,10 +669,6 @@ public class PhoneProfilesService extends Service
         //}
         ringingCallIsSimulating = false;
         RingerModeChangeReceiver.internalChange = false;
-    }
-
-    public boolean isRingingSimulationRunning() {
-        return ringingCallIsSimulating;
     }
 
     @Override
