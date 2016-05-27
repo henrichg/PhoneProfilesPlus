@@ -509,48 +509,53 @@ public class PhoneProfilesService extends Service
             GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
             GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
 
-            boolean simulateRinging = false;
-            int stream = AudioManager.STREAM_RING;
+            if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
 
-            if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
-                        ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
-                    // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
-                    // Android 6 - ringerMode=4 = ONLY_ALARMS
+                GlobalData.logE("PhoneProfilesService.onStartCommand", "ringing is audible");
 
-                    // test old ringer and zen mode
-                    if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
-                            ((oldRingerMode == 5) && ((oldZenMode == 3) || (oldZenMode == 6)))) {
-                        // old ringer/zen mode is NONE and ONLY_ALARMS
-                        simulateRinging = true;
-                        stream = AudioManager.STREAM_MUSIC;
-                        GlobalData.logE("PhoneProfilesService.onStartCommand", "stream=MUSIC");
-                    }
-                }
+                boolean simulateRinging = false;
+                int stream = AudioManager.STREAM_RING;
 
-                if (!simulateRinging) {
-                    if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
-                          ((newRingerMode == 5) && (newZenMode == 2)))) {
-                        // actual ringer/zen mode is changed to another then PRIORITY
-                        // Android 5 - ringerMode=4 = PRIORITY
-                        if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
-                                ((oldRingerMode == 5) && (oldZenMode == 2))) {
-                            // old ringer/zen mode is PRIORITY
+                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                    if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                            ((newRingerMode == 5) && ((newZenMode == 3) || (newZenMode == 6))))) {
+                        // actual ringer/zen mode is changed to another then NONE and ONLY_ALARMS
+                        // Android 6 - ringerMode=4 = ONLY_ALARMS
+
+                        // test old ringer and zen mode
+                        if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                                ((oldRingerMode == 5) && ((oldZenMode == 3) || (oldZenMode == 6)))) {
+                            // old ringer/zen mode is NONE and ONLY_ALARMS
                             simulateRinging = true;
-                            stream = AudioManager.STREAM_RING;
-                            GlobalData.logE("PhoneProfilesService.onStartCommand", "stream=RING");
+                            stream = AudioManager.STREAM_MUSIC;
+                            GlobalData.logE("PhoneProfilesService.onStartCommand", "stream=MUSIC");
+                        }
+                    }
+
+                    if (!simulateRinging) {
+                        if (!(((newRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                                ((newRingerMode == 5) && (newZenMode == 2)))) {
+                            // actual ringer/zen mode is changed to another then PRIORITY
+                            // Android 5 - ringerMode=4 = PRIORITY
+                            if (((oldRingerMode == 4) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                                    ((oldRingerMode == 5) && (oldZenMode == 2))) {
+                                // old ringer/zen mode is PRIORITY
+                                simulateRinging = true;
+                                stream = AudioManager.STREAM_RING;
+                                GlobalData.logE("PhoneProfilesService.onStartCommand", "stream=RING");
+                            }
                         }
                     }
                 }
+
+                if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
+                    simulateRinging = true;
+
+                GlobalData.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
+
+                if (simulateRinging)
+                    startSimulatingRingingCall(stream);
             }
-
-            if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
-                simulateRinging = true;
-
-            GlobalData.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
-
-            if (simulateRinging)
-                startSimulatingRingingCall(stream);
 
         }
     }
@@ -570,69 +575,47 @@ public class PhoneProfilesService extends Service
                 RingerModeChangeReceiver.internalChange = true;
 
                 usedStream = stream;
-                if (true /*usedStream == AudioManager.STREAM_MUSIC*/) {
-                    // play repeating: default ringtone with ringing volume level
-                    try {
-                        int result = audioManager.requestAudioFocus(this, usedStream, AudioManager.AUDIOFOCUS_GAIN);
-                        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                            ringingMediaPlayer = new MediaPlayer();
-                            ringingMediaPlayer.setAudioStreamType(usedStream);
-                            ringingMediaPlayer.setDataSource(this, Settings.System.DEFAULT_RINGTONE_URI);
-                            ringingMediaPlayer.prepare();
-                            ringingMediaPlayer.setLooping(true);
-
-                            oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-
-                            GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringingVolume=" + ringingVolume);
-
-                            int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-                            int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-
-                            float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
-                            mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
-
-                            GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "mediaVolume=" + mediaVolume);
-
-                            /*if (android.os.Build.VERSION.SDK_INT >= 23)
-                                audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
-                            else
-                                audioManager.setStreamMute(AudioManager.STREAM_RING, true);*/
-                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
-
-                            ringingMediaPlayer.start();
-
-                            ringingCallIsSimulating = true;
-                            GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing played");
-                        } else
-                            GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
-                    } catch (Exception e) {
-                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
-                        ringingMediaPlayer = null;
-                        RingerModeChangeReceiver.internalChange = false;
-                    }
-                }
-                else {
-                    // play repeating: default ringtone with ringing volume level
-                    try {
+                // play repeating: default ringtone with ringing volume level
+                try {
+                    int requestType = AudioManager.AUDIOFOCUS_GAIN;
+                    if (android.os.Build.VERSION.SDK_INT >= 19)
+                        requestType = AudioManager.AUDIOFOCUS_GAIN;
+                    int result = audioManager.requestAudioFocus(this, usedStream, requestType);
+                    if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         ringingMediaPlayer = new MediaPlayer();
                         ringingMediaPlayer.setAudioStreamType(usedStream);
                         ringingMediaPlayer.setDataSource(this, Settings.System.DEFAULT_RINGTONE_URI);
                         ringingMediaPlayer.prepare();
                         ringingMediaPlayer.setLooping(true);
 
+                        oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
                         GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringingVolume=" + ringingVolume);
 
-                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, ringingVolume, 0);
+                        int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                        int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+
+                        float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
+                        mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
+
+                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "mediaVolume=" + mediaVolume);
+
+                        /*if (android.os.Build.VERSION.SDK_INT >= 23)
+                            audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
+                        else
+                            audioManager.setStreamMute(AudioManager.STREAM_RING, true);*/
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
 
                         ringingMediaPlayer.start();
 
                         ringingCallIsSimulating = true;
-                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing played ");
-                    } catch (Exception e) {
-                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
-                        ringingMediaPlayer = null;
-                        RingerModeChangeReceiver.internalChange = false;
-                    }
+                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing played");
+                    } else
+                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
+                } catch (Exception e) {
+                    GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
+                    ringingMediaPlayer = null;
+                    RingerModeChangeReceiver.internalChange = false;
                 }
             }
         }
@@ -644,28 +627,19 @@ public class PhoneProfilesService extends Service
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-            if (true /*usedStream == AudioManager.STREAM_MUSIC*/) {
-                if (ringingMediaPlayer != null) {
-                    if (ringingMediaPlayer.isPlaying())
-                        ringingMediaPlayer.stop();
+            if (ringingMediaPlayer != null) {
+                if (ringingMediaPlayer.isPlaying())
+                    ringingMediaPlayer.stop();
 
-                    /*if (android.os.Build.VERSION.SDK_INT >= 23)
-                        audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
-                    else
-                        audioManager.setStreamMute(AudioManager.STREAM_RING, false);*/
+                /*if (android.os.Build.VERSION.SDK_INT >= 23)
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
+                else
+                    audioManager.setStreamMute(AudioManager.STREAM_RING, false);*/
 
-                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-                    GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing stopped");
-                }
-                audioManager.abandonAudioFocus(this);
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
+                GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing stopped");
             }
-            else {
-                if (ringingMediaPlayer != null) {
-                    if (ringingMediaPlayer.isPlaying())
-                        ringingMediaPlayer.stop();
-                    GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing stopped");
-                }
-            }
+            audioManager.abandonAudioFocus(this);
         //}
         ringingCallIsSimulating = false;
         RingerModeChangeReceiver.internalChange = false;
@@ -680,7 +654,7 @@ public class PhoneProfilesService extends Service
             // Pause playback
             if (ringingMediaPlayer != null)
                 if (ringingMediaPlayer.isPlaying())
-                    ringingMediaPlayer.stop();
+                    ringingMediaPlayer.pause();
         }
         if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
             // Lower the volume
@@ -690,6 +664,9 @@ public class PhoneProfilesService extends Service
             // Resume playback
             if (usedStream == AudioManager.STREAM_MUSIC)
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
+            if (ringingMediaPlayer != null)
+                if (!ringingMediaPlayer.isPlaying())
+                    ringingMediaPlayer.start();
         } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
             if (ringingMediaPlayer != null)
                 if (ringingMediaPlayer.isPlaying())

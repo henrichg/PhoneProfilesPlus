@@ -380,6 +380,14 @@ public class ActivateProfileHelper {
 
     }
 
+    public static boolean isAudibleRinging(int ringerMode, int zenMode) {
+        return (!((ringerMode == 3) ||
+                  ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT < 21)) ||
+                  ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                  ((ringerMode == 5) && ((zenMode == 3) || (zenMode == 4) || (zenMode == 5) || (zenMode == 6)))
+                 ));
+    }
+
     public void correctVolume0(AudioManager audioManager) {
         int ringerMode, zenMode;
         ringerMode = GlobalData.getRingerMode(context);
@@ -418,15 +426,11 @@ public class ActivateProfileHelper {
         GlobalData.logE("ActivateProfileHelper.setVolumes", "linkUnlink=" + linkUnlink);
         GlobalData.logE("ActivateProfileHelper.setVolumes", "forProfileActivation=" + forProfileActivation);
 
-        // for ringer mode VIBRATE or SILENT (and not for profile activation) or
+        // for ringer mode VIBRATE or SILENT or
         // for interruption types NONE and ONLY_ALARMS
-        // not set system, ringer, npotification volume
+        // not set system, ringer, notification volume
         // (Android 6 - priority mode = ONLY_ALARMS)
-        if (!(  (ringerMode == 3) ||
-                ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT < 21)) ||
-                ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
-                ((ringerMode == 5) && ((zenMode == 3) || (zenMode == 4) || (zenMode == 5) || (zenMode == 6)))
-             )) {
+        if (isAudibleRinging(ringerMode, zenMode)) {
 
             GlobalData.logE("ActivateProfileHelper.setVolumes", "ringer/notif/system change");
 
