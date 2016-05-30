@@ -90,8 +90,8 @@ public class GlobalData extends Application {
 
                                          //+"|RingerModeChangeReceiver.getRingerMode"
                                          //+"|PPNotificationListenerService"
-                                         +"|ActivateProfileHelper.vibrationIsOn"
-                                         +"|PhoneProfilesService.startSimulatingRingingCall"
+                                         //+"|ActivateProfileHelper.vibrationIsOn"
+                                         //+"|PhoneProfilesService.startSimulatingRingingCall"
                                          //+"|##### ExecuteVolumeProfilePrefsService"
                                          //+"|EventsService.doEndService"
 
