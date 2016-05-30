@@ -444,42 +444,21 @@ public class ActivateProfileHelper {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             int callState = telephony.getCallState();
 
-            //if (((!GlobalData.applicationUnlinkRingerNotificationVolumes) || (callState != TelephonyManager.CALL_STATE_RINGING))
-            //        && ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivation)) {
-            if (!GlobalData.applicationUnlinkRingerNotificationVolumes) {
-                if (profile.getVolumeRingtoneChange() || profile.getVolumeSystemChange()) {
-                    int volume = GlobalData.getRingerVolume(context);
-                    GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
-                    if (volume != -999) {
-                        audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-                        PhoneProfilesService.ringingVolume = volume;
-                        //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
-                        correctVolume0(audioManager);
-                    }
-                }
-                if (profile.getVolumeNotificationChange() || profile.getVolumeSystemChange()) {
-                    int volume = GlobalData.getNotificationVolume(context);
-                    GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
-                    if (volume != -999) {
-                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-                        //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
-                        correctVolume0(audioManager);
-                    }
-                }
+            /*
+            boolean doUnlink = audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                int zm = Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_ALL);
+                doUnlink = (zm != ZENMODE_NONE) && (zm != ZENMODE_ALARMS);
             }
+            GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink=" + doUnlink);
+            //Log.e("ActivateProfileHelper", "setVolumes doUnlink=" + doUnlink);
+            //Log.e("ActivateProfileHelper", "setVolumes ringerMode=" + audioManager.getRingerMode());
+            //Log.e("ActivateProfileHelper", "setVolumes zenMode=" + Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_NONE));
+            */
+
+            boolean volumesSet = false;
             if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
-
-                boolean doUnlink = audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
-                if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    int zm = Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_ALL);
-                    doUnlink = (zm != ZENMODE_NONE) && (zm != ZENMODE_ALARMS);
-                }
-                GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink=" + doUnlink);
-                //Log.e("ActivateProfileHelper", "setVolumes doUnlink=" + doUnlink);
-                //Log.e("ActivateProfileHelper", "setVolumes ringerMode=" + audioManager.getRingerMode());
-                //Log.e("ActivateProfileHelper", "setVolumes zenMode=" + Settings.Global.getInt(context.getContentResolver(), "zen_mode", ZENMODE_NONE));
-
-                if (doUnlink) {
+                //if (doUnlink) {
                     //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
                     if (callState == TelephonyManager.CALL_STATE_RINGING) {
                         // for separating ringing and notification
@@ -495,6 +474,7 @@ public class ActivateProfileHelper {
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                             correctVolume0(audioManager);
                         }
+                        volumesSet = true;
                     } else if (linkUnlink == PhoneCallService.LINKMODE_LINK) {
                         // for separating ringing and notification
                         // in not ringing state ringer and notification volume must by change
@@ -515,8 +495,9 @@ public class ActivateProfileHelper {
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                         }
                         correctVolume0(audioManager);
+                        volumesSet = true;
                     }
-                }
+                /*}
                 else {
                     if (callState == TelephonyManager.CALL_STATE_RINGING) {
                         int volume = GlobalData.getRingerVolume(context);
@@ -524,6 +505,23 @@ public class ActivateProfileHelper {
                             volume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                         PhoneProfilesService.ringingVolume = volume;
                     }
+                }*/
+            }
+            if (!volumesSet) {
+                int volume = GlobalData.getRingerVolume(context);
+                GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
+                if (volume != -999) {
+                    audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+                    PhoneProfilesService.ringingVolume = volume;
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
+                    correctVolume0(audioManager);
+                }
+                volume = GlobalData.getNotificationVolume(context);
+                GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
+                if (volume != -999) {
+                    audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
+                    correctVolume0(audioManager);
                 }
             }
         }
@@ -602,7 +600,7 @@ public class ActivateProfileHelper {
                     case ZENMODE_PRIORITY:
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                         try {
-                            Thread.sleep(200);
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             //System.out.println(e);
                         }
@@ -611,7 +609,7 @@ public class ActivateProfileHelper {
                     case ZENMODE_ALARMS:
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                         try {
-                            Thread.sleep(200);
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             //System.out.println(e);
                         }
@@ -623,7 +621,7 @@ public class ActivateProfileHelper {
                         else
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         try {
-                            Thread.sleep(200);
+                            Thread.sleep(500);
                         } catch (InterruptedException e) {
                             //System.out.println(e);
                         }
