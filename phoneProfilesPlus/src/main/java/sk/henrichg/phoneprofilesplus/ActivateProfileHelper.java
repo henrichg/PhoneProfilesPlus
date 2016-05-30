@@ -73,6 +73,7 @@ public class ActivateProfileHelper {
     public static final int ZENMODE_PRIORITY = 1;
     public static final int ZENMODE_NONE = 2;
     public static final int ZENMODE_ALARMS = 3;
+    public static final int ZENMODE_SILENT = 99;
 
     public ActivateProfileHelper()
     {
@@ -553,7 +554,7 @@ public class ActivateProfileHelper {
             int _ringerMode = audioManager.getRingerMode();
             GlobalData.logE("ActivateProfileHelper.setZenMode", "_ringerMode=" + _ringerMode);
 
-            if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+            if ((zenMode != ZENMODE_SILENT) && (PPNotificationListenerService.isNotificationListenerServiceEnabled(context))) {
                 audioManager.setRingerMode(ringerMode);
                 if (android.os.Build.VERSION.SDK_INT < 23) {
                     try {
@@ -609,6 +610,18 @@ public class ActivateProfileHelper {
                         break;
                     case ZENMODE_ALARMS:
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+                            //System.out.println(e);
+                        }
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                        break;
+                    case ZENMODE_SILENT:
+                        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context))
+                            setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
+                        else
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         try {
                             Thread.sleep(200);
                         } catch (InterruptedException e) {
@@ -754,8 +767,7 @@ public class ActivateProfileHelper {
                     else if (android.os.Build.VERSION.SDK_INT >= 21)
                         setZenMode(context, ZENMODE_PRIORITY, audioManager, AudioManager.RINGER_MODE_NORMAL);*/
                     if (android.os.Build.VERSION.SDK_INT >= 21) {
-                        setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
-                        setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_SILENT);
+                        setZenMode(context, ZENMODE_SILENT, audioManager, AudioManager.RINGER_MODE_SILENT);
                     }
                     else {
                         setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_SILENT);
