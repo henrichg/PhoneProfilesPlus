@@ -526,6 +526,7 @@ public class ActivateProfileHelper {
                 }*/
             }
             if (!volumesSet) {
+                // reverted order for disabled unlink
                 int volume = GlobalData.getNotificationVolume(context);
                 GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
                 if (volume != -999) {
