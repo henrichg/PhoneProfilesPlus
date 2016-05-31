@@ -211,10 +211,10 @@ public class GlobalData extends Application {
     static final String PREF_PROFILE_ASK_FOR_DURATION = "prf_pref_askForDuration";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE = "prf_pref_deviceNetworkType";
     static final String PREF_PROFILE_NOTIFICATION_LED = "prf_pref_notificationLed";
+    static final String PREF_PROFILE_VIBRATE_WHEN_RINGING = "prf_pref_vibrateWhenRinging";
 
     // no preferences, bud checked from isPreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
-    static final String PREF_PROFILE_DEVICE_VIBRATE_WHEN_RINGING = "prf_pref_volumeVibrateWhenRinging";
 
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
 
@@ -703,7 +703,8 @@ public class GlobalData extends Application {
                 x.getKey().equals(PREF_PROFILE_DEVICE_WIFI_AP) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
-                x.getKey().equals(PREF_PROFILE_NOTIFICATION_LED))
+                x.getKey().equals(PREF_PROFILE_NOTIFICATION_LED) ||
+                x.getKey().equals(PREF_PROFILE_VIBRATE_WHEN_RINGING))
             {
                 if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
                 else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
@@ -778,6 +779,7 @@ public class GlobalData extends Application {
         profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0"));
         profile._deviceNetworkType = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
         profile._notificationLed = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_NOTIFICATION_LED, "0"));
+        profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
 
         return profile;
     }
@@ -834,7 +836,8 @@ public class GlobalData extends Application {
                                profile._devicePowerSaveMode,
                                profile._askForDuration,
                                profile._deviceNetworkType,
-                               profile._notificationLed);
+                               profile._notificationLed,
+                               profile._vibrateWhenRinging);
 
             if (profile._volumeRingerMode == 99)
                 mappedProfile._volumeRingerMode = defaultProfile._volumeRingerMode;
@@ -915,6 +918,8 @@ public class GlobalData extends Application {
                 mappedProfile._deviceNetworkType = defaultProfile._deviceNetworkType;
             if (profile._notificationLed == 99)
                 mappedProfile._notificationLed = defaultProfile._notificationLed;
+            if (profile._vibrateWhenRinging == 99)
+                mappedProfile._vibrateWhenRinging = defaultProfile._vibrateWhenRinging;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -1452,7 +1457,7 @@ public class GlobalData extends Application {
             }
         }
         else
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_VIBRATE_WHEN_RINGING))
+        if (preferenceKey.equals(PREF_PROFILE_VIBRATE_WHEN_RINGING))
         {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 if (isRooted(false)) {

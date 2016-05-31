@@ -895,4 +895,26 @@
     <item>7</item>
     <item>8</item>
 </string-array>
+<string-array name="vibrateWhenRingingArray">
+    <item>@string/array_pref_no_change</item>
+    <item>@string/array_pref_default_profile</item>
+    <item>@string/array_pref_hardwareModeArray_on</item>
+    <item>@string/array_pref_hardwareModeArray_off</item>
+</string-array>
+<string-array name="vibrateWhenRingingValues">
+    <item>0</item>
+    <item>99</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
+<string-array name="vibrateWhenRingingDPArray">
+    <item>@string/array_pref_no_change</item>
+    <item>@string/array_pref_hardwareModeArray_on</item>
+    <item>@string/array_pref_hardwareModeArray_off</item>
+</string-array>
+<string-array name="vibrateWhenRingingDPValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
 </resources>

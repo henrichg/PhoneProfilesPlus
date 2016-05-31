@@ -73,6 +73,11 @@ public class ProfilePreferencesIndicator {
                 if (profile._volumeRingerMode == 4)
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off;
             }
+            /*// vibrate when ringing
+            if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing;
+            if (profile._vibrateWhenRinging == 2)
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing_off;*/
             // vibration on touch
             if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;

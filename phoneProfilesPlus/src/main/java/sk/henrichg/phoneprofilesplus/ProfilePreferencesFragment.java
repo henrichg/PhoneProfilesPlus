@@ -146,6 +146,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             setSummary(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
             setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);
             setSummary(GlobalData.PREF_PROFILE_NOTIFICATION_LED);
+            setSummary(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING);
 
             // disable depended preferences
             disableDependedPref(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
@@ -154,6 +155,8 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
             disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
             disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
+            disableDependedPref(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE);
+            disableDependedPref(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
 
         //}
     }

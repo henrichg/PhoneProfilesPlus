@@ -38,6 +38,14 @@
             android:entryValues="@array/zenModeDPValues"
             app:useStockLayout="true" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/profile_preferences_vibrateWhenRinging"
+            android:summary="@string/array_pref_no_change"
+            android:key="prf_pref_vibrateWhenRinging"
+            android:defaultValue="@string/prf_pref_vibrateWhenRinging"
+            android:entries="@array/vibrateWhenRingingDPArray"
+            android:entryValues="@array/vibrateWhenRingingDPValues"
+            app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/profile_preferences_vibrationOnTouch"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_vibrationOnTouch"
