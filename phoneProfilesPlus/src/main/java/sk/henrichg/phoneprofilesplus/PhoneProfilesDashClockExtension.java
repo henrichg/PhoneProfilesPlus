@@ -131,7 +131,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             // vibrate when ringing
             if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
                 indicator1 = addIntoIndicator(indicator1, "wr1");
-            if (profile._vibrationOnTouch == 2)
+            if (profile._vibrateWhenRinging == 2)
                 indicator1 = addIntoIndicator(indicator1, "wr0");
             // vibration on touch
             if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
