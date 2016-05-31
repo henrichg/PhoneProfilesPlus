@@ -65,7 +65,7 @@ public class GlobalData extends Application {
                                          //+"|ExecuteVolumeProfilePrefsService"
                                          //+"|ActivateProfileHelper.execute"
                                          //+"|ActivateProfileHelper.setRingerMode"
-                                         +"|ActivateProfileHelper.setVolumes"
+                                         //+"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.setZenMode"
                                          //+"|EventsService.doEndService"
                                          //+"|EventsService.onHandleIntent"

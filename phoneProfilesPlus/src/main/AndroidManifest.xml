@@ -705,6 +705,11 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <receiver
+            android:name=".StartEventsServiceBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
 
 </manifest>

@@ -2448,8 +2448,13 @@ public class DataWrapper {
 
         GlobalData.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
 
-        if (GlobalData.getEventsBlocked(context) && (!unblockEventsRun))
+        if (GlobalData.getEventsBlocked(context) && (!unblockEventsRun)) {
+
+            Intent intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
+            context.sendBroadcast(intent);
+
             return;
+        }
 
         GlobalData.logE("DataWrapper.restartEvents", "events are not blocked");
 
@@ -2599,6 +2604,9 @@ public class DataWrapper {
         getDatabaseHandler().updateEventBlocked(event);
     }
 
+    // returns true if:
+    // 1. events are blocked = any profile is activated manually
+    // 2. no any forceRun event is running
     public boolean getIsManualProfileActivation()
     {
         if (!GlobalData.getEventsBlocked(context))
