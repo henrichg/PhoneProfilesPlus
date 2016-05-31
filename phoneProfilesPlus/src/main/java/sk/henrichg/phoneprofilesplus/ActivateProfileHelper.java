@@ -497,6 +497,24 @@ public class ActivateProfileHelper {
                         correctVolume0(audioManager);
                         volumesSet = true;
                     }
+                    else {
+                        int volume = GlobalData.getRingerVolume(context);
+                        GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
+                        if (volume != -999) {
+                            audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
+                            PhoneProfilesService.ringingVolume = volume;
+                            //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
+                            correctVolume0(audioManager);
+                        }
+                        volume = GlobalData.getNotificationVolume(context);
+                        GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
+                        if (volume != -999) {
+                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
+                            //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
+                            correctVolume0(audioManager);
+                        }
+                        volumesSet = true;
+                    }
                 /*}
                 else {
                     if (callState == TelephonyManager.CALL_STATE_RINGING) {
