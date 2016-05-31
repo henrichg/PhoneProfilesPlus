@@ -5720,7 +5720,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     KEY_DEVICE_POWER_SAVE_MODE + "," +
                                                     KEY_VOLUME_ZEN_MODE + "," +
                                                     KEY_DEVICE_NETWORK_TYPE + "," +
-                                                    KEY_NOTIFICATION_LED +
+                                                    KEY_NOTIFICATION_LED + "," +
+                                                    KEY_VIBRATE_WHEN_RINGING +
                                          " FROM " + TABLE_PROFILES;
         final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                                                     KEY_E_WIFI_ENABLED + "," +
@@ -5885,6 +5886,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         values.clear();
                         values.put(KEY_NOTIFICATION_LED, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(15)) != 0) &&
+                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, context)
+                                    == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_VIBRATE_WHEN_RINGING, 0);
                         db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                 new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                     }
