@@ -34,16 +34,16 @@ public class EventsService extends IntentService
 
         context = getApplicationContext();
 
-        GlobalData.logE("$$$ EventsService.onHandleIntent","-- start --------------------------------");
+        GlobalData.logE("$$$ EventsService.onHandleIntent", "-- start --------------------------------");
 
         broadcastReceiverType = intent.getStringExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE);
-        GlobalData.logE("$$$ EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
+        GlobalData.logE("$$$ EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);
 
         restartAtEndOfEvent = false;
 
         // disabled for firstStartEvents
         //if (!GlobalData.getApplicationStarted(context))
-            // application is not started
+        // application is not started
         //	return;
 
         GlobalData.setApplicationStarted(context, true);
@@ -64,6 +64,9 @@ public class EventsService extends IntentService
                 oldRingtone = uri.getPath();
             else
                 oldRingtone = "";
+        } catch (SecurityException e) {
+            Permissions.grantPlayRingtoneNotificationPermissions(context, true);
+            oldRingtone = "";
         } catch (Exception e) {
             oldRingtone = "";
         }

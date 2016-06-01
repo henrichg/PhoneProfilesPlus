@@ -502,6 +502,9 @@ public class PhoneProfilesService extends Service
                     newRingtone = uri.getPath();
                 else
                     newRingtone = "";
+            } catch (SecurityException e) {
+                Permissions.grantPlayRingtoneNotificationPermissions(context, true);
+                newRingtone = "";
             } catch (Exception e) {
                 newRingtone = "";
             }
@@ -616,6 +619,11 @@ public class PhoneProfilesService extends Service
                         GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing played");
                     } else
                         GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
+                } catch (SecurityException e) {
+                    GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
+                    Permissions.grantPlayRingtoneNotificationPermissions(this, true);
+                    ringingMediaPlayer = null;
+                    RingerModeChangeReceiver.internalChange = false;
                 } catch (Exception e) {
                     GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
                     ringingMediaPlayer = null;
@@ -744,6 +752,11 @@ public class PhoneProfilesService extends Service
                         }
                     }, eventNotificationMediaPlayer.getDuration());
 
+                } catch (SecurityException e) {
+                    GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "security exception");
+                    Permissions.grantPlayRingtoneNotificationPermissions(this, true);
+                    eventNotificationIsPlayed = false;
+                    RingerModeChangeReceiver.internalChange = false;
                 } catch (Exception e) {
                     GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "exception");
                     e.printStackTrace();

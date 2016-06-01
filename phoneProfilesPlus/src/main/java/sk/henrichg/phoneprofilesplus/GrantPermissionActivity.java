@@ -118,6 +118,21 @@ public class GrantPermissionActivity extends Activity {
                 }
             }
             else
+            if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
+                boolean granted = Permissions.checkPlayRingtoneNotification(context);
+                if (!granted) {
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
+                }
+                else {
+                    Toast msg = Toast.makeText(context,
+                            context.getResources().getString(R.string.toast_permissions_granted),
+                            Toast.LENGTH_SHORT);
+                    msg.show();
+                    finish();
+                    return;
+                }
+            }
+            else
             if (grantType == Permissions.GRANT_TYPE_EVENT) {
                 // get permissions from shared preferences and recheck it
                 permissions = Permissions.recheckPermissions(context, GlobalData.getMergedPermissions(context));
@@ -213,6 +228,16 @@ public class GrantPermissionActivity extends Activity {
                     notificationID = GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else
+                if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
+                    mBuilder =   new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+                            .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                            .setContentText(context.getString(R.string.permissions_for_install_tone_text_notification))
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification)))
+                            .setAutoCancel(true); // clear notification after click
+                    notificationID = GlobalData.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID;
+                }
+                else
                 if (grantType == Permissions.GRANT_TYPE_EVENT) {
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
@@ -290,6 +315,8 @@ public class GrantPermissionActivity extends Activity {
 
                 if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE)
                     showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
+                    showRequestString = context.getString(R.string.permissions_for_play_ringtone_notification_text1) + "<br><br>";
                 else if (grantType == Permissions.GRANT_TYPE_WALLPAPER)
                     showRequestString = context.getString(R.string.permissions_for_wallpaper_text1) + "<br><br>";
                 else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
@@ -376,6 +403,8 @@ public class GrantPermissionActivity extends Activity {
 
                 if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE)
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_install_tone_text2);
+                else if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
+                    showRequestString = showRequestString + context.getString(R.string.permissions_for_play_ringtone_notification_text2);
                 else if (grantType == Permissions.GRANT_TYPE_WALLPAPER)
                     showRequestString = showRequestString + context.getString(R.string.permissions_for_wallpaper_text2);
                 else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
@@ -572,6 +601,12 @@ public class GrantPermissionActivity extends Activity {
             finish();
             Permissions.removeInstallToneNotification(context);
             FirstStartService.installTone(FirstStartService.TONE_ID, FirstStartService.TONE_NAME, context, true);
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
+            //finishAffinity();
+            finish();
+            Permissions.removePlayRingtoneNotificationNotification(context);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_WALLPAPER) {
