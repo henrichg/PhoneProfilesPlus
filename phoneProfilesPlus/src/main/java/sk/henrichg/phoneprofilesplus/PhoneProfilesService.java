@@ -236,6 +236,10 @@ public class PhoneProfilesService extends Service
                 // start scanning in power save mode is not allowed
                 return;
 
+            DataWrapper dataWrapper = new DataWrapper(this, false, false, 0);
+            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) == 0)
+                return;
+
             int interval = GlobalData.applicationEventOrientationScanInterval;
             if (GlobalData.isPowerSaveMode && GlobalData.applicationEventOrientationScanInPowerSaveMode.equals("1"))
                 interval *= 2;
@@ -427,56 +431,6 @@ public class PhoneProfilesService extends Service
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
-    }
-
-    @SuppressLint("NewApi")
-    public static void setAlarm(Context context)
-    {
-        //GlobalData.logE("PhoneProfilesService.setAlarm", "oneshot=" + oneshot);
-
-        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-
-        Intent intent = new Intent(context, DeviceOrientationBroadcastReceiver.class);
-
-        removeAlarm(context);
-
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.add(Calendar.SECOND, 3);
-        long alarmTime = calendar.getTimeInMillis();
-
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-            //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-        else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-            //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-        else
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-
-        //GlobalData.logE("PhoneProfilesService.setAlarm", "alarm is set");
-    }
-
-
-    public static void removeAlarm(Context context)
-    {
-        //GlobalData.logE("PhoneProfilesService.removeAlarm", "oneshot=" + oneshot);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-        Intent intent = new Intent(context, DeviceOrientationBroadcastReceiver.class);
-        PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null)
-        {
-            //GlobalData.logE("PhoneProfilesService.removeAlarm","alarm found");
-
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
-        }
-        //else
-        //    GlobalData.logE("PhoneProfilesService.removeAlarm","alarm not found");
     }
 
     //---------------------------
