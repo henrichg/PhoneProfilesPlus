@@ -118,7 +118,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, DisableInernalChangeBroadcastReceiver.class);
-        PendingIntent pendingIntent =  PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+        PendingIntent pendingIntent =  PendingIntent.getBroadcast(context.getApplicationContext(), 1, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
             alarmManager.cancel(pendingIntent);
