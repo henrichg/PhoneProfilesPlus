@@ -480,7 +480,7 @@ public class ActivateProfileHelper {
                         // in not ringing state ringer and notification volume must by change
                         //Log.e("ActivateProfileHelper","setVolumes get audio mode="+audioManager.getMode());
                         int volume = GlobalData.getRingerVolume(context);
-                        GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  ringer volume=" + volume);
+                        GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  ringer volume=" + volume);
                         if (volume != -999) {
                             //Log.e("ActivateProfileHelper","setVolumes set ring volume="+volume);
                             audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
@@ -488,7 +488,7 @@ public class ActivateProfileHelper {
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                         }
                         volume = GlobalData.getNotificationVolume(context);
-                        GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  notification volume=" + volume);
+                        GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-link  notification volume=" + volume);
                         if (volume != -999) {
                             //Log.e("ActivateProfileHelper","setVolumes set notification volume="+volume);
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
@@ -499,7 +499,7 @@ public class ActivateProfileHelper {
                     }
                     else {
                         int volume = GlobalData.getRingerVolume(context);
-                        GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
+                        GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  ringer volume=" + volume);
                         if (volume != -999) {
                             audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
                             PhoneProfilesService.ringingVolume = volume;
@@ -507,7 +507,7 @@ public class ActivateProfileHelper {
                             correctVolume0(audioManager);
                         }
                         volume = GlobalData.getNotificationVolume(context);
-                        GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
+                        GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  notification volume=" + volume);
                         if (volume != -999) {
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);

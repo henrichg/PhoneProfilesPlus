@@ -577,11 +577,11 @@ public class PhoneProfilesService extends Service
                     GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true);
                     ringingMediaPlayer = null;
-                    RingerModeChangeReceiver.internalChange = false;
+                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 } catch (Exception e) {
                     GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
                     ringingMediaPlayer = null;
-                    RingerModeChangeReceiver.internalChange = false;
+                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 }
             }
         }
@@ -608,7 +608,7 @@ public class PhoneProfilesService extends Service
             audioManager.abandonAudioFocus(this);
         //}
         ringingCallIsSimulating = false;
-        RingerModeChangeReceiver.internalChange = false;
+        RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
     }
 
     @Override
@@ -688,6 +688,7 @@ public class PhoneProfilesService extends Service
 
                     eventNotificationIsPlayed = true;
 
+                    final Context context = this;
                     //Thread.sleep(eventNotificationMediaPlayer.getDuration());
                     new Timer().schedule(new TimerTask() {
                         @Override
@@ -701,7 +702,7 @@ public class PhoneProfilesService extends Service
 
                             eventNotificationIsPlayed = false;
 
-                            RingerModeChangeReceiver.internalChange = false;
+                            RingerModeChangeReceiver.setAlarmForDisableInternalChange(context);
 
                         }
                     }, eventNotificationMediaPlayer.getDuration());
@@ -710,12 +711,12 @@ public class PhoneProfilesService extends Service
                     GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true);
                     eventNotificationIsPlayed = false;
-                    RingerModeChangeReceiver.internalChange = false;
+                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 } catch (Exception e) {
                     GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "exception");
                     e.printStackTrace();
                     eventNotificationIsPlayed = false;
-                    RingerModeChangeReceiver.internalChange = false;
+                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 }
 
             }

@@ -49,6 +49,7 @@ public class SettingsContentObserver  extends ContentObserver {
         int currentVolume = audioManager.getStreamVolume(volumeStream);
         GlobalData.logE("### SettingsContentObserver", "channel=" + volumeStream + " currentVolume=" + currentVolume);
         GlobalData.logE("### SettingsContentObserver", "channel=" + volumeStream + " previousVolume=" + previousVolume);
+        GlobalData.logE("### SettingsContentObserver", "internalChange="+RingerModeChangeReceiver.internalChange);
 
         int delta=previousVolume-currentVolume;
 
@@ -99,6 +100,7 @@ public class SettingsContentObserver  extends ContentObserver {
 
         //internalChange = false;
 
+        /*
         //Context context = getApplicationContext();
         Intent _intent = new Intent(context, DisableInernalChangeBroadcastReceiver.class);
         //intent.putExtra(EXTRA_ONESHOT, 1);
@@ -110,6 +112,7 @@ public class SettingsContentObserver  extends ContentObserver {
 
         AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
+        */
 
     }
 

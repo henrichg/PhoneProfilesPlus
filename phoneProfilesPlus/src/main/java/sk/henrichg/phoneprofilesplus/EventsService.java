@@ -534,12 +534,11 @@ public class EventsService extends IntentService
                         volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
                         volumeServiceIntent.putExtra(GlobalData.EXTRA_FOR_PROFILE_ACTIVATION, false);
                         context.startService(volumeServiceIntent);
-                        // wait for link/unlink - not needed, ActivateProfileHelper.setRingerMode() not change
-                        // ringer mode for link/unlink
-                        /*try {
+                        // wait for link/unlink
+                        try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
-                        }*/
+                        }
                     }
                 }
             } else
@@ -566,6 +565,15 @@ public class EventsService extends IntentService
                 }
             } else
                 PhoneCallService.speakerphoneOnExecuted = false;
+
+            if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+                editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                editor.commit();
+            }
         }
 
         // completting wake

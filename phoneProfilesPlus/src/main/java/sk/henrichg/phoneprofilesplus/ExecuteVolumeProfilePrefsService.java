@@ -71,8 +71,11 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
                 aph.setRingerMode(profile, audioManager, true, linkUnlink, forProfileActivation);
+                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
                 aph.setVolumes(profile, audioManager, linkUnlink, forProfileActivation);
+                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
                 aph.setRingerMode(profile, audioManager, false, linkUnlink, forProfileActivation);
+                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
 
                 try {
                     Thread.sleep(500);
@@ -80,20 +83,11 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                     //System.out.println(e);
                 }
 
-                RingerModeChangeReceiver.internalChange = false;
+                RingerModeChangeReceiver.setAlarmForDisableInternalChange(context);
 
             }
 
         }
-
-        if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
-            (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-            editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
-            editor.commit();
-        }
-
     }
 
 
