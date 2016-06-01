@@ -55,17 +55,14 @@ public class GlobalData extends Application {
                                          //+"|$$$ PhoneProfilesService"
                                          //+"|$$$ FirstStartService.onHandleIntent"
                                          //+"|@@@ PackageReplacedReceiver"
-                                         //+"|WifiScanAlarmBroadcastReceiver.setAlarm"
-                                         //+"|@@@ WifiScanAlarmBroadcastReceiver.onReceive"
-                                         //+"|ScannerService.onHandleIntent"
 
                                          //+"|DeviceOrientationBroadcastReceiver"
                                          //+"|**** DataWrapper.doEventService"
 
-                                         +"|ExecuteVolumeProfilePrefsService"
+                                         //+"|ExecuteVolumeProfilePrefsService"
                                          //+"|ActivateProfileHelper.execute"
                                          //+"|ActivateProfileHelper.setRingerMode"
-                                         +"|ActivateProfileHelper.setVolumes"
+                                         //+"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.setZenMode"
                                          //+"|EventsService.doEndService"
                                          //+"|EventsService.onHandleIntent"
@@ -73,9 +70,9 @@ public class GlobalData extends Application {
                                          //+"|RingerModeChangeReceiver.getRingerMode"
                                          //+"|PPNotificationListenerService"
                                          //+"|ActivateProfileHelper.vibrationIsOn"
-                                         +"|PhoneProfilesService.startSimulatingRingingCall"
-                                         +"|PhoneProfilesService.stopSimulatingRingingCall"
-                                         +"|### SettingsContentObserver"
+                                         //+"|PhoneProfilesService.startSimulatingRingingCall"
+                                         //+"|PhoneProfilesService.stopSimulatingRingingCall"
+                                         //+"|### SettingsContentObserver"
 
 
                                          //+"|@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm"
@@ -83,7 +80,9 @@ public class GlobalData extends Application {
                                          //+"|$$$ ScannerService.onHandleIntent"
                                          //+"|$$$ WifiScanAlarmBroadcastReceiver.startScan"
                                          //+"|##### WifiScanBroadcastReceiver.onReceive"
-                                         //+"|$$$ WifiScanBroadcastReceiver.onReceive"
+                                         +"|$$$ WifiScanBroadcastReceiver.onReceive"
+                                         //+"|WifiScanAlarmBroadcastReceiver.setAlarm"
+                                         +"|ScannerService.onHandleIntent"
 
                                          //+"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
                                          //+"|##### WifiScanAlarmBroadcastReceiver.onReceive"
