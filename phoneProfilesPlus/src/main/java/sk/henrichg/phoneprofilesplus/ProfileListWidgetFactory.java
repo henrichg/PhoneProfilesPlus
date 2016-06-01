@@ -107,82 +107,75 @@ public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsF
     
         Profile profile = getItem(position);
 
-        if (profile.getIsIconResourceID())
-        {
-            if (profile._iconBitmap != null)
+        if (profile != null) {
+
+            if (profile.getIsIconResourceID()) {
+                if (profile._iconBitmap != null)
+                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                else {
+                    row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
+                            context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.getPackageName()));
+                }
+            } else {
                 row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
-            else {
-                row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
-                        context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.getPackageName()));
             }
-        }
-        else
-        {
-            row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
-        }
-        if ((!GlobalData.applicationWidgetListHeader) && (profile._checked))
-        {
-            // hm, interesting, how to set bold style for RemoteView text ;-)
-            String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, !GlobalData.applicationWidgetListGridLayout, true);
-            Spannable sb = new SpannableString(profileName);
-            sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
-        }
-        else {
-            String profileName = profile.getProfileNameWithDuration();
-            row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
-        }
-        int red = 0xFF;
-        int green = 0xFF;
-        int blue = 0xFF;
-        if (GlobalData.applicationWidgetListLightnessT.equals("0")) red = 0x00;
-        if (GlobalData.applicationWidgetListLightnessT.equals("25")) red = 0x40;
-        if (GlobalData.applicationWidgetListLightnessT.equals("50")) red = 0x80;
-        if (GlobalData.applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-        if (GlobalData.applicationWidgetListLightnessT.equals("100")) red = 0xFF;
-        green = red; blue = red;
-        if (!GlobalData.applicationWidgetListHeader)
-        {
-            if (profile._checked)
-            {
-                if (android.os.Build.VERSION.SDK_INT >= 16)
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 17);
+            if ((!GlobalData.applicationWidgetListHeader) && (profile._checked)) {
+                // hm, interesting, how to set bold style for RemoteView text ;-)
+                String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, !GlobalData.applicationWidgetListGridLayout, true);
+                Spannable sb = new SpannableString(profileName);
+                sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
+            } else {
+                String profileName = profile.getProfileNameWithDuration();
+                row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
+            }
+            int red = 0xFF;
+            int green = 0xFF;
+            int blue = 0xFF;
+            if (GlobalData.applicationWidgetListLightnessT.equals("0")) red = 0x00;
+            if (GlobalData.applicationWidgetListLightnessT.equals("25")) red = 0x40;
+            if (GlobalData.applicationWidgetListLightnessT.equals("50")) red = 0x80;
+            if (GlobalData.applicationWidgetListLightnessT.equals("75")) red = 0xC0;
+            if (GlobalData.applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+            green = red;
+            blue = red;
+            if (!GlobalData.applicationWidgetListHeader) {
+                if (profile._checked) {
+                    if (android.os.Build.VERSION.SDK_INT >= 16)
+                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 17);
 
-                //if (GlobalData.applicationWidgetListIconColor.equals("1"))
+                    //if (GlobalData.applicationWidgetListIconColor.equals("1"))
                     row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
-                //else
-                //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.parseColor("#33b5e5"));
-            }
-            else
-            {
-                if (android.os.Build.VERSION.SDK_INT >= 16)
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 15);
+                    //else
+                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.parseColor("#33b5e5"));
+                } else {
+                    if (android.os.Build.VERSION.SDK_INT >= 16)
+                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 15);
 
-                //if (GlobalData.applicationWidgetListIconColor.equals("1"))
+                    //if (GlobalData.applicationWidgetListIconColor.equals("1"))
                     row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
-                //else
-                //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                    //else
+                    //	row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                }
+            } else {
+                row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
             }
-        }
-        else
-        {
-            row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
-        }
-        if (!GlobalData.applicationWidgetListGridLayout)
-        {
-            if (GlobalData.applicationWidgetListPrefIndicator)
-                row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
-            else
-                row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
-        }
+            if (!GlobalData.applicationWidgetListGridLayout) {
+                if (GlobalData.applicationWidgetListPrefIndicator)
+                    row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
+                else
+                    row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+            }
 
-        Intent i=new Intent();
-        Bundle extras=new Bundle();
-    
-        extras.putLong(GlobalData.EXTRA_PROFILE_ID, profile._id);
-        extras.putInt(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_SHORTCUT);
-        i.putExtras(extras);
-        row.setOnClickFillInIntent(R.id.widget_profile_list_item, i);
+            Intent i = new Intent();
+            Bundle extras = new Bundle();
+
+            extras.putLong(GlobalData.EXTRA_PROFILE_ID, profile._id);
+            extras.putInt(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_SHORTCUT);
+            i.putExtras(extras);
+            row.setOnClickFillInIntent(R.id.widget_profile_list_item, i);
+
+        }
 
         return(row);
     }
@@ -207,6 +200,7 @@ public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsF
 
         createProfilesDataWrapper();
 
+        profileList = null;
         dataWrapper.invalidateProfileList();
         profileList = dataWrapper.getProfileList();
 

@@ -496,11 +496,15 @@ public class PhoneProfilesService extends Service
             int newRingerMode = GlobalData.getRingerMode(context);
             int newZenMode = GlobalData.getZenMode(context);
             String newRingtone;
-            Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
-            if (uri != null)
-                newRingtone = uri.getPath();
-            else
+            try {
+                Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
+                if (uri != null)
+                    newRingtone = uri.getPath();
+                else
+                    newRingtone = "";
+            } catch (Exception e) {
                 newRingtone = "";
+            }
 
             GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingerMode=" + oldRingerMode);
             GlobalData.logE("PhoneProfilesService.onStartCommand", "oldZenMode=" + oldZenMode);
