@@ -97,23 +97,6 @@ public class SettingsContentObserver  extends ContentObserver {
             previousVolumeSystem = volumeChangeDetect(AudioManager.STREAM_SYSTEM, previousVolumeSystem, audioManager);
         }
         previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
-
-        //internalChange = false;
-
-        /*
-        //Context context = getApplicationContext();
-        Intent _intent = new Intent(context, DisableInernalChangeBroadcastReceiver.class);
-        //intent.putExtra(EXTRA_ONESHOT, 1);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 1, _intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, 5);
-        long alarmTime = calendar.getTimeInMillis();
-
-        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-        */
-
     }
 
 }

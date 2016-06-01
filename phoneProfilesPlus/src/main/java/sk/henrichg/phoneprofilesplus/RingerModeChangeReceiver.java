@@ -114,10 +114,23 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         }
     }
 
+    public static void removeAlarm(Context context/*, boolean oneshot*/)
+    {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, DisableInernalChangeBroadcastReceiver.class);
+        PendingIntent pendingIntent =  PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+        if (pendingIntent != null)
+        {
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
+    }
+
     public static void setAlarmForDisableInternalChange(Context context) {
+        removeAlarm(context);
+
         //Context context = getApplicationContext();
         Intent _intent = new Intent(context, DisableInernalChangeBroadcastReceiver.class);
-        //intent.putExtra(EXTRA_ONESHOT, 1);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 1, _intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Calendar calendar = Calendar.getInstance();

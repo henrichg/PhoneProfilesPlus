@@ -533,6 +533,7 @@ public class PhoneProfilesService extends Service
 
             Ringtone ringtone = RingtoneManager.getRingtone(this, Settings.System.DEFAULT_RINGTONE_URI);
             if (ringtone != null) {
+                RingerModeChangeReceiver.removeAlarm(this);
                 RingerModeChangeReceiver.internalChange = true;
 
                 usedStream = stream;
@@ -660,6 +661,7 @@ public class PhoneProfilesService extends Service
                 Uri notificationUri = Uri.parse(eventNotificationSound);
 
                 try {
+                    RingerModeChangeReceiver.removeAlarm(this);
                     RingerModeChangeReceiver.internalChange = true;
 
                     eventNotificationMediaPlayer = new MediaPlayer();
