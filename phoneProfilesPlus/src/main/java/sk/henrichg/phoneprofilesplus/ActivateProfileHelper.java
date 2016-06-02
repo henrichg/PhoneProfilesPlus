@@ -29,6 +29,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.service.notification.NotificationListenerService;
@@ -111,11 +112,9 @@ public class ActivateProfileHelper {
 
         if (!onlyCheckForPPHelper)
         {
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                System.out.println(e);
-            }
+            //try { Thread.sleep(300); } catch (InterruptedException e) { }
+            //SystemClock.sleep(300);
+            GlobalData.sleep(300);
         }
 
         // nahodenie network type
@@ -123,11 +122,9 @@ public class ActivateProfileHelper {
             if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, context) == GlobalData.PREFERENCE_ALLOWED) {
                 if (profile._deviceNetworkType >= 100) {
                     setPreferredNetworkType(context, profile._deviceNetworkType - 100);
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
-                    }
+                    //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(200);
+                    GlobalData.sleep(200);
                 }
             }
         }
@@ -157,11 +154,9 @@ public class ActivateProfileHelper {
                 }
                 if (_setMobileData) {
                     setMobileData(context, _isMobileData);
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
-                    }
+                    //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(200);
+                    GlobalData.sleep(200);
                 }
             }
         }
@@ -202,11 +197,9 @@ public class ActivateProfileHelper {
                     }
                     if (setWifiAPState) {
                         wifiApManager.setWifiApState(isWifiAPEnabled);
-                        try {
-                            Thread.sleep(200);
-                        } catch (InterruptedException e) {
-                            System.out.println(e);
-                        }
+                        //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(200);
+                        GlobalData.sleep(200);
                     }
                 }
             }
@@ -247,11 +240,9 @@ public class ActivateProfileHelper {
                             } catch (Exception e) {
                                 wifiManager.setWifiEnabled(isWifiEnabled);
                             }
-                            try {
-                                Thread.sleep(200);
-                            } catch (InterruptedException e) {
-                                System.out.println(e);
-                            }
+                            //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(200);
+                            GlobalData.sleep(200);
                         }
                         if (isWifiEnabled)
                             // when wifi is enabled from profile, no disable wifi after scan
@@ -574,11 +565,9 @@ public class ActivateProfileHelper {
             if ((zenMode != ZENMODE_SILENT) && (PPNotificationListenerService.isNotificationListenerServiceEnabled(context))) {
                 audioManager.setRingerMode(ringerMode);
                 if (android.os.Build.VERSION.SDK_INT < 23) {
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        //System.out.println(e);
-                    }
+                    //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(500);
+                    GlobalData.sleep(500);
                 }
 
                 if ((zenMode != _zenMode) || (zenMode == ZENMODE_PRIORITY)) {
@@ -618,20 +607,16 @@ public class ActivateProfileHelper {
                 switch (zenMode) {
                     case ZENMODE_PRIORITY:
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            //System.out.println(e);
-                        }
+                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(500);
+                        GlobalData.sleep(500);
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                         break;
                     case ZENMODE_ALARMS:
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            //System.out.println(e);
-                        }
+                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(500);
+                        GlobalData.sleep(500);
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                         break;
                     case ZENMODE_SILENT:
@@ -639,11 +624,9 @@ public class ActivateProfileHelper {
                             setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
                         else
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            //System.out.println(e);
-                        }
+                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(500);
+                        GlobalData.sleep(500);
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                         break;
                     default:
@@ -885,10 +868,12 @@ public class ActivateProfileHelper {
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 context.startActivity(intent);
-                                Thread.sleep(1000);
                             } catch (Exception e) {
                                 System.out.println(e);
                             }
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            GlobalData.sleep(1000);
                         }
                     }
                     else {
@@ -898,10 +883,12 @@ public class ActivateProfileHelper {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         try {
                             context.startActivity(intent);
-                            Thread.sleep(1000);
                         } catch (Exception e) {
                             System.out.println(e);
                         }
+                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(1000);
+                        GlobalData.sleep(1000);
                     }
                 }
                 else {
@@ -911,10 +898,12 @@ public class ActivateProfileHelper {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     try {
                         context.startActivity(intent);
-                        Thread.sleep(1000);
                     } catch (Exception e) {
                         System.out.println(e);
                     }
+                    //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(1000);
+                    GlobalData.sleep(1000);
                 }
             }
         }

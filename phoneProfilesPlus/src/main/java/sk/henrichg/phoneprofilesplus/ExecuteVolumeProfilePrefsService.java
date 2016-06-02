@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.os.SystemClock;
 
 public class ExecuteVolumeProfilePrefsService extends IntentService
 {
@@ -78,11 +79,9 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 aph.setRingerMode(profile, audioManager, false, linkUnlink, forProfileActivation);
                 GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
 
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    //System.out.println(e);
-                }
+                //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                //SystemClock.sleep(500);
+                GlobalData.sleep(500);
 
                 RingerModeChangeReceiver.setAlarmForDisableInternalChange(context);
 

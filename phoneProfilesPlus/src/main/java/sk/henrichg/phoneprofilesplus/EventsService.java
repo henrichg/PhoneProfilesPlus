@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.SystemClock;
 
 import java.util.List;
 
@@ -307,10 +308,9 @@ public class EventsService extends IntentService
                             if (mergedProfile == null) {
                                 dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, /*"",*/ true);
                                 // wait for profile activation
-                                try {
-                                    Thread.sleep(500); // // 0.5 second for activating profile from EventsService
-                                } catch (InterruptedException e) {
-                                }
+                                //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(500);
+                                GlobalData.sleep(500);
                                 backgroundProfileActivated = true;
                             } else
                                 mergedProfile.mergeProfiles(profileId, dataWrapper);
@@ -344,10 +344,9 @@ public class EventsService extends IntentService
                         if (mergedProfile == null) {
                             dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, /*"",*/ true);
                             // wait for profile activation
-                            try {
-                                Thread.sleep(500); // // 0.5 second for activating profile from EventsService
-                            } catch (InterruptedException e) {
-                            }
+                            //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(500);
+                            GlobalData.sleep(500);
                             backgroundProfileActivated = true;
                         } else
                             mergedProfile.mergeProfiles(profileId, dataWrapper);
@@ -385,10 +384,9 @@ public class EventsService extends IntentService
                             GlobalData.phoneProfilesService.playEventNotificationSound(eventNotificationSound);
 
                         // wait for profile activation
-                        try {
-                            Thread.sleep(500); // // 0.5 second for activating profile from EventsService
-                        } catch (InterruptedException e) {
-                        }
+                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(500);
+                        GlobalData.sleep(500);
                     } else {
                         /*long prId0 = 0;
                         long prId = 0;
@@ -535,10 +533,9 @@ public class EventsService extends IntentService
                         volumeServiceIntent.putExtra(GlobalData.EXTRA_FOR_PROFILE_ACTIVATION, false);
                         context.startService(volumeServiceIntent);
                         // wait for link/unlink
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                        }
+                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(500);
+                        GlobalData.sleep(500);
                     }
                 }
             } else

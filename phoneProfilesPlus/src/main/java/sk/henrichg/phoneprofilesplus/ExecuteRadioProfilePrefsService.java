@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 
 public class ExecuteRadioProfilePrefsService extends IntentService 
 {
@@ -78,11 +79,9 @@ public class ExecuteRadioProfilePrefsService extends IntentService
                 aph.executeForRadios(profile, true);
 
                 // wait for PPHelper
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    System.out.println(e);
-                }
+                //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                //SystemClock.sleep(500);
+                GlobalData.sleep(500);
             } else {
                 if (Permissions.checkProfileRadioPreferences(context, profile)) {
                     // run execute radios from ActivateProfileHelper

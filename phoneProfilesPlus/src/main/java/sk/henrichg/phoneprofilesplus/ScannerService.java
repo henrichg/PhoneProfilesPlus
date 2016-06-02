@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -40,7 +41,8 @@ public class ScannerService extends IntentService
     public static final String PPHELPER_ACTION_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.ACTION_RADIOCHANGESTATE";
     public static final String PPHELPER_EXTRA_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.EXTRA_RADIOCHANGESTATE";
 
-    public static int classicScanDuration = 20; // 20 seconds for classic bluetooth scan
+    public static int wifiScanDuration = 20;      // 20 seconds for wifi scan
+    public static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
 
     Handler wifiBluetoothChangeHandler;
 
@@ -170,11 +172,9 @@ public class ScannerService extends IntentService
                                 WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                             }
                         });
-                        try {
-                            Thread.sleep(700);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(700);
+                        GlobalData.sleep(700);
                     }
 
                     if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
@@ -235,11 +235,9 @@ public class ScannerService extends IntentService
                                     WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
                                 }
                             });
-                            try {
-                                Thread.sleep(700);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(700);
+                            GlobalData.sleep(700);
                         }
 
                         //GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
@@ -317,11 +315,9 @@ public class ScannerService extends IntentService
                                 BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
                             }
                         });
-                        try {
-                            Thread.sleep(700);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                        //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(700);
+                        GlobalData.sleep(700);
                     }
 
                     if (true /*canScanBluetooth(dataWrapper)*/) {  // scan even if bluetooth is connected
@@ -461,11 +457,9 @@ public class ScannerService extends IntentService
                                     BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
                                 }
                             });
-                            try {
-                                Thread.sleep(700);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(700);
+                            GlobalData.sleep(700);
                         }
 
                         //GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
@@ -775,13 +769,13 @@ public class ScannerService extends IntentService
 
     public static void waitForWifiScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
-        for (int i = 0; i < 5 * 60; i++) // 60 seconds for wifi scan (Android 5.0 bug, normally required 5 seconds :-/)
-        {
+        long start = SystemClock.uptimeMillis();
+        do {
             //GlobalData.logE("$$$ WifiAP", "ScannerService.waitForWifiScanEnd-getScanRequest="+WifiScanAlarmBroadcastReceiver.getScanRequest(context));
             //GlobalData.logE("$$$ WifiAP", "ScannerService.waitForWifiScanEnd-getWaitForResults="+WifiScanAlarmBroadcastReceiver.getWaitForResults(context));
 
             if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                  (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)))) {
+                    (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)))) {
                 break;
             }
             if (asyncTask != null)
@@ -790,20 +784,17 @@ public class ScannerService extends IntentService
                     break;
             }
 
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+            //try { Thread.sleep(100); } catch (InterruptedException e) { }
+            SystemClock.sleep(100);
+        } while (SystemClock.uptimeMillis() - start < wifiScanDuration * 1000);
     }
 
     public static void waitForBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
-        for (int i = 0; i < 5 * classicScanDuration; i++)
-        {
+        long start = SystemClock.uptimeMillis();
+        do {
             if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
-                  (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))))
+                    (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))))
                 break;
             if (asyncTask != null)
             {
@@ -811,41 +802,37 @@ public class ScannerService extends IntentService
                     break;
             }
 
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+            //try { Thread.sleep(100); } catch (InterruptedException e) { }
+            SystemClock.sleep(100);
+        } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
+
         BluetoothScanAlarmBroadcastReceiver.stopScan(context);
     }
 
     public static void waitForLEBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
     {
         if (bluetoothLESupported(context)) {
-            for (int i = 0; i < 5 * GlobalData.applicationEventBluetoothLEScanDuration; i++)
-            {
+            long start = SystemClock.uptimeMillis();
+            do {
                 if (!((BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
-                      (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context))))
+                        (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context))))
                     break;
                 if (asyncTask != null) {
                     if (asyncTask.isCancelled())
                         break;
                 }
 
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+                //try { Thread.sleep(100); } catch (InterruptedException e) { }
+                SystemClock.sleep(100);
+            } while (SystemClock.uptimeMillis() - start < GlobalData.applicationEventBluetoothLEScanDuration * 1000);
+
             BluetoothScanAlarmBroadcastReceiver.stopLEScan(context);
         }
     }
 
     public static void waitForForceOneBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask) {
-        for (int i = 0; i < 5 * classicScanDuration; i++)
-        {
+        long start = SystemClock.uptimeMillis();
+        do {
             if (GlobalData.getForceOneBluetoothScan(context) == GlobalData.FORCE_ONE_SCAN_DISABLED)
                 break;
             if (asyncTask != null)
@@ -854,12 +841,9 @@ public class ScannerService extends IntentService
                     break;
             }
 
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+            //try { Thread.sleep(100); } catch (InterruptedException e) { }
+            SystemClock.sleep(100);
+        } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
         BluetoothScanAlarmBroadcastReceiver.stopScan(context);
 
         if (asyncTask != null)
@@ -868,22 +852,18 @@ public class ScannerService extends IntentService
                 return;
         }
 
-        for (int i = 0; i < 5 * GlobalData.applicationEventBluetoothLEScanDuration; i++)
-        {
+        start = SystemClock.uptimeMillis();
+        do {
             if (GlobalData.getForceOneLEBluetoothScan(context) == GlobalData.FORCE_ONE_SCAN_DISABLED)
                 break;
-            if (asyncTask != null)
-            {
+            if (asyncTask != null) {
                 if (asyncTask.isCancelled())
                     break;
             }
 
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+            //try { Thread.sleep(100); } catch (InterruptedException e) { }
+            SystemClock.sleep(100);
+        } while (SystemClock.uptimeMillis() - start < GlobalData.applicationEventBluetoothLEScanDuration * 1000);
         BluetoothScanAlarmBroadcastReceiver.stopLEScan(context);
 
     }

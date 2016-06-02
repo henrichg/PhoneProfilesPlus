@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -223,11 +224,9 @@ public class BluetoothNamePreference extends DialogPreference {
                     GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     BluetoothScanAlarmBroadcastReceiver.startScanner(context);
 
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        System.out.println(e);
-                    }
+                    //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(200);
+                    GlobalData.sleep(200);
                     ScannerService.waitForForceOneBluetoothScanEnd(context, this);
                 }
 

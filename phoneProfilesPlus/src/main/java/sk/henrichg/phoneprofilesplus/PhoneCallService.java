@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.os.SystemClock;
 
 public class PhoneCallService extends IntentService {
 
@@ -130,16 +131,15 @@ public class PhoneCallService extends IntentService {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        try {
-            // Delay 2 seconds mode changed to MODE_IN_CALL
-            for (int i = 0; i < 20; i++) {
-                if (audioManager.getMode() != AudioManager.MODE_IN_CALL)
-                    Thread.sleep(100);
-                else
-                    break;
-            }
-        } catch (InterruptedException e) {
-        }
+        // Delay 2 seconds mode changed to MODE_IN_CALL
+        long start = SystemClock.uptimeMillis();
+        do {
+            if (audioManager.getMode() != AudioManager.MODE_IN_CALL)
+                //try { Thread.sleep(100); } catch (InterruptedException e) {};
+                SystemClock.sleep(100);
+            else
+                break;
+        } while (SystemClock.uptimeMillis() - start < 2000);
 
         // audiomode is set to MODE_IN_CALL by system
         //Log.e("PhoneCallService", "callAnswered audioMode=" + audioManager.getMode());
@@ -176,15 +176,14 @@ public class PhoneCallService extends IntentService {
         speakerphoneSelected = false;
 
         // Delay 2 seconds mode changed to MODE_NORMAL
-        try {
-            for (int i = 0; i < 20; i++) {
-                if (audioManager.getMode() != AudioManager.MODE_NORMAL)
-                    Thread.sleep(100);
-                else
-                    break;
-            }
-        } catch (InterruptedException e) {
-        }
+        long start = SystemClock.uptimeMillis();
+        do {
+            if (audioManager.getMode() != AudioManager.MODE_NORMAL)
+                //try { Thread.sleep(100); } catch (InterruptedException e) {};
+                SystemClock.sleep(100);
+            else
+                break;
+        } while (SystemClock.uptimeMillis() - start < 2000);
 
         // audiomode is set to MODE_NORMAL by system
         //Log.e("PhoneCallService", "callEnded (before unlink/EventsService) audioMode="+audioManager.getMode());

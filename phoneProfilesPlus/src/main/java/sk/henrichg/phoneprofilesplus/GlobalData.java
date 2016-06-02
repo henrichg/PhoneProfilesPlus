@@ -16,6 +16,7 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -2019,6 +2020,13 @@ public class GlobalData extends Application {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public static void sleep(long ms) {
+        long start = SystemClock.uptimeMillis();
+        do {
+            SystemClock.sleep(100);
+        } while (SystemClock.uptimeMillis() - start < ms);
     }
 
 }
