@@ -1725,14 +1725,17 @@ public class ActivateProfileHelper {
                     state = enable ? 1 : 0;
                     // Get the value of the "TRANSACTION_setDataEnabled" field.
                     String transactionCode = GlobalData.getTransactionCode(context, "TRANSACTION_setDataEnabled");
+                    //Log.e("ActivateProfileHelper.setMobileData", "transactionCode="+transactionCode);
                     // Android 5.1+ (API 22) and later.
-                    /*if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                        //Log.e("ActivateProfileHelper.setMobileData", "dual SIM?");
                         SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
                         // Loop through the subscription list i.e. SIM list.
                         for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
                             if (transactionCode != null && transactionCode.length() > 0) {
                                 // Get the active subscription ID for a given SIM card.
                                 int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
+                                //Log.e("ActivateProfileHelper.setMobileData", "subscriptionId="+subscriptionId);
                                 String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + state;
                                 Command command = new Command(0, false, command1);
                                 try {
@@ -1744,7 +1747,8 @@ public class ActivateProfileHelper {
                                 }
                             }
                         }
-                    } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {*/
+                    } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+                        //Log.e("ActivateProfileHelper.setMobileData", "NO dual SIM?");
                         // Android 5.0 (API 21) only.
                         if (transactionCode != null && transactionCode.length() > 0) {
                             String command1 = "service call phone " + transactionCode + " i32 " + state;
@@ -1757,7 +1761,7 @@ public class ActivateProfileHelper {
                                 Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
                             }
                         }
-                    //}
+                    }
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
@@ -1871,7 +1875,8 @@ public class ActivateProfileHelper {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
                 String transactionCode = GlobalData.getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
-                /*if (Build.VERSION.SDK_INT >= 23) {
+                // Android 5.1+ (API 22) and later.
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                     SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
                     // Loop through the subscription list i.e. SIM list.
                     for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
@@ -1889,7 +1894,7 @@ public class ActivateProfileHelper {
                             }
                         }
                     }
-                } else  {*/
+                } else  {
                     if (transactionCode != null && transactionCode.length() > 0) {
                         String command1 = "service call phone " + transactionCode + " i32 " + networkType;
                         Command command = new Command(0, false, command1);
@@ -1901,7 +1906,7 @@ public class ActivateProfileHelper {
                             Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
                         }
                     }
-                //}
+                }
             } catch(Exception e) {
                 e.printStackTrace();
             }
