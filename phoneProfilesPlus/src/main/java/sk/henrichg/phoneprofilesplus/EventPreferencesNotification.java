@@ -383,6 +383,8 @@ public class EventPreferencesNotification extends EventPreferences {
 
         PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
+        boolean notificationFound = false;
+
         String[] splits = this._applications.split("\\|");
         for (int i = 0; i < splits.length; i++) {
             String packageName = splits[i];
@@ -391,13 +393,19 @@ public class EventPreferencesNotification extends EventPreferences {
 
             PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(dataWrapper.context, packageName);
             if (notification != null) {
-                _event._eventPreferencesNotification._startTime = notification.time;
-                dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
-                if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                    setSystemEventForPause(dataWrapper.context);
+                notificationFound = true;
+                _startTime = notification.time;
                 break;
             }
         }
+
+        if (!notificationFound)
+            _startTime = 0;
+
+        dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+        if (_event.getStatus() == Event.ESTATUS_RUNNING)
+            setSystemEventForPause(dataWrapper.context);
+
     }
 
 }

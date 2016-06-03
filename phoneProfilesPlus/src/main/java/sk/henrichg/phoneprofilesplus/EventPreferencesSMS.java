@@ -320,7 +320,7 @@ public class EventPreferencesSMS extends EventPreferences {
     public void saveStartTime(DataWrapper dataWrapper, String phoneNumber, long startTime) {
         if (Permissions.checkContacts(dataWrapper.context)) {
 
-            boolean phoneNumberFinded = false;
+            boolean phoneNumberFound = false;
 
             if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
                 // find phone number in groups
@@ -344,22 +344,22 @@ public class EventPreferencesSMS extends EventPreferences {
                                 while (phones.moveToNext()) {
                                     String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                     if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                        phoneNumberFinded = true;
+                                        phoneNumberFound = true;
                                         break;
                                     }
                                 }
                                 phones.close();
                             }
-                            if (phoneNumberFinded)
+                            if (phoneNumberFound)
                                 break;
                         }
                         mCursor.close();
                     }
-                    if (phoneNumberFinded)
+                    if (phoneNumberFound)
                         break;
                 }
 
-                if (!phoneNumberFinded) {
+                if (!phoneNumberFound) {
                     // find phone number in contacts
                     splits = this._contacts.split("\\|");
                     for (int i = 0; i < splits.length; i++) {
@@ -380,33 +380,35 @@ public class EventPreferencesSMS extends EventPreferences {
                                     while (phones.moveToNext()) {
                                         String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                         if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                            phoneNumberFinded = true;
+                                            phoneNumberFound = true;
                                             break;
                                         }
                                     }
                                     phones.close();
                                 }
-                                if (phoneNumberFinded)
+                                if (phoneNumberFound)
                                     break;
                             }
                             mCursor.close();
                         }
-                        if (phoneNumberFinded)
+                        if (phoneNumberFound)
                             break;
                     }
                 }
 
                 if (this._contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
-                    phoneNumberFinded = !phoneNumberFinded;
+                    phoneNumberFound = !phoneNumberFound;
             } else
-                phoneNumberFinded = true;
+                phoneNumberFound = true;
 
-            if (phoneNumberFinded) {
+            if (phoneNumberFound)
                 this._startTime = startTime;
-                dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
-                if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                    setSystemEventForPause(dataWrapper.context);
-            }
+            else
+                this._startTime = 0;
+
+            dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
+            if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                setSystemEventForPause(dataWrapper.context);
         }
     }
 

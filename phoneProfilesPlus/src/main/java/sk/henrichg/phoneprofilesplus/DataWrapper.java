@@ -2120,46 +2120,18 @@ public class DataWrapper {
                 Permissions.checkEventSMSContacts(context, event) &&
                 Permissions.checkEventSMSBroadcast(context, event))
         {
-            // comute start time
-            int gmtOffset = TimeZone.getDefault().getRawOffset();
-            long startTime = event._eventPreferencesSMS._startTime - gmtOffset;
+            // compute start time
 
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String alarmTimeS = sdf.format(startTime);
-            GlobalData.logE("DataWrapper.doEventService","startTime="+alarmTimeS);
-
-            // compute end datetime
-            long endAlarmTime = event._eventPreferencesSMS.computeAlarm();
-            alarmTimeS = sdf.format(endAlarmTime);
-            GlobalData.logE("DataWrapper.doEventService","endAlarmTime="+alarmTimeS);
-
-            Calendar now = Calendar.getInstance();
-            long nowAlarmTime = now.getTimeInMillis();
-            alarmTimeS = sdf.format(nowAlarmTime);
-            GlobalData.logE("DataWrapper.doEventService","nowAlarmTime="+alarmTimeS);
-
-            if (broadcastType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                smsPassed = true;
-            else
-            if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                smsPassed = false;
-            else
-                smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-        }
-
-        if (event._eventPreferencesNotification._enabled)
-        {
-            if (!event._eventPreferencesNotification._endWhenRemoved) {
-                // comute start time
+            if (event._eventPreferencesSMS._startTime > 0) {
                 int gmtOffset = TimeZone.getDefault().getRawOffset();
-                long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
+                long startTime = event._eventPreferencesSMS._startTime - gmtOffset;
 
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 String alarmTimeS = sdf.format(startTime);
                 GlobalData.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
 
                 // compute end datetime
-                long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
+                long endAlarmTime = event._eventPreferencesSMS.computeAlarm();
                 alarmTimeS = sdf.format(endAlarmTime);
                 GlobalData.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
 
@@ -2168,16 +2140,62 @@ public class DataWrapper {
                 alarmTimeS = sdf.format(nowAlarmTime);
                 GlobalData.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
 
-                if (broadcastType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                    notificationPassed = true;
+                if (broadcastType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    smsPassed = true;
+                else if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    smsPassed = false;
                 else
-                if (broadcastType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+            }
+            else
+                smsPassed = false;
+
+            if (!smsPassed) {
+                event._eventPreferencesSMS._startTime = 0;
+                getDatabaseHandler().updateSMSStartTime(event);
+            }
+        }
+
+        if (event._eventPreferencesNotification._enabled)
+        {
+            if (!event._eventPreferencesNotification._endWhenRemoved) {
+
+                if (event._eventPreferencesNotification._startTime > 0) {
+                    // comute start time
+                    int gmtOffset = TimeZone.getDefault().getRawOffset();
+                    long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String alarmTimeS = sdf.format(startTime);
+                    GlobalData.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
+
+                    // compute end datetime
+                    long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
+                    alarmTimeS = sdf.format(endAlarmTime);
+                    GlobalData.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
+
+                    Calendar now = Calendar.getInstance();
+                    long nowAlarmTime = now.getTimeInMillis();
+                    alarmTimeS = sdf.format(nowAlarmTime);
+                    GlobalData.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
+
+                    if (broadcastType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                        notificationPassed = true;
+                    else if (broadcastType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                        notificationPassed = false;
+                    else
+                        notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                }
+                else
                     notificationPassed = false;
-                else
-                    notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
             }
             else {
                 notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);
+            }
+
+            if (!notificationPassed) {
+                event._eventPreferencesNotification._startTime = 0;
+                getDatabaseHandler().updateNotificationStartTime(event);
             }
         }
 
