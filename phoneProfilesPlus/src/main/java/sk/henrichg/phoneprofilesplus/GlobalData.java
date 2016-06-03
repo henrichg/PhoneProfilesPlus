@@ -29,6 +29,7 @@ import com.stericson.RootTools.RootTools;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1424,7 +1425,7 @@ public class GlobalData extends Application {
                 logE("GlobalData.hardwareCheck","NFC=presented");
 
                 // device ma nfc
-                if (PhoneProfilesHelper.isPPHelperInstalled(context, 7))
+                /*if (PhoneProfilesHelper.isPPHelperInstalled(context, 7))
                 {
                     // je nainstalovany PhonProfilesHelper
                     featurePresented = PREFERENCE_ALLOWED;
@@ -1438,7 +1439,9 @@ public class GlobalData extends Application {
                         else
                             featurePresented = PREFERENCE_UPGRADE_PPHELPER;
                     }
-                }
+                }*/
+                if (isRooted(false))
+                    featurePresented = PREFERENCE_ALLOWED;
             }
             else
             {
@@ -1809,6 +1812,27 @@ public class GlobalData extends Application {
         }
         GlobalData.logE("GlobalData.serviceBinaryExists", "serviceBinaryExists="+serviceBinaryExists);
         return serviceBinaryExists;
+    }
+
+    public static String getJavaCommandFile(Class<?> mainClass, String name, Context context, Object cmdParam) {
+        try {
+            String cmd = "export CLASSPATH=" +
+                    context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.sourceDir +
+                    "\nexec app_process $base/bin " + mainClass.getName() + " " + cmdParam + " \"$@\"\n";
+
+            FileOutputStream fos = context.openFileOutput(name, Context.MODE_PRIVATE);
+            fos.write(cmd.getBytes());
+            fos.close();
+
+            File file = context.getFileStreamPath(name);
+            file.setExecutable(true);
+
+            return file.getAbsolutePath();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
