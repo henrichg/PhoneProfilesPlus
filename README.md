@@ -6,7 +6,6 @@ Android application - manualy and event triggered change of device settings like
 Required external libs
 ----------------------
 
-- DragSortListView - https://github.com/bauerca/drag-sort-listview
 - RootTools - https://github.com/Stericson/RootTools
 - DashClock API - https://github.com/romannurik/dashclock/wiki/API
 - SystemBarTint - https://github.com/jgilfelt/SystemBarTint
