@@ -680,22 +680,24 @@ public class ActivateProfileHelper {
                     }
                 }
 
-                if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
-                    Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", lValue);
-                else {
-                    try {
-                        Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
-                    } catch (Exception ee) {
-                        String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                        //if (GlobalData.isSELinuxEnforcing())
-                        //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                        Command command = new Command(0, false, command1); //, command2);
+                if (lValue != -1) {
+                    if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+                        Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", lValue);
+                    else {
                         try {
-                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            commandWait(command);
-                            //RootTools.closeAllShells();
-                        } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                            Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
+                        } catch (Exception ee) {
+                            String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                            //if (GlobalData.isSELinuxEnforcing())
+                            //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                commandWait(command);
+                                //RootTools.closeAllShells();
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setVibrateWhenRinging", "Error on run su: " + e.toString());
+                            }
                         }
                     }
                 }
@@ -1940,12 +1942,15 @@ public class ActivateProfileHelper {
 
     private void setNFC(Context context, boolean enable)
     {
+        if (Permissions.checkNFC(context))
+            CmdNfc.run(enable);
+        else
         if (GlobalData.grantRoot(false)) {
             String command1 = GlobalData.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
             Log.e("ActivateProfileHelper.setNFC", "command1="+command1);
             Command command = new Command(0, false, command1);
             try {
-                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                 commandWait(command);
                 //RootTools.closeAllShells();
             } catch (Exception e) {

@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.nfc.INfcAdapter;
 import android.os.ServiceManager;
+import android.util.Log;
 
 /**
  * A shell executable for NTC toggle.
@@ -9,6 +10,8 @@ import android.os.ServiceManager;
 public class CmdNfc {
 
   public static void main(String[] args) {
+    //GlobalData.logE("CmdNfc.main", "args="+args);
+    Log.e("CmdNfc.main", "args="+args);
     if (!(run(Boolean.parseBoolean(args[0])))) {
       System.exit(1);
     }

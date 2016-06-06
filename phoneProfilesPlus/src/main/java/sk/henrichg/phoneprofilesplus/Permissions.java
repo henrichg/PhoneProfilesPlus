@@ -150,6 +150,7 @@ public class Permissions {
             if (!checkProfileRadioPreferences(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
                 permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
+                //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
             }
             if (!checkProfilePhoneBroadcast(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.READ_PHONE_STATE));
@@ -373,6 +374,13 @@ public class Permissions {
             return true;
     }
 
+    public static boolean checkNFC(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            return (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+        else
+            return true;
+    }
+
     public static boolean checkProfileRadioPreferences(Context context, Profile profile) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -384,6 +392,8 @@ public class Permissions {
             }
             if ((profile._deviceMobileData != 0) || (profile._deviceNetworkType != 0))
                 granted = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+            //if (profile._deviceNFC != 0)
+            //    granted = checkNFC(context);
             return granted;
         }
         else
