@@ -276,7 +276,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     private void showErrorNotification(int errorCode) {
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(context.getString(R.string.event_preferences_location_google_api_connection_error_title)) // title for notification
                 .setContentText(context.getString(R.string.app_name) + ": " +
                         context.getString(R.string.event_preferences_location_google_api_connection_error_text)) // message for notification

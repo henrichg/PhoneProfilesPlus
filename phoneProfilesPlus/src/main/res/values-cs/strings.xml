@@ -77,7 +77,7 @@
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
   <string name="profile_preferences_deviceGPS">(R) GPS</string>
-  <string name="profile_preferences_deviceNFC">(H) NFC</string>
+  <string name="profile_preferences_deviceNFC">(R) NFC</string>
   <string name="profile_preferences_deviceScreenTimeout">Čas do vypnutí obrazovky</string>
   <string name="profile_preferences_deviceBrightness">Jas podsvícení obrazovky</string>
   <string name="profile_preferences_deviceWallpaper">Obrázek pozadí</string>
@@ -289,19 +289,10 @@
   <string name="event_preferences_category_eventBatteryParameters">Parametry baterie</string>
   <string name="event_preferences_time_enabled">Použij čas</string>
   <string name="event_preferences_battery_enabled">Použij baterii</string>
-  <string name="menu_phoneprofilehepler_install">Nainstaluj PPHelper</string>
   <string name="menu_phoneprofilehepler_uninstall">Odinstaluj PPHelper</string>
-  <string name="menu_phoneprofilehepler_upgrade">Aktualizuj PPHelper</string>
-  <string name="phoneprofilehepler_install_title">Instalace PPHelperu</string>
-  <string name="phoneprofilehepler_install_message">Jste si jistý?</string>
-  <string name="phoneprofilehepler_reboot_title">Instalace PPHelperu</string>
-  <string name="phoneprofilehepler_reboot_message">Pro funkčnost PPHelperu, je vyžadován restart zařízení. Restartovat nyní?</string>
   <string name="phoneprofilehepler_uninstall_title">Odinstalace PPHelperu</string>
   <string name="phoneprofilehepler_uninstall_message">Jste si jistý?</string>
-  <string name="phoneprofilehepler_install_error">Chyba při instalaci PPHelperu</string>
   <string name="phoneprofilehepler_uninstall_error">Chyba při odinstalaci PPHelperu</string>
-  <string name="profile_preferences_install_pphelper">Nainstaluj PPHelper</string>
-  <string name="profile_preferences_upgrade_pphelper">Aktualizuj PPHelper</string>
   <string name="contacts_multiselect_summary_text_selected">Vybrané</string>
   <string name="contacts_multiselect_summary_text_not_selected">Nevybrané</string>
   <string name="event_preferences_category_eventCallParameters">Parametry hovoru</string>
@@ -368,8 +359,6 @@
   <string name="array_event_pref_calendarSearchField_description">Popis</string>
   <string name="event_preferences_calendar_search_string">Hledaný řetězec</string>
   <string name="event_preferences_calendar_no_event">Žádná událost</string>
-  <string name="pphelper_upgrade_notification_title">Je nutná aktualizace PPHelperu.</string>
-  <string name="pphelper_upgrade_notification_text">Prosím klikněte na spuštění aktualizace.</string>
   <string name="array_event_pref_priorityLowest">[0] Nejnižší</string>
   <string name="array_event_pref_priorityLower">[2] Nižší</string>
   <string name="array_event_pref_priorityLowerMedium">[4] Středně nízká</string>
@@ -432,7 +421,6 @@
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Probíhající oznámení</string>
   <string name="phone_profiles_pref_notificationStatusBarCancel">Zruš po (sek.)</string>
   <string name="event_name_background_profile">Výchozí profil</string>
-  <string name="phoneprofilehepler_install_error_no_root">Instalace PPHelperu vyžaduje ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">Odinstalace PPHelperu vyžaduje ROOT</string>
   <string name="phoneprofilehepler_reboot_title_uninstall">Odinstalace PPHelperu</string>
   <string name="phoneprofilehepler_reboot_message_uninstall">Je nutný restart zařízení. Restartovat nyní?</string>
@@ -516,8 +504,6 @@
   <string name="important_info_events">Události</string>
   <string name="important_info_system">Systém</string>
   <string name="important_info_profile_root">Některé parametry profilu vyžadují práva ROOT. Tyto parametry jsou označeny jako \"(R)\".</string>
-  <string name="important_info_profile_pphelper">Některé parametry profilu vyžadují nainstalovaný PPHelper. Tyto parametry jsou označeny jako \"(H)\".</string>
-  <string name="important_info_pphelper_installation">Instalace PPHelper vyžaduje práva ROOT. Instalaci vyvoláte v Editoru přes položku menu \"Nainstaluj PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spustit pouze pokud je activ. profil</string>
   <string name="profile_preference_do_not_apply">Neaplikovat</string>
   <string name="pref_dlg_info_about_wildcards_1">Můžete použít zástupné znaky: \"%\"=nějaké znaky, \"_\"=libovolný jeden znak.</string>
@@ -579,8 +565,6 @@
   <string name="permissions_for_export_app_data_text2">Prosím, povolte je v následujících dialogových oknech. Pak budou údaje exportovány.</string>
   <string name="permissions_for_import_app_data_text1">Import dat aplikace vyžaduje některá povolení.</string>
   <string name="permissions_for_import_app_data_text2">Prosím, povolte je v následujících dialogových oknech. Pak budou údaje importovány.</string>
-  <string name="permissions_for_install_pphelper_text1">Instalace PPHelper-u vyžaduje některá povolení.</string>
-  <string name="permissions_for_install_pphelper_text2">Prosím, povolte je v následujících dialogových oknech. Pak se PPHelper nainstaluje.</string>
   <string name="permissions_write_settings_not_allowed_confirm">Nepovolily jste \"Změna nastavení systému\". Už se nikdy na toto neptat?</string>
   <string name="phone_profiles_pref_category_permissions">Povolení</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Změna nastavení systému</string>
@@ -766,4 +750,9 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 hodin</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Vždy zapnuto</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Když volba \"24 hodin\" nefunguje na vašem zařízení (LG), použijte volbu \"Vždy zapnuto\". Volba \"Vždy zapnuto\", může dělat problémy ve vašem zařízení (Samsung). Tehdy použijte volbu \"24 hodin\".</string>
+  <string name="phone_profiles_pref_notificationStatusBarRecommended">Doporučeno pro službu na pozadí PhoneProfilesService</string>
+  <string name="profile_preferences_vibrateWhenRinging">Vibrovat při vyzvánění</string>
+  <string name="permissions_for_play_ringtone_notification_text1">Máte nastaven tón vyzvánění/oznámení z sd karty. Tón nebude přehrán, protože to vyžaduje některá povolení.</string>
+  <string name="permissions_for_play_ringtone_notification_text2">Prosím, povolte je v následujících dialogových oknech. Pak tón bude přehráván.</string>
+  <string name="permissions_for_play_ringtone_notification_big_text_notification">Přehrávání nastaveného tónu vyzvánění/oznámení vyžaduje udělení některých povolení.</string>
 </resources>

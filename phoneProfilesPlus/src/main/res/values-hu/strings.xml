@@ -77,7 +77,7 @@
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
   <string name="profile_preferences_deviceGPS">(R) GPS</string>
-  <string name="profile_preferences_deviceNFC">(H) NFC</string>
+  <string name="profile_preferences_deviceNFC">(R) NFC</string>
   <string name="profile_preferences_deviceScreenTimeout">Képernyő időkorlátja</string>
   <string name="profile_preferences_deviceBrightness">Képernyő fényereje</string>
   <string name="profile_preferences_deviceWallpaper">Háttérkép</string>
@@ -289,19 +289,10 @@
   <string name="event_preferences_category_eventBatteryParameters">Akkumulátor-paraméterek</string>
   <string name="event_preferences_time_enabled">Idő engedélyezése</string>
   <string name="event_preferences_battery_enabled">Engedélyezi az akkumulátort</string>
-  <string name="menu_phoneprofilehepler_install">PPHelper telepítése</string>
   <string name="menu_phoneprofilehepler_uninstall">Távolítsa el a PPHelper-t</string>
-  <string name="menu_phoneprofilehepler_upgrade">Frissítés PPHelper</string>
-  <string name="phoneprofilehepler_install_title">PPHelper telepítés</string>
-  <string name="phoneprofilehepler_install_message">Biztos vagy benne?</string>
-  <string name="phoneprofilehepler_reboot_title">PPHelper telepítés</string>
-  <string name="phoneprofilehepler_reboot_message">PPHelper funkcióhoz szükséges a készülék újraindítása. Újraindítja most?</string>
   <string name="phoneprofilehepler_uninstall_title">PPHelper telepítés törlés</string>
   <string name="phoneprofilehepler_uninstall_message">Biztos vagy benne?</string>
-  <string name="phoneprofilehepler_install_error">Hiba PPHelper telepítés közben</string>
   <string name="phoneprofilehepler_uninstall_error">Hiba PPHelper eltávolítása közben</string>
-  <string name="profile_preferences_install_pphelper">PPHelper telepítése</string>
-  <string name="profile_preferences_upgrade_pphelper">Frissítés PPHelper</string>
   <string name="contacts_multiselect_summary_text_selected">Kijelöltek</string>
   <string name="contacts_multiselect_summary_text_not_selected">Nem kijelölt</string>
   <string name="event_preferences_category_eventCallParameters">Hívási paraméterek</string>
@@ -368,8 +359,6 @@
   <string name="array_event_pref_calendarSearchField_description">Leírás</string>
   <string name="event_preferences_calendar_search_string">Keresőkifejezés</string>
   <string name="event_preferences_calendar_no_event">Nincs esemény</string>
-  <string name="pphelper_upgrade_notification_title">PPHelper frissítés szükséges.</string>
-  <string name="pphelper_upgrade_notification_text">Kérjük, kattintson a frissítéshez.</string>
   <string name="array_event_pref_priorityLowest">[0] Legalacsonyabb</string>
   <string name="array_event_pref_priorityLower">[2] Alacsonyabb</string>
   <string name="array_event_pref_priorityLowerMedium">[4] Közepesen alacsony</string>
@@ -432,7 +421,6 @@
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Folyamatos jelentés</string>
   <string name="phone_profiles_pref_notificationStatusBarCancel">Mégse (sec) múlva</string>
   <string name="event_name_background_profile">Alapértelmezett profil</string>
-  <string name="phoneprofilehepler_install_error_no_root">PPHelper telepítéséhez ROOT jog kell</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">PPHelper eltávolításához ROOT jog kell</string>
   <string name="phoneprofilehepler_reboot_title_uninstall">PPHelper eltávolítás</string>
   <string name="phoneprofilehepler_reboot_message_uninstall">Újraindításra van szükség. Újraindítja most?</string>
@@ -516,8 +504,6 @@
   <string name="important_info_events">Események</string>
   <string name="important_info_system">Rendszer</string>
   <string name="important_info_profile_root">Néhány profil ROOT-ot igényel. Ezeket a beállításokat \"(R)\" jelöli.</string>
-  <string name="important_info_profile_pphelper">Néhány profilhoz PPHelper telepítésére van szükség. Ezeket a beállításokat \"(H)\" jelöli.</string>
-  <string name="important_info_pphelper_installation">PPHelper telepítéséhez ROOT jog kell. PPHelper szerkesztő használatához \"PPHelper telepítése\"-re hivatkozhat.</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Indítás csak akkor, ha aktív profil</string>
   <string name="profile_preference_do_not_apply">Nem kell alkalmazni</string>
   <string name="pref_dlg_info_about_wildcards_1">Használhatsz helyettesítő karaktereket: \"%\"=utána bármilyen karatakter, \"_\"=egy karakter.</string>
@@ -579,8 +565,6 @@
   <string name="permissions_for_export_app_data_text2">Végezd el a beállításokat. Majd az adatokat exportálja.</string>
   <string name="permissions_for_import_app_data_text1">Adatok exportálásához néhány dolgot engedélyezni kell.</string>
   <string name="permissions_for_import_app_data_text2">Végezd el a beállításokat. Majd az adatokat importálja.</string>
-  <string name="permissions_for_install_pphelper_text1">PPHelper telepítéséhez engedély kell.</string>
-  <string name="permissions_for_install_pphelper_text2">Add meg az adatokat. Majd PPHelper-et telepít.</string>
   <string name="permissions_write_settings_not_allowed_confirm">Nem engedélyezte a \"Rendszer beállítások módosítását \". Ne kérdezze újra?</string>
   <string name="phone_profiles_pref_category_permissions">Engedélyek</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Rendszerbeállítások módosítása</string>
@@ -766,4 +750,9 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">When option \"24 hours\" not working on your device (LG), use option \"Always On\". Option \"Always On\", may encountered troubles on your device (Samsung). Then use option \"24 hours\".</string>
+  <string name="phone_profiles_pref_notificationStatusBarRecommended">Recommended for background service PhoneProfilesService</string>
+  <string name="profile_preferences_vibrateWhenRinging">Vibrate when ringing</string>
+  <string name="permissions_for_play_ringtone_notification_text1">You have selected ringer/notification tone from sdcard. Tone will not be played, because this requires some permissions.</string>
+  <string name="permissions_for_play_ringtone_notification_text2">Please grant them in next dialogs. Then tone will be played.</string>
+  <string name="permissions_for_play_ringtone_notification_big_text_notification">Playing selected ringer/notification requires some permissions to be granted.</string>
 </resources>

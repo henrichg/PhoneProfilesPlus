@@ -187,22 +187,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
-                android:text="@string/important_info_profile_pphelper"
-                android:id="@+id/activity_info_notification_dialog_info_text6" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_settings"
                 android:id="@+id/activity_info_notification_dialog_info_text12" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:text="@string/important_info_pphelper_installation"
-                android:id="@+id/activity_info_notification_dialog_info_text7" />
 
             <TextView
                 android:layout_width="wrap_content"

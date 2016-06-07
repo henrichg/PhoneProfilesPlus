@@ -38,9 +38,6 @@ public class ScannerService extends IntentService
     private final BluetoothScanBroadcastReceiver bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
     private final BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
 
-    public static final String PPHELPER_ACTION_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.ACTION_RADIOCHANGESTATE";
-    public static final String PPHELPER_EXTRA_RADIOCHANGESTATE = "sk.henrichg.phoneprofileshelper.EXTRA_RADIOCHANGESTATE";
-
     public static int wifiScanDuration = 20;      // 20 seconds for wifi scan
     public static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
 
@@ -111,12 +108,6 @@ public class ScannerService extends IntentService
         synchronized (GlobalData.radioChangeStateMutex) {
 
             GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - start - scanType=" + scanType);
-
-        // send broadcast about radio change state to PPHelper
-        Intent ppHelperIntent1 = new Intent();
-        ppHelperIntent1.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
-        ppHelperIntent1.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, true);
-        context.sendBroadcast(ppHelperIntent1);
 
         if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI))
         {
@@ -490,12 +481,6 @@ public class ScannerService extends IntentService
 
             //}
         }
-
-        // send broadcast about radio change state to PPHelper
-        Intent ppHelperIntent2 = new Intent();
-            ppHelperIntent2.setAction(ScannerService.PPHELPER_ACTION_RADIOCHANGESTATE);
-            ppHelperIntent2.putExtra(ScannerService.PPHELPER_EXTRA_RADIOCHANGESTATE, false);
-            context.sendBroadcast(ppHelperIntent2);
 
             GlobalData.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - end - scanType=" + scanType);
 
@@ -905,7 +890,7 @@ public class ScannerService extends IntentService
                     }
 
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.ic_pphelper_upgrade_notify) // notification icon
+                            .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
                             .setContentText(notificationText) // message for notification
                             .setAutoCancel(true); // clear notification after click

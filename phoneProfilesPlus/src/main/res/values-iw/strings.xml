@@ -77,7 +77,7 @@
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
   <string name="profile_preferences_deviceGPS">(R) GPS</string>
-  <string name="profile_preferences_deviceNFC">(H) NFC</string>
+  <string name="profile_preferences_deviceNFC">(R) NFC</string>
   <string name="profile_preferences_deviceScreenTimeout">משך זמן לכיבוי מסך</string>
   <string name="profile_preferences_deviceBrightness">בהירות המסך</string>
   <string name="profile_preferences_deviceWallpaper">תמונת רקע</string>
@@ -289,19 +289,10 @@
   <string name="event_preferences_category_eventBatteryParameters">מאפייני סוללה</string>
   <string name="event_preferences_time_enabled">אפשרות זמן</string>
   <string name="event_preferences_battery_enabled">אפשרות סוללה</string>
-  <string name="menu_phoneprofilehepler_install">התקנת PPHelper</string>
   <string name="menu_phoneprofilehepler_uninstall">הסרת PPHelper</string>
-  <string name="menu_phoneprofilehepler_upgrade">שדרוג PPHelper</string>
-  <string name="phoneprofilehepler_install_title">התקנת PPHelper</string>
-  <string name="phoneprofilehepler_install_message">את/ה בטוח/ה?</string>
-  <string name="phoneprofilehepler_reboot_title">התקנת PPHelper</string>
-  <string name="phoneprofilehepler_reboot_message">להפעלת PPHelper נדרש להפעיל מחדש את המכשיר. להפעיל מחדש כעת?</string>
   <string name="phoneprofilehepler_uninstall_title">הסרת PPHelper</string>
   <string name="phoneprofilehepler_uninstall_message">את/ה בטוח/ה?</string>
-  <string name="phoneprofilehepler_install_error">שגיאה בעת התקנת PPHelper</string>
   <string name="phoneprofilehepler_uninstall_error">שגיאה בעת הסרת PPhelper</string>
-  <string name="profile_preferences_install_pphelper">התקנת PPHelper</string>
-  <string name="profile_preferences_upgrade_pphelper">שדרוג PPHelper</string>
   <string name="contacts_multiselect_summary_text_selected">נבחרו</string>
   <string name="contacts_multiselect_summary_text_not_selected">לא נבחרו</string>
   <string name="event_preferences_category_eventCallParameters">מאפייני שיחה</string>
@@ -368,8 +359,6 @@
   <string name="array_event_pref_calendarSearchField_description">תיאור</string>
   <string name="event_preferences_calendar_search_string">מלל החיפוש</string>
   <string name="event_preferences_calendar_no_event">ללא אירוע</string>
-  <string name="pphelper_upgrade_notification_title">דרוש שדרוג PPHelper.</string>
-  <string name="pphelper_upgrade_notification_text">נא ללחוץ לביצוע השדרוג.</string>
   <string name="array_event_pref_priorityLowest">[0] הנמוך ביותר</string>
   <string name="array_event_pref_priorityLower">[2] נמוך</string>
   <string name="array_event_pref_priorityLowerMedium">[4] בינוני נמוך</string>
@@ -432,7 +421,6 @@
   <string name="phone_profiles_pref_notificationStatusBarPermanent">חיווי קבוע</string>
   <string name="phone_profiles_pref_notificationStatusBarCancel">ביטול לאחר (שניות)</string>
   <string name="event_name_background_profile">פרופיל ברירת מחדל</string>
-  <string name="phoneprofilehepler_install_error_no_root">התקנת PPHelper מחייבת הרשאות ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">הסרת PPHelper מחייבת הרשאות ROOT</string>
   <string name="phoneprofilehepler_reboot_title_uninstall">הסרת PPHelper</string>
   <string name="phoneprofilehepler_reboot_message_uninstall">דרושה הפעלה מחדש. להפעיל מחדש כעת?</string>
@@ -516,8 +504,6 @@
   <string name="important_info_events">אירועים</string>
   <string name="important_info_system">מערכת</string>
   <string name="important_info_profile_root">העדפות פרופיל מסוימות מחייבות הרשאות ROOT. העדפות אלה מסומנות ב\"(R)\".</string>
-  <string name="important_info_profile_pphelper">העדפות פרופיל מסוימות מחייבות התקנת PPHelper. העדפות אלה מסומנות ב-\"(H)\".</string>
-  <string name="important_info_pphelper_installation">התקנת PPHelper מחייבת הרשאות ROOT. ניתן להפעיל התקנת PPHelper בעורך, באמצעות פריט התפריט \"התקנת PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] הפעלה רק כאשר מופעל פרופיל</string>
   <string name="profile_preference_do_not_apply">אל תחיל</string>
   <string name="pref_dlg_info_about_wildcards_1">באפשרותך להשתמש בתווים כלליים: \"%\" = כל התווים, \"_\" = כל תו בודד.</string>
@@ -579,8 +565,6 @@
   <string name="permissions_for_export_app_data_text2">אנא התירו אותן בתיבות דו-שיח הבאות. לאחר מכן יתבצע יצוא הנתונים.</string>
   <string name="permissions_for_import_app_data_text1">ייבוא נתונים היישום דורש הרשאות מסוימות.</string>
   <string name="permissions_for_import_app_data_text2">אנא התירו אותן בתיבות דו-שיח הבאות. לאחר מכן יתבצע ייבוא הנתונים.</string>
-  <string name="permissions_for_install_pphelper_text1">התקנת PPHelper דורשת הרשאות מסוימות.</string>
-  <string name="permissions_for_install_pphelper_text2">אנא התירו אותן בתיבות דו-שיח הבאות. לאחר מכן יותקן PPHelper.</string>
   <string name="permissions_write_settings_not_allowed_confirm">לא התרת \"שינוי הגדרות מערכת\". לא לבקש זאת שוב בכלל?</string>
   <string name="phone_profiles_pref_category_permissions">הרשאות</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">שינוי הגדרות מערכת</string>
@@ -766,4 +750,9 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 שעות</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">מופעל תמיד</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">כאשר האפשרות \"24 שעות\" לא עובדת במכשירך (LG), יש להשתמש באפשרות \"מופעל תמיד\". האפשרות \"מופעל תמיד\" עלולה להיתקל בבעיות במכשירך (סמסונג) ואז להשתמש באפשרות \"24 שעות\".</string>
+  <string name="phone_profiles_pref_notificationStatusBarRecommended">מומלץ עבור שירות ברקע PhoneProfilesService</string>
+  <string name="profile_preferences_vibrateWhenRinging">רטט בעת צלצול</string>
+  <string name="permissions_for_play_ringtone_notification_text1">נבחר צליל צלצול/הודעות מכרטיס sdcard. הצליל לא יושמע כיוון שפעולה זו דורשת הרשאות מסוימות.</string>
+  <string name="permissions_for_play_ringtone_notification_text2">אנא התירו אותן בתיבות דו-שיח הבאות, ואז הצליל יושמע.</string>
+  <string name="permissions_for_play_ringtone_notification_big_text_notification">השמעת צלצול/צליל ההודעות שנבחר מחייבת מתן הרשאות מסוימות.</string>
 </resources>

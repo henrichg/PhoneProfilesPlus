@@ -31,7 +31,6 @@ public class Permissions {
     public static final int PERMISSION_INSTALL_TONE = 11;
     public static final int PERMISSION_EXPORT = 12;
     public static final int PERMISSION_IMPORT = 13;
-    public static final int PERMISSION_INSTALL_PPHELPER = 14;
     public static final int PERMISSION_EVENT_CALENDAR_PREFERENCES = 15;
     public static final int PERMISSION_EVENT_CALL_PREFERENCES = 16;
     public static final int PERMISSION_EVENT_SMS_PREFERENCES = 17;
@@ -47,7 +46,6 @@ public class Permissions {
     public static final int GRANT_TYPE_CUSTOM_PROFILE_ICON = 4;
     public static final int GRANT_TYPE_EXPORT = 5;
     public static final int GRANT_TYPE_IMPORT = 6;
-    public static final int GRANT_TYPE_INSTALL_PPHELPER = 7;
     public static final int GRANT_TYPE_EVENT = 8;
     public static final int GRANT_TYPE_WIFI_BT_SCAN_DIALOG = 9;
     public static final int GRANT_TYPE_CALENDAR_DIALOG = 10;
@@ -71,7 +69,6 @@ public class Permissions {
     public static ImageViewPreference imageViewPreference = null;
     public static ProfileIconPreference profileIconPreference = null;
     public static EditorProfilesActivity editorActivity = null;
-    public static Activity ppHelperInstallActivity = null;
     public static WifiSSIDPreference wifiSSIDPreference = null;
     public static BluetoothNamePreference bluetoothNamePreference = null;
     public static CalendarsMultiSelectDialogPreference calendarsMultiSelectDialogPreference = null;
@@ -400,13 +397,6 @@ public class Permissions {
             return true;
     }
 
-    public static boolean checkPPHelperInstall(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 23)
-            return (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-        else
-            return true;
-    }
-
     public static boolean checkProfilePhoneBroadcast(Context context, Profile profile) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -719,24 +709,6 @@ public class Permissions {
         return granted;
     }
 
-    public static boolean grantInstallPPHelperPermissions(Context context, Activity activity) {
-        boolean granted = checkPPHelperInstall(context);
-        if (!granted) {
-            List<PermissionType>  permissions = new ArrayList<PermissionType>();
-            permissions.add(new PermissionType(PERMISSION_INSTALL_PPHELPER, permission.WRITE_EXTERNAL_STORAGE));
-
-            Intent intent = new Intent(context, GrantPermissionActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-            intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_INSTALL_PPHELPER);
-            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
-            intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-            ppHelperInstallActivity = activity;
-            context.startActivity(intent);
-        }
-        return granted;
-    }
-
     public static boolean grantEventPermissions(Context context, Event event,
                                                   boolean onlyNotification) {
         List<PermissionType> permissions = checkEventPermissions(context, event);
@@ -912,7 +884,6 @@ public class Permissions {
         imageViewPreference = null;
         profileIconPreference = null;
         editorActivity = null;
-        ppHelperInstallActivity = null;
         wifiSSIDPreference = null;
         bluetoothNamePreference = null;
         calendarsMultiSelectDialogPreference = null;

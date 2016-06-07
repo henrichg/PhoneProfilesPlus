@@ -81,8 +81,6 @@ public class FirstStartService extends IntentService {
         editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
         editor.commit();
 
-        // show notification about upgrade PPHelper
-        PhoneProfilesHelper.showPPHelperUpgradeNotification(context);
         // show info notification
         ImportantInfoNotification.showInfoNotification(context);
 

@@ -51,11 +51,10 @@ public class GlobalData extends Application {
 
     private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = true;
-    private static boolean rootToolsDebug = true;
-    public static String logFilterTags =  "PhoneProfilesHelper.doInstallPPHelper"
-                                         +"|PhoneProfilesHelper.doUninstallPPHelper"
+    private static boolean rootToolsDebug = false;
+    public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
 
-                                         +"|CmdNfc.main"
+                                         //+"|CmdNfc.main"
 
                                          //+"|$$$ PhoneProfilesService"
                                          //+"|$$$ FirstStartService.onHandleIntent"
@@ -160,7 +159,6 @@ public class GlobalData extends Application {
     static final int REQUEST_CODE_REMOTE_EXPORT = 6250;
 
     static final int PROFILE_NOTIFICATION_ID = 700420;
-    static final int PPHELPER_UPGRADE_NOTIFICATION_ID = 700421;
     static final int IMPORTANT_INFO_NOTIFICATION_ID = 700422;
     static final int GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID = 700423;
     static final int GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID = 700424;
@@ -224,8 +222,6 @@ public class GlobalData extends Application {
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     static final String DEFAULT_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
-    // for synchronization between wifi/bluetooth scanner, local radio changes and PPHelper radio changes
-    //static final String RADIO_CHANGE_PREFS_NAME = "sk.henrichg.phoneprofiles.radio_change";
     static final String WIFI_CONFIGURATION_LIST_PREFS_NAME = "wifi_configuration_list";
     static final String WIFI_SCAN_RESULTS_PREFS_NAME = "wifi_scan_results";
     static final String BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME = "bluetooth_connected_devices";
@@ -292,9 +288,7 @@ public class GlobalData extends Application {
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
-    public static final int PREFERENCE_INSTALL_PPHELPER = 2;
-    public static final int PREFERENCE_UPGRADE_PPHELPER = 3;
-    
+
     public static final long DEFAULT_PROFILE_ID = -999L;  // source profile id
     public static final long PROFILE_NO_ACTIVATE = -999;
 
@@ -1291,27 +1285,11 @@ public class GlobalData extends Application {
         {
             if (android.os.Build.VERSION.SDK_INT >= 17)
             {
-                if (PhoneProfilesHelper.isPPHelperInstalled(context, 7))
+                if (isRooted(false))
                 {
-                    // je nainstalovany PhonProfilesHelper
-                    featurePresented = PREFERENCE_ALLOWED;
-                }
-                else
-                {
-                    if (isRooted(false))
-                    {
-                        // zariadenie je rootnute
-                        if (settingsBinaryExists())
-                            featurePresented = PREFERENCE_ALLOWED;
-                        else
-                        {
-                            // "settings" binary not exists
-                            if (PhoneProfilesHelper.PPHelperVersion == -1)
-                                featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                            else
-                                featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                        }
-                    }
+                    // zariadenie je rootnute
+                    if (settingsBinaryExists())
+                        featurePresented = PREFERENCE_ALLOWED;
                 }
             }
             else
@@ -1338,25 +1316,10 @@ public class GlobalData extends Application {
             {
                 if (android.os.Build.VERSION.SDK_INT >= 21)
                 {
-                    if (PhoneProfilesHelper.isPPHelperInstalled(context, 22))
-                    {
-                        // je nainstalovany PhonProfilesHelper
-                        featurePresented = PREFERENCE_ALLOWED;
-                    }
-                    else
-                    {
-                        if (isRooted(false)) {
-                            // zariadenie je rootnute
-                            if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
-                                featurePresented = PREFERENCE_ALLOWED;
-                            else {
-                                // "service" binary not exists
-                                if (PhoneProfilesHelper.PPHelperVersion == -1)
-                                    featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                                else
-                                    featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                            }
-                        }
+                    if (isRooted(false)) {
+                        // zariadenie je rootnute
+                        if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
+                            featurePresented = PREFERENCE_ALLOWED;
                     }
                 }
                 else
@@ -1387,21 +1350,8 @@ public class GlobalData extends Application {
                 else
                 if (android.os.Build.VERSION.SDK_INT < 17)
                 {
-                    if (PhoneProfilesHelper.isPPHelperInstalled(context, 7))
-                    {
-                        // je nainstalovany PhonProfilesHelper
+                    if (isRooted(false))
                         featurePresented = PREFERENCE_ALLOWED;
-                    }
-                    else
-                    {
-                        if (isRooted(false))
-                        {
-                            if (PhoneProfilesHelper.PPHelperVersion == -1)
-                                featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                            else
-                                featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                        }
-                    }
                 }
                 else
                 if (isRooted(false))
@@ -1409,14 +1359,6 @@ public class GlobalData extends Application {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
-                    else
-                    {
-                        // "settings" binary not exists
-                        if (PhoneProfilesHelper.PPHelperVersion == -1)
-                            featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                        else
-                            featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                    }
                 }
             }
         }
@@ -1428,21 +1370,6 @@ public class GlobalData extends Application {
                 logE("GlobalData.hardwareCheck","NFC=presented");
 
                 // device ma nfc
-                /*if (PhoneProfilesHelper.isPPHelperInstalled(context, 7))
-                {
-                    // je nainstalovany PhonProfilesHelper
-                    featurePresented = PREFERENCE_ALLOWED;
-                }
-                else
-                {
-                    if (isRooted(false))
-                    {
-                        if (PhoneProfilesHelper.PPHelperVersion == -1)
-                            featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                        else
-                            featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                    }
-                }*/
                 if (isRooted(false))
                     featurePresented = PREFERENCE_ALLOWED;
             }
@@ -1470,14 +1397,6 @@ public class GlobalData extends Application {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
-                /*else
-                {
-                    // "settings" binnary not exists
-                    if (PhoneProfilesHelper.PPHelperVersion == -1)
-                        featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                    else
-                        featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                }*/
                 }
             }
             else
@@ -1494,14 +1413,6 @@ public class GlobalData extends Application {
                         // zariadenie je rootnute
                         if (settingsBinaryExists())
                             featurePresented = PREFERENCE_ALLOWED;
-                        /*else
-                        {
-                            // "settings" binnary not exists
-                            if (PhoneProfilesHelper.PPHelperVersion == -1)
-                                featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                            else
-                                featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                        }*/
                     }
                 }
                 else
@@ -1516,14 +1427,6 @@ public class GlobalData extends Application {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
-                /*else
-                {
-                    // "settings" binnary not exists
-                    if (PhoneProfilesHelper.PPHelperVersion == -1)
-                        featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                    else
-                        featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                }*/
                 }
             }
         }
@@ -1535,22 +1438,10 @@ public class GlobalData extends Application {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 final int phoneType = telephonyManager.getPhoneType();
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                    if (PhoneProfilesHelper.isPPHelperInstalled(context, 56)) {
-                        // je nainstalovany PhonProfilesHelper
-                        featurePresented = PREFERENCE_ALLOWED;
-                    } else {
-                        if (isRooted(false)) {
-                            // zariadenie je rootnute
-                            if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_NETWORK_TYPE))
-                                featurePresented = PREFERENCE_ALLOWED;
-                        /*else {
-                            // "service" binary not exists
-                            if (PhoneProfilesHelper.PPHelperVersion == -1)
-                                featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                            else
-                                featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                        }*/
-                        }
+                    if (isRooted(false)) {
+                        // zariadenie je rootnute
+                        if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_NETWORK_TYPE))
+                            featurePresented = PREFERENCE_ALLOWED;
                     }
                 }
             }
@@ -1564,14 +1455,6 @@ public class GlobalData extends Application {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
-                /*else
-                {
-                    // "settings" binnary not exists
-                    if (PhoneProfilesHelper.PPHelperVersion == -1)
-                        featurePresented = PREFERENCE_INSTALL_PPHELPER;
-                    else
-                        featurePresented = PREFERENCE_UPGRADE_PPHELPER;
-                }*/
                 }
             }
             else

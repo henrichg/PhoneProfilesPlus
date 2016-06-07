@@ -77,7 +77,7 @@
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
   <string name="profile_preferences_deviceGPS">(R) GPS</string>
-  <string name="profile_preferences_deviceNFC">(H) NFC</string>
+  <string name="profile_preferences_deviceNFC">(R) NFC</string>
   <string name="profile_preferences_deviceScreenTimeout">Ekran zamanaşımı</string>
   <string name="profile_preferences_deviceBrightness">Ekran parlaklığı</string>
   <string name="profile_preferences_deviceWallpaper">Duvar kağıdı</string>
@@ -289,19 +289,10 @@
   <string name="event_preferences_category_eventBatteryParameters">Pil parametreleri</string>
   <string name="event_preferences_time_enabled">Süreyi etkinleştir</string>
   <string name="event_preferences_battery_enabled">Pili etkinleştir</string>
-  <string name="menu_phoneprofilehepler_install">PPHelper\'ı yükle</string>
   <string name="menu_phoneprofilehepler_uninstall">PPHelper\'ı kaldır</string>
-  <string name="menu_phoneprofilehepler_upgrade">PPHelper\'ı Yükselt</string>
-  <string name="phoneprofilehepler_install_title">PPHelper kurulumu</string>
-  <string name="phoneprofilehepler_install_message">Emin misiniz?</string>
-  <string name="phoneprofilehepler_reboot_title">PPHelper kurulumu</string>
-  <string name="phoneprofilehepler_reboot_message">PPHelper özelliklerinin çalışması için cihazın yeniden başlatılması gerek. Şimdi Yeniden Başlasın mı?</string>
   <string name="phoneprofilehepler_uninstall_title">PPHelper\'ı kaldırın</string>
   <string name="phoneprofilehepler_uninstall_message">Emin misiniz?</string>
-  <string name="phoneprofilehepler_install_error">PPHelper yüklerken hata</string>
   <string name="phoneprofilehepler_uninstall_error">PPhelper kaldırılırken hata oluştu</string>
-  <string name="profile_preferences_install_pphelper">PPHelper\'ı yükle</string>
-  <string name="profile_preferences_upgrade_pphelper">PPHelper\'ı Yükselt</string>
   <string name="contacts_multiselect_summary_text_selected">Seçildi</string>
   <string name="contacts_multiselect_summary_text_not_selected">Seçili değil</string>
   <string name="event_preferences_category_eventCallParameters">Çağrı parametreleri</string>
@@ -368,8 +359,6 @@
   <string name="array_event_pref_calendarSearchField_description">Açıklama</string>
   <string name="event_preferences_calendar_search_string">Arama dizesi</string>
   <string name="event_preferences_calendar_no_event">Etkinlik yok</string>
-  <string name="pphelper_upgrade_notification_title">PPHelper yükseltmesi gereklidir.</string>
-  <string name="pphelper_upgrade_notification_text">Yükseltme için tıklayınız.</string>
   <string name="array_event_pref_priorityLowest">[0] En küçük</string>
   <string name="array_event_pref_priorityLower">[2] Alt</string>
   <string name="array_event_pref_priorityLowerMedium">[4] Alt orta</string>
@@ -432,7 +421,6 @@
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Kalıcı bildirim</string>
   <string name="phone_profiles_pref_notificationStatusBarCancel">(Saniye) sonra iptal</string>
   <string name="event_name_background_profile">Varsayılan profil</string>
-  <string name="phoneprofilehepler_install_error_no_root">PPHelper kurulumu için kök izni gerekli</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">PPHelper kaldırılması için kök izni gerekli</string>
   <string name="phoneprofilehepler_reboot_title_uninstall">PPHelper\'ı kaldır</string>
   <string name="phoneprofilehepler_reboot_message_uninstall">Yeniden başlatma gerekli, Şimdi yeniden başlatılsın mı?</string>
@@ -516,8 +504,6 @@
   <string name="important_info_events">Etkinlikler</string>
   <string name="important_info_system">Sistem</string>
   <string name="important_info_profile_root">Bazı profil tercihleri ROOT yetkileri gerektirir. Bu Tercihler \"(R)\" ile işaretlenmiştir.</string>
-  <string name="important_info_profile_pphelper">Bazı profil tercihleri PPHelper\'in yüklü olmasını gerektirir. Bu Tercihler \"(H)\" ile işaretlenmiştir.</string>
-  <string name="important_info_pphelper_installation">PPHelper kurulumu ROOT yetkileri gerektirir. PPHelper yüklemeyi, Düzenleyici menüsünde \"PPHelper Yükle\" öğesi üzerinden çağırabilirsiniz.</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Sadece tercih etkinse başlat</string>
   <string name="profile_preference_do_not_apply">Uygulamasın</string>
   <string name="pref_dlg_info_about_wildcards_1">Joker karakterler kullanabilirsiniz: \"%\"= herhangi karakterler, \"_\"=herhangi bir karakter.</string>
@@ -579,8 +565,6 @@
   <string name="permissions_for_export_app_data_text2">Lütfen sonraki iletişim kutularında izinleri verin. Ondan sonra aktarabilirsiniz.</string>
   <string name="permissions_for_import_app_data_text1">Uygulama verilerini içe aktarmak bazı izinler gerektirir.</string>
   <string name="permissions_for_import_app_data_text2">Lütfen sonraki iletişim kutularında izinleri verin. Ondan sonra aktarabilirsiniz.</string>
-  <string name="permissions_for_install_pphelper_text1">PPHelper kurulumu bazı izinler gerektirir.</string>
-  <string name="permissions_for_install_pphelper_text2">Lütfen sonraki iletişim kutularında izinleri verin. Ondan sonra PPHelper\'ı kurabilirsiniz.</string>
   <string name="permissions_write_settings_not_allowed_confirm">\"Sistem ayarlarını değiştirme\" etkin değil. Bunun için tekrar sorulmasın?</string>
   <string name="phone_profiles_pref_category_permissions">İzinler</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Sistem ayarlarını değiştir</string>
@@ -766,4 +750,9 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 saat</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Her zaman açık</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Cihazınızda 24 saat seçeneği çalışmadığı zaman (LG), \"Her zaman açık\" seçeneğini kullanın. Bu seçenek cihazınızda karşılan sorunları (Samsung) çözebilir. Bundan sonra \"24 saat\" seçeneğini kullanın.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRecommended">Arka plan hizmeti, PhoneProfilesHizmeti için önerilen</string>
+  <string name="profile_preferences_vibrateWhenRinging">Çalarken titret</string>
+  <string name="permissions_for_play_ringtone_notification_text1">Zil/bildirim sesini hafıza kartından seçtiniz. Bu ses çalınmayacak. Çünkü bunun için bazı izinler gerekli.</string>
+  <string name="permissions_for_play_ringtone_notification_text2">Lütfen sonraki iletişim kutularında izinleri verin. Sonra ses çalınacak.</string>
+  <string name="permissions_for_play_ringtone_notification_big_text_notification">Seçilen zil/bildirimin çalınması için bazı izinlerin verilmesi gerekir.</string>
 </resources>

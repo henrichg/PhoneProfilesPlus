@@ -77,7 +77,7 @@
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
   <string name="profile_preferences_deviceGPS">(R) GPS</string>
-  <string name="profile_preferences_deviceNFC">(H) NFC</string>
+  <string name="profile_preferences_deviceNFC">(R) NFC</string>
   <string name="profile_preferences_deviceScreenTimeout">Temps d\'espera de pantalla</string>
   <string name="profile_preferences_deviceBrightness">Brillantor de la pantalla</string>
   <string name="profile_preferences_deviceWallpaper">Pantalla de fons</string>
@@ -289,19 +289,10 @@
   <string name="event_preferences_category_eventBatteryParameters">Paràmetres de bateria</string>
   <string name="event_preferences_time_enabled">Habilitar horari</string>
   <string name="event_preferences_battery_enabled">Habilitar bateria</string>
-  <string name="menu_phoneprofilehepler_install">Instal·lar PPHelper</string>
   <string name="menu_phoneprofilehepler_uninstall">Desinstal·lar PPHelper</string>
-  <string name="menu_phoneprofilehepler_upgrade">Nova versió PPHelper</string>
-  <string name="phoneprofilehepler_install_title">Instal·lar PPHelper</string>
-  <string name="phoneprofilehepler_install_message">Esteu segur?</string>
-  <string name="phoneprofilehepler_reboot_title">Instal·lar PPHelper</string>
-  <string name="phoneprofilehepler_reboot_message">Per a la funcionalitat de PPHelper, és necessari reiniciar el dispositiu. Reiniciar ara?</string>
   <string name="phoneprofilehepler_uninstall_title">Desinstal·lar PPHelper</string>
   <string name="phoneprofilehepler_uninstall_message">Esteu segur?</string>
-  <string name="phoneprofilehepler_install_error">Error a l\'instal·lar PPHelper</string>
   <string name="phoneprofilehepler_uninstall_error">Error al desinstal·lar PPHelper</string>
-  <string name="profile_preferences_install_pphelper">Instal·lar PPHelper</string>
-  <string name="profile_preferences_upgrade_pphelper">Nova versió PPHelper</string>
   <string name="contacts_multiselect_summary_text_selected">Seleccionats</string>
   <string name="contacts_multiselect_summary_text_not_selected">No seleccionats</string>
   <string name="event_preferences_category_eventCallParameters">Paràmetres de trucada</string>
@@ -368,8 +359,6 @@
   <string name="array_event_pref_calendarSearchField_description">Descripció</string>
   <string name="event_preferences_calendar_search_string">Cercar</string>
   <string name="event_preferences_calendar_no_event">Cap esdeveniment</string>
-  <string name="pphelper_upgrade_notification_title">És necessàri actualitzar PPHelper.</string>
-  <string name="pphelper_upgrade_notification_text">Si us plau, feu clic per actualitzar-lo.</string>
   <string name="array_event_pref_priorityLowest">[0] Més baix</string>
   <string name="array_event_pref_priorityLower">[2] Inferior</string>
   <string name="array_event_pref_priorityLowerMedium">[4] Mitjà inferior</string>
@@ -432,7 +421,6 @@
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Notificació en curs</string>
   <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel·lar després de (sec)</string>
   <string name="event_name_background_profile">Perfil per defecte</string>
-  <string name="phoneprofilehepler_install_error_no_root">La instal·lació de PPHelper requereix ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">La desinstal·lació de PPHelper requereix ROOT</string>
   <string name="phoneprofilehepler_reboot_title_uninstall">Desinstal·lar PPHelper</string>
   <string name="phoneprofilehepler_reboot_message_uninstall">És necessari re-iniciar. Re-iniciar ara?</string>
@@ -516,8 +504,6 @@
   <string name="important_info_events">Esdeveniments</string>
   <string name="important_info_system">Sistema</string>
   <string name="important_info_profile_root">Les preferències del mateix perfil requereixen permisos de ROOT. Aquestes preferències es marquen amb una \"R\".</string>
-  <string name="important_info_profile_pphelper">Les preferències del mateix perfil requereixen tenir instal·lat PPHelper. Aquestes preferències es marquen amb una \"(H)\".</string>
-  <string name="important_info_pphelper_installation">La instal·lació de PPHelper requereix permisos de ROOT. Pots executar-ho des de l\'Editor, en la opció de menú \"Instal·lar PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Començar només quan el perfil estigui activat</string>
   <string name="profile_preference_do_not_apply">No s\'apliquen</string>
   <string name="pref_dlg_info_about_wildcards_1">Podeu utilitzar els comodins: \"%\" = qualsevol caràcter, \"_\" = qualsevol caràcter.</string>
@@ -579,8 +565,6 @@
   <string name="permissions_for_export_app_data_text2">Please grant them in next dialogs. Then data will be exported.</string>
   <string name="permissions_for_import_app_data_text1">Import application data requires some permissions.</string>
   <string name="permissions_for_import_app_data_text2">Please grant them in next dialogs. Then data will be imported.</string>
-  <string name="permissions_for_install_pphelper_text1">Installation of PPHelper requires some permissions.</string>
-  <string name="permissions_for_install_pphelper_text2">Please grant them in next dialogs. Then PPHelper will be installed.</string>
   <string name="permissions_write_settings_not_allowed_confirm">You have not enabled \"Modify system settings\". Never ask again for this?</string>
   <string name="phone_profiles_pref_category_permissions">Permissions</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Modify system settings</string>
@@ -766,4 +750,9 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">When option \"24 hours\" not working on your device (LG), use option \"Always On\". Option \"Always On\", may encountered troubles on your device (Samsung). Then use option \"24 hours\".</string>
+  <string name="phone_profiles_pref_notificationStatusBarRecommended">Recommended for background service PhoneProfilesService</string>
+  <string name="profile_preferences_vibrateWhenRinging">Vibrate when ringing</string>
+  <string name="permissions_for_play_ringtone_notification_text1">You have selected ringer/notification tone from sdcard. Tone will not be played, because this requires some permissions.</string>
+  <string name="permissions_for_play_ringtone_notification_text2">Please grant them in next dialogs. Then tone will be played.</string>
+  <string name="permissions_for_play_ringtone_notification_big_text_notification">Playing selected ringer/notification requires some permissions to be granted.</string>
 </resources>

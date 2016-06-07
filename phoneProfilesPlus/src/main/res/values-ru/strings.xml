@@ -77,7 +77,7 @@
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
   <string name="profile_preferences_deviceGPS">(R) GPS</string>
-  <string name="profile_preferences_deviceNFC">(H) NFC</string>
+  <string name="profile_preferences_deviceNFC">(R) NFC</string>
   <string name="profile_preferences_deviceScreenTimeout">Время таймаута экрана</string>
   <string name="profile_preferences_deviceBrightness">Яркость экрана</string>
   <string name="profile_preferences_deviceWallpaper">Обои</string>
@@ -289,19 +289,10 @@
   <string name="event_preferences_category_eventBatteryParameters">Настройки батареи</string>
   <string name="event_preferences_time_enabled">Включить настройки времени</string>
   <string name="event_preferences_battery_enabled">Включить настройки батареи</string>
-  <string name="menu_phoneprofilehepler_install">Установить PPHelper</string>
   <string name="menu_phoneprofilehepler_uninstall">Удалить PPHelper</string>
-  <string name="menu_phoneprofilehepler_upgrade">Обновить PPHelper</string>
-  <string name="phoneprofilehepler_install_title">Установка PPHelper</string>
-  <string name="phoneprofilehepler_install_message">Вы уверены?</string>
-  <string name="phoneprofilehepler_reboot_title">Установка PPHelper</string>
-  <string name="phoneprofilehepler_reboot_message">Для работы PPHelper необходим перезапуск устройства. Перезапустить сейчас?</string>
   <string name="phoneprofilehepler_uninstall_title">Удаление PPHelper</string>
   <string name="phoneprofilehepler_uninstall_message">Вы уверены?</string>
-  <string name="phoneprofilehepler_install_error">Ошибка при установке PPHelper</string>
   <string name="phoneprofilehepler_uninstall_error">Ошибка при удалении PPHelper</string>
-  <string name="profile_preferences_install_pphelper">Установить PPHelper</string>
-  <string name="profile_preferences_upgrade_pphelper">Обновить PPHelper</string>
   <string name="contacts_multiselect_summary_text_selected">Выбранные</string>
   <string name="contacts_multiselect_summary_text_not_selected">Не выбраны</string>
   <string name="event_preferences_category_eventCallParameters">Настройки звонков</string>
@@ -368,8 +359,6 @@
   <string name="array_event_pref_calendarSearchField_description">Описание</string>
   <string name="event_preferences_calendar_search_string">Искомая строка</string>
   <string name="event_preferences_calendar_no_event">Нет мероприятия</string>
-  <string name="pphelper_upgrade_notification_title">Необходимо обновить PPHelper.</string>
-  <string name="pphelper_upgrade_notification_text">Пожалуйста, нажмите здесь, чтобы начать обновление.</string>
   <string name="array_event_pref_priorityLowest">[0] Наименьший</string>
   <string name="array_event_pref_priorityLower">[2] Ниже</string>
   <string name="array_event_pref_priorityLowerMedium">[4] Ниже среднего</string>
@@ -432,7 +421,6 @@
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Показывать уведомление постоянно</string>
   <string name="phone_profiles_pref_notificationStatusBarCancel">Убрать уведомление через (сек)</string>
   <string name="event_name_background_profile">Профиль по умолчанию</string>
-  <string name="phoneprofilehepler_install_error_no_root">Для установки PPHelper требуется ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">Для удаления PPHelper требуется ROOT</string>
   <string name="phoneprofilehepler_reboot_title_uninstall">Удаление PPHelper</string>
   <string name="phoneprofilehepler_reboot_message_uninstall">Требуется перезапуск приложения. Выполнить?</string>
@@ -516,8 +504,6 @@
   <string name="important_info_events">События</string>
   <string name="important_info_system">Системные</string>
   <string name="important_info_profile_root">Для некоторых настроек профиля требуются права Суперпользователя. Эти настройки отмечены буквой \"(R)\".</string>
-  <string name="important_info_profile_pphelper">Некоторые настройки профиля требует установленного PPHelper. Эти настройки отмечены буквой \"(H)\".</string>
-  <string name="important_info_pphelper_installation">Установка PPHelper\'а требует прав Суперпользователя. Чтобы установить PPHelper - в меню Редактора нажмите \"Установить PPHelper\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Начать только когда активирован профиль</string>
   <string name="profile_preference_do_not_apply">Не применять</string>
   <string name="pref_dlg_info_about_wildcards_1">Можно использовать подстановочные знаки: «%» = любые символы, «_» = один любой символ.</string>
@@ -579,8 +565,6 @@
   <string name="permissions_for_export_app_data_text2">Разрешите в следующих диалоговых окнах. Затем данные будут экспортированы.</string>
   <string name="permissions_for_import_app_data_text1">Импорт данных требует дополнительных разрешений.</string>
   <string name="permissions_for_import_app_data_text2">Разрешите в следующих диалоговых окнах. Затем данные будут импортированы.</string>
-  <string name="permissions_for_install_pphelper_text1">Установка PPHelper требует дополнительных разрешений.</string>
-  <string name="permissions_for_install_pphelper_text2">Разрешите в следующих диалоговых окнах. Затем будет установлен PPHelper.</string>
   <string name="permissions_write_settings_not_allowed_confirm">Вы не разрешили «Изменить настройки». Не спрашивать больше?</string>
   <string name="phone_profiles_pref_category_permissions">Разрешения</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Системные настройки</string>
@@ -766,4 +750,9 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 часа</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Включено всегда</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Если опция «24 часа» не работает на вашем устройстве (LG), попробуйте использовать вариант «Включено всегда». Опция «Включено всегда» может не работать на вашем устройстве (Samsung), попробуйте использовать вариант «24 часа».</string>
+  <string name="phone_profiles_pref_notificationStatusBarRecommended">Рекомендуется для фоновой работы PhoneProfilesService</string>
+  <string name="profile_preferences_vibrateWhenRinging">Вибрация при звонке</string>
+  <string name="permissions_for_play_ringtone_notification_text1">Вы выбрали мелодию звонка/уведомления расположенную на sdcard. Звук не будет воспроизводиться, поскольку для этого требуются дополнительные разрешения.</string>
+  <string name="permissions_for_play_ringtone_notification_text2">Дайте разрешения в следующих диалоговых окнах. Затем мелодия будет установлена.</string>
+  <string name="permissions_for_play_ringtone_notification_big_text_notification">Воспроизведение выбранного звонка/уведомления требует дополнительных разрешений.</string>
 </resources>

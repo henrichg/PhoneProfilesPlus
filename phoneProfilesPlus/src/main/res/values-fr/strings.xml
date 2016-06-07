@@ -77,7 +77,7 @@
   <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
   <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
   <string name="profile_preferences_deviceGPS">(R) GPS</string>
-  <string name="profile_preferences_deviceNFC">(H) NFC</string>
+  <string name="profile_preferences_deviceNFC">(R) NFC</string>
   <string name="profile_preferences_deviceScreenTimeout">Extinction écran</string>
   <string name="profile_preferences_deviceBrightness">Luminosité de l\'écran</string>
   <string name="profile_preferences_deviceWallpaper">Fond d\'écran</string>
@@ -289,19 +289,10 @@
   <string name="event_preferences_category_eventBatteryParameters">Paramètres de batterie</string>
   <string name="event_preferences_time_enabled">Activez le temps</string>
   <string name="event_preferences_battery_enabled">Activer la batterie</string>
-  <string name="menu_phoneprofilehepler_install">Installer PPHelper</string>
   <string name="menu_phoneprofilehepler_uninstall">Désinstaller PPHelper</string>
-  <string name="menu_phoneprofilehepler_upgrade">Mise à niveau de PPHelper</string>
-  <string name="phoneprofilehepler_install_title">Installation de PPHelper</string>
-  <string name="phoneprofilehepler_install_message">Etes-vous sûr?</string>
-  <string name="phoneprofilehepler_reboot_title">Installation de PPHelper</string>
-  <string name="phoneprofilehepler_reboot_message">Pour que PPHelper soit activé, il faut redémarrer l\'appareil. Redémarrer maintenant ?</string>
   <string name="phoneprofilehepler_uninstall_title">Désinstallation de PPHelper</string>
   <string name="phoneprofilehepler_uninstall_message">Etes-vous sûr?</string>
-  <string name="phoneprofilehepler_install_error">Erreur lors de l\'installation PPHelper</string>
   <string name="phoneprofilehepler_uninstall_error">Erreur lors de la désinstallation de PPhelper</string>
-  <string name="profile_preferences_install_pphelper">Installer PPHelper</string>
-  <string name="profile_preferences_upgrade_pphelper">Mise à niveau de PPHelper</string>
   <string name="contacts_multiselect_summary_text_selected">Sélectionné</string>
   <string name="contacts_multiselect_summary_text_not_selected">désélectionné</string>
   <string name="event_preferences_category_eventCallParameters">Paramètres d\'appel</string>
@@ -368,8 +359,6 @@
   <string name="array_event_pref_calendarSearchField_description">Description</string>
   <string name="event_preferences_calendar_search_string">Chaîne de recherche</string>
   <string name="event_preferences_calendar_no_event">Aucun événement</string>
-  <string name="pphelper_upgrade_notification_title">Une  mise à jour de PPHelper est requise.</string>
-  <string name="pphelper_upgrade_notification_text">S\'il vous plaît cliquez pour mettre à jour.</string>
   <string name="array_event_pref_priorityLowest">[0] Le plus bas</string>
   <string name="array_event_pref_priorityLower">[2] Bas</string>
   <string name="array_event_pref_priorityLowerMedium">[4] Moyennement bas</string>
@@ -432,7 +421,6 @@
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Notification en cours</string>
   <string name="phone_profiles_pref_notificationStatusBarCancel">Annuler après (s)</string>
   <string name="event_name_background_profile">Profil par défaut</string>
-  <string name="phoneprofilehepler_install_error_no_root">l\'installation de PPHelper nécessite un accés ROOT</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">La désinstallation de PPHelper nécessite un accés ROOT</string>
   <string name="phoneprofilehepler_reboot_title_uninstall">Désinstallation de PPHelper</string>
   <string name="phoneprofilehepler_reboot_message_uninstall">Redémarrage nécessaire. Redémarrer maintenant ?</string>
@@ -516,8 +504,6 @@
   <string name="important_info_events">Événements</string>
   <string name="important_info_system">Système</string>
   <string name="important_info_profile_root">Les préférences de ce type nécessitent des privilèges ROOT. Ces préférences sont marqués avec « (R) ».</string>
-  <string name="important_info_profile_pphelper">Les préférences de ce type nécessitent d\'installer PPHelper . Ces préférences sont marqués avec « (H) ».</string>
-  <string name="important_info_pphelper_installation">L\'installation de PPHelper nécessite des privilèges ROOT. Vous pouvez installer PPHelper via le menu « Installer PPHelper ».</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Démarrez uniquement à l\'activation du profil</string>
   <string name="profile_preference_do_not_apply">Ne pas appliquer</string>
   <string name="pref_dlg_info_about_wildcards_1">Vous pouvez utiliser des caractères génériques: « % » = tous les caractères, « _ » =  n\'importe quel caractère.</string>
@@ -579,8 +565,6 @@
   <string name="permissions_for_export_app_data_text2">S\'il vous plaît valides les boîtes de dialogue suivantes. Les données pourront être exportées.</string>
   <string name="permissions_for_import_app_data_text1">Importer les données d\'application requiert des autorisations.</string>
   <string name="permissions_for_import_app_data_text2">S\'il vous plaît validez les boîtes de dialogue suivantes. Puis les données pourront être importées.</string>
-  <string name="permissions_for_install_pphelper_text1">L\'installation de PPHelper exige certaines autorisations.</string>
-  <string name="permissions_for_install_pphelper_text2">S\'il vous plaît validez les boîtes de dialogue suivantes. Puis PPHelper s\'installera.</string>
   <string name="permissions_write_settings_not_allowed_confirm">Vous n\'avez pas activé « Modifier les paramètres système ». Ne plus demander pour cela ?</string>
   <string name="phone_profiles_pref_category_permissions">Autorisations</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Changer les réglages système</string>
@@ -766,4 +750,9 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 heures</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Toujours allumé</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Lorsque l\'option « 24 heures » ne fonctionne ne pas sur votre appareil (LG), utilisez l\'option « Toujours allumé». Cette option , peut avoirdes problèmes sur votre appareil (Samsung). Utilisez alors l\'option « 24 heures ».</string>
+  <string name="phone_profiles_pref_notificationStatusBarRecommended">Recommandé pour mettre le service PhoneProfilesService en tache de fond</string>
+  <string name="profile_preferences_vibrateWhenRinging">Vibrer quand ça sonne</string>
+  <string name="permissions_for_play_ringtone_notification_text1">Vous avez sélectionné des sonneries et des notifications de la carte Sd. Les sons ne sont pas joué, parce que ceci exige certaines autorisations.</string>
+  <string name="permissions_for_play_ringtone_notification_text2">S\'il vous plaît validez les boîtes de dialogues suivantes pour que les sons soient joués.</string>
+  <string name="permissions_for_play_ringtone_notification_big_text_notification">Jouer la sonnerie sélectionnée requiert certaines autorisations à accorder.</string>
 </resources>

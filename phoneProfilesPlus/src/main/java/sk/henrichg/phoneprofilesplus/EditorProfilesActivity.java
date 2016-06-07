@@ -532,25 +532,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         boolean isPPHInstalled = PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext(), PhoneProfilesHelper.PPHELPER_CURRENT_VERSION);
 
-        menuItem = menu.findItem(R.id.menu_pphelper_install);
-        if (menuItem != null)
-        {
-            //menuItem.setVisible(GlobalData.isRooted(true) && (!isPPHInstalled));
-            menuItem.setVisible(!isPPHInstalled);
-
-            if (PhoneProfilesHelper.PPHelperVersion != -1)
-            {
-                menuItem.setTitle(R.string.menu_phoneprofilehepler_upgrade);
-            }
-            else
-            {
-                menuItem.setTitle(R.string.menu_phoneprofilehepler_install);
-            }
-        }
         menuItem = menu.findItem(R.id.menu_pphelper_uninstall);
         if (menuItem != null)
         {
-            //menuItem.setVisible(GlobalData.isRooted(true) && (PhoneProfilesHelper.PPHelperVersion != -1));
             menuItem.setVisible(PhoneProfilesHelper.PPHelperVersion != -1);
         }
 
@@ -637,9 +621,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         case R.id.menu_install_tone:
             FirstStartService.installTone(FirstStartService.TONE_ID, FirstStartService.TONE_NAME, getApplicationContext(), true);
             return true;
-        case R.id.menu_pphelper_install:
-            PhoneProfilesHelper.installPPHelper(this, false);
-            return true;
         case R.id.menu_pphelper_uninstall:
             PhoneProfilesHelper.uninstallPPHelper(this);
             return true;
@@ -669,7 +650,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             // zrusenie notifikacie
             getDataWrapper().getActivateProfileHelper().removeNotification();
-            PhoneProfilesHelper.removeNotification(getApplicationContext());
             ImportantInfoNotification.removeNotification(getApplicationContext());
             Permissions.removeNotifications(getApplicationContext());
 

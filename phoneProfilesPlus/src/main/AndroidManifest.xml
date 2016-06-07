@@ -185,13 +185,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UpgradePPHelperActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyActivity">
-        </activity>
-        <activity
             android:name=".RemoteExportDataActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
