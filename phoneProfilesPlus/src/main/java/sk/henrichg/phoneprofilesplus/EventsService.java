@@ -110,7 +110,7 @@ public class EventsService extends IntentService
         Handler brightnessHandler = new Handler(getMainLooper());
         dataWrapper.getActivateProfileHelper().setBrightnessHandler(brightnessHandler);
 
-        GlobalData.logE("$$$ EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
+        //GlobalData.logE("$$$ EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
 
         List<Event> eventList = dataWrapper.getEventList();
 
@@ -512,6 +512,7 @@ public class EventsService extends IntentService
 
     private void doEndService(Intent intent) {
         GlobalData.logE("EventsService.doEndService","broadcastReceiverType="+broadcastReceiverType);
+        GlobalData.logE("EventsService.doEndService","callEventType="+callEventType);
 
         if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
 

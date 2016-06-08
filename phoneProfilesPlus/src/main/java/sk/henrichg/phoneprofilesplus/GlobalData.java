@@ -56,7 +56,9 @@ public class GlobalData extends Application {
 
                                          //+"|CmdNfc.main"
 
-                                         //+"|$$$ PhoneProfilesService"
+                                         +"|$$$ PhoneProfilesService"
+                                         +"|EventsService.doEndService"
+
                                          //+"|$$$ FirstStartService.onHandleIntent"
                                          //+"|@@@ PackageReplacedReceiver"
 
