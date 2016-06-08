@@ -54,10 +54,9 @@ public class GlobalData extends Application {
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
 
-                                         //+"|CmdNfc.main"
+                                         //+"|SIPCallBroadcastReceiver"
 
-                                         +"|$$$ PhoneProfilesService"
-                                         +"|EventsService.doEndService"
+                                         //+"|CmdNfc.main"
 
                                          //+"|$$$ FirstStartService.onHandleIntent"
                                          //+"|@@@ PackageReplacedReceiver"

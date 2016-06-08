@@ -17,11 +17,14 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.net.sip.SipManager;
+import android.net.sip.SipProfile;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.Settings;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -91,6 +94,10 @@ public class PhoneProfilesService extends Service
 
     private MediaPlayer eventNotificationMediaPlayer = null;
     private boolean eventNotificationIsPlayed = false;
+
+    //--------------------------
+
+    public static SipManager mSipManager = null;
 
     @Override
     public void onCreate()
@@ -172,6 +179,27 @@ public class PhoneProfilesService extends Service
         // but will by stopped when events not exists
         GlobalData.startGeofenceScanner(getApplicationContext());
         GlobalData.startOrientationScanner(getApplicationContext());
+
+        /*
+        if (mSipManager != null) {
+            mSipManager = SipManager.newInstance(getApplicationContext());
+
+            SipProfile sipProfile = null;
+            try {
+                SipProfile.Builder builder = new SipProfile.Builder("henrichg", "domain");
+                builder.setPassword("password");
+                sipProfile = builder.build();
+
+                Intent intent = new Intent();
+                intent.setAction("sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL");
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, Intent.FILL_IN_DATA);
+                mSipManager.open(sipProfile, pendingIntent, null);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        */
     }
 
     @Override

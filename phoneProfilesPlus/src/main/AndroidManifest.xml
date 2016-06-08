@@ -49,6 +49,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <!--<uses-permission android:name="android.permission.USE_SIP"/> -->
 
     <!--
     <android:uses-permission
@@ -705,6 +706,14 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <!--<receiver
+            android:name=".SIPCallBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL"/>
+            </intent-filter>
+        </receiver>-->
     </application>
 
 </manifest>
