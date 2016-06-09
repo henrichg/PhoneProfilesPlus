@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
-/**
- * Created by henrisko on 9.6.2016.
- */
 public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
@@ -26,37 +23,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
         GlobalData.loadPreferences(getApplicationContext());
 
-        dataWrapper.invalidateProfileList();
-        dataWrapper.invalidateEventList();
+        EditorProfilesActivity.exitApp(getApplicationContext(), dataWrapper);
 
-        dataWrapper.updateNotificationAndWidgets(null/*, ""*/);
-        //dataWrapper.getActivateProfileHelper().showNotification(null, "");
-        //dataWrapper.getActivateProfileHelper().updateWidget();
-
-        GlobalData.setEventsBlocked(getApplicationContext(), false);
-        dataWrapper.getDatabaseHandler().unblockAllEvents();
-        GlobalData.setForceRunEventRunning(getApplicationContext(), false);
-
-        SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(EditorProfilesActivity.SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
-        editor.putInt(EditorProfilesActivity.SP_EDITOR_ORDER_SELECTED_ITEM, 0);
-        editor.commit();
-
-        // restart events
-        // startneme eventy
-        if (GlobalData.getGlobalEventsRuning(getApplicationContext())) {
-                        /*
-                        Intent intent = new Intent();
-                        intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
-                        getBaseContext().sendBroadcast(intent);
-                        */
-            dataWrapper.restartEventsWithDelay(1, false);
-        }
-
-        //dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
-
-        // refresh activity
         ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
         if (activateProfileActivity != null)
         {

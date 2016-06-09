@@ -547,6 +547,36 @@ public class EditorProfilesActivity extends AppCompatActivity
         return super.onPrepareOptionsMenu(menu);
     }
 
+    public static void exitApp(Context context, DataWrapper dataWrapper) {
+        GlobalData.setApplicationStarted(context, false);
+
+        // stop all events
+        dataWrapper.stopAllEvents(false, false);
+
+        // zrusenie notifikacie
+        dataWrapper.getActivateProfileHelper().removeNotification();
+        ImportantInfoNotification.removeNotification(context);
+        Permissions.removeNotifications(context);
+
+        SearchCalendarEventsBroadcastReceiver.removeAlarm(context);
+        WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+        GlobalData.stopGeofenceScanner();
+        GlobalData.stopGeofenceScanner();
+
+        // remove alarm for profile duration
+        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+        GlobalData.setActivatedProfileForDuration(context, 0);
+
+        context.stopService(new Intent(context, PhoneProfilesService.class));
+        context.stopService(new Intent(context, KeyguardService.class));
+
+        ActivateProfileHelper.screenTimeoutUnlock(context);
+        ActivateProfileHelper.removeBrightnessView(context);
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -643,34 +673,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             return true;*/
         case R.id.menu_exit:
-            GlobalData.setApplicationStarted(getApplicationContext(), false);
-
-            // stop all events
-            getDataWrapper().stopAllEvents(false, false);
-
-            // zrusenie notifikacie
-            getDataWrapper().getActivateProfileHelper().removeNotification();
-            ImportantInfoNotification.removeNotification(getApplicationContext());
-            Permissions.removeNotifications(getApplicationContext());
-
-            SearchCalendarEventsBroadcastReceiver.removeAlarm(getApplicationContext());
-            WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
-            BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
-            GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
-            GlobalData.stopGeofenceScanner();
-            GlobalData.stopGeofenceScanner();
-
-            // remove alarm for profile duration
-            ProfileDurationAlarmBroadcastReceiver.removeAlarm(getApplicationContext());
-            GlobalData.setActivatedProfileForDuration(getApplicationContext(), 0);
-
-            stopService(new Intent(getApplicationContext(), PhoneProfilesService.class));
-            stopService(new Intent(getApplicationContext(), KeyguardService.class));
-
-            ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
-            ActivateProfileHelper.removeBrightnessView(getApplicationContext());
-
+            exitApp(getApplicationContext(), getDataWrapper());
             getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
+
 
             Handler handler=new Handler();
             Runnable r=new Runnable() {
