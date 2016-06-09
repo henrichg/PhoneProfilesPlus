@@ -180,7 +180,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         {
             // create new profile
             if (predefinedProfileIndex == 0) {
-                profile = dataWrapper.getNoinitializedProfile(
+                profile = DataWrapper.getNoinitializedProfile(
                         context.getResources().getString(R.string.profile_name_default),
                         GlobalData.PROFILE_ICON_DEFAULT, 0);
             }

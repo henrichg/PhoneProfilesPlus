@@ -201,7 +201,7 @@ public class EventsService extends IntentService
         //BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
         //BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
 
-        Profile mergedProfile = dataWrapper.getNoinitializedProfile("", "", 0);
+        Profile mergedProfile = DataWrapper.getNoinitializedProfile("", "", 0);
 
         //Profile activatedProfile0 = null;
 

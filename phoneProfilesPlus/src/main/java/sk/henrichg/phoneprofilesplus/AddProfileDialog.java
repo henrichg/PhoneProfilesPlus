@@ -34,7 +34,7 @@ public class AddProfileDialog
         int monochromeValue = 0xFF;
 
         Profile profile;
-        profile = profileListFragment.dataWrapper.getNoinitializedProfile(
+        profile = DataWrapper.getNoinitializedProfile(
                                         context.getResources().getString(R.string.profile_name_default),
                                         GlobalData.PROFILE_ICON_DEFAULT, 0);
         profile.generateIconBitmap(context, monochrome, monochromeValue);

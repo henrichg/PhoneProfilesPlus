@@ -123,7 +123,7 @@ public class DataWrapper {
         this.profileList = profileList;
     }
 
-    public Profile getNoinitializedProfile(String name, String icon, int order)
+    public static Profile getNoinitializedProfile(String name, String icon, int order)
     {
         return new Profile(
                   name,
@@ -885,7 +885,7 @@ public class DataWrapper {
         }
     }
 
-    public Event getNoinitializedEvent(String name)
+    public static Event getNoinitializedEvent(String name)
     {
         return new Event(name,
                 0,
