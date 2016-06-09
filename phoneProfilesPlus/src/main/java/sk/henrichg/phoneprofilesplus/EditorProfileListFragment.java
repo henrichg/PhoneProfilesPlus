@@ -842,6 +842,8 @@ public class EditorProfileListFragment extends Fragment {
         if ((dataWrapper == null) || (profileListAdapter == null))
             return;
 
+        GlobalData.logE("EditorProfileListFragment.refreshGUI","refresh");
+
         Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
         if (profileFromAdapter != null)
             profileFromAdapter._checked = false;
@@ -849,6 +851,7 @@ public class EditorProfileListFragment extends Fragment {
         Profile profileFromDB = dataWrapper.getDatabaseHandler().getActivatedProfile();
         if (profileFromDB != null)
         {
+            GlobalData.logE("EditorProfileListFragment.refreshGUI","profile activated");
             Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
@@ -857,6 +860,7 @@ public class EditorProfileListFragment extends Fragment {
         }
         else
         {
+            GlobalData.logE("EditorProfileListFragment.refreshGUI","profile not activated");
             updateHeader(null);
             updateListView(null, false, refreshIcons);
         }

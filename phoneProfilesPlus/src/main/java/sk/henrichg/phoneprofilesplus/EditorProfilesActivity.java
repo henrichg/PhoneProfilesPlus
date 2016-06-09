@@ -85,8 +85,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final String SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX = "data_detail_predefined_event_index";
 
 
-    private static final String SP_EDITOR_DRAWER_SELECTED_ITEM = "editor_drawer_selected_item";
-    private static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
+    public static final String SP_EDITOR_DRAWER_SELECTED_ITEM = "editor_drawer_selected_item";
+    public static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
