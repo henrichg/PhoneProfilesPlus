@@ -55,6 +55,19 @@ public class LaunchShortcutActivity extends Activity {
         if (requestCode == 100) {
             if ((resultCode == RESULT_OK) && (data != null)) {
                 Intent intent = data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
+
+                /* Storing Intent to SQLite ;-)
+                You can simply store the intent in a String way:
+
+                String intentDescription = intent.toUri(0);
+                //Save the intent string into your database
+
+                Later you can restore the Intent:
+
+                String intentDescription = cursor.getString(intentIndex);
+                Intent intent = Intent.parseUri(intentDescription, 0);
+                */
+
                 try {
                     startActivity(intent);
                 } catch (Exception e) {
