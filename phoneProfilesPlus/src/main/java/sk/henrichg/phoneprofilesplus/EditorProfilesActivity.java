@@ -563,7 +563,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         GlobalData.stopGeofenceScanner();
-        GlobalData.stopGeofenceScanner();
+        GlobalData.stopOrientationScanner();
 
         // remove alarm for profile duration
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
