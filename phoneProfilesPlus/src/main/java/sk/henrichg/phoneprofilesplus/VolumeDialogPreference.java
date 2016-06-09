@@ -101,7 +101,8 @@ public class VolumeDialogPreference extends
         defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
 
         mediaPlayer = MediaPlayer.create(context, R.raw.volume_change_notif);
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        if (mediaPlayer != null)
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         typedArray.recycle();
     }
@@ -213,16 +214,18 @@ public class VolumeDialogPreference extends
     }
 
     public void onStopTrackingTouch(SeekBar seek) {
-        int volume;
-        if (volumeType.equalsIgnoreCase("MEDIA"))
-            volume = value;
-        else {
-            float percentage = (float) value / maximumValue * 100.0f;
-            volume = Math.round(maximumMediaValue / 100.0f * percentage);
-        }
+        if (mediaPlayer != null) {
+            int volume;
+            if (volumeType.equalsIgnoreCase("MEDIA"))
+                volume = value;
+            else {
+                float percentage = (float) value / maximumValue * 100.0f;
+                volume = Math.round(maximumMediaValue / 100.0f * percentage);
+            }
 
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
-        mediaPlayer.start();
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
+            mediaPlayer.start();
+        }
     }
 
     @Override
@@ -310,6 +313,8 @@ public class VolumeDialogPreference extends
     public void onDismiss(DialogInterface dialog)
     {
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, defaultValueMusic, 0);
+        if (mediaPlayer != null)
+            mediaPlayer.release();
     }
 
     public static boolean changeEnabled(String value) {

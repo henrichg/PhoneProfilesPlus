@@ -625,6 +625,7 @@ public class PhoneProfilesService extends Service
             if (ringingMediaPlayer != null) {
                 if (ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.stop();
+                ringingMediaPlayer.release();
 
                 /*if (android.os.Build.VERSION.SDK_INT >= 23)
                     audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, 0);
@@ -663,9 +664,11 @@ public class PhoneProfilesService extends Service
                 if (!ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.start();
         } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
-            if (ringingMediaPlayer != null)
+            if (ringingMediaPlayer != null) {
                 if (ringingMediaPlayer.isPlaying())
                     ringingMediaPlayer.stop();
+                ringingMediaPlayer.release();
+            }
             audioManager.abandonAudioFocus(this);
             // Stop playback
         }
