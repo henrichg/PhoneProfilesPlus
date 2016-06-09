@@ -1563,6 +1563,7 @@ public class ActivateProfileHelper {
         if (GlobalData.phoneProfilesService != null)
             GlobalData.phoneProfilesService.stopForeground(true);
         else
+        if (notificationManager != null)
             notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
     }
 
