@@ -1316,10 +1316,10 @@ public class ActivateProfileHelper {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 PixelFormat.TRANSLUCENT
         );
-        if (android.os.Build.VERSION.SDK_INT < 17)
+        /*if (android.os.Build.VERSION.SDK_INT < 17)
             params.gravity = Gravity.RIGHT | Gravity.TOP;
         else
-            params.gravity = Gravity.END | Gravity.TOP;
+            params.gravity = Gravity.END | Gravity.TOP;*/
         GUIData.keepScreenOnView = new BrightnessView(context);
         windowManager.addView(GUIData.keepScreenOnView, params);
     }
@@ -1361,10 +1361,10 @@ public class ActivateProfileHelper {
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         PixelFormat.TRANSLUCENT
                     );
-            if (android.os.Build.VERSION.SDK_INT < 17)
+            /*if (android.os.Build.VERSION.SDK_INT < 17)
                 params.gravity = Gravity.RIGHT | Gravity.TOP;
             else
-                params.gravity = Gravity.END | Gravity.TOP;
+                params.gravity = Gravity.END | Gravity.TOP;*/
             if (profile.getDeviceBrightnessAutomatic())
                 params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
             else
@@ -1985,7 +1985,7 @@ public class ActivateProfileHelper {
                 context.sendBroadcast(poke);
             }
             else
-            if ((android.os.Build.VERSION.SDK_INT >= 17) && GlobalData.grantRoot(false))
+            if ((android.os.Build.VERSION.SDK_INT >= 16) && GlobalData.grantRoot(false))
             {
                 // zariadenie je rootnute
                 GlobalData.logE("ActivateProfileHelper.setGPS", "rooted");
@@ -2061,7 +2061,7 @@ public class ActivateProfileHelper {
                 context.sendBroadcast(poke);
             }
             else
-            if ((android.os.Build.VERSION.SDK_INT >= 17) && GlobalData.grantRoot(false))
+            if ((android.os.Build.VERSION.SDK_INT >= 16) && GlobalData.grantRoot(false))
             {
                 // zariadenie je rootnute
                 GlobalData.logE("ActivateProfileHelper.setGPS", "rooted");
