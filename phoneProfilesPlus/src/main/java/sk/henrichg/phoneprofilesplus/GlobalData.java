@@ -54,6 +54,8 @@ public class GlobalData extends Application {
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
 
+                                         +"|ActivateProfileHelper.setGPS"
+
                                          //+"|PhoneProfilesBackupAgent"
                                          //+"|$$$ FirstStartService.onHandleIntent"
                                          //+"|$$$ PhoneProfilesService.onCreate"
