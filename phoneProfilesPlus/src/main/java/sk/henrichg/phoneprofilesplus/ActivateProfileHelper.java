@@ -1995,12 +1995,14 @@ public class ActivateProfileHelper {
 
                 if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                    GlobalData.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
                     String newSet;
                     if (provider == "")
                         newSet = LocationManager.GPS_PROVIDER;
                     else
                         newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
+                    GlobalData.logE("ActivateProfileHelper.setGPS", "newSet="+newSet);
 
                     command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
                     //if (GlobalData.isSELinuxEnforcing())
@@ -2013,7 +2015,8 @@ public class ActivateProfileHelper {
                         commandWait(command);
                         //RootTools.closeAllShells();
                     } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                        //Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                        GlobalData.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
                 }
                 else {
@@ -2071,6 +2074,7 @@ public class ActivateProfileHelper {
 
                 if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+                    GlobalData.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
                     String[] list = provider.split(",");
 
@@ -2085,6 +2089,7 @@ public class ActivateProfileHelper {
                             j++;
                         }
                     }
+                    GlobalData.logE("ActivateProfileHelper.setGPS", "newSet="+newSet);
 
                     command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
                     //if (GlobalData.isSELinuxEnforcing())
@@ -2096,7 +2101,8 @@ public class ActivateProfileHelper {
                         commandWait(command);
                         //RootTools.closeAllShells();
                     } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                        //Log.e("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
+                        GlobalData.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
                 }
                 else {
