@@ -1982,7 +1982,7 @@ public class ActivateProfileHelper {
                 String command1;
                 //String command2;
 
-                /*if (android.os.Build.VERSION.SDK_INT < 23) {
+                if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     GlobalData.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
@@ -2008,7 +2008,7 @@ public class ActivateProfileHelper {
                         GlobalData.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
                 }
-                else {*/
+                else {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     GlobalData.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
@@ -2021,7 +2021,7 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         GlobalData.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
-                //}
+                }
             }
             else
             if (GlobalData.canExploitGPS(context))
@@ -2064,7 +2064,7 @@ public class ActivateProfileHelper {
                 String command1;
                 //String command2;
 
-                /*if (android.os.Build.VERSION.SDK_INT < 23) {
+                if (android.os.Build.VERSION.SDK_INT < 23) {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     GlobalData.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
@@ -2097,7 +2097,7 @@ public class ActivateProfileHelper {
                         GlobalData.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
                 }
-                else {*/
+                else {
                     String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
                     GlobalData.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
@@ -2110,7 +2110,7 @@ public class ActivateProfileHelper {
                     } catch (Exception e) {
                         GlobalData.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                     }
-                //}
+                }
             }
             else
             if (GlobalData.canExploitGPS(context))

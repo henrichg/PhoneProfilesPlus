@@ -1350,22 +1350,22 @@ public class GlobalData extends Application {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS))
             {
                 // device ma gps
-                if (canExploitGPS(context))
-                {
-                    featurePresented = PREFERENCE_ALLOWED;
-                }
-                else
-                if (android.os.Build.VERSION.SDK_INT < 17)
+                /*if (android.os.Build.VERSION.SDK_INT < 17)
                 {
                     if (isRooted(false))
                         featurePresented = PREFERENCE_ALLOWED;
                 }
-                else
+                else*/
                 if (isRooted(false))
                 {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
+                }
+                else
+                if (canExploitGPS(context))
+                {
+                    featurePresented = PREFERENCE_ALLOWED;
                 }
             }
         }
