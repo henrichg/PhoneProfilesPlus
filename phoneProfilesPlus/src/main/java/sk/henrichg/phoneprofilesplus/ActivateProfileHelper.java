@@ -1987,7 +1987,7 @@ public class ActivateProfileHelper {
                     GlobalData.logE("ActivateProfileHelper.setGPS", "provider="+provider);
 
                     String newSet;
-                    if (provider == "")
+                    if (provider.isEmpty())
                         newSet = LocationManager.GPS_PROVIDER;
                     else
                         newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
