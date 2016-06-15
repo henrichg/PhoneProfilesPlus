@@ -89,7 +89,7 @@ public class ScannerService extends IntentService
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode) {
             int forceScan = GlobalData.getForceOneWifiScan(context);
-            if ((forceScan != GlobalData.FORCE_ONE_SCAN_ENABLED) && (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+            if (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                 if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI) &&
                         GlobalData.applicationEventWifiScanInPowerSaveMode.equals("2"))
                     // not scan wi-fi in power save mode
@@ -129,10 +129,7 @@ public class ScannerService extends IntentService
                 boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
                 unlock();
                 int forceScan = GlobalData.getForceOneWifiScan(context);
-                boolean scan = (wifiEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED) ||
-                                                    (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG));
-                if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
-                    scan = false;
+                boolean scan = (wifiEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                 if (scan) {
                     if (wifiEventsExists)
                         scan = isLocationEnabled(context, scanType);
@@ -270,14 +267,8 @@ public class ScannerService extends IntentService
                 else
                     leDevicesScan = false;
                 unlock();
-                boolean scan = (bluetoothEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED) ||
-                                                         (forceScanLE == GlobalData.FORCE_ONE_SCAN_ENABLED) ||
-                                                         (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) ||
+                boolean scan = (bluetoothEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) ||
                                                          (forceScanLE == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG));
-                if ((!bluetoothEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
-                    scan = false;
-                if ((!bluetoothEventsExists) && (forceScanLE == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
-                    scan = false;
                 if (scan) {
                     if (leDevicesScan)
                         leDevicesScan = isLocationEnabled(context, scanType);
@@ -599,10 +590,8 @@ public class ScannerService extends IntentService
                     if (GlobalData.applicationEventWifiEnableWifi || (forceScan != GlobalData.FORCE_ONE_SCAN_DISABLED))
                     {
                         boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
-                        boolean scan = (wifiEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED) ||
-                                                            (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG));
-                        if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
-                            scan = false;
+                        boolean scan = ((wifiEventsExists && GlobalData.applicationEventWifiEnableWifi) ||
+                                            (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                         if (scan)
                         {
                             WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(dataWrapper.context, true);
@@ -719,10 +708,8 @@ public class ScannerService extends IntentService
                 if (GlobalData.applicationEventBluetoothEnableBluetooth || (forceScan != GlobalData.FORCE_ONE_SCAN_DISABLED))
                 {
                     boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
-                    boolean scan = (bluetoothEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED)  ||
-                                                             (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG));
-                    if ((!bluetoothEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
-                        scan = false;
+                    boolean scan = ((bluetoothEventsExists && GlobalData.applicationEventBluetoothEnableBluetooth) ||
+                                        (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                     if (scan)
                     {
                         GlobalData.logE("@@@ ScannerService.enableBluetooth","set enabled");

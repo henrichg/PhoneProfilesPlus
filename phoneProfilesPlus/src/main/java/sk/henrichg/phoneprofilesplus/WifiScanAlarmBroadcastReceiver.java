@@ -41,59 +41,22 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         GlobalData.loadPreferences(context);
 
-        //int oneshot = intent.getIntExtra(EXTRA_ONESHOT, -1);
-        //if (oneshot == 0)
-            setAlarm(context, false, false);
-
-        //if (scanResults == null)
-        //    scanResults = new ArrayList<WifiSSIDData>();
-
-        //if (wifiConfigurationList == null)
-        //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
+        setAlarm(context, false, false);
 
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) !=
                 GlobalData.PREFERENCE_ALLOWED) {
-            removeAlarm(context/*, false*/);
-            //removeAlarm(context/*, true*/);
+            removeAlarm(context);
             return;
         }
 
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-        // disabled fro firstStartEvents
-        //if (!GlobalData.getApplicationStarted(context))
-            // application is not started
-        //	return;
-
         if (GlobalData.getGlobalEventsRuning(context))
         {
             GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.onReceive", "xxx");
 
-            //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
-            //GlobalData.logE("$$$ WifiAP", "WifiScanAlarmBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
-
-            // moved to ScannerService
-            /*boolean wifiEventsExists = false;
-
-            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-            wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0;
-            GlobalData.logE("WifiScanAlarmBroadcastReceiver.onReceive","wifiEventsExists="+wifiEventsExists);
-
-            int forceScan = GlobalData.getForceOneWifiScan(context);
-            boolean scan = (wifiEventsExists || (forceScan == GlobalData.FORCE_ONE_SCAN_ENABLED));
-            if ((!wifiEventsExists) && (forceScan == GlobalData.FORCE_ONE_SCAN_AND_DO_EVENTS))
-                scan = false;
-            if (scan)
-            {*/
-                startScanner(context);
-            /*}
-            else {
-                removeAlarm(context, false);
-                removeAlarm(context, true);
-            }
-
-            dataWrapper.invalidateDataWrapper();*/
+            startScanner(context);
         }
 
     }

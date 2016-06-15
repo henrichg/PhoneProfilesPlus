@@ -332,8 +332,6 @@ public class GlobalData extends Application {
     private static final String PREF_ACTIVITY_LOG_ENABLED = "activity_log_enabled";
 
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
-    public static final int FORCE_ONE_SCAN_ENABLED = 1;
-    public static final int FORCE_ONE_SCAN_AND_DO_EVENTS = 2;
     public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
 
     // alarm time offset (miliseconds) for events with generated alarms
