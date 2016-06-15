@@ -1399,13 +1399,6 @@ public class ActivateProfileHelper {
         {
             boolean notificationShowInStatusBar = GlobalData.notificationShowInStatusBar;
             boolean notificationStatusBarPermanent = GlobalData.notificationStatusBarPermanent;
-            boolean forceShow = false;
-
-            if (!GlobalData.notificationStatusBar) {
-                notificationShowInStatusBar = false;
-                notificationStatusBarPermanent = false;
-                forceShow = true;
-            }
 
             // close showed notification
             //notificationManager.cancel(GlobalData.NOTIFICATION_ID);
@@ -1541,7 +1534,7 @@ public class ActivateProfileHelper {
             }
             else
             {
-                setAlarmForNotificationCancel(forceShow);
+                setAlarmForNotificationCancel();
             }
 
             if (GlobalData.phoneProfilesService != null)
@@ -1567,16 +1560,12 @@ public class ActivateProfileHelper {
             notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
     }
 
-    private void setAlarmForNotificationCancel(boolean forceShow)
+    private void setAlarmForNotificationCancel()
     {
-        if (!forceShow) {
-            if (GlobalData.notificationStatusBarCancel.isEmpty() || GlobalData.notificationStatusBarCancel.equals("0"))
-                return;
-        }
+        if (GlobalData.notificationStatusBarCancel.isEmpty() || GlobalData.notificationStatusBarCancel.equals("0"))
+            return;
 
         int notificationStatusBarCancel = Integer.valueOf(GlobalData.notificationStatusBarCancel);
-        if (forceShow)
-            notificationStatusBarCancel = 3;
 
         Intent intent = new Intent(context, NotificationCancelAlarmBroadcastReceiver.class);
 
