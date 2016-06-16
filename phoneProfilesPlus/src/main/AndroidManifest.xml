@@ -3,7 +3,7 @@
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="internalOnly"
           android:versionCode="2028"
-          android:versionName="3.3.7b">
+          android:versionName="3.3.7b-md">
 
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
 
