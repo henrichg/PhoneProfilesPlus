@@ -1719,7 +1719,7 @@ public class ActivateProfileHelper {
                 String command1 = "svc data " + (enable ? "enable" : "disable");
                 Command command = new Command(0, false, command1);
                 try {
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                     commandWait(command);
                     //RootTools.closeAllShells();
                 } catch (Exception e) {
