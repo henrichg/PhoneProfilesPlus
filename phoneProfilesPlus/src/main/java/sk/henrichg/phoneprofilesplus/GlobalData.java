@@ -1715,21 +1715,19 @@ public class GlobalData extends Application {
                     "export CLASSPATH=" + context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.sourceDir + "\n" +
                     "exec app_process $base/bin " + mainClass.getName() + " " + cmdParam + " \"$@\"\n";
 
-            String dir = context.getPackageManager().getApplicationInfo(context.getPackageName(), 0).dataDir;
+            /*String dir = context.getPackageManager().getApplicationInfo(context.getPackageName(), 0).dataDir;
             File fDir = new File(dir);
             File file = new File(fDir, name);
             OutputStream out = new FileOutputStream(file);
             out.write(cmd.getBytes());
-            out.close();
+            out.close();*/
 
-            /*
             FileOutputStream fos = context.openFileOutput(name, Context.MODE_PRIVATE);
             fos.write(cmd.getBytes());
             fos.close();
 
             File file = context.getFileStreamPath(name);
             file.setExecutable(true);
-            */
 
             return file.getAbsolutePath();
 
