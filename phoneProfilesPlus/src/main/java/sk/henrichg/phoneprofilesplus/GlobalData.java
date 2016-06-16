@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -48,12 +50,13 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
-    private static boolean logIntoFile = false;
-    private static boolean rootToolsDebug = false;
+    private static boolean logIntoLogCat = true;
+    private static boolean logIntoFile = true;
+    private static boolean rootToolsDebug = true;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
 
-                                         //+"|ActivateProfileHelper.setGPS"
+                                         +"|ActivateProfileHelper.setMobileData"
+                                         //+"|ExecuteRadioProfilePrefsService.onHandleIntent"
 
                                          //+"|PhoneProfilesBackupAgent"
                                          //+"|$$$ FirstStartService.onHandleIntent"
@@ -1712,25 +1715,20 @@ public class GlobalData extends Application {
                     "export CLASSPATH=" + context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.sourceDir + "\n" +
                     "exec app_process $base/bin " + mainClass.getName() + " " + cmdParam + " \"$@\"\n";
 
+            String dir = context.getPackageManager().getApplicationInfo(context.getPackageName(), 0).dataDir;
+            File fDir = new File(dir);
+            File file = new File(fDir, name);
+            OutputStream out = new FileOutputStream(file);
+            out.write(cmd.getBytes());
+            out.close();
+
+            /*
             FileOutputStream fos = context.openFileOutput(name, Context.MODE_PRIVATE);
             fos.write(cmd.getBytes());
             fos.close();
 
             File file = context.getFileStreamPath(name);
             file.setExecutable(true);
-
-            /*
-            File sd = Environment.getExternalStorageDirectory();
-            File exportDir = new File(sd, GlobalData.EXPORT_PATH);
-            if (!(exportDir.exists() && exportDir.isDirectory()))
-                exportDir.mkdirs();
-
-            File outFile = new File(sd, GlobalData.EXPORT_PATH + "/" + name);
-            OutputStream out = new FileOutputStream(outFile);
-            out.write(cmd.getBytes());
-            out.close();
-
-            outFile.setExecutable(true);
             */
 
             return file.getAbsolutePath();

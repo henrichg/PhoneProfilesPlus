@@ -1717,10 +1717,31 @@ public class ActivateProfileHelper {
             if (GlobalData.grantRoot(false))
             {
                 String command1 = "svc data " + (enable ? "enable" : "disable");
-                Command command = new Command(0, false, command1);
+                GlobalData.logE("ActivateProfileHelper.setMobileData","command="+command1);
+                Command command = new Command(0, false, command1) {
+                    @Override
+                    public void commandOutput(int id, String line) {
+                        super.commandOutput(id, line);
+                        GlobalData.logE("ActivateProfileHelper.setMobileData","shell output="+line);
+                    }
+
+                    @Override
+                    public void commandTerminated(int id, String reason) {
+                        super.commandTerminated(id, reason);
+                        GlobalData.logE("ActivateProfileHelper.setMobileData","terminated="+reason);
+                    }
+
+                    @Override
+                    public void commandCompleted(int id, int exitcode) {
+                        super.commandCompleted(id, exitcode);
+                        GlobalData.logE("ActivateProfileHelper.setMobileData","completed="+exitcode);
+                    }
+                };
                 try {
-                    RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
+                    RootTools.closeAllShells();
+                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
                     commandWait(command);
+                    GlobalData.logE("ActivateProfileHelper.setMobileData","after wait");
                     //RootTools.closeAllShells();
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
@@ -1931,11 +1952,13 @@ public class ActivateProfileHelper {
         }
         else */
         if (GlobalData.grantRoot(false)) {
-            String command1 = GlobalData.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
-            //Log.e("ActivateProfileHelper.setNFC", "command1="+command1);
-            Command command = new Command(0, false, command1);
+            String command2 = GlobalData.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
+            String command1 = "chmod a+x " + command2;
+            //Log.e("ActivateProfileHelper.setNFC", "command2="+command2);
+            Command command = new Command(0, false, command1, command2);
             try {
-                RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
+                RootTools.closeAllShells();
+                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                 commandWait(command);
                 //RootTools.closeAllShells();
             } catch (Exception e) {

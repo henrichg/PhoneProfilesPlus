@@ -62,6 +62,8 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 
         dataWrapper.invalidateDataWrapper();
 
+        GlobalData.sleep(500);
+
         GlobalData.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- END ----------");
 
     }
