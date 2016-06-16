@@ -1945,6 +1945,11 @@ public class ActivateProfileHelper {
 
     private void setNFC(Context context, boolean enable)
     {
+        /*
+        Not working in debug version of application !!!!
+        Test with release version.
+        */
+
         //Log.e("ActivateProfileHelper.setNFC", "xxx");
         /*if (Permissions.checkNFC(context)) {
             Log.e("ActivateProfileHelper.setNFC", "permission granted!!");
