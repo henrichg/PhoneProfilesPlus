@@ -1720,6 +1720,17 @@ public class ActivateProfileHelper {
         {
             if (GlobalData.grantRoot(false))
             {
+                String command1 = "svc data " + (enable ? "enable" : "disable");
+                Command command = new Command(0, false, command1);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    commandWait(command);
+                    //RootTools.closeAllShells();
+                } catch (Exception e) {
+                    Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
+                }
+
+                /*
                 int state = 0;
                 try {
                     // Get the current state of the mobile network.
@@ -1766,6 +1777,7 @@ public class ActivateProfileHelper {
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
+                */
             }
         }
         else

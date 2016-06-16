@@ -1323,7 +1323,7 @@ public class GlobalData extends Application {
                 {
                     if (isRooted(false)) {
                         // zariadenie je rootnute
-                        if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
+                        //if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
                             featurePresented = PREFERENCE_ALLOWED;
                     }
                 }
