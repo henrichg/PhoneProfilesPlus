@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.SystemClock;
 
 import java.util.List;
 

@@ -5,7 +5,6 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -20,8 +19,6 @@ import android.preference.PreferenceScreen;
 import android.telephony.TelephonyManager;
 
 import com.fnp.materialpreferences.PreferenceFragment;
-
-import java.util.List;
 
 public class ProfilePreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
