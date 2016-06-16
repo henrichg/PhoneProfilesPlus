@@ -81,7 +81,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
                 pRingerMode = 5;
         }
         else {
-            if (interruptionFilter == ActivateProfileHelper.ZENMODE_ALL) {
+            if ((android.os.Build.VERSION.SDK_INT < 21) || (interruptionFilter == ActivateProfileHelper.ZENMODE_ALL)) {
                 switch (ringerMode) {
                     case AudioManager.RINGER_MODE_NORMAL:
                         if (vibrationIsOn(context, audioManager))
