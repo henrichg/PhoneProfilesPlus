@@ -313,7 +313,7 @@ public class ActivateProfileHelper {
 
         // nahodenie NFC
         if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NFC, context) == GlobalData.PREFERENCE_ALLOWED) {
-            Log.e("ActivateProfileHelper.doExecuteForRadios", "allowed");
+            //Log.e("ActivateProfileHelper.doExecuteForRadios", "allowed");
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
             if (nfcAdapter != null) {
                 switch (profile._deviceNFC) {
@@ -333,8 +333,8 @@ public class ActivateProfileHelper {
                 }
             }
         }
-        else
-            Log.e("ActivateProfileHelper.doExecuteForRadios", "not allowed");
+        //else
+        //    Log.e("ActivateProfileHelper.doExecuteForRadios", "not allowed");
 
     }
 
@@ -1928,7 +1928,7 @@ public class ActivateProfileHelper {
 
     private void setNFC(Context context, boolean enable)
     {
-        Log.e("ActivateProfileHelper.setNFC", "xxx");
+        //Log.e("ActivateProfileHelper.setNFC", "xxx");
         /*if (Permissions.checkNFC(context)) {
             Log.e("ActivateProfileHelper.setNFC", "permission granted!!");
             CmdNfc.run(enable);
@@ -1936,7 +1936,7 @@ public class ActivateProfileHelper {
         else */
         if (GlobalData.grantRoot(false)) {
             String command1 = GlobalData.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
-            Log.e("ActivateProfileHelper.setNFC", "command1="+command1);
+            //Log.e("ActivateProfileHelper.setNFC", "command1="+command1);
             Command command = new Command(0, false, command1);
             try {
                 RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
