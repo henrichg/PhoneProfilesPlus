@@ -125,6 +125,7 @@ public class ActivateProfileHelper {
         if (profile._deviceMobileData != 0) {
             if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.PREFERENCE_ALLOWED) {
                 boolean _isMobileData = isMobileData(context);
+                GlobalData.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
                     case 1:
