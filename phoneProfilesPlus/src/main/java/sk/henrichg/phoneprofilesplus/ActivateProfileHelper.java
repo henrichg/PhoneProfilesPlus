@@ -1664,6 +1664,7 @@ public class ActivateProfileHelper {
             setAirplaneMode_SDK8(context, mode);
     }
 
+    /*
     private boolean isMobileData(Context context)
     {
         if (android.os.Build.VERSION.SDK_INT >= 21)
@@ -1696,29 +1697,109 @@ public class ActivateProfileHelper {
                 return false;
             }
         }
-
-        /*
-        final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null)
+    }
+    */
+    private boolean isMobileData(Context context)
+    {
+        if (android.os.Build.VERSION.SDK_INT < 21)
         {
-            int netvorkType = networkInfo.getType(); // 0 = mobile, 1 = wifi
-            //String netvorkTypeName = networkInfo.getTypeName(); // "mobile" or "WIFI"
-            boolean connected = networkInfo.isConnected();  // true = active connection
+            final ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-            //if (netvorkType == 0)
-            //{
-                // connected into mobile data
-                return connected;
-            //}
-            //else
-            //{
-                // conected into Wifi
-            //	return false;
-            //}
+            try {
+                final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
+                final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
+                getMobileDataEnabledMethod.setAccessible(true);
+                return (Boolean)getMobileDataEnabledMethod.invoke(connectivityManager);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+                return false;
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                return false;
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return false;
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
         else
-            return false;
-        */
+        if (android.os.Build.VERSION.SDK_INT < 22)
+        {
+            Method getDataEnabledMethod;
+            Class<?> telephonyManagerClass;
+            Object ITelephonyStub;
+            Class<?> ITelephonyClass;
+
+            TelephonyManager telephonyManager = (TelephonyManager) context
+                    .getSystemService(Context.TELEPHONY_SERVICE);
+
+            try {
+                telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
+                getITelephonyMethod.setAccessible(true);
+                ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
+                ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
+
+                getDataEnabledMethod = ITelephonyClass.getDeclaredMethod("getDataEnabled");
+
+                getDataEnabledMethod.setAccessible(true);
+
+                return (Boolean)getDataEnabledMethod.invoke(ITelephonyStub);
+
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                return false;
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return false;
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+                return false;
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+                return false;
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        else
+        {
+            Method getDataEnabledMethod;
+            Class<?> telephonyManagerClass;
+
+            TelephonyManager telephonyManager = (TelephonyManager) context
+                    .getSystemService(Context.TELEPHONY_SERVICE);
+
+            try {
+                telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
+                getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
+                getDataEnabledMethod.setAccessible(true);
+
+                return (Boolean)getDataEnabledMethod.invoke(telephonyManager);
+
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                return false;
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return false;
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+                return false;
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+                return false;
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
 
     }
 
