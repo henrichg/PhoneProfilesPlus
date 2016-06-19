@@ -1812,7 +1812,7 @@ public class ActivateProfileHelper {
             {
                 String command1 = "svc data " + (enable ? "enable" : "disable");
                 GlobalData.logE("ActivateProfileHelper.setMobileData","command="+command1);
-                Command command = new Command(0, false, command1) {
+                Command command = new Command(0, false, command1)/* {
                     @Override
                     public void commandOutput(int id, String line) {
                         super.commandOutput(id, line);
@@ -1830,7 +1830,7 @@ public class ActivateProfileHelper {
                         super.commandCompleted(id, exitcode);
                         GlobalData.logE("ActivateProfileHelper.setMobileData","completed="+exitcode);
                     }
-                };
+                }*/;
                 try {
                     RootTools.closeAllShells();
                     RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
