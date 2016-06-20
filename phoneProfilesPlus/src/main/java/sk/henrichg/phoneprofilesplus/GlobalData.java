@@ -1551,6 +1551,8 @@ public class GlobalData extends Application {
         }
     }
 
+    // --------------------------------
+
     static private boolean rootChecking = false;
     static private boolean rootChecked = false;
     static private boolean rooted = false;
