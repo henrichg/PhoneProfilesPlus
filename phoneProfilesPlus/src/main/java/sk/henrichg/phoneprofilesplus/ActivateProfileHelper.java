@@ -1833,9 +1833,9 @@ public class ActivateProfileHelper {
                 }*/;
                 try {
                     RootTools.closeAllShells();
-                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                    commandWait(command);
-                    //RootToolsSmall.runSuCommand(command1);
+                    //RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                    //commandWait(command);
+                    RootToolsSmall.runSuCommand(command1);
                     GlobalData.logE("ActivateProfileHelper.setMobileData","after wait");
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
