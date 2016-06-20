@@ -333,7 +333,7 @@ public class PhoneProfilesHelper {
             //	command1 = GlobalData.getSELinuxEnforceCommad(command1);
             Command command = new Command(0, false, command1);
             try {
-                RootTools.closeAllShells();
+                //RootTools.closeAllShells();
                 RootTools.getShell(true, Shell.ShellContext.RECOVERY).add(command);
                 OK = commandWait(command);
                 OK = OK && command.getExitCode() == 0;
