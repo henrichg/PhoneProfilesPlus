@@ -1833,9 +1833,9 @@ public class ActivateProfileHelper {
                 }*/;
                 try {
                     RootTools.closeAllShells();
-                    //RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                    //commandWait(command);
-                    RootToolsSmall.runSuCommand(command1);
+                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                    commandWait(command);
+                    //RootToolsSmall.runSuCommand(command1);
                     GlobalData.logE("ActivateProfileHelper.setMobileData","after wait");
                 } catch (Exception e) {
                     Log.e("ActivateProfileHelper.setMobileData", "Error on run su");
@@ -1999,8 +1999,8 @@ public class ActivateProfileHelper {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
                 String transactionCode = GlobalData.getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
-                // Android 6?
-                if (Build.VERSION.SDK_INT >= 23) {
+                // Android 5.1+ (API 22) and later.
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                     SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
                     // Loop through the subscription list i.e. SIM list.
                     for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
