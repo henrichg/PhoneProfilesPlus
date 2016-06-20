@@ -107,9 +107,9 @@ public class PhoneProfilesHelper {
         //}
         Command command = new Command(0, false, command1, command2, command3);
         try {
+            RootTools.closeAllShells();
             RootTools.getShell(true, Shell.ShellContext.RECOVERY).add(command);
             OK = commandWait(command);
-            //RootTools.closeAllShells();
             if (OK)
                 Log.e("PhoneProfilesHelper.doUninstallPPHelper", "PhoneProfilesHelper uninstalled");
             else
@@ -333,7 +333,7 @@ public class PhoneProfilesHelper {
             //	command1 = GlobalData.getSELinuxEnforceCommad(command1);
             Command command = new Command(0, false, command1);
             try {
-                //RootTools.closeAllShells();
+                RootTools.closeAllShells();
                 RootTools.getShell(true, Shell.ShellContext.RECOVERY).add(command);
                 OK = commandWait(command);
                 OK = OK && command.getExitCode() == 0;

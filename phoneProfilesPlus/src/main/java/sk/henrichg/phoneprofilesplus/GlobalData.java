@@ -1585,6 +1585,11 @@ public class GlobalData extends Application {
             if (!onlyCheckFlags)
             {
                 rootChecking = true;
+                try {
+                    RootTools.closeAllShells();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 if (RootTools.isRootAvailable())
                 {
                     // zariadenie je rootnute
@@ -1596,11 +1601,6 @@ public class GlobalData extends Application {
                     rootChecked = true;
                     rooted = false;
                 }
-                /*try {
-                    RootTools.closeAllShells();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
                 rootChecking = false;
             }
             else
@@ -1634,6 +1634,11 @@ public class GlobalData extends Application {
             serviceBinaryChecked = false;
             GlobalData.logE("GlobalData.grantRoot", "start isAccessGiven");
             grantChecking = true;
+            try {
+                RootTools.closeAllShells();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if (RootTools.isAccessGiven())
             {
                 // root grantnuty
@@ -1652,11 +1657,6 @@ public class GlobalData extends Application {
                 grantChecked = true;
                 rootGranted = false;
             }
-            /*try {
-                RootTools.closeAllShells();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
             grantChecking = false;
         }
         //if (rooted)
@@ -1671,13 +1671,13 @@ public class GlobalData extends Application {
         if ((!settingsBinaryChecked) && (!settingsBinaryChecking))
         {
             settingsBinaryChecking = true;
-            List<String> settingsPaths = RootTools.findBinary("settings");
-            settingsBinaryExists = settingsPaths.size() > 0;
-            /*try {
+            try {
                 RootTools.closeAllShells();
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
+            List<String> settingsPaths = RootTools.findBinary("settings");
+            settingsBinaryExists = settingsPaths.size() > 0;
             settingsBinaryChecking = false;
             settingsBinaryChecked = true;
         }
@@ -1692,13 +1692,13 @@ public class GlobalData extends Application {
         if ((!serviceBinaryChecked) && (!serviceBinaryChecking))
         {
             serviceBinaryChecking = true;
-            List<String> servicePaths = RootTools.findBinary("service");
-            serviceBinaryExists = servicePaths.size() > 0;
-            /*try {
+            try {
                 RootTools.closeAllShells();
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
+            List<String> servicePaths = RootTools.findBinary("service");
+            serviceBinaryExists = servicePaths.size() > 0;
             serviceBinaryChecking = false;
             serviceBinaryChecked = true;
         }
@@ -1812,9 +1812,9 @@ public class GlobalData extends Application {
             }
             ;
             try {
+                RootTools.closeAllShells();
                 RootTools.getShell(false).add(command);
                 commandWait(command);
-                //RootTools.closeAllShells();
                 suVersionChecked = true;
             } catch (Exception e) {
                 Log.e("GlobalData.getSUVersion", "Error on run su");

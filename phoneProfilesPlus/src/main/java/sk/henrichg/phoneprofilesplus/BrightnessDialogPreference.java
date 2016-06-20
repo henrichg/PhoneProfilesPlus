@@ -471,7 +471,7 @@ public class BrightnessDialogPreference extends
                 //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                 Command command = new Command(0, false, command1); //, command2);
                 try {
-                    //RootTools.closeAllShells();
+                    RootTools.closeAllShells();
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     //commandWait(command);
                 } catch (Exception e) {
