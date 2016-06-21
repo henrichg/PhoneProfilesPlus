@@ -161,7 +161,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startEditor(0);
+                startEditor(-1);
             }
         });
 
@@ -247,6 +247,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     {
         // Get the persistent value
         value = getPersistedString(value);
+        Log.d("ApplicationsDialogPreference.getValueAMSDP","value="+value);
 
         applicationsList.clear();
 
@@ -262,7 +263,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                     String packageName;
                     String activityName;
                     String shortcut;
-                    String[] splits2 = value.split("/");
+                    String[] splits2 = splits[i].split("/");
                     if (splits[i].length() > 2) {
                         if (splits2.length == 2) {
                             shortcut = splits2[0].substring(0, 3);
@@ -277,12 +278,13 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                         if (shortcut.equals("(s)")) {
                             packageName = packageName.substring(3);
                         }
-                        Log.d("ApplicationsDialogPreference.getValueAMSDP","shortcut="+shortcut);
-                        Log.d("ApplicationsDialogPreference.getValueAMSDP","packageName="+packageName);
-                        Log.d("ApplicationsDialogPreference.getValueAMSDP","activityName="+activityName);
                         boolean shortcutPassed = shortcut.equals("(s)") == application.shortcut;
                         boolean packagePassed = packageName.equals(application.packageName);
                         boolean activityPassed = activityName.equals(application.activityName);
+
+                        Log.d("ApplicationsDialogPreference.getValueAMSDP","shortcut="+shortcut);
+                        Log.d("ApplicationsDialogPreference.getValueAMSDP","packageName="+packageName);
+                        Log.d("ApplicationsDialogPreference.getValueAMSDP","activityName="+activityName);
 
                         if (!activityName.isEmpty()) {
                             if (shortcutPassed && packagePassed && activityPassed)
@@ -305,6 +307,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                     newInfo.activityName = application.activityName;
                     newInfo.icon = application.icon;
 
+                    Log.d("ApplicationsDialogPreference.getValueAMSDP","app="+newInfo.appLabel);
                     applicationsList.add(newInfo);
                 }
             }
@@ -486,21 +489,34 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     }
 
     private void startEditor(int position) {
-        /*Intent intent = new Intent(context, LocationGeofenceEditorActivity.class);
-        intent.putExtra(EXTRA_GEOFENCE_ID, geofenceId);
-
-        // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
-        if (onlyEdit == 0) {
-            EventPreferencesFragment.setChangedLocationGeofencePreference(this);
-            EventPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
-        }
-        else {
-            PhoneProfilesPreferencesFragment.setChangedLocationGeofencePreference(this);
-            PhoneProfilesPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
-        }*/
+        Application application = null;
+        if (position > -1)
+            application = applicationsList.get(position);
+        ApplicationEditorDialog dialog = new ApplicationEditorDialog(context, this, application);
+        dialog.show();
     }
 
-    private  void  deleteApplication(int position) {
+    private void deleteApplication(int position) {
+        applicationsList.remove(position);
+        listAdapter.notifyDataSetChanged();
+    }
 
+    public void updateApplication(Application application, int positionInCache) {
+        List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
+        if (cachedApplicationList != null) {
+            Application cachedApplication = cachedApplicationList.get(positionInCache);
+            Application editedApplication = application;
+            if (editedApplication == null) {
+                Log.d("ApplicationsDialogPreference.updateApplication", "add");
+                editedApplication = new Application();
+                applicationsList.add(editedApplication);
+            }
+            editedApplication.shortcut = cachedApplication.shortcut;
+            editedApplication.appLabel = cachedApplication.appLabel;
+            editedApplication.packageName = cachedApplication.packageName;
+            editedApplication.activityName = cachedApplication.activityName;
+            editedApplication.icon = cachedApplication.icon;
+            listAdapter.notifyDataSetChanged();
+        }
     }
 }
