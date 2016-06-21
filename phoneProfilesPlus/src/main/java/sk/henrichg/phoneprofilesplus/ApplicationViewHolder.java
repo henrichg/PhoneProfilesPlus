@@ -10,17 +10,20 @@ public class ApplicationViewHolder {
     public TextView textViewAppName;
     public CheckBox checkBox;
     public TextView textViewAppType;
+    public ImageView imageViewMenu;
 
     public ApplicationViewHolder() {
     }
 
     public ApplicationViewHolder(ImageView imageViewIcon, TextView textViewAppName,
-                                 TextView textViewAppType, CheckBox checkBox)
+                                 TextView textViewAppType, CheckBox checkBox,
+                                 ImageView imageViewMenu)
     {
         this.imageViewIcon = imageViewIcon;
         this.textViewAppName = textViewAppName;
         this.checkBox = checkBox;
         this.textViewAppType = textViewAppType;
+        this.imageViewMenu = imageViewMenu;
     }
 
 }

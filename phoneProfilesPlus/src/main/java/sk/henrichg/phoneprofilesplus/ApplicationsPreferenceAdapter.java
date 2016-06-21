@@ -1,6 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,28 +14,29 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
+public class ApplicationsPreferenceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     //private Context context;
 
-    boolean noShortcuts;
+    private ApplicationsDialogPreference preference;
 
-    public ApplicationsMultiselectPreferenceAdapter(Context context, int addShortcuts)
+    public ApplicationsPreferenceAdapter(Context context, ApplicationsDialogPreference preference)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
         //this.context = context;
 
-        noShortcuts = addShortcuts == 0;
+        this.preference = preference;
+
     }
 
     public int getCount() {
-        return EditorProfilesActivity.getApplicationsCache().getLength(noShortcuts);
+        return preference.applicationsList.size();
     }
 
     public Object getItem(int position) {
-        return EditorProfilesActivity.getApplicationsCache().getApplication(position, noShortcuts);
+        return preference.applicationsList.get(position);
     }
 
     public long getItemId(int position) {
@@ -39,42 +45,32 @@ public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
     
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ApplicationsCache applicationsCahce = EditorProfilesActivity.getApplicationsCache();
-
         // Application to display
-        Application application = applicationsCahce.getApplication(position, noShortcuts);
+        Application application = preference.applicationsList.get(position);
         //System.out.println(String.valueOf(position));
 
         // The child views in each row.
         ImageView imageViewIcon;
         TextView textViewAppName;
-        CheckBox checkBox;
         TextView textViewAppType;
+        ImageView imageViewMenu;
 
         // Create a new row view
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.applications_multiselect_preference_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.applications_preference_list_item, parent, false);
 
             // Find the child views.
-            imageViewIcon = (ImageView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_icon);
-            textViewAppName = (TextView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_name);
-            checkBox = (CheckBox) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_checkbox);
-            textViewAppType = (TextView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_type);
+            imageViewIcon = (ImageView) convertView.findViewById(R.id.applications_pref_dlg_item_icon);
+            textViewAppName = (TextView) convertView.findViewById(R.id.applications_pref_dlg_item_app_name);
+            textViewAppType = (TextView) convertView.findViewById(R.id.applications_pref_dlg_item_app_type);
+            imageViewMenu = (ImageView) convertView.findViewById(R.id.applications_pref_dlg_item_edit_menu);
 
             // Optimization: Tag the row with it's child views, so we don't
             // have to
             // call findViewById() later when we reuse the row.
-            convertView.setTag(new ApplicationViewHolder(imageViewIcon, textViewAppName, textViewAppType, checkBox, null));
-
-            // If CheckBox is toggled, update the Application it is tagged with.
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    CheckBox cb = (CheckBox) v;
-                    Application application = (Application) cb.getTag();
-                    application.checked = cb.isChecked();
-                }
-            });
+            convertView.setTag(new ApplicationViewHolder(imageViewIcon, textViewAppName, textViewAppType,
+                                        null, imageViewMenu));
         }
         // Reuse existing row view
         else
@@ -84,14 +80,9 @@ public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
             ApplicationViewHolder viewHolder = (ApplicationViewHolder) convertView.getTag();
             imageViewIcon = viewHolder.imageViewIcon;
             textViewAppName = viewHolder.textViewAppName;
-            checkBox = viewHolder.checkBox;
             textViewAppType = viewHolder.textViewAppType;
+            imageViewMenu = viewHolder.imageViewMenu;
         }
-
-        // Tag the CheckBox with the Application it is displaying, so that we
-        // can
-        // access the Application in onClick() when the CheckBox is toggled.
-        checkBox.setTag(application);
 
         // Display Application data
         imageViewIcon.setImageDrawable(application.icon);
@@ -101,7 +92,14 @@ public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
         else
             textViewAppType.setText(R.string.applications_preference_applicationType_application);
 
-        checkBox.setChecked(application.checked);
+        imageViewMenu.setTag(position);
+        final ImageView itemEditMenu = imageViewMenu;
+        imageViewMenu.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                preference.showEditMenu(itemEditMenu);
+            }
+        });
 
         return convertView;
     }

@@ -11,32 +11,42 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicationsMultiSelectDialogPreference extends DialogPreference
-{
+public class ApplicationsDialogPreference  extends DialogPreference {
 
-    Context _context = null;
+    Context context;
+
     String value = "";
 
-    int addShortcuts;
+    public List<Application> applicationsList = null;
 
-    // Layout widgets.
-    private ListView listView = null;
+    private MaterialDialog mDialog;
+
+    private ListView applicationsListView;
     private LinearLayout linlaProgress;
-    private LinearLayout linlaListView;
+    private RelativeLayout rellaDialog;
+
+    private ApplicationsPreferenceAdapter listAdapter;
 
     ImageView packageIcon;
     RelativeLayout packageIcons;
@@ -45,20 +55,21 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     ImageView packageIcon3;
     ImageView packageIcon4;
 
-    private ApplicationsMultiselectPreferenceAdapter listAdapter;
-
-    public ApplicationsMultiSelectDialogPreference(Context context, AttributeSet attrs) {
+    public ApplicationsDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        _context = context;
+        /*
+        TypedArray applicationsType = context.obtainStyledAttributes(attrs,
+                R.styleable.ApplicationsPreference, 0, 0);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.ApplicationsMultiSelectDialogPreference);
+        onlyEdit = applicationsType.getInt(R.styleable.ApplicationsPreference_onlyEdit, 0);
 
-        addShortcuts = typedArray.getInteger(
-                R.styleable.ApplicationsMultiSelectDialogPreference_addShortcuts, 0);
+        applicationsType.recycle();
+        */
 
-        typedArray.recycle();
+        this.context = context;
+
+        applicationsList = new ArrayList<Application>();
 
         setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
 
@@ -82,73 +93,86 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         setIcons();
     }
 
+    @Override
     protected void showDialog(Bundle state) {
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
                 //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
-                        if (shouldPersist())
-                        {
-                            // sem narvi stringy kontatkov oddelenych |
-                            value = "";
-                            List<Application> applicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);
-                            if (applicationList != null)
-                            {
-                                for (Application application : applicationList)
-                                {
-                                    if (application.checked)
-                                    {
-                                        if (!value.isEmpty())
-                                            value = value + "|";
-                                        if (application.shortcut)
-                                            value = value + "(s)";
-                                        value = value + application.packageName + "/" + application.activityName;
-                                    }
-                                }
-                            }
-                            persistString(value);
-
-                            setIcons();
-                            setSummaryAMSDP();
-                        }
-                    }
-                })
+                .autoDismiss(false)
                 .content(getDialogMessage());
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_applications_multiselect_pref_dialog, null);
-        onBindDialogView(layout);
+        mBuilder.positiveText(getPositiveButtonText())
+                .negativeText(getNegativeButtonText());
+        mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                if (shouldPersist())
+                {
+                    // sem narvi stringy aplikacii oddelenych |
+                    value = "";
+                    if (applicationsList != null)
+                    {
+                        for (Application application : applicationsList)
+                        {
+                            if (!value.isEmpty())
+                                value = value + "|";
+                            if (application.shortcut)
+                                value = value + "(s)";
+                            value = value + application.packageName + "/" + application.activityName;
+                        }
+                    }
+                    persistString(value);
 
-        linlaProgress = (LinearLayout)layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_progress);
-        linlaListView = (LinearLayout)layout.findViewById(R.id.applications_multiselect_pref_dlg_linla_listview);
-        listView = (ListView)layout.findViewById(R.id.applications_multiselect_pref_dlg_listview);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View item, int position, long id)
-            {
-                Application application = (Application)listAdapter.getItem(position);
-                application.toggleChecked();
-                ApplicationViewHolder viewHolder = (ApplicationViewHolder) item.getTag();
-                viewHolder.checkBox.setChecked(application.checked);
+                    setIcons();
+                    setSummaryAMSDP();
+                }
+                mDialog.dismiss();
+            }
+        });
+        mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                mDialog.dismiss();
             }
         });
 
-        listAdapter = new ApplicationsMultiselectPreferenceAdapter(_context, addShortcuts);
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_applications_pref_dialog, null);
+        onBindDialogView(layout);
+
+        AppCompatImageButton addButton = (AppCompatImageButton)layout.findViewById(R.id.applications_pref_dlg_add);
+
+        applicationsListView = (ListView) layout.findViewById(R.id.applications_pref_dlg_listview);
+        linlaProgress = (LinearLayout)layout.findViewById(R.id.applications_pref_dlg_linla_progress);
+        rellaDialog = (RelativeLayout) layout.findViewById(R.id.applications_pref_dlg_rella_dialog);
+
+        listAdapter = new ApplicationsPreferenceAdapter(context, this);
 
         mBuilder.customView(layout, false);
 
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                ApplicationsMultiSelectDialogPreference.this.onShow(dialog);
+                ApplicationsDialogPreference.this.onShow(dialog);
             }
         });
 
-        MaterialDialog mDialog = mBuilder.build();
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startEditor(0);
+            }
+        });
+
+        applicationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                startEditor(position);
+            }
+
+        });
+
+        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
@@ -164,14 +188,14 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                linlaListView.setVisibility(View.GONE);
+                rellaDialog.setVisibility(View.GONE);
                 linlaProgress.setVisibility(View.VISIBLE);
             }
 
             @Override
             protected Void doInBackground(Void... params) {
                 if (!EditorProfilesActivity.getApplicationsCache().isCached())
-                    EditorProfilesActivity.getApplicationsCache().getApplicationsList(_context);
+                    EditorProfilesActivity.getApplicationsCache().getApplicationsList(context);
 
                 getValueAMSDP();
 
@@ -186,15 +210,16 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 if (!EditorProfilesActivity.getApplicationsCache().isCached())
                     EditorProfilesActivity.getApplicationsCache().clearCache(false);
 
-                listView.setAdapter(listAdapter);
-                linlaListView.setVisibility(View.VISIBLE);
+                applicationsListView.setAdapter(listAdapter);
+                rellaDialog.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
             }
 
         }.execute();
     }
 
-    public void onDismiss (DialogInterface dialog)
+    @Override
+    public void onDismiss(DialogInterface dialog)
     {
         EditorProfilesActivity.getApplicationsCache().cancelCaching();
 
@@ -211,7 +236,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
         else {
             // set state
-            // sem narvi default string kontaktov oddeleny |
+            // sem narvi default string aplikacii oddeleny |
             value = "";
             persistString("");
         }
@@ -223,12 +248,13 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         // Get the persistent value
         value = getPersistedString(value);
 
-        // change checked state by value
-        List<Application> applicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);
-        if (applicationList != null)
+        applicationsList.clear();
+
+        List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
+        if (cachedApplicationList != null)
         {
             String[] splits = value.split("\\|");
-            for (Application application : applicationList)
+            for (Application application : cachedApplicationList)
             {
                 application.checked = false;
                 for (int i = 0; i < splits.length; i++)
@@ -251,6 +277,9 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         if (shortcut.equals("(s)")) {
                             packageName = packageName.substring(3);
                         }
+                        Log.d("ApplicationsDialogPreference.getValueAMSDP","shortcut="+shortcut);
+                        Log.d("ApplicationsDialogPreference.getValueAMSDP","packageName="+packageName);
+                        Log.d("ApplicationsDialogPreference.getValueAMSDP","activityName="+activityName);
                         boolean shortcutPassed = shortcut.equals("(s)") == application.shortcut;
                         boolean packagePassed = packageName.equals(application.packageName);
                         boolean activityPassed = activityName.equals(application.activityName);
@@ -260,37 +289,36 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                                 application.checked = true;
                         }
                         else {
-                            if (!shortcut.equals("(s)") && (!application.shortcut)) {
-                                if (packagePassed)
+                            if (!shortcut.equals("(s)")) {
+                                if (packagePassed && (!application.shortcut))
                                     application.checked = true;
                             }
                         }
                     }
                 }
-            }
-            // move checked on top
-            int i = 0;
-            int ich = 0;
-            while (i < applicationList.size()) {
-                Application application = applicationList.get(i);
                 if (application.checked) {
-                    applicationList.remove(i);
-                    applicationList.add(ich, application);
-                    ich++;
+                    Application newInfo = new Application();
+
+                    newInfo.shortcut = application.shortcut;
+                    newInfo.appLabel = application.appLabel;
+                    newInfo.packageName = application.packageName;
+                    newInfo.activityName = application.activityName;
+                    newInfo.icon = application.icon;
+
+                    applicationsList.add(newInfo);
                 }
-                i++;
             }
         }
     }
 
     private void setSummaryAMSDP()
     {
-        String prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
+        String prefVolumeDataSummary = context.getString(R.string.applications_multiselect_summary_text_not_selected);
         if (!value.isEmpty() && !value.equals("-")) {
             String[] splits = value.split("\\|");
-            prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+            prefVolumeDataSummary = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             if (splits.length == 1) {
-                PackageManager packageManager = _context.getPackageManager();
+                PackageManager packageManager = context.getPackageManager();
                 if (!ApplicationsCache.isShortcut(splits[0])) {
                     if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
                         ApplicationInfo app;
@@ -323,7 +351,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     }
 
     private void setIcons() {
-        PackageManager packageManager = _context.getPackageManager();
+        PackageManager packageManager = context.getPackageManager();
         ApplicationInfo app;
 
         String[] splits = value.split("\\|");
@@ -428,4 +456,51 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
     }
 
+    public void showEditMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context context = view.getContext();
+        PopupMenu popup = new PopupMenu(context, view);
+        new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
+
+        final int position = (int)view.getTag();
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            public boolean onMenuItemClick(android.view.MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.applications_pref_dlg_item_menu_edit:
+                        startEditor(position);
+                        return true;
+                    case R.id.applications_pref_dlg_item_menu_delete:
+                        deleteApplication(position);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
+        popup.show();
+    }
+
+    private void startEditor(int position) {
+        /*Intent intent = new Intent(context, LocationGeofenceEditorActivity.class);
+        intent.putExtra(EXTRA_GEOFENCE_ID, geofenceId);
+
+        // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
+        if (onlyEdit == 0) {
+            EventPreferencesFragment.setChangedLocationGeofencePreference(this);
+            EventPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
+        }
+        else {
+            PhoneProfilesPreferencesFragment.setChangedLocationGeofencePreference(this);
+            PhoneProfilesPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
+        }*/
+    }
+
+    private  void  deleteApplication(int position) {
+
+    }
 }

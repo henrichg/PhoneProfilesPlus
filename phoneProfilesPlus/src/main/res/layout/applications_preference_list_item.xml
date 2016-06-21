@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:padding="3dp" >
+
+    <LinearLayout
+        android:id="@+id/applications_pref_dlg_item_buttons_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/applications_pref_dlg_item_edit_menu"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:padding="10dp"
+            android:scaleType="center"
+            android:clickable="true"
+            android:background="?attr/actionProfileToolBackground"
+            android:contentDescription="@string/empty_string"
+            android:src="?attr/editItemMenuIcon" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/applications_pref_dlg_item_buttons_root"
+        android:layout_toStartOf="@+id/applications_pref_dlg_item_buttons_root"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" >
+
+    <ImageView
+        android:id="@+id/applications_pref_dlg_item_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/empty_string"
+        android:padding="3dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/applications_pref_dlg_item_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/applications_pref_dlg_item_icon"
+        android:layout_toEndOf="@+id/applications_pref_dlg_item_icon"
+        android:text="@string/empty_string"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/applications_pref_dlg_item_app_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@+id/applications_pref_dlg_item_icon"
+        android:layout_toEndOf="@+id/applications_pref_dlg_item_icon"
+        android:layout_below="@+id/applications_pref_dlg_item_app_name"
+        android:text="@string/empty_string"
+        android:singleLine="true"
+        android:enabled="false"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
