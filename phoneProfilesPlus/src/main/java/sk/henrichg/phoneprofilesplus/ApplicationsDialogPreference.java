@@ -335,10 +335,10 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
     private void setSummaryAMSDP()
     {
-        String prefVolumeDataSummary = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+        String prefSummary = context.getString(R.string.applications_multiselect_summary_text_not_selected);
         if (!value.isEmpty() && !value.equals("-")) {
             String[] splits = value.split("\\|");
-            prefVolumeDataSummary = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+            prefSummary = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             if (splits.length == 1) {
                 PackageManager packageManager = context.getPackageManager();
                 if (!ApplicationsCache.isShortcut(splits[0])) {
@@ -347,7 +347,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                         try {
                             app = packageManager.getApplicationInfo(splits[0], 0);
                             if (app != null)
-                                prefVolumeDataSummary = packageManager.getApplicationLabel(app).toString();
+                                prefSummary = packageManager.getApplicationLabel(app).toString();
                         } catch (PackageManager.NameNotFoundException e) {
                             //e.printStackTrace();
                         }
@@ -357,19 +357,27 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                         intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
                         ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
                         if (info != null)
-                            prefVolumeDataSummary = info.loadLabel(packageManager).toString();
+                            prefSummary = info.loadLabel(packageManager).toString();
                     }
                 }
                 else {
                     Intent intent = new Intent();
                     intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
                     ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                    if (info != null)
-                        prefVolumeDataSummary = info.loadLabel(packageManager).toString();
+                    if (info != null) {
+                        long shortcutId = ApplicationsCache.getShortcutId(splits[0]);
+                        if (shortcutId > 0) {
+                            Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
+                            if (shortcut != null)
+                                prefSummary = shortcut._name;
+                        }
+                        else
+                            prefSummary = info.loadLabel(packageManager).toString();
+                    }
                 }
             }
         }
-        setSummary(prefVolumeDataSummary);
+        setSummary(prefSummary);
     }
 
     private void setIcons() {

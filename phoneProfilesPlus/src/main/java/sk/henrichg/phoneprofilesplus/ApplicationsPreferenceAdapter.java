@@ -26,6 +26,7 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     //private Context context;
+    private DataWrapper dataWrapper;
 
     private ApplicationsDialogPreference preference;
 
@@ -36,7 +37,7 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
         //this.context = context;
 
         this.preference = preference;
-
+        dataWrapper = new DataWrapper(context, false, false, 0);
     }
 
     public int getCount() {
@@ -113,7 +114,13 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
 
         // Display Application data
         imageViewIcon.setImageDrawable(application.icon);
-        textViewAppName.setText(application.appLabel);
+        String text = application.appLabel;
+        if (application.shortcutId > 0) {
+            Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(application.shortcutId);
+            if (shortcut != null)
+                text = shortcut._name;
+        }
+        textViewAppName.setText(text);
         setTextStyle(textViewAppName, application.shortcutId == 0);
         if (application.shortcut)
             textViewAppType.setText(R.string.applications_preference_applicationType_shortcut);

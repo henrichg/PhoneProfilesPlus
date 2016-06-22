@@ -220,4 +220,25 @@ public class ApplicationsCache {
             return "";
     }
 
+    public static long getShortcutId(String value) {
+        long shortcutId = 0;
+        if (value.length() > 2) {
+            String activityName;
+            String[] splits2 = value.split("/");
+            if (splits2.length == 2) {
+                String[] splits3 = splits2[1].split("#");
+                try {
+                    shortcutId = Long.parseLong(splits3[1]);
+                } catch (Exception e) {
+                    shortcutId = 0;
+                }
+            }
+            else
+                shortcutId = 0;
+            return shortcutId;
+        }
+        else
+            return 0;
+    }
+
 }

@@ -877,25 +877,9 @@ public class ActivateProfileHelper {
 
             for (int i = 0; i < splits.length; i++) {
                 if (!ApplicationsCache.isShortcut(splits[i])) {
-                    if (ApplicationsCache.getActivityName(splits[i]).isEmpty()) {
-                        intent = packageManager.getLaunchIntentForPackage(splits[i]);
-                        if (intent != null) {
-                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            try {
-                                context.startActivity(intent);
-                            } catch (Exception e) {
-                                System.out.println(e);
-                            }
-                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(1000);
-                            GlobalData.sleep(1000);
-                        }
-                    }
-                    else {
-                        intent = new Intent(context, LaunchShortcutActivity.class);
-                        intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, ApplicationsCache.getPackageName(splits[i]));
-                        intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, ApplicationsCache.getActivityName(splits[i]));
+                    intent = packageManager.getLaunchIntentForPackage(splits[i]);
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         try {
                             context.startActivity(intent);
@@ -908,18 +892,25 @@ public class ActivateProfileHelper {
                     }
                 }
                 else {
-                    intent = new Intent(context, LaunchShortcutActivity.class);
-                    intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, ApplicationsCache.getPackageName(splits[i]));
-                    intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, ApplicationsCache.getActivityName(splits[i]));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    try {
-                        context.startActivity(intent);
-                    } catch (Exception e) {
-                        System.out.println(e);
+                    long shortcutId = ApplicationsCache.getShortcutId(splits[0]);
+                    if (shortcutId > 0) {
+                        Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
+                        if (shortcut != null) {
+                            try {
+                                intent = Intent.parseUri(shortcut._intent, 0);
+                                try {
+                                    context.startActivity(intent);
+                                } catch (Exception e) {
+                                    System.out.println(e);
+                                }
+                                //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(1000);
+                                GlobalData.sleep(1000);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
-                    //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(1000);
-                    GlobalData.sleep(1000);
                 }
             }
         }
