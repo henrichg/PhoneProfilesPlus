@@ -194,18 +194,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RemoteExportDataActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyActivity">
-            <intent-filter>
-                <action android:name="phoneprofilesplus.intent.action.EXPORTDATA"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".RestartEventsFromNotificationActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"

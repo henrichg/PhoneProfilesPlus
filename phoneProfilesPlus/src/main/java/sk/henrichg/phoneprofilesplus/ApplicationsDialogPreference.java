@@ -56,6 +56,8 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     ImageView packageIcon3;
     ImageView packageIcon4;
 
+    private DataWrapper dataWrapper;
+
     public static final int RESULT_APPLICATIONS_EDITOR = 2100;
 
     public ApplicationsDialogPreference(Context context, AttributeSet attrs) {
@@ -71,6 +73,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         */
 
         this.context = context;
+        dataWrapper = new DataWrapper(context, false, false, 0);
 
         applicationsList = new ArrayList<Application>();
 
@@ -124,6 +127,8 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                             if (application.shortcut)
                                 value = value + "(s)";
                             value = value + application.packageName + "/" + application.activityName;
+                            if (application.shortcut && (application.shortcutId > 0))
+                                value = value + "#" + application.shortcutId;
                         }
                     }
                     persistString(value);
@@ -266,12 +271,16 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                     String packageName;
                     String activityName;
                     String shortcut;
+                    String shortcutId = "";
                     String[] splits2 = splits[i].split("/");
                     if (splits[i].length() > 2) {
                         if (splits2.length == 2) {
                             shortcut = splits2[0].substring(0, 3);
                             packageName = splits2[0];
-                            activityName = splits2[1];
+                            String[] splits3 = splits2[1].split("#");
+                            activityName = splits3[0];
+                            if (splits3.length == 2)
+                                shortcutId = splits3[1];
                         }
                         else {
                             shortcut = value.substring(0, 3);
@@ -290,8 +299,14 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                         //Log.d("ApplicationsDialogPreference.getValueAMSDP","activityName="+activityName);
 
                         if (!activityName.isEmpty()) {
-                            if (shortcutPassed && packagePassed && activityPassed)
+                            if (shortcutPassed && packagePassed && activityPassed) {
                                 application.checked = true;
+                                try {
+                                    application.shortcutId = Long.parseLong(shortcutId);
+                                } catch (Exception e) {
+                                    application.shortcutId = 0;
+                                }
+                            }
                         }
                         else {
                             if (!shortcut.equals("(s)")) {
@@ -309,6 +324,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                     newInfo.packageName = application.packageName;
                     newInfo.activityName = application.activityName;
                     newInfo.icon = application.icon;
+                    newInfo.shortcutId = application.shortcutId;
 
                     //Log.d("ApplicationsDialogPreference.getValueAMSDP","app="+newInfo.appLabel);
                     applicationsList.add(newInfo);
@@ -500,6 +516,11 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     }
 
     private void deleteApplication(int position) {
+        Application application = applicationsList.get(position);
+
+        if (application.shortcutId > 0)
+            dataWrapper.getDatabaseHandler().deleteShortcut(application.shortcutId);
+
         applicationsList.remove(position);
         listAdapter.notifyDataSetChanged();
     }
@@ -521,6 +542,9 @@ public class ApplicationsDialogPreference  extends DialogPreference {
             editedApplication.packageName = cachedApplication.packageName;
             editedApplication.activityName = cachedApplication.activityName;
             editedApplication.icon = cachedApplication.icon;
+            if (!editedApplication.shortcut)
+                editedApplication.shortcutId = 0;
+
             listAdapter.notifyDataSetChanged();
 
             if (editedApplication.shortcut) {
@@ -531,7 +555,6 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
                 ProfilePreferencesFragment.setApplicationsDialogPreference(this);
                 ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
-
             }
         }
     }
@@ -551,10 +574,17 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         */
 
         String intentDescription = shortcutIntent.toUri(0);
-        Log.d("ApplicationsDialogPreference.updateShortcut","shortcutIntent="+intentDescription);
-        Log.d("ApplicationsDialogPreference.updateShortcut","position="+position);
 
-        Log.d("ApplicationsDialogPreference.updateShortcut","position="+position);
+        Application application = applicationsList.get(position);
+        Shortcut shortcut = new Shortcut();
+        shortcut._intent = intentDescription;
+        shortcut._name = shortcutName;
+        if (application.shortcutId > 0) {
+            dataWrapper.getDatabaseHandler().deleteShortcut(application.shortcutId);
+        }
+        dataWrapper.getDatabaseHandler().addShortcut(shortcut);
+        application.shortcutId = shortcut._id;
 
+        listAdapter.notifyDataSetChanged();
     }
 }

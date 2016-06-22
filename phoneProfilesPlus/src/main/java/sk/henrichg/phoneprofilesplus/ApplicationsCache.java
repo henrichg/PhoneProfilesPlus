@@ -208,8 +208,10 @@ public class ApplicationsCache {
         if (value.length() > 2) {
             String activityName;
             String[] splits2 = value.split("/");
-            if (splits2.length == 2)
-                activityName = splits2[1];
+            if (splits2.length == 2) {
+                String[] splits3 = splits2[1].split("#");
+                activityName = splits3[0];
+            }
             else
                 activityName = "";
             return activityName;

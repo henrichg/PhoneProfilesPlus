@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
 public class Application {
@@ -7,8 +8,7 @@ public class Application {
     public String appLabel = "";
     public String packageName = "";
     public String activityName = "";
-    //private String versionName = "";
-    //private int versionCode = 0;
+    public long shortcutId = 0;
     public Drawable icon;
     public boolean checked = false;
 

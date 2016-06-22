@@ -5,7 +5,15 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.preference.Preference;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.CharacterStyle;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +50,26 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
     public long getItemId(int position) {
         return position;
     }
-    
+
+    public static void setTextStyle(TextView textView, boolean errorColor)
+    {
+        if (textView != null) {
+            CharSequence title = textView.getText();
+            Spannable sbt = new SpannableString(title);
+            Object spansToRemove[] = sbt.getSpans(0, title.length(), Object.class);
+            for (Object span : spansToRemove) {
+                if (span instanceof CharacterStyle)
+                    sbt.removeSpan(span);
+            }
+            if (errorColor) {
+                sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                textView.setText(sbt);
+            } else {
+                textView.setText(sbt);
+            }
+        }
+    }
+
     public View getView(int position, View convertView, ViewGroup parent)
     {
         // Application to display
@@ -87,10 +114,12 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
         // Display Application data
         imageViewIcon.setImageDrawable(application.icon);
         textViewAppName.setText(application.appLabel);
+        setTextStyle(textViewAppName, application.shortcutId == 0);
         if (application.shortcut)
             textViewAppType.setText(R.string.applications_preference_applicationType_shortcut);
         else
             textViewAppType.setText(R.string.applications_preference_applicationType_application);
+        setTextStyle(textViewAppType, application.shortcutId == 0);
 
         imageViewMenu.setTag(position);
         final ImageView itemEditMenu = imageViewMenu;
