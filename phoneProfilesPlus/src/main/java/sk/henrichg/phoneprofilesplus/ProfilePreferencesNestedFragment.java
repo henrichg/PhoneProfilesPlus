@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -279,6 +280,16 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
             final String sZenModeType = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, "");
             setSummary(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, sZenModeType);
+        }
+        if (requestCode == ApplicationsDialogPreference.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
+        {
+            if (ProfilePreferencesFragment.applicationsDialogPreference != null) {
+                ProfilePreferencesFragment.applicationsDialogPreference.updateShortcut(
+                        (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
+                        data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),
+                        (Bitmap)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON),
+                        data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, -1));
+            }
         }
     }
 

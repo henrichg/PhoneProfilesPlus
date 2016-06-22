@@ -26,12 +26,14 @@ public class ApplicationEditorDialog
     private ListView listView;
 
     Application application;
+    int dialogPrefPosition;
 
     public ApplicationEditorDialog(Context context, ApplicationsDialogPreference preference,
-                                        Application application)
+                                        Application application, int dialogPrefPosition)
     {
         this.preference = preference;
         this.application = application;
+        this.dialogPrefPosition = dialogPrefPosition;
 
         _context = context;
 
@@ -87,7 +89,7 @@ public class ApplicationEditorDialog
     public void doOnItemSelected(int position)
     {
         if (cachedApplicationList != null) {
-            preference.updateApplication(application, position);
+            preference.updateApplication(application, dialogPrefPosition, position);
         }
         mDialog.dismiss();
     }

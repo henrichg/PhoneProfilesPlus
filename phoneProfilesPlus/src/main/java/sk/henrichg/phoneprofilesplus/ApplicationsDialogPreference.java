@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,6 +55,8 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     ImageView packageIcon2;
     ImageView packageIcon3;
     ImageView packageIcon4;
+
+    public static final int RESULT_APPLICATIONS_EDITOR = 2100;
 
     public ApplicationsDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -247,7 +250,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     {
         // Get the persistent value
         value = getPersistedString(value);
-        Log.d("ApplicationsDialogPreference.getValueAMSDP","value="+value);
+        //Log.d("ApplicationsDialogPreference.getValueAMSDP","value="+value);
 
         applicationsList.clear();
 
@@ -282,9 +285,9 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                         boolean packagePassed = packageName.equals(application.packageName);
                         boolean activityPassed = activityName.equals(application.activityName);
 
-                        Log.d("ApplicationsDialogPreference.getValueAMSDP","shortcut="+shortcut);
-                        Log.d("ApplicationsDialogPreference.getValueAMSDP","packageName="+packageName);
-                        Log.d("ApplicationsDialogPreference.getValueAMSDP","activityName="+activityName);
+                        //Log.d("ApplicationsDialogPreference.getValueAMSDP","shortcut="+shortcut);
+                        //Log.d("ApplicationsDialogPreference.getValueAMSDP","packageName="+packageName);
+                        //Log.d("ApplicationsDialogPreference.getValueAMSDP","activityName="+activityName);
 
                         if (!activityName.isEmpty()) {
                             if (shortcutPassed && packagePassed && activityPassed)
@@ -307,7 +310,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                     newInfo.activityName = application.activityName;
                     newInfo.icon = application.icon;
 
-                    Log.d("ApplicationsDialogPreference.getValueAMSDP","app="+newInfo.appLabel);
+                    //Log.d("ApplicationsDialogPreference.getValueAMSDP","app="+newInfo.appLabel);
                     applicationsList.add(newInfo);
                 }
             }
@@ -492,7 +495,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         Application application = null;
         if (position > -1)
             application = applicationsList.get(position);
-        ApplicationEditorDialog dialog = new ApplicationEditorDialog(context, this, application);
+        ApplicationEditorDialog dialog = new ApplicationEditorDialog(context, this, application, position);
         dialog.show();
     }
 
@@ -501,15 +504,17 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         listAdapter.notifyDataSetChanged();
     }
 
-    public void updateApplication(Application application, int positionInCache) {
+    public void updateApplication(Application application, int position, int positionInCache) {
         List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
         if (cachedApplicationList != null) {
+            int _position = position;
             Application cachedApplication = cachedApplicationList.get(positionInCache);
             Application editedApplication = application;
             if (editedApplication == null) {
                 Log.d("ApplicationsDialogPreference.updateApplication", "add");
                 editedApplication = new Application();
                 applicationsList.add(editedApplication);
+                _position = applicationsList.size()-1;
             }
             editedApplication.shortcut = cachedApplication.shortcut;
             editedApplication.appLabel = cachedApplication.appLabel;
@@ -517,6 +522,39 @@ public class ApplicationsDialogPreference  extends DialogPreference {
             editedApplication.activityName = cachedApplication.activityName;
             editedApplication.icon = cachedApplication.icon;
             listAdapter.notifyDataSetChanged();
+
+            if (editedApplication.shortcut) {
+                Intent intent = new Intent(context, LaunchShortcutActivity.class);
+                intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, editedApplication.packageName);
+                intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, editedApplication.activityName);
+                intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, _position);
+
+                ProfilePreferencesFragment.setApplicationsDialogPreference(this);
+                ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
+
+            }
         }
+    }
+
+    public void updateShortcut(Intent shortcutIntent, String shortcutName,
+                               Bitmap shortcutIcon, int position) {
+        /* Storing Intent to SQLite ;-)
+        You can simply store the intent in a String way:
+
+        String intentDescription = intent.toUri(0);
+        //Save the intent string into your database
+
+        Later you can restore the Intent:
+
+        String intentDescription = cursor.getString(intentIndex);
+        Intent intent = Intent.parseUri(intentDescription, 0);
+        */
+
+        String intentDescription = shortcutIntent.toUri(0);
+        Log.d("ApplicationsDialogPreference.updateShortcut","shortcutIntent="+intentDescription);
+        Log.d("ApplicationsDialogPreference.updateShortcut","position="+position);
+
+        Log.d("ApplicationsDialogPreference.updateShortcut","position="+position);
+
     }
 }
