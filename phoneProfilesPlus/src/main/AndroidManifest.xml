@@ -2,8 +2,8 @@
 <manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="internalOnly"
-          android:versionCode="2060"
-          android:versionName="3.3.8b-shortcuts-1">
+          android:versionCode="2062"
+          android:versionName="3.3.8b-shortcuts-2">
 
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
 
