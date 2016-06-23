@@ -541,7 +541,7 @@ public class EventsService extends IntentService
             } else
                 PhoneCallService.linkUnlinkExecuted = false;
 
-            if (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) {
+            if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)) {
                 // start PhoneProfilesService for ringing call simulation
                 Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
                 lIntent.putExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, true);
