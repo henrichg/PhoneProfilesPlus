@@ -52,9 +52,10 @@ public class GlobalData extends Application {
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
+                                         +"|PhoneProfilesHelper.isPPHelperInstalled"
 
-                                         +"|ActivateProfileHelper.setMobileData"
-                                         +"|ActivateProfileHelper.doExecuteForRadios"
+                                         //+"|ActivateProfileHelper.setMobileData"
+                                         //+"|ActivateProfileHelper.doExecuteForRadios"
                                          //+"|ExecuteRadioProfilePrefsService.onHandleIntent"
 
                                          //+"|PhoneProfilesBackupAgent"
