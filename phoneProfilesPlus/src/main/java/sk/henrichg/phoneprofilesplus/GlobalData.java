@@ -844,9 +844,15 @@ public class GlobalData extends Application {
                                profile._notificationLed,
                                profile._vibrateWhenRinging);
 
-            if (profile._volumeRingerMode == 99)
+            boolean zenModeMapped = false;
+            if (profile._volumeRingerMode == 99) {
                 mappedProfile._volumeRingerMode = defaultProfile._volumeRingerMode;
-            if (profile._volumeZenMode == 99)
+                if (mappedProfile._volumeRingerMode == 5) {
+                    mappedProfile._volumeZenMode = defaultProfile._volumeZenMode;
+                    zenModeMapped = true;
+                }
+            }
+            if ((profile._volumeZenMode == 99) && (!zenModeMapped))
                 mappedProfile._volumeZenMode = defaultProfile._volumeZenMode;
             if (profile.getVolumeRingtoneDefaultProfile())
                 mappedProfile._volumeRingtone = defaultProfile._volumeRingtone;
