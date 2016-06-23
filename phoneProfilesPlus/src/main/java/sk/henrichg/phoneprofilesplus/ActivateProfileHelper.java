@@ -876,8 +876,11 @@ public class ActivateProfileHelper {
             PackageManager packageManager = context.getPackageManager();
 
             for (int i = 0; i < splits.length; i++) {
+                Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
                 if (!ApplicationsCache.isShortcut(splits[i])) {
-                    intent = packageManager.getLaunchIntentForPackage(splits[i]);
+                    Log.d("ActivateProfileHelper.executeForRunApplications","no shortcut");
+                    intent = packageManager.getLaunchIntentForPackage(ApplicationsCache.getPackageName(splits[i]));
+                    Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                     if (intent != null) {
                         intent.addCategory(Intent.CATEGORY_LAUNCHER);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -892,12 +895,16 @@ public class ActivateProfileHelper {
                     }
                 }
                 else {
+                    Log.d("ActivateProfileHelper.executeForRunApplications","shortcut");
                     long shortcutId = ApplicationsCache.getShortcutId(splits[0]);
+                    Log.d("ActivateProfileHelper.executeForRunApplications","shortcutId="+shortcutId);
                     if (shortcutId > 0) {
                         Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
                         if (shortcut != null) {
                             try {
                                 intent = Intent.parseUri(shortcut._intent, 0);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                                 try {
                                     context.startActivity(intent);
                                 } catch (Exception e) {
