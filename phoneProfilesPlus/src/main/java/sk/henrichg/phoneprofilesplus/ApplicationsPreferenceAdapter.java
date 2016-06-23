@@ -121,12 +121,12 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
                 text = shortcut._name;
         }
         textViewAppName.setText(text);
-        setTextStyle(textViewAppName, application.shortcutId == 0);
+        setTextStyle(textViewAppName, application.shortcut && (application.shortcutId == 0));
         if (application.shortcut)
             textViewAppType.setText(R.string.applications_preference_applicationType_shortcut);
         else
             textViewAppType.setText(R.string.applications_preference_applicationType_application);
-        setTextStyle(textViewAppType, application.shortcutId == 0);
+        setTextStyle(textViewAppType, application.shortcut && (application.shortcutId == 0));
 
         imageViewMenu.setTag(position);
         final ImageView itemEditMenu = imageViewMenu;
