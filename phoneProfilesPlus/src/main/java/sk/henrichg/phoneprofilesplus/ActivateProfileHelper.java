@@ -579,11 +579,9 @@ public class ActivateProfileHelper {
 
             if ((zenMode != ZENMODE_SILENT) && (PPNotificationListenerService.isNotificationListenerServiceEnabled(context))) {
                 audioManager.setRingerMode(ringerMode);
-                if (android.os.Build.VERSION.SDK_INT < 23) {
-                    //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(500);
-                    GlobalData.sleep(500);
-                }
+                //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                //SystemClock.sleep(500);
+                GlobalData.sleep(500);
 
                 if ((zenMode != _zenMode) || (zenMode == ZENMODE_PRIORITY)) {
                     int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
@@ -620,28 +618,25 @@ public class ActivateProfileHelper {
             }
             else {
                 switch (zenMode) {
-                    case ZENMODE_PRIORITY:
+                    /*case ZENMODE_PRIORITY:
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(500);
-                        GlobalData.sleep(500);
+                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(1000);
+                        GlobalData.sleep(1000);
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                         break;
                     case ZENMODE_ALARMS:
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(500);
-                        GlobalData.sleep(500);
+                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(1000);
+                        GlobalData.sleep(1000);
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        break;
+                        break;*/
                     case ZENMODE_SILENT:
-                        if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context))
-                            setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_NORMAL);
-                        else
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(500);
-                        GlobalData.sleep(500);
+                        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(1000);
+                        GlobalData.sleep(1000);
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                         break;
                     default:
