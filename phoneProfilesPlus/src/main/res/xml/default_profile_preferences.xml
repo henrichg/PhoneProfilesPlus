@@ -341,7 +341,7 @@
             android:entryValues="@array/hardwareModeDPValues"
             app:useStockLayout="true" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
-            android:title="@string/profile_preferences_deviceRunApplicationChange"
+            android:title="@string/profile_preferences_deviceRunApplicationsShortcutsChange"
             android:summary="@string/array_pref_no_change"
             android:key="prf_pref_deviceRunApplicationChange"
             android:defaultValue="@string/prf_pref_deviceRunApplicationChange"
@@ -351,7 +351,7 @@
         <sk.henrichg.phoneprofilesplus.ApplicationsDialogPreference
             android:defaultValue="@string/prf_pref_deviceRunApplicationPackageName"
             android:key="prf_pref_deviceRunApplicationPackageName"
-            android:title="@string/profile_preferences_deviceRunApplicationPackageName"
+            android:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
             app:addShortcuts="1" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/profile_preferences_deviceWallpaperChange"
