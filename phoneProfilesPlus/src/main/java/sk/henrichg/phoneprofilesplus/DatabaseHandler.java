@@ -2052,6 +2052,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.beginTransaction();
         try {
+
+            // unlink shortcuts from profile
+            String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+            for (int i = 0; i < splits.length; i++)
+            {
+                boolean shortcut = ApplicationsCache.isShortcut(splits[i]);
+                if (shortcut) {
+                    long shortcutId = ApplicationsCache.getShortcutId(splits[i]);
+                    deleteShortcut(shortcutId);
+                }
+            }
+
             db.delete(TABLE_PROFILES, KEY_ID + " = ?",
                     new String[] { String.valueOf(profile._id) });
 
@@ -2090,6 +2102,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         try {
             db.delete(TABLE_PROFILES, null, null);
+
+            db.delete(TABLE_SHORTCUTS, null, null);
 
             // unlink profiles from events
             ContentValues values = new ContentValues();
