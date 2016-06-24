@@ -53,7 +53,7 @@
         android:layout_below="@+id/applications_editor_dialog_item_app_name"
         android:text="@string/empty_string"
         android:singleLine="true"
-        android:enabled="false"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="italic" />
 
 </RelativeLayout>
