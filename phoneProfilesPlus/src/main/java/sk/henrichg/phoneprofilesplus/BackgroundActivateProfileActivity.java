@@ -15,16 +15,19 @@ public class BackgroundActivateProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GlobalData.loadPreferences(getApplicationContext());
-
-        dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
-
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, 0);
         profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
 
-        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
+        if ((startupSource == GlobalData.STARTUP_SOURCE_WIDGET) ||
+            (startupSource == GlobalData.STARTUP_SOURCE_SHORTCUT)) {
 
+            GlobalData.loadPreferences(getApplicationContext());
+
+            dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+
+            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
+        }
     }
 
     @Override
