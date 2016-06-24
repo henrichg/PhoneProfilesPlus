@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class ApplicationEditorDialogAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
-    //private Context context;
+    private Context context;
 
     ApplicationEditorDialog dialog;
     Application application;
@@ -24,7 +24,7 @@ public class ApplicationEditorDialogAdapter extends BaseAdapter
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
-        //this.context = context;
+        this.context = context;
 
         this.dialog = dialog;
         this.application = application;
@@ -94,9 +94,9 @@ public class ApplicationEditorDialogAdapter extends BaseAdapter
         holder.imageViewIcon.setImageDrawable(application.icon);
         holder.textViewAppName.setText(application.appLabel);
         if (application.shortcut)
-            holder.textViewAppType.setText(R.string.applications_preference_applicationType_shortcut);
+            holder.textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
         else
-            holder.textViewAppType.setText(R.string.applications_preference_applicationType_application);
+            holder.textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
 
         holder.radioBtn.setChecked(position == selectedPosition);
 

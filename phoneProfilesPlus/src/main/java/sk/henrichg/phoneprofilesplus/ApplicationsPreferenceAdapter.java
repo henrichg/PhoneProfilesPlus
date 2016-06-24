@@ -25,7 +25,7 @@ import android.widget.TextView;
 public class ApplicationsPreferenceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
-    //private Context context;
+    private Context context;
     private DataWrapper dataWrapper;
 
     private ApplicationsDialogPreference preference;
@@ -34,7 +34,7 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
-        //this.context = context;
+        this.context = context;
 
         this.preference = preference;
         dataWrapper = new DataWrapper(context, false, false, 0);
@@ -123,9 +123,9 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
         textViewAppName.setText(text);
         setTextStyle(textViewAppName, application.shortcut && (application.shortcutId == 0));
         if (application.shortcut)
-            textViewAppType.setText(R.string.applications_preference_applicationType_shortcut);
+            textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
         else
-            textViewAppType.setText(R.string.applications_preference_applicationType_application);
+            textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
         setTextStyle(textViewAppType, application.shortcut && (application.shortcutId == 0));
 
         imageViewMenu.setTag(position);

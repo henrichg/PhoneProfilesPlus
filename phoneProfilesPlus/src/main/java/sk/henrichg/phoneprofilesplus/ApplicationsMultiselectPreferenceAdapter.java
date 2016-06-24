@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
-    //private Context context;
+    private Context context;
 
     boolean noShortcuts;
 
@@ -20,7 +20,7 @@ public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
-        //this.context = context;
+        this.context = context;
 
         noShortcuts = addShortcuts == 0;
     }
@@ -54,13 +54,19 @@ public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
         // Create a new row view
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.applications_multiselect_preference_list_item, parent, false);
+            if (noShortcuts)
+                convertView = inflater.inflate(R.layout.applications_multiselect_preference_ns_list_item, parent, false);
+            else
+                convertView = inflater.inflate(R.layout.applications_multiselect_preference_list_item, parent, false);
 
             // Find the child views.
             imageViewIcon = (ImageView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_icon);
             textViewAppName = (TextView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_name);
             checkBox = (CheckBox) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_checkbox);
-            textViewAppType = (TextView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_type);
+            if (noShortcuts)
+                textViewAppType = null;
+            else
+                textViewAppType = (TextView) convertView.findViewById(R.id.applications_multiselect_pref_dlg_item_app_type);
 
             // Optimization: Tag the row with it's child views, so we don't
             // have to
@@ -96,10 +102,12 @@ public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
         // Display Application data
         imageViewIcon.setImageDrawable(application.icon);
         textViewAppName.setText(application.appLabel);
-        if (application.shortcut)
-            textViewAppType.setText(R.string.applications_preference_applicationType_shortcut);
-        else
-            textViewAppType.setText(R.string.applications_preference_applicationType_application);
+        if (!noShortcuts) {
+            if (application.shortcut)
+                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
+            else
+                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
+        }
 
         checkBox.setChecked(application.checked);
 
