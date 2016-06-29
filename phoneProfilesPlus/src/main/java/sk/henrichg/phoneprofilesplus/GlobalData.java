@@ -48,8 +48,8 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoLogCat = true;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -95,9 +95,15 @@ public class GlobalData extends Application {
                                          //+"|##### WifiScanBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiScanBroadcastReceiver.onReceive"
                                          //+"|WifiScanAlarmBroadcastReceiver.setAlarm"
-                                         //+"|ScannerService.onHandleIntent"
-
-                                         //+"|##### BluetoothScanAlarmBroadcastReceiver.onReceive"
+                                         +"|ScannerService.onHandleIntent"
+                                         +"|BluetoothScanAlarmBroadcastReceiver"
+                                         +"|ScannerService.enableBluetooth"
+                                         +"|BluetoothScanBroadcastReceiver"
+                                         +"|BluetoothStateChangedBroadcastReceiver"
+                                         +"|BluetoothConnectionBroadcastReceiver"
+                                         +"|BluetoothLEScanBroadcastReceiver"
+                                         +"|BluetoothLEScanCallback18"
+                                         +"|BluetoothLEScanCallback21"
                                          //+"|##### WifiScanAlarmBroadcastReceiver.onReceive"
                                          //+"|##### GeofenceScannerAlarmBroadcastReceiver.onReceive"
                                          //+"|##### GeofenceScannerBroadcastReceiver.onReceive"
