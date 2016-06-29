@@ -26,7 +26,6 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktivovaný</string>
   <string name="title_activity_image_view_preference_dialog">Změna ikony</string>
-  <string name="title_activity_applications_preference_dialog">Výběr aplikace</string>
   <string name="preference_profile_no_change">Neměnit</string>
   <string name="preference_profile_autobrightness">Automaticky</string>
   <string name="active_profile_notification_label">Aktivní profil</string>
@@ -39,7 +38,6 @@
   <string name="imageview_resource_file_pref_dialog_gallery_btn">Uživatelská&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Neměnit</string>
   <string name="imageview_preference_profile_icon_label">Ikona profilu</string>
-  <string name="applications_preference_profile_icon_label">Spustit aplikaci</string>
   <string name="phone_profiles_pref_category_activator">Aktivátor</string>
   <string name="phone_profiles_pref_category_editor">Editor</string>
   <string name="phone_profiles_pref_category_gui">Prostředí aplikace</string>
@@ -147,8 +145,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Barevné</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Nativní</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Dlouhé stisknutí aktivuje profil</string>
-  <string name="profile_preferences_deviceRunApplicationPackageName">Aplikace</string>
-  <string name="profile_preferences_deviceRunApplicationChange">Spustit aplikaci</string>
   <string name="alert_title_delete_all_profiles">Odstranit všechny profily</string>
   <string name="alert_message_delete_all_profiles">Jste si jistý?</string>
   <string name="alert_title_delete_all_events">Odstranit všechny události</string>
@@ -755,4 +751,7 @@
   <string name="permissions_for_play_ringtone_notification_text1">Máte nastaven tón vyzvánění/oznámení z sd karty. Tón nebude přehrán, protože to vyžaduje některá povolení.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Prosím, povolte je v následujících dialogových oknech. Pak tón bude přehráván.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Přehrávání nastaveného tónu vyzvánění/oznámení vyžaduje udělení některých povolení.</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikace, odkazy</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustit aplikace, odkazy</string>
+  <string name="applications_editor_dialog_title">Vyber aplikaci, odkaz</string>
 </resources>

@@ -26,7 +26,6 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktywny</string>
   <string name="title_activity_image_view_preference_dialog">Zmień ikonę</string>
-  <string name="title_activity_applications_preference_dialog">Wybierz aplikację</string>
   <string name="preference_profile_no_change">Nie zmieniaj</string>
   <string name="preference_profile_autobrightness">Automatyczna</string>
   <string name="active_profile_notification_label">Aktywny profil</string>
@@ -39,7 +38,6 @@
   <string name="imageview_resource_file_pref_dialog_gallery_btn">Własny&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Bez zmian</string>
   <string name="imageview_preference_profile_icon_label">Ikona profilu</string>
-  <string name="applications_preference_profile_icon_label">Uruchom aplikację</string>
   <string name="phone_profiles_pref_category_activator">Aktywator</string>
   <string name="phone_profiles_pref_category_editor">Edytor</string>
   <string name="phone_profiles_pref_category_gui">Interfejs aplikacji</string>
@@ -147,8 +145,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Kolory</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Natywne</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Przyciśnij długo aby uaktywnić profil</string>
-  <string name="profile_preferences_deviceRunApplicationPackageName">Aplikacja</string>
-  <string name="profile_preferences_deviceRunApplicationChange">Uruchom aplikację</string>
   <string name="alert_title_delete_all_profiles">Usuń wszystkie profile</string>
   <string name="alert_message_delete_all_profiles">Czy na pewno?</string>
   <string name="alert_title_delete_all_events">Usuń wszystkie zdarzenia</string>
@@ -755,4 +751,7 @@
   <string name="permissions_for_play_ringtone_notification_text1">You have selected ringer/notification tone from sdcard. Tone will not be played, because this requires some permissions.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Please grant them in next dialogs. Then tone will be played.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Playing selected ringer/notification requires some permissions to be granted.</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts</string>
+  <string name="applications_editor_dialog_title">Set application, shortcut</string>
 </resources>

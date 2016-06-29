@@ -26,7 +26,6 @@
   <string name="toast_profile_activated_0">Профіль</string>
   <string name="toast_profile_activated_1">активований</string>
   <string name="title_activity_image_view_preference_dialog">Змінити іконку</string>
-  <string name="title_activity_applications_preference_dialog">Налаштувати додаток</string>
   <string name="preference_profile_no_change">Не змінювати</string>
   <string name="preference_profile_autobrightness">Автоматично</string>
   <string name="active_profile_notification_label">Активний профіль</string>
@@ -39,7 +38,6 @@
   <string name="imageview_resource_file_pref_dialog_gallery_btn">Персональний&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Не змінювати</string>
   <string name="imageview_preference_profile_icon_label">Іконка профілю</string>
-  <string name="applications_preference_profile_icon_label">Запустити додаток</string>
   <string name="phone_profiles_pref_category_activator">Активатор</string>
   <string name="phone_profiles_pref_category_editor">Редактор</string>
   <string name="phone_profiles_pref_category_gui">Інтерфейс додатку</string>
@@ -147,8 +145,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Кольорова</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Рідна</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Активація профілю тривалим натисканням</string>
-  <string name="profile_preferences_deviceRunApplicationPackageName">Додаток</string>
-  <string name="profile_preferences_deviceRunApplicationChange">Запустити додаток</string>
   <string name="alert_title_delete_all_profiles">Видалити усі профілі</string>
   <string name="alert_message_delete_all_profiles">Ви впевнені?</string>
   <string name="alert_title_delete_all_events">Видалити усі події</string>
@@ -755,4 +751,7 @@
   <string name="permissions_for_play_ringtone_notification_text1">Ви вибрали сигнал дзвінка/сповіщення із SD-карти. Тон не буде відтворюватись, тому що це вимагає деяких дозволів.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Будь ласка, надайте їх в наступних діалогових вікнах. Після цього сигнал буде відтворено.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Відтворення вибраного дзвінка/сповіщення вимагає надання деяких дозволів.</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Додатки, ярлики</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запустити додатки, ярлики</string>
+  <string name="applications_editor_dialog_title">Налаштувати додаток, ярлик</string>
 </resources>

@@ -26,7 +26,6 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktiviert</string>
   <string name="title_activity_image_view_preference_dialog">Symbol ändern</string>
-  <string name="title_activity_applications_preference_dialog">App wählen</string>
   <string name="preference_profile_no_change">Nicht ändern</string>
   <string name="preference_profile_autobrightness">Automatisch</string>
   <string name="active_profile_notification_label">Aktives Profil</string>
@@ -39,7 +38,6 @@
   <string name="imageview_resource_file_pref_dialog_gallery_btn">Eigenes&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Nicht ändern</string>
   <string name="imageview_preference_profile_icon_label">Profil-Symbol</string>
-  <string name="applications_preference_profile_icon_label">App starten</string>
   <string name="phone_profiles_pref_category_activator">Starter</string>
   <string name="phone_profiles_pref_category_editor">Editor</string>
   <string name="phone_profiles_pref_category_gui">App-Thema</string>
@@ -147,8 +145,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Farbig</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Standard</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Lang dr. für Profilaktivierung</string>
-  <string name="profile_preferences_deviceRunApplicationPackageName">App</string>
-  <string name="profile_preferences_deviceRunApplicationChange">App starten</string>
   <string name="alert_title_delete_all_profiles">Alle Profile löschen</string>
   <string name="alert_message_delete_all_profiles">Sicher?</string>
   <string name="alert_title_delete_all_events">Alle Ereignisse löschen</string>
@@ -746,13 +742,16 @@
   <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Orientierungs-Scan-Intervall (Sekunden)</string>
   <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Orientierungs-Scan im Energiesparmodus</string>
   <string name="phone_profiles_pref_eventOrientationAppSettings">Orientationseinstellungen</string>
-  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation parameters in application settings.</string>
+  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Ausrichtungseinstellungen in App-Einstellungen einstellen</string>
   <string name="array_pref_screenTimeoutArray_24hours">24 Stunden</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Immer an</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Wenn die Option \"24 Stunden\" an deinem Gerät (LG) nicht funktioniert, benutze die Option \"Immer an\". Auch die Option \"Immer an\" könnte an deinem Gerät (Samsung) nicht funktionieren. Dann benutze die Option \"24 Stunden\".</string>
   <string name="phone_profiles_pref_notificationStatusBarRecommended">Recommended for background service PhoneProfilesService</string>
   <string name="profile_preferences_vibrateWhenRinging">Beim Klingeln vibrieren</string>
   <string name="permissions_for_play_ringtone_notification_text1">Du hast einen Benachrichtigungs/Anrufston von der SD-Karte gewählt. Der Ton wird nicht abgespielt, da dies Berechtigungen benötigt.</string>
-  <string name="permissions_for_play_ringtone_notification_text2">Please grant them in next dialogs. Then tone will be played.</string>
-  <string name="permissions_for_play_ringtone_notification_big_text_notification">Playing selected ringer/notification requires some permissions to be granted.</string>
+  <string name="permissions_for_play_ringtone_notification_text2">Bitte erteile sie in den nächsten Dialogen. Der Ton wird dann abgespielt.</string>
+  <string name="permissions_for_play_ringtone_notification_big_text_notification">Den ausgewählten Ton abzuspielen benötigt Berechtigungen.</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts</string>
+  <string name="applications_editor_dialog_title">Set application, shortcut</string>
 </resources>

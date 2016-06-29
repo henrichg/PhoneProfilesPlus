@@ -26,7 +26,6 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">etkinleştirildi</string>
   <string name="title_activity_image_view_preference_dialog">Simgeyi değiştir</string>
-  <string name="title_activity_applications_preference_dialog">Uygulama Ayarla</string>
   <string name="preference_profile_no_change">Değiştirme</string>
   <string name="preference_profile_autobrightness">Otomatik parlaklık</string>
   <string name="active_profile_notification_label">Aktif profil</string>
@@ -39,7 +38,6 @@
   <string name="imageview_resource_file_pref_dialog_gallery_btn">Özel&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Değiştirilmesin</string>
   <string name="imageview_preference_profile_icon_label">Profil simgesi</string>
-  <string name="applications_preference_profile_icon_label">Uygulamayı çalıştır</string>
   <string name="phone_profiles_pref_category_activator">Etkinleştirici</string>
   <string name="phone_profiles_pref_category_editor">Düzenleyici</string>
   <string name="phone_profiles_pref_category_gui">Uygulama arayüzü</string>
@@ -147,8 +145,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Renkli</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Sistem bildirim rengi</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Tercihi etkinleştirmek için uzun-basın</string>
-  <string name="profile_preferences_deviceRunApplicationPackageName">Uygulama</string>
-  <string name="profile_preferences_deviceRunApplicationChange">Uygulamayı çalıştır</string>
   <string name="alert_title_delete_all_profiles">Tüm profilleri sil</string>
   <string name="alert_message_delete_all_profiles">Emin misiniz?</string>
   <string name="alert_title_delete_all_events">Tüm etkinlikleri sil</string>
@@ -755,4 +751,7 @@
   <string name="permissions_for_play_ringtone_notification_text1">Zil/bildirim sesini hafıza kartından seçtiniz. Bu ses çalınmayacak. Çünkü bunun için bazı izinler gerekli.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Lütfen sonraki iletişim kutularında izinleri verin. Sonra ses çalınacak.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Seçilen zil/bildirimin çalınması için bazı izinlerin verilmesi gerekir.</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Uygulamalar, kısayollar</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Uygulamaları, kısayolları çalıştır</string>
+  <string name="applications_editor_dialog_title">Uygulama, kısayol düzenle</string>
 </resources>

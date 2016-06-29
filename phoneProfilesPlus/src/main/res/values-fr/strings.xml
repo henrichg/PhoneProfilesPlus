@@ -26,7 +26,6 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">activé</string>
   <string name="title_activity_image_view_preference_dialog">Changer l\'icône</string>
-  <string name="title_activity_applications_preference_dialog">Définir l\'application</string>
   <string name="preference_profile_no_change">Ne pas changer</string>
   <string name="preference_profile_autobrightness">Automatique</string>
   <string name="active_profile_notification_label">Profil actif</string>
@@ -39,7 +38,6 @@
   <string name="imageview_resource_file_pref_dialog_gallery_btn">Personnalisé...</string>
   <string name="volume_pref_dialog_no_change_chb">Ne pas changer</string>
   <string name="imageview_preference_profile_icon_label">Icône de profil</string>
-  <string name="applications_preference_profile_icon_label">Exécutez l\'application</string>
   <string name="phone_profiles_pref_category_activator">Sélection</string>
   <string name="phone_profiles_pref_category_editor">Editeur</string>
   <string name="phone_profiles_pref_category_gui">Interface d\'application</string>
@@ -147,8 +145,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Coloré</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Natif</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Appui long pour activer le profil</string>
-  <string name="profile_preferences_deviceRunApplicationPackageName">Application</string>
-  <string name="profile_preferences_deviceRunApplicationChange">Exécutez l\'application</string>
   <string name="alert_title_delete_all_profiles">Supprimer tous les profils</string>
   <string name="alert_message_delete_all_profiles">Etes-vous sûr?</string>
   <string name="alert_title_delete_all_events">Supprimer tous les événements</string>
@@ -755,4 +751,7 @@
   <string name="permissions_for_play_ringtone_notification_text1">Vous avez sélectionné des sonneries et des notifications de la carte Sd. Les sons ne sont pas joué, parce que ceci exige certaines autorisations.</string>
   <string name="permissions_for_play_ringtone_notification_text2">S\'il vous plaît validez les boîtes de dialogues suivantes pour que les sons soient joués.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Jouer la sonnerie sélectionnée requiert certaines autorisations à accorder.</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, raccourcis</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Exécuter des applications, raccourcis</string>
+  <string name="applications_editor_dialog_title">Set application, shortcut</string>
 </resources>

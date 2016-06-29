@@ -26,7 +26,6 @@
   <string name="toast_profile_activated_0">פרופיל</string>
   <string name="toast_profile_activated_1">הופעל</string>
   <string name="title_activity_image_view_preference_dialog">שינוי סמל</string>
-  <string name="title_activity_applications_preference_dialog">בחירת יישומון</string>
   <string name="preference_profile_no_change">ללא שינוי</string>
   <string name="preference_profile_autobrightness">אוטומטי</string>
   <string name="active_profile_notification_label">פרופיל פעיל</string>
@@ -39,7 +38,6 @@
   <string name="imageview_resource_file_pref_dialog_gallery_btn">התאמה אישית...</string>
   <string name="volume_pref_dialog_no_change_chb">ללא שינוי</string>
   <string name="imageview_preference_profile_icon_label">סמל הפרופיל</string>
-  <string name="applications_preference_profile_icon_label">הפעלת יישומון</string>
   <string name="phone_profiles_pref_category_activator">מפעיל</string>
   <string name="phone_profiles_pref_category_editor">עורך</string>
   <string name="phone_profiles_pref_category_gui">ממשק המשתמש</string>
@@ -147,8 +145,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">צבעוני</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">מערכת</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">לחיצה ארוכה להפעלת פרופיל</string>
-  <string name="profile_preferences_deviceRunApplicationPackageName">יישומון</string>
-  <string name="profile_preferences_deviceRunApplicationChange">הפעלת יישומון</string>
   <string name="alert_title_delete_all_profiles">מחיקת כל הפרופילים</string>
   <string name="alert_message_delete_all_profiles">את/ה בטוח/ה?</string>
   <string name="alert_title_delete_all_events">מחיקת כל האירועים</string>
@@ -755,4 +751,7 @@
   <string name="permissions_for_play_ringtone_notification_text1">נבחר צליל צלצול/הודעות מכרטיס sdcard. הצליל לא יושמע כיוון שפעולה זו דורשת הרשאות מסוימות.</string>
   <string name="permissions_for_play_ringtone_notification_text2">אנא התירו אותן בתיבות דו-שיח הבאות, ואז הצליל יושמע.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">השמעת צלצול/צליל ההודעות שנבחר מחייבת מתן הרשאות מסוימות.</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">יישומים, קיצורי דרך</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">הפעלת יישומים, קיצורי דרך</string>
+  <string name="applications_editor_dialog_title">בחירת יישום, קיצור דרך</string>
 </resources>

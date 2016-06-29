@@ -26,7 +26,6 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktiválva</string>
   <string name="title_activity_image_view_preference_dialog">Ikon cseréje</string>
-  <string name="title_activity_applications_preference_dialog">Alkalmazás beállítása</string>
   <string name="preference_profile_no_change">Nem változik</string>
   <string name="preference_profile_autobrightness">Automatikus</string>
   <string name="active_profile_notification_label">Aktív profil</string>
@@ -39,7 +38,6 @@
   <string name="imageview_resource_file_pref_dialog_gallery_btn">Egyéni&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Nincs változás</string>
   <string name="imageview_preference_profile_icon_label">Profil ikonja</string>
-  <string name="applications_preference_profile_icon_label">Alkalmazás futtatása</string>
   <string name="phone_profiles_pref_category_activator">Profilok</string>
   <string name="phone_profiles_pref_category_editor">Szerkesztő</string>
   <string name="phone_profiles_pref_category_gui">Alkalmazás kinézete</string>
@@ -147,8 +145,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Színes</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Natív</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Hosszú gombnyomás a profil aktiválásához</string>
-  <string name="profile_preferences_deviceRunApplicationPackageName">Alkalmazás</string>
-  <string name="profile_preferences_deviceRunApplicationChange">Alkalmazás futtatása</string>
   <string name="alert_title_delete_all_profiles">Összes profil törlése</string>
   <string name="alert_message_delete_all_profiles">Biztos vagy benne?</string>
   <string name="alert_title_delete_all_events">Összes esemény törlése</string>
@@ -615,7 +611,7 @@
   <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth keresés</string>
   <string name="profile_preferences_category_activation_duration">Aktiválás időtartama</string>
   <string name="profile_preferences_category_sound_profile">Hang profil</string>
-  <string name="profile_preferences_category_radios">Rádiók</string>
+  <string name="profile_preferences_category_radios">Vezeték nélküli kapcsolatok</string>
   <string name="profile_preferences_category_screen">Kijelző</string>
   <string name="profile_preferences_category_others">Egyebek</string>
   <string name="event_preferences_category_startofeventOthers">Egyéb paraméterek</string>
@@ -755,4 +751,7 @@
   <string name="permissions_for_play_ringtone_notification_text1">Csengő/értesítés hangot a Sdcard-ról választotta. Hang nem fog lejátszódni, mert ehhez bizonyos engedélyekre van szükség.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Végezd el a beállításokat. Majd a hang le fog játszódni.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">A lejátszásra kiválasztott csengő/értesítés hangokhoz, néhány engedélyt meg kell adni.</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Alkalmazások, gyorsindítók</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Futó alkalmazások, gyorsindítók</string>
+  <string name="applications_editor_dialog_title">Alkalmazás beállítás, gyorsindító</string>
 </resources>

@@ -26,7 +26,6 @@
   <string name="toast_profile_activated_0">Профиль</string>
   <string name="toast_profile_activated_1">активирован</string>
   <string name="title_activity_image_view_preference_dialog">Изменить иконку</string>
-  <string name="title_activity_applications_preference_dialog">Выберите приложение</string>
   <string name="preference_profile_no_change">Не изменять</string>
   <string name="preference_profile_autobrightness">Автоматическая</string>
   <string name="active_profile_notification_label">Активный профиль</string>
@@ -39,7 +38,6 @@
   <string name="imageview_resource_file_pref_dialog_gallery_btn">Персональная&#8230;</string>
   <string name="volume_pref_dialog_no_change_chb">Не изменять</string>
   <string name="imageview_preference_profile_icon_label">Иконка профиля</string>
-  <string name="applications_preference_profile_icon_label">Запустить приложение</string>
   <string name="phone_profiles_pref_category_activator">Активатор</string>
   <string name="phone_profiles_pref_category_editor">Редактор</string>
   <string name="phone_profiles_pref_category_gui">Интерфейс приложения</string>
@@ -147,8 +145,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Цветная иконка</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Встроенная</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Активация профиля долгим нажатием</string>
-  <string name="profile_preferences_deviceRunApplicationPackageName">Приложение</string>
-  <string name="profile_preferences_deviceRunApplicationChange">Запустить приложение</string>
   <string name="alert_title_delete_all_profiles">Удалить все профили</string>
   <string name="alert_message_delete_all_profiles">Вы уверены?</string>
   <string name="alert_title_delete_all_events">Удалить все события</string>
@@ -755,4 +751,7 @@
   <string name="permissions_for_play_ringtone_notification_text1">Вы выбрали мелодию звонка/уведомления расположенную на sdcard. Звук не будет воспроизводиться, поскольку для этого требуются дополнительные разрешения.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Дайте разрешения в следующих диалоговых окнах. Затем мелодия будет установлена.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Воспроизведение выбранного звонка/уведомления требует дополнительных разрешений.</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Приложения, ярлыки</string>
+  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запуск приложений, ярлыки</string>
+  <string name="applications_editor_dialog_title">Установка приложения, ярлык</string>
 </resources>
