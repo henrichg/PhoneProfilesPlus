@@ -369,9 +369,12 @@ public class EventsService extends IntentService
                         eventNotificationSound = event._notificationSound;
                 }
 
+                GlobalData.logE("$$$ EventsService.onHandleIntent", "mergedProfile=" + mergedProfile);
+
                 if (mergedProfile == null)
                     dataWrapper.updateNotificationAndWidgets(activatedProfile);
                 else {
+                    GlobalData.logE("$$$ EventsService.onHandleIntent", "mergedProfile._id=" + mergedProfile._id);
                     if (mergedProfile._id != 0) {
                         // activate merged profile
                         GlobalData.logE("$$$ EventsService.onHandleIntent", "profileName=" + mergedProfile._name);

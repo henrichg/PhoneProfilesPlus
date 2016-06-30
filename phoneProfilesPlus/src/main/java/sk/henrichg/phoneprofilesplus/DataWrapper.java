@@ -2090,7 +2090,7 @@ public class DataWrapper {
                             String _device = device.getName().toUpperCase();
                             String _adapterName = event._eventPreferencesBluetooth._adapterName.toUpperCase();
                             if (Wildcard.match(_device, _adapterName, '_', '%')) {
-                                GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth found");
+                                GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetooth found");
                                 //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
                                 //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
                                 bluetoothPassed = true;
@@ -2099,14 +2099,14 @@ public class DataWrapper {
                         }
 
                         if (!bluetoothPassed)
-                            GlobalData.logE("@@@ DataWrapper.doEventService","bluetooth not found");
+                            GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetooth not found");
 
                         if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)
                             // if bluetooth is not in front of event BT adapter name, then passed
                             bluetoothPassed = !bluetoothPassed;
                     }
                     else
-                        GlobalData.logE("@@@x DataWrapper.doEventService","scanResults == null");
+                        GlobalData.logE("[BTScan] DataWrapper.doEventService","scanResults == null");
 
                 }
             }
@@ -2381,18 +2381,18 @@ public class DataWrapper {
         else
             newEventStatus = Event.ESTATUS_PAUSE;
 
-        GlobalData.logE("DataWrapper.doEventService","event.getStatus()="+event.getStatus());
-        GlobalData.logE("DataWrapper.doEventService","newEventStatus="+newEventStatus);
+        GlobalData.logE("[***] DataWrapper.doEventService","event.getStatus()="+event.getStatus());
+        GlobalData.logE("[***] DataWrapper.doEventService","newEventStatus="+newEventStatus);
 
         //GlobalData.logE("@@@ DataWrapper.doEventService","restartEvent="+restartEvent);
 
         if (!ignoreChange) {
             if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelayStart || event._isInDelayEnd) {
-                GlobalData.logE("DataWrapper.doEventService", " do new event status");
+                GlobalData.logE("[***] DataWrapper.doEventService", " do new event status");
 
                 if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause)) {
-                    GlobalData.logE("%%% DataWrapper.doEventService", "start event");
-                    GlobalData.logE("%%% DataWrapper.doEventService", "event._name=" + event._name);
+                    GlobalData.logE("[***] DataWrapper.doEventService", "start event");
+                    GlobalData.logE("[***] DataWrapper.doEventService", "event._name=" + event._name);
 
                     if (!forDelayStartAlarm) {
                         // called not for delay alarm
@@ -2408,10 +2408,12 @@ public class DataWrapper {
                                 event.checkDelayStart(this);
                             }
                         }
+                        GlobalData.logE("[***] DataWrapper.doEventService", "event._isInDelayStart="+event._isInDelayStart);
                         if (!event._isInDelayStart) {
                             // no delay alarm is set
                             // start event
                             event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
+                            GlobalData.logE("[***] DataWrapper.doEventService", "mergedProfile._id="+mergedProfile._id);
                         }
                     }
 
@@ -2423,8 +2425,8 @@ public class DataWrapper {
                 } else if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause) {
                     // when pausing and it is for restart events, force pause
 
-                    GlobalData.logE("%%% DataWrapper.doEventService", "pause event");
-                    GlobalData.logE("%%% DataWrapper.doEventService", "event._name=" + event._name);
+                    GlobalData.logE("[***] DataWrapper.doEventService", "pause event");
+                    GlobalData.logE("[***] DataWrapper.doEventService", "event._name=" + event._name);
 
                     if (!forDelayEndAlarm) {
                         // called not for delay alarm
