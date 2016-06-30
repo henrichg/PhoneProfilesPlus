@@ -90,41 +90,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
                 else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
                 {
-                    discoveryStarted = false;
-
-                    List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
-
-                    for (BluetoothDeviceData device : tmpScanResults)
-                    {
-                        scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type));
-                    }
-                    tmpScanResults.clear();
-
-                    BluetoothScanAlarmBroadcastReceiver.saveScanResults(context, scanResults);
-
-                    /*
-                    if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
-                    {
-                        for (BluetoothDevice device : BluetoothScanAlarmBroadcastReceiver.scanResults)
-                        {
-                            GlobalData.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
-                        }
-                    }
-                    */
-
-                    BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-
-                    int forceOneScan = GlobalData.getForceOneBluetoothScan(context);
-                    GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
-
-                    if (forceOneScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
-                    {
-                        // start service
-                        Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                        eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                        startWakefulService(context, eventsServiceIntent);
-                    }
-
+                    finishScan(context);
                 }
 
             }
@@ -141,6 +107,44 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
             tmpScanResults.clear();
         else
             tmpScanResults = new ArrayList<BluetoothDeviceData>();
+    }
+
+    static public void finishScan(Context context) {
+        if (discoveryStarted) {
+            discoveryStarted = false;
+
+            List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
+
+            for (BluetoothDeviceData device : tmpScanResults) {
+                scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type));
+            }
+            tmpScanResults.clear();
+
+            BluetoothScanAlarmBroadcastReceiver.saveScanResults(context, scanResults);
+
+            /*
+            if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
+            {
+                for (BluetoothDevice device : BluetoothScanAlarmBroadcastReceiver.scanResults)
+                {
+                    GlobalData.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
+                }
+            }
+            */
+
+            BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+
+            int forceOneScan = GlobalData.getForceOneBluetoothScan(context);
+            GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+
+            if (forceOneScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
+            {
+                // start service
+                Intent eventsServiceIntent = new Intent(context, EventsService.class);
+                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                startWakefulService(context, eventsServiceIntent);
+            }
+        }
     }
 
 }

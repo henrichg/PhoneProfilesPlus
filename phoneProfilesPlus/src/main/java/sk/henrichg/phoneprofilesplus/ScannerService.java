@@ -39,7 +39,7 @@ public class ScannerService extends IntentService
     private final BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
 
     public static int wifiScanDuration = 20;      // 20 seconds for wifi scan
-    public static int classicBTScanDuration = 40; // 40 seconds for classic bluetooth scan
+    public static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
 
     Handler wifiBluetoothChangeHandler;
 
@@ -778,6 +778,7 @@ public class ScannerService extends IntentService
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
 
+        BluetoothScanBroadcastReceiver.finishScan(context);
         BluetoothScanAlarmBroadcastReceiver.stopScan(context);
     }
 
@@ -816,6 +817,7 @@ public class ScannerService extends IntentService
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
+        BluetoothScanBroadcastReceiver.finishScan(context);
         BluetoothScanAlarmBroadcastReceiver.stopScan(context);
 
         if (asyncTask != null)
