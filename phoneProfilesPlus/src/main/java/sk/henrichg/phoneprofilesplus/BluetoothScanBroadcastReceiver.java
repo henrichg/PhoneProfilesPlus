@@ -23,7 +23,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
         //GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- start");
 
         if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
-            BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+            BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -63,9 +63,13 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
-                    String btName = device.getName();
-                    if (intent.hasExtra(BluetoothDevice.EXTRA_NAME))
-                        btName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+                    String btNameD = device.getName();
+                    String btNameE = "";
+                    String btName = btNameD;
+                    if (intent.hasExtra(BluetoothDevice.EXTRA_NAME)) {
+                        btNameE = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+                        btName = btNameE;
+                    }
 
                     boolean found = false;
                     for (BluetoothDeviceData _device : tmpScanResults)
@@ -80,7 +84,8 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                     {
                         tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
                                 BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device)));
-                        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName="+btName);
+                        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_d="+btNameD);
+                        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_e="+btNameE);
                     }
                 }
                 else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))

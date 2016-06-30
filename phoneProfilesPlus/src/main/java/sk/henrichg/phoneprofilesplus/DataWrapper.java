@@ -2014,7 +2014,7 @@ public class DataWrapper {
         {
             bluetoothPassed = false;
 
-            BluetoothAdapter bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
+            BluetoothAdapter bluetooth = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
             boolean isBluetoothEnabled = bluetooth.isEnabled();
 
             boolean done = false;

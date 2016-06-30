@@ -248,7 +248,7 @@ public class ActivateProfileHelper {
         // nahodenie bluetooth
         if (profile._deviceBluetooth != 0) {
             if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_ALLOWED) {
-                BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                BluetoothAdapter bluetoothAdapter = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
                     boolean isBluetoothEnabled = bluetoothAdapter.isEnabled();
                     boolean setBluetoothState = false;

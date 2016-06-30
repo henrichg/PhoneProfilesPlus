@@ -281,7 +281,7 @@ public class ScannerService extends IntentService
                 else {
 
                     if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
-                        BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothAdapter.getDefaultAdapter();
+                        BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
 
                     if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
                         // service restarted during scanning, disable Bluetooth

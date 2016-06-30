@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
 import android.content.BroadcastReceiver;
@@ -47,7 +48,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter();
+            bluetooth = getBluetoothAdapter(context);
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
@@ -56,6 +57,17 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             startScanner(context);
         }
 
+    }
+
+    public static BluetoothAdapter getBluetoothAdapter(Context context) {
+        BluetoothAdapter adapter = null;
+        if (android.os.Build.VERSION.SDK_INT < 18)
+            adapter = BluetoothAdapter.getDefaultAdapter();
+        else {
+            BluetoothManager bluetoothManager = (BluetoothManager)context.getSystemService(Context.BLUETOOTH_SERVICE);
+            adapter = bluetoothManager.getAdapter();
+        }
+        return adapter;
     }
 
     public static void initialize(Context context)
@@ -71,7 +83,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             return;
 
         if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter();
+            bluetooth = getBluetoothAdapter(context);
         if (bluetooth == null)
             return;
 
@@ -291,7 +303,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         BluetoothScanBroadcastReceiver.initTmpScanResults();
 
         if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter();
+            bluetooth = getBluetoothAdapter(context);
 
         if (bluetooth.isDiscovering())
             bluetooth.cancelDiscovery();
@@ -319,7 +331,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     static public void stopScan(Context context) {
         if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter();
+            bluetooth = getBluetoothAdapter(context);
         if (bluetooth.isDiscovering())
             bluetooth.cancelDiscovery();
     }
@@ -333,7 +345,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             //BluetoothScanBroadcastReceiver.initTmpScanResults();
 
             if (bluetooth == null)
-                bluetooth = BluetoothAdapter.getDefaultAdapter();
+                bluetooth = getBluetoothAdapter(context);
 
             if (Permissions.checkLocation(context)) {
                 if ((android.os.Build.VERSION.SDK_INT >= 21)) {
@@ -392,7 +404,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public void stopLEScan(Context context) {
         if (ScannerService.bluetoothLESupported(context)) {
             if (bluetooth == null)
-                bluetooth = BluetoothAdapter.getDefaultAdapter();
+                bluetooth = getBluetoothAdapter(context);
 
             if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
                 if ((android.os.Build.VERSION.SDK_INT >= 21)) {
@@ -459,7 +471,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         List<BluetoothDeviceData> boundedDevicesList  = new ArrayList<BluetoothDeviceData>();
 
         if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter();
+            bluetooth = getBluetoothAdapter(context);
 
         Set<BluetoothDevice> boundedDevices = BluetoothScanAlarmBroadcastReceiver.bluetooth.getBondedDevices();
         boundedDevicesList.clear();
