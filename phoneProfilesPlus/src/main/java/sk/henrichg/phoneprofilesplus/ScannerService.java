@@ -39,7 +39,7 @@ public class ScannerService extends IntentService
     private final BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
 
     public static int wifiScanDuration = 20;      // 20 seconds for wifi scan
-    public static int classicBTScanDuration = 20; // 20 seconds for classic bluetooth scan
+    public static int classicBTScanDuration = 40; // 40 seconds for classic bluetooth scan
 
     Handler wifiBluetoothChangeHandler;
 
