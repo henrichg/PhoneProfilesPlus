@@ -1315,7 +1315,7 @@ public class ActivateProfileHelper {
                 1, 1,
                 WindowManager.LayoutParams.TYPE_TOAST,
                 //TYPE_SYSTEM_ALERT,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | /*WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |*/ WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 PixelFormat.TRANSLUCENT
         );
         /*if (android.os.Build.VERSION.SDK_INT < 17)
@@ -1365,7 +1365,7 @@ public class ActivateProfileHelper {
                         1, 1,
                         WindowManager.LayoutParams.TYPE_TOAST,
                         //TYPE_SYSTEM_ALERT,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE /*| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE*/,
                         PixelFormat.TRANSLUCENT
                     );
             /*if (android.os.Build.VERSION.SDK_INT < 17)
