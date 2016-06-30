@@ -1323,7 +1323,12 @@ public class ActivateProfileHelper {
         else
             params.gravity = Gravity.END | Gravity.TOP;*/
         GUIData.keepScreenOnView = new BrightnessView(context);
-        windowManager.addView(GUIData.keepScreenOnView, params);
+        try {
+            windowManager.addView(GUIData.keepScreenOnView, params);
+        } catch (Exception e) {
+            GUIData.keepScreenOnView = null;
+            e.printStackTrace();
+        }
     }
 
     public static void screenTimeoutUnlock(Context context)
@@ -1372,7 +1377,12 @@ public class ActivateProfileHelper {
             else
                 params.screenBrightness = profile.getDeviceBrightnessManualValue(context) / (float) 255;
             GUIData.brightneesView = new BrightnessView(context);
-            windowManager.addView(GUIData.brightneesView, params);
+            try {
+                windowManager.addView(GUIData.brightneesView, params);
+            } catch (Exception e) {
+                GUIData.brightneesView = null;
+                e.printStackTrace();
+            }
 
             RemoveBrightnessViewBroadcastReceiver.setAlarm(context);
 
