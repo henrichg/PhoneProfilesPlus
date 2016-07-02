@@ -17,6 +17,7 @@ public class EventsService extends IntentService
     String broadcastReceiverType;
 
     public static boolean restartAtEndOfEvent = false;
+    public static boolean eventsProcessed;
 
     private int callEventType;
     public static int oldRingerMode;
@@ -407,6 +408,7 @@ public class EventsService extends IntentService
         }
 
         restartAtEndOfEvent = false;
+        eventsProcessed = true;
 
         doEndService(intent);
 
