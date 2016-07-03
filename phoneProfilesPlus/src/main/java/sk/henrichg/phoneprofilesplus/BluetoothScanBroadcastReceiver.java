@@ -110,7 +110,10 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
     }
 
     static public void finishScan(Context context) {
+        GlobalData.logE("BluetoothScanBroadcastReceiver.finishScan","discoveryStarted="+discoveryStarted);
+
         if (discoveryStarted) {
+
             discoveryStarted = false;
 
             List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
