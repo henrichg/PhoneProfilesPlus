@@ -132,6 +132,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         savedInstanceStateChanged = (savedInstanceState != null);
 
+        GlobalData.grantRoot(true);
+
         createApplicationsCache();
         createContactsCache();
         createContactGroupsCache();
@@ -1109,7 +1111,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
 
                     // check root, this set GlobalData.rooted for doInBackgroud()
-                    GlobalData.isRooted(false);
+                    GlobalData.isRooted();
                 }
 
                 @Override
