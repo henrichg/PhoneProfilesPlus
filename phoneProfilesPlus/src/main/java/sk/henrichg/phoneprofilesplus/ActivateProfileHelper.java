@@ -958,31 +958,31 @@ public class ActivateProfileHelper {
         if (Permissions.checkProfileRingtones(context, profile)) {
             if (profile._soundRingtoneChange == 1) {
                 if (!profile._soundRingtone.isEmpty()) {
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
+                    Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
                     RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, Uri.parse(profile._soundRingtone));
                 } else {
                     // selected is None tone
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
+                    Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
                     RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, null);
                 }
             }
             if (profile._soundNotificationChange == 1) {
                 if (!profile._soundNotification.isEmpty()) {
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, profile._soundNotification);
+                    Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, profile._soundNotification);
                     RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(profile._soundNotification));
                 } else {
                     // selected is None tone
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
+                    Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
                     RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, null);
                 }
             }
             if (profile._soundAlarmChange == 1) {
                 if (!profile._soundAlarm.isEmpty()) {
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, profile._soundAlarm);
+                    Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, profile._soundAlarm);
                     RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, Uri.parse(profile._soundAlarm));
                 } else {
                     // selected is None tone
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
+                    Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
                     RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, null);
                 }
             }
