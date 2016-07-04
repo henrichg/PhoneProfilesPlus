@@ -720,7 +720,7 @@
   <string name="event_preferences_orientation_display">Bildschirm</string>
   <string name="event_preferences_orientation_sides">Seiten</string>
   <string name="array_event_pref_orientationSides_displayUp">Bildschirm oben</string>
-  <string name="array_event_pref_orientationSides_displayDown">Display unten</string>
+  <string name="array_event_pref_orientationSides_displayDown">Bildschirm unten</string>
   <string name="array_event_pref_orientationSides_horizontal">Horizontal</string>
   <string name="array_event_pref_orientationSides_rightSide">Rechte Seite oben</string>
   <string name="array_event_pref_orientationSides_leftSide">Linke Seite oben</string>
