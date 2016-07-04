@@ -64,6 +64,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         if (profile != null)
         {
+            aph.setTones(profile);
+
             if (Permissions.checkProfileVolumePreferences(context, profile)) {
 
                 RingerModeChangeReceiver.removeAlarm(context);
@@ -86,7 +88,10 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
             }
 
+            aph.setTones(profile);
         }
+
+        dataWrapper.invalidateDataWrapper();
     }
 
 
