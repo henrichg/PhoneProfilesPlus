@@ -540,7 +540,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
             Application cachedApplication = cachedApplicationList.get(positionInCache);
             Application editedApplication = application;
             if (editedApplication == null) {
-                Log.d("ApplicationsDialogPreference.updateApplication", "add");
+                //Log.d("ApplicationsDialogPreference.updateApplication", "add");
                 editedApplication = new Application();
                 applicationsList.add(editedApplication);
                 _position = applicationsList.size()-1;

@@ -25,7 +25,7 @@ public class LaunchShortcutActivity extends Activity {
         activityName = getIntent().getStringExtra(EXTRA_ACTIVITY_NAME);
         dialogPreferencePosition = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_POSITION, -1);
 
-        Log.d("LaunchShortcutActivity.onCreate","dialogPreferencePosition="+dialogPreferencePosition);
+        //Log.d("LaunchShortcutActivity.onCreate","dialogPreferencePosition="+dialogPreferencePosition);
 
     }
 
