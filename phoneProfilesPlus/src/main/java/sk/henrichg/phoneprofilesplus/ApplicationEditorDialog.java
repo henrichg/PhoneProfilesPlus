@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -9,8 +8,6 @@ import android.widget.ListView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ApplicationEditorDialog

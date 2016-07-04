@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-import javax.microedition.khronos.opengles.GL;
-
 public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "screenOnOff";

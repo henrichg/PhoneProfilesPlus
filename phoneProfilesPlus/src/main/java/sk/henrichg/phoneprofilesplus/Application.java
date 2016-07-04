@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
 public class Application {
