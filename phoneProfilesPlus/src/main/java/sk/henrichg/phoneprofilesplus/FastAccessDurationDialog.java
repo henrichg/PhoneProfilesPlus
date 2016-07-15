@@ -167,9 +167,9 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
             }
         });
 
-        mSeekBarHours.setRotation(180);
-        mSeekBarMinutes.setRotation(180);
-        mSeekBarSeconds.setRotation(180);
+        //mSeekBarHours.setRotation(180);
+        //mSeekBarMinutes.setRotation(180);
+        //mSeekBarSeconds.setRotation(180);
 
         // Initialize state
         int hours;
