@@ -57,7 +57,8 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="10dp"
             android:max="24"
-            android:rotation="180" />
+            android:rotation="180"
+            android:splitTrack="false" />
         <SeekBar
             android:id="@+id/duration_pref_dlg_minutes"
             android:layout_width="match_parent"
@@ -67,7 +68,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:max="59"
-            android:rotation="180" />
+            android:rotation="180"
+            android:splitTrack="false" />
         <SeekBar
             android:id="@+id/duration_pref_dlg_seconds"
             android:layout_width="match_parent"
@@ -77,7 +79,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="12dp"
             android:max="59"
-            android:rotation="180" />
+            android:rotation="180"
+            android:splitTrack="false" />
 
     </LinearLayout>
 
