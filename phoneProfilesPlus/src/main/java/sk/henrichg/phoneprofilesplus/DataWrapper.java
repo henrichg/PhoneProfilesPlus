@@ -1176,7 +1176,7 @@ public class DataWrapper {
 
         if (log && (profile != null)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0),
+                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false),
                     profileIcon, profileDuration);
         }
 
@@ -1213,7 +1213,7 @@ public class DataWrapper {
 
     private void showToastAfterActivation(Profile profile)
     {
-        String profileName = getProfileNameWithManualIndicator(profile, true, false);
+        String profileName = getProfileNameWithManualIndicator(profile, true, false, false);
         Toast msg = Toast.makeText(context,
                 context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
                 context.getResources().getString(R.string.toast_profile_activated_1),
@@ -2641,14 +2641,14 @@ public class DataWrapper {
             return true;
     }
 
-    public String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration)
+    public String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration, boolean multyline)
     {
         if (profile == null)
             return "";
 
         String name;
         if (addDuration)
-            name = profile.getProfileNameWithDuration();
+            name = profile.getProfileNameWithDuration(multyline);
         else
             name = profile._name;
 
@@ -2677,10 +2677,10 @@ public class DataWrapper {
         return name;
     }
 
-    public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration) {
+    public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration, boolean multyline) {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration);
+        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multyline);
     }
 
     /*

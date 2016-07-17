@@ -121,7 +121,7 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
             holder.radioBtn.setChecked(profileId == profile._id);
 
             if (dialog.showDuration == 1)
-                holder.profileLabel.setText(profile.getProfileNameWithDuration());
+                holder.profileLabel.setText(profile.getProfileNameWithDuration(false));
             else
                 holder.profileLabel.setText(profile._name);
             holder.profileIcon.setVisibility(View.VISIBLE);

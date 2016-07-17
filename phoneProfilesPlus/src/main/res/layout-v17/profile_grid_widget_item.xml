@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_profile_list_item"
     android:layout_width="match_parent"
-    android:layout_height="75dp" >
+    android:layout_height="85dp"
+    android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/widget_profile_list_item_profile_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:adjustViewBounds="true"
         android:maxHeight="50dp"
         android:maxWidth="50dp"
@@ -20,13 +21,12 @@
         android:id="@+id/widget_profile_list_item_profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:singleLine="true"
-        android:layout_below="@+id/widget_profile_list_item_profile_icon"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:singleLine="false"
         android:text="@string/profile_name_default"
         android:textSize="12sp"
         android:textColor="#ffffffff" />
         
-</RelativeLayout>
+</LinearLayout>
 

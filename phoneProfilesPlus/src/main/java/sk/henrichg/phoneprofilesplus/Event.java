@@ -523,7 +523,6 @@ public class Event {
         if (key.equals(PREF_EVENT_DELAY_START))
         {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(value);
             int delay;
             try {
                 delay = Integer.parseInt(value);
@@ -535,7 +534,6 @@ public class Event {
         if (key.equals(PREF_EVENT_DELAY_END))
         {
             Preference preference = prefMng.findPreference(key);
-            preference.setSummary(value);
             int delay;
             try {
                 delay = Integer.parseInt(value);

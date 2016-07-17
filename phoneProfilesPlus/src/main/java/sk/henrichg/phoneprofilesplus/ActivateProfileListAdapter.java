@@ -112,7 +112,6 @@ public class ActivateProfileListAdapter extends BaseAdapter
           ImageView profileIcon;
           TextView profileName;
           ImageView profileIndicator;
-          ImageView durationButton;
           int position;
         }
 
@@ -136,7 +135,6 @@ public class ActivateProfileListAdapter extends BaseAdapter
                 holder.profileIcon = (ImageView)vi.findViewById(R.id.act_prof_list_item_profile_icon);
                 if (GlobalData.applicationActivatorPrefIndicator)
                     holder.profileIndicator = (ImageView)vi.findViewById(R.id.act_prof_list_profile_pref_indicator);
-                holder.durationButton = (ImageView)vi.findViewById(R.id.act_prof_list_item_duration);
             }
             else
             {
@@ -144,7 +142,6 @@ public class ActivateProfileListAdapter extends BaseAdapter
                 holder.listItemRoot = (LinearLayout)vi.findViewById(R.id.act_prof_list_item_root);
                 holder.profileName = (TextView)vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = (ImageView)vi.findViewById(R.id.act_prof_list_item_profile_icon);
-                holder.durationButton = (ImageView)vi.findViewById(R.id.act_prof_list_item_duration);
             }
             vi.setTag(holder);
         }
@@ -183,7 +180,7 @@ public class ActivateProfileListAdapter extends BaseAdapter
         String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
                                     (!GlobalData.applicationActivatorGridLayout) &&
                                     profile._checked &&
-                                    (!GlobalData.applicationActivatorHeader), true);
+                                    (!GlobalData.applicationActivatorHeader), true, GlobalData.applicationActivatorGridLayout);
         holder.profileName.setText(profileName);
 
 
@@ -210,45 +207,6 @@ public class ActivateProfileListAdapter extends BaseAdapter
             //profilePrefIndicatorImageView.setImageBitmap(bitmap);
             holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
         }
-
-        /*if (profile._askForDuration) {
-            holder.durationButton.setVisibility(View.VISIBLE);
-            if (GlobalData.applicationActivatorGridLayout) {
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.profileIcon.getLayoutParams();
-                params.gravity = Gravity.LEFT | Gravity.START;
-                holder.profileIcon.setLayoutParams(params);
-            }
-            holder.durationButton.setTag(position);
-            holder.durationButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = (int) v.getTag();
-                    if (!GlobalData.applicationLongClickActivation)
-                        fragment.activateProfile((Profile) getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
-
-                }
-            });
-            holder.durationButton.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int position = (int) v.getTag();
-                    if (GlobalData.applicationLongClickActivation)
-                        //activateProfileWithAlert(position);
-                        fragment.activateProfile((Profile) getItem(position), GlobalData.STARTUP_SOURCE_ACTIVATOR);
-
-                    return false;
-
-                }
-            });
-        }
-        else {*/
-            holder.durationButton.setVisibility(View.GONE);
-            if (GlobalData.applicationActivatorGridLayout) {
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) holder.profileIcon.getLayoutParams();
-                params.gravity = Gravity.CENTER_HORIZONTAL;
-                holder.profileIcon.setLayoutParams(params);
-            }
-        //}
 
         return vi;
     }

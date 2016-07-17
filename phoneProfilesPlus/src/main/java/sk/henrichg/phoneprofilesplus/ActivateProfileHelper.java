@@ -1446,7 +1446,7 @@ public class ActivateProfileHelper {
             {
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = dataWrapper.getProfileNameWithManualIndicator(profile, true, false);
+                profileName = dataWrapper.getProfileNameWithManualIndicator(profile, true, false, false);
                 iconBitmap = profile._iconBitmap;
                 preferencesIndicator = profile._preferencesIndicator;
             }

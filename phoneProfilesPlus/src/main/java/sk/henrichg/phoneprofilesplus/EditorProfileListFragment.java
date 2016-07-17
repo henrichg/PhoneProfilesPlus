@@ -704,7 +704,7 @@ public class EditorProfileListFragment extends Fragment {
         }
         else
         {
-            activeProfileName.setText(dataWrapper.getProfileNameWithManualIndicator(profile, true, false));
+            activeProfileName.setText(dataWrapper.getProfileNameWithManualIndicator(profile, true, false, false));
             if (profile.getIsIconResourceID())
             {
                 if (profile._iconBitmap != null)

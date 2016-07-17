@@ -104,7 +104,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             profileCount = profileCount / 3;
             if (modulo > 0)
                 ++profileCount;
-            popupHeight = popupHeight + (75f * scale * profileCount); // item
+            popupHeight = popupHeight + (85f * scale * profileCount); // item
             popupHeight = popupHeight + (5f * scale * (profileCount-1)); // divider
         }
 
