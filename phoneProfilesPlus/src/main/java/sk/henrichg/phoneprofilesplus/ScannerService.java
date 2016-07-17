@@ -562,7 +562,7 @@ public class ScannerService extends IntentService
     }
 
     @SuppressLint("NewApi")
-    private static int enableWifi(DataWrapper dataWrapper, WifiManager wifi, Handler wifiBluetoothChangeHandler)
+    private int enableWifi(DataWrapper dataWrapper, WifiManager wifi, Handler wifiBluetoothChangeHandler)
     {
         GlobalData.logE("@@@ ScannerService.enableWifi","xxx");
 
@@ -686,7 +686,7 @@ public class ScannerService extends IntentService
     }
 
     @SuppressLint("NewApi")
-    private static int enableBluetooth(DataWrapper dataWrapper,
+    private int enableBluetooth(DataWrapper dataWrapper,
                                        BluetoothAdapter bluetooth,
                                        Handler wifiBluetoothChangeHandler,
                                        boolean forLE)
