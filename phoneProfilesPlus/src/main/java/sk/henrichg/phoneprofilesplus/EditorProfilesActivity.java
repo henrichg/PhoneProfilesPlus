@@ -505,11 +505,10 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem menuItem;
 
-        /*MenuItem menuItem = menu.findItem(R.id.menu_settingsX);
-        menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
-        MenuItem menuItem = menu.findItem(R.id.menu_import_export);
-        menuItem.setTitle(getResources().getString(R.string.menu_import_export) + "  >");
+        //menuItem = menu.findItem(R.id.menu_import_export);
+        //menuItem.setTitle(getResources().getString(R.string.menu_import_export) + "  >");
 
         // change global events run/stop menu item title
         menuItem = menu.findItem(R.id.menu_run_stop_events);
@@ -532,7 +531,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 menuItem.setVisible(false);
         }
 
-        boolean isPPHInstalled = PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext(), PhoneProfilesHelper.PPHELPER_CURRENT_VERSION);
+        //boolean isPPHInstalled = PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext(), PhoneProfilesHelper.PPHELPER_CURRENT_VERSION);
 
         menuItem = menu.findItem(R.id.menu_pphelper_uninstall);
         if (menuItem != null)
