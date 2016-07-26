@@ -36,16 +36,16 @@ dependencies {
     compile project(':dragSortListView')
     compile project(':materialPreferences')
     compile files('libs/RootTools.jar')
-    compile 'com.android.support:support-v4:24.0.0'
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:gridlayout-v7:24.0.0'
+    compile 'com.android.support:support-v4:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:gridlayout-v7:24.1.1'
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.google.android.gms:play-services-location:9.2.1'
     compile 'com.google.android.gms:play-services-maps:9.2.1'
     compile 'com.github.pinball83:masked-edittext:1.0.3'
-    compile 'com.afollestad.material-dialogs:core:0.8.6.1'
+    compile 'com.afollestad.material-dialogs:core:0.8.6.2'
 }
 
 
