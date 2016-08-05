@@ -28,7 +28,7 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
         if (editorProfilesActivity != null)
         {
             GlobalData.logE("$$$ RefreshGUIBroadcastReceiver","EditorProfilesActivity");
-            editorProfilesActivity.refreshGUI(refreshIcons);
+            editorProfilesActivity.refreshGUI(refreshIcons, true);
         }
 
     }

@@ -437,7 +437,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         changeEventOrder(orderSelectedItem, savedInstanceState != null);
         selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null);
 
-        refreshGUI(false);
+        refreshGUI(false, true);
 
     }
 
@@ -472,7 +472,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (instance == null)
         {
             instance = this;
-            refreshGUI(false);
+            refreshGUI(false, false);
         }
     }
 
@@ -636,7 +636,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 dataWrapper.firstStartEvents(false);
             }
             invalidateOptionsMenu();
-            refreshGUI(false);
+            refreshGUI(false, true);
             return true;
         case R.id.menu_activity_log:
             intent = new Intent(getBaseContext(), ActivityLogActivity.class);
@@ -1620,7 +1620,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             boolean newProfile = ((newProfileMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                                   (newProfileMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE));
-            fragment.updateListView(profile, newProfile, false);
+            fragment.updateListView(profile, newProfile, false, false);
 
             Profile activeProfile = fragment.dataWrapper.getActivatedProfile();
             fragment.updateHeader(activeProfile);
@@ -1700,7 +1700,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                                 (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
-            fragment.updateListView(event, newEvent, false);
+            fragment.updateListView(event, newEvent, false, false);
         }
         redrawEventPreferences(event, newEventMode, predefinedEventIndex);
     }
@@ -1803,7 +1803,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped);
     }
 
-    public void refreshGUI(boolean refreshIcons)
+    public void refreshGUI(boolean refreshIcons, boolean setPosition)
     {
         setEventsRunStopIndicator();
 
@@ -1811,9 +1811,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (fragment != null)
         {
             if (fragment instanceof EditorProfileListFragment)
-                ((EditorProfileListFragment)fragment).refreshGUI(refreshIcons);
+                ((EditorProfileListFragment)fragment).refreshGUI(refreshIcons, setPosition);
             else
-                ((EditorEventListFragment)fragment).refreshGUI(refreshIcons);
+                ((EditorEventListFragment)fragment).refreshGUI(refreshIcons, setPosition);
         }
     }
 

@@ -327,9 +327,13 @@ public class EditorEventListFragment extends Fragment {
         {
             // editacia udalosti
             int profilePos = eventListAdapter.getItemPosition(_event);
-            listView.setSelection(profilePos);
             listView.setItemChecked(profilePos, true);
-            listView.smoothScrollToPosition(profilePos);
+            int last = listView.getLastVisiblePosition();
+            int first = listView.getFirstVisiblePosition();
+            if ((profilePos <= first) || (profilePos >= last)) {
+                listView.setSelection(profilePos);
+                //listView.smoothScrollToPosition(profilePos);
+            }
             editMode = EDIT_MODE_EDIT;
         }
         else
@@ -354,7 +358,7 @@ public class EditorEventListFragment extends Fragment {
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                 event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false); // activate return profile
                 // redraw event list
-                updateListView(event, false, false);
+                updateListView(event, false, false, true);
                 // restart events
                 GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
                 dataWrapper.restartEvents(false, true);
@@ -363,7 +367,7 @@ public class EditorEventListFragment extends Fragment {
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                 event.stopEvent(dataWrapper, eventTimelineList, true, false, true, false, false); // activate return profile
                 // redraw event list
-                updateListView(event, false, false);
+                updateListView(event, false, false, true);
                 // restart events
                 GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
                 dataWrapper.restartEvents(false, true);
@@ -377,14 +381,14 @@ public class EditorEventListFragment extends Fragment {
                 // udate event in DB
                 dataWrapper.getDatabaseHandler().updateEvent(event);
                 // redraw event list
-                updateListView(event, false, false);
+                updateListView(event, false, false, true);
             } else {
                 // stop event
                 event.setStatus(Event.ESTATUS_STOP);
                 // udate event in DB
                 dataWrapper.getDatabaseHandler().updateEvent(event);
                 // redraw event list
-                updateListView(event, false, false);
+                updateListView(event, false, false, true);
             }
         }
     }
@@ -534,7 +538,7 @@ public class EditorEventListFragment extends Fragment {
         dialogBuilder.show();
     }
 
-    public void updateListView(Event event, boolean newEvent, boolean refreshIcons)
+    public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition)
     {
         if (eventListAdapter != null)
         {
@@ -560,12 +564,17 @@ public class EditorEventListFragment extends Fragment {
 
             eventListAdapter.notifyDataSetChanged(refreshIcons);
 
-            if (eventPos != ListView.INVALID_POSITION)
-            {
-                // set event visible in list
-                listView.setSelection(eventPos);
-                listView.setItemChecked(eventPos, true);
-                listView.smoothScrollToPosition(eventPos);
+            if (setPosition) {
+                if (eventPos != ListView.INVALID_POSITION) {
+                    // set event visible in list
+                    listView.setItemChecked(eventPos, true);
+                    int last = listView.getLastVisiblePosition();
+                    int first = listView.getFirstVisiblePosition();
+                    if ((eventPos <= first) || (eventPos >= last)) {
+                        listView.setSelection(eventPos);
+                        //listView.smoothScrollToPosition(profilePos);
+                    }
+                }
             }
         }
     }
@@ -632,7 +641,7 @@ public class EditorEventListFragment extends Fragment {
         }
     }
 
-    public void refreshGUI(boolean refreshIcons)
+    public void refreshGUI(boolean refreshIcons, boolean setPosition)
     {
         if ((dataWrapper == null) || (eventList == null))
             return;
@@ -649,7 +658,7 @@ public class EditorEventListFragment extends Fragment {
             dataWrapper.getDatabaseHandler().setSMSStartTime(event);
             dataWrapper.getDatabaseHandler().setNotificationStartTime(event);
         }
-        updateListView(null, false, refreshIcons);
+        updateListView(null, false, refreshIcons, setPosition);
     }
 
     public void removeAdapter() {
