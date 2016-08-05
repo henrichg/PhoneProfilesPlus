@@ -505,8 +505,13 @@ public class BrightnessDialogPreference extends
 
     public static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");
-        if (splits.length > 1)
-            return Integer.parseInt(splits[1]) == 0;
+        if (splits.length > 1) {
+            try {
+                return Integer.parseInt(splits[1]) == 0;
+            } catch (Exception e) {
+                return false;
+            }
+        }
         else
             return false;
     }
