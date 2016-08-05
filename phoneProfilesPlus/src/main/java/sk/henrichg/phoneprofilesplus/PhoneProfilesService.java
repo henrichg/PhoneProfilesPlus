@@ -141,6 +141,9 @@ public class PhoneProfilesService extends Service
             deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
             IntentFilter intentFilter9 = new IntentFilter();
             intentFilter9.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
+            // is @hide :-(
+            //if (android.os.Build.VERSION.SDK_INT >= 24)
+            //    intentFilter9.addAction(PowerManager.ACTION_LIGHT_DEVICE_IDLE_MODE_CHANGED);
             getApplicationContext().registerReceiver(deviceIdleModeReceiver, intentFilter9);
         }
 

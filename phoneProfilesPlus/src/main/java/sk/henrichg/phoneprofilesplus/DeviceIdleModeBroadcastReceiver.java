@@ -25,7 +25,8 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
         if (GlobalData.getGlobalEventsRuning(context))
         {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            if (!powerManager.isDeviceIdleMode())
+            // isLightDeviceIdleMode() is @hide :-(
+            if (!powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/)
             {
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
