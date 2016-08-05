@@ -32,6 +32,25 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
                 eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
+
+                // rescan
+                DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
+                if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
+                    // send broadcast for one wifi scan
+                    WifiScanAlarmBroadcastReceiver.setAlarm(context, true, true);
+                    //WifiScanAlarmBroadcastReceiver.sendBroadcast(context);
+                }
+                if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
+                    // send broadcast for one bluetooth scan
+                    BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, true);
+                    //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(context);
+                }
+                if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
+                    // send broadcast for location scan
+                    GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, true);
+                    //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(context);
+                }
+                dataWrapper.invalidateDataWrapper();
             }
         }
     }
