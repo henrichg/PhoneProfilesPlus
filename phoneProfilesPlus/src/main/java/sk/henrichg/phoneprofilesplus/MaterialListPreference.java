@@ -10,6 +10,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.ListPreference;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ListView;
@@ -68,9 +69,9 @@ public class MaterialListPreference extends ListPreference {
         return mDialog;
     }
 
-    public ListView getListView() {
+    public RecyclerView getRecyclerView() {
         if (getDialog() == null) return null;
-        return ((MaterialDialog) getDialog()).getListView();
+        return ((MaterialDialog) getDialog()).getRecyclerView();
     }
 
     @Override
