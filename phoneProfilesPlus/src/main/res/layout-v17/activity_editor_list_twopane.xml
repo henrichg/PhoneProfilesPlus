@@ -33,7 +33,7 @@
                 android:id="@+id/editor_tollbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:theme="?attr/toolbarTheme"
+                android:theme="?attr/toolbarTheme"
                 app:popupTheme="?attr/toolbarPopupMenu" />
 
             <android.support.v7.widget.Toolbar
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
             android:background="?attr/colorPrimary"
-            app:theme="?attr/toolbarTheme"
+            android:theme="?attr/toolbarTheme"
             app:popupTheme="?attr/toolbarPopupMenu" >
 
             <LinearLayout

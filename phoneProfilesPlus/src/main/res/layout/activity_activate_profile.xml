@@ -19,7 +19,7 @@
             android:id="@+id/act_prof_tollbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:theme="?attr/toolbarTheme"
+            android:theme="?attr/toolbarTheme"
             app:popupTheme="?attr/toolbarPopupMenu" />
 
         <android.support.v7.widget.Toolbar
