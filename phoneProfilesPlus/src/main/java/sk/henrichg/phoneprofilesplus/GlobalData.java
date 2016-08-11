@@ -1569,30 +1569,30 @@ public class GlobalData extends Application {
 
     // --------------------------------
 
-    static private boolean rootChecking = false;
+    //static private boolean rootChecking = false;
     static private boolean rootChecked = false;
     static private boolean rooted = false;
-    static private boolean grantChecking = false;
+    //static private boolean grantChecking = false;
     static private boolean grantChecked = false;
     static private boolean rootGranted = false;
-    static private boolean settingsBinaryChecking = false;
+    //static private boolean settingsBinaryChecking = false;
     static private boolean settingsBinaryChecked = false;
     static private boolean settingsBinaryExists = false;
     static private boolean isSELinuxEnforcingChecked = false;
     static private boolean isSELinuxEnforcing = false;
     //static private String suVersion = null;
     //static private boolean suVersionChecked = false;
-    static private boolean serviceBinaryChecking = false;
+    //static private boolean serviceBinaryChecking = false;
     static private boolean serviceBinaryChecked = false;
     static private boolean serviceBinaryExists = false;
 
-    static boolean isRooted()
+    static synchronized boolean isRooted()
     {
         RootShell.debugMode = rootToolsDebug;
 
-        if ((!rootChecked) && (!rootChecking))
+        if ((!rootChecked)/* && (!rootChecking)*/)
         {
-            rootChecking = true;
+            //rootChecking = true;
             try {
                 RootTools.closeAllShells();
             } catch (IOException e) {
@@ -1617,14 +1617,14 @@ public class GlobalData extends Application {
                 serviceBinaryExists = false;
                 serviceBinaryChecked = false;
             }
-            rootChecking = false;
+            //rootChecking = false;
         }
         //if (rooted)
         //	getSUVersion();
         return rooted;
     }
 
-    static boolean grantRoot(boolean force)
+    static synchronized boolean grantRoot(boolean force)
     {
         RootShell.debugMode = rootToolsDebug;
 
@@ -1632,10 +1632,10 @@ public class GlobalData extends Application {
         GlobalData.logE("GlobalData.grantRoot", "force="+force);
 
 
-        if (((!grantChecked) || force) && (!grantChecking))
+        if (((!grantChecked) || force) /*&& (!grantChecking)*/)
         {
             GlobalData.logE("GlobalData.grantRoot", "start isAccessGiven");
-            grantChecking = true;
+            //grantChecking = true;
             try {
                 RootTools.closeAllShells();
             } catch (IOException e) {
@@ -1654,33 +1654,28 @@ public class GlobalData extends Application {
             {
                 // grant odmietnuty
                 GlobalData.logE("GlobalData.grantRoot", "root NOT granted");
-                rootChecked = true;
-                rooted = false;
                 grantChecked = true;
                 rootGranted = false;
-                settingsBinaryExists = false;
-                settingsBinaryChecked = false;
-                isSELinuxEnforcingChecked = false;
-                isSELinuxEnforcing = false;
-                //suVersionChecked = false;
-                //suVersion = null;
-                serviceBinaryExists = false;
-                serviceBinaryChecked = false;
+
+                // check if root is available
+                rootChecked = false;
+                rooted = false;
+                isRooted();
             }
-            grantChecking = false;
+            //grantChecking = false;
         }
         //if (rooted)
         //	getSUVersion();
         return rootGranted;
     }
 
-    static boolean settingsBinaryExists()
+    static synchronized boolean settingsBinaryExists()
     {
         RootShell.debugMode = rootToolsDebug;
 
-        if ((!settingsBinaryChecked) && (!settingsBinaryChecking))
+        if ((!settingsBinaryChecked) /*&& (!settingsBinaryChecking)*/)
         {
-            settingsBinaryChecking = true;
+            //settingsBinaryChecking = true;
             try {
                 RootTools.closeAllShells();
             } catch (IOException e) {
@@ -1688,20 +1683,20 @@ public class GlobalData extends Application {
             }
             List<String> settingsPaths = RootTools.findBinary("settings");
             settingsBinaryExists = settingsPaths.size() > 0;
-            settingsBinaryChecking = false;
+            //settingsBinaryChecking = false;
             settingsBinaryChecked = true;
         }
         GlobalData.logE("GlobalData.settingsBinaryExists", "settingsBinaryExists="+settingsBinaryExists);
         return settingsBinaryExists;
     }
 
-    static boolean serviceBinaryExists()
+    static synchronized boolean serviceBinaryExists()
     {
         RootShell.debugMode = rootToolsDebug;
 
-        if ((!serviceBinaryChecked) && (!serviceBinaryChecking))
+        if ((!serviceBinaryChecked) /*&& (!serviceBinaryChecking)*/)
         {
-            serviceBinaryChecking = true;
+            //serviceBinaryChecking = true;
             try {
                 RootTools.closeAllShells();
             } catch (IOException e) {
@@ -1709,7 +1704,7 @@ public class GlobalData extends Application {
             }
             List<String> servicePaths = RootTools.findBinary("service");
             serviceBinaryExists = servicePaths.size() > 0;
-            serviceBinaryChecking = false;
+            //serviceBinaryChecking = false;
             serviceBinaryChecked = true;
         }
         GlobalData.logE("GlobalData.serviceBinaryExists", "serviceBinaryExists="+serviceBinaryExists);
