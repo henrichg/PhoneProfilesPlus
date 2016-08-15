@@ -48,11 +48,15 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoLogCat = true;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
+
+                                         +"|GlobalData.isRooted"
+                                         +"|GlobalData.grantRoot"
+                                         +"|GlobalData.settingsBinaryExists"
 
                                          //+"|ActivateProfileHelper.setMobileData"
                                          //+"|ActivateProfileHelper.doExecuteForRadios"
@@ -1592,6 +1596,7 @@ public class GlobalData extends Application {
 
         if ((!rootChecked)/* && (!rootChecking)*/)
         {
+            GlobalData.logE("GlobalData.isRooted", "start isRootAvailable");
             //rootChecking = true;
             /*try {
                 RootTools.closeAllShells();
@@ -1601,11 +1606,13 @@ public class GlobalData extends Application {
             if (RootTools.isRootAvailable())
             {
                 // zariadenie je rootnute
+                GlobalData.logE("GlobalData.isRooted", "root available");
                 rootChecked = true;
                 rooted = true;
             }
             else
             {
+                GlobalData.logE("GlobalData.isRooted", "root NOT available");
                 rootChecked = true;
                 rooted = false;
                 settingsBinaryExists = false;
@@ -1675,6 +1682,7 @@ public class GlobalData extends Application {
 
         if ((!settingsBinaryChecked) /*&& (!settingsBinaryChecking)*/)
         {
+            GlobalData.logE("GlobalData.settingsBinaryExists", "start");
             //settingsBinaryChecking = true;
             /*try {
                 RootTools.closeAllShells();
