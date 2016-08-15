@@ -38,6 +38,7 @@ public class FirstStartService extends IntentService {
 
         GlobalData.logE("$$$ FirstStartService.onHandleIntent","--- START");
 
+        GlobalData.initRoot();
         // grant root
         //if (GlobalData.isRooted(false))
         //{

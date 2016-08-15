@@ -1573,22 +1573,41 @@ public class GlobalData extends Application {
 
     // --------------------------------
 
-    //static private boolean rootChecking = false;
-    static private boolean rootChecked = false;
-    static private boolean rooted = false;
-    //static private boolean grantChecking = false;
-    static private boolean grantChecked = false;
-    static private boolean rootGranted = false;
-    //static private boolean settingsBinaryChecking = false;
-    static private boolean settingsBinaryChecked = false;
-    static private boolean settingsBinaryExists = false;
-    static private boolean isSELinuxEnforcingChecked = false;
-    static private boolean isSELinuxEnforcing = false;
-    //static private String suVersion = null;
-    //static private boolean suVersionChecked = false;
-    //static private boolean serviceBinaryChecking = false;
-    static private boolean serviceBinaryChecked = false;
-    static private boolean serviceBinaryExists = false;
+    //static private boolean rootChecking;
+    static private boolean rootChecked;
+    static private boolean rooted;
+    //static private boolean grantChecking;
+    static private boolean grantChecked;
+    static private boolean rootGranted;
+    //static private boolean settingsBinaryChecking;
+    static private boolean settingsBinaryChecked;
+    static private boolean settingsBinaryExists;
+    static private boolean isSELinuxEnforcingChecked;
+    static private boolean isSELinuxEnforcing;
+    //static private String suVersion;
+    //static private boolean suVersionChecked;
+    //static private boolean serviceBinaryChecking;
+    static private boolean serviceBinaryChecked;
+    static private boolean serviceBinaryExists;
+
+    static synchronized void initRoot() {
+        //rootChecking = false;
+        rootChecked = false;
+        rooted = false;
+        //grantChecking = false;
+        grantChecked = false;
+        rootGranted = false;
+        //settingsBinaryChecking = false;
+        settingsBinaryChecked = false;
+        settingsBinaryExists = false;
+        isSELinuxEnforcingChecked = false;
+        isSELinuxEnforcing = false;
+        //suVersion = null;
+        //suVersionChecked = false;
+        //serviceBinaryChecking = false;
+        serviceBinaryChecked = false;
+        serviceBinaryExists = false;
+    }
 
     static synchronized boolean isRooted()
     {
@@ -1615,6 +1634,8 @@ public class GlobalData extends Application {
                 GlobalData.logE("GlobalData.isRooted", "root NOT available");
                 rootChecked = true;
                 rooted = false;
+                grantChecked = false;
+                rootGranted = false;
                 settingsBinaryExists = false;
                 settingsBinaryChecked = false;
                 isSELinuxEnforcingChecked = false;
