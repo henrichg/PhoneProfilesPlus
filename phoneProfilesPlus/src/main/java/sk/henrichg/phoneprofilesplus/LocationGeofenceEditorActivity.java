@@ -354,20 +354,22 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.getUiSettings().setMapToolbarEnabled(false);
-        updateEditedMarker(true);
+        if (mMap != null) {
+            mMap.getUiSettings().setMapToolbarEnabled(false);
+            updateEditedMarker(true);
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng point) {
-                //Log.d("Map", "Map clicked");
-                if (mLocation == null)
-                    mLocation = new Location("LOC");
-                mLocation.setLatitude(point.latitude);
-                mLocation.setLongitude(point.longitude);
-                refreshActivity(false);
-            }
-        });
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng point) {
+                    //Log.d("Map", "Map clicked");
+                    if (mLocation == null)
+                        mLocation = new Location("LOC");
+                    mLocation.setLatitude(point.latitude);
+                    mLocation.setLongitude(point.longitude);
+                    refreshActivity(false);
+                }
+            });
+        }
     }
 
     private void updateEditedMarker(boolean setMapCamera) {
