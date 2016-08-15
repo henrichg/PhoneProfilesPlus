@@ -676,7 +676,7 @@ public class ActivateProfileHelper {
                             //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
-                                RootTools.closeAllShells();
+                                //RootTools.closeAllShells();
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 commandWait(command);
                             } catch (Exception e) {
@@ -735,7 +735,7 @@ public class ActivateProfileHelper {
                 //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                 Command command = new Command(0, false, command1); //, command2);
                 try {
-                    RootTools.closeAllShells();
+                    //RootTools.closeAllShells();
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     commandWait(command);
                 } catch (Exception e) {
@@ -1146,7 +1146,7 @@ public class ActivateProfileHelper {
                                 //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                 Command command = new Command(0, false, command1); //, command2);
                                 try {
-                                    RootTools.closeAllShells();
+                                    //RootTools.closeAllShells();
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     commandWait(command);
                                 } catch (Exception e) {
@@ -1840,7 +1840,7 @@ public class ActivateProfileHelper {
                     }
                 }*/;
                 try {
-                    RootTools.closeAllShells();
+                    //RootTools.closeAllShells();
                     RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
                     commandWait(command);
                     //RootToolsSmall.runSuCommand(command1);
@@ -1985,7 +1985,7 @@ public class ActivateProfileHelper {
                         }
                     };
                     try {
-                        RootTools.closeAllShells();
+                        //RootTools.closeAllShells();
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
                     } catch (Exception e) {
@@ -2018,7 +2018,7 @@ public class ActivateProfileHelper {
                             String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + networkType;
                             Command command = new Command(0, false, command1);
                             try {
-                                RootTools.closeAllShells();
+                                //RootTools.closeAllShells();
                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                 commandWait(command);
                             } catch (Exception e) {
@@ -2031,7 +2031,7 @@ public class ActivateProfileHelper {
                         String command1 = "service call phone " + transactionCode + " i32 " + networkType;
                         Command command = new Command(0, false, command1);
                         try {
-                            RootTools.closeAllShells();
+                            //RootTools.closeAllShells();
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             commandWait(command);
                         } catch (Exception e) {
@@ -2063,7 +2063,7 @@ public class ActivateProfileHelper {
             //Log.e("ActivateProfileHelper.setNFC", "command1="+command1);
             Command command = new Command(0, false, command1);
             try {
-                RootTools.closeAllShells();
+                //RootTools.closeAllShells();
                 RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                 commandWait(command);
             } catch (Exception e) {
@@ -2127,7 +2127,7 @@ public class ActivateProfileHelper {
                     //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state true";
                     Command command = new Command(0, false, command1); //, command2);
                     try {
-                        RootTools.closeAllShells();
+                        //RootTools.closeAllShells();
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
                     } catch (Exception e) {
@@ -2142,7 +2142,7 @@ public class ActivateProfileHelper {
                     command1 = "settings put secure location_providers_allowed +gps";
                     Command command = new Command(0, false, command1);
                     try {
-                        RootTools.closeAllShells();
+                        //RootTools.closeAllShells();
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
                     } catch (Exception e) {
@@ -2216,7 +2216,7 @@ public class ActivateProfileHelper {
                     //command2 = "am broadcast -a android.location.GPS_ENABLED_CHANGE --ez state false";
                     Command command = new Command(0, false, command1);//, command2);
                     try {
-                        RootTools.closeAllShells();
+                        //RootTools.closeAllShells();
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
                     } catch (Exception e) {
@@ -2231,7 +2231,7 @@ public class ActivateProfileHelper {
                     command1 = "settings put secure location_providers_allowed -gps";
                     Command command = new Command(0, false, command1);
                     try {
-                        RootTools.closeAllShells();
+                        //RootTools.closeAllShells();
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
                     } catch (Exception e) {
@@ -2294,7 +2294,7 @@ public class ActivateProfileHelper {
             //}
             Command command = new Command(0, false, command1, command2);
             try {
-                RootTools.closeAllShells();
+                //RootTools.closeAllShells();
                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                 commandWait(command);
             } catch (Exception e) {
@@ -2324,7 +2324,7 @@ public class ActivateProfileHelper {
         String command1 = "settings put global low_power " + ((enable) ? 1 : 0);
         Command command = new Command(0, false, command1);
         try {
-            RootTools.closeAllShells();
+            //RootTools.closeAllShells();
             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
             commandWait(command);
         } catch (Exception e) {
