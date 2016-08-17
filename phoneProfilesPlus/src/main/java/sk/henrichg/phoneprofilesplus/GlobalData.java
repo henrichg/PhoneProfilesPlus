@@ -57,6 +57,7 @@ public class GlobalData extends Application {
                                          +"|GlobalData.isRooted"
                                          +"|GlobalData.grantRoot"
                                          +"|GlobalData.settingsBinaryExists"
+                                         +"|GlobalData.serviceBinaryExists"
 
                                          //+"|ActivateProfileHelper.setMobileData"
                                          //+"|ActivateProfileHelper.doExecuteForRadios"
@@ -1725,6 +1726,7 @@ public class GlobalData extends Application {
 
         if ((!serviceBinaryChecked) /*&& (!serviceBinaryChecking)*/)
         {
+            GlobalData.logE("GlobalData.serviceBinaryExists", "start");
             //serviceBinaryChecking = true;
             /*try {
                 RootTools.closeAllShells();
