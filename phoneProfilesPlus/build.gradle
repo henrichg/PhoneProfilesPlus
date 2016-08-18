@@ -36,7 +36,7 @@ dependencies {
     compile project(':dragSortListView')
     compile project(':materialPreferences')
     compile files('libs/RootTools.jar')
-    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:support-core-ui:24.2.0'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:gridlayout-v7:24.2.0'
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
