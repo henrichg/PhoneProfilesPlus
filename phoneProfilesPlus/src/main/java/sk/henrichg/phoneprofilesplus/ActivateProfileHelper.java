@@ -108,6 +108,8 @@ public class ActivateProfileHelper {
     @SuppressWarnings("deprecation")
     private void doExecuteForRadios(Profile profile)
     {
+        GlobalData.sleep(300);
+
         // nahodenie network type
         if (profile._deviceNetworkType >= 100) {
             if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, context) == GlobalData.PREFERENCE_ALLOWED) {
