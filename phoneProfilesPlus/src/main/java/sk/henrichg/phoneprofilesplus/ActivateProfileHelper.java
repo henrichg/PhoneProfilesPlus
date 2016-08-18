@@ -34,6 +34,7 @@ import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.service.notification.NotificationListenerService;
 import android.support.v4.app.NotificationCompat;
+import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
@@ -53,6 +54,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
+import java.util.List;
 
 public class ActivateProfileHelper {
 
@@ -2028,18 +2030,24 @@ public class ActivateProfileHelper {
                 if (Build.VERSION.SDK_INT >= 23) {
                     SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
                     // Loop through the subscription list i.e. SIM list.
-                    for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
-                        if (transactionCode != null && transactionCode.length() > 0) {
-                            // Get the active subscription ID for a given SIM card.
-                            int subscriptionId = mSubscriptionManager.getActiveSubscriptionInfoList().get(i).getSubscriptionId();
-                            String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + networkType;
-                            Command command = new Command(0, false, command1);
-                            try {
-                                //RootTools.closeAllShells();
-                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                commandWait(command);
-                            } catch (Exception e) {
-                                Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                    List<SubscriptionInfo> subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                    if (subscriptionList != null) {
+                        for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
+                            if (transactionCode != null && transactionCode.length() > 0) {
+                                // Get the active subscription ID for a given SIM card.
+                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                if (subscriptionInfo != null) {
+                                    int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                    String command1 = "service call phone " + transactionCode + " i32 " + subscriptionId + " i32 " + networkType;
+                                    Command command = new Command(0, false, command1);
+                                    try {
+                                        //RootTools.closeAllShells();
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        commandWait(command);
+                                    } catch (Exception e) {
+                                        Log.e("ActivateProfileHelper.setPreferredNetworkType", "Error on run su");
+                                    }
+                                }
                             }
                         }
                     }
