@@ -370,22 +370,23 @@ public class ActivateProfileHelper {
             }
         }
 
-        if (_setAirplaneMode/* && _isAirplaneMode*/)
+        if (_setAirplaneMode /*&& _isAirplaneMode*/) {
             // switch ON airplane mode, set it before executeForRadios
             setAirplaneMode(context, _isAirplaneMode);
 
-        GlobalData.sleep(500);
+            GlobalData.sleep(2000);
+        }
 
         doExecuteForRadios(profile);
 
-        /*
-        // 200 miliseconds is in doExecuteForRadios
-        GlobalData.sleep(300);
+        /*if (_setAirplaneMode && (!_isAirplaneMode)) {
+            // 200 miliseconds is in doExecuteForRadios
+            GlobalData.sleep(1800);
 
-        if (_setAirplaneMode && (!_isAirplaneMode))
             // switch OFF airplane mode, set if after executeForRadios
             setAirplaneMode(context, _isAirplaneMode);
-        */
+        }*/
+
     }
 
     public static boolean isAudibleRinging(int ringerMode, int zenMode) {
