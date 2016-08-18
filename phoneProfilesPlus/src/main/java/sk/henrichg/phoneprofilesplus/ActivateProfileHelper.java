@@ -108,9 +108,6 @@ public class ActivateProfileHelper {
     @SuppressWarnings("deprecation")
     private void doExecuteForRadios(Profile profile)
     {
-
-        GlobalData.sleep(300);
-
         // nahodenie network type
         if (profile._deviceNetworkType >= 100) {
             if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, context) == GlobalData.PREFERENCE_ALLOWED) {
@@ -373,16 +370,22 @@ public class ActivateProfileHelper {
             }
         }
 
-        if (_setAirplaneMode && _isAirplaneMode)
+        if (_setAirplaneMode/* && _isAirplaneMode*/)
             // switch ON airplane mode, set it before executeForRadios
             setAirplaneMode(context, _isAirplaneMode);
 
+        GlobalData.sleep(500);
+
         doExecuteForRadios(profile);
 
-        if (_setAirplaneMode && !(_isAirplaneMode))
+        /*
+        // 200 miliseconds is in doExecuteForRadios
+        GlobalData.sleep(300);
+
+        if (_setAirplaneMode && (!_isAirplaneMode))
             // switch OFF airplane mode, set if after executeForRadios
             setAirplaneMode(context, _isAirplaneMode);
-
+        */
     }
 
     public static boolean isAudibleRinging(int ringerMode, int zenMode) {
