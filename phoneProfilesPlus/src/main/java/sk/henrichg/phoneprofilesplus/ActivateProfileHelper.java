@@ -1482,14 +1482,21 @@ public class ActivateProfileHelper {
                 int iconSmallResource;
                 if (iconBitmap != null) {
                     iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", context.getPackageName());
+                    if (iconSmallResource == 0) {
+                        if (GlobalData.notificationStatusBarStyle.equals("0"))
+                            iconSmallResource = R.drawable.ic_profile_default;
+                        else
+                            iconSmallResource = R.drawable.ic_profile_default_notify;
+                    }
                     notificationBuilder.setSmallIcon(iconSmallResource);
-
                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                 }
                 else {
                     if (GlobalData.notificationStatusBarStyle.equals("0") && (android.os.Build.VERSION.SDK_INT < 21)) {
                         //notificationBuilder.setSmallIcon(0);
                         iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", context.getPackageName());
+                        if (iconSmallResource == 0)
+                            iconSmallResource = R.drawable.ic_profile_default;
                         notificationBuilder.setSmallIcon(iconSmallResource);
                         //contentView.setImageViewResource(R.id.notification_activated_profile_icon, 0);
                         contentView.setImageViewResource(R.id.notification_activated_profile_icon, iconSmallResource);
@@ -1497,8 +1504,12 @@ public class ActivateProfileHelper {
                         //notificationBuilder.setSmallIcon(0);
                         //contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, null);
                         iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", context.getPackageName());
+                        if (iconSmallResource == 0)
+                            iconSmallResource = R.drawable.ic_profile_default_notify;
                         notificationBuilder.setSmallIcon(iconSmallResource);
                         int iconLargeResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                        if (iconLargeResource == 0)
+                            iconLargeResource = R.drawable.ic_profile_default;
                         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), iconLargeResource);
                         contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                     }
@@ -1511,12 +1522,12 @@ public class ActivateProfileHelper {
                     iconSmallResource = R.drawable.ic_profile_default;
                 else
                     iconSmallResource = R.drawable.ic_profile_default_notify;
-
                 //notificationBuilder.setSmallIcon(0);
                 notificationBuilder.setSmallIcon(iconSmallResource);
-
-                //contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, null);
-                contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                if (iconBitmap != null)
+                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                else
+                    contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
             }
 
             GlobalData.phoneProfilesNotification = notificationBuilder.build();
