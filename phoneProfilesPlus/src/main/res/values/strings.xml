@@ -756,7 +756,7 @@
     <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts</string>
     <string name="applications_editor_dialog_title">Set application, shortcut</string>
     <string name="important_info_how_to_show">This important info can be viewed In Editor through the question mark icon in the toolbar.</string>
-    <string name="important_info_profile_interactive">Some profile preferences are iteractive. These preferences shows system setup screen. These preferences are marked with \"(I)\".</string>
+    <string name="important_info_profile_interactive">Some profile preferences are interactive. These preferences shows system setup screen. These preferences are marked with \"(I)\".</string>
     <string name="important_info_orange_text">Note: orange text in this info is clickable. Click to this text opens relevant setup screen.</string>
     <string name="info_notification_event_priority">4. Each event has "Priority". Event will not start, if is running event with higher priority. Restart events starts events in order by priority.</string>
 </resources>
