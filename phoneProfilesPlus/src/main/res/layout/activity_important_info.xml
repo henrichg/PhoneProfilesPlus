@@ -20,6 +20,21 @@
             android:paddingTop="@dimen/important_info_top_margin"
             android:paddingBottom="@dimen/important_info_bottom_margin" >
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_how_to_show"
+                android:id="@+id/activity_info_notification_dialog_info_text0"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_orange_text"
+                android:id="@+id/activity_info_notification_dialog_info_text00" />
+
             <!-- NEWS -->
 
             <TextView
@@ -182,13 +197,18 @@
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_root"
                 android:id="@+id/activity_info_notification_dialog_info_text5" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="@string/important_info_profile_settings"
                 android:id="@+id/activity_info_notification_dialog_info_text12" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_interactive"
+                android:id="@+id/activity_info_notification_dialog_info_text47" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -315,6 +335,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/info_notification_event_not_started"
                 android:id="@+id/activity_info_notification_dialog_info_text4"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_event_priority"
+                android:id="@+id/activity_info_notification_dialog_info_text48"
                 android:textStyle="bold" />
 
             <TextView
