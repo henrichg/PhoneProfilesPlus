@@ -759,4 +759,5 @@
     <string name="important_info_profile_interactive">Some profile preferences are interactive. These preferences shows system setup screen. These preferences are marked with \"(I)\".</string>
     <string name="important_info_orange_text">Note: orange text in this info is clickable. Click to this text opens relevant setup screen.</string>
     <string name="info_notification_event_priority">4. Each event has "Priority". Event will not start, if is running event with higher priority. Restart events starts events in order by priority.</string>
+    <string name="default_event_name_night_call">Night call</string>
 </resources>

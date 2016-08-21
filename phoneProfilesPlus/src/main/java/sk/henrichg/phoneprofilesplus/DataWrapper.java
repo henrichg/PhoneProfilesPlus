@@ -1036,6 +1036,38 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 4:
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_night_call));
+                event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
+                //event._undoneProfile = false;
+                event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
+                event._priority = Event.EPRIORITY_HIGHEST;
+                event._forceRun = true;
+                event._eventPreferencesTime._enabled = true;
+                event._eventPreferencesTime._monday = true;
+                event._eventPreferencesTime._tuesday = true;
+                event._eventPreferencesTime._wendesday = true;
+                event._eventPreferencesTime._thursday = true;
+                event._eventPreferencesTime._friday = true;
+                event._eventPreferencesTime._saturday = true;
+                event._eventPreferencesTime._sunday = true;
+                //calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 23);
+                calendar.set(Calendar.MINUTE, 0);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._startTime = calendar.getTimeInMillis() + gmtOffset;
+                //calendar.clear(Calendar.DATE);
+                calendar.set(Calendar.HOUR_OF_DAY, 8);
+                calendar.set(Calendar.MINUTE, 0);
+                //calendar.set(Calendar.SECOND, 0);
+                //calendar.set(Calendar.MILLISECOND, 0);
+                event._eventPreferencesTime._endTime = calendar.getTimeInMillis() + gmtOffset;
+                //event._eventPreferencesTime._useEndTime = true;
+                event._eventPreferencesCall._enabled = true;
+                event._eventPreferencesCall._callEvent = EventPreferencesCall.CALL_EVENT_RINGING;
+                event._eventPreferencesCall._contactListType = EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST;
+                break;
+            case 5:
                 event = getNoinitializedEvent(context.getString(R.string.default_event_name_low_battery));
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_battery_low));
                 //event._undoneProfile = false;
