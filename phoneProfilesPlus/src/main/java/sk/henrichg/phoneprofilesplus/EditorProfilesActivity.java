@@ -111,7 +111,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private int drawerSelectedItem = 2;
     private int orderSelectedItem = 2; // priority
-    private int profilesFilterType = EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR;
+    private int profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
     private int eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
     private int eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
 
