@@ -2,11 +2,13 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -137,9 +139,11 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile_preferences_action_mode_save:
-                savePreferences(newEventMode, predefinedEventIndex);
-                resultCode = RESULT_OK;
-                finish();
+                if (checkPreferences(newEventMode, predefinedEventIndex)) {
+                    savePreferences(newEventMode, predefinedEventIndex);
+                    resultCode = RESULT_OK;
+                    finish();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -164,7 +168,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             fragment.doOnActivityResult(requestCode, resultCode, data);
     }
 
-    public static Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex, boolean leaveSaveMenu) {
+    public Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex, boolean leaveSaveMenu) {
         Event event;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
@@ -232,6 +236,48 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
             event.loadSharedPreferences(preferences);
         }
+    }
+
+    private boolean checkPreferences(final int new_event_mode, final int predefinedEventIndex)
+    {
+        if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
+            String PREFS_NAME;
+            if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
+                PREFS_NAME = EventPreferencesFragment.PREFS_NAME_ACTIVITY;
+            else if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
+                PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
+            else
+                PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
+
+            final SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+            boolean enabled = preferences.getBoolean(Event.PREF_EVENT_ENABLED, false);
+            if (!enabled) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(getResources().getString(R.string.menu_new_event));
+                dialogBuilder.setMessage(getResources().getString(R.string.alert_message_enable_event));
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
+                        editor.commit();
+                        savePreferences(new_event_mode, predefinedEventIndex);
+                        resultCode = RESULT_OK;
+                        finish();
+                    }
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        savePreferences(new_event_mode, predefinedEventIndex);
+                        resultCode = RESULT_OK;
+                        finish();
+                    }
+                });
+                dialogBuilder.show();
+                return false;
+            }
+        }
+        return true;
     }
 
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
