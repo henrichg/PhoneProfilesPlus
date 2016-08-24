@@ -673,6 +673,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 e.printStackTrace();
             }
             return true;*/
+        case R.id.menu_about:
+            intent = new Intent(getBaseContext(), AboutApplicationActivity.class);
+            startActivity(intent);
+            return true;
         case R.id.menu_exit:
             exitApp(getApplicationContext(), getDataWrapper());
             getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
@@ -1842,4 +1846,5 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
     */
+
 }

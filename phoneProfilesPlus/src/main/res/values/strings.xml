@@ -761,4 +761,12 @@
     <string name="info_notification_event_priority">4. Each event has "Priority". Event will not start, if is running event with higher priority. Restart events starts events in order by priority.</string>
     <string name="default_event_name_night_call">Night call</string>
     <string name="alert_message_enable_event">Event run is not enabled. Enable it?</string>
+    <string name="menu_about_application">About application</string>
+    <string name="about_application_title">About application</string>
+    <string name="about_application_version">version:</string>
+    <string name="about_application_author">Author:</string>
+    <string name="about_application_email">E-mail:</string>
+    <string name="about_application_source_code">Source code:</string>
+    <string name="about_application_transaltions">Translations:</string>
+    <string name="about_application_rate_in_gplay">Please rate this application in Google Play:</string>
 </resources>

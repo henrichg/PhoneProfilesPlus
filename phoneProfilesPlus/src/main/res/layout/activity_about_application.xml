@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/important_info_left_margin"
+            android:paddingStart="@dimen/important_info_left_margin"
+            android:paddingRight="@dimen/important_info_right_margin"
+            android:paddingEnd="@dimen/important_info_right_margin"
+            android:paddingTop="@dimen/important_info_top_margin"
+            android:paddingBottom="@dimen/important_info_bottom_margin" >
+
+            <ImageView
+                android:id="@+id/about_application_application_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/empty_string"
+                android:maxHeight="40dp"
+                android:maxWidth="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher"/>
+
+            <TextView
+                android:id="@+id/about_application_application_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="@string/app_name"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/about_application_application_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/app_name"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/about_application_rate_application"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="@string/about_application_rate_in_gplay"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/about_application_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/about_application_author"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/about_application_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/about_application_email"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/about_application_source_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/about_application_source_code"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/about_application_translations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/about_application_transaltions"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

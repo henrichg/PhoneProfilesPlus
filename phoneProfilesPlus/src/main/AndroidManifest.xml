@@ -236,6 +236,11 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
         </activity>
+        <activity
+            android:name=".AboutApplicationActivity"
+            android:configChanges="locale|layoutDirection"
+            android:label="@string/about_application_title">
+        </activity>
 
         <receiver
             android:name=".IconWidgetProvider"
