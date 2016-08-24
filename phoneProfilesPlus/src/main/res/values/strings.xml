@@ -768,5 +768,5 @@
     <string name="about_application_email">E-mail:</string>
     <string name="about_application_source_code">Source code:</string>
     <string name="about_application_transaltions">Translations:</string>
-    <string name="about_application_rate_in_gplay">Please rate this application in Google Play:</string>
+    <string name="about_application_rate_in_gplay">Please rate this application in Google Play</string>
 </resources>
