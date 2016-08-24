@@ -109,7 +109,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     Integer[] drawerItemsIcon;
     EditorDrawerListAdapter drawerAdapter;
 
-    private int drawerSelectedItem = 2;
+    private int drawerSelectedItem = 1;
     private int orderSelectedItem = 2; // priority
     private int profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
     private int eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
@@ -429,7 +429,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((savedInstanceState != null) || (GlobalData.applicationEditorSaveEditorState))
         {
             SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-            drawerSelectedItem = preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 2);
+            drawerSelectedItem = preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
             orderSelectedItem = preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 2); // priority
         }
 
@@ -733,7 +733,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void selectDrawerItem(int position, boolean removePreferences, boolean orientationChange) {
 
         Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-        if (position == 0) position = 2;
+        if (position == 0) position = 1;
         if ((position != drawerSelectedItem) || (fragment == null))
         {
             drawerSelectedItem = position;
