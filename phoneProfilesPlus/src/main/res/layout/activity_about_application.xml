@@ -27,8 +27,8 @@
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/empty_string"
-                android:maxHeight="40dp"
-                android:maxWidth="40dp"
+                android:maxHeight="60dp"
+                android:maxWidth="60dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher"/>
 
