@@ -600,5 +600,21 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        try {
+            super.startActivityForResult(intent, requestCode);
+        } catch (NullPointerException e) {
+            // fixes Google Maps bug: http://stackoverflow.com/a/20905954/2075875
+            String pkg = null;
+            if (intent != null)
+                pkg = intent.getPackage();
+            if (intent == null || (pkg != null && pkg.equals("com.android.vending")))
+                Log.e("LocationGeofenceEditorActivity", "ignoring startActivityForResult exception " + e.getMessage());
+            else
+                throw e;
+        }
+    }
+
 }
 
