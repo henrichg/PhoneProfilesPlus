@@ -150,17 +150,6 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         }
     }
 
-    /*
-    @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
-        super.onConfigurationChanged(newConfig);
-
-        getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
-        GUIData.reloadActivity(this, false);
-    }
-    */
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {

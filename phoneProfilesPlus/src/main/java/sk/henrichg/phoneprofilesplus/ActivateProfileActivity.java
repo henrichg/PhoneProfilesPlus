@@ -237,6 +237,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         }
     }
 
+    /*
     @Override
     public void onConfigurationChanged(Configuration newConfig)
     {
@@ -246,6 +247,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_phone_profiles);
         GUIData.reloadActivity(this, false);
     }
+    */
 
     public void refreshGUI(boolean refreshIcons)
     {

@@ -46,6 +46,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     static final String PREF_LOCATION_EDITOR = "applicationEventLocationsEditor";
     static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
     static final int RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = 1995;
+    static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
+    static final int RESULT_LOCALE_SETTINGS = 1996;
+
 
     @Override
     public int addPreferencesFromResource() {
@@ -102,6 +105,30 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         if (_preference != null) _preference.setWidgetLayoutResource(R.layout.start_activity_preference);
         */
 
+
+        if (Build.VERSION.SDK_INT >= 24) {
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("applicationInterfaceCategory");
+            Preference preference = findPreference(GlobalData.PREF_APPLICATION_LANGUAGE);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
+            preference = findPreference(PREF_APPLICATION_LANGUAGE_24);
+            if (preference != null) {
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                        startActivityForResult(intent, RESULT_LOCALE_SETTINGS);
+                        return false;
+                    }
+                });
+            }
+        }
+        else {
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("applicationInterfaceCategory");
+            Preference preference = findPreference(PREF_APPLICATION_LANGUAGE_24);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
+        }
         if (Build.VERSION.SDK_INT >= 21) {
             //PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
             //Preference preference = findPreference(PREF_POWER_SAVE_MODE_INTERNAL);
@@ -354,8 +381,10 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             else
                 preference.setSummary(summary);
 
-            if (key.equals(GlobalData.PREF_APPLICATION_LANGUAGE))
-                setTitleStyle(preference, true, false);
+            //if (key.equals(GlobalData.PREF_APPLICATION_LANGUAGE))
+            //    setTitleStyle(preference, true, false);
+
+
         }
         /*else if (preference instanceof RingtonePreference) {
             // For ringtone preferences, look up the correct display value

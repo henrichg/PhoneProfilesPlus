@@ -21,6 +21,7 @@ import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -47,40 +48,29 @@ public class GUIData {
 
     public static void setLanguage(Context context)//, boolean restart)
     {
-        // jazyk na aky zmenit
-        String lang = GlobalData.applicationLanguage;
+        if (android.os.Build.VERSION.SDK_INT < 24) {
 
-        Locale appLocale;
+            // jazyk na aky zmenit
+            String lang = GlobalData.applicationLanguage;
 
-        if (!lang.equals("system"))
-        {
-            String[] langSplit = lang.split("-");
-            if (langSplit.length == 1)
-                appLocale = new Locale(lang);
-            else
-                appLocale = new Locale(langSplit[0], langSplit[1]);
+            Locale appLocale;
+
+            if (!lang.equals("system")) {
+                String[] langSplit = lang.split("-");
+                if (langSplit.length == 1)
+                    appLocale = new Locale(lang);
+                else
+                    appLocale = new Locale(langSplit[0], langSplit[1]);
+            } else {
+                appLocale = Resources.getSystem().getConfiguration().locale;
+            }
+
+            Locale.setDefault(appLocale);
+            Configuration appConfig = new Configuration();
+            appConfig.locale = appLocale;
+
+            context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
         }
-        else
-        {
-            appLocale = Resources.getSystem().getConfiguration().locale;
-        }
-
-        Locale.setDefault(appLocale);
-        Configuration appConfig = new Configuration();
-        appConfig.locale = appLocale;
-        /*  not working :-/
-        if (android.os.Build.VERSION.SDK_INT == 17) {
-            // workaround for Android 4.2 and wrong RTL layout
-            int screenLayout = Resources.getSystem().getConfiguration().screenLayout;
-            //if ((screenLayout & Configuration.SCREENLAYOUT_LAYOUTDIR_RTL) > 0)
-            //    appConfig.screenLayout = screenLayout ^ Configuration.SCREENLAYOUT_LAYOUTDIR_MASK;
-            screenLayout = screenLayout & (~Configuration.SCREENLAYOUT_LAYOUTDIR_MASK);
-            screenLayout = screenLayout | Configuration.SCREENLAYOUT_LAYOUTDIR_LTR;
-            appConfig.screenLayout = screenLayout;
-        }
-        */
-
-        context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
 
         // collator for application locale sorting
         collator = getCollator();
@@ -90,24 +80,26 @@ public class GUIData {
 
     public static Collator getCollator()
     {
-        // get application Locale
-        String lang = GlobalData.applicationLanguage;
-        Locale appLocale;
-        if (!lang.equals("system"))
-        {
-            String[] langSplit = lang.split("-");
-            if (langSplit.length == 1)
-                appLocale = new Locale(lang);
-            else
-                appLocale = new Locale(langSplit[0], langSplit[1]);
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            // get application Locale
+            String lang = GlobalData.applicationLanguage;
+            Locale appLocale;
+            if (!lang.equals("system")) {
+                String[] langSplit = lang.split("-");
+                if (langSplit.length == 1)
+                    appLocale = new Locale(lang);
+                else
+                    appLocale = new Locale(langSplit[0], langSplit[1]);
+            } else {
+                appLocale = Resources.getSystem().getConfiguration().locale;
+            }
+            // get collator for application locale
+            return Collator.getInstance(appLocale);
         }
-        else
-        {
-            appLocale = Resources.getSystem().getConfiguration().locale;
+        else {
+            //Log.d("GUIData.getCollator", java.util.Locale.getDefault().toString());
+            return Collator.getInstance();
         }
-
-        // get collator for application locale
-        return Collator.getInstance(appLocale);
     }
 
     public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar)

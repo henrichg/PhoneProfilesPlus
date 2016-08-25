@@ -109,6 +109,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         dataWrapper = null;
     }
 
+    /*
     @Override
     public void onConfigurationChanged(Configuration newConfig)
     {
@@ -117,5 +118,6 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
         GUIData.reloadActivity(this, false);
     }
+    */
 
 }

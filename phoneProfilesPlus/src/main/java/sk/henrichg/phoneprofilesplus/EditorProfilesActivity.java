@@ -1473,20 +1473,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
     }
-    
-    @Override
-    public void onConfigurationChanged(Configuration newConfig)
-    {
-        super.onConfigurationChanged(newConfig);
-
-        /*
-        // activity will restarted
-        // Pass any configuration change to the drawer toggles
-        drawerToggle.onConfigurationChanged(newConfig); */
-
-        getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
-        GUIData.reloadActivity(this, false);
-    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
