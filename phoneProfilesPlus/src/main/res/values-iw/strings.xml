@@ -754,4 +754,19 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">יישומים, קיצורי דרך</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">הפעלת יישומים, קיצורי דרך</string>
   <string name="applications_editor_dialog_title">בחירת יישום, קיצור דרך</string>
+  <string name="important_info_how_to_show">מידע חשוב זה ניתן להציג באמצעות העורך דרך סמל סימן השאלה בסרגל הכלים.</string>
+  <string name="important_info_profile_interactive">העדפות מסוימות פרופיל הן אינטראקטיביות. העדפות אלה מציגות את מסך הגדרת המערכת. העדפות אלה מסומנות ב- \"(I)\".</string>
+  <string name="important_info_orange_text">הערה: מלל בצבע כתום במלל מידע זה הוא לחיץ. בלחיצה על מלל זה ייפתח מסך ההגדרות הרלוונטי.</string>
+  <string name="info_notification_event_priority">4. לכל אירוע יש \"עדיפות\". האירוע לא יחל אם פעיל אירוע בעל עדיפות גבוהה יותר. בהפעלה מחדש של אירועים יחלו האירועים לפי עדיפות.</string>
+  <string name="default_event_name_night_call">שיחת לילה</string>
+  <string name="alert_message_enable_event">הפעלת אירוע איננה מאופשרת. להפעיל אותו?</string>
+  <string name="menu_about_application">אודות היישום</string>
+  <string name="about_application_title">אודות היישום</string>
+  <string name="about_application_version">גרסה:</string>
+  <string name="about_application_author">מפתח:</string>
+  <string name="about_application_email">דוא\"ל:</string>
+  <string name="about_application_source_code">קוד מקור:</string>
+  <string name="about_application_transaltions">תרגומים:</string>
+  <string name="about_application_rate_in_gplay">אנא דרגו יישום זה ב- Google Play</string>
+  <string name="phone_profiles_pref_systemLanguage_summary">היישום משתמש בשפות שתצורתן נקבעה במערכת.</string>
 </resources>

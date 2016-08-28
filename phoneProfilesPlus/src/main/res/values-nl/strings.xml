@@ -755,4 +755,19 @@ Toch activeren?</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Toepassingen, snelkoppelingen</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Toepassingen uitvoeren, snelkoppelingen</string>
   <string name="applications_editor_dialog_title">Toepassingen instellen, snelkoppeling</string>
+  <string name="important_info_how_to_show">Deze belangrijke informatie kan worden bekeken in the ditor via het vraagteken-pictogram in de werkbalk.</string>
+  <string name="important_info_profile_interactive">Enkele profiel voorkeuren zijn interactief. Deze voorkeuren tonen het systeem installatie scherm. Deze voorkeuren zijn gemarkeerd met \"(I)\".</string>
+  <string name="important_info_orange_text">Opmerking: oranje tekst in deze info is aanklikbaar. Klikken op deze tekst opent het relevante setup-scherm.</string>
+  <string name="info_notification_event_priority">4.Elk evenement heeft een \"Prioriteit\". Een evenement start niet als een ander evenement wordt uitgevoerd met hogere prioriteit. Events herstarten start evenementen in volgorde van prioriteit.</string>
+  <string name="default_event_name_night_call">Nachtoproep</string>
+  <string name="alert_message_enable_event">Event uitvoeren is niet ingeschakeld. Aanzetten?</string>
+  <string name="menu_about_application">Over programma</string>
+  <string name="about_application_title">Over programma</string>
+  <string name="about_application_version">versie:</string>
+  <string name="about_application_author">Auteur:</string>
+  <string name="about_application_email">E-mail:</string>
+  <string name="about_application_source_code">Broncode:</string>
+  <string name="about_application_transaltions">Vertalingen:</string>
+  <string name="about_application_rate_in_gplay">Beoordeel deze toepassing in Google Play</string>
+  <string name="phone_profiles_pref_systemLanguage_summary">Toepassing maakt gebruik van talen in het systeem geconfigureerde talen.</string>
 </resources>

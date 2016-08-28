@@ -754,4 +754,19 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Приложения, ярлыки</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запуск приложений, ярлыки</string>
   <string name="applications_editor_dialog_title">Установка приложения, ярлык</string>
+  <string name="important_info_how_to_show">Эта важная информация может быть просмотрена в Редакторе при нажатии на значке вопросительного знака в панели инструментов.</string>
+  <string name="important_info_profile_interactive">Некоторые параметры профиля являются интерактивными. Они показывают окно системных настроек. Эти параметры отмечены «(I)».</string>
+  <string name="important_info_orange_text">Примечание: оранжевый текст в этой информации является активным. Нажмите на него, чтобы открыть соответствующие настройки.</string>
+  <string name="info_notification_event_priority">4. Каждое событие имеет «Приоритет». Событие не запустится, если выполняется событие с более высоким приоритетом. При перезапуске событий они выполняются согласно их приоритета.</string>
+  <string name="default_event_name_night_call">Ночной звонок</string>
+  <string name="alert_message_enable_event">Запуск событий не разрешен. Разрешить?</string>
+  <string name="menu_about_application">О приложении</string>
+  <string name="about_application_title">Сведения о приложении</string>
+  <string name="about_application_version">версия:</string>
+  <string name="about_application_author">Автор:</string>
+  <string name="about_application_email">Электронная почта:</string>
+  <string name="about_application_source_code">Исходный код:</string>
+  <string name="about_application_transaltions">Переводы:</string>
+  <string name="about_application_rate_in_gplay">Пожалуйста, оцените это приложение в Google Play</string>
+  <string name="phone_profiles_pref_systemLanguage_summary">Приложение использует языки, настроенные в системе.</string>
 </resources>

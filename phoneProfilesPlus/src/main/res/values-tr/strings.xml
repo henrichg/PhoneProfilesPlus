@@ -754,4 +754,19 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Uygulamalar, kısayollar</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Uygulamaları, kısayolları çalıştır</string>
   <string name="applications_editor_dialog_title">Uygulama, kısayol düzenle</string>
+  <string name="important_info_how_to_show">Bu önemli bilgi, Düzenleyici\'de araç çubuğundaki soru işareti simgesi aracılığıyla görüntülenebilir.</string>
+  <string name="important_info_profile_interactive">Bazı profil tercihleri etkileşimlidir. Bu tercihler, sistem ayarı ekranını gösterir. Bu tercihlerin yanında \"(I)\" işareti görüntülenir.</string>
+  <string name="important_info_orange_text">Not: Bu bilgideki turuncu metin, tıklanabilir. Bu metne tıklayınca ilgili ayarlar ekranı açılır.</string>
+  <string name="info_notification_event_priority">4. Her olay \"Öncelik\" sahibidir. Olay, daha yüksek öncelik ile çalışan başka bir olay varsa başlatılmaz. Olayları öncelik sırasına göre tekrar başlatın.</string>
+  <string name="default_event_name_night_call">Gece araması</string>
+  <string name="alert_message_enable_event">Olay çalıştırma etkin değil. Etkinleştirilsin mi?</string>
+  <string name="menu_about_application">Uygulama hakkında</string>
+  <string name="about_application_title">Uygulama hakkında</string>
+  <string name="about_application_version">sürüm:</string>
+  <string name="about_application_author">Yazar:</string>
+  <string name="about_application_email">E-posta:</string>
+  <string name="about_application_source_code">Kaynak kodu:</string>
+  <string name="about_application_transaltions">Tercümeler:</string>
+  <string name="about_application_rate_in_gplay">Lütfen bu uygulamaya Google Play\'de puan veriniz</string>
+  <string name="phone_profiles_pref_systemLanguage_summary">Uygulama, sistemde yapılandırılmış dili kullanır.</string>
 </resources>

@@ -754,4 +754,19 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts</string>
   <string name="applications_editor_dialog_title">Set application, shortcut</string>
+  <string name="important_info_how_to_show">This important info can be viewed In Editor through the question mark icon in the toolbar.</string>
+  <string name="important_info_profile_interactive">Some profile preferences are interactive. These preferences shows system setup screen. These preferences are marked with \"(I)\".</string>
+  <string name="important_info_orange_text">Note: orange text in this info is clickable. Click to this text opens relevant setup screen.</string>
+  <string name="info_notification_event_priority">4. Each event has \"Priority\". Event will not start, if is running event with higher priority. Restart events starts events in order by priority.</string>
+  <string name="default_event_name_night_call">Night call</string>
+  <string name="alert_message_enable_event">Event run is not enabled. Enable it?</string>
+  <string name="menu_about_application">About application</string>
+  <string name="about_application_title">About application</string>
+  <string name="about_application_version">version:</string>
+  <string name="about_application_author">Author:</string>
+  <string name="about_application_email">E-mail:</string>
+  <string name="about_application_source_code">Source code:</string>
+  <string name="about_application_transaltions">Translations:</string>
+  <string name="about_application_rate_in_gplay">Please rate this application in Google Play</string>
+  <string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>
 </resources>

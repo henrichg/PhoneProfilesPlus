@@ -753,5 +753,20 @@
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Jouer la sonnerie sélectionnée requiert certaines autorisations à accorder.</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, raccourcis</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Exécuter des applications, raccourcis</string>
-  <string name="applications_editor_dialog_title">Set application, shortcut</string>
+  <string name="applications_editor_dialog_title">Définir le raccourci</string>
+  <string name="important_info_how_to_show">Cette information importante peut être vu dans l’éditeur en cliquant sur l’icône point d’interrogation dans la barre d’outils.</string>
+  <string name="important_info_profile_interactive">Certaines préférences de profil sont interactifs. Ces préférences affichent l\'écran préférence système. Ces préférences sont marqués avec « (I) ».</string>
+  <string name="important_info_orange_text">Note : le texte orange dans cette info est cliquable. Cliquez sur ce texte ouvre l’écran « paramètre système».</string>
+  <string name="info_notification_event_priority">4. chaque événement a une « Priorité ». L\'événement ne démarrera pas, si un événement s\'exécute déjà avec une priorité plus élevée. Redémarrez commence les événements dans l’ordre de priorité.</string>
+  <string name="default_event_name_night_call">Appel de nuit</string>
+  <string name="alert_message_enable_event">Événement désactivez. Les activer ?</string>
+  <string name="menu_about_application">A propos</string>
+  <string name="about_application_title">A propos</string>
+  <string name="about_application_version">version :</string>
+  <string name="about_application_author">Auteur :</string>
+  <string name="about_application_email">Email :</string>
+  <string name="about_application_source_code">Code source :</string>
+  <string name="about_application_transaltions">Traductions :</string>
+  <string name="about_application_rate_in_gplay">Merci d\'évaluer cette application dans Google Play</string>
+  <string name="phone_profiles_pref_systemLanguage_summary">L\'application utilise la langue configurée dans le système.</string>
 </resources>

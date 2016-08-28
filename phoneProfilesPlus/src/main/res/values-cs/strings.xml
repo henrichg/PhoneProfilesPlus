@@ -754,4 +754,19 @@
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikace, odkazy</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustit aplikace, odkazy</string>
   <string name="applications_editor_dialog_title">Vyber aplikaci, odkaz</string>
+  <string name="important_info_how_to_show">Tyto důležité informace lze zobrazit v editoru pomocí ikony otazníku v panelu nástrojů.</string>
+  <string name="important_info_profile_interactive">Některé předvolby profilu jsou interaktivní. Tyto preference se zobrazí v systéovém nastavení obrazovky. Tyto předvolby jsou označeny \"(I)\".</string>
+  <string name="important_info_orange_text">Poznámka: Oranžový text v této informaci je rozkliknutelná. Kliknutím na tento text se otevřou příslušná nastavení obrazovky.</string>
+  <string name="info_notification_event_priority">4. Každá událost má \"Prioritu\". Událost se nespustí, pokud je spuštěna událost s vyšší prioritou. Restartování událostí spustí události v pořadí podle priority.</string>
+  <string name="default_event_name_night_call">Noční hovor</string>
+  <string name="alert_message_enable_event">Povol běh není povolen. Povolit ho?</string>
+  <string name="menu_about_application">O aplikaci</string>
+  <string name="about_application_title">O aplikaci</string>
+  <string name="about_application_version">verze:</string>
+  <string name="about_application_author">Autor:</string>
+  <string name="about_application_email">E-mail:</string>
+  <string name="about_application_source_code">Zdrojový kód:</string>
+  <string name="about_application_transaltions">Překlady:</string>
+  <string name="about_application_rate_in_gplay">Ohodnoťte prosím tuto aplikaci v Google Play</string>
+  <string name="phone_profiles_pref_systemLanguage_summary">Aplikace používá jazyky nakonfigurovány v systému.</string>
 </resources>
