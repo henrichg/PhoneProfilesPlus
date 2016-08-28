@@ -48,16 +48,16 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = true;
+    private static boolean logIntoLogCat = false;
+    private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
-                                         +"|GlobalData.isRooted"
-                                         +"|GlobalData.grantRoot"
-                                         +"|GlobalData.settingsBinaryExists"
-                                         +"|GlobalData.serviceBinaryExists"
+                                         //+"|GlobalData.isRooted"
+                                         //+"|GlobalData.grantRoot"
+                                         //+"|GlobalData.settingsBinaryExists"
+                                         //+"|GlobalData.serviceBinaryExists"
 
                                          //+"|ActivateProfileHelper.setMobileData"
                                          //+"|ActivateProfileHelper.doExecuteForRadios"
