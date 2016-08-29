@@ -126,7 +126,6 @@
             android:name=".LauncherActivity"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_phone_profiles"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -138,7 +137,6 @@
             android:name=".ActivateProfileActivity"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_activator"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:theme="@style/PopupTheme_withToolbar_material">
         </activity>
         <activity
@@ -167,7 +165,6 @@
             android:excludeFromRecents="true"
             android:icon="@drawable/ic_shortcut"
             android:label="@string/title_activity_shortcut_creator"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:theme="@style/PopupTheme_material">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
@@ -179,7 +176,6 @@
             android:name=".BackgroundActivateProfileActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -191,7 +187,6 @@
             android:name=".RestartEventsFromNotificationActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
         </activity>
         <activity
@@ -206,7 +201,6 @@
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
         </activity>
         <activity
@@ -217,14 +211,12 @@
             android:name=".GeofenceScannerErrorActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
             android:name=".LaunchShortcutActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
         </activity>
         <activity
