@@ -54,8 +54,10 @@ public class GlobalData extends Application {
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
-                                         +"|ActivateProfileHelper.setVolumes"
-                                         +"|ActivateProfileHelper.setZenMode"
+                                         +"|GrantPermissionActivity.onStart"
+                                         +"|GrantPermissionActivity.requestPermissions"
+                                         +"|GrantPermissionActivity.finishGrant"
+                                         +"|Permissions.grantProfilePermissions"
 
                                          //+"|GlobalData.isRooted"
                                          //+"|GlobalData.grantRoot"

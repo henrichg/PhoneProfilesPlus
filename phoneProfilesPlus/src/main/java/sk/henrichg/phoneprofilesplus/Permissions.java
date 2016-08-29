@@ -426,7 +426,10 @@ public class Permissions {
                  profile.getVolumeNotificationChange() ||
                  profile.getVolumeSystemChange()) {
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                return mNotificationManager.isNotificationPolicyAccessGranted();
+                boolean granted = mNotificationManager.isNotificationPolicyAccessGranted();
+                if (granted)
+                    GlobalData.setShowRequestAccessNotificationPolicyPermission(context, true);
+                return granted;
             }
             else
                 return true;
@@ -438,7 +441,10 @@ public class Permissions {
     public static boolean checkAccessNotificationPolicy(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 24) {
             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            return mNotificationManager.isNotificationPolicyAccessGranted();
+            boolean granted = mNotificationManager.isNotificationPolicyAccessGranted();
+            if (granted)
+                GlobalData.setShowRequestAccessNotificationPolicyPermission(context, true);
+            return granted;
         }
         else
             return true;
@@ -589,6 +595,7 @@ public class Permissions {
                                                   int startupSource, boolean interactive, Activity activity,
                                                   boolean log) {
         List<PermissionType> permissions = checkProfilePermissions(context, profile);
+        GlobalData.logE("Permissions.grantProfilePermissions", "permissions.size()="+permissions.size());
         if (permissions.size() > 0) {
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.widget.Toast;
@@ -471,6 +472,7 @@ public class GrantPermissionActivity extends Activity {
             }
         }
         else {
+            GlobalData.logE("GrantPermissionActivity.onStart","no show request dialog");
             requestPermissions(3);
         }
     }
@@ -624,13 +626,15 @@ public class GrantPermissionActivity extends Activity {
             List<String> permList = new ArrayList<String>();
             for (Permissions.PermissionType permissionType : permissions) {
                 if ((!permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) &&
-                        (!permList.contains(permissionType.permission))) {
+                    (!permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) &&
+                    (!permList.contains(permissionType.permission))) {
                     //Log.e("GrantPermissionActivity", "requestPermissions - permission=" + permissionType.permission);
-                    permList.add(permissionType.permission);
+                    //if (ContextCompat.checkSelfPermission(getApplicationContext(), permissionType.permission) != PackageManager.PERMISSION_GRANTED)
+                        permList.add(permissionType.permission);
                 }
             }
 
-            //Log.e("GrantPermissionActivity", "requestPermissions - permList.size=" + permList.size());
+            GlobalData.logE("GrantPermissionActivity.requestPermissions", "permList.size=" + permList.size());
             if (permList.size() > 0) {
 
                 String[] permArray = new String[permList.size()];
@@ -762,7 +766,9 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.brightnessDialogPreference.enableViews();
         }
         else {
-            // Profile permussion
+            // Profile permission
+
+            GlobalData.logE("GrantPermissionActivity.finishGrant", "profile");
 
             //finishAffinity();
             finish();
@@ -783,7 +789,7 @@ public class GrantPermissionActivity extends Activity {
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             Profile activatedProfile = dataWrapper.getActivatedProfile();
         if ((activatedProfile == null) || (activatedProfile._id == profile_id))
-                activateProfileHelper.showNotification(profile/*, ""*/);
+                activateProfileHelper.showNotification(profile);
             activateProfileHelper.updateWidget();
 
             Intent intent5 = new Intent();
