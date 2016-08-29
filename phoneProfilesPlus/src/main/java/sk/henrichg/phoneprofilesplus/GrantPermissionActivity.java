@@ -47,6 +47,7 @@ public class GrantPermissionActivity extends Activity {
 
     private static final int WRITE_SETTINGS_REQUEST_CODE = 909090;
     private static final int PERMISSIONS_REQUEST_CODE = 909091;
+    private static final int ACCESS_NOTIFICATION_POLICY_REQUEST_CODE = 909092;
 
     private static final String NOTIFICATION_DELETED_ACTION = "sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED";
 
@@ -162,6 +163,7 @@ public class GrantPermissionActivity extends Activity {
         }
 
         boolean showRequestWriteSettings = false;
+        boolean showRequestAccessNotificationPolicy = false;
         boolean showRequestReadExternalStorage = false;
         boolean showRequestReadPhoneState = false;
         boolean showRequestProcessOutgoingCalls = false;
@@ -178,6 +180,8 @@ public class GrantPermissionActivity extends Activity {
         for (Permissions.PermissionType permissionType : permissions) {
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS))
                 showRequestWriteSettings = GlobalData.getShowRequestWriteSettingsPermission(context);
+            if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY))
+                showRequestAccessNotificationPolicy = GlobalData.getShowRequestAccessNotificationPolicyPermission(context);
             if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE))
                 showRequestReadExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE);
             if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE))
@@ -210,7 +214,8 @@ public class GrantPermissionActivity extends Activity {
                 showRequestReceiveSMS ||
                 showRequestReadSMS ||
                 showRequestAccessCoarseLocation ||
-                showRequestAccessFineLocation) {
+                showRequestAccessFineLocation ||
+                showRequestAccessNotificationPolicy) {
 
             if (onlyNotification) {
                 int notificationID;
@@ -396,6 +401,11 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_location) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
+                if (showRequestAccessNotificationPolicy) {
+                    //Log.e("GrantPermissionActivity", "onStart - showRequestAccesNotificationPolicy");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
+                    showRequestString = showRequestString + "<br>";
+                }
 
                 showRequestString = showRequestString + "<br>";
 
@@ -432,6 +442,7 @@ public class GrantPermissionActivity extends Activity {
                 GUIData.setLanguage(this.getBaseContext());
 
                 final boolean _showRequestWriteSettings = showRequestWriteSettings;
+                final boolean _showRequestAccessNotificationPolicy = showRequestAccessNotificationPolicy;
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                 dialogBuilder.setTitle(R.string.permissions_alert_title);
@@ -439,7 +450,12 @@ public class GrantPermissionActivity extends Activity {
                 dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        requestPermissions(_showRequestWriteSettings);
+                        int iteration = 3;
+                        if (_showRequestWriteSettings)
+                            iteration = 1;
+                        else if (_showRequestAccessNotificationPolicy)
+                            iteration = 2;
+                        requestPermissions(iteration);
                     }
                 });
                 dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -455,7 +471,7 @@ public class GrantPermissionActivity extends Activity {
             }
         }
         else {
-            requestPermissions(showRequestWriteSettings);
+            requestPermissions(3);
         }
     }
 
@@ -517,34 +533,67 @@ public class GrantPermissionActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         GlobalData.setShowRequestWriteSettingsPermission(context, false);
-                        requestPermissions(false);
+                        requestPermissions(2);
                     }
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         GlobalData.setShowRequestWriteSettingsPermission(context, true);
-                        requestPermissions(false);
+                        requestPermissions(2);
                     }
                 });
                 dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
-                        requestPermissions(false);
+                        requestPermissions(2);
                     }
                 });
                 dialogBuilder.show();
             }
             else {
                 GlobalData.setShowRequestWriteSettingsPermission(context, true);
-                requestPermissions(false);
+                requestPermissions(2);
+            }
+        }
+        if (requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE) {
+            NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (!mNotificationManager.isNotificationPolicyAccessGranted()) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.permissions_alert_title);
+                dialogBuilder.setMessage(R.string.permissions_access_notification_policy_not_allowed_confirm);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GlobalData.setShowRequestAccessNotificationPolicyPermission(context, false);
+                        requestPermissions(3);
+                    }
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GlobalData.setShowRequestAccessNotificationPolicyPermission(context, true);
+                        requestPermissions(3);
+                    }
+                });
+                dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        requestPermissions(3);
+                    }
+                });
+                dialogBuilder.show();
+            }
+            else {
+                GlobalData.setShowRequestAccessNotificationPolicyPermission(context, true);
+                requestPermissions(3);
             }
         }
     }
 
-    private void requestPermissions(boolean writeSettings) {
+    private void requestPermissions(int iteration) {
 
-        if (writeSettings) {
+        if (iteration == 1) {
             boolean writeSettingsFound = false;
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
@@ -555,7 +604,21 @@ public class GrantPermissionActivity extends Activity {
                 }
             }
             if (!writeSettingsFound)
-                requestPermissions(false);
+                requestPermissions(2);
+        }
+        else
+        if (iteration == 2) {
+            boolean accessNotificationPolicyFound = false;
+            for (Permissions.PermissionType permissionType : permissions) {
+                if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+                    accessNotificationPolicyFound = true;
+                    final Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                    startActivityForResult(intent, ACCESS_NOTIFICATION_POLICY_REQUEST_CODE);
+                    break;
+                }
+            }
+            if (!accessNotificationPolicyFound)
+                requestPermissions(3);
         }
         else {
             List<String> permList = new ArrayList<String>();

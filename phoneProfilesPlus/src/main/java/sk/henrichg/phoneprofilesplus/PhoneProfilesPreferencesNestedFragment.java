@@ -48,6 +48,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     static final int RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = 1995;
     static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
     static final int RESULT_LOCALE_SETTINGS = 1996;
+    static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "prf_pref_accessNotificationPolicyPermissions";
+    static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
 
 
     @Override
@@ -196,6 +198,19 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                         intent.addCategory(Intent.CATEGORY_DEFAULT);
                         startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                        return false;
+                    }
+                });
+            }
+            preference = prefMng.findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+            if (preference != null) {
+                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
                         return false;
                     }
                 });
@@ -433,7 +448,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
         if ((requestCode == RESULT_APPLICATION_PERMISSIONS) ||
-            (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS)) {
+            (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) ||
+            (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS)) {
 
             Context context = PhoneProfilesPreferencesFragment.preferencesActivity.getApplicationContext();
             DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);

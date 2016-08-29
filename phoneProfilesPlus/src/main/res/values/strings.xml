@@ -770,4 +770,8 @@
     <string name="about_application_transaltions">Translations:</string>
     <string name="about_application_rate_in_gplay">Please rate this application in Google Play</string>
     <string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>
+    <string name="permission_group_name_access_notification_policy">Do not disturb access</string>
+    <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again for this?</string>
+    <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Do not disturb access</string>
+    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>
 </resources>

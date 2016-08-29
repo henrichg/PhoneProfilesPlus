@@ -118,6 +118,12 @@
             android:widgetLayout="@layout/start_activity_preference">
         </Preference>
         <Preference
+            android:key="prf_pref_accessNotificationPolicyPermissions"
+            android:title="@string/phone_profiles_pref_accessNotificationPolicyPermissions"
+            android:summary="@string/phone_profiles_pref_accessNotificationPolicyPermissions_summary"
+            android:widgetLayout="@layout/start_activity_preference" >
+        </Preference>
+        <Preference
             android:key="prf_pref_applicationPermissions"
             android:title="@string/phone_profiles_pref_applicationPermissions"
             android:summary="@string/phone_profiles_pref_applicationPermissions_summary"

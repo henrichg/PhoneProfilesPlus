@@ -17,24 +17,6 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
     private String extraScrollTo;
     //private String extraScrollToType;
 
-    /*
-    static final String PREF_APPLICATION_PERMISSIONS = "prf_pref_applicationPermissions";
-    static final int RESULT_APPLICATION_PERMISSIONS = 1990;
-    static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "prf_pref_writeSystemSettingsPermissions";
-    static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
-    static final String PREF_WIFI_SCANNING_SYSTEM_SETTINGS = "applicationEventWiFiScanningSystemSettings";
-    static final String PREF_BLUETOOTH_SCANNING_SYSTEM_SETTINGS = "applicationEventBluetoothScanningSystemSettings";
-    static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1992;
-    static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
-    static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
-    static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
-    static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
-    static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
-    static final String PREF_LOCATION_EDITOR = "applicationEventLocationsEditor";
-    static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
-    static final int RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = 1995;
-    */
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
