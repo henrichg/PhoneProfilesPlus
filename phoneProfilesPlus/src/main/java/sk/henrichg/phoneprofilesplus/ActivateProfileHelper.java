@@ -594,29 +594,30 @@ public class ActivateProfileHelper {
             if (!accessNotificationPolicyGranted)
                 GlobalData.logE("ActivateProfileHelper.setZenMode", "not granted");
 
-            if ((zenMode != ZENMODE_SILENT) && notificationListenerServiceEnabled) {
-                audioManager.setRingerMode(ringerMode);
-                //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                //SystemClock.sleep(500);
-                GlobalData.sleep(500);
+            if (accessNotificationPolicyGranted) {
+                if ((zenMode != ZENMODE_SILENT) && notificationListenerServiceEnabled) {
+                    audioManager.setRingerMode(ringerMode);
+                    //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(500);
+                    GlobalData.sleep(500);
 
-                if ((zenMode != _zenMode) || (zenMode == ZENMODE_PRIORITY)) {
-                    int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
-                    switch (zenMode) {
-                        case ZENMODE_ALL:
-                            interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
-                            break;
-                        case ZENMODE_PRIORITY:
-                            interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_PRIORITY;
-                            break;
-                        case ZENMODE_NONE:
-                            interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_NONE;
-                            break;
-                        case ZENMODE_ALARMS:
-                            interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
-                            break;
-                    }
-                    PPNotificationListenerService.requestInterruptionFilter(context, interruptionFilter);
+                    if ((zenMode != _zenMode) || (zenMode == ZENMODE_PRIORITY)) {
+                        int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
+                        switch (zenMode) {
+                            case ZENMODE_ALL:
+                                interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
+                                break;
+                            case ZENMODE_PRIORITY:
+                                interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_PRIORITY;
+                                break;
+                            case ZENMODE_NONE:
+                                interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_NONE;
+                                break;
+                            case ZENMODE_ALARMS:
+                                interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALARMS;
+                                break;
+                        }
+                        PPNotificationListenerService.requestInterruptionFilter(context, interruptionFilter);
                     /* if (GlobalData.grantRoot(false) && (GlobalData.settingsBinaryExists()))
                     {
                         String command1 = "settings put global zen_mode " + mode;
@@ -631,25 +632,23 @@ public class ActivateProfileHelper {
                             Log.e("ActivateProfileHelper.setZenMode", e.getMessage());
                         }
                     }*/
-                }
-            }
-            else {
-                if (notificationListenerServiceEnabled || accessNotificationPolicyGranted) {
+                    }
+                } else {
                     switch (zenMode) {
-                    /*case ZENMODE_PRIORITY:
-                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(1000);
-                        GlobalData.sleep(1000);
-                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        break;
-                    case ZENMODE_ALARMS:
-                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(1000);
-                        GlobalData.sleep(1000);
-                        audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                        break;*/
+                        /*case ZENMODE_PRIORITY:
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            GlobalData.sleep(1000);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                            break;
+                        case ZENMODE_ALARMS:
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            GlobalData.sleep(1000);
+                            audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                            break;*/
                         case ZENMODE_SILENT:
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
