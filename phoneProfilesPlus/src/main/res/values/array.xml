@@ -727,6 +727,7 @@
     <item>@string/default_event_name_weekend</item>
     <item>@string/default_event_name_during_the_work</item>
     <item>@string/default_event_name_overnight</item>
+    <item>@string/default_event_name_night_call</item>
     <item>@string/default_event_name_low_battery</item>
 </string-array>
 <string-array name="addEventPredefinedStartProfilesArray">
@@ -735,6 +736,7 @@
     <item>@string/default_profile_name_home</item>
     <item>@string/default_profile_name_work</item>
     <item>@string/default_profile_name_sleep</item>
+    <item>@string/default_profile_name_home</item>
     <item>@string/default_profile_name_battery_low</item>
 </string-array>
 <string-array name="addEventPredefinedStartProfileIconsArray">

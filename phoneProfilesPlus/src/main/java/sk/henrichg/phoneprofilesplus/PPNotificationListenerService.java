@@ -244,13 +244,15 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         Set<String> packageNames = NotificationManagerCompat.getEnabledListenerPackages (context);
         //Log.e(TAG, "enabledNotificationListeners(" + packageNames + ')');
-        String className = PPNotificationListenerService.class.getName();
+        //String className = PPNotificationListenerService.class.getName();
+        String packageName = context.getPackageName();
         //Log.e(TAG, "enabledNotificationListeners(" + className + ')');
 
         if (packageNames != null) {
             for (String pkgName : packageNames) {
                 //Log.e(TAG, "enabledNotificationListeners(" + pkgName + ')');
-                if (className.contains(pkgName)) {
+                //if (className.contains(pkgName)) {
+                if (packageName.equals(pkgName)) {
                     //Log.e(TAG, "enabledNotificationListeners(" + "true" + ')');
                     return true;
                 }
