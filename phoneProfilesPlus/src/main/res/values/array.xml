@@ -745,6 +745,7 @@
     <item>@drawable/ic_profile_home_2</item>
     <item>@drawable/ic_profile_work_5</item>
     <item>@drawable/ic_profile_sleep</item>
+    <item>@drawable/ic_profile_home_2</item>
     <item>@drawable/ic_profile_battery_1</item>
 </string-array>
 <string-array name="networkTypeGSMArray">
