@@ -217,8 +217,7 @@ public class EventPreferencesNotification extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            boolean enabled =
-                    PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
+            boolean enabled = GlobalData.canChangeZenMode(context.getApplicationContext());
             Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
             Preference endWhenRemovedPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED);
             Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);

@@ -197,7 +197,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_home), "ic_profile_home_2", 1);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                    if (GlobalData.canChangeZenMode(context)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 1; // ALL
@@ -221,7 +221,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", 2);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                    if (GlobalData.canChangeZenMode(context)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 4; // ALL with vibration
@@ -245,7 +245,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_work), "ic_profile_work_5", 3);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                    if (GlobalData.canChangeZenMode(context)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 1; // ALL
@@ -269,7 +269,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", 4);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                    if (GlobalData.canChangeZenMode(context)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 3; // NONE
@@ -293,7 +293,7 @@ public class DataWrapper {
                 profile = getNoinitializedProfile(context.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", 5);
                 profile._showInActivator = true;
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    if (PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                    if (GlobalData.canChangeZenMode(context)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 6; // ALARMS

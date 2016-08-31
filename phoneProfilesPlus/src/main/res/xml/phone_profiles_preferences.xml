@@ -109,7 +109,7 @@
 
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_permissions"
-        android:key="prf_pref_permissionsCategory"
+        android:key="categoryPermissions"
         android:widgetLayout="@layout/start_activity_preference">
         <Preference
             android:key="prf_pref_writeSystemSettingsPermissions"

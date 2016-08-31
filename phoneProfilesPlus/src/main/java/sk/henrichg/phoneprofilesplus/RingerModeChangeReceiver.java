@@ -51,17 +51,17 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     public static int getRingerMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
 
-        int interruptionFilter = -1;
+        int systemZenMode = -1;
         if (android.os.Build.VERSION.SDK_INT >= 21)
-            interruptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
+            systemZenMode = GlobalData.getSystemZenMode(context, -1);
 
         GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "ringerMode="+ringerMode);
-        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "interruptionFilter=" + interruptionFilter);
+        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "systemZenMode=" + systemZenMode);
 
         // convert to profile ringerMode
         int pRingerMode = 0;
         if ((android.os.Build.VERSION.SDK_INT >= 21) && PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
-            if (interruptionFilter == ActivateProfileHelper.ZENMODE_ALL) {
+            if (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) {
                 switch (ringerMode) {
                     case AudioManager.RINGER_MODE_NORMAL:
                         if (vibrationIsOn(context, audioManager))
@@ -81,7 +81,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
                 pRingerMode = 5;
         }
         else {
-            if ((android.os.Build.VERSION.SDK_INT < 21) || (interruptionFilter == ActivateProfileHelper.ZENMODE_ALL)) {
+            if ((android.os.Build.VERSION.SDK_INT < 21) || (systemZenMode == ActivateProfileHelper.ZENMODE_ALL)) {
                 switch (ringerMode) {
                     case AudioManager.RINGER_MODE_NORMAL:
                         if (vibrationIsOn(context, audioManager))

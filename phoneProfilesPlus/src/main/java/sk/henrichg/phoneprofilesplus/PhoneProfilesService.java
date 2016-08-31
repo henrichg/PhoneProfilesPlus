@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +38,7 @@ public class PhoneProfilesService extends Service
     //private final BluetoothStateChangedBroadcastReceiver bluetoothStateChangedReceiver = new BluetoothStateChangedBroadcastReceiver();
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
+    private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
 
@@ -154,6 +156,14 @@ public class PhoneProfilesService extends Service
             getApplicationContext().registerReceiver(powerSaveModeReceiver, intentFilter10);
         }
 
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
+            IntentFilter intentFilter11 = new IntentFilter();
+            intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
+            getApplicationContext().registerReceiver(interruptionFilterChangedReceiver, intentFilter11);
+        }
+
+
         /*
         // receivers for system date and time change
         // events must by restarted
@@ -214,6 +224,8 @@ public class PhoneProfilesService extends Service
             getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
         if (android.os.Build.VERSION.SDK_INT >= 21)
             getApplicationContext().unregisterReceiver(powerSaveModeReceiver);
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            getApplicationContext().unregisterReceiver(interruptionFilterChangedReceiver);
 
         //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(this);

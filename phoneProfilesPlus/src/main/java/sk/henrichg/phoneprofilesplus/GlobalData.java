@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -48,16 +50,18 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
-                                         +"|GrantPermissionActivity.onStart"
-                                         +"|GrantPermissionActivity.requestPermissions"
-                                         +"|GrantPermissionActivity.finishGrant"
-                                         +"|Permissions.grantProfilePermissions"
+                                         +"|InterruptionFilterChangedBroadcastReceiver"
+
+                                         //+"|GrantPermissionActivity.onStart"
+                                         //+"|GrantPermissionActivity.requestPermissions"
+                                         //+"|GrantPermissionActivity.finishGrant"
+                                         //+"|Permissions.grantProfilePermissions"
 
                                          //+"|GlobalData.isRooted"
                                          //+"|GlobalData.grantRoot"
@@ -2008,6 +2012,46 @@ public class GlobalData extends Application {
         do {
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < ms);
+    }
+
+    public static boolean canChangeZenMode(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 24)
+            return Permissions.checkAccessNotificationPolicy(context);
+        if ((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT <= 23))
+            return PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
+        return false;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static int getSystemZenMode(Context context, int defaultValue) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            int interuptionFilter = mNotificationManager.getCurrentInterruptionFilter();
+            switch (interuptionFilter) {
+                case NotificationManager.INTERRUPTION_FILTER_ALL:
+                    return ActivateProfileHelper.ZENMODE_ALL;
+                case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
+                    return ActivateProfileHelper.ZENMODE_PRIORITY;
+                case NotificationManager.INTERRUPTION_FILTER_NONE:
+                    return ActivateProfileHelper.ZENMODE_NONE;
+                case NotificationManager.INTERRUPTION_FILTER_ALARMS:
+                    return ActivateProfileHelper.ZENMODE_ALARMS;
+            }
+        }
+        if ((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) {
+            int interuptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);;
+            switch (interuptionFilter) {
+                case 0:
+                    return ActivateProfileHelper.ZENMODE_ALL;
+                case 1:
+                    return ActivateProfileHelper.ZENMODE_PRIORITY;
+                case 2:
+                    return ActivateProfileHelper.ZENMODE_NONE;
+                case 3:
+                    return ActivateProfileHelper.ZENMODE_ALARMS;
+            }
+        }
+        return defaultValue;
     }
 
 }

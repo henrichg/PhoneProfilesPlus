@@ -50,7 +50,8 @@
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
-    <!--<uses-permission android:name="android.permission.USE_SIP"/> -->
+    <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
+
 
     <!--
     <android:uses-permission
@@ -98,8 +99,8 @@
     <application
         android:name=".GlobalData"
         android:allowBackup="true"
+        android:backupAgent=".PhoneProfilesBackupAgent"
         android:fullBackupContent="@xml/phoneprofiles_backup_scheme"
-        android:backupAgent="PhoneProfilesBackupAgent"
         android:fullBackupOnly="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -120,7 +121,7 @@
         <!-- Google Backup key -->
         <meta-data
             android:name="com.google.android.backup.api_key"
-            android:value="AEdPqrEAAAAIP7KUKJY6Yrqkov5SWxTVUdqPJvIT8OHO5MeQKw" />
+            android:value="AEdPqrEAAAAIP7KUKJY6Yrqkov5SWxTVUdqPJvIT8OHO5MeQKw"/>
 
         <activity
             android:name=".LauncherActivity"
@@ -689,14 +690,21 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        <!--<receiver
+        <!--
+        <receiver
             android:name=".SIPCallBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL"/>
             </intent-filter>
-        </receiver>-->
+        </receiver>
+        -->
+        <receiver
+            android:name=".InterruptionFilterChangedBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
 
-            int zenMode = Settings.Global.getInt(appContext.getContentResolver(), "zen_mode", ActivateProfileHelper.ZENMODE_ALL);
+            int zenMode = GlobalData.getSystemZenMode(context, ActivateProfileHelper.ZENMODE_ALL);
             //Log.e("AlarmClockBroadcastReceiver", "zen_mode="+zenMode);
 
             if (zenMode != ActivateProfileHelper.ZENMODE_ALL) {

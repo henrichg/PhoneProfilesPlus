@@ -6019,12 +6019,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if (Integer.parseInt(cursor.getString(9)) == 5) {
-                            /*boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
-                                    (PPNotificationListenerService.isNotificationListenerServiceEnabled(context) ||
-                                            (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
-                                    );*/
-                        boolean notRemove = (android.os.Build.VERSION.SDK_INT >= 21) &&
-                                PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
+                        boolean notRemove = GlobalData.canChangeZenMode(context);
                         if (!notRemove) {
                             int zenMode = cursor.getInt(12);
                             int ringerMode = 0;

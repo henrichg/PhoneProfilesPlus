@@ -108,8 +108,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                      (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
                     );*/
-            final boolean canEnableZenMode =
-                    PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
+            final boolean canEnableZenMode = GlobalData.canChangeZenMode(context.getApplicationContext());
 
             Preference zenModePreference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
             if (zenModePreference != null) {
@@ -119,15 +118,20 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
             Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
             if (notificationAccessPreference != null) {
-                //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                        startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
-                        return false;
-                    }
-                });
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
+                    preferenceCategory.removePreference(notificationAccessPreference);
+                } else {
+                    //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                    notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                            startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                            return false;
+                        }
+                    });
+                }
             }
 
             Preference volumeUnlinkPreference = prefMng.findPreference(PREF_UNLINK_VOLUMES_APP_PREFERENCES);
@@ -150,8 +154,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                                     (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
                             );*/
-                        final boolean canEnableZenMode =
-                                PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
+                        final boolean canEnableZenMode = GlobalData.canChangeZenMode(context.getApplicationContext());
 
                         Preference zenModePreference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
 
@@ -656,8 +659,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                          (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
                         );*/
-                final boolean canEnableZenMode =
-                        PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext());
+                final boolean canEnableZenMode = GlobalData.canChangeZenMode(context.getApplicationContext());
 
                 if (!canEnableZenMode)
                 {

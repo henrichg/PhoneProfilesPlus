@@ -70,8 +70,8 @@ public class FirstStartService extends IntentService {
         GlobalData.setRingerVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_RING));
         GlobalData.setNotificationVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
         RingerModeChangeReceiver.setRingerMode(context, audioManager);
-        if (android.os.Build.VERSION.SDK_INT >= 21)
-            PPNotificationListenerService.setZenMode(context, audioManager);
+        PPNotificationListenerService.setZenMode(context, audioManager);
+        InterruptionFilterChangedBroadcastReceiver.setZenMode(context, audioManager);
 
         GlobalData.setActivatedProfileForDuration(context, 0);
         GlobalData.setApplicationInForeground(context, "");
