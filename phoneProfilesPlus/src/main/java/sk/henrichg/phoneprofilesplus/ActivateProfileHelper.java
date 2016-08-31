@@ -576,7 +576,7 @@ public class ActivateProfileHelper {
             int _ringerMode = audioManager.getRingerMode();
             GlobalData.logE("ActivateProfileHelper.setZenMode", "_ringerMode=" + _ringerMode);
 
-            if ((zenMode != ZENMODE_SILENT) && GlobalData.canChangeZenMode(context)) {
+            if ((zenMode != ZENMODE_SILENT) && GlobalData.canChangeZenMode(context, false)) {
                 audioManager.setRingerMode(ringerMode);
                 //try { Thread.sleep(500); } catch (InterruptedException e) { }
                 //SystemClock.sleep(500);

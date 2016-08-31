@@ -6019,7 +6019,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if (Integer.parseInt(cursor.getString(9)) == 5) {
-                        boolean notRemove = GlobalData.canChangeZenMode(context);
+                        boolean notRemove = GlobalData.canChangeZenMode(context, true);
                         if (!notRemove) {
                             int zenMode = cursor.getInt(12);
                             int ringerMode = 0;

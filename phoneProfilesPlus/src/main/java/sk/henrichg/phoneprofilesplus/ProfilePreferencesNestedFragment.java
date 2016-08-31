@@ -108,7 +108,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                      (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
                     );*/
-            final boolean canEnableZenMode = GlobalData.canChangeZenMode(context.getApplicationContext());
+            final boolean canEnableZenMode = GlobalData.canChangeZenMode(context.getApplicationContext(), true);
 
             Preference zenModePreference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
             if (zenModePreference != null) {
@@ -154,7 +154,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                                     (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
                             );*/
-                        final boolean canEnableZenMode = GlobalData.canChangeZenMode(context.getApplicationContext());
+                        final boolean canEnableZenMode = GlobalData.canChangeZenMode(context.getApplicationContext(), true);
 
                         Preference zenModePreference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
 
@@ -659,7 +659,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                          (GlobalData.isRooted(false) && GlobalData.settingsBinaryExists())
                         );*/
-                final boolean canEnableZenMode = GlobalData.canChangeZenMode(context.getApplicationContext());
+                final boolean canEnableZenMode = GlobalData.canChangeZenMode(context.getApplicationContext(), true);
 
                 if (!canEnableZenMode)
                 {
