@@ -278,10 +278,10 @@ public class EditorProfileListFragment extends Fragment {
             {
                 // no profiles in DB, generate default profiles and events
 
-                profileList = dataWrapper.getDefaultProfileList();
+                profileList = dataWrapper.getPredefinedProfileList();
                 defaultProfilesGenerated = true;
 
-                dataWrapper.generateDefaultEventList();
+                dataWrapper.generatePredefinedEventList();
                 defaultEventsGenerated = true;
             }
             // sort list

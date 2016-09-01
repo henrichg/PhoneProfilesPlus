@@ -181,7 +181,7 @@ public class DataWrapper {
         return String.valueOf(dValue.intValue());
     }
 
-    public Profile getDefaultProfile(int index, boolean saveToDB) {
+    public Profile getPredefinedProfile(int index, boolean saveToDB) {
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         int	maximumValueRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
         int	maximumValueNotification = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
@@ -334,13 +334,13 @@ public class DataWrapper {
         return profile;
     }
 
-    public List<Profile>  getDefaultProfileList()
+    public List<Profile>  getPredefinedProfileList()
     {
         invalidateProfileList();
         getDatabaseHandler().deleteAllProfiles();
 
         for (int index = 0; index < 6; index++)
-            getDefaultProfile(index, true);
+            getPredefinedProfile(index, true);
 
         return getProfileList();
     }
@@ -465,7 +465,7 @@ public class DataWrapper {
         Profile profile = getProfileById(profile_id, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
-                startupSource, interactive, null, true)) {
+                startupSource, interactive, null, true, false)) {
             getActivateProfileHelper().initialize(this, null, context);
             _activateProfile(profile, merged, startupSource, interactive, null, log);
         }
@@ -926,7 +926,7 @@ public class DataWrapper {
         }
     }
 
-    public Event getDefaultEvent(int index, boolean saveToDB) {
+    public Event getPredefinedEvent(int index, boolean saveToDB) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
 
@@ -1091,13 +1091,13 @@ public class DataWrapper {
         return event;
     }
 
-    public void generateDefaultEventList()
+    public void generatePredefinedEventList()
     {
         invalidateEventList();
         getDatabaseHandler().deleteAllEvents();
 
         for (int index = 0; index < 5; index++)
-            getDefaultEvent(index, true);
+            getPredefinedEvent(index, true);
     }
 
 
@@ -1303,7 +1303,7 @@ public class DataWrapper {
                 public void onClick(DialogInterface dialog, int which) {
                     if (Permissions.grantProfilePermissions(context, _profile, false, false,
                             forGUI, monochrome, monochromeValue,
-                            _startupSource, _interactive, _activity, true)) {
+                            _startupSource, _interactive, _activity, true, false)) {
                         if (_profile._askForDuration) {
                             FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
                                     _interactive, true);
@@ -1352,12 +1352,12 @@ public class DataWrapper {
 
                 granted = Permissions.grantProfilePermissions(context, profile, false, false,
                         forGUI, monochrome, monochromeValue,
-                        startupSource, interactive, activity, true);
+                        startupSource, interactive, activity, true, false);
             }
             else
                 granted = Permissions.grantProfilePermissions(context, profile, false, true,
                                         forGUI, monochrome, monochromeValue,
-                                        startupSource, interactive, null, true);
+                                        startupSource, interactive, null, true, false);
             if (granted) {
                 if (profile._askForDuration && interactive) {
                     FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this, startupSource,

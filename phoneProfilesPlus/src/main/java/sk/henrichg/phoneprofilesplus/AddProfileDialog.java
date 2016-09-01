@@ -41,7 +41,7 @@ public class AddProfileDialog
         profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
         profileList.add(profile);
         for (int index = 0; index < 6; index++) {
-            profile = profileListFragment.dataWrapper.getDefaultProfile(index, false);
+            profile = profileListFragment.dataWrapper.getPredefinedProfile(index, false);
             profile.generateIconBitmap(context, monochrome, monochromeValue);
             profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             profileList.add(profile);

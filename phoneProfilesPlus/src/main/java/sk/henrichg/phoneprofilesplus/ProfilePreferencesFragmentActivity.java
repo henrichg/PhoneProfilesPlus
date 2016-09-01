@@ -174,7 +174,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
                         GlobalData.PROFILE_ICON_DEFAULT, 0);
             }
             else {
-                profile = dataWrapper.getDefaultProfile(predefinedProfileIndex-1, false);
+                profile = dataWrapper.getPredefinedProfile(predefinedProfileIndex-1, false);
             }
             profile._showInActivator = true;
             showSaveMenu = true;

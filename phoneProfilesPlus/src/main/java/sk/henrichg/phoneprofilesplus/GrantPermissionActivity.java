@@ -39,6 +39,7 @@ public class GrantPermissionActivity extends Activity {
     private boolean log;
     private String applicationDataPath;
     private long event_id;
+    private boolean onlyGrant;
 
     private Profile profile;
     private Event event;
@@ -77,6 +78,7 @@ public class GrantPermissionActivity extends Activity {
         interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
         log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
+        onlyGrant = intent.getBooleanExtra(Permissions.EXTRA_ONLY_GRANT, false);
 
         event_id = intent.getLongExtra(GlobalData.EXTRA_EVENT_ID, 0);
 
@@ -773,14 +775,15 @@ public class GrantPermissionActivity extends Activity {
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
-            if ((Permissions.profileActivationActivity != null) && (profile._askForDuration)) {
-                FastAccessDurationDialog dlg = new FastAccessDurationDialog(Permissions.profileActivationActivity,
-                        profile, dataWrapper, startupSource, interactive, log);
-                dlg.show();
+            if (!onlyGrant) {
+                if ((Permissions.profileActivationActivity != null) && (profile._askForDuration)) {
+                    FastAccessDurationDialog dlg = new FastAccessDurationDialog(Permissions.profileActivationActivity,
+                            profile, dataWrapper, startupSource, interactive, log);
+                    dlg.show();
+                } else
+                    dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
+                            Permissions.profileActivationActivity, log);
             }
-            else
-                dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
-                        Permissions.profileActivationActivity, log);
         }
         Permissions.releaseReferences();
         if (mergedNotification)
@@ -788,7 +791,7 @@ public class GrantPermissionActivity extends Activity {
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             Profile activatedProfile = dataWrapper.getActivatedProfile();
-        if ((activatedProfile == null) || (activatedProfile._id == profile_id))
+            if ((activatedProfile == null) || (activatedProfile._id == profile_id))
                 activateProfileHelper.showNotification(profile);
             activateProfileHelper.updateWidget();
 

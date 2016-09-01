@@ -40,7 +40,7 @@ public class AddEventDialog
         eventList.add(event);
         boolean profileNotExists = false;
         for (int index = 0; index < 6; index++) {
-            event = eventListFragment.dataWrapper.getDefaultEvent(index, false);
+            event = eventListFragment.dataWrapper.getPredefinedEvent(index, false);
             //profile.generateIconBitmap(context, monochrome, monochromeValue);
             //profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             if (event._fkProfileStart == 0)

@@ -170,7 +170,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             if (predefinedEventIndex == 0)
                 event = dataWrapper.getNoinitializedEvent(context.getString(R.string.event_name_default));
             else
-                event = dataWrapper.getDefaultEvent(predefinedEventIndex-1, false);
+                event = dataWrapper.getPredefinedEvent(predefinedEventIndex-1, false);
             showSaveMenu = true;
         }
         else

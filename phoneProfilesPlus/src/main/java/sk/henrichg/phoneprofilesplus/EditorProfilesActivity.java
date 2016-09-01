@@ -913,12 +913,20 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     // redraw list fragment , notifications, widgets after finish ProfilePreferencesFragmentActivity
                     redrawProfileListFragment(profile, newProfileMode, predefinedProfileIndex);
+
+                    Profile mappedProfile = GlobalData.getMappedProfile(profile, getApplicationContext());
+                    Permissions.grantProfilePermissions(getApplicationContext(), mappedProfile, false, false,
+                            true, false, 0, GlobalData.STARTUP_SOURCE_EDITOR, true, this, true, true);
                 }
                 else
                 if (profile_id == GlobalData.DEFAULT_PROFILE_ID)
                 {
                     // refresh activity for changes of default profile
                     GUIData.reloadActivity(this, false);
+
+                    Profile defaultProfile = GlobalData.getDefaultProfile(getApplicationContext());
+                    Permissions.grantProfilePermissions(getApplicationContext(), defaultProfile, false, false,
+                            true, false, 0, GlobalData.STARTUP_SOURCE_EDITOR, true, this, true, true);
                 }
             }
         }
@@ -938,6 +946,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     // redraw list fragment , notifications, widgets after finish EventPreferencesFragmentActivity
                     redrawEventListFragment(event, newEventMode, predefinedEventIndex);
+
+                    Permissions.grantEventPermissions(getApplicationContext(), event, false);
                 }
             }
         }
