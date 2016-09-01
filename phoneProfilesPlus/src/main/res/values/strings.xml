@@ -774,4 +774,5 @@
     <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again for this?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Do not disturb access</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>
+    <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Add PhoneProfilesPlus to \"Not optimized\", when you encountered problems with profile activation from events, if you leaves a device unplugged and stationary for a period of time, with the screen off.</string>
 </resources>

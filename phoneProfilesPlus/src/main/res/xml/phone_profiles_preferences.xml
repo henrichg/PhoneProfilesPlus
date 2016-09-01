@@ -88,7 +88,7 @@
         <Preference
             android:key="applicationBatteryOptimization"
             android:title="@string/phone_profiles_pref_applicationBatteryOptimization"
-            android:summary="@string/empty_string"
+            android:summary="@string/phone_profiles_pref_applicationBatteryOptimization_summary"
             android:widgetLayout="@layout/start_activity_preference">
         </Preference>
         <sk.henrichg.phoneprofilesplus.MaterialListPreference

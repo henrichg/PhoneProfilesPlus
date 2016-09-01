@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
@@ -870,6 +871,26 @@ public class ActivateProfileHelper {
         }
     }
 
+    // not working, returns only calling process :-/
+    // http://stackoverflow.com/questions/30619349/android-5-1-1-and-above-getrunningappprocesses-returns-my-application-packag
+    /*private boolean isRunning(List<ActivityManager.RunningAppProcessInfo> procInfos, String packageName) {
+        GlobalData.logE("ActivateProfileHelper.executeForRunApplications", "procInfos.size()="+procInfos.size());
+        for(int i = 0; i < procInfos.size(); i++)
+        {
+            ActivityManager.RunningAppProcessInfo procInfo = procInfos.get(i);
+            GlobalData.logE("ActivateProfileHelper.executeForRunApplications", "procInfo.processName="+procInfo.processName);
+            if (procInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                GlobalData.logE("ActivateProfileHelper.executeForRunApplications", "procInfo.importance=IMPORTANCE_FOREGROUND");
+                for (String pkgName : procInfo.pkgList) {
+                    GlobalData.logE("ActivateProfileHelper.executeForRunApplications", "pkgName="+pkgName);
+                    if (pkgName.equals(packageName))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }*/
+
     public void executeForRunApplications(Profile profile) {
         if (profile._deviceRunApplicationChange == 1)
         {
@@ -877,23 +898,32 @@ public class ActivateProfileHelper {
             Intent intent;
             PackageManager packageManager = context.getPackageManager();
 
+            ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
+
             for (int i = 0; i < splits.length; i++) {
                 //Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
                 if (!ApplicationsCache.isShortcut(splits[i])) {
                     //Log.d("ActivateProfileHelper.executeForRunApplications","no shortcut");
-                    intent = packageManager.getLaunchIntentForPackage(ApplicationsCache.getPackageName(splits[i]));
-                    //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                    String packageName = ApplicationsCache.getPackageName(splits[i]);
+                    intent = packageManager.getLaunchIntentForPackage(packageName);
                     if (intent != null) {
-                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        try {
-                            context.startActivity(intent);
-                        } catch (Exception e) {
-                            System.out.println(e);
-                        }
-                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(1000);
-                        GlobalData.sleep(1000);
+                        //if (!isRunning(procInfos, packageName)) {
+                        //    GlobalData.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
+                            //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                context.startActivity(intent);
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+                            //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(1000);
+                            GlobalData.sleep(1000);
+                        //}
+                        //else
+                        //    GlobalData.logE("ActivateProfileHelper.executeForRunApplications", packageName+": running");
                     }
                 }
                 else {
@@ -905,16 +935,23 @@ public class ActivateProfileHelper {
                         if (shortcut != null) {
                             try {
                                 intent = Intent.parseUri(shortcut._intent, 0);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
-                                try {
-                                    context.startActivity(intent);
-                                } catch (Exception e) {
-                                    System.out.println(e);
+                                if (intent != null) {
+                                    String packageName = intent.getPackage();
+                                    //if (!isRunning(procInfos, packageName)) {
+                                    //    GlobalData.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": not running");
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                                        try {
+                                            context.startActivity(intent);
+                                        } catch (Exception e) {
+                                            System.out.println(e);
+                                        }
+                                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                        //SystemClock.sleep(1000);
+                                        GlobalData.sleep(1000);
+                                    //} else
+                                    //    GlobalData.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
                                 }
-                                //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                                //SystemClock.sleep(1000);
-                                GlobalData.sleep(1000);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
