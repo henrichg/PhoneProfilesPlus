@@ -598,6 +598,7 @@ public class Permissions {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             List<PermissionType> permissions = checkProfilePermissions(context, profile);
             GlobalData.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
+            GlobalData.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
             if (permissions.size() > 0) {
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

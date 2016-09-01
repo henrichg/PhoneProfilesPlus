@@ -302,6 +302,9 @@ public class GrantPermissionActivity extends Activity {
                 intent.putExtra(Permissions.EXTRA_GRANT_TYPE, grantType);
                 intent.putParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES, (ArrayList<Permissions.PermissionType>) permissions);
                 intent.putExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
+                intent.putExtra(Permissions.EXTRA_INTERACTIVE, interactive);
+                intent.putExtra(Permissions.EXTRA_LOG, log);
 
                 PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
@@ -771,6 +774,8 @@ public class GrantPermissionActivity extends Activity {
             // Profile permission
 
             GlobalData.logE("GrantPermissionActivity.finishGrant", "profile");
+            GlobalData.logE("GrantPermissionActivity.finishGrant", "startupSource="+startupSource);
+            GlobalData.logE("GrantPermissionActivity.finishGrant", "interactive="+interactive);
 
             //finishAffinity();
             finish();
