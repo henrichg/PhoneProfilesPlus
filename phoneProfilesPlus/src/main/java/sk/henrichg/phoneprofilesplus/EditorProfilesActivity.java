@@ -576,6 +576,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         ActivateProfileHelper.screenTimeoutUnlock(context);
         ActivateProfileHelper.removeBrightnessView(context);
 
+        GlobalData.initRoot();
     }
 
     @Override
