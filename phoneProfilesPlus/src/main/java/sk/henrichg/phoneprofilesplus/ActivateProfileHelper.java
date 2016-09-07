@@ -21,6 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
@@ -857,6 +858,11 @@ public class ActivateProfileHelper {
             display.getMetrics(displayMetrics);
             int height = displayMetrics.heightPixels;
             int width = displayMetrics.widthPixels << 1; // best wallpaper width is twice screen width
+            if (android.os.Build.VERSION.SDK_INT >= 24) {
+                if (profile._deviceWallpaperFor == 2)
+                    // for lock screen no double width
+                    width = displayMetrics.widthPixels;
+            }
             Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmap(profile.getDeviceWallpaperIdentifier(), width, height, context);
             if (decodedSampleBitmap != null)
             {
@@ -865,11 +871,20 @@ public class ActivateProfileHelper {
                 try {
                     if (android.os.Build.VERSION.SDK_INT >= 24) {
                         int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
+                        Rect visibleCropHint = null;
                         if (profile._deviceWallpaperFor == 1)
                             flags = WallpaperManager.FLAG_SYSTEM;
-                        if (profile._deviceWallpaperFor == 2)
+                        if (profile._deviceWallpaperFor == 2) {
                             flags = WallpaperManager.FLAG_LOCK;
-                        int ret = wallpaperManager.setBitmap(decodedSampleBitmap, null, true, flags);
+                            int left = 0;
+                            int right = decodedSampleBitmap.getWidth();
+                            if (decodedSampleBitmap.getWidth() > displayMetrics.widthPixels) {
+                                left = (decodedSampleBitmap.getWidth() / 2) - (displayMetrics.widthPixels / 2);
+                                right = (decodedSampleBitmap.getWidth() / 2) + (displayMetrics.widthPixels / 2);
+                            }
+                            visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
+                        }
+                        int ret = wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
                     }
                     else
                         wallpaperManager.setBitmap(decodedSampleBitmap);
