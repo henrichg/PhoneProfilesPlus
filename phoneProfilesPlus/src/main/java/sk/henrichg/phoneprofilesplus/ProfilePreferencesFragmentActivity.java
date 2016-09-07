@@ -230,7 +230,8 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
                     origProfile._askForDuration,
                     origProfile._deviceNetworkType,
                     origProfile._notificationLed,
-                    origProfile._vibrateWhenRinging);
+                    origProfile._vibrateWhenRinging,
+                    origProfile._deviceWallpaperFor);
             showSaveMenu = true;
         }
         else
@@ -316,6 +317,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
             editor.putString(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, Integer.toString(profile._deviceNetworkType));
             editor.putString(GlobalData.PREF_PROFILE_NOTIFICATION_LED, Integer.toString(profile._notificationLed));
             editor.putString(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, Integer.toString(profile._vibrateWhenRinging));
+            editor.putString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(profile._deviceWallpaperFor));
             editor.commit();
         }
     }
@@ -377,10 +379,14 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, ""));
         profile._deviceBrightness = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, "");
         profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, ""));
-        if (profile._deviceWallpaperChange == 1)
+        if (profile._deviceWallpaperChange == 1) {
             profile._deviceWallpaper = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER, "");
-        else
+            profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR, ""));
+        }
+        else {
             profile._deviceWallpaper = "-|0";
+            profile._deviceWallpaperFor = 0;
+        }
         profile._deviceMobileData = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, ""));
         profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, ""));
         profile._deviceGPS = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_GPS, ""));

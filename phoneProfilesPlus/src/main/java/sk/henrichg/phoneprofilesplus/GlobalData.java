@@ -175,6 +175,7 @@ public class GlobalData extends Application {
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE = "prf_pref_deviceNetworkType";
     static final String PREF_PROFILE_NOTIFICATION_LED = "prf_pref_notificationLed";
     static final String PREF_PROFILE_VIBRATE_WHEN_RINGING = "prf_pref_vibrateWhenRinging";
+    static final String PREF_PROFILE_DEVICE_WALLPAPER_FOR = "prf_pref_deviceWallpaperFor";
 
     // no preferences, bud checked from isPreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
@@ -663,7 +664,8 @@ public class GlobalData extends Application {
                 x.getKey().equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
                 x.getKey().equals(PREF_PROFILE_NOTIFICATION_LED) ||
-                x.getKey().equals(PREF_PROFILE_VIBRATE_WHEN_RINGING))
+                x.getKey().equals(PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
+                x.getKey().equals(PREF_PROFILE_DEVICE_WALLPAPER_FOR))
             {
                 if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
                 else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
@@ -739,6 +741,7 @@ public class GlobalData extends Application {
         profile._deviceNetworkType = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
         profile._notificationLed = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_NOTIFICATION_LED, "0"));
         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
+        profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0"));
 
         return profile;
     }
@@ -796,7 +799,8 @@ public class GlobalData extends Application {
                                profile._askForDuration,
                                profile._deviceNetworkType,
                                profile._notificationLed,
-                               profile._vibrateWhenRinging);
+                               profile._vibrateWhenRinging,
+                               profile._deviceWallpaperFor);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {
@@ -866,6 +870,7 @@ public class GlobalData extends Application {
             {
                 mappedProfile._deviceWallpaperChange = defaultProfile._deviceWallpaperChange;
                 mappedProfile._deviceWallpaper = defaultProfile._deviceWallpaper;
+                mappedProfile._deviceWallpaperFor = defaultProfile._deviceWallpaperFor;
             }
             if (profile._volumeSpeakerPhone == 99)
                 mappedProfile._volumeSpeakerPhone = defaultProfile._volumeSpeakerPhone;

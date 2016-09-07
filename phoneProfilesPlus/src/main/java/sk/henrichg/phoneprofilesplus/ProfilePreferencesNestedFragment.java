@@ -1002,6 +1002,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
                 preference.setEnabled(enabled);
+            preference = prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {
