@@ -36,6 +36,8 @@ dependencies {
     compile project(':dragSortListView')
     compile project(':materialPreferences')
     compile files('libs/RootTools.jar')
+    provided files('libs/hidden-apis.jar')
+    provided files('libs/hidden-apis_2.jar')
     compile 'com.android.support:support-core-ui:24.2.0'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:gridlayout-v7:24.2.0'

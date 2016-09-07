@@ -863,7 +863,14 @@ public class ActivateProfileHelper {
                 // set wallpaper
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
                 try {
-                    wallpaperManager.setBitmap(decodedSampleBitmap);
+                    if (android.os.Build.VERSION.SDK_INT >= 24) {
+                        int flags = WallpaperManager.FLAG_SYSTEM;
+                        if (profile._deviceWallpaperFor == 1)
+                            flags = WallpaperManager.FLAG_LOCK;
+                        int ret = wallpaperManager.setBitmap(decodedSampleBitmap, null, true, flags);
+                    }
+                    else
+                        wallpaperManager.setBitmap(decodedSampleBitmap);
                 } catch (IOException e) {
                     Log.e("ActivateProfileHelper.executeForWallpaper", "Cannot set wallpaper. Image="+profile.getDeviceWallpaperIdentifier());
                 }
