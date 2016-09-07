@@ -1648,6 +1648,11 @@ public class GlobalData extends Application {
                     }
                     //grantChecking = false;
                 }
+                else {
+                    GlobalData.logE("GlobalData.grantRoot", "not rooted");
+                    grantChecked = true;
+                    rootGranted = false;
+                }
             }
         }
         return rootGranted;
