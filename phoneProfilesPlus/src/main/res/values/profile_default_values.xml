@@ -44,4 +44,5 @@
     <string name="prf_pref_deviceNetworkType">0</string>
     <string name="prf_pref_notificationLed">0</string>
     <string name="prf_pref_vibrateWhenRinging">0</string>
+    <string name="prf_pref_deviceWallpaperFor">0</string>
 </resources>

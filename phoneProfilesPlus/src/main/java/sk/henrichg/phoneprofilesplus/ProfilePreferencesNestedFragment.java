@@ -587,8 +587,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
             key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
-                //key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
-                key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)) {
+            //key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
+            key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)) {
             //key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER)) {
             String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
             if (!title.isEmpty()) {
@@ -854,7 +854,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             key.equals(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
             key.equals(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
             key.equals(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
-            key.equals(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING))
+            key.equals(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
+            key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR))
         {
             String sValue = value.toString();
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);

@@ -144,6 +144,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);
             setSummary(GlobalData.PREF_PROFILE_NOTIFICATION_LED);
             setSummary(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            setSummary(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
 
             // disable depended preferences
             disableDependedPref(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);

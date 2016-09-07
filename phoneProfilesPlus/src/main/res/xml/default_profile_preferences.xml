@@ -366,5 +366,13 @@
             android:key="prf_pref_deviceWallpaper"
             android:title="@string/profile_preferences_deviceWallpaper"
             henrichg:imageSource="file" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/profile_preferences_deviceWallpaperFor"
+            android:summary="@string/array_pref_device_wallpaper_homescreen"
+            android:key="prf_pref_deviceWallpaperFor"
+            android:defaultValue="@string/prf_pref_deviceWallpaperFor"
+            android:entries="@array/wallpaperForDPArray"
+            android:entryValues="@array/wallpaperForDPValues"
+            app:useStockLayout="true" />
     </PreferenceScreen>
 </PreferenceScreen>    
