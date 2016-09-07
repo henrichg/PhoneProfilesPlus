@@ -205,6 +205,13 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setSummary(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
         }
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            Preference preference = (Preference) prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_othersCategory");
+                preferenceCategory.removePreference(preference);
+            }
+        }
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
         {
             ListPreference networkTypePreference = (ListPreference) prefMng.findPreference(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);

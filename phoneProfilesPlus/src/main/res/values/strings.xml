@@ -778,4 +778,5 @@
     <string name="profile_preferences_deviceWallpaperFor">Set wallpaper for</string>
     <string name="array_pref_device_wallpaper_homescreen">Home screen</string>
     <string name="array_pref_device_wallpaper_lockscreen">Lock screen</string>
+    <string name="array_pref_device_wallpaper_all">Home and lock screen</string>
 </resources>

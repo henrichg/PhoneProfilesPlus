@@ -864,8 +864,10 @@ public class ActivateProfileHelper {
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(context);
                 try {
                     if (android.os.Build.VERSION.SDK_INT >= 24) {
-                        int flags = WallpaperManager.FLAG_SYSTEM;
+                        int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
                         if (profile._deviceWallpaperFor == 1)
+                            flags = WallpaperManager.FLAG_SYSTEM;
+                        if (profile._deviceWallpaperFor == 2)
                             flags = WallpaperManager.FLAG_LOCK;
                         int ret = wallpaperManager.setBitmap(decodedSampleBitmap, null, true, flags);
                     }
