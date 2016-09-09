@@ -27,6 +27,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -2295,10 +2296,11 @@ public class DataWrapper {
                     }
                     if (!lApplicationPassed) {
 
-                        boolean enabled = (GlobalData.getAccelerometerSensor(context) != null) &&
-                                          (GlobalData.getMagneticFieldSensor(context) != null);
+                        boolean enabledAccelerometer = GlobalData.getAccelerometerSensor(context) != null;
+                        boolean enabledMagneticField = GlobalData.getMagneticFieldSensor(context) != null;
+                        boolean enabledAll = (enabledAccelerometer) && (enabledMagneticField);
                         boolean lDisplayPassed = true;
-                        if (enabled) {
+                        if (enabledAccelerometer) {
                             if (!event._eventPreferencesOrientation._display.isEmpty()) {
                                 String[] splits = event._eventPreferencesOrientation._display.split("\\|");
                                 if (splits.length > 0) {
@@ -2318,7 +2320,7 @@ public class DataWrapper {
                         }
 
                         boolean lSidePassed = true;
-                        if (enabled) {
+                        if (enabledAll) {
                             if (!event._eventPreferencesOrientation._sides.isEmpty()) {
                                 String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
                                 if (splits.length > 0) {
@@ -2344,7 +2346,7 @@ public class DataWrapper {
                             }
                         }
 
-                        enabled = GlobalData.getProximitySensor(context) != null;
+                        boolean enabled = GlobalData.getProximitySensor(context) != null;
                         boolean lDistancePassed = true;
                         if (enabled) {
                             if (event._eventPreferencesOrientation._distance != 0) {
@@ -2354,9 +2356,9 @@ public class DataWrapper {
                             }
                         }
 
-                        //Log.d("**** DataWrapper.doEventService","lDisplayPassed="+lDisplayPassed);
-                        //Log.d("**** DataWrapper.doEventService","lSidePassed="+lSidePassed);
-                        //Log.d("**** DataWrapper.doEventService","lDistancePassed="+lDistancePassed);
+                        Log.d("**** DataWrapper.doEventService","lDisplayPassed="+lDisplayPassed);
+                        Log.d("**** DataWrapper.doEventService","lSidePassed="+lSidePassed);
+                        Log.d("**** DataWrapper.doEventService","lDistancePassed="+lDistancePassed);
 
                         orientationPassed = lDisplayPassed && lSidePassed && lDistancePassed;
                     }
