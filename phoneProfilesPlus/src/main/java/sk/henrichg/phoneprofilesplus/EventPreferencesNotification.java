@@ -198,16 +198,16 @@ public class EventPreferencesNotification extends EventPreferences {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
         if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable());
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
             preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 
     @Override
-    public boolean isRunnable()
+    public boolean isRunnable(Context context)
     {
 
-        boolean runable = super.isRunnable();
+        boolean runable = super.isRunnable(context);
 
         runable = runable && (!_applications.isEmpty());
 
@@ -292,7 +292,7 @@ public class EventPreferencesNotification extends EventPreferences {
 
         removeAlarm(context);
 
-        if (!(isRunnable() && _enabled))
+        if (!(isRunnable(context) && _enabled))
             return;
 
         setAlarm(computeAlarm(), context);

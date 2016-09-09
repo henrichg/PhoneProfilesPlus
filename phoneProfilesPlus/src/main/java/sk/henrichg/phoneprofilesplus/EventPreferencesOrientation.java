@@ -135,19 +135,21 @@ public class EventPreferencesOrientation extends EventPreferences {
             }
             descr = descr + selectedSides;
 
-            selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!this._sides.isEmpty() && !this._sides.equals("-")) {
-                String[] splits = this._sides.split("\\|");
-                String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
-                String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
-                selectedSides = "";
-                for (String s : splits) {
-                    if (!selectedSides.isEmpty())
-                        selectedSides = selectedSides + ", ";
-                    selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
+            if (GlobalData.getMagneticFieldSensor(context) != null) {
+                selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                if (!this._sides.isEmpty() && !this._sides.equals("-")) {
+                    String[] splits = this._sides.split("\\|");
+                    String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
+                    String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
+                    selectedSides = "";
+                    for (String s : splits) {
+                        if (!selectedSides.isEmpty())
+                            selectedSides = selectedSides + ", ";
+                        selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
+                    }
                 }
+                descr = descr + "; " + selectedSides;
             }
-            descr = descr + "; " + selectedSides;
 
             String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
             String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
@@ -197,12 +199,12 @@ public class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_DISPLAY)) {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value);
-            //GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_SIDES)) {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value);
-            //GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_DISTANCE))
         {
@@ -291,44 +293,51 @@ public class EventPreferencesOrientation extends EventPreferences {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CATEGORY);
         if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable());
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
             preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 
     @Override
-    public boolean isRunnable()
+    public boolean isRunnable(Context context)
     {
 
-        boolean runnable = super.isRunnable();
+        boolean runnable = super.isRunnable(context);
 
-        runnable = runnable && (!_display.isEmpty() || !_sides.isEmpty() || (_distance != 0));
+        if (GlobalData.getMagneticFieldSensor(context) != null)
+            runnable = runnable && (!_display.isEmpty() || !_sides.isEmpty() || (_distance != 0));
+        else
+            runnable = runnable && (!_display.isEmpty() || (_distance != 0));
 
         return runnable;
     }
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        boolean enabled = (GlobalData.getAccelerometerSensor(context) != null) &&
-                          (GlobalData.getMagneticFieldSensor(context) != null);
+        boolean enabledAccelerometer = GlobalData.getAccelerometerSensor(context) != null;
+        boolean enabledMagneticField = GlobalData.getMagneticFieldSensor(context) != null;
+        boolean enabledAll = (enabledAccelerometer) && (enabledMagneticField);
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
         if (preference != null) {
-            if (!enabled)
+            if (!enabledAccelerometer)
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
-            preference.setEnabled(enabled);
+            preference.setEnabled(enabledAccelerometer);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
-            if (!enabled)
+            if (!enabledAll)
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
-            preference.setEnabled(enabled);
+            preference.setEnabled(enabledAll);
         }
-        enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY);
+        boolean enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY);
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (preference != null) {
             if (!enabled)
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
-            preference.setEnabled(enabled);
+            else
+            if (!enabledMagneticField)
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
+            preference.setEnabled(enabledAccelerometer);
         }
         enabled = ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);

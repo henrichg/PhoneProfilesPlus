@@ -204,15 +204,15 @@ public class EventPreferencesBluetooth extends EventPreferences {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CATEGORY);
         if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable());
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
             preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 
     @Override
-    public boolean isRunnable()
+    public boolean isRunnable(Context context)
     {
-        return super.isRunnable() && (!this._adapterName.isEmpty());
+        return super.isRunnable(context) && (!this._adapterName.isEmpty());
     }
 
     @Override

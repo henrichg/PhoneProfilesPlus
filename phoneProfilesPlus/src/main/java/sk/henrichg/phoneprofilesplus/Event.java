@@ -335,7 +335,7 @@ public class Event {
         this._eventPreferencesOrientation.copyPreferences(fromEvent);
     }
 
-    public boolean isRunnable()
+    public boolean isRunnable(Context context)
     {
         boolean runnable = (this._fkProfileStart != 0);
         if (!(this._eventPreferencesTime._enabled ||
@@ -353,31 +353,31 @@ public class Event {
               this._eventPreferencesOrientation._enabled))
             runnable = false;
         if (this._eventPreferencesTime._enabled)
-            runnable = runnable && this._eventPreferencesTime.isRunnable();
+            runnable = runnable && this._eventPreferencesTime.isRunnable(context);
         if (this._eventPreferencesBattery._enabled)
-            runnable = runnable && this._eventPreferencesBattery.isRunnable();
+            runnable = runnable && this._eventPreferencesBattery.isRunnable(context);
         if (this._eventPreferencesCall._enabled)
-            runnable = runnable && this._eventPreferencesCall.isRunnable();
+            runnable = runnable && this._eventPreferencesCall.isRunnable(context);
         if (this._eventPreferencesPeripherals._enabled)
-            runnable = runnable && this._eventPreferencesPeripherals.isRunnable();
+            runnable = runnable && this._eventPreferencesPeripherals.isRunnable(context);
         if (this._eventPreferencesCalendar._enabled)
-            runnable = runnable && this._eventPreferencesCalendar.isRunnable();
+            runnable = runnable && this._eventPreferencesCalendar.isRunnable(context);
         if (this._eventPreferencesWifi._enabled)
-            runnable = runnable && this._eventPreferencesWifi.isRunnable();
+            runnable = runnable && this._eventPreferencesWifi.isRunnable(context);
         if (this._eventPreferencesScreen._enabled)
-            runnable = runnable && this._eventPreferencesScreen.isRunnable();
+            runnable = runnable && this._eventPreferencesScreen.isRunnable(context);
         if (this._eventPreferencesBluetooth._enabled)
-            runnable = runnable && this._eventPreferencesBluetooth.isRunnable();
+            runnable = runnable && this._eventPreferencesBluetooth.isRunnable(context);
         if (this._eventPreferencesSMS._enabled)
-            runnable = runnable && this._eventPreferencesSMS.isRunnable();
+            runnable = runnable && this._eventPreferencesSMS.isRunnable(context);
         if (this._eventPreferencesNotification._enabled)
-            runnable = runnable && this._eventPreferencesNotification.isRunnable();
+            runnable = runnable && this._eventPreferencesNotification.isRunnable(context);
         if (this._eventPreferencesApplication._enabled)
-            runnable = runnable && this._eventPreferencesApplication.isRunnable();
+            runnable = runnable && this._eventPreferencesApplication.isRunnable(context);
         if (this._eventPreferencesLocation._enabled)
-            runnable = runnable && this._eventPreferencesLocation.isRunnable();
+            runnable = runnable && this._eventPreferencesLocation.isRunnable(context);
         if (this._eventPreferencesOrientation._enabled)
-            runnable = runnable && this._eventPreferencesOrientation.isRunnable();
+            runnable = runnable && this._eventPreferencesOrientation.isRunnable(context);
         return runnable;
     }
 
@@ -414,7 +414,7 @@ public class Event {
         editor.commit();
     }
 
-    public void saveSharedPreferences(SharedPreferences preferences)
+    public void saveSharedPreferences(SharedPreferences preferences, Context context)
     {
         this._name = preferences.getString(PREF_EVENT_NAME, "");
         this._fkProfileStart = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_START, "0"));
@@ -455,7 +455,7 @@ public class Event {
         this._eventPreferencesLocation.saveSharedPreferences(preferences);
         this._eventPreferencesOrientation.saveSharedPreferences(preferences);
 
-        if (!this.isRunnable())
+        if (!this.isRunnable(context))
             this._status = ESTATUS_STOP;
     }
 
@@ -880,7 +880,7 @@ public class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable())
+        if (!this.isRunnable(dataWrapper.context))
             // event is not runnable, no pause it
             return;
 
@@ -1144,7 +1144,7 @@ public class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable())
+        if (!this.isRunnable(dataWrapper.context))
             // event is not runnable, no pause it
             return;
 
@@ -1382,7 +1382,7 @@ public class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable())
+        if (!this.isRunnable(dataWrapper.context))
             // event is not runnable, no pause it
             return;
 
@@ -1486,7 +1486,7 @@ public class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable())
+        if (!this.isRunnable(dataWrapper.context))
             // event is not runnable, no pause it
             return;
 

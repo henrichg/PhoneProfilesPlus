@@ -291,7 +291,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
         {
-            event.saveSharedPreferences(preferences);
+            event.saveSharedPreferences(preferences, dataWrapper.context);
 
             // add event into DB
             dataWrapper.getDatabaseHandler().addEvent(event);
@@ -304,7 +304,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         else
         if (event_id > 0)
         {
-            event.saveSharedPreferences(preferences);
+            event.saveSharedPreferences(preferences, dataWrapper.context);
 
             // udate event in DB
             dataWrapper.getDatabaseHandler().updateEvent(event);

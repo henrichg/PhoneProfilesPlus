@@ -300,7 +300,7 @@ public class EditorEventListAdapter extends BaseAdapter
                     holder.listItemRoot.setBackgroundResource(R.drawable.card);
             }
 
-            boolean isRunnable = event.isRunnable();
+            boolean isRunnable = event.isRunnable(dataWrapper.context);
             int statusRes = R.drawable.ic_event_status_stop_not_runnable;
             switch (eventStatus)
             {

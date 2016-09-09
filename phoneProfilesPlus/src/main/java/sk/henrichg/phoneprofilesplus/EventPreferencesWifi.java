@@ -160,15 +160,15 @@ public class EventPreferencesWifi extends EventPreferences {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY);
         if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable());
+            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
             preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
         }
     }
 
     @Override
-    public boolean isRunnable()
+    public boolean isRunnable(Context context)
     {
-        return super.isRunnable() && (!this._SSID.isEmpty());
+        return super.isRunnable(context) && (!this._SSID.isEmpty());
     }
 
     @Override
