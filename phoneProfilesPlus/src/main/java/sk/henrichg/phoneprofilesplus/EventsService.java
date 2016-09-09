@@ -72,9 +72,13 @@ public class EventsService extends IntentService
             oldRingtone = "";
         }
 
-        // first start of GeofenceScanner
+        // start of GeofenceScanner
         if (!GlobalData.isGeofenceScannerStarted())
             GlobalData.startGeofenceScanner(context);
+
+        // start of CellTowerScanner
+        if (!GlobalData.isPhoneStateStarted())
+            GlobalData.startPhoneStateScanner(context);
 
         if (!GlobalData.getGlobalEventsRuning(context)) {
             // events are globally stopped

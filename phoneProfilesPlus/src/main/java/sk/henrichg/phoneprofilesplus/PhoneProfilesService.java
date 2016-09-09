@@ -45,7 +45,7 @@ public class PhoneProfilesService extends Service
     //-----------------------
 
     public static SensorManager mSensorManager = null;
-    public static boolean mStarted = false;
+    public static boolean mStartedSensors = false;
 
     private int mEventCountSinceGZChanged = 0;
     private static final int MAX_COUNT_GZ_CHANGE = 5;
@@ -185,6 +185,8 @@ public class PhoneProfilesService extends Service
         // but will by stopped when events not exists
         GlobalData.startGeofenceScanner(getApplicationContext());
         GlobalData.startOrientationScanner(getApplicationContext());
+        GlobalData.startPhoneStateScanner(getApplicationContext());
+
 
         /*
         if (mSipManager != null) {
@@ -234,6 +236,9 @@ public class PhoneProfilesService extends Service
             getContentResolver().unregisterContentObserver(settingsContentObserver);
 
         GlobalData.stopGeofenceScanner();
+        GlobalData.stopOrientationScanner();
+        GlobalData.stopPhoneStateScanner();
+
         GlobalData.phoneProfilesService = null;
 
         stopSimulatingRingingCall();
@@ -266,7 +271,7 @@ public class PhoneProfilesService extends Service
         if (mSensorManager == null)
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        if (!mStarted) {
+        if (!mStartedSensors) {
 
             if (GlobalData.isPowerSaveMode && GlobalData.applicationEventOrientationScanInPowerSaveMode.equals("2"))
                 // start scanning in power save mode is not allowed
@@ -295,7 +300,7 @@ public class PhoneProfilesService extends Service
             }
             //Sensor orientation = GlobalData.getOrientationSensor(this);
             //GlobalData.logE("PhoneProfilesService.startListeningSensors","orientation="+orientation);
-            mStarted = true;
+            mStartedSensors = true;
         }
     }
 
@@ -304,7 +309,7 @@ public class PhoneProfilesService extends Service
             mSensorManager.unregisterListener(this);
             mSensorManager = null;
         }
-        mStarted = false;
+        mStartedSensors = false;
     }
 
     public void resetListeningSensors(boolean oldPowerSaveMode, boolean forceReset) {
@@ -491,41 +496,6 @@ public class PhoneProfilesService extends Service
             }
         }
     }
-
-    /*
-
-    private float mGZ = 0; //gravity acceleration along the z axis
-    private int mEventCountSinceGZChanged = 0;
-    private static final int MAX_COUNT_GZ_CHANGE = 10;
-
-    public void onSensorChanged(SensorEvent event) {
-        int type = event.sensor.getType();
-        if (type == Sensor.TYPE_ACCELEROMETER) {
-            float gz = event.values[2];
-            if (mGZ == 0) {
-                mGZ = gz;
-            } else {
-                if ((mGZ * gz) < 0) {
-                    mEventCountSinceGZChanged++;
-                    if (mEventCountSinceGZChanged == MAX_COUNT_GZ_CHANGE) {
-                        mGZ = gz;
-                        mEventCountSinceGZChanged = 0;
-                        if (gz > 0) {
-                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
-                        } else if (gz < 0) {
-                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
-                        }
-                    }
-                } else {
-                    if (mEventCountSinceGZChanged > 0) {
-                        mGZ = gz;
-                        mEventCountSinceGZChanged = 0;
-                    }
-                }
-            }
-        }
-    }
-    */
 
     private float[] exponentialSmoothing(float[] input, float[] output, float alpha) {
         if (output == null)

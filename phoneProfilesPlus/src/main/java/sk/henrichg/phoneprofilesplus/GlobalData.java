@@ -375,6 +375,7 @@ public class GlobalData extends Application {
 
     public static boolean isPowerSaveMode = false;
     public static GeofencesScanner geofencesScanner = null;
+    public static PhoneStateScanner phoneStateScanner = null;
 
     public static Notification phoneProfilesNotification = null;
 
@@ -1865,9 +1866,13 @@ public class GlobalData extends Application {
         return (GlobalData.geofencesScanner != null);
     }
 
+    //--------------------------------------------------------------------------
+
+    // Device orientation ----------------------------------------------------------------
+
     public static void startOrientationScanner(Context context) {
         if (phoneProfilesService != null) {
-            if (phoneProfilesService.mStarted)
+            if (phoneProfilesService.mStartedSensors)
                 phoneProfilesService.stopListeningSensors();
 
             if (GlobalData.getApplicationStarted(context))
@@ -1881,7 +1886,7 @@ public class GlobalData extends Application {
     }
 
     public static boolean isOrientationScannerStarted() {
-        return (phoneProfilesService != null && phoneProfilesService.mStarted);
+        return (phoneProfilesService != null && phoneProfilesService.mStartedSensors);
     }
 
     public static Sensor getAccelerometerSensor(Context context) {
@@ -1904,6 +1909,37 @@ public class GlobalData extends Application {
         if (PhoneProfilesService.mSensorManager == null)
             PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
         return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+    }
+
+    //--------------------------------------------------------------------------
+
+    // Phone state ----------------------------------------------------------------
+
+    public static void startPhoneStateScanner(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (GlobalData.phoneStateScanner != null) {
+                GlobalData.phoneStateScanner.disconnect();
+                GlobalData.phoneStateScanner = null;
+            }
+
+            if (GlobalData.getApplicationStarted(context)) {
+                GlobalData.phoneStateScanner = new PhoneStateScanner(context);
+                GlobalData.phoneStateScanner.connect();
+            }
+        }
+    }
+
+    public static void stopPhoneStateScanner() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (GlobalData.phoneStateScanner != null) {
+                GlobalData.phoneStateScanner.disconnect();
+                GlobalData.phoneStateScanner = null;
+            }
+        }
+    }
+
+    public static boolean isPhoneStateStarted() {
+        return (GlobalData.phoneStateScanner != null);
     }
 
     //--------------------------------------------------------------------------
