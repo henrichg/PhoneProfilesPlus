@@ -132,7 +132,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         savedInstanceStateChanged = (savedInstanceState != null);
 
-        GlobalData.grantRoot(false);
+        //GlobalData.isRootGranted();
 
         createApplicationsCache();
         createContactsCache();

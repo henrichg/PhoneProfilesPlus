@@ -63,7 +63,7 @@ public class PhoneProfilesHelper {
             return false;
         }*/
 
-        if (!GlobalData.grantRoot(true))
+        if (!GlobalData.isRootGranted())
         {
             GlobalData.logE("PhoneProfilesHelper.doUninstallPPHelper", "Grant root failed");
             errorNoRoot = true;

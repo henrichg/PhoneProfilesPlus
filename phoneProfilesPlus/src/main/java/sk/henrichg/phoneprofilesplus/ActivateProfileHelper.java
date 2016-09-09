@@ -34,7 +34,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
-import android.service.notification.NotificationListenerService;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -1860,7 +1859,7 @@ public class ActivateProfileHelper {
     {
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
-            if (GlobalData.grantRoot(false))
+            if (GlobalData.isRootGranted())
             {
                 String command1 = "svc data " + (enable ? "enable" : "disable");
                 GlobalData.logE("ActivateProfileHelper.setMobileData","command="+command1);
@@ -1999,7 +1998,7 @@ public class ActivateProfileHelper {
     }
 
     private int getPreferredNetworkType(Context context) {
-        if (GlobalData.grantRoot(false))
+        if (GlobalData.isRootGranted())
         {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
@@ -2046,7 +2045,7 @@ public class ActivateProfileHelper {
 
     private void setPreferredNetworkType(Context context, int networkType)
     {
-        if (GlobalData.grantRoot(false))
+        if (GlobalData.isRootGranted())
         {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
@@ -2108,7 +2107,7 @@ public class ActivateProfileHelper {
             CmdNfc.run(enable);
         }
         else */
-        if (GlobalData.grantRoot(false)) {
+        if (GlobalData.isRootGranted()) {
             String command1 = GlobalData.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
             //Log.e("ActivateProfileHelper.setNFC", "command1="+command1);
             Command command = new Command(0, false, command1);
@@ -2151,7 +2150,7 @@ public class ActivateProfileHelper {
         //if(!provider.contains(LocationManager.GPS_PROVIDER) && enable)
         if ((!isEnabled)  && enable)
         {
-            if ((android.os.Build.VERSION.SDK_INT >= 16) && GlobalData.grantRoot(false))
+            if ((android.os.Build.VERSION.SDK_INT >= 16) && GlobalData.isRootGranted())
             {
                 // zariadenie je rootnute
                 GlobalData.logE("ActivateProfileHelper.setGPS", "rooted");
@@ -2233,7 +2232,7 @@ public class ActivateProfileHelper {
         //if(provider.contains(LocationManager.GPS_PROVIDER) && (!enable))
         if (isEnabled && (!enable))
         {
-            if ((android.os.Build.VERSION.SDK_INT >= 16) && GlobalData.grantRoot(false))
+            if ((android.os.Build.VERSION.SDK_INT >= 16) && GlobalData.isRootGranted())
             {
                 // zariadenie je rootnute
                 GlobalData.logE("ActivateProfileHelper.setGPS", "rooted");
@@ -2322,7 +2321,7 @@ public class ActivateProfileHelper {
 
     private void setAirplaneMode_SDK17(Context context, boolean mode)
     {
-        if (GlobalData.grantRoot(false))
+        if (GlobalData.isRootGranted())
         {
             // zariadenie je rootnute
             String command1;

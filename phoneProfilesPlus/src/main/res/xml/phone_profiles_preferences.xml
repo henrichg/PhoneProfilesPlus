@@ -112,19 +112,19 @@
         android:key="categoryPermissions"
         android:widgetLayout="@layout/start_activity_preference">
         <Preference
-            android:key="prf_pref_writeSystemSettingsPermissions"
+            android:key="permissionsWriteSystemSettingsPermissions"
             android:title="@string/phone_profiles_pref_writeSystemSettingPermissions"
             android:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary"
             android:widgetLayout="@layout/start_activity_preference">
         </Preference>
         <Preference
-            android:key="prf_pref_accessNotificationPolicyPermissions"
+            android:key="permissionsAccessNotificationPolicyPermissions"
             android:title="@string/phone_profiles_pref_accessNotificationPolicyPermissions"
             android:summary="@string/phone_profiles_pref_accessNotificationPolicyPermissions_summary"
             android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
         <Preference
-            android:key="prf_pref_applicationPermissions"
+            android:key="permissionsApplicationPermissions"
             android:title="@string/phone_profiles_pref_applicationPermissions"
             android:summary="@string/phone_profiles_pref_applicationPermissions_summary"
             android:widgetLayout="@layout/start_activity_preference">

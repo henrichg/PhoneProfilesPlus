@@ -57,7 +57,7 @@ public class GlobalData extends Application {
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
                                          +"|GlobalData._isRooted"
-                                         +"|GlobalData.grantRoot"
+                                         +"|GlobalData.isRootGranted"
 
             ;
 
@@ -1533,39 +1533,27 @@ public class GlobalData extends Application {
 
     // --------------------------------
 
-    //static private boolean rootChecking;
     static private boolean rootChecked;
     static private boolean rooted;
-    //static private boolean grantChecking;
-    static private boolean grantChecked;
-    static private boolean rootGranted;
-    //static private boolean settingsBinaryChecking;
     static private boolean settingsBinaryChecked;
     static private boolean settingsBinaryExists;
     static private boolean isSELinuxEnforcingChecked;
     static private boolean isSELinuxEnforcing;
     //static private String suVersion;
     //static private boolean suVersionChecked;
-    //static private boolean serviceBinaryChecking;
     static private boolean serviceBinaryChecked;
     static private boolean serviceBinaryExists;
 
     static synchronized void initRoot() {
         synchronized (GlobalData.rootMutex) {
-            //rootChecking = false;
             rootChecked = false;
             rooted = false;
-            //grantChecking = false;
-            grantChecked = false;
-            rootGranted = false;
-            //settingsBinaryChecking = false;
             settingsBinaryChecked = false;
             settingsBinaryExists = false;
             isSELinuxEnforcingChecked = false;
             isSELinuxEnforcing = false;
             //suVersion = null;
             //suVersionChecked = false;
-            //serviceBinaryChecking = false;
             serviceBinaryChecked = false;
             serviceBinaryExists = false;
         }
@@ -1575,7 +1563,7 @@ public class GlobalData extends Application {
     {
         RootShell.debugMode = rootToolsDebug;
 
-        if ((!rootChecked)/* && (!rootChecking)*/)
+        if (!rootChecked)
         {
             GlobalData.logE("GlobalData._isRooted", "start isRootAvailable");
             //rootChecking = true;
@@ -1593,8 +1581,6 @@ public class GlobalData extends Application {
                 GlobalData.logE("GlobalData._isRooted", "root NOT available");
                 rootChecked = true;
                 rooted = false;
-                grantChecked = false;
-                rootGranted = false;
                 settingsBinaryExists = false;
                 settingsBinaryChecked = false;
                 isSELinuxEnforcingChecked = false;
@@ -1604,7 +1590,6 @@ public class GlobalData extends Application {
                 serviceBinaryExists = false;
                 serviceBinaryChecked = false;
             }
-            //rootChecking = false;
         }
         //if (rooted)
         //	getSUVersion();
@@ -1618,56 +1603,42 @@ public class GlobalData extends Application {
         return rooted;
     }
 
-    static boolean grantRoot(boolean force)
+    static boolean isRootGranted()
     {
         RootShell.debugMode = rootToolsDebug;
 
-        GlobalData.logE("GlobalData.grantRoot", "grantChecked="+grantChecked);
-        GlobalData.logE("GlobalData.grantRoot", "force="+force);
+        synchronized (GlobalData.rootMutex) {
 
-
-        if (((!grantChecked) || force) /*&& (!grantChecking)*/)
-        {
-            synchronized (GlobalData.rootMutex) {
-
-                if (_isRooted()) {
-                    GlobalData.logE("GlobalData.grantRoot", "start isAccessGiven");
-                    //grantChecking = true;
-                    /*try {
-                        RootTools.closeAllShells();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
-                    if (RootTools.isAccessGiven()) {
-                        // root grantnuty
-                        GlobalData.logE("GlobalData.grantRoot", "root granted");
-                        rootChecked = true;
-                        rooted = true;
-                        grantChecked = true;
-                        rootGranted = true;
-                    } else {
-                        // grant odmietnuty
-                        GlobalData.logE("GlobalData.grantRoot", "root NOT granted");
-                        grantChecked = true;
-                        rootGranted = false;
-                    }
-                    //grantChecking = false;
-                }
-                else {
-                    GlobalData.logE("GlobalData.grantRoot", "not rooted");
-                    grantChecked = true;
-                    rootGranted = false;
+            if (_isRooted()) {
+                GlobalData.logE("GlobalData.isRootGranted", "start isAccessGiven");
+                //grantChecking = true;
+                /*try {
+                    RootTools.closeAllShells();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+                if (RootTools.isAccessGiven()) {
+                    // root grantnuty
+                    GlobalData.logE("GlobalData.isRootGranted", "root granted");
+                    return true;
+                } else {
+                    // grant odmietnuty
+                    GlobalData.logE("GlobalData.isRootGranted", "root NOT granted");
+                    return false;
                 }
             }
+            else {
+                GlobalData.logE("GlobalData.isRootGranted", "not rooted");
+                return false;
+            }
         }
-        return rootGranted;
     }
 
     static boolean settingsBinaryExists()
     {
         RootShell.debugMode = rootToolsDebug;
 
-        if ((!settingsBinaryChecked) /*&& (!settingsBinaryChecking)*/)
+        if (!settingsBinaryChecked)
         {
             synchronized (GlobalData.rootMutex) {
                 GlobalData.logE("GlobalData.settingsBinaryExists", "start");
@@ -1679,7 +1650,6 @@ public class GlobalData extends Application {
                 }*/
                 List<String> settingsPaths = RootTools.findBinary("settings");
                 settingsBinaryExists = settingsPaths.size() > 0;
-                //settingsBinaryChecking = false;
                 settingsBinaryChecked = true;
             }
         }
@@ -1691,7 +1661,7 @@ public class GlobalData extends Application {
     {
         RootShell.debugMode = rootToolsDebug;
 
-        if ((!serviceBinaryChecked) /*&& (!serviceBinaryChecking)*/)
+        if (!serviceBinaryChecked)
         {
             synchronized (GlobalData.rootMutex) {
                 GlobalData.logE("GlobalData.serviceBinaryExists", "start");
@@ -1703,7 +1673,6 @@ public class GlobalData extends Application {
                 }*/
                 List<String> servicePaths = RootTools.findBinary("service");
                 serviceBinaryExists = servicePaths.size() > 0;
-                //serviceBinaryChecking = false;
                 serviceBinaryChecked = true;
             }
         }
