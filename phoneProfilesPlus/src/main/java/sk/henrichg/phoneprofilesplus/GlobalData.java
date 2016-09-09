@@ -1892,8 +1892,8 @@ public class GlobalData extends Application {
     public static Sensor getMagneticFieldSensor(Context context) {
         if (PhoneProfilesService.mSensorManager == null)
             PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        //return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        return null;
+        return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        //return null;
     }
     public static Sensor getProximitySensor(Context context) {
         if (PhoneProfilesService.mSensorManager == null)
