@@ -141,7 +141,7 @@
   <string name="export_profiles_alert_message">Вы уверены?</string>
   <string name="export_profiles_alert_error">Ошибка при экспорте данных приложения</string>
   <string name="profile_preferences_deviceMobileData">Мобильные данные</string>
-  <string name="profile_preferences_deviceMobileDataPrefs">(I) Настройки передачи мобильных данных</string>
+  <string name="profile_preferences_deviceMobileDataPrefs">(I) Настройки мобильных данных</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Цветная иконка</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Встроенная</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Активация профиля долгим нажатием</string>
@@ -769,4 +769,13 @@
   <string name="about_application_transaltions">Переводы:</string>
   <string name="about_application_rate_in_gplay">Пожалуйста, оцените это приложение в Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Приложение использует языки, настроенные в системе.</string>
+  <string name="permission_group_name_access_notification_policy">Не спрашивать доступ</string>
+  <string name="permissions_access_notification_policy_not_allowed_confirm">Вы не разрешили «Не спрашивать доступ». Не спрашивать больше?</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Не спрашивать доступ</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Найдите приложение «PhoneProfilesPlus» и разрешите его.</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Добавить PhoneProfilesPlus к категории «Не оптимизирован», если возникли проблемы с активацией профиля из событий, после отключения устройства с выключенным экраном.</string>
+  <string name="profile_preferences_deviceWallpaperFor">Set wallpaper for</string>
+  <string name="array_pref_device_wallpaper_homescreen">Home screen</string>
+  <string name="array_pref_device_wallpaper_lockscreen">Lock screen</string>
+  <string name="array_pref_device_wallpaper_all">Home and lock screen</string>
 </resources>

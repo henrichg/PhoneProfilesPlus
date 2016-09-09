@@ -769,4 +769,13 @@
   <string name="about_application_transaltions">תרגומים:</string>
   <string name="about_application_rate_in_gplay">אנא דרגו יישום זה ב- Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">היישום משתמש בשפות שתצורתן נקבעה במערכת.</string>
+  <string name="permission_group_name_access_notification_policy">גישה ל\'נא לא להפריע\'</string>
+  <string name="permissions_access_notification_policy_not_allowed_confirm">לא הפעלת גישה ל\'נא לא להפריע\'. להפסיק להתריע לך על כך?</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions">גישה ל\'נא לא להפריע\'</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">אנא חפשו את יישום \"PhoneProfilesPlus\", והתירו אותה.</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization_summary">להוסיף את PhoneProfilesPlus ל\"לא מטוייב\", כאשר נתקלת בבעיות בהפעלת פרופיל מאירועים, אם המכשיר נותר מנותק ונייח למשך זמן והמסך כבוי.</string>
+  <string name="profile_preferences_deviceWallpaperFor">Set wallpaper for</string>
+  <string name="array_pref_device_wallpaper_homescreen">Home screen</string>
+  <string name="array_pref_device_wallpaper_lockscreen">Lock screen</string>
+  <string name="array_pref_device_wallpaper_all">Home and lock screen</string>
 </resources>

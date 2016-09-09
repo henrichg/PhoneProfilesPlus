@@ -769,4 +769,13 @@
   <string name="about_application_transaltions">Traduzioni:</string>
   <string name="about_application_rate_in_gplay">Esprimi la tua opinione su questa applicazione in Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">L\'applicazione utilizza la lingua configurata nel sistema.</string>
+  <string name="permission_group_name_access_notification_policy">Do not disturb access</string>
+  <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again for this?</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Do not disturb access</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Add PhoneProfilesPlus to \"Not optimized\", when you encountered problems with profile activation from events, if you leaves a device unplugged and stationary for a period of time, with the screen off.</string>
+  <string name="profile_preferences_deviceWallpaperFor">Set wallpaper for</string>
+  <string name="array_pref_device_wallpaper_homescreen">Home screen</string>
+  <string name="array_pref_device_wallpaper_lockscreen">Lock screen</string>
+  <string name="array_pref_device_wallpaper_all">Home and lock screen</string>
 </resources>

@@ -759,7 +759,7 @@
   <string name="important_info_orange_text">Poznámka: Oranžový text v této informaci je rozkliknutelná. Kliknutím na tento text se otevřou příslušná nastavení obrazovky.</string>
   <string name="info_notification_event_priority">4. Každá událost má \"Prioritu\". Událost se nespustí, pokud je spuštěna událost s vyšší prioritou. Restartování událostí spustí události v pořadí podle priority.</string>
   <string name="default_event_name_night_call">Noční hovor</string>
-  <string name="alert_message_enable_event">Povol běh není povolen. Povolit ho?</string>
+  <string name="alert_message_enable_event">Spouštění událostí není povoleno. Povolit?</string>
   <string name="menu_about_application">O aplikaci</string>
   <string name="about_application_title">O aplikaci</string>
   <string name="about_application_version">verze:</string>
@@ -769,4 +769,13 @@
   <string name="about_application_transaltions">Překlady:</string>
   <string name="about_application_rate_in_gplay">Ohodnoťte prosím tuto aplikaci v Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Aplikace používá jazyky nakonfigurovány v systému.</string>
+  <string name="permission_group_name_access_notification_policy">Přístup k nastavení Nerušit</string>
+  <string name="permissions_access_notification_policy_not_allowed_confirm">Nedovolili jste \"Přístup k nastavení Nerušit\". Už se nikdy na toto neptat?</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Přístup k nastavení Nerušit</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Prosím najděte aplikaci \"Phone Profile Plus\" a povolte ji.</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Přidejte PhoneProfilesPlus do \"Neoptimalizované\", v případě problémů s aktivací profilu z událostí, pokud nemáte zařízení připojeno, bez pohybu určitou dobu s vypnutou obrazovkou.</string>
+  <string name="profile_preferences_deviceWallpaperFor">Set wallpaper for</string>
+  <string name="array_pref_device_wallpaper_homescreen">Home screen</string>
+  <string name="array_pref_device_wallpaper_lockscreen">Lock screen</string>
+  <string name="array_pref_device_wallpaper_all">Home and lock screen</string>
 </resources>

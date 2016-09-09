@@ -769,4 +769,13 @@
   <string name="about_application_transaltions">Preklady:</string>
   <string name="about_application_rate_in_gplay">Ohodnoťte prosím túto aplikáciu v obchode Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Aplikácia používa jazyky nakonfigurované v systéme.</string>
+  <string name="permission_group_name_access_notification_policy">Prístup k nastaveniu Nerušiť</string>
+  <string name="permissions_access_notification_policy_not_allowed_confirm">Nepovolili ste \"Prístup k nastaveniu Nerušiť\". Už sa nikdy na toto nepýtať?</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Prístup k nastaveniu Nerušiť</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Prosím nájdite aplikáciu \"PhoneProfilesPlus\" a povoľte ju.</string>
+  <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Pridajte PhoneProfilesPlus do \"Neoptimalizované\", v prípade problémov s aktiváciou profilu z udalostí, ak nemáte zariadenie pripojene, bez pohybu určitú dobu s vypnutou obrazovkou.</string>
+  <string name="profile_preferences_deviceWallpaperFor">Nastaviť tapetu pre</string>
+  <string name="array_pref_device_wallpaper_homescreen">Domovská obrazovka</string>
+  <string name="array_pref_device_wallpaper_lockscreen">Uzamykacia obrazovka</string>
+  <string name="array_pref_device_wallpaper_all">Domovská a uzamykacia obrazovka</string>
 </resources>
