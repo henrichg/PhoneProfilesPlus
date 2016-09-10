@@ -18,6 +18,8 @@ import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
+import android.telephony.cdma.CdmaCellLocation;
+import android.telephony.gsm.GsmCellLocation;
 
 import java.util.List;
 
@@ -141,6 +143,32 @@ public class PhoneStateScanner extends PhoneStateListener {
         GlobalData.logE("PhoneStateScanner.onServiceStateChanged", "serviceState="+serviceState);
 
         getAllCellInfo();
+    }
+
+    private void getCellLocation(CellLocation location) {
+
+        if (location!=null) {
+
+            super.onCellLocationChanged(location);
+
+            if (location instanceof GsmCellLocation) {
+                GsmCellLocation gcLoc = (GsmCellLocation) location;
+                GlobalData.logE("PhoneStateScanner.getCellLocation", "gsm location="+gcLoc);
+                if (gcLoc.getCid() != Integer.MAX_VALUE) {
+                    GlobalData.logE("PhoneStateScanner.getAllCellInfo", "gsm mCid="+gcLoc.getCid());
+                }
+            } else if (location instanceof CdmaCellLocation) {
+                CdmaCellLocation ccLoc = (CdmaCellLocation) location;
+                GlobalData.logE("PhoneStateScanner.getCellLocation", "cdma location="+ccLoc);
+                if (ccLoc.getBaseStationId() != Integer.MAX_VALUE) {
+                    GlobalData.logE("PhoneStateScanner.getAllCellInfo", "cdma mCid="+ccLoc.getBaseStationId());
+                }
+            } else {
+                GlobalData.logE("PhoneStateScanner.getCellLocation", "unknown location="+location);
+            }
+        }
+        else
+            GlobalData.logE("PhoneStateScanner.getCellLocation", "location is null");
     }
 
     @Override
