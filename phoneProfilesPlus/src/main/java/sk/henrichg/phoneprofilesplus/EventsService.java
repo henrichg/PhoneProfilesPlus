@@ -73,15 +73,17 @@ public class EventsService extends IntentService
             oldRingtone = "";
         }
 
+        PhoneProfilesServiceMessenger messenger = new PhoneProfilesServiceMessenger();
+
         if (GlobalData.phoneProfilesService != null) {
             // start of GeofenceScanner
             if (!PhoneProfilesService.isGeofenceScannerStarted())
-                GlobalData.phoneProfilesService.startGeofenceScanner();
+                messenger.bingAndSendMessage(this, PhoneProfilesService.MSG_START_GEOFENCE_SCANNER);
 
             // start of CellTowerScanner
             if (!PhoneProfilesService.isPhoneStateStarted()) {
                 GlobalData.logE("EventsService.startPhoneStateScanner", "xxx");
-                GlobalData.phoneProfilesService.startPhoneStateScanner();
+                messenger.bingAndSendMessage(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
             }
         }
 
@@ -98,9 +100,12 @@ public class EventsService extends IntentService
         if (GlobalData.phoneProfilesService != null) {
             if (!PhoneProfilesService.isOrientationScannerStarted()) {
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
-                    GlobalData.phoneProfilesService.startOrientationScanner();
+                    messenger.bingAndSendMessage(this, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
             }
         }
+
+        if (GlobalData.phoneProfilesService != null)
+            messenger.unbind(this);
 
         if (!eventsExists(broadcastReceiverType)) {
             // events not exists

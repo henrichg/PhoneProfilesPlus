@@ -2,9 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -18,6 +20,8 @@ import android.net.sip.SipManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.text.TextUtils;
@@ -43,6 +47,15 @@ public class PhoneProfilesService extends Service
     private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
+
+    final Messenger mMessenger = new Messenger(new IncomingHandler()); // Target we publish for clients to send messages to IncomingHandler.
+
+    static final int MSG_START_GEOFENCE_SCANNER = 1;
+    static final int MSG_STOP_GEOFENCE_SCANNER = 2;
+    static final int MSG_START_ORIENTATION_SCANNER = 3;
+    static final int MSG_STOP_ORIENTATION_SCANNER = 4;
+    static final int MSG_START_PHONE_STATE_SCANNER = 5;
+    static final int MSG_STOP_PHONE_STATE_SCANNER = 6;
 
     //-----------------------
 
@@ -269,7 +282,36 @@ public class PhoneProfilesService extends Service
     @Override
     public IBinder onBind(Intent intent)
     {
-        return null;
+        return mMessenger.getBinder();
+    }
+
+
+    class IncomingHandler extends Handler { // Handler of incoming messages from clients.
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_START_GEOFENCE_SCANNER:
+                    startGeofenceScanner();
+                    break;
+                case MSG_STOP_GEOFENCE_SCANNER:
+                    stopGeofenceScanner();
+                    break;
+                case MSG_START_ORIENTATION_SCANNER:
+                    startOrientationScanner();
+                    break;
+                case MSG_STOP_ORIENTATION_SCANNER:
+                    stopOrientationScanner();
+                    break;
+                case MSG_START_PHONE_STATE_SCANNER:
+                    startPhoneStateScanner();
+                    break;
+                case MSG_STOP_PHONE_STATE_SCANNER:
+                    stopPhoneStateScanner();
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
     }
 
     //------------------------
@@ -294,7 +336,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void startGeofenceScanner() {
+    private void startGeofenceScanner() {
 
         if (geofencesScanner != null) {
             geofencesScanner.disconnect();
@@ -307,7 +349,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void stopGeofenceScanner() {
+    private void stopGeofenceScanner() {
         if (geofencesScanner != null) {
             geofencesScanner.disconnect();
             geofencesScanner = null;
@@ -322,7 +364,7 @@ public class PhoneProfilesService extends Service
 
     // Device orientation ----------------------------------------------------------------
 
-    public void startOrientationScanner() {
+    private void startOrientationScanner() {
         if (mStartedSensors)
             stopListeningSensors();
 
@@ -330,7 +372,7 @@ public class PhoneProfilesService extends Service
             startListeningSensors();
     }
 
-    public void stopOrientationScanner() {
+    private void stopOrientationScanner() {
         stopListeningSensors();
     }
 
@@ -364,7 +406,7 @@ public class PhoneProfilesService extends Service
 
     // Phone state ----------------------------------------------------------------
 
-    public void startPhoneStateScanner() {
+    private void startPhoneStateScanner() {
         GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "xxx");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             if (phoneStateScanner != null) {
@@ -382,7 +424,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void stopPhoneStateScanner() {
+    private void stopPhoneStateScanner() {
         GlobalData.logE("PhoneProfilesService.stopPhoneStateScanner", "xxx");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             if (phoneStateScanner != null) {

@@ -5,7 +5,9 @@ import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
@@ -18,6 +20,9 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -381,6 +386,7 @@ public class GlobalData extends Application {
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
 
     public static PhoneProfilesService phoneProfilesService = null;
+    public Messenger phoneProfilesServiceMessenger = null;
 
     public static boolean isPowerSaveMode = false;
 
