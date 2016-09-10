@@ -171,11 +171,23 @@ public class PhoneStateScanner extends PhoneStateListener {
             GlobalData.logE("PhoneStateScanner.getCellLocation", "location is null");
     }
 
+    public void getCellLocation() {
+        if (telephonyManager != null) {
+            CellLocation location = telephonyManager.getCellLocation();
+            getCellLocation(location);
+        }
+    }
+
     @Override
     public void onCellLocationChanged (CellLocation location) {
         super.onCellLocationChanged(location);
 
         GlobalData.logE("PhoneStateScanner.onCellLocationChanged", "location="+location);
+
+        if (location == null)
+            getCellLocation();
+        else
+            getCellLocation(location);
 
     }
 
