@@ -2192,44 +2192,44 @@ public class DataWrapper {
 
         if (event._eventPreferencesNotification._enabled)
         {
-            if (!event._eventPreferencesNotification._endWhenRemoved) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                if (!event._eventPreferencesNotification._endWhenRemoved) {
 
-                if (event._eventPreferencesNotification._startTime > 0) {
-                    // comute start time
-                    int gmtOffset = TimeZone.getDefault().getRawOffset();
-                    long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
+                    if (event._eventPreferencesNotification._startTime > 0) {
+                        // comute start time
+                        int gmtOffset = TimeZone.getDefault().getRawOffset();
+                        long startTime = event._eventPreferencesNotification._startTime - gmtOffset;
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                    String alarmTimeS = sdf.format(startTime);
-                    GlobalData.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(startTime);
+                        GlobalData.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
 
-                    // compute end datetime
-                    long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
-                    alarmTimeS = sdf.format(endAlarmTime);
-                    GlobalData.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
+                        // compute end datetime
+                        long endAlarmTime = event._eventPreferencesNotification.computeAlarm();
+                        alarmTimeS = sdf.format(endAlarmTime);
+                        GlobalData.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
 
-                    Calendar now = Calendar.getInstance();
-                    long nowAlarmTime = now.getTimeInMillis();
-                    alarmTimeS = sdf.format(nowAlarmTime);
-                    GlobalData.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
+                        Calendar now = Calendar.getInstance();
+                        long nowAlarmTime = now.getTimeInMillis();
+                        alarmTimeS = sdf.format(nowAlarmTime);
+                        GlobalData.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
 
-                    if (broadcastType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                        notificationPassed = true;
-                    else if (broadcastType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                        if (broadcastType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                            notificationPassed = true;
+                        else if (broadcastType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                            notificationPassed = false;
+                        else
+                            notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                    } else
                         notificationPassed = false;
-                    else
-                        notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                } else {
+                    notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);
                 }
-                else
-                    notificationPassed = false;
-            }
-            else {
-                notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);
-            }
 
-            if (!notificationPassed) {
-                event._eventPreferencesNotification._startTime = 0;
-                getDatabaseHandler().updateNotificationStartTime(event);
+                if (!notificationPassed) {
+                    event._eventPreferencesNotification._startTime = 0;
+                    getDatabaseHandler().updateNotificationStartTime(event);
+                }
             }
         }
 

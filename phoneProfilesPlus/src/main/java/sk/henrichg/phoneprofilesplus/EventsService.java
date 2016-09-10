@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 
 import java.util.List;
@@ -105,7 +106,7 @@ public class EventsService extends IntentService
             doEndService(intent);
             dataWrapper.invalidateDataWrapper();
 
-            GlobalData.logE("@@@ EventsService.onHandleIntent","-- end: not events found --------------------------------");
+            GlobalData.logE("@@@ EventsService.onHandleIntent", "-- end: not events found --------------------------------");
 
             return;
         }
@@ -141,28 +142,22 @@ public class EventsService extends IntentService
         }
 
         if (broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
-            broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-        {
+                broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
             // search for calendar events
-            GlobalData.logE("EventsService.onHandleIntent","search for calendar events");
-            for (Event _event : eventList)
-            {
-                if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP))
-                {
-                    GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
+            GlobalData.logE("EventsService.onHandleIntent", "search for calendar events");
+            for (Event _event : eventList) {
+                if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
+                    GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                     _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
                 }
             }
         }
         if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
             // search for sms events, save start time
-            GlobalData.logE("EventsService.onHandleIntent","search for sms events");
-            for (Event _event : eventList)
-            {
-                if (_event.getStatus() != Event.ESTATUS_STOP)
-                {
-                    if (_event._eventPreferencesSMS._enabled)
-                    {
+            GlobalData.logE("EventsService.onHandleIntent", "search for sms events");
+            for (Event _event : eventList) {
+                if (_event.getStatus() != Event.ESTATUS_STOP) {
+                    if (_event._eventPreferencesSMS._enabled) {
                         GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                         _event._eventPreferencesSMS.saveStartTime(dataWrapper,
                                 intent.getStringExtra(GlobalData.EXTRA_EVENT_SMS_PHONE_NUMBER),
@@ -171,22 +166,21 @@ public class EventsService extends IntentService
                 }
             }
         }
-        if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
-            // search for notification events, save start time
-            GlobalData.logE("EventsService.onHandleIntent","search for notification events");
-            for (Event _event : eventList)
-            {
-                if (_event.getStatus() != Event.ESTATUS_STOP)
-                {
-                    if ((_event._eventPreferencesNotification._enabled) && (!_event._eventPreferencesNotification._endWhenRemoved))
-                    {
-                        GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+                // search for notification events, save start time
+                GlobalData.logE("EventsService.onHandleIntent", "search for notification events");
+                for (Event _event : eventList) {
+                    if (_event.getStatus() != Event.ESTATUS_STOP) {
+                        if ((_event._eventPreferencesNotification._enabled) && (!_event._eventPreferencesNotification._endWhenRemoved)) {
+                            GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                         /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
                                 intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
                                 intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
-                        if (intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted"))
-                            _event._eventPreferencesNotification.saveStartTime(dataWrapper);
+                            if (intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted"))
+                                _event._eventPreferencesNotification.saveStartTime(dataWrapper);
 
+                        }
                     }
                 }
             }

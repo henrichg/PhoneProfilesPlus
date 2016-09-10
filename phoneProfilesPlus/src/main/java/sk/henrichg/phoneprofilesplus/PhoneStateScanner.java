@@ -14,6 +14,7 @@ import android.telephony.CellInfoCdma;
 import android.telephony.CellInfoGsm;
 import android.telephony.CellInfoLte;
 import android.telephony.CellInfoWcdma;
+import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
@@ -36,7 +37,7 @@ public class PhoneStateScanner extends PhoneStateListener {
             telephonyManager.listen(this,
                 /*PhoneStateListener.LISTEN_CALL_STATE
                 |*/ PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
-                //| PhoneStateListener.LISTEN_CELL_LOCATION
+                | PhoneStateListener.LISTEN_CELL_LOCATION
                 //| PhoneStateListener.LISTEN_DATA_ACTIVITY
                 //| PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
                   | PhoneStateListener.LISTEN_SERVICE_STATE
@@ -52,12 +53,14 @@ public class PhoneStateScanner extends PhoneStateListener {
     }
 
     private void getAllCellInfo(List<CellInfo> cellInfo) {
+        // only for registered cells is returned identify (Android 6, 7)
+        // SlimKat in Galaxy Nexus - returns null :-/
+
         if (cellInfo!=null) {
 
             GlobalData.logE("PhoneStateScanner.getAllCellInfo", "---- start ----------------------------");
 
             for (CellInfo _cellInfo : cellInfo) {
-                // only for registered cells is returned identify (Android 6, 7)
                 GlobalData.logE("PhoneStateScanner.getAllCellInfo", "registered="+_cellInfo.isRegistered());
 
                 if (_cellInfo instanceof CellInfoGsm) {
@@ -136,6 +139,14 @@ public class PhoneStateScanner extends PhoneStateListener {
         GlobalData.logE("PhoneStateScanner.onServiceStateChanged", "serviceState="+serviceState);
 
         getAllCellInfo();
+    }
+
+    @Override
+    public void onCellLocationChanged (CellLocation location) {
+        super.onCellLocationChanged(location);
+
+        GlobalData.logE("PhoneStateScanner.onCellLocationChanged", "location="+location);
+
     }
 
     /*

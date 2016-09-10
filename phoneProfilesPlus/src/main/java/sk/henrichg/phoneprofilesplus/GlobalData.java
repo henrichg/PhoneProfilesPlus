@@ -59,6 +59,7 @@ public class GlobalData extends Application {
                                          +"|PhoneStateScanner.onCellInfoChanged"
                                          +"|PhoneStateScanner.getAllCellInfo"
                                          +"|PhoneStateScanner.onServiceStateChanged"
+                                         +"|PhoneStateScanner.onCellLocationChanged"
 
                                          //+"|GlobalData._isRooted"
                                          //+"|GlobalData.isRootGranted"

@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -70,7 +71,8 @@ public class FirstStartService extends IntentService {
         GlobalData.setRingerVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_RING));
         GlobalData.setNotificationVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
         RingerModeChangeReceiver.setRingerMode(context, audioManager);
-        PPNotificationListenerService.setZenMode(context, audioManager);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+            PPNotificationListenerService.setZenMode(context, audioManager);
         InterruptionFilterChangedBroadcastReceiver.setZenMode(context, audioManager);
 
         GlobalData.setActivatedProfileForDuration(context, 0);
