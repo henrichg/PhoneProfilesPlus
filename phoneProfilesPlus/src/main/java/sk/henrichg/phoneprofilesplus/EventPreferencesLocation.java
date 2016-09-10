@@ -151,7 +151,7 @@ public class EventPreferencesLocation extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            final boolean enabled = GlobalData.isLocationEnabled(context.getApplicationContext());
+            final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext());
             Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCE_ID);
             if (preference != null) preference.setEnabled(enabled);
             preference = prefMng.findPreference(PREF_EVENT_LOCATION_WHEN_OUTSIDE);

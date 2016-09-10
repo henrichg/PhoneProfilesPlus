@@ -290,9 +290,11 @@ public class LocationGeofencePreference extends DialogPreference {
                                 dataWrapper.getDatabaseHandler().deleteGeofence(geofenceId);
                                 refreshListView();
                                 updateGUIWithGeofence(0);
-                                if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0)
+                                if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                     // stop location updates
-                                    GlobalData.geofencesScanner.disconnect();
+                                    if (PhoneProfilesService.isGeofenceScannerStarted())
+                                        GlobalData.phoneProfilesService.geofencesScanner.disconnect();
+                                }
                             }
                             else {
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(_context);

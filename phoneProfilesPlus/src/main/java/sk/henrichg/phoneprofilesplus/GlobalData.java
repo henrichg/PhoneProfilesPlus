@@ -51,13 +51,17 @@ public class GlobalData extends Application {
     public static final boolean exactAlarms = true;
 
     private static boolean logIntoLogCat = true;
-    private static boolean logIntoFile = false;
+    private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
-                                         +"|GlobalData._isRooted"
-                                         +"|GlobalData.isRootGranted"
+                                         +"|PhoneStateScanner.onCellInfoChanged"
+                                         +"|PhoneStateScanner.getAllCellInfo"
+                                         +"|PhoneStateScanner.onServiceStateChanged"
+
+                                         //+"|GlobalData._isRooted"
+                                         //+"|GlobalData.isRootGranted"
 
             ;
 
@@ -374,8 +378,6 @@ public class GlobalData extends Application {
     public static PhoneProfilesService phoneProfilesService = null;
 
     public static boolean isPowerSaveMode = false;
-    public static GeofencesScanner geofencesScanner = null;
-    public static PhoneStateScanner phoneStateScanner = null;
 
     public static Notification phoneProfilesNotification = null;
 
@@ -1821,128 +1823,6 @@ public class GlobalData extends Application {
     }
 
     //------------------------------------------------------------
-
-    // Location ----------------------------------------------------------------
-
-    public static boolean isLocationEnabled(Context context) {
-        int locationMode = 0;
-        String locationProviders;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            try {
-                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-            } catch (Settings.SettingNotFoundException e) {
-                e.printStackTrace();;
-            }
-            return  locationMode != Settings.Secure.LOCATION_MODE_OFF;
-        }
-        else {
-            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-            return  !TextUtils.isEmpty(locationProviders);
-        }
-    }
-
-    public static void startGeofenceScanner(Context context) {
-
-        if (GlobalData.geofencesScanner != null) {
-            GlobalData.geofencesScanner.disconnect();
-            GlobalData.geofencesScanner = null;
-        }
-
-        if (GlobalData.getApplicationStarted(context)) {
-            GlobalData.geofencesScanner = new GeofencesScanner(context);
-            GlobalData.geofencesScanner.connect();
-        }
-    }
-
-    public static void stopGeofenceScanner() {
-        if (GlobalData.geofencesScanner != null) {
-            GlobalData.geofencesScanner.disconnect();
-            GlobalData.geofencesScanner = null;
-        }
-    }
-
-    public static boolean isGeofenceScannerStarted() {
-        return (GlobalData.geofencesScanner != null);
-    }
-
-    //--------------------------------------------------------------------------
-
-    // Device orientation ----------------------------------------------------------------
-
-    public static void startOrientationScanner(Context context) {
-        if (phoneProfilesService != null) {
-            if (phoneProfilesService.mStartedSensors)
-                phoneProfilesService.stopListeningSensors();
-
-            if (GlobalData.getApplicationStarted(context))
-                phoneProfilesService.startListeningSensors();
-        }
-    }
-
-    public static void stopOrientationScanner() {
-        if (phoneProfilesService != null)
-            phoneProfilesService.stopListeningSensors();
-    }
-
-    public static boolean isOrientationScannerStarted() {
-        return (phoneProfilesService != null && phoneProfilesService.mStartedSensors);
-    }
-
-    public static Sensor getAccelerometerSensor(Context context) {
-        if (PhoneProfilesService.mSensorManager == null)
-            PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    }
-    public static Sensor getMagneticFieldSensor(Context context) {
-        if (PhoneProfilesService.mSensorManager == null)
-            PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-    }
-    public static Sensor getProximitySensor(Context context) {
-        if (PhoneProfilesService.mSensorManager == null)
-            PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-    }
-    @SuppressWarnings("deprecation")
-    public static Sensor getOrientationSensor(Context context) {
-        if (PhoneProfilesService.mSensorManager == null)
-            PhoneProfilesService.mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-        return PhoneProfilesService.mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-    }
-
-    //--------------------------------------------------------------------------
-
-    // Phone state ----------------------------------------------------------------
-
-    public static void startPhoneStateScanner(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            if (GlobalData.phoneStateScanner != null) {
-                GlobalData.phoneStateScanner.disconnect();
-                GlobalData.phoneStateScanner = null;
-            }
-
-            if (GlobalData.getApplicationStarted(context)) {
-                GlobalData.phoneStateScanner = new PhoneStateScanner(context);
-                GlobalData.phoneStateScanner.connect();
-            }
-        }
-    }
-
-    public static void stopPhoneStateScanner() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            if (GlobalData.phoneStateScanner != null) {
-                GlobalData.phoneStateScanner.disconnect();
-                GlobalData.phoneStateScanner = null;
-            }
-        }
-    }
-
-    public static boolean isPhoneStateStarted() {
-        return (GlobalData.phoneStateScanner != null);
-    }
-
-    //--------------------------------------------------------------------------
 
     // others ------------------------------------------------------------------
 

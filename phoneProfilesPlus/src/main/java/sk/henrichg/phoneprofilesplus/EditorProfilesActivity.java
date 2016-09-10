@@ -561,9 +561,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
-        GlobalData.stopGeofenceScanner();
-        GlobalData.stopOrientationScanner();
-        GlobalData.stopPhoneStateScanner();
+        if (GlobalData.phoneProfilesService != null) {
+            GlobalData.phoneProfilesService.stopGeofenceScanner();
+            GlobalData.phoneProfilesService.stopOrientationScanner();
+            GlobalData.phoneProfilesService.stopPhoneStateScanner();
+        }
 
         // remove alarm for profile duration
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -619,11 +621,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                 BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
                 // stop geofences scanner
                 GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
-                GlobalData.stopGeofenceScanner();
-                // stop orientation scanner
-                GlobalData.stopOrientationScanner();
-                // stop orientation scanner
-                GlobalData.stopPhoneStateScanner();
+                if (GlobalData.phoneProfilesService != null) {
+                    GlobalData.phoneProfilesService.stopGeofenceScanner();
+                    // stop orientation scanner
+                    GlobalData.phoneProfilesService.stopOrientationScanner();
+                    // stop orientation scanner
+                    GlobalData.phoneProfilesService.stopPhoneStateScanner();
+                }
             }
             else
             {
@@ -631,9 +635,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
 
-                GlobalData.startGeofenceScanner(getApplicationContext());
-                GlobalData.startOrientationScanner(getApplicationContext());
-                GlobalData.startPhoneStateScanner(getApplicationContext());
+                if (GlobalData.phoneProfilesService != null) {
+                    GlobalData.phoneProfilesService.startGeofenceScanner();
+                    GlobalData.phoneProfilesService.startOrientationScanner();
+                    GlobalData.phoneProfilesService.startPhoneStateScanner();
+                }
 
                 // setup for next start
                 dataWrapper.firstStartEvents(false);
@@ -959,9 +965,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (resultCode == RESULT_OK)
             {
-                if (GlobalData.geofencesScanner != null) {
+                if (GlobalData.phoneProfilesService.geofencesScanner != null) {
                     boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
-                    GlobalData.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
+                    GlobalData.phoneProfilesService.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
                 }
                 if (GlobalData.phoneProfilesService != null) {
                     boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());

@@ -15,10 +15,12 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.net.sip.SipManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.text.TextUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +28,7 @@ import java.util.TimerTask;
 
 public class PhoneProfilesService extends Service
                                     implements SensorEventListener,
-                                                AudioManager.OnAudioFocusChangeListener
+                                    AudioManager.OnAudioFocusChangeListener
 {
 
     private final BatteryEventBroadcastReceiver batteryEventReceiver = new BatteryEventBroadcastReceiver();
@@ -44,6 +46,8 @@ public class PhoneProfilesService extends Service
 
     //-----------------------
 
+    public static GeofencesScanner geofencesScanner = null;
+
     public static SensorManager mSensorManager = null;
     public static boolean mStartedSensors = false;
 
@@ -54,6 +58,8 @@ public class PhoneProfilesService extends Service
     private float mProximity = -100;
     private float mMaxProximityDistance;
     private float mGravityZ = 0;  //gravity acceleration along the z axis
+
+    public static PhoneStateScanner phoneStateScanner = null;
 
     public static final int DEVICE_ORIENTATION_UNKNOWN = 0;
     public static final int DEVICE_ORIENTATION_RIGHT_SIDE_UP = 3;
@@ -183,9 +189,9 @@ public class PhoneProfilesService extends Service
 
         // this starts also listeners!!!
         // but will by stopped when events not exists
-        GlobalData.startGeofenceScanner(getApplicationContext());
-        GlobalData.startOrientationScanner(getApplicationContext());
-        GlobalData.startPhoneStateScanner(getApplicationContext());
+        startGeofenceScanner();
+        startOrientationScanner();
+        startPhoneStateScanner();
 
 
         /*
@@ -235,9 +241,9 @@ public class PhoneProfilesService extends Service
         if (settingsContentObserver != null)
             getContentResolver().unregisterContentObserver(settingsContentObserver);
 
-        GlobalData.stopGeofenceScanner();
-        GlobalData.stopOrientationScanner();
-        GlobalData.stopPhoneStateScanner();
+        stopGeofenceScanner();
+        stopOrientationScanner();
+        stopPhoneStateScanner();
 
         GlobalData.phoneProfilesService = null;
 
@@ -267,6 +273,125 @@ public class PhoneProfilesService extends Service
 
     //------------------------
 
+    // Location ----------------------------------------------------------------
+
+    public static boolean isLocationEnabled(Context context) {
+        int locationMode = 0;
+        String locationProviders;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            try {
+                locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+            } catch (Settings.SettingNotFoundException e) {
+                e.printStackTrace();;
+            }
+            return  locationMode != Settings.Secure.LOCATION_MODE_OFF;
+        }
+        else {
+            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+            return  !TextUtils.isEmpty(locationProviders);
+        }
+    }
+
+    public void startGeofenceScanner() {
+
+        if (geofencesScanner != null) {
+            geofencesScanner.disconnect();
+            geofencesScanner = null;
+        }
+
+        if (GlobalData.getApplicationStarted(this)) {
+            geofencesScanner = new GeofencesScanner(this);
+            geofencesScanner.connect();
+        }
+    }
+
+    public void stopGeofenceScanner() {
+        if (geofencesScanner != null) {
+            geofencesScanner.disconnect();
+            geofencesScanner = null;
+        }
+    }
+
+    public static boolean isGeofenceScannerStarted() {
+        return (geofencesScanner != null);
+    }
+
+    //--------------------------------------------------------------------------
+
+    // Device orientation ----------------------------------------------------------------
+
+    public void startOrientationScanner() {
+        if (mStartedSensors)
+            stopListeningSensors();
+
+        if (GlobalData.getApplicationStarted(this))
+            startListeningSensors();
+    }
+
+    public void stopOrientationScanner() {
+        stopListeningSensors();
+    }
+
+    public static boolean isOrientationScannerStarted() {
+        return mStartedSensors;
+    }
+
+    public static Sensor getAccelerometerSensor(Context context) {
+        if (mSensorManager == null)
+            mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
+    public static Sensor getMagneticFieldSensor(Context context) {
+        if (mSensorManager == null)
+            mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+    }
+    public static Sensor getProximitySensor(Context context) {
+        if (mSensorManager == null)
+            mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+    }
+    @SuppressWarnings("deprecation")
+    public static Sensor getOrientationSensor(Context context) {
+        if (mSensorManager == null)
+            mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+    }
+
+    //--------------------------------------------------------------------------
+
+    // Phone state ----------------------------------------------------------------
+
+    public void startPhoneStateScanner() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (phoneStateScanner != null) {
+                phoneStateScanner.disconnect();
+                phoneStateScanner = null;
+            }
+
+            if (GlobalData.getApplicationStarted(this)) {
+                phoneStateScanner = new PhoneStateScanner(this);
+                phoneStateScanner.connect();
+            }
+        }
+    }
+
+    public void stopPhoneStateScanner() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (phoneStateScanner != null) {
+                phoneStateScanner.disconnect();
+                phoneStateScanner = null;
+            }
+        }
+    }
+
+    public static boolean isPhoneStateStarted() {
+        return (phoneStateScanner != null);
+    }
+
+    //--------------------------------------------------------------------------
+
     public void startListeningSensors() {
         if (mSensorManager == null)
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -284,15 +409,15 @@ public class PhoneProfilesService extends Service
             int interval = GlobalData.applicationEventOrientationScanInterval;
             if (GlobalData.isPowerSaveMode && GlobalData.applicationEventOrientationScanInPowerSaveMode.equals("1"))
                 interval *= 2;
-            Sensor accelerometer = GlobalData.getAccelerometerSensor(this);
+            Sensor accelerometer = getAccelerometerSensor(this);
             GlobalData.logE("PhoneProfilesService.startListeningSensors","accelerometer="+accelerometer);
             if (accelerometer != null)
                 mSensorManager.registerListener(this, accelerometer, 1000000 * interval);
-            Sensor magneticField = GlobalData.getMagneticFieldSensor(this);
+            Sensor magneticField = getMagneticFieldSensor(this);
             GlobalData.logE("PhoneProfilesService.startListeningSensors","magneticField="+magneticField);
             if (magneticField != null)
                 mSensorManager.registerListener(this, magneticField, 1000000 * interval);
-            Sensor proximity = GlobalData.getProximitySensor(this);
+            Sensor proximity = getProximitySensor(this);
             GlobalData.logE("PhoneProfilesService.startListeningSensors","proximity="+proximity);
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
@@ -348,7 +473,7 @@ public class PhoneProfilesService extends Service
             return;
         }
         if ((sensorType == Sensor.TYPE_ACCELEROMETER) || (sensorType == Sensor.TYPE_MAGNETIC_FIELD)) {
-            if (GlobalData.getMagneticFieldSensor(this) != null) {
+            if (getMagneticFieldSensor(this) != null) {
                 if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                     mGravity = exponentialSmoothing(event.values, mGravity, 0.2f);
                 }

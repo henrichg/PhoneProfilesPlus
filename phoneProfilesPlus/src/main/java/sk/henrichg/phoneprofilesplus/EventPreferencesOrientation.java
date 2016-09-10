@@ -135,7 +135,7 @@ public class EventPreferencesOrientation extends EventPreferences {
             }
             descr = descr + selectedSides;
 
-            if (GlobalData.getMagneticFieldSensor(context) != null) {
+            if (PhoneProfilesService.getMagneticFieldSensor(context) != null) {
                 selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._sides.isEmpty() && !this._sides.equals("-")) {
                     String[] splits = this._sides.split("\\|");
@@ -304,7 +304,7 @@ public class EventPreferencesOrientation extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        if (GlobalData.getMagneticFieldSensor(context) != null)
+        if (PhoneProfilesService.getMagneticFieldSensor(context) != null)
             runnable = runnable && (!_display.isEmpty() || !_sides.isEmpty() || (_distance != 0));
         else
             runnable = runnable && (!_display.isEmpty() || (_distance != 0));
@@ -314,8 +314,8 @@ public class EventPreferencesOrientation extends EventPreferences {
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        boolean enabledAccelerometer = GlobalData.getAccelerometerSensor(context) != null;
-        boolean enabledMagneticField = GlobalData.getMagneticFieldSensor(context) != null;
+        boolean enabledAccelerometer = PhoneProfilesService.getAccelerometerSensor(context) != null;
+        boolean enabledMagneticField = PhoneProfilesService.getMagneticFieldSensor(context) != null;
         boolean enabledAll = (enabledAccelerometer) && (enabledMagneticField);
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
         if (preference != null) {
@@ -355,8 +355,10 @@ public class EventPreferencesOrientation extends EventPreferences {
     @Override
     public void setSystemEventForStart(Context context)
     {
-        if (_enabled && (!GlobalData.isOrientationScannerStarted()))
-            GlobalData.startOrientationScanner(context);
+        if (GlobalData.phoneProfilesService != null) {
+            if (_enabled && (!PhoneProfilesService.isOrientationScannerStarted()))
+            GlobalData.phoneProfilesService.startOrientationScanner();
+        }
     }
 
     @Override

@@ -6150,8 +6150,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                     }
                     if (Integer.parseInt(cursor.getString(4)) != 0) {
-                        boolean enabled = (GlobalData.getAccelerometerSensor(context.getApplicationContext()) != null) &&
-                                          (GlobalData.getMagneticFieldSensor(context.getApplicationContext()) != null);
+                        boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
+                                          (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null);
                         if (!enabled) {
                             values.clear();
                             values.put(KEY_E_ORIENTATION_DISPLAY, "");
@@ -6159,7 +6159,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
                                     new String[]{String.valueOf(Integer.parseInt(cursor.getString(0)))});
                         }
-                        enabled = (GlobalData.getProximitySensor(context.getApplicationContext()) != null) &&
+                        enabled = (PhoneProfilesService.getProximitySensor(context.getApplicationContext()) != null) &&
                                   ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
                         if (!enabled) {
                             values.clear();

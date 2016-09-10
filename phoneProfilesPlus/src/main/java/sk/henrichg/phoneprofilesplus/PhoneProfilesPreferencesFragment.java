@@ -168,7 +168,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             editor.commit();
         }
 
-        final boolean enabled = GlobalData.isLocationEnabled(preferencesActivity.getApplicationContext());
+        final boolean enabled = PhoneProfilesService.isLocationEnabled(preferencesActivity.getApplicationContext());
         Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
         preference.setEnabled(enabled);
 

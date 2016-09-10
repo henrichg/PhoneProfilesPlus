@@ -39,10 +39,12 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GeofencesScanner.REQUEST_RESOLVE_ERROR) {
-            GlobalData.geofencesScanner.mResolvingError = false;
+            if (PhoneProfilesService.isGeofenceScannerStarted())
+                GlobalData.phoneProfilesService.geofencesScanner.mResolvingError = false;
             if (resultCode == RESULT_OK) {
                 // Make sure the app is not already connected or attempting to connect
-                GlobalData.geofencesScanner.connectForResolve();
+                if (PhoneProfilesService.isGeofenceScannerStarted())
+                    GlobalData.phoneProfilesService.geofencesScanner.connectForResolve();
             }
         }
     }
@@ -62,7 +64,8 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */
     public void onDialogDismissed() {
-        GlobalData.geofencesScanner.mResolvingError = false;
+        if (PhoneProfilesService.isGeofenceScannerStarted())
+            GlobalData.phoneProfilesService.geofencesScanner.mResolvingError = false;
         finish();
     }
 

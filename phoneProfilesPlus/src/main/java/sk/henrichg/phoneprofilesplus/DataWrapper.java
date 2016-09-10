@@ -2279,7 +2279,7 @@ public class DataWrapper {
             }
             else
             {
-                if (GlobalData.isOrientationScannerStarted()) {
+                if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isOrientationScannerStarted()) {
 
                     String foregroundApplication = GlobalData.getApplicationInForeground(context);
                     boolean lApplicationPassed = false;
@@ -2296,8 +2296,8 @@ public class DataWrapper {
                     }
                     if (!lApplicationPassed) {
 
-                        boolean enabledAccelerometer = GlobalData.getAccelerometerSensor(context) != null;
-                        boolean enabledMagneticField = GlobalData.getMagneticFieldSensor(context) != null;
+                        boolean enabledAccelerometer = PhoneProfilesService.getAccelerometerSensor(context) != null;
+                        boolean enabledMagneticField = PhoneProfilesService.getMagneticFieldSensor(context) != null;
                         boolean enabledAll = (enabledAccelerometer) && (enabledMagneticField);
                         boolean lDisplayPassed = true;
                         if (enabledAccelerometer) {
@@ -2346,7 +2346,7 @@ public class DataWrapper {
                             }
                         }
 
-                        boolean enabled = GlobalData.getProximitySensor(context) != null;
+                        boolean enabled = PhoneProfilesService.getProximitySensor(context) != null;
                         boolean lDistancePassed = true;
                         if (enabled) {
                             if (event._eventPreferencesOrientation._distance != 0) {
