@@ -23,8 +23,6 @@ import android.telephony.gsm.GsmCellLocation;
 
 import java.util.List;
 
-// how about API level 16????
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class PhoneStateScanner extends PhoneStateListener {
 
     private Context context;
@@ -55,6 +53,7 @@ public class PhoneStateScanner extends PhoneStateListener {
             telephonyManager.listen(this, PhoneStateListener.LISTEN_NONE);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void getAllCellInfo(List<CellInfo> cellInfo) {
         // only for registered cells is returned identify
         // SlimKat in Galaxy Nexus - returns null :-/
@@ -116,6 +115,7 @@ public class PhoneStateScanner extends PhoneStateListener {
             GlobalData.logE("PhoneStateScanner.getAllCellInfo", "cell info is null");
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void getAllCellInfo() {
         if (telephonyManager != null) {
             List<CellInfo> cellInfo = telephonyManager.getAllCellInfo();
@@ -142,7 +142,10 @@ public class PhoneStateScanner extends PhoneStateListener {
 
         GlobalData.logE("PhoneStateScanner.onServiceStateChanged", "serviceState="+serviceState);
 
-        getAllCellInfo();
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            getAllCellInfo();
+        else
+            getCellLocation();
     }
 
     private void getCellLocation(CellLocation location) {
