@@ -265,6 +265,7 @@ public class PhoneProfilesService extends Service
 
         stopSimulatingRingingCall();
 
+        GlobalData.cleanPhoneProfilesServiceMessenger(getApplicationContext());
     }
 
     @Override
