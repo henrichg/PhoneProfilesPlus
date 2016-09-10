@@ -638,6 +638,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (GlobalData.phoneProfilesService != null) {
                     GlobalData.phoneProfilesService.startGeofenceScanner();
                     GlobalData.phoneProfilesService.startOrientationScanner();
+                    GlobalData.logE("EditorProfilesActivity.startPhoneStateScanner", "xxx");
                     GlobalData.phoneProfilesService.startPhoneStateScanner();
                 }
 

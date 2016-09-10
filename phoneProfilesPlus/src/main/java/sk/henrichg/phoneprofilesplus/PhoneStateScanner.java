@@ -21,6 +21,7 @@ import android.telephony.TelephonyManager;
 
 import java.util.List;
 
+// how about API level 16????
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class PhoneStateScanner extends PhoneStateListener {
 
@@ -53,8 +54,9 @@ public class PhoneStateScanner extends PhoneStateListener {
     }
 
     private void getAllCellInfo(List<CellInfo> cellInfo) {
-        // only for registered cells is returned identify (Android 6, 7)
+        // only for registered cells is returned identify
         // SlimKat in Galaxy Nexus - returns null :-/
+        // Honor 7 - returns emty list (not null), Dual SIM?
 
         if (cellInfo!=null) {
 

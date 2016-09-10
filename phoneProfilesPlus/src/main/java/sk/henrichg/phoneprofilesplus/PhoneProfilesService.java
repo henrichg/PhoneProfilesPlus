@@ -191,6 +191,7 @@ public class PhoneProfilesService extends Service
         // but will by stopped when events not exists
         startGeofenceScanner();
         startOrientationScanner();
+        GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "+++");
         startPhoneStateScanner();
 
 
@@ -364,6 +365,7 @@ public class PhoneProfilesService extends Service
     // Phone state ----------------------------------------------------------------
 
     public void startPhoneStateScanner() {
+        GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "xxx");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             if (phoneStateScanner != null) {
                 phoneStateScanner.disconnect();
@@ -371,13 +373,17 @@ public class PhoneProfilesService extends Service
             }
 
             if (GlobalData.getApplicationStarted(this)) {
+                GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "app started=true");
                 phoneStateScanner = new PhoneStateScanner(this);
                 phoneStateScanner.connect();
             }
+            else
+                GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "app started=false");
         }
     }
 
     public void stopPhoneStateScanner() {
+        GlobalData.logE("PhoneProfilesService.stopPhoneStateScanner", "xxx");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             if (phoneStateScanner != null) {
                 phoneStateScanner.disconnect();

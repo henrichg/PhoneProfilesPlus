@@ -79,8 +79,10 @@ public class EventsService extends IntentService
                 GlobalData.phoneProfilesService.startGeofenceScanner();
 
             // start of CellTowerScanner
-            if (!PhoneProfilesService.isPhoneStateStarted())
+            if (!PhoneProfilesService.isPhoneStateStarted()) {
+                GlobalData.logE("EventsService.startPhoneStateScanner", "xxx");
                 GlobalData.phoneProfilesService.startPhoneStateScanner();
+            }
         }
 
         if (!GlobalData.getGlobalEventsRuning(context)) {
