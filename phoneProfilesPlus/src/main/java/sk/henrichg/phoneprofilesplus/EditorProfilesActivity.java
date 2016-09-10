@@ -965,12 +965,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (resultCode == RESULT_OK)
             {
-                if (GlobalData.phoneProfilesService.geofencesScanner != null) {
-                    boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
-                    GlobalData.phoneProfilesService.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
-                }
                 if (GlobalData.phoneProfilesService != null) {
                     boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+                    if (GlobalData.phoneProfilesService.geofencesScanner != null) {
+                        GlobalData.phoneProfilesService.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
+                    }
                     GlobalData.phoneProfilesService.resetListeningSensors(powerSaveMode, true);
                 }
 

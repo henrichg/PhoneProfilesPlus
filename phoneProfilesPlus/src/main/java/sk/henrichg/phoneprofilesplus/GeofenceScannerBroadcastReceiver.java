@@ -23,7 +23,7 @@ public class GeofenceScannerBroadcastReceiver extends WakefulBroadcastReceiver {
         {
             GlobalData.logE("@@@ GeofenceScannerBroadcastReceiver.onReceive", "xxx");
 
-            if (PhoneProfilesService.isGeofenceScannerStarted())
+            if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isGeofenceScannerStarted())
                 GlobalData.phoneProfilesService.geofencesScanner.updateGeofencesInDB();
 
             // start service

@@ -292,7 +292,7 @@ public class LocationGeofencePreference extends DialogPreference {
                                 updateGUIWithGeofence(0);
                                 if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                     // stop location updates
-                                    if (PhoneProfilesService.isGeofenceScannerStarted())
+                                    if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isGeofenceScannerStarted())
                                         GlobalData.phoneProfilesService.geofencesScanner.disconnect();
                                 }
                             }

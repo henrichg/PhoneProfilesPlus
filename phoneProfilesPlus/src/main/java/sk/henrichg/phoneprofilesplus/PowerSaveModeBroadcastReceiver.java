@@ -33,10 +33,11 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            if (PhoneProfilesService.isGeofenceScannerStarted())
-                GlobalData.phoneProfilesService.geofencesScanner.resetLocationUpdates(oldPowerSaveMode, false);
-            if (GlobalData.phoneProfilesService != null)
+            if (GlobalData.phoneProfilesService != null) {
+                if (PhoneProfilesService.isGeofenceScannerStarted())
+                    GlobalData.phoneProfilesService.geofencesScanner.resetLocationUpdates(oldPowerSaveMode, false);
                 GlobalData.phoneProfilesService.resetListeningSensors(oldPowerSaveMode, false);
+            }
 
             //if (!powerSaveMode)
             //{

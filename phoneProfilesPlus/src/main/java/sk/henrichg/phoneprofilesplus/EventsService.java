@@ -72,13 +72,15 @@ public class EventsService extends IntentService
             oldRingtone = "";
         }
 
-        // start of GeofenceScanner
-        if (!PhoneProfilesService.isGeofenceScannerStarted())
-            GlobalData.phoneProfilesService.startGeofenceScanner();
+        if (GlobalData.phoneProfilesService != null) {
+            // start of GeofenceScanner
+            if (!PhoneProfilesService.isGeofenceScannerStarted())
+                GlobalData.phoneProfilesService.startGeofenceScanner();
 
-        // start of CellTowerScanner
-        if (!PhoneProfilesService.isPhoneStateStarted())
-            GlobalData.phoneProfilesService.startPhoneStateScanner();
+            // start of CellTowerScanner
+            if (!PhoneProfilesService.isPhoneStateStarted())
+                GlobalData.phoneProfilesService.startPhoneStateScanner();
+        }
 
         if (!GlobalData.getGlobalEventsRuning(context)) {
             // events are globally stopped
@@ -90,9 +92,11 @@ public class EventsService extends IntentService
         }
 
         // start orientation listeners only when events exists
-        if (!PhoneProfilesService.isOrientationScannerStarted()) {
-            if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
-                GlobalData.phoneProfilesService.startOrientationScanner();
+        if (GlobalData.phoneProfilesService != null) {
+            if (!PhoneProfilesService.isOrientationScannerStarted()) {
+                if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
+                    GlobalData.phoneProfilesService.startOrientationScanner();
+            }
         }
 
         if (!eventsExists(broadcastReceiverType)) {
