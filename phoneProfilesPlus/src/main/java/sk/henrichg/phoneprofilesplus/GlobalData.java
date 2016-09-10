@@ -1845,8 +1845,10 @@ public class GlobalData extends Application {
     }
 
     public static void cleanPhoneProfilesServiceMessenger(Context context) {
-        if (phoneProfilesServiceMessenger != null)
+        if (phoneProfilesServiceMessenger != null) {
             phoneProfilesServiceMessenger.unbind(context);
+            phoneProfilesServiceMessenger = null;
+        }
     }
 
     //-------------------------------------------------------------------------
