@@ -37,8 +37,12 @@ public class PhoneProfilesServiceMessenger {
     public void bingAndSendMessage(Context context, int messageValue) {
         this.messageValue = messageValue;
         if (!mIsBound) {
-            mIsBound = true;
-            context.bindService(new Intent(context.getApplicationContext(), PhoneProfilesService.class), mConnection, Context.BIND_AUTO_CREATE);
+            try {
+                context.bindService(new Intent(context.getApplicationContext(), PhoneProfilesService.class), mConnection, Context.BIND_AUTO_CREATE);
+                mIsBound = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         else {
             if (mService != null) {
@@ -55,11 +59,10 @@ public class PhoneProfilesServiceMessenger {
     }
 
     public void unbind(Context context) {
-        return;
-        /*if (mIsBound) {
+        if (mIsBound) {
             context.unbindService(mConnection);
             mIsBound = false;
-        }*/
+        }
     }
 
 }
