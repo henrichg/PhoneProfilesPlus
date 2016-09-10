@@ -357,9 +357,7 @@ public class EventPreferencesOrientation extends EventPreferences {
     {
         if (GlobalData.phoneProfilesService != null) {
             if (_enabled && (!PhoneProfilesService.isOrientationScannerStarted())) {
-                PhoneProfilesServiceMessenger messenger = new PhoneProfilesServiceMessenger();
-                messenger.bingAndSendMessage(context, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
-                messenger.unbind(context);
+                GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
             }
         }
     }

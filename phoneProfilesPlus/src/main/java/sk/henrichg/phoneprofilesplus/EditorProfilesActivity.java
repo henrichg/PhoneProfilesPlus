@@ -562,11 +562,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         if (GlobalData.phoneProfilesService != null) {
-            PhoneProfilesServiceMessenger messenger = new PhoneProfilesServiceMessenger();
-            messenger.bingAndSendMessage(context, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
-            messenger.bingAndSendMessage(context, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
-            messenger.bingAndSendMessage(context, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
-            messenger.unbind(context);
+            GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
+            GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
+            GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
         }
 
         // remove alarm for profile duration
@@ -624,11 +622,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // stop geofences scanner
                 GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
                 if (GlobalData.phoneProfilesService != null) {
-                    PhoneProfilesServiceMessenger messenger = new PhoneProfilesServiceMessenger();
-                    messenger.bingAndSendMessage(this, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
-                    messenger.bingAndSendMessage(this, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
-                    messenger.bingAndSendMessage(this, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
-                    messenger.unbind(this);
+                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
+                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
+                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
                 }
             }
             else
@@ -638,12 +634,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
 
                 if (GlobalData.phoneProfilesService != null) {
-                    PhoneProfilesServiceMessenger messenger = new PhoneProfilesServiceMessenger();
-                    messenger.bingAndSendMessage(this, PhoneProfilesService.MSG_START_GEOFENCE_SCANNER);
-                    messenger.bingAndSendMessage(this, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
+                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_GEOFENCE_SCANNER);
+                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
                     GlobalData.logE("EditorProfilesActivity.startPhoneStateScanner", "xxx");
-                    messenger.bingAndSendMessage(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
-                    messenger.unbind(this);
+                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
                 }
 
                 // setup for next start
@@ -695,6 +689,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             exitApp(getApplicationContext(), getDataWrapper());
             getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
+
+            GlobalData.cleanPhoneProfilesServiceMessenger(getApplicationContext());
 
             Handler handler=new Handler();
             Runnable r=new Runnable() {

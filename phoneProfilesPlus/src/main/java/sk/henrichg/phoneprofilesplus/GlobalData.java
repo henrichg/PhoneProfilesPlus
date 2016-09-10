@@ -65,10 +65,7 @@ public class GlobalData extends Application {
                                          +"|PhoneStateScanner.getAllCellInfo"
                                          +"|PhoneStateScanner.onServiceStateChanged"
                                          +"|PhoneStateScanner.onCellLocationChanged"
-                                         +"|PhoneProfilesService.startPhoneStateScanner"
-                                         +"|PhoneProfilesService.stopPhoneStateScanner"
-                                         +"|EditorProfilesActivity.startPhoneStateScanner"
-                                         +"|EventsService.startPhoneStateScanner"
+                                         +"|PhoneProfilesService.handleMessage"
 
                                          //+"|GlobalData._isRooted"
                                          //+"|GlobalData.isRootGranted"
@@ -386,7 +383,7 @@ public class GlobalData extends Application {
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
 
     public static PhoneProfilesService phoneProfilesService = null;
-    public Messenger phoneProfilesServiceMessenger = null;
+    public static PhoneProfilesServiceMessenger phoneProfilesServiceMessenger = null;
 
     public static boolean isPowerSaveMode = false;
 
@@ -1834,6 +1831,25 @@ public class GlobalData extends Application {
     }
 
     //------------------------------------------------------------
+
+    // PhoneProfilesServiceMessenger ------------------------------------------
+
+    public static void initPhoneProfilesServiceMessenger(Context context) {
+        if (phoneProfilesServiceMessenger == null)
+            phoneProfilesServiceMessenger = new PhoneProfilesServiceMessenger();
+    }
+
+    public static void sendMessageToService(Context context, int message) {
+        if (phoneProfilesServiceMessenger != null)
+            phoneProfilesServiceMessenger.bingAndSendMessage(context, message);
+    }
+
+    public static void cleanPhoneProfilesServiceMessenger(Context context) {
+        if (phoneProfilesServiceMessenger != null)
+            phoneProfilesServiceMessenger.unbind(context);
+    }
+
+    //-------------------------------------------------------------------------
 
     // others ------------------------------------------------------------------
 

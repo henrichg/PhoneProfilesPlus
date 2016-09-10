@@ -62,9 +62,7 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) == 0) {
                 if (GlobalData.phoneProfilesService != null) {
-                    PhoneProfilesServiceMessenger messenger = new PhoneProfilesServiceMessenger();
-                    messenger.bingAndSendMessage(context, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
-                    messenger.unbind(context);
+                    GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
                 }
                 dataWrapper.invalidateDataWrapper();
                 return;

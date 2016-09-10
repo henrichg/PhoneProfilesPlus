@@ -122,6 +122,8 @@ public class PhoneProfilesService extends Service
 
         GlobalData.loadPreferences(getApplicationContext());
 
+        GlobalData.initPhoneProfilesServiceMessenger(getApplicationContext());
+
         // start service for first start
         Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
         getApplicationContext().startService(eventsServiceIntent);
@@ -291,21 +293,27 @@ public class PhoneProfilesService extends Service
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_START_GEOFENCE_SCANNER:
+                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_START_GEOFENCE_SCANNER");
                     startGeofenceScanner();
                     break;
                 case MSG_STOP_GEOFENCE_SCANNER:
+                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_STOP_GEOFENCE_SCANNER");
                     stopGeofenceScanner();
                     break;
                 case MSG_START_ORIENTATION_SCANNER:
+                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_START_ORIENTATION_SCANNER");
                     startOrientationScanner();
                     break;
                 case MSG_STOP_ORIENTATION_SCANNER:
+                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_STOP_ORIENTATION_SCANNER");
                     stopOrientationScanner();
                     break;
                 case MSG_START_PHONE_STATE_SCANNER:
+                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_START_PHONE_STATE_SCANNER");
                     startPhoneStateScanner();
                     break;
                 case MSG_STOP_PHONE_STATE_SCANNER:
+                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_STOP_PHONE_STATE_SCANNER");
                     stopPhoneStateScanner();
                     break;
                 default:

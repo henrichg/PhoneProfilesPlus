@@ -55,10 +55,11 @@ public class PhoneProfilesServiceMessenger {
     }
 
     public void unbind(Context context) {
-        if (mIsBound) {
+        return;
+        /*if (mIsBound) {
             context.unbindService(mConnection);
             mIsBound = false;
-        }
+        }*/
     }
 
 }
