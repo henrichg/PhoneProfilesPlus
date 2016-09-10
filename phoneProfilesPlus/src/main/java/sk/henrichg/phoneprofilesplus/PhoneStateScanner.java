@@ -155,13 +155,13 @@ public class PhoneStateScanner extends PhoneStateListener {
                 GsmCellLocation gcLoc = (GsmCellLocation) location;
                 GlobalData.logE("PhoneStateScanner.getCellLocation", "gsm location="+gcLoc);
                 if (gcLoc.getCid() != Integer.MAX_VALUE) {
-                    GlobalData.logE("PhoneStateScanner.getAllCellInfo", "gsm mCid="+gcLoc.getCid());
+                    GlobalData.logE("PhoneStateScanner.getCellLocation", "gsm mCid="+gcLoc.getCid());
                 }
             } else if (location instanceof CdmaCellLocation) {
                 CdmaCellLocation ccLoc = (CdmaCellLocation) location;
                 GlobalData.logE("PhoneStateScanner.getCellLocation", "cdma location="+ccLoc);
                 if (ccLoc.getBaseStationId() != Integer.MAX_VALUE) {
-                    GlobalData.logE("PhoneStateScanner.getAllCellInfo", "cdma mCid="+ccLoc.getBaseStationId());
+                    GlobalData.logE("PhoneStateScanner.getCellLocation", "cdma mCid="+ccLoc.getBaseStationId());
                 }
             } else {
                 GlobalData.logE("PhoneStateScanner.getCellLocation", "unknown location="+location);
