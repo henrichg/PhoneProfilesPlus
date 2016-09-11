@@ -5369,7 +5369,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting single mobile cell
-    public void deleteMobileCell(long mobileCellId) {
+    public void deleteMobileCellId(long mobileCellId) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5380,6 +5380,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             // delete geofence
             db.delete(TABLE_MOBILE_CELLS, KEY_MC_ID + " = ?",
                     new String[]{String.valueOf(mobileCellId)});
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.deleteMobileCell", e.toString());
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+    }
+
+    public void deleteMobileCell(int mobileCell) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+
+            // delete geofence
+            db.delete(TABLE_MOBILE_CELLS, KEY_MC_CELL_ID + " = ?",
+                    new String[]{String.valueOf(mobileCell)});
 
             db.setTransactionSuccessful();
 
@@ -5411,8 +5435,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 int cellId = cursor.getInt(0);
                 String name = cursor.getString(1);
-                Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId);
                 boolean _new = cursor.getInt(2) == 1;
+                Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
                 boolean found = false;
                 for (MobileCellsData cell : cellsList) {
                     if (cell.cellId == cellId) {
@@ -5421,7 +5445,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 }
                 if (!found) {
-                    MobileCellsData cell = new MobileCellsData(cellId, name, false, true, _new);
+                    MobileCellsData cell = new MobileCellsData(cellId, name, false, _new);
                     cellsList.add(cell);
                 }
             } while (cursor.moveToNext());
@@ -5431,10 +5455,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
-    public void saveSelectedCells(String value, List<MobileCellsData> cellsList) {
+    public void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new) {
 
         // Select All Query
-        final String selectQuery = "SELECT " + KEY_MC_CELL_ID +
+        final String selectQuery = "SELECT " + KEY_MC_ID + "," +
+                        KEY_MC_CELL_ID +
                 " FROM " + TABLE_MOBILE_CELLS;
 
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -5442,42 +5467,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        String[] splits = value.split("\\|");
-        for (String cellId : splits) {
+        for (MobileCellsData cell : cellsList) {
             boolean found = false;
             long foundedDbId = 0;
             if (cursor.moveToFirst()) {
                 do {
-                    String dbCellId = Integer.toString(cursor.getInt(0));
-                    if (cellId.equals(dbCellId)) {
-                        foundedDbId = cursor.getInt(0);
+                    String dbCellId = Integer.toString(cursor.getInt(1));
+                    if (dbCellId.equals(Integer.toString(cell.cellId))) {
+                        foundedDbId = cursor.getLong(0);
                         found = true;
                         break;
                     }
                 } while (cursor.moveToNext());
             }
             if (!found) {
-                for (MobileCellsData cell : cellsList) {
-                    if (Integer.toString(cell.cellId).equals(cellId)) {
-                        MobileCell mobileCell = new MobileCell();
-                        mobileCell._cellId = cell.cellId;
-                        mobileCell._name = cell.name;
-                        mobileCell._new = false;
-                        addMobileCell(mobileCell);
-                    }
-                }
-            }
-            else {
-                for (MobileCellsData cell : cellsList) {
-                    if (Integer.toString(cell.cellId).equals(cellId)) {
-                        MobileCell mobileCell = new MobileCell();
-                        mobileCell._id = foundedDbId;
-                        mobileCell._cellId = cell.cellId;
-                        mobileCell._name = cell.name;
-                        mobileCell._new = false;
-                        updateMobileCell(mobileCell);
-                    }
-                }
+                Log.d("DatabaseHandler.saveMobileCellsList", "!found");
+                MobileCell mobileCell = new MobileCell();
+                mobileCell._cellId = cell.cellId;
+                mobileCell._name = cell.name;
+                mobileCell._new = _new;
+                addMobileCell(mobileCell);
+            } else {
+                Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId);
+                MobileCell mobileCell = new MobileCell();
+                mobileCell._id = foundedDbId;
+                mobileCell._cellId = cell.cellId;
+                mobileCell._name = cell.name;
+                mobileCell._new = _new;
+                updateMobileCell(mobileCell);
             }
         }
 

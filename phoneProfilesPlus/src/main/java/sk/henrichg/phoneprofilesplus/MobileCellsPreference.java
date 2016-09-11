@@ -1,12 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,12 +40,15 @@ public class MobileCellsPreference extends DialogPreference {
     Context context;
 
     private MaterialDialog mDialog;
-    private LinearLayout progressLinearLayout;
-    private RelativeLayout dataRelativeLayout;
+    //private LinearLayout progressLinearLayout;
+    //private RelativeLayout dataRelativeLayout;
     private ListView cellsListView;
     private MobileCellsPreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
+
+    private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver();
+
 
     public MobileCellsPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -69,11 +76,12 @@ public class MobileCellsPreference extends DialogPreference {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         if (shouldPersist()) {
-
+                            Log.d("MobileCellsPreference.onPositive", "1");
                             if (callChangeListener(value))
                             {
+                                Log.d("MobileCellsPreference.onPositive", "2");
                                 DatabaseHandler db = DatabaseHandler.getInstance(context);
-                                db.saveSelectedCells(value, cellsList);
+                                db.saveMobileCellsList(cellsList, false);
                                 persistString(value);
                             }
                         }
@@ -97,8 +105,8 @@ public class MobileCellsPreference extends DialogPreference {
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_mobile_cells_pref_dialog, null);
         onBindDialogView(layout);
 
-        progressLinearLayout = (LinearLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
-        dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
+        //progressLinearLayout = (LinearLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
+        //dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
 
         cellsListView = (ListView) layout.findViewById(R.id.mobile_cells_pref_dlg_listview);
         listAdapter = new MobileCellsPreferenceAdapter(context, this);
@@ -146,6 +154,11 @@ public class MobileCellsPreference extends DialogPreference {
 
         mDialog.setOnDismissListener(this);
         mDialog.show();
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
+        context.registerReceiver(phoneStateChangedBroadcastReceiver, intentFilter);
+
     }
 
     @Override
@@ -153,6 +166,8 @@ public class MobileCellsPreference extends DialogPreference {
     {
         if (!rescanAsyncTask.isCancelled())
             rescanAsyncTask.cancel(true);
+
+        context.unregisterReceiver(phoneStateChangedBroadcastReceiver);
     }
 
     @Override
@@ -225,7 +240,7 @@ public class MobileCellsPreference extends DialogPreference {
         return false;
     }
 
-    public void refreshListView(boolean forRescan)
+    public void refreshListView(final boolean forRescan)
     {
         final boolean _forRescan = forRescan;
 
@@ -255,6 +270,7 @@ public class MobileCellsPreference extends DialogPreference {
 
                     // add all from table
                     DatabaseHandler db = DatabaseHandler.getInstance(context);
+                    //db.deleteMobileCell(2843189);
                     db.addMobileCellsToList(cellsList);
 
                     // add registered cell
@@ -267,7 +283,7 @@ public class MobileCellsPreference extends DialogPreference {
                         }
                     }
                     if (!found)
-                        cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, "", true, false, true));
+                        cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, "", true, true));
 
                     // add all from value
                     String[] splits = value.split("\\|");
@@ -282,11 +298,13 @@ public class MobileCellsPreference extends DialogPreference {
                         if (!found) {
                             try {
                                 int iCell = Integer.parseInt(cell);
-                                cellsList.add(new MobileCellsData(iCell, "", false, false, true));
+                                cellsList.add(new MobileCellsData(iCell, "", false, true));
                             }
                             catch (Exception e) { }
                         }
                     }
+
+                    db.saveMobileCellsList(cellsList, true);
 
                     Collections.sort(cellsList, new SortList());
 
@@ -342,6 +360,22 @@ public class MobileCellsPreference extends DialogPreference {
             return GUIData.collator.compare(_lhs, _rhs);
         }
 
+    }
+
+    private class PhoneStateChangedBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
+
+            // save new registered cell
+            List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
+            localCellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, "", true, true));
+            DatabaseHandler db = DatabaseHandler.getInstance(context);
+            db.saveMobileCellsList(localCellsList, true);
+
+            refreshListView(false);
+        }
     }
 
 }

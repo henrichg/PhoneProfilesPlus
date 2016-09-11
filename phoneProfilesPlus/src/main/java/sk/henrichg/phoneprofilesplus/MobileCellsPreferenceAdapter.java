@@ -74,8 +74,6 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
         String cellFlags = "";
         if (cellData._new)
             cellFlags = cellFlags + "N";
-        if (cellData.saved)
-            cellFlags = cellFlags + "S";
         if (cellData.connected)
             cellFlags = cellFlags + "C";
         if (!cellFlags.isEmpty())

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.telephony.CellIdentityCdma;
@@ -30,6 +31,8 @@ public class PhoneStateScanner extends PhoneStateListener {
     TelephonyManager telephonyManager;
 
     public int registeredCell = Integer.MAX_VALUE;
+
+    public static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
 
     public PhoneStateScanner(Context context) {
         this.context = context;
@@ -146,6 +149,8 @@ public class PhoneStateScanner extends PhoneStateListener {
             getAllCellInfo();
         else
             getAllCellInfo(cellInfo);
+
+        sendBroadcast();
     }
 
     @Override
@@ -155,6 +160,8 @@ public class PhoneStateScanner extends PhoneStateListener {
         GlobalData.logE("PhoneStateScanner.onServiceStateChanged", "serviceState="+serviceState);
 
         getRegisteredCell();
+
+        sendBroadcast();
     }
 
     private void getCellLocation(CellLocation location) {
@@ -209,6 +216,7 @@ public class PhoneStateScanner extends PhoneStateListener {
         else
             getCellLocation(location);
 
+        sendBroadcast();
     }
 
     /*
@@ -227,4 +235,9 @@ public class PhoneStateScanner extends PhoneStateListener {
         getCellLocation();
     }
 
+    private void sendBroadcast() {
+        Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);
+        //intent.putExtra("state", mode);
+        context.sendBroadcast(intent);
+    }
 }
