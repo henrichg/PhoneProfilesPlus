@@ -270,7 +270,11 @@ public class MobileCellsPreference extends DialogPreference {
 
                     // add all from table
                     DatabaseHandler db = DatabaseHandler.getInstance(context);
-                    //db.deleteMobileCell(2843189);
+                    /*db.deleteMobileCell(2826251);
+                    db.deleteMobileCell(2843189);
+                    db.deleteMobileCell(2877237);
+                    db.deleteMobileCell(2649653);
+                    db.deleteMobileCell(2649613);*/
                     db.addMobileCellsToList(cellsList);
 
                     // add registered cell

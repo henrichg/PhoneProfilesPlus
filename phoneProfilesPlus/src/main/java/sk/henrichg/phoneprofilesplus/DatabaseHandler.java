@@ -5485,15 +5485,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 MobileCell mobileCell = new MobileCell();
                 mobileCell._cellId = cell.cellId;
                 mobileCell._name = cell.name;
-                mobileCell._new = _new;
+                mobileCell._new = true;
                 addMobileCell(mobileCell);
             } else {
-                Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId);
+                Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
                 MobileCell mobileCell = new MobileCell();
                 mobileCell._id = foundedDbId;
                 mobileCell._cellId = cell.cellId;
                 mobileCell._name = cell.name;
-                mobileCell._new = _new;
+                mobileCell._new = _new && cell._new;
                 updateMobileCell(mobileCell);
             }
         }
