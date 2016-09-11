@@ -47,7 +47,7 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
 
     public View getView(final int position, View convertView, ViewGroup parent)
     {
-        // SSID to display
+        // cell to display
         MobileCellsData cellData = preference.cellsList.get(position);
         //System.out.println(String.valueOf(position));
 
@@ -71,8 +71,13 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
         if (!cellData.name.isEmpty())
             cellName = cellData.name + "\n";
         cellName = cellName + cellData.cellId;
-        if (cellData.registered)
-            cellName = cellName + " (" + context.getString(R.string.event_preferences_mobile_cells_registered_cellId) + ")";
+        String cellFlags = "";
+        if (cellData.connected)
+            cellFlags = "C";
+        if (cellData.saved)
+            cellFlags = "S";
+        if (!cellFlags.isEmpty())
+            cellName = cellName + " (" + cellFlags + ")";
         holder.cellId.setText(cellName);
 
         holder.checkBox.setTag(position);

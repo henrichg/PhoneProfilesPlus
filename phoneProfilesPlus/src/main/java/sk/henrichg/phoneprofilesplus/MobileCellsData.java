@@ -4,16 +4,18 @@ public class MobileCellsData {
 
     public int cellId;
     public String name;
-    public boolean registered;
+    public boolean connected;
+    public boolean saved;
 
     public MobileCellsData() {
     }
 
-    public MobileCellsData(int cellId, String name, boolean registered)
+    public MobileCellsData(int cellId, String name, boolean connected, boolean saved)
     {
         this.cellId = cellId;
         this.name = name;
-        this.registered = registered;
+        this.connected = connected;
+        this.saved = saved;
     }
 
 }

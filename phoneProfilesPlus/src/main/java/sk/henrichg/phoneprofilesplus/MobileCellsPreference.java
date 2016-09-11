@@ -119,13 +119,7 @@ public class MobileCellsPreference extends DialogPreference {
 
         mBuilder.customView(layout, false);
 
-        /*
         final TextView helpText = (TextView)layout.findViewById(R.id.mobile_cells_pref_dlg_helpText);
-        String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
-                            context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
-                            context.getString(R.string.wifi_ssid_pref_dlg_info_about_wildcards) + " " +
-                            context.getString(R.string.pref_dlg_info_about_wildcards_3);
-        helpText.setText(helpString);
 
         ImageView helpIcon = (ImageView)layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
         helpIcon.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +133,6 @@ public class MobileCellsPreference extends DialogPreference {
                 helpText.setVisibility(visibility);
             }
         });
-        */
 
         mDialog = mBuilder.build();
         if (state != null)
@@ -254,7 +247,19 @@ public class MobileCellsPreference extends DialogPreference {
                         //GlobalData.sleep(200);
                     }
 
-                    cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, "", true));
+                    DatabaseHandler db = DatabaseHandler.getInstance(context);
+                    db.addMobileCellsToList(cellsList);
+
+                    boolean found = false;
+                    for (MobileCellsData cell : cellsList) {
+                        if (cell.cellId == GlobalData.phoneProfilesService.phoneStateScanner.registeredCell) {
+                            cell.connected = true;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                        cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, "", true, false));
 
                     String[] splits = value.split("\\|");
                     String sRegisteredCell = Integer.toString(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell);
@@ -262,14 +267,11 @@ public class MobileCellsPreference extends DialogPreference {
                         if (!cell.equals(sRegisteredCell)) {
                             try {
                                 int iCell = Integer.parseInt(cell);
-                                cellsList.add(new MobileCellsData(iCell, "", false));
+                                cellsList.add(new MobileCellsData(iCell, "", false, false));
                             }
                             catch (Exception e) { }
                         }
                     }
-
-                    DatabaseHandler db = DatabaseHandler.getInstance(context);
-                    db.addMobileCellsToList(cellsList);
 
                     Collections.sort(cellsList, new SortList());
 

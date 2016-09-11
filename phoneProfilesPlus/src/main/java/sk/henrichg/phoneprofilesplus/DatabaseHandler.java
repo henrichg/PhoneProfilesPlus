@@ -5405,7 +5405,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 }
                 if (!found) {
-                    MobileCellsData cell = new MobileCellsData(cellId, name, false);
+                    MobileCellsData cell = new MobileCellsData(cellId, name, false, true);
                     cellsList.add(cell);
                 }
             } while (cursor.moveToNext());

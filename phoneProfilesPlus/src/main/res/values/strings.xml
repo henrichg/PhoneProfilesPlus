@@ -785,7 +785,7 @@
     <string name="event_preferences_mobile_cells_cells">Cells</string>
     <string name="event_preferences_mobile_cells_when_outside_pref_name">Start when is outside mobile cell</string>
     <string name="event_preferences_mobile_cells_when_outside_description">When outside</string>
-    <string name="event_preferences_mobile_cells_registered_cellId">registered</string>
     <string name="permissions_for_mobile_cells_scan_dialog_text1">Mobile cells scanning requires some permissions.</string>
     <string name="mobile_cells_pref_dlg_rescan_button">Rescan</string>
+    <string name="mobile_cells_pref_dlg_help">(C) connected to cell, (S) saved cell</string>
 </resources>
