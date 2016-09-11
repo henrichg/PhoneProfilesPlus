@@ -397,6 +397,26 @@
                 android:dependency="eventBluetoothEnabled" />
         </PreferenceScreen>
         <PreferenceScreen
+            android:key="eventMobileCellsCategory"
+            android:title="@string/event_preferences_category_eventMobileCellsParameters"
+            android:widgetLayout="@layout/start_activity_preference" >
+            <CheckBoxPreference
+                android:key="eventMobileCellsEnabled"
+                android:title="@string/event_preferences_mobile_cells_enabled"
+                android:defaultValue="false" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:defaultValue="0"
+                android:key="eventMobileCellsCellId"
+                android:title="@string/event_preferences_mobile_cells_cellId"
+                android:dependency="eventMobileCellsEnabled"
+                app:useStockLayout="true" />
+            <CheckBoxPreference
+                android:key="eventMobileCellsStartWhenOutside"
+                android:title="@string/event_preferences_mobile_cells_when_outside_pref_name"
+                android:defaultValue="false"
+                android:dependency="eventMobileCellsEnabled" />
+        </PreferenceScreen>
+        <PreferenceScreen
             android:title="@string/event_preferences_category_eventPeripheralParameters"
             android:key="eventAccessoriesCategory"
             android:widgetLayout="@layout/start_activity_preference" >

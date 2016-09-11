@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1660;
+    private static final int DATABASE_VERSION = 1670;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -62,6 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int ETYPE_APPLICATION = 13;
     public static final int ETYPE_LOCATION = 14;
     public static final int ETYPE_ORIENTATION = 15;
+    public static final int ETYPE_MOBILE_CELLS = 16;
 
     // activity log types
     public static final int ALTYPE_PROFILEACTIVATION = 1;
@@ -219,6 +220,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_ORIENTATION_DISTANCE = "orientationDistance";
     private static final String KEY_E_ORIENTATION_DISPLAY = "orientationDisplay";
     private static final String KEY_E_ORIENTATION_IGNORE_APPLICATIONS = "orientationIgnoreApplications";
+    private static final String KEY_E_MOBILE_CELLS_ENABLED = "mobileCellsEnabled";
+    private static final String KEY_E_MOBILE_CELLS_CELL_ID = "mobileCellsCellId";
+    private static final String KEY_E_MOBILE_CELLS_WHEN_OUTSIDE = "mobileCellsWhenOutside";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -454,7 +458,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_ORIENTATION_SIDES + " TEXT,"
                 + KEY_E_ORIENTATION_DISTANCE + " INTEGER,"
                 + KEY_E_ORIENTATION_DISPLAY + " TEXT,"
-                + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + " TEXT"
+                + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + " TEXT,"
+                + KEY_E_MOBILE_CELLS_ENABLED + " INTEGER,"
+                + KEY_E_MOBILE_CELLS_CELL_ID + " INTEGER,"
+                + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1666,6 +1673,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WALLPAPER_FOR + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WALLPAPER_FOR + "=0");
+        }
+
+        if (oldVersion < 1670)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_ENABLED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_CELL_ID + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_CELL_ID + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -2904,6 +2924,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesApplication(event, db);
         getEventPreferencesLocation(event, db);
         getEventPreferencesOrientation(event, db);
+        getEventPreferencesMobileCells(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -3298,6 +3319,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesMobileCells(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_MOBILE_CELLS_ENABLED,
+                        KEY_E_MOBILE_CELLS_CELL_ID,
+                        KEY_E_MOBILE_CELLS_WHEN_OUTSIDE
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
+
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
+                eventPreferences._cellId = cursor.getInt(1);
+                eventPreferences._whenOutside = cursor.getInt(2) == 1;
+
+            }
+            cursor.close();
+        }
+    }
+
+
     public int updateEventPreferences(Event event) {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -3334,6 +3381,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             r = updateEventPreferencesLocation(event, db);
         if (r != 0)
             r = updateEventPreferencesOrientation(event, db);
+        if (r != 0)
+            r = updateEventPreferencesMobileCells(event, db);
 
         return r;
     }
@@ -3576,6 +3625,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
+    private int updateEventPreferencesMobileCells(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
+
+        values.put(KEY_E_MOBILE_CELLS_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_MOBILE_CELLS_CELL_ID, eventPreferences._cellId);
+        values.put(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
+
+        // updating row
+        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+
+        return r;
+    }
+
     public int getEventStatus(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -3795,6 +3860,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else
         if (eventType == ETYPE_ORIENTATION)
             eventTypeChecked = eventTypeChecked + KEY_E_ORIENTATION_ENABLED + "=1";
+        else
+        if (eventType == ETYPE_MOBILE_CELLS)
+            eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1";
 
         countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                      " WHERE " + eventTypeChecked;
@@ -5770,6 +5838,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                 if (exportedDBObj.getVersion() < 1620) {
                                     values.put(KEY_E_ORIENTATION_IGNORE_APPLICATIONS, "");
+                                }
+
+                                if (exportedDBObj.getVersion() < 1670) {
+                                    values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
+                                    values.put(KEY_E_MOBILE_CELLS_CELL_ID, 0);
+                                    values.put(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, 0);
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper

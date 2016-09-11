@@ -55,6 +55,7 @@ public class Event {
     public EventPreferencesApplication _eventPreferencesApplication;
     public EventPreferencesLocation _eventPreferencesLocation;
     public EventPreferencesOrientation _eventPreferencesOrientation;
+    public EventPreferencesMobileCells _eventPreferencesMobileCells;
 
     public static final int ESTATUS_STOP = 0;
     public static final int ESTATUS_PAUSE = 1;
@@ -275,6 +276,11 @@ public class Event {
         this._eventPreferencesOrientation = new EventPreferencesOrientation(this, false, "", "", 0, "");
     }
 
+    private void createEventPreferencesMobileCells()
+    {
+        this._eventPreferencesMobileCells = new EventPreferencesMobileCells(this, false, 0, false);
+    }
+
     public void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -290,6 +296,7 @@ public class Event {
         createEventPreferencesApplication();
         createEventPreferencesLocation();
         createEventPreferencesOrientation();
+        createEventPreferencesMobileCells();
     }
 
     public void copyEventPreferences(Event fromEvent)
@@ -320,6 +327,8 @@ public class Event {
             createEventPreferencesLocation();
         if (this._eventPreferencesOrientation == null)
             createEventPreferencesOrientation();
+        if (this._eventPreferencesMobileCells == null)
+            createEventPreferencesMobileCells();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -333,6 +342,7 @@ public class Event {
         this._eventPreferencesApplication.copyPreferences(fromEvent);
         this._eventPreferencesLocation.copyPreferences(fromEvent);
         this._eventPreferencesOrientation.copyPreferences(fromEvent);
+        this._eventPreferencesMobileCells.copyPreferences(fromEvent);
     }
 
     public boolean isRunnable(Context context)
@@ -350,7 +360,8 @@ public class Event {
               this._eventPreferencesNotification._enabled ||
               this._eventPreferencesApplication._enabled ||
               this._eventPreferencesLocation._enabled ||
-              this._eventPreferencesOrientation._enabled))
+              this._eventPreferencesOrientation._enabled ||
+              this._eventPreferencesMobileCells._enabled))
             runnable = false;
         if (this._eventPreferencesTime._enabled)
             runnable = runnable && this._eventPreferencesTime.isRunnable(context);
@@ -378,6 +389,8 @@ public class Event {
             runnable = runnable && this._eventPreferencesLocation.isRunnable(context);
         if (this._eventPreferencesOrientation._enabled)
             runnable = runnable && this._eventPreferencesOrientation.isRunnable(context);
+        if (this._eventPreferencesMobileCells._enabled)
+            runnable = runnable && this._eventPreferencesMobileCells.isRunnable(context);
         return runnable;
     }
 
@@ -411,6 +424,7 @@ public class Event {
         this._eventPreferencesApplication.loadSharedPreferences(preferences);
         this._eventPreferencesLocation.loadSharedPreferences(preferences);
         this._eventPreferencesOrientation.loadSharedPreferences(preferences);
+        this._eventPreferencesMobileCells.loadSharedPreferences(preferences);
         editor.commit();
     }
 
@@ -454,6 +468,7 @@ public class Event {
         this._eventPreferencesApplication.saveSharedPreferences(preferences);
         this._eventPreferencesLocation.saveSharedPreferences(preferences);
         this._eventPreferencesOrientation.saveSharedPreferences(preferences);
+        this._eventPreferencesMobileCells.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context))
             this._status = ESTATUS_STOP;
@@ -692,6 +707,8 @@ public class Event {
         _eventPreferencesLocation.setCategorySummary(prefMng, key, preferences, context);
         _eventPreferencesOrientation.setSummary(prefMng, key, preferences, context);
         _eventPreferencesOrientation.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesMobileCells.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesMobileCells.setCategorySummary(prefMng, key, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -738,6 +755,8 @@ public class Event {
         _eventPreferencesLocation.setCategorySummary(prefMng, "", preferences, context);
         _eventPreferencesOrientation.setAllSummary(prefMng, preferences, context);
         _eventPreferencesOrientation.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesMobileCells.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesMobileCells.setCategorySummary(prefMng, "", preferences, context);
     }
 
     public String getPreferencesDescription(Context context)
@@ -768,6 +787,9 @@ public class Event {
 
         if (_eventPreferencesBluetooth._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesBluetooth.getPreferencesDescription(true, context);
+
+        if (_eventPreferencesMobileCells._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
+        description = description + _eventPreferencesMobileCells.getPreferencesDescription(true, context);
 
         if (_eventPreferencesPeripherals._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesPeripherals.getPreferencesDescription(true, context);
@@ -803,6 +825,7 @@ public class Event {
         _eventPreferencesApplication.checkPreferences(prefMng, context);
         _eventPreferencesLocation.checkPreferences(prefMng, context);
         _eventPreferencesOrientation.checkPreferences(prefMng, context);
+        _eventPreferencesMobileCells.checkPreferences(prefMng, context);
     }
 
     private boolean canActivateReturnProfile()
@@ -1332,6 +1355,7 @@ public class Event {
             _eventPreferencesApplication.setSystemEventForStart(context);
             _eventPreferencesLocation.setSystemEventForStart(context);
             _eventPreferencesOrientation.setSystemEventForStart(context);
+            _eventPreferencesMobileCells.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -1351,6 +1375,7 @@ public class Event {
             _eventPreferencesApplication.setSystemEventForPause(context);
             _eventPreferencesLocation.setSystemEventForPause(context);
             _eventPreferencesOrientation.setSystemEventForPause(context);
+            _eventPreferencesMobileCells.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -1370,6 +1395,7 @@ public class Event {
             _eventPreferencesApplication.removeSystemEvent(context);
             _eventPreferencesLocation.removeSystemEvent(context);
             _eventPreferencesOrientation.removeSystemEvent(context);
+            _eventPreferencesMobileCells.removeSystemEvent(context);
         }
     }
 
