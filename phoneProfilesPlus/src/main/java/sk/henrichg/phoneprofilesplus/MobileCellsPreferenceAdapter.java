@@ -72,10 +72,12 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
             cellName = cellData.name + "\n";
         cellName = cellName + cellData.cellId;
         String cellFlags = "";
-        if (cellData.connected)
-            cellFlags = "C";
+        if (cellData._new)
+            cellFlags = cellFlags + "N";
         if (cellData.saved)
-            cellFlags = "S";
+            cellFlags = cellFlags + "S";
+        if (cellData.connected)
+            cellFlags = cellFlags + "C";
         if (!cellFlags.isEmpty())
             cellName = cellName + " (" + cellFlags + ")";
         holder.cellId.setText(cellName);

@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1690;
+    private static final int DATABASE_VERSION = 1700;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -258,6 +258,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_MC_ID = "_id";  // for CursorAdapter must by this name
     public static final String KEY_MC_CELL_ID = "cellId";
     public static final String KEY_MC_NAME = "name";
+    public static final String KEY_MC_NEW = "new";
 
     /**
      * Constructor takes and keeps a reference of the passed context in order to
@@ -520,7 +521,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         final String CREATE_MOBILE_CELLS_TABLE = "CREATE TABLE " + TABLE_MOBILE_CELLS + "("
                 + KEY_MC_ID + " INTEGER PRIMARY KEY,"
                 + KEY_MC_CELL_ID + " INTEGER,"
-                + KEY_MC_NAME + " TEXT"
+                + KEY_MC_NAME + " TEXT,"
+                + KEY_MC_NEW + " INTEGER"
                 + ")";
         db.execSQL(CREATE_MOBILE_CELLS_TABLE);
 
@@ -1715,6 +1717,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     + KEY_MC_NAME + " TEXT"
                     + ")";
             db.execSQL(CREATE_MOBILE_CELLS_TABLE);
+        }
+
+        if (oldVersion < 1700)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_MOBILE_CELLS + " ADD COLUMN " + KEY_MC_NEW + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_NEW +  "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -5267,6 +5278,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_MC_CELL_ID, mobileCell._cellId);
         values.put(KEY_MC_NAME, mobileCell._name);
+        values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
 
         db.beginTransaction();
 
@@ -5293,7 +5305,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_MOBILE_CELLS,
                 new String[]{KEY_MC_ID,
                         KEY_MC_CELL_ID,
-                        KEY_MC_NAME
+                        KEY_MC_NAME,
+                        KEY_MC_NEW
                 },
                 KEY_MC_ID + "=?",
                 new String[]{String.valueOf(mobileCellId)}, null, null, null, null);
@@ -5310,6 +5323,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 mobileCell._id = Long.parseLong(cursor.getString(0));
                 mobileCell._cellId = cursor.getInt(1);
                 mobileCell._name = cursor.getString(2);
+                mobileCell._new = cursor.getInt(3) == 1;
             }
 
             cursor.close();
@@ -5328,6 +5342,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_MC_CELL_ID, mobileCell._cellId);
         values.put(KEY_MC_NAME, mobileCell._name);
+        values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
 
         int r = 0;
 
@@ -5380,11 +5395,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // add mobile cells to list
     public void addMobileCellsToList(List<MobileCellsData> cellsList) {
-        List<Geofence> geofenceList = new ArrayList<Geofence>();
-
         // Select All Query
         final String selectQuery = "SELECT " + KEY_MC_CELL_ID + "," +
-                            KEY_MC_NAME +
+                            KEY_MC_NAME + "," +
+                            KEY_MC_NEW +
                 " FROM " + TABLE_MOBILE_CELLS;
 
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -5397,6 +5411,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 int cellId = cursor.getInt(0);
                 String name = cursor.getString(1);
+                Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId);
+                boolean _new = cursor.getInt(2) == 1;
                 boolean found = false;
                 for (MobileCellsData cell : cellsList) {
                     if (cell.cellId == cellId) {
@@ -5405,7 +5421,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 }
                 if (!found) {
-                    MobileCellsData cell = new MobileCellsData(cellId, name, false, true);
+                    MobileCellsData cell = new MobileCellsData(cellId, name, false, true, _new);
                     cellsList.add(cell);
                 }
             } while (cursor.moveToNext());
@@ -5415,6 +5431,60 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
+    public void saveSelectedCells(String value, List<MobileCellsData> cellsList) {
+
+        // Select All Query
+        final String selectQuery = "SELECT " + KEY_MC_CELL_ID +
+                " FROM " + TABLE_MOBILE_CELLS;
+
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        String[] splits = value.split("\\|");
+        for (String cellId : splits) {
+            boolean found = false;
+            long foundedDbId = 0;
+            if (cursor.moveToFirst()) {
+                do {
+                    String dbCellId = Integer.toString(cursor.getInt(0));
+                    if (cellId.equals(dbCellId)) {
+                        foundedDbId = cursor.getInt(0);
+                        found = true;
+                        break;
+                    }
+                } while (cursor.moveToNext());
+            }
+            if (!found) {
+                for (MobileCellsData cell : cellsList) {
+                    if (Integer.toString(cell.cellId).equals(cellId)) {
+                        MobileCell mobileCell = new MobileCell();
+                        mobileCell._cellId = cell.cellId;
+                        mobileCell._name = cell.name;
+                        mobileCell._new = false;
+                        addMobileCell(mobileCell);
+                    }
+                }
+            }
+            else {
+                for (MobileCellsData cell : cellsList) {
+                    if (Integer.toString(cell.cellId).equals(cellId)) {
+                        MobileCell mobileCell = new MobileCell();
+                        mobileCell._id = foundedDbId;
+                        mobileCell._cellId = cell.cellId;
+                        mobileCell._name = cell.name;
+                        mobileCell._new = false;
+                        updateMobileCell(mobileCell);
+                    }
+                }
+            }
+        }
+
+        cursor.close();
+        //db.close();
+
+    }
 
 // OTHERS -------------------------------------------------------------------------
 
@@ -6184,12 +6254,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 }
 
                                 // for non existent fields set default value
-                                /*if (exportedDBObj.getVersion() < 1480) {
-                                    values.put(KEY_G_CHECKED, 0);
+                                if (exportedDBObj.getVersion() < 1700) {
+                                    values.put(KEY_MC_NEW, 0);
                                 }
-                                if (exportedDBObj.getVersion() < 1510) {
-                                    values.put(KEY_G_TRANSITION, 0);
-                                }*/
 
                                 // Inserting Row do db z SQLiteOpenHelper
                                 db.insert(TABLE_MOBILE_CELLS, null, values);

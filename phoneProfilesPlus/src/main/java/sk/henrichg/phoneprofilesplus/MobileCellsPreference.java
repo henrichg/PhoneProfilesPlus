@@ -53,6 +53,9 @@ public class MobileCellsPreference extends DialogPreference {
 
     @Override
     protected void showDialog(Bundle state) {
+
+        value = getPersistedString("");
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
@@ -69,7 +72,8 @@ public class MobileCellsPreference extends DialogPreference {
 
                             if (callChangeListener(value))
                             {
-
+                                DatabaseHandler db = DatabaseHandler.getInstance(context);
+                                db.saveSelectedCells(value, cellsList);
                                 persistString(value);
                             }
                         }
@@ -109,10 +113,12 @@ public class MobileCellsPreference extends DialogPreference {
 
                 viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
-                if (viewHolder.checkBox.isChecked())
+                if (viewHolder.checkBox.isChecked()) {
                     addCellId(cellsList.get(position).cellId);
-                else
+                }
+                else {
                     removeCellId(cellsList.get(position).cellId);
+                }
             }
 
         });
@@ -247,9 +253,11 @@ public class MobileCellsPreference extends DialogPreference {
                         //GlobalData.sleep(200);
                     }
 
+                    // add all from table
                     DatabaseHandler db = DatabaseHandler.getInstance(context);
                     db.addMobileCellsToList(cellsList);
 
+                    // add registered cell
                     boolean found = false;
                     for (MobileCellsData cell : cellsList) {
                         if (cell.cellId == GlobalData.phoneProfilesService.phoneStateScanner.registeredCell) {
@@ -259,15 +267,22 @@ public class MobileCellsPreference extends DialogPreference {
                         }
                     }
                     if (!found)
-                        cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, "", true, false));
+                        cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, "", true, false, true));
 
+                    // add all from value
                     String[] splits = value.split("\\|");
-                    String sRegisteredCell = Integer.toString(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell);
                     for (String cell : splits) {
-                        if (!cell.equals(sRegisteredCell)) {
+                        found = false;
+                        for (MobileCellsData mCell : cellsList) {
+                            if (cell.equals(Integer.toString(mCell.cellId))) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
                             try {
                                 int iCell = Integer.parseInt(cell);
-                                cellsList.add(new MobileCellsData(iCell, "", false, false));
+                                cellsList.add(new MobileCellsData(iCell, "", false, false, true));
                             }
                             catch (Exception e) { }
                         }
@@ -306,14 +321,24 @@ public class MobileCellsPreference extends DialogPreference {
     private class SortList implements Comparator<MobileCellsData> {
 
         public int compare(MobileCellsData lhs, MobileCellsData rhs) {
-            String _lhs = lhs.name;
-            if (_lhs.isEmpty())
-                _lhs = "\uFFFF";
+            String _lhs = "";
+            if (lhs._new)
+                _lhs = _lhs + "\uFFFF";
+            if (lhs.name.isEmpty())
+                _lhs = _lhs + "\uFFFF";
+            else
+                _lhs = _lhs + lhs.name;
             _lhs = _lhs + lhs.cellId;
-            String _rhs = rhs.name;
-            if (_rhs.isEmpty())
-                _rhs = "\uFFFF";
-            _rhs = _rhs + rhs.cellId;
+
+            String _rhs = "";
+            if (rhs._new)
+                _rhs = _rhs + "\uFFFF";
+            if (rhs.name.isEmpty())
+                _rhs = _rhs + "\uFFFF";
+            else
+                _rhs = _rhs + lhs.name;
+            _rhs = _rhs + lhs.cellId;
+
             return GUIData.collator.compare(_lhs, _rhs);
         }
 
