@@ -404,12 +404,11 @@
                 android:key="eventMobileCellsEnabled"
                 android:title="@string/event_preferences_mobile_cells_enabled"
                 android:defaultValue="false" />
-            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            <sk.henrichg.phoneprofilesplus.MobileCellsPreference
                 android:defaultValue="0"
-                android:key="eventMobileCellsCellId"
+                android:key="eventMobileCellsCells"
                 android:title="@string/event_preferences_mobile_cells_cellId"
-                android:dependency="eventMobileCellsEnabled"
-                app:useStockLayout="true" />
+                android:dependency="eventMobileCellsEnabled" />
             <CheckBoxPreference
                 android:key="eventMobileCellsStartWhenOutside"
                 android:title="@string/event_preferences_mobile_cells_when_outside_pref_name"

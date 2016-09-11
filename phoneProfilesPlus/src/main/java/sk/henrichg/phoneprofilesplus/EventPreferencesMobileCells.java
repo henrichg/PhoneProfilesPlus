@@ -9,11 +9,11 @@ import android.text.Html;
 
 public class EventPreferencesMobileCells extends EventPreferences {
 
-    public int _cellId;
+    public String _cells;
     public boolean _whenOutside;
 
     static final String PREF_EVENT_MOBILE_CELLS_ENABLED = "eventMobileCellsEnabled";
-    static final String PREF_EVENT_MOBILE_CELLS_CELL_ID = "eventMobileCellsCellId";
+    static final String PREF_EVENT_MOBILE_CELLS_CELLS = "eventMobileCellsCells";
     static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
 
     static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategory";
@@ -22,12 +22,12 @@ public class EventPreferencesMobileCells extends EventPreferences {
 
     public EventPreferencesMobileCells(Event event,
                                        boolean enabled,
-                                       int cellId,
+                                       String cells,
                                        boolean _whenOutside)
     {
         super(event, enabled);
 
-        this._cellId = cellId;
+        this._cells = cells;
         this._whenOutside = _whenOutside;
     }
 
@@ -35,7 +35,7 @@ public class EventPreferencesMobileCells extends EventPreferences {
     public void copyPreferences(Event fromEvent)
     {
         this._enabled = ((EventPreferencesMobileCells)fromEvent._eventPreferencesMobileCells)._enabled;
-        this._cellId = ((EventPreferencesMobileCells)fromEvent._eventPreferencesMobileCells)._cellId;
+        this._cells = ((EventPreferencesMobileCells)fromEvent._eventPreferencesMobileCells)._cells;
         this._whenOutside = ((EventPreferencesMobileCells)fromEvent._eventPreferencesMobileCells)._whenOutside;
     }
 
@@ -44,7 +44,7 @@ public class EventPreferencesMobileCells extends EventPreferences {
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, _enabled);
-        editor.putString(PREF_EVENT_MOBILE_CELLS_CELL_ID, Integer.toString(this._cellId));
+        editor.putString(PREF_EVENT_MOBILE_CELLS_CELLS, this._cells);
         editor.putBoolean(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE, this._whenOutside);
         editor.commit();
     }
@@ -53,14 +53,7 @@ public class EventPreferencesMobileCells extends EventPreferences {
     public void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
-        try {
-            String sCellId = preferences.getString(PREF_EVENT_MOBILE_CELLS_CELL_ID, "0");
-            int cellId = Integer.parseInt(sCellId);
-            this._cellId = cellId;
-        }
-        catch (Exception e) {
-            this._cellId = 0;
-        }
+        this._cells  = preferences.getString(PREF_EVENT_MOBILE_CELLS_CELLS, "0");
         this._whenOutside = preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE, false);
     }
 
@@ -81,8 +74,8 @@ public class EventPreferencesMobileCells extends EventPreferences {
             }
 
             String selectedCell = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (this._cellId != 0) {
-                selectedCell = Integer.toString(this._cellId);
+            if (!this._cells.isEmpty()) {
+                selectedCell = this._cells;
             }
             descr = descr + selectedCell;
             if (this._whenOutside)
@@ -95,44 +88,37 @@ public class EventPreferencesMobileCells extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            if (key.equals(PREF_EVENT_MOBILE_CELLS_CELL_ID)) {
-                Preference preference = prefMng.findPreference(key);
-                if (preference != null) {
-                    int iValue;
-                    if (!value.isEmpty())
-                        iValue = Integer.valueOf(value);
-                    else
-                        iValue = 0;
-                    if (iValue == 0)
-                        preference.setSummary(R.string.event_preferences_mobile_cells_cellId_not_selected);
-                    else
-                        preference.setSummary(Integer.toString(iValue));
-                    GUIData.setPreferenceTitleStyle(preference, false, true, false);
-                }
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (value.isEmpty())
+                    preference.setSummary(R.string.event_preferences_mobile_cells_cellId_not_selected);
+                else
+                    preference.setSummary(value);
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
-        //}
+        }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_MOBILE_CELLS_CELL_ID))
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS))
         {
-            setSummary(prefMng, key, String.valueOf(preferences.getString(key, "0")), context);
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
 
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELL_ID, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
     }
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         EventPreferencesMobileCells tmp = new EventPreferencesMobileCells(this._event,
-                                                this._enabled, this._cellId, this._whenOutside);
+                                                this._enabled, this._cells, this._whenOutside);
         if (preferences != null)
             tmp.saveSharedPreferences(preferences);
 
@@ -149,18 +135,13 @@ public class EventPreferencesMobileCells extends EventPreferences {
 
         boolean runable = super.isRunnable(context);
 
-        runable = runable && (_cellId != 0);
+        runable = runable && (!_cells.isEmpty());
 
         return runable;
     }
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext());
-        Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELL_ID);
-        if (preference != null) preference.setEnabled(enabled);
-        preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE);
-        if (preference != null) preference.setEnabled(enabled);
     }
 
     @Override

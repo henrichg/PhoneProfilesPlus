@@ -37,7 +37,9 @@ public class PhoneStateScanner extends PhoneStateListener {
     }
 
     public void connect() {
-        if ((telephonyManager != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+        if ((telephonyManager != null) &&
+                context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY) &&
+                Permissions.checkLocation(context.getApplicationContext()))
             telephonyManager.listen(this,
                 /*PhoneStateListener.LISTEN_CALL_STATE
                 |*/ PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
@@ -64,64 +66,61 @@ public class PhoneStateScanner extends PhoneStateListener {
 
         if (cellInfo!=null) {
 
-            //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "---- start ----------------------------");
+            if (Permissions.checkLocation(context.getApplicationContext())) {
 
-            for (CellInfo _cellInfo : cellInfo) {
-                //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "registered="+_cellInfo.isRegistered());
+                //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "---- start ----------------------------");
 
-                if (_cellInfo instanceof CellInfoGsm) {
-                    //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "gsm info="+_cellInfo);
-                    CellIdentityGsm identityGsm = ((CellInfoGsm) _cellInfo).getCellIdentity();
-                    if (identityGsm.getCid() != Integer.MAX_VALUE) {
-                        //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "gsm mCid="+identityGsm.getCid());
-                        if (_cellInfo.isRegistered())
-                            registeredCell = identityGsm.getCid();
-                    }
-                }
-                else
-                if (_cellInfo instanceof CellInfoLte) {
-                    //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "lte info="+_cellInfo);
-                    CellIdentityLte identityLte = ((CellInfoLte) _cellInfo).getCellIdentity();
-                    if (identityLte.getCi() != Integer.MAX_VALUE) {
-                        //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "lte mCi="+identityLte.getCi());
-                        if (_cellInfo.isRegistered())
-                            registeredCell = identityLte.getCi();
-                    }
-                }
-                else
-                if (_cellInfo instanceof CellInfoWcdma) {
-                    //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
-                    if (android.os.Build.VERSION.SDK_INT >= 18) {
-                        CellIdentityWcdma identityWcdma = null;
-                        identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
-                        if (identityWcdma.getCid() != Integer.MAX_VALUE) {
-                            //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=" + identityWcdma.getCid());
+                for (CellInfo _cellInfo : cellInfo) {
+                    //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "registered="+_cellInfo.isRegistered());
+
+                    if (_cellInfo instanceof CellInfoGsm) {
+                        //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "gsm info="+_cellInfo);
+                        CellIdentityGsm identityGsm = ((CellInfoGsm) _cellInfo).getCellIdentity();
+                        if (identityGsm.getCid() != Integer.MAX_VALUE) {
+                            //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "gsm mCid="+identityGsm.getCid());
                             if (_cellInfo.isRegistered())
-                                registeredCell = identityWcdma.getCid();
+                                registeredCell = identityGsm.getCid();
+                        }
+                    } else if (_cellInfo instanceof CellInfoLte) {
+                        //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "lte info="+_cellInfo);
+                        CellIdentityLte identityLte = ((CellInfoLte) _cellInfo).getCellIdentity();
+                        if (identityLte.getCi() != Integer.MAX_VALUE) {
+                            //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "lte mCi="+identityLte.getCi());
+                            if (_cellInfo.isRegistered())
+                                registeredCell = identityLte.getCi();
+                        }
+                    } else if (_cellInfo instanceof CellInfoWcdma) {
+                        //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
+                        if (android.os.Build.VERSION.SDK_INT >= 18) {
+                            CellIdentityWcdma identityWcdma = null;
+                            identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
+                            if (identityWcdma.getCid() != Integer.MAX_VALUE) {
+                                //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=" + identityWcdma.getCid());
+                                if (_cellInfo.isRegistered())
+                                    registeredCell = identityWcdma.getCid();
+                            }
+                        }
+                        //else {
+                        //    GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=not supported for API level < 18");
+                        //}
+                    } else if (_cellInfo instanceof CellInfoCdma) {
+                        //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "cdma info="+_cellInfo);
+                        CellIdentityCdma identityCdma = ((CellInfoCdma) _cellInfo).getCellIdentity();
+                        if (identityCdma.getBasestationId() != Integer.MAX_VALUE) {
+                            //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid="+identityCdma.getBasestationId());
+                            if (_cellInfo.isRegistered())
+                                registeredCell = identityCdma.getBasestationId();
                         }
                     }
                     //else {
-                    //    GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=not supported for API level < 18");
+                    //    GlobalData.logE("PhoneStateScanner.getAllCellInfo", "unknown info="+_cellInfo);
                     //}
                 }
-                else
-                if (_cellInfo instanceof CellInfoCdma) {
-                    //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "cdma info="+_cellInfo);
-                    CellIdentityCdma identityCdma = ((CellInfoCdma) _cellInfo).getCellIdentity();
-                    if (identityCdma.getBasestationId() != Integer.MAX_VALUE) {
-                        //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid="+identityCdma.getBasestationId());
-                        if (_cellInfo.isRegistered())
-                            registeredCell = identityCdma.getBasestationId();
-                    }
-                }
-                //else {
-                //    GlobalData.logE("PhoneStateScanner.getAllCellInfo", "unknown info="+_cellInfo);
-                //}
+
+                //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "---- end ----------------------------");
+
+                GlobalData.logE("PhoneStateScanner.getAllCellInfo", "registeredCell=" + registeredCell);
             }
-
-            //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "---- end ----------------------------");
-
-            GlobalData.logE("PhoneStateScanner.getAllCellInfo", "registeredCell="+registeredCell);
 
         }
         else
@@ -155,37 +154,37 @@ public class PhoneStateScanner extends PhoneStateListener {
 
         GlobalData.logE("PhoneStateScanner.onServiceStateChanged", "serviceState="+serviceState);
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            getAllCellInfo();
-        getCellLocation();
+        getRegisteredCell();
     }
 
     private void getCellLocation(CellLocation location) {
 
         if (location!=null) {
 
-            super.onCellLocationChanged(location);
+            if (Permissions.checkLocation(context.getApplicationContext())) {
 
-            if (location instanceof GsmCellLocation) {
-                GsmCellLocation gcLoc = (GsmCellLocation) location;
-                //GlobalData.logE("PhoneStateScanner.getCellLocation", "gsm location="+gcLoc);
-                if (gcLoc.getCid() != Integer.MAX_VALUE) {
-                    //GlobalData.logE("PhoneStateScanner.getCellLocation", "gsm mCid="+gcLoc.getCid());
-                    registeredCell = gcLoc.getCid();
+                if (location instanceof GsmCellLocation) {
+                    GsmCellLocation gcLoc = (GsmCellLocation) location;
+                    //GlobalData.logE("PhoneStateScanner.getCellLocation", "gsm location="+gcLoc);
+                    if (gcLoc.getCid() != Integer.MAX_VALUE) {
+                        //GlobalData.logE("PhoneStateScanner.getCellLocation", "gsm mCid="+gcLoc.getCid());
+                        registeredCell = gcLoc.getCid();
+                    }
+                } else if (location instanceof CdmaCellLocation) {
+                    CdmaCellLocation ccLoc = (CdmaCellLocation) location;
+                    //GlobalData.logE("PhoneStateScanner.getCellLocation", "cdma location="+ccLoc);
+                    if (ccLoc.getBaseStationId() != Integer.MAX_VALUE) {
+                        //GlobalData.logE("PhoneStateScanner.getCellLocation", "cdma mCid="+ccLoc.getBaseStationId());
+                        registeredCell = ccLoc.getBaseStationId();
+                    }
                 }
-            } else if (location instanceof CdmaCellLocation) {
-                CdmaCellLocation ccLoc = (CdmaCellLocation) location;
-                //GlobalData.logE("PhoneStateScanner.getCellLocation", "cdma location="+ccLoc);
-                if (ccLoc.getBaseStationId() != Integer.MAX_VALUE) {
-                    //GlobalData.logE("PhoneStateScanner.getCellLocation", "cdma mCid="+ccLoc.getBaseStationId());
-                    registeredCell = ccLoc.getBaseStationId();
-                }
+                //else {
+                //    GlobalData.logE("PhoneStateScanner.getCellLocation", "unknown location="+location);
+                //}
+
+                GlobalData.logE("PhoneStateScanner.getCellLocation", "registeredCell=" + registeredCell);
+
             }
-            //else {
-            //    GlobalData.logE("PhoneStateScanner.getCellLocation", "unknown location="+location);
-            //}
-
-            GlobalData.logE("PhoneStateScanner.getCellLocation", "registeredCell="+registeredCell);
 
         }
         else
@@ -221,5 +220,11 @@ public class PhoneStateScanner extends PhoneStateListener {
         signal = signalStrength.getGsmSignalStrength()*2-113;
     }
     */
+
+    public void getRegisteredCell() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            getAllCellInfo();
+        getCellLocation();
+    }
 
 }

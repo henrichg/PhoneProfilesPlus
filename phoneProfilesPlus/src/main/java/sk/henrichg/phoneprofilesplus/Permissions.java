@@ -54,6 +54,7 @@ public class Permissions {
     public static final int GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY = 12;
     public static final int GRANT_TYPE_BRIGHTNESS_DIALOG = 13;
     public static final int GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION = 14;
+    public static final int GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG = 9;
 
     public static final String EXTRA_GRANT_TYPE = "grant_type";
     public static final String EXTRA_MERGED_PROFILE = "merged_profile";
@@ -78,6 +79,7 @@ public class Permissions {
     public static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
     public static LocationGeofenceEditorActivity locationGeofenceEditorActivity = null;
     public static BrightnessDialogPreference brightnessDialogPreference = null;
+    public static MobileCellsPreference mobileCellsPreference = null;
 
 
     public static class PermissionType implements Parcelable {
@@ -824,6 +826,7 @@ public class Permissions {
                 wifiSSIDPreference = preference;
                 bluetoothNamePreference = null;
                 locationGeofenceEditorActivity = null;
+                mobileCellsPreference = null;
                 context.startActivity(intent);
             }
             return granted;
@@ -849,6 +852,7 @@ public class Permissions {
                 bluetoothNamePreference = preference;
                 wifiSSIDPreference = null;
                 locationGeofenceEditorActivity = null;
+                mobileCellsPreference = null;
                 context.startActivity(intent);
             }
             return granted;
@@ -942,6 +946,33 @@ public class Permissions {
                 bluetoothNamePreference = null;
                 wifiSSIDPreference = null;
                 locationGeofenceEditorActivity = activity;
+                mobileCellsPreference = null;
+                context.startActivity(intent);
+            }
+            return granted;
+        }
+        else
+            return true;
+    }
+
+    public static boolean grantMobileCellsDialogPermissions(Context context, MobileCellsPreference preference) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            boolean granted = checkLocation(context);
+            if (!granted) {
+                List<PermissionType> permissions = new ArrayList<PermissionType>();
+                permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                //permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                wifiSSIDPreference = null;
+                bluetoothNamePreference = null;
+                locationGeofenceEditorActivity = null;
+                mobileCellsPreference = preference;
                 context.startActivity(intent);
             }
             return granted;
@@ -992,5 +1023,6 @@ public class Permissions {
         calendarsMultiSelectDialogPreference = null;
         contactsMultiSelectDialogPreference = null;
         contactGroupsMultiSelectDialogPreference = null;
+        mobileCellsPreference = null;
     }
 }

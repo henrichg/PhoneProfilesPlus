@@ -416,30 +416,21 @@ public class PhoneProfilesService extends Service
     // Phone state ----------------------------------------------------------------
 
     private void startPhoneStateScanner() {
-        GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "xxx");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            if (phoneStateScanner != null) {
-                phoneStateScanner.disconnect();
-                phoneStateScanner = null;
-            }
+        if (phoneStateScanner != null) {
+            phoneStateScanner.disconnect();
+            phoneStateScanner = null;
+        }
 
-            if (GlobalData.getApplicationStarted(this)) {
-                GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "app started=true");
-                phoneStateScanner = new PhoneStateScanner(this);
-                phoneStateScanner.connect();
-            }
-            else
-                GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "app started=false");
+        if (GlobalData.getApplicationStarted(this)) {
+            phoneStateScanner = new PhoneStateScanner(this);
+            phoneStateScanner.connect();
         }
     }
 
     private void stopPhoneStateScanner() {
-        GlobalData.logE("PhoneProfilesService.stopPhoneStateScanner", "xxx");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            if (phoneStateScanner != null) {
-                phoneStateScanner.disconnect();
-                phoneStateScanner = null;
-            }
+        if (phoneStateScanner != null) {
+            phoneStateScanner.disconnect();
+            phoneStateScanner = null;
         }
     }
 

@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -183,60 +184,12 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+        if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
         {
-            ListPreference cellIdPreference = (ListPreference) prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_ID);
-            if (cellIdPreference != null) {
-                if ((GlobalData.phoneProfilesService != null) && GlobalData.phoneProfilesService.isPhoneStateStarted()) {
-                    if (GlobalData.phoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE) {
-                        String registeredCellId = Integer.toString(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell);
-                        String selectedCellId = preferences.getString(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_ID, "0");
-
-                        if (!selectedCellId.equals("0") && !selectedCellId.equals(registeredCellId)) {
-                            registeredCellId = registeredCellId + " - " + getString(R.string.event_preferences_mobile_cells_registered_cellId);
-                            CharSequence[] entryNames = {getString(R.string.event_preferences_mobile_cells_cellId_not_selected), selectedCellId, registeredCellId};
-                            CharSequence[] entryValues = {"0", selectedCellId, registeredCellId};
-                            cellIdPreference.setEntries(entryNames);
-                            cellIdPreference.setEntryValues(entryValues);
-                        }
-                        else if (selectedCellId.equals("0")) {
-                            registeredCellId = registeredCellId + " - " + getString(R.string.event_preferences_mobile_cells_registered_cellId);
-                            CharSequence[] entryNames = {getString(R.string.event_preferences_mobile_cells_cellId_not_selected), registeredCellId};
-                            CharSequence[] entryValues = {"0", registeredCellId};
-                            cellIdPreference.setEntries(entryNames);
-                            cellIdPreference.setEntryValues(entryValues);
-                        }
-                        else {
-                            selectedCellId = selectedCellId + " - " + getString(R.string.event_preferences_mobile_cells_registered_cellId);
-                            CharSequence[] entryNames = {getString(R.string.event_preferences_mobile_cells_cellId_not_selected), selectedCellId};
-                            CharSequence[] entryValues = {"0", selectedCellId};
-                            cellIdPreference.setEntries(entryNames);
-                            cellIdPreference.setEntryValues(entryValues);
-                        }
-                    }
-                    else {
-                        String selectedCellId = preferences.getString(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELL_ID, "0");
-
-                        if (!selectedCellId.equals("0")) {
-                            CharSequence[] entryNames = {getString(R.string.event_preferences_mobile_cells_cellId_not_selected), selectedCellId};
-                            CharSequence[] entryValues = {"0", selectedCellId};
-                            cellIdPreference.setEntries(entryNames);
-                            cellIdPreference.setEntryValues(entryValues);
-                        }
-                        else {
-                            CharSequence[] entryNames = {getResources().getString(R.string.event_preferences_mobile_cells_cellId_not_selected)};
-                            CharSequence[] entryValues = {"0"};
-                            cellIdPreference.setEntries(entryNames);
-                            cellIdPreference.setEntryValues(entryValues);
-                        }
-                    }
-                }
-            }
-        } else {
-            Preference mobileCellsPreference = (Preference) prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CATEGORY);
-            if (mobileCellsPreference != null) {
+            Preference mobileCellsPreferences = (PreferenceCategory) prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CATEGORY);
+            if (mobileCellsPreferences != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventEventsCategory");
-                preferenceCategory.removePreference(preference);
+                preferenceCategory.removePreference(mobileCellsPreferences);
             }
         }
 

@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1670;
+    private static final int DATABASE_VERSION = 1680;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -221,8 +221,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_ORIENTATION_DISPLAY = "orientationDisplay";
     private static final String KEY_E_ORIENTATION_IGNORE_APPLICATIONS = "orientationIgnoreApplications";
     private static final String KEY_E_MOBILE_CELLS_ENABLED = "mobileCellsEnabled";
-    private static final String KEY_E_MOBILE_CELLS_CELL_ID = "mobileCellsCellId";
     private static final String KEY_E_MOBILE_CELLS_WHEN_OUTSIDE = "mobileCellsWhenOutside";
+    private static final String KEY_E_MOBILE_CELLS_CELLS = "mobileCellsCells";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -460,8 +460,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_ORIENTATION_DISPLAY + " TEXT,"
                 + KEY_E_ORIENTATION_IGNORE_APPLICATIONS + " TEXT,"
                 + KEY_E_MOBILE_CELLS_ENABLED + " INTEGER,"
-                + KEY_E_MOBILE_CELLS_CELL_ID + " INTEGER,"
-                + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " INTEGER"
+                + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " INTEGER,"
+                + KEY_E_MOBILE_CELLS_CELLS + " TEXT"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1679,13 +1679,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             // pridame nove stlpce
             db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_ENABLED + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_CELL_ID + " INTEGER");
             db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " INTEGER");
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_ENABLED + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_CELL_ID + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0");
+        }
+
+        if (oldVersion < 1680)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_CELLS + " TEXT");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_CELLS +  "=\"\"");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -3322,7 +3329,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private void getEventPreferencesMobileCells(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_MOBILE_CELLS_ENABLED,
-                        KEY_E_MOBILE_CELLS_CELL_ID,
+                        KEY_E_MOBILE_CELLS_CELLS,
                         KEY_E_MOBILE_CELLS_WHEN_OUTSIDE
                 },
                 KEY_E_ID + "=?",
@@ -3336,7 +3343,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
-                eventPreferences._cellId = cursor.getInt(1);
+                eventPreferences._cells = cursor.getString(1);
                 eventPreferences._whenOutside = cursor.getInt(2) == 1;
 
             }
@@ -3631,7 +3638,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
 
         values.put(KEY_E_MOBILE_CELLS_ENABLED, (eventPreferences._enabled) ? 1 : 0);
-        values.put(KEY_E_MOBILE_CELLS_CELL_ID, eventPreferences._cellId);
+        values.put(KEY_E_MOBILE_CELLS_CELLS, eventPreferences._cells);
         values.put(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
 
         // updating row
@@ -5842,8 +5849,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                 if (exportedDBObj.getVersion() < 1670) {
                                     values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
-                                    values.put(KEY_E_MOBILE_CELLS_CELL_ID, 0);
                                     values.put(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, 0);
+                                }
+
+                                if (exportedDBObj.getVersion() < 1680) {
+                                    values.put(KEY_E_MOBILE_CELLS_CELLS, "");
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper

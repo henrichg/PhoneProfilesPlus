@@ -278,7 +278,7 @@ public class Event {
 
     private void createEventPreferencesMobileCells()
     {
-        this._eventPreferencesMobileCells = new EventPreferencesMobileCells(this, false, 0, false);
+        this._eventPreferencesMobileCells = new EventPreferencesMobileCells(this, false, "", false);
     }
 
     public void createEventPreferences()

@@ -346,6 +346,8 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = context.getString(R.string.permissions_for_location_geofence_editor_activity_text1) + "<br><br>";
                 else if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG)
                     showRequestString = context.getString(R.string.permissions_for_brightness_dialog_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)
+                    showRequestString = context.getString(R.string.permissions_for_mobile_cells_scan_dialog_text1) + "<br><br>";
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT){
                     if (mergedNotification) {
