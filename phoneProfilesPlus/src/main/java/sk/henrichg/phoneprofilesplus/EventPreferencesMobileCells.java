@@ -73,11 +73,13 @@ public class EventPreferencesMobileCells extends EventPreferences {
                 descr = descr + "<b>" + context.getString(R.string.event_type_mobile_cells) + ": " + "</b>";
             }
 
-            String selectedCell = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            String selectedCells = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             if (!this._cells.isEmpty()) {
-                selectedCell = this._cells;
+                String[] splits = this._cells.split("\\|");
+                selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
+                selectedCells = selectedCells + " " + splits.length;
             }
-            descr = descr + selectedCell;
+            descr = descr + selectedCells;
             if (this._whenOutside)
                 descr = descr + "; " + context.getString(R.string.event_preferences_mobile_cells_when_outside_description);
         }
@@ -92,9 +94,13 @@ public class EventPreferencesMobileCells extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 if (value.isEmpty())
-                    preference.setSummary(R.string.event_preferences_mobile_cells_cellId_not_selected);
-                else
-                    preference.setSummary(value);
+                    preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
+                else {
+                    String[] splits = value.split("\\|");
+                    String selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
+                    selectedCells = selectedCells + " " + splits.length;
+                    preference.setSummary(selectedCells);
+                }
                 GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
         }

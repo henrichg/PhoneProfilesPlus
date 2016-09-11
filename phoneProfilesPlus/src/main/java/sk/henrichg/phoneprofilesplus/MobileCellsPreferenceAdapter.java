@@ -69,7 +69,7 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
 
         String cellName = "";
         if (!cellData.name.isEmpty())
-            cellName = cellData.name + " - ";
+            cellName = cellData.name + "\n";
         cellName = cellName + cellData.cellId;
         if (cellData.registered)
             cellName = cellName + " (" + context.getString(R.string.event_preferences_mobile_cells_registered_cellId) + ")";

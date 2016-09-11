@@ -24,6 +24,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MobileCellsPreference extends DialogPreference {
@@ -236,8 +238,8 @@ public class MobileCellsPreference extends DialogPreference {
                 protected void onPreExecute() {
                     super.onPreExecute();
 
-                    dataRelativeLayout.setVisibility(View.GONE);
-                    progressLinearLayout.setVisibility(View.VISIBLE);
+                    //dataRelativeLayout.setVisibility(View.GONE);
+                    //progressLinearLayout.setVisibility(View.VISIBLE);
                 }
 
                 @Override
@@ -266,6 +268,11 @@ public class MobileCellsPreference extends DialogPreference {
                         }
                     }
 
+                    DatabaseHandler db = DatabaseHandler.getInstance(context);
+                    db.addMobileCellsToList(cellsList);
+
+                    Collections.sort(cellsList, new SortList());
+
                     return null;
                 }
 
@@ -274,8 +281,8 @@ public class MobileCellsPreference extends DialogPreference {
                     super.onPostExecute(result);
 
                     listAdapter.notifyDataSetChanged();
-                    progressLinearLayout.setVisibility(View.GONE);
-                    dataRelativeLayout.setVisibility(View.VISIBLE);
+                    //progressLinearLayout.setVisibility(View.GONE);
+                    //dataRelativeLayout.setVisibility(View.VISIBLE);
 
                     for (int position = 0; position < cellsList.size() - 1; position++) {
                         if (Integer.toString(cellsList.get(position).cellId).equals(value)) {
@@ -293,5 +300,21 @@ public class MobileCellsPreference extends DialogPreference {
         }
 
     }
-    
+
+    private class SortList implements Comparator<MobileCellsData> {
+
+        public int compare(MobileCellsData lhs, MobileCellsData rhs) {
+            String _lhs = lhs.name;
+            if (_lhs.isEmpty())
+                _lhs = "\uFFFF";
+            _lhs = _lhs + lhs.cellId;
+            String _rhs = rhs.name;
+            if (_rhs.isEmpty())
+                _rhs = "\uFFFF";
+            _rhs = _rhs + rhs.cellId;
+            return GUIData.collator.compare(_lhs, _rhs);
+        }
+
+    }
+
 }
