@@ -323,6 +323,7 @@ public class MobileCellsPreference extends DialogPreference {
                     //progressLinearLayout.setVisibility(View.GONE);
                     //dataRelativeLayout.setVisibility(View.VISIBLE);
 
+                    /*
                     for (int position = 0; position < cellsList.size() - 1; position++) {
                         if (Integer.toString(cellsList.get(position).cellId).equals(value)) {
                             cellsListView.setSelection(position);
@@ -331,6 +332,7 @@ public class MobileCellsPreference extends DialogPreference {
                             break;
                         }
                     }
+                    */
                 }
 
             };
