@@ -22,26 +22,26 @@ public class Wildcard {
      * @param more wildcard for more characters
      * @return      <code>true</code> if string matches the pattern, otherwise <code>false</code>
      */
-    public static boolean match(String string, String pattern, char one, char more) {
-        return match(string, pattern, one, more, 0, 0);
+    public static boolean match(String string, String pattern, char one, char more, boolean caseInsensitive) {
+        return match(string, pattern, one, more, 0, 0, caseInsensitive);
     }
 
     /**
      * Checks if two strings are equals or if they {@link #match(String, String, char, char)}.
      * Useful for cases when matching a lot of equal strings and speed is important.
      */
-    public static boolean equalsOrMatch(String string, String pattern, char one, char more) {
+    public static boolean equalsOrMatch(String string, String pattern, char one, char more, boolean caseInsensitive) {
         if (string.equals(pattern) == true) {
             return true;
         }
-        return match(string, pattern, one, more, 0, 0);
+        return match(string, pattern, one, more, 0, 0, caseInsensitive);
     }
 
 
     /**
      * Internal matching recursive function.
      */
-    private static boolean match(String string, String pattern, char one, char more, int stringStartNdx, int patternStartNdx) {
+    private static boolean match(String string, String pattern, char one, char more, int stringStartNdx, int patternStartNdx, boolean caseInsensitive) {
         int pNdx = patternStartNdx;
         int sNdx = stringStartNdx;
         int pLen = pattern.length();
@@ -72,11 +72,12 @@ public class Wildcard {
 
                 if (p == '\\') {
                     pNdx++;
-                    nextIsNotWildcard =  true;
+                    nextIsNotWildcard = true;
                     continue;
                 }
                 if (p == one) {
-                    sNdx++; pNdx++;
+                    sNdx++;
+                    pNdx++;
                     continue;
                 }
                 if (p == more) {
@@ -94,7 +95,7 @@ public class Wildcard {
                     // find recursively if there is any substring from the end of the
                     // line that matches the rest of the pattern !!!
                     for (i = string.length(); i >= sNdx; i--) {
-                        if (match(string, pattern, one, more, i, pNdx) == true) {
+                        if (match(string, pattern, one, more, i, pNdx, caseInsensitive) == true) {
                             return true;
                         }
                     }
@@ -105,7 +106,12 @@ public class Wildcard {
             }
 
             // check if pattern char and string char are equals
-            if (p != string.charAt(sNdx)) {
+            if (caseInsensitive) {
+                String sP = "" + p;
+                String sCh = "" + string.charAt(sNdx);
+                if (sP.compareToIgnoreCase(sCh) != 0)
+                    return false;
+            } else if (p != string.charAt(sNdx)) {
                 return false;
             }
 
@@ -122,9 +128,9 @@ public class Wildcard {
      * Returns index of matched pattern, or <code>-1</code> otherwise.
      * @see #match(String, String, char, char)
      */
-    public static int matchOne(String src, String[] patterns, char one, char more) {
+    public static int matchOne(String src, String[] patterns, char one, char more, boolean caseInsensitive) {
         for (int i = 0; i < patterns.length; i++) {
-            if (match(src, patterns[i], one, more) == true) {
+            if (match(src, patterns[i], one, more, caseInsensitive) == true) {
                 return i;
             }
         }

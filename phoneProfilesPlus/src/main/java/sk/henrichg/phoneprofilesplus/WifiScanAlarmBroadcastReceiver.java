@@ -536,7 +536,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         String wifiInfoSSID = getSSID(wifiInfo, wifiConfigurationList);
         String ssid2 = "\"" + SSID + "\"";
         //return (wifiInfoSSID.equals(SSID) || wifiInfoSSID.equals(ssid2));
-        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%') || Wildcard.match(wifiInfoSSID, ssid2, '_', '%'));
+        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%', true) || Wildcard.match(wifiInfoSSID, ssid2, '_', '%', true));
     }
 
     public static String getSSID(WifiSSIDData result, List<WifiSSIDData> wifiConfigurationList)
@@ -568,7 +568,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         String wifiInfoSSID = getSSID(result, wifiConfigurationList);
         String ssid2 = "\"" + SSID + "\"";
         //return (getSSID(result).equals(SSID) || getSSID(result).equals(ssid2));
-        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%') || Wildcard.match(wifiInfoSSID, ssid2, '_', '%'));
+        return (Wildcard.match(wifiInfoSSID, SSID, '_', '%', true) || Wildcard.match(wifiInfoSSID, ssid2, '_', '%', true));
     }
 
 }

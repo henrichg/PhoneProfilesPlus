@@ -2123,7 +2123,7 @@ public class DataWrapper {
                         {
                             String _device = device.getName().toUpperCase();
                             String _adapterName = event._eventPreferencesBluetooth._adapterName.toUpperCase();
-                            if (Wildcard.match(_device, _adapterName, '_', '%')) {
+                            if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
                                 GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetooth found");
                                 //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
                                 //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());

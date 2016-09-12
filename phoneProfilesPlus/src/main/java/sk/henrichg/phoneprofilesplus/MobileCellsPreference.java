@@ -360,8 +360,8 @@ public class MobileCellsPreference extends DialogPreference {
             if (rhs.name.isEmpty())
                 _rhs = _rhs + "\uFFFF";
             else
-                _rhs = _rhs + lhs.name;
-            _rhs = _rhs + lhs.cellId;
+                _rhs = _rhs + rhs.name;
+            _rhs = _rhs + rhs.cellId;
 
             return GUIData.collator.compare(_lhs, _rhs);
         }

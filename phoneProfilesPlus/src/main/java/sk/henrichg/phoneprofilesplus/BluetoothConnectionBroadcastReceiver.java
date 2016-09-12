@@ -217,7 +217,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                     for (BluetoothDeviceData _device : connectedDevices) {
                         String device = _device.getName().toUpperCase();
                         String _adapterName = adapterName.toUpperCase();
-                        if (Wildcard.match(device, _adapterName, '_', '%')) {
+                        if (Wildcard.match(device, _adapterName, '_', '%', true)) {
                             return true;
                         }
                     }
