@@ -43,6 +43,7 @@ public class MobileCellsPreference extends DialogPreference {
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
     private ListView cellsListView;
+    private EditText CellName;
     private MobileCellsPreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
@@ -130,6 +131,8 @@ public class MobileCellsPreference extends DialogPreference {
             }
 
         });
+
+        CellName = (EditText) layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name);
 
         mBuilder.customView(layout, false);
 

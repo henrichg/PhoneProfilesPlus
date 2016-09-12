@@ -72,16 +72,36 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true" />
 
-                <!--<EditText
-                    android:id="@+id/mobile_cells_pref_dlg_bt_name"
+                <ImageView
+                    android:id="@+id/mobile_cells_pref_dlg_rename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf = "@+id/mobile_cells_pref_dlg_helpIcon"
+                    android:layout_toStartOf = "@+id/mobile_cells_pref_dlg_helpIcon"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="50dp"
+                    android:maxWidth="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_action_location_edit"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true" />
+
+                <EditText
+                    android:id="@+id/mobile_cells_pref_dlg_cells_name"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_toLeftOf = "@+id/mobile_cells_pref_dlg_helpIcon"
-                    android:layout_toStartOf = "@+id/mobile_cells_pref_dlg_helpIcon"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_toLeftOf = "@+id/mobile_cells_pref_dlg_rename"
+                    android:layout_toStartOf = "@+id/mobile_cells_pref_dlg_rename"
                     android:selectAllOnFocus="true"
-                    android:inputType="textNoSuggestions" /> -->
+                    android:inputType="textNoSuggestions" />
 
             </RelativeLayout>
 
