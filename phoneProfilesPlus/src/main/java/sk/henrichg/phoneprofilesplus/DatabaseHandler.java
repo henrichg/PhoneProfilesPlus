@@ -5435,7 +5435,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // Select All Query
         final String selectQuery = "SELECT " + KEY_MC_ID + "," +
-                        KEY_MC_CELL_ID +
+                        KEY_MC_CELL_ID + "," +
+                        KEY_MC_NAME +
                 " FROM " + TABLE_MOBILE_CELLS;
 
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -5446,11 +5447,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         for (MobileCellsData cell : cellsList) {
             boolean found = false;
             long foundedDbId = 0;
+            String foundedCellName = "";
             if (cursor.moveToFirst()) {
                 do {
                     String dbCellId = Integer.toString(cursor.getInt(1));
                     if (dbCellId.equals(Integer.toString(cell.cellId))) {
                         foundedDbId = cursor.getLong(0);
+                        foundedCellName = cursor.getString(2);
                         found = true;
                         break;
                     }
@@ -5468,7 +5471,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 MobileCell mobileCell = new MobileCell();
                 mobileCell._id = foundedDbId;
                 mobileCell._cellId = cell.cellId;
-                mobileCell._name = cell.name;
+                mobileCell._name = foundedCellName;
                 mobileCell._new = _new && cell._new;
                 updateMobileCell(mobileCell);
             }

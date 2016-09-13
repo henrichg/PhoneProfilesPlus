@@ -73,14 +73,14 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
         String cellName = "";
         if (!cellData.name.isEmpty())
             cellName = cellData.name + "\n";
-        cellName = cellName + cellData.cellId;
         String cellFlags = "";
         if (cellData._new)
             cellFlags = cellFlags + "N";
         if (cellData.connected)
             cellFlags = cellFlags + "C";
         if (!cellFlags.isEmpty())
-            cellName = cellName + " (" + cellFlags + ")";
+            cellName = cellName + "(" + cellFlags + ") ";
+        cellName = cellName + cellData.cellId;
         holder.cellId.setText(cellName);
 
         holder.checkBox.setTag(position);
@@ -98,7 +98,15 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
                     preference.removeCellId(cellId);
             }
         });
-        if (preference.cellsList.get(position).connected)
+        boolean found = false;
+        String[] splits = preference.persistedValue.split("\\|");
+        for (String cell : splits) {
+            if (cell.equals(Integer.toString(preference.cellsList.get(position).cellId))) {
+                found = true;
+                break;
+            }
+        }
+        if (preference.cellsList.get(position).connected || found)
             holder.itemEditMenu.setVisibility(View.GONE);
         else
             holder.itemEditMenu.setVisibility(View.VISIBLE);

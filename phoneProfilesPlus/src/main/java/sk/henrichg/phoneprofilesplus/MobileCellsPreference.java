@@ -40,6 +40,7 @@ import java.util.List;
 public class MobileCellsPreference extends DialogPreference {
 
     private String value;
+    public String persistedValue;
     public List<MobileCellsData> cellsList = null;
 
     Context context;
@@ -67,7 +68,8 @@ public class MobileCellsPreference extends DialogPreference {
     @Override
     protected void showDialog(Bundle state) {
 
-        value = getPersistedString("");
+        persistedValue = getPersistedString("");
+        value = persistedValue;
 
         /*
         DatabaseHandler db = DatabaseHandler.getInstance(context);
