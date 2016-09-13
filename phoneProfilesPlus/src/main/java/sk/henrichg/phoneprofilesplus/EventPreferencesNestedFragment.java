@@ -67,17 +67,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        String PREFS_NAME;
-        if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
-            PREFS_NAME = PREFS_NAME_ACTIVITY;
-        else
-        if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-            PREFS_NAME = PREFS_NAME_FRAGMENT;
-        else
-            PREFS_NAME = PREFS_NAME_FRAGMENT;
-
         prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(PREFS_NAME);
+        prefMng.setSharedPreferencesName(EventPreferencesFragment.getPreferenceName());
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         preferences = prefMng.getSharedPreferences();

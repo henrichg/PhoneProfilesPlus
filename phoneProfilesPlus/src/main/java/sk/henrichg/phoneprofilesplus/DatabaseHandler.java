@@ -5393,30 +5393,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
-    public void deleteMobileCell(int mobileCell) {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        db.beginTransaction();
-
-        try {
-
-            // delete geofence
-            db.delete(TABLE_MOBILE_CELLS, KEY_MC_CELL_ID + " = ?",
-                    new String[]{String.valueOf(mobileCell)});
-
-            db.setTransactionSuccessful();
-
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.deleteMobileCell", e.toString());
-        } finally {
-            db.endTransaction();
-        }
-
-        //db.close();
-    }
-
     // add mobile cells to list
     public void addMobileCellsToList(List<MobileCellsData> cellsList) {
         // Select All Query
@@ -5502,6 +5478,86 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
 
     }
+
+    public void renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
+        // Select All Query
+        final String selectQuery = "SELECT " + KEY_MC_ID + "," +
+                KEY_MC_CELL_ID +
+                " FROM " + TABLE_MOBILE_CELLS;
+
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        for (MobileCellsData cell : cellsList) {
+            boolean found = false;
+            long foundedDbId = 0;
+            if (cursor.moveToFirst()) {
+                do {
+                    String dbCellId = Integer.toString(cursor.getInt(1));
+                    if (dbCellId.equals(Integer.toString(cell.cellId))) {
+                        foundedDbId = cursor.getLong(0);
+                        found = true;
+                        break;
+                    }
+                } while (cursor.moveToNext());
+            }
+            if (found) {
+                if (_new) {
+                    if (cell._new) {
+                        cell.name = name;
+                        MobileCell mobileCell = new MobileCell();
+                        mobileCell._id = foundedDbId;
+                        mobileCell._cellId = cell.cellId;
+                        mobileCell._name = cell.name;
+                        mobileCell._new = cell._new;
+                        updateMobileCell(mobileCell);
+                    }
+                }
+                else {
+                    String[] splits = value.split("\\|");
+                    for (String valueCell : splits) {
+                        if (valueCell.equals(Integer.toString(cell.cellId))) {
+                            cell.name = name;
+                            MobileCell mobileCell = new MobileCell();
+                            mobileCell._id = foundedDbId;
+                            mobileCell._cellId = cell.cellId;
+                            mobileCell._name = cell.name;
+                            mobileCell._new = cell._new;
+                            updateMobileCell(mobileCell);
+                        }
+                    }
+                }
+            }
+        }
+
+        cursor.close();
+        //db.close();
+    }
+
+    public void deleteMobileCell(int mobileCell) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+            // delete geofence
+            db.delete(TABLE_MOBILE_CELLS, KEY_MC_CELL_ID + " = ?",
+                    new String[]{String.valueOf(mobileCell)});
+
+            db.setTransactionSuccessful();
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.deleteMobileCell", e.toString());
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+    }
+
 
 // OTHERS -------------------------------------------------------------------------
 

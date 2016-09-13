@@ -787,5 +787,10 @@
     <string name="event_preferences_mobile_cells_when_outside_description">When outside</string>
     <string name="permissions_for_mobile_cells_scan_dialog_text1">Mobile cells scanning requires some permissions.</string>
     <string name="mobile_cells_pref_dlg_rescan_button">Rescan</string>
-    <string name="mobile_cells_pref_dlg_help">(N) new cell, (C) connected to cell</string>
+    <string name="mobile_cells_pref_dlg_help">(N) new cell, (C) connected to cell.</string>
+    <string name="mobile_cells_pref_dlg_cell_name_hint">Cell name</string>
+    <string name="mobile_cells_pref_dlg_cell_rename_title">Rename cells</string>
+    <string name="mobile_cells_pref_dlg_cell_rename_button">Rename</string>
+    <string name="array_pref_mobile_cells_rename_new">New (N)</string>
+    <string name="array_pref_mobile_cells_rename_selected">Selected</string>
 </resources>

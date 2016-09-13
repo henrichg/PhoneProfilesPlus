@@ -212,16 +212,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
         if (event != null)
         {
-            String PREFS_NAME;
-            if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
-                PREFS_NAME = EventPreferencesFragment.PREFS_NAME_ACTIVITY;
-            else
-            if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-                PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
-            else
-                PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
-
-            SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+            SharedPreferences preferences=getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Activity.MODE_PRIVATE);
 
             event.loadSharedPreferences(preferences);
         }
@@ -230,15 +221,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     private boolean checkPreferences(final int new_event_mode, final int predefinedEventIndex)
     {
         if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
-            String PREFS_NAME;
-            if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
-                PREFS_NAME = EventPreferencesFragment.PREFS_NAME_ACTIVITY;
-            else if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-                PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
-            else
-                PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
-
-            final SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+            final SharedPreferences preferences = getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Activity.MODE_PRIVATE);
             boolean enabled = preferences.getBoolean(Event.PREF_EVENT_ENABLED, false);
             if (!enabled) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);

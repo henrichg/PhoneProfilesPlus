@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
     static class ViewHolder {
           TextView cellId;
           CheckBox checkBox;
+          ImageView itemEditMenu;
           int position;
         }
 
@@ -60,6 +62,7 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
             holder = new ViewHolder();
             holder.cellId = (TextView)vi.findViewById(R.id.mobile_cells_pref_dlg_item_label);
             holder.checkBox = (CheckBox) vi.findViewById(R.id.mobile_cells_pref_dlg_item_checkbox);
+            holder.itemEditMenu = (ImageView)  vi.findViewById(R.id.mobile_cells_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         }
         else
@@ -93,6 +96,18 @@ public class MobileCellsPreferenceAdapter extends BaseAdapter
                     preference.addCellId(cellId);
                 else
                     preference.removeCellId(cellId);
+            }
+        });
+        if (preference.cellsList.get(position).connected)
+            holder.itemEditMenu.setVisibility(View.GONE);
+        else
+            holder.itemEditMenu.setVisibility(View.VISIBLE);
+        holder.itemEditMenu.setTag(preference.cellsList.get(position).cellId);
+        final ImageView itemEditMenu = holder.itemEditMenu;
+        holder.itemEditMenu.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                preference.showEditMenu(itemEditMenu);
             }
         });
 

@@ -5,13 +5,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,12 +48,12 @@ public class MobileCellsPreference extends DialogPreference {
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
     private ListView cellsListView;
-    private EditText CellName;
+    private EditText cellName;
     private MobileCellsPreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
-    private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver();
+    private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
 
 
     public MobileCellsPreference(Context context, AttributeSet attrs) {
@@ -63,6 +68,15 @@ public class MobileCellsPreference extends DialogPreference {
     protected void showDialog(Bundle state) {
 
         value = getPersistedString("");
+
+        /*
+        DatabaseHandler db = DatabaseHandler.getInstance(context);
+        db.deleteMobileCell(2826251);
+        db.deleteMobileCell(2843189);
+        db.deleteMobileCell(2877237);
+        db.deleteMobileCell(2649653);
+        db.deleteMobileCell(2649613);
+        */
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
@@ -109,6 +123,10 @@ public class MobileCellsPreference extends DialogPreference {
         //progressLinearLayout = (LinearLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
         //dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
 
+        cellName = (EditText) layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Context.MODE_PRIVATE);
+        cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
+
         cellsListView = (ListView) layout.findViewById(R.id.mobile_cells_pref_dlg_listview);
         listAdapter = new MobileCellsPreferenceAdapter(context, this);
         cellsListView.setAdapter(listAdapter);
@@ -120,19 +138,40 @@ public class MobileCellsPreference extends DialogPreference {
                 MobileCellsPreferenceAdapter.ViewHolder viewHolder =
                         (MobileCellsPreferenceAdapter.ViewHolder) v.getTag();
 
-                viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
+                /*viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
                 if (viewHolder.checkBox.isChecked()) {
                     addCellId(cellsList.get(position).cellId);
                 }
                 else {
                     removeCellId(cellsList.get(position).cellId);
-                }
+                }*/
+
+                cellName.setText(cellsList.get(position).name);
             }
 
         });
 
-        CellName = (EditText) layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name);
+        ImageView editIcon = (ImageView)layout.findViewById(R.id.mobile_cells_pref_dlg_rename);
+        editIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MaterialDialog.Builder(context)
+                        .title(R.string.mobile_cells_pref_dlg_cell_rename_title)
+                        .items(R.array.materislCellsRenameArray)
+                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                            @Override
+                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                DatabaseHandler db = DatabaseHandler.getInstance(context);
+                                db.renameMobileCellsList(cellsList, cellName.getText().toString(), which==0, value);
+                                refreshListView(false);
+                                return true;
+                            }
+                        })
+                        .positiveText(R.string.mobile_cells_pref_dlg_cell_rename_button)
+                        .show();
+            }
+        });
 
         mBuilder.customView(layout, false);
 
@@ -160,6 +199,7 @@ public class MobileCellsPreference extends DialogPreference {
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
+        phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(cellName);
         context.registerReceiver(phoneStateChangedBroadcastReceiver, intentFilter);
 
     }
@@ -251,10 +291,13 @@ public class MobileCellsPreference extends DialogPreference {
 
             rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
+                String _cellName;
+
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
 
+                    _cellName = cellName.getText().toString();
                     //dataRelativeLayout.setVisibility(View.GONE);
                     //progressLinearLayout.setVisibility(View.VISIBLE);
                 }
@@ -273,11 +316,6 @@ public class MobileCellsPreference extends DialogPreference {
 
                     // add all from table
                     DatabaseHandler db = DatabaseHandler.getInstance(context);
-                    /*db.deleteMobileCell(2826251);
-                    db.deleteMobileCell(2843189);
-                    db.deleteMobileCell(2877237);
-                    db.deleteMobileCell(2649653);
-                    db.deleteMobileCell(2649613);*/
                     db.addMobileCellsToList(cellsList);
 
                     // add registered cell
@@ -290,7 +328,7 @@ public class MobileCellsPreference extends DialogPreference {
                         }
                     }
                     if (!found)
-                        cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, "", true, true));
+                        cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, _cellName, true, true));
 
                     // add all from value
                     String[] splits = value.split("\\|");
@@ -305,7 +343,7 @@ public class MobileCellsPreference extends DialogPreference {
                         if (!found) {
                             try {
                                 int iCell = Integer.parseInt(cell);
-                                cellsList.add(new MobileCellsData(iCell, "", false, true));
+                                cellsList.add(new MobileCellsData(iCell, _cellName, false, true));
                             }
                             catch (Exception e) { }
                         }
@@ -355,7 +393,7 @@ public class MobileCellsPreference extends DialogPreference {
                 _lhs = _lhs + "\uFFFF";
             else
                 _lhs = _lhs + lhs.name;
-            _lhs = _lhs + lhs.cellId;
+            _lhs = _lhs + "-" + lhs.cellId;
 
             String _rhs = "";
             if (rhs._new)
@@ -364,14 +402,50 @@ public class MobileCellsPreference extends DialogPreference {
                 _rhs = _rhs + "\uFFFF";
             else
                 _rhs = _rhs + rhs.name;
-            _rhs = _rhs + rhs.cellId;
+            _rhs = _rhs + "-" + rhs.cellId;
 
             return GUIData.collator.compare(_lhs, _rhs);
         }
 
     }
 
+    public void showEditMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context context = view.getContext();
+        PopupMenu popup = new PopupMenu(context, view);
+        new MenuInflater(context).inflate(R.menu.mobile_cells_pref_item_edit, popup.getMenu());
+
+        final int cellId = (int)view.getTag();
+        final Context _context = context;
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            public boolean onMenuItemClick(android.view.MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.mobile_cells_pref_item_menu_delete:
+                        DatabaseHandler db = DatabaseHandler.getInstance(_context);
+                        db.deleteMobileCell(cellId);
+                        removeCellId(cellId);
+                        refreshListView(false);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
+        popup.show();
+    }
+
     private class PhoneStateChangedBroadcastReceiver extends BroadcastReceiver {
+
+        EditText cellName;
+
+        PhoneStateChangedBroadcastReceiver(EditText cellName) {
+            this.cellName = cellName;
+        }
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -379,7 +453,7 @@ public class MobileCellsPreference extends DialogPreference {
 
             // save new registered cell
             List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
-            localCellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, "", true, true));
+            localCellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, cellName.getText().toString(), true, true));
             DatabaseHandler db = DatabaseHandler.getInstance(context);
             db.saveMobileCellsList(localCellsList, true);
 

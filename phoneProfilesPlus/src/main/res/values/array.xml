@@ -940,4 +940,9 @@
     <item>1</item>
     <item>2</item>
 </string-array>
+<string-array name="materislCellsRenameArray">
+    <item>@string/array_pref_mobile_cells_rename_new</item>
+    <item>@string/array_pref_mobile_cells_rename_selected</item>
+</string-array>
+
 </resources>

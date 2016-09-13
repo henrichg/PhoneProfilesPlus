@@ -75,8 +75,7 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
 
     }
 
-    @Override
-    public void addPreferencesFromResource(int preferenceResId) {
+    public static String getPreferenceName() {
         String PREFS_NAME;
         if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = PREFS_NAME_ACTIVITY;
@@ -85,9 +84,13 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
             PREFS_NAME = PREFS_NAME_FRAGMENT;
         else
             PREFS_NAME = PREFS_NAME_FRAGMENT;
+        return PREFS_NAME;
+    }
 
+    @Override
+    public void addPreferencesFromResource(int preferenceResId) {
         prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(PREFS_NAME);
+        prefMng.setSharedPreferencesName(getPreferenceName());
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         super.addPreferencesFromResource(preferenceResId);
