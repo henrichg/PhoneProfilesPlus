@@ -343,7 +343,7 @@ public class MobileCellsPreference extends DialogPreference {
                         if (!found) {
                             try {
                                 int iCell = Integer.parseInt(cell);
-                                cellsList.add(new MobileCellsData(iCell, _cellName, false, true));
+                                cellsList.add(new MobileCellsData(iCell, _cellName, false, false));
                             }
                             catch (Exception e) { }
                         }
@@ -453,7 +453,7 @@ public class MobileCellsPreference extends DialogPreference {
 
             // save new registered cell
             List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
-            localCellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, cellName.getText().toString(), true, true));
+            localCellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, cellName.getText().toString(), true, false));
             DatabaseHandler db = DatabaseHandler.getInstance(context);
             db.saveMobileCellsList(localCellsList, true);
 
