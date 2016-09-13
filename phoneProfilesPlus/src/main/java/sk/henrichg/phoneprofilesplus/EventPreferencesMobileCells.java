@@ -15,6 +15,7 @@ public class EventPreferencesMobileCells extends EventPreferences {
     static final String PREF_EVENT_MOBILE_CELLS_ENABLED = "eventMobileCellsEnabled";
     static final String PREF_EVENT_MOBILE_CELLS_CELLS = "eventMobileCellsCells";
     static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
+    static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
 
     static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategory";
 
@@ -46,6 +47,7 @@ public class EventPreferencesMobileCells extends EventPreferences {
         editor.putBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, _enabled);
         editor.putString(PREF_EVENT_MOBILE_CELLS_CELLS, this._cells);
         editor.putBoolean(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE, this._whenOutside);
+        editor.putString(PREF_EVENT_MOBILE_CELLS_REGISTRATION, Long.toString(_event._id));
         editor.commit();
     }
 
