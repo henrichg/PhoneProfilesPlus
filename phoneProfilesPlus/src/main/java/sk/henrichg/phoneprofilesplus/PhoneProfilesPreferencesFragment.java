@@ -154,7 +154,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             editor.commit();
             Preference preference = (Preference) prefMng.findPreference("wifiScanningCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    "-"+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                    ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
             preference.setEnabled(false);
         }
 
@@ -172,7 +172,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             editor.commit();
             Preference preference = (Preference) prefMng.findPreference("bluetoothScanninCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    "-"+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                    ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
             preference.setEnabled(false);
         }
 
@@ -181,7 +181,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         {
             Preference preference = (Preference) prefMng.findPreference("orientationScanningCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    "-"+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                    ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
             preference.setEnabled(false);
         }
 

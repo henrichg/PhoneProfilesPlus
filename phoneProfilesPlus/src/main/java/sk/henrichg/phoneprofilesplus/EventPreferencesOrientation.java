@@ -321,14 +321,14 @@ public class EventPreferencesOrientation extends EventPreferences {
         if (preference != null) {
             if (!enabledAccelerometer)
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        "-"+context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                        ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabledAccelerometer);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
             if (!enabledAll)
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        "-"+context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                        ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabledAll);
         }
         boolean enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY);
@@ -336,7 +336,7 @@ public class EventPreferencesOrientation extends EventPreferences {
         if (preference != null) {
             if (!enabled)
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        "-"+context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                        ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabled);
         }
         enabled = ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());

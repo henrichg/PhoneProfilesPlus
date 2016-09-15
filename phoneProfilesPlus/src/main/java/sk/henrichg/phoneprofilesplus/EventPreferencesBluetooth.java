@@ -156,7 +156,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
 
                 if (!btLESupported) {
                     listPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                            "-"+context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                            ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
                 } else {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
