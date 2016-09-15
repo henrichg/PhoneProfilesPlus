@@ -1555,6 +1555,7 @@ public class DataWrapper {
         boolean applicationPassed = true;
         boolean locationPassed = true;
         boolean orientationPassed = true;
+        boolean mobileCellPassed = true;
 
         GlobalData.logE("%%% DataWrapper.doEventService","--- start --------------------------");
         GlobalData.logE("%%% DataWrapper.doEventService","------- event._id="+event._id);
@@ -2369,6 +2370,12 @@ public class DataWrapper {
             }
         }
 
+        if (event._eventPreferencesOrientation._enabled)
+        {
+            mobileCellPassed = false;
+        }
+
+
         GlobalData.logE("DataWrapper.doEventService","ignoreChange="+ignoreChange);
 
         GlobalData.logE("DataWrapper.doEventService","timePassed="+timePassed);
@@ -2384,6 +2391,7 @@ public class DataWrapper {
         GlobalData.logE("DataWrapper.doEventService","applicationPassed="+applicationPassed);
         GlobalData.logE("DataWrapper.doEventService","locationPassed="+locationPassed);
         GlobalData.logE("DataWrapper.doEventService","orientationPassed="+orientationPassed);
+        GlobalData.logE("DataWrapper.doEventService","mobileCellPassed="+mobileCellPassed);
 
         //GlobalData.logE("DataWrapper.doEventService","eventStart="+eventStart);
         GlobalData.logE("DataWrapper.doEventService","restartEvent="+restartEvent);
@@ -2403,7 +2411,8 @@ public class DataWrapper {
             notificationPassed &&
             applicationPassed &&
             locationPassed &&
-            orientationPassed)
+            orientationPassed &&
+            mobileCellPassed)
         {
             // podmienky sedia, vykoname, co treba
 
