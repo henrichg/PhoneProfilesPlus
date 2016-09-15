@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageParser;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
@@ -1562,7 +1563,8 @@ public class DataWrapper {
         GlobalData.logE("%%% DataWrapper.doEventService","------- event._name="+event._name);
         GlobalData.logE("%%% DataWrapper.doEventService","------- broadcastType="+broadcastType);
 
-        if (event._eventPreferencesTime._enabled)
+        if (event._eventPreferencesTime._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED))
         {
             // compute start datetime
             long startAlarmTime;
@@ -1597,7 +1599,8 @@ public class DataWrapper {
             //eventStart = eventStart && timePassed;
         }
 
-        if (event._eventPreferencesBattery._enabled)
+        if (event._eventPreferencesBattery._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED))
         {
             boolean isCharging;
             int batteryPct;
@@ -1646,7 +1649,8 @@ public class DataWrapper {
 
         }
 
-        if ((event._eventPreferencesCall._enabled) &&
+        if ((event._eventPreferencesCall._enabled)  &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED)&&
                 Permissions.checkEventCallContacts(context, event) &&
                 Permissions.checkEventPhoneBroadcast(context, event))
         {
@@ -1782,7 +1786,8 @@ public class DataWrapper {
                 callPassed = false;
         }
 
-        if (event._eventPreferencesPeripherals._enabled)
+        if (event._eventPreferencesPeripherals._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED))
         {
             if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_DESK_DOCK) ||
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK))
@@ -1853,7 +1858,9 @@ public class DataWrapper {
             }
         }
 
-        if ((event._eventPreferencesCalendar._enabled) && (Permissions.checkEventCalendar(context, event)))
+        if ((event._eventPreferencesCalendar._enabled) &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) &&
+                (Permissions.checkEventCalendar(context, event)))
         {
             // compute start datetime
             long startAlarmTime;
@@ -1891,7 +1898,9 @@ public class DataWrapper {
             //eventStart = eventStart && calendarPassed;
         }
 
-        if (event._eventPreferencesWifi._enabled && Permissions.checkEventLocation(context, event))
+        if (event._eventPreferencesWifi._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED)
+                && Permissions.checkEventLocation(context, event))
         {
             wifiPassed = false;
 
@@ -2003,7 +2012,8 @@ public class DataWrapper {
             //eventStart = eventStart && wifiPassed;
         }
 
-        if (event._eventPreferencesScreen._enabled)
+        if (event._eventPreferencesScreen._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED))
         {
             boolean isScreenOn;
             //if (android.os.Build.VERSION.SDK_INT >= 20)
@@ -2045,7 +2055,9 @@ public class DataWrapper {
             //eventStart = eventStart && screenPassed;
         }
 
-        if (event._eventPreferencesBluetooth._enabled && Permissions.checkEventLocation(context, event))
+        if (event._eventPreferencesBluetooth._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED)
+                && Permissions.checkEventLocation(context, event))
         {
             bluetoothPassed = false;
 
@@ -2152,7 +2164,8 @@ public class DataWrapper {
         }
 
         if ((event._eventPreferencesSMS._enabled) &&
-                Permissions.checkEventSMSContacts(context, event) &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED)
+                && Permissions.checkEventSMSContacts(context, event) &&
                 Permissions.checkEventSMSBroadcast(context, event))
         {
             // compute start time
@@ -2191,7 +2204,8 @@ public class DataWrapper {
             }
         }
 
-        if (event._eventPreferencesNotification._enabled)
+        if (event._eventPreferencesNotification._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED))
         {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 if (!event._eventPreferencesNotification._endWhenRemoved) {
@@ -2234,7 +2248,8 @@ public class DataWrapper {
             }
         }
 
-        if (event._eventPreferencesApplication._enabled)
+        if (event._eventPreferencesApplication._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED))
         {
             applicationPassed = false;
 
@@ -2253,7 +2268,9 @@ public class DataWrapper {
             }
         }
 
-        if (event._eventPreferencesLocation._enabled)
+        if (event._eventPreferencesLocation._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED)
+                && Permissions.checkEventLocation(context, event))
         {
             locationPassed = false;
 
@@ -2266,7 +2283,8 @@ public class DataWrapper {
                 locationPassed = !locationPassed;
         }
 
-        if (event._eventPreferencesOrientation._enabled)
+        if (event._eventPreferencesOrientation._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED))
         {
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
@@ -2370,9 +2388,26 @@ public class DataWrapper {
             }
         }
 
-        if (event._eventPreferencesOrientation._enabled)
+        if (event._eventPreferencesMobileCells._enabled &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED)
+                && Permissions.checkEventLocation(context, event))
         {
-            mobileCellPassed = false;
+            if ((GlobalData.phoneProfilesService != null) && GlobalData.phoneProfilesService.isPhoneStateStarted()) {
+
+                String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
+                String registeredCell = Integer.toString(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell);
+                boolean found = false;
+                for (String cell : splits) {
+                    if (cell.equals(registeredCell)) {
+                        found = true;
+                        break;
+                    }
+                }
+                mobileCellPassed = found;
+
+                if (event._eventPreferencesMobileCells._whenOutside)
+                    mobileCellPassed = !mobileCellPassed;
+            }
         }
 
 
