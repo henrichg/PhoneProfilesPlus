@@ -5,28 +5,21 @@ import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.ServiceConnection;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Environment;
-import android.os.IBinder;
-import android.os.Message;
-import android.os.Messenger;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -103,6 +96,8 @@ public class GlobalData extends Application {
     static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
     static final String EXTRA_OLD_RINGTONE = "old_ringtone";
     static final String EXTRA_FOR_PROFILE_ACTIVATION = "for_profile_activation";
+    static final String EXTRA_PHONE_STATE_SCANNER = "phone_state_scanner";
+    static final String EXTRA_PHONE_STATE_SCANNER_START = "phone_state_scanner_start";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
@@ -395,7 +390,6 @@ public class GlobalData extends Application {
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
 
     public static PhoneProfilesService phoneProfilesService = null;
-    public static PhoneProfilesServiceMessenger phoneProfilesServiceMessenger = null;
 
     public static boolean isPowerSaveMode = false;
 
@@ -1972,26 +1966,23 @@ public class GlobalData extends Application {
 
     //------------------------------------------------------------
 
-    // PhoneProfilesServiceMessenger ------------------------------------------
+    // phone state scanner ------------------------------------------
 
-    public static void initPhoneProfilesServiceMessenger(Context context) {
-        if (phoneProfilesServiceMessenger == null)
-            phoneProfilesServiceMessenger = new PhoneProfilesServiceMessenger();
+    public static void startPhoneStateScanner(Context context) {
+        Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(EXTRA_PHONE_STATE_SCANNER, true);
+        lIntent.putExtra(EXTRA_PHONE_STATE_SCANNER_START, true);
+        context.startService(lIntent);
     }
 
-    public static void sendMessageToService(Context context, int message) {
-        if (phoneProfilesServiceMessenger != null)
-            phoneProfilesServiceMessenger.bingAndSendMessage(context, message);
+    public static void stopPhoneStateScanner(Context context) {
+        Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(EXTRA_PHONE_STATE_SCANNER, true);
+        lIntent.putExtra(EXTRA_PHONE_STATE_SCANNER_START, false);
+        context.startService(lIntent);
     }
 
-    public static void cleanPhoneProfilesServiceMessenger(Context context) {
-        if (phoneProfilesServiceMessenger != null) {
-            phoneProfilesServiceMessenger.unbind(context);
-            phoneProfilesServiceMessenger = null;
-        }
-    }
-
-    //-------------------------------------------------------------------------
+    //---------------------------------------------------------------
 
     // others ------------------------------------------------------------------
 

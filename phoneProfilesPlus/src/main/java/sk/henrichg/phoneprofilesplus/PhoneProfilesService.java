@@ -46,8 +46,6 @@ public class PhoneProfilesService extends Service
 
     private static SettingsContentObserver settingsContentObserver = null;
 
-    final Messenger mMessenger = new Messenger(new IncomingHandler()); // Target we publish for clients to send messages to IncomingHandler.
-
     static final int MSG_START_GEOFENCE_SCANNER = 1;
     static final int MSG_STOP_GEOFENCE_SCANNER = 2;
     static final int MSG_START_ORIENTATION_SCANNER = 3;
@@ -120,7 +118,7 @@ public class PhoneProfilesService extends Service
 
         GlobalData.loadPreferences(getApplicationContext());
 
-        GlobalData.initPhoneProfilesServiceMessenger(getApplicationContext());
+        //GlobalData.initPhoneProfilesServiceMessenger(getApplicationContext());
 
         // start service for first start
         Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
@@ -263,7 +261,7 @@ public class PhoneProfilesService extends Service
 
         stopSimulatingRingingCall();
 
-        GlobalData.cleanPhoneProfilesServiceMessenger(getApplicationContext());
+        //GlobalData.cleanPhoneProfilesServiceMessenger(getApplicationContext());
     }
 
     @Override
@@ -272,7 +270,17 @@ public class PhoneProfilesService extends Service
         GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
 
         if (intent != null) {
-            doSimulatingRingingCall(intent);
+            boolean simulateRingingCall = intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false);
+            if (simulateRingingCall)
+                doSimulatingRingingCall(intent);
+            boolean phoneStateScanner = intent.getBooleanExtra(GlobalData.EXTRA_PHONE_STATE_SCANNER, false);
+            if (phoneStateScanner) {
+                boolean phoneStateScannerStart = intent.getBooleanExtra(GlobalData.EXTRA_PHONE_STATE_SCANNER_START, false);
+                if (phoneStateScannerStart)
+                    startPhoneStateScanner();
+                else
+                    stopPhoneStateScanner();
+            }
         }
 
         // We want this service to continue running until it is explicitly
@@ -283,7 +291,7 @@ public class PhoneProfilesService extends Service
     @Override
     public IBinder onBind(Intent intent)
     {
-        return mMessenger.getBinder();
+        return null;
     }
 
 
@@ -343,7 +351,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void startGeofenceScanner() {
+    public void startGeofenceScanner() {
 
         if (geofencesScanner != null) {
             geofencesScanner.disconnect();
@@ -356,7 +364,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void stopGeofenceScanner() {
+    public void stopGeofenceScanner() {
         if (geofencesScanner != null) {
             geofencesScanner.disconnect();
             geofencesScanner = null;
@@ -371,7 +379,7 @@ public class PhoneProfilesService extends Service
 
     // Device orientation ----------------------------------------------------------------
 
-    private void startOrientationScanner() {
+    public void startOrientationScanner() {
         if (mStartedSensors)
             stopListeningOrientationSensors();
 
@@ -379,7 +387,7 @@ public class PhoneProfilesService extends Service
             startListeningOrientationSensors();
     }
 
-    private void stopOrientationScanner() {
+    public void stopOrientationScanner() {
         stopListeningOrientationSensors();
     }
 

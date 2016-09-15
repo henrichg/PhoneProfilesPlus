@@ -19,7 +19,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
         GlobalData.loadPreferences(getApplicationContext());
 
-        EditorProfilesActivity.exitApp(getApplicationContext(), dataWrapper);
+        EditorProfilesActivity.exitApp(getApplicationContext(), dataWrapper, null);
 
         ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
         if (activateProfileActivity != null)

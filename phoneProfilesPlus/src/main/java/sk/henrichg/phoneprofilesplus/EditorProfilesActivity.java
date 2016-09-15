@@ -546,9 +546,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         return super.onPrepareOptionsMenu(menu);
     }
 
-    public static void exitApp(Context context, DataWrapper dataWrapper) {
-        GlobalData.setApplicationStarted(context, false);
-
+    public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity) {
         // stop all events
         dataWrapper.stopAllEvents(false, false);
 
@@ -561,23 +559,41 @@ public class EditorProfilesActivity extends AppCompatActivity
         WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
         GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
-        if (GlobalData.phoneProfilesService != null) {
-            GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
-            GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
-            GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
-        }
+
+        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
         // remove alarm for profile duration
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         GlobalData.setActivatedProfileForDuration(context, 0);
 
-        context.stopService(new Intent(context, PhoneProfilesService.class));
-        context.stopService(new Intent(context, KeyguardService.class));
+        if (GlobalData.phoneProfilesService != null) {
+            //GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
+            //GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
+            //GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
+            GlobalData.phoneProfilesService.stopGeofenceScanner();
+            GlobalData.phoneProfilesService.stopOrientationScanner();
+            GlobalData.stopPhoneStateScanner(context);
+        }
 
         ActivateProfileHelper.screenTimeoutUnlock(context);
         ActivateProfileHelper.removeBrightnessView(context);
 
         GlobalData.initRoot();
+
+        //GlobalData.cleanPhoneProfilesServiceMessenger(context);
+        context.stopService(new Intent(context, PhoneProfilesService.class));
+        context.stopService(new Intent(context, KeyguardService.class));
+
+        GlobalData.setApplicationStarted(context, false);
+
+        Handler handler=new Handler();
+        Runnable r=new Runnable() {
+            public void run() {
+                if (activity != null)
+                    activity.finish();
+            }
+        };
+        handler.postDelayed(r, 500);
     }
 
     @Override
@@ -622,9 +638,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // stop geofences scanner
                 GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
                 if (GlobalData.phoneProfilesService != null) {
-                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
-                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
-                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
+                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
+                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
+                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
+                    GlobalData.phoneProfilesService.stopGeofenceScanner();
+                    GlobalData.phoneProfilesService.stopOrientationScanner();
+                    GlobalData.stopPhoneStateScanner(getApplicationContext());
                 }
             }
             else
@@ -634,10 +653,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
 
                 if (GlobalData.phoneProfilesService != null) {
-                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_GEOFENCE_SCANNER);
-                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
-                    GlobalData.logE("EditorProfilesActivity.startPhoneStateScanner", "xxx");
-                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
+                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_GEOFENCE_SCANNER);
+                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
+                    //GlobalData.logE("EditorProfilesActivity.startPhoneStateScanner", "xxx");
+                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
+                    GlobalData.phoneProfilesService.startGeofenceScanner();
+                    GlobalData.phoneProfilesService.startOrientationScanner();
+                    GlobalData.startPhoneStateScanner(getApplicationContext());
                 }
 
                 // setup for next start
@@ -686,20 +708,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             startActivity(intent);
             return true;
         case R.id.menu_exit:
-            exitApp(getApplicationContext(), getDataWrapper());
-            getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
-
-
-            GlobalData.cleanPhoneProfilesServiceMessenger(getApplicationContext());
-
-            Handler handler=new Handler();
-            Runnable r=new Runnable() {
-                public void run() {
-                    finish();
-                }
-            };
-            handler.postDelayed(r, 500);
-
+            exitApp(getApplicationContext(), getDataWrapper(), this);
             return true;
         default:
             return super.onOptionsItemSelected(item);
