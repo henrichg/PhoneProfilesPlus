@@ -367,8 +367,7 @@ public class EventPreferencesOrientation extends EventPreferences {
     {
         if (GlobalData.phoneProfilesService != null) {
             if (_enabled && (!PhoneProfilesService.isOrientationScannerStarted())) {
-                GlobalData.phoneProfilesService.startOrientationScanner();
-                //GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
+                GlobalData.startOrientationScanner(context);
             }
         }
     }

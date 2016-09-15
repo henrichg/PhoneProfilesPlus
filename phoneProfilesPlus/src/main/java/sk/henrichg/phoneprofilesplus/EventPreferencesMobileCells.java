@@ -173,7 +173,6 @@ public class EventPreferencesMobileCells extends EventPreferences {
     {
         if (GlobalData.phoneProfilesService != null) {
             if (_enabled && (!PhoneProfilesService.isPhoneStateStarted())) {
-                //GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
                 GlobalData.startPhoneStateScanner(context);
             }
         }

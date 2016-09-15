@@ -76,8 +76,7 @@ public class EventsService extends IntentService
         if (GlobalData.phoneProfilesService != null) {
             // start of GeofenceScanner
             if (!PhoneProfilesService.isGeofenceScannerStarted())
-                //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_GEOFENCE_SCANNER);
-                GlobalData.phoneProfilesService.startGeofenceScanner();
+                GlobalData.startGeofenceScanner(context);
         }
 
         if (!GlobalData.getGlobalEventsRuning(context)) {
@@ -93,8 +92,7 @@ public class EventsService extends IntentService
         if (GlobalData.phoneProfilesService != null) {
             if (!PhoneProfilesService.isOrientationScannerStarted()) {
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
-                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
-                    GlobalData.phoneProfilesService.startOrientationScanner();
+                    GlobalData.startOrientationScanner(context);
             }
             // start of CellTowerScanner
             if (!PhoneProfilesService.isPhoneStateStarted()) {

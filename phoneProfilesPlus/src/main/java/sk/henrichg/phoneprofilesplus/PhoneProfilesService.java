@@ -46,13 +46,6 @@ public class PhoneProfilesService extends Service
 
     private static SettingsContentObserver settingsContentObserver = null;
 
-    static final int MSG_START_GEOFENCE_SCANNER = 1;
-    static final int MSG_STOP_GEOFENCE_SCANNER = 2;
-    static final int MSG_START_ORIENTATION_SCANNER = 3;
-    static final int MSG_STOP_ORIENTATION_SCANNER = 4;
-    static final int MSG_START_PHONE_STATE_SCANNER = 5;
-    static final int MSG_STOP_PHONE_STATE_SCANNER = 6;
-
     //-----------------------
 
     public static GeofencesScanner geofencesScanner = null;
@@ -273,14 +266,34 @@ public class PhoneProfilesService extends Service
             boolean simulateRingingCall = intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false);
             if (simulateRingingCall)
                 doSimulatingRingingCall(intent);
-            boolean phoneStateScanner = intent.getBooleanExtra(GlobalData.EXTRA_PHONE_STATE_SCANNER, false);
-            if (phoneStateScanner) {
-                GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "phoneProfilesScanner");
-                boolean phoneStateScannerStart = intent.getBooleanExtra(GlobalData.EXTRA_PHONE_STATE_SCANNER_START, false);
-                if (phoneStateScannerStart)
-                    startPhoneStateScanner();
-                else
-                    stopPhoneStateScanner();
+            boolean startStopScanner = intent.getBooleanExtra(GlobalData.EXTRA_START_STOP_SCANNER, false);
+            if (startStopScanner) {
+                switch (intent.getIntExtra(GlobalData.EXTRA_START_STOP_SCANNER_TYPE, 0)) {
+                    case GlobalData.SCANNER_START_GEOFENCE_SCANNER:
+                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
+                        startGeofenceScanner();
+                        break;
+                    case GlobalData.SCANNER_STOP_GEOFENCE_SCANNER:
+                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
+                        stopGeofenceScanner();
+                        break;
+                    case GlobalData.SCANNER_START_ORIENTATION_SCANNER:
+                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_ORIENTATION_SCANNER");
+                        startOrientationScanner();
+                        break;
+                    case GlobalData.SCANNER_STOP_ORIENTATION_SCANNER:
+                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
+                        stopOrientationScanner();
+                        break;
+                    case GlobalData.SCANNER_START_PHONE_STATE_SCANNER:
+                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_PHONE_STATE_SCANNER");
+                        startPhoneStateScanner();
+                        break;
+                    case GlobalData.SCANNER_STOP_PHONE_STATE_SCANNER:
+                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
+                        stopPhoneStateScanner();
+                        break;
+                }
             }
         }
 
@@ -293,41 +306,6 @@ public class PhoneProfilesService extends Service
     public IBinder onBind(Intent intent)
     {
         return null;
-    }
-
-
-    class IncomingHandler extends Handler { // Handler of incoming messages from clients.
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_START_GEOFENCE_SCANNER:
-                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_START_GEOFENCE_SCANNER");
-                    startGeofenceScanner();
-                    break;
-                case MSG_STOP_GEOFENCE_SCANNER:
-                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_STOP_GEOFENCE_SCANNER");
-                    stopGeofenceScanner();
-                    break;
-                case MSG_START_ORIENTATION_SCANNER:
-                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_START_ORIENTATION_SCANNER");
-                    startOrientationScanner();
-                    break;
-                case MSG_STOP_ORIENTATION_SCANNER:
-                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_STOP_ORIENTATION_SCANNER");
-                    stopOrientationScanner();
-                    break;
-                case MSG_START_PHONE_STATE_SCANNER:
-                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_START_PHONE_STATE_SCANNER");
-                    startPhoneStateScanner();
-                    break;
-                case MSG_STOP_PHONE_STATE_SCANNER:
-                    GlobalData.logE("PhoneProfilesService.handleMessage", "MSG_STOP_PHONE_STATE_SCANNER");
-                    stopPhoneStateScanner();
-                    break;
-                default:
-                    super.handleMessage(msg);
-            }
-        }
     }
 
     //------------------------
@@ -352,7 +330,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void startGeofenceScanner() {
+    private void startGeofenceScanner() {
 
         if (geofencesScanner != null) {
             geofencesScanner.disconnect();
@@ -365,7 +343,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void stopGeofenceScanner() {
+    private void stopGeofenceScanner() {
         if (geofencesScanner != null) {
             geofencesScanner.disconnect();
             geofencesScanner = null;
@@ -380,7 +358,7 @@ public class PhoneProfilesService extends Service
 
     // Device orientation ----------------------------------------------------------------
 
-    public void startOrientationScanner() {
+    private void startOrientationScanner() {
         if (mStartedSensors)
             stopListeningOrientationSensors();
 
@@ -388,7 +366,7 @@ public class PhoneProfilesService extends Service
             startListeningOrientationSensors();
     }
 
-    public void stopOrientationScanner() {
+    private void stopOrientationScanner() {
         stopListeningOrientationSensors();
     }
 

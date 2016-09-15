@@ -567,11 +567,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         GlobalData.setActivatedProfileForDuration(context, 0);
 
         if (GlobalData.phoneProfilesService != null) {
-            //GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
-            //GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
-            //GlobalData.sendMessageToService(context, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
-            GlobalData.phoneProfilesService.stopGeofenceScanner();
-            GlobalData.phoneProfilesService.stopOrientationScanner();
+            GlobalData.stopGeofenceScanner(context);
+            GlobalData.stopOrientationScanner(context);
             GlobalData.stopPhoneStateScanner(context);
         }
 
@@ -638,11 +635,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // stop geofences scanner
                 GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
                 if (GlobalData.phoneProfilesService != null) {
-                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_GEOFENCE_SCANNER);
-                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_ORIENTATION_SCANNER);
-                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_STOP_PHONE_STATE_SCANNER);
-                    GlobalData.phoneProfilesService.stopGeofenceScanner();
-                    GlobalData.phoneProfilesService.stopOrientationScanner();
+                    GlobalData.stopGeofenceScanner(getApplicationContext());
+                    GlobalData.stopOrientationScanner(getApplicationContext());
                     GlobalData.stopPhoneStateScanner(getApplicationContext());
                 }
             }
@@ -653,12 +647,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
 
                 if (GlobalData.phoneProfilesService != null) {
-                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_GEOFENCE_SCANNER);
-                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
-                    //GlobalData.logE("EditorProfilesActivity.startPhoneStateScanner", "xxx");
-                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
-                    GlobalData.phoneProfilesService.startGeofenceScanner();
-                    GlobalData.phoneProfilesService.startOrientationScanner();
+                    GlobalData.startGeofenceScanner(getApplicationContext());
+                    GlobalData.startOrientationScanner(getApplicationContext());
                     GlobalData.startPhoneStateScanner(getApplicationContext());
                 }
 

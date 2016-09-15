@@ -97,8 +97,8 @@ public class GlobalData extends Application {
     static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
     static final String EXTRA_OLD_RINGTONE = "old_ringtone";
     static final String EXTRA_FOR_PROFILE_ACTIVATION = "for_profile_activation";
-    static final String EXTRA_PHONE_STATE_SCANNER = "phone_state_scanner";
-    static final String EXTRA_PHONE_STATE_SCANNER_START = "phone_state_scanner_start";
+    static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
+    static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
@@ -324,6 +324,14 @@ public class GlobalData extends Application {
     static final String PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN = "eventBluetoothEnabledForScan";
     //static final String PREF_EVENT_WIFI_LAST_STATE = "eventWifiLastState";
     //static final String PREF_EVENT_BLUETOOTH_LAST_STATE = "eventBluetoothLastState";
+
+    // scanner start/stop types
+    static final int SCANNER_START_GEOFENCE_SCANNER = 1;
+    static final int SCANNER_STOP_GEOFENCE_SCANNER = 2;
+    static final int SCANNER_START_ORIENTATION_SCANNER = 3;
+    static final int SCANNER_STOP_ORIENTATION_SCANNER = 4;
+    static final int SCANNER_START_PHONE_STATE_SCANNER = 5;
+    static final int SCANNER_STOP_PHONE_STATE_SCANNER = 6;
 
     public static boolean applicationStartOnBoot;
     public static boolean applicationActivate;
@@ -1967,19 +1975,47 @@ public class GlobalData extends Application {
 
     //------------------------------------------------------------
 
-    // phone state scanner ------------------------------------------
+    // scanners ------------------------------------------
+
+    public static void startGeofenceScanner(Context context) {
+        Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_GEOFENCE_SCANNER);
+        context.startService(lIntent);
+    }
+
+    public static void stopGeofenceScanner(Context context) {
+        Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
+        context.startService(lIntent);
+    }
+
+    public static void startOrientationScanner(Context context) {
+        Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_ORIENTATION_SCANNER);
+        context.startService(lIntent);
+    }
+
+    public static void stopOrientationScanner(Context context) {
+        Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
+        context.startService(lIntent);
+    }
 
     public static void startPhoneStateScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-        lIntent.putExtra(EXTRA_PHONE_STATE_SCANNER, true);
-        lIntent.putExtra(EXTRA_PHONE_STATE_SCANNER_START, true);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_PHONE_STATE_SCANNER);
         context.startService(lIntent);
     }
 
     public static void stopPhoneStateScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-        lIntent.putExtra(EXTRA_PHONE_STATE_SCANNER, true);
-        lIntent.putExtra(EXTRA_PHONE_STATE_SCANNER_START, false);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
+        lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
         context.startService(lIntent);
     }
 
