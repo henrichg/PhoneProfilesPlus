@@ -38,9 +38,9 @@ dependencies {
     compile files('libs/RootTools.jar')
     provided files('libs/hidden-apis.jar')
     provided files('libs/hidden-apis_2.jar')
-    compile 'com.android.support:support-core-ui:24.2.0'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:gridlayout-v7:24.2.0'
+    compile 'com.android.support:support-core-ui:24.2.1'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:gridlayout-v7:24.2.1'
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.google.code.gson:gson:2.4'
