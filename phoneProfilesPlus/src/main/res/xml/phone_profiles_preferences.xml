@@ -336,6 +336,35 @@
     </PreferenceScreen>
 
     <PreferenceScreen
+        android:key="mobileCellsScanningCategory"
+        android:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
+        android:widgetLayout="@layout/start_activity_preference">
+        <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
+            android:key="applicationEventMobileCellsRegistration"
+            android:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
+            android:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
+            android:defaultValue="0"
+            henrichg:dMin="0"
+            henrichg:dMax="86400" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:key="applicationEventMobileCellScanInPowerSaveMode"
+            android:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"
+            android:summary="@string/array_pref_scanInPowerSaveMode_scan"
+            android:defaultValue="1"
+            android:entries="@array/scanInPowerSaveModeMobileCellsArray"
+            android:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationEventMobileCellsRescan"
+            android:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
+            android:key="applicationEventMobileCellsRescan"
+            android:defaultValue="1"
+            android:entries="@array/applicationEventRescanArray"
+            android:entryValues="@array/applicationEventRescanValues"
+            app:useStockLayout="true" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
         android:key="orientationScanningCategory"
         android:title="@string/phone_profiles_pref_category_orientation_scanning"
         android:widgetLayout="@layout/start_activity_preference">

@@ -6394,7 +6394,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     KEY_E_WIFI_ENABLED + "," +
                                                     KEY_E_BLUETOOTH_ENABLED + "," +
                                                     KEY_E_NOTIFICATION_ENABLED + "," +
-                                                    KEY_E_ORIENTATION_ENABLED +
+                                                    KEY_E_ORIENTATION_ENABLED + "," +
+                                                    KEY_E_MOBILE_CELLS_ENABLED +
                                            " FROM " + TABLE_EVENTS;
 
         //SQLiteDatabase db = this.getWritableDatabase();
@@ -6621,6 +6622,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
                                     new String[]{String.valueOf(Integer.parseInt(cursor.getString(0)))});
                         }
+                    }
+                    if ((Integer.parseInt(cursor.getString(5)) != 0) &&
+                            (GlobalData.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
+                        db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                     }
 
                 } while (cursor.moveToNext());

@@ -971,7 +971,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (GlobalData.phoneProfilesService.geofencesScanner != null) {
                         GlobalData.phoneProfilesService.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
                     }
-                    GlobalData.phoneProfilesService.resetListeningSensors(powerSaveMode, true);
+                    GlobalData.phoneProfilesService.resetListeningOrientationSensors(powerSaveMode, true);
                 }
 
                 boolean restart = data.getBooleanExtra(GlobalData.EXTRA_RESET_EDITOR, false);

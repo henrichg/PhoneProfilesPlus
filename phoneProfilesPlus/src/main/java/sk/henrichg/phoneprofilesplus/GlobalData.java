@@ -259,6 +259,8 @@ public class GlobalData extends Application {
     public static final String PREF_APPLICATION_EVENT_LOCATION_RESCAN = "applicationEventLocationRescan";
     public static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL = "applicationEventOrientationScanInterval";
     public static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventOrientationScanInPowerSaveMode";
+    public static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE = "applicationEventMobileCellScanInPowerSaveMode";
+    public static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN = "applicationEventMobileCellsRescan";
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
@@ -382,6 +384,8 @@ public class GlobalData extends Application {
     public static String applicationEventLocationRescan;
     public static int applicationEventOrientationScanInterval;
     public static String applicationEventOrientationScanInPowerSaveMode;
+    public static String applicationEventMobileCellsScanInPowerSaveMode;
+    public static String applicationEventMobileCellsRescan;
 
     public static int notAllowedReason;
 
@@ -614,6 +618,8 @@ public class GlobalData extends Application {
         applicationEventLocationRescan = preferences.getString(PREF_APPLICATION_EVENT_LOCATION_RESCAN, "1");
         applicationEventOrientationScanInterval = Integer.valueOf(preferences.getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "5"));
         applicationEventOrientationScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, "1");
+        applicationEventMobileCellsScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE, "1");
+        applicationEventMobileCellsRescan = preferences.getString(PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
 
         if (applicationTheme.equals("light"))
         {
@@ -1573,6 +1579,17 @@ public class GlobalData extends Application {
             else
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
+        else
+        if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+                // device ma bluetooth
+                featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+            featurePresented = PREFERENCE_ALLOWED;
 
         return featurePresented;
     }

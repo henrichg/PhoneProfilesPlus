@@ -77,12 +77,6 @@ public class EventsService extends IntentService
             // start of GeofenceScanner
             if (!PhoneProfilesService.isGeofenceScannerStarted())
                 GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_GEOFENCE_SCANNER);
-
-            // start of CellTowerScanner
-            if (!PhoneProfilesService.isPhoneStateStarted()) {
-                GlobalData.logE("EventsService.startPhoneStateScanner", "xxx");
-                GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
-            }
         }
 
         if (!GlobalData.getGlobalEventsRuning(context)) {
@@ -94,11 +88,18 @@ public class EventsService extends IntentService
             return;
         }
 
-        // start orientation listeners only when events exists
+        // start orientation, phone state listeners only when events exists
         if (GlobalData.phoneProfilesService != null) {
             if (!PhoneProfilesService.isOrientationScannerStarted()) {
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
                     GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_ORIENTATION_SCANNER);
+            }
+            // start of CellTowerScanner
+            if (!PhoneProfilesService.isPhoneStateStarted()) {
+                if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
+                    GlobalData.logE("EventsService.startPhoneStateScanner", "xxx");
+                    GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
+                }
             }
         }
 
@@ -510,7 +511,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(DeviceOrientationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_ORIENTATION;
-
+        else
+        if (broadcastReceiverType.equals(PhoneStateChangeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_MOBILE_CELLS;
 
         if (eventType > 0)
             return dataWrapper.getDatabaseHandler().getTypeEventsCount(eventType) > 0;
@@ -669,6 +672,9 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(WifiStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //wifiState
             WifiStateChangedBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(PhoneStateChangeBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //deviceOrientation
+            PhoneStateChangeBroadcastReceiver.completeWakefulIntent(intent);
 
         // this broadcast not starts service with wakefull method
         //if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE))

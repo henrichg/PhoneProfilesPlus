@@ -80,6 +80,15 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                         //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(context);
                     }
                 }
+                if (GlobalData.applicationEventMobileCellsRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
+                        GlobalData.applicationEventMobileCellsRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                    if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
+                        // rescan mobile cells
+                        if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                            GlobalData.phoneProfilesService.phoneStateScanner.rescanMobileCells();
+                        }
+                    }
+                }
                 dataWrapper.invalidateDataWrapper();
             }
 

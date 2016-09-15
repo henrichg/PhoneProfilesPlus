@@ -944,5 +944,13 @@
     <item>@string/array_pref_mobile_cells_rename_new</item>
     <item>@string/array_pref_mobile_cells_rename_selected</item>
 </string-array>
+<string-array name="scanInPowerSaveModeMobileCellsArray">
+    <item>@string/array_pref_scanInPowerSaveMode_scan</item>
+    <item>@string/array_pref_scanInPowerSaveMode_noScan</item>
+</string-array>
+<string-array name="scanInPowerSaveModeMobileCellsValues">
+    <item>0</item>
+    <item>2</item>
+</string-array>
 
 </resources>

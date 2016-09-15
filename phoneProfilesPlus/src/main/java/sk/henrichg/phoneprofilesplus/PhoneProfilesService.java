@@ -2,11 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.NotificationManager;
 import android.app.Service;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -375,14 +373,14 @@ public class PhoneProfilesService extends Service
 
     private void startOrientationScanner() {
         if (mStartedSensors)
-            stopListeningSensors();
+            stopListeningOrientationSensors();
 
         if (GlobalData.getApplicationStarted(this))
-            startListeningSensors();
+            startListeningOrientationSensors();
     }
 
     private void stopOrientationScanner() {
-        stopListeningSensors();
+        stopListeningOrientationSensors();
     }
 
     public static boolean isOrientationScannerStarted() {
@@ -440,7 +438,7 @@ public class PhoneProfilesService extends Service
 
     //--------------------------------------------------------------------------
 
-    public void startListeningSensors() {
+    public void startListeningOrientationSensors() {
         if (mSensorManager == null)
             mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -458,26 +456,26 @@ public class PhoneProfilesService extends Service
             if (GlobalData.isPowerSaveMode && GlobalData.applicationEventOrientationScanInPowerSaveMode.equals("1"))
                 interval *= 2;
             Sensor accelerometer = getAccelerometerSensor(this);
-            GlobalData.logE("PhoneProfilesService.startListeningSensors","accelerometer="+accelerometer);
+            GlobalData.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
             if (accelerometer != null)
                 mSensorManager.registerListener(this, accelerometer, 1000000 * interval);
             Sensor magneticField = getMagneticFieldSensor(this);
-            GlobalData.logE("PhoneProfilesService.startListeningSensors","magneticField="+magneticField);
+            GlobalData.logE("PhoneProfilesService.startListeningOrientationSensors","magneticField="+magneticField);
             if (magneticField != null)
                 mSensorManager.registerListener(this, magneticField, 1000000 * interval);
             Sensor proximity = getProximitySensor(this);
-            GlobalData.logE("PhoneProfilesService.startListeningSensors","proximity="+proximity);
+            GlobalData.logE("PhoneProfilesService.startListeningOrientationSensors","proximity="+proximity);
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
                 mSensorManager.registerListener(this, proximity, 1000000 * interval);
             }
             //Sensor orientation = GlobalData.getOrientationSensor(this);
-            //GlobalData.logE("PhoneProfilesService.startListeningSensors","orientation="+orientation);
+            //GlobalData.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
             mStartedSensors = true;
         }
     }
 
-    public void stopListeningSensors() {
+    public void stopListeningOrientationSensors() {
         if (mSensorManager != null) {
             mSensorManager.unregisterListener(this);
             mSensorManager = null;
@@ -485,10 +483,10 @@ public class PhoneProfilesService extends Service
         mStartedSensors = false;
     }
 
-    public void resetListeningSensors(boolean oldPowerSaveMode, boolean forceReset) {
+    public void resetListeningOrientationSensors(boolean oldPowerSaveMode, boolean forceReset) {
         if ((forceReset) || (GlobalData.isPowerSaveMode != oldPowerSaveMode)) {
-            stopListeningSensors();
-            startListeningSensors();
+            stopListeningOrientationSensors();
+            startListeningOrientationSensors();
         }
     }
 

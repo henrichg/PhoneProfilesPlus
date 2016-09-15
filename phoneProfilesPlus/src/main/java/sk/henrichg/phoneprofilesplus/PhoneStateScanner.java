@@ -44,6 +44,10 @@ public class PhoneStateScanner extends PhoneStateListener {
     }
 
     public void connect() {
+        if (GlobalData.isPowerSaveMode && GlobalData.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
+            // start scanning in power save mode is not allowed
+            return;
+
         if ((telephonyManager != null) &&
                 context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY) &&
                 Permissions.checkLocation(context.getApplicationContext()))
@@ -63,6 +67,13 @@ public class PhoneStateScanner extends PhoneStateListener {
     public void disconnect() {
         if ((telephonyManager != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
             telephonyManager.listen(this, PhoneStateListener.LISTEN_NONE);
+    }
+
+    public void resetListening(boolean oldPowerSaveMode, boolean forceReset) {
+        if ((forceReset) || (GlobalData.isPowerSaveMode != oldPowerSaveMode)) {
+            disconnect();
+            connect();
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -239,7 +250,17 @@ public class PhoneStateScanner extends PhoneStateListener {
         getCellLocation();
     }
 
+    public void rescanMobileCells() {
+        getRegisteredCell();
+        sendBroadcast();
+    }
+
     private void sendBroadcast() {
+        // broadcast for start EventsService
+        Intent broadcastIntent = new Intent(context, PhoneStateChangeBroadcastReceiver.class);
+        context.sendBroadcast(broadcastIntent);
+
+        // broadcast for cells editor
         Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);
         //intent.putExtra("state", mode);
         context.sendBroadcast(intent);

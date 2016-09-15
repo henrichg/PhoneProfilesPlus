@@ -184,10 +184,19 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
                     ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
             preference.setEnabled(false);
         }
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, preferencesActivity.getApplicationContext())
+                != GlobalData.PREFERENCE_ALLOWED)
+        {
+            Preference preference = (Preference) prefMng.findPreference("mobileCellsScanningCategory");
+            preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                    ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+            preference.setEnabled(false);
+        }
 
-        final boolean enabled = PhoneProfilesService.isLocationEnabled(preferencesActivity.getApplicationContext());
-        Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
-        preference.setEnabled(enabled);
+        if (!PhoneProfilesService.isLocationEnabled(preferencesActivity.getApplicationContext())) {
+            Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
+            preference.setEnabled(false);
+        }
 
     }
 

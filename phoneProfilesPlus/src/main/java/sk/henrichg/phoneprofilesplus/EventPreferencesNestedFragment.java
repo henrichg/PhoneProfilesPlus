@@ -27,9 +27,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     protected SharedPreferences preferences;
     private Context context;
 
-    static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
-    static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
-
     static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
@@ -43,6 +40,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     static final String PREF_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
     static final String PREF_ORIENTATION_SCANNING_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
     static final int RESULT_ORIENTATION_SCANNING_SETTINGS = 1986;
+    static final String PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS = "eventMobileCellsScaningAppSettings";
+    static final int RESULT_MOBILE_CELLS_SCANNING_SETTINGS = 1987;
 
     @Override
     public int addPreferencesFromResource() {
@@ -175,15 +174,21 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        if (!context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
-        {
-            Preference mobileCellsPreferences = (PreferenceCategory) prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CATEGORY);
-            if (mobileCellsPreferences != null) {
-                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventEventsCategory");
-                preferenceCategory.removePreference(mobileCellsPreferences);
-            }
+        preference = prefMng.findPreference(PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(context, PhoneProfilesPreferencesActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "mobileCellsScanningCategory");
+                    //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    startActivityForResult(intent, RESULT_MOBILE_CELLS_SCANNING_SETTINGS);
+                    return false;
+                }
+            });
         }
-
     }
 
     @Override
@@ -224,6 +229,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         }
         if (requestCode == RESULT_ORIENTATION_SCANNING_SETTINGS) {
             event._eventPreferencesOrientation.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) {
+            event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
         }
     }
 

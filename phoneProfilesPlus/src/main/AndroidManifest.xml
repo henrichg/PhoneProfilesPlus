@@ -706,6 +706,11 @@
             android:enabled="true"
             android:exported="true">
         </receiver>
+        <receiver
+            android:name=".PhoneStateChangeBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
 
 </manifest>

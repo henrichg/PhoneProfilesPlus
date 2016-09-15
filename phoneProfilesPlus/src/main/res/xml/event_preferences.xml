@@ -404,6 +404,13 @@
                 android:key="eventMobileCellsEnabled"
                 android:title="@string/event_preferences_mobile_cells_enabled"
                 android:defaultValue="false" />
+            <Preference
+                android:key="eventMobileCellsScaningAppSettings"
+                android:title="@string/phone_profiles_pref_eventMobileCellsAppSettings"
+                android:summary="@string/phone_profiles_pref_eventMobileCellsAppSettings_summary"
+                android:dependency="eventMobileCellsEnabled"
+                android:widgetLayout="@layout/start_activity_preference" >
+            </Preference>
             <sk.henrichg.phoneprofilesplus.MobileCellsPreference
                 android:defaultValue="0"
                 android:key="eventMobileCellsCells"
@@ -413,14 +420,6 @@
                 android:key="eventMobileCellsStartWhenOutside"
                 android:title="@string/event_preferences_mobile_cells_when_outside_pref_name"
                 android:defaultValue="false"
-                android:dependency="eventMobileCellsEnabled" />
-            <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
-                android:key="eventMobileCellsRegistration"
-                android:summary="@string/event_preferences_mobile_cells_registration_pref_name"
-                android:title="@string/event_preferences_mobile_cells_registration_pref_name"
-                android:defaultValue="0"
-                henrichg:dMin="0"
-                henrichg:dMax="86400"
                 android:dependency="eventMobileCellsEnabled" />
         </PreferenceScreen>
         <PreferenceScreen

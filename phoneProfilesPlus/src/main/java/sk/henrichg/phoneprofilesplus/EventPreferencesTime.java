@@ -288,15 +288,25 @@ public class EventPreferencesTime extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wendesday,
-                this._thursday, this._friday, this._saturday, this._startTime, this._endTime);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
+        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
+            EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wendesday,
+                    this._thursday, this._friday, this._saturday, this._startTime, this._endTime);
+            if (preferences != null)
+                tmp.saveSharedPreferences(preferences);
 
-        Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
-        if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
-            preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
+            Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
+            if (preference != null) {
+                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
+                preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
+            }
+        }
+        else {
+            Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
+            if (preference != null) {
+                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                preference.setEnabled(false);
+            }
         }
     }
 

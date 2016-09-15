@@ -239,14 +239,24 @@ public class EventPreferencesCalendar extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._searchField, this._searchString, this._availability, this._ignoreAllDayEvents);
-        if (preferences != null)
-            tmp.saveSharedPreferences(preferences);
+        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
+            EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._searchField, this._searchString, this._availability, this._ignoreAllDayEvents);
+            if (preferences != null)
+                tmp.saveSharedPreferences(preferences);
 
-        Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
-        if (preference != null) {
-            GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
-            preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
+            Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
+            if (preference != null) {
+                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
+                preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
+            }
+        }
+        else {
+            Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
+            if (preference != null) {
+                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                preference.setEnabled(false);
+            }
         }
     }
 

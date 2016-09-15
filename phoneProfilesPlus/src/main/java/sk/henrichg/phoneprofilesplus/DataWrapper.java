@@ -2572,6 +2572,15 @@ public class DataWrapper {
                 // send broadcast for location scan
                 GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
         }
+        if (GlobalData.applicationEventMobileCellsRescan.equals(GlobalData.RESCAN_TYPE_RESTART_EVENTS) ||
+            GlobalData.applicationEventMobileCellsRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
+        {
+            if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0)
+                // rescan mobile cells
+                if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                    GlobalData.phoneProfilesService.phoneStateScanner.rescanMobileCells();
+                }
+        }
 
 
         if (showToast)
