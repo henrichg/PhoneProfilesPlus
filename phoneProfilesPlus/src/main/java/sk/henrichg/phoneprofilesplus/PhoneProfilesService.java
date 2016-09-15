@@ -275,6 +275,7 @@ public class PhoneProfilesService extends Service
                 doSimulatingRingingCall(intent);
             boolean phoneStateScanner = intent.getBooleanExtra(GlobalData.EXTRA_PHONE_STATE_SCANNER, false);
             if (phoneStateScanner) {
+                GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "phoneProfilesScanner");
                 boolean phoneStateScannerStart = intent.getBooleanExtra(GlobalData.EXTRA_PHONE_STATE_SCANNER_START, false);
                 if (phoneStateScannerStart)
                     startPhoneStateScanner();
