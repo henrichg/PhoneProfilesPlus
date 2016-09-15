@@ -50,6 +50,12 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
                     GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, true);
                     //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(context);
                 }
+                if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
+                    // rescan mobile cells
+                    if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                        GlobalData.phoneProfilesService.phoneStateScanner.rescanMobileCells();
+                    }
+                }
                 dataWrapper.invalidateDataWrapper();
             }
         }
