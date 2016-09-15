@@ -140,8 +140,8 @@
     <orderEntry type="library" exported="" name="play-services-tasks-9.4.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-24.2.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-location-9.4.0" level="project" />
-    <orderEntry type="library" exported="" name="hidden-apis" level="project" />
     <orderEntry type="library" exported="" name="hidden-apis_2" level="project" />
+    <orderEntry type="library" exported="" name="hidden-apis" level="project" />
     <orderEntry type="module" module-name="dragSortListView" exported="" />
     <orderEntry type="module" module-name="materialPreferences" exported="" />
   </component>
