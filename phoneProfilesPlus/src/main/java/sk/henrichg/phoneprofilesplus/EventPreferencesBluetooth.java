@@ -155,7 +155,8 @@ public class EventPreferencesBluetooth extends EventPreferences {
                 boolean btLESupported = ScannerService.bluetoothLESupported(context);
 
                 if (!btLESupported) {
-                    listPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
+                    listPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
+                            "-"+context.getString(R.string.preference_not_allowed_reason_no_hardware));
                 } else {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -185,7 +186,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_DEVICES_TYPE, preferences, context);
 
-        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 != GlobalData.PREFERENCE_ALLOWED)
         {
             prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED).setEnabled(false);

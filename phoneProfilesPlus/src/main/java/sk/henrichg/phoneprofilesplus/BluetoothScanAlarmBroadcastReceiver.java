@@ -41,7 +41,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         setAlarm(context, false, false);
 
-        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
                 GlobalData.PREFERENCE_ALLOWED) {
             removeAlarm(context);
             return;
@@ -78,7 +78,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         setWaitForLEResults(context, false);
         setBluetoothEnabledForScan(context, false);
 
-        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) !=
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
                 GlobalData.PREFERENCE_ALLOWED)
             return;
 
@@ -108,7 +108,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
 
-        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context)
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
                 == GlobalData.PREFERENCE_ALLOWED)
         {
             GlobalData.logE("BluetoothScanAlarmBroadcastReceiver.setAlarm","BluetoothHardware=true");

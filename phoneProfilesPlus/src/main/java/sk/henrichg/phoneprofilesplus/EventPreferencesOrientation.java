@@ -320,24 +320,24 @@ public class EventPreferencesOrientation extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
         if (preference != null) {
             if (!enabledAccelerometer)
-                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
+                        "-"+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabledAccelerometer);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
             if (!enabledAll)
-                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
+                        "-"+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabledAll);
         }
         boolean enabled = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_SENSOR_PROXIMITY);
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (preference != null) {
             if (!enabled)
-                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
-            else
-            if (!enabledMagneticField)
-                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed));
-            preference.setEnabled(enabledAccelerometer);
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
+                        "-"+context.getString(R.string.preference_not_allowed_reason_no_hardware));
+            preference.setEnabled(enabled);
         }
         enabled = ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);

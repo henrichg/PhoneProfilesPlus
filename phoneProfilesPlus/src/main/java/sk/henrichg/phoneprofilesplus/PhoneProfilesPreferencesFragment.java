@@ -142,30 +142,47 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(GlobalData.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE);
 
 
-        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, preferencesActivity.getApplicationContext())
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, preferencesActivity.getApplicationContext())
                     != GlobalData.PREFERENCE_ALLOWED)
         {
-            prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
+            /*prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI).setEnabled(false);
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE).setEnabled(false);
-            prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_RESCAN).setEnabled(false);
+            prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_RESCAN).setEnabled(false);*/
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(GlobalData.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, false);
             editor.commit();
+            Preference preference = (Preference) prefMng.findPreference("wifiScanningCategory");
+            preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                    "-"+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+            preference.setEnabled(false);
         }
 
-        if (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, preferencesActivity.getApplicationContext())
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, preferencesActivity.getApplicationContext())
                 != GlobalData.PREFERENCE_ALLOWED)
         {
-            prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
+            /*prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH).setEnabled(false);
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE).setEnabled(false);
             prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN).setEnabled(false);
             if (ScannerService.bluetoothLESupported(preferencesActivity.getApplicationContext()))
-                prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION).setEnabled(false);
+                prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION).setEnabled(false);*/
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, false);
             editor.commit();
+            Preference preference = (Preference) prefMng.findPreference("bluetoothScanninCategory");
+            preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                    "-"+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+            preference.setEnabled(false);
+        }
+
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, preferencesActivity.getApplicationContext())
+                != GlobalData.PREFERENCE_ALLOWED)
+        {
+            Preference preference = (Preference) prefMng.findPreference("orientationScanningCategory");
+            preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                    "-"+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+            preference.setEnabled(false);
         }
 
         final boolean enabled = PhoneProfilesService.isLocationEnabled(preferencesActivity.getApplicationContext());

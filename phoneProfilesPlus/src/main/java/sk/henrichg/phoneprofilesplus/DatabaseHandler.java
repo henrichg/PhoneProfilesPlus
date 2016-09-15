@@ -6410,7 +6410,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     if ((Integer.parseInt(cursor.getString(1)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_DEVICE_AIRPLANE_MODE, 0);
@@ -6419,7 +6419,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(2)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_DEVICE_WIFI, 0);
@@ -6428,7 +6428,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(3)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_DEVICE_BLUETOOTH, 0);
@@ -6437,7 +6437,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(4)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_DEVICE_MOBILE_DATA, 0);
@@ -6446,7 +6446,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(5)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
@@ -6455,7 +6455,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(6)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_GPS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_GPS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_DEVICE_GPS, 0);
@@ -6464,7 +6464,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(7)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
@@ -6473,7 +6473,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(8)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NFC, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NFC, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_DEVICE_NFC, 0);
@@ -6482,7 +6482,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(10)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_DEVICE_WIFI_AP, 0);
@@ -6523,7 +6523,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(11)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context)
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context)
                                     == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
@@ -6533,7 +6533,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(13)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, context)
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, context)
                                     == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
@@ -6543,7 +6543,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(14)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_NOTIFICATION_LED, context)
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_NOTIFICATION_LED, context)
                                     == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
@@ -6553,7 +6553,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
 
                     if ((Integer.parseInt(cursor.getString(15)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, context)
+                            (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, context)
                                     == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
@@ -6574,7 +6574,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
                     if ((Integer.parseInt(cursor.getString(1)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_E_WIFI_ENABLED, 0);
@@ -6582,7 +6582,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                     }
                     if ((Integer.parseInt(cursor.getString(2)) != 0) &&
-                            (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                            (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_E_BLUETOOTH_ENABLED, 0);
@@ -6590,7 +6590,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                     }
                     if ((Integer.parseInt(cursor.getString(3)) != 0) &&
-                            (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2))
+                            (GlobalData.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
                     {
                         values.clear();
                         values.put(KEY_E_NOTIFICATION_ENABLED, 0);
@@ -6607,8 +6607,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
                                     new String[]{String.valueOf(Integer.parseInt(cursor.getString(0)))});
                         }
-                        enabled = (PhoneProfilesService.getProximitySensor(context.getApplicationContext()) != null) &&
-                                  ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
+                        enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
+                        if (!enabled) {
+                            values.clear();
+                            values.put(KEY_E_ORIENTATION_SIDES, "");
+                            db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                    new String[]{String.valueOf(Integer.parseInt(cursor.getString(0)))});
+                        }
+                        enabled = (PhoneProfilesService.getProximitySensor(context.getApplicationContext()) != null);
                         if (!enabled) {
                             values.clear();
                             values.put(KEY_E_ORIENTATION_DISTANCE, 0);

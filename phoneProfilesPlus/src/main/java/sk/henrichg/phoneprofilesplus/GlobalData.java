@@ -189,7 +189,7 @@ public class GlobalData extends Application {
     static final String PREF_PROFILE_VIBRATE_WHEN_RINGING = "prf_pref_vibrateWhenRinging";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_FOR = "prf_pref_deviceWallpaperFor";
 
-    // no preferences, bud checked from isPreferenceAllowed
+    // no preferences, bud checked from isProfilePreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
 
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
@@ -262,6 +262,11 @@ public class GlobalData extends Application {
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
+    public static final int PREFERENCE_NOT_ALLOWED_NO_HARDWARE = 0;
+    public static final int PREFERENCE_NOT_ALLOWED_NOT_ROOTED = 1;
+    public static final int PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND = 2;
+    public static final int PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND = 3;
+    public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED = 4;
 
     public static final long DEFAULT_PROFILE_ID = -999L;  // source profile id
     public static final long PROFILE_NO_ACTIVATE = -999;
@@ -377,6 +382,8 @@ public class GlobalData extends Application {
     public static String applicationEventLocationRescan;
     public static int applicationEventOrientationScanInterval;
     public static String applicationEventOrientationScanInPowerSaveMode;
+
+    public static int notAllowedReason;
 
     public static final RootMutex rootMutex = new RootMutex();
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
@@ -1275,7 +1282,7 @@ public class GlobalData extends Application {
 
     // ----- Check if preference is allowed in device -------------------------------------
 
-    static int isPreferenceAllowed(String preferenceKey, Context context)
+    static int isProfilePreferenceAllowed(String preferenceKey, Context context)
     {
         int featurePresented = PREFERENCE_NOT_ALLOWED;
 
@@ -1288,7 +1295,11 @@ public class GlobalData extends Application {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
+                    else
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+                else
+                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
             else
                 featurePresented = PREFERENCE_ALLOWED;
@@ -1299,6 +1310,8 @@ public class GlobalData extends Application {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
                 // device ma Wifi
                 featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(PREF_PROFILE_DEVICE_BLUETOOTH))
@@ -1306,6 +1319,8 @@ public class GlobalData extends Application {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
                 // device ma bluetooth
                 featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA))
@@ -1319,13 +1334,19 @@ public class GlobalData extends Application {
                         //if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_MOBILE_DATA))
                             featurePresented = PREFERENCE_ALLOWED;
                     }
+                    else
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
                 else
                 {
                     if (canSetMobileData(context))
                         featurePresented = PREFERENCE_ALLOWED;
+                    else
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
                 }
             }
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
@@ -1334,6 +1355,8 @@ public class GlobalData extends Application {
             {
                 featurePresented = PREFERENCE_ALLOWED;
             }
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(PREF_PROFILE_DEVICE_GPS))
@@ -1358,7 +1381,11 @@ public class GlobalData extends Application {
                 {
                     featurePresented = PREFERENCE_ALLOWED;
                 }
+                else
+                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(PREF_PROFILE_DEVICE_NFC))
@@ -1370,10 +1397,13 @@ public class GlobalData extends Application {
                 // device ma nfc
                 if (isRooted())
                     featurePresented = PREFERENCE_ALLOWED;
+                else
+                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
             else
             {
                 logE("GlobalData.hardwareCheck","NFC=not presented");
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
         }
         else
@@ -1385,7 +1415,11 @@ public class GlobalData extends Application {
                 {
                     featurePresented = PREFERENCE_ALLOWED;
                 }
+                else
+                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
             }
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(PREF_PROFILE_VIBRATE_WHEN_RINGING))
@@ -1395,7 +1429,11 @@ public class GlobalData extends Application {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
+                    else
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+                else
+                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
             else
                 featurePresented = PREFERENCE_ALLOWED;
@@ -1411,11 +1449,17 @@ public class GlobalData extends Application {
                         // zariadenie je rootnute
                         if (settingsBinaryExists())
                             featurePresented = PREFERENCE_ALLOWED;
+                        else
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
+                    else
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
                 else
                     featurePresented = PREFERENCE_ALLOWED;
             }
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
         }
         else
         if (preferenceKey.equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
@@ -1425,8 +1469,14 @@ public class GlobalData extends Application {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
+                    else
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+                else
+                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
         }
         else
         if (preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE))
@@ -1438,11 +1488,23 @@ public class GlobalData extends Application {
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
                     if (isRooted()) {
                         // zariadenie je rootnute
-                        if (serviceBinaryExists() && telephonyServiceExists(context, PREF_PROFILE_DEVICE_NETWORK_TYPE))
-                            featurePresented = PREFERENCE_ALLOWED;
+                        if (telephonyServiceExists(context, PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                            if (serviceBinaryExists())
+                                featurePresented = PREFERENCE_ALLOWED;
+                            else
+                                notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                        }
+                        else
+                            notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
                     }
+                    else
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
+                else
+                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
             }
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(PREF_PROFILE_NOTIFICATION_LED))
@@ -1453,16 +1515,76 @@ public class GlobalData extends Application {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
+                    else
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
+                else
+                    notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
             else
             if (value != -10)
                 featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
         }
         else
             featurePresented = PREFERENCE_ALLOWED;
 
         return featurePresented;
+    }
+
+    static int isEventPreferenceAllowed(String preferenceKey, Context context)
+    {
+        int featurePresented = PREFERENCE_NOT_ALLOWED;
+
+        if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+                // device ma Wifi
+                featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH))
+                // device ma bluetooth
+                featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
+        if (preferenceKey.equals(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+                featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
+        }
+        else
+        if (preferenceKey.equals(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED))
+        {
+            boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
+                              (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null) &&
+                              (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
+            if (enabled)
+                featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+
+        return featurePresented;
+    }
+
+    public static int getNotAllowedPreferenceReasonString() {
+        switch (notAllowedReason) {
+            case PREFERENCE_NOT_ALLOWED_NO_HARDWARE: return R.string.preference_not_allowed_reason_no_hardware;
+            case PREFERENCE_NOT_ALLOWED_NOT_ROOTED: return R.string.preference_not_allowed_reason_not_rooted;
+            case PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND: return R.string.preference_not_allowed_reason_settings_not_found;
+            case PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND: return R.string.preference_not_allowed_reason_service_not_found;
+            default: return R.string.preference_not_allowed_reason_not_supported;
+        }
     }
 
     static boolean canExploitGPS(Context context)

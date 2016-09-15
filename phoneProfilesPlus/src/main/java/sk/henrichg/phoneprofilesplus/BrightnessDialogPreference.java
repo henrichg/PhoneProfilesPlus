@@ -82,7 +82,7 @@ public class BrightnessDialogPreference extends
         _defaultProfile = GlobalData.getDefaultProfile(_context);
 
         adaptiveAllowed = (android.os.Build.VERSION.SDK_INT <= 21) ||
-                (GlobalData.isPreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context)
+                (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context)
                         == GlobalData.PREFERENCE_ALLOWED);
     }
 

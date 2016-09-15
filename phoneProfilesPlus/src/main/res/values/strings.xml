@@ -796,4 +796,9 @@
     <string name="event_preferences_mobile_cells_registration_pref_name">Cells registration</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Start</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Stop</string>
+    <string name="preference_not_allowed_reason_no_hardware">no hardware</string>
+    <string name="preference_not_allowed_reason_not_rooted">not rooted</string>
+    <string name="preference_not_allowed_reason_settings_not_found">settings utility not found</string>
+    <string name="preference_not_allowed_reason_service_not_found">service utility not found</string>
+    <string name="preference_not_allowed_reason_not_supported">not supported by system</string>
 </resources>
