@@ -63,6 +63,12 @@ public class MobileCellsPreference extends DialogPreference {
         this.context = context;
         
         cellsList = new ArrayList<MobileCellsData>();
+
+        if (!GlobalData.phoneProfilesService.isPhoneStateStarted()) {
+            Log.d("MobileCellsPreference","no scanner started");
+            GlobalData.startPhoneStateScanner(context);
+        }
+        Log.d("MobileCellsPreference","scanner started");
     }
 
     @Override
@@ -289,100 +295,96 @@ public class MobileCellsPreference extends DialogPreference {
     {
         final boolean _forRescan = forRescan;
 
-        if (GlobalData.phoneProfilesService.isPhoneStateStarted()) {
+        rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
-            rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
+            String _cellName;
 
-                String _cellName;
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
 
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
+                _cellName = cellName.getText().toString();
+                //dataRelativeLayout.setVisibility(View.GONE);
+                //progressLinearLayout.setVisibility(View.VISIBLE);
+            }
 
-                    _cellName = cellName.getText().toString();
-                    //dataRelativeLayout.setVisibility(View.GONE);
-                    //progressLinearLayout.setVisibility(View.VISIBLE);
+            @Override
+            protected Void doInBackground(Void... params) {
+                cellsList.clear();
+
+                if (_forRescan) {
+                    GlobalData.phoneProfilesService.phoneStateScanner.getRegisteredCell();
+
+                    //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(200);
+                    //GlobalData.sleep(200);
                 }
 
-                @Override
-                protected Void doInBackground(Void... params) {
-                    cellsList.clear();
+                // add all from table
+                DatabaseHandler db = DatabaseHandler.getInstance(context);
+                db.addMobileCellsToList(cellsList);
 
-                    if (_forRescan) {
-                        GlobalData.phoneProfilesService.phoneStateScanner.getRegisteredCell();
-
-                        //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(200);
-                        //GlobalData.sleep(200);
+                // add registered cell
+                boolean found = false;
+                for (MobileCellsData cell : cellsList) {
+                    if (cell.cellId == GlobalData.phoneProfilesService.phoneStateScanner.registeredCell) {
+                        cell.connected = true;
+                        found = true;
+                        break;
                     }
+                }
+                if (!found)
+                    cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, _cellName, true, true));
 
-                    // add all from table
-                    DatabaseHandler db = DatabaseHandler.getInstance(context);
-                    db.addMobileCellsToList(cellsList);
-
-                    // add registered cell
-                    boolean found = false;
-                    for (MobileCellsData cell : cellsList) {
-                        if (cell.cellId == GlobalData.phoneProfilesService.phoneStateScanner.registeredCell) {
-                            cell.connected = true;
+                // add all from value
+                String[] splits = value.split("\\|");
+                for (String cell : splits) {
+                    found = false;
+                    for (MobileCellsData mCell : cellsList) {
+                        if (cell.equals(Integer.toString(mCell.cellId))) {
                             found = true;
                             break;
                         }
                     }
-                    if (!found)
-                        cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, _cellName, true, true));
-
-                    // add all from value
-                    String[] splits = value.split("\\|");
-                    for (String cell : splits) {
-                        found = false;
-                        for (MobileCellsData mCell : cellsList) {
-                            if (cell.equals(Integer.toString(mCell.cellId))) {
-                                found = true;
-                                break;
-                            }
+                    if (!found) {
+                        try {
+                            int iCell = Integer.parseInt(cell);
+                            cellsList.add(new MobileCellsData(iCell, _cellName, false, false));
                         }
-                        if (!found) {
-                            try {
-                                int iCell = Integer.parseInt(cell);
-                                cellsList.add(new MobileCellsData(iCell, _cellName, false, false));
-                            }
-                            catch (Exception e) { }
-                        }
+                        catch (Exception e) { }
                     }
-
-                    db.saveMobileCellsList(cellsList, true);
-
-                    Collections.sort(cellsList, new SortList());
-
-                    return null;
                 }
 
-                @Override
-                protected void onPostExecute(Void result) {
-                    super.onPostExecute(result);
+                db.saveMobileCellsList(cellsList, true);
 
-                    listAdapter.notifyDataSetChanged();
-                    //progressLinearLayout.setVisibility(View.GONE);
-                    //dataRelativeLayout.setVisibility(View.VISIBLE);
+                Collections.sort(cellsList, new SortList());
 
-                    /*
-                    for (int position = 0; position < cellsList.size() - 1; position++) {
-                        if (Integer.toString(cellsList.get(position).cellId).equals(value)) {
-                            cellsListView.setSelection(position);
-                            cellsListView.setItemChecked(position, true);
-                            cellsListView.smoothScrollToPosition(position);
-                            break;
-                        }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+
+                listAdapter.notifyDataSetChanged();
+                //progressLinearLayout.setVisibility(View.GONE);
+                //dataRelativeLayout.setVisibility(View.VISIBLE);
+
+                /*
+                for (int position = 0; position < cellsList.size() - 1; position++) {
+                    if (Integer.toString(cellsList.get(position).cellId).equals(value)) {
+                        cellsListView.setSelection(position);
+                        cellsListView.setItemChecked(position, true);
+                        cellsListView.smoothScrollToPosition(position);
+                        break;
                     }
-                    */
                 }
+                */
+            }
 
-            };
+        };
 
-            rescanAsyncTask.execute();
-        }
-
+        rescanAsyncTask.execute();
     }
 
     private class SortList implements Comparator<MobileCellsData> {

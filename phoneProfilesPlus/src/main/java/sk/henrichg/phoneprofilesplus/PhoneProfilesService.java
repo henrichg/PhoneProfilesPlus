@@ -403,11 +403,12 @@ public class PhoneProfilesService extends Service
     private void startPhoneStateScanner() {
         if (phoneStateScanner != null) {
             phoneStateScanner.disconnect();
-            phoneStateScanner = null;
+            //phoneStateScanner = null;
         }
 
         if (GlobalData.getApplicationStarted(this)) {
-            phoneStateScanner = new PhoneStateScanner(this);
+            if (phoneStateScanner == null)
+                phoneStateScanner = new PhoneStateScanner(this);
             phoneStateScanner.connect();
         }
     }
@@ -415,7 +416,7 @@ public class PhoneProfilesService extends Service
     private void stopPhoneStateScanner() {
         if (phoneStateScanner != null) {
             phoneStateScanner.disconnect();
-            phoneStateScanner = null;
+            //phoneStateScanner = null;
         }
     }
 
