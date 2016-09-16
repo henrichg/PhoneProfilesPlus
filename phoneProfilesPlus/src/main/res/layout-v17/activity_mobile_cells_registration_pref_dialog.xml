@@ -84,4 +84,35 @@
 
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/mobile_cells_registration_cells_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
+        android:selectAllOnFocus="true"
+        android:inputType="textNoSuggestions" />
+
+    <TextView
+        android:id="@+id/mobile_cells_registration_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="17sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/mobile_cells_registration_remaining_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textSize="15sp"
+        android:text="00:00:00"/>
+
 </LinearLayout>

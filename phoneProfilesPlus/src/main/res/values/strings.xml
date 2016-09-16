@@ -800,6 +800,9 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Rescan mobile cells</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Start</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Stop</string>
+    <string name="mobile_cells_registration_pref_dlg_status_started">Started</string>
+    <string name="mobile_cells_registration_pref_dlg_status_stopped">Stopped</string>
+    <string name="mobile_cells_registration_pref_dlg_status_remaining_time">Remaining time</string>
     <string name="array_pref_mobile_cells_rename_new">New (N)</string>
     <string name="array_pref_mobile_cells_rename_selected">Selected</string>
     <string name="preference_not_allowed_reason_no_hardware">no hardware</string>

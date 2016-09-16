@@ -68,7 +68,8 @@ public class MobileCellsPreference extends DialogPreference {
             Log.d("MobileCellsPreference","no scanner started");
             GlobalData.startPhoneStateScanner(context);
         }
-        Log.d("MobileCellsPreference","scanner started");
+        else
+            Log.d("MobileCellsPreference","scanner started");
     }
 
     @Override

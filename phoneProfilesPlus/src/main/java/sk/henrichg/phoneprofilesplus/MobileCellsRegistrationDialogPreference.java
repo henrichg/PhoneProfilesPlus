@@ -8,8 +8,10 @@ import android.preference.DialogPreference;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -22,7 +24,6 @@ import com.github.pinball83.maskededittext.MaskedEditText;
 public class MobileCellsRegistrationDialogPreference extends DialogPreference
                                         implements SeekBar.OnSeekBarChangeListener {
 
-    private String eventId;
     private String value;
 
     private int mMin, mMax;
@@ -32,6 +33,9 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
     private SeekBar mSeekBarSeconds;
+    private EditText mCellsName;
+    private TextView mStatus;
+    private TextView mRemainingTime;
 
     private int mColor = 0;
 
@@ -45,13 +49,21 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         durationDialogType.recycle();
 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+            mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
+
+        if (!GlobalData.phoneProfilesService.isPhoneStateStarted()) {
+            Log.d("MobileCellsPreference","no scanner started");
+            GlobalData.startPhoneStateScanner(context);
+
+        }
+        else
+            Log.d("MobileCellsPreference","scanner started");
+
         if (PhoneProfilesService.isPhoneStateStarted())
             value = Integer.toString(GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration);
         else
             value = "0";
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
     }
 
     @Override
@@ -77,7 +89,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
                         if (PhoneProfilesService.isPhoneStateStarted()) {
                             GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = Integer.parseInt(value);
-                            GlobalData.phoneProfilesService.phoneStateScanner.eventIdForAutoRegistration = Long.parseLong(eventId);
+                            GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
                             GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration = true;
                         }
 
@@ -97,14 +109,14 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         if (PhoneProfilesService.isPhoneStateStarted()) {
                             GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
-                            GlobalData.phoneProfilesService.phoneStateScanner.eventIdForAutoRegistration = 0;
+                            GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
                             GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
                         }
                     }
                 })
                 ;
 
-        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_duration_pref_dialog2, null);
+        View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_mobile_cells_registration_pref_dialog, null);
         onBindDialogView(layout);
 
         TextView mTextViewRange = (TextView) layout.findViewById(R.id.duration_pref_dlg_range);
@@ -112,6 +124,9 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         mSeekBarHours = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_hours);
         mSeekBarMinutes = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_minutes);
         mSeekBarSeconds = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_seconds);
+        mCellsName = (EditText)  layout.findViewById(R.id.mobile_cells_registration_cells_name);
+        mStatus = (TextView)  layout.findViewById(R.id.mobile_cells_registration_status);
+        mRemainingTime = (TextView)  layout.findViewById(R.id.mobile_cells_registration_remaining_time);
 
         mValue.addTextChangedListener(new TextWatcher() {
             @Override
@@ -212,6 +227,22 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
+        if (PhoneProfilesService.isPhoneStateStarted()) {
+            if (GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration) {
+                mCellsName.setText(GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration);
+                mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_started);
+                mRemainingTime.setVisibility(View.VISIBLE);
+                String time = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
+                time = time + ": " + "00:00:00";
+                mRemainingTime.setText(time);
+            }
+            else {
+                mCellsName.setText("");
+                mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_stopped);
+                mRemainingTime.setVisibility(View.GONE);
+            }
+        }
+
         mBuilder.customView(layout, false);
 
         mDialog = mBuilder.build();
@@ -231,16 +262,15 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-
-        if(restoreValue)
+        /*if(restoreValue)
         {
-            eventId = getPersistedString(eventId);
+            value = getPersistedString(value);
         }
         else
         {
-            eventId = (String)defaultValue;
-            persistString(eventId);
-        }
+            value = (String)defaultValue;
+            persistString(value);
+        }*/
         setSummaryDDP();
     }
 

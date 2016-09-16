@@ -33,8 +33,8 @@ public class PhoneStateScanner extends PhoneStateListener {
     public int registeredCell = Integer.MAX_VALUE;
 
     public boolean enabledAutoRegistration = false;
-    public long eventIdForAutoRegistration = 0;
     public int durationForAutoRegistration = 0;
+    public String cellsNameForAutoRegistration = "";
 
     public static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
 
