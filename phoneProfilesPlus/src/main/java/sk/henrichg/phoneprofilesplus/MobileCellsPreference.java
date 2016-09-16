@@ -209,7 +209,7 @@ public class MobileCellsPreference extends DialogPreference {
     @Override
     public void onDismiss(DialogInterface dialog)
     {
-        if (!rescanAsyncTask.isCancelled())
+        if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
             rescanAsyncTask.cancel(true);
 
         context.unregisterReceiver(phoneStateChangedBroadcastReceiver);
