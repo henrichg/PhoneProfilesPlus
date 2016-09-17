@@ -35,7 +35,8 @@ public class PhoneStateScanner extends PhoneStateListener {
     public boolean enabledAutoRegistration = false;
     public int durationForAutoRegistration = 0;
     public String cellsNameForAutoRegistration = "";
-    public Intent autoRegistrationService = null;
+
+    public static MobileCellsRegistrationService autoRegistrationService = null;
 
     public static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
 
@@ -290,14 +291,13 @@ public class PhoneStateScanner extends PhoneStateListener {
         GlobalData.getMobileCellsAutoRegistration(context);
         if (enabledAutoRegistration) {
             stopAutoRegistration();
-            autoRegistrationService = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
-            context.startService(autoRegistrationService);
+            context.startService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
         }
     }
 
     public void stopAutoRegistration() {
         if (autoRegistrationService != null) {
-            context.stopService(autoRegistrationService);
+            context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
             autoRegistrationService = null;
         }
     }

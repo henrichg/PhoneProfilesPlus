@@ -77,7 +77,7 @@ public class ImportantInfoNotification {
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(title) // title for notification
-                .setContentText(context.getString(R.string.app_name) + ": " + text) // message for notification
+                .setContentText(text+" ("+context.getString(R.string.app_name)+")") // message for notification
                 .setAutoCancel(true); // clear notification after click
         Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

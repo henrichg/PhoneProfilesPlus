@@ -278,8 +278,8 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(context.getString(R.string.event_preferences_location_google_api_connection_error_title)) // title for notification
-                .setContentText(context.getString(R.string.app_name) + ": " +
-                        context.getString(R.string.event_preferences_location_google_api_connection_error_text)) // message for notification
+                .setContentText(context.getString(R.string.event_preferences_location_google_api_connection_error_text)+
+                                    " ("+context.getString(R.string.app_name)+")") // message for notification
                                 .setAutoCancel(true); // clear notification after click
         Intent intent = new Intent(context, GeofenceScannerErrorActivity.class);
         intent.putExtra(DIALOG_ERROR, errorCode);
