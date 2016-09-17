@@ -295,12 +295,16 @@ public class GlobalData extends Application {
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
     private static final String PREF_ZEN_MODE = "zen_mode";
     private static final String PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION = "show_request_write_settings_permission";
-    private static final String PREF_MERGED_PERRMISSIONS = "merged_permissions";
-    private static final String PREF_MERGED_PERRMISSIONS_COUNT = "merged_permissions_count";
+    private static final String PREF_MERGED_PERMISSIONS = "merged_permissions";
+    private static final String PREF_MERGED_PERMISSIONS_COUNT = "merged_permissions_count";
     private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION = "show_enable_location_notification";
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
     private static final String PREF_ACTIVITY_LOG_ENABLED = "activity_log_enabled";
     private static final String PREF_SHOW_REQUEST_ACCESS_NOTIFICATION_POLICY_PERMISSION = "show_request_access_notification_policy_permission";
+    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
+    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
+    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
+    private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
 
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
     public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
@@ -1203,12 +1207,12 @@ public class GlobalData extends Application {
 
         List<Permissions.PermissionType> permissions = new ArrayList<Permissions.PermissionType>();
 
-        int count = preferences.getInt(PREF_MERGED_PERRMISSIONS_COUNT, 0);
+        int count = preferences.getInt(PREF_MERGED_PERMISSIONS_COUNT, 0);
 
         Gson gson = new Gson();
 
         for (int i = 0; i < count; i++) {
-            String json = preferences.getString(PREF_MERGED_PERRMISSIONS + i, "");
+            String json = preferences.getString(PREF_MERGED_PERMISSIONS + i, "");
             if (!json.isEmpty()) {
                 Permissions.PermissionType permission = gson.fromJson(json, Permissions.PermissionType.class);
                 permissions.add(permission);
@@ -1241,14 +1245,14 @@ public class GlobalData extends Application {
 
         editor.clear();
 
-        editor.putInt(PREF_MERGED_PERRMISSIONS_COUNT, savedPermissions.size());
+        editor.putInt(PREF_MERGED_PERMISSIONS_COUNT, savedPermissions.size());
 
         Gson gson = new Gson();
 
         for (int i = 0; i < savedPermissions.size(); i++)
         {
             String json = gson.toJson(savedPermissions.get(i));
-            editor.putString(PREF_MERGED_PERRMISSIONS+i, json);
+            editor.putString(PREF_MERGED_PERMISSIONS+i, json);
         }
 
         editor.commit();
@@ -1287,6 +1291,46 @@ public class GlobalData extends Application {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_ACTIVITY_LOG_ENABLED, enabled);
         editor.commit();
+    }
+
+    static public void getMobileCellsAutoRegistration(Context context) {
+        if (PhoneProfilesService.isPhoneStateStarted()) {
+            SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
+            GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
+            GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+        }
+    }
+
+    static public void setMobileCellsAutoRegistration(Context context, boolean firstStart) {
+        if (PhoneProfilesService.isPhoneStateStarted()) {
+            SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            Editor editor = preferences.edit();
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration);
+            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration);
+            if (firstStart)
+                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+            else
+                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration);
+            editor.commit();
+        }
+    }
+
+    static public int getMobileCellsAutoRegistrationRemainingDuration(Context context) {
+        if (PhoneProfilesService.isPhoneStateStarted()) {
+            SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            return preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, 0);
+        }
+        return 0;
+    }
+
+    static public void setMobileCellsAutoRegistrationRemainingDuration(Context context, int remainingDuration) {
+        if (PhoneProfilesService.isPhoneStateStarted()) {
+            SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            Editor editor = preferences.edit();
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
+            editor.commit();
+        }
     }
 
     // ----- Check if preference is allowed in device -------------------------------------

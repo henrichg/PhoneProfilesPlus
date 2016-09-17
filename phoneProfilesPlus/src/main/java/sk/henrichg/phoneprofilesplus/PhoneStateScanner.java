@@ -35,12 +35,14 @@ public class PhoneStateScanner extends PhoneStateListener {
     public boolean enabledAutoRegistration = false;
     public int durationForAutoRegistration = 0;
     public String cellsNameForAutoRegistration = "";
+    public Intent autoRegistrationService = null;
 
     public static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
 
     public PhoneStateScanner(Context context) {
         this.context = context;
         telephonyManager = (TelephonyManager) this.context.getSystemService(Context.TELEPHONY_SERVICE);
+        GlobalData.getMobileCellsAutoRegistration(context);
     }
 
     public void connect() {
@@ -62,11 +64,14 @@ public class PhoneStateScanner extends PhoneStateListener {
                 //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
                 //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
                 );
+        startAutoRegistration();
     };
 
     public void disconnect() {
-        if ((telephonyManager != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+        if ((telephonyManager != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
             telephonyManager.listen(this, PhoneStateListener.LISTEN_NONE);
+            stopAutoRegistration();
+        }
     }
 
     public void resetListening(boolean oldPowerSaveMode, boolean forceReset) {
@@ -165,6 +170,7 @@ public class PhoneStateScanner extends PhoneStateListener {
         else
             getAllCellInfo(cellInfo);
 
+        doAutoRegistration();
         sendBroadcast();
     }
 
@@ -176,6 +182,7 @@ public class PhoneStateScanner extends PhoneStateListener {
 
         getRegisteredCell();
 
+        doAutoRegistration();
         sendBroadcast();
     }
 
@@ -231,6 +238,7 @@ public class PhoneStateScanner extends PhoneStateListener {
         else
             getCellLocation(location);
 
+        doAutoRegistration();
         sendBroadcast();
     }
 
@@ -252,6 +260,7 @@ public class PhoneStateScanner extends PhoneStateListener {
 
     public void rescanMobileCells() {
         getRegisteredCell();
+        doAutoRegistration();
         sendBroadcast();
     }
 
@@ -264,5 +273,32 @@ public class PhoneStateScanner extends PhoneStateListener {
         Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);
         //intent.putExtra("state", mode);
         context.sendBroadcast(intent);
+    }
+
+    private void doAutoRegistration() {
+        if (!GlobalData.getApplicationStarted(context))
+            // application is not started
+            return;
+
+    }
+
+    public void startAutoRegistration() {
+        if (!GlobalData.getApplicationStarted(context))
+            // application is not started
+            return;
+
+        GlobalData.getMobileCellsAutoRegistration(context);
+        if (enabledAutoRegistration) {
+            stopAutoRegistration();
+            autoRegistrationService = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
+            context.startService(autoRegistrationService);
+        }
+    }
+
+    public void stopAutoRegistration() {
+        if (autoRegistrationService != null) {
+            context.stopService(autoRegistrationService);
+            autoRegistrationService = null;
+        }
     }
 }

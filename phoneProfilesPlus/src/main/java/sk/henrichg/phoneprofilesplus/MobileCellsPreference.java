@@ -54,9 +54,6 @@ public class MobileCellsPreference extends DialogPreference {
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
-    private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
-
-
     public MobileCellsPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         
@@ -70,6 +67,12 @@ public class MobileCellsPreference extends DialogPreference {
         }
         else
             Log.d("MobileCellsPreference","scanner started");
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
+        EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(this);
+        context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
+
     }
 
     @Override
@@ -205,12 +208,6 @@ public class MobileCellsPreference extends DialogPreference {
 
         mDialog.setOnDismissListener(this);
         mDialog.show();
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
-        phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(cellName);
-        context.registerReceiver(phoneStateChangedBroadcastReceiver, intentFilter);
-
     }
 
     @Override
@@ -218,8 +215,6 @@ public class MobileCellsPreference extends DialogPreference {
     {
         if ((rescanAsyncTask != null) && (!rescanAsyncTask.isCancelled()))
             rescanAsyncTask.cancel(true);
-
-        context.unregisterReceiver(phoneStateChangedBroadcastReceiver);
     }
 
     @Override
@@ -444,25 +439,27 @@ public class MobileCellsPreference extends DialogPreference {
         popup.show();
     }
 
-    private class PhoneStateChangedBroadcastReceiver extends BroadcastReceiver {
+    public class PhoneStateChangedBroadcastReceiver extends BroadcastReceiver {
 
-        EditText cellName;
+        MobileCellsPreference preference;
 
-        PhoneStateChangedBroadcastReceiver(EditText cellName) {
-            this.cellName = cellName;
+        PhoneStateChangedBroadcastReceiver(MobileCellsPreference preference) {
+            this.preference = preference;
         }
 
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
+            if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
+                // save new registered cell
+                List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
+                localCellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell,
+                        preference.cellName.getText().toString(), true, false));
+                DatabaseHandler db = DatabaseHandler.getInstance(context);
+                db.saveMobileCellsList(localCellsList, true);
 
-            // save new registered cell
-            List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
-            localCellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, cellName.getText().toString(), true, false));
-            DatabaseHandler db = DatabaseHandler.getInstance(context);
-            db.saveMobileCellsList(localCellsList, true);
-
-            refreshListView(false);
+                preference.refreshListView(false);
+            }
         }
     }
 

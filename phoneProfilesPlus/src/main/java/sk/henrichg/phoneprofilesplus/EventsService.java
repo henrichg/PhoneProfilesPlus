@@ -77,6 +77,12 @@ public class EventsService extends IntentService
             // start of GeofenceScanner
             if (!PhoneProfilesService.isGeofenceScannerStarted())
                 GlobalData.startGeofenceScanner(context);
+            // start of CellTowerScanner
+            if (!PhoneProfilesService.isPhoneStateStarted()) {
+                GlobalData.logE("EventsService.startPhoneStateScanner", "xxx");
+                //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
+                GlobalData.startPhoneStateScanner(context);
+            }
         }
 
         if (!GlobalData.getGlobalEventsRuning(context)) {
@@ -88,19 +94,11 @@ public class EventsService extends IntentService
             return;
         }
 
-        // start orientation, phone state listeners only when events exists
+        // start orientation listener only when events exists
         if (GlobalData.phoneProfilesService != null) {
             if (!PhoneProfilesService.isOrientationScannerStarted()) {
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
                     GlobalData.startOrientationScanner(context);
-            }
-            // start of CellTowerScanner
-            if (!PhoneProfilesService.isPhoneStateStarted()) {
-                if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
-                    GlobalData.logE("EventsService.startPhoneStateScanner", "xxx");
-                    //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
-                    GlobalData.startPhoneStateScanner(context);
-                }
             }
         }
 

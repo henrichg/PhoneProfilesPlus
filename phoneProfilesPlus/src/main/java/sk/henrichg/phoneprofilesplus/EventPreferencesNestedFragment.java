@@ -27,6 +27,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     protected SharedPreferences preferences;
     private Context context;
 
+    public static MobileCellsPreference.PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
+
     static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
@@ -195,6 +197,10 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     public void onDestroy()
     {
         preferences.unregisterOnSharedPreferenceChangeListener(this);
+        if (phoneStateChangedBroadcastReceiver != null) {
+            getActivity().unregisterReceiver(phoneStateChangedBroadcastReceiver);
+            phoneStateChangedBroadcastReceiver = null;
+        }
         super.onDestroy();
     }
 

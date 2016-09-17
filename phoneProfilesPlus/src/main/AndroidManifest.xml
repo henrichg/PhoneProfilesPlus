@@ -410,6 +410,10 @@
         <service
             android:name=".FetchAddressIntentService"
             android:exported="false"/>
+        <service
+            android:name=".MobileCellsRegistrationService"
+            android:enabled="true">
+        </service>
 
         <receiver
             android:name=".RestartEventsBroadcastReceiver"
@@ -711,6 +715,7 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+
     </application>
 
 </manifest>

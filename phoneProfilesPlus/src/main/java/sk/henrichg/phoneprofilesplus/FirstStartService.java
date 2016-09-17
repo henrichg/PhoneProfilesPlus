@@ -111,6 +111,8 @@ public class FirstStartService extends IntentService {
         WifiScanAlarmBroadcastReceiver.initialize(context);
         BluetoothScanAlarmBroadcastReceiver.initialize(context);
 
+        GlobalData.setMobileCellsAutoRegistration(context, true);
+
         // startneme eventy
         if (GlobalData.getGlobalEventsRuning(context))
         {
