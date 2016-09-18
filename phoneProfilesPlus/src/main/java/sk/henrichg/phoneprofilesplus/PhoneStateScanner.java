@@ -18,6 +18,8 @@ import android.telephony.CellInfoWcdma;
 import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
@@ -29,9 +31,11 @@ import java.util.List;
 public class PhoneStateScanner extends PhoneStateListener {
 
     private Context context;
-    TelephonyManager telephonyManager;
+    private TelephonyManager telephonyManager = null;
+    //private TelephonyManager telephonyManager2 = null;
 
     public int registeredCell = Integer.MAX_VALUE;
+    //public int registeredCell2 = Integer.MAX_VALUE;
 
     public boolean enabledAutoRegistration = false;
     public int durationForAutoRegistration = 0;
@@ -43,7 +47,28 @@ public class PhoneStateScanner extends PhoneStateListener {
 
     public PhoneStateScanner(Context context) {
         this.context = context;
-        telephonyManager = (TelephonyManager) this.context.getSystemService(Context.TELEPHONY_SERVICE);
+        /*if (Build.VERSION.SDK_INT >= 24) {
+            TelephonyManager telephonyManager = (TelephonyManager) this.context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
+                // Loop through the subscription list i.e. SIM list.
+                List<SubscriptionInfo> subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                if (subscriptionList != null) {
+                    for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
+                        SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+                        if (telephonyManager1 == null)
+                            telephonyManager1 = telephonyManager.createForSubscriptionId(subscriptionId);
+                        if (telephonyManager2 == null)
+                            telephonyManager2 = telephonyManager.createForSubscriptionId(subscriptionId);
+                    }
+                } else
+                    telephonyManager1 = (TelephonyManager) this.context.getSystemService(Context.TELEPHONY_SERVICE);
+            }
+        }
+        else {*/
+            telephonyManager = (TelephonyManager) this.context.getSystemService(Context.TELEPHONY_SERVICE);
+        //}
         GlobalData.getMobileCellsAutoRegistration(context);
     }
 
@@ -56,9 +81,9 @@ public class PhoneStateScanner extends PhoneStateListener {
                 context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY) &&
                 Permissions.checkLocation(context.getApplicationContext()))
             telephonyManager.listen(this,
-                /*PhoneStateListener.LISTEN_CALL_STATE
-                |*/ PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
-                | PhoneStateListener.LISTEN_CELL_LOCATION
+                //  PhoneStateListener.LISTEN_CALL_STATE
+                    PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
+                  | PhoneStateListener.LISTEN_CELL_LOCATION
                 //| PhoneStateListener.LISTEN_DATA_ACTIVITY
                 //| PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
                   | PhoneStateListener.LISTEN_SERVICE_STATE
@@ -66,14 +91,29 @@ public class PhoneStateScanner extends PhoneStateListener {
                 //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
                 //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
                 );
+        /*if ((telephonyManager2 != null) &&
+                context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY) &&
+                Permissions.checkLocation(context.getApplicationContext()))
+            telephonyManager2.listen(this,
+                //  PhoneStateListener.LISTEN_CALL_STATE
+                    PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
+                  | PhoneStateListener.LISTEN_CELL_LOCATION
+                //| PhoneStateListener.LISTEN_DATA_ACTIVITY
+                //| PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
+                  | PhoneStateListener.LISTEN_SERVICE_STATE
+                //| PhoneStateListener.LISTEN_SIGNAL_STRENGTHS
+                //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
+                //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
+            );*/
         startAutoRegistration();
     };
 
     public void disconnect() {
-        if ((telephonyManager != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
+        if ((telephonyManager != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
             telephonyManager.listen(this, PhoneStateListener.LISTEN_NONE);
-            stopAutoRegistration();
-        }
+        /*if ((telephonyManager2 != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
+            telephonyManager2.listen(this, PhoneStateListener.LISTEN_NONE);*/
+        stopAutoRegistration();
     }
 
     public void resetListening(boolean oldPowerSaveMode, boolean forceReset) {
