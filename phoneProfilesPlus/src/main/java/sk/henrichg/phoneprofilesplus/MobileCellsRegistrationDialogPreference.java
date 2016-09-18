@@ -251,8 +251,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
-        updateInterface(0);
-
         mBuilder.customView(layout, false);
 
         mDialog = mBuilder.build();
@@ -261,6 +259,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         mDialog.setOnDismissListener(this);
         mDialog.show();
+
+        updateInterface(0);
 
     }
 
