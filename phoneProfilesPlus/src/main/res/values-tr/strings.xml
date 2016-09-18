@@ -586,7 +586,7 @@
   <string name="phone_profiles_pref_eventWiFiScanningSystemSettings">Wi-Fi Tarama - Sistem Ayarları</string>
   <string name="phone_profiles_pref_eventWiFiScanningSystemSettings_summary">Lütfen sistem ayarlarında, konum ve Wi-Fi tarama tercihlerinde PhoneProfilesPlus\'a izin verin. Bu yapılmadan, Wi-fi tarama çalışmayacak.</string>
   <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings">Bluetooth Tarama - Sistem Ayarları</string>
-  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Lütfen sistem <yarlarında, Konum ve Bluetooth tarama tercihlerinde PhoneProfilesPlus\'a izin verin. Bu yapılmadan, Bluetooth tarama çalışmayacak.</string>
+  <string name="phone_profiles_pref_eventBluetoothScanningSystemSettings_summary">Lütfen sistem yarlarında, Konum ve Bluetooth tarama tercihlerinde PhoneProfilesPlus\'a izin verin. Bu yapılmadan, Bluetooth tarama çalışmayacak.</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Güç Tasarrufu modunda Wi-Fi taraması</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Güç tasarrufu modunda Bluetooth taraması</string>
   <string name="array_pref_scanInPowerSaveMode_1xInterval">1x aralıkla</string>
