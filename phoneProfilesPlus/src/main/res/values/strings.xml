@@ -807,8 +807,8 @@
     <string name="array_pref_mobile_cells_rename_selected">Selected</string>
     <string name="preference_not_allowed_reason_no_hardware">no hardware</string>
     <string name="preference_not_allowed_reason_not_rooted">not rooted</string>
-    <string name="preference_not_allowed_reason_settings_not_found">settings utility not found</string>
-    <string name="preference_not_allowed_reason_service_not_found">service utility not found</string>
+    <string name="preference_not_allowed_reason_settings_not_found">\"settings\" utility not found</string>
+    <string name="preference_not_allowed_reason_service_not_found">\"service\" utility not found</string>
     <string name="preference_not_allowed_reason_not_supported">not supported by system</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Mobile cells registration</string>
 </resources>
