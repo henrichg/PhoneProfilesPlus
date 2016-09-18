@@ -115,10 +115,6 @@ public class PhoneProfilesService extends Service
 
         //GlobalData.initPhoneProfilesServiceMessenger(getApplicationContext());
 
-        // start service for first start
-        Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
-        getApplicationContext().startService(eventsServiceIntent);
-        
         IntentFilter intentFilter1 = new IntentFilter();
         intentFilter1.addAction(Intent.ACTION_BATTERY_CHANGED);
         getApplicationContext().registerReceiver(batteryEventReceiver, intentFilter1);
@@ -193,14 +189,6 @@ public class PhoneProfilesService extends Service
         settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
         getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
 
-        // this starts also listeners!!!
-        // but will by stopped when events not exists
-        startGeofenceScanner();
-        startOrientationScanner();
-        GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "+++");
-        startPhoneStateScanner();
-
-
         /*
         if (mSipManager != null) {
             mSipManager = SipManager.newInstance(getApplicationContext());
@@ -263,6 +251,19 @@ public class PhoneProfilesService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
+
+        if (!GlobalData.getApplicationStarted(getApplicationContext())) {
+            // start service for first start
+            Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
+            getApplicationContext().startService(eventsServiceIntent);
+
+            // this starts also listeners!!!
+            // but will by stopped when events not exists
+            startGeofenceScanner();
+            startOrientationScanner();
+            GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "+++");
+            startPhoneStateScanner();
+        }
 
         if (intent != null) {
             boolean simulateRingingCall = intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false);
