@@ -806,8 +806,8 @@
   <string name="array_pref_mobile_cells_rename_selected">Vybraté</string>
   <string name="preference_not_allowed_reason_no_hardware">nie je hardvér</string>
   <string name="preference_not_allowed_reason_not_rooted">nie je root</string>
-  <string name="preference_not_allowed_reason_settings_not_found">utilita settings nebola nájdená</string>
-  <string name="preference_not_allowed_reason_service_not_found">utilita service nebola nájdená</string>
+  <string name="preference_not_allowed_reason_settings_not_found">utilita \"settings\" nebola nájdená</string>
+  <string name="preference_not_allowed_reason_service_not_found">utilita \"service\" nebola nájdená</string>
   <string name="preference_not_allowed_reason_not_supported">nepodporované systémom</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Registrácia mobilných buniek</string>
 </resources>
