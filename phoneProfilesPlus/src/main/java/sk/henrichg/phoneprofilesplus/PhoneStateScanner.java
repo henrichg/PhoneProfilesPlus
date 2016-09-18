@@ -21,6 +21,7 @@ import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -281,6 +282,13 @@ public class PhoneStateScanner extends PhoneStateListener {
             // application is not started
             return;
 
+        if (enabledAutoRegistration) {
+            Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
+            List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
+            localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false));
+            DatabaseHandler db = DatabaseHandler.getInstance(context);
+            db.saveMobileCellsList(localCellsList, true);
+        }
     }
 
     public void startAutoRegistration() {
@@ -290,6 +298,7 @@ public class PhoneStateScanner extends PhoneStateListener {
 
         GlobalData.getMobileCellsAutoRegistration(context);
         if (enabledAutoRegistration) {
+            Log.d("PhoneStateScanner.startAutoRegistration","xxx");
             stopAutoRegistration();
             context.startService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
         }

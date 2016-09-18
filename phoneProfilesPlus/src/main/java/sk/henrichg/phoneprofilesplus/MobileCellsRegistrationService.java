@@ -43,7 +43,7 @@ public class MobileCellsRegistrationService extends Service {
 
                 GlobalData.setMobileCellsAutoRegistrationRemainingDuration(context, (int) millisUntilFinished / 1000);
 
-                // broadcast for registration editor
+                // broadcast for application preferences
                 Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
                 intent.putExtra(EXTRA_COUNTDOWN, millisUntilFinished);
                 sendBroadcast(intent);
@@ -52,8 +52,15 @@ public class MobileCellsRegistrationService extends Service {
             @Override
             public void onFinish() {
                 Log.d("MobileCellsRegistrationService", "Timer finished");
+
                 GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
                 GlobalData.setMobileCellsAutoRegistration(context, false);
+
+                // broadcast for application preferences
+                Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
+                intent.putExtra(EXTRA_COUNTDOWN, 0L);
+                sendBroadcast(intent);
+
                 stopSelf();
             }
         };

@@ -394,7 +394,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("MobileCellsRegistrationBroadcastReceiver", "xxx");
-            long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0);
+            long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
             preference.updateInterface(millisUntilFinished);
             preference.setSummaryDDP(millisUntilFinished);
         }
