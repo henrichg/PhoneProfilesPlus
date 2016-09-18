@@ -123,6 +123,8 @@ public class FirstStartService extends IntentService {
         else
         {
             GlobalData.setApplicationStarted(context, true);
+            // this scanner must be started, used is for mobile cells registration, events existence is not needed
+            GlobalData.startPhoneStateScanner(context);
             dataWrapper.activateProfileOnBoot();
         }
 
