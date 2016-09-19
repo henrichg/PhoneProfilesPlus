@@ -1130,14 +1130,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                         else
                             ((EditorEventListFragment) fragment).removeAdapter();
                     }
-
-                    // check root, this set GlobalData.rooted for doInBackgroud()
-                    GlobalData.isRooted();
                 }
 
                 @Override
                 protected Integer doInBackground(Void... params) {
-
                     this.dataWrapper.stopAllEvents(true, false);
 
                     int ret = this.dataWrapper.getDatabaseHandler().importDB(_applicationDataPath);
