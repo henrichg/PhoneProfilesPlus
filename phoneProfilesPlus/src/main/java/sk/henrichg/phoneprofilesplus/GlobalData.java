@@ -54,6 +54,10 @@ public class GlobalData extends Application {
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
+                                         //+"|@@@x DataWrapper.doEventService"
+                                         //+"|@@@x WifiScanAlarmBroadcastReceiver.getSSID"
+                                         //+"|@@@x WifiScanAlarmBroadcastReceiver.compareSSID"
+
                                          /*+"|PhoneStateScanner.onCellInfoChanged"
                                          +"|PhoneStateScanner.getAllCellInfo"
                                          +"|PhoneStateScanner.onServiceStateChanged"
@@ -64,7 +68,6 @@ public class GlobalData extends Application {
 
                                          //+"|GlobalData._isRooted"
                                          //+"|GlobalData.isRootGranted"
-
             ;
 
 

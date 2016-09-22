@@ -560,6 +560,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
+        //GlobalData.logE("@@@x WifiScanAlarmBroadcastReceiver.getSSID", "SSID="+SSID);
+
         return SSID;
     }
 
@@ -567,6 +569,9 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         String wifiInfoSSID = getSSID(result, wifiConfigurationList);
         String ssid2 = "\"" + SSID + "\"";
+        //GlobalData.logE("@@@x WifiScanAlarmBroadcastReceiver.compareSSID", "wifiInfoSSID="+wifiInfoSSID);
+        //GlobalData.logE("@@@x WifiScanAlarmBroadcastReceiver.compareSSID", "ssid2="+ssid2);
+
         //return (getSSID(result).equals(SSID) || getSSID(result).equals(ssid2));
         return (Wildcard.match(wifiInfoSSID, SSID, '_', '%', true) || Wildcard.match(wifiInfoSSID, ssid2, '_', '%', true));
     }

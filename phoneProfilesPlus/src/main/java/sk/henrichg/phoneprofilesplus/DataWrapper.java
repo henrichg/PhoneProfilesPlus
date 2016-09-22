@@ -1934,7 +1934,7 @@ public class DataWrapper {
 
                     if (event._eventPreferencesWifi._SSID.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
                         for (WifiSSIDData data : wifiConfigurationList) {
-                            wifiPassed = WifiScanAlarmBroadcastReceiver.compareSSID(wifiInfo, data.ssid, wifiConfigurationList);
+                            wifiPassed = WifiScanAlarmBroadcastReceiver.compareSSID(wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
                             if (wifiPassed)
                                 break;
                         }
@@ -1993,13 +1993,15 @@ public class DataWrapper {
 
                         for (WifiSSIDData result : scanResults)
                         {
-                            //GlobalData.logE("@@@x DataWrapper.doEventService","wifiSSID="+getSSID(result));
                             //GlobalData.logE("@@@x DataWrapper.doEventService","wifiBSSID="+result.BSSID);
                             if (event._eventPreferencesWifi._SSID.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
+                                //GlobalData.logE("@@@x DataWrapper.doEventService","scanned SSID="+result.ssid);
+                                //GlobalData.logE("@@@x DataWrapper.doEventService", "all configured");
                                 for (WifiSSIDData data : wifiConfigurationList) {
-                                    wifiPassed = WifiScanAlarmBroadcastReceiver.compareSSID(result, data.ssid, wifiConfigurationList);
-                                    if (wifiPassed) {
+                                    //GlobalData.logE("@@@x DataWrapper.doEventService","configured SSID="+data.ssid.replace("\"", ""));
+                                    if (WifiScanAlarmBroadcastReceiver.compareSSID(result, data.ssid.replace("\"", ""), wifiConfigurationList)) {
                                         GlobalData.logE("@@@x DataWrapper.doEventService", "wifi found");
+                                        wifiPassed = true;
                                         break;
                                     }
                                 }
@@ -2007,6 +2009,8 @@ public class DataWrapper {
                                     break;
                             }
                             else {
+                                //GlobalData.logE("@@@x DataWrapper.doEventService","scanned SSID="+result.ssid);
+                                //GlobalData.logE("@@@x DataWrapper.doEventService","event SSID="+event._eventPreferencesWifi._SSID);
                                 if (WifiScanAlarmBroadcastReceiver.compareSSID(result, event._eventPreferencesWifi._SSID, wifiConfigurationList)) {
                                     GlobalData.logE("@@@x DataWrapper.doEventService", "wifi found");
                                     wifiPassed = true;
