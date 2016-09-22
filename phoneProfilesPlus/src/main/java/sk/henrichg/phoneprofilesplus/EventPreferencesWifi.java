@@ -27,6 +27,8 @@ public class EventPreferencesWifi extends EventPreferences {
 
     static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
 
+    static final String CONFIGURED_SSIDS_VALUE = "^configured_ssids^";
+
     public EventPreferencesWifi(Event event,
                                     boolean enabled,
                                     String SSID,
@@ -86,8 +88,13 @@ public class EventPreferencesWifi extends EventPreferences {
             String[] connectionListTypes = context.getResources().getStringArray(R.array.eventWifiConnectionTypeValues);
             int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
             descr = descr + ": " + connectionListTypeNames[index] + "; ";
-            descr = descr + context.getString(R.string.pref_event_wifi_ssid);
-            descr = descr + ": " + this._SSID;
+            if (this._SSID.equals(CONFIGURED_SSIDS_VALUE)) {
+                descr = descr + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+            }
+            else {
+                descr = descr + context.getString(R.string.pref_event_wifi_ssid);
+                descr = descr + ": " + this._SSID;
+            }
         }
 
         return descr;
@@ -107,7 +114,10 @@ public class EventPreferencesWifi extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                preference.setSummary(value);
+                if (value.equals(CONFIGURED_SSIDS_VALUE))
+                    preference.setSummary(context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb));
+                else
+                    preference.setSummary(value);
                 GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
         }

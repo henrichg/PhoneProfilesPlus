@@ -32,6 +32,8 @@ public class EventPreferencesBluetooth extends EventPreferences {
 
     static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategory";
 
+    static final String CONFIGURED_BLUETOOTH_NAMES_VALUE = "^configured_bluetooth_names^";
+
     public EventPreferencesBluetooth(Event event,
                                     boolean enabled,
                                     String adapterName,
@@ -96,17 +98,22 @@ public class EventPreferencesBluetooth extends EventPreferences {
             String[] connectionListTypes = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeValues);
             int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
             descr = descr + ": " + connectionListTypeNames[index] + "; ";
-            descr = descr + context.getString(R.string.pref_event_bluetooth_adapterName);
-            descr = descr + ": ";
-            if ((this._connectionType == CTYPE_INFRONT) || (this._connectionType == CTYPE_NOTINFRONT)) {
-                if (ScannerService.bluetoothLESupported(context)) {
-                    if (this._devicesType == DTYPE_CLASSIC)
-                        descr = descr + "[CL] ";
-                    else if (this._devicesType == DTYPE_LE)
-                        descr = descr + "[LE] ";
-                }
+            if (this._adapterName.equals(CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
+                descr = descr + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
             }
-            descr = descr + this._adapterName;
+            else {
+                descr = descr + context.getString(R.string.pref_event_bluetooth_adapterName);
+                descr = descr + ": ";
+                if ((this._connectionType == CTYPE_INFRONT) || (this._connectionType == CTYPE_NOTINFRONT)) {
+                    if (ScannerService.bluetoothLESupported(context)) {
+                        if (this._devicesType == DTYPE_CLASSIC)
+                            descr = descr + "[CL] ";
+                        else if (this._devicesType == DTYPE_LE)
+                            descr = descr + "[LE] ";
+                    }
+                }
+                descr = descr + this._adapterName;
+            }
         }
 
         return descr;
@@ -126,7 +133,10 @@ public class EventPreferencesBluetooth extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                preference.setSummary(value);
+                if (value.equals(CONFIGURED_BLUETOOTH_NAMES_VALUE))
+                    preference.setSummary(context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb));
+                else
+                    preference.setSummary(value);
                 GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
         }

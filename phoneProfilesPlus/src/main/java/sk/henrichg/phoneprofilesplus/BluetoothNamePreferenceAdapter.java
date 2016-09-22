@@ -83,8 +83,20 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
         else
             holder.bluetoothName.setText(bluetoothDevice.getName());
 
+
         holder.radioBtn.setTag(position);
-        holder.radioBtn.setChecked(bluetoothDevice.getName().equalsIgnoreCase(preference.getBluetoothName()));
+
+        if (preference.isConfiguredBluetoothNamesChecked()) {
+            holder.bluetoothName.setEnabled(false);
+            holder.radioBtn.setEnabled(false);
+            holder.radioBtn.setChecked(false);
+        }
+        else {
+            holder.bluetoothName.setEnabled(true);
+            holder.radioBtn.setEnabled(true);
+            holder.radioBtn.setChecked(bluetoothDevice.getName().equalsIgnoreCase(preference.getBluetoothName()));
+        }
+
         /*if(preference.selectedRB != null && holder.radioBtn != preference.selectedRB){
             preference.selectedRB = holder.radioBtn;
         }*/

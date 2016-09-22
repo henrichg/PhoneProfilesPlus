@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,8 +38,8 @@ public class BluetoothNamePreference extends DialogPreference {
     private LinearLayout progressLinearLayout;
     private RelativeLayout dataRelativeLayout;
     private EditText bluetoothName;
-    private Button rescanButton;
     private ListView bluetoothListView;
+    private CheckBox configuredBluetoothNames;
     private BluetoothNamePreferenceAdapter listAdapter;
 
     public RadioButton selectedRB = null;
@@ -71,8 +72,13 @@ public class BluetoothNamePreference extends DialogPreference {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         if (shouldPersist()) {
-                            bluetoothName.clearFocus();
-                            value = bluetoothName.getText().toString();
+                            if (configuredBluetoothNames.isChecked()) {
+                                value = EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE;
+                            }
+                            else {
+                                bluetoothName.clearFocus();
+                                value = bluetoothName.getText().toString();
+                            }
 
                             if (callChangeListener(value))
                             {
@@ -103,11 +109,18 @@ public class BluetoothNamePreference extends DialogPreference {
         dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
 
         bluetoothName = (EditText) layout.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
-        bluetoothName.setText(value);
+        setBluetoothName(value);
 
         bluetoothListView = (ListView) layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
         listAdapter = new BluetoothNamePreferenceAdapter(context, this);
         bluetoothListView.setAdapter(listAdapter);
+
+        configuredBluetoothNames = (CheckBox) layout.findViewById(R.id.bluetooth_name_pref_dlg_configured_bt_names);
+        if (value.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
+            bluetoothListView.setEnabled(false);
+            bluetoothName.setEnabled(false);
+            configuredBluetoothNames.setChecked(true);
+        }
 
         refreshListView(false);
 
@@ -126,6 +139,23 @@ public class BluetoothNamePreference extends DialogPreference {
                 setBluetoothName(bluetoothList.get(position).getName());
             }
 
+        });
+
+        configuredBluetoothNames.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (configuredBluetoothNames.isChecked()) {
+                    setBluetoothName(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE);
+                    bluetoothListView.setEnabled(false);
+                    bluetoothName.setEnabled(false);
+                    listAdapter.notifyDataSetChanged();
+                }
+                else {
+                    bluetoothListView.setEnabled(true);
+                    bluetoothName.setEnabled(true);
+                    listAdapter.notifyDataSetChanged();
+                    setBluetoothName(value);
+                }
+            }
         });
 
         mBuilder.customView(layout, false);
@@ -194,8 +224,16 @@ public class BluetoothNamePreference extends DialogPreference {
     
     public void setBluetoothName(String bluetoothName)
     {
-        value = bluetoothName;
-        this.bluetoothName.setText(value);
+        if (bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
+            this.bluetoothName.setText(context.getString(R.string.empty_string));
+        else {
+            value = bluetoothName;
+            this.bluetoothName.setText(value);
+        }
+    }
+
+    public boolean isConfiguredBluetoothNamesChecked() {
+        return configuredBluetoothNames.isChecked();
     }
     
     public void refreshListView(boolean forRescan)
@@ -272,14 +310,20 @@ public class BluetoothNamePreference extends DialogPreference {
                 progressLinearLayout.setVisibility(View.GONE);
                 dataRelativeLayout.setVisibility(View.VISIBLE);
 
-                for (int position = 0; position < bluetoothList.size()-1; position++)
-                {
-                    if (bluetoothList.get(position).getName().equalsIgnoreCase(value))
-                    {
-                        bluetoothListView.setSelection(position);
-                        bluetoothListView.setItemChecked(position, true);
-                        bluetoothListView.smoothScrollToPosition(position);
-                        break;
+                if (configuredBluetoothNames.isChecked()) {
+                    bluetoothListView.setEnabled(false);
+                    bluetoothName.setEnabled(false);
+                }
+                else {
+                    bluetoothListView.setEnabled(true);
+                    bluetoothName.setEnabled(true);
+                    for (int position = 0; position < bluetoothList.size() - 1; position++) {
+                        if (bluetoothList.get(position).getName().equalsIgnoreCase(value)) {
+                            bluetoothListView.setSelection(position);
+                            bluetoothListView.setItemChecked(position, true);
+                            bluetoothListView.smoothScrollToPosition(position);
+                            break;
+                        }
                     }
                 }
             }

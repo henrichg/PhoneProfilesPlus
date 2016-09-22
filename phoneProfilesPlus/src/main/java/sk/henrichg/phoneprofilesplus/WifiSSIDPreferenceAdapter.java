@@ -69,7 +69,18 @@ public class WifiSSIDPreferenceAdapter extends BaseAdapter
         holder.SSIDName.setText(wifiSSID.ssid);
 
         holder.radioBtn.setTag(position);
-        holder.radioBtn.setChecked(wifiSSID.ssid.equals(preference.getSSID()));
+
+        if (preference.isConfiguredSSIDsChecked()) {
+            holder.SSIDName.setEnabled(false);
+            holder.radioBtn.setEnabled(false);
+            holder.radioBtn.setChecked(false);
+        }
+        else {
+            holder.SSIDName.setEnabled(true);
+            holder.radioBtn.setEnabled(true);
+            holder.radioBtn.setChecked(wifiSSID.ssid.equals(preference.getSSID()));
+        }
+
         /*if(preference.selectedRB != null && holder.radioBtn != preference.selectedRB){
             preference.selectedRB = holder.radioBtn;
         }*/
