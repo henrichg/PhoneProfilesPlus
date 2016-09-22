@@ -1932,7 +1932,15 @@ public class DataWrapper {
                     GlobalData.logE("@@@ DataWrapper.doEventService","wifiSSID="+WifiScanAlarmBroadcastReceiver.getSSID(wifiInfo, wifiConfigurationList));
                     GlobalData.logE("@@@ DataWrapper.doEventService","wifiBSSID="+wifiInfo.getBSSID());
 
-                    wifiPassed = WifiScanAlarmBroadcastReceiver.compareSSID(wifiInfo, event._eventPreferencesWifi._SSID, wifiConfigurationList);
+                    if (event._eventPreferencesWifi._SSID.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
+                        for (WifiSSIDData data : wifiConfigurationList) {
+                            wifiPassed = WifiScanAlarmBroadcastReceiver.compareSSID(wifiInfo, data.ssid, wifiConfigurationList);
+                            if (wifiPassed)
+                                break;
+                        }
+                    }
+                    else
+                        wifiPassed = WifiScanAlarmBroadcastReceiver.compareSSID(wifiInfo, event._eventPreferencesWifi._SSID, wifiConfigurationList);
 
                     if (wifiPassed)
                     {
@@ -1987,11 +1995,23 @@ public class DataWrapper {
                         {
                             //GlobalData.logE("@@@x DataWrapper.doEventService","wifiSSID="+getSSID(result));
                             //GlobalData.logE("@@@x DataWrapper.doEventService","wifiBSSID="+result.BSSID);
-                            if (WifiScanAlarmBroadcastReceiver.compareSSID(result, event._eventPreferencesWifi._SSID, wifiConfigurationList))
-                            {
-                                GlobalData.logE("@@@x DataWrapper.doEventService","wifi found");
-                                wifiPassed = true;
-                                break;
+                            if (event._eventPreferencesWifi._SSID.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
+                                for (WifiSSIDData data : wifiConfigurationList) {
+                                    wifiPassed = WifiScanAlarmBroadcastReceiver.compareSSID(result, data.ssid, wifiConfigurationList);
+                                    if (wifiPassed) {
+                                        GlobalData.logE("@@@x DataWrapper.doEventService", "wifi found");
+                                        break;
+                                    }
+                                }
+                                if (wifiPassed)
+                                    break;
+                            }
+                            else {
+                                if (WifiScanAlarmBroadcastReceiver.compareSSID(result, event._eventPreferencesWifi._SSID, wifiConfigurationList)) {
+                                    GlobalData.logE("@@@x DataWrapper.doEventService", "wifi found");
+                                    wifiPassed = true;
+                                    break;
+                                }
                             }
                         }
 
@@ -2061,6 +2081,8 @@ public class DataWrapper {
         {
             bluetoothPassed = false;
 
+            List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
+
             BluetoothAdapter bluetooth = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
             boolean isBluetoothEnabled = bluetooth.isEnabled();
 
@@ -2076,7 +2098,18 @@ public class DataWrapper {
 
                     GlobalData.logE("[BTScan] DataWrapper.doEventService", "bluetooth connected");
 
-                    if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, event._eventPreferencesBluetooth._adapterName)) {
+                    boolean connected = false;
+                    if (event._eventPreferencesBluetooth._adapterName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
+                        for (BluetoothDeviceData data : boundedDevicesList) {
+                            connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, data.getName());
+                            if (connected)
+                                break;
+                        }
+                    }
+                    else
+                        connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, event._eventPreferencesBluetooth._adapterName);
+
+                    if (connected) {
                         // event BT adapter is connected
                         done = true;
 
@@ -2134,14 +2167,31 @@ public class DataWrapper {
 
                         for (BluetoothDeviceData device : scanResults)
                         {
-                            String _device = device.getName().toUpperCase();
-                            String _adapterName = event._eventPreferencesBluetooth._adapterName.toUpperCase();
-                            if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                GlobalData.logE("[BTScan] DataWrapper.doEventService","bluetooth found");
-                                //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
-                                //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
-                                bluetoothPassed = true;
-                                break;
+                            if (event._eventPreferencesBluetooth._adapterName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
+                                for (BluetoothDeviceData data : boundedDevicesList) {
+                                    String _device = device.getName().toUpperCase();
+                                    String _adapterName = data.getName().toUpperCase();
+                                    if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
+                                        GlobalData.logE("[BTScan] DataWrapper.doEventService", "bluetooth found");
+                                        //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
+                                        //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
+                                        bluetoothPassed = true;
+                                        break;
+                                    }
+                                }
+                                if (bluetoothPassed)
+                                    break;
+                            }
+                            else {
+                                String _device = device.getName().toUpperCase();
+                                String _adapterName = event._eventPreferencesBluetooth._adapterName.toUpperCase();
+                                if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
+                                    GlobalData.logE("[BTScan] DataWrapper.doEventService", "bluetooth found");
+                                    //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
+                                    //GlobalData.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
+                                    bluetoothPassed = true;
+                                    break;
+                                }
                             }
                         }
 
