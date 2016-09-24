@@ -61,7 +61,7 @@ public class MobileCellsPreference extends DialogPreference {
         
         cellsList = new ArrayList<MobileCellsData>();
 
-        if (!GlobalData.phoneProfilesService.isPhoneStateStarted()) {
+        if (!PhoneProfilesService.instance.isPhoneStateStarted()) {
             Log.d("MobileCellsPreference","no scanner started");
             GlobalData.startPhoneStateScanner(context);
         }
@@ -309,7 +309,7 @@ public class MobileCellsPreference extends DialogPreference {
                 cellsList.clear();
 
                 if (_forRescan) {
-                    GlobalData.phoneProfilesService.phoneStateScanner.getRegisteredCell();
+                    PhoneProfilesService.instance.phoneStateScanner.getRegisteredCell();
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
@@ -323,14 +323,14 @@ public class MobileCellsPreference extends DialogPreference {
                 // add registered cell
                 boolean found = false;
                 for (MobileCellsData cell : cellsList) {
-                    if (cell.cellId == GlobalData.phoneProfilesService.phoneStateScanner.registeredCell) {
+                    if (cell.cellId == PhoneProfilesService.instance.phoneStateScanner.registeredCell) {
                         cell.connected = true;
                         found = true;
                         break;
                     }
                 }
                 if (!found)
-                    cellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell, _cellName, true, true));
+                    cellsList.add(new MobileCellsData(PhoneProfilesService.instance.phoneStateScanner.registeredCell, _cellName, true, true));
 
                 // add all from value
                 String[] splits = value.split("\\|");
@@ -453,7 +453,7 @@ public class MobileCellsPreference extends DialogPreference {
             if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
                 // save new registered cell
                 List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
-                localCellsList.add(new MobileCellsData(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell,
+                localCellsList.add(new MobileCellsData(PhoneProfilesService.instance.phoneStateScanner.registeredCell,
                         preference.cellName.getText().toString(), true, false));
                 DatabaseHandler db = DatabaseHandler.getInstance(context);
                 db.saveMobileCellsList(localCellsList, true);

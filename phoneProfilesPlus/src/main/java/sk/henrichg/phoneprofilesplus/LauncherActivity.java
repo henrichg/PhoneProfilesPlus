@@ -45,8 +45,10 @@ public class LauncherActivity extends Activity {
         {
             Log.d("LauncherActivity.onStart","app. started");
 
-            /*// start PhoneProfilesService
-            startService(new Intent(getApplicationContext(), PhoneProfilesService.class));*/
+            if (PhoneProfilesService.instance == null) {
+                // start PhoneProfilesService
+                startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
+            }
 
             if (startupSource == 0)
             {

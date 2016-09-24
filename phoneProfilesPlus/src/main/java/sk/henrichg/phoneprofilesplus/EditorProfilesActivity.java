@@ -566,7 +566,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         GlobalData.setActivatedProfileForDuration(context, 0);
 
-        if (GlobalData.phoneProfilesService != null) {
+        if (PhoneProfilesService.instance != null) {
             GlobalData.stopGeofenceScanner(context);
             GlobalData.stopOrientationScanner(context);
             GlobalData.stopPhoneStateScanner(context);
@@ -634,7 +634,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
                 // stop geofences scanner
                 GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
-                if (GlobalData.phoneProfilesService != null) {
+                if (PhoneProfilesService.instance != null) {
                     GlobalData.stopGeofenceScanner(getApplicationContext());
                     GlobalData.stopOrientationScanner(getApplicationContext());
                     GlobalData.stopPhoneStateScanner(getApplicationContext());
@@ -646,7 +646,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
 
-                if (GlobalData.phoneProfilesService != null) {
+                if (PhoneProfilesService.instance != null) {
                     GlobalData.startGeofenceScanner(getApplicationContext());
                     GlobalData.startOrientationScanner(getApplicationContext());
                     GlobalData.startPhoneStateScanner(getApplicationContext());
@@ -965,12 +965,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (resultCode == RESULT_OK)
             {
-                if (GlobalData.phoneProfilesService != null) {
+                if (PhoneProfilesService.instance != null) {
                     boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
-                    if (GlobalData.phoneProfilesService.geofencesScanner != null) {
-                        GlobalData.phoneProfilesService.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
+                    if (PhoneProfilesService.instance.geofencesScanner != null) {
+                        PhoneProfilesService.instance.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
                     }
-                    GlobalData.phoneProfilesService.resetListeningOrientationSensors(powerSaveMode, true);
+                    PhoneProfilesService.instance.resetListeningOrientationSensors(powerSaveMode, true);
                 }
 
                 boolean restart = data.getBooleanExtra(GlobalData.EXTRA_RESET_EDITOR, false);

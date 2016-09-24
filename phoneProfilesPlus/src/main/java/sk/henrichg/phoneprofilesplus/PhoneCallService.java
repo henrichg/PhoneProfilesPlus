@@ -146,8 +146,8 @@ public class PhoneCallService extends IntentService {
 
         // setSpeakerphoneOn() moved to ExecuteVolumeProfilePrefsService and EventsService
 
-        if (GlobalData.phoneProfilesService != null)
-            GlobalData.phoneProfilesService.stopSimulatingRingingCall();
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.stopSimulatingRingingCall();
 
         if (incoming)
             doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
@@ -162,8 +162,8 @@ public class PhoneCallService extends IntentService {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        if (GlobalData.phoneProfilesService != null)
-            GlobalData.phoneProfilesService.stopSimulatingRingingCall();
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.stopSimulatingRingingCall();
 
         // audiomode is set to MODE_IN_CALL by system
         //Log.e("PhoneCallService", "callEnded (before back speaker phone) audioMode="+audioManager.getMode());

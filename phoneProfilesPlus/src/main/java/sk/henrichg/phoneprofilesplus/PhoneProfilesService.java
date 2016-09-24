@@ -32,6 +32,7 @@ public class PhoneProfilesService extends Service
                                     implements SensorEventListener,
                                     AudioManager.OnAudioFocusChangeListener
 {
+    public static PhoneProfilesService instance = null;
 
     private final BatteryEventBroadcastReceiver batteryEventReceiver = new BatteryEventBroadcastReceiver();
     private final HeadsetConnectionBroadcastReceiver headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
@@ -109,7 +110,7 @@ public class PhoneProfilesService extends Service
 
         GlobalData.logE("$$$ PhoneProfilesService.onCreate", "xxxxx");
 
-        GlobalData.phoneProfilesService = this;
+        instance = this;
 
         GlobalData.loadPreferences(getApplicationContext());
 
@@ -253,7 +254,7 @@ public class PhoneProfilesService extends Service
         stopOrientationScanner();
         stopPhoneStateScanner();
 
-        GlobalData.phoneProfilesService = null;
+        instance = null;
 
         stopSimulatingRingingCall();
 

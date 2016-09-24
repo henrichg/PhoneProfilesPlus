@@ -52,8 +52,8 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                     // rescan mobile cells
-                    if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isPhoneStateStarted()) {
-                        GlobalData.phoneProfilesService.phoneStateScanner.rescanMobileCells();
+                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                        PhoneProfilesService.instance.phoneStateScanner.rescanMobileCells();
                     }
                 }
                 dataWrapper.invalidateDataWrapper();

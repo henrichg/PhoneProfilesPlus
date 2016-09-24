@@ -2352,7 +2352,7 @@ public class DataWrapper {
             }
             else
             {
-                if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isOrientationScannerStarted()) {
+                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isOrientationScannerStarted()) {
 
                     String foregroundApplication = GlobalData.getApplicationInForeground(context);
                     boolean lApplicationPassed = false;
@@ -2446,10 +2446,10 @@ public class DataWrapper {
                 (GlobalData.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
-            if ((GlobalData.phoneProfilesService != null) && GlobalData.phoneProfilesService.isPhoneStateStarted()) {
+            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isPhoneStateStarted()) {
 
                 String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
-                String registeredCell = Integer.toString(GlobalData.phoneProfilesService.phoneStateScanner.registeredCell);
+                String registeredCell = Integer.toString(PhoneProfilesService.instance.phoneStateScanner.registeredCell);
                 boolean found = false;
                 for (String cell : splits) {
                     if (cell.equals(registeredCell)) {
@@ -2675,8 +2675,8 @@ public class DataWrapper {
         {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0)
                 // rescan mobile cells
-                if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isPhoneStateStarted()) {
-                    GlobalData.phoneProfilesService.phoneStateScanner.rescanMobileCells();
+                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
+                    PhoneProfilesService.instance.phoneStateScanner.rescanMobileCells();
                 }
         }
 

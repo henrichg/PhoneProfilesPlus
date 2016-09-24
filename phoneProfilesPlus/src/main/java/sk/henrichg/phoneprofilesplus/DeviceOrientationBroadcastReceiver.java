@@ -61,7 +61,7 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) == 0) {
-                if (GlobalData.phoneProfilesService != null) {
+                if (PhoneProfilesService.instance != null) {
                     GlobalData.stopOrientationScanner(dataWrapper.context);
                 }
                 dataWrapper.invalidateDataWrapper();

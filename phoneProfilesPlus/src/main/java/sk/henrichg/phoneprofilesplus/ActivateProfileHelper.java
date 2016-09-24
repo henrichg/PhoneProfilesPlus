@@ -1597,15 +1597,15 @@ public class ActivateProfileHelper {
                 setAlarmForNotificationCancel();
             }
 
-            if (GlobalData.phoneProfilesService != null)
-                GlobalData.phoneProfilesService.startForeground(GlobalData.PROFILE_NOTIFICATION_ID, GlobalData.phoneProfilesNotification);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.startForeground(GlobalData.PROFILE_NOTIFICATION_ID, GlobalData.phoneProfilesNotification);
             else
                 notificationManager.notify(GlobalData.PROFILE_NOTIFICATION_ID, GlobalData.phoneProfilesNotification);
         }
         else
         {
-            if (GlobalData.phoneProfilesService != null)
-                GlobalData.phoneProfilesService.stopForeground(true);
+            if (PhoneProfilesService.instance != null)
+                PhoneProfilesService.instance.stopForeground(true);
             else
                 notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
         }
@@ -1613,8 +1613,8 @@ public class ActivateProfileHelper {
 
     public void removeNotification()
     {
-        if (GlobalData.phoneProfilesService != null)
-            GlobalData.phoneProfilesService.stopForeground(true);
+        if (PhoneProfilesService.instance != null)
+            PhoneProfilesService.instance.stopForeground(true);
         else
         if (notificationManager != null)
             notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);

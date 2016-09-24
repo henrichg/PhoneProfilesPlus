@@ -49,15 +49,15 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (GlobalData.getGlobalEventsRuning(context)) {
-            if (GlobalData.phoneProfilesService != null) {
-                if (GlobalData.phoneProfilesService.geofencesScanner.mUpdatesStarted) {
-                    GlobalData.phoneProfilesService.geofencesScanner.stopLocationUpdates();
+            if (PhoneProfilesService.instance != null) {
+                if (PhoneProfilesService.instance.geofencesScanner.mUpdatesStarted) {
+                    PhoneProfilesService.instance.geofencesScanner.stopLocationUpdates();
 
                     // send broadcast for calling EventsService
                     Intent broadcastIntent = new Intent(context, GeofenceScannerBroadcastReceiver.class);
                     context.sendBroadcast(broadcastIntent);
                 } else
-                    GlobalData.phoneProfilesService.geofencesScanner.startLocationUpdates();
+                    PhoneProfilesService.instance.geofencesScanner.startLocationUpdates();
             }
         }
 
@@ -65,9 +65,9 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public static void sendBroadcast(Context context)
     {
-        if (GlobalData.phoneProfilesService != null) {
+        if (PhoneProfilesService.instance != null) {
             if (PhoneProfilesService.isGeofenceScannerStarted()) {
-                GlobalData.phoneProfilesService.geofencesScanner.mUpdatesStarted = false;
+                PhoneProfilesService.instance.geofencesScanner.mUpdatesStarted = false;
                 Intent broadcastIntent = new Intent(context, GeofenceScannerAlarmBroadcastReceiver.class);
                 context.sendBroadcast(broadcastIntent);
             }
@@ -79,7 +79,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "xxx");
 
-        if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
+        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
 
             AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -88,7 +88,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             removeAlarm(context);
 
             if (startScanning)
-                GlobalData.phoneProfilesService.geofencesScanner.mUpdatesStarted = false;
+                PhoneProfilesService.instance.geofencesScanner.mUpdatesStarted = false;
 
             Calendar calendar = Calendar.getInstance();
 
@@ -97,7 +97,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
             int updateDuration = 30;
             int interval = 0;
-            if (GlobalData.phoneProfilesService.geofencesScanner.mUpdatesStarted) {
+            if (PhoneProfilesService.instance.geofencesScanner.mUpdatesStarted) {
                 interval = GlobalData.applicationEventLocationUpdateInterval * 60;
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
                 if (isPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("1"))

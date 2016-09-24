@@ -23,8 +23,8 @@ public class LocationModeChangedBroadcastReceiver extends WakefulBroadcastReceiv
         {
             GlobalData.logE("@@@ LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
-            if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
-                GlobalData.phoneProfilesService.geofencesScanner.clearAllEventGeofences();
+            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
+                PhoneProfilesService.instance.geofencesScanner.clearAllEventGeofences();
 
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);

@@ -406,8 +406,6 @@ public class GlobalData extends Application {
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
 
-    public static PhoneProfilesService phoneProfilesService = null;
-
     public static boolean isPowerSaveMode = false;
 
     public static Notification phoneProfilesNotification = null;
@@ -1300,9 +1298,9 @@ public class GlobalData extends Application {
     static public void getMobileCellsAutoRegistration(Context context) {
         if (PhoneProfilesService.isPhoneStateStarted()) {
             SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
-            GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
-            GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+            PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
+            PhoneProfilesService.instance.phoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
+            PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
         }
     }
 
@@ -1310,12 +1308,12 @@ public class GlobalData extends Application {
         if (PhoneProfilesService.isPhoneStateStarted()) {
             SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
-            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration);
-            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration);
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration);
+            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneProfilesService.instance.phoneStateScanner.cellsNameForAutoRegistration);
             if (firstStart)
                 editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
             else
-                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration);
+                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration);
             editor.commit();
         }
     }

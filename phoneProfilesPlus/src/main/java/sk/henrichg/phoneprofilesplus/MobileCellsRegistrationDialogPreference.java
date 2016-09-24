@@ -62,7 +62,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         this.context = context;
 
-        if (!GlobalData.phoneProfilesService.isPhoneStateStarted()) {
+        if (!PhoneProfilesService.instance.isPhoneStateStarted()) {
             Log.d("MobileCellsPreference","no scanner started");
             GlobalData.startPhoneStateScanner(context);
         }
@@ -105,11 +105,11 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                         if (PhoneProfilesService.isPhoneStateStarted()) {
                             Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
                             GlobalData.setMobileCellsAutoRegistrationRemainingDuration(context, iValue);
-                            GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = iValue;
-                            GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
-                            GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration = true;
+                            PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration = iValue;
+                            PhoneProfilesService.instance.phoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
+                            PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration = true;
                             GlobalData.setMobileCellsAutoRegistration(context, false);
-                            GlobalData.phoneProfilesService.phoneStateScanner.startAutoRegistration();
+                            PhoneProfilesService.instance.phoneStateScanner.startAutoRegistration();
                         }
                         value = String.valueOf(iValue);
                         setSummaryDDP(0);
@@ -131,10 +131,10 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                             GlobalData.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
                             //GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
                             //GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
-                            GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
+                            PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration = false;
                             GlobalData.setMobileCellsAutoRegistration(context, false);
                             setSummaryDDP(0);
-                            GlobalData.phoneProfilesService.phoneStateScanner.stopAutoRegistration();
+                            PhoneProfilesService.instance.phoneStateScanner.stopAutoRegistration();
                         }
                     }
                 })
@@ -284,7 +284,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         }*/
 
         if (PhoneProfilesService.isPhoneStateStarted()) {
-            value = Integer.toString(GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration);
+            value = Integer.toString(PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration);
             Log.d("MobileCellsRegistrationDialogPreference.onSetInitialValue", "value=" + value);
         } else {
             value = "0";
@@ -299,7 +299,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         String summary = "";
         boolean started = false;
         if (PhoneProfilesService.isPhoneStateStarted()) {
-            if (GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration) {
+            if (PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration) {
                 if (millisUntilFinished > 0) {
                     summary = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_started);
                     String time = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
@@ -329,8 +329,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         if ((mDialog != null) && mDialog.isShowing()) {
             boolean started = false;
             if (PhoneProfilesService.isPhoneStateStarted()) {
-                mCellsName.setText(GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration);
-                if (GlobalData.phoneProfilesService.phoneStateScanner.enabledAutoRegistration) {
+                mCellsName.setText(PhoneProfilesService.instance.phoneStateScanner.cellsNameForAutoRegistration);
+                if (PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration) {
                     mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_started);
                     if (millisUntilFinished > 0) {
                         mRemainingTime.setVisibility(View.VISIBLE);

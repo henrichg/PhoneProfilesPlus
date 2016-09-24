@@ -171,7 +171,7 @@ public class EventPreferencesMobileCells extends EventPreferences {
     @Override
     public void setSystemEventForStart(Context context)
     {
-        if (GlobalData.phoneProfilesService != null) {
+        if (PhoneProfilesService.instance != null) {
             if (_enabled && (!PhoneProfilesService.isPhoneStateStarted())) {
                 GlobalData.startPhoneStateScanner(context);
             }

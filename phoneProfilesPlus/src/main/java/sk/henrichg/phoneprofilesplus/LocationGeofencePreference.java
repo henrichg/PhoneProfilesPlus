@@ -292,8 +292,8 @@ public class LocationGeofencePreference extends DialogPreference {
                                 updateGUIWithGeofence(0);
                                 if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                     // stop location updates
-                                    if ((GlobalData.phoneProfilesService != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                                        GlobalData.phoneProfilesService.geofencesScanner.disconnect();
+                                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                                        PhoneProfilesService.instance.geofencesScanner.disconnect();
                                 }
                             }
                             else {

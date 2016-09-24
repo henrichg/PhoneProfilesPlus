@@ -73,7 +73,7 @@ public class EventsService extends IntentService
             oldRingtone = "";
         }
 
-        if (GlobalData.phoneProfilesService != null) {
+        if (PhoneProfilesService.instance != null) {
             // start of GeofenceScanner
             if (!PhoneProfilesService.isGeofenceScannerStarted())
                 GlobalData.startGeofenceScanner(context);
@@ -95,7 +95,7 @@ public class EventsService extends IntentService
         }
 
         // start orientation listener only when events exists
-        if (GlobalData.phoneProfilesService != null) {
+        if (PhoneProfilesService.instance != null) {
             if (!PhoneProfilesService.isOrientationScannerStarted()) {
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
                     GlobalData.startOrientationScanner(context);
@@ -387,8 +387,8 @@ public class EventsService extends IntentService
                         dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                         dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
 
-                        if (GlobalData.phoneProfilesService != null)
-                            GlobalData.phoneProfilesService.playEventNotificationSound(eventNotificationSound);
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound);
 
                         // wait for profile activation
                         //try { Thread.sleep(500); } catch (InterruptedException e) { }
@@ -402,8 +402,8 @@ public class EventsService extends IntentService
                         if ((prId0 != prId) || (prId == 0))*/
                         dataWrapper.updateNotificationAndWidgets(activatedProfile);
 
-                        if (GlobalData.phoneProfilesService != null)
-                            GlobalData.phoneProfilesService.playEventNotificationSound(eventNotificationSound);
+                        if (PhoneProfilesService.instance != null)
+                            PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound);
 
                     }
                 }
