@@ -87,8 +87,8 @@ public class FirstStartService extends IntentService {
         // show info notification
         ImportantInfoNotification.showInfoNotification(context);
 
-        // start ReceiverService
-        context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
+        /*// start PhoneProfilesService
+        context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));*/
 
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         GlobalData.setActivatedProfileForDuration(context, 0);
@@ -106,23 +106,24 @@ public class FirstStartService extends IntentService {
         // zrusenie notifikacie
         dataWrapper.getActivateProfileHelper().removeNotification();
 
-        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
-
         WifiScanAlarmBroadcastReceiver.initialize(context);
         BluetoothScanAlarmBroadcastReceiver.initialize(context);
 
         GlobalData.setMobileCellsAutoRegistration(context, true);
 
+        GlobalData.setApplicationStarted(context, true);
+        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
+
         // startneme eventy
         if (GlobalData.getGlobalEventsRuning(context))
         {
             // must by false for avoiding starts/pause events from receivers before restart events
-            GlobalData.setApplicationStarted(context, false);
+            //GlobalData.setApplicationStarted(context, false);
             dataWrapper.firstStartEvents(true);
         }
         else
         {
-            GlobalData.setApplicationStarted(context, true);
+            //GlobalData.setApplicationStarted(context, true);
             // this scanner must be started, used is for mobile cells registration, events existence is not needed
             GlobalData.startPhoneStateScanner(context);
             dataWrapper.activateProfileOnBoot();

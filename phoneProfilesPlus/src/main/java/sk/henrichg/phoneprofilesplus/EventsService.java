@@ -48,7 +48,7 @@ public class EventsService extends IntentService
         // application is not started
         //	return;
 
-        GlobalData.setApplicationStarted(context, true);
+        //GlobalData.setApplicationStarted(context, true);
 
         GlobalData.loadPreferences(context);
 

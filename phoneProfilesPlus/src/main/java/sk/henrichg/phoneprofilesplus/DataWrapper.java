@@ -883,7 +883,7 @@ public class DataWrapper {
         }
         else
         {
-            GlobalData.setApplicationStarted(context, true);
+            //GlobalData.setApplicationStarted(context, true);
             activateProfileOnBoot();
         }
     }

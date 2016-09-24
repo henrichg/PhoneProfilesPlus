@@ -31,14 +31,17 @@ public class LauncherActivity extends Activity {
 
         if (!GlobalData.getApplicationStarted(getApplicationContext()))
         {
-            // start service for first start
+            /*// start service for first start
             Intent firstStartServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
-            startService(firstStartServiceIntent);
+            startService(firstStartServiceIntent);*/
+
+            // start PhoneProfilesService
+            startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
         }
         else
         {
-            // start ReceiverService
-            startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
+            /*// start PhoneProfilesService
+            startService(new Intent(getApplicationContext(), PhoneProfilesService.class));*/
 
             if (startupSource == 0)
             {
