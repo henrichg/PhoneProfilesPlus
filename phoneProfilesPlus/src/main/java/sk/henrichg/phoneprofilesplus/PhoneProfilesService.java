@@ -209,6 +209,19 @@ public class PhoneProfilesService extends Service
             }
         }
         */
+
+
+        // start service for first start
+        Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
+        getApplicationContext().startService(eventsServiceIntent);
+
+        // this starts also listeners!!!
+        // but will by stopped when events not exists
+        startGeofenceScanner();
+        startOrientationScanner();
+        GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "+++");
+        startPhoneStateScanner();
+
     }
 
     @Override
@@ -245,17 +258,6 @@ public class PhoneProfilesService extends Service
         stopSimulatingRingingCall();
 
         //GlobalData.cleanPhoneProfilesServiceMessenger(getApplicationContext());
-
-        // start service for first start
-        Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
-        getApplicationContext().startService(eventsServiceIntent);
-
-        // this starts also listeners!!!
-        // but will by stopped when events not exists
-        startGeofenceScanner();
-        startOrientationScanner();
-        GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "+++");
-        startPhoneStateScanner();
     }
 
     @Override
