@@ -85,7 +85,8 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
         @Override
         public void onDismiss(DialogInterface dialog) {
-            ((GeofenceScannerErrorActivity) getActivity()).onDialogDismissed();
+            if (getActivity() != null)
+                ((GeofenceScannerErrorActivity) getActivity()).onDialogDismissed();
         }
     }
 
