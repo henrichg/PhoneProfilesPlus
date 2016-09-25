@@ -18,8 +18,6 @@ import android.net.sip.SipManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
-import android.os.Messenger;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.text.TextUtils;

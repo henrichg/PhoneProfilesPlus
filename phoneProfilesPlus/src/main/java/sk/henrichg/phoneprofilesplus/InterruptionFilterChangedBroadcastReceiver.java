@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Build;
 import android.provider.Settings;
-import android.service.notification.NotificationListenerService;
 
 @TargetApi(Build.VERSION_CODES.M)
 public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceiver {

@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.graphics.Typeface;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

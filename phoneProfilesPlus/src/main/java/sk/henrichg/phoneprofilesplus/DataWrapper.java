@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageParser;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
@@ -28,7 +27,6 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;

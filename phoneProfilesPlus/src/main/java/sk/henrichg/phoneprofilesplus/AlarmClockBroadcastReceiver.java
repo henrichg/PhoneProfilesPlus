@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.provider.Settings;
 
 public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
     public AlarmClockBroadcastReceiver() {
