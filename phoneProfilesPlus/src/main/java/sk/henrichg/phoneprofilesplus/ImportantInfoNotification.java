@@ -76,9 +76,10 @@ public class ImportantInfoNotification {
     static private void showNotification(Context context, String title, String text) {
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(title) // title for notification
-                .setContentText(text+" ("+context.getString(R.string.app_name)+")") // message for notification
+                .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                .setContentText(title) // message for notification
                 .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
         Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
