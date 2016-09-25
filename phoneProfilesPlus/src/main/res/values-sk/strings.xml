@@ -810,4 +810,6 @@
   <string name="preference_not_allowed_reason_service_not_found">utilita \"service\" nebola nájdená</string>
   <string name="preference_not_allowed_reason_not_supported">nepodporované systémom</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Registrácia mobilných buniek</string>
+  <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Všetky SSID nakonfigurovaný v systéme</string>
+  <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Všetky názvy Bluetooth nakonfigurovaný v systéme</string>
 </resources>
