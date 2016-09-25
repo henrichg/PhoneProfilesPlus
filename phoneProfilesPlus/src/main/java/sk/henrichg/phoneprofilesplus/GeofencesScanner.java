@@ -275,11 +275,16 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     //-------------------------------------------
 
     private void showErrorNotification(int errorCode) {
-        String ntext = context.getString(R.string.event_preferences_location_google_api_connection_error_title)+": "+
-                context.getString(R.string.event_preferences_location_google_api_connection_error_text);
+        String ntitle = context.getString(R.string.event_preferences_location_google_api_connection_error_title);
+        String ntext = context.getString(R.string.event_preferences_location_google_api_connection_error_text);
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            ntitle = context.getString(R.string.app_name);
+            ntext = context.getString(R.string.event_preferences_location_google_api_connection_error_title)+": "+
+                    context.getString(R.string.event_preferences_location_google_api_connection_error_text);
+        }
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                .setContentTitle(ntitle) // title for notification
                 .setContentText(ntext) // message for notification
                 .setAutoCancel(true); // clear notification after click
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));

@@ -878,10 +878,15 @@ public class ScannerService extends IntentService
                         notificationBigText = context.getString(R.string.phone_profiles_pref_eventBluetoothScanningSystemSettings_summary);
                     }
 
-                    String ntext = notificationText+": "+notificationBigText;
+                    String ntitle = notificationText;
+                    String ntext = notificationBigText;
+                    if (android.os.Build.VERSION.SDK_INT < 24) {
+                        ntitle = context.getString(R.string.app_name);
+                        ntext = notificationText+": "+notificationBigText;
+                    }
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                            .setContentTitle(context.getString(R.string.app_name)) // title for notification
+                            .setContentTitle(ntitle) // title for notification
                             .setContentText(ntext) // message for notification
                             .setAutoCancel(true); // clear notification after click
                     mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
