@@ -1564,11 +1564,17 @@ public class ActivateProfileHelper {
                     contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
             }
 
-            if (GlobalData.notificationTextColor.equals("1"))
+            if (GlobalData.notificationTextColor.equals("1")) {
                 contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
+                if (android.os.Build.VERSION.SDK_INT >= 24)
+                    contentView.setTextColor(R.id.notification_activated_app_name, Color.BLACK);
+            }
             else
-            if (GlobalData.notificationTextColor.equals("2"))
+            if (GlobalData.notificationTextColor.equals("2")) {
                 contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
+                if (android.os.Build.VERSION.SDK_INT >= 24)
+                    contentView.setTextColor(R.id.notification_activated_app_name, Color.WHITE);
+            }
             contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
 
             //contentView.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator,
