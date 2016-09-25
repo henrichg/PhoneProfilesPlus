@@ -1465,7 +1465,9 @@ public class ActivateProfileHelper {
             PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
 
             // vytvorenie samotnej notifikacie
+
             NotificationCompat.Builder notificationBuilder;
+
             RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_drawer);
 
             boolean isIconResourceID;
@@ -1496,9 +1498,9 @@ public class ActivateProfileHelper {
 
             if (android.os.Build.VERSION.SDK_INT >= 16) {
                 if (notificationShowInStatusBar)
-                    notificationBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
                 else
-                    notificationBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
+                    notificationBuilder.setPriority(Notification.PRIORITY_MIN);
                 //notificationBuilder.setPriority(Notification.PRIORITY_HIGH); // for heads-up in Android 5.0
             }
             if (android.os.Build.VERSION.SDK_INT >= 21)
