@@ -14,18 +14,25 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         //int myUid = android.os.Process.myUid();
         //if (intentUid == myUid)
         //{
-            GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "####");
+            //GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "####");
+
+            GlobalData.logE("PackageReplacedReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);
 
             if (GlobalData.getApplicationStarted(context))
             {
+                GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
+
+                if (PhoneProfilesService.instance != null) {
+                    // stop PhoneProfilesService
+                    context.stopService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
+                    GlobalData.sleep(500);
+                }
+
                 // must by false for avoiding starts/pause events before restart events
                 GlobalData.setApplicationStarted(context, false);
 
-                GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
-
-                // start ReceiverService
+                // start PhoneProfilesService
                 context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
-
 
             }
         //}
