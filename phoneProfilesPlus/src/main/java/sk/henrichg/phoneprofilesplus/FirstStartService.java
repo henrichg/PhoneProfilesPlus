@@ -104,7 +104,7 @@ public class FirstStartService extends IntentService {
         dataWrapper.getActivateProfileHelper().setBrightnessHandler(brightnessHandler);
 
         // zrusenie notifikacie
-        dataWrapper.getActivateProfileHelper().removeNotification();
+        //dataWrapper.getActivateProfileHelper().removeNotification();
 
         WifiScanAlarmBroadcastReceiver.initialize(context);
         BluetoothScanAlarmBroadcastReceiver.initialize(context);
