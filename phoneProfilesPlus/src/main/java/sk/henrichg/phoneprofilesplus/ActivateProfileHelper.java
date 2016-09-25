@@ -1585,13 +1585,11 @@ public class ActivateProfileHelper {
                 contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart_dark);
             contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
-            /*if (android.os.Build.VERSION.SDK_INT >= 24) {
-                notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
-                notificationBuilder.setCustomContentView(contentView);
-                notificationBuilder.setGroupSummary(true);
-                notificationBuilder.setGroup("PHONE_PROFILES_PLUS_NOTIFICATION");
-            }
-            else*/
+            //if (android.os.Build.VERSION.SDK_INT >= 24) {
+            //    notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
+            //    notificationBuilder.setCustomContentView(contentView);
+            //}
+            //else
                 notificationBuilder.setContent(contentView);
 
             GlobalData.phoneProfilesNotification = notificationBuilder.build();
