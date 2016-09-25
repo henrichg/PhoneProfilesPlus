@@ -32,7 +32,7 @@ public class LauncherActivity extends Activity {
 
         if (!GlobalData.getApplicationStarted(getApplicationContext()))
         {
-            Log.d("LauncherActivity.onStart","app. not started");
+            //Log.d("LauncherActivity.onStart","app. not started");
 
             /*// start service for first start
             Intent firstStartServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
@@ -43,7 +43,7 @@ public class LauncherActivity extends Activity {
         }
         else
         {
-            Log.d("LauncherActivity.onStart","app. started");
+            //Log.d("LauncherActivity.onStart","app. started");
 
             if (PhoneProfilesService.instance == null) {
                 // start PhoneProfilesService

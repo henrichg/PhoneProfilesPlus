@@ -62,11 +62,11 @@ public class MobileCellsPreference extends DialogPreference {
         cellsList = new ArrayList<MobileCellsData>();
 
         if (!PhoneProfilesService.instance.isPhoneStateStarted()) {
-            Log.d("MobileCellsPreference","no scanner started");
+            //Log.d("MobileCellsPreference","no scanner started");
             GlobalData.startPhoneStateScanner(context);
         }
-        else
-            Log.d("MobileCellsPreference","scanner started");
+        //else
+        //    Log.d("MobileCellsPreference","scanner started");
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
@@ -103,10 +103,10 @@ public class MobileCellsPreference extends DialogPreference {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         if (shouldPersist()) {
-                            Log.d("MobileCellsPreference.onPositive", "1");
+                            //Log.d("MobileCellsPreference.onPositive", "1");
                             if (callChangeListener(value))
                             {
-                                Log.d("MobileCellsPreference.onPositive", "2");
+                                //Log.d("MobileCellsPreference.onPositive", "2");
                                 DatabaseHandler db = DatabaseHandler.getInstance(context);
                                 db.saveMobileCellsList(cellsList, false);
                                 persistString(value);
@@ -449,7 +449,7 @@ public class MobileCellsPreference extends DialogPreference {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
+            //Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
             if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
                 // save new registered cell
                 List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();

@@ -5412,7 +5412,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 int cellId = cursor.getInt(0);
                 String name = cursor.getString(1);
                 boolean _new = cursor.getInt(2) == 1;
-                Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
+                //Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
                 boolean found = false;
                 for (MobileCellsData cell : cellsList) {
                     if (cell.cellId == cellId) {
@@ -5460,14 +5460,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } while (cursor.moveToNext());
             }
             if (!found) {
-                Log.d("DatabaseHandler.saveMobileCellsList", "!found");
+                //Log.d("DatabaseHandler.saveMobileCellsList", "!found");
                 MobileCell mobileCell = new MobileCell();
                 mobileCell._cellId = cell.cellId;
                 mobileCell._name = cell.name;
                 mobileCell._new = true;
                 addMobileCell(mobileCell);
             } else {
-                Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
+                //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
                 MobileCell mobileCell = new MobileCell();
                 mobileCell._id = foundedDbId;
                 mobileCell._cellId = cell.cellId;

@@ -23,7 +23,7 @@ public class MobileCellsRegistrationService extends Service {
     public void onCreate()
     {
         super.onCreate();
-        Log.d("MobileCellsRegistrationService", "START");
+        //Log.d("MobileCellsRegistrationService", "START");
 
         PhoneStateScanner.autoRegistrationService = this;
 
@@ -37,7 +37,7 @@ public class MobileCellsRegistrationService extends Service {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                Log.d("MobileCellsRegistrationService", "Countdown seconds remaining: " + millisUntilFinished / 1000);
+                //Log.d("MobileCellsRegistrationService", "Countdown seconds remaining: " + millisUntilFinished / 1000);
 
                 showNotification(millisUntilFinished);
 
@@ -51,7 +51,7 @@ public class MobileCellsRegistrationService extends Service {
 
             @Override
             public void onFinish() {
-                Log.d("MobileCellsRegistrationService", "Timer finished");
+                //Log.d("MobileCellsRegistrationService", "Timer finished");
 
                 PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration = false;
                 GlobalData.setMobileCellsAutoRegistration(context, false);
@@ -83,7 +83,7 @@ public class MobileCellsRegistrationService extends Service {
 
         PhoneStateScanner.autoRegistrationService = null;
 
-        Log.d("MobileCellsRegistrationService", "Timer cancelled");
+        //Log.d("MobileCellsRegistrationService", "Timer cancelled");
         super.onDestroy();
     }
 

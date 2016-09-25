@@ -63,11 +63,11 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         this.context = context;
 
         if (!PhoneProfilesService.instance.isPhoneStateStarted()) {
-            Log.d("MobileCellsPreference","no scanner started");
+            //Log.d("MobileCellsPreference","no scanner started");
             GlobalData.startPhoneStateScanner(context);
         }
-        else
-            Log.d("MobileCellsPreference","scanner started");
+        //else
+        //    Log.d("MobileCellsPreference","scanner started");
 
         GlobalData.getMobileCellsAutoRegistration(context);
 
@@ -100,10 +100,10 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                         if (iValue < mMin) iValue = mMin;
                         if (iValue > mMax) iValue = mMax;
 
-                        Log.d("MobileCellsRegistrationDialogPreference.onPositive","iValue="+iValue);
+                        //Log.d("MobileCellsRegistrationDialogPreference.onPositive","iValue="+iValue);
 
                         if (PhoneProfilesService.isPhoneStateStarted()) {
-                            Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
+                            //Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
                             GlobalData.setMobileCellsAutoRegistrationRemainingDuration(context, iValue);
                             PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration = iValue;
                             PhoneProfilesService.instance.phoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
@@ -285,10 +285,10 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         if (PhoneProfilesService.isPhoneStateStarted()) {
             value = Integer.toString(PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration);
-            Log.d("MobileCellsRegistrationDialogPreference.onSetInitialValue", "value=" + value);
+            //Log.d("MobileCellsRegistrationDialogPreference.onSetInitialValue", "value=" + value);
         } else {
             value = "0";
-            Log.d("MobileCellsRegistrationDialogPreference.onSetInitialValue", "value=" + value);
+            //Log.d("MobileCellsRegistrationDialogPreference.onSetInitialValue", "value=" + value);
         }
 
         setSummaryDDP(0);
@@ -393,7 +393,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("MobileCellsRegistrationBroadcastReceiver", "xxx");
+            //Log.d("MobileCellsRegistrationBroadcastReceiver", "xxx");
             long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
             preference.updateInterface(millisUntilFinished);
             preference.setSummaryDDP(millisUntilFinished);

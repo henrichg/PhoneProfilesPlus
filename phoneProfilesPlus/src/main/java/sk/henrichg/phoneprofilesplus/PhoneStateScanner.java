@@ -323,7 +323,7 @@ public class PhoneStateScanner extends PhoneStateListener {
             return;
 
         if (enabledAutoRegistration) {
-            Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
+            //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
             List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
             localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false));
             DatabaseHandler db = DatabaseHandler.getInstance(context);
@@ -338,7 +338,7 @@ public class PhoneStateScanner extends PhoneStateListener {
 
         GlobalData.getMobileCellsAutoRegistration(context);
         if (enabledAutoRegistration) {
-            Log.d("PhoneStateScanner.startAutoRegistration","xxx");
+            //Log.d("PhoneStateScanner.startAutoRegistration","xxx");
             stopAutoRegistration();
             context.startService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
         }
