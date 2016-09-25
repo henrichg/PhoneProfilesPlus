@@ -226,43 +226,47 @@ public class GrantPermissionActivity extends Activity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
                 if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
+                    String ntext = context.getString(R.string.permissions_for_install_tone_text_notification)+": "+
+                            context.getString(R.string.permissions_for_install_tone_big_text_notification);
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                            .setContentText(context.getString(R.string.permissions_for_install_tone_text_notification))
-                            .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_install_tone_big_text_notification)))
+                            .setContentText(ntext)
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(ntext))
                             .setAutoCancel(true); // clear notification after click
                     notificationID = GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else
                 if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
+                    String ntext = context.getString(R.string.permissions_for_install_tone_text_notification)+": "+
+                            context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                            .setContentText(context.getString(R.string.permissions_for_install_tone_text_notification))
-                            .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification)))
+                            .setContentText(ntext)
+                            .setStyle(new NotificationCompat.BigTextStyle().bigText(ntext))
                             .setAutoCancel(true); // clear notification after click
                     notificationID = GlobalData.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT) {
+                    String ntext = context.getString(R.string.permissions_for_event_text_notification);
+                    if (mergedNotification) {
+                        ntext = ntext + ": " + context.getString(R.string.permissions_for_event_text1m) + " " +
+                                context.getString(R.string.permissions_for_event_big_text_notification);
+                    }
+                    else {
+                        ntext = ntext + ": " + context.getString(R.string.permissions_for_event_text1) + " ";
+                        if (event != null)
+                            ntext = ntext + "\"" + event._name + "\" ";
+                        ntext = ntext + context.getString(R.string.permissions_for_event_big_text_notification);
+                    }
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                            .setContentText(context.getString(R.string.permissions_for_event_text_notification)) // message for notification
+                            .setContentText(ntext) // message for notification
                             .setAutoCancel(true); // clear notification after click
-                    if (mergedNotification) {
-                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_event_text1m) + " " +
-                                context.getString(R.string.permissions_for_event_big_text_notification)));
-                    }
-                    else {
-                        String text = context.getString(R.string.permissions_for_event_text1) + " ";
-                        if (event != null)
-                            text = text + "\"" + event._name + "\" ";
-                        text = text + context.getString(R.string.permissions_for_event_big_text_notification);
-                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
-
-                    }
+                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
                     Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
                     PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
                     mBuilder.setDeleteIntent(deletePendingIntent);
@@ -271,22 +275,23 @@ public class GrantPermissionActivity extends Activity {
                     notificationID = GlobalData.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else {
+                    String ntext = context.getString(R.string.permissions_for_profile_text_notification);
+                    if (mergedProfile || mergedNotification) {
+                        ntext = ntext + ": " + context.getString(R.string.permissions_for_profile_text1m) + " " +
+                                context.getString(R.string.permissions_for_profile_big_text_notification);
+                    }
+                    else {
+                        ntext = ntext + ": " + context.getString(R.string.permissions_for_profile_text1) + " ";
+                        if (profile != null)
+                            ntext = ntext + "\"" + profile._name + "\" ";
+                        ntext = ntext + context.getString(R.string.permissions_for_profile_big_text_notification);
+                    }
                     mBuilder =   new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                            .setContentText(context.getString(R.string.permissions_for_profile_text_notification)) // message for notification
+                            .setContentText(ntext) // message for notification
                             .setAutoCancel(true); // clear notification after click
-                    if (mergedProfile || mergedNotification) {
-                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.permissions_for_profile_text1m) + " " +
-                                context.getString(R.string.permissions_for_profile_big_text_notification)));
-                    }
-                    else {
-                        String text = context.getString(R.string.permissions_for_profile_text1) + " ";
-                        if (profile != null)
-                            text = text + "\"" + profile._name + "\" ";
-                        text = text + context.getString(R.string.permissions_for_profile_big_text_notification);
-                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
-                    }
+                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
                     Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
                     PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
                     mBuilder.setDeleteIntent(deletePendingIntent);

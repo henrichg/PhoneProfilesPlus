@@ -1562,8 +1562,6 @@ public class ActivateProfileHelper {
                     contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
             }
 
-            GlobalData.phoneProfilesNotification = notificationBuilder.build();
-
             if (GlobalData.notificationTextColor.equals("1"))
                 contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
             else
@@ -1585,7 +1583,10 @@ public class ActivateProfileHelper {
                 contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, R.drawable.ic_action_events_restart_dark);
             contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
-            GlobalData.phoneProfilesNotification.contentView = contentView;
+            notificationBuilder.setContent(contentView);
+
+            GlobalData.phoneProfilesNotification = notificationBuilder.build();
+
 
             if (notificationStatusBarPermanent)
             {

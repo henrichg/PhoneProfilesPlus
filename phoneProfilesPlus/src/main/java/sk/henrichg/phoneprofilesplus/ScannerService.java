@@ -878,12 +878,13 @@ public class ScannerService extends IntentService
                         notificationBigText = context.getString(R.string.phone_profiles_pref_eventBluetoothScanningSystemSettings_summary);
                     }
 
+                    String ntext = notificationText+": "+notificationBigText;
                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                             .setContentTitle(context.getString(R.string.app_name)) // title for notification
-                            .setContentText(notificationText) // message for notification
+                            .setContentText(ntext) // message for notification
                             .setAutoCancel(true); // clear notification after click
-                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(notificationBigText));
+                    mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(ntext));
 
                     int requestCode;
                     if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI)) {
