@@ -7,8 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:padding="1dp" >
 
         <ImageView
@@ -40,8 +39,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:padding="1dp" >
 
         <ImageView
