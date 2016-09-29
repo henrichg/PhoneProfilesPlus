@@ -452,6 +452,9 @@ public class EventsService extends IntentService
         /*else
         if (broadcastReceiverType.equals(EventDelayStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_????;*/
+        /*else
+        if (broadcastReceiverType.equals(EventDelayEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_????;*/
         else
         if (broadcastReceiverType.equals(EventCalendarBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_CALENDAR;
