@@ -106,7 +106,7 @@ public class PhoneProfilesService extends Service
     {
         super.onCreate();
 
-        GlobalData.logE("$$$ PhoneProfilesService.onCreate", "xxxxx");
+        GlobalData.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT="+android.os.Build.VERSION.SDK_INT);
 
         instance = this;
 
