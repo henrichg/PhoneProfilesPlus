@@ -2426,7 +2426,7 @@ public class ActivateProfileHelper {
         if (id != 0)
         {
             try {
-              return res.getInteger(id);
+                return res.getInteger(id);
             }
             catch (Resources.NotFoundException e) {
               // ignore
@@ -2442,7 +2442,7 @@ public class ActivateProfileHelper {
         if (id != 0)
         {
             try {
-              return res.getInteger(id);
+                return res.getInteger(id);
             }
             catch (Resources.NotFoundException e) {
               // ignore
