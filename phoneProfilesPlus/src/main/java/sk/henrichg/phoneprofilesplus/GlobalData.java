@@ -54,7 +54,7 @@ public class GlobalData extends Application {
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
-                                         +"$$$ PhoneProfilesService.onCreate"
+                                         +"|$$$ PhoneProfilesService.onCreate"
 
                                          //+"|BootUpReceiver.onReceive"
                                          //+"|PackageReplacedReceiver.onReceive"
