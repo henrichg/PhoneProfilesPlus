@@ -564,7 +564,7 @@
   <string name="permissions_write_settings_not_allowed_confirm">Nem engedélyezte a \"Rendszer beállítások módosítását \". Ne kérdezze újra?</string>
   <string name="phone_profiles_pref_category_permissions">Engedélyek</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Rendszerbeállítások módosítása</string>
-  <string name="phone_profiles_pref_writeSystemSettingPermissions_summary">Keressen a \"PhoneProfilesPlus\" alkalmazásban, és engedélyezze.</string>
+  <string name="phone_profiles_pref_writeSystemSettingPermissions_summary">Keresse a meg a \"PhoneProfilesPlus\"-t a következő alkalmazáslistából, és engedélyezze.</string>
   <string name="phone_profiles_pref_applicationPermissions">Alkalmazás engedélyek</string>
   <string name="phone_profiles_pref_applicationPermissions_summary">Kerem aktiválja az engedélyeket az opciókban \"Engedélyek\".</string>
   <string name="permissions_for_event_text1">Esemény</string>
@@ -772,7 +772,7 @@
   <string name="permission_group_name_access_notification_policy">Ne zavarjanak mód</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Nincs engedélyezve \"Ne zavarjanak mód\". Ne kérdezze újra?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Ne zavarjanak mód</string>
-  <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Keressen a \"PhoneProfilesPlus\" alkalmazásban, és engedélyezze.</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Keresse a meg a \"PhoneProfilesPlus\"-t a következő alkalmazáslistából, és engedélyezze.</string>
   <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Adja a PhoneProfilesPlus-t a \"Nem optimalizált\" alkalmazásokhoz, ha a profil aktiválása során problémákat tapasztal.</string>
   <string name="profile_preferences_deviceWallpaperFor">Háttérképként</string>
   <string name="array_pref_device_wallpaper_homescreen">Főképernyő</string>
