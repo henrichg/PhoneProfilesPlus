@@ -16,7 +16,7 @@ public class BackgroundActivateProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, 0);
+        startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_SHORTCUT);
         profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
 
         if ((startupSource == GlobalData.STARTUP_SOURCE_WIDGET) ||
