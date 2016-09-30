@@ -42,6 +42,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.RemoteViews;
@@ -1563,6 +1564,10 @@ public class ActivateProfileHelper {
                 else
                     contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
             }
+
+            // workaround for LG G4, Android 6.0
+            if (android.os.Build.VERSION.SDK_INT < 24)
+                contentView.setInt(R.id.notification_activated_app_root, "setVisibility", View.GONE);
 
             if (GlobalData.notificationTextColor.equals("1")) {
                 contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);

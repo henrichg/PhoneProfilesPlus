@@ -6,6 +6,7 @@
     android:padding="5dp" >
 
     <RelativeLayout
+        android:id="@+id/notification_activated_app_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="1dp" >
