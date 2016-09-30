@@ -108,6 +108,7 @@ public class GlobalData extends Application {
     static final String EXTRA_FOR_PROFILE_ACTIVATION = "for_profile_activation";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
+    static final String EXTRA_PROFILE_NAME = "profile_name";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
@@ -120,6 +121,7 @@ public class GlobalData extends Application {
     static final int STARTUP_SOURCE_LAUNCHER_START = 10;
     static final int STARTUP_SOURCE_LAUNCHER = 11;
     static final int STARTUP_SOURCE_SERVICE_MANUAL = 12;
+    static final int STARTUP_SOURCE_EXTERNAL_APP = 13;
 
     static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
     static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;
