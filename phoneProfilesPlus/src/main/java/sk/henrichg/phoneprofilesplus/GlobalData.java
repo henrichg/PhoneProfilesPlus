@@ -2096,14 +2096,14 @@ public class GlobalData extends Application {
         } while (SystemClock.uptimeMillis() - start < ms);
     }
 
-    public static boolean canChangeZenMode(Context context, boolean forGUI) {
-        if (android.os.Build.VERSION.SDK_INT >= 24) {
-            if (forGUI)
+    public static boolean canChangeZenMode(Context context, boolean notCheckAccess) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (notCheckAccess)
                 return true;
             else
                 return Permissions.checkAccessNotificationPolicy(context);
         }
-        if ((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT <= 23))
+        if ((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23))
             return PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
         return false;
     }

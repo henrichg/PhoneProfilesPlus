@@ -423,7 +423,7 @@ public class Permissions {
 
     public static boolean checkProfileAccessNotificationPolicy(Context context, Profile profile) {
         if (profile == null) return true;
-        if (android.os.Build.VERSION.SDK_INT >= 24) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
             if ((profile._volumeRingerMode != 0) ||
                  profile.getVolumeRingtoneChange() ||
                  profile.getVolumeNotificationChange() ||
@@ -442,7 +442,7 @@ public class Permissions {
     }
 
     public static boolean checkAccessNotificationPolicy(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 24) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             boolean granted = mNotificationManager.isNotificationPolicyAccessGranted();
             if (granted)

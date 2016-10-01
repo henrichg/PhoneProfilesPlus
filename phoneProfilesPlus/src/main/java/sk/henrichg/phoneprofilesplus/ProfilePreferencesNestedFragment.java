@@ -118,7 +118,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
             Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
             if (notificationAccessPreference != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                if (android.os.Build.VERSION.SDK_INT >= 23) {
                     PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
                     preferenceCategory.removePreference(notificationAccessPreference);
                 } else {
