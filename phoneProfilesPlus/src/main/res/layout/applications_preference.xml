@@ -11,7 +11,7 @@
         android:maxHeight="50dp"
         android:maxWidth="50dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher"
+        android:src="@mipmap/ic_launcher"
         android:contentDescription="@string/empty_string" />
 
     <RelativeLayout
@@ -30,7 +30,7 @@
             android:maxHeight="25dp"
             android:maxWidth="25dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher"
+            android:src="@mipmap/ic_launcher"
             android:contentDescription="@string/empty_string" />
 
         <ImageView
@@ -44,7 +44,7 @@
             android:maxHeight="25dp"
             android:maxWidth="25dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher"
+            android:src="@mipmap/ic_launcher"
             android:contentDescription="@string/empty_string" />
 
         <ImageView
@@ -58,7 +58,7 @@
             android:maxHeight="25dp"
             android:maxWidth="25dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher"
+            android:src="@mipmap/ic_launcher"
             android:contentDescription="@string/empty_string" />
 
         <ImageView
@@ -72,7 +72,7 @@
             android:maxHeight="25dp"
             android:maxWidth="25dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher"
+            android:src="@mipmap/ic_launcher"
             android:contentDescription="@string/empty_string" />
 
     </RelativeLayout>

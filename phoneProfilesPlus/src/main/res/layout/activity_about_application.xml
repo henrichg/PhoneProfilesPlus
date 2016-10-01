@@ -30,7 +30,7 @@
                 android:maxHeight="60dp"
                 android:maxWidth="60dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher"/>
+                android:src="@mipmap/ic_launcher"/>
 
             <TextView
                 android:id="@+id/about_application_application_name"
