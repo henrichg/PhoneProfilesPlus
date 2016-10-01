@@ -1438,6 +1438,8 @@ public class GlobalData extends Application {
                     // zariadenie je rootnute
                     if (settingsBinaryExists())
                         featurePresented = PREFERENCE_ALLOWED;
+                    else
+                        notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
                 else
                 if (canExploitGPS(context))
