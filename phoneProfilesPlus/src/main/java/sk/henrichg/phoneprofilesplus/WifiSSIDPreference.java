@@ -38,7 +38,6 @@ public class WifiSSIDPreference extends DialogPreference {
     private RelativeLayout dataRelativeLayout;
     private EditText SSIDName;
     private ListView SSIDListView;
-    private CheckBox configuredSSIDs;
     private WifiSSIDPreferenceAdapter listAdapter;
 
     public RadioButton selectedRB = null;
@@ -69,13 +68,13 @@ public class WifiSSIDPreference extends DialogPreference {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         if (shouldPersist()) {
-                            if (configuredSSIDs.isChecked()) {
+                            SSIDName.clearFocus();
+
+                            String editText = SSIDName.getText().toString();
+                            if (editText.equals(context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb)))
                                 value = EventPreferencesWifi.CONFIGURED_SSIDS_VALUE;
-                            }
-                            else {
-                                SSIDName.clearFocus();
-                                value = SSIDName.getText().toString();
-                            }
+                            else
+                                value = editText;
 
                             if (callChangeListener(value))
                             {
@@ -112,13 +111,6 @@ public class WifiSSIDPreference extends DialogPreference {
         listAdapter = new WifiSSIDPreferenceAdapter(context, this);
         SSIDListView.setAdapter(listAdapter);
 
-        configuredSSIDs = (CheckBox) layout.findViewById(R.id.wifi_ssid_pref_dlg_configured_ssids);
-        if (value.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
-            SSIDListView.setEnabled(false);
-            SSIDName.setEnabled(false);
-            configuredSSIDs.setChecked(true);
-        }
-
         refreshListView(false);
 
         SSIDListView.setOnItemClickListener(new OnItemClickListener() {
@@ -136,23 +128,6 @@ public class WifiSSIDPreference extends DialogPreference {
                 setSSID(SSIDList.get(position).ssid);
             }
 
-        });
-
-        configuredSSIDs.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (configuredSSIDs.isChecked()) {
-                    setSSID(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE);
-                    SSIDListView.setEnabled(false);
-                    SSIDName.setEnabled(false);
-                    listAdapter.notifyDataSetChanged();
-                }
-                else {
-                    SSIDListView.setEnabled(true);
-                    SSIDName.setEnabled(true);
-                    listAdapter.notifyDataSetChanged();
-                    setSSID(value);
-                }
-            }
         });
 
         mBuilder.customView(layout, false);
@@ -220,16 +195,12 @@ public class WifiSSIDPreference extends DialogPreference {
     
     public void setSSID(String SSID)
     {
-        if (SSID.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))
-            this.SSIDName.setText(context.getString(R.string.empty_string));
-        else {
-            value = SSID;
+        value = SSID;
+        //if (SSID.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))
+        //    this.SSIDName.setText(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+        //else {
             this.SSIDName.setText(value);
-        }
-    }
-
-    public boolean isConfiguredSSIDsChecked() {
-        return configuredSSIDs.isChecked();
+        //}
     }
 
     public void refreshListView(boolean forRescan)
@@ -261,6 +232,8 @@ public class WifiSSIDPreference extends DialogPreference {
                     GlobalData.sleep(200);
                     ScannerService.waitForWifiScanEnd(context, this);
                 }
+
+                SSIDList.add(new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, ""));
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
                 if (wifiConfigurationList != null)
@@ -306,20 +279,12 @@ public class WifiSSIDPreference extends DialogPreference {
                 progressLinearLayout.setVisibility(View.GONE);
                 dataRelativeLayout.setVisibility(View.VISIBLE);
 
-                if (configuredSSIDs.isChecked()) {
-                    SSIDListView.setEnabled(false);
-                    SSIDName.setEnabled(false);
-                }
-                else {
-                    SSIDListView.setEnabled(true);
-                    SSIDName.setEnabled(true);
-                    for (int position = 0; position < SSIDList.size() - 1; position++) {
-                        if (SSIDList.get(position).ssid.equals(value)) {
-                            SSIDListView.setSelection(position);
-                            SSIDListView.setItemChecked(position, true);
-                            SSIDListView.smoothScrollToPosition(position);
-                            break;
-                        }
+                for (int position = 0; position < SSIDList.size() - 1; position++) {
+                    if (SSIDList.get(position).ssid.equals(value)) {
+                        SSIDListView.setSelection(position);
+                        SSIDListView.setItemChecked(position, true);
+                        SSIDListView.smoothScrollToPosition(position);
+                        break;
                     }
                 }
             }

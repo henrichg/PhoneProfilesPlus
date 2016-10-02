@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
@@ -38,7 +39,6 @@ public class BluetoothNamePreference extends DialogPreference {
     private RelativeLayout dataRelativeLayout;
     private EditText bluetoothName;
     private ListView bluetoothListView;
-    private CheckBox configuredBluetoothNames;
     private BluetoothNamePreferenceAdapter listAdapter;
 
     public RadioButton selectedRB = null;
@@ -71,13 +71,13 @@ public class BluetoothNamePreference extends DialogPreference {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         if (shouldPersist()) {
-                            if (configuredBluetoothNames.isChecked()) {
+                            bluetoothName.clearFocus();
+
+                            String editText = bluetoothName.getText().toString();
+                            if (editText.equals(context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb)))
                                 value = EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE;
-                            }
-                            else {
-                                bluetoothName.clearFocus();
-                                value = bluetoothName.getText().toString();
-                            }
+                            else
+                                value = editText;
 
                             if (callChangeListener(value))
                             {
@@ -114,13 +114,6 @@ public class BluetoothNamePreference extends DialogPreference {
         listAdapter = new BluetoothNamePreferenceAdapter(context, this);
         bluetoothListView.setAdapter(listAdapter);
 
-        configuredBluetoothNames = (CheckBox) layout.findViewById(R.id.bluetooth_name_pref_dlg_configured_bt_names);
-        if (value.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
-            bluetoothListView.setEnabled(false);
-            bluetoothName.setEnabled(false);
-            configuredBluetoothNames.setChecked(true);
-        }
-
         refreshListView(false);
 
         bluetoothListView.setOnItemClickListener(new OnItemClickListener() {
@@ -138,23 +131,6 @@ public class BluetoothNamePreference extends DialogPreference {
                 setBluetoothName(bluetoothList.get(position).getName());
             }
 
-        });
-
-        configuredBluetoothNames.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (configuredBluetoothNames.isChecked()) {
-                    setBluetoothName(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE);
-                    bluetoothListView.setEnabled(false);
-                    bluetoothName.setEnabled(false);
-                    listAdapter.notifyDataSetChanged();
-                }
-                else {
-                    bluetoothListView.setEnabled(true);
-                    bluetoothName.setEnabled(true);
-                    listAdapter.notifyDataSetChanged();
-                    setBluetoothName(value);
-                }
-            }
         });
 
         mBuilder.customView(layout, false);
@@ -223,18 +199,14 @@ public class BluetoothNamePreference extends DialogPreference {
     
     public void setBluetoothName(String bluetoothName)
     {
-        if (bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
-            this.bluetoothName.setText(context.getString(R.string.empty_string));
-        else {
-            value = bluetoothName;
+        value = bluetoothName;
+        //if (bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
+        //    this.bluetoothName.setText(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
+        //else {
             this.bluetoothName.setText(value);
-        }
+        //}
     }
 
-    public boolean isConfiguredBluetoothNamesChecked() {
-        return configuredBluetoothNames.isChecked();
-    }
-    
     public void refreshListView(boolean forRescan)
     {
         final boolean _forRescan = forRescan;
@@ -265,6 +237,8 @@ public class BluetoothNamePreference extends DialogPreference {
                     GlobalData.sleep(200);
                     ScannerService.waitForForceOneBluetoothScanEnd(context, this);
                 }
+
+                bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL));
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
                 if (boundedDevicesList != null)
@@ -309,20 +283,12 @@ public class BluetoothNamePreference extends DialogPreference {
                 progressLinearLayout.setVisibility(View.GONE);
                 dataRelativeLayout.setVisibility(View.VISIBLE);
 
-                if (configuredBluetoothNames.isChecked()) {
-                    bluetoothListView.setEnabled(false);
-                    bluetoothName.setEnabled(false);
-                }
-                else {
-                    bluetoothListView.setEnabled(true);
-                    bluetoothName.setEnabled(true);
-                    for (int position = 0; position < bluetoothList.size() - 1; position++) {
-                        if (bluetoothList.get(position).getName().equalsIgnoreCase(value)) {
-                            bluetoothListView.setSelection(position);
-                            bluetoothListView.setItemChecked(position, true);
-                            bluetoothListView.smoothScrollToPosition(position);
-                            break;
-                        }
+                for (int position = 0; position < bluetoothList.size() - 1; position++) {
+                    if (bluetoothList.get(position).getName().equalsIgnoreCase(value)) {
+                        bluetoothListView.setSelection(position);
+                        bluetoothListView.setItemChecked(position, true);
+                        bluetoothListView.smoothScrollToPosition(position);
+                        break;
                     }
                 }
             }

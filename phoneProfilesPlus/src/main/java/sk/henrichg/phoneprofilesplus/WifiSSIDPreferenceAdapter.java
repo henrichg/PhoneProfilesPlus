@@ -66,20 +66,14 @@ public class WifiSSIDPreferenceAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        holder.SSIDName.setText(wifiSSID.ssid);
+        if (wifiSSID.ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))
+            holder.SSIDName.setText(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+        else
+            holder.SSIDName.setText(wifiSSID.ssid);
 
         holder.radioBtn.setTag(position);
 
-        if (preference.isConfiguredSSIDsChecked()) {
-            holder.SSIDName.setEnabled(false);
-            holder.radioBtn.setEnabled(false);
-            holder.radioBtn.setChecked(false);
-        }
-        else {
-            holder.SSIDName.setEnabled(true);
-            holder.radioBtn.setEnabled(true);
-            holder.radioBtn.setChecked(wifiSSID.ssid.equals(preference.getSSID()));
-        }
+        holder.radioBtn.setChecked(wifiSSID.ssid.equals(preference.getSSID()));
 
         /*if(preference.selectedRB != null && holder.radioBtn != preference.selectedRB){
             preference.selectedRB = holder.radioBtn;
