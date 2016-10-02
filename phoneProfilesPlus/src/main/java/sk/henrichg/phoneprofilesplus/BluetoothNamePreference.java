@@ -133,6 +133,15 @@ public class BluetoothNamePreference extends DialogPreference {
 
         });
 
+        final ImageView addIcon = (ImageView)layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
+        addIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addBluetoothName(bluetoothName.getText().toString());
+                refreshListView(false);
+            }
+        });
+
         mBuilder.customView(layout, false);
 
         final TextView helpText = (TextView)layout.findViewById(R.id.bluetooth_name_pref_dlg_helpText);
@@ -199,17 +208,10 @@ public class BluetoothNamePreference extends DialogPreference {
 
     public void addBluetoothName(String bluetoothName) {
         String[] splits = value.split("\\|");
-        value = "";
         boolean found = false;
         for (String _bluetoothName : splits) {
-            if (!_bluetoothName.isEmpty()) {
-                if (!_bluetoothName.equals(bluetoothName)) {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + _bluetoothName;
-                } else
-                    found = true;
-            }
+            if (!_bluetoothName.equals(bluetoothName))
+                found = true;
         }
         if (!found) {
             if (!value.isEmpty())
@@ -272,14 +274,14 @@ public class BluetoothNamePreference extends DialogPreference {
                     ScannerService.waitForForceOneBluetoothScanEnd(context, this);
                 }
 
-                bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL));
+                bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
                 if (boundedDevicesList != null)
                 {
                     for (BluetoothDeviceData device : boundedDevicesList)
                     {
-                        bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type));
+                        bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
                     }
                 }
 
@@ -300,7 +302,7 @@ public class BluetoothNamePreference extends DialogPreference {
                                 }
                             }
                             if (!exists)
-                                bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type));
+                                bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
                         }
                     }
                 }
@@ -318,7 +320,7 @@ public class BluetoothNamePreference extends DialogPreference {
                             }
                         }
                         if (!found) {
-                            bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL));
+                            bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
                         }
                     }
                 }

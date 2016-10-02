@@ -478,7 +478,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         for (BluetoothDevice device : boundedDevices)
         {
             boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                    BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device)));
+                    BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false));
         }
         saveBoundedDevicesList(context, boundedDevicesList);
     }
@@ -588,7 +588,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             }
             if (!found) {
-                savedScanResults.add(new BluetoothDeviceData(device.name, device.address, device.type));
+                savedScanResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false));
             }
         }
 
@@ -623,7 +623,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             }
         }
         if (!found) {
-            savedScanResults.add(new BluetoothDeviceData(device.name, device.address, device.type));
+            savedScanResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false));
         }
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);

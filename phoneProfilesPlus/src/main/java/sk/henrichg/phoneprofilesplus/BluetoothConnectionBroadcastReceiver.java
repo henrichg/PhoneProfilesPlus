@@ -171,7 +171,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
             }
             if (!found) {
                 connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                        BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device)));
+                        BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false));
             }
         }
     }

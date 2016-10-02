@@ -358,7 +358,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
                 if (!found)
                 {
-                    wifiConfigurationList.add(new WifiSSIDData(device.SSID, device.BSSID));
+                    wifiConfigurationList.add(new WifiSSIDData(device.SSID, device.BSSID, false));
                 }
             }
         }
@@ -389,7 +389,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                     if (!found) {
-                        scanResults.add(new WifiSSIDData(device.SSID, device.BSSID));
+                        scanResults.add(new WifiSSIDData(device.SSID, device.BSSID, false));
                     }
                 }
             }
