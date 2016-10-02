@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +25,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class WifiSSIDPreference extends DialogPreference {
@@ -39,9 +42,6 @@ public class WifiSSIDPreference extends DialogPreference {
     private EditText SSIDName;
     private ListView SSIDListView;
     private WifiSSIDPreferenceAdapter listAdapter;
-
-    public RadioButton selectedRB = null;
-    public int selectedPosition = -1;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
@@ -68,6 +68,7 @@ public class WifiSSIDPreference extends DialogPreference {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         if (shouldPersist()) {
+                            /*
                             SSIDName.clearFocus();
 
                             String editText = SSIDName.getText().toString();
@@ -75,6 +76,7 @@ public class WifiSSIDPreference extends DialogPreference {
                                 value = EventPreferencesWifi.CONFIGURED_SSIDS_VALUE;
                             else
                                 value = editText;
+                            */
 
                             if (callChangeListener(value))
                             {
@@ -105,7 +107,6 @@ public class WifiSSIDPreference extends DialogPreference {
         dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
 
         SSIDName = (EditText) layout.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
-        setSSID(value);
 
         SSIDListView = (ListView) layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
         listAdapter = new WifiSSIDPreferenceAdapter(context, this);
@@ -118,14 +119,14 @@ public class WifiSSIDPreference extends DialogPreference {
                 WifiSSIDPreferenceAdapter.ViewHolder viewHolder =
                         (WifiSSIDPreferenceAdapter.ViewHolder) v.getTag();
 
-                if(position != selectedPosition && selectedRB != null){
-                    selectedRB.setChecked(false);
-                }
-                selectedPosition = position;
-                selectedRB = viewHolder.radioBtn;
+                viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
-                viewHolder.radioBtn.setChecked(true);
-                setSSID(SSIDList.get(position).ssid);
+                if (viewHolder.checkBox.isChecked()) {
+                    addSSID(SSIDList.get(position).ssid);
+                }
+                else {
+                    removeSSID(SSIDList.get(position).ssid);
+                }
             }
 
         });
@@ -188,19 +189,55 @@ public class WifiSSIDPreference extends DialogPreference {
         }
     }
 
-    public String getSSID()
+    public String getSSIDs()
     {
         return value;
     }
-    
-    public void setSSID(String SSID)
-    {
-        value = SSID;
-        //if (SSID.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))
-        //    this.SSIDName.setText(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
-        //else {
-            this.SSIDName.setText(value);
-        //}
+
+    public void addSSID(String ssid) {
+        String[] splits = value.split("\\|");
+        value = "";
+        boolean found = false;
+        for (String _ssid : splits) {
+            if (!_ssid.isEmpty()) {
+                if (!_ssid.equals(ssid)) {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + _ssid;
+                } else
+                    found = true;
+            }
+        }
+        if (!found) {
+            if (!value.isEmpty())
+                value = value + "|";
+            value = value + ssid;
+        }
+        Log.d("WifiSSIDPreference.addSSID","value="+value);
+    }
+
+    public void removeSSID(String ssid) {
+        String[] splits = value.split("\\|");
+        value = "";
+        for (String _ssid : splits) {
+            if (!_ssid.isEmpty()) {
+                if (!_ssid.equals(ssid)) {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + _ssid;
+                }
+            }
+        }
+        Log.d("WifiSSIDPreference.removeSSID","value="+value);
+    }
+
+    public boolean isSSIDSelected(String ssid) {
+        String[] splits = value.split("\\|");
+        for (String _ssid : splits) {
+            if (_ssid.equals(ssid))
+                return true;
+        }
+        return false;
     }
 
     public void refreshListView(boolean forRescan)
@@ -267,6 +304,26 @@ public class WifiSSIDPreference extends DialogPreference {
                     }
                 }
 
+                // add all from value
+                boolean found;
+                String[] splits = value.split("\\|");
+                for (String _ssid : splits) {
+                    if (!_ssid.isEmpty()) {
+                        found = false;
+                        for (WifiSSIDData ssid : SSIDList) {
+                            if (_ssid.equals(ssid.ssid)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            SSIDList.add(new WifiSSIDData(_ssid, ""));
+                        }
+                    }
+                }
+
+                Collections.sort(SSIDList, new SortList());
+
                 return null;
             }
 
@@ -279,6 +336,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 progressLinearLayout.setVisibility(View.GONE);
                 dataRelativeLayout.setVisibility(View.VISIBLE);
 
+                /*
                 for (int position = 0; position < SSIDList.size() - 1; position++) {
                     if (SSIDList.get(position).ssid.equals(value)) {
                         SSIDListView.setSelection(position);
@@ -287,11 +345,20 @@ public class WifiSSIDPreference extends DialogPreference {
                         break;
                     }
                 }
+                */
             }
 
         };
 
         rescanAsyncTask.execute();
     }
-    
+
+    private class SortList implements Comparator<WifiSSIDData> {
+
+        public int compare(WifiSSIDData lhs, WifiSSIDData rhs) {
+            return GUIData.collator.compare(lhs.ssid, rhs.ssid);
+        }
+
+    }
+
 }

@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="48dp" >
 
-    <RadioButton
-        android:id="@+id/bluetooth_name_pref_dlg_item_radiobtn"
+    <CheckBox
+        android:id="@+id/bluetooth_name_pref_dlg_item_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -19,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/bluetooth_name_pref_dlg_item_radiobtn"
-        android:layout_toEndOf="@+id/bluetooth_name_pref_dlg_item_radiobtn"
+        android:layout_toRightOf="@+id/bluetooth_name_pref_dlg_item_checkbox"
+        android:layout_toEndOf="@+id/bluetooth_name_pref_dlg_item_checkbox"
         android:paddingLeft="3dp"
         android:paddingStart="3dp"
         android:text="@string/empty_string"

@@ -242,13 +242,14 @@ public class MobileCellsPreference extends DialogPreference {
         value = "";
         boolean found = false;
         for (String cell : splits) {
-            if (!cell.equals(sCellId)) {
-                if (!value.isEmpty())
-                    value = value + "|";
-                value = value + cell;
+            if (!cell.isEmpty()) {
+                if (!cell.equals(sCellId)) {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + cell;
+                } else
+                    found = true;
             }
-            else
-                found = true;
         }
         if (!found) {
             if (!value.isEmpty())
@@ -262,10 +263,12 @@ public class MobileCellsPreference extends DialogPreference {
         String sCellId = Integer.toString(cellId);
         value = "";
         for (String cell : splits) {
-            if (!cell.equals(sCellId)) {
-                if (!value.isEmpty())
-                    value = value + "|";
-                value = value + cell;
+            if (!cell.isEmpty()) {
+                if (!cell.equals(sCellId)) {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + cell;
+                }
             }
         }
     }

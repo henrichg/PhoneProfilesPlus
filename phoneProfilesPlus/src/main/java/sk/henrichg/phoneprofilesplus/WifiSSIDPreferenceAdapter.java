@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -40,7 +41,7 @@ public class WifiSSIDPreferenceAdapter extends BaseAdapter
     
     static class ViewHolder {
           TextView SSIDName;
-          RadioButton radioBtn;
+          CheckBox checkBox;
           int position;
         }
 
@@ -58,7 +59,7 @@ public class WifiSSIDPreferenceAdapter extends BaseAdapter
             vi = inflater.inflate(R.layout.wifi_ssid_preference_list_item, parent, false);
             holder = new ViewHolder();
             holder.SSIDName = (TextView)vi.findViewById(R.id.wifi_ssid_pref_dlg_item_label);
-            holder.radioBtn = (RadioButton)vi.findViewById(R.id.wifi_ssid_pref_dlg_item_radiobtn);
+            holder.checkBox = (CheckBox)vi.findViewById(R.id.wifi_ssid_pref_dlg_item_checkbox);
             vi.setTag(holder);
         }
         else
@@ -71,29 +72,19 @@ public class WifiSSIDPreferenceAdapter extends BaseAdapter
         else
             holder.SSIDName.setText(wifiSSID.ssid);
 
-        holder.radioBtn.setTag(position);
-
-        holder.radioBtn.setChecked(wifiSSID.ssid.equals(preference.getSSID()));
-
-        /*if(preference.selectedRB != null && holder.radioBtn != preference.selectedRB){
-            preference.selectedRB = holder.radioBtn;
-        }*/
-        if ((preference.selectedRB == null) && (holder.radioBtn.isChecked()))
-            preference.selectedRB = holder.radioBtn;
-        holder.radioBtn.setOnClickListener(new View.OnClickListener()
+        holder.checkBox.setTag(position);
+        holder.checkBox.setChecked(preference.isSSIDSelected(wifiSSID.ssid));
+        holder.checkBox.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) {
-                RadioButton rb = (RadioButton) v;
+                CheckBox chb = (CheckBox) v;
 
-                if((position != preference.selectedPosition) && (preference.selectedRB != null)){
-                    preference.selectedRB.setChecked(false);
-                }
+                String ssid = preference.SSIDList.get((Integer)chb.getTag()).ssid;
 
-                preference.selectedPosition = position;
-                preference.selectedRB = rb;
-
-                String ssid = preference.SSIDList.get((Integer)rb.getTag()).ssid;
-                preference.setSSID(ssid);
+                if (chb.isChecked())
+                    preference.addSSID(ssid);
+                else
+                    preference.removeSSID(ssid);
             }
         });
 

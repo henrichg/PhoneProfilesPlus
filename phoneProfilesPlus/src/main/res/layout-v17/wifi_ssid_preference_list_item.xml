@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="48dp" >
 
-    <RadioButton
-        android:id="@+id/wifi_ssid_pref_dlg_item_radiobtn"
+    <CheckBox
+        android:id="@+id/wifi_ssid_pref_dlg_item_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -17,7 +17,7 @@
         android:id="@+id/wifi_ssid_pref_dlg_item_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/wifi_ssid_pref_dlg_item_radiobtn"
+        android:layout_toEndOf="@+id/wifi_ssid_pref_dlg_item_checkbox"
         android:layout_centerVertical="true"
         android:paddingStart="3dp"
         android:text="@string/empty_string"

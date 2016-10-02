@@ -25,6 +25,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BluetoothNamePreference extends DialogPreference {
@@ -40,9 +42,6 @@ public class BluetoothNamePreference extends DialogPreference {
     private EditText bluetoothName;
     private ListView bluetoothListView;
     private BluetoothNamePreferenceAdapter listAdapter;
-
-    public RadioButton selectedRB = null;
-    public int selectedPosition = -1;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
@@ -71,6 +70,7 @@ public class BluetoothNamePreference extends DialogPreference {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         if (shouldPersist()) {
+                            /*
                             bluetoothName.clearFocus();
 
                             String editText = bluetoothName.getText().toString();
@@ -78,6 +78,7 @@ public class BluetoothNamePreference extends DialogPreference {
                                 value = EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE;
                             else
                                 value = editText;
+                            */
 
                             if (callChangeListener(value))
                             {
@@ -108,7 +109,6 @@ public class BluetoothNamePreference extends DialogPreference {
         dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
 
         bluetoothName = (EditText) layout.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
-        setBluetoothName(value);
 
         bluetoothListView = (ListView) layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
         listAdapter = new BluetoothNamePreferenceAdapter(context, this);
@@ -121,14 +121,14 @@ public class BluetoothNamePreference extends DialogPreference {
                 BluetoothNamePreferenceAdapter.ViewHolder viewHolder =
                         (BluetoothNamePreferenceAdapter.ViewHolder) v.getTag();
 
-                if(position != selectedPosition && selectedRB != null){
-                    selectedRB.setChecked(false);
-                }
-                selectedPosition = position;
-                selectedRB = viewHolder.radioBtn;
+                viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
-                viewHolder.radioBtn.setChecked(true);
-                setBluetoothName(bluetoothList.get(position).getName());
+                if (viewHolder.checkBox.isChecked()) {
+                    addBluetoothName(bluetoothList.get(position).getName());
+                }
+                else {
+                    removeBluetoothName(bluetoothList.get(position).getName());
+                }
             }
 
         });
@@ -192,19 +192,53 @@ public class BluetoothNamePreference extends DialogPreference {
         
     }    
 
-    public String getBluetoothName()
+    public String getBluetoothNames()
     {
         return value;
     }
-    
-    public void setBluetoothName(String bluetoothName)
-    {
-        value = bluetoothName;
-        //if (bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
-        //    this.bluetoothName.setText(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
-        //else {
-            this.bluetoothName.setText(value);
-        //}
+
+    public void addBluetoothName(String bluetoothName) {
+        String[] splits = value.split("\\|");
+        value = "";
+        boolean found = false;
+        for (String _bluetoothName : splits) {
+            if (!_bluetoothName.isEmpty()) {
+                if (!_bluetoothName.equals(bluetoothName)) {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + _bluetoothName;
+                } else
+                    found = true;
+            }
+        }
+        if (!found) {
+            if (!value.isEmpty())
+                value = value + "|";
+            value = value + bluetoothName;
+        }
+    }
+
+    public void removeBluetoothName(String bluetoothName) {
+        String[] splits = value.split("\\|");
+        value = "";
+        for (String _bluetoothName : splits) {
+            if (!_bluetoothName.isEmpty()) {
+                if (!_bluetoothName.equals(bluetoothName)) {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + _bluetoothName;
+                }
+            }
+        }
+    }
+
+    public boolean isBluetoothNameSelected(String bluetoothName) {
+        String[] splits = value.split("\\|");
+        for (String _bluetoothName : splits) {
+            if (_bluetoothName.equals(bluetoothName))
+                return true;
+        }
+        return false;
     }
 
     public void refreshListView(boolean forRescan)
@@ -271,6 +305,26 @@ public class BluetoothNamePreference extends DialogPreference {
                     }
                 }
 
+                // add all from value
+                boolean found;
+                String[] splits = value.split("\\|");
+                for (String _bluetoothName : splits) {
+                    if (_bluetoothName.isEmpty()) {
+                        found = false;
+                        for (BluetoothDeviceData bluetoothName : bluetoothList) {
+                            if (_bluetoothName.equals(bluetoothName.getName())) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL));
+                        }
+                    }
+                }
+
+                Collections.sort(bluetoothList, new SortList());
+
                 return null;
             }
 
@@ -283,6 +337,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 progressLinearLayout.setVisibility(View.GONE);
                 dataRelativeLayout.setVisibility(View.VISIBLE);
 
+                /*
                 for (int position = 0; position < bluetoothList.size() - 1; position++) {
                     if (bluetoothList.get(position).getName().equalsIgnoreCase(value)) {
                         bluetoothListView.setSelection(position);
@@ -291,11 +346,20 @@ public class BluetoothNamePreference extends DialogPreference {
                         break;
                     }
                 }
+                */
             }
 
         };
 
         rescanAsyncTask.execute();
     }
-    
+
+    private class SortList implements Comparator<BluetoothDeviceData> {
+
+        public int compare(BluetoothDeviceData lhs, BluetoothDeviceData rhs) {
+            return GUIData.collator.compare(lhs.getName(), rhs.getName());
+        }
+
+    }
+
 }
