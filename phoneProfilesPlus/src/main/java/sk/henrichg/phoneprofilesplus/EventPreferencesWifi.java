@@ -88,13 +88,28 @@ public class EventPreferencesWifi extends EventPreferences {
             String[] connectionListTypes = context.getResources().getStringArray(R.array.eventWifiConnectionTypeValues);
             int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
             descr = descr + ": " + connectionListTypeNames[index] + "; ";
-            if (this._SSID.equals(CONFIGURED_SSIDS_VALUE)) {
-                descr = descr + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+
+            String selectedSSIDs = context.getString(R.string.pref_event_wifi_ssid) + ": ";
+            String[] splits = this._SSID.split("\\|");
+            for (String _ssid : splits) {
+                if (_ssid.isEmpty()) {
+                    selectedSSIDs = selectedSSIDs + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                }
+                else
+                if (splits.length == 1) {
+                    if (_ssid.equals(CONFIGURED_SSIDS_VALUE)) {
+                        selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                    } else {
+                        selectedSSIDs = selectedSSIDs + _ssid;
+                    }
+                }
+                else {
+                    selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
+                    selectedSSIDs = selectedSSIDs + " " + splits.length;
+                    break;
+                }
             }
-            else {
-                descr = descr + context.getString(R.string.pref_event_wifi_ssid);
-                descr = descr + ": " + this._SSID;
-            }
+            descr = descr + selectedSSIDs;
         }
 
         return descr;
@@ -114,10 +129,26 @@ public class EventPreferencesWifi extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (value.equals(CONFIGURED_SSIDS_VALUE))
-                    preference.setSummary(context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb));
-                else
-                    preference.setSummary(value);
+                String[] splits = value.split("\\|");
+                for (String _ssid : splits) {
+                    if (_ssid.isEmpty()) {
+                        preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
+                    }
+                    else
+                    if (splits.length == 1) {
+                        if (_ssid.equals(CONFIGURED_SSIDS_VALUE)) {
+                            preference.setSummary(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                        } else {
+                            preference.setSummary(_ssid);
+                        }
+                    }
+                    else {
+                        String selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        selectedSSIDs = selectedSSIDs + " " + splits.length;
+                        preference.setSummary(selectedSSIDs);
+                        break;
+                    }
+                }
                 GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
         }
