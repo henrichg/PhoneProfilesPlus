@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -158,7 +160,12 @@ public class WifiSSIDPreference extends DialogPreference {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 WifiSSIDPreferenceAdapter.ViewHolder viewHolder =
                         (WifiSSIDPreferenceAdapter.ViewHolder) v.getTag();
-
+                String ssid = SSIDList.get(position).ssid;
+                if (!(ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE) ||
+                        ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))) {
+                    SSIDName.setText(ssid);
+                }
+                /*
                 viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
                 if (viewHolder.checkBox.isChecked()) {
@@ -167,6 +174,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 else {
                     removeSSID(SSIDList.get(position).ssid);
                 }
+                */
             }
 
         });
@@ -411,6 +419,34 @@ public class WifiSSIDPreference extends DialogPreference {
             return GUIData.collator.compare(lhs.ssid, rhs.ssid);
         }
 
+    }
+
+    public void showEditMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context context = view.getContext();
+        PopupMenu popup = new PopupMenu(context, view);
+        new MenuInflater(context).inflate(R.menu.wifi_ssid_pref_dlg_item_edit, popup.getMenu());
+
+        final int cellId = (int)view.getTag();
+        final Context _context = context;
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            public boolean onMenuItemClick(android.view.MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.wifi_ssif_pref_dlg_item_menu_change:
+                        return true;
+                    case R.id.wifi_ssid_pref_dlg_item_menu_delete:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
+        popup.show();
     }
 
 }

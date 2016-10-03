@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -41,10 +42,11 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
     }
     
     static class ViewHolder {
-          TextView bluetoothName;
-          CheckBox checkBox;
-          int position;
-        }
+        TextView bluetoothName;
+        CheckBox checkBox;
+        ImageView itemEditMenu;
+        int position;
+    }
 
     public View getView(final int position, View convertView, ViewGroup parent)
     {
@@ -61,6 +63,7 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
             holder = new ViewHolder();
             holder.bluetoothName = (TextView)vi.findViewById(R.id.bluetooth_name_pref_dlg_item_label);
             holder.checkBox = (CheckBox) vi.findViewById(R.id.bluetooth_name_pref_dlg_item_checkbox);
+            holder.itemEditMenu = (ImageView)  vi.findViewById(R.id.bluetooth_name_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         }
         else
@@ -107,6 +110,18 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
             }
         });
 
+        if (!bluetoothDevice.custom)
+            holder.itemEditMenu.setVisibility(View.GONE);
+        else
+            holder.itemEditMenu.setVisibility(View.VISIBLE);
+        holder.itemEditMenu.setTag(position);
+        final ImageView itemEditMenu = holder.itemEditMenu;
+        holder.itemEditMenu.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                preference.showEditMenu(itemEditMenu);
+            }
+        });
 
         return vi;
     }

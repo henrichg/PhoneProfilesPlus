@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -165,7 +167,12 @@ public class BluetoothNamePreference extends DialogPreference {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 BluetoothNamePreferenceAdapter.ViewHolder viewHolder =
                         (BluetoothNamePreferenceAdapter.ViewHolder) v.getTag();
-
+                String btName = bluetoothList.get(position).getName();
+                if (!(btName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE) ||
+                      btName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))) {
+                    bluetoothName.setText(btName);
+                }
+                /*
                 viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
                 if (viewHolder.checkBox.isChecked()) {
@@ -174,6 +181,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 else {
                     removeBluetoothName(bluetoothList.get(position).getName());
                 }
+                */
             }
 
         });
@@ -433,6 +441,34 @@ public class BluetoothNamePreference extends DialogPreference {
             return GUIData.collator.compare(lhs.getName(), rhs.getName());
         }
 
+    }
+
+    public void showEditMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context context = view.getContext();
+        PopupMenu popup = new PopupMenu(context, view);
+        new MenuInflater(context).inflate(R.menu.bluetooth_name_pref_dlg_item_edit, popup.getMenu());
+
+        final int cellId = (int)view.getTag();
+        final Context _context = context;
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            public boolean onMenuItemClick(android.view.MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.bluetooth_name_pref_dlg_item_menu_change:
+                        return true;
+                    case R.id.bluetooth_name_pref_dlg_item_menu_delete:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
+        popup.show();
     }
 
 }
