@@ -99,6 +99,7 @@
                     android:layout_toLeftOf = "@+id/wifi_ssid_pref_dlg_addIcon"
                     android:layout_toStartOf = "@+id/wifi_ssid_pref_dlg_addIcon"
                     android:selectAllOnFocus="true"
+                    android:hint="@string/event_preferences_wifi_ssid"
                     android:inputType="textNoSuggestions" />
 
             </RelativeLayout>

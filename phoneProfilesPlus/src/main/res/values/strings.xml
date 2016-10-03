@@ -813,4 +813,6 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Mobile cells registration</string>
     <string name="wifi_ssid_pref_dlg_configured_ssids_chb">All SSIDs configured in system</string>
     <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">All Bluetooth names configured in system</string>
+    <string name="wifi_ssid_pref_dlg_all_ssids_chb">All SSIDs</string>
+    <string name="bluetooth_name_pref_dlg_all_bt_names_chb">All Bluetooth names</string>
 </resources>

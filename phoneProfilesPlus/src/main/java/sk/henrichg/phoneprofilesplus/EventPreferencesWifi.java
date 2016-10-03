@@ -28,6 +28,7 @@ public class EventPreferencesWifi extends EventPreferences {
     static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
 
     static final String CONFIGURED_SSIDS_VALUE = "^configured_ssids^";
+    static final String ALL_SSIDS_VALUE = "%";
 
     public EventPreferencesWifi(Event event,
                                     boolean enabled,
@@ -97,11 +98,13 @@ public class EventPreferencesWifi extends EventPreferences {
                 }
                 else
                 if (splits.length == 1) {
-                    if (_ssid.equals(CONFIGURED_SSIDS_VALUE)) {
+                    if (_ssid.equals(ALL_SSIDS_VALUE))
+                        selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                    else
+                    if (_ssid.equals(CONFIGURED_SSIDS_VALUE))
                         selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
-                    } else {
+                    else
                         selectedSSIDs = selectedSSIDs + _ssid;
-                    }
                 }
                 else {
                     selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
@@ -136,11 +139,13 @@ public class EventPreferencesWifi extends EventPreferences {
                     }
                     else
                     if (splits.length == 1) {
-                        if (_ssid.equals(CONFIGURED_SSIDS_VALUE)) {
+                        if (_ssid.equals(ALL_SSIDS_VALUE))
+                            preference.setSummary(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                        else
+                        if (_ssid.equals(CONFIGURED_SSIDS_VALUE))
                             preference.setSummary(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
-                        } else {
+                        else
                             preference.setSummary(_ssid);
-                        }
                     }
                     else {
                         String selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);

@@ -99,6 +99,7 @@
                     android:layout_toLeftOf = "@+id/bluetooth_name_pref_dlg_addIcon"
                     android:layout_toStartOf = "@+id/bluetooth_name_pref_dlg_addIcon"
                     android:selectAllOnFocus="true"
+                    android:hint="@string/event_preferences_bluetooth_adapter_name"
                     android:inputType="textNoSuggestions" />
 
 

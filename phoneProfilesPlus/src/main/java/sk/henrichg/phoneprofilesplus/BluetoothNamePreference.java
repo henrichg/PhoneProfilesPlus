@@ -7,6 +7,8 @@ import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +36,7 @@ public class BluetoothNamePreference extends DialogPreference {
 
     private String value;
     public List<BluetoothDeviceData> bluetoothList = null;
+    private List<BluetoothDeviceData> customBluetoothList = null;
 
     Context context;
 
@@ -40,6 +44,7 @@ public class BluetoothNamePreference extends DialogPreference {
     private LinearLayout progressLinearLayout;
     private RelativeLayout dataRelativeLayout;
     private EditText bluetoothName;
+    private ImageView addIcon;
     private ListView bluetoothListView;
     private BluetoothNamePreferenceAdapter listAdapter;
 
@@ -51,6 +56,7 @@ public class BluetoothNamePreference extends DialogPreference {
         this.context = context;
         
         bluetoothList = new ArrayList<BluetoothDeviceData>();
+        customBluetoothList = new ArrayList<BluetoothDeviceData>();
 
         GlobalData.loadPreferences(context);
     }
@@ -108,7 +114,46 @@ public class BluetoothNamePreference extends DialogPreference {
         progressLinearLayout = (LinearLayout) layout.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
         dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
 
+        addIcon = (ImageView)layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
+        addIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String btName = bluetoothName.getText().toString();
+                addBluetoothName(btName);
+                boolean found = false;
+                for (BluetoothDeviceData customBtNameData : customBluetoothList) {
+                    if (customBtNameData.getName().equals(btName)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    if (android.os.Build.VERSION.SDK_INT >= 18)
+                        customBluetoothList.add(new BluetoothDeviceData(btName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true));
+                    else
+                        customBluetoothList.add(new BluetoothDeviceData(btName, "", 0, true));
+                }
+                refreshListView(false);
+            }
+        });
+
         bluetoothName = (EditText) layout.findViewById(R.id.bluetooth_name_pref_dlg_bt_name);
+        bluetoothName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                addIcon.setEnabled(!bluetoothName.getText().toString().isEmpty());
+            }
+        });
+
+        addIcon.setEnabled(!bluetoothName.getText().toString().isEmpty());
 
         bluetoothListView = (ListView) layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
         listAdapter = new BluetoothNamePreferenceAdapter(context, this);
@@ -131,15 +176,6 @@ public class BluetoothNamePreference extends DialogPreference {
                 }
             }
 
-        });
-
-        final ImageView addIcon = (ImageView)layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);
-        addIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addBluetoothName(bluetoothName.getText().toString());
-                refreshListView(false);
-            }
         });
 
         mBuilder.customView(layout, false);
@@ -274,7 +310,14 @@ public class BluetoothNamePreference extends DialogPreference {
                     ScannerService.waitForForceOneBluetoothScanEnd(context, this);
                 }
 
-                bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
+                if (android.os.Build.VERSION.SDK_INT >= 18) {
+                    bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
+                    bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
+                }
+                else {
+                    bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", 0, false));
+                    bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false));
+                }
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
                 if (boundedDevicesList != null)
@@ -307,6 +350,27 @@ public class BluetoothNamePreference extends DialogPreference {
                     }
                 }
 
+                // add custom Bluetooth names
+                for (BluetoothDeviceData customBTName : customBluetoothList)
+                {
+                    if (customBTName.getName() != null) {
+                        boolean exists = false;
+                        for (BluetoothDeviceData btNameData : bluetoothList)
+                        {
+                            if (customBTName.getName().equals(btNameData.getName())) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists) {
+                            if (android.os.Build.VERSION.SDK_INT >= 18)
+                                bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", BluetoothDevice.DEVICE_TYPE_DUAL, true));
+                            else
+                                bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", 0, true));
+                        }
+                    }
+                }
+
                 // add all from value
                 boolean found;
                 String[] splits = value.split("\\|");
@@ -320,7 +384,14 @@ public class BluetoothNamePreference extends DialogPreference {
                             }
                         }
                         if (!found) {
-                            bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
+                            if (android.os.Build.VERSION.SDK_INT >= 18) {
+                                bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true));
+                                customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true));
+                            }
+                            else {
+                                bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true));
+                                customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true));
+                            }
                         }
                     }
                 }

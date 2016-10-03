@@ -33,6 +33,7 @@ public class EventPreferencesBluetooth extends EventPreferences {
     static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategory";
 
     static final String CONFIGURED_BLUETOOTH_NAMES_VALUE = "^configured_bluetooth_names^";
+    static final String ALL_BLUETOOTH_NAMES_VALUE = "%";
 
     public EventPreferencesBluetooth(Event event,
                                     boolean enabled,
@@ -107,9 +108,11 @@ public class EventPreferencesBluetooth extends EventPreferences {
                 }
                 else
                 if (splits.length == 1) {
-                    if (_bluetoothName.equals(CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
+                    if (_bluetoothName.equals(ALL_BLUETOOTH_NAMES_VALUE))
+                        selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
+                    else
+                    if (_bluetoothName.equals(CONFIGURED_BLUETOOTH_NAMES_VALUE))
                         selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
-                    }
                     else {
                         if ((this._connectionType == CTYPE_INFRONT) || (this._connectionType == CTYPE_NOTINFRONT)) {
                             if (ScannerService.bluetoothLESupported(context)) {
@@ -155,6 +158,9 @@ public class EventPreferencesBluetooth extends EventPreferences {
                     }
                     else
                     if (splits.length == 1) {
+                        if (value.equals(ALL_BLUETOOTH_NAMES_VALUE))
+                            preference.setSummary(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
+                        else
                         if (value.equals(CONFIGURED_BLUETOOTH_NAMES_VALUE))
                             preference.setSummary(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
                         else

@@ -1932,6 +1932,10 @@ public class DataWrapper {
 
                     String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
                     for (String _ssid : splits) {
+                        if (_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)){
+                            wifiPassed = true;
+                        }
+                        else
                         if (_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)){
                             for (WifiSSIDData data : wifiConfigurationList) {
                                 wifiPassed = WifiScanAlarmBroadcastReceiver.compareSSID(wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
@@ -1999,6 +2003,11 @@ public class DataWrapper {
                             //GlobalData.logE("@@@x DataWrapper.doEventService","wifiBSSID="+result.BSSID);
                             String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
                             for (String _ssid : splits) {
+                                if (_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
+                                    wifiPassed = true;
+                                    break;
+                                }
+                                else
                                 if (_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
                                     //GlobalData.logE("@@@x DataWrapper.doEventService","scanned SSID="+result.ssid);
                                     //GlobalData.logE("@@@x DataWrapper.doEventService", "all configured");
@@ -2022,6 +2031,8 @@ public class DataWrapper {
                                     }
                                 }
                             }
+                            if (wifiPassed)
+                                break;
                         }
 
                         if (!wifiPassed)
@@ -2110,6 +2121,11 @@ public class DataWrapper {
                     boolean connected = false;
                     String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
                     for (String _bluetoothName : splits) {
+                        if (_bluetoothName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE)) {
+                            connected = true;
+                            break;
+                        }
+                        else
                         if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
                             for (BluetoothDeviceData data : boundedDevicesList) {
                                 connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(context, data.getName());
@@ -2182,6 +2198,11 @@ public class DataWrapper {
                         {
                             String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
                             for (String _bluetoothName : splits) {
+                                if (_bluetoothName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE)) {
+                                    bluetoothPassed = true;
+                                    break;
+                                }
+                                else
                                 if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
                                     for (BluetoothDeviceData data : boundedDevicesList) {
                                         String _device = device.getName().toUpperCase();

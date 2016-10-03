@@ -6,6 +6,8 @@ import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ public class WifiSSIDPreference extends DialogPreference {
 
     private String value;
     public List<WifiSSIDData> SSIDList = null;
+    private List<WifiSSIDData> customSSIDList = null;
 
     Context context;
 
@@ -40,6 +43,7 @@ public class WifiSSIDPreference extends DialogPreference {
     private LinearLayout progressLinearLayout;
     private RelativeLayout dataRelativeLayout;
     private EditText SSIDName;
+    private ImageView addIcon;
     private ListView SSIDListView;
     private WifiSSIDPreferenceAdapter listAdapter;
 
@@ -51,6 +55,7 @@ public class WifiSSIDPreference extends DialogPreference {
         this.context = context;
         
         SSIDList = new ArrayList<WifiSSIDData>();
+        customSSIDList = new ArrayList<WifiSSIDData>();
     }
 
     @Override
@@ -106,7 +111,42 @@ public class WifiSSIDPreference extends DialogPreference {
         progressLinearLayout = (LinearLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
         dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
 
+        addIcon = (ImageView)layout.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
+        addIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ssid = SSIDName.getText().toString();
+                addSSID(ssid);
+                boolean found = false;
+                for (WifiSSIDData customSSIDData : customSSIDList) {
+                    if (customSSIDData.ssid.equals(ssid)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                    customSSIDList.add(new WifiSSIDData(ssid, "", true));
+                refreshListView(false);
+            }
+        });
+
         SSIDName = (EditText) layout.findViewById(R.id.wifi_ssid_pref_dlg_bt_name);
+        SSIDName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                addIcon.setEnabled(!SSIDName.getText().toString().isEmpty());
+            }
+        });
+
+        addIcon.setEnabled(!SSIDName.getText().toString().isEmpty());
 
         SSIDListView = (ListView) layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
         listAdapter = new WifiSSIDPreferenceAdapter(context, this);
@@ -129,15 +169,6 @@ public class WifiSSIDPreference extends DialogPreference {
                 }
             }
 
-        });
-
-        ImageView addIcon = (ImageView)layout.findViewById(R.id.wifi_ssid_pref_dlg_addIcon);
-        addIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addSSID(SSIDName.getText().toString());
-                refreshListView(false);
-            }
         });
 
         mBuilder.customView(layout, false);
@@ -272,6 +303,7 @@ public class WifiSSIDPreference extends DialogPreference {
                     ScannerService.waitForWifiScanEnd(context, this);
                 }
 
+                SSIDList.add(new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, "", false));
                 SSIDList.add(new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, "", false));
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
@@ -306,6 +338,23 @@ public class WifiSSIDPreference extends DialogPreference {
                     }
                 }
 
+                // add custom SSIDs
+                for (WifiSSIDData customSSID : customSSIDList)
+                {
+                    if (customSSID.ssid != null) {
+                        boolean exists = false;
+                        for (WifiSSIDData ssidData : SSIDList)
+                        {
+                            if (customSSID.ssid.equals(ssidData.ssid)) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists)
+                            SSIDList.add(new WifiSSIDData(customSSID.ssid, customSSID.bssid, true));
+                    }
+                }
+
                 // add all from value
                 boolean found;
                 String[] splits = value.split("\\|");
@@ -320,6 +369,7 @@ public class WifiSSIDPreference extends DialogPreference {
                         }
                         if (!found) {
                             SSIDList.add(new WifiSSIDData(_ssid, "", true));
+                            customSSIDList.add(new WifiSSIDData(_ssid, "", true));
                         }
                     }
                 }

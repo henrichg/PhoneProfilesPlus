@@ -67,6 +67,9 @@ public class WifiSSIDPreferenceAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
+        if (wifiSSID.ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE))
+            holder.SSIDName.setText(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+        else
         if (wifiSSID.ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))
             holder.SSIDName.setText(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
         else
