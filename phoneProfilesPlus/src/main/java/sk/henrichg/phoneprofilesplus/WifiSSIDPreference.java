@@ -292,8 +292,10 @@ public class WifiSSIDPreference extends DialogPreference {
             {
                 super.onPreExecute();
 
-                dataRelativeLayout.setVisibility(View.GONE);
-                progressLinearLayout.setVisibility(View.VISIBLE);
+                if (_forRescan) {
+                    dataRelativeLayout.setVisibility(View.GONE);
+                    progressLinearLayout.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -329,19 +331,25 @@ public class WifiSSIDPreference extends DialogPreference {
                 {
                     for (WifiSSIDData scanResult : scanResults)
                     {
+                        Log.d("WifiSSIDPreference.refreshListView","scanResult.ssid="+scanResult.ssid);
                         if (!WifiScanAlarmBroadcastReceiver.getSSID(scanResult, wifiConfigurationList).isEmpty())
                         {
+                            Log.d("WifiSSIDPreference.refreshListView","not empty");
                             boolean exists = false;
                             for (WifiSSIDData ssidData : SSIDList)
                             {
-                                if (WifiScanAlarmBroadcastReceiver.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList))
-                                {
-                                    exists = true;
-                                    break;
+                                if (!ssidData.ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
+                                    if (WifiScanAlarmBroadcastReceiver.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList)) {
+                                        Log.d("WifiSSIDPreference.refreshListView", "exists");
+                                        exists = true;
+                                        break;
+                                    }
                                 }
                             }
-                            if (!exists)
+                            if (!exists) {
+                                Log.d("WifiSSIDPreference.refreshListView","not exists");
                                 SSIDList.add(new WifiSSIDData(WifiScanAlarmBroadcastReceiver.getSSID(scanResult, wifiConfigurationList), scanResult.bssid, false));
+                            }
                         }
                     }
                 }
@@ -393,8 +401,11 @@ public class WifiSSIDPreference extends DialogPreference {
                 super.onPostExecute(result);
 
                 listAdapter.notifyDataSetChanged();
-                progressLinearLayout.setVisibility(View.GONE);
-                dataRelativeLayout.setVisibility(View.VISIBLE);
+
+                if (_forRescan) {
+                    progressLinearLayout.setVisibility(View.GONE);
+                    dataRelativeLayout.setVisibility(View.VISIBLE);
+                }
 
                 /*
                 for (int position = 0; position < SSIDList.size() - 1; position++) {
@@ -428,16 +439,51 @@ public class WifiSSIDPreference extends DialogPreference {
         PopupMenu popup = new PopupMenu(context, view);
         new MenuInflater(context).inflate(R.menu.wifi_ssid_pref_dlg_item_edit, popup.getMenu());
 
-        final int cellId = (int)view.getTag();
-        final Context _context = context;
+        int ssidPos = (int)view.getTag();
+        final String ssid = SSIDList.get(ssidPos).ssid;
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.wifi_ssif_pref_dlg_item_menu_change:
+                        String[] splits = value.split("\\|");
+                        value = "";
+                        boolean found = false;
+                        for (String _ssid : splits) {
+                            if (!_ssid.isEmpty()) {
+                                if (!_ssid.equals(ssid)) {
+                                    if (!value.isEmpty())
+                                        value = value + "|";
+                                    value = value + _ssid;
+                                } else
+                                    found = true;
+                            }
+                        }
+                        if (found) {
+                            if (!value.isEmpty())
+                                value = value + "|";
+                            value = value + SSIDName.getText().toString();
+                        }
+                        for (WifiSSIDData customSSID : customSSIDList)
+                        {
+                            if (customSSID.ssid.equals(ssid)) {
+                                customSSID.ssid = SSIDName.getText().toString();
+                                break;
+                            }
+                        }
+                        refreshListView(false);
                         return true;
                     case R.id.wifi_ssid_pref_dlg_item_menu_delete:
+                        removeSSID(ssid);
+                        for (WifiSSIDData customSSID : customSSIDList)
+                        {
+                            if (customSSID.ssid.equals(ssid)) {
+                                customSSIDList.remove(customSSID);
+                                break;
+                            }
+                        }
+                        refreshListView(false);
                         return true;
                     default:
                         return false;
