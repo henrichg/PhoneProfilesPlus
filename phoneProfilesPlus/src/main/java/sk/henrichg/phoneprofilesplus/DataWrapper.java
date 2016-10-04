@@ -467,7 +467,7 @@ public class DataWrapper {
         Profile profile = getProfileById(profile_id, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
-                startupSource, interactive, null, true, false)) {
+                startupSource, interactive, null, true, true)) {
             getActivateProfileHelper().initialize(this, null, context);
             _activateProfile(profile, merged, startupSource, interactive, null, log);
         }
