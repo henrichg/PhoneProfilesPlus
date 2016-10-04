@@ -27,6 +27,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -2363,8 +2364,11 @@ public class DataWrapper {
             locationPassed = false;
 
             String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
+            Log.d("DataWrapper.doEventService", "geofences="+event._eventPreferencesLocation._geofences);
             for (String _geofence : splits) {
                 if (!_geofence.isEmpty()) {
+                    Log.d("DataWrapper.doEventService", "geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
+
                     int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
 
                     if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
@@ -2373,6 +2377,7 @@ public class DataWrapper {
                     }
                 }
             }
+            Log.d("DataWrapper.doEventService", "locationPassed="+locationPassed);
 
             if (event._eventPreferencesLocation._whenOutside)
                 locationPassed = !locationPassed;
