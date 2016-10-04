@@ -44,7 +44,7 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
         if (profile_id != 0) {
             Profile profile = dataWrapper.getProfileById(profile_id, false);
             if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
-                    true, false, 0, GlobalData.STARTUP_SOURCE_EXTERNAL_APP, true, this, true, false)) {
+                    true, false, 0, GlobalData.STARTUP_SOURCE_EXTERNAL_APP, true, this, true, true)) {
                 dataWrapper._activateProfile(profile, false, GlobalData.STARTUP_SOURCE_EXTERNAL_APP, true, this, true);
             }
         }
