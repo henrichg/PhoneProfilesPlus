@@ -69,6 +69,7 @@
                     android:src="@drawable/ic_action_location_add"
                     android:background="?attr/selectableItemBackground" />
 
+                <!--
                 <TextView
                     android:id="@+id/location_pref_dlg_geofence_name"
                     android:layout_width="match_parent"
@@ -79,6 +80,7 @@
                     android:layout_toStartOf = "@+id/location_pref_dlg_add"
                     android:layout_centerVertical="true"
                     android:text="@string/empty_string" />
+                -->
 
             </RelativeLayout>
 

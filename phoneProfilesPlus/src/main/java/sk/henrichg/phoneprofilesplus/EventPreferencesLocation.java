@@ -9,11 +9,11 @@ import android.text.Html;
 
 public class EventPreferencesLocation extends EventPreferences {
 
-    public long _geofenceId;
+    public String _geofences;
     public boolean _whenOutside;
 
     static final String PREF_EVENT_LOCATION_ENABLED = "eventLocationEnabled";
-    static final String PREF_EVENT_LOCATION_GEOFENCE_ID = "eventLocationGeofenceId";
+    static final String PREF_EVENT_LOCATION_GEOFENCES = "eventLocationGeofences";
     static final String PREF_EVENT_LOCATION_WHEN_OUTSIDE = "eventLocationStartWhenOutside";
 
     static final String PREF_EVENT_LOCATION_CATEGORY = "eventLocationCategory";
@@ -22,12 +22,12 @@ public class EventPreferencesLocation extends EventPreferences {
 
     public EventPreferencesLocation(Event event,
                                     boolean enabled,
-                                    long geofenceId,
+                                    String geofences,
                                     boolean _whenOutside)
     {
         super(event, enabled);
 
-        this._geofenceId = geofenceId;
+        this._geofences = geofences;
         this._whenOutside = _whenOutside;
     }
 
@@ -35,7 +35,7 @@ public class EventPreferencesLocation extends EventPreferences {
     public void copyPreferences(Event fromEvent)
     {
         this._enabled = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._enabled;
-        this._geofenceId = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._geofenceId;
+        this._geofences = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._geofences;
         this._whenOutside = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._whenOutside;
     }
 
@@ -45,7 +45,7 @@ public class EventPreferencesLocation extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Editor editor = preferences.edit();
             editor.putBoolean(PREF_EVENT_LOCATION_ENABLED, _enabled);
-            editor.putLong(PREF_EVENT_LOCATION_GEOFENCE_ID, this._geofenceId);
+            editor.putString(PREF_EVENT_LOCATION_GEOFENCES, this._geofences);
             editor.putBoolean(PREF_EVENT_LOCATION_WHEN_OUTSIDE, this._whenOutside);
             editor.commit();
         //}
@@ -56,7 +56,7 @@ public class EventPreferencesLocation extends EventPreferences {
     {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             this._enabled = preferences.getBoolean(PREF_EVENT_LOCATION_ENABLED, false);
-            this._geofenceId = preferences.getLong(PREF_EVENT_LOCATION_GEOFENCE_ID, 0);
+            this._geofences = preferences.getString(PREF_EVENT_LOCATION_GEOFENCES, "");
             this._whenOutside = preferences.getBoolean(PREF_EVENT_LOCATION_WHEN_OUTSIDE, false);
         //}
     }
@@ -77,11 +77,23 @@ public class EventPreferencesLocation extends EventPreferences {
                 descr = descr + "<b>" + context.getString(R.string.event_type_locations) + ": " + "</b>";
             }
 
-            String selectedLocation = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (this._geofenceId != 0) {
-                selectedLocation = getGeofenceName(this._geofenceId, context);
+            String selectedLocations = "";
+            String[] splits = this._geofences.split("\\|");
+            for (String _geofence : splits) {
+                if (_geofence.isEmpty()) {
+                    selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                }
+                else
+                if (splits.length == 1) {
+                    selectedLocations = selectedLocations + getGeofenceName(Long.valueOf(_geofence), context);
+                }
+                else {
+                    selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
+                    selectedLocations = selectedLocations + " " + splits.length;
+                    break;
+                }
             }
-            descr = descr + selectedLocation;
+            descr = descr + selectedLocations;
             if (this._whenOutside)
                 descr = descr + "; " + context.getString(R.string.event_preferences_location_when_outside_description);
         }
@@ -92,41 +104,49 @@ public class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            if (key.equals(PREF_EVENT_LOCATION_GEOFENCE_ID)) {
-                Preference preference = prefMng.findPreference(key);
-                if (preference != null) {
-                    long lValue;
-                    if (!value.isEmpty())
-                        lValue = Long.valueOf(value);
+        if (key.equals(PREF_EVENT_LOCATION_GEOFENCES)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String[] splits = value.split("\\|");
+                for (String _geofence : splits) {
+                    if (_geofence.isEmpty()) {
+                        preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
+                    }
                     else
-                        lValue = 0;
-                    preference.setSummary(getGeofenceName(lValue, context));
-                    GUIData.setPreferenceTitleStyle(preference, false, true, false);
+                    if (splits.length == 1) {
+                        preference.setSummary(getGeofenceName(Long.valueOf(_geofence), context));
+                    }
+                    else {
+                        String selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        selectedLocations = selectedLocations + " " + splits.length;
+                        preference.setSummary(selectedLocations);
+                        break;
+                    }
                 }
+                GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
-        //}
+        }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_LOCATION_GEOFENCE_ID))
+        if (key.equals(PREF_EVENT_LOCATION_GEOFENCES))
         {
-            setSummary(prefMng, key, String.valueOf(preferences.getLong(key, 0)), context);
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
 
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
-        setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCE_ID, preferences, context);
+        setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
     }
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
-            EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofenceId, this._whenOutside);
+            EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofences, this._whenOutside);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -152,20 +172,18 @@ public class EventPreferencesLocation extends EventPreferences {
 
         boolean runable = super.isRunnable(context);
 
-        runable = runable && (_geofenceId != 0);
+        runable = runable && (!_geofences.isEmpty());
 
         return runable;
     }
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext());
-            Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCE_ID);
-            if (preference != null) preference.setEnabled(enabled);
+        final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext());
+        Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
+        if (preference != null) preference.setEnabled(enabled);
             preference = prefMng.findPreference(PREF_EVENT_LOCATION_WHEN_OUTSIDE);
         if (preference != null) preference.setEnabled(enabled);
-        //}
     }
 
     @Override

@@ -195,7 +195,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                             PhoneProfilesService.instance.geofencesScanner.connectForResolve();
                     }
 
-                    dataWrapper.getDatabaseHandler().checkGeofence(geofence._id);
+                    dataWrapper.getDatabaseHandler().checkGeofence(String.valueOf(geofence._id), 1);
 
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, geofence._id);

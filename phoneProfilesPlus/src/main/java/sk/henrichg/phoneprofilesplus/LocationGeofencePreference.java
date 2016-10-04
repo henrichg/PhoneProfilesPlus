@@ -30,7 +30,7 @@ public class LocationGeofencePreference extends DialogPreference {
     private MaterialDialog mDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
-    private TextView geofenceName;
+    //private TextView geofenceName;
     private ListView geofencesListView;
     private LocationGeofencesPreferenceAdapter listAdapter;
 
@@ -57,9 +57,9 @@ public class LocationGeofencePreference extends DialogPreference {
     protected void showDialog(Bundle state) {
 
         if (onlyEdit == 0) {
-            long value = 0;
-            value = getPersistedLong(value);
-            dataWrapper.getDatabaseHandler().checkGeofence(value);
+            String value = "";
+            value = getPersistedString(value);
+            dataWrapper.getDatabaseHandler().checkGeofence(value, 1);
         }
 
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
@@ -102,8 +102,8 @@ public class LocationGeofencePreference extends DialogPreference {
         //progressLinearLayout = (LinearLayout) layout.findViewById(R.id.location_pref_dlg_linla_progress);
         //dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.location_pref_dlg_rella_data);
 
-        geofenceName = (TextView) layout.findViewById(R.id.location_pref_dlg_geofence_name);
-        updateGUIWithGeofence(dataWrapper.getDatabaseHandler().getCheckedGeofence());
+        //geofenceName = (TextView) layout.findViewById(R.id.location_pref_dlg_geofence_name);
+        //updateGUIWithGeofence(dataWrapper.getDatabaseHandler().getCheckedGeofences());
 
         AppCompatImageButton addButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_add);
 
@@ -130,9 +130,9 @@ public class LocationGeofencePreference extends DialogPreference {
 
                 long gid = (long) viewHolder.geofenceId;
                 if (onlyEdit == 0) {
-                    dataWrapper.getDatabaseHandler().checkGeofence(gid);
+                    dataWrapper.getDatabaseHandler().checkGeofence(String.valueOf(gid), 2);
                     //viewHolder.radioButton.setChecked(true);
-                    updateGUIWithGeofence(gid);
+                    //updateGUIWithGeofence(gid);
                     refreshListView();
                 }
                 else {
@@ -185,7 +185,7 @@ public class LocationGeofencePreference extends DialogPreference {
     @Override
     public void onDismiss(DialogInterface dialog)
     {
-        dataWrapper.getDatabaseHandler().checkGeofence(0);
+        dataWrapper.getDatabaseHandler().checkGeofence("", 0);
     }
 
     @Override
@@ -199,13 +199,13 @@ public class LocationGeofencePreference extends DialogPreference {
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
         if (onlyEdit == 0) {
             if (restoreValue) {
-                long value = 0;
-                value = getPersistedLong(value);
-                dataWrapper.getDatabaseHandler().checkGeofence(value);
+                String value = "";
+                value = getPersistedString(value);
+                dataWrapper.getDatabaseHandler().checkGeofence(value, 1);
             } else {
-                long value = (long) defaultValue;
-                persistLong(value);
-                dataWrapper.getDatabaseHandler().checkGeofence(value);
+                String value = (String) defaultValue;
+                persistString(value);
+                dataWrapper.getDatabaseHandler().checkGeofence(value, 1);
             }
         }
     }    
@@ -213,16 +213,17 @@ public class LocationGeofencePreference extends DialogPreference {
     private void persistGeofence(boolean reset) {
         if (onlyEdit == 0) {
             if (shouldPersist()) {
-                long value = dataWrapper.getDatabaseHandler().getCheckedGeofence();
+                String value = dataWrapper.getDatabaseHandler().getCheckedGeofences();
                 if (callChangeListener(value)) {
                     if (reset)
-                        persistLong(0);
-                    persistLong(value);
+                        persistString("");
+                    persistString(value);
                 }
             }
         }
     }
 
+    /*
     public void updateGUIWithGeofence(long geofenceId)
     {
         String name = "";
@@ -234,15 +235,11 @@ public class LocationGeofencePreference extends DialogPreference {
 
         this.geofenceName.setText(name);
     }
+    */
     
     public void refreshListView()
     {
-        long value = dataWrapper.getDatabaseHandler().getCheckedGeofence();
-        int position = dataWrapper.getDatabaseHandler().getGeofencePosition(value);
         listAdapter.reload(dataWrapper);
-        if (position > -1)
-            position = 0;
-        geofencesListView.setSelection(position);
     }
 
     private void startEditor(long geofenceId) {
@@ -264,7 +261,7 @@ public class LocationGeofencePreference extends DialogPreference {
         //Log.d("LocationGeofencePreference.setGeofenceFromEditor", "geofenceId=" + geofenceId);
         persistGeofence(true);
         refreshListView();
-        updateGUIWithGeofence(geofenceId);
+        //updateGUIWithGeofence(geofenceId);
     }
 
     public void showEditMenu(View view)
@@ -289,7 +286,7 @@ public class LocationGeofencePreference extends DialogPreference {
                             if (!dataWrapper.getDatabaseHandler().isGeofenceUsed(geofenceId, false)) {
                                 dataWrapper.getDatabaseHandler().deleteGeofence(geofenceId);
                                 refreshListView();
-                                updateGUIWithGeofence(0);
+                                //updateGUIWithGeofence(0);
                                 if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                     // stop location updates
                                     if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())

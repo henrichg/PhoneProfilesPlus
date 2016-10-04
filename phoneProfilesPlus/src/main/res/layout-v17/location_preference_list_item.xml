@@ -32,8 +32,8 @@
         android:layout_centerVertical="true" >
 
 
-        <RadioButton
-            android:id="@+id/location_pref_dlg_item_radiobtn"
+        <CheckBox
+            android:id="@+id/location_pref_dlg_item_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -46,7 +46,7 @@
             android:id="@+id/location_pref_dlg_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/location_pref_dlg_item_radiobtn"
+            android:layout_toEndOf="@+id/location_pref_dlg_item_checkBox"
             android:layout_centerVertical="true"
             android:paddingStart="3dp"
             android:text="@string/empty_string" />

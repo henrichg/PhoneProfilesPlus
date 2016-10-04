@@ -222,6 +222,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             if (EventPreferencesFragment.changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
                     long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
+                    // this persistGeofence, for multislelect this mus only refresh listView in preference
                     EventPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor(geofenceId);
                 }
             }

@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -51,9 +52,9 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         ViewHolder rowData  = new ViewHolder();
 
         if (preference.onlyEdit == 0)
-            rowData.radioButton = (RadioButton) view.findViewById(R.id.location_pref_dlg_item_radiobtn);
+            rowData.checkBox = (CheckBox) view.findViewById(R.id.location_pref_dlg_item_checkBox);
         else
-            rowData.radioButton = null;
+            rowData.checkBox = null;
         rowData.name  = (TextView) view.findViewById(R.id.location_pref_dlg_item_name);
         rowData.itemEditMenu = (ImageView) view.findViewById(R.id.location_pref_dlg_item_edit_menu);
 
@@ -78,36 +79,24 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         rowData.geofenceId = id;
 
         if (preference.onlyEdit == 0) {
-            rowData.radioButton.setChecked(checked);
-            rowData.radioButton.setTag(id);
+            rowData.checkBox.setChecked(checked);
+            rowData.checkBox.setTag(id);
         }
         if (preference.dataWrapper.getDatabaseHandler().isGeofenceUsed(id, false))
             rowData.name.setTypeface(null, Typeface.BOLD);
         else
             rowData.name.setTypeface(null, Typeface.NORMAL);
         rowData.name.setText(cursor.getString(KEY_G_NAME));
-        //if (checked) {
-        //    selectedRB = rowData.radioButton;
-        //    Log.d("LocationGeofencesPreferenceAdapter.getView", "checked id=" + id);
-        //}
 
         if (preference.onlyEdit == 0) {
-            rowData.radioButton.setOnClickListener(new View.OnClickListener() {
+            rowData.checkBox.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    RadioButton rb = (RadioButton) v;
+                    CheckBox chb = (CheckBox) v;
 
-                /*
-                if (selectedRB != null) {
-                    selectedRB.setChecked(false);
-                }
-                selectedRB = rb;
-                */
+                    long id = (long) chb.getTag();
+                    preference.dataWrapper.getDatabaseHandler().checkGeofence(String.valueOf(id), 2);
 
-                    long id = (long) rb.getTag();
-                    preference.dataWrapper.getDatabaseHandler().checkGeofence(id);
-
-                    //rowData.radioButton.setChecked(true);
-                    preference.updateGUIWithGeofence(id);
+                    //preference.updateGUIWithGeofence(id);
 
                     preference.refreshListView();
                 }
@@ -126,7 +115,7 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     }
 
     public static class ViewHolder {
-        RadioButton radioButton;
+        CheckBox checkBox;
         TextView name;
         ImageView itemEditMenu;
         long geofenceId;

@@ -2362,10 +2362,17 @@ public class DataWrapper {
         {
             locationPassed = false;
 
-            int geofenceTransition = getDatabaseHandler().getGeofenceTransition(event._eventPreferencesLocation._geofenceId);
+            String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
+            for (String _geofence : splits) {
+                if (!_geofence.isEmpty()) {
+                    int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
 
-            if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
-                locationPassed = true;
+                    if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
+                        locationPassed = true;
+                        break;
+                    }
+                }
+            }
 
             if (event._eventPreferencesLocation._whenOutside)
                 locationPassed = !locationPassed;

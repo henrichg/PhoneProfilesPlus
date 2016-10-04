@@ -268,7 +268,7 @@ public class Event {
 
     private void createEventPreferencesLocation()
     {
-        this._eventPreferencesLocation = new EventPreferencesLocation(this, false, 0, false);
+        this._eventPreferencesLocation = new EventPreferencesLocation(this, false, "", false);
     }
 
     private void createEventPreferencesOrientation()
