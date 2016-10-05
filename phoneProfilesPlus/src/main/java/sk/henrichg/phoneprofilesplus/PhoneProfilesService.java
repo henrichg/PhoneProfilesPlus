@@ -211,8 +211,8 @@ public class PhoneProfilesService extends Service
 
 
         // start service for first start
-        Intent eventsServiceIntent = new Intent(getApplicationContext(), FirstStartService.class);
-        getApplicationContext().startService(eventsServiceIntent);
+        Intent serviceIntent = new Intent(getApplicationContext(), FirstStartService.class);
+        getApplicationContext().startService(serviceIntent);
 
         // this starts also listeners!!!
         // but will by stopped when events not exists
