@@ -25,7 +25,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 if (PhoneProfilesService.instance != null) {
                     // stop PhoneProfilesService
                     context.stopService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
-                    GlobalData.sleep(500);
+                    GlobalData.sleep(2000);
                 }
 
                 // must by false for avoiding starts/pause events before restart events
