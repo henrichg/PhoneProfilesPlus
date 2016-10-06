@@ -24,6 +24,7 @@ public class Event {
 
     public long _id;
     public String _name;
+    public int _startOrder;
     public long _fkProfileStart;
     public long _fkProfileEnd;
     //public boolean _undoneProfile;
@@ -101,6 +102,7 @@ public class Event {
     // constructor
     public Event(long id,
                  String name,
+                 int startOrder,
                  long fkProfileStart,
                  long fkProfileEnd,
                  int status,
@@ -121,6 +123,7 @@ public class Event {
     {
         this._id = id;
         this._name = name;
+        this._startOrder = startOrder;
         this._fkProfileStart = fkProfileStart;
         this._fkProfileEnd = fkProfileEnd;
         this._status = status;
@@ -146,6 +149,7 @@ public class Event {
 
     // constructor
     public Event(String name,
+                 int startOrder,
                  long fkProfileStart,
                  long fkProfileEnd,
                  int status,
@@ -165,6 +169,7 @@ public class Event {
                  long pauseStatusTime)
     {
         this._name = name;
+        this._startOrder = startOrder;
         this._fkProfileStart = fkProfileStart;
         this._fkProfileEnd = fkProfileEnd;
         this._status = status;
@@ -190,6 +195,7 @@ public class Event {
     {
         this._id = event._id;
         this._name = event._name;
+        this._startOrder = event._startOrder;
         this._fkProfileStart = event._fkProfileStart;
         this._fkProfileEnd = event._fkProfileEnd;
         this._status = event._status;

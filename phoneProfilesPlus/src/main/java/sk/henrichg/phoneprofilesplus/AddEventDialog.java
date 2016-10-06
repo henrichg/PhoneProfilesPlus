@@ -35,7 +35,7 @@ public class AddEventDialog
         int monochromeValue = 0xFF;
 
         Event event;
-        event = eventListFragment.dataWrapper.getNoinitializedEvent(context.getResources().getString(R.string.event_name_default));
+        event = eventListFragment.dataWrapper.getNoinitializedEvent(context.getResources().getString(R.string.event_name_default), 0);
         //event.generatePreferencesIndicator(context, monochrome, monochromeValue);
         eventList.add(event);
         boolean profileNotExists = false;

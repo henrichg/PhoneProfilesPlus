@@ -47,7 +47,8 @@ public class EditorEventListAdapter extends BaseAdapter
         if (eventList == null)
             return 0;
 
-        if (filterType == EditorEventListFragment.FILTER_TYPE_ALL)
+        if ((filterType == EditorEventListFragment.FILTER_TYPE_ALL) ||
+                (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER))
             return eventList.size();
 
         int count = 0;
@@ -79,7 +80,8 @@ public class EditorEventListAdapter extends BaseAdapter
         else
         {
 
-            if (filterType == EditorEventListFragment.FILTER_TYPE_ALL)
+            if ((filterType == EditorEventListFragment.FILTER_TYPE_ALL) ||
+                    (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER))
                 return eventList.get(position);
 
             Event _event = null;
@@ -146,6 +148,7 @@ public class EditorEventListAdapter extends BaseAdapter
             switch (filterType)
             {
                 case EditorEventListFragment.FILTER_TYPE_ALL:
+                case EditorEventListFragment.FILTER_TYPE_START_ORDER:
                     ++pos;
                     break;
                 case EditorEventListFragment.FILTER_TYPE_RUNNING:
@@ -219,6 +222,21 @@ public class EditorEventListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
+    public void changeItemOrder(int from, int to)
+    {
+        if (eventList == null)
+            return;
+
+        // convert positions from adapter into eventList
+        int plFrom = eventList.indexOf(getItem(from));
+        int plTo = eventList.indexOf(getItem(to));
+
+        Event event = eventList.get(plFrom);
+        eventList.remove(plFrom);
+        eventList.add(plTo, event);
+        notifyDataSetChanged();
+    }
+
     static class ViewHolder {
           RelativeLayout listItemRoot;
           TextView eventName;
@@ -243,10 +261,18 @@ public class EditorEventListAdapter extends BaseAdapter
         if (convertView == null)
         {
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
-            if (GlobalData.applicationEditorPrefIndicator)
-                vi = inflater.inflate(R.layout.editor_event_list_item, parent, false);
-            else
-                vi = inflater.inflate(R.layout.editor_event_list_item_no_indicator, parent, false);
+            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+                if (GlobalData.applicationEditorPrefIndicator)
+                    vi = inflater.inflate(R.layout.editor_event_list_item_with_order, parent, false);
+                else
+                    vi = inflater.inflate(R.layout.editor_event_list_item_no_indicator_with_order, parent, false);
+            }
+            else {
+                if (GlobalData.applicationEditorPrefIndicator)
+                    vi = inflater.inflate(R.layout.editor_event_list_item, parent, false);
+                else
+                    vi = inflater.inflate(R.layout.editor_event_list_item_no_indicator, parent, false);
+            }
             holder = new ViewHolder();
             holder.listItemRoot = (RelativeLayout)vi.findViewById(R.id.event_list_item_root);
             holder.eventName = (TextView)vi.findViewById(R.id.event_list_item_event_name);

@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import com.mobeta.android.dslv.DragSortListView;
+
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,7 +33,7 @@ public class EditorEventListFragment extends Fragment {
     public DataWrapper dataWrapper;
     private List<Event> eventList;
     private EditorEventListAdapter eventListAdapter;
-    private ListView listView;
+    private DragSortListView listView;
     private DatabaseHandler databaseHandler;
 
     private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
@@ -49,10 +51,12 @@ public class EditorEventListFragment extends Fragment {
     public static final int FILTER_TYPE_RUNNING = 1;
     public static final int FILTER_TYPE_PAUSED = 2;
     public static final int FILTER_TYPE_STOPPED = 3;
+    public static final int FILTER_TYPE_START_ORDER = 4;
 
     public static final int ORDER_TYPE_EVENT_NAME = 0;
-    public static final int ORDER_TYPE_PROFILE_NAME = 1;
-    public static final int ORDER_TYPE_PRIORITY = 2;
+    public static final int ORDER_TYPE_START_ORDER = 1;
+    public static final int ORDER_TYPE_PROFILE_NAME = 2;
+    public static final int ORDER_TYPE_PRIORITY = 3;
 
     private int filterType = FILTER_TYPE_ALL;
     private int orderType = ORDER_TYPE_EVENT_NAME;
@@ -153,7 +157,7 @@ public class EditorEventListFragment extends Fragment {
         //super.onActivityCreated(savedInstanceState);
 
         // az tu mame layout, tak mozeme ziskat view-y
-        listView = (ListView)view.findViewById(R.id.editor_events_list);
+        listView = (DragSortListView) view.findViewById(R.id.editor_events_list);
         listView.setEmptyView(view.findViewById(R.id.editor_events_list_empty));
 
         /*
@@ -190,7 +194,10 @@ public class EditorEventListFragment extends Fragment {
         });
 
         LinearLayout orderLayout = (LinearLayout)getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
-        orderLayout.setVisibility(View.VISIBLE);
+        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
+            orderLayout.setVisibility(View.GONE);
+        else
+            orderLayout.setVisibility(View.VISIBLE);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -198,6 +205,13 @@ public class EditorEventListFragment extends Fragment {
                 startEventPreferencesActivity((Event) eventListAdapter.getItem(position), 0);
             }
 
+        });
+
+        listView.setDropListener(new DragSortListView.DropListener() {
+            public void drop(int from, int to) {
+                eventListAdapter.changeItemOrder(from, to); // swap profiles
+                databaseHandler.setEventStartOrder(eventList);  // set events _startOrder and write it into db
+            }
         });
 
         if (eventList == null)
@@ -216,10 +230,12 @@ public class EditorEventListFragment extends Fragment {
 
         private WeakReference<EditorEventListFragment> fragmentWeakRef;
         private DataWrapper dataWrapper;
+        private int filterType;
         private int orderType;
 
         private LoadEventListAsyncTask (EditorEventListFragment fragment, int orderType) {
             this.fragmentWeakRef = new WeakReference<EditorEventListFragment>(fragment);
+            this.filterType = filterType;
             this.orderType = orderType;
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
@@ -229,7 +245,10 @@ public class EditorEventListFragment extends Fragment {
             dataWrapper.getProfileList();
 
             List<Event> eventList = dataWrapper.getEventList();
-            EditorEventListFragment.sortList(eventList, orderType, dataWrapper);
+            if (filterType == FILTER_TYPE_START_ORDER)
+                EditorEventListFragment.sortList(eventList, FILTER_TYPE_START_ORDER, dataWrapper);
+            else
+                EditorEventListFragment.sortList(eventList, orderType, dataWrapper);
 
             return null;
         }
@@ -605,6 +624,13 @@ public class EditorEventListFragment extends Fragment {
             }
         }
 
+        class StartOrderComparator implements Comparator<Event> {
+            public int compare(Event lhs, Event rhs) {
+                int res = lhs._startOrder - rhs._startOrder;
+                return res;
+            }
+        }
+
         class ProfileNameComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
                 Profile profileLhs = dataWrapper.getProfileById(lhs._fkProfileStart, false);
@@ -631,6 +657,9 @@ public class EditorEventListFragment extends Fragment {
         {
             case ORDER_TYPE_EVENT_NAME:
                 Collections.sort(eventList, new EventNameComparator());
+                break;
+            case ORDER_TYPE_START_ORDER:
+                Collections.sort(eventList, new StartOrderComparator());
                 break;
             case ORDER_TYPE_PROFILE_NAME:
                 Collections.sort(eventList, new ProfileNameComparator());

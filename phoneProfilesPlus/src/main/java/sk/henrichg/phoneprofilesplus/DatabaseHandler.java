@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1710;
+    private static final int DATABASE_VERSION = 1720;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -142,6 +142,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_ID = "id";
     private static final String KEY_E_NAME = "name";
     private static final String KEY_E_TYPE = "type";
+    private static final String KEY_E_START_ORDER = "startOrder";
     private static final String KEY_E_FK_PROFILE_START = "fkProfile";
     private static final String KEY_E_STATUS = "status";
     private static final String KEY_E_START_TIME = "startTime";
@@ -469,7 +470,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_MOBILE_CELLS_ENABLED + " INTEGER,"
                 + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " INTEGER,"
                 + KEY_E_MOBILE_CELLS_CELLS + " TEXT,"
-                + KEY_E_LOCATION_GEOFENCES + " TEXT"
+                + KEY_E_LOCATION_GEOFENCES + " TEXT,"
+                + KEY_E_START_ORDER + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -477,6 +479,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX IDX_E_NAME ON " + TABLE_EVENTS + " (" + KEY_E_NAME + ")");
         db.execSQL("CREATE INDEX IDX_FK_PROFILE_END ON " + TABLE_EVENTS + " (" + KEY_E_FK_PROFILE_END + ")");
         db.execSQL("CREATE INDEX IDX_PRIORITY ON " + TABLE_EVENTS + " (" + KEY_E_PRIORITY + ")");
+        db.execSQL("CREATE INDEX IDX_START_ORDER ON " + TABLE_EVENTS + " (" + KEY_E_START_ORDER + ")");
 
         final String CREATE_EVENTTIME_TABLE = "CREATE TABLE " + TABLE_EVENT_TIMELINE + "("
                 + KEY_ET_ID + " INTEGER PRIMARY KEY,"
@@ -1779,6 +1782,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         }
 
+        if (oldVersion < 1720)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_START_ORDER + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_START_ORDER +  "=0");
+        }
+
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
 
     }
@@ -1789,7 +1801,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Adding new profile
     void addProfile(Profile profile, boolean merged) {
 
-        int porder = getMaxPOrder() + 1;
+        int porder = getMaxProfileOrder() + 1;
 
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2291,7 +2303,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting max(porder)
-    public int getMaxPOrder() {
+    public int getMaxProfileOrder() {
         String countQuery = "SELECT MAX("+KEY_PORDER+") FROM " + TABLE_PROFILES;
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2534,7 +2546,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void setPOrder(List<Profile> list)
+    public void setProfileOrder(List<Profile> list)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2675,11 +2687,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Adding new event
     void addEvent(Event event) {
 
+        int startOrder = getMaxEventStartOrder() + 1;
+
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_E_NAME, event._name); // Event Name
+        values.put(KEY_E_START_ORDER, startOrder); // start order
         values.put(KEY_E_FK_PROFILE_START, event._fkProfileStart); // profile start
         values.put(KEY_E_FK_PROFILE_END, event._fkProfileEnd); // profile end
         values.put(KEY_E_STATUS, event.getStatus()); // event status
@@ -2723,6 +2738,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_ID,
                         KEY_E_NAME,
+                        KEY_E_START_ORDER,
                         KEY_E_FK_PROFILE_START,
                         KEY_E_FK_PROFILE_END,
                         KEY_E_STATUS,
@@ -2754,22 +2770,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 event = new Event(Long.parseLong(cursor.getString(0)),
                                           cursor.getString(1),
-                                          Long.parseLong(cursor.getString(2)),
+                                          Integer.parseInt(cursor.getString(2)),
                                           Long.parseLong(cursor.getString(3)),
-                                          Integer.parseInt(cursor.getString(4)),
-                                          cursor.getString(5),
-                                          Integer.parseInt(cursor.getString(6)) == 1,
+                                          Long.parseLong(cursor.getString(4)),
+                                          Integer.parseInt(cursor.getString(5)),
+                                          cursor.getString(6),
                                           Integer.parseInt(cursor.getString(7)) == 1,
-                                          Integer.parseInt(cursor.getString(8)),
+                                          Integer.parseInt(cursor.getString(8)) == 1,
                                           Integer.parseInt(cursor.getString(9)),
-                                          Integer.parseInt(cursor.getString(10)) == 1,
-                                          Integer.parseInt(cursor.getString(11)),
-                                          Integer.parseInt(cursor.getString(12)) == 1,
-                                          Long.parseLong(cursor.getString(13)),
-                                          Integer.parseInt(cursor.getString(14)),
-                                          Integer.parseInt(cursor.getString(15)) == 1,
-                                          Long.parseLong(cursor.getString(16)),
-                                          Long.parseLong(cursor.getString(17))
+                                          Integer.parseInt(cursor.getString(10)),
+                                          Integer.parseInt(cursor.getString(11)) == 1,
+                                          Integer.parseInt(cursor.getString(12)),
+                                          Integer.parseInt(cursor.getString(13)) == 1,
+                                          Long.parseLong(cursor.getString(14)),
+                                          Integer.parseInt(cursor.getString(15)),
+                                          Integer.parseInt(cursor.getString(16)) == 1,
+                                          Long.parseLong(cursor.getString(17)),
+                                          Long.parseLong(cursor.getString(18))
                                           );
             }
 
@@ -2807,7 +2824,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                          KEY_E_DELAY_END + "," +
                                          KEY_E_IS_IN_DELAY_END + "," +
                                          KEY_E_START_STATUS_TIME + "," +
-                                         KEY_E_PAUSE_STATUS_TIME +
+                                         KEY_E_PAUSE_STATUS_TIME + "," +
+                                         KEY_E_START_ORDER +
                              " FROM " + TABLE_EVENTS +
                              " ORDER BY " + KEY_E_ID;
 
@@ -2838,6 +2856,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 event._isInDelayEnd = Integer.parseInt(cursor.getString(15)) == 1;
                 event._startStatusTime = Long.parseLong(cursor.getString(16));
                 event._pauseStatusTime = Long.parseLong(cursor.getString(17));
+                event._startOrder = Integer.parseInt(cursor.getString(18));
                 event.createEventPreferences();
                 getEventPreferences(event, db);
                 // Adding contact to list
@@ -2859,6 +2878,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_E_NAME, event._name);
+        values.put(KEY_E_START_ORDER, event._startOrder);
         values.put(KEY_E_FK_PROFILE_START, event._fkProfileStart);
         values.put(KEY_E_FK_PROFILE_END, event._fkProfileEnd);
         values.put(KEY_E_STATUS, event.getStatus());
@@ -2990,6 +3010,69 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // updating row
         db.update(TABLE_EVENTS, values, null, null);
+
+        //db.close();
+    }
+
+    // Getting max(startOrder)
+    public int getMaxEventStartOrder() {
+        String countQuery = "SELECT MAX("+KEY_E_START_ORDER+") FROM " + TABLE_EVENTS;
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        int r;
+
+        if (cursor.getCount() == 0)
+        {
+            r = 0;
+        }
+        else
+        {
+            if (cursor.moveToFirst())
+            {
+                r = cursor.getInt(0);
+            }
+            else
+            {
+                r = 0;
+            }
+        }
+
+        cursor.close();
+        //db.close();
+
+        return r;
+    }
+
+    public void setEventStartOrder(List<Event> list)
+    {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        db.beginTransaction();
+        try {
+
+            for (int i = 0; i < list.size(); i++)
+            {
+                Event event = list.get(i);
+                event._startOrder = i+1;
+
+                values.put(KEY_E_START_ORDER, event._startOrder);
+
+                db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                        new String[] { String.valueOf(event._id) });
+            }
+
+            db.setTransactionSuccessful();
+        } catch (Exception e){
+            //Error in between database transaction
+        } finally {
+            db.endTransaction();
+        }
 
         //db.close();
     }
@@ -6308,6 +6391,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         values.put(KEY_E_LOCATION_GEOFENCES, String.valueOf(geofenceId));
                                     else
                                         values.put(KEY_E_LOCATION_GEOFENCES, "");
+                                }
+
+                                if (exportedDBObj.getVersion() < 1720) {
+                                    values.put(KEY_E_START_ORDER, 0);
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper

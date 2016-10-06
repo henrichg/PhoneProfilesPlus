@@ -168,7 +168,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         {
             // create new event - default is TIME
             if (predefinedEventIndex == 0)
-                event = dataWrapper.getNoinitializedEvent(context.getString(R.string.event_name_default));
+                event = dataWrapper.getNoinitializedEvent(context.getString(R.string.event_name_default), 0);
             else
                 event = dataWrapper.getPredefinedEvent(predefinedEventIndex-1, false);
             showSaveMenu = true;
@@ -180,6 +180,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             Event origEvent = dataWrapper.getEventById(event_id);
             event = new Event(
                     origEvent._name+"_d",
+                    origEvent._startOrder,
                     origEvent._fkProfileStart,
                     origEvent._fkProfileEnd,
                     origEvent.getStatus(),

@@ -276,6 +276,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getResources().getString(R.string.editor_drawer_title_events),
                 getResources().getString(R.string.editor_drawer_title_events),
                 getResources().getString(R.string.editor_drawer_title_events),
+                getResources().getString(R.string.editor_drawer_title_events),
                 getResources().getString(R.string.editor_drawer_title_events)
               };
 
@@ -285,6 +286,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getResources().getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                 getResources().getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
                 getResources().getString(R.string.editor_drawer_list_item_events_all),
+                getResources().getString(R.string.editor_drawer_list_item_events_start_order),
                 getResources().getString(R.string.editor_drawer_list_item_events_running),
                 getResources().getString(R.string.editor_drawer_list_item_events_paused),
                 getResources().getString(R.string.editor_drawer_list_item_events_stopped)
@@ -294,6 +296,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 R.drawable.ic_events_drawer_profile_filter_2,
                 R.drawable.ic_events_drawer_profile_filter_0,
                 R.drawable.ic_events_drawer_profile_filter_1,
+                R.drawable.ic_events_drawer_event_filter_2,
                 R.drawable.ic_events_drawer_event_filter_2,
                 R.drawable.ic_events_drawer_event_filter_0,
                 R.drawable.ic_events_drawer_event_filter_1,
@@ -806,6 +809,18 @@ public class EditorProfilesActivity extends AppCompatActivity
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
             case 5:
+                eventsFilterType = EditorEventListFragment.FILTER_TYPE_START_ORDER;
+                fragment = new EditorEventListFragment();
+                arguments = new Bundle();
+                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER);
+                fragment.setArguments(arguments);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
+                if (removePreferences)
+                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
+                break;
+            case 6:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_RUNNING;
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
@@ -817,7 +832,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
-            case 6:
+            case 7:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_PAUSED;
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
@@ -829,7 +844,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
-            case 7:
+            case 8:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_STOPPED;
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
@@ -861,8 +876,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             drawerLayout.closeDrawer(drawerRoot);
     }
     
-    private void changeEventOrder(int position, boolean orientationChange)
-    {
+    private void changeEventOrder(int position, boolean orientationChange) {
         orderSelectedItem = position;
 
         // save into shared preferences
@@ -871,12 +885,24 @@ public class EditorProfilesActivity extends AppCompatActivity
         editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
         editor.commit();
 
-        eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
-        switch (position)
-        {
-            case 0: eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME; break;
-            case 1: eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME; break;
-            case 2: eventsOrderType = EditorEventListFragment.ORDER_TYPE_PRIORITY; break;
+        if (drawerSelectedItem == 5) {
+            eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+        } else {
+            eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+            switch (position) {
+                case 0:
+                    eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+                    break;
+                case 1:
+                    eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+                    break;
+                case 2:
+                    eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME;
+                    break;
+                case 3:
+                    eventsOrderType = EditorEventListFragment.ORDER_TYPE_PRIORITY;
+                    break;
+            }
         }
         setStatusBarTitle();
 

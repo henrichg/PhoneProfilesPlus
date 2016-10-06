@@ -815,4 +815,6 @@
     <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">All Bluetooth names configured in system</string>
     <string name="wifi_ssid_pref_dlg_all_ssids_chb">All SSIDs</string>
     <string name="bluetooth_name_pref_dlg_all_bt_names_chb">All Bluetooth names</string>
+    <string name="editor_drawer_list_item_events_start_order">Start order</string>
+    <string name="editor_drawer_order_start_order">Start order</string>
 </resources>

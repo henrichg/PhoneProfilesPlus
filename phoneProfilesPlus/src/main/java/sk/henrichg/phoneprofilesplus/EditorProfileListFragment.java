@@ -233,7 +233,7 @@ public class EditorProfileListFragment extends Fragment {
         listView.setDropListener(new DragSortListView.DropListener() {
             public void drop(int from, int to) {
                 profileListAdapter.changeItemOrder(from, to); // swap profiles
-                databaseHandler.setPOrder(profileList);  // set profiles _porder and write it into db
+                databaseHandler.setProfileOrder(profileList);  // set profiles _porder and write it into db
                 activateProfileHelper.updateWidget();
             }
         });

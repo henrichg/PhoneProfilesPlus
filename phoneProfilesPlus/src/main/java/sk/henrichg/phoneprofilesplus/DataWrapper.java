@@ -887,9 +887,10 @@ public class DataWrapper {
         }
     }
 
-    public static Event getNoinitializedEvent(String name)
+    public static Event getNoinitializedEvent(String name, int startOrder)
     {
         return new Event(name,
+                startOrder,
                 0,
                 GlobalData.PROFILE_NO_ACTIVATE,
                 Event.ESTATUS_STOP,
@@ -938,7 +939,7 @@ public class DataWrapper {
 
         switch (index) {
             case 0:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_week));
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_week), 5);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_NONE;
@@ -963,7 +964,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 1:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_weekend));
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_weekend), 5);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_NONE;
@@ -985,7 +986,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 2:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_work));
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_during_the_work), 8);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_work));
                 //event._undoneProfile = true;
                 event._atEndDo = Event.EATENDDO_NONE;
@@ -1011,7 +1012,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 3:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_overnight));
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_overnight), 5);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_sleep));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
@@ -1038,7 +1039,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 4:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_night_call));
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_night_call), 10);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_home));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
@@ -1070,7 +1071,7 @@ public class DataWrapper {
                 event._eventPreferencesCall._contactListType = EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST;
                 break;
             case 5:
-                event = getNoinitializedEvent(context.getString(R.string.default_event_name_low_battery));
+                event = getNoinitializedEvent(context.getString(R.string.default_event_name_low_battery), 10);
                 event._fkProfileStart = getProfileIdByName(context.getString(R.string.default_profile_name_battery_low));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
