@@ -660,13 +660,13 @@ public class DataWrapper {
         }
     }
 */	
-    public void sortEventsByPriorityAsc()
+    public void sortEventsByStartOrderAsc()
     {
         class PriorityComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
                 int res = 0;
                 if ((lhs != null) && (rhs != null))
-                    res =  lhs._priority - rhs._priority;
+                    res =  lhs._startOrder - rhs._startOrder;
                 return res;
             }
         }
@@ -678,13 +678,13 @@ public class DataWrapper {
         }
     }
 
-    public void sortEventsByPriorityDesc()
+    public void sortEventsByStartOrderDesc()
     {
         class PriorityComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
                 int res = 0;
                 if ((lhs != null) && (rhs != null))
-                    res =  rhs._priority - lhs._priority;
+                    res =  rhs._startOrder - lhs._startOrder;
                 return res;
             }
         }

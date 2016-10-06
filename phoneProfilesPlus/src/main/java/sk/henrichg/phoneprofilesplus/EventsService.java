@@ -214,7 +214,7 @@ public class EventsService extends IntentService
             GlobalData.logE("$$$ EventsService.onHandleIntent","restart events");
 
             // 1. pause events
-            dataWrapper.sortEventsByPriorityDesc();
+            dataWrapper.sortEventsByStartOrderDesc();
             for (Event _event : eventList)
             {
                 GlobalData.logE("EventsService.onHandleIntent","state PAUSE");
@@ -227,7 +227,7 @@ public class EventsService extends IntentService
                     dataWrapper.doEventService(_event, true, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
             }
             // 2. start events
-            dataWrapper.sortEventsByPriorityAsc();
+            dataWrapper.sortEventsByStartOrderAsc();
             for (Event _event : eventList)
             {
                 GlobalData.logE("EventsService.onHandleIntent","state RUNNING");
@@ -247,7 +247,7 @@ public class EventsService extends IntentService
             //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
             //1. pause events
-            dataWrapper.sortEventsByPriorityDesc();
+            dataWrapper.sortEventsByStartOrderDesc();
             for (Event _event : eventList)
             {
                 GlobalData.logE("EventsService.onHandleIntent","state PAUSE");
@@ -260,7 +260,7 @@ public class EventsService extends IntentService
                     dataWrapper.doEventService(_event, true, false, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, broadcastReceiverType);
             }
             //2. start events
-            dataWrapper.sortEventsByPriorityAsc();
+            dataWrapper.sortEventsByStartOrderAsc();
             for (Event _event : eventList)
             {
                 GlobalData.logE("EventsService.onHandleIntent","state RUNNING");

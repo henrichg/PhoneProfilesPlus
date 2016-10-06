@@ -84,9 +84,17 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final String SP_DATA_DETAILS_PREDEFINED_PROFILE_INDEX = "data_detail_predefined_profile_index";
     private static final String SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX = "data_detail_predefined_event_index";
 
-
     public static final String SP_EDITOR_DRAWER_SELECTED_ITEM = "editor_drawer_selected_item";
     public static final String SP_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
+
+    private static final int DSI_PROFILES_ALL = 1;
+    private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 2;
+    private static final int DSI_PROFILES_NO_SHOW_IN_ACTIVATOR = 3;
+    private static final int DSI_EVENTS_START_ORDER = 4;
+    private static final int DSI_EVENTS_ALL = 5;
+    private static final int DSI_EVENTS_RUNNING = 6;
+    private static final int DSI_EVENTS_PAUSED = 7;
+    private static final int DSI_EVENTS_STOPPED = 8;
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -285,8 +293,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getResources().getString(R.string.editor_drawer_list_item_profiles_all),
                 getResources().getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                 getResources().getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-                getResources().getString(R.string.editor_drawer_list_item_events_all),
                 getResources().getString(R.string.editor_drawer_list_item_events_start_order),
+                getResources().getString(R.string.editor_drawer_list_item_events_all),
                 getResources().getString(R.string.editor_drawer_list_item_events_running),
                 getResources().getString(R.string.editor_drawer_list_item_events_paused),
                 getResources().getString(R.string.editor_drawer_list_item_events_stopped)
@@ -763,7 +771,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             Bundle arguments;
 
             switch (drawerSelectedItem) {
-            case 1:
+            case DSI_PROFILES_ALL:
                 profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
                 fragment = new EditorProfileListFragment();
                 arguments = new Bundle();
@@ -774,7 +782,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (removePreferences)
                     redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT, 0);
                 break;
-            case 2:
+            case DSI_PROFILES_SHOW_IN_ACTIVATOR:
                 profilesFilterType = EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR;
                 fragment = new EditorProfileListFragment();
                 arguments = new Bundle();
@@ -785,7 +793,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (removePreferences)
                     redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT, 0);
                 break;
-            case 3:
+            case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
                 profilesFilterType = EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR;
                 fragment = new EditorProfileListFragment();
                 arguments = new Bundle();
@@ -796,19 +804,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (removePreferences)
                     redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT, 0);
                 break;
-            case 4:
-                eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
-                fragment = new EditorEventListFragment();
-                arguments = new Bundle();
-                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
-                arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
-                fragment.setArguments(arguments);
-                getFragmentManager().beginTransaction()
-                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
-                if (removePreferences)
-                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
-                break;
-            case 5:
+            case DSI_EVENTS_START_ORDER:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_START_ORDER;
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
@@ -820,7 +816,19 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
-            case 6:
+            case DSI_EVENTS_ALL:
+                eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
+                fragment = new EditorEventListFragment();
+                arguments = new Bundle();
+                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                fragment.setArguments(arguments);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
+                if (removePreferences)
+                    redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
+                break;
+            case DSI_EVENTS_RUNNING:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_RUNNING;
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
@@ -832,7 +840,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
-            case 7:
+            case DSI_EVENTS_PAUSED:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_PAUSED;
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
@@ -844,7 +852,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0);
                 break;
-            case 8:
+            case DSI_EVENTS_STOPPED:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_STOPPED;
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
@@ -886,7 +894,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         editor.commit();
 
         int _eventsOrderType;
-        if (drawerSelectedItem == 5) {
+        if (drawerSelectedItem == DSI_EVENTS_START_ORDER) {
             _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
         } else {
             _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
