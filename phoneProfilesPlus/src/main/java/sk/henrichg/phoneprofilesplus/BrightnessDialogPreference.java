@@ -211,9 +211,9 @@ public class BrightnessDialogPreference extends
         GUIData.unregisterOnActivityDestroyListener(this, this);
 
         if (Permissions.checkScreenBrightness(_context)) {
-            Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
             setAdaptiveBrightness(savedAdaptiveBrightness);
+            Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
         }
 
         Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
@@ -286,9 +286,9 @@ public class BrightnessDialogPreference extends
         if (/*(isAutomatic) || */(_noChange == 1))
         {
             if (Permissions.checkScreenBrightness(_context)) {
-                Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);
                 setAdaptiveBrightness(savedAdaptiveBrightness);
+                Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
             }
 
             Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
@@ -302,13 +302,13 @@ public class BrightnessDialogPreference extends
         else
         {
             if (Permissions.checkScreenBrightness(_context)) {
+                Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
+                        Profile.convertPercentsToBrightnessManualValue(_value + minimumValue, _context));
+                setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(_value + minimumValue, _context));
                 if (_automatic == 1)
                     Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                 else
                     Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-                Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
-                        Profile.convertPercentsToBrightnessManualValue(_value + minimumValue, _context));
-                setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(_value + minimumValue, _context));
             }
 
             Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
@@ -325,13 +325,13 @@ public class BrightnessDialogPreference extends
 
     private void setBrightnessFromSeekBar(int value) {
         if (Permissions.checkScreenBrightness(_context)) {
+            Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
+                    Profile.convertPercentsToBrightnessManualValue(value + minimumValue, _context));
+            setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(value + minimumValue, _context));
             if (automatic == 1)
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
             else
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-            Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
-                    Profile.convertPercentsToBrightnessManualValue(value + minimumValue, _context));
-            setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(value + minimumValue, _context));
         }
 
         Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
