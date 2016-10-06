@@ -818,6 +818,6 @@
     <string name="editor_drawer_list_item_events_start_order">Start order</string>
     <string name="editor_drawer_order_start_order">Start order</string>
     <string name="info_notification_event_priority_new">4. Each event has \"Priority\". Event will not start, if is running event with higher priority.</string>
-    <string name="info_notification_event_start_order">Events are running in \"Start order\". You can set start order of events in Editor in events view \"Start order\". In this view, you can swipe event up/down by \"order handler\"</string>
+    <string name="info_notification_event_start_order">Events are running in \"Start order\". You can set start order of events in Editor in events view \"Start order\". In this view, you can drag event up/down by \"order handler\".</string>
     <string name="info_notification_event_start_order_handler_icon">Order handler:</string>
 </resources>
