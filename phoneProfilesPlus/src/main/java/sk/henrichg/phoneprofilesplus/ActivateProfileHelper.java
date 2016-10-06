@@ -1158,6 +1158,9 @@ public class ActivateProfileHelper {
                     Settings.System.putInt(context.getContentResolver(),
                             Settings.System.SCREEN_BRIGHTNESS_MODE,
                             Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+                    Settings.System.putInt(context.getContentResolver(),
+                            Settings.System.SCREEN_BRIGHTNESS,
+                            profile.getDeviceBrightnessManualValue(context));
                     if (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, context)
                             == GlobalData.PREFERENCE_ALLOWED) {
                         if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
@@ -1184,11 +1187,6 @@ public class ActivateProfileHelper {
                                 }
                             }
                         }
-                    }
-                    else {
-                        Settings.System.putInt(context.getContentResolver(),
-                                Settings.System.SCREEN_BRIGHTNESS,
-                                profile.getDeviceBrightnessManualValue(context));
                     }
                 } else {
                     Settings.System.putInt(context.getContentResolver(),
