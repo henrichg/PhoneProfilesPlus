@@ -811,7 +811,7 @@ public class EditorProfileListFragment extends Fragment {
                 sortByPOrder(profileList);
         }
 
-        if (setPosition)
+        if (setPosition || newProfile)
             setProfileSelection(profile, refreshIcons);
     }
 

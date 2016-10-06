@@ -583,7 +583,7 @@ public class EditorEventListFragment extends Fragment {
 
             eventListAdapter.notifyDataSetChanged(refreshIcons);
 
-            if (setPosition) {
+            if (setPosition || newEvent) {
                 if (eventPos != ListView.INVALID_POSITION) {
                     // set event visible in list
                     listView.setItemChecked(eventPos, true);
