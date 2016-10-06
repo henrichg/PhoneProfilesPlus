@@ -885,31 +885,33 @@ public class EditorProfilesActivity extends AppCompatActivity
         editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
         editor.commit();
 
+        int _eventsOrderType;
         if (drawerSelectedItem == 5) {
-            eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
         } else {
-            eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
             switch (position) {
                 case 0:
-                    eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
                     break;
                 case 1:
-                    eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
                     break;
                 case 2:
-                    eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME;
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME;
                     break;
                 case 3:
-                    eventsOrderType = EditorEventListFragment.ORDER_TYPE_PRIORITY;
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PRIORITY;
                     break;
             }
+            eventsOrderType = _eventsOrderType;
         }
         setStatusBarTitle();
 
         Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
         if ((fragment != null) && (fragment instanceof EditorEventListFragment))
         {
-            ((EditorEventListFragment)fragment).changeListOrder(eventsOrderType);
+            ((EditorEventListFragment)fragment).changeListOrder(_eventsOrderType);
         }
 
         orderSpinner.setSelection(orderSelectedItem);

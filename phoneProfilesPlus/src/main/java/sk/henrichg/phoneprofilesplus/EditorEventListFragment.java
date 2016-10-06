@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -123,6 +124,9 @@ public class EditorEventListFragment extends Fragment {
         orderType = getArguments() != null ? 
                 getArguments().getInt(ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_EVENT_NAME) :
                     EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+
+        Log.d("EditorEventListFragment.onCreate","filterType="+filterType);
+        Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
 
         dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getActivity(), getActivity().getApplicationContext());

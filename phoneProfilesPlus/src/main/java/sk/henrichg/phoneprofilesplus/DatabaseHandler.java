@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1720;
+    private static final int DATABASE_VERSION = 1740;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -1789,6 +1789,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_START_ORDER +  "=0");
+        }
+
+        if (oldVersion < 1740)
+        {
+            // initiazlize startOrder
+            final String selectQuery = "SELECT " + KEY_E_ID +
+                    " FROM " + TABLE_EVENTS +
+                    " ORDER BY " + KEY_E_PRIORITY;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            int startOrder = 0;
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = cursor.getLong(0);
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_E_START_ORDER, ++startOrder);
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(0))});
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -6018,6 +6040,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     db.execSQL("DELETE FROM " + TABLE_EVENTS);
 
+                    int exportedDBObjVersion = 0;
+
                     if (tableExists(TABLE_EVENTS, exportedDBObj)) {
                         // cusor for events exportedDB
                         cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_EVENTS, null);
@@ -6402,9 +6426,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                             } while (cursorExportedDB.moveToNext());
                         }
+
+                        exportedDBObjVersion = exportedDBObj.getVersion();
                         cursorExportedDB.close();
                         cursorImportDB.close();
+                    }
 
+                    if (exportedDBObjVersion < 1740) {
+                        // initiazlize startOrder
+                        final String selectQuery = "SELECT " + KEY_E_ID +
+                                " FROM " + TABLE_EVENTS +
+                                " ORDER BY " + KEY_E_PRIORITY;
+
+                        Cursor cursor = db.rawQuery(selectQuery, null);
+
+                        int startOrder = 0;
+                        if (cursor.moveToFirst()) {
+                            do {
+                                long id = cursor.getLong(0);
+                                ContentValues _values = new ContentValues();
+                                _values.put(KEY_E_START_ORDER, ++startOrder);
+                                db.update(TABLE_EVENTS, _values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(0))});
+                            } while (cursor.moveToNext());
+                        }
+
+                        cursor.close();
                     }
 
                     db.execSQL("DELETE FROM " + TABLE_ACTIVITY_LOG);
