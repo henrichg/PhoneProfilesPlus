@@ -257,7 +257,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj len ak este nie je zapauznuty
-                    dataWrapper.doEventService(_event, true, false, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, broadcastReceiverType);
+                    dataWrapper.doEventService(_event, true, false, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
             }
             //2. start events
             dataWrapper.sortEventsByStartOrderAsc();
@@ -270,7 +270,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
                     // spustaj len ak este nebezi
-                    dataWrapper.doEventService(_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, broadcastReceiverType);
+                    dataWrapper.doEventService(_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
             }
         }
 

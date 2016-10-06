@@ -323,13 +323,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/info_notification_event_start_order"
+                android:id="@+id/activity_info_event_start_order1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_event_start_order_handler_icon"
+                android:id="@+id/activity_info_event_start_order2"
+                android:drawableRight="?attr/dragHandleIcon"
+                android:drawableEnd="?attr/dragHandleIcon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/info_notification_event_not_started"
                 android:id="@+id/activity_info_notification_dialog_info_text4"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/info_notification_event_priority"
+                android:text="@string/info_notification_event_priority_new"
                 android:id="@+id/activity_info_notification_dialog_info_text48"
                 android:textStyle="bold" />
 
