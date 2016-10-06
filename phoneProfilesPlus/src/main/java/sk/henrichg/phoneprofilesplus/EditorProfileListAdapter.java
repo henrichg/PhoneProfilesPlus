@@ -250,6 +250,7 @@ public class EditorProfileListAdapter extends BaseAdapter
                 dataWrapper.refreshProfileIcon(profile, false, 0);
             }
         }
+        notifyDataSetChanged();
     }
 
     static class ViewHolder {
