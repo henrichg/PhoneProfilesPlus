@@ -8,13 +8,15 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 public class ImportantInfoNotification {
 
     // this version code must by <= version code in manifest
-    public static final int VERSION_CODE_FOR_NEWS = 2050;
+    public static final int VERSION_CODE_FOR_NEWS = 2170;
 
     static public void showInfoNotification(Context context) {
+        Log.d("ImportantInfoNotification.showInfoNotification","xxx");
         PackageInfo pinfo = null;
         int packageVersionCode = 0;
         int savedVersionCode = 0;
@@ -23,6 +25,7 @@ public class ImportantInfoNotification {
             packageVersionCode = pinfo.versionCode;
             savedVersionCode = GlobalData.getShowInfoNotificationOnStartVersion(context);
             if (packageVersionCode > savedVersionCode) {
+                Log.d("ImportantInfoNotification.showInfoNotification","show");
                 //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
                 boolean show = canShowNotification(packageVersionCode, savedVersionCode);
                 GlobalData.setShowInfoNotificationOnStart(context, show, packageVersionCode);
@@ -52,7 +55,8 @@ public class ImportantInfoNotification {
         boolean afterInstall = savedVersionCode == 0;
 
         if (newsLatest) {
-            news = false;
+            // change to false for not show notification
+            news = true;
         }
 
         if (news1804) {

@@ -82,6 +82,19 @@
                 android:id="@+id/activity_info_notification_dialog_info_text13"
                 android:textColor="?attr/colorAccent"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_event_start_order"
+                android:id="@+id/activity_info_event_start_order1_news" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_event_start_order_handler_icon"
+                android:id="@+id/activity_info_event_start_order2_news"
+                android:drawableRight="?attr/dragHandleIcon"
+                android:drawableEnd="?attr/dragHandleIcon" />
+
             <!-- PROFILES -->
 
             <TextView
