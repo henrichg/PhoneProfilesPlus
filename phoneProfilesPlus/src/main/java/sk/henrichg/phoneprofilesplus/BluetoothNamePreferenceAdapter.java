@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +102,9 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
                 CheckBox chb = (CheckBox) v;
 
                 int index = (Integer)chb.getTag();
+                Log.d("BluetoothNamePreferenceAdapter.getView","index="+index);
                 String bluetoothName = preference.bluetoothList.get(index).getName();
+                Log.d("BluetoothNamePreferenceAdapter.getView","bluetoothName="+bluetoothName);
 
                 if (chb.isChecked())
                     preference.addBluetoothName(bluetoothName);

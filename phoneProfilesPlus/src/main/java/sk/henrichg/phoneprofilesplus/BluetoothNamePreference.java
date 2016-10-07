@@ -10,6 +10,7 @@ import android.preference.DialogPreference;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -254,7 +255,7 @@ public class BluetoothNamePreference extends DialogPreference {
         String[] splits = value.split("\\|");
         boolean found = false;
         for (String _bluetoothName : splits) {
-            if (!_bluetoothName.equals(bluetoothName))
+            if (_bluetoothName.equals(bluetoothName))
                 found = true;
         }
         if (!found) {
@@ -262,6 +263,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 value = value + "|";
             value = value + bluetoothName;
         }
+        Log.d("BluetoothNamePreference.addBluetoothName","value="+value);
     }
 
     public void removeBluetoothName(String bluetoothName) {
