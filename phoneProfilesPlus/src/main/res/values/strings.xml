@@ -820,4 +820,5 @@
     <string name="info_notification_event_priority_new">4. Each event has \"Priority\". Event will not start, if is running event with higher priority.</string>
     <string name="info_notification_event_start_order">Events are running in \"Start order\". You can set start order of events in Editor in events view \"Start order\". In this view, you can drag event up/down by \"order handler\".</string>
     <string name="info_notification_event_start_order_handler_icon">Order handler:</string>
+    <string name="info_notification_activate_profile_from_tasker">You can activate profile from Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
 </resources>

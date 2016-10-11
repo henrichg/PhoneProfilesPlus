@@ -234,6 +234,20 @@ public class ImportantInfoActivity extends AppCompatActivity {
             }
         });
 
+        TextView infoText41 = (TextView)findViewById(R.id.activity_info_activate_profile_from_tasker_params);
+        infoText41.setText("Send Intent [ \n" +
+                    " Action:\n" +
+                    " Cat:\n" +
+                    " Mime Type:\n" +
+                    " Data:\n" +
+                    " Extra:profile_name:profile name\n" +
+                    " Extra:\n" +
+                    " Extra:\n" +
+                    " Package:sk.henrichg.phoneprofilesplus\n" +
+                    " Class:sk.henrichg.phoneprofilesplus.ActivateProfileFromExternalApplicationActivity\n" +
+                    " Target:\n" +
+                "]");
+
         if (!news) {
             TextView infoTextNews = (TextView) findViewById(R.id.activity_info_notification_dialog_news);
             infoTextNews.setVisibility(View.GONE);

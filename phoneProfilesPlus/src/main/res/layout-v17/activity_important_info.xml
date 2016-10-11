@@ -276,6 +276,18 @@
                 android:text="@string/important_info_profile_adaptiveBrightness_root"
                 android:id="@+id/activity_info_notification_dialog_info_text18" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_activate_profile_from_tasker"
+                android:id="@+id/activity_info_activate_profile_from_tasker" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/empty_string"
+                android:id="@+id/activity_info_activate_profile_from_tasker_params" />
+
             <!-- EVENTS -->
 
             <TextView
