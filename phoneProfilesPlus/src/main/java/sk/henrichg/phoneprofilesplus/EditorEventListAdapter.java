@@ -366,11 +366,14 @@ public class EditorEventListAdapter extends BaseAdapter
             }
 
             String eventName = event._name;
-            String eventPriority = "[" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            String eventStartOrder = "[O:" + event._startOrder + "] ";
+            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
+                eventStartOrder = "";
+            String eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
             if (event._forceRun) {
-                eventName = eventPriority + "[\u00BB] " + eventName;
+                eventName = eventStartOrder + eventPriority + "[\u00BB] " + eventName;
             } else
-                eventName = eventPriority + eventName;
+                eventName = eventStartOrder + eventPriority + eventName;
             if (event._fkProfileStartWhenActivated > 0) {
                 Profile profile =  dataWrapper.getProfileById(event._fkProfileStartWhenActivated, false);
                 if (profile != null)
