@@ -1,3 +1,4 @@
 include ':dragSortListView'
-include ':phoneProfilesPlus'
 include ':materialPreferences'
+include ':masked-edittext'
+include ':phoneProfilesPlus'

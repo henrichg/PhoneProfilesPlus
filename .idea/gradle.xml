@@ -11,6 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/dragSortListView" />
+            <option value="$PROJECT_DIR$/masked-edittext" />
             <option value="$PROJECT_DIR$/materialPreferences" />
             <option value="$PROJECT_DIR$/phoneProfilesPlus" />
           </set>

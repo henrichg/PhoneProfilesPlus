@@ -35,6 +35,7 @@ android {
 dependencies {
     compile project(':dragSortListView')
     compile project(':materialPreferences')
+    compile project(':masked-edittext')
     compile files('libs/RootTools.jar')
     provided files('libs/hidden-apis.jar')
     provided files('libs/hidden-apis_2.jar')
@@ -46,7 +47,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.google.android.gms:play-services-location:9.6.1'
     compile 'com.google.android.gms:play-services-maps:9.6.1'
-    compile 'com.github.pinball83:masked-edittext:1.0.3'
     compile 'com.afollestad.material-dialogs:core:0.9.0.2'
 }
 
