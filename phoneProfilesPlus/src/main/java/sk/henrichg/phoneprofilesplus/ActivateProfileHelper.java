@@ -926,15 +926,15 @@ public class ActivateProfileHelper {
             List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
 
             for (int i = 0; i < splits.length; i++) {
-                //Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
+                Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
                 if (!ApplicationsCache.isShortcut(splits[i])) {
-                    //Log.d("ActivateProfileHelper.executeForRunApplications","no shortcut");
+                    Log.d("ActivateProfileHelper.executeForRunApplications","no shortcut");
                     String packageName = ApplicationsCache.getPackageName(splits[i]);
                     intent = packageManager.getLaunchIntentForPackage(packageName);
                     if (intent != null) {
                         //if (!isRunning(procInfos, packageName)) {
                         //    GlobalData.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
-                            //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                            Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                             intent.addCategory(Intent.CATEGORY_LAUNCHER);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
@@ -951,9 +951,9 @@ public class ActivateProfileHelper {
                     }
                 }
                 else {
-                    //Log.d("ActivateProfileHelper.executeForRunApplications","shortcut");
-                    long shortcutId = ApplicationsCache.getShortcutId(splits[0]);
-                    //Log.d("ActivateProfileHelper.executeForRunApplications","shortcutId="+shortcutId);
+                    Log.d("ActivateProfileHelper.executeForRunApplications","shortcut");
+                    long shortcutId = ApplicationsCache.getShortcutId(splits[i]);
+                    Log.d("ActivateProfileHelper.executeForRunApplications","shortcutId="+shortcutId);
                     if (shortcutId > 0) {
                         Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
                         if (shortcut != null) {
@@ -964,7 +964,7 @@ public class ActivateProfileHelper {
                                     //if (!isRunning(procInfos, packageName)) {
                                     //    GlobalData.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": not running");
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
+                                        Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                                         try {
                                             context.startActivity(intent);
                                         } catch (Exception e) {
