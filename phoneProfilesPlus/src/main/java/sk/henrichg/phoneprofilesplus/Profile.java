@@ -456,7 +456,7 @@ public class Profile {
                     this._deviceRunApplicationPackageName = withProfile._deviceRunApplicationPackageName;
                 else
                     this._deviceRunApplicationPackageName = this._deviceRunApplicationPackageName + "|" +
-                        withProfile._deviceRunApplicationPackageName;
+                            withProfile._deviceRunApplicationPackageName;
             }
             if (withProfile._deviceWallpaperChange != 0) {
                 this._deviceWallpaperChange = 1;
