@@ -437,7 +437,7 @@ public class DataWrapper {
 */	
     public void setProfileActive(Profile profile)
     {
-        if ((profileList == null) || (profile == null))
+        if (profileList == null)
             return;
 
         for (Profile p : profileList)
@@ -445,17 +445,8 @@ public class DataWrapper {
             p._checked = false;
         }
 
-        profile._checked = true;
-
-    /*	// teraz musime najst profile v profileList
-        int position = getProfileItemPosition(profile);
-        if (position != -1)
-        {
-            // najdenemu objektu nastavime _checked
-            Profile _profile = profileList.get(position);
-            if (_profile != null)
-                _profile._checked = true;
-        } */
+        if (profile != null)
+            profile._checked = true;
     }
 
     public void activateProfileFromEvent(long profile_id, boolean interactive, boolean manual,
@@ -2675,8 +2666,10 @@ public class DataWrapper {
             GlobalData.setForceRunEventRunning(context, false);
         }
 
-        if (!keepActivatedProfile)
+        if (!keepActivatedProfile) {
             getDatabaseHandler().deactivateProfile();
+            setProfileActive(null);
+        }
 
         Intent intent = new Intent();
         intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);

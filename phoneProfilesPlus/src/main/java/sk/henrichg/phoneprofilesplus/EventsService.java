@@ -384,6 +384,8 @@ public class EventsService extends IntentService
                         // activate merged profile
                         GlobalData.logE("$$$ EventsService.onHandleIntent", "profileName=" + mergedProfile._name);
                         GlobalData.logE("$$$ EventsService.onHandleIntent", "profileId=" + mergedProfile._id);
+                        GlobalData.logE("$$$ EventsService.onHandleIntent", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
+                        GlobalData.logE("$$$ EventsService.onHandleIntent", "interactive=" + interactive);
                         dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                         dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
 
