@@ -89,16 +89,10 @@ public class GlobalData extends Application {
     static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
     static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
     static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
-    //static final String EXTRA_PREFERENCES_STARTUP_SOURCE = "preferences_startup_source";
-    //static final String EXTRA_START_SYSTEM_EVENT = "start_system_event";
     static final String EXTRA_BROADCAST_RECEIVER_TYPE = "broadcast_receiver_type";
     static final String EXTRA_SCANNER_TYPE = "scanner_type";
     static final String EXTRA_UNBLOCKEVENTSRUN = "unblock_events_run";
-    //static final String EXTRA_FROM_EVENTS_SERVICE = "from_events_service";
-    //static final String EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME = "event_notification_package_name";
-    //static final String EXTRA_EVENT_NOTIFICATION_TIME = "event_notification_time";
     static final String EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED = "event_notification_posted_removed";
-    //static final String EXTRA_EVENT_SMS_EVENT_TYPE = "event_sms_event_type";
     static final String EXTRA_EVENT_SMS_PHONE_NUMBER = "event_sms_phone_number";
     static final String EXTRA_EVENT_SMS_DATE = "event_sms_date";
     static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
@@ -109,6 +103,7 @@ public class GlobalData extends Application {
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
     static final String EXTRA_PROFILE_NAME = "profile_name";
+    static final String EXTRA_INTERACTIVE = "interactive";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;

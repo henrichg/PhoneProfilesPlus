@@ -64,7 +64,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
                             GlobalData.logE("$$$ restartEvents", "from ProfileDurationAlarmBroadcastReceiver");
-                            dataWrapper.restartEventsWithDelay(3, true);
+                            dataWrapper.restartEventsWithDelay(3, true, false);
                         }
                         else
                         {

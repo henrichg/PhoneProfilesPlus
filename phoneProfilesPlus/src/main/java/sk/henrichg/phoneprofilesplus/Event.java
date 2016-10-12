@@ -1143,7 +1143,7 @@ public class Event {
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
                 GlobalData.logE("$$$ restartEvents", "from Event.doActivateEndProfile");
-                dataWrapper.restartEventsWithDelay(3, true);
+                dataWrapper.restartEventsWithDelay(3, true, false);
                 profileActivated = true;
             }
 

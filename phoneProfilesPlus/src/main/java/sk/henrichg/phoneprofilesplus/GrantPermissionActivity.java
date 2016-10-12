@@ -732,7 +732,7 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.wifiSSIDPreference.refreshListView(true);
             if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true);
+            dataWrapper.restartEvents(false, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                 WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
@@ -745,7 +745,7 @@ public class GrantPermissionActivity extends Activity {
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
             if (Permissions.calendarsMultiSelectDialogPreference != null)
                 Permissions.calendarsMultiSelectDialogPreference.refreshListView();
-            dataWrapper.restartEvents(false, true);
+            dataWrapper.restartEvents(false, true, false);
             finish();
         }
         else
@@ -754,7 +754,7 @@ public class GrantPermissionActivity extends Activity {
                 Permissions.contactsMultiSelectDialogPreference.refreshListView();
             if (Permissions.contactGroupsMultiSelectDialogPreference != null)
                 Permissions.contactGroupsMultiSelectDialogPreference.refreshListView();
-            dataWrapper.restartEvents(false, true);
+            dataWrapper.restartEvents(false, true, false);
             finish();
         }
         else
@@ -762,7 +762,7 @@ public class GrantPermissionActivity extends Activity {
             //finishAffinity();
             finish();
             Permissions.removeEventNotification(context);
-            dataWrapper.restartEvents(false, true);
+            dataWrapper.restartEvents(false, true, false);
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -781,7 +781,7 @@ public class GrantPermissionActivity extends Activity {
             if (Permissions.locationGeofenceEditorActivity != null) {
                 Permissions.locationGeofenceEditorActivity.refreshActivity(true);
             }
-            dataWrapper.restartEvents(false, true);
+            dataWrapper.restartEvents(false, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                 WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)

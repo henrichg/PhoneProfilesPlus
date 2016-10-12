@@ -283,7 +283,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
             // restart Events
             GlobalData.logE("$$$ restartEvents","from EventPreferencesFragment.savePreferences");
-            dataWrapper.restartEvents(false, true);
+            dataWrapper.restartEvents(false, true, false);
         }
         else
         if (event_id > 0)
@@ -305,7 +305,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
                 event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
             // restart Events
             GlobalData.logE("$$$ restartEvents","from EventPreferencesFragmentActivity.savePreferences");
-            dataWrapper.restartEvents(false, true);
+            dataWrapper.restartEvents(false, true, false);
 
         }
     }

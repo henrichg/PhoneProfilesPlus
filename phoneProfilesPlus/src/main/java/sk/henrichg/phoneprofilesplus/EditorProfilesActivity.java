@@ -1231,7 +1231,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         getBaseContext().sendBroadcast(intent);
                         */
                             GlobalData.logE("$$$ restartEvents", "from EditorProfilesActivity.doImportData.onPostExecute");
-                            dataWrapper.restartEventsWithDelay(1, false);
+                            dataWrapper.restartEventsWithDelay(1, false, false);
                         }
 
                         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);

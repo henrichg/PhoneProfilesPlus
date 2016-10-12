@@ -746,7 +746,7 @@ public class DataWrapper {
                 event.stopEvent(this, eventTimelineList, false, true, saveEventStatus, false, false);
         }
         GlobalData.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
-        restartEvents(false, true);
+        restartEvents(false, true, false);
     }
 
     // pauses all events
@@ -878,6 +878,7 @@ public class DataWrapper {
             Intent intent = new Intent();
             intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
             intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false);
+            intent.putExtra(GlobalData.EXTRA_INTERACTIVE, false);
             context.sendBroadcast(intent);
         }
         else
@@ -2641,7 +2642,7 @@ public class DataWrapper {
         GlobalData.logE("%%% DataWrapper.doEventService","--- end --------------------------");
     }
 
-    public void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile)
+    public void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile, boolean interactive)
     {
         if (!GlobalData.getGlobalEventsRuning(context))
             // events are globally stopped
@@ -2680,11 +2681,12 @@ public class DataWrapper {
         Intent intent = new Intent();
         intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
         intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false);
+        intent.putExtra(GlobalData.EXTRA_INTERACTIVE, interactive);
         context.sendBroadcast(intent);
 
     }
 
-    public void restartEventsWithRescan(boolean showToast)
+    private void restartEventsWithRescan(boolean showToast, boolean interactive)
     {
         GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithRescan");
 
@@ -2694,7 +2696,7 @@ public class DataWrapper {
         // ignoruj manualnu aktivaciu profilu
         // a odblokuj forceRun eventy
         GlobalData.logE("$$$ restartEvents","from DataWrapper.restartEventsWithRescan");
-        restartEvents(true, false);
+        restartEvents(true, false, interactive);
 
         if (GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_RESTART_EVENTS) ||
             GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
@@ -2761,7 +2763,7 @@ public class DataWrapper {
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     GlobalData.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
-                    restartEventsWithRescan(true);
+                    restartEventsWithRescan(true, true);
 
                     if (GlobalData.applicationClose && (!(_activity instanceof EditorProfilesActivity)))
                         _activity.finish();
@@ -2773,7 +2775,7 @@ public class DataWrapper {
         else
         {
             GlobalData.logE("$$$ restartEvents", "from DataWrapper.restartEventsWithAlert");
-            restartEventsWithRescan(true);
+            restartEventsWithRescan(true, true);
 
             if (GlobalData.applicationClose)
                 activity.finish();
@@ -2781,13 +2783,14 @@ public class DataWrapper {
     }
 
     @SuppressLint("NewApi")
-    public void restartEventsWithDelay(int delay, boolean unblockEventsRun)
+    public void restartEventsWithDelay(int delay, boolean unblockEventsRun, boolean interactive)
     {
         GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithDelay");
 
         AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
         intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
+        intent.putExtra(GlobalData.EXTRA_INTERACTIVE, interactive);
 
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.SECOND, delay);

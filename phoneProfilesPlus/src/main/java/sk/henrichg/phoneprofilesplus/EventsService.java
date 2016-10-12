@@ -129,7 +129,7 @@ public class EventsService extends IntentService
                              broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
                              broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)*/);
 
-        boolean interactive = !isRestart;
+        boolean interactive = (!isRestart) || intent.getBooleanExtra(GlobalData.EXTRA_INTERACTIVE, false);
 
         if (isRestart) {
             if (intent.getBooleanExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false)) {
