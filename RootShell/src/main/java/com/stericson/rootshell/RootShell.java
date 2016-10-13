@@ -400,7 +400,7 @@ public class RootShell {
      * @return <code>true</code> if BusyBox was found.
      */
     public static boolean isBusyboxAvailable() {
-        return (findBinary("busybox")).size() > 0;
+        return (findBinary("busybox")).size() > 0 || (findBinary("toybox")).size() > 0;
     }
 
     /**
