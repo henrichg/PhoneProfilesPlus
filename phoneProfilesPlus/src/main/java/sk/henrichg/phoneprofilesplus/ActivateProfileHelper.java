@@ -47,9 +47,9 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.RemoteViews;
 
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
-import com.stericson.RootTools.RootTools;
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

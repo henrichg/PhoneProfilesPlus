@@ -10,6 +10,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/RootShell" />
+            <option value="$PROJECT_DIR$/RootTools" />
             <option value="$PROJECT_DIR$/dragSortListView" />
             <option value="$PROJECT_DIR$/masked-edittext" />
             <option value="$PROJECT_DIR$/materialPreferences" />

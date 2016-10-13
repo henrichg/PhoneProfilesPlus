@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PhoneProfilesPlus.iml" filepath="$PROJECT_DIR$/PhoneProfilesPlus.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RootShell/RootShell.iml" filepath="$PROJECT_DIR$/RootShell/RootShell.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RootTools/RootTools.iml" filepath="$PROJECT_DIR$/RootTools/RootTools.iml" />
       <module fileurl="file://$PROJECT_DIR$/dragSortListView/dragSortListView.iml" filepath="$PROJECT_DIR$/dragSortListView/dragSortListView.iml" />
       <module fileurl="file://$PROJECT_DIR$/masked-edittext/masked-edittext.iml" filepath="$PROJECT_DIR$/masked-edittext/masked-edittext.iml" />
       <module fileurl="file://$PROJECT_DIR$/materialPreferences/materialPreferences.iml" filepath="$PROJECT_DIR$/materialPreferences/materialPreferences.iml" />

@@ -1,4 +1,6 @@
 include ':dragSortListView'
 include ':materialPreferences'
 include ':masked-edittext'
+include ':RootShell'
+include ':RootTools'
 include ':phoneProfilesPlus'

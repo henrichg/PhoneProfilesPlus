@@ -36,7 +36,8 @@ dependencies {
     compile project(':dragSortListView')
     compile project(':materialPreferences')
     compile project(':masked-edittext')
-    compile files('libs/RootTools.jar')
+    compile project(':RootShell')
+    compile project(':RootTools')
     provided files('libs/hidden-apis.jar')
     provided files('libs/hidden-apis_2.jar')
     compile 'com.android.support:support-core-ui:24.2.1'

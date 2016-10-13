@@ -23,8 +23,8 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.stericson.RootShell.RootShell;
-import com.stericson.RootTools.RootTools;
+import com.stericson.rootshell.RootShell;
+import com.stericson.roottools.RootTools;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -48,34 +48,14 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
-                                         +"|$$$ EventsService.onHandleIntent"
-
-                                         //+"|$$$ PhoneProfilesService.onCreate"
-
-                                         //+"|BootUpReceiver.onReceive"
-                                         //+"|PackageReplacedReceiver.onReceive"
-                                         //+"|PhoneProfilesService.onCreate"
-
-                                         //+"|@@@x DataWrapper.doEventService"
-                                         //+"|@@@x WifiScanAlarmBroadcastReceiver.getSSID"
-                                         //+"|@@@x WifiScanAlarmBroadcastReceiver.compareSSID"
-
-                                         /*+"|PhoneStateScanner.onCellInfoChanged"
-                                         +"|PhoneStateScanner.getAllCellInfo"
-                                         +"|PhoneStateScanner.onServiceStateChanged"
-                                         +"|PhoneStateScanner.onCellLocationChanged"
-                                         +"|PhoneStateScanner.getCellLocation"
-                                         +"|PhoneProfilesService.handleMessage"
-                                         +"|$$$ PhoneProfilesService.onStartCommand"*/
-
-                                         //+"|GlobalData._isRooted"
-                                         //+"|GlobalData.isRootGranted"
+                                         +"|GlobalData._isRooted"
+                                         +"|GlobalData.isRootGranted"
             ;
 
 

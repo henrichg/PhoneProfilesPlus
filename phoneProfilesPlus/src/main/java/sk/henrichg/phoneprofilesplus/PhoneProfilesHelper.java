@@ -16,9 +16,9 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.stericson.RootShell.execution.Command;
-import com.stericson.RootShell.execution.Shell;
-import com.stericson.RootTools.RootTools;
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
 
 import java.util.List;
 
