@@ -409,6 +409,8 @@ public class GlobalData extends Application {
         // initialization
         loadPreferences(this);
 
+        GlobalData.initRoot();
+
         /*
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
