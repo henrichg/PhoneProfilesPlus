@@ -44,6 +44,10 @@ public class RootToolsSmall {
         return hasBinary("/settings");
     }
 
+    public static boolean hasServiceBin() {
+        return hasBinary("/service");
+    }
+
     /**
      * Runs a command using su binary.
      */
