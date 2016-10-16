@@ -254,7 +254,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 value = value + "|";
             value = value + ssid;
         }
-        Log.d("WifiSSIDPreference.addSSID","value="+value);
+        //Log.d("WifiSSIDPreference.addSSID","value="+value);
     }
 
     public void removeSSID(String ssid) {
@@ -269,7 +269,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 }
             }
         }
-        Log.d("WifiSSIDPreference.removeSSID","value="+value);
+        //Log.d("WifiSSIDPreference.removeSSID","value="+value);
     }
 
     public boolean isSSIDSelected(String ssid) {
@@ -331,23 +331,23 @@ public class WifiSSIDPreference extends DialogPreference {
                 {
                     for (WifiSSIDData scanResult : scanResults)
                     {
-                        Log.d("WifiSSIDPreference.refreshListView","scanResult.ssid="+scanResult.ssid);
+                        //Log.d("WifiSSIDPreference.refreshListView","scanResult.ssid="+scanResult.ssid);
                         if (!WifiScanAlarmBroadcastReceiver.getSSID(scanResult, wifiConfigurationList).isEmpty())
                         {
-                            Log.d("WifiSSIDPreference.refreshListView","not empty");
+                            //Log.d("WifiSSIDPreference.refreshListView","not empty");
                             boolean exists = false;
                             for (WifiSSIDData ssidData : SSIDList)
                             {
                                 if (!ssidData.ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
                                     if (WifiScanAlarmBroadcastReceiver.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList)) {
-                                        Log.d("WifiSSIDPreference.refreshListView", "exists");
+                                        //Log.d("WifiSSIDPreference.refreshListView", "exists");
                                         exists = true;
                                         break;
                                     }
                                 }
                             }
                             if (!exists) {
-                                Log.d("WifiSSIDPreference.refreshListView","not exists");
+                                //Log.d("WifiSSIDPreference.refreshListView","not exists");
                                 SSIDList.add(new WifiSSIDData(WifiScanAlarmBroadcastReceiver.getSSID(scanResult, wifiConfigurationList), scanResult.bssid, false));
                             }
                         }

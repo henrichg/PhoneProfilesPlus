@@ -102,9 +102,9 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
                 CheckBox chb = (CheckBox) v;
 
                 int index = (Integer)chb.getTag();
-                Log.d("BluetoothNamePreferenceAdapter.getView","index="+index);
+                //Log.d("BluetoothNamePreferenceAdapter.getView","index="+index);
                 String bluetoothName = preference.bluetoothList.get(index).getName();
-                Log.d("BluetoothNamePreferenceAdapter.getView","bluetoothName="+bluetoothName);
+                //Log.d("BluetoothNamePreferenceAdapter.getView","bluetoothName="+bluetoothName);
 
                 if (chb.isChecked())
                     preference.addBluetoothName(bluetoothName);

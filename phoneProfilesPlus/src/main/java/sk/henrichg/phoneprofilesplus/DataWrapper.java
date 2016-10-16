@@ -2357,10 +2357,10 @@ public class DataWrapper {
             locationPassed = false;
 
             String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
-            Log.d("DataWrapper.doEventService", "geofences="+event._eventPreferencesLocation._geofences);
+            //Log.d("DataWrapper.doEventService", "geofences="+event._eventPreferencesLocation._geofences);
             for (String _geofence : splits) {
                 if (!_geofence.isEmpty()) {
-                    Log.d("DataWrapper.doEventService", "geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
+                    //Log.d("DataWrapper.doEventService", "geofence="+getDatabaseHandler().getGeofenceName(Long.valueOf(_geofence)));
 
                     int geofenceTransition = getDatabaseHandler().getGeofenceTransition(Long.valueOf(_geofence));
 
@@ -2370,7 +2370,7 @@ public class DataWrapper {
                     }
                 }
             }
-            Log.d("DataWrapper.doEventService", "locationPassed="+locationPassed);
+            //Log.d("DataWrapper.doEventService", "locationPassed="+locationPassed);
 
             if (event._eventPreferencesLocation._whenOutside)
                 locationPassed = !locationPassed;

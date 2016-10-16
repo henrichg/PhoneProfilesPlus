@@ -263,7 +263,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 value = value + "|";
             value = value + bluetoothName;
         }
-        Log.d("BluetoothNamePreference.addBluetoothName","value="+value);
+        //Log.d("BluetoothNamePreference.addBluetoothName","value="+value);
     }
 
     public void removeBluetoothName(String bluetoothName) {

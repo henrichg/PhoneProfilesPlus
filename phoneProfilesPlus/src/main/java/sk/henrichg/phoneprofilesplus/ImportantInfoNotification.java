@@ -16,7 +16,7 @@ public class ImportantInfoNotification {
     public static final int VERSION_CODE_FOR_NEWS = 2170;
 
     static public void showInfoNotification(Context context) {
-        Log.d("ImportantInfoNotification.showInfoNotification","xxx");
+        //Log.d("ImportantInfoNotification.showInfoNotification","xxx");
         PackageInfo pinfo = null;
         int packageVersionCode = 0;
         int savedVersionCode = 0;
@@ -25,7 +25,7 @@ public class ImportantInfoNotification {
             packageVersionCode = pinfo.versionCode;
             savedVersionCode = GlobalData.getShowInfoNotificationOnStartVersion(context);
             if (packageVersionCode > savedVersionCode) {
-                Log.d("ImportantInfoNotification.showInfoNotification","show");
+                //Log.d("ImportantInfoNotification.showInfoNotification","show");
                 //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
                 boolean show = canShowNotification(packageVersionCode, savedVersionCode);
                 GlobalData.setShowInfoNotificationOnStart(context, show, packageVersionCode);
