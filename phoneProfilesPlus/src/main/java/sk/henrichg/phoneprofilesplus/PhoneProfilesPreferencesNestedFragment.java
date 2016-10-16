@@ -415,7 +415,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     {
         preferences.unregisterOnSharedPreferenceChangeListener(this);
         if (mobileCellsRegistrationBroadcastReceiver != null) {
-            getActivity().unregisterReceiver(mobileCellsRegistrationBroadcastReceiver);
+            try {
+                getActivity().unregisterReceiver(mobileCellsRegistrationBroadcastReceiver);
+            } catch (IllegalArgumentException e) { }
             mobileCellsRegistrationBroadcastReceiver = null;
         }
         super.onDestroy();
