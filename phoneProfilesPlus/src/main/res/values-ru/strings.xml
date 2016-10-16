@@ -812,4 +812,12 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Регистрация мобильных сот</string>
   <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Все SSID, настроенные в системе</string>
   <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Все Bluetooth соединения, настроенные в системе</string>
+  <string name="wifi_ssid_pref_dlg_all_ssids_chb">Все SSID</string>
+  <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Все имена Bluetooth-устройств</string>
+  <string name="editor_drawer_list_item_events_start_order">Начало задачи</string>
+  <string name="editor_drawer_order_start_order">Начало задачи</string>
+  <string name="info_notification_event_priority_new">Каждое событие имеет \"Приоритет\". Событие не запустится, если уже выполняется событие с более высоким приоритетом.</string>
+  <string name="info_notification_event_start_order">События запускаются из \"Старт задач\". Вы можете установить порядок запуска задач в редакторе в \"Старт задач\". Вы можете перетащить вверх/вниз \"обработчик задачи\".</string>
+  <string name="info_notification_event_start_order_handler_icon">Обработчик задачи:</string>
+  <string name="info_notification_activate_profile_from_tasker">Вы можете активировать профиль из Tasker. Конфигурация задачи \"Система\"/\"Отправить цель\" с параметрами:</string>
 </resources>

@@ -812,4 +812,12 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">רישום תאים סלולריים</string>
   <string name="wifi_ssid_pref_dlg_configured_ssids_chb">כל מזהי SSID המוגדרים במערכת</string>
   <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">כל שמות ה-Bluetooth המוגדרים במערכת</string>
+  <string name="wifi_ssid_pref_dlg_all_ssids_chb">כל מזהי SSID</string>
+  <string name="bluetooth_name_pref_dlg_all_bt_names_chb">כל שמות ה-Bluetooth</string>
+  <string name="editor_drawer_list_item_events_start_order">סדר הפעלה</string>
+  <string name="editor_drawer_order_start_order">סדר הפעלה</string>
+  <string name="info_notification_event_priority_new">4. לכל אירוע יש \"עדיפות\". אירוע לא יחל אם פועל אירוע בעל עדיפות גבוהה יותר.</string>
+  <string name="info_notification_event_start_order">אירועים פועלים לפי \"סדר הפעלה\". באפשרותך להגדיר סדר הפעלת האירועים בעורך בתצוגת אירועים \"סדר הפעלה\". בתצוגה זו, באפשרותך לגרור אירוע למעלה/למטה על-ידי ה\"מסדיר\".</string>
+  <string name="info_notification_event_start_order_handler_icon">מסדיר:</string>
+  <string name="info_notification_activate_profile_from_tasker">באפשרותך להפעיל פרופיל מה\"משימאי\". יש לקבוע תצורה של משימה \"מערכת\"/\"שלח כוונה\" עם פרמטרים:</string>
 </resources>

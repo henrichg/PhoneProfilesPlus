@@ -812,4 +812,12 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Mobil cellák regisztrációja</string>
   <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Minden SSID konfigurálva a rendszerben</string>
   <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Minden Bluetooth név beállítva rendszerben</string>
+  <string name="wifi_ssid_pref_dlg_all_ssids_chb">Minden SSID</string>
+  <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Minden Bluetooth-név</string>
+  <string name="editor_drawer_list_item_events_start_order">Indítási sorrend</string>
+  <string name="editor_drawer_order_start_order">Indítási sorrend</string>
+  <string name="info_notification_event_priority_new">4. minden esemény \"elsőbbséget\" élvez. Esemény nem indul el, ha a magasabb prioritású esemény fut.</string>
+  <string name="info_notification_event_start_order">Események \"Indítási sorrend\" szerint futnak. Beállíthatja a sorrendet az esemény szerkesztőben \"Indítási sorrend\". Ebben a nézetben húzza fel/le \"rendezés kezelő\".</string>
+  <string name="info_notification_event_start_order_handler_icon">Rendezés kezelő:</string>
+  <string name="info_notification_activate_profile_from_tasker">You can activate profile from Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
 </resources>

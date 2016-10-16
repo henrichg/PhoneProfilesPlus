@@ -756,7 +756,7 @@
   <string name="applications_editor_dialog_title">Vyber aplikáciu, odkaz</string>
   <string name="important_info_how_to_show">Tieto dôležité informácie môžete zobraziť v Editore cez ikonu otáznika v nástrojovej lište.</string>
   <string name="important_info_profile_interactive">Niektoré parametre profilu sú interaktívne. Tieto parametre zobrazujú obrazovku nastavenia systému. Tieto parametre sú označené \"(I)\".</string>
-  <string name="important_info_orange_text">Poznámka: oranžový text v týchto informáciach je klikateľný. Kliknutím na tento text otvára príslušné nastavenie obrazovky.</string>
+  <string name="important_info_orange_text">Poznámka: oranžový text v týchto informáciach je klikateľný. Kliknutím na tento text otvára príslušné obrazovky nastavení.</string>
   <string name="info_notification_event_priority">4. Každá udalosť má parameter \"Priorita\". Udalosť sa nespustí, ak je spustená udalosť s vyššou prioritou. Reštart udalostí spustí udalosti v poradí podľa priority.</string>
   <string name="default_event_name_night_call">Nočný hovor</string>
   <string name="alert_message_enable_event">Povoľ beh nie je povolený. Povoliť ho?</string>
@@ -812,4 +812,12 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Registrácia mobilných buniek</string>
   <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Všetky SSID nakonfigurované v systéme</string>
   <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Všetky názvy Bluetooth nakonfigurovaný v systéme</string>
+  <string name="wifi_ssid_pref_dlg_all_ssids_chb">Všetky SSID</string>
+  <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Všetky názvy Bluetooth</string>
+  <string name="editor_drawer_list_item_events_start_order">Poradie štartu</string>
+  <string name="editor_drawer_order_start_order">Poradie štartu</string>
+  <string name="info_notification_event_priority_new">4. Každá udalosť má parameter \"Priorita\". Udalosť sa nespustí, ak je spustená udalosť s vyššou prioritou.</string>
+  <string name="info_notification_event_start_order">Udalosti sú spustené podľa \"Poradie štartu\". Môžete nastaviť poradie štartu udalostí v editore v zobrazení udalostí \"Poradie štartu\". V tomto zobrazení, môžete presúvať udalosť hore/dole \"obsluhovačom poradia\".</string>
+  <string name="info_notification_event_start_order_handler_icon">Obsluhovač poradia:</string>
+  <string name="info_notification_activate_profile_from_tasker">Môžete aktivovať profil z Tasker-a. Nakonfugurujte task \"System\"/\"Send Intent\" s parametrami:</string>
 </resources>

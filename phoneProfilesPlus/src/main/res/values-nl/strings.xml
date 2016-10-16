@@ -813,4 +813,12 @@ Toch activeren?</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Mobiele cel registratie</string>
   <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Alle SSID\'s in het systeem geconfigureerd</string>
   <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Alle Bluetooth namen in het systeem geconfigureerd</string>
+  <string name="wifi_ssid_pref_dlg_all_ssids_chb">Alle SSID\'s</string>
+  <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Alle Bluetooth namen</string>
+  <string name="editor_drawer_list_item_events_start_order">Startvolgorde</string>
+  <string name="editor_drawer_order_start_order">Startvolgorde</string>
+  <string name="info_notification_event_priority_new">4. Elk evenement heeft een \"Prioriteit\". Gebeurtenis start niet als een gebeurtenis wordt uitgevoerd met hogere prioriteit.</string>
+  <string name="info_notification_event_start_order">Gebeurtenissen draaien in \"Startvolgorde\". Je kunt de startvolgorde van events in de evenementen weergave instellen bij \"Startvolgorde\". In deze weergave kunt u events omhoog/omlaag slepen door de \"volgorde handler\" te slepen.</string>
+  <string name="info_notification_event_start_order_handler_icon">Volgorde handler:</string>
+  <string name="info_notification_activate_profile_from_tasker">Je kunt een profiel activeren vanuit Tasker. Configureer taak \"System\" / \"Send Intent\" met parameters:</string>
 </resources>

@@ -756,7 +756,7 @@
   <string name="applications_editor_dialog_title">Vyber aplikaci, odkaz</string>
   <string name="important_info_how_to_show">Tyto důležité informace lze zobrazit v editoru pomocí ikony otazníku v panelu nástrojů.</string>
   <string name="important_info_profile_interactive">Některé předvolby profilu jsou interaktivní. Tyto preference se zobrazí v systéovém nastavení obrazovky. Tyto předvolby jsou označeny \"(I)\".</string>
-  <string name="important_info_orange_text">Poznámka: Oranžový text v této informaci je rozkliknutelná. Kliknutím na tento text se otevřou příslušná nastavení obrazovky.</string>
+  <string name="important_info_orange_text">Poznámka: Oranžový text v této informaci je rozkliknutelná. Kliknutím na tento text se otevřou příslušné obrazovky nastavení.</string>
   <string name="info_notification_event_priority">4. Každá událost má \"Prioritu\". Událost se nespustí, pokud je spuštěna událost s vyšší prioritou. Restartování událostí spustí události v pořadí podle priority.</string>
   <string name="default_event_name_night_call">Noční hovor</string>
   <string name="alert_message_enable_event">Spouštění událostí není povoleno. Povolit?</string>
@@ -812,4 +812,12 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Registrace mobilních buněk</string>
   <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Všechny SSID nakonfigurovány v systému</string>
   <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Všechny názvy Bluetooth nakonfigurovány v systému</string>
+  <string name="wifi_ssid_pref_dlg_all_ssids_chb">Všechny SSIDs</string>
+  <string name="bluetooth_name_pref_dlg_all_bt_names_chb">Všechny názvy Bluetooth</string>
+  <string name="editor_drawer_list_item_events_start_order">Pořadí startu</string>
+  <string name="editor_drawer_order_start_order">Pořadí startu</string>
+  <string name="info_notification_event_priority_new">4. Každá událost má parametr \"Priorita\". Událost se nespustí, pokud je spuštěna událost s vyšší prioritou. Restart událostí spustí události v pořadí podle priority.</string>
+  <string name="info_notification_event_start_order">Události jsou spuštěny podle \"Pořadí startu\". Můžete nastavit pořadí startu událostí v editoru v zobrazení událostí \"Pořadí startu\". V tomto zobrazení, můžete přesouvat událost nahoru/dolů \"obsluhovačem pořadí\".</string>
+  <string name="info_notification_event_start_order_handler_icon">Obsluhovač pořadí:</string>
+  <string name="info_notification_activate_profile_from_tasker">Můžete aktivovat profil z Tasker-u. Nakonfigurujte task \"System\"/\"Send Intent\" s parametry:</string>
 </resources>
