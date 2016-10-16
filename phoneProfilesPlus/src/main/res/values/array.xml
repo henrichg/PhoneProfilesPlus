@@ -174,8 +174,8 @@
     <item>6</item>
 </string-array>
 <string-array name="drawerOrderEvents">
-    <item>@string/editor_drawer_order_event_name</item>
     <item>@string/editor_drawer_order_start_order</item>
+    <item>@string/editor_drawer_order_event_name</item>
     <item>@string/editor_drawer_order_profile_name</item>
     <item>@string/editor_drawer_order_priority</item>
 </string-array>

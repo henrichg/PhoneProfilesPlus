@@ -54,8 +54,8 @@ public class EditorEventListFragment extends Fragment {
     public static final int FILTER_TYPE_STOPPED = 3;
     public static final int FILTER_TYPE_START_ORDER = 4;
 
-    public static final int ORDER_TYPE_EVENT_NAME = 0;
-    public static final int ORDER_TYPE_START_ORDER = 1;
+    public static final int ORDER_TYPE_START_ORDER = 0;
+    public static final int ORDER_TYPE_EVENT_NAME = 1;
     public static final int ORDER_TYPE_PROFILE_NAME = 2;
     public static final int ORDER_TYPE_PRIORITY = 3;
 

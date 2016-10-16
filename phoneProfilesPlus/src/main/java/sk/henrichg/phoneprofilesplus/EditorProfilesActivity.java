@@ -118,7 +118,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     EditorDrawerListAdapter drawerAdapter;
 
     private int drawerSelectedItem = 1;
-    private int orderSelectedItem = 2; // priority
+    private int orderSelectedItem = 0;
     private int profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
     private int eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
     private int eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
@@ -439,7 +439,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             SharedPreferences preferences = getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
             drawerSelectedItem = preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
-            orderSelectedItem = preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 2); // priority
+            orderSelectedItem = preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
         }
 
         // first must be set eventsOrderType
@@ -897,13 +897,13 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (drawerSelectedItem == DSI_EVENTS_START_ORDER) {
             _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
         } else {
-            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
             switch (position) {
                 case 0:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
                     break;
                 case 1:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
                     break;
                 case 2:
                     _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME;
