@@ -60,7 +60,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
 
         // convert to profile ringerMode
         int pRingerMode = 0;
-        if ((android.os.Build.VERSION.SDK_INT >= 21) && PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+        if ((android.os.Build.VERSION.SDK_INT >= 21)/* && PPNotificationListenerService.isNotificationListenerServiceEnabled(context)*/) {
             if (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) {
                 switch (ringerMode) {
                     case AudioManager.RINGER_MODE_NORMAL:

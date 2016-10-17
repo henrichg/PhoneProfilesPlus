@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -118,7 +119,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
             Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
             if (notificationAccessPreference != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 23) {
+                boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60)) {
                     PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
                     preferenceCategory.removePreference(notificationAccessPreference);
                 } else {

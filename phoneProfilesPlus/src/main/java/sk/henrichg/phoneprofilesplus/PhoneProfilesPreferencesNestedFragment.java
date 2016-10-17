@@ -177,16 +177,22 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
             preference = prefMng.findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
             if (preference != null) {
-                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
-                        intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        startActivityForResult(intent, RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
-                        return false;
-                    }
-                });
+                boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60)) {
+                    //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+                            return false;
+                        }
+                    });
+                } else {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryPermissions");
+                    preferenceCategory.removePreference(preference);
+                }
             }
 
             int locationMode = Settings.Secure.getInt(PhoneProfilesPreferencesFragment.preferencesActivity.getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);

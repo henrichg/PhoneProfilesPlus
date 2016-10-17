@@ -2084,10 +2084,15 @@ public class GlobalData extends Application {
 
     public static boolean canChangeZenMode(Context context, boolean notCheckAccess) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (notCheckAccess)
-                return true;
+            boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+            if (no60) {
+                if (notCheckAccess)
+                    return true;
+                else
+                    return Permissions.checkAccessNotificationPolicy(context);
+            }
             else
-                return Permissions.checkAccessNotificationPolicy(context);
+                return PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
         }
         if ((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23))
             return PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
@@ -2097,17 +2102,33 @@ public class GlobalData extends Application {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static int getSystemZenMode(Context context, int defaultValue) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            int interuptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-            switch (interuptionFilter) {
-                case NotificationManager.INTERRUPTION_FILTER_ALL:
-                    return ActivateProfileHelper.ZENMODE_ALL;
-                case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                    return ActivateProfileHelper.ZENMODE_PRIORITY;
-                case NotificationManager.INTERRUPTION_FILTER_NONE:
-                    return ActivateProfileHelper.ZENMODE_NONE;
-                case NotificationManager.INTERRUPTION_FILTER_ALARMS:
-                    return ActivateProfileHelper.ZENMODE_ALARMS;
+            boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+            if (no60) {
+                NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                int interuptionFilter = mNotificationManager.getCurrentInterruptionFilter();
+                switch (interuptionFilter) {
+                    case NotificationManager.INTERRUPTION_FILTER_ALL:
+                        return ActivateProfileHelper.ZENMODE_ALL;
+                    case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
+                        return ActivateProfileHelper.ZENMODE_PRIORITY;
+                    case NotificationManager.INTERRUPTION_FILTER_NONE:
+                        return ActivateProfileHelper.ZENMODE_NONE;
+                    case NotificationManager.INTERRUPTION_FILTER_ALARMS:
+                        return ActivateProfileHelper.ZENMODE_ALARMS;
+                }
+            }
+            else {
+                int interuptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);;
+                switch (interuptionFilter) {
+                    case 0:
+                        return ActivateProfileHelper.ZENMODE_ALL;
+                    case 1:
+                        return ActivateProfileHelper.ZENMODE_PRIORITY;
+                    case 2:
+                        return ActivateProfileHelper.ZENMODE_NONE;
+                    case 3:
+                        return ActivateProfileHelper.ZENMODE_ALARMS;
+                }
             }
         }
         if ((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) {
