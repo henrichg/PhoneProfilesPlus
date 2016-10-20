@@ -594,6 +594,10 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         GlobalData.setApplicationStarted(context, false);
 
+        GlobalData.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
+        GlobalData.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
+        GlobalData.setShowEnableLocationNotification(context.getApplicationContext(), true);
+
         if (activity != null) {
             Handler handler = new Handler();
             Runnable r = new Runnable() {
