@@ -39,7 +39,6 @@ public class GrantPermissionActivity extends Activity {
     private boolean log;
     private String applicationDataPath;
     private long event_id;
-    private boolean onlyGrant;
     private boolean activateProfile;
 
     private Profile profile;
@@ -79,7 +78,6 @@ public class GrantPermissionActivity extends Activity {
         interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
         log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
-        onlyGrant = intent.getBooleanExtra(Permissions.EXTRA_ONLY_GRANT, false);
         activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true);
 
         event_id = intent.getLongExtra(GlobalData.EXTRA_EVENT_ID, 0);
@@ -825,7 +823,7 @@ public class GrantPermissionActivity extends Activity {
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
-            if ((!onlyGrant) && activateProfile) {
+            if (activateProfile) {
                 if ((Permissions.profileActivationActivity != null) && (profile._askForDuration)) {
                     FastAccessDurationDialog dlg = new FastAccessDurationDialog(Permissions.profileActivationActivity,
                             profile, dataWrapper, startupSource, interactive, log);
