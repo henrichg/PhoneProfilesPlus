@@ -147,58 +147,58 @@ public class Permissions {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if (!checkProfileVolumePreferences(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VOLUME_PREFERENCES");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VOLUME_PREFERENCES");
             }
             if (!checkProfileVibrationOnTouch(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VIBRATION_ON_TOUCH");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VIBRATION_ON_TOUCH");
             }
             if (!checkProfileVibrateWhenRinging(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATE_WHEN_RINGING, permission.WRITE_SETTINGS));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VIBRATE_WHEN_RINGING");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VIBRATE_WHEN_RINGING");
             }
             if (!checkProfileRingtones(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_RINGTONES");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_RINGTONES");
             }
             if (!checkProfileScreenTimeout(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.WRITE_SETTINGS));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_SCREEN_TIMEOUT");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_SCREEN_TIMEOUT");
             }
             if (!checkProfileScreenBrightness(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_SCREEN_BRIGHTNESS");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_SCREEN_BRIGHTNESS");
             }
             if (!checkProfileAutoRotation(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_AUTOROTATION, permission.WRITE_SETTINGS));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_AUTOROTATION");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_AUTOROTATION");
             }
             if (!checkProfileNotificationLed(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_NOTIFICATION_LED, permission.WRITE_SETTINGS));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_NOTIFICATION_LED");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_NOTIFICATION_LED");
             }
             if (!checkProfileWallpaper(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_WALLPAPER");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_WALLPAPER");
             }
             if (!checkProfileRadioPreferences(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
                 permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
                 //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_RADIO_PREFERENCES");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_RADIO_PREFERENCES");
             }
             if (!checkProfilePhoneBroadcast(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.READ_PHONE_STATE));
                 permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_PHONE_BROADCAST");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_PHONE_BROADCAST");
             }
             if (!checkCustomProfileIcon(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_CUSTOM_PROFILE_ICON");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_CUSTOM_PROFILE_ICON");
             }
             if (!checkProfileAccessNotificationPolicy(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY, permission.ACCESS_NOTIFICATION_POLICY));
-                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY");
+                //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY");
             }
             return permissions;
         }

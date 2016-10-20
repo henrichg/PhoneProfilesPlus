@@ -819,5 +819,5 @@
   <string name="info_notification_event_priority_new">4. minden esemény \"elsőbbséget\" élvez. Esemény nem indul el, ha a magasabb prioritású esemény fut.</string>
   <string name="info_notification_event_start_order">Események \"Indítási sorrend\" szerint futnak. Beállíthatja a sorrendet az esemény szerkesztőben \"Indítási sorrend\". Ebben a nézetben húzza fel/le \"rendezés kezelő\".</string>
   <string name="info_notification_event_start_order_handler_icon">Rendezés kezelő:</string>
-  <string name="info_notification_activate_profile_from_tasker">You can activate profile from Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
+  <string name="info_notification_activate_profile_from_tasker">Aktiválhatod a profilt a \"Tasker\"-ből. Feladat beállítása \"Rendszer\"/\"Küldési szándék\" paraméterekkel:</string>
 </resources>

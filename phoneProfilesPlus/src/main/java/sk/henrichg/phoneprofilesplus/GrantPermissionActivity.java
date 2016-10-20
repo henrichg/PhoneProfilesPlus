@@ -178,11 +178,11 @@ public class GrantPermissionActivity extends Activity {
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
 
-        Log.d("GrantPermissionActivity.onStart", "permissions.size="+permissions.size());
+        //Log.d("GrantPermissionActivity.onStart", "permissions.size="+permissions.size());
 
         for (Permissions.PermissionType permissionType : permissions) {
-            Log.d("GrantPermissionActivity.onStart", "permissionType.permission="+permissionType.permission);
-            Log.d("GrantPermissionActivity.onStart", "Manifest.permission.WRITE_SETTINGS="+Manifest.permission.WRITE_SETTINGS);
+            //Log.d("GrantPermissionActivity.onStart", "permissionType.permission="+permissionType.permission);
+            //Log.d("GrantPermissionActivity.onStart", "Manifest.permission.WRITE_SETTINGS="+Manifest.permission.WRITE_SETTINGS);
 
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS))
                 showRequestWriteSettings = GlobalData.getShowRequestWriteSettingsPermission(context);
@@ -210,18 +210,18 @@ public class GrantPermissionActivity extends Activity {
                 showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION);
         }
 
-        Log.d("GrantPermissionActivity.onStart", "showRequestWriteSettings="+showRequestWriteSettings);
-        Log.d("GrantPermissionActivity.onStart", "showRequestReadExternalStorage="+showRequestReadExternalStorage);
-        Log.d("GrantPermissionActivity.onStart", "showRequestReadPhoneState="+showRequestReadPhoneState);
-        Log.d("GrantPermissionActivity.onStart", "showRequestProcessOutgoingCalls="+showRequestProcessOutgoingCalls);
-        Log.d("GrantPermissionActivity.onStart", "showRequestWriteExternalStorage="+showRequestWriteExternalStorage);
-        Log.d("GrantPermissionActivity.onStart", "showRequestReadCalendar="+showRequestReadCalendar);
-        Log.d("GrantPermissionActivity.onStart", "showRequestReadContacts="+showRequestReadContacts);
-        Log.d("GrantPermissionActivity.onStart", "showRequestReceiveSMS="+showRequestReceiveSMS);
-        Log.d("GrantPermissionActivity.onStart", "showRequestReadSMS="+showRequestReadSMS);
-        Log.d("GrantPermissionActivity.onStart", "showRequestAccessCoarseLocation="+showRequestAccessCoarseLocation);
-        Log.d("GrantPermissionActivity.onStart", "showRequestAccessFineLocation="+showRequestAccessFineLocation);
-        Log.d("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestWriteSettings="+showRequestWriteSettings);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestReadExternalStorage="+showRequestReadExternalStorage);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestReadPhoneState="+showRequestReadPhoneState);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestProcessOutgoingCalls="+showRequestProcessOutgoingCalls);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestWriteExternalStorage="+showRequestWriteExternalStorage);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestReadCalendar="+showRequestReadCalendar);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestReadContacts="+showRequestReadContacts);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestReceiveSMS="+showRequestReceiveSMS);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestReadSMS="+showRequestReadSMS);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestAccessCoarseLocation="+showRequestAccessCoarseLocation);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestAccessFineLocation="+showRequestAccessFineLocation);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
 
         if (showRequestWriteSettings ||
                 showRequestReadExternalStorage ||
