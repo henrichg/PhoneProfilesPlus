@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class GrantPermissionActivity extends Activity {
     private String applicationDataPath;
     private long event_id;
     private boolean onlyGrant;
+    private boolean activateProfile;
 
     private Profile profile;
     private Event event;
@@ -78,6 +80,7 @@ public class GrantPermissionActivity extends Activity {
         log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
         onlyGrant = intent.getBooleanExtra(Permissions.EXTRA_ONLY_GRANT, false);
+        activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true);
 
         event_id = intent.getLongExtra(GlobalData.EXTRA_EVENT_ID, 0);
 
@@ -177,9 +180,12 @@ public class GrantPermissionActivity extends Activity {
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
 
-        //Log.e("GrantPermissionActivity", "onStart - permissions.size="+permissions.size());
+        Log.d("GrantPermissionActivity.onStart", "permissions.size="+permissions.size());
 
         for (Permissions.PermissionType permissionType : permissions) {
+            Log.d("GrantPermissionActivity.onStart", "permissionType.permission="+permissionType.permission);
+            Log.d("GrantPermissionActivity.onStart", "Manifest.permission.WRITE_SETTINGS="+Manifest.permission.WRITE_SETTINGS);
+
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS))
                 showRequestWriteSettings = GlobalData.getShowRequestWriteSettingsPermission(context);
             if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY))
@@ -205,6 +211,19 @@ public class GrantPermissionActivity extends Activity {
             if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION))
                 showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION);
         }
+
+        Log.d("GrantPermissionActivity.onStart", "showRequestWriteSettings="+showRequestWriteSettings);
+        Log.d("GrantPermissionActivity.onStart", "showRequestReadExternalStorage="+showRequestReadExternalStorage);
+        Log.d("GrantPermissionActivity.onStart", "showRequestReadPhoneState="+showRequestReadPhoneState);
+        Log.d("GrantPermissionActivity.onStart", "showRequestProcessOutgoingCalls="+showRequestProcessOutgoingCalls);
+        Log.d("GrantPermissionActivity.onStart", "showRequestWriteExternalStorage="+showRequestWriteExternalStorage);
+        Log.d("GrantPermissionActivity.onStart", "showRequestReadCalendar="+showRequestReadCalendar);
+        Log.d("GrantPermissionActivity.onStart", "showRequestReadContacts="+showRequestReadContacts);
+        Log.d("GrantPermissionActivity.onStart", "showRequestReceiveSMS="+showRequestReceiveSMS);
+        Log.d("GrantPermissionActivity.onStart", "showRequestReadSMS="+showRequestReadSMS);
+        Log.d("GrantPermissionActivity.onStart", "showRequestAccessCoarseLocation="+showRequestAccessCoarseLocation);
+        Log.d("GrantPermissionActivity.onStart", "showRequestAccessFineLocation="+showRequestAccessFineLocation);
+        Log.d("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
 
         if (showRequestWriteSettings ||
                 showRequestReadExternalStorage ||
@@ -806,7 +825,7 @@ public class GrantPermissionActivity extends Activity {
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
-            if (!onlyGrant) {
+            if ((!onlyGrant) && activateProfile) {
                 if ((Permissions.profileActivationActivity != null) && (profile._askForDuration)) {
                     FastAccessDurationDialog dlg = new FastAccessDurationDialog(Permissions.profileActivationActivity,
                             profile, dataWrapper, startupSource, interactive, log);

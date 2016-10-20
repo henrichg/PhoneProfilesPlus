@@ -457,7 +457,7 @@ public class DataWrapper {
         Profile profile = getProfileById(profile_id, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
-                startupSource, interactive, null, true, true)) {
+                startupSource, interactive, null, true, true, true)) {
             getActivateProfileHelper().initialize(this, null, context);
             _activateProfile(profile, merged, startupSource, interactive, null, log);
         }
@@ -1295,7 +1295,7 @@ public class DataWrapper {
                 public void onClick(DialogInterface dialog, int which) {
                     if (Permissions.grantProfilePermissions(context, _profile, false, false,
                             forGUI, monochrome, monochromeValue,
-                            _startupSource, _interactive, _activity, true, false)) {
+                            _startupSource, _interactive, _activity, true, false, true)) {
                         if (_profile._askForDuration) {
                             FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
                                     _interactive, true);
@@ -1344,12 +1344,12 @@ public class DataWrapper {
 
                 granted = Permissions.grantProfilePermissions(context, profile, false, false,
                         forGUI, monochrome, monochromeValue,
-                        startupSource, interactive, activity, true, false);
+                        startupSource, interactive, activity, true, false, true);
             }
             else
                 granted = Permissions.grantProfilePermissions(context, profile, false, true,
                                         forGUI, monochrome, monochromeValue,
-                                        startupSource, interactive, null, true, false);
+                                        startupSource, interactive, null, true, false, true);
             if (granted) {
                 if (profile._askForDuration && interactive) {
                     FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this, startupSource,

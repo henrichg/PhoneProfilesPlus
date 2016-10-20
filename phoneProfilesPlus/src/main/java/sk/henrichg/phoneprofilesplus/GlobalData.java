@@ -48,7 +48,7 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -56,6 +56,8 @@ public class GlobalData extends Application {
 
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
+
+                                         +"|PhoneProfilesInstall"
             ;
 
 

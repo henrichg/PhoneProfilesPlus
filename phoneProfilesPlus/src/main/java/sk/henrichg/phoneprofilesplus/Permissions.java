@@ -11,6 +11,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,7 @@ public class Permissions {
     public static final String EXTRA_LOG = "log";
     public static final String EXTRA_APPLICATION_DATA_PATH = "application_data_path";
     public static final String EXTRA_ONLY_GRANT = "only_grant";
+    public static final String EXTRA_ACTIVATE_PROFILE = "activate_profile";
 
     public static Activity profileActivationActivity = null;
     public static ImageViewPreference imageViewPreference = null;
@@ -144,26 +146,61 @@ public class Permissions {
         if (profile == null) return permissions;
         //Log.e("Permissions", "checkProfilePermissions - profile.icon="+profile._icon);
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (!checkProfileVolumePreferences(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
-            if (!checkProfileVibrationOnTouch(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
-            if (!checkProfileVibrateWhenRinging(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATE_WHEN_RINGING, permission.WRITE_SETTINGS));
-            if (!checkProfileRingtones(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
-            if (!checkProfileScreenTimeout(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.WRITE_SETTINGS));
-            if (!checkProfileScreenBrightness(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
-            if (!checkProfileAutoRotation(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_AUTOROTATION, permission.WRITE_SETTINGS));
-            if (!checkProfileNotificationLed(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_NOTIFICATION_LED, permission.WRITE_SETTINGS));
-            if (!checkProfileWallpaper(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+            if (!checkProfileVolumePreferences(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VOLUME_PREFERENCES");
+            }
+            if (!checkProfileVibrationOnTouch(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VIBRATION_ON_TOUCH");
+            }
+            if (!checkProfileVibrateWhenRinging(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATE_WHEN_RINGING, permission.WRITE_SETTINGS));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VIBRATE_WHEN_RINGING");
+            }
+            if (!checkProfileRingtones(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_RINGTONES");
+            }
+            if (!checkProfileScreenTimeout(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.WRITE_SETTINGS));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_SCREEN_TIMEOUT");
+            }
+            if (!checkProfileScreenBrightness(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_SCREEN_BRIGHTNESS");
+            }
+            if (!checkProfileAutoRotation(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_AUTOROTATION, permission.WRITE_SETTINGS));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_AUTOROTATION");
+            }
+            if (!checkProfileNotificationLed(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_NOTIFICATION_LED, permission.WRITE_SETTINGS));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_NOTIFICATION_LED");
+            }
+            if (!checkProfileWallpaper(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_WALLPAPER");
+            }
             if (!checkProfileRadioPreferences(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
                 permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
                 //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_RADIO_PREFERENCES");
             }
             if (!checkProfilePhoneBroadcast(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.READ_PHONE_STATE));
                 permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_PHONE_BROADCAST");
             }
-            if (!checkCustomProfileIcon(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
-            if (!checkProfileAccessNotificationPolicy(context, profile)) permissions.add(new PermissionType(PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY, permission.ACCESS_NOTIFICATION_POLICY));
+            if (!checkCustomProfileIcon(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_CUSTOM_PROFILE_ICON");
+            }
+            if (!checkProfileAccessNotificationPolicy(context, profile)) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY, permission.ACCESS_NOTIFICATION_POLICY));
+                Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY");
+            }
             return permissions;
         }
         else
@@ -607,7 +644,7 @@ public class Permissions {
                                                   boolean onlyNotification,
                                                   boolean forGUI, boolean monochrome, int monochromeValue,
                                                   int startupSource, boolean interactive, Activity activity,
-                                                  boolean log, boolean onlyGrant) {
+                                                  boolean log, boolean onlyGrant, boolean activateProfile) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             List<PermissionType> permissions = checkProfilePermissions(context, profile);
             GlobalData.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
@@ -631,6 +668,7 @@ public class Permissions {
                 intent.putExtra(EXTRA_INTERACTIVE, interactive);
                 intent.putExtra(EXTRA_LOG, log);
                 intent.putExtra(EXTRA_ONLY_GRANT, onlyGrant);
+                intent.putExtra(EXTRA_ACTIVATE_PROFILE, activateProfile);
                 if (!onlyNotification)
                     profileActivationActivity = activity;
                 else

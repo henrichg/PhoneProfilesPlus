@@ -594,14 +594,15 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         GlobalData.setApplicationStarted(context, false);
 
-        Handler handler=new Handler();
-        Runnable r=new Runnable() {
-            public void run() {
-                if (activity != null)
+        if (activity != null) {
+            Handler handler = new Handler();
+            Runnable r = new Runnable() {
+                public void run() {
                     activity.finish();
-            }
-        };
-        handler.postDelayed(r, 500);
+                }
+            };
+            handler.postDelayed(r, 500);
+        }
     }
 
     @Override
@@ -961,7 +962,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     Profile mappedProfile = GlobalData.getMappedProfile(profile, getApplicationContext());
                     Permissions.grantProfilePermissions(getApplicationContext(), mappedProfile, false, false,
-                            true, false, 0, GlobalData.STARTUP_SOURCE_EDITOR, true, this, true, false);
+                            true, false, 0, GlobalData.STARTUP_SOURCE_EDITOR, true, this, true, false, false);
                 }
                 else
                 if (profile_id == GlobalData.DEFAULT_PROFILE_ID)
@@ -971,7 +972,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     Profile defaultProfile = GlobalData.getDefaultProfile(getApplicationContext());
                     Permissions.grantProfilePermissions(getApplicationContext(), defaultProfile, false, false,
-                            true, false, 0, GlobalData.STARTUP_SOURCE_EDITOR, true, this, true, true);
+                            true, false, 0, GlobalData.STARTUP_SOURCE_EDITOR, true, this, true, true, false);
                 }
             }
         }
@@ -1221,6 +1222,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                         editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
                         editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
                         editor.commit();
+
+                        GlobalData.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
+                        GlobalData.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
+                        GlobalData.setShowEnableLocationNotification(getApplicationContext(), true);
 
                         // restart events
                         // startneme eventy

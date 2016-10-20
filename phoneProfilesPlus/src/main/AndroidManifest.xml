@@ -237,6 +237,13 @@
             android:label="@string/about_application_title">
         </activity>
 
+        <receiver android:name=".PhoneProfilesInstall">
+            <intent-filter android:priority="100">
+                <action android:name="android.intent.action.PACKAGE_INSTALL"/>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".IconWidgetProvider"
             android:icon="@mipmap/ic_launcher"
