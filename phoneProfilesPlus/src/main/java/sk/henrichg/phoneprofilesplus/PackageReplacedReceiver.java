@@ -16,6 +16,10 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         //{
             //GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "####");
 
+            GlobalData.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
+            GlobalData.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
+            GlobalData.setShowEnableLocationNotification(context.getApplicationContext(), true);
+
             GlobalData.logE("PackageReplacedReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);
 
             if (GlobalData.getApplicationStarted(context))
