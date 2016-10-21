@@ -300,7 +300,12 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-
+        if (android.os.Build.VERSION.SDK_INT < 21) {
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryNotifications");
+            preference = prefMng.findPreference(GlobalData.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
+        }
     }
 
     private void setTitleStyle(Preference preference, boolean bold, boolean underline)
@@ -333,6 +338,14 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         if (preference == null)
             return;
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            if (key.equals(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
+                boolean show = preferences.getBoolean(key, true);
+                Preference _preference = prefMng.findPreference(GlobalData.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
+                _preference.setEnabled(show);
+            }
+        }
 
         // Do not bind toggles.
         if (preference instanceof CheckBoxPreference

@@ -20,6 +20,7 @@ public class PhoneProfilesInstall extends BroadcastReceiver {
                     GlobalData.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
                     GlobalData.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
                     GlobalData.setShowEnableLocationNotification(context.getApplicationContext(), true);
+                    GlobalData.setScreenUnlocked(context.getApplicationContext(), true);
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 //e.printStackTrace();

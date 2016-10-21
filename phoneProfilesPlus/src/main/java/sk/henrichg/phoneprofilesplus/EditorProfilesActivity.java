@@ -597,6 +597,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         GlobalData.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
         GlobalData.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
         GlobalData.setShowEnableLocationNotification(context.getApplicationContext(), true);
+        GlobalData.setScreenUnlocked(context, true);
 
         if (activity != null) {
             Handler handler = new Handler();
@@ -1230,6 +1231,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         GlobalData.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
                         GlobalData.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
                         GlobalData.setShowEnableLocationNotification(getApplicationContext(), true);
+                        GlobalData.setScreenUnlocked(getApplicationContext(), true);
 
                         // restart events
                         // startneme eventy

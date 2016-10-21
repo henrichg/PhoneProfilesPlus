@@ -11,7 +11,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        GlobalData.logE("##### ScreenOnOffBroadcastReceiver.onReceive","xxx");
+        GlobalData.logE("##### ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
@@ -21,15 +21,26 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
             GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
-        else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
+        else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
-        else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
+            GlobalData.setScreenUnlocked(context, false);
+        }
+        else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
             GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
+            GlobalData.setScreenUnlocked(context, true);
 
-        if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
-        {
+            if (GlobalData.getApplicationStarted(context)) {
+                if (GlobalData.notificationShowInStatusBar &&
+                    GlobalData.notificationHideInLockscreen) {
+                    DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
+                    dataWrapper.getActivateProfileHelper().removeNotification();
+                    dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+                    dataWrapper.invalidateDataWrapper();
+                }
+            }
+
             // enable/disable keyguard
-            //GlobalData.logE("$$$ ScreenOnOffBroadcastReceiver.onReceive","keyguardService="+Keyguard.keyguardService);
             Intent keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class);
             context.startService(keyguardService);
             return;
@@ -48,10 +59,10 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
 
             //if (screenEventsExists*/)
             //{
-                // start service
-                Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                startWakefulService(context, eventsServiceIntent);
+            // start service
+            Intent eventsServiceIntent = new Intent(context, EventsService.class);
+            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+            startWakefulService(context, eventsServiceIntent);
             //}
 
             if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
@@ -92,6 +103,19 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                 dataWrapper.invalidateDataWrapper();
             }
 
+        }
+
+        if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
+            if (GlobalData.getApplicationStarted(context)) {
+                if (GlobalData.notificationShowInStatusBar &&
+                    GlobalData.notificationHideInLockscreen) {
+                    DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
+                    dataWrapper.getActivateProfileHelper().removeNotification();
+                    dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+                    dataWrapper.invalidateDataWrapper();
+                }
+            }
         }
 
     }

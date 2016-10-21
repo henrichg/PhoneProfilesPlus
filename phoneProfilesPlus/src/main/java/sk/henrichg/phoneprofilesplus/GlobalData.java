@@ -48,7 +48,7 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -57,7 +57,8 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|PhoneProfilesInstall"
+                                         +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
+                                         +"|ActivateProfileHelper.showNotification"
             ;
 
 
@@ -248,6 +249,7 @@ public class GlobalData extends Application {
     public static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventOrientationScanInPowerSaveMode";
     public static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE = "applicationEventMobileCellScanInPowerSaveMode";
     public static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN = "applicationEventMobileCellsRescan";
+    public static final String PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN = "notificationHideInLockscreen";
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
@@ -296,6 +298,7 @@ public class GlobalData extends Application {
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
+    private static final String PREF_SCREEN_UNLOCKED = "screen_unlocked";
 
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
     public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
@@ -346,6 +349,7 @@ public class GlobalData extends Application {
     public static String notificationStatusBarStyle;
     public static boolean notificationShowInStatusBar;
     public static String notificationTextColor;
+    public static boolean notificationHideInLockscreen;
     public static boolean applicationWidgetListPrefIndicator;
     public static boolean applicationWidgetListHeader;
     public static String applicationWidgetListBackground;
@@ -579,6 +583,7 @@ public class GlobalData extends Application {
         notificationStatusBarStyle = preferences.getString(PREF_NOTIFICATION_STATUS_BAR_STYLE, "1");
         notificationShowInStatusBar = preferences.getBoolean(PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, true);
         notificationTextColor = preferences.getString(PREF_NOTIFICATION_TEXT_COLOR, "0");
+        notificationHideInLockscreen = preferences.getBoolean(PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, false);
         applicationWidgetListPrefIndicator = preferences.getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, true);
         applicationWidgetListHeader = preferences.getBoolean(PREF_APPLICATION_WIDGET_LIST_HEADER, true);
         applicationWidgetListBackground = preferences.getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "25");
@@ -1060,6 +1065,20 @@ public class GlobalData extends Application {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_LOCKSCREEN_DISABLED, disabled);
+        editor.commit();
+    }
+
+    static public boolean getScreenUnlocked(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_SCREEN_UNLOCKED, true);
+    }
+
+    static public void setScreenUnlocked(Context context, boolean unlocked)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putBoolean(PREF_SCREEN_UNLOCKED, unlocked);
         editor.commit();
     }
 

@@ -1447,6 +1447,8 @@ public class ActivateProfileHelper {
 
         if (GlobalData.notificationStatusBar)
         {
+            GlobalData.logE("ActivateProfileHelper.showNotification", "show");
+
             boolean notificationShowInStatusBar = GlobalData.notificationShowInStatusBar;
             boolean notificationStatusBarPermanent = GlobalData.notificationStatusBarPermanent;
 
@@ -1498,8 +1500,13 @@ public class ActivateProfileHelper {
                     .setContentIntent(pIntent);
 
             if (android.os.Build.VERSION.SDK_INT >= 16) {
-                if (notificationShowInStatusBar)
-                    notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+                if (notificationShowInStatusBar) {
+                    boolean screenUnlocked = GlobalData.getScreenUnlocked(context);
+                    if (GlobalData.notificationHideInLockscreen && (!screenUnlocked))
+                        notificationBuilder.setPriority(Notification.PRIORITY_MIN);
+                    else
+                        notificationBuilder.setPriority(Notification.PRIORITY_DEFAULT);
+                }
                 else
                     notificationBuilder.setPriority(Notification.PRIORITY_MIN);
                 //notificationBuilder.setPriority(Notification.PRIORITY_HIGH); // for heads-up in Android 5.0

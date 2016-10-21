@@ -18,26 +18,26 @@ public class KeyguardService extends Service {
     private KeyguardManager.KeyguardLock keyguardLock;
 
     @SuppressWarnings("deprecation")
-	@Override
+    @Override
     public void onCreate()
-	{
+    {
         GlobalData.logE("$$$ KeyguardService.onStartCommand","onCreate");
         keyguardManager = (KeyguardManager)getBaseContext().getSystemService(Activity.KEYGUARD_SERVICE);
         keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
-	}
+    }
 
-	@Override
+    @Override
     public void onDestroy()
-	{
+    {
         GlobalData.logE("$$$ KeyguardService.onStartCommand", "onDestroy");
         reenableKeyguard();
     }
 
     @SuppressWarnings("deprecation")
-	@Override
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId)
-	{
-		Context context = getBaseContext();
+    {
+        Context context = getBaseContext();
 
         if (!GlobalData.getApplicationStarted(context)) {
             reenableKeyguard();
@@ -61,10 +61,10 @@ public class KeyguardService extends Service {
         if (android.os.Build.VERSION.SDK_INT >= 16)
             secureKeyguard = keyguardManager.isKeyguardSecure();
         else
-		    secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
+            secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
         GlobalData.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
         if (!secureKeyguard)
-		{
+        {
             GlobalData.logE("$$$ KeyguardService.onStartCommand xxx","getLockscreenDisabled="+GlobalData.getLockscreenDisabled(context));
 
 
@@ -99,18 +99,18 @@ public class KeyguardService extends Service {
                     return START_NOT_STICKY;
                 }
             }*/
-		}
+        }
 
         GlobalData.logE("$$$ KeyguardService.onStartCommand"," secureKeyguard, stopSelf(), START_NOT_STICKY");
-		stopSelf();
-		return START_NOT_STICKY;
-	}
-	
-	@Override
-	public IBinder onBind(Intent intent)
-	{
-		return null;
-	}
+        stopSelf();
+        return START_NOT_STICKY;
+    }
+
+    @Override
+    public IBinder onBind(Intent intent)
+    {
+        return null;
+    }
 
     public void disableKeyguard()
     {

@@ -150,6 +150,11 @@
             android:defaultValue="true"
             android:dependency="notificationStatusBar" />
         <CheckBoxPreference
+            android:key="notificationHideInLockscreen"
+            android:title="@string/phone_profiles_pref_notificationHideInLockscreen"
+            android:defaultValue="false"
+            android:dependency="notificationStatusBar" />
+        <CheckBoxPreference
             android:key="notificationStatusBarPermanent"
             android:title="@string/phone_profiles_pref_notificationStatusBarPermanent"
             android:summary="@string/phone_profiles_pref_notificationStatusBarRecommended"
