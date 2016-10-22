@@ -2983,8 +2983,12 @@ public class DataWrapper {
 
     public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,
                                int durationDelay) {
-        if (GlobalData.getActivityLogEnabled(context))
-            getDatabaseHandler().addActivityLog(logType, eventName, profileName, profileIcon, durationDelay);
+        if (GlobalData.getActivityLogEnabled(context)) {
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            GlobalData.applicationDeleteOldActivityLogs = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7"));
+            getDatabaseHandler().addActivityLog(GlobalData.applicationDeleteOldActivityLogs,
+                                    logType, eventName, profileName, profileIcon, durationDelay);
+        }
     }
 
 }

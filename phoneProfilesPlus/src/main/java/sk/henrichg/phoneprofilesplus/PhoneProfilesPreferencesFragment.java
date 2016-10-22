@@ -140,6 +140,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(GlobalData.PREF_APPLICATION_EVENT_LOCATION_RESCAN);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE);
+        setSummary(GlobalData.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS);
 
 
         if (GlobalData.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, preferencesActivity.getApplicationContext())

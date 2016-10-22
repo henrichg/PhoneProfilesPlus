@@ -250,6 +250,7 @@ public class GlobalData extends Application {
     public static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE = "applicationEventMobileCellScanInPowerSaveMode";
     public static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN = "applicationEventMobileCellsRescan";
     public static final String PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN = "notificationHideInLockscreen";
+    public static final String PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS = "applicationDeleteOldActivityLogs";
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
@@ -389,6 +390,7 @@ public class GlobalData extends Application {
     public static String applicationEventOrientationScanInPowerSaveMode;
     public static String applicationEventMobileCellsScanInPowerSaveMode;
     public static String applicationEventMobileCellsRescan;
+    public static int applicationDeleteOldActivityLogs;
 
     public static int notAllowedReason;
 
@@ -623,6 +625,7 @@ public class GlobalData extends Application {
         applicationEventOrientationScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE, "1");
         applicationEventMobileCellsScanInPowerSaveMode = preferences.getString(PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE, "1");
         applicationEventMobileCellsRescan = preferences.getString(PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "1");
+        applicationDeleteOldActivityLogs = Integer.valueOf(preferences.getString(PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7"));
 
         if (applicationTheme.equals("light"))
         {

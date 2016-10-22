@@ -4772,7 +4772,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 // ACTIVITY LOG -------------------------------------------------------------------
 
     // Adding activity log
-    public void addActivityLog(int logType, String eventName, String profileName, String profileIcon,
+    public void addActivityLog(int deleteOldActivityLogs, int logType, String eventName, String profileName, String profileIcon,
                         int durationDelay) {
 
         //SQLiteDatabase db = this.getWritableDatabase();
@@ -4789,8 +4789,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.beginTransaction();
 
         try {
-            // delete older than 7 days old records
-            db.delete(TABLE_ACTIVITY_LOG, KEY_AL_LOG_DATE_TIME + " < date('now','-7 days')", null);
+            if (deleteOldActivityLogs > 0) {
+                // delete older than 7 days old records
+                db.delete(TABLE_ACTIVITY_LOG, KEY_AL_LOG_DATE_TIME +
+                        " < date('now','-" + deleteOldActivityLogs + " days')", null);
+            }
 
             // Inserting Row
             db.insert(TABLE_ACTIVITY_LOG, null, values);

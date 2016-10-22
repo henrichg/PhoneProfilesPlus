@@ -436,6 +436,13 @@
             android:key="applicationEditorAutoCloseDrawer"
             android:title="@string/phone_profiles_pref_applicationAutoCloseDrawer"
             android:defaultValue="true" />
+        <sk.henrichg.phoneprofilesplus.NumberPickerPreference
+            android:key="applicationDeleteOldActivityLogs"
+            android:summary="@string/phone_profiles_pref_deleteOldActivityLogs"
+            android:title="@string/phone_profiles_pref_deleteOldActivityLogs"
+            android:defaultValue="7"
+            henrichg:min="0"
+            henrichg:max="30" />
     </PreferenceScreen>
     
     <PreferenceScreen

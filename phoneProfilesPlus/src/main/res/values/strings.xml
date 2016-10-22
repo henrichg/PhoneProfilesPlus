@@ -822,4 +822,5 @@
     <string name="info_notification_event_start_order_handler_icon">Order handler:</string>
     <string name="info_notification_activate_profile_from_tasker">You can activate profile from Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
     <string name="phone_profiles_pref_notificationHideInLockscreen">Hide in lockscreen</string>
+    <string name="phone_profiles_pref_deleteOldActivityLogs">Delete old Activity logs (days)</string>
 </resources>
