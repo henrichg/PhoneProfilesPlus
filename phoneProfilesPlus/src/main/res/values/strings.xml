@@ -827,4 +827,9 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Background lightness (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Text lightness (widget)</string>
     <string name="altype_eventStop">event stop</string>
+    <string name="info_notification_manage_events_from_tasker">You can manage events from Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
+    <string name="info_notification_manage_events_from_tasker_restart_events">- restart events:</string>
+    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- enable run for event:</string>
+    <string name="info_notification_manage_events_from_tasker_pause_event">- pause event:</string>
+    <string name="info_notification_manage_events_from_tasker_stop_event">- stop event:</string>
 </resources>

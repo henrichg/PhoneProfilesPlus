@@ -240,6 +240,29 @@ public class ImportantInfoActivity extends AppCompatActivity {
                     " Extra:profile_name:profile name\n" +
                     " Target:Activity\n" +
                 "]");
+        TextView infoText42 = (TextView)findViewById(R.id.activity_info_manage_events_from_tasker_params_restart_events);
+        infoText42.setText("Send Intent [ \n" +
+                " Action:sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS\n" +
+                " Target:Activity\n" +
+                "]");
+        TextView infoText43 = (TextView)findViewById(R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event);
+        infoText43.setText("Send Intent [ \n" +
+                " Action:sk.henrichg.phoneprofilesplus.ACTION_ENABLE_RUN_FOR_EVENT\n" +
+                " Extra:event_name:event name\n" +
+                " Target:Activity\n" +
+                "]");
+        TextView infoText44 = (TextView)findViewById(R.id.activity_info_manage_events_from_tasker_params_pause_event);
+        infoText44.setText("Send Intent [ \n" +
+                " Action:sk.henrichg.phoneprofilesplus.ACTION_PAUSE_EVENT\n" +
+                " Extra:event_name:event name\n" +
+                " Target:Activity\n" +
+                "]");
+        TextView infoText45 = (TextView)findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
+        infoText45.setText("Send Intent [ \n" +
+                " Action:sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT\n" +
+                " Extra:event_name:event name\n" +
+                " Target:Activity\n" +
+                "]");
 
         if (!news) {
             TextView infoTextNews = (TextView) findViewById(R.id.activity_info_notification_dialog_news);

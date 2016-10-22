@@ -292,6 +292,7 @@
                 android:paddingBottom="10dp"
                 android:text="@string/empty_string"
                 android:id="@+id/activity_info_activate_profile_from_tasker_params"
+                android:fontFamily="monospace"
                 android:textIsSelectable="true"
                 android:focusable="true"
                 android:longClickable="true" />
@@ -437,6 +438,72 @@
                 android:text="@string/important_info_profile_bluetoothScanning_location"
                 android:id="@+id/activity_info_notification_dialog_info_text22"
                 android:textColor="?attr/colorAccent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_manage_events_from_tasker"
+                android:id="@+id/activity_info_manage_events_from_tasker" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_manage_events_from_tasker_restart_events"
+                android:id="@+id/activity_info_manage_events_from_tasker_params_1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/empty_string"
+                android:id="@+id/activity_info_manage_events_from_tasker_params_restart_events"
+                android:fontFamily="monospace"
+                android:textIsSelectable="true"
+                android:focusable="true"
+                android:longClickable="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_manage_events_from_tasker_enable_run_for_event"
+                android:id="@+id/activity_info_manage_events_from_tasker_params_2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/empty_string"
+                android:id="@+id/activity_info_manage_events_from_tasker_params_enable_run_for_event"
+                android:fontFamily="monospace"
+                android:textIsSelectable="true"
+                android:focusable="true"
+                android:longClickable="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_manage_events_from_tasker_pause_event"
+                android:id="@+id/activity_info_manage_events_from_tasker_params_3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/empty_string"
+                android:id="@+id/activity_info_manage_events_from_tasker_params_pause_event"
+                android:fontFamily="monospace"
+                android:textIsSelectable="true"
+                android:focusable="true"
+                android:longClickable="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_notification_manage_events_from_tasker_stop_event"
+                android:id="@+id/activity_info_manage_events_from_tasker_params_4" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/empty_string"
+                android:id="@+id/activity_info_manage_events_from_tasker_params_stop_event"
+                android:fontFamily="monospace"
+                android:textIsSelectable="true"
+                android:focusable="true"
+                android:longClickable="true" />
 
             <!-- SYSTEM -->
 
