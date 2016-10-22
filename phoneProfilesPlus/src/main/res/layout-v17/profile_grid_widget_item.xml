@@ -24,6 +24,10 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:singleLine="false"
+        android:shadowColor="#ff000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="3"
         android:text="@string/profile_name_default"
         android:textSize="12sp"
         android:textColor="#ffffffff" />
