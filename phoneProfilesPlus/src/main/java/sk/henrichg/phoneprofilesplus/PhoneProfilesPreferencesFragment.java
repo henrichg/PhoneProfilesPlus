@@ -141,6 +141,9 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(GlobalData.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL);
         setSummary(GlobalData.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE);
         setSummary(GlobalData.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS);
+        setSummary(GlobalData.PREF_APPLICATION_WIDGET_ICON_BACKGROUND);
+        setSummary(GlobalData.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
+        setSummary(GlobalData.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T);
 
 
         if (GlobalData.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, preferencesActivity.getApplicationContext())

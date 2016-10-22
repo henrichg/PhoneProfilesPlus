@@ -823,4 +823,7 @@
     <string name="info_notification_activate_profile_from_tasker">You can activate profile from Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
     <string name="phone_profiles_pref_notificationHideInLockscreen">Hide in lockscreen</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">Delete old Activity logs (days)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackground">Background opaqueness (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Background lightness (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Text lightness (widget)</string>
 </resources>

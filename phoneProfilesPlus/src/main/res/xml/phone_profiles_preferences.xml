@@ -512,6 +512,30 @@
             android:title="@string/phone_profiles_pref_applicationWidgetIconHideProfileName"
             android:defaultValue="false" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetIconBackground"
+            android:summary="0%"
+            android:key="applicationWidgetIconBackground"
+            android:defaultValue="0"
+            android:entries="@array/widgetBackgroundArray"
+            android:entryValues="@array/widgetBackgroundValues"
+            app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetIconLightnessB"
+            android:summary="0"
+            android:key="applicationWidgetIconLightnessB"
+            android:defaultValue="0"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetIconLightnessT"
+            android:summary="100"
+            android:key="applicationWidgetIconLightnessT"
+            android:defaultValue="100"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            app:useStockLayout="true" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetIconColor"
             android:summary="0"
             android:key="applicationWidgetIconColor"
