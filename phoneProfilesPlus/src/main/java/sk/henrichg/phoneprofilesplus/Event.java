@@ -1314,15 +1314,14 @@ public class Event {
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);
-        //int status = this._status;
+        int status = this._status;
         this._status = ESTATUS_STOP;
         if (saveEventStatus)
             dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
-        /*
         if (log && (status != this._status)) {
-            dataWrapper.getDatabaseHandler().addActivityLog(DatabaseHandler.ALTYPE_EVENTSTOP, _name, null, null, 0);
-        }*/
+            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTOP, _name, null, null, 0);
+        }
 
         return;
     }

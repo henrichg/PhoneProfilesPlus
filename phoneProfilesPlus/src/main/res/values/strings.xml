@@ -826,4 +826,5 @@
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Background opaqueness (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Background lightness (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Text lightness (widget)</string>
+    <string name="altype_eventStop">event stop</string>
 </resources>

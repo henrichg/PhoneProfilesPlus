@@ -2678,7 +2678,7 @@ public class DataWrapper {
 
     }
 
-    private void restartEventsWithRescan(boolean showToast, boolean interactive)
+    public void restartEventsWithRescan(boolean showToast, boolean interactive)
     {
         GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithRescan");
 

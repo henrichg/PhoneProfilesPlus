@@ -60,6 +60,7 @@ public class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(DatabaseHandler.ALTYPE_PAUSEDLOGGING, R.string.altype_pausedLogging);
         activityTypeStrings.put(DatabaseHandler.ALTYPE_STARTEDLOGGING, R.string.altype_startedLogging);
         activityTypeStrings.put(DatabaseHandler.ALTYPE_EVENTENDDELAY, R.string.altype_eventEndDelay);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_EVENTSTOP, R.string.altype_eventStop);
 
         activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEACTIVATION, R.color.altype_profile);
         activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, R.color.altype_profile);
@@ -74,6 +75,7 @@ public class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE, R.color.altype_eventEnd);
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_RESTARTEVENTS, R.color.altype_eventEnd);
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS, R.color.altype_eventEnd);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTSTOP, R.color.altype_eventEnd);
         activityTypeColors.put(DatabaseHandler.ALTYPE_RESTARTEVENTS, R.color.altype_other);
         activityTypeColors.put(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, R.color.altype_other);
         activityTypeColors.put(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, R.color.altype_other);

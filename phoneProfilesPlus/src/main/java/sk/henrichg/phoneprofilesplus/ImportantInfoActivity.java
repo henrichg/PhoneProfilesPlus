@@ -236,15 +236,8 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         TextView infoText41 = (TextView)findViewById(R.id.activity_info_activate_profile_from_tasker_params);
         infoText41.setText("Send Intent [ \n" +
-                    " Action:\n" +
-                    " Cat:\n" +
-                    " Mime Type:\n" +
-                    " Data:\n" +
+                    " Action:sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE\n" +
                     " Extra:profile_name:profile name\n" +
-                    " Extra:\n" +
-                    " Extra:\n" +
-                    " Package:sk.henrichg.phoneprofilesplus\n" +
-                    " Class:sk.henrichg.phoneprofilesplus.ActivateProfileFromExternalApplicationActivity\n" +
                     " Target:Activity\n" +
                 "]");
 

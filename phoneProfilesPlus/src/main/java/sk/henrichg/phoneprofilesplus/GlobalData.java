@@ -89,6 +89,7 @@ public class GlobalData extends Application {
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
     static final String EXTRA_PROFILE_NAME = "profile_name";
     static final String EXTRA_INTERACTIVE = "interactive";
+    static final String EXTRA_EVENT_NAME = "event_name";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
