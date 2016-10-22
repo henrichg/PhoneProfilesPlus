@@ -110,7 +110,6 @@ public class ShortcutCreatorListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             List<Profile> profileList = this.dataWrapper.getProfileList();
             Collections.sort(profileList, new ProfileComparator());
-
             return null;
         }
 
@@ -124,6 +123,12 @@ public class ShortcutCreatorListFragment extends Fragment {
 
                 // get local profileList
                 List<Profile> profileList = this.dataWrapper.getProfileList();
+
+                // add restart events
+                Profile profile = this.dataWrapper.getNoinitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
+                                            "ic_action_events_restart_color", 0);
+                profileList.add(0, profile);
+
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.dataWrapper.setProfileList(profileList, false);
                 // set reference of profile list from profilesDataWrapper
@@ -193,10 +198,18 @@ public class ShortcutCreatorListFragment extends Fragment {
             useCustomColor = false;
         }
 
-        Intent shortcutIntent = new Intent(getActivity().getApplicationContext(), BackgroundActivateProfileActivity.class);
-        // BackgroundActivateProfileActivity musi toto testovat, a len spravit aktivaciu profilu
-        shortcutIntent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_SHORTCUT);
-        shortcutIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+        Intent shortcutIntent;
+        if (position == 0) {
+            // restart events
+            shortcutIntent = new Intent(getActivity().getApplicationContext(), ActionForExternalApplicationActivity.class);
+            shortcutIntent.setAction(ActionForExternalApplicationActivity.ACTION_RESTART_EVENTS);
+        }
+        else {
+            shortcutIntent = new Intent(getActivity().getApplicationContext(), BackgroundActivateProfileActivity.class);
+            // BackgroundActivateProfileActivity musi toto testovat, a len spravit aktivaciu profilu
+            shortcutIntent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_SHORTCUT);
+            shortcutIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+        }
 
         Intent intent = new Intent();
         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);

@@ -16,11 +16,11 @@ public class ActionForExternalApplicationActivity extends Activity {
     private long profile_id = 0;
     private long event_id = 0;
 
-    private final String ACTION_ACTIVATE_PROFILE = "sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE";
-    private final String ACTION_RESTART_EVENTS = "sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS";
-    private final String ACTION_ENABLE_RUN_FOR_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_ENABLE_RUN_FOR_EVENT";
-    private final String ACTION_PAUSE_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_PAUSE_EVENT";
-    private final String ACTION_STOP_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT";
+    private static final String ACTION_ACTIVATE_PROFILE = "sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE";
+    public static final String ACTION_RESTART_EVENTS = "sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS";
+    private static final String ACTION_ENABLE_RUN_FOR_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_ENABLE_RUN_FOR_EVENT";
+    private static final String ACTION_PAUSE_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_PAUSE_EVENT";
+    private static final String ACTION_STOP_EVENT = "sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
