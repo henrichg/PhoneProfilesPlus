@@ -6,7 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.Settings;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Profile {
 
@@ -1053,11 +1056,10 @@ public class Profile {
             if (_checked) {
                 long endDurationTime = GlobalData.getActivatedProfileEndDurationTime(context);
                 if (endDurationTime > 0) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                     if (multyline)
-                        profileName = "(de:" + sdf.format(endDurationTime) + ")\n" + profileName;
+                        profileName = "(de:" + timeDateStringFromTimestamp(context, endDurationTime) + ")\n" + profileName;
                     else
-                        profileName = "(de:" + sdf.format(endDurationTime) + ") " + profileName;
+                        profileName = "(de:" + timeDateStringFromTimestamp(context, endDurationTime) + ") " + profileName;
                     showEndTime = true;
                 }
             }
@@ -1074,4 +1076,35 @@ public class Profile {
         }
         return profileName;
     }
+
+    private static String timeDateStringFromTimestamp(Context applicationContext,long timestamp){
+        String timeDate;
+        String timestampDate = android.text.format.DateFormat.getDateFormat(applicationContext).format(new Date(timestamp));
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = android.text.format.DateFormat.getDateFormat(applicationContext).format(new Date(calendar.getTimeInMillis()));
+        String androidDateTime;
+        if (timestampDate.equals(currentDate))
+            androidDateTime=android.text.format.DateFormat.getTimeFormat(applicationContext).format(new Date(timestamp));
+        else
+            androidDateTime=android.text.format.DateFormat.getDateFormat(applicationContext).format(new Date(timestamp))+" "+
+                    android.text.format.DateFormat.getTimeFormat(applicationContext).format(new Date(timestamp));
+        String javaDateTime = DateFormat.getDateTimeInstance().format(new Date(timestamp));
+        String AmPm="";
+        if(!Character.isDigit(androidDateTime.charAt(androidDateTime.length()-1))) {
+            if(androidDateTime.contains(new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM])){
+                AmPm=" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM];
+            }else{
+                AmPm=" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.PM];
+            }
+            androidDateTime=androidDateTime.replace(AmPm, "");
+        }
+        if(!Character.isDigit(javaDateTime.charAt(javaDateTime.length()-1))){
+            javaDateTime=javaDateTime.replace(" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM], "");
+            javaDateTime=javaDateTime.replace(" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.PM], "");
+        }
+        javaDateTime=javaDateTime.substring(javaDateTime.length()-3);
+        timeDate=androidDateTime.concat(javaDateTime);
+        return timeDate.concat(AmPm);
+    }
+
 }
