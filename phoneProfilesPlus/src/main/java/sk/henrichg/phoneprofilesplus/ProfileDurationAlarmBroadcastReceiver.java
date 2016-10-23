@@ -98,6 +98,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             now.add(Calendar.SECOND, profile._duration);
             long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
 
+            GlobalData.setActivatedProfileEndDurationTime(context, alarmTime);
+
             //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             //String result = sdf.format(alarmTime);
 
@@ -143,6 +145,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //this._isInDelay = false;
         //dataWrapper.getDatabaseHandler().updateEventInDelay(this);
+
+        GlobalData.setActivatedProfileEndDurationTime(context, 0);
     }
 
 }

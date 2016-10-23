@@ -71,7 +71,7 @@ public class ShortcutProfileListAdapter extends BaseAdapter {
 
         Profile profile = profileList.get(position);
 
-        String profileName = profile.getProfileNameWithDuration(false);
+        String profileName = profile.getProfileNameWithDuration(false, fragment.getActivity());
         holder.profileName.setText(profileName);
 
         if (profile.getIsIconResourceID())

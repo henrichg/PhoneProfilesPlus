@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.Settings;
 
+import java.text.SimpleDateFormat;
+
 public class Profile {
 
     public long _id;
@@ -1044,17 +1046,31 @@ public class Profile {
         }
     }
 
-    public String getProfileNameWithDuration(boolean multyline) {
+    public String getProfileNameWithDuration(boolean multyline, Context context) {
         String profileName = _name;
         if ((_duration > 0) && (_afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
-            //profileName = "[" + _duration + "] " + profileName;
-            final int hours = _duration / 3600;
-            final int minutes = (_duration % 3600) / 60;
-            final int seconds = _duration % 60;
-            if (multyline)
-                profileName = "[" + String.format("%02d:%02d:%02d", hours, minutes, seconds) + "]\n" + profileName;
-            else
-                profileName = "[" + String.format("%02d:%02d:%02d", hours, minutes, seconds) + "] " + profileName;
+            boolean showEndTime = false;
+            if (_checked) {
+                long endDurationTime = GlobalData.getActivatedProfileEndDurationTime(context);
+                if (endDurationTime > 0) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                    if (multyline)
+                        profileName = "(de:" + sdf.format(endDurationTime) + ")\n" + profileName;
+                    else
+                        profileName = "(de:" + sdf.format(endDurationTime) + ") " + profileName;
+                    showEndTime = true;
+                }
+            }
+            if (!showEndTime) {
+                //profileName = "[" + _duration + "] " + profileName;
+                final int hours = _duration / 3600;
+                final int minutes = (_duration % 3600) / 60;
+                final int seconds = _duration % 60;
+                if (multyline)
+                    profileName = "[" + String.format("%02d:%02d:%02d", hours, minutes, seconds) + "]\n" + profileName;
+                else
+                    profileName = "[" + String.format("%02d:%02d:%02d", hours, minutes, seconds) + "] " + profileName;
+            }
         }
         return profileName;
     }

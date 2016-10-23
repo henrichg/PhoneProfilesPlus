@@ -354,7 +354,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
 
             Profile activatedProfile = dataWrapper.getActivatedProfile();
             if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                // remove alarm for profile duration
+                // set alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, getApplicationContext());
                 GlobalData.setActivatedProfileForDuration(getApplicationContext(), profile._id);
             }

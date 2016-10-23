@@ -281,6 +281,7 @@ public class GlobalData extends Application {
     private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
     private static final String PREF_FORCE_RUN_EVENT_RUNNING = "forceRunEventRunning";
     private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
+    private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
     private static final String PREF_FORCE_ONE_BLUETOOTH_SCAN = "forceOneBluetoothScanInt";
     private static final String PREF_FORCE_ONE_LE_BLUETOOTH_SCAN = "forceOneLEBluetoothScanInt";
     private static final String PREF_FORCE_ONE_WIFI_SCAN = "forceOneWifiScanInt";
@@ -1008,6 +1009,20 @@ public class GlobalData extends Application {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
         editor.putLong(PREF_ACTIVATED_PROFILE_FOR_DURATION, profileId);
+        editor.commit();
+    }
+
+    static public long getActivatedProfileEndDurationTime(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, 0);
+    }
+
+    static public void setActivatedProfileEndDurationTime(Context context, long time)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putLong(PREF_ACTIVATED_PROFILE_END_DURATION_TIME, time);
         editor.commit();
     }
 

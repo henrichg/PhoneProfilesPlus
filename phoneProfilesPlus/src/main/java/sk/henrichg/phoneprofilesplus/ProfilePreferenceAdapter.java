@@ -17,13 +17,13 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
     long profileId;
     ProfilePreferenceDialog dialog;
 
-    //private Context context;
+    private Context context;
 
     private LayoutInflater inflater = null;
 
     public ProfilePreferenceAdapter(ProfilePreferenceDialog dialog, Context c, String profileId, List<Profile> profileList)
     {
-        //context = c;
+        context = c;
 
         this.dialog = dialog;
         this.profileList = profileList;
@@ -121,7 +121,7 @@ public class ProfilePreferenceAdapter extends BaseAdapter {
             holder.radioBtn.setChecked(profileId == profile._id);
 
             if (dialog.showDuration == 1)
-                holder.profileLabel.setText(profile.getProfileNameWithDuration(false));
+                holder.profileLabel.setText(profile.getProfileNameWithDuration(false, context));
             else
                 holder.profileLabel.setText(profile._name);
             holder.profileIcon.setVisibility(View.VISIBLE);

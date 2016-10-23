@@ -112,7 +112,7 @@ public class ProfileDetailsFragment extends Fragment {
 
         if (profile != null) {
 
-            profileName.setText(profile.getProfileNameWithDuration(false));
+            profileName.setText(profile.getProfileNameWithDuration(false, dataWrapper.context));
 
             if (profile.getIsIconResourceID()) {
                 if (profile._iconBitmap != null)

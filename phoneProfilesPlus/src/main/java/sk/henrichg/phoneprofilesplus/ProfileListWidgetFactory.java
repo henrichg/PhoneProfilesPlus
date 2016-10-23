@@ -157,7 +157,7 @@ public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsF
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
             } else {
-                String profileName = profile.getProfileNameWithDuration(GlobalData.applicationWidgetListGridLayout);
+                String profileName = profile.getProfileNameWithDuration(GlobalData.applicationWidgetListGridLayout, dataWrapper.context);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
             }
             if (!GlobalData.applicationWidgetListGridLayout) {

@@ -2823,14 +2823,14 @@ public class DataWrapper {
             return true;
     }
 
-    public String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration, boolean multyline)
+    private String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration, boolean multyline, Context context)
     {
         if (profile == null)
             return "";
 
         String name;
         if (addDuration)
-            name = profile.getProfileNameWithDuration(multyline);
+            name = profile.getProfileNameWithDuration(multyline, context);
         else
             name = profile._name;
 
@@ -2862,7 +2862,7 @@ public class DataWrapper {
     public String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration, boolean multyline) {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multyline);
+        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multyline, context);
     }
 
     /*

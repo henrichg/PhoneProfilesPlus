@@ -181,7 +181,8 @@ public class ActivateProfileListAdapter extends BaseAdapter
         String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
                                     (!GlobalData.applicationActivatorGridLayout) &&
                                     profile._checked &&
-                                    (!GlobalData.applicationActivatorHeader), true, GlobalData.applicationActivatorGridLayout);
+                                    (!GlobalData.applicationActivatorHeader), true,
+                                    GlobalData.applicationActivatorGridLayout);
         holder.profileName.setText(profileName);
 
 

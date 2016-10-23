@@ -55,6 +55,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -1483,7 +1484,7 @@ public class ActivateProfileHelper {
             {
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = dataWrapper.getProfileNameWithManualIndicator(profile, true, false, false);
+                profileName = dataWrapper.getProfileNameWithManualIndicator(profile, true, true, false);
                 iconBitmap = profile._iconBitmap;
                 preferencesIndicator = profile._preferencesIndicator;
             }

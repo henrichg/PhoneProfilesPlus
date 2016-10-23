@@ -213,7 +213,7 @@ public class ProfilePreference extends Preference {
         if (profile != null)
         {
             if (showDuration == 1)
-                setSummary(profile.getProfileNameWithDuration(false));
+                setSummary(profile.getProfileNameWithDuration(false, prefContext));
             else
                 setSummary(profile._name);
         }
