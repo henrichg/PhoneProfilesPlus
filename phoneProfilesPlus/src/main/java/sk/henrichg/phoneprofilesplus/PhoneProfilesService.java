@@ -5,6 +5,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -109,6 +111,15 @@ public class PhoneProfilesService extends Service
         GlobalData.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT="+android.os.Build.VERSION.SDK_INT);
 
         instance = this;
+
+        // save version code (is used in PackageReplacedReceiver)
+        try {
+            PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            int actualVersionCode = pinfo.versionCode;
+            GlobalData.setSavedVersionCode(getApplicationContext(), actualVersionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            //e.printStackTrace();
+        }
 
         GlobalData.loadPreferences(getApplicationContext());
 

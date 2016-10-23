@@ -111,8 +111,11 @@ public class AddEventAdapter extends BaseAdapter {
             String eventName = event._name;
             if (position == 0)
                 eventName = context.getString(R.string.new_empty_event);
-
-            String eventPriority = "[" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            String eventPriority = "";
+            if (GlobalData.applicationEventUsePriority)
+                eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            //else
+            //    eventPriority = "[P:" + "5" + "] ";
             if (event._forceRun) {
                 eventName = eventPriority + "[\u00BB] " + eventName;
             } else

@@ -210,6 +210,16 @@
     </PreferenceScreen>
 
     <PreferenceScreen
+        android:title="@string/phone_profiles_pref_category_eventRun"
+        android:key="eventRunCategory"
+        android:widgetLayout="@layout/start_activity_preference">
+        <CheckBoxPreference
+            android:key="applicationEventUsePriority"
+            android:title="@string/phone_profiles_pref_eventRunUsePriority"
+            android:defaultValue="false" />
+    </PreferenceScreen>
+
+    <PreferenceScreen
         android:key="locationScanningCategory"
         android:title="@string/phone_profiles_pref_category_location"
         android:widgetLayout="@layout/start_activity_preference">

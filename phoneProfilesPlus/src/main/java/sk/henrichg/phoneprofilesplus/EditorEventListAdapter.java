@@ -369,7 +369,11 @@ public class EditorEventListAdapter extends BaseAdapter
             String eventStartOrder = "[O:" + event._startOrder + "] ";
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
                 eventStartOrder = "";
-            String eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            String eventPriority = "";
+            if (GlobalData.applicationEventUsePriority)
+                eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            //else
+            //    eventPriority = "[P:" + "5" + "] ";
             if (event._forceRun) {
                 eventName = eventStartOrder + eventPriority + "[\u00BB] " + eventName;
             } else

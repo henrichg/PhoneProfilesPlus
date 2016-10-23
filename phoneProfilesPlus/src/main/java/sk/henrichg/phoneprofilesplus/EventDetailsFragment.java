@@ -168,7 +168,11 @@ public class EventDetailsFragment extends Fragment {
             }
 
             String _eventName = event._name;
-            String eventPriority = "[" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            String eventPriority = "";
+            if (GlobalData.applicationEventUsePriority)
+                eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
+            //else
+            //    eventPriority = "[P:" + "5" + "] ";
             if (event._forceRun) {
                 _eventName = eventPriority + "[\u00BB] " + _eventName;
             } else

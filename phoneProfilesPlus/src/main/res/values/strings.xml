@@ -832,4 +832,7 @@
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- enable run for event:</string>
     <string name="info_notification_manage_events_from_tasker_pause_event">- pause event:</string>
     <string name="info_notification_manage_events_from_tasker_stop_event">- stop event:</string>
+    <string name="phone_profiles_pref_category_eventRun">Event run</string>
+    <string name="phone_profiles_pref_eventRunUsePriority">Use \"Priority\" event parameter</string>
+    <string name="event_preferences_priority_notUse">Not use</string>
 </resources>

@@ -530,9 +530,15 @@ public class Event {
         if (key.equals(PREF_EVENT_PRIORITY))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            int index = listPreference.findIndexOfValue(value);
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            listPreference.setSummary(summary);
+            if (GlobalData.applicationEventUsePriority) {
+                int index = listPreference.findIndexOfValue(value);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+            }
+            else {
+                listPreference.setSummary(R.string.event_preferences_priority_notUse);
+            }
+            listPreference.setEnabled(GlobalData.applicationEventUsePriority);
         }
         if (key.equals(PREF_EVENT_AT_END_DO))
         {
@@ -943,7 +949,7 @@ public class Event {
         for (EventTimeline eventTimeline : eventTimelineList)
         {
             Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-            if ((event != null) && (event._priority > this._priority))
+            if ((event != null) && GlobalData.applicationEventUsePriority && (event._priority > this._priority))
                 // is running event with higher priority
                 return;
         }

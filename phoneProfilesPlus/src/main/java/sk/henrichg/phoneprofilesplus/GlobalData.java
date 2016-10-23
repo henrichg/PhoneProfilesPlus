@@ -57,8 +57,8 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
-                                         +"|ActivateProfileHelper.showNotification"
+                                         +"|@@@ PackageReplacedReceiver.onReceive"
+                                         //+"|GlobalData.loadPreferences"
             ;
 
 
@@ -255,6 +255,7 @@ public class GlobalData extends Application {
     public static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND = "applicationWidgetIconBackground";
     public static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B = "applicationWidgetIconLightnessB";
     public static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T = "applicationWidgetIconLightnessT";
+    public static final String PREF_APPLICATION_EVENT_USE_PRIORITY = "applicationEventUsePriority";
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
@@ -305,6 +306,7 @@ public class GlobalData extends Application {
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
     private static final String PREF_SCREEN_UNLOCKED = "screen_unlocked";
+    private static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
 
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
     public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
@@ -399,6 +401,7 @@ public class GlobalData extends Application {
     public static String applicationWidgetIconBackground;
     public static String applicationWidgetIconLightnessB;
     public static String applicationWidgetIconLightnessT;
+    public static boolean applicationEventUsePriority;
 
     public static int notAllowedReason;
 
@@ -573,6 +576,8 @@ public class GlobalData extends Application {
 
     static public void loadPreferences(Context context)
     {
+        GlobalData.logE("GlobalData.loadPreferences", "xxx");
+
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         applicationStartOnBoot = preferences.getBoolean(PREF_APPLICATION_START_ON_BOOT, true);
@@ -637,6 +642,7 @@ public class GlobalData extends Application {
         applicationWidgetIconBackground = preferences.getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "0");
         applicationWidgetIconLightnessB = preferences.getString(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, "0");
         applicationWidgetIconLightnessT = preferences.getString(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, "100");
+        applicationEventUsePriority = preferences.getBoolean(PREF_APPLICATION_EVENT_USE_PRIORITY, false);
 
         if (applicationTheme.equals("light"))
         {
@@ -1163,6 +1169,19 @@ public class GlobalData extends Application {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
         editor.putInt(PREF_ZEN_MODE, mode);
+        editor.commit();
+    }
+
+    static public int getSavedVersionCode(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_SAVED_VERSION_CODE, 0);
+    }
+
+    static public void setSavedVersionCode(Context context, int version)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putInt(PREF_SAVED_VERSION_CODE, version);
         editor.commit();
     }
 

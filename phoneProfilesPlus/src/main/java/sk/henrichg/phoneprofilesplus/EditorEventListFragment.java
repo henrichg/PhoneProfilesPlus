@@ -649,9 +649,8 @@ public class EditorEventListFragment extends Fragment {
 
         class PriorityComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
-
                 //int res =  lhs._priority - rhs._priority;
-                int res =  rhs._priority - lhs._priority;
+                int res = rhs._priority - lhs._priority;
                 return res;
             }
         }
@@ -668,7 +667,10 @@ public class EditorEventListFragment extends Fragment {
                 Collections.sort(eventList, new ProfileNameComparator());
                 break;
             case ORDER_TYPE_PRIORITY:
-                Collections.sort(eventList, new PriorityComparator());
+                if (GlobalData.applicationEventUsePriority)
+                    Collections.sort(eventList, new PriorityComparator());
+                else
+                    Collections.sort(eventList, new StartOrderComparator());
                 break;
         }
     }
