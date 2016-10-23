@@ -29,7 +29,8 @@
         android:shadowRadius="3"
         android:text="@string/profile_name_default"
         android:textColor="#ffffffff"
-        android:textSize="12sp"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif-condensed"
         android:singleLine="true" />
 
 </RelativeLayout>

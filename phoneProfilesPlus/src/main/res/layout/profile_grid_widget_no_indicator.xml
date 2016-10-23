@@ -50,6 +50,7 @@
                 android:text="@string/profile_name_default"
                 android:textColor="#33b5e5"
                 android:textSize="17sp"
+                android:fontFamily="sans-serif-condensed"
                 android:singleLine="true" />
 
             <!--
@@ -106,6 +107,7 @@
             android:shadowRadius="3"
             android:text="@string/profile_list_empty"
             android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="15sp" />
 
     </LinearLayout>

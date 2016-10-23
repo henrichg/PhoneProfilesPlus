@@ -33,6 +33,7 @@
         android:text="@string/profile_name_default"
         android:textSize="15sp"
         android:textColor="#ffffffff"
+        android:fontFamily="sans-serif-condensed"
         android:singleLine="true" />
     
     <ImageView
