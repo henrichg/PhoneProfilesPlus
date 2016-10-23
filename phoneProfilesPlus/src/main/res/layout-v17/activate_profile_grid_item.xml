@@ -38,6 +38,8 @@
             android:layout_marginBottom="5dp"
             android:layout_gravity="center_horizontal"
             android:singleLine="false"
+            android:minLines="1"
+            android:maxLines = "2"
             android:text="@string/profile_name_default"
             android:textSize="13sp"
             android:fontFamily="sans-serif-condensed"
