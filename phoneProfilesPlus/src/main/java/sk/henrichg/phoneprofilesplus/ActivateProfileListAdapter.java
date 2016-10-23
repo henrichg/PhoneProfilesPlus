@@ -161,7 +161,8 @@ public class ActivateProfileListAdapter extends BaseAdapter
             else
             if (GlobalData.applicationTheme.equals("dlight"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
-            holder.profileName.setTypeface(null, Typeface.BOLD);
+            // holder.profileName.setTypeface(null, Typeface.BOLD);
+            holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
         }
         else
         {
@@ -173,7 +174,8 @@ public class ActivateProfileListAdapter extends BaseAdapter
             else
             if (GlobalData.applicationTheme.equals("dlight"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.card);
-            holder.profileName.setTypeface(null, Typeface.NORMAL);
+            //holder.profileName.setTypeface(null, Typeface.NORMAL);
+            holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
         }
       
         String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
