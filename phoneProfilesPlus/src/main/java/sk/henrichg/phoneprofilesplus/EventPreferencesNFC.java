@@ -176,6 +176,17 @@ public class EventPreferencesNFC extends EventPreferences {
     }
 
     @Override
+    public boolean isRunnable(Context context)
+    {
+
+        boolean runable = super.isRunnable(context);
+
+        runable = runable && (!_nfcTags.isEmpty());
+
+        return runable;
+    }
+
+    @Override
     public void checkPreferences(PreferenceManager prefMng, Context context)
     {
         /*
