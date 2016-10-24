@@ -45,7 +45,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="5dp"
-                android:text="@string/nfc_tags_pref_tag_help"
+                android:text="@string/nfc_tag_pref_dlg_help"
                 android:visibility="visible" />
 
             <RelativeLayout
@@ -99,7 +99,7 @@
                     android:layout_toLeftOf = "@+id/nfc_tag_pref_dlg_addIcon"
                     android:layout_toStartOf = "@+id/nfc_tag_pref_dlg_addIcon"
                     android:selectAllOnFocus="true"
-                    android:hint="@string/nfc_tags_pref_tag_hint"
+                    android:hint="@string/nfc_tag_pref_dlg_hint"
                     android:inputType="textNoSuggestions" />
 
             </RelativeLayout>

@@ -52,6 +52,7 @@
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.NFC"/>
     <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
 
 
@@ -251,6 +252,17 @@
         <activity
             android:name=".AboutApplicationActivity"
             android:label="@string/about_application_title">
+        </activity>
+        <activity
+            android:name=".NFCTagActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:theme="@style/EmptyActivity">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
 
         <receiver android:name=".PhoneProfilesInstall">

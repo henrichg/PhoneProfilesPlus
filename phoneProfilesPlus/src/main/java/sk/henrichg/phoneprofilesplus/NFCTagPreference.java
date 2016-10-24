@@ -2,10 +2,13 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
+import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -352,6 +355,7 @@ public class NFCTagPreference extends DialogPreference {
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nfc_tag_pref_dlg_item_menu_writeToNfcTag:
+                        writeToNFCTag(tag);
                         return true;
                     case R.id.nfc_tag_pref_dlg_item_menu_change:
                         if (!nfcTagName.getText().toString().isEmpty()) {
@@ -390,6 +394,34 @@ public class NFCTagPreference extends DialogPreference {
 
 
         popup.show();
+    }
+
+    private void writeToNFCTag(String tag) {
+
+        final String _tag = tag;
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
+        dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_continue);
+        dialogBuilder.setPositiveButton(R.string.alert_button_continue, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
+                if (!nfcAdapter.isEnabled()) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                    dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
+                    dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
+                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    dialogBuilder.show();
+                    return;
+                }
+
+                Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagActivity.class);
+                nfcTagIntent.putExtra(NFCTagActivity.EXTRA_TAG_NAME, _tag);
+                context.startActivity(nfcTagIntent);
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        dialogBuilder.show();
     }
 
 }
