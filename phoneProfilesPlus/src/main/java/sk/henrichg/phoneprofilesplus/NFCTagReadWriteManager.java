@@ -91,11 +91,10 @@ public class NFCTagReadWriteManager {
      */
     public void onActivityResume() {
         if (nfcAdapter != null) {
-            if (!nfcAdapter.isEnabled()) {
-                //TODO indicate that wireless should be opened
-            }
             nfcAdapter.enableForegroundDispatch(activity, pendingIntent, null, null);
         }
+        if (writeText == null)
+            readTagFromIntent(activity.getIntent());
     }
 
     /**
@@ -112,11 +111,12 @@ public class NFCTagReadWriteManager {
      * @param intent
      */
     public void onActivityNewIntent(Intent intent) {
-        // TODO Check if the following line has any use
         // activity.setIntent(intent);
-        if (writeText == null)
-            readTagFromIntent(intent);
-        else {
+
+        //if (writeText == null)
+        //    readTagFromIntent(intent);
+        //else {
+        if (writeText != null)/* && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()))*/ {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             try {
                 writeTag(activity, tag, writeText);
