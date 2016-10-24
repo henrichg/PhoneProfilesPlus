@@ -63,13 +63,13 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
 
-        /*nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
+        nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
             @Override
             public void onTagRead(String tagRead) {
                 Toast.makeText(NFCTagWriteActivity.this, "tag read:"+tagRead, Toast.LENGTH_LONG).show();
-                NFCTagWriteActivity.this.finish();
+                //NFCTagWriteActivity.this.finish();
             }
-        });*/
+        });
 
         nfcManager.setOnTagWriteListener(new NFCTagReadWriteManager.TagWriteListener() {
             @Override
@@ -99,13 +99,15 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //nfcManager.onActivityResume();
+        nfcManager.onActivityResume();
+        if (!tagName.isEmpty())
+            nfcManager.writeText(tagName);
         Log.d("NFCTagWriteActivity.onResume", "xxx");
     }
 
     @Override
     protected void onPause() {
-        //nfcManager.onActivityPause();
+        nfcManager.onActivityPause();
         super.onPause();
         Log.d("NFCTagWriteActivity.onPause", "xxx");
     }
@@ -122,8 +124,6 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     {
         super.onStart();
         Log.d("NFCTagWriteActivity.onStart", "xxx");
-        if (!tagName.isEmpty())
-            nfcManager.writeText(tagName);
     }
 
     @Override
