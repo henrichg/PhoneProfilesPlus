@@ -62,6 +62,8 @@ public class BluetoothNamePreference extends DialogPreference {
 
     @Override
     protected void showDialog(Bundle state) {
+        value = getPersistedString(value);
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
@@ -461,32 +463,33 @@ public class BluetoothNamePreference extends DialogPreference {
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.bluetooth_name_pref_dlg_item_menu_change:
-                        String[] splits = value.split("\\|");
-                        value = "";
-                        boolean found = false;
-                        for (String _bluetoothName : splits) {
-                            if (!_bluetoothName.isEmpty()) {
-                                if (!_bluetoothName.equals(btName)) {
-                                    if (!value.isEmpty())
-                                        value = value + "|";
-                                    value = value + _bluetoothName;
-                                } else
-                                    found = true;
+                        if (!bluetoothName.getText().toString().isEmpty()) {
+                            String[] splits = value.split("\\|");
+                            value = "";
+                            boolean found = false;
+                            for (String _bluetoothName : splits) {
+                                if (!_bluetoothName.isEmpty()) {
+                                    if (!_bluetoothName.equals(btName)) {
+                                        if (!value.isEmpty())
+                                            value = value + "|";
+                                        value = value + _bluetoothName;
+                                    } else
+                                        found = true;
+                                }
                             }
-                        }
-                        if (found) {
-                            if (!value.isEmpty())
-                                value = value + "|";
-                            value = value + bluetoothName.getText().toString();
-                        }
-                        for (BluetoothDeviceData customBluetoothName : customBluetoothList)
-                        {
-                            if (customBluetoothName.getName().equals(btName)) {
-                                customBluetoothName.name = bluetoothName.getText().toString();
-                                break;
+                            if (found) {
+                                if (!value.isEmpty())
+                                    value = value + "|";
+                                value = value + bluetoothName.getText().toString();
                             }
+                            for (BluetoothDeviceData customBluetoothName : customBluetoothList) {
+                                if (customBluetoothName.getName().equals(btName)) {
+                                    customBluetoothName.name = bluetoothName.getText().toString();
+                                    break;
+                                }
+                            }
+                            refreshListView(false);
                         }
-                        refreshListView(false);
                         return true;
                     case R.id.bluetooth_name_pref_dlg_item_menu_delete:
                         removeBluetoothName(btName);

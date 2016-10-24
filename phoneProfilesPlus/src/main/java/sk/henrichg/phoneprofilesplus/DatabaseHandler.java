@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1740;
+    private static final int DATABASE_VERSION = 1770;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -42,6 +42,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_GEOFENCES = "geofences";
     private static final String TABLE_SHORTCUTS = "shortcuts";
     private static final String TABLE_MOBILE_CELLS = "mobile_cells";
+    private static final String TABLE_NFC_TAGS = "nfc_tags";
 
     // import/export
     private final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
@@ -63,6 +64,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int ETYPE_LOCATION = 14;
     public static final int ETYPE_ORIENTATION = 15;
     public static final int ETYPE_MOBILE_CELLS = 16;
+    public static final int ETYPE_NFC = 17;
 
     // activity log types
     public static final int ALTYPE_PROFILEACTIVATION = 1;
@@ -226,6 +228,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_MOBILE_CELLS_WHEN_OUTSIDE = "mobileCellsWhenOutside";
     private static final String KEY_E_MOBILE_CELLS_CELLS = "mobileCellsCells";
     private static final String KEY_E_LOCATION_GEOFENCES = "fklocationGeofences";
+    private static final String KEY_E_NFC_ENABLED = "nfcEnabled";
+    private static final String KEY_E_NFC_NFC_TAGS = "nfcNfcTags";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -243,7 +247,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_AL_DURATION_DELAY = "durationDelay";
 
     // Geofences Columns names
-    public static final String KEY_G_ID = "_id";  // for CursorAdapter must by this name
+    public static final String KEY_G_ID = "_id";
     public static final String KEY_G_LATITUDE = "latitude";
     public static final String KEY_G_LONGITUDE = "longitude";
     public static final String KEY_G_RADIUS = "radius";
@@ -252,15 +256,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String KEY_G_TRANSITION = "transition";
 
     // Shortcuts Colums names
-    public static final String KEY_S_ID = "_id";  // for CursorAdapter must by this name
+    public static final String KEY_S_ID = "_id";
     public static final String KEY_S_INTENT = "intent";
     public static final String KEY_S_NAME = "name";
 
     // Mobile cells Colums names
-    public static final String KEY_MC_ID = "_id";  // for CursorAdapter must by this name
+    public static final String KEY_MC_ID = "_id";
     public static final String KEY_MC_CELL_ID = "cellId";
     public static final String KEY_MC_NAME = "name";
     public static final String KEY_MC_NEW = "new";
+
+    // NFC tags Colums names
+    public static final String KEY_NT_ID = "_id";
+    public static final String KEY_NT_NAME = "name";
 
     /**
      * Constructor takes and keeps a reference of the passed context in order to
@@ -472,7 +480,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + " INTEGER,"
                 + KEY_E_MOBILE_CELLS_CELLS + " TEXT,"
                 + KEY_E_LOCATION_GEOFENCES + " TEXT,"
-                + KEY_E_START_ORDER + " INTEGER"
+                + KEY_E_START_ORDER + " INTEGER,"
+                + KEY_E_NFC_ENABLED + " INTEGER,"
+                + KEY_E_NFC_NFC_TAGS + " TEXT"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -530,6 +540,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_MC_NEW + " INTEGER"
                 + ")";
         db.execSQL(CREATE_MOBILE_CELLS_TABLE);
+
+        final String CREATE_NFC_TAGS_TABLE = "CREATE TABLE " + TABLE_NFC_TAGS + "("
+                + KEY_NT_ID + " INTEGER PRIMARY KEY,"
+                + KEY_NT_NAME + " TEXT"
+                + ")";
+        db.execSQL(CREATE_SHORTCUTS_TABLE);
 
     }
 
@@ -1812,6 +1828,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             cursor.close();
+        }
+
+        if (oldVersion < 1750)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_ENABLED + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_ENABLED + "=0");
+        }
+
+        if (oldVersion < 1760) {
+            final String CREATE_MOBILE_CELLS_TABLE = "CREATE TABLE " + TABLE_NFC_TAGS + "("
+                    + KEY_NT_ID + " INTEGER PRIMARY KEY,"
+                    + KEY_NT_NAME + " TEXT"
+                    + ")";
+            db.execSQL(CREATE_MOBILE_CELLS_TABLE);
+        }
+
+        if (oldVersion < 1770)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_NFC_TAGS + " TEXT");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_NFC_TAGS + "=\"\"");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -3122,6 +3164,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesLocation(event, db);
         getEventPreferencesOrientation(event, db);
         getEventPreferencesMobileCells(event, db);
+        getEventPreferencesNFC(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -3541,6 +3584,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesNFC(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_NFC_ENABLED,
+                            KEY_E_NFC_NFC_TAGS
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesNFC eventPreferences = event._eventPreferencesNFC;
+
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
+                eventPreferences._nfcTags = cursor.getString(1);
+            }
+            cursor.close();
+        }
+    }
 
     public int updateEventPreferences(Event event) {
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -3580,6 +3644,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             r = updateEventPreferencesOrientation(event, db);
         if (r != 0)
             r = updateEventPreferencesMobileCells(event, db);
+        if (r != 0)
+            r = updateEventPreferencesNFC(event, db);
 
         return r;
     }
@@ -3838,6 +3904,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
+    private int updateEventPreferencesNFC(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesNFC eventPreferences = event._eventPreferencesNFC;
+
+        values.put(KEY_E_NFC_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_NFC_NFC_TAGS, eventPreferences._nfcTags);
+
+        // updating row
+        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+
+        return r;
+    }
+
     public int getEventStatus(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -4060,6 +4141,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else
         if (eventType == ETYPE_MOBILE_CELLS)
             eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1";
+        else
+        if (eventType == ETYPE_NFC)
+            eventTypeChecked = eventTypeChecked + KEY_E_NFC_ENABLED + "=1";
 
         countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                      " WHERE " + eventTypeChecked;
@@ -5788,6 +5872,254 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+// NFC_TAGS ----------------------------------------------------------------------
+
+    // Adding new nfc tag
+    void addNFCTag(NFCTag nfcTag) {
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NT_NAME, nfcTag._name);
+
+        db.beginTransaction();
+
+        try {
+            // Inserting Row
+            nfcTag._id = db.insert(TABLE_NFC_TAGS, null, values);
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close(); // Closing database connection
+    }
+
+    // Adding new nfc tag
+    void addNFCTag(String nfcTag) {
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_NFC_TAGS,
+                new String[]{KEY_NT_NAME
+                },
+                KEY_NT_NAME + "=?",
+                new String[]{ nfcTag }, null, null, null, null);
+
+        boolean found = false;
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+            found = cursor.getCount() > 0;
+            cursor.close();
+        }
+
+        if (!found) {
+            ContentValues values = new ContentValues();
+            values.put(KEY_NT_NAME, nfcTag);
+
+            db.beginTransaction();
+
+            try {
+                // Inserting Row
+                db.insert(TABLE_NFC_TAGS, null, values);
+
+                db.setTransactionSuccessful();
+
+            } catch (Exception e) {
+                //Error in between database transaction
+            } finally {
+                db.endTransaction();
+            }
+        }
+
+        //db.close(); // Closing database connection
+    }
+
+    // Getting single nfc tag
+    NFCTag getNFCTag(long nfcTagId) {
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_NFC_TAGS,
+                new String[]{KEY_NT_ID,
+                        KEY_NT_NAME
+                },
+                KEY_NT_ID + "=?",
+                new String[]{String.valueOf(nfcTagId)}, null, null, null, null);
+
+        NFCTag nfcTag = null;
+
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                nfcTag = new NFCTag();
+                nfcTag._id = Long.parseLong(cursor.getString(0));
+                nfcTag._name = cursor.getString(1);
+            }
+
+            cursor.close();
+        }
+
+        //db.close();
+
+        return nfcTag;
+    }
+
+    // Getting All nfc tags
+    public List<NFCTag> getAllNFCTags() {
+        List<NFCTag> nfcTagList = new ArrayList<NFCTag>();
+
+        // Select All Query
+        final String selectQuery = "SELECT " + KEY_NT_ID + "," +
+                                            KEY_NT_NAME +
+                " FROM " + TABLE_NFC_TAGS +
+                " ORDER BY " + KEY_NT_NAME;
+
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                NFCTag nfcTag = new NFCTag();
+                nfcTag._id = Long.parseLong(cursor.getString(0));
+                nfcTag._name = cursor.getString(1);
+                nfcTagList.add(nfcTag);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        //db.close();
+
+        return nfcTagList;
+    }
+
+    // Updating single nfc tag
+    public int updateNFCTag(NFCTag nfcTag) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NT_NAME, nfcTag._name);
+
+        int r = 0;
+
+        db.beginTransaction();
+
+        try {
+            // updating row
+            r = db.update(TABLE_NFC_TAGS, values, KEY_NT_ID + " = ?",
+                    new String[] { String.valueOf(nfcTag._id) });
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.updateNFCTag", e.toString());
+            r = 0;
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+
+        return r;
+    }
+
+    // Updating single nfc tag
+    public int updateNFCTag(String oldNfcTag, String newNfcTag) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NT_NAME, newNfcTag);
+
+        int r = 0;
+
+        db.beginTransaction();
+
+        try {
+            // updating row
+            r = db.update(TABLE_NFC_TAGS, values, KEY_NT_NAME + " = ?",
+                    new String[] { oldNfcTag });
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.updateNFCTag", e.toString());
+            r = 0;
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+
+        return r;
+    }
+
+    // Deleting single nfc tag
+    public void deleteNFCTag(long nfcTagId) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+
+            // delete geofence
+            db.delete(TABLE_NFC_TAGS, KEY_NT_ID + " = ?",
+                    new String[]{String.valueOf(nfcTagId)});
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.deleteNFCTag", e.toString());
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+    }
+
+    // Deleting single nfc tag
+    public void deleteNFCTag(String nfcTag) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        db.beginTransaction();
+
+        try {
+
+            // delete geofence
+            db.delete(TABLE_NFC_TAGS, KEY_NT_NAME + " = ?",
+                    new String[]{nfcTag});
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.deleteNFCTag", e.toString());
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+    }
+
 // OTHERS -------------------------------------------------------------------------
 
     public boolean tableExists(String tableName, SQLiteDatabase db)
@@ -6425,6 +6757,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     values.put(KEY_E_START_ORDER, 0);
                                 }
 
+                                if (exportedDBObj.getVersion() < 1750) {
+                                    values.put(KEY_E_NFC_ENABLED, 0);
+                                }
+
+                                if (exportedDBObj.getVersion() < 1770) {
+                                    values.put(KEY_E_NFC_NFC_TAGS, "");
+                                }
+
                                 // Inserting Row do db z SQLiteOpenHelper
                                 db.insert(TABLE_EVENTS, null, values);
 
@@ -6608,6 +6948,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     }
 
+                    db.execSQL("DELETE FROM " + TABLE_NFC_TAGS);
+
+                    if (tableExists(TABLE_NFC_TAGS, exportedDBObj)) {
+                        // cusor for events exportedDB
+                        cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_NFC_TAGS, null);
+                        columnNamesExportedDB = cursorExportedDB.getColumnNames();
+
+                        // cursor for profiles of destination db
+                        cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_NFC_TAGS, null);
+
+                        if (cursorExportedDB.moveToFirst()) {
+                            do {
+                                values.clear();
+                                for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                    // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                    if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                        values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                    }
+                                }
+
+                                // for non existent fields set default value
+                                /*if (exportedDBObj.getVersion() < 1480) {
+                                    values.put(KEY_G_CHECKED, 0);
+                                }
+                                if (exportedDBObj.getVersion() < 1510) {
+                                    values.put(KEY_G_TRANSITION, 0);
+                                }*/
+
+                                // Inserting Row do db z SQLiteOpenHelper
+                                db.insert(TABLE_NFC_TAGS, null, values);
+
+                            } while (cursorExportedDB.moveToNext());
+                        }
+
+                        cursorExportedDB.close();
+                        cursorImportDB.close();
+
+                    }
+
                     db.setTransactionSuccessful();
 
                     ret = 1;
@@ -6658,7 +7037,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     KEY_E_BLUETOOTH_ENABLED + "," +
                                                     KEY_E_NOTIFICATION_ENABLED + "," +
                                                     KEY_E_ORIENTATION_ENABLED + "," +
-                                                    KEY_E_MOBILE_CELLS_ENABLED +
+                                                    KEY_E_MOBILE_CELLS_ENABLED + "," +
+                                                    KEY_E_NFC_ENABLED +
                                            " FROM " + TABLE_EVENTS;
 
         //SQLiteDatabase db = this.getWritableDatabase();
@@ -6891,6 +7271,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         values.clear();
                         values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
+                        db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(6)) != 0) &&
+                            (GlobalData.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == GlobalData.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_E_NFC_ENABLED, 0);
                         db.update(TABLE_EVENTS, values, KEY_ID + " = ?",
                                 new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                     }

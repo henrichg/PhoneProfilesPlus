@@ -1,0 +1,138 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout 
+        android:id="@+id/nfc_tag_pref_dlg_linla_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+        
+        <ProgressBar
+            android:id="@+id/nfc_tag_pref_dlg_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+    </LinearLayout>
+
+    <RelativeLayout 
+        android:id="@+id/nfc_tag_pref_dlg_rella_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start" >
+
+        <LinearLayout
+            android:id="@+id/nfc_tag_pref_dlg_et_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" >
+
+            <View
+                android:id="@+id/nfc_tag_pref_dlg_buttonBarDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="?attr/dialogDivider" />
+
+            <TextView
+                android:id="@+id/nfc_tag_pref_dlg_helpText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/nfc_tags_pref_tag_help"
+                android:visibility="visible" />
+
+            <RelativeLayout
+                android:id="@+id/nfc_tag_pref_dlg_et_btn2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/nfc_tag_pref_dlg_helpIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="50dp"
+                    android:maxWidth="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_action_profileicon_help"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true" />
+
+                <ImageView
+                    android:id="@+id/nfc_tag_pref_dlg_addIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf = "@+id/nfc_tag_pref_dlg_helpIcon"
+                    android:layout_toStartOf = "@+id/nfc_tag_pref_dlg_helpIcon"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="50dp"
+                    android:maxWidth="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_action_location_add"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true" />
+
+                <EditText
+                    android:id="@+id/nfc_tag_pref_dlg_bt_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_toLeftOf = "@+id/nfc_tag_pref_dlg_addIcon"
+                    android:layout_toStartOf = "@+id/nfc_tag_pref_dlg_addIcon"
+                    android:selectAllOnFocus="true"
+                    android:hint="@string/nfc_tags_pref_tag_hint"
+                    android:inputType="textNoSuggestions" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nfc_tag_pref_dlg_linla_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_above="@+id/nfc_tag_pref_dlg_et_btn"
+            android:layout_alignParentTop="true"
+            >
+
+            <View
+                android:id="@+id/nfc_tag_pref_dlg_titleBarDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dialogDivider" />
+
+            <ListView
+                android:id="@+id/nfc_tag_pref_dlg_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:clipToPadding="false"
+                android:choiceMode="singleChoice"
+                android:scrollbarStyle="outsideOverlay"
+                android:divider="@android:color/transparent" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

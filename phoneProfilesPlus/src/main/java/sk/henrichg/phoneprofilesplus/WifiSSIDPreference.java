@@ -59,6 +59,8 @@ public class WifiSSIDPreference extends DialogPreference {
 
     @Override
     protected void showDialog(Bundle state) {
+        value = getPersistedString(value);
+
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
                 .title(getDialogTitle())
                 .icon(getDialogIcon())
@@ -443,33 +445,34 @@ public class WifiSSIDPreference extends DialogPreference {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.wifi_ssif_pref_dlg_item_menu_change:
-                        String[] splits = value.split("\\|");
-                        value = "";
-                        boolean found = false;
-                        for (String _ssid : splits) {
-                            if (!_ssid.isEmpty()) {
-                                if (!_ssid.equals(ssid)) {
-                                    if (!value.isEmpty())
-                                        value = value + "|";
-                                    value = value + _ssid;
-                                } else
-                                    found = true;
+                     case R.id.wifi_ssif_pref_dlg_item_menu_change:
+                         if (!SSIDName.getText().toString().isEmpty()) {
+                            String[] splits = value.split("\\|");
+                            value = "";
+                            boolean found = false;
+                            for (String _ssid : splits) {
+                                if (!_ssid.isEmpty()) {
+                                    if (!_ssid.equals(ssid)) {
+                                        if (!value.isEmpty())
+                                            value = value + "|";
+                                        value = value + _ssid;
+                                    } else
+                                        found = true;
+                                }
                             }
-                        }
-                        if (found) {
-                            if (!value.isEmpty())
-                                value = value + "|";
-                            value = value + SSIDName.getText().toString();
-                        }
-                        for (WifiSSIDData customSSID : customSSIDList)
-                        {
-                            if (customSSID.ssid.equals(ssid)) {
-                                customSSID.ssid = SSIDName.getText().toString();
-                                break;
+                            if (found) {
+                                if (!value.isEmpty())
+                                    value = value + "|";
+                                value = value + SSIDName.getText().toString();
                             }
+                            for (WifiSSIDData customSSID : customSSIDList) {
+                                if (customSSID.ssid.equals(ssid)) {
+                                    customSSID.ssid = SSIDName.getText().toString();
+                                    break;
+                                }
+                            }
+                            refreshListView(false);
                         }
-                        refreshListView(false);
                         return true;
                     case R.id.wifi_ssid_pref_dlg_item_menu_delete:
                         removeSSID(ssid);

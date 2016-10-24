@@ -1695,6 +1695,15 @@ public class GlobalData extends Application {
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
+        if (preferenceKey.equals(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
+                // device ma bluetooth
+                featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+        else
             featurePresented = PREFERENCE_ALLOWED;
 
         return featurePresented;

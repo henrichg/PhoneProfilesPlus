@@ -835,4 +835,11 @@
     <string name="phone_profiles_pref_category_eventRun">Event run</string>
     <string name="phone_profiles_pref_eventRunUsePriority">Use \"Priority\" event parameter</string>
     <string name="event_preferences_priority_notUse">Not use</string>
+    <string name="event_type_nfc">NFC</string>
+    <string name="event_preferences_category_eventNFCParameters">NFC parameters</string>
+    <string name="event_preferences_nfc_enabled">Enable NFC</string>
+    <string name="event_preferences_nfc_nfcTags">NFC tags</string>
+    <string name="nfc_tags_pref_tag_hint">NFC tag</string>
+    <string name="nfc_tags_pref_tag_help">You must write tag name into NFC tag. \"Write to NFC Tag\" is in menu for each tag name.</string>
+    <string name="nfc_tags_pref_tag_menu_writeToNfcTag">Write to NFC Tag</string>
 </resources>

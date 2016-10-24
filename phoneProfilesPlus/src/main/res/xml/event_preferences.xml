@@ -574,5 +574,20 @@
                 app:addShortcuts="0"
                 android:dependency="eventOrientationEnabled" />
         </PreferenceScreen>
+        <PreferenceScreen
+            android:key="eventNFCCategory"
+            android:title="@string/event_preferences_category_eventNFCParameters"
+            android:widgetLayout="@layout/start_activity_preference" >
+            <CheckBoxPreference
+                android:key="eventNFCEnabled"
+                android:title="@string/event_preferences_nfc_enabled"
+                android:defaultValue="false" />
+            <sk.henrichg.phoneprofilesplus.NFCTagPreference
+                android:defaultValue=""
+                android:key="eventNFCTags"
+                android:title="@string/event_preferences_nfc_nfcTags"
+                app:addShortcuts="0"
+                android:dependency="eventNFCEnabled" />
+        </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>
