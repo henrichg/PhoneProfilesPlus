@@ -14,19 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:text="@string/write_nfc_tag_in_progress"
+        android:layout_marginBottom="15dp"
+        android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_touch"
         android:textSize="17sp"
         android:textStyle="bold"/>
 
-
-    <TextView
-        android:id="@+id/write_nfc_tag_wait"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="15dp"
-        android:text="@string/write_nfc_tag_wait"
-        android:textSize="15sp"/>
 
     <Button
         android:id="@+id/write_nfc_tag_button"

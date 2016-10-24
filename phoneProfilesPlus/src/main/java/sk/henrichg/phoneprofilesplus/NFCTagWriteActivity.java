@@ -1,10 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -66,7 +68,8 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
             @Override
             public void onTagRead(String tagRead) {
-                Toast.makeText(NFCTagWriteActivity.this, "tag read:"+tagRead, Toast.LENGTH_LONG).show();
+                //Toast.makeText(NFCTagWriteActivity.this, "tag read:"+tagRead, Toast.LENGTH_LONG).show();
+                Log.d("NFCTagWriteActivity.onTagRead", "xxx");
                 //NFCTagWriteActivity.this.finish();
             }
         });
@@ -74,7 +77,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         nfcManager.setOnTagWriteListener(new NFCTagReadWriteManager.TagWriteListener() {
             @Override
             public void onTagWritten() {
-                Toast.makeText(NFCTagWriteActivity.this, "tag writen", Toast.LENGTH_LONG).show();
+                Toast.makeText(NFCTagWriteActivity.this, R.string.write_nfc_tag_writed, Toast.LENGTH_LONG).show();
                 NFCTagWriteActivity.this.finish();
             }
         });
@@ -123,7 +126,6 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
-        Log.d("NFCTagWriteActivity.onStart", "xxx");
     }
 
     @Override

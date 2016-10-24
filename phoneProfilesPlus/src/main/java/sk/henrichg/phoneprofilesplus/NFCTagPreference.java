@@ -400,28 +400,19 @@ public class NFCTagPreference extends DialogPreference {
 
         final String _tag = tag;
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-        dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
-        dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_continue);
-        dialogBuilder.setPositiveButton(R.string.alert_button_continue, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
-                if (!nfcAdapter.isEnabled()) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-                    dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
-                    dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    dialogBuilder.show();
-                    return;
-                }
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
+        if (!nfcAdapter.isEnabled()) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+            dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
+            dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
+            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+            dialogBuilder.show();
+            return;
+        }
 
-                Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagWriteActivity.class);
-                nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_NAME, _tag);
-                context.startActivity(nfcTagIntent);
-            }
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        dialogBuilder.show();
+        Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagWriteActivity.class);
+        nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_NAME, _tag);
+        context.startActivity(nfcTagIntent);
     }
 
 }
