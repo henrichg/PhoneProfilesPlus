@@ -845,4 +845,7 @@
     <string name="nfc_tag_pref_dlg_writeToNfcTag_continue">Place the phone on a NFC tag and click Continue.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC must be enabled. Please enable it and try again.</string>
     <string name="alert_button_continue">Continue</string>
+    <string name="nfc_tag_pref_dlg_writeTagTitle">Write to NFC Tag</string>
+    <string name="write_nfc_tag_in_progress">Write to the NFC tag is in progress</string>
+    <string name="write_nfc_tag_wait">Please wait...</string>
 </resources>

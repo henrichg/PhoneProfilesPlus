@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingStart="@dimen/important_info_left_margin"
+              android:paddingEnd="@dimen/important_info_right_margin"
+              android:paddingTop="@dimen/important_info_top_margin"
+              android:paddingBottom="@dimen/important_info_bottom_margin" >
+
+    <TextView
+        android:id="@+id/write_nfc_tag_in_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:text="@string/write_nfc_tag_in_progress"
+        android:textSize="17sp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/write_nfc_tag_wait"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:text="@string/write_nfc_tag_wait"
+        android:textSize="15sp"/>
+
+    <Button
+        android:id="@+id/write_nfc_tag_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@android:string/cancel"/>
+
+</LinearLayout>

@@ -254,7 +254,11 @@
             android:label="@string/about_application_title">
         </activity>
         <activity
-            android:name=".NFCTagActivity"
+            android:name=".NFCTagWriteActivity"
+            android:label="@string/nfc_tag_pref_dlg_writeTagTitle">
+        </activity>
+        <activity
+            android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:theme="@style/EmptyActivity">

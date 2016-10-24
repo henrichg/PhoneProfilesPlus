@@ -415,8 +415,8 @@ public class NFCTagPreference extends DialogPreference {
                     return;
                 }
 
-                Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagActivity.class);
-                nfcTagIntent.putExtra(NFCTagActivity.EXTRA_TAG_NAME, _tag);
+                Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagWriteActivity.class);
+                nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_NAME, _tag);
                 context.startActivity(nfcTagIntent);
             }
         });
