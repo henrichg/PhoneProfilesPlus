@@ -842,10 +842,13 @@
     <string name="nfc_tag_pref_dlg_hint">Tag name</string>
     <string name="nfc_tag_pref_dlg_help">You must write tag name into NFC tag. \"Write to NFC Tag\" is in menu for each tag name.</string>
     <string name="nfc_tag_pref_dlg_menu_writeToNfcTag">Write to NFC Tag</string>
-    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Touch the phone to NFC tag. Write will be started.</string>
+    <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Atach your phone to a NFC tag. Write will be started.</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC must be enabled. Please enable it and try again.</string>
     <string name="alert_button_continue">Continue</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Write to NFC Tag</string>
     <string name="write_nfc_tag_in_progress">Write to the NFC tag is in progress</string>
     <string name="write_nfc_tag_writed">Tag writed</string>
+    <string name="write_nfc_tag_error">Tag write ERROR</string>
+    <string name="read_nfc_tag_readed">Tag readed</string>
+    <string name="read_nfc_tag_error">Read tag ERROR</string>
 </resources>

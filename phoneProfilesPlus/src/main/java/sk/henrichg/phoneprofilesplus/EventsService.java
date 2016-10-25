@@ -187,6 +187,20 @@ public class EventsService extends IntentService
                 }
             }
         }
+        if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+            // search for sms events, save start time
+            GlobalData.logE("EventsService.onHandleIntent", "search for nfc events");
+            for (Event _event : eventList) {
+                if (_event.getStatus() != Event.ESTATUS_STOP) {
+                    if (_event._eventPreferencesNFC._enabled) {
+                        GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                        _event._eventPreferencesNFC.saveStartTime(dataWrapper,
+                                intent.getStringExtra(GlobalData.EXTRA_EVENT_NFC_TAG_NAME),
+                                intent.getLongExtra(GlobalData.EXTRA_EVENT_NFC_DATE, 0));
+                    }
+                }
+            }
+        }
 
         boolean forDelayStartAlarm = broadcastReceiverType.equals(EventDelayStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
         boolean forDelayEndAlarm = broadcastReceiverType.equals(EventDelayEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
@@ -518,6 +532,12 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(PhoneStateChangeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_MOBILE_CELLS;
+        else
+        if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_NFC;
+        else
+        if (broadcastReceiverType.equals(NFCEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_NFC;
 
         if (eventType > 0)
             return dataWrapper.getDatabaseHandler().getTypeEventsCount(eventType) > 0;
@@ -679,6 +699,12 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(PhoneStateChangeBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //deviceOrientation
             PhoneStateChangeBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //SMS
+            NFCBroadcastReceiver.completeWakefulIntent(intent);
+        else
+        if (broadcastReceiverType.equals(NFCEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //SMSAlarm
+            NFCEventEndBroadcastReceiver.completeWakefulIntent(intent);
 
         // this broadcast not starts service with wakefull method
         //if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE))

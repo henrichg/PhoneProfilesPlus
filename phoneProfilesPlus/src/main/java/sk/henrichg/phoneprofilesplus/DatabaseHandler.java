@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1770;
+    private static final int DATABASE_VERSION = 1780;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -230,6 +230,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_LOCATION_GEOFENCES = "fklocationGeofences";
     private static final String KEY_E_NFC_ENABLED = "nfcEnabled";
     private static final String KEY_E_NFC_NFC_TAGS = "nfcNfcTags";
+    private static final String KEY_E_NFC_START_TIME = "nfcStartTime";
+    private static final String KEY_E_NFC_DURATION = "nfcDuration";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -482,7 +484,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_LOCATION_GEOFENCES + " TEXT,"
                 + KEY_E_START_ORDER + " INTEGER,"
                 + KEY_E_NFC_ENABLED + " INTEGER,"
-                + KEY_E_NFC_NFC_TAGS + " TEXT"
+                + KEY_E_NFC_NFC_TAGS + " TEXT,"
+                + KEY_E_NFC_DURATION + " INTEGER,"
+                + KEY_E_NFC_START_TIME + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1854,6 +1858,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_NFC_TAGS + "=\"\"");
+        }
+
+        if (oldVersion < 1780)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_DURATION + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_START_TIME + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_DURATION + "=5");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_START_TIME + "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -3587,7 +3602,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private void getEventPreferencesNFC(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_NFC_ENABLED,
-                            KEY_E_NFC_NFC_TAGS
+                            KEY_E_NFC_NFC_TAGS,
+                            KEY_E_NFC_DURATION,
+                            KEY_E_NFC_START_TIME
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3601,6 +3618,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(0)) == 1);
                 eventPreferences._nfcTags = cursor.getString(1);
+                eventPreferences._duration = cursor.getInt(2);
+                eventPreferences._startTime = Long.parseLong(cursor.getString(3));
             }
             cursor.close();
         }
@@ -3911,6 +3930,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         values.put(KEY_E_NFC_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_NFC_NFC_TAGS, eventPreferences._nfcTags);
+        values.put(KEY_E_NFC_DURATION, eventPreferences._duration);
+        values.put(KEY_E_NFC_START_TIME, eventPreferences._startTime);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4650,6 +4671,66 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         else
             return 999;
+    }
+
+    public int updateNFCStartTime(Event event)
+    {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_E_NFC_START_TIME, event._eventPreferencesNFC._startTime);
+
+        int r = 0;
+
+        db.beginTransaction();
+
+        try {
+            // updating row
+            r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                    new String[] { String.valueOf(event._id) });
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.updateNFCStartTimes", e.toString());
+            r = 0;
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+
+        return r;
+
+    }
+
+    public void setNFCStartTime(Event event)
+    {
+        //SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[] {
+                        KEY_E_NFC_START_TIME
+                },
+                KEY_E_ID + "=?",
+                new String[] { String.valueOf(event._id) }, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                event._eventPreferencesNFC._startTime = Long.parseLong(cursor.getString(0));
+            }
+
+            cursor.close();
+        }
+
+        //db.close();
+
     }
 
 
@@ -6763,6 +6844,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                 if (exportedDBObj.getVersion() < 1770) {
                                     values.put(KEY_E_NFC_NFC_TAGS, "");
+                                }
+
+                                if (exportedDBObj.getVersion() < 1780) {
+                                    values.put(KEY_E_NFC_DURATION, 5);
+                                    values.put(KEY_E_NFC_START_TIME, 0);
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper

@@ -1,6 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.CheckBoxPreference;
@@ -10,23 +15,33 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.text.Html;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class EventPreferencesNFC extends EventPreferences {
 
     public String _nfcTags;
+    public long _startTime;
+    public int _duration;
 
     static final String PREF_EVENT_NFC_ENABLED = "eventNFCEnabled";
     static final String PREF_EVENT_NFC_NFC_TAGS = "eventNFCTags";
+    static final String PREF_EVENT_NFC_DURATION = "eventNFCDuration";
 
     static final String PREF_EVENT_NFC_CATEGORY = "eventNFCCategory";
 
     public EventPreferencesNFC(Event event,
                                boolean enabled,
-                               String nfcTags)
+                               String nfcTags,
+                               int duration)
     {
         super(event, enabled);
-        _nfcTags = nfcTags;
+        this._nfcTags = nfcTags;
+        this._duration = duration;
+
+        this._startTime = 0;
     }
 
     @Override
@@ -34,6 +49,9 @@ public class EventPreferencesNFC extends EventPreferences {
     {
         this._enabled = ((EventPreferencesNFC)fromEvent._eventPreferencesNFC)._enabled;
         this._nfcTags = ((EventPreferencesNFC)fromEvent._eventPreferencesNFC)._nfcTags;
+        this._duration = ((EventPreferencesNFC)fromEvent._eventPreferencesNFC)._duration;
+
+        this._startTime = 0;
     }
 
     @Override
@@ -42,6 +60,7 @@ public class EventPreferencesNFC extends EventPreferences {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_NFC_ENABLED, _enabled);
         editor.putString(PREF_EVENT_NFC_NFC_TAGS, _nfcTags);
+        editor.putString(PREF_EVENT_NFC_DURATION, String.valueOf(this._duration));
         editor.commit();
     }
 
@@ -50,6 +69,7 @@ public class EventPreferencesNFC extends EventPreferences {
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_NFC_ENABLED, false);
         this._nfcTags = preferences.getString(PREF_EVENT_NFC_NFC_TAGS, "");
+        this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_NFC_DURATION, "5"));
     }
 
     @Override
@@ -67,25 +87,26 @@ public class EventPreferencesNFC extends EventPreferences {
             if (addBullet) {
                 descr = descr + "<b>\u2022 </b>";
                 descr = descr + "<b>" + context.getString(R.string.event_type_nfc) + ": " + "</b>";
-
-                String selectedNfcTags = context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
-                String[] splits = this._nfcTags.split("\\|");
-                for (String _tag : splits) {
-                    if (_tag.isEmpty()) {
-                        selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
-                    }
-                    else
-                    if (splits.length == 1) {
-                        selectedNfcTags = selectedNfcTags + _tag;
-                    }
-                    else {
-                        selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedNfcTags = selectedNfcTags + " " + splits.length;
-                        break;
-                    }
-                }
-                descr = descr + selectedNfcTags;
             }
+
+            String selectedNfcTags = context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
+            String[] splits = this._nfcTags.split("\\|");
+            for (String _tag : splits) {
+                if (_tag.isEmpty()) {
+                    selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                }
+                else
+                if (splits.length == 1) {
+                    selectedNfcTags = selectedNfcTags + _tag;
+                }
+                else {
+                    selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
+                    selectedNfcTags = selectedNfcTags + " " + splits.length;
+                    break;
+                }
+            }
+            descr = descr + selectedNfcTags + "; ";
+            descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
         }
 
         return descr;
@@ -117,21 +138,13 @@ public class EventPreferencesNFC extends EventPreferences {
                 GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
         }
-        /*if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
-        {
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            if (listPreference != null) {
-                int index = listPreference.findIndexOfValue(value);
-                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                listPreference.setSummary(summary);
-            }
-        }*/
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_NFC_NFC_TAGS))
+        if (key.equals(PREF_EVENT_NFC_NFC_TAGS) ||
+            key.equals(PREF_EVENT_NFC_DURATION))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -141,6 +154,7 @@ public class EventPreferencesNFC extends EventPreferences {
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_NFC_NFC_TAGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NFC_DURATION, preferences, context);
 
         if (GlobalData.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context)
                 != GlobalData.PREFERENCE_ALLOWED)
@@ -149,13 +163,15 @@ public class EventPreferencesNFC extends EventPreferences {
             if (preference != null) preference.setEnabled(false);
             preference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
             if (preference != null) preference.setEnabled(false);
+            preference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
+            if (preference != null) preference.setEnabled(false);
         }
     }
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
-            EventPreferencesNFC tmp = new EventPreferencesNFC(this._event, this._enabled, this._nfcTags);
+            EventPreferencesNFC tmp = new EventPreferencesNFC(this._event, this._enabled, this._nfcTags, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -189,43 +205,7 @@ public class EventPreferencesNFC extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context)
     {
-        /*
-        final Preference eventTypePreference = prefMng.findPreference(PREF_EVENT_SCREEN_EVENT_TYPE);
-        final PreferenceManager _prefMng = prefMng;
-
-        if (eventTypePreference != null) {
-            eventTypePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    String sNewValue = (String) newValue;
-                    int iNewValue;
-                    if (sNewValue.isEmpty())
-                        iNewValue = 100;
-                    else
-                        iNewValue = Integer.parseInt(sNewValue);
-
-                    setWhenUnlockedTitle(_prefMng, iNewValue);
-
-                    return true;
-                }
-            });
-        }
-        */
     }
-
-    /*
-    private void setWhenUnlockedTitle(PreferenceManager prefMng, int value)
-    {
-        final CheckBoxPreference whenUnlockedPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SCREEN_WHEN_UNLOCKED);
-
-        if (whenUnlockedPreference != null) {
-            if (value == 0)
-                whenUnlockedPreference.setTitle(R.string.event_preferences_screen_start_when_unlocked);
-            else
-                whenUnlockedPreference.setTitle(R.string.event_preferences_screen_end_when_unlocked);
-        }
-    }
-    */
 
     @Override
     public boolean activateReturnProfile()
@@ -233,19 +213,123 @@ public class EventPreferencesNFC extends EventPreferences {
         return true;
     }
 
+    public long computeAlarm()
+    {
+        GlobalData.logE("EventPreferencesNFC.computeAlarm","xxx");
+
+        Calendar calEndTime = Calendar.getInstance();
+
+        int gmtOffset = TimeZone.getDefault().getRawOffset();
+
+        calEndTime.setTimeInMillis((_startTime - gmtOffset) + (_duration * 1000));
+        //calEndTime.set(Calendar.SECOND, 0);
+        //calEndTime.set(Calendar.MILLISECOND, 0);
+
+        long alarmTime;
+        alarmTime = calEndTime.getTimeInMillis();
+
+        return alarmTime;
+    }
+
     @Override
     public void setSystemEventForStart(Context context)
     {
+        // set alarm for state PAUSE
+
+        // this alarm generates broadcast, that change state into RUNNING;
+        // from broadcast will by called EventsService
+
+        GlobalData.logE("EventPreferencesNFC.setSystemRunningEvent","xxx");
+
+        removeAlarm(context);
     }
 
     @Override
     public void setSystemEventForPause(Context context)
     {
+        // set alarm for state RUNNING
+
+        // this alarm generates broadcast, that change state into PAUSE;
+        // from broadcast will by called EventsService
+
+        GlobalData.logE("EventPreferencesNFC.setSystemPauseEvent","xxx");
+
+        removeAlarm(context);
+
+        if (!(isRunnable(context) && _enabled))
+            return;
+
+        setAlarm(computeAlarm(), context);
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
+        removeAlarm(context);
+
+        GlobalData.logE("EventPreferencesNFC.removeSystemEvent", "xxx");
+    }
+
+    public void removeAlarm(Context context)
+    {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+
+        Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+        if (pendingIntent != null)
+        {
+            GlobalData.logE("EventPreferencesNFC.removeAlarm","alarm found");
+
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
+    }
+
+    @SuppressLint({"SimpleDateFormat", "NewApi"})
+    private void setAlarm(long alarmTime, Context context)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+        String result = sdf.format(alarmTime);
+        GlobalData.logE("EventPreferencesNFC.setAlarm","endTime="+result);
+
+        Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
+        //intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+
+        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        else
+        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        else
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+    }
+
+    public void saveStartTime(DataWrapper dataWrapper, String tagName, long startTime) {
+
+        boolean tagFound = false;
+
+        String[] splits = this._nfcTags.split("\\|");
+        for (int i = 0; i < splits.length; i++) {
+            String tag = splits[i];
+
+            if (tag.equals(tagName))
+                tagFound = true;
+        }
+
+        if (tagFound)
+            this._startTime = startTime;
+        else
+            this._startTime = 0;
+
+        dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
+        if (_event.getStatus() == Event.ESTATUS_RUNNING)
+            setSystemEventForPause(dataWrapper.context);
+
     }
 
 }

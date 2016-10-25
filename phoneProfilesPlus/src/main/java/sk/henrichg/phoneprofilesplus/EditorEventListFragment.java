@@ -691,6 +691,7 @@ public class EditorEventListFragment extends Fragment {
             dataWrapper.getDatabaseHandler().setEventCalendarTimes(event);
             dataWrapper.getDatabaseHandler().setSMSStartTime(event);
             dataWrapper.getDatabaseHandler().setNotificationStartTime(event);
+            dataWrapper.getDatabaseHandler().setNFCStartTime(event);
         }
         updateListView(null, false, refreshIcons, setPosition);
     }

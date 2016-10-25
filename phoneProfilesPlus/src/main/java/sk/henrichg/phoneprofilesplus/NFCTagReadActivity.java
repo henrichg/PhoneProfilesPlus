@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 public class NFCTagReadActivity extends Activity {
 
     //private String tagName;
@@ -27,7 +30,12 @@ public class NFCTagReadActivity extends Activity {
         nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
             @Override
             public void onTagRead(String tagRead) {
-                Toast.makeText(NFCTagReadActivity.this, "tag read:"+tagRead, Toast.LENGTH_LONG).show();
+                Toast.makeText(NFCTagReadActivity.this, "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_readed)+": "+tagRead, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getApplicationContext(), NFCBroadcastReceiver.class);
+                intent.putExtra(GlobalData.EXTRA_EVENT_NFC_TAG_NAME, tagRead);
+                sendBroadcast(intent);
+
                 NFCTagReadActivity.this.finish();
             }
         });
@@ -43,7 +51,8 @@ public class NFCTagReadActivity extends Activity {
         nfcManager.setOnTagWriteErrorListener(new NFCTagReadWriteManager.TagWriteErrorListener() {
             @Override
             public void onTagWriteError(NFCTagWriteException exception) {
-                Toast.makeText(NFCTagReadActivity.this, exception.getType().toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(NFCTagReadActivity.this, exception.getType().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(NFCTagReadActivity.this, "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_error), Toast.LENGTH_LONG).show();
                 NFCTagReadActivity.this.finish();
             }
         });

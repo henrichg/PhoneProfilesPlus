@@ -290,7 +290,7 @@ public class Event {
 
     private void createEventPreferencesNFC()
     {
-        this._eventPreferencesNFC = new EventPreferencesNFC(this, false, "");
+        this._eventPreferencesNFC = new EventPreferencesNFC(this, false, "", 5);
     }
 
     public void createEventPreferences()

@@ -1548,6 +1548,7 @@ public class DataWrapper {
         boolean locationPassed = true;
         boolean orientationPassed = true;
         boolean mobileCellPassed = true;
+        boolean nfcPassed = true;
 
         GlobalData.logE("%%% DataWrapper.doEventService","--- start --------------------------");
         GlobalData.logE("%%% DataWrapper.doEventService","------- event._id="+event._id);
@@ -2502,6 +2503,44 @@ public class DataWrapper {
             }
         }
 
+        if ((event._eventPreferencesNFC._enabled) &&
+                (GlobalData.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED))
+        {
+            // compute start time
+
+            if (event._eventPreferencesNFC._startTime > 0) {
+                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                long startTime = event._eventPreferencesNFC._startTime - gmtOffset;
+
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String alarmTimeS = sdf.format(startTime);
+                GlobalData.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
+
+                // compute end datetime
+                long endAlarmTime = event._eventPreferencesNFC.computeAlarm();
+                alarmTimeS = sdf.format(endAlarmTime);
+                GlobalData.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
+
+                Calendar now = Calendar.getInstance();
+                long nowAlarmTime = now.getTimeInMillis();
+                alarmTimeS = sdf.format(nowAlarmTime);
+                GlobalData.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
+
+                if (broadcastType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    nfcPassed = true;
+                else if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    nfcPassed = false;
+                else
+                    nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+            }
+            else
+                nfcPassed = false;
+
+            if (!nfcPassed) {
+                event._eventPreferencesNFC._startTime = 0;
+                getDatabaseHandler().updateSMSStartTime(event);
+            }
+        }
 
         GlobalData.logE("DataWrapper.doEventService","ignoreChange="+ignoreChange);
 
@@ -2519,6 +2558,7 @@ public class DataWrapper {
         GlobalData.logE("DataWrapper.doEventService","locationPassed="+locationPassed);
         GlobalData.logE("DataWrapper.doEventService","orientationPassed="+orientationPassed);
         GlobalData.logE("DataWrapper.doEventService","mobileCellPassed="+mobileCellPassed);
+        GlobalData.logE("DataWrapper.doEventService","nfcPassed="+nfcPassed);
 
         //GlobalData.logE("DataWrapper.doEventService","eventStart="+eventStart);
         GlobalData.logE("DataWrapper.doEventService","restartEvent="+restartEvent);
@@ -2539,7 +2579,8 @@ public class DataWrapper {
             applicationPassed &&
             locationPassed &&
             orientationPassed &&
-            mobileCellPassed)
+            mobileCellPassed &&
+            nfcPassed)
         {
             // podmienky sedia, vykoname, co treba
 

@@ -57,8 +57,8 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|@@@ PackageReplacedReceiver.onReceive"
-                                         //+"|GlobalData.loadPreferences"
+                                         +"|##### NFCBroadcastReceiver.onReceive"
+                                         +"|##### NFCEventEndBroadcastReceiver.onReceive"
             ;
 
 
@@ -90,6 +90,8 @@ public class GlobalData extends Application {
     static final String EXTRA_PROFILE_NAME = "profile_name";
     static final String EXTRA_INTERACTIVE = "interactive";
     static final String EXTRA_EVENT_NAME = "event_name";
+    static final String EXTRA_EVENT_NFC_DATE = "event_nfc_date";
+    static final String EXTRA_EVENT_NFC_TAG_NAME = "event_nfc_tag_name";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;

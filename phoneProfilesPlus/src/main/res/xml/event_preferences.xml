@@ -588,6 +588,14 @@
                 android:title="@string/event_preferences_nfc_nfcTags"
                 app:addShortcuts="0"
                 android:dependency="eventNFCEnabled" />
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+                android:key="eventNFCDuration"
+                android:summary="@string/event_preferences_duration"
+                android:title="@string/event_preferences_duration"
+                android:defaultValue="5"
+                henrichg:dMin="5"
+                henrichg:dMax="86400"
+                android:dependency="eventNFCEnabled" />
         </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>

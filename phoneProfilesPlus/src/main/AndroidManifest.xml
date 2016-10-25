@@ -583,12 +583,12 @@
             android:exported="false">
         </receiver>
         <!--
-     		<receiver android:name=".SMSBroadcastReceiver"  android:enabled="true">
-			<intent-filter android:priority="1000">
-			    <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-			    <action android:name="android.provider.Telephony.SMS_SENT"/>
-			</intent-filter>
-		</receiver>
+            <receiver android:name=".SMSBroadcastReceiver"  android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="android.provider.Telephony.SMS_SENT"/>
+            </intent-filter>
+        </receiver>
         -->
         <receiver
             android:name=".SMSBroadcastReceiver"
@@ -762,6 +762,16 @@
         </receiver>
         <receiver
             android:name=".PhoneStateChangeBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".NFCBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".NFCEventEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
