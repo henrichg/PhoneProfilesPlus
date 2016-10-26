@@ -759,6 +759,14 @@ public class DataWrapper {
                     // block only running forcerun events
                     setEventBlocked(event, true);
                 }
+
+                // for "push" events, set startTime to 0
+                event._eventPreferencesSMS._startTime = 0;
+                getDatabaseHandler().updateSMSStartTime(event);
+                event._eventPreferencesNotification._startTime = 0;
+                getDatabaseHandler().updateNotificationStartTime(event);
+                event._eventPreferencesNFC._startTime = 0;
+                getDatabaseHandler().updateNFCStartTime(event);
             }
         }
 
@@ -1150,7 +1158,6 @@ public class DataWrapper {
             pauseAllEvents(false, true/*, true*/);
 
             ActivateProfileHelper.lockRefresh = false;
-
         }
 
         databaseHandler.activateProfile(profile);
@@ -2538,7 +2545,7 @@ public class DataWrapper {
 
             if (!nfcPassed) {
                 event._eventPreferencesNFC._startTime = 0;
-                getDatabaseHandler().updateSMSStartTime(event);
+                getDatabaseHandler().updateNFCStartTime(event);
             }
         }
 

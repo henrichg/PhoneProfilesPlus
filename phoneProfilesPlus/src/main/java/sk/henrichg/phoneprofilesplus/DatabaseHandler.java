@@ -4548,7 +4548,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void setSMSStartTime(Event event)
+    public void getSMSStartTime(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4608,7 +4608,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void setNotificationStartTime(Event event)
+    public void getNotificationStartTime(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4706,7 +4706,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void setNFCStartTime(Event event)
+    public void getNFCStartTime(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();

@@ -689,9 +689,9 @@ public class EditorEventListFragment extends Fragment {
             boolean isInDelayEnd = dataWrapper.getDatabaseHandler().getEventInDelayEnd(event);
             event._isInDelayEnd = isInDelayEnd;
             dataWrapper.getDatabaseHandler().setEventCalendarTimes(event);
-            dataWrapper.getDatabaseHandler().setSMSStartTime(event);
-            dataWrapper.getDatabaseHandler().setNotificationStartTime(event);
-            dataWrapper.getDatabaseHandler().setNFCStartTime(event);
+            dataWrapper.getDatabaseHandler().getSMSStartTime(event);
+            dataWrapper.getDatabaseHandler().getNotificationStartTime(event);
+            dataWrapper.getDatabaseHandler().getNFCStartTime(event);
         }
         updateListView(null, false, refreshIcons, setPosition);
     }

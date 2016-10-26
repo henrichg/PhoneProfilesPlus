@@ -154,49 +154,65 @@ public class EventsService extends IntentService
                 }
             }
         }
-        if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
-            // search for sms events, save start time
-            GlobalData.logE("EventsService.onHandleIntent", "search for sms events");
+
+        // "push events"
+        if (isRestart) {
+            // for restart events, set startTime to 0
             for (Event _event : eventList) {
-                if (_event.getStatus() != Event.ESTATUS_STOP) {
-                    if (_event._eventPreferencesSMS._enabled) {
-                        GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
-                        _event._eventPreferencesSMS.saveStartTime(dataWrapper,
-                                intent.getStringExtra(GlobalData.EXTRA_EVENT_SMS_PHONE_NUMBER),
-                                intent.getLongExtra(GlobalData.EXTRA_EVENT_SMS_DATE, 0));
-                    }
-                }
+                _event._eventPreferencesSMS._startTime = 0;
+                dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
+                _event._eventPreferencesNotification._startTime = 0;
+                dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+                _event._eventPreferencesNFC._startTime = 0;
+                dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
-                // search for notification events, save start time
-                GlobalData.logE("EventsService.onHandleIntent", "search for notification events");
+        else {
+            // for no-restart events, stet startTime to actual time
+            if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+                // search for sms events, save start time
+                GlobalData.logE("EventsService.onHandleIntent", "search for sms events");
                 for (Event _event : eventList) {
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
-                        if ((_event._eventPreferencesNotification._enabled) && (!_event._eventPreferencesNotification._endWhenRemoved)) {
+                        if (_event._eventPreferencesSMS._enabled) {
                             GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
-                        /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
-                                intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
-                                intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
-                            if (intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted"))
-                                _event._eventPreferencesNotification.saveStartTime(dataWrapper);
-
+                            _event._eventPreferencesSMS.saveStartTime(dataWrapper,
+                                    intent.getStringExtra(GlobalData.EXTRA_EVENT_SMS_PHONE_NUMBER),
+                                    intent.getLongExtra(GlobalData.EXTRA_EVENT_SMS_DATE, 0));
                         }
                     }
                 }
             }
-        }
-        if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
-            // search for sms events, save start time
-            GlobalData.logE("EventsService.onHandleIntent", "search for nfc events");
-            for (Event _event : eventList) {
-                if (_event.getStatus() != Event.ESTATUS_STOP) {
-                    if (_event._eventPreferencesNFC._enabled) {
-                        GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
-                        _event._eventPreferencesNFC.saveStartTime(dataWrapper,
-                                intent.getStringExtra(GlobalData.EXTRA_EVENT_NFC_TAG_NAME),
-                                intent.getLongExtra(GlobalData.EXTRA_EVENT_NFC_DATE, 0));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+                    // search for notification events, save start time
+                    GlobalData.logE("EventsService.onHandleIntent", "search for notification events");
+                    for (Event _event : eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if ((_event._eventPreferencesNotification._enabled) && (!_event._eventPreferencesNotification._endWhenRemoved)) {
+                                GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                        /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
+                                intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
+                                intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
+                                if (intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted"))
+                                    _event._eventPreferencesNotification.saveStartTime(dataWrapper);
+
+                            }
+                        }
+                    }
+                }
+            }
+            if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
+                // search for sms events, save start time
+                GlobalData.logE("EventsService.onHandleIntent", "search for nfc events");
+                for (Event _event : eventList) {
+                    if (_event.getStatus() != Event.ESTATUS_STOP) {
+                        if (_event._eventPreferencesNFC._enabled) {
+                            GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                            _event._eventPreferencesNFC.saveStartTime(dataWrapper,
+                                    intent.getStringExtra(GlobalData.EXTRA_EVENT_NFC_TAG_NAME),
+                                    intent.getLongExtra(GlobalData.EXTRA_EVENT_NFC_DATE, 0));
+                        }
                     }
                 }
             }
