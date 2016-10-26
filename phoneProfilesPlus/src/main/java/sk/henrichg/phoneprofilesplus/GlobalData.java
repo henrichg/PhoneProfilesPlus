@@ -57,6 +57,7 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
+                                         +"|NFCTagWriteActivity"
                                          +"|##### NFCBroadcastReceiver.onReceive"
                                          +"|##### NFCEventEndBroadcastReceiver.onReceive"
             ;

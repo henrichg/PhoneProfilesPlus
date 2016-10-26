@@ -9,16 +9,24 @@
               android:paddingBottom="@dimen/important_info_bottom_margin" >
 
     <TextView
-        android:id="@+id/write_nfc_tag_in_progress"
+        android:id="@+id/write_nfc_tag_touch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_touch"
         android:textSize="17sp"
         android:textStyle="bold"/>
 
+    <TextView
+        android:id="@+id/write_nfc_tag_writable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:text="@string/nfc_tag_pref_dlg_writeToNfcTag_writable"
+        android:textSize="17sp"/>
 
     <Button
         android:id="@+id/write_nfc_tag_button"

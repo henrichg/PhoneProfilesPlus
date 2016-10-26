@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -22,6 +23,8 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     private String tagName;
 
     NFCTagReadWriteManager nfcManager;
+
+    TextView writableTextView;
 
     public static final String EXTRA_TAG_NAME = "tag_name";
 
@@ -65,12 +68,22 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
 
+        writableTextView = (TextView)NFCTagWriteActivity.this.findViewById(R.id.write_nfc_tag_writable);
+        writableTextView.setText(R.string.empty_string);
+
         nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
             @Override
             public void onTagRead(String tagRead) {
                 //Toast.makeText(NFCTagWriteActivity.this, "tag read:"+tagRead, Toast.LENGTH_LONG).show();
+                if (nfcManager.tagReaded) {
+                    if (nfcManager.tagIsWritable)
+                        writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_writable);
+                    else {
+                        writableTextView.setTextColor(Color.RED);
+                        writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_not_writable);
+                    }
+                }
                 Log.d("NFCTagWriteActivity.onTagRead", "xxx");
-                //NFCTagWriteActivity.this.finish();
             }
         });
 
@@ -84,9 +97,18 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         nfcManager.setOnTagWriteErrorListener(new NFCTagReadWriteManager.TagWriteErrorListener() {
             @Override
             public void onTagWriteError(NFCTagWriteException exception) {
+                if (nfcManager.tagReaded) {
+                    if (nfcManager.tagIsWritable)
+                        writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_writable);
+                    else {
+                        writableTextView.setTextColor(Color.RED);
+                        writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_not_writable);
+                    }
+                }
+
                 //Toast.makeText(NFCTagWriteActivity.this, exception.getType().toString(), Toast.LENGTH_LONG).show();
                 Toast.makeText(NFCTagWriteActivity.this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();
-                NFCTagWriteActivity.this.finish();
+                //NFCTagWriteActivity.this.finish();
             }
         });
 

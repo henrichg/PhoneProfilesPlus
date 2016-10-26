@@ -28,6 +28,12 @@ public class NFCTagReadWriteManager {
     Activity activity;
     PendingIntent pendingIntent;
 
+    boolean tagReaded = false;
+
+    int tagSize;            // tag size
+    boolean tagIsWritable;  // is tag writable?
+    String tagType;         // tag type
+
     TagReadListener onTagReadListener;
     TagWriteListener onTagWriteListener;
     TagWriteErrorListener onTagWriteErrorListener;
@@ -93,7 +99,7 @@ public class NFCTagReadWriteManager {
         if (nfcAdapter != null) {
             nfcAdapter.enableForegroundDispatch(activity, pendingIntent, null, null);
         }
-        if (writeText == null)
+        //if (writeText == null)
             readTagFromIntent(activity.getIntent());
     }
 
@@ -114,7 +120,7 @@ public class NFCTagReadWriteManager {
         // activity.setIntent(intent);
 
         //if (writeText == null)
-        //    readTagFromIntent(intent);
+            readTagFromIntent(intent);
         //else {
         if (writeText != null)/* && NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()))*/ {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -137,7 +143,15 @@ public class NFCTagReadWriteManager {
         if (intent != null){
             String action = intent.getAction();
             if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
-                //Tag myTag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                tagReaded = true;
+
+                // get NDEF tag details
+                Tag tag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                Ndef ndefTag = Ndef.get(tag);
+                tagSize = ndefTag.getMaxSize();         // tag size
+                tagIsWritable = ndefTag.isWritable();   // is tag writable?
+                tagType = ndefTag.getType();            // tag type
+
                 Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
                 if (rawMsgs != null) {
                     NdefRecord[] records = ((NdefMessage) rawMsgs[0]).getRecords();
