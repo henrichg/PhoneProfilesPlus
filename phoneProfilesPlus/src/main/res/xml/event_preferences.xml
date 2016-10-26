@@ -291,6 +291,12 @@
                 android:entryValues="@array/eventCallContactListTypeValues"
                 android:dependency="eventSMSEnabled"
                 app:useStockLayout="true" />
+            <CheckBoxPreference
+                android:key="eventSMSPermanentRun"
+                android:title="@string/pref_event_permanentRun"
+                android:summary="@string/pref_event_permanentRun_summary"
+                android:defaultValue="true"
+                android:dependency="eventSMSEnabled" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
                 android:key="eventSMSDuration"
                 android:summary="@string/event_preferences_duration"
@@ -489,6 +495,12 @@
                 android:title="@string/event_preferences_notifications_end_when_removed"
                 android:defaultValue="false"
                 android:dependency="eventNotificationEnabled" />
+            <CheckBoxPreference
+                android:key="eventNotificationPermanentRun"
+                android:title="@string/pref_event_permanentRun"
+                android:summary="@string/pref_event_permanentRun_summary"
+                android:defaultValue="true"
+                android:dependency="eventNotificationEnabled" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
                 android:key="eventNotificationDuration"
                 android:summary="@string/event_preferences_duration"
@@ -587,6 +599,12 @@
                 android:key="eventNFCTags"
                 android:title="@string/event_preferences_nfc_nfcTags"
                 app:addShortcuts="0"
+                android:dependency="eventNFCEnabled" />
+            <CheckBoxPreference
+                android:key="eventNFCPermanentRun"
+                android:title="@string/pref_event_permanentRun"
+                android:summary="@string/pref_event_permanentRun_summary"
+                android:defaultValue="true"
                 android:dependency="eventNFCEnabled" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
                 android:key="eventNFCDuration"

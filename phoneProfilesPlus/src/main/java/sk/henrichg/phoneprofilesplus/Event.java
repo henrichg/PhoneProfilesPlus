@@ -260,12 +260,12 @@ public class Event {
 
     private void createEventPreferencesSMS()
     {
-        this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0, 5);
+        this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0, false, 5);
     }
 
     private void createEventPreferencesNotification()
     {
-        this._eventPreferencesNotification = new EventPreferencesNotification(this, false, "", 5, false);
+        this._eventPreferencesNotification = new EventPreferencesNotification(this, false, "", false, 5, false);
     }
 
     private void createEventPreferencesApplication()
@@ -290,7 +290,7 @@ public class Event {
 
     private void createEventPreferencesNFC()
     {
-        this._eventPreferencesNFC = new EventPreferencesNFC(this, false, "", 5);
+        this._eventPreferencesNFC = new EventPreferencesNFC(this, false, "", true, 5);
     }
 
     public void createEventPreferences()

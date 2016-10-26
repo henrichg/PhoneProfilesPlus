@@ -851,4 +851,6 @@
     <string name="write_nfc_tag_error">Tag write ERROR</string>
     <string name="read_nfc_tag_readed">Tag readed</string>
     <string name="read_nfc_tag_error">Read tag ERROR</string>
+    <string name="pref_event_permanentRun">Permanent run</string>
+    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and restart events</string>
 </resources>

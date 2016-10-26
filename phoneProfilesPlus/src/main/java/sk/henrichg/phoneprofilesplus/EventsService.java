@@ -189,7 +189,7 @@ public class EventsService extends IntentService
                     GlobalData.logE("EventsService.onHandleIntent", "search for notification events");
                     for (Event _event : eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
-                            if ((_event._eventPreferencesNotification._enabled) && (!_event._eventPreferencesNotification._endWhenRemoved)) {
+                            if (_event._eventPreferencesNotification._enabled) {
                                 GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                         /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
                                 intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),

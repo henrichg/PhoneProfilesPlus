@@ -27,6 +27,7 @@ public class EventPreferencesSMS extends EventPreferences {
     public String _contactGroups;
     public int _contactListType;
     public long _startTime;
+    public boolean _permanentRun;
     public int _duration;
 
     static final String PREF_EVENT_SMS_ENABLED = "eventSMSEnabled";
@@ -34,6 +35,7 @@ public class EventPreferencesSMS extends EventPreferences {
     static final String PREF_EVENT_SMS_CONTACTS = "eventSMSContacts";
     static final String PREF_EVENT_SMS_CONTACT_GROUPS = "eventSMSContactGroups";
     static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
+    static final String PREF_EVENT_SMS_PERMANENT_RUN = "eventSMSPermanentRun";
     static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
 
     static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategory";
@@ -52,6 +54,7 @@ public class EventPreferencesSMS extends EventPreferences {
                                     String contacts,
                                     String contactGroups,
                                     int contactListType,
+                                    boolean permanentRun,
                                     int duration)
     {
         super(event, enabled);
@@ -60,6 +63,7 @@ public class EventPreferencesSMS extends EventPreferences {
         this._contacts = contacts;
         this._contactGroups = contactGroups;
         this._contactListType = contactListType;
+        this._permanentRun = permanentRun;
         this._duration = duration;
 
         this._startTime = 0;
@@ -73,6 +77,7 @@ public class EventPreferencesSMS extends EventPreferences {
         this._contacts = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contacts;
         this._contactGroups = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contactGroups;
         this._contactListType = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contactListType;
+        this._permanentRun = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._permanentRun;
         this._duration = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._duration;
 
         this._startTime = 0;
@@ -87,6 +92,7 @@ public class EventPreferencesSMS extends EventPreferences {
         editor.putString(PREF_EVENT_SMS_CONTACTS, this._contacts);
         editor.putString(PREF_EVENT_SMS_CONTACT_GROUPS, this._contactGroups);
         editor.putString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
+        editor.putBoolean(PREF_EVENT_SMS_PERMANENT_RUN, this._permanentRun);
         editor.putString(PREF_EVENT_SMS_DURATION, String.valueOf(this._duration));
         editor.commit();
     }
@@ -99,6 +105,7 @@ public class EventPreferencesSMS extends EventPreferences {
         this._contacts = preferences.getString(PREF_EVENT_SMS_CONTACTS, "");
         this._contactGroups = preferences.getString(PREF_EVENT_SMS_CONTACT_GROUPS, "");
         this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, "0"));
+        this._permanentRun = preferences.getBoolean(PREF_EVENT_SMS_PERMANENT_RUN, false);
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_DURATION, "5"));
     }
 
@@ -125,7 +132,10 @@ public class EventPreferencesSMS extends EventPreferences {
             descr = descr + context.getString(R.string.pref_event_sms_contactListType);
             String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
             descr = descr + ": " + contactListTypes[this._contactListType] + "; ";
-            descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
+            if (this._permanentRun)
+                descr = descr + context.getString(R.string.pref_event_permanentRun);
+            else
+                descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
         }
 
         return descr;
@@ -157,14 +167,12 @@ public class EventPreferencesSMS extends EventPreferences {
                 GUIData.setPreferenceTitleStyle(preference, false, true, false);
             }
         }
-        /*if (key.equals(PREF_EVENT_SMS_DURATION)) {
-            Preference preference = prefMng.findPreference(key);
-            String sValue = value.toString();
-            //int iValue = 0;
-            //if (!sValue.isEmpty())
-            //    iValue = Integer.valueOf(sValue);
-            preference.setSummary(sValue);
-        }*/
+        if (key.equals(PREF_EVENT_SMS_PERMANENT_RUN)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_SMS_DURATION);
+            if (preference != null) {
+                preference.setEnabled(value.equals("false"));
+            }
+        }
     }
 
     @Override
@@ -178,6 +186,10 @@ public class EventPreferencesSMS extends EventPreferences {
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
+        if (key.equals(PREF_EVENT_SMS_PERMANENT_RUN)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true": "false", context);
+        }
     }
 
     @Override
@@ -187,13 +199,15 @@ public class EventPreferencesSMS extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_SMS_CONTACT_LIST_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_CONTACTS, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_CONTACT_GROUPS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SMS_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_DURATION, preferences, context);
     }
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
-            EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType, this._duration);
+            EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType,
+                                                                this._permanentRun, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -307,24 +321,25 @@ public class EventPreferencesSMS extends EventPreferences {
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(long alarmTime, Context context)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        String result = sdf.format(alarmTime);
-        GlobalData.logE("EventPreferencesSMS.setAlarm","endTime="+result);
+        if (!_permanentRun) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String result = sdf.format(alarmTime);
+            GlobalData.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
 
-        Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
-        //intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
+            Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+            //intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-        else
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-        else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            else
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        }
     }
 
     public void saveStartTime(DataWrapper dataWrapper, String phoneNumber, long startTime) {

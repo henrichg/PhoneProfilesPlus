@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1780;
+    private static final int DATABASE_VERSION = 1790;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -232,6 +232,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_NFC_NFC_TAGS = "nfcNfcTags";
     private static final String KEY_E_NFC_START_TIME = "nfcStartTime";
     private static final String KEY_E_NFC_DURATION = "nfcDuration";
+    private static final String KEY_E_SMS_PERMANENT_RUN = "smsPermanentRun";
+    private static final String KEY_E_NOTIFICATION_PERMANENT_RUN = "notificationPermanentRun";
+    private static final String KEY_E_NFC_PERMANENT_RUN = "nfcPermanentRun";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -486,7 +489,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_NFC_ENABLED + " INTEGER,"
                 + KEY_E_NFC_NFC_TAGS + " TEXT,"
                 + KEY_E_NFC_DURATION + " INTEGER,"
-                + KEY_E_NFC_START_TIME + " INTEGER"
+                + KEY_E_NFC_START_TIME + " INTEGER,"
+                + KEY_E_SMS_PERMANENT_RUN + " INTEGER,"
+                + KEY_E_NOTIFICATION_PERMANENT_RUN + " INTEGER,"
+                + KEY_E_NFC_PERMANENT_RUN + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1869,6 +1875,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_DURATION + "=5");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_START_TIME + "=0");
+        }
+
+        if (oldVersion < 1790)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_SMS_PERMANENT_RUN + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NOTIFICATION_PERMANENT_RUN + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_NFC_PERMANENT_RUN + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_PERMANENT_RUN + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_PERMANENT_RUN + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_PERMANENT_RUN + "=1");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -3443,7 +3462,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_SMS_CONTACT_LIST_TYPE,
                         KEY_E_SMS_START_TIME,
                         KEY_E_SMS_CONTACT_GROUPS,
-                        KEY_E_SMS_DURATION
+                        KEY_E_SMS_DURATION,
+                        KEY_E_SMS_PERMANENT_RUN
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3462,6 +3482,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._startTime = Long.parseLong(cursor.getString(3));
                 eventPreferences._contactGroups = cursor.getString(4);
                 eventPreferences._duration = cursor.getInt(5);
+                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(6)) == 1);
             }
             cursor.close();
         }
@@ -3473,7 +3494,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_NOTIFICATION_APPLICATIONS,
                         KEY_E_NOTIFICATION_START_TIME,
                         KEY_E_NOTIFICATION_DURATION,
-                        KEY_E_NOTIFICATION_END_WHEN_REMOVED
+                        KEY_E_NOTIFICATION_END_WHEN_REMOVED,
+                        KEY_E_NOTIFICATION_PERMANENT_RUN
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3490,6 +3512,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._startTime = Long.parseLong(cursor.getString(2));
                 eventPreferences._duration = cursor.getInt(3);
                 eventPreferences._endWhenRemoved = (Integer.parseInt(cursor.getString(4)) == 1);
+                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(5)) == 1);
             }
             cursor.close();
         }
@@ -3604,7 +3627,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{KEY_E_NFC_ENABLED,
                             KEY_E_NFC_NFC_TAGS,
                             KEY_E_NFC_DURATION,
-                            KEY_E_NFC_START_TIME
+                            KEY_E_NFC_START_TIME,
+                            KEY_E_NFC_PERMANENT_RUN
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3620,6 +3644,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._nfcTags = cursor.getString(1);
                 eventPreferences._duration = cursor.getInt(2);
                 eventPreferences._startTime = Long.parseLong(cursor.getString(3));
+                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(4)) == 1);
             }
             cursor.close();
         }
@@ -3830,6 +3855,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_SMS_START_TIME, eventPreferences._startTime);
         values.put(KEY_E_SMS_CONTACT_GROUPS, eventPreferences._contactGroups);
         values.put(KEY_E_SMS_DURATION, eventPreferences._duration);
+        values.put(KEY_E_SMS_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -3848,6 +3874,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NOTIFICATION_START_TIME, eventPreferences._startTime);
         values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
         values.put(KEY_E_NOTIFICATION_END_WHEN_REMOVED, (eventPreferences._endWhenRemoved) ? 1 : 0);
+        values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -3932,6 +3959,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NFC_NFC_TAGS, eventPreferences._nfcTags);
         values.put(KEY_E_NFC_DURATION, eventPreferences._duration);
         values.put(KEY_E_NFC_START_TIME, eventPreferences._startTime);
+        values.put(KEY_E_NFC_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
         int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -6849,6 +6877,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 if (exportedDBObj.getVersion() < 1780) {
                                     values.put(KEY_E_NFC_DURATION, 5);
                                     values.put(KEY_E_NFC_START_TIME, 0);
+                                }
+
+                                if (exportedDBObj.getVersion() < 1790) {
+                                    values.put(KEY_E_NFC_PERMANENT_RUN, 1);
+                                    values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, 0);
+                                    values.put(KEY_E_SMS_PERMANENT_RUN, 0);
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper

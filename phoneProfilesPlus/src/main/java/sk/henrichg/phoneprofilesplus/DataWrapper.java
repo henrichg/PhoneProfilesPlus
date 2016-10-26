@@ -2279,10 +2279,15 @@ public class DataWrapper {
 
                 if (broadcastType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
                     smsPassed = true;
-                else if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                    smsPassed = false;
-                else
-                    smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                else if (!event._eventPreferencesSMS._permanentRun) {
+                    if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                        smsPassed = false;
+                    else
+                        smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                }
+                else {
+                    smsPassed = nowAlarmTime >= startTime;
+                }
             }
             else
                 smsPassed = false;
@@ -2320,10 +2325,14 @@ public class DataWrapper {
 
                         if (broadcastType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
                             notificationPassed = true;
-                        else if (broadcastType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                            notificationPassed = false;
+                        else if (!event._eventPreferencesNotification._permanentRun) {
+                            if (broadcastType.equals(NotificationEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                                notificationPassed = false;
+                            else
+                                notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                        }
                         else
-                            notificationPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                            notificationPassed = nowAlarmTime >= startTime;
                     } else
                         notificationPassed = false;
                 } else {
@@ -2535,10 +2544,14 @@ public class DataWrapper {
 
                 if (broadcastType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
                     nfcPassed = true;
-                else if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                    nfcPassed = false;
+                else if (!event._eventPreferencesNFC._permanentRun) {
+                    if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                        nfcPassed = false;
+                    else
+                        nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                }
                 else
-                    nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                    nfcPassed = nowAlarmTime >= startTime;
             }
             else
                 nfcPassed = false;
