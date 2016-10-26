@@ -847,7 +847,7 @@
     <string name="alert_button_continue">Continue</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Write to NFC Tag</string>
     <string name="write_nfc_tag_in_progress">Write to the NFC tag is in progress</string>
-    <string name="write_nfc_tag_writed">Tag writed</string>
+    <string name="write_nfc_tag_writed">Tag writen</string>
     <string name="write_nfc_tag_error">Tag write ERROR</string>
     <string name="read_nfc_tag_readed">Tag readed</string>
     <string name="read_nfc_tag_error">Read tag ERROR</string>
