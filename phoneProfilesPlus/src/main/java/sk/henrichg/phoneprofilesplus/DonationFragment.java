@@ -106,8 +106,7 @@ public class DonationFragment extends Fragment {
 
                 if (!result.isSuccess()) {
                     // Oh noes, there was a problem.
-                    openDialog(android.R.drawable.ic_dialog_alert, R.string.donation_google_android_market_not_supported_title,
-                            getString(R.string.donation_google_android_market_not_supported));
+                    openDialog(R.string.donation_google_android_market_not_supported_title, getString(R.string.donation_google_android_market_not_supported));
                     return;
                 }
 
@@ -187,8 +186,7 @@ public class DonationFragment extends Fragment {
 
                 // show thanks openDialog
                 // show thanks openDialog
-                openDialog(android.R.drawable.ic_dialog_info, R.string.donation_thanks_dialog_title,
-                                getString(R.string.donation_thanks_dialog));
+                openDialog(R.string.donation_thanks_dialog_title, getString(R.string.donation_thanks_dialog));
             } catch (IabHelper.IabAsyncInProgressException e) {
                 Log.e(TAG, "Error donate. Another async operation in progress.");
                 //setWaitScreen(false);
@@ -268,13 +266,12 @@ public class DonationFragment extends Fragment {
     /**
      * Open dialog
      */
-    void openDialog(int icon, int title, String message) {
+    void openDialog(int title, String message) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setIcon(icon);
         dialog.setTitle(title);
         dialog.setMessage(message);
         dialog.setCancelable(true);
-        dialog.setNeutralButton(R.string.donation_button_close,
+        dialog.setPositiveButton(R.string.donation_button_close,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
