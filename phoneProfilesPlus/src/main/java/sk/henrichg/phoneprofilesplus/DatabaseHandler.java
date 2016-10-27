@@ -555,7 +555,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_NT_ID + " INTEGER PRIMARY KEY,"
                 + KEY_NT_NAME + " TEXT"
                 + ")";
-        db.execSQL(CREATE_SHORTCUTS_TABLE);
+        db.execSQL(CREATE_NFC_TAGS_TABLE);
 
     }
 
