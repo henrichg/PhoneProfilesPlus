@@ -17,6 +17,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,6 +54,7 @@ public class BitmapManipulator {
             Bitmap decodedSampleBitmap = BitmapFactory.decodeFile(bitmapFile, options);
 
             decodedSampleBitmap = rotateBitmap(decodedSampleBitmap, orientation);
+
             return decodedSampleBitmap;
         }
         else
@@ -64,32 +66,41 @@ public class BitmapManipulator {
         Matrix matrix = new Matrix();
         switch (orientation) {
             case ExifInterface.ORIENTATION_NORMAL:
+                Log.d("BitmapManipulator.rotateBitmap","ORIENTATION_NORMAL");
                 return bitmap;
             case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                Log.d("BitmapManipulator.rotateBitmap","ORIENTATION_FLIP_HORIZONTAL");
                 matrix.setScale(-1, 1);
                 break;
             case ExifInterface.ORIENTATION_ROTATE_180:
+                Log.d("BitmapManipulator.rotateBitmap","ORIENTATION_ROTATE_180");
                 matrix.setRotate(180);
                 break;
             case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                Log.d("BitmapManipulator.rotateBitmap","ORIENTATION_FLIP_VERTICAL");
                 matrix.setRotate(180);
                 matrix.postScale(-1, 1);
                 break;
             case ExifInterface.ORIENTATION_TRANSPOSE:
+                Log.d("BitmapManipulator.rotateBitmap","ORIENTATION_TRANSPOSE");
                 matrix.setRotate(90);
                 matrix.postScale(-1, 1);
                 break;
             case ExifInterface.ORIENTATION_ROTATE_90:
+                Log.d("BitmapManipulator.rotateBitmap","ORIENTATION_ROTATE_90");
                 matrix.setRotate(90);
                 break;
             case ExifInterface.ORIENTATION_TRANSVERSE:
+                Log.d("BitmapManipulator.rotateBitmap","ORIENTATION_TRANSVERSE");
                 matrix.setRotate(-90);
                 matrix.postScale(-1, 1);
                 break;
             case ExifInterface.ORIENTATION_ROTATE_270:
+                Log.d("BitmapManipulator.rotateBitmap","ORIENTATION_ROTATE_270");
                 matrix.setRotate(-90);
                 break;
             default:
+                Log.d("BitmapManipulator.rotateBitmap","default");
                 return bitmap;
         }
         try {
