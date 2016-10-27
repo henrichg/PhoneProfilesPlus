@@ -16,6 +16,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +25,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.location.LocationManager;
 import android.media.AudioManager;
+import android.media.ExifInterface;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -856,14 +858,22 @@ public class ActivateProfileHelper {
             DisplayMetrics displayMetrics = new DisplayMetrics();
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             Display display = wm.getDefaultDisplay();
-            display.getMetrics(displayMetrics);
+            if (android.os.Build.VERSION.SDK_INT >= 17)
+                display.getRealMetrics(displayMetrics);
+            else
+                display.getMetrics(displayMetrics);
             int height = displayMetrics.heightPixels;
-            int width = displayMetrics.widthPixels << 1; // best wallpaper width is twice screen width
-            if (android.os.Build.VERSION.SDK_INT >= 24) {
-                if (profile._deviceWallpaperFor == 2)
-                    // for lock screen no double width
-                    width = displayMetrics.widthPixels;
+            int width = displayMetrics.widthPixels;
+            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                height = displayMetrics.widthPixels;
+                width = displayMetrics.heightPixels;
             }
+            Log.d("ActivateProfileHelper.executeForWallpaper", "height="+height);
+            Log.d("ActivateProfileHelper.executeForWallpaper", "width="+width);
+            // for lock screen no double width
+            if ((android.os.Build.VERSION.SDK_INT < 24) || (profile._deviceWallpaperFor != 2))
+                width = width << 1; // best wallpaper width is twice screen width
+
             Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmap(profile.getDeviceWallpaperIdentifier(), width, height, context);
             if (decodedSampleBitmap != null)
             {
@@ -879,9 +889,9 @@ public class ActivateProfileHelper {
                             flags = WallpaperManager.FLAG_LOCK;
                             int left = 0;
                             int right = decodedSampleBitmap.getWidth();
-                            if (decodedSampleBitmap.getWidth() > displayMetrics.widthPixels) {
-                                left = (decodedSampleBitmap.getWidth() / 2) - (displayMetrics.widthPixels / 2);
-                                right = (decodedSampleBitmap.getWidth() / 2) + (displayMetrics.widthPixels / 2);
+                            if (decodedSampleBitmap.getWidth() > width) {
+                                left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
+                                right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
                             }
                             visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
                         }
