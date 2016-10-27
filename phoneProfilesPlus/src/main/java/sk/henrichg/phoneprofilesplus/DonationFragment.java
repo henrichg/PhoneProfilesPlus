@@ -28,9 +28,9 @@ public class DonationFragment extends Fragment {
     // http://developer.android.com/google/play/billing/billing_testing.html
     private static final String[] CATALOG_DEBUG = new String[]{"android.test.purchased",
             "android.test.canceled", "android.test.refunded", "android.test.item_unavailable"};
-    private static final String[] CATALOG_RELEASE = new String[]{"ntpsync.donation.1",
-            "ntpsync.donation.2", "ntpsync.donation.3", "ntpsync.donation.5", "ntpsync.donation.8",
-            "ntpsync.donation.13", "ntpsync.donation.20"};
+    private static final String[] CATALOG_RELEASE = new String[]{"phoneprofilesplus.donation.1",
+            "phoneprofilesplus.donation.2", "phoneprofilesplus.donation.3", "phoneprofilesplus.donation.5", "phoneprofilesplus.donation.8",
+            "phoneprofilesplus.donation.13", "phoneprofilesplus.donation.20"};
     private static final String[] CATALOG_RELEASE_VALUES = new String[]{"1 €", "2 €", "3 €", "5 €", "8 €", "13 €", "20 €"};
 
     private Spinner mGoogleSpinner;
