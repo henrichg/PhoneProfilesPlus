@@ -51,9 +51,11 @@ public class BitmapManipulator {
             int rotate = 0;
             switch (orientation) {
                 case ExifInterface.ORIENTATION_ROTATE_270:
+                case ExifInterface.ORIENTATION_TRANSVERSE:
                     rotate = 270;
                     break;
                 case ExifInterface.ORIENTATION_ROTATE_180:
+                case ExifInterface.ORIENTATION_FLIP_VERTICAL:
                     rotate = 180;
                     break;
                 case ExifInterface.ORIENTATION_ROTATE_90:
