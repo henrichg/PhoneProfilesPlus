@@ -864,9 +864,6 @@
     <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
     <string name="donation_google_android_market_description">Google takes 30 % off every donation!</string>
     <string name="donation_google_android_market_donate_button">Donate!</string>
-    <string name="donation_google_android_market_text">How much?</string>
     <string name="donation_thanks_dialog_title">Thanks!</string>
     <string name="donation_thanks_dialog">Thanks for donating!\nI really appreciate this!</string>
-    <string name="donation_alert_dialog_title">Error occurred</string>
-    <string name="donation_alert_dialog_no_browser">No browser was found to open a website!</string>
 </resources>
