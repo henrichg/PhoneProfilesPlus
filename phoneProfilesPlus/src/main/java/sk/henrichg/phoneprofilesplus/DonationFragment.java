@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -89,7 +90,7 @@ public class DonationFragment extends Fragment {
         String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2OCdv8Qm0HysEnlWAiKhNoQ7Xg9OfhHdJD9ERxlFEpKsGeToSqVbhojq4IuhTz7/vFf6QkxG/mYOMp+RbxKhiDrWIfk49hcUNT0sUNfsTNK580mU0PKmEyHDADw52kPLAlG9or/bqc/R9xhMqbsLTBzahkk8ybYmTAASDo1ksivemeFB5cNjQO+9aIDr90z7MjXp5JMPfnsMeWs800a83IEKd0J34cUpqxruPFKHqJZdgk9fM85BbV1xhv9E0uSMQFjbhHcL9D7xnX5CK9OSkkawzGvtuHuKgz24+/ItDyKoJuCm2lZCIbBxeOZtbHqGKBNblqW4w3n2ioetlMXjowIDAQAB";
 
         // Create the helper, passing it our context and the public key to verify signatures with
-        Log.d(TAG, "Creating IAB helper.");
+        if (mDebug) Log.d(TAG, "Creating IAB helper.");
         mHelper = new IabHelper(getActivity(), base64EncodedPublicKey);
 
         // enable debug logging (for a production application, you should set this to false).
@@ -97,15 +98,16 @@ public class DonationFragment extends Fragment {
 
         // Start setup. This is asynchronous and the specified listener
         // will be called once setup completes.
-        Log.d(TAG, "Starting setup.");
+        if (mDebug) Log.d(TAG, "Starting setup.");
         mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             @Override
             public void onIabSetupFinished(IabResult result) {
-                Log.d(TAG, "Setup finished.");
+                if (mDebug) Log.d(TAG, "Setup finished.");
 
                 if (!result.isSuccess()) {
                     // Oh noes, there was a problem.
-                    complain("Problem setting up in-app billing: " + result);
+                    openDialog(android.R.drawable.ic_dialog_alert, R.string.donation_google_android_market_not_supported_title,
+                            getString(R.string.donation_google_android_market_not_supported));
                     return;
                 }
 
@@ -113,6 +115,19 @@ public class DonationFragment extends Fragment {
                 if (mHelper == null) return;
             }
         });
+    }
+
+    // We're being destroyed. It's important to dispose of the helper here!
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // very important:
+        if (mDebug) Log.d(TAG, "Destroying helper.");
+        if (mHelper != null) {
+            mHelper.disposeWhenFinished();
+            mHelper = null;
+        }
     }
 
     /** Verifies the developer payload of a purchase. */
@@ -148,33 +163,34 @@ public class DonationFragment extends Fragment {
     // Callback for when a purchase is finished
     IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
         public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
+            if (mDebug) Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
 
             // if we were disposed of in the meantime, quit.
             if (mHelper == null) return;
 
             if (result.isFailure()) {
-                complain("Error purchasing: " + result);
+                Log.e(TAG, "Error purchasing: " + result);
                 //setWaitScreen(false);
                 return;
             }
             if (!verifyDeveloperPayload(purchase)) {
-                complain("Error purchasing. Authenticity verification failed.");
+                Log.e(TAG, "Error purchasing. Authenticity verification failed.");
                 //setWaitScreen(false);
                 return;
             }
 
-            Log.d(TAG, "Purchase successful.");
+            if (mDebug) Log.d(TAG, "Purchase successful.");
 
             // directly consume in-app purchase, so that people can donate multiple times
             try {
                 mHelper.consumeAsync(purchase, mConsumeFinishedListener);
 
                 // show thanks openDialog
-                //openDialog(android.R.drawable.ic_dialog_info, R.string.donations__thanks_dialog_title,
-                //                    getString(R.string.donations__thanks_dialog));
+                // show thanks openDialog
+                openDialog(android.R.drawable.ic_dialog_info, R.string.donation_thanks_dialog_title,
+                                getString(R.string.donation_thanks_dialog));
             } catch (IabHelper.IabAsyncInProgressException e) {
-                complain("Error consuming gas. Another async operation in progress.");
+                Log.e(TAG, "Error donate. Another async operation in progress.");
                 //setWaitScreen(false);
                 return;
             }
@@ -185,7 +201,7 @@ public class DonationFragment extends Fragment {
     // Called when consumption is complete
     IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
-            Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
+            if (mDebug) Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
 
             // if we were disposed of in the meantime, quit.
             if (mHelper == null) return;
@@ -196,24 +212,23 @@ public class DonationFragment extends Fragment {
             if (result.isSuccess()) {
                 // successfully consumed, so we apply the effects of the item in our
                 // game world's logic, which in our case means filling the gas tank a bit
-                Log.d(TAG, "Consumption successful. Provisioning.");
+                if (mDebug) Log.d(TAG, "Consumption successful. Provisioning.");
                 //mTank = mTank == TANK_MAX ? TANK_MAX : mTank + 1;
                 //saveData();
                 //alert("You filled 1/4 tank. Your tank is now " + String.valueOf(mTank) + "/4 full!");
             }
             else {
-                complain("Error while consuming: " + result);
+                Log.e(TAG, "Error while consuming: " + result);
             }
             //updateUi();
             //setWaitScreen(false);
-            Log.d(TAG, "End consumption flow.");
+            if (mDebug) Log.d(TAG, "End consumption flow.");
         }
     };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (mDebug)
-            Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+        if (mDebug) Log.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
         if (mHelper == null) return;
 
         // Pass on the fragment result to the helper for handling
@@ -223,8 +238,7 @@ public class DonationFragment extends Fragment {
             // billing...
             super.onActivityResult(requestCode, resultCode, data);
         } else {
-            if (mDebug)
-                Log.d(TAG, "onActivityResult handled by IABUtil.");
+            if (mDebug) Log.d(TAG, "onActivityResult handled by IABUtil.");
         }
     }
 
@@ -234,8 +248,7 @@ public class DonationFragment extends Fragment {
     public void donateGoogleOnClick(View view) {
         final int index;
         index = mGoogleSpinner.getSelectedItemPosition();
-        if (mDebug)
-            Log.d(TAG, "selected item in spinner: " + index);
+        if (mDebug) Log.d(TAG, "selected item in spinner: " + index);
 
         try {
             if (mDebug) {
@@ -247,22 +260,27 @@ public class DonationFragment extends Fragment {
                         CATALOG_RELEASE[index], 0, mPurchaseFinishedListener, null);
             }
         } catch (IabHelper.IabAsyncInProgressException e) {
-            complain("Error launching purchase flow. Another async operation in progress.");
+            Log.e(TAG, "Error launching purchase flow. Another async operation in progress.");
             //setWaitScreen(false);
         }
     }
 
-    void complain(String message) {
-        Log.e(TAG, "**** PhoneProfilesPlus Error: " + message);
-        alert("Error: " + message);
-    }
-
-    void alert(String message) {
-        AlertDialog.Builder bld = new AlertDialog.Builder(getActivity());
-        bld.setMessage(message);
-        bld.setNeutralButton("OK", null);
-        Log.d(TAG, "Showing alert dialog: " + message);
-        bld.create().show();
-    }
-
-}
+    /**
+     * Open dialog
+     */
+    void openDialog(int icon, int title, String message) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setIcon(icon);
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setCancelable(true);
+        dialog.setNeutralButton(R.string.donation_button_close,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }
+        );
+        dialog.show();
+    }}
