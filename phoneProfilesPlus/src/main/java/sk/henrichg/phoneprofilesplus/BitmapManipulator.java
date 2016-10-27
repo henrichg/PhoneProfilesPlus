@@ -66,11 +66,11 @@ public class BitmapManipulator {
 
             int rotatedWidth, rotatedHeight;
             if (rotate == 90 || rotate == 270) {
-                rotatedWidth = options.outHeight;
-                rotatedHeight = options.outWidth;
+                rotatedWidth = height;
+                rotatedHeight = width;
             } else {
-                rotatedWidth = options.outWidth;
-                rotatedHeight = options.outHeight;
+                rotatedWidth = width;
+                rotatedHeight = height;
             }
 
             // calaculate inSampleSize
