@@ -2,7 +2,7 @@
 <manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="internalOnly"
-          android:versionCode="2226"
+          android:versionCode="2228"
           android:versionName="3.4.3a-donation-test">
     <!-- set android:versionCode="2300" for release version. Look at PackageReplacedReceiver -->
 
