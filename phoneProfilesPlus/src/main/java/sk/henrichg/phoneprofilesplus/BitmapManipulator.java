@@ -52,6 +52,7 @@ public class BitmapManipulator {
             options.inJustDecodeBounds = false;
             Bitmap decodedSampleBitmap = BitmapFactory.decodeFile(bitmapFile, options);
 
+            decodedSampleBitmap = rotateBitmap(decodedSampleBitmap, orientation);
             return decodedSampleBitmap;
         }
         else
