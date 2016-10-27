@@ -855,4 +855,18 @@
     <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and restart events</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Tag is writable</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag is not writable</string>
+    <string name="about_application_donate_button">Please donate</string>
+    <string name="donation_activity_title">Donation</string>
+    <string name="donation_button_close">Close</string>
+    <string name="donation_description">Do you find this application useful?\nSupport its development by sending a donation to the developer!</string>
+    <string name="donation_google_android_market">Google Play Store</string>
+    <string name="donation_google_android_market_not_supported_title">In-App Donations are not supported.</string>
+    <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
+    <string name="donation_google_android_market_description">Google takes 30 % off every donation!</string>
+    <string name="donation_google_android_market_donate_button">Donate!</string>
+    <string name="donation_google_android_market_text">How much?</string>
+    <string name="donation_thanks_dialog_title">Thanks!</string>
+    <string name="donation_thanks_dialog">Thanks for donating!\nI really appreciate this!</string>
+    <string name="donation_alert_dialog_title">Error occurred</string>
+    <string name="donation_alert_dialog_no_browser">No browser was found to open a website!</string>
 </resources>
