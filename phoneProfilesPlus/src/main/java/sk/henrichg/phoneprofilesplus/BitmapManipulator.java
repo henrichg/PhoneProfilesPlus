@@ -47,12 +47,36 @@ public class BitmapManipulator {
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeFile(bitmapFile, options);
+
+            int rotate = 0;
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = 270;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                case ExifInterface.ORIENTATION_TRANSPOSE:
+                    rotate = 90;
+                    break;
+            }
+
+            int rotatedWidth, rotatedHeight;
+            if (rotate == 90 || rotate == 270) {
+                rotatedWidth = options.outHeight;
+                rotatedHeight = options.outWidth;
+            } else {
+                rotatedWidth = options.outWidth;
+                rotatedHeight = options.outHeight;
+            }
+
             // calaculate inSampleSize
-            options.inSampleSize = calculateInSampleSize(options, width, height);
+            options.inSampleSize = calculateInSampleSize(options, rotatedWidth, rotatedHeight);
+
             // decode bitmap with inSampleSize
             options.inJustDecodeBounds = false;
             Bitmap decodedSampleBitmap = BitmapFactory.decodeFile(bitmapFile, options);
-
             decodedSampleBitmap = rotateBitmap(decodedSampleBitmap, orientation);
 
             return decodedSampleBitmap;
