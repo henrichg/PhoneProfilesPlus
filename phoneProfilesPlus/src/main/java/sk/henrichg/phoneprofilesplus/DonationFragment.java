@@ -35,7 +35,7 @@ public class DonationFragment extends Fragment {
 
     private Spinner mGoogleSpinner;
 
-    protected boolean mDebug = true;
+    protected boolean mDebug = false;
 
     // The helper object
     IabHelper mHelper;
