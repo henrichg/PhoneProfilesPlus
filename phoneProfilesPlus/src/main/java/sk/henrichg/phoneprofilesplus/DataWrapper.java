@@ -2000,18 +2000,19 @@ public class DataWrapper {
 
                     List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
 
-                    GlobalData.logE("@@@ DataWrapper.doEventService","scanResults.size="+scanResults.size());
+                    GlobalData.logE("@@@ DataWrapper.doEventService","scanResults="+scanResults);
 
                     //if (WifiScanAlarmBroadcastReceiver.scanResults != null)
                     if (scanResults != null)
                     {
                         GlobalData.logE("@@@ DataWrapper.doEventService","scanResults != null");
+                        GlobalData.logE("@@@ DataWrapper.doEventService","scanResults.size="+scanResults.size());
                         GlobalData.logE("@@@ DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
 
                         for (WifiSSIDData result : scanResults)
                         {
                             GlobalData.logE("@@@ DataWrapper.doEventService","wifiSSID="+result.ssid);
-                            GlobalData.logE("@@@ DataWrapper.doEventService","wifiBSSID="+result.bssid);
+                            //GlobalData.logE("@@@ DataWrapper.doEventService","wifiBSSID="+result.bssid);
                             String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
                             for (String _ssid : splits) {
                                 if (_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
