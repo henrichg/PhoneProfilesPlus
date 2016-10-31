@@ -121,7 +121,7 @@ public class EventsService extends IntentService
         Handler brightnessHandler = new Handler(getMainLooper());
         dataWrapper.getActivateProfileHelper().setBrightnessHandler(brightnessHandler);
 
-        //GlobalData.logE("$$$ EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
+        GlobalData.logE("%%%% EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
 
         List<Event> eventList = dataWrapper.getEventList();
 

@@ -68,7 +68,7 @@ public class ScannerService extends IntentService
     {
         context = getApplicationContext();
 
-        GlobalData.logE("### ScannerService.onHandleIntent", "-- START ------------");
+        GlobalData.logE("%%%% ScannerService.onHandleIntent", "-- START ------------");
 
         String scanType = intent.getStringExtra(GlobalData.EXTRA_SCANNER_TYPE);
         GlobalData.logE("### ScannerService.onHandleIntent", "scanType="+scanType);
@@ -103,7 +103,7 @@ public class ScannerService extends IntentService
 
         wifiBluetoothChangeHandler = new Handler(getMainLooper());
 
-        GlobalData.logE("$$$ ScannerService.onHandleIntent", "before synchronized block - scanType=" + scanType);
+        GlobalData.logE("%%%% ScannerService.onHandleIntent", "before synchronized block - scanType=" + scanType);
 
         synchronized (GlobalData.radioChangeStateMutex) {
 
@@ -481,7 +481,7 @@ public class ScannerService extends IntentService
 
         //GlobalData.setRadioChangeState(context, false);
 
-        GlobalData.logE("### ScannerService.onHandleIntent", "-- END ------------");
+        GlobalData.logE("%%%% ScannerService.onHandleIntent", "-- END ------------");
 
     }
 

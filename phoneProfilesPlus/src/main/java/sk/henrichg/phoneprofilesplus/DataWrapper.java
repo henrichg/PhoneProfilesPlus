@@ -1901,6 +1901,8 @@ public class DataWrapper {
                 (GlobalData.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
+            GlobalData.logE("%%%% DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
+
             wifiPassed = false;
 
             WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -1916,7 +1918,7 @@ public class DataWrapper {
 
             if (isWifiEnabled)
             {
-                GlobalData.logE("@@@ DataWrapper.doEventService","wifiStateEnabled=true");
+                GlobalData.logE("%%%% DataWrapper.doEventService","wifiStateEnabled=true");
 
                 GlobalData.logE("@@@ DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
                 //if (networkInfo.isConnected())
@@ -1924,11 +1926,11 @@ public class DataWrapper {
                     (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
                     activeNetwork.isConnected())
                 {
-                    GlobalData.logE("@@@ DataWrapper.doEventService","wifi connected");
+                    GlobalData.logE("%%%% DataWrapper.doEventService","wifi connected");
 
                     WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
-                    GlobalData.logE("@@@ DataWrapper.doEventService","wifiSSID="+WifiScanAlarmBroadcastReceiver.getSSID(wifiInfo, wifiConfigurationList));
+                    GlobalData.logE("%%%% DataWrapper.doEventService","wifiSSID="+WifiScanAlarmBroadcastReceiver.getSSID(wifiInfo, wifiConfigurationList));
                     GlobalData.logE("@@@ DataWrapper.doEventService","wifiBSSID="+wifiInfo.getBSSID());
 
                     GlobalData.logE("@@@ DataWrapper.doEventService","SSID="+event._eventPreferencesWifi._SSID);
@@ -1980,7 +1982,7 @@ public class DataWrapper {
 
             }
             else {
-                GlobalData.logE("@@@ DataWrapper.doEventService", "wifiStateEnabled=false");
+                GlobalData.logE("%%%% DataWrapper.doEventService", "wifiStateEnabled=false");
                 if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
                     (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)) {
                     // for this connectionTypes, wifi must not be connected to event SSID
@@ -2000,7 +2002,7 @@ public class DataWrapper {
 
                     List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
 
-                    GlobalData.logE("@@@ DataWrapper.doEventService","scanResults="+scanResults);
+                    GlobalData.logE("%%%% DataWrapper.doEventService","scanResults="+scanResults);
 
                     //if (WifiScanAlarmBroadcastReceiver.scanResults != null)
                     if (scanResults != null)
@@ -2011,7 +2013,7 @@ public class DataWrapper {
 
                         for (WifiSSIDData result : scanResults)
                         {
-                            GlobalData.logE("@@@ DataWrapper.doEventService","wifiSSID="+result.ssid);
+                            GlobalData.logE("%%%% DataWrapper.doEventService","wifiSSID="+result.ssid);
                             //GlobalData.logE("@@@ DataWrapper.doEventService","wifiBSSID="+result.bssid);
                             String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
                             for (String _ssid : splits) {
@@ -2037,7 +2039,7 @@ public class DataWrapper {
                                     //GlobalData.logE("@@@x DataWrapper.doEventService","scanned SSID="+result.ssid);
                                     //GlobalData.logE("@@@x DataWrapper.doEventService","event SSID="+event._eventPreferencesWifi._SSID);
                                     if (WifiScanAlarmBroadcastReceiver.compareSSID(result, _ssid, wifiConfigurationList)) {
-                                        GlobalData.logE("@@@ DataWrapper.doEventService", "wifi found");
+                                        GlobalData.logE("%%%% DataWrapper.doEventService", "wifi found");
                                         wifiPassed = true;
                                         break;
                                     }
@@ -2050,7 +2052,7 @@ public class DataWrapper {
                         GlobalData.logE("@@@ DataWrapper.doEventService","wifiPassed="+wifiPassed);
 
                         if (!wifiPassed)
-                            GlobalData.logE("@@@ DataWrapper.doEventService","wifi not found");
+                            GlobalData.logE("%%%% DataWrapper.doEventService","wifi not found");
 
                         if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)
                             // if wifi is not in front of event SSID, then passed
@@ -2064,6 +2066,8 @@ public class DataWrapper {
 
                 }
             }
+
+            GlobalData.logE("%%%% DataWrapper.doEventService","wifiPassed="+wifiPassed);
 
             //eventStart = eventStart && wifiPassed;
         }
