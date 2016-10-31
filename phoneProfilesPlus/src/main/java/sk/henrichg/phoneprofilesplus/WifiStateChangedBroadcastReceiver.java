@@ -42,6 +42,7 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                         //{
                         if (WifiScanAlarmBroadcastReceiver.getScanRequest(context)) {
                             GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "before startScan");
+                            GlobalData.sleep(1000);
                             WifiScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
                             GlobalData.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "after startScan");
                         } else if (!WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) {
