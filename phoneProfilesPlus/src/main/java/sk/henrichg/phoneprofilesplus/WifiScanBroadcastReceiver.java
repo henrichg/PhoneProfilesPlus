@@ -36,15 +36,16 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
             if (scanStarted)
             {
-                GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanStarted");
+                GlobalData.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted");
 
-                GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
+                GlobalData.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
 
                 WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
                 //if ((android.os.Build.VERSION.SDK_INT < 23) || (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)))
                     WifiScanAlarmBroadcastReceiver.fillScanResults(context);
                 //WifiScanAlarmBroadcastReceiver.unlock();
 
+                /*
                 List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
                 if (scanResults != null) {
                     GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults.size="+scanResults.size());
@@ -54,6 +55,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
                 else
                     GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults=null");
+                */
 
                 /*
                 if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))

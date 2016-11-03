@@ -58,10 +58,10 @@ public class GlobalData extends Application {
                                          +"|GlobalData.isRootGranted"
 
                                          +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
-                                         //+"|@@@ WifiScanAlarmBroadcastReceiver.onReceive"
+                                         +"|%%%% WifiScanAlarmBroadcastReceiver.fillScanResults"
                                          +"|%%%% ScannerService.onHandleIntent"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
-                                         //+"|$$$ WifiScanBroadcastReceiver.onReceive"
+                                         +"|%%%% WifiScanBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
                                          //+"|@@@ DataWrapper.doEventService"
                                          +"|%%%% EventsService.onHandleIntent"

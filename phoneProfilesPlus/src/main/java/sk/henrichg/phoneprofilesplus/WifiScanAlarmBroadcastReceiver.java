@@ -14,6 +14,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -366,6 +367,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         saveWifiConfigurationList(context, wifiConfigurationList);
     }
 
+    @SuppressWarnings("deprecation")
     static public void fillScanResults(Context context)
     {
         //if (scanResults == null)
@@ -378,18 +380,24 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         if (Permissions.checkLocation(context)) {
             List<ScanResult> _scanResults = wifi.getScanResults();
+            GlobalData.logE("%%%% WifiScanAlarmBroadcastReceiver.fillScanResults", "_scanResults="+_scanResults);
             if (_scanResults != null) {
-                scanResults.clear();
-                for (ScanResult device : _scanResults) {
-                    boolean found = false;
-                    for (WifiSSIDData _device : scanResults) {
-                        if (_device.bssid.equals(device.BSSID)) {
-                            found = true;
-                            break;
+                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                boolean isScreenOn = pm.isScreenOn();
+                GlobalData.logE("%%%% WifiScanAlarmBroadcastReceiver.fillScanResults", "isScreenOn="+isScreenOn);
+                if ((_scanResults.size() > 0) || isScreenOn) {
+                    scanResults.clear();
+                    for (ScanResult device : _scanResults) {
+                        boolean found = false;
+                        for (WifiSSIDData _device : scanResults) {
+                            if (_device.bssid.equals(device.BSSID)) {
+                                found = true;
+                                break;
+                            }
                         }
-                    }
-                    if (!found) {
-                        scanResults.add(new WifiSSIDData(device.SSID, device.BSSID, false));
+                        if (!found) {
+                            scanResults.add(new WifiSSIDData(device.SSID, device.BSSID, false));
+                        }
                     }
                 }
             }
