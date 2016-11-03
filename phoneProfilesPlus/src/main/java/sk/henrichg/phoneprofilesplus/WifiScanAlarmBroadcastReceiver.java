@@ -385,7 +385,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 boolean isScreenOn = pm.isScreenOn();
                 GlobalData.logE("%%%% WifiScanAlarmBroadcastReceiver.fillScanResults", "isScreenOn="+isScreenOn);
-                if ((_scanResults.size() > 0) || isScreenOn) {
+                if ((android.os.Build.VERSION.SDK_INT < 21) || (_scanResults.size() > 0) || isScreenOn) {
                     scanResults.clear();
                     for (ScanResult device : _scanResults) {
                         boolean found = false;
