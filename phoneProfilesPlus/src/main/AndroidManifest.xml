@@ -2,8 +2,8 @@
 <manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="internalOnly"
-          android:versionCode="2240"
-          android:versionName="3.4.3b-test_wifi_scan3">
+          android:versionCode="2242"
+          android:versionName="3.4.3b-test_wifi_scan4">
     <!-- set android:versionCode="2300" for release version. Look at PackageReplacedReceiver -->
 
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
