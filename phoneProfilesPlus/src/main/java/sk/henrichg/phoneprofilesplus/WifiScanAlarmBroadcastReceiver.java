@@ -401,6 +401,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 //}
             }
         }
+        else
+            save = true;
         if (save)
             saveScanResults(context, scanResults);
     }
