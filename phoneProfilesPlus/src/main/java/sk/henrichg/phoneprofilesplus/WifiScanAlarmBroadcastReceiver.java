@@ -380,10 +380,10 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             List<ScanResult> _scanResults = wifi.getScanResults();
             GlobalData.logE("%%%% WifiScanAlarmBroadcastReceiver.fillScanResults", "_scanResults="+_scanResults);
             if (_scanResults != null) {
-                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                boolean isScreenOn = pm.isScreenOn();
-                GlobalData.logE("%%%% WifiScanAlarmBroadcastReceiver.fillScanResults", "isScreenOn="+isScreenOn);
-                if ((android.os.Build.VERSION.SDK_INT < 21) || (_scanResults.size() > 0) || isScreenOn) {
+                //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                //boolean isScreenOn = pm.isScreenOn();
+                //GlobalData.logE("%%%% WifiScanAlarmBroadcastReceiver.fillScanResults", "isScreenOn="+isScreenOn);
+                //if ((android.os.Build.VERSION.SDK_INT < 21) || (_scanResults.size() > 0) || isScreenOn) {
                     save = true;
                     scanResults.clear();
                     for (ScanResult device : _scanResults) {
@@ -398,7 +398,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                             scanResults.add(new WifiSSIDData(device.SSID, device.BSSID, false));
                         }
                     }
-                }
+                //}
             }
         }
         if (save)
