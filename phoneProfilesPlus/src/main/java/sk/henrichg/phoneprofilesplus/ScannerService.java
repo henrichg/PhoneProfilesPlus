@@ -111,7 +111,7 @@ public class ScannerService extends IntentService
 
         wifiBluetoothChangeHandler = new Handler(getMainLooper());
 
-        GlobalData.logE("%%%% ScannerService.onHandleIntent", "before synchronized block - scanType=" + scanType);
+        GlobalData.logE("$$$ ScannerService.onHandleIntent", "before synchronized block - scanType=" + scanType);
 
         synchronized (GlobalData.radioChangeStateMutex) {
 
