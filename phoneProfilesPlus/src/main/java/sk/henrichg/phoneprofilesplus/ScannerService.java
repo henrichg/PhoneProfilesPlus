@@ -71,18 +71,22 @@ public class ScannerService extends IntentService
         GlobalData.logE("%%%% ScannerService.onHandleIntent", "-- START ------------");
 
         String scanType = intent.getStringExtra(GlobalData.EXTRA_SCANNER_TYPE);
-        GlobalData.logE("### ScannerService.onHandleIntent", "scanType="+scanType);
+        GlobalData.logE("%%%% ScannerService.onHandleIntent", "scanType="+scanType);
 
         GlobalData.loadPreferences(context);
 
         // for Airplane mode ON, no scan
         if (android.os.Build.VERSION.SDK_INT >= 17) {
-            if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0)
+            if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
+                GlobalData.logE("%%%% ScannerService.onHandleIntent", "-- END - airplane mode ON -------");
                 return;
+            }
         }
         else {
-            if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0)
+            if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
+                GlobalData.logE("%%%% ScannerService.onHandleIntent", "-- END - airplane mode ON -------");
                 return;
+            }
         }
 
         // check power save mode
@@ -91,13 +95,17 @@ public class ScannerService extends IntentService
             int forceScan = GlobalData.getForceOneWifiScan(context);
             if (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                 if (scanType.equals(GlobalData.SCANNER_TYPE_WIFI) &&
-                        GlobalData.applicationEventWifiScanInPowerSaveMode.equals("2"))
+                        GlobalData.applicationEventWifiScanInPowerSaveMode.equals("2")) {
                     // not scan wi-fi in power save mode
+                    GlobalData.logE("%%%% ScannerService.onHandleIntent", "-- END - power save mode ON -------");
                     return;
+                }
                 if (scanType.equals(GlobalData.SCANNER_TYPE_BLUETOOTH) &&
-                        GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("2"))
+                        GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("2")) {
                     // not scan bluetooth in power save mode
+                    GlobalData.logE("%%%% ScannerService.onHandleIntent", "-- END - power save mode ON -------");
                     return;
+                }
             }
         }
 
