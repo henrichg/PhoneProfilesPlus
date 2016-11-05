@@ -370,10 +370,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     @SuppressWarnings("deprecation")
     static public void fillScanResults(Context context)
     {
-        //if (scanResults == null)
-        //    scanResults = new ArrayList<WifiSSIDData>();
-
         List<WifiSSIDData> scanResults = new ArrayList<WifiSSIDData>();
+        boolean save = false;
 
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -386,6 +384,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 boolean isScreenOn = pm.isScreenOn();
                 GlobalData.logE("%%%% WifiScanAlarmBroadcastReceiver.fillScanResults", "isScreenOn="+isScreenOn);
                 if ((android.os.Build.VERSION.SDK_INT < 21) || (_scanResults.size() > 0) || isScreenOn) {
+                    save = true;
                     scanResults.clear();
                     for (ScanResult device : _scanResults) {
                         boolean found = false;
@@ -402,8 +401,8 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         }
-        //saveScanResults(context);
-        saveScanResults(context, scanResults);
+        if (save)
+            saveScanResults(context, scanResults);
     }
 
     private static final String SCAN_RESULT_COUNT_PREF = "count";
@@ -412,61 +411,17 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     //public static void getWifiConfigurationList(Context context)
     public static List<WifiSSIDData> getWifiConfigurationList(Context context)
     {
-        //if (wifiConfigurationList == null)
-        //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
+        synchronized (GlobalData.scanResultsMutex) {
+            //if (wifiConfigurationList == null)
+            //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
-        //wifiConfigurationList.clear();
+            //wifiConfigurationList.clear();
 
-        List<WifiSSIDData> wifiConfigurationList = new ArrayList<WifiSSIDData>();
+            List<WifiSSIDData> wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_CONFIGURATION_LIST_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_CONFIGURATION_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
-        int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
-
-        Gson gson = new Gson();
-
-        for (int i = 0; i < count; i++) {
-            String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
-            if (!json.isEmpty()) {
-                WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
-                wifiConfigurationList.add(device);
-            }
-        }
-
-        return wifiConfigurationList;
-    }
-
-    //private static void saveWifiConfigurationList(Context context)
-    private static void saveWifiConfigurationList(Context context, List<WifiSSIDData> wifiConfigurationList)
-    {
-        //if (wifiConfigurationList == null)
-        //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
-
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_CONFIGURATION_LIST_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        editor.clear();
-
-        editor.putInt(SCAN_RESULT_COUNT_PREF, wifiConfigurationList.size());
-
-        Gson gson = new Gson();
-
-        for (int i = 0; i < wifiConfigurationList.size(); i++) {
-            String json = gson.toJson(wifiConfigurationList.get(i));
-            editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
-        }
-
-        editor.commit();
-    }
-
-    //public static void getScanResults(Context context)
-    public static List<WifiSSIDData> getScanResults(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
-        int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
-
-        if (count > -1) {
-            List<WifiSSIDData> scanResults = new ArrayList<WifiSSIDData>();
+            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
 
             Gson gson = new Gson();
 
@@ -474,47 +429,99 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
                 String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
                 if (!json.isEmpty()) {
                     WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
-                    scanResults.add(device);
+                    wifiConfigurationList.add(device);
                 }
             }
-            return scanResults;
+
+            return wifiConfigurationList;
         }
-        else
-            return null;
+    }
+
+    //private static void saveWifiConfigurationList(Context context)
+    private static void saveWifiConfigurationList(Context context, List<WifiSSIDData> wifiConfigurationList)
+    {
+        synchronized (GlobalData.scanResultsMutex) {
+            //if (wifiConfigurationList == null)
+            //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
+
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_CONFIGURATION_LIST_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.clear();
+
+            editor.putInt(SCAN_RESULT_COUNT_PREF, wifiConfigurationList.size());
+
+            Gson gson = new Gson();
+
+            for (int i = 0; i < wifiConfigurationList.size(); i++) {
+                String json = gson.toJson(wifiConfigurationList.get(i));
+                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+            }
+
+            editor.commit();
+        }
+    }
+
+    //public static void getScanResults(Context context)
+    public static List<WifiSSIDData> getScanResults(Context context)
+    {
+        synchronized (GlobalData.scanResultsMutex) {
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
+
+            if (count > -1) {
+                List<WifiSSIDData> scanResults = new ArrayList<WifiSSIDData>();
+
+                Gson gson = new Gson();
+
+                for (int i = 0; i < count; i++) {
+                    String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                    if (!json.isEmpty()) {
+                        WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
+                        scanResults.add(device);
+                    }
+                }
+                return scanResults;
+            } else
+                return null;
+        }
     }
 
     //private static void saveScanResults(Context context)
     private static void saveScanResults(Context context, List<WifiSSIDData> scanResults)
     {
-        //if (scanResults == null)
-        //    scanResults = new ArrayList<WifiSSIDData>();
+        synchronized (GlobalData.scanResultsMutex) {
+            //if (scanResults == null)
+            //    scanResults = new ArrayList<WifiSSIDData>();
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
 
-        editor.clear();
+            editor.clear();
 
-        editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+            editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
 
-        Gson gson = new Gson();
+            Gson gson = new Gson();
 
-        for (int i = 0; i < scanResults.size(); i++)
-        {
-            String json = gson.toJson(scanResults.get(i));
-            editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
+            for (int i = 0; i < scanResults.size(); i++) {
+                String json = gson.toJson(scanResults.get(i));
+                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+            }
+
+            editor.commit();
         }
-
-        editor.commit();
     }
 
     public static void clearScanResults(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        synchronized (GlobalData.scanResultsMutex) {
+            SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
 
-        editor.clear();
-        editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+            editor.clear();
+            editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
 
-        editor.commit();
+            editor.commit();
+        }
     }
 
     public static String getSSID(WifiInfo wifiInfo, List<WifiSSIDData> wifiConfigurationList)

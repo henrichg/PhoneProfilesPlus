@@ -418,6 +418,7 @@ public class GlobalData extends Application {
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
+    public static final ScanResultsMutex scanResultsMutex = new ScanResultsMutex();
 
     public static boolean isPowerSaveMode = false;
 
