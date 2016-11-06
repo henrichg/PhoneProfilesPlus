@@ -32,7 +32,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "actualVersionCode=" + actualVersionCode);
 
                 if (oldVersionCode < actualVersionCode) {
-                    if (actualVersionCode <= 2320) {
+                    if (actualVersionCode <= 2322) {
                         SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
                         // for old packages use Priority in events
