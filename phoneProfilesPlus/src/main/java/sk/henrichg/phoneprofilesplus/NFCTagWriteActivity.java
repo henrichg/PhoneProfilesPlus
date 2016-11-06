@@ -64,7 +64,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         Intent intent = getIntent();
         tagName = intent.getStringExtra(EXTRA_TAG_NAME);
 
-        Log.d("NFCTagWriteActivity.onCreate", "tagName="+tagName);
+        //Log.d("NFCTagWriteActivity.onCreate", "tagName="+tagName);
 
         nfcManager = new NFCTagReadWriteManager(this);
         nfcManager.onActivityCreate();
@@ -91,7 +91,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                         writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_not_writable);
                     }
                 }
-                Log.d("NFCTagWriteActivity.onTagRead", "xxx");
+                //Log.d("NFCTagWriteActivity.onTagRead", "xxx");
             }
         });
 
@@ -139,21 +139,21 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         nfcManager.onActivityResume();
         if (!tagName.isEmpty())
             nfcManager.writeText(tagName);
-        Log.d("NFCTagWriteActivity.onResume", "xxx");
+        //Log.d("NFCTagWriteActivity.onResume", "xxx");
     }
 
     @Override
     protected void onPause() {
         nfcManager.onActivityPause();
         super.onPause();
-        Log.d("NFCTagWriteActivity.onPause", "xxx");
+        //Log.d("NFCTagWriteActivity.onPause", "xxx");
     }
 
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
         nfcManager.onActivityNewIntent(intent);
-        Log.d("NFCTagWriteActivity.onNewIntent", "xxx");
+        //Log.d("NFCTagWriteActivity.onNewIntent", "xxx");
     }
 
     @Override
@@ -166,7 +166,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
-        Log.d("NFCTagWriteActivity.onDestroy", "xxx");
+        //Log.d("NFCTagWriteActivity.onDestroy", "xxx");
     }
 
 }

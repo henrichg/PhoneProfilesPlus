@@ -63,35 +63,35 @@ public class NFCTagReadActivity extends Activity {
     protected void onResume() {
         super.onResume();
         nfcManager.onActivityResume();
-        Log.d("NFCTagReadActivity.onResume", "xxx");
+        //Log.d("NFCTagReadActivity.onResume", "xxx");
     }
 
     @Override
     protected void onPause() {
         nfcManager.onActivityPause();
         super.onPause();
-        Log.d("NFCTagReadActivity.onPause", "xxx");
+        //Log.d("NFCTagReadActivity.onPause", "xxx");
     }
 
     @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
         nfcManager.onActivityNewIntent(intent);
-        Log.d("NFCTagReadActivity.onNewIntent", "xxx");
+        //Log.d("NFCTagReadActivity.onNewIntent", "xxx");
     }
 
     @Override
     protected void onStart()
     {
         super.onStart();
-        Log.d("NFCTagReadActivity.onStart", "xxx");
+        //Log.d("NFCTagReadActivity.onStart", "xxx");
     }
 
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
-        Log.d("NFCTagReadActivity.onDestroy", "xxx");
+        //Log.d("NFCTagReadActivity.onDestroy", "xxx");
     }
 
 }

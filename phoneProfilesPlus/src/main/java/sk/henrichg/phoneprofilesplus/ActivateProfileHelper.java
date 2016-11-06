@@ -868,8 +868,8 @@ public class ActivateProfileHelper {
                 height = displayMetrics.widthPixels;
                 width = displayMetrics.heightPixels;
             }
-            Log.d("ActivateProfileHelper.executeForWallpaper", "height="+height);
-            Log.d("ActivateProfileHelper.executeForWallpaper", "width="+width);
+            //Log.d("ActivateProfileHelper.executeForWallpaper", "height="+height);
+            //Log.d("ActivateProfileHelper.executeForWallpaper", "width="+width);
             // for lock screen no double width
             if ((android.os.Build.VERSION.SDK_INT < 24) || (profile._deviceWallpaperFor != 2))
                 width = width << 1; // best wallpaper width is twice screen width

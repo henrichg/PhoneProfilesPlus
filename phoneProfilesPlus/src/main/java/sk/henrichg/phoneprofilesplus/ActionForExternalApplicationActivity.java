@@ -26,21 +26,21 @@ public class ActionForExternalApplicationActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("ActionForExternalApplicationActivity.onCreate", "xxx");
+        //Log.d("ActionForExternalApplicationActivity.onCreate", "xxx");
 
         GlobalData.loadPreferences(getApplicationContext());
 
         Intent intent = getIntent();
 
         action = intent.getAction();
-        Log.d("ActionForExternalApplicationActivity.onCreate", "action="+action);
+        //Log.d("ActionForExternalApplicationActivity.onCreate", "action="+action);
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
         if (action.equals(ACTION_ACTIVATE_PROFILE)) {
             String profileName = intent.getStringExtra(GlobalData.EXTRA_PROFILE_NAME);
             profileName = profileName.trim();
-            Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
+            //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
             if (!profileName.isEmpty()) {
                 dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
@@ -52,7 +52,7 @@ public class ActionForExternalApplicationActivity extends Activity {
                         break;
                     }
                 }
-                Log.d("ActionForExternalApplicationActivity.onCreate", "profile_id="+profile_id);
+                //Log.d("ActionForExternalApplicationActivity.onCreate", "profile_id="+profile_id);
             }
         }
         else if (action.equals(ACTION_RESTART_EVENTS)) {
@@ -61,7 +61,7 @@ public class ActionForExternalApplicationActivity extends Activity {
         else {
             String eventName = intent.getStringExtra(GlobalData.EXTRA_EVENT_NAME);
             eventName = eventName.trim();
-            Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
+            //Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
 
             if (!eventName.isEmpty()) {
                 List<Event> eventList = dataWrapper.getEventList();
@@ -71,7 +71,7 @@ public class ActionForExternalApplicationActivity extends Activity {
                         break;
                     }
                 }
-                Log.d("ActionForExternalApplicationActivity.onCreate", "event_id=" + event_id);
+                //Log.d("ActionForExternalApplicationActivity.onCreate", "event_id=" + event_id);
             }
         }
     }
@@ -87,7 +87,7 @@ public class ActionForExternalApplicationActivity extends Activity {
         if (action.equals(ACTION_ACTIVATE_PROFILE)) {
             if (profile_id != 0) {
                 Profile profile = dataWrapper.getProfileById(profile_id, false);
-                Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
+                //Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
                 if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                         true, false, 0, GlobalData.STARTUP_SOURCE_EXTERNAL_APP, true, this, true, true)) {
                     dataWrapper._activateProfile(profile, false, GlobalData.STARTUP_SOURCE_EXTERNAL_APP, true, this, true);
@@ -139,7 +139,7 @@ public class ActionForExternalApplicationActivity extends Activity {
         else {
             if (event_id != 0) {
                 Event event = dataWrapper.getEventById(event_id);
-                Log.d("ActionForExternalApplicationActivity.onCreate", "event=" + event);
+                //Log.d("ActionForExternalApplicationActivity.onCreate", "event=" + event);
 
                 dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
             } else
