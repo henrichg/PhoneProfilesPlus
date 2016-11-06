@@ -31,13 +31,13 @@ public class BitmapManipulator {
         if (!Permissions.checkGallery(context))
             return null;
 
-        ExifInterface exif = null;
+        int orientation = ExifInterface.ORIENTATION_UNDEFINED;
         try {
-            exif = new ExifInterface(bitmapFile);
+            ExifInterface exif = new ExifInterface(bitmapFile);
+            orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
 
         File f = new File(bitmapFile);
         if (f.exists())
