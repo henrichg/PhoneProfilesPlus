@@ -12,7 +12,7 @@ import android.support.v4.app.NotificationCompat;
 public class ImportantInfoNotification {
 
     // this version code must by <= version code in manifest
-    public static final int VERSION_CODE_FOR_NEWS = 2170;
+    public static final int VERSION_CODE_FOR_NEWS = 2300;
 
     static public void showInfoNotification(Context context) {
         //Log.d("ImportantInfoNotification.showInfoNotification","xxx");
@@ -55,7 +55,7 @@ public class ImportantInfoNotification {
 
         if (newsLatest) {
             // change to false for not show notification
-            news = true;
+            news = false;
         }
 
         if (news1804) {

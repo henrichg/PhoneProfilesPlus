@@ -69,11 +69,11 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         if (newsLatest) {
             // empty this, for switch off news
-            TextView infoText1 = (TextView) findViewById(R.id.activity_info_event_start_order1);
+            /*TextView infoText1 = (TextView) findViewById(R.id.activity_info_event_start_order1);
             infoText1.setVisibility(View.GONE);
             TextView infoText2 = (TextView) findViewById(R.id.activity_info_event_start_order2);
             infoText2.setVisibility(View.GONE);
-            news = true;
+            news = true;*/
         }
         else {
             // empty this, for switch off news
