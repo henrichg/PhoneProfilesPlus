@@ -1,11 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -15,12 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import sk.henrichg.phoneprofilesplus.util.IabBroadcastReceiver;
 import sk.henrichg.phoneprofilesplus.util.IabHelper;
 import sk.henrichg.phoneprofilesplus.util.IabResult;
-import sk.henrichg.phoneprofilesplus.util.Inventory;
 import sk.henrichg.phoneprofilesplus.util.Purchase;
 
 public class DonationFragment extends Fragment {

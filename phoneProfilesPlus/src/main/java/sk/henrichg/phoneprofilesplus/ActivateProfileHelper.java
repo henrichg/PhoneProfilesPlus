@@ -25,7 +25,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.location.LocationManager;
 import android.media.AudioManager;
-import android.media.ExifInterface;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -57,7 +56,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 

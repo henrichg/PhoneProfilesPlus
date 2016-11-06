@@ -13,8 +13,10 @@ import android.nfc.TagLostException;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Parcelable;
-import sk.henrichg.phoneprofilesplus.NFCTagWriteException.NFCErrorType;
+
 import java.io.IOException;
+
+import sk.henrichg.phoneprofilesplus.NFCTagWriteException.NFCErrorType;
 
 //import com.google.common.base.Preconditions;
 

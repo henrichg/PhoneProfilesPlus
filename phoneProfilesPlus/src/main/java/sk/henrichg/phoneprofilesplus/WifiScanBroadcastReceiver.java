@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-import java.util.List;
-
 public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "wifiScan";

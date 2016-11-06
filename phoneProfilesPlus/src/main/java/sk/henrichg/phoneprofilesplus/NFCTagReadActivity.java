@@ -3,11 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
-
-import java.util.Calendar;
-import java.util.TimeZone;
 
 public class NFCTagReadActivity extends Activity {
 

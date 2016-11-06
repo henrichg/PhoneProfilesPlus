@@ -17,7 +17,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
