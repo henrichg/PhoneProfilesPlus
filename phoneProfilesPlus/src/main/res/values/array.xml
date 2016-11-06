@@ -66,15 +66,21 @@
     <item>@string/phone_profiles_pref_applicationLanguage_de</item>
     <item>@string/phone_profiles_pref_applicationLanguage_en</item>
     <item>@string/phone_profiles_pref_applicationLanguage_es_ES</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_fa</item>
     <item>@string/phone_profiles_pref_applicationLanguage_fr</item>
-    <item>@string/phone_profiles_pref_applicationLanguage_it</item>
     <item>@string/phone_profiles_pref_applicationLanguage_he</item>
     <item>@string/phone_profiles_pref_applicationLanguage_hu</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_it</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_ja</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_ko</item>
     <item>@string/phone_profiles_pref_applicationLanguage_nl</item>
     <item>@string/phone_profiles_pref_applicationLanguage_pl</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_pt_PT</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_ro</item>
     <item>@string/phone_profiles_pref_applicationLanguage_ru</item>
     <item>@string/phone_profiles_pref_applicationLanguage_sk</item>
     <item>@string/phone_profiles_pref_applicationLanguage_sv_SE</item>
+    <item>@string/phone_profiles_pref_applicationLanguage_te</item>
     <item>@string/phone_profiles_pref_applicationLanguage_tr</item>
     <item>@string/phone_profiles_pref_applicationLanguage_uk</item>
     <item>@string/phone_profiles_pref_applicationLanguage_zh_TW</item>
@@ -86,15 +92,21 @@
     <item>@string/array_pref_value_de</item>
     <item>@string/array_pref_value_en</item>
     <item>@string/array_pref_value_es_ES</item>
+    <item>@string/array_pref_value_fa</item>
     <item>@string/array_pref_value_fr</item>
-    <item>@string/array_pref_value_it</item>
     <item>@string/array_pref_value_he</item>
     <item>@string/array_pref_value_hu</item>
+    <item>@string/array_pref_value_it</item>
+    <item>@string/array_pref_value_ja</item>
+    <item>@string/array_pref_value_ko</item>
     <item>@string/array_pref_value_nl</item>
     <item>@string/array_pref_value_pl</item>
+    <item>@string/array_pref_value_pt_PT</item>
+    <item>@string/array_pref_value_ro</item>
     <item>@string/array_pref_value_ru</item>
     <item>@string/array_pref_value_sk</item>
     <item>@string/array_pref_value_sv_SE</item>
+    <item>@string/array_pref_value_te</item>
     <item>@string/array_pref_value_tr</item>
     <item>@string/array_pref_value_uk</item>
     <item>@string/array_pref_value_zh_TW</item>

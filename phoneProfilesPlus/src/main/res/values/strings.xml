@@ -867,4 +867,16 @@
     <string name="donation_google_android_market_donate_button">Donate</string>
     <string name="donation_thanks_dialog_title">Thank you</string>
     <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate this.</string>
+    <string name="phone_profiles_pref_applicationLanguage_fa">فارسی</string>
+    <string name="phone_profiles_pref_applicationLanguage_ja">日本語</string>
+    <string name="phone_profiles_pref_applicationLanguage_ko">한국어</string>
+    <string name="phone_profiles_pref_applicationLanguage_te">తెలుగు</string>
+    <string name="phone_profiles_pref_applicationLanguage_ro">Română</string>
+    <string name="phone_profiles_pref_applicationLanguage_pt_PT">Português</string>
+    <string name="array_pref_value_fa">fa</string>
+    <string name="array_pref_value_ja">ja</string>
+    <string name="array_pref_value_ko">ko</string>
+    <string name="array_pref_value_te">te</string>
+    <string name="array_pref_value_ro">ro</string>
+    <string name="array_pref_value_pt_PT">pt-PT</string>
 </resources>
