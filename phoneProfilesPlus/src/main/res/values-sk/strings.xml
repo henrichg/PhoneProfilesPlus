@@ -854,7 +854,7 @@
   <string name="pref_event_permanentRun_summary">Pozastav udalosť po manuálnej aktivácii profilu a po reštarte udalostí</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Tag je zapisovateľný</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag nie je zapisovateľný</string>
-  <string name="about_application_donate_button">Prosím darujte</string>
+  <string name="about_application_donate_button">Prosím prispejte</string>
   <string name="donation_activity_title">Dar</string>
   <string name="donation_button_close">Zavrieť</string>
   <string name="donation_description">Je tato aplikácia užitočná?\nPodporte jej vývoj zaslaním príspevku vývojárovi.</string>
