@@ -75,6 +75,16 @@
             android:textSize="15sp"/>
 
         <TextView
+            android:id="@+id/about_application_releases"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/about_application_releases"
+            android:textSize="15sp"/>
+
+        <TextView
             android:id="@+id/about_application_source_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

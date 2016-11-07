@@ -879,4 +879,5 @@
     <string name="array_pref_value_te">te</string>
     <string name="array_pref_value_ro">ro</string>
     <string name="array_pref_value_pt_PT">pt-PT</string>
+    <string name="about_application_releases">Releases</string>
 </resources>
