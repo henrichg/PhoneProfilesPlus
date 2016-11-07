@@ -1648,6 +1648,7 @@ public class ActivateProfileHelper {
 
     public void removeNotification()
     {
+        removeAlarmForRecreateNotification();
         if (PhoneProfilesService.instance != null)
             PhoneProfilesService.instance.stopForeground(true);
         else
@@ -1694,6 +1695,21 @@ public class ActivateProfileHelper {
         Calendar now = Calendar.getInstance();
         long time = now.getTimeInMillis() + 500;
         alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+    }
+
+    private void removeAlarmForRecreateNotification() {
+        Intent intent = new Intent(context, RecreateNotificationBroadcastReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+
+        if (pendingIntent != null)
+        {
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
+
     }
 
     public void updateWidget()
