@@ -57,7 +57,9 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         //+"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
+                                         +"|ActivateProfileHelper.showNotification"
+                                         +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
+
                                          //+"|%%%% WifiScanAlarmBroadcastReceiver.fillScanResults"
                                          //+"|%%%% ScannerService.onHandleIntent"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"

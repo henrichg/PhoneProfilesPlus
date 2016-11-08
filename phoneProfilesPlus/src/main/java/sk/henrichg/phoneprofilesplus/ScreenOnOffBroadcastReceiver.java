@@ -24,6 +24,15 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
         else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
             GlobalData.setScreenUnlocked(context, false);
+            if (!GlobalData.getGlobalEventsRuning(context)) {
+                DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+                dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
+                //dataWrapper.getActivateProfileHelper().removeNotification();
+                //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+                Profile activatedProfile = dataWrapper.getActivatedProfile();
+                dataWrapper.getActivateProfileHelper().showNotification(activatedProfile/*, ""*/);
+                dataWrapper.invalidateDataWrapper();
+            }
         }
         else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
             GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
@@ -34,8 +43,10 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                     GlobalData.notificationHideInLockscreen) {
                     DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
                     dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
-                    dataWrapper.getActivateProfileHelper().removeNotification();
-                    dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+                    //dataWrapper.getActivateProfileHelper().removeNotification();
+                    //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+                    Profile activatedProfile = dataWrapper.getActivatedProfile();
+                    dataWrapper.getActivateProfileHelper().showNotification(activatedProfile/*, ""*/);
                     dataWrapper.invalidateDataWrapper();
                 }
             }
@@ -111,8 +122,10 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                     GlobalData.notificationHideInLockscreen) {
                     DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
                     dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
-                    dataWrapper.getActivateProfileHelper().removeNotification();
-                    dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+                    //dataWrapper.getActivateProfileHelper().removeNotification();
+                    //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+                    Profile activatedProfile = dataWrapper.getActivatedProfile();
+                    dataWrapper.getActivateProfileHelper().showNotification(activatedProfile/*, ""*/);
                     dataWrapper.invalidateDataWrapper();
                 }
             }
