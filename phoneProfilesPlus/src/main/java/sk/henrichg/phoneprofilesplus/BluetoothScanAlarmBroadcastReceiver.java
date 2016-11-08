@@ -124,19 +124,19 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
-            int interval = GlobalData.applicationEventBluetoothScanInterval;
-            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-            if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
-                interval = 2 * interval;
-
             if (shortInterval) {
                 if (forScreenOn)
-                    calendar.add(Calendar.SECOND, 2);
+                    calendar.add(Calendar.SECOND, 5);
                 else
                     calendar.add(Calendar.SECOND, 5);
             }
-            else
+            else {
+                int interval = GlobalData.applicationEventBluetoothScanInterval;
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
+                    interval = 2 * interval;
                 calendar.add(Calendar.MINUTE, interval);
+            }
             long alarmTime = calendar.getTimeInMillis();
 
             intent.putExtra(EXTRA_ONESHOT, 0);
