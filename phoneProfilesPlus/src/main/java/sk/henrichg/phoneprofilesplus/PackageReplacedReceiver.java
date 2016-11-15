@@ -42,6 +42,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         GlobalData.loadPreferences(context);
                     }
+                    if (actualVersionCode <= 2400) {
+                        GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "donation alarm restart");
+                        GlobalData.setDaysAfterFirstStart(context, 0);
+                        AboutApplicationBroadcastReceiver.setAlarm(context);
+                    }
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 //e.printStackTrace();

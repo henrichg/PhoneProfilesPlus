@@ -48,7 +48,7 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -57,8 +57,8 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|ActivateProfileHelper.showNotification"
-                                         +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
+                                         +"|AboutApplicationBroadcastReceiver"
+                                         +"|PackageReplacedReceiver"
 
                                          //+"|%%%% WifiScanAlarmBroadcastReceiver.fillScanResults"
                                          //+"|%%%% ScannerService.onHandleIntent"
@@ -139,7 +139,8 @@ public class GlobalData extends Application {
     static final int LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID = 700427;
     static final int GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID = 700428;
     static final int GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID = 700429;
-    static final int MOBILE_CELLS_REGISTRATION_SERVICE = 700430;
+    static final int MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID = 700430;
+    static final int ABOUT_APPLICATION_DONATE_NOTIFICATION_ID = 700431;
 
     static final String PREF_PROFILE_NAME = "prf_pref_profileName";
     static final String PREF_PROFILE_ICON = "prf_pref_profileIcon";
@@ -318,6 +319,7 @@ public class GlobalData extends Application {
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
     private static final String PREF_SCREEN_UNLOCKED = "screen_unlocked";
     private static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
+    private static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";
 
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
     public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
@@ -1400,6 +1402,20 @@ public class GlobalData extends Application {
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
             editor.commit();
         }
+    }
+
+    static public int getDaysAfterFirtsStart(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_DAYS_AFTER_FIRST_START, 0);
+    }
+
+    static public void setDaysAfterFirstStart(Context context, int days)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putInt(PREF_DAYS_AFTER_FIRST_START, days);
+        editor.commit();
     }
 
     // ----- Check if preference is allowed in device -------------------------------------

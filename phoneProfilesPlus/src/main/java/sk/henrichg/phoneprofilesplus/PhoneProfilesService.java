@@ -121,6 +121,8 @@ public class PhoneProfilesService extends Service
             //e.printStackTrace();
         }
 
+        AboutApplicationBroadcastReceiver.setAlarm(this);
+
         GlobalData.loadPreferences(getApplicationContext());
 
         //GlobalData.initPhoneProfilesServiceMessenger(getApplicationContext());

@@ -2,9 +2,13 @@
 <manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="internalOnly"
-          android:versionCode="2324"
+          android:versionCode="2330"
           android:versionName="3.4.4b">
-    <!-- set android:versionCode="2322" for release version. Look at PackageReplacedReceiver -->
+    <!--
+        Release versions (look at PackageReplacedReceiver)
+        2322 = keep checked "Use Priority event parameter"
+        2400 = start About application alarm for notification "Please donate me."
+    -->
 
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
 
@@ -781,6 +785,11 @@
         </receiver>
         <receiver
             android:name=".NFCEventEndBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".AboutApplicationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>

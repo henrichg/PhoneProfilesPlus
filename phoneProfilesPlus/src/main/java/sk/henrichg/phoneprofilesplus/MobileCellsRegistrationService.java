@@ -123,7 +123,7 @@ public class MobileCellsRegistrationService extends Service {
 
         notification = mBuilder.build();
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
-        startForeground(GlobalData.MOBILE_CELLS_REGISTRATION_SERVICE, notification);
+        startForeground(GlobalData.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
     }
 
 }
