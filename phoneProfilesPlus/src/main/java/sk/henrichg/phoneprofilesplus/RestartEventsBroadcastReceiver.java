@@ -7,7 +7,7 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "restartEvents";
-    public static final String INTENT_RESTART_EVENTS = "sk.henrichg.phoneprofilesplus.RESTART_EVENTS";
+    //public static final String INTENT_RESTART_EVENTS = "sk.henrichg.phoneprofilesplus.RESTART_EVENTS";
 
     @Override
     public void onReceive(Context context, Intent intent) {

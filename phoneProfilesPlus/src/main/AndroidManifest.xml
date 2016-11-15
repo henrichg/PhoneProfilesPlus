@@ -342,7 +342,6 @@
         <receiver
             android:name=".BootUpReceiver"
             android:enabled="true"
-            android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -389,10 +388,9 @@
         <receiver
             android:name=".DashClockBroadcastReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_DASHCLOCK"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -401,15 +399,6 @@
             android:name=".ExecuteRadioProfilePrefsService"
             android:exported="false">
         </service>
-
-        <receiver
-            android:name=".SetRadioPrefsForProfileBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter android:priority="1000">
-                <action android:name="sk.henrichg.phoneprofilesplus.SetRadiosForProfile.ACTION"/>
-            </intent-filter>
-        </receiver>
 
         <service
             android:name=".ExecuteVolumeProfilePrefsService"
@@ -478,15 +467,21 @@
             android:enabled="true">
         </service>
 
+        <!--
         <receiver
             android:name=".RestartEventsBroadcastReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.RESTART_EVENTS"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+        </receiver>
+        -->
+        <receiver
+            android:name=".RestartEventsBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
         </receiver>
         <receiver
             android:name=".EventTimeBroadcastReceiver"
@@ -496,7 +491,7 @@
         <receiver
             android:name=".RefreshGUIBroadcastReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_GUI"/>
 
@@ -605,7 +600,8 @@
         -->
         <receiver
             android:name=".SMSBroadcastReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:permission="android.permission.BROADCAST_SMS">
             <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
@@ -677,8 +673,7 @@
         </receiver>
         <receiver
             android:name=".RingerModeChangeReceiver"
-            android:enabled="true"
-            android:exported="true">
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.media.RINGER_MODE_CHANGED"/>
             </intent-filter>
@@ -696,7 +691,7 @@
         <receiver
             android:name=".PermissionsNotificationDeletedReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED"/>
             </intent-filter>
@@ -718,8 +713,7 @@
         </receiver>
         <receiver
             android:name=".WifiAPStateChangeBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED"/>
             </intent-filter>
@@ -731,8 +725,7 @@
         </receiver>
         <receiver
             android:name=".LocationModeChangedBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true">
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.location.MODE_CHANGED"/>
                 <action android:name="android.location.PROVIDERS_CHANGED"/>
@@ -768,11 +761,13 @@
             </intent-filter>
         </receiver>
         -->
+        <!--
         <receiver
             android:name=".InterruptionFilterChangedBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
         </receiver>
+        -->
         <receiver
             android:name=".PhoneStateChangeBroadcastReceiver"
             android:enabled="true"

@@ -873,8 +873,9 @@ public class DataWrapper {
 
         if (!getIsManualProfileActivation()) {
             // GeofenceScanner will be started from EventsService
-            Intent intent = new Intent();
-            intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
+            //Intent intent = new Intent();
+            //intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
+            Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
             intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false);
             intent.putExtra(GlobalData.EXTRA_INTERACTIVE, false);
             context.sendBroadcast(intent);
@@ -2750,8 +2751,9 @@ public class DataWrapper {
             setProfileActive(null);
         }
 
-        Intent intent = new Intent();
-        intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
+        //Intent intent = new Intent();
+        //intent.setAction(RestartEventsBroadcastReceiver.INTENT_RESTART_EVENTS);
+        Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
         intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false);
         intent.putExtra(GlobalData.EXTRA_INTERACTIVE, interactive);
         context.sendBroadcast(intent);
