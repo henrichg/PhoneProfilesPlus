@@ -2,8 +2,8 @@
 <manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="internalOnly"
-          android:versionCode="2322"
-          android:versionName="3.4.3">
+          android:versionCode="2324"
+          android:versionName="3.4.4b">
     <!-- set android:versionCode="2322" for release version. Look at PackageReplacedReceiver -->
 
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
