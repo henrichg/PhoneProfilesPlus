@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -87,7 +88,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private Geofence geofence;
 
     private AddressResultReceiver mResultReceiver;
-    private boolean mAddressRequested = false;
+    //private boolean mAddressRequested = false;
 
     DataWrapper dataWrapper;
 
@@ -95,7 +96,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     AppCompatImageButton addressButton;
     TextView addressText;
     Button okButton;
-    private SeekBar radiusSeekBar;
     private TextView radiusLabel;
 
     @Override
@@ -150,7 +150,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         mapFragment.getMapAsync(this);
 
         radiusLabel = (TextView)findViewById(R.id.location_pref_dlg_radius_seekbar_label);
-        radiusSeekBar = (SeekBar)findViewById(R.id.location_pref_dlg_radius_seekbar);
+        SeekBar radiusSeekBar = (SeekBar)findViewById(R.id.location_pref_dlg_radius_seekbar);
         radiusSeekBar.setProgress(Math.round(geofence._radius / (float)20.0)-1);
         radiusSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -229,7 +229,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         addressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getGeofenceAddress(true);
+                getGeofenceAddress(/*true*/);
             }
         });
 
@@ -306,10 +306,10 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult result) {
+    public void onConnectionFailed(@NonNull ConnectionResult result) {
         if (mResolvingError) {
             // Already attempting to resolve an error.
-            return;
+            //return;
         } else if (result.hasResolution()) {
             try {
                 mResolvingError = true;
@@ -493,7 +493,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
             } catch (SecurityException securityException) {
                 // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                return;
+                //return;
             }
         }
     }
@@ -511,7 +511,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
-    private  void getGeofenceAddress(boolean updateName) {
+    private  void getGeofenceAddress(/*boolean updateName*/) {
         // Only start the service to fetch the address if GoogleApiClient is
         // connected.
         if (mGoogleApiClient.isConnected() && mLocation != null) {
@@ -522,7 +522,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         // launch the service to fetch the address. As far as the user is
         // concerned, pressing the Fetch Address button
         // immediately kicks off the process of getting the address.
-        mAddressRequested = true;
+        //mAddressRequested = true;
     }
 
     protected void startIntentService(boolean updateName) {
@@ -536,7 +536,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     @SuppressLint("ParcelCreator")
     class AddressResultReceiver extends ResultReceiver {
 
-        public AddressResultReceiver(Handler handler) {
+        AddressResultReceiver(Handler handler) {
             super(handler);
         }
 
@@ -560,7 +560,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
             GUIData.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
 
-            mAddressRequested = false;
+            //mAddressRequested = false;
         }
     }
 
@@ -587,6 +587,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     public static class ErrorDialogFragment extends DialogFragment {
         public ErrorDialogFragment() { }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Get the error code and retrieve the appropriate dialog

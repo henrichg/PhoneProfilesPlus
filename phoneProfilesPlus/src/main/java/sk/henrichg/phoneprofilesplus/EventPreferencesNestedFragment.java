@@ -221,9 +221,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             //Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
             if (EventPreferencesFragment.changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
-                    long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
+                    //long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
                     // this persistGeofence, for multislelect this mus only refresh listView in preference
-                    EventPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor(geofenceId);
+                    EventPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor(/*geofenceId*/);
                 }
             }
         }

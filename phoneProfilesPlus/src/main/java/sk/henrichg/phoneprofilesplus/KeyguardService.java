@@ -15,6 +15,7 @@ public class KeyguardService extends Service {
     static final String KEYGUARD_LOCK = "phoneProfilesPlus.keyguardLock";
 
     private KeyguardManager keyguardManager;
+    @SuppressWarnings("deprecation")
     private KeyguardManager.KeyguardLock keyguardLock;
 
     @SuppressWarnings("deprecation")

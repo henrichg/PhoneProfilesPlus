@@ -34,7 +34,7 @@ public class LaunchShortcutActivity extends Activity {
         super.onStart();
 
         ComponentName componentName = new ComponentName(packageName, activityName);
-        if (componentName != null) {
+        //if (componentName != null) {
             //intent = new Intent(Intent.ACTION_MAIN);
             Intent intent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
             intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -43,10 +43,10 @@ public class LaunchShortcutActivity extends Activity {
             try {
                 startActivityForResult(intent, 100);
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
                 finish();
             }
-        }
+        //}
 
     }
 

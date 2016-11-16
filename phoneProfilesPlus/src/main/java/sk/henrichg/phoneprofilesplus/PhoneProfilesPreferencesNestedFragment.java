@@ -479,9 +479,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             //Log.d("EventPreferencesFragment.doOnActivityResult", "xxx");
             if (PhoneProfilesPreferencesFragment.changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
-                    long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
+                    //long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
                     // this persistGeofence, for multislelect this mus only refresh listView in preference
-                    PhoneProfilesPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor(geofenceId);
+                    PhoneProfilesPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor(/*geofenceId*/);
                 }
             }
         }

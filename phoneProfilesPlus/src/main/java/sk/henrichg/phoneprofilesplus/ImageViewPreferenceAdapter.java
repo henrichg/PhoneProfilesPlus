@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-public class ImageViewPreferenceAdapter extends BaseAdapter {
+class ImageViewPreferenceAdapter extends BaseAdapter {
 
     private Context context;
     private LayoutInflater inflater = null;
-    String imageIdentifier;
-    boolean isImageResourceID;
+    private String imageIdentifier;
+    private boolean isImageResourceID;
 
     static final String[] ThumbsIds = {
         "ic_profile_default",
@@ -41,7 +41,7 @@ public class ImageViewPreferenceAdapter extends BaseAdapter {
         "ic_profile_culture_1", "ic_profile_culture_2", "ic_profile_culture_3", "ic_profile_culture_4"
     };
 
-    public ImageViewPreferenceAdapter(Context c, String imageIdentifier, boolean isImageResourceID)
+    ImageViewPreferenceAdapter(Context c, String imageIdentifier, boolean isImageResourceID)
     {
         context = c;
 

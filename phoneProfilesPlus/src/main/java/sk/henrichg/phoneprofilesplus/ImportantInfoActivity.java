@@ -48,15 +48,16 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.info_notification_title);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.info_notification_title);
+        }
 
-        PackageInfo pinfo = null;
         int versionCode = 0;
         Context context = getApplicationContext();
         try {
-            pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            PackageInfo pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             versionCode = pinfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             //e.printStackTrace();

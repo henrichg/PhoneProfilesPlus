@@ -45,6 +45,9 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                         case NotificationManager.INTERRUPTION_FILTER_ALARMS:
                             zenMode = 6;
                             break;
+                        case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
+                            zenMode = 1;
+                            break;
                     }
                     GlobalData.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
                     if (zenMode != 0) {
@@ -71,9 +74,10 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         GlobalData.logE(TAG, "vibrationIsOn(vibrateType="+vibrateType+")");
         GlobalData.logE(TAG, "vibrationIsOn(vibrateWhenRinging="+vibrateWhenRinging+")");
 
+        //noinspection deprecation
         return (ringerMode == AudioManager.RINGER_MODE_VIBRATE) ||
-                (vibrateType == AudioManager.VIBRATE_SETTING_ON) ||
-                (vibrateType == AudioManager.VIBRATE_SETTING_ONLY_SILENT) ||
+                //(vibrateType == AudioManager.VIBRATE_SETTING_ON) ||
+                //(vibrateType == AudioManager.VIBRATE_SETTING_ONLY_SILENT) ||
                 (vibrateWhenRinging == 1);
     }
 
@@ -104,6 +108,9 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                         break;
                     case NotificationManager.INTERRUPTION_FILTER_ALARMS:
                         zenMode = 6;
+                        break;
+                    case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
+                        zenMode = 1;
                         break;
                 }
                 GlobalData.logE(TAG, "getZenMode(zenMode=" + zenMode + ')');

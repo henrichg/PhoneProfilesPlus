@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
@@ -24,19 +25,18 @@ public class LocationGeofencePreference extends DialogPreference {
 
     Context context;
 
-    public int onlyEdit;
+    int onlyEdit;
 
     private MaterialDialog mDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
     //private TextView geofenceName;
-    private ListView geofencesListView;
     private LocationGeofencesPreferenceAdapter listAdapter;
 
     public DataWrapper dataWrapper;
 
-    public static final String EXTRA_GEOFENCE_ID = "geofence_id";
-    public static final int RESULT_GEOFENCE_EDITOR = 2100;
+    static final String EXTRA_GEOFENCE_ID = "geofence_id";
+    static final int RESULT_GEOFENCE_EDITOR = 2100;
 
     public LocationGeofencePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -73,14 +73,14 @@ public class LocationGeofencePreference extends DialogPreference {
                     .negativeText(getNegativeButtonText());
             mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
                 @Override
-                public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                     persistGeofence(false);
                     mDialog.dismiss();
                 }
             });
             mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
                 @Override
-                public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                     mDialog.dismiss();
                 }
             });
@@ -90,7 +90,7 @@ public class LocationGeofencePreference extends DialogPreference {
             mBuilder.positiveText(getPositiveButtonText());
             mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
                 @Override
-                public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                     mDialog.dismiss();
                 }
             });
@@ -106,7 +106,7 @@ public class LocationGeofencePreference extends DialogPreference {
 
         AppCompatImageButton addButton = (AppCompatImageButton)layout.findViewById(R.id.location_pref_dlg_add);
 
-        geofencesListView = (ListView) layout.findViewById(R.id.location_pref_dlg_listview);
+        ListView geofencesListView = (ListView) layout.findViewById(R.id.location_pref_dlg_listview);
 
         listAdapter = new LocationGeofencesPreferenceAdapter(context, dataWrapper.getDatabaseHandler().getGeofencesCursor(), this);
         geofencesListView.setAdapter(listAdapter);
@@ -127,7 +127,7 @@ public class LocationGeofencePreference extends DialogPreference {
                 */
                 //listAdapter.selectedRB = viewHolder.radioButton;
 
-                long gid = (long) viewHolder.geofenceId;
+                long gid = viewHolder.geofenceId;
                 if (onlyEdit == 0) {
                     dataWrapper.getDatabaseHandler().checkGeofence(String.valueOf(gid), 2);
                     //viewHolder.radioButton.setChecked(true);
@@ -256,7 +256,7 @@ public class LocationGeofencePreference extends DialogPreference {
         }
     }
 
-    public void setGeofenceFromEditor(long geofenceId) {
+    void setGeofenceFromEditor(/*long geofenceId*/) {
         //Log.d("LocationGeofencePreference.setGeofenceFromEditor", "geofenceId=" + geofenceId);
         persistGeofence(true);
         refreshListView();

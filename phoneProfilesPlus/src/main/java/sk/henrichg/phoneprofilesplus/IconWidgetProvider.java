@@ -11,8 +11,6 @@ import android.widget.RemoteViews;
 
 public class IconWidgetProvider extends AppWidgetProvider {
 
-    private DataWrapper dataWrapper;
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
@@ -26,7 +24,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         if (GlobalData.applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
         if (GlobalData.applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
 
-        dataWrapper = new DataWrapper(context, true,
+        DataWrapper dataWrapper = new DataWrapper(context, true,
                                                 GlobalData.applicationWidgetIconColor.equals("1"),
                                                 monochromeValue);
 
@@ -71,8 +69,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
             // set background
             int red = 0;
-            int green = 0;
-            int blue = 0;
+            int green;
+            int blue;
             if (GlobalData.applicationWidgetIconLightnessB.equals("0")) red = 0x00;
             if (GlobalData.applicationWidgetIconLightnessB.equals("25")) red = 0x40;
             if (GlobalData.applicationWidgetIconLightnessB.equals("50")) red = 0x80;
@@ -102,8 +100,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
             }
 
             red = 0xFF;
-            green = 0xFF;
-            blue = 0xFF;
             if (GlobalData.applicationWidgetIconLightnessT.equals("0")) red = 0x00;
             if (GlobalData.applicationWidgetIconLightnessT.equals("25")) red = 0x40;
             if (GlobalData.applicationWidgetIconLightnessT.equals("50")) red = 0x80;
@@ -127,7 +123,5 @@ public class IconWidgetProvider extends AppWidgetProvider {
         }
 
         dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
-
     }
 }

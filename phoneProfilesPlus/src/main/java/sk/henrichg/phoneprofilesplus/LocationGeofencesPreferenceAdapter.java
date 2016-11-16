@@ -11,7 +11,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
+class LocationGeofencesPreferenceAdapter extends CursorAdapter {
 
     private final int KEY_G_ID;
     //private final int KEY_G_LATITUDE;
@@ -23,7 +23,7 @@ public class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     //public RadioButton selectedRB;
     private LocationGeofencePreference preference;
 
-    public LocationGeofencesPreferenceAdapter(Context context, Cursor cursor, LocationGeofencePreference preference) {
+    LocationGeofencesPreferenceAdapter(Context context, Cursor cursor, LocationGeofencePreference preference) {
         super(context, cursor, 0);
 
         this.preference = preference;
