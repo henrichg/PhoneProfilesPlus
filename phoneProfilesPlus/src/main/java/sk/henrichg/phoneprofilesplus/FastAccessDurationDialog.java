@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -17,18 +18,18 @@ import com.github.pinball83.maskededittext.MaskedEditText;
 
 import java.util.Arrays;
 
-public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
+class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     private int mMin, mMax;
     private Profile mProfile;
     private int mAfterDo;
 
-    DataWrapper mDataWrapper;
-    int mStartupSource;
-    boolean mInteractive;
-    Activity mActivity;
-    boolean mLog;
-    String[] afterDoValues;
+    private DataWrapper mDataWrapper;
+    private int mStartupSource;
+    private boolean mInteractive;
+    private Activity mActivity;
+    private boolean mLog;
+    private String[] afterDoValues;
 
     //Context mContext;
 
@@ -37,11 +38,10 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
     private SeekBar mSeekBarSeconds;
-    Spinner afterDoSpinner;
 
     //private int mColor = 0;
 
-    public FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper, int startupSource,
+    FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper, int startupSource,
                                     boolean interactive, boolean log) {
 
         mMax = 86400;
@@ -69,7 +69,7 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
                 .customView(R.layout.activity_fast_access_duration_dialog, false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         int hours = mSeekBarHours.getProgress();
                         int minutes = mSeekBarMinutes.getProgress();
                         int seconds = mSeekBarSeconds.getProgress();
@@ -87,7 +87,7 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mDataWrapper.finishActivity(mStartupSource, false, mActivity);
                     }
                 })
@@ -130,14 +130,17 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
                 try {
                     hours = Integer.parseInt(splits[0].replaceFirst("\\s+$", ""));
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 try {
                     minutes = Integer.parseInt(splits[1].replaceFirst("\\s+$", ""));
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 try {
                     seconds = Integer.parseInt(splits[2].replaceFirst("\\s+$", ""));
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 int iValue = (hours * 3600 + minutes * 60 + seconds);
@@ -208,7 +211,7 @@ public class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
-        afterDoSpinner = (Spinner) layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
+        Spinner afterDoSpinner = (Spinner) layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
         afterDoValues = mActivity.getResources().getStringArray(R.array.afterProfileDurationDoValues);
         afterDoSpinner.setSelection(Arrays.asList(afterDoValues).indexOf(String.valueOf(mProfile._afterDurationDo)));
         afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

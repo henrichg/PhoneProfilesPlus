@@ -79,7 +79,7 @@ public class FetchAddressIntentService extends IntentService {
                     getApplicationContext().getString(R.string.event_preferences_location_no_address_found));
         } else {
             Address address = addresses.get(0);
-            ArrayList<String> addressFragments = new ArrayList<String>();
+            ArrayList<String> addressFragments = new ArrayList<>();
 
             // Fetch the address lines using getAddressLine,
             // join them, and send them to the thread.
