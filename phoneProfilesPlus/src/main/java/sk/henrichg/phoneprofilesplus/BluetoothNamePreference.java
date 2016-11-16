@@ -35,7 +35,7 @@ import java.util.List;
 public class BluetoothNamePreference extends DialogPreference {
 
     private String value;
-    public List<BluetoothDeviceData> bluetoothList = null;
+    List<BluetoothDeviceData> bluetoothList = null;
     private List<BluetoothDeviceData> customBluetoothList = null;
 
     Context context;
@@ -249,7 +249,7 @@ public class BluetoothNamePreference extends DialogPreference {
         return value;
     }*/
 
-    public void addBluetoothName(String bluetoothName) {
+    void addBluetoothName(String bluetoothName) {
         String[] splits = value.split("\\|");
         boolean found = false;
         for (String _bluetoothName : splits) {
@@ -264,7 +264,7 @@ public class BluetoothNamePreference extends DialogPreference {
         //Log.d("BluetoothNamePreference.addBluetoothName","value="+value);
     }
 
-    public void removeBluetoothName(String bluetoothName) {
+    void removeBluetoothName(String bluetoothName) {
         String[] splits = value.split("\\|");
         value = "";
         for (String _bluetoothName : splits) {
@@ -278,7 +278,7 @@ public class BluetoothNamePreference extends DialogPreference {
         }
     }
 
-    public boolean isBluetoothNameSelected(String bluetoothName) {
+    boolean isBluetoothNameSelected(String bluetoothName) {
         String[] splits = value.split("\\|");
         for (String _bluetoothName : splits) {
             if (_bluetoothName.equals(bluetoothName))

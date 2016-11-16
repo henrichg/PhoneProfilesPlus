@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class DaysOfWeekPreferenceAdapter extends BaseAdapter
+class DaysOfWeekPreferenceAdapter extends BaseAdapter
 {
-    List<DayOfWeek> daysOfWeekList = null;
+    private List<DayOfWeek> daysOfWeekList = null;
 
     private LayoutInflater inflater;
     //private Context context;
 
-    public DaysOfWeekPreferenceAdapter(Context context, List<DayOfWeek> daysOfWeekList)
+    DaysOfWeekPreferenceAdapter(Context context, List<DayOfWeek> daysOfWeekList)
     {
         this.daysOfWeekList = daysOfWeekList;
 

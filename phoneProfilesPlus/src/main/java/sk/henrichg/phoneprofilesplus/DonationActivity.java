@@ -45,9 +45,11 @@ public class DonationActivity extends AppCompatActivity {
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.donation_activity_title);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.donation_activity_title);
+        }
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DonationFragment donationFragment = DonationFragment.newInstance();

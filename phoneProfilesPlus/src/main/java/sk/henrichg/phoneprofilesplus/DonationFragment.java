@@ -38,8 +38,7 @@ public class DonationFragment extends Fragment {
     static final String TAG = "DonationFragment";
 
     public static DonationFragment newInstance() {
-        DonationFragment donationsFragment = new DonationFragment();
-        return donationsFragment;
+        return new DonationFragment();
     }
 
     @Override
@@ -184,7 +183,7 @@ public class DonationFragment extends Fragment {
             } catch (IabHelper.IabAsyncInProgressException e) {
                 Log.e(TAG, "Error donate. Another async operation in progress.");
                 //setWaitScreen(false);
-                return;
+                //return;
             }
 
         }

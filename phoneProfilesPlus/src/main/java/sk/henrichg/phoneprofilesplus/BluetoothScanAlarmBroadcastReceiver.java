@@ -468,7 +468,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         //if (boundedDevicesList == null)
         //    boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
-        List<BluetoothDeviceData> boundedDevicesList  = new ArrayList<BluetoothDeviceData>();
+        List<BluetoothDeviceData> boundedDevicesList  = new ArrayList<>();
 
         if (bluetooth == null)
             bluetooth = getBluetoothAdapter(context);

@@ -130,7 +130,7 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
         int res = context.getResources().getIdentifier(ThumbsIds[position], "drawable", context.getPackageName());
         if (ThumbsIds[position].equals(imageIdentifier) && isImageResourceID && useCustomColor) {
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);
-            bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor, context);
+            bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor/*, context*/);
             holder.icon.setImageBitmap(bitmap);
         }
         else

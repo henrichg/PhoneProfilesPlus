@@ -1015,7 +1015,7 @@ public class Profile {
                 {
                     int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
                     Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
-                    _iconBitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue, context);
+                    _iconBitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue/*, context*/);
                     // getIsIconResourceID must return false
                     //_icon = getIconIdentifier() + "|0";
                 }
@@ -1030,7 +1030,7 @@ public class Profile {
         {
             int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
-            _iconBitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue, context);
+            _iconBitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue/*, context*/);
             // getIsIconResourceID must return false
             //_icon = getIconIdentifier() + "|0";
             /*Drawable drawable;
@@ -1046,7 +1046,7 @@ public class Profile {
         if (getUseCustomColorForIcon()) {
             int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.getPackageName());
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
-            _iconBitmap = BitmapManipulator.recolorBitmap(bitmap, getIconCustomColor(), context);
+            _iconBitmap = BitmapManipulator.recolorBitmap(bitmap, getIconCustomColor()/*, context*/);
             // getIsIconResourceID must return false
             //_icon = getIconIdentifier() + "|0";
         }
@@ -1061,7 +1061,7 @@ public class Profile {
         _preferencesIndicator = ProfilePreferencesIndicator.paint(this, context);
 
         if (monochrome)
-            _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, monochromeValue, context);
+            _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, monochromeValue/*, context*/);
 
     }
 

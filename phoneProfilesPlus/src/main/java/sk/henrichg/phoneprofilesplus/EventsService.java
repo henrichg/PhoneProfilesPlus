@@ -494,6 +494,9 @@ public class EventsService extends IntentService
         if (broadcastReceiverType.equals(EventTimeBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_TIME;
         else
+        if (broadcastReceiverType.equals(ForegroundApplicationChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+            eventType = DatabaseHandler.ETYPE_APPLICATION;
+        else
         if (broadcastReceiverType.equals(HeadsetConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_PERIPHERAL;
         else

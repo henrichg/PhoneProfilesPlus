@@ -19,7 +19,7 @@ class ContactsCache {
         cached = false;
     }
 
-    public void getContactList(Context context)
+    void getContactList(Context context)
     {
         if (cached) return;
 
@@ -99,7 +99,7 @@ class ContactsCache {
             return null;
     }
 
-    public Contact getContact(int position)
+    Contact getContact(int position)
     {
         if (cached)
             return contactList.get(position);
@@ -149,7 +149,7 @@ class ContactsCache {
     }
     */
 
-    public void clearCache(boolean nullList)
+    void clearCache(boolean nullList)
     {
         contactList.clear();
         if (nullList)
@@ -157,12 +157,12 @@ class ContactsCache {
         cached = false;
     }
 
-    public boolean isCached()
+    boolean isCached()
     {
         return cached;
     }
 
-    public void cancelCaching()
+    void cancelCaching()
     {
         cancelled = true;
     }

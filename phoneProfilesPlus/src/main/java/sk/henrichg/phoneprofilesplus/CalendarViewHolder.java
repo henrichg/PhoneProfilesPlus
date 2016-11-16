@@ -6,9 +6,9 @@ import android.widget.TextView;
 
 class CalendarViewHolder {
 
-    public LinearLayout calendarColor;
-    public TextView textViewDisplayName;
-    public CheckBox checkBox;
+    LinearLayout calendarColor;
+    TextView textViewDisplayName;
+    CheckBox checkBox;
 
     //CalendarViewHolder() {
     //}

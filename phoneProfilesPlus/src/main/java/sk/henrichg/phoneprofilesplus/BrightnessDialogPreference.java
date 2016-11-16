@@ -187,7 +187,7 @@ public class BrightnessDialogPreference extends
         return mDialog;
     }
 
-    public void enableViews() {
+    void enableViews() {
         if (Permissions.checkScreenBrightness(_context)) {
             valueText.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (defaultProfile == 0));
             seekBar.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (defaultProfile == 0));
@@ -200,10 +200,9 @@ public class BrightnessDialogPreference extends
         }
     }
 
-    public void onShow(DialogInterface dialog) {
+    void onShow(DialogInterface dialog) {
         if (Permissions.grantBrightnessDialogPermissions(_context, this))
             enableViews();
-            ;
     }
 
     @Override
@@ -505,7 +504,7 @@ public class BrightnessDialogPreference extends
     }
     */
 
-    public static boolean changeEnabled(String value) {
+    static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");
         if (splits.length > 1) {
             try {
@@ -585,13 +584,13 @@ public class BrightnessDialogPreference extends
     {
         boolean isDialogShowing;
         Bundle dialogBundle;
-        public int value = 0;
-        public int noChange = 0;
-        public int automatic = 0;
-        public int defaultProfile = 0;
-        public int disableDefaultProfile = 0;
+        int value = 0;
+        int noChange = 0;
+        int automatic = 0;
+        int defaultProfile = 0;
+        int disableDefaultProfile = 0;
 
-        public SavedState(Parcel source)
+        SavedState(Parcel source)
         {
             super(source);
 
@@ -620,7 +619,7 @@ public class BrightnessDialogPreference extends
             dest.writeInt(disableDefaultProfile);
         }
 
-        public SavedState(Parcelable superState)
+        SavedState(Parcelable superState)
         {
             super(superState);
         }

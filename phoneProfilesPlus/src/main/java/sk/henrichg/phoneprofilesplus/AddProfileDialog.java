@@ -23,7 +23,7 @@ class AddProfileDialog
     {
         this.profileListFragment = profileListFragment;
 
-        profileList = new ArrayList<Profile>();
+        profileList = new ArrayList<>();
 
         boolean monochrome = false;
         int monochromeValue = 0xFF;
@@ -64,7 +64,7 @@ class AddProfileDialog
 
     }
 
-    public void doOnItemSelected(int position)
+    void doOnItemSelected(int position)
     {
         profileListFragment.startProfilePreferencesActivity(null, position);
         mDialog.dismiss();

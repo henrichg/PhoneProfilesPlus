@@ -26,8 +26,8 @@ class ActivityLogAdapter extends CursorAdapter {
     //private final int KEY_AL_PROFILE_ICON;
     //private final int KEY_AL_DURATION_DELAY;
 
-    private HashMap<Integer, Integer> activityTypeStrings = new HashMap<Integer, Integer>();
-    private HashMap<Integer, Integer> activityTypeColors = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> activityTypeStrings = new HashMap<>();
+    private HashMap<Integer, Integer> activityTypeColors = new HashMap<>();
 
     ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);

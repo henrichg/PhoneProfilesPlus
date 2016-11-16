@@ -73,11 +73,11 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
                 final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-                aph.setRingerMode(profile, audioManager, true, linkUnlink, forProfileActivation);
+                aph.setRingerMode(profile, audioManager, true, /*linkUnlink,*/ forProfileActivation);
                 GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
                 aph.setVolumes(profile, audioManager, linkUnlink, forProfileActivation);
                 GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
-                aph.setRingerMode(profile, audioManager, false, linkUnlink, forProfileActivation);
+                aph.setRingerMode(profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
                 GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
 
                 //try { Thread.sleep(500); } catch (InterruptedException e) { }

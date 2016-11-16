@@ -1,16 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
-public class BluetoothDeviceData {
+class BluetoothDeviceData {
 
-    public String name;
-    public String address;
-    public int type;
-    public boolean custom;
+    String name;
+    String address;
+    int type;
+    boolean custom;
 
-    //public BluetoothDeviceData() {
+    //BluetoothDeviceData() {
     //}
 
-    public BluetoothDeviceData(String name, String address, int type, boolean custom)
+    BluetoothDeviceData(String name, String address, int type, boolean custom)
     {
         this.name = name;
         this.address = address;
@@ -18,14 +18,14 @@ public class BluetoothDeviceData {
         this.custom = custom;
     }
 
-    public String getName() {
+    String getName() {
         if (name != null)
             return name;
         else
             return "";
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 

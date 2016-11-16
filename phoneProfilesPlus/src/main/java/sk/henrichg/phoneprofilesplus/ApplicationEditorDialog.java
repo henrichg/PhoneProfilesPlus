@@ -77,7 +77,7 @@ class ApplicationEditorDialog
 
     }
 
-    public void doOnItemSelected(int position)
+    void doOnItemSelected(int position)
     {
         if (cachedApplicationList != null) {
             preference.updateApplication(application, dialogPrefPosition, position);

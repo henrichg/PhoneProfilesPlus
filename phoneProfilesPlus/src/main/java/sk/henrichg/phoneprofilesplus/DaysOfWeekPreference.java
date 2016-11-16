@@ -4,6 +4,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +20,12 @@ import java.util.List;
 
 public class DaysOfWeekPreference extends DialogPreference {
 
-	public static final String allValue = "#ALL#";
+    static final String allValue = "#ALL#";
 
     Context _context;
     String value = "";
 
-    List<DayOfWeek> daysOfWeekList = null;
-
-    // Layout widgets.
-    private ListView listView = null;
+    private List<DayOfWeek> daysOfWeekList = null;
 
     private DaysOfWeekPreferenceAdapter listAdapter;
 
@@ -37,10 +35,10 @@ public class DaysOfWeekPreference extends DialogPreference {
 
         _context = context;
 
-        daysOfWeekList = new ArrayList<DayOfWeek>();
+        daysOfWeekList = new ArrayList<>();
 
-        CharSequence[] newEntries = new CharSequence[8];
-        CharSequence[] newEntryValues = new CharSequence[8];
+        //CharSequence[] newEntries = new CharSequence[8];
+        //CharSequence[] newEntryValues = new CharSequence[8];
 
         /*
         String[] newEntries = _context.getResources().getStringArray(R.array.daysOfWeekArray);
@@ -78,7 +76,7 @@ public class DaysOfWeekPreference extends DialogPreference {
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
                         {
                             // sem narvi stringy skupin kontatkov oddelenych |
@@ -105,7 +103,7 @@ public class DaysOfWeekPreference extends DialogPreference {
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.activity_days_of_week_pref_dialog, null);
         onBindDialogView(layout);
 
-        listView = (ListView)layout.findViewById(R.id.days_of_week_pref_dlg_listview);
+        ListView listView = (ListView)layout.findViewById(R.id.days_of_week_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)

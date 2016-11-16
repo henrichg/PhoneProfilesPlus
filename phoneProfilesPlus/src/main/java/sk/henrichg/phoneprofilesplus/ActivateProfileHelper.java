@@ -69,16 +69,16 @@ public class ActivateProfileHelper {
 
     //private int networkType = -1;
 
-    public static boolean lockRefresh = false;
+    static boolean lockRefresh = false;
 
-    public static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
+    static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 
     // Setting.Global "zen_mode"
-    public static final int ZENMODE_ALL = 0;
-    public static final int ZENMODE_PRIORITY = 1;
-    public static final int ZENMODE_NONE = 2;
-    public static final int ZENMODE_ALARMS = 3;
-    public static final int ZENMODE_SILENT = 99;
+    static final int ZENMODE_ALL = 0;
+    static final int ZENMODE_PRIORITY = 1;
+    static final int ZENMODE_NONE = 2;
+    static final int ZENMODE_ALARMS = 3;
+    static final int ZENMODE_SILENT = 99;
 
     public ActivateProfileHelper()
     {
@@ -98,14 +98,14 @@ public class ActivateProfileHelper {
         context = c;
     }
 
-    public void deinitialize()
+    void deinitialize()
     {
         dataWrapper = null;
         context = null;
         notificationManager = null;
     }
 
-    public void setBrightnessHandler(Handler handler)
+    void setBrightnessHandler(Handler handler)
     {
         brightnessHandler = handler;
     }
@@ -349,7 +349,7 @@ public class ActivateProfileHelper {
 
     }
 
-    public void executeForRadios(Profile profile)
+    void executeForRadios(Profile profile)
     {
         boolean _isAirplaneMode = false;
         boolean _setAirplaneMode = false;
@@ -396,7 +396,7 @@ public class ActivateProfileHelper {
 
     }
 
-    public static boolean isAudibleRinging(int ringerMode, int zenMode) {
+    static boolean isAudibleRinging(int ringerMode, int zenMode) {
         return (!((ringerMode == 3) ||
                   ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT < 21)) ||
                   ((ringerMode == 4) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
@@ -423,7 +423,7 @@ public class ActivateProfileHelper {
     }
 
     @SuppressLint("NewApi")
-    public void setVolumes(Profile profile, AudioManager audioManager, int linkUnlink, boolean forProfileActivation)
+    void setVolumes(Profile profile, AudioManager audioManager, int linkUnlink, boolean forProfileActivation)
     {
         if (profile.getVolumeRingtoneChange()) {
             if (forProfileActivation)
@@ -664,7 +664,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    public void setTones(Profile profile) {
+    void setTones(Profile profile) {
         if (Permissions.checkProfileRingtones(context, profile)) {
             if (profile._soundRingtoneChange == 1) {
                 if (!profile._soundRingtone.isEmpty()) {
@@ -721,7 +721,7 @@ public class ActivateProfileHelper {
     }
 
     @SuppressWarnings("deprecation")
-    public void setRingerMode(Profile profile, AudioManager audioManager, boolean firstCall, int linkUnlink, boolean forProfileActivation)
+    void setRingerMode(Profile profile, AudioManager audioManager, boolean firstCall, /*int linkUnlink,*/ boolean forProfileActivation)
     {
         //GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "andioM.ringerMode=" + audioManager.getRingerMode());
 
@@ -850,7 +850,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    public void executeForWallpaper(Profile profile) {
+    void executeForWallpaper(Profile profile) {
         if (profile._deviceWallpaperChange == 1)
         {
             DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -924,7 +924,7 @@ public class ActivateProfileHelper {
         return false;
     }*/
 
-    public void executeForRunApplications(Profile profile) {
+    void executeForRunApplications(Profile profile) {
         if (profile._deviceRunApplicationChange == 1)
         {
             String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
@@ -969,7 +969,7 @@ public class ActivateProfileHelper {
                             try {
                                 intent = Intent.parseUri(shortcut._intent, 0);
                                 if (intent != null) {
-                                    String packageName = intent.getPackage();
+                                    //String packageName = intent.getPackage();
                                     //if (!isRunning(procInfos, packageName)) {
                                     //    GlobalData.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": not running");
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1141,7 +1141,7 @@ public class ActivateProfileHelper {
             isScreenOn = pm.isScreenOn();
             //}
             GlobalData.logE("$$$ ActivateProfileHelper.execute","isScreenOn="+isScreenOn);
-            boolean keyguardShowing = false;
+            boolean keyguardShowing;
             KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
             if (android.os.Build.VERSION.SDK_INT >= 16)
                 keyguardShowing = kgMgr.isKeyguardLocked();
@@ -1389,7 +1389,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    public static void screenTimeoutUnlock(Context context)
+    static void screenTimeoutUnlock(Context context)
     {
         if (GUIData.keepScreenOnView != null)
         {
@@ -1449,7 +1449,7 @@ public class ActivateProfileHelper {
         //}
     }
 
-    public static void removeBrightnessView(Context context) {
+    static void removeBrightnessView(Context context) {
         if (GUIData.brightneesView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
@@ -1660,7 +1660,7 @@ public class ActivateProfileHelper {
         }
     }
 
-    public void removeNotification()
+    void removeNotification()
     {
         removeAlarmForRecreateNotification();
         if (PhoneProfilesService.instance != null)
@@ -1698,7 +1698,7 @@ public class ActivateProfileHelper {
 
     }
 
-    public void setAlarmForRecreateNotification()
+    void setAlarmForRecreateNotification()
     {
         Intent intent = new Intent(context, RecreateNotificationBroadcastReceiver.class);
 
@@ -1726,7 +1726,7 @@ public class ActivateProfileHelper {
 
     }
 
-    public void updateWidget()
+    void updateWidget()
     {
         if (lockRefresh)
             // no refres widgets
@@ -1776,7 +1776,7 @@ public class ActivateProfileHelper {
     private void setAirplaneMode(Context context, boolean mode)
     {
         if (android.os.Build.VERSION.SDK_INT >= 17)
-            setAirplaneMode_SDK17(context, mode);
+            setAirplaneMode_SDK17(/*context, */mode);
         else
             setAirplaneMode_SDK8(context, mode);
     }
@@ -2037,7 +2037,7 @@ public class ActivateProfileHelper {
                     setMobileDataEnabledMethod.setAccessible(true);
                     setMobileDataEnabledMethod.invoke(connectivityManager, enable);
 
-                    OK = true;
+                    //OK = true;
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -2372,7 +2372,7 @@ public class ActivateProfileHelper {
         }	    	
     }
 
-    private void setAirplaneMode_SDK17(Context context, boolean mode)
+    private void setAirplaneMode_SDK17(/*Context context, */boolean mode)
     {
         if (GlobalData.isRooted()/*GlobalData.isRootGranted()*/)
         {

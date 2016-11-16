@@ -5,8 +5,8 @@ import android.widget.TextView;
 
 class ContactGroupViewHolder {
 
-    public TextView textViewDisplayName;
-    public CheckBox checkBox;
+    TextView textViewDisplayName;
+    CheckBox checkBox;
 
     //ContactGroupViewHolder() {
     //}

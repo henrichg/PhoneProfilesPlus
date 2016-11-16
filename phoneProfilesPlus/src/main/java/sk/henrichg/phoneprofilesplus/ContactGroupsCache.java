@@ -15,11 +15,11 @@ class ContactGroupsCache {
 
     ContactGroupsCache()
     {
-        contactGroupList = new ArrayList<ContactGroup>();
+        contactGroupList = new ArrayList<>();
         cached = false;
     }
 
-    public void getContactGroupList(Context context)
+    void getContactGroupList(Context context)
     {
         if (cached) return;
 
@@ -83,7 +83,7 @@ class ContactGroupsCache {
             return null;
     }
 
-    public ContactGroup getContactGroup(int position)
+    ContactGroup getContactGroup(int position)
     {
         if (cached)
             return contactGroupList.get(position);
@@ -109,7 +109,7 @@ class ContactGroupsCache {
     }
     */
 
-    public void clearCache(boolean nullList)
+    void clearCache(boolean nullList)
     {
         contactGroupList.clear();
         if (nullList)
@@ -117,12 +117,12 @@ class ContactGroupsCache {
         cached = false;
     }
 
-    public boolean isCached()
+    boolean isCached()
     {
         return cached;
     }
 
-    public void cancelCaching()
+    void cancelCaching()
     {
         cancelled = true;
     }

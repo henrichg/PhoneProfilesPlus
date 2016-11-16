@@ -36,7 +36,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
     String value = "";
 
-    public List<Application> applicationsList = null;
+    List<Application> applicationsList = null;
 
     private MaterialDialog mDialog;
 
@@ -55,7 +55,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
     private DataWrapper dataWrapper;
 
-    public static final int RESULT_APPLICATIONS_EDITOR = 2100;
+    static final int RESULT_APPLICATIONS_EDITOR = 2100;
 
     public ApplicationsDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -530,7 +530,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         listAdapter.notifyDataSetChanged();
     }
 
-    public void updateApplication(Application application, int position, int positionInCache) {
+    void updateApplication(Application application, int position, int positionInCache) {
         List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
         if (cachedApplicationList != null) {
             int _position = position;
@@ -564,7 +564,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         }
     }
 
-    public void updateShortcut(Intent shortcutIntent, String shortcutName,
+    void updateShortcut(Intent shortcutIntent, String shortcutName,
                                Bitmap shortcutIcon, int position) {
         /* Storing Intent to SQLite ;-)
         You can simply store the intent in a String way:

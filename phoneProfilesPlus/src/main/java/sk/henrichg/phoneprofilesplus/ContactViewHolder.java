@@ -6,10 +6,10 @@ import android.widget.TextView;
 
 class ContactViewHolder {
 
-    public ImageView imageViewPhoto;
-    public TextView textViewDisplayName;
-    public TextView textViewPhoneNumber;
-    public CheckBox checkBox;
+    ImageView imageViewPhoto;
+    TextView textViewDisplayName;
+    TextView textViewPhoneNumber;
+    CheckBox checkBox;
 
     //ContactViewHolder() {
     //}

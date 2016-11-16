@@ -61,7 +61,7 @@ public class DataWrapper {
         databaseHandler = getDatabaseHandler();
     }
 
-    public void setParameters(
+    void setParameters(
             boolean fgui,
             boolean mono,
             int monoVal)
@@ -71,7 +71,7 @@ public class DataWrapper {
         monochromeValue = monoVal;
     }
 
-    public void setToastHandler(Handler handler)
+    void setToastHandler(Handler handler)
     {
         toastHandler = handler;
     }
@@ -113,7 +113,7 @@ public class DataWrapper {
         return profileList;
     }
 
-    public void setProfileList(List<Profile> profileList, boolean recycleBitmaps)
+    void setProfileList(List<Profile> profileList, boolean recycleBitmaps)
     {
         if (recycleBitmaps)
             invalidateProfileList();
@@ -123,7 +123,7 @@ public class DataWrapper {
         this.profileList = profileList;
     }
 
-    public static Profile getNoinitializedProfile(String name, String icon, int order)
+    static Profile getNoinitializedProfile(String name, String icon, int order)
     {
         return new Profile(
                   name,
@@ -182,7 +182,7 @@ public class DataWrapper {
         return String.valueOf(dValue.intValue());
     }
 
-    public Profile getPredefinedProfile(int index, boolean saveToDB) {
+    Profile getPredefinedProfile(int index, boolean saveToDB) {
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
         int	maximumValueRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
         int	maximumValueNotification = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
@@ -335,7 +335,7 @@ public class DataWrapper {
         return profile;
     }
 
-    public List<Profile>  getPredefinedProfileList()
+    List<Profile>  getPredefinedProfileList()
     {
         invalidateProfileList();
         getDatabaseHandler().deleteAllProfiles();
@@ -346,7 +346,7 @@ public class DataWrapper {
         return getProfileList();
     }
 
-    public void invalidateProfileList()
+    void invalidateProfileList()
     {
         if (profileList != null)
         {
@@ -360,7 +360,7 @@ public class DataWrapper {
         profileList = null;
     }
 
-    public Profile getActivatedProfileFromDB()
+    Profile getActivatedProfileFromDB()
     {
         Profile profile = getDatabaseHandler().getActivatedProfile();
         if (forGUI && (profile != null))
@@ -434,7 +434,7 @@ public class DataWrapper {
         }
     }
 */	
-    public void setProfileActive(Profile profile)
+    void setProfileActive(Profile profile)
     {
         if (profileList == null)
             return;
@@ -448,7 +448,7 @@ public class DataWrapper {
             profile._checked = true;
     }
 
-    public void activateProfileFromEvent(long profile_id, boolean interactive, boolean manual,
+    void activateProfileFromEvent(long profile_id, boolean interactive, boolean manual,
                                          boolean merged, boolean log)
     {
         int startupSource = GlobalData.STARTUP_SOURCE_SERVICE;
@@ -463,13 +463,14 @@ public class DataWrapper {
         }
     }
 
-    public void updateNotificationAndWidgets(Profile profile)
+    void updateNotificationAndWidgets(Profile profile)
     {
         getActivateProfileHelper().initialize(this, null, context);
         getActivateProfileHelper().showNotification(profile);
         getActivateProfileHelper().updateWidget();
     }
 
+    /*
     public void deactivateProfile()
     {
         if (profileList == null)
@@ -480,6 +481,7 @@ public class DataWrapper {
             p._checked = false;
         }
     }
+    */
 
     private Profile getProfileByIdFromDB(long id, boolean merged)
     {
@@ -513,7 +515,7 @@ public class DataWrapper {
         }
     }
 
-    public void updateProfile(Profile profile)
+    void updateProfile(Profile profile)
     {
         if (profile != null)
         {
@@ -523,13 +525,15 @@ public class DataWrapper {
         }
     }
 
+    /*
     public void reloadProfilesData()
     {
         invalidateProfileList();
         getProfileList();
     }
+    */
 
-    public void deleteProfile(Profile profile)
+    void deleteProfile(Profile profile)
     {
         if (profile == null)
             return;
@@ -555,7 +559,7 @@ public class DataWrapper {
         }
     }
 
-    public void deleteAllProfiles()
+    void deleteAllProfiles()
     {
         profileList.clear();
         if (eventList == null)
@@ -573,7 +577,7 @@ public class DataWrapper {
         editor.commit();
     }
 
-    public void refreshProfileIcon(Profile profile, boolean monochrome, int monochromeValue) {
+    void refreshProfileIcon(Profile profile, boolean monochrome, int monochromeValue) {
         if (profile != null) {
             boolean isIconResourceID = profile.getIsIconResourceID();
             String iconIdentifier = profile.getIconIdentifier();
@@ -587,7 +591,7 @@ public class DataWrapper {
 
 //---------------------------------------------------
 
-    public List<Event> getEventList()
+    List<Event> getEventList()
     {
         if (eventList == null)
         {
@@ -597,14 +601,14 @@ public class DataWrapper {
         return eventList;
     }
 
-    public void setEventList(List<Event> eventList)
+    void setEventList(List<Event> eventList)
     {
         if (this.eventList != null)
             this.eventList.clear();
         this.eventList = eventList;
     }
 
-    public void invalidateEventList()
+    void invalidateEventList()
     {
         if (eventList != null)
             eventList.clear();
@@ -612,7 +616,7 @@ public class DataWrapper {
     }
 
 /*	
-    public Event getFirstEvent(int filterType)
+    Event getFirstEvent(int filterType)
     {
         if (eventList == null)
         {
@@ -632,7 +636,7 @@ public class DataWrapper {
     }
 */	
 /*
-    public int getEventItemPosition(Event event)
+    int getEventItemPosition(Event event)
     {
         if (event == null)
             return - 1;
@@ -650,7 +654,7 @@ public class DataWrapper {
         }
     }
 */	
-    public void sortEventsByStartOrderAsc()
+    void sortEventsByStartOrderAsc()
     {
         class PriorityComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
@@ -668,7 +672,7 @@ public class DataWrapper {
         }
     }
 
-    public void sortEventsByStartOrderDesc()
+    void sortEventsByStartOrderDesc()
     {
         class PriorityComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
@@ -686,12 +690,11 @@ public class DataWrapper {
         }
     }
 
-    public Event getEventById(long id)
+    Event getEventById(long id)
     {
         if (eventList == null)
         {
-            Event event = getDatabaseHandler().getEvent(id);
-            return event;
+            return getDatabaseHandler().getEvent(id);
         }
         else
         {
@@ -708,7 +711,7 @@ public class DataWrapper {
         }
     }
 
-    public void updateEvent(Event event)
+    void updateEvent(Event event)
     {
         if (event != null)
         {
@@ -717,14 +720,16 @@ public class DataWrapper {
         }
     }
 
+    /*
     public void reloadEventsData()
     {
         invalidateEventList();
         getEventList();
     }
+    */
 
     // stops all events associated with profile
-    public void stopEventsForProfile(Profile profile, boolean saveEventStatus)
+    void stopEventsForProfile(Profile profile, boolean saveEventStatus)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -740,7 +745,7 @@ public class DataWrapper {
     }
 
     // pauses all events
-    public void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
+    void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -776,7 +781,7 @@ public class DataWrapper {
     }
 
     // stops all events
-    public void stopAllEvents(boolean saveEventStatus, boolean activateRetirnProfile)
+    void stopAllEvents(boolean saveEventStatus, boolean activateRetirnProfile)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -797,7 +802,7 @@ public class DataWrapper {
         }
     }
 
-    public void unlinkEventsFromProfile(Profile profile)
+    void unlinkEventsFromProfile(Profile profile)
     {
         for (Event event : getEventList())
         {
@@ -808,7 +813,7 @@ public class DataWrapper {
         }
     }
 
-    public void unlinkAllEvents()
+    void unlinkAllEvents()
     {
         for (Event event : getEventList())
         {
@@ -817,13 +822,13 @@ public class DataWrapper {
         }
     }
 
-    public void activateProfileOnBoot()
+    void activateProfileOnBoot()
     {
 
         if (GlobalData.applicationActivate)
         {
             Profile profile = getDatabaseHandler().getActivatedProfile();
-            long profileId = 0;
+            long profileId;
             if (profile != null)
                 profileId = profile._id;
             else
@@ -839,7 +844,7 @@ public class DataWrapper {
     }
 
     // this is called in boot or first start application
-    public void firstStartEvents(boolean startedFromService)
+    void firstStartEvents(boolean startedFromService)
     {
         if (startedFromService)
             invalidateEventList();  // force load form db
@@ -887,7 +892,7 @@ public class DataWrapper {
         }
     }
 
-    public Event getNoinitializedEvent(String name, int startOrder)
+    Event getNoinitializedEvent(String name, int startOrder)
     {
         return new Event(name,
                 startOrder,
@@ -929,7 +934,7 @@ public class DataWrapper {
         }
     }
 
-    public Event getPredefinedEvent(int index, boolean saveToDB) {
+    Event getPredefinedEvent(int index, boolean saveToDB) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
 
@@ -1094,7 +1099,7 @@ public class DataWrapper {
         return event;
     }
 
-    public void generatePredefinedEventList()
+    void generatePredefinedEventList()
     {
         invalidateEventList();
         getDatabaseHandler().deleteAllEvents();
@@ -1106,7 +1111,7 @@ public class DataWrapper {
 
 //---------------------------------------------------
 
-    public List<EventTimeline> getEventTimelineList()
+    List<EventTimeline> getEventTimelineList()
     {
         return getDatabaseHandler().getAllEventTimelines();
     }
@@ -1123,7 +1128,7 @@ public class DataWrapper {
 
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
-    public void _activateProfile(Profile _profile, boolean merged, int startupSource,
+    void _activateProfile(Profile _profile, boolean merged, int startupSource,
                                     boolean _interactive, Activity _activity, boolean log)
     {
         // remove last configured profile duration alarm
@@ -1140,8 +1145,8 @@ public class DataWrapper {
 
         GlobalData.logE("$$$ DataWrapper._activateProfile","startupSource="+startupSource);
 
-        boolean interactive = _interactive;
-        final Activity activity = _activity;
+        //boolean interactive = _interactive;
+        //final Activity activity = _activity;
 
         // get currently activated profile
         Profile activatedProfile = getActivatedProfile();
@@ -1175,7 +1180,7 @@ public class DataWrapper {
                     (profile._duration > 0))
                 profileDuration = profile._duration;
 
-            activateProfileHelper.execute(profile, merged, interactive);
+            activateProfileHelper.execute(profile, merged, _interactive);
 
             if ((startupSource != GlobalData.STARTUP_SOURCE_SERVICE) &&
                 (startupSource != GlobalData.STARTUP_SOURCE_BOOT) &&
@@ -1232,15 +1237,18 @@ public class DataWrapper {
         }
 
         // for startActivityForResult
-        if (activity != null)
+        if (_activity != null)
         {
             Intent returnIntent = new Intent();
-            returnIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+            if (profile == null)
+                returnIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, 0);
+            else
+                returnIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
             returnIntent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
-            activity.setResult(Activity.RESULT_OK,returnIntent);
+            _activity.setResult(Activity.RESULT_OK,returnIntent);
         }
 
-        finishActivity(startupSource, true, activity);
+        finishActivity(startupSource, true, _activity);
     }
 
     private void showToastAfterActivation(Profile profile)
@@ -1287,7 +1295,7 @@ public class DataWrapper {
             GUIData.setLanguage(activity.getBaseContext());
 
             final Profile _profile = profile;
-            final boolean _interactive = interactive;
+            //final boolean _interactive = interactive;
             final int _startupSource = startupSource;
             final Activity _activity = activity;
             final DataWrapper _dataWrapper = this;
@@ -1303,14 +1311,14 @@ public class DataWrapper {
                 public void onClick(DialogInterface dialog, int which) {
                     if (Permissions.grantProfilePermissions(context, _profile, false, false,
                             forGUI, monochrome, monochromeValue,
-                            _startupSource, _interactive, _activity, true, true)) {
+                            _startupSource, interactive, _activity, true, true)) {
                         if (_profile._askForDuration) {
                             FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
-                                    _interactive, true);
+                                    interactive, true);
                             dlg.show();
                         }
                         else
-                            _activateProfile(_profile, false, _startupSource, _interactive, _activity, true);
+                            _activateProfile(_profile, false, _startupSource, interactive, _activity, true);
                     }
                     else {
                         Intent returnIntent = new Intent();
@@ -1370,12 +1378,12 @@ public class DataWrapper {
         }
     }
 
-    public void finishActivity(int startupSource, boolean afterActivation, Activity _activity)
+    void finishActivity(int startupSource, boolean afterActivation, Activity _activity)
     {
         if (_activity == null)
             return;
 
-        final Activity activity = _activity;
+        //final Activity activity = _activity;
 
         boolean finish = true;
 
@@ -1400,8 +1408,8 @@ public class DataWrapper {
 
         if (finish)
         {
-            if (activity != null)
-                activity.finish();
+            //if (_activity != null)
+                _activity.finish();
         }
     }
 
@@ -1529,7 +1537,7 @@ public class DataWrapper {
 
     @SuppressWarnings("deprecation")
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
-    public void doEventService(Event event, boolean statePause,
+    void doEventService(Event event, boolean statePause,
                                     boolean restartEvent, boolean interactive,
                                     boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                     boolean reactivate, Profile mergedProfile,
@@ -1538,7 +1546,7 @@ public class DataWrapper {
         if (!Permissions.grantEventPermissions(context, event, true))
             return;
 
-        int newEventStatus = Event.ESTATUS_NONE;
+        int newEventStatus;// = Event.ESTATUS_NONE;
 
         boolean ignoreChange = false;
 
@@ -2461,6 +2469,7 @@ public class DataWrapper {
                                                 break;
                                             }
                                         } catch (Exception e) {
+                                            e.printStackTrace();
                                         }
                                     }
                                 }
@@ -2488,6 +2497,7 @@ public class DataWrapper {
                                                 }
                                             }
                                         } catch (Exception e) {
+                                            e.printStackTrace();
                                         }
                                     }
                                 }
@@ -2760,7 +2770,7 @@ public class DataWrapper {
 
     }
 
-    public void restartEventsWithRescan(boolean showToast, boolean interactive)
+    void restartEventsWithRescan(boolean showToast, boolean interactive)
     {
         GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithRescan");
 
@@ -2813,7 +2823,7 @@ public class DataWrapper {
         }
     }
 
-    public void restartEventsWithAlert(Activity activity)
+    void restartEventsWithAlert(Activity activity)
     {
         if (!GlobalData.getGlobalEventsRuning(context))
             // events are globally stopped
@@ -2857,7 +2867,7 @@ public class DataWrapper {
     }
 
     @SuppressLint("NewApi")
-    public void restartEventsWithDelay(int delay, boolean unblockEventsRun, boolean interactive)
+    void restartEventsWithDelay(int delay, boolean unblockEventsRun, boolean interactive)
     {
         GlobalData.logE("$$$ restartEvents","in DataWrapper.restartEventsWithDelay");
 
@@ -2885,7 +2895,7 @@ public class DataWrapper {
             alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
     }
 
-    public void setEventBlocked(Event event, boolean blocked)
+    void setEventBlocked(Event event, boolean blocked)
     {
         event._blocked = blocked;
         getDatabaseHandler().updateEventBlocked(event);
@@ -2894,7 +2904,7 @@ public class DataWrapper {
     // returns true if:
     // 1. events are blocked = any profile is activated manually
     // 2. no any forceRun event is running
-    public boolean getIsManualProfileActivation()
+    boolean getIsManualProfileActivation()
     {
         if (!GlobalData.getEventsBlocked(context))
             return false;
@@ -3003,7 +3013,7 @@ public class DataWrapper {
             return "";
     }
 
-    public void resetAllEventsInDelayStart(boolean onlyFromDb)
+    void resetAllEventsInDelayStart(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
             for (Event event : getEventList()) {
@@ -3014,7 +3024,7 @@ public class DataWrapper {
         getDatabaseHandler().resetAllEventsInDelayStart();
     }
 
-    public void resetAllEventsInDelayEnd(boolean onlyFromDb)
+    void resetAllEventsInDelayEnd(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
             for (Event event : getEventList()) {

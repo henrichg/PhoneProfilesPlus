@@ -1,10 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 class CalendarEvent {
-    public long calendarId = 0;
-    public String name = "";
-    public int color = 0;
-    public boolean checked = false;
+    long calendarId = 0;
+    String name = "";
+    int color = 0;
+    boolean checked = false;
 
     CalendarEvent() {
     }
@@ -13,7 +13,7 @@ class CalendarEvent {
         return name;
     }
 
-    public void toggleChecked() {
+    void toggleChecked() {
         checked = !checked;
     }
 }

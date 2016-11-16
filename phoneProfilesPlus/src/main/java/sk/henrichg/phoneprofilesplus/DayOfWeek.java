@@ -1,18 +1,18 @@
 package sk.henrichg.phoneprofilesplus;
 
-public class DayOfWeek {
+class DayOfWeek {
     public String name = "";
     public String value = "";
     public boolean checked = false;
 
-    public DayOfWeek() {
+    DayOfWeek() {
     }
 
     public String toString() {
         return name;
     }
 
-    public void toggleChecked() {
+    void toggleChecked() {
         checked = !checked;
     }
 }

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -48,47 +49,47 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
 
     // event type
-    public static final int ETYPE_TIME = 1;
-    public static final int ETYPE_BATTERY = 2;
-    public static final int ETYPE_CALL = 3;
-    public static final int ETYPE_PERIPHERAL = 4;
-    public static final int ETYPE_CALENDAR = 5;
-    public static final int ETYPE_WIFICONNECTED = 6;
-    public static final int ETYPE_WIFIINFRONT = 7;
-    public static final int ETYPE_SCREEN = 8;
-    public static final int ETYPE_BLUETOOTHCONNECTED = 9;
-    public static final int ETYPE_BLUETOOTHINFRONT = 10;
-    public static final int ETYPE_SMS = 11;
-    public static final int ETYPE_NOTIFICATION = 12;
-    public static final int ETYPE_APPLICATION = 13;
-    public static final int ETYPE_LOCATION = 14;
-    public static final int ETYPE_ORIENTATION = 15;
-    public static final int ETYPE_MOBILE_CELLS = 16;
-    public static final int ETYPE_NFC = 17;
+    static final int ETYPE_TIME = 1;
+    static final int ETYPE_BATTERY = 2;
+    static final int ETYPE_CALL = 3;
+    static final int ETYPE_PERIPHERAL = 4;
+    static final int ETYPE_CALENDAR = 5;
+    static final int ETYPE_WIFICONNECTED = 6;
+    static final int ETYPE_WIFIINFRONT = 7;
+    static final int ETYPE_SCREEN = 8;
+    static final int ETYPE_BLUETOOTHCONNECTED = 9;
+    static final int ETYPE_BLUETOOTHINFRONT = 10;
+    static final int ETYPE_SMS = 11;
+    static final int ETYPE_NOTIFICATION = 12;
+    static final int ETYPE_APPLICATION = 13;
+    static final int ETYPE_LOCATION = 14;
+    static final int ETYPE_ORIENTATION = 15;
+    static final int ETYPE_MOBILE_CELLS = 16;
+    static final int ETYPE_NFC = 17;
 
     // activity log types
-    public static final int ALTYPE_PROFILEACTIVATION = 1;
-    public static final int ALTYPE_AFTERDURATION_UNDOPROFILE = 21;
-    public static final int ALTYPE_AFTERDURATION_BACKGROUNDPROFILE = 22;
-    public static final int ALTYPE_AFTERDURATION_RESTARTEVENTS = 23;
-    public static final int ALTYPE_EVENTSTART = 3;
-    public static final int ALTYPE_EVENTSTARTDELAY = 4;
-    public static final int ALTYPE_EVENTEND_NONE = 51;
-    public static final int ALTYPE_EVENTEND_ACTIVATEPROFILE = 52;
-    public static final int ALTYPE_EVENTEND_UNDOPROFILE = 53;
-    public static final int ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE = 54;
-    public static final int ALTYPE_EVENTEND_RESTARTEVENTS = 55;
-    public static final int ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS = 56;
-    public static final int ALTYPE_RESTARTEVENTS = 6;
-    public static final int ALTYPE_RUNEVENTS_DISABLE = 7;
-    public static final int ALTYPE_RUNEVENTS_ENABLE = 8;
-    public static final int ALTYPE_APPLICATIONSTART = 9;
-    public static final int ALTYPE_APPLICATIONEXIT = 10;
-    public static final int ALTYPE_DATAIMPORT = 11;
-    public static final int ALTYPE_PAUSEDLOGGING = 12;
-    public static final int ALTYPE_STARTEDLOGGING = 13;
-    public static final int ALTYPE_EVENTENDDELAY = 14;
-    public static final int ALTYPE_EVENTSTOP = 15;
+    static final int ALTYPE_PROFILEACTIVATION = 1;
+    static final int ALTYPE_AFTERDURATION_UNDOPROFILE = 21;
+    static final int ALTYPE_AFTERDURATION_BACKGROUNDPROFILE = 22;
+    static final int ALTYPE_AFTERDURATION_RESTARTEVENTS = 23;
+    static final int ALTYPE_EVENTSTART = 3;
+    static final int ALTYPE_EVENTSTARTDELAY = 4;
+    static final int ALTYPE_EVENTEND_NONE = 51;
+    static final int ALTYPE_EVENTEND_ACTIVATEPROFILE = 52;
+    static final int ALTYPE_EVENTEND_UNDOPROFILE = 53;
+    static final int ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE = 54;
+    static final int ALTYPE_EVENTEND_RESTARTEVENTS = 55;
+    static final int ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS = 56;
+    static final int ALTYPE_RESTARTEVENTS = 6;
+    static final int ALTYPE_RUNEVENTS_DISABLE = 7;
+    static final int ALTYPE_RUNEVENTS_ENABLE = 8;
+    static final int ALTYPE_APPLICATIONSTART = 9;
+    static final int ALTYPE_APPLICATIONEXIT = 10;
+    static final int ALTYPE_DATAIMPORT = 11;
+    static final int ALTYPE_PAUSEDLOGGING = 12;
+    static final int ALTYPE_STARTEDLOGGING = 13;
+    static final int ALTYPE_EVENTENDDELAY = 14;
+    static final int ALTYPE_EVENTSTOP = 15;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -243,37 +244,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ET_FK_PROFILE_RETURN = "fkProfileReturn";
 
     // ActivityLog Columns names
-    public static final String KEY_AL_ID = "_id";  // for CursorAdapter must by this name
-    public static final String KEY_AL_LOG_TYPE = "logType";
-    public static final String KEY_AL_LOG_DATE_TIME = "logDateTime";
-    public static final String KEY_AL_EVENT_NAME = "eventName";
-    public static final String KEY_AL_PROFILE_NAME = "profileName";
-    public static final String KEY_AL_PROFILE_ICON = "profileIcon";
-    public static final String KEY_AL_DURATION_DELAY = "durationDelay";
+    private static final String KEY_AL_ID = "_id";  // for CursorAdapter must by this name
+    static final String KEY_AL_LOG_TYPE = "logType";
+    static final String KEY_AL_LOG_DATE_TIME = "logDateTime";
+    static final String KEY_AL_EVENT_NAME = "eventName";
+    static final String KEY_AL_PROFILE_NAME = "profileName";
+    private static final String KEY_AL_PROFILE_ICON = "profileIcon";
+    private static final String KEY_AL_DURATION_DELAY = "durationDelay";
 
     // Geofences Columns names
-    public static final String KEY_G_ID = "_id";
-    public static final String KEY_G_LATITUDE = "latitude";
-    public static final String KEY_G_LONGITUDE = "longitude";
-    public static final String KEY_G_RADIUS = "radius";
-    public static final String KEY_G_NAME = "name";
-    public static final String KEY_G_CHECKED = "checked";
-    public static final String KEY_G_TRANSITION = "transition";
+    static final String KEY_G_ID = "_id";
+    private static final String KEY_G_LATITUDE = "latitude";
+    private static final String KEY_G_LONGITUDE = "longitude";
+    private static final String KEY_G_RADIUS = "radius";
+    static final String KEY_G_NAME = "name";
+    static final String KEY_G_CHECKED = "checked";
+    private static final String KEY_G_TRANSITION = "transition";
 
     // Shortcuts Colums names
-    public static final String KEY_S_ID = "_id";
-    public static final String KEY_S_INTENT = "intent";
-    public static final String KEY_S_NAME = "name";
+    private static final String KEY_S_ID = "_id";
+    private static final String KEY_S_INTENT = "intent";
+    private static final String KEY_S_NAME = "name";
 
     // Mobile cells Colums names
-    public static final String KEY_MC_ID = "_id";
-    public static final String KEY_MC_CELL_ID = "cellId";
-    public static final String KEY_MC_NAME = "name";
-    public static final String KEY_MC_NEW = "new";
+    private static final String KEY_MC_ID = "_id";
+    private static final String KEY_MC_CELL_ID = "cellId";
+    private static final String KEY_MC_NAME = "name";
+    private static final String KEY_MC_NEW = "new";
 
     // NFC tags Colums names
-    public static final String KEY_NT_ID = "_id";
-    public static final String KEY_NT_NAME = "name";
+    private static final String KEY_NT_ID = "_id";
+    private static final String KEY_NT_NAME = "name";
 
     /**
      * Constructor takes and keeps a reference of the passed context in order to
@@ -306,7 +307,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      *
      * @return a writable instance to SQLiteDatabase
      */
-    public SQLiteDatabase getMyWritableDatabase() {
+    private SQLiteDatabase getMyWritableDatabase() {
         if ((writableDb == null) || (!writableDb.isOpen())) {
             writableDb = this.getWritableDatabase();
         }
@@ -326,7 +327,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // be sure to call this method by: DatabaseHandler.getInstance().closeConnecion() 
     // when application is closed by somemeans most likely
     // onDestroy method of application
-    public synchronized void closeConnection() {
+    synchronized void closeConnection() {
         if (instance != null)
         {
             instance.close();
@@ -1795,11 +1796,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (geofenceId > 0) {
                         values.put(KEY_E_LOCATION_GEOFENCES, String.valueOf(geofenceId));
-                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(0))});
+                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(0)});
                     }
                     else {
                         values.put(KEY_E_LOCATION_GEOFENCES, "");
-                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(0))});
+                        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(0)});
                     }
 
                 } while (cursor.moveToNext());
@@ -1830,10 +1831,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             int startOrder = 0;
             if (cursor.moveToFirst()) {
                 do {
-                    long id = cursor.getLong(0);
+                    //long id = cursor.getLong(0);
                     ContentValues values = new ContentValues();
                     values.put(KEY_E_START_ORDER, ++startOrder);
-                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(0))});
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(0)});
                 } while (cursor.moveToNext());
             }
 
@@ -2041,7 +2042,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 profile = new Profile(Long.parseLong(cursor.getString(0)),
                                               cursor.getString(1),
                                               cursor.getString(2),
-                                              (Integer.parseInt(cursor.getString(3)) == 1) ? true : false,
+                                              Integer.parseInt(cursor.getString(3)) == 1,
                                               Integer.parseInt(cursor.getString(4)),
                                               Integer.parseInt(cursor.getString(5)),
                                               cursor.getString(6),
@@ -2069,7 +2070,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(28)),
                                               cursor.getString(29),
                                               Integer.parseInt(cursor.getString(30)),
-                                              cursor.isNull(31) ? true : ((Integer.parseInt(cursor.getString(31)) == 1) ? true : false),
+                                              cursor.isNull(31) || (Integer.parseInt(cursor.getString(31)) == 1),
                                               Integer.parseInt(cursor.getString(32)),
                                               Integer.parseInt(cursor.getString(33)),
                                               Integer.parseInt(cursor.getString(34)),
@@ -2081,7 +2082,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(40)),
                                               Integer.parseInt(cursor.getString(41)),
                                               Integer.parseInt(cursor.getString(42)),
-                                              (Integer.parseInt(cursor.getString(44)) == 1) ? true : false,
+                                              Integer.parseInt(cursor.getString(44)) == 1,
                                               Integer.parseInt(cursor.getString(45)),
                                               Integer.parseInt(cursor.getString(46)),
                                               Integer.parseInt(cursor.getString(47)),
@@ -2099,8 +2100,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting All Profiles
-    public List<Profile> getAllProfiles() {
-        List<Profile> profileList = new ArrayList<Profile>();
+    List<Profile> getAllProfiles() {
+        List<Profile> profileList = new ArrayList<>();
 
         // Select All Query
         final String selectQuery = "SELECT " + KEY_ID + "," +
@@ -2166,7 +2167,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 profile._id = Long.parseLong(cursor.getString(0));
                 profile._name = cursor.getString(1);
                 profile._icon = (cursor.getString(2));
-                profile._checked = ((Integer.parseInt(cursor.getString(3)) == 1) ? true : false);
+                profile._checked = Integer.parseInt(cursor.getString(3)) == 1;
                 profile._porder = (Integer.parseInt(cursor.getString(4)));
                 profile._volumeRingerMode = Integer.parseInt(cursor.getString(5));
                 profile._volumeRingtone = cursor.getString(6);
@@ -2194,7 +2195,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 profile._deviceRunApplicationChange = Integer.parseInt(cursor.getString(28));
                 profile._deviceRunApplicationPackageName = cursor.getString(29);
                 profile._deviceAutosync = Integer.parseInt(cursor.getString(30));
-                profile._showInActivator = cursor.isNull(31) ? true : ((Integer.parseInt(cursor.getString(31)) == 1) ? true : false);
+                profile._showInActivator = cursor.isNull(31) || (Integer.parseInt(cursor.getString(31)) == 1);
                 profile._deviceAutoRotate = Integer.parseInt(cursor.getString(32));
                 profile._deviceLocationServicePrefs = Integer.parseInt(cursor.getString(33));
                 profile._volumeSpeakerPhone = Integer.parseInt(cursor.getString(34));
@@ -2206,7 +2207,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 profile._vibrationOnTouch = Integer.parseInt(cursor.getString(40));
                 profile._deviceWiFiAP = Integer.parseInt(cursor.getString(41));
                 profile._devicePowerSaveMode = Integer.parseInt(cursor.getString(42));
-                profile._askForDuration = ((Integer.parseInt(cursor.getString(44)) == 1) ? true : false);
+                profile._askForDuration = Integer.parseInt(cursor.getString(44)) == 1;
                 profile._deviceNetworkType = Integer.parseInt(cursor.getString(45));
                 profile._notificationLed = Integer.parseInt(cursor.getString(46));
                 profile._vibrateWhenRinging = Integer.parseInt(cursor.getString(47));
@@ -2224,7 +2225,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single profile
-    public int updateProfile(Profile profile) {
+    int updateProfile(Profile profile) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -2279,15 +2280,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
 
         // updating row
-        int r = db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+        return db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                         new String[] { String.valueOf(profile._id) });
         //db.close();
         
-        return r;
+        //return r;
     }
 
     // Deleting single profile
-    public void deleteProfile(Profile profile) {
+    void deleteProfile(Profile profile) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -2335,7 +2336,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting all profiles
-    public void deleteAllProfiles() {
+    void deleteAllProfiles() {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -2364,7 +2365,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting profiles Count
-    public int getProfilesCount(boolean forActivator) {
+    int getProfilesCount(boolean forActivator) {
         final String countQuery;
         if (forActivator)
           countQuery = "SELECT  count(*) FROM " + TABLE_PROFILES + " WHERE " + KEY_SHOW_IN_ACTIVATOR + "=1";
@@ -2382,11 +2383,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             cursor.moveToFirst();
             r = Integer.parseInt(cursor.getString(0));
+            cursor.close();
         }
         else
             r = 0;
 
-        cursor.close();
         //db.close();
 
         if (forActivator && (!GlobalData.applicationActivatorHeader))
@@ -2402,7 +2403,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting max(porder)
-    public int getMaxProfileOrder() {
+    private int getMaxProfileOrder() {
         String countQuery = "SELECT MAX("+KEY_PORDER+") FROM " + TABLE_PROFILES;
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2434,7 +2435,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void doActivateProfile(Profile profile, boolean activate)
+    private void doActivateProfile(Profile profile, boolean activate)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2469,17 +2470,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
          //db.close();
     }
 
-    public void activateProfile(Profile profile)
+    void activateProfile(Profile profile)
     {
         doActivateProfile(profile, true);
     }
 
-    public void deactivateProfile()
+    void deactivateProfile()
     {
         doActivateProfile(null, false);
     }
 
-    public Profile getActivatedProfile()
+    Profile getActivatedProfile()
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2551,7 +2552,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 profile = new Profile(Long.parseLong(cursor.getString(0)),
                                               cursor.getString(1),
                                               cursor.getString(2),
-                                              (Integer.parseInt(cursor.getString(3)) == 1) ? true : false,
+                                              Integer.parseInt(cursor.getString(3)) == 1,
                                               Integer.parseInt(cursor.getString(4)),
                                               Integer.parseInt(cursor.getString(5)),
                                               cursor.getString(6),
@@ -2579,7 +2580,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(28)),
                                               cursor.getString(29),
                                               Integer.parseInt(cursor.getString(30)),
-                                              cursor.isNull(31) ? true : ((Integer.parseInt(cursor.getString(31)) == 1) ? true : false),
+                                              cursor.isNull(31) || (Integer.parseInt(cursor.getString(31)) == 1),
                                               Integer.parseInt(cursor.getString(32)),
                                               Integer.parseInt(cursor.getString(33)),
                                               Integer.parseInt(cursor.getString(34)),
@@ -2591,7 +2592,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                               Integer.parseInt(cursor.getString(40)),
                                               Integer.parseInt(cursor.getString(41)),
                                               Integer.parseInt(cursor.getString(42)),
-                                              (Integer.parseInt(cursor.getString(44)) == 1) ? true : false,
+                                              Integer.parseInt(cursor.getString(44)) == 1,
                                               Integer.parseInt(cursor.getString(45)),
                                               Integer.parseInt(cursor.getString(46)),
                                               Integer.parseInt(cursor.getString(47)),
@@ -2613,7 +2614,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public long getProfileIdByName(String name)
+    long getProfileIdByName(String name)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2645,7 +2646,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void setProfileOrder(List<Profile> list)
+    void setProfileOrder(List<Profile> list)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2676,7 +2677,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
-    public void setChecked(List<Profile> list)
+    void setChecked(List<Profile> list)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2704,6 +2705,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
+    /*
     public int getActiveProfileSpeakerphone()
     {
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -2737,8 +2739,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return speakerPhone;
     }
+    */
 
-    public void getProfileIcon(Profile profile)
+    void getProfileIcon(Profile profile)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -2752,14 +2755,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             if (cursor.moveToFirst())
                 profile._icon = cursor.getString(0);
+            cursor.close();
         }
 
-        cursor.close();
         //db.close();
 
     }
 
-    public void saveMergedProfile(Profile profile) {
+    void saveMergedProfile(Profile profile) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -2902,8 +2905,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting All Events
-    public List<Event> getAllEvents() {
-        List<Event> eventList = new ArrayList<Event>();
+    List<Event> getAllEvents() {
+        List<Event> eventList = new ArrayList<>();
 
         // Select All Query
         final String selectQuery = "SELECT " + KEY_E_ID + "," +
@@ -2971,7 +2974,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single event
-    public int updateEvent(Event event) {
+    int updateEvent(Event event) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -3022,7 +3025,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting single event
-    public void deleteEvent(Event event) {
+    void deleteEvent(Event event) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
         db.delete(TABLE_EVENTS, KEY_E_ID + " = ?",
@@ -3031,13 +3034,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting all events
-    public void deleteAllEvents() {
+    void deleteAllEvents() {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
         db.delete(TABLE_EVENTS, null, null);
         //db.close();
     }
 
+    /*
     // Getting events Count
     public int getEventsCount() {
         final String countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS;
@@ -3052,17 +3056,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             cursor.moveToFirst();
             r = Integer.parseInt(cursor.getString(0));
+            cursor.close();
         }
         else
             r = 0;
 
-        cursor.close();
         //db.close();
 
         return r;
     }
+    */
 
-    public void unlinkEventsFromProfile(Profile profile)
+    void unlinkEventsFromProfile(Profile profile)
     {
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -3098,7 +3103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
-    public void unlinkAllEvents()
+    void unlinkAllEvents()
     {
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -3114,7 +3119,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting max(startOrder)
-    public int getMaxEventStartOrder() {
+    private int getMaxEventStartOrder() {
         String countQuery = "SELECT MAX("+KEY_E_START_ORDER+") FROM " + TABLE_EVENTS;
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -3145,7 +3150,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
-    public void setEventStartOrder(List<Event> list)
+    void setEventStartOrder(List<Event> list)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -3176,14 +3181,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
+    /*
     public void getEventPreferences(Event event) {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
         getEventPreferences(event, db);
         //db.close();
     }
+    */
 
-    public void getEventPreferences(Event event, SQLiteDatabase db) {
+    private void getEventPreferences(Event event, SQLiteDatabase db) {
         getEventPreferencesTime(event, db);
         getEventPreferencesBattery(event, db);
         getEventPreferencesCall(event, db);
@@ -3650,6 +3657,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
     public int updateEventPreferences(Event event) {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -3657,8 +3665,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
         return r;
     }
+    */
 
-    public int updateEventPreferences(Event event, SQLiteDatabase db) {
+    private int updateEventPreferences(Event event, SQLiteDatabase db) {
         int r;
 
         r = updateEventPreferencesTime(event, db);
@@ -3715,10 +3724,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //values.put(KEY_E_USE_END_TIME, (eventPreferences._useEndTime) ? 1 : 0);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
-        
-        return r;
     }
 
     private int updateEventPreferencesBattery(Event event, SQLiteDatabase db) {
@@ -3733,10 +3740,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_BATTERY_POWER_SAVE_MODE, eventPreferences._powerSaveMode ? 1 : 0);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
-        
-        return r;
     }
 
     private int updateEventPreferencesCall(Event event, SQLiteDatabase db) {
@@ -3751,10 +3756,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALL_CONTACT_GROUPS, eventPreferences._contactGroups);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
-        
-        return r;
     }
 
     private int updateEventPreferencesPeripheral(Event event, SQLiteDatabase db) {
@@ -3766,10 +3769,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_PERIPHERAL_TYPE, eventPreferences._peripheralType);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
-        
-        return r;
     }
 
     private int updateEventPreferencesCalendar(Event event, SQLiteDatabase db) {
@@ -3788,10 +3789,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, (eventPreferences._ignoreAllDayEvents) ? 1 : 0);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
-        
-        return r;
     }
 
     private int updateEventPreferencesWifi(Event event, SQLiteDatabase db) {
@@ -3804,10 +3803,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_WIFI_CONNECTION_TYPE, eventPreferences._connectionType);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
-        
-        return r;
     }
 
     private int updateEventPreferencesScreen(Event event, SQLiteDatabase db) {
@@ -3820,10 +3817,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_SCREEN_WHEN_UNLOCKED, (eventPreferences._whenUnlocked) ? 1 : 0);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
-        
-        return r;
     }
 
     private int updateEventPreferencesBluetooth(Event event, SQLiteDatabase db) {
@@ -3837,10 +3832,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_BLUETOOTH_DEVICES_TYPE, eventPreferences._devicesType);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
-        
-        return r;
     }
 
     private int updateEventPreferencesSMS(Event event, SQLiteDatabase db) {
@@ -3858,10 +3851,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_SMS_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                         new String[] { String.valueOf(event._id) });
-        
-        return r;
     }
 
     private int updateEventPreferencesNotification(Event event, SQLiteDatabase db) {
@@ -3877,10 +3868,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NOTIFICATION_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
-
-        return r;
     }
 
     private int updateEventPreferencesApplication(Event event, SQLiteDatabase db) {
@@ -3894,10 +3883,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //values.put(KEY_E_NOTIFICATION_DURATION, eventPreferences._duration);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
-
-        return r;
     }
 
     private int updateEventPreferencesLocation(Event event, SQLiteDatabase db) {
@@ -3910,10 +3897,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_LOCATION_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
-
-        return r;
     }
 
     private int updateEventPreferencesOrientation(Event event, SQLiteDatabase db) {
@@ -3928,10 +3913,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_ORIENTATION_IGNORE_APPLICATIONS, eventPreferences._ignoredApplications);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
-
-        return r;
     }
 
     private int updateEventPreferencesMobileCells(Event event, SQLiteDatabase db) {
@@ -3944,10 +3927,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
-
-        return r;
     }
 
     private int updateEventPreferencesNFC(Event event, SQLiteDatabase db) {
@@ -3962,13 +3943,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_NFC_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
-        int r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+        return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                 new String[] { String.valueOf(event._id) });
-
-        return r;
     }
 
-    public int getEventStatus(Event event)
+    int getEventStatus(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -3999,7 +3978,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int updateEventStatus(Event event)
+    int updateEventStatus(Event event)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4037,7 +4016,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int updateEventBlocked(Event event)
+    int updateEventBlocked(Event event)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4070,7 +4049,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int unblockAllEvents()
+    int unblockAllEvents()
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4102,7 +4081,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int updateAllEventsStatus(int fromStatus, int toStatus)
+    private int updateAllEventsStatus(int fromStatus, int toStatus)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4135,7 +4114,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int getTypeEventsCount(int eventType)
+    int getTypeEventsCount(int eventType)
     {
         final String countQuery;
         String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
@@ -4208,17 +4187,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             cursor.moveToFirst();
             r = Integer.parseInt(cursor.getString(0));
+            cursor.close();
         }
         else
             r = 0;
 
-        cursor.close();
         //db.close();
 
         return r;
     }
 
-    public int updateEventCalendarTimes(Event event)
+    int updateEventCalendarTimes(Event event)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4253,7 +4232,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void setEventCalendarTimes(Event event)
+    void setEventCalendarTimes(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4284,7 +4263,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public boolean isSSIDScanned(String SSID, int connectionType)
+    boolean isSSIDScanned(String SSID, int connectionType)
     {
         final String countQuery;
         String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
@@ -4307,17 +4286,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             cursor.moveToFirst();
             r = Integer.parseInt(cursor.getString(0));
+            cursor.close();
         }
         else
             r = 0;
 
-        cursor.close();
         //db.close();
 
         return r != 0;
     }
 
-    public boolean getEventInDelayStart(Event event)
+    boolean getEventInDelayStart(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4348,7 +4327,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int updateEventInDelayStart(Event event)
+    int updateEventInDelayStart(Event event)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4381,7 +4360,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int resetAllEventsInDelayStart()
+    int resetAllEventsInDelayStart()
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4413,7 +4392,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public boolean getEventInDelayEnd(Event event)
+    boolean getEventInDelayEnd(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4444,7 +4423,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int updateEventInDelayEnd(Event event)
+    int updateEventInDelayEnd(Event event)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4477,7 +4456,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int resetAllEventsInDelayEnd()
+    /*
+    int resetAllEventsInDelayEnd()
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4508,8 +4488,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
 
     }
+    */
 
-    public boolean isBluetoothAdapterNameScanned(String adapterName, int connectionType)
+    boolean isBluetoothAdapterNameScanned(String adapterName, int connectionType)
     {
         final String countQuery;
         String eventTypeChecked = KEY_E_STATUS + "!=0" + " AND ";  //  only not stopped events
@@ -4533,17 +4514,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             cursor.moveToFirst();
             r = Integer.parseInt(cursor.getString(0));
+            cursor.close();
         }
         else
             r = 0;
 
-        cursor.close();
         //db.close();
 
         return r != 0;
     }
 
-    public int updateSMSStartTime(Event event)
+    int updateSMSStartTime(Event event)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4576,7 +4557,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void getSMSStartTime(Event event)
+    void getSMSStartTime(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4603,7 +4584,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int updateNotificationStartTime(Event event)
+    int updateNotificationStartTime(Event event)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4636,7 +4617,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void getNotificationStartTime(Event event)
+    void getNotificationStartTime(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4663,7 +4644,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public int getBluetoothDevicesTypeCount(int devicesType, int forceScan)
+    int getBluetoothDevicesTypeCount(int devicesType, int forceScan)
     {
         if (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
             final String countQuery;
@@ -4689,10 +4670,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (cursor != null) {
                 cursor.moveToFirst();
                 r = Integer.parseInt(cursor.getString(0));
+                cursor.close();
             } else
                 r = 0;
 
-            cursor.close();
             //db.close();
 
             return r;
@@ -4701,7 +4682,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return 999;
     }
 
-    public int updateNFCStartTime(Event event)
+    int updateNFCStartTime(Event event)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4734,7 +4715,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void getNFCStartTime(Event event)
+    void getNFCStartTime(Event event)
     {
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4793,7 +4774,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting max(eorder)
-    public int getMaxEOrderET() {
+    private int getMaxEOrderET() {
         String countQuery = "SELECT MAX("+KEY_ET_EORDER+") FROM " + TABLE_EVENT_TIMELINE;
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4826,8 +4807,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting all event timeline
-    public List<EventTimeline> getAllEventTimelines() {
-        List<EventTimeline> eventTimelineList = new ArrayList<EventTimeline>();
+    List<EventTimeline> getAllEventTimelines() {
+        List<EventTimeline> eventTimelineList = new ArrayList<>();
 
         // Select All Query
         final String selectQuery = "SELECT " + KEY_ET_ID + "," +
@@ -4865,7 +4846,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting event timeline
-    public void deleteEventTimeline(EventTimeline eventTimeline) {
+    void deleteEventTimeline(EventTimeline eventTimeline) {
 
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4875,7 +4856,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting all events from timeline
-    public void deleteAllEventTimelines(boolean updateEventStatus) {
+    void deleteAllEventTimelines(boolean updateEventStatus) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -4906,8 +4887,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
+    /*
     // Getting Count in timelines
-    public int getEventTimelineCount() {
+    int getEventTimelineCount() {
         final String countQuery = "SELECT  count(*) FROM " + TABLE_EVENT_TIMELINE;
         //SQLiteDatabase db = this.getReadableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4929,8 +4911,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return r;
     }
+    */
 
-    public void updateProfileReturnET(List<EventTimeline> eventTimelineList)
+    /*
+    void updateProfileReturnET(List<EventTimeline> eventTimelineList)
     {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -4962,11 +4946,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
         
     }
+    */
 
 // ACTIVITY LOG -------------------------------------------------------------------
 
     // Adding activity log
-    public void addActivityLog(int deleteOldActivityLogs, int logType, String eventName, String profileName, String profileIcon,
+    void addActivityLog(int deleteOldActivityLogs, int logType, String eventName, String profileName, String profileIcon,
                         int durationDelay) {
 
         //SQLiteDatabase db = this.getWritableDatabase();
@@ -5003,7 +4988,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close(); // Closing database connection
     }
 
-    public void clearActivityLog() {
+    void clearActivityLog() {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5015,14 +5000,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
            // db.setTransactionSuccessful();
         } catch (Exception e){
             //Error in between database transaction
-        } finally {
+            e.printStackTrace();
+        //} finally {
             //db.endTransaction();
         }
 
         //db.close();
     }
 
-    public Cursor getActivityLogCursor() {
+    Cursor getActivityLogCursor() {
 
         final String selectQuery = "SELECT " + KEY_AL_ID + "," +
                                                KEY_AL_LOG_DATE_TIME + "," +
@@ -5113,8 +5099,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting All geofences
-    public List<Geofence> getAllGeofences() {
-        List<Geofence> geofenceList = new ArrayList<Geofence>();
+    List<Geofence> getAllGeofences() {
+        List<Geofence> geofenceList = new ArrayList<>();
 
         // Select All Query
         final String selectQuery = "SELECT " + KEY_G_ID + "," +
@@ -5150,7 +5136,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single geofence
-    public int updateGeofence(Geofence geofence) {
+    int updateGeofence(Geofence geofence) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5185,7 +5171,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
-    public void updateGeofenceTransition(long geofenceId, int geofenceTransition) {
+    void updateGeofenceTransition(long geofenceId, int geofenceTransition) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5201,14 +5187,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } catch (Exception e){
             //Error in between database transaction
             Log.e("DatabaseHandler.updateGeofenceTransition", e.toString());
-        } finally {
+        //} finally {
             //db.endTransaction();
         }
 
         //db.close();
     }
 
-    public void clearAllGeofenceTransitions() {
+    void clearAllGeofenceTransitions() {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5224,7 +5210,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } catch (Exception e){
             //Error in between database transaction
             Log.e("DatabaseHandler.clearAllGeofenceTransitions", e.toString());
-        } finally {
+        //} finally {
             //db.endTransaction();
         }
 
@@ -5232,7 +5218,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting single geofence
-    public void deleteGeofence(long geofenceId) {
+    void deleteGeofence(long geofenceId) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5289,12 +5275,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //db.close();
     }
-    public void deleteGeofence(Geofence geofence) {
+
+    /*
+    void deleteGeofence(Geofence geofence) {
         deleteGeofence(geofence._id);
     }
+    */
 
+    /*
     // Deleting all geofences
-    public void deleteAllGeofences() {
+    void deleteAllGeofences() {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5319,8 +5309,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //db.close();
     }
+    */
 
-    public void checkGeofence(String geofences, int check) {
+    void checkGeofence(String geofences, int check) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5343,8 +5334,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             if (cursor != null) {
                                 if (cursor.moveToFirst())
                                     _check = (cursor.getInt(0) == 0) ? 1 : 0;
+                                cursor.close();
                             }
-                            cursor.close();
                         }
                         if (_check != 2) {
                             values.clear();
@@ -5373,7 +5364,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
-    public Cursor getGeofencesCursor() {
+    Cursor getGeofencesCursor() {
 
         final String selectQuery = "SELECT " + KEY_G_ID + "," +
                                                KEY_G_LATITUDE + "," +
@@ -5390,7 +5381,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.rawQuery(selectQuery, null);
     }
 
-    public String getGeofenceName(long geofenceId) {
+    String getGeofenceName(long geofenceId) {
         final String countQuery = "SELECT " + KEY_G_NAME +
                                    " FROM " + TABLE_GEOFENCES +
                                   " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
@@ -5406,15 +5397,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             if (cursor.moveToFirst())
                 r = cursor.getString(0);
+            cursor.close();
         }
 
-        cursor.close();
         //db.close();
 
         return r;
     }
 
-    public String getCheckedGeofences() {
+    String getCheckedGeofences() {
         final String countQuery = "SELECT " + KEY_G_ID + ","
                                             + KEY_G_CHECKED +
                                    " FROM " + TABLE_GEOFENCES;
@@ -5437,15 +5428,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 } while (cursor.moveToNext());
             }
+            cursor.close();
         }
 
-        cursor.close();
         //db.close();
 
         return value;
     }
 
-    public int getGeofencePosition(long geofenceId) {
+    /*
+    int getGeofencePosition(long geofenceId) {
         final String selectQuery = "SELECT " + KEY_G_ID +
                                     " FROM " + TABLE_GEOFENCES +
                                 " ORDER BY " + KEY_G_NAME + " ASC";
@@ -5473,8 +5465,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return event timeline list
         return position;
     }
+    */
 
-    public int getGeofenceCount() {
+    int getGeofenceCount() {
         String countQuery = "SELECT  count(*) FROM " + TABLE_GEOFENCES;
 
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -5488,17 +5481,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             cursor.moveToFirst();
             r = Integer.parseInt(cursor.getString(0));
+            cursor.close();
         }
         else
             r = 0;
 
-        cursor.close();
         //db.close();
 
         return r;
     }
 
-    public boolean isGeofenceUsed(long geofenceId, boolean onlyEnabledEvents) {
+    boolean isGeofenceUsed(long geofenceId, boolean onlyEnabledEvents) {
 
         String selectQuery = "SELECT " + KEY_E_LOCATION_GEOFENCES +
                               " FROM " + TABLE_EVENTS +
@@ -5540,7 +5533,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return found;
     }
 
-    public int getGeofenceTransition(long geofenceId) {
+    int getGeofenceTransition(long geofenceId) {
         final String countQuery = "SELECT " + KEY_G_TRANSITION +
                                     " FROM " + TABLE_GEOFENCES +
                                     " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
@@ -5556,9 +5549,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             if (cursor.moveToFirst())
                 r = cursor.getInt(0);
+            cursor.close();
         }
 
-        cursor.close();
         //db.close();
 
         return r;
@@ -5628,8 +5621,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return shortcut;
     }
 
+    /*
     // Updating single shortcut
-    public int updateShortcut(Shortcut shortcut) {
+    int updateShortcut(Shortcut shortcut) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5660,9 +5654,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return r;
     }
+    */
 
     // Deleting single shortcut
-    public void deleteShortcut(long shortcutId) {
+    void deleteShortcut(long shortcutId) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5689,7 +5684,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 // MOBILE_CELLS ----------------------------------------------------------------------
 
     // Adding new mobile cell
-    void addMobileCell(MobileCell mobileCell) {
+    private void addMobileCell(MobileCell mobileCell) {
 
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
@@ -5716,6 +5711,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close(); // Closing database connection
     }
 
+    /*
     // Getting single mobile cell
     MobileCell getMobileCell(long mobileCellId) {
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -5752,9 +5748,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return mobileCell;
     }
+    */
 
     // Updating single mobile cell
-    public int updateMobileCell(MobileCell mobileCell) {
+    private int updateMobileCell(MobileCell mobileCell) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5787,8 +5784,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
+    /*
     // Deleting single mobile cell
-    public void deleteMobileCellId(long mobileCellId) {
+    void deleteMobileCellId(long mobileCellId) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5811,9 +5809,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //db.close();
     }
+    */
 
     // add mobile cells to list
-    public void addMobileCellsToList(List<MobileCellsData> cellsList) {
+    void addMobileCellsToList(List<MobileCellsData> cellsList) {
         // Select All Query
         final String selectQuery = "SELECT " + KEY_MC_CELL_ID + "," +
                             KEY_MC_NAME + "," +
@@ -5850,7 +5849,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
-    public void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new) {
+    void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new) {
 
         // Select All Query
         final String selectQuery = "SELECT " + KEY_MC_ID + "," +
@@ -5901,7 +5900,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public void renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
+    void renameMobileCellsList(List<MobileCellsData> cellsList, String name, boolean _new, String value) {
         // Select All Query
         final String selectQuery = "SELECT " + KEY_MC_ID + "," +
                 KEY_MC_CELL_ID +
@@ -5958,7 +5957,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
-    public void deleteMobileCell(int mobileCell) {
+    void deleteMobileCell(int mobileCell) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -5983,6 +5982,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 // NFC_TAGS ----------------------------------------------------------------------
 
+    /*
     // Adding new nfc tag
     void addNFCTag(NFCTag nfcTag) {
 
@@ -6008,6 +6008,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //db.close(); // Closing database connection
     }
+    */
 
     // Adding new nfc tag
     void addNFCTag(String nfcTag) {
@@ -6051,6 +6052,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close(); // Closing database connection
     }
 
+    /*
     // Getting single nfc tag
     NFCTag getNFCTag(long nfcTagId) {
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -6083,10 +6085,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return nfcTag;
     }
+    */
 
     // Getting All nfc tags
-    public List<NFCTag> getAllNFCTags() {
-        List<NFCTag> nfcTagList = new ArrayList<NFCTag>();
+    List<NFCTag> getAllNFCTags() {
+        List<NFCTag> nfcTagList = new ArrayList<>();
 
         // Select All Query
         final String selectQuery = "SELECT " + KEY_NT_ID + "," +
@@ -6115,8 +6118,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return nfcTagList;
     }
 
+    /*
     // Updating single nfc tag
-    public int updateNFCTag(NFCTag nfcTag) {
+    int updateNFCTag(NFCTag nfcTag) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -6146,9 +6150,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return r;
     }
+    */
 
     // Updating single nfc tag
-    public int updateNFCTag(String oldNfcTag, String newNfcTag) {
+    int updateNFCTag(String oldNfcTag, String newNfcTag) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -6179,8 +6184,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return r;
     }
 
+
+    /*
     // Deleting single nfc tag
-    public void deleteNFCTag(long nfcTagId) {
+    void deleteNFCTag(long nfcTagId) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -6203,9 +6210,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //db.close();
     }
+    */
 
     // Deleting single nfc tag
-    public void deleteNFCTag(String nfcTag) {
+    void deleteNFCTag(String nfcTag) {
         //SQLiteDatabase db = this.getWritableDatabase();
         SQLiteDatabase db = getMyWritableDatabase();
 
@@ -6231,10 +6239,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 // OTHERS -------------------------------------------------------------------------
 
-    public boolean tableExists(String tableName, SQLiteDatabase db)
+    private boolean tableExists(String tableName, SQLiteDatabase db)
     {
-        @SuppressWarnings("unused")
-        Cursor c = null;
+        Cursor c;
 
         boolean tableExists = false;
 
@@ -6244,6 +6251,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             c = db.query(tableName, null,
                 null, null, null, null, null);
             tableExists = true;
+            c.close();
         }
         catch (Exception e) {
             /* not exists ? */
@@ -6253,10 +6261,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //@SuppressWarnings("resource")
-    public int importDB(String applicationDataPath) {
+    int importDB(String applicationDataPath) {
         int ret = 0;
-        List<Long> exportedDBEventProfileIds = new ArrayList<Long>();
-        List<Long> importDBEventProfileIds = new ArrayList<Long>();
+        List<Long> exportedDBEventProfileIds = new ArrayList<>();
+        List<Long> importDBEventProfileIds = new ArrayList<>();
         long profileId;
 
         // Close SQLiteOpenHelper so it will commit the created empty
@@ -6907,10 +6915,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         int startOrder = 0;
                         if (cursor.moveToFirst()) {
                             do {
-                                long id = cursor.getLong(0);
                                 ContentValues _values = new ContentValues();
                                 _values.put(KEY_E_START_ORDER, ++startOrder);
-                                db.update(TABLE_EVENTS, _values, KEY_E_ID + " = ?", new String[]{String.valueOf(cursor.getString(0))});
+                                db.update(TABLE_EVENTS, _values, KEY_E_ID + " = ?", new String[]{cursor.getString(0)});
                             } while (cursor.moveToNext());
                         }
 
@@ -7131,7 +7138,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return ret;
     }
 
-    public int disableNotAllowedPreferences(Context context)
+    int disableNotAllowedPreferences(Context context)
     {
         int ret = 0;
 
@@ -7425,7 +7432,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     @SuppressWarnings("resource")
-    public int exportDB()
+    int exportDB()
     {
         int ret = 0;
 
@@ -7445,6 +7452,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 File exportDir = new File(sd, GlobalData.EXPORT_PATH);
                 if (!(exportDir.exists() && exportDir.isDirectory()))
                 {
+                    //noinspection ResultOfMethodCallIgnored
                     exportDir.mkdirs();
                 }
 

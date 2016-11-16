@@ -249,7 +249,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             
             if (isIconResourceID || useCustomColor) {
                 // icon is from resource or colored by custom color
-                profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue, getActivity().getBaseContext());
+                profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, getActivity().getBaseContext()*/);
             }
             else
                 profileBitmap = BitmapManipulator.grayscaleBitmap(profileBitmap);

@@ -1,21 +1,21 @@
 package sk.henrichg.phoneprofilesplus;
 
-public class Contact {
-    public long contactId = 0;
-    public String name = "";
-    public long phoneId = 0;
-    public String phoneNumber = "";
-    public long photoId = 0;
-    public boolean checked = false;
+class Contact {
+    long contactId = 0;
+    String name = "";
+    long phoneId = 0;
+    String phoneNumber = "";
+    long photoId = 0;
+    boolean checked = false;
 
-    public Contact() {
+    Contact() {
     }
 
     public String toString() {
         return name;
     }
 
-    public void toggleChecked() {
+    void toggleChecked() {
         checked = !checked;
     }
 }

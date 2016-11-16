@@ -1,10 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 class ContactGroup {
-    public long groupId = 0;
-    public String name = "";
-    public int count = 0;
-    public boolean checked = false;
+    long groupId = 0;
+    String name = "";
+    int count = 0;
+    boolean checked = false;
 
     ContactGroup() {
     }
@@ -13,7 +13,7 @@ class ContactGroup {
         return name;
     }
 
-    public void toggleChecked() {
+    void toggleChecked() {
         checked = !checked;
     }
 }

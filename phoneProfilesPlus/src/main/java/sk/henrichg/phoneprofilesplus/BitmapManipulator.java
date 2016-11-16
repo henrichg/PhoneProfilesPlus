@@ -23,7 +23,7 @@ import java.io.IOException;
 
 class BitmapManipulator {
 
-    public static Bitmap resampleBitmap(String bitmapFile, int width, int height, Context context)
+    static Bitmap resampleBitmap(String bitmapFile, int width, int height, Context context)
     {
         if (bitmapFile == null)
             return null;
@@ -139,7 +139,7 @@ class BitmapManipulator {
         }
     }
 
-    public static Bitmap resampleResource(Resources resources, int bitmapResource, int width, int height)
+    static Bitmap resampleResource(Resources resources, int bitmapResource, int width, int height)
     {
         // first decode with inJustDecodeDpunds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -152,7 +152,7 @@ class BitmapManipulator {
         return BitmapFactory.decodeResource(resources, bitmapResource, options);
     }
 
-    public static Bitmap recolorBitmap(Bitmap bitmap, int color, Context context)
+    static Bitmap recolorBitmap(Bitmap bitmap, int color/*, Context context*/)
     {
         if (bitmap == null)
             return null;
@@ -173,12 +173,12 @@ class BitmapManipulator {
         return colorBitmap;
     }
 
-    public static Bitmap monochromeBitmap(Bitmap bitmap, int value, Context context) {
+    static Bitmap monochromeBitmap(Bitmap bitmap, int value/*, Context context*/) {
         int color = Color.argb(0xFF, value, value, value);
-        return recolorBitmap(bitmap, color, context);
+        return recolorBitmap(bitmap, color/*, context*/);
     }
 
-    public static Drawable tintDrawableByColor(Drawable drawable, int color) {
+    static Drawable tintDrawableByColor(Drawable drawable, int color) {
         Drawable wrapDrawable = DrawableCompat.wrap(drawable);
         //DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
         DrawableCompat.setTint(wrapDrawable, color);
@@ -203,7 +203,7 @@ class BitmapManipulator {
         return bitmap;
     }
 
-    public static Bitmap grayscaleBitmap(Bitmap bitmap)
+    static Bitmap grayscaleBitmap(Bitmap bitmap)
     {
         if (bitmap == null)
             return null;

@@ -384,7 +384,7 @@ public class ProfileIconPreference extends DialogPreference {
 
                 if (useCustomColor) {
                     Bitmap bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
-                    bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor, prefContext);
+                    bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor/*, prefContext*/);
                     imageView.setImageBitmap(bitmap);
                 }
                 else

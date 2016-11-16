@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
                         {
                             // sem narvi stringy skupin kontatkov oddelenych |
