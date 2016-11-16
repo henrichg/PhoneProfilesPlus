@@ -10,6 +10,7 @@ import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -33,15 +34,14 @@ import java.util.List;
 public class MobileCellsPreference extends DialogPreference {
 
     private String value;
-    public String persistedValue;
-    public List<MobileCellsData> cellsList = null;
+    String persistedValue;
+    List<MobileCellsData> cellsList = null;
 
     Context context;
 
     private MaterialDialog mDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
-    private ListView cellsListView;
     private EditText cellName;
     private MobileCellsPreferenceAdapter listAdapter;
 
@@ -52,7 +52,7 @@ public class MobileCellsPreference extends DialogPreference {
         
         this.context = context;
         
-        cellsList = new ArrayList<MobileCellsData>();
+        cellsList = new ArrayList<>();
 
         if (!PhoneProfilesService.instance.isPhoneStateStarted()) {
             //Log.d("MobileCellsPreference","no scanner started");
@@ -94,7 +94,7 @@ public class MobileCellsPreference extends DialogPreference {
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist()) {
                             //Log.d("MobileCellsPreference.onPositive", "1");
                             if (callChangeListener(value))
@@ -110,13 +110,13 @@ public class MobileCellsPreference extends DialogPreference {
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mDialog.dismiss();
                     }
                 })
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (Permissions.grantMobileCellsDialogPermissions(context, MobileCellsPreference.this))
                             refreshListView(true);
                     }
@@ -132,7 +132,7 @@ public class MobileCellsPreference extends DialogPreference {
         SharedPreferences sharedPreferences = context.getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Context.MODE_PRIVATE);
         cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
 
-        cellsListView = (ListView) layout.findViewById(R.id.mobile_cells_pref_dlg_listview);
+        ListView cellsListView = (ListView) layout.findViewById(R.id.mobile_cells_pref_dlg_listview);
         listAdapter = new MobileCellsPreferenceAdapter(context, this);
         cellsListView.setAdapter(listAdapter);
 
@@ -140,8 +140,8 @@ public class MobileCellsPreference extends DialogPreference {
 
         cellsListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                MobileCellsPreferenceAdapter.ViewHolder viewHolder =
-                        (MobileCellsPreferenceAdapter.ViewHolder) v.getTag();
+                //MobileCellsPreferenceAdapter.ViewHolder viewHolder =
+                //        (MobileCellsPreferenceAdapter.ViewHolder) v.getTag();
 
                 /*viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
@@ -236,7 +236,7 @@ public class MobileCellsPreference extends DialogPreference {
         return value;
     }
 
-    public void addCellId(int cellId) {
+    void addCellId(int cellId) {
         String[] splits = value.split("\\|");
         String sCellId = Integer.toString(cellId);
         value = "";
@@ -258,7 +258,7 @@ public class MobileCellsPreference extends DialogPreference {
         }
     }
 
-    public void removeCellId(int cellId) {
+    void removeCellId(int cellId) {
         String[] splits = value.split("\\|");
         String sCellId = Integer.toString(cellId);
         value = "";
@@ -273,7 +273,7 @@ public class MobileCellsPreference extends DialogPreference {
         }
     }
 
-    public boolean isCellSelected(int cellId) {
+    boolean isCellSelected(int cellId) {
         String[] splits = value.split("\\|");
         String sCellId = Integer.toString(cellId);
         for (String cell : splits) {
@@ -285,8 +285,6 @@ public class MobileCellsPreference extends DialogPreference {
 
     public void refreshListView(final boolean forRescan)
     {
-        final boolean _forRescan = forRescan;
-
         rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
             String _cellName;
@@ -304,7 +302,7 @@ public class MobileCellsPreference extends DialogPreference {
             protected Void doInBackground(Void... params) {
                 cellsList.clear();
 
-                if (_forRescan) {
+                if (forRescan) {
                     PhoneProfilesService.instance.phoneStateScanner.getRegisteredCell();
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
@@ -343,7 +341,7 @@ public class MobileCellsPreference extends DialogPreference {
                             int iCell = Integer.parseInt(cell);
                             cellsList.add(new MobileCellsData(iCell, _cellName, false, false));
                         }
-                        catch (Exception e) { }
+                        catch (Exception e) { e.printStackTrace(); }
                     }
                 }
 

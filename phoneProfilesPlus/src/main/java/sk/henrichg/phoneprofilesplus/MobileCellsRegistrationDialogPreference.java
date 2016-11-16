@@ -8,6 +8,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -40,7 +41,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private TextView mStatus;
     private TextView mRemainingTime;
 
-    private int mColor = 0;
+    //private int mColor = 0;
 
     public MobileCellsRegistrationDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -52,8 +53,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         durationDialogType.recycle();
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
+        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+        //    mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
 
         this.context = context;
 
@@ -86,7 +87,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         int hours = mSeekBarHours.getProgress();
                         int minutes = mSeekBarMinutes.getProgress();
                         int seconds = mSeekBarSeconds.getProgress();
@@ -121,7 +122,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 })
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (PhoneProfilesService.isPhoneStateStarted()) {
                             GlobalData.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
                             //GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
@@ -168,14 +169,17 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 try {
                     hours = Integer.parseInt(splits[0].replaceFirst("\\s+$", ""));
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 try {
                     minutes = Integer.parseInt(splits[1].replaceFirst("\\s+$", ""));
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 try {
                     seconds = Integer.parseInt(splits[2].replaceFirst("\\s+$", ""));
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 int iValue = (hours * 3600 + minutes * 60 + seconds);

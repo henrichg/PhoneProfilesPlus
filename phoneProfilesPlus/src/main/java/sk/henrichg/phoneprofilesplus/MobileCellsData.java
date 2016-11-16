@@ -1,16 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
-public class MobileCellsData {
+class MobileCellsData {
 
-    public int cellId;
-    public String name;
-    public boolean connected;
-    public boolean _new;
+    int cellId;
+    String name;
+    boolean connected;
+    boolean _new;
 
-    public MobileCellsData() {
-    }
+    //MobileCellsData() {
+    //}
 
-    public MobileCellsData(int cellId, String name, boolean connected, boolean _new)
+    MobileCellsData(int cellId, String name, boolean connected, boolean _new)
     {
         this.cellId = cellId;
         this.name = name;

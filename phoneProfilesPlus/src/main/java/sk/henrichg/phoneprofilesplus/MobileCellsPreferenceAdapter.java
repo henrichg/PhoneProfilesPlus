@@ -9,22 +9,22 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MobileCellsPreferenceAdapter extends BaseAdapter
+class MobileCellsPreferenceAdapter extends BaseAdapter
 {
     MobileCellsPreference preference;
     //private RadioButton selectedRB;
     //int selectedRBIndex = -1;
 
     private LayoutInflater inflater;
-    private Context context;
+    //private Context context;
 
-    public MobileCellsPreferenceAdapter(Context context, MobileCellsPreference preference)
+    MobileCellsPreferenceAdapter(Context context, MobileCellsPreference preference)
     {
         this.preference = preference;
 
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
-        this.context = context;
+        //this.context = context;
     }
 
     public int getCount() {
