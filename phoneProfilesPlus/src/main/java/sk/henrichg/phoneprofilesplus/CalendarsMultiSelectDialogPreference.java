@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.CalendarContract.Calendars;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
     Context _context = null;
     String value = "";
 
-    List<CalendarEvent> calendarList = null;
+    private List<CalendarEvent> calendarList = null;
 
     // Layout widgets.
     private ListView listView = null;
@@ -53,7 +54,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 
         _context = context;
 
-        calendarList = new ArrayList<CalendarEvent>();
+        calendarList = new ArrayList<>();
 
     }
 
@@ -67,7 +68,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
                         {
                             // sem narvi stringy kontatkov oddelenych |
@@ -145,24 +146,25 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 calendarList.clear();
 
                 if (Permissions.checkCalendar(_context)) {
-                    Cursor cur = null;
+                    Cursor cur;
                     ContentResolver cr = _context.getContentResolver();
                     Uri uri = Calendars.CONTENT_URI;
-                /*
-                String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND ("
-                                        + Calendars.ACCOUNT_TYPE + " = ?) AND ("
-                                        + Calendars.OWNER_ACCOUNT + " = ?))";
-                String[] selectionArgs = new String[] {"sampleuser@gmail.com", "com.google",
-                        "sampleuser@gmail.com"};
-                */
+                    /*
+                    String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND ("
+                                            + Calendars.ACCOUNT_TYPE + " = ?) AND ("
+                                            + Calendars.OWNER_ACCOUNT + " = ?))";
+                    String[] selectionArgs = new String[] {"sampleuser@gmail.com", "com.google",
+                            "sampleuser@gmail.com"};
+                    */
                     // Submit the query and get a Cursor object back.
                     //cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
+                    //noinspection MissingPermission
                     cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
                     if (cur != null) {
                         while (cur.moveToNext()) {
-                            long calID = 0;
-                            String displayName = null;
-                            int color = 0;
+                            long calID;
+                            String displayName;
+                            int color;
 
                             // Get the field values
                             calID = cur.getLong(PROJECTION_ID_INDEX);
@@ -244,6 +246,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                         if (calendar.calendarId == calendarId)
                             calendar.checked = true;
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -258,16 +261,18 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 String[] splits = value.split("\\|");
                 if (splits.length == 1) {
                     boolean found = false;
-                    Cursor cur = null;
+                    Cursor cur;
                     ContentResolver cr = _context.getContentResolver();
                     Uri uri = Calendars.CONTENT_URI;
                     String selection = Calendars._ID + "=" + splits[0];
+                    //noinspection MissingPermission
                     cur = cr.query(uri, CALENDAR_PROJECTION, selection, null, null);
                     if (cur != null) {
-                        while (cur.moveToNext()) {
+                        //while (cur.moveToNext()) {
+                        if (cur.moveToFirst()) {
                             found = true;
                             prefVolumeDataSummary = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
-                            break;
+                            //break;
                         }
                         cur.close();
                     }

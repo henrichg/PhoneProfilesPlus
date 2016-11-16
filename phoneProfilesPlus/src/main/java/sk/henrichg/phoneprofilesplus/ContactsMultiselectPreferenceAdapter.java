@@ -12,34 +12,34 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ContactsMultiselectPreferenceAdapter extends BaseAdapter 
+class ContactsMultiselectPreferenceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     //private Context context;
 
-    public ContactsMultiselectPreferenceAdapter(Context context) 
+    ContactsMultiselectPreferenceAdapter(Context context)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
         //this.context = context; 
     }
 
-	public int getCount() {
-		return EditorProfilesActivity.getContactsCache().getLength();
-	}
+    public int getCount() {
+        return EditorProfilesActivity.getContactsCache().getLength();
+    }
 
-	public Object getItem(int position) {
-		return EditorProfilesActivity.getContactsCache().getContact(position);
-	}
+    public Object getItem(int position) {
+        return EditorProfilesActivity.getContactsCache().getContact(position);
+    }
 
-	public long getItemId(int position) {
-		return position;
-	}
+    public long getItemId(int position) {
+        return position;
+    }
     
     public View getView(int position, View convertView, ViewGroup parent)
     {
-		ContactsCache contactsCahce = EditorProfilesActivity.getContactsCache();
-    	
+        ContactsCache contactsCahce = EditorProfilesActivity.getContactsCache();
+
         // Contact to display
         Contact contact = contactsCahce.getContact(position);
         //System.out.println(String.valueOf(position));
@@ -94,9 +94,9 @@ public class ContactsMultiselectPreferenceAdapter extends BaseAdapter
 
         // Display Contact data
         if (contact.photoId != 0)
-        	imageViewPhoto.setImageURI(getPhotoUri(contact.contactId));
+            imageViewPhoto.setImageURI(getPhotoUri(contact.contactId));
         else
-        	imageViewPhoto.setImageResource(R.drawable.ic_contacts_multiselect_dialog_preference_no_photo);
+            imageViewPhoto.setImageResource(R.drawable.ic_contacts_multiselect_dialog_preference_no_photo);
         textViewDisplayName.setText(contact.name);
         textViewPhoneNumber.setText(contact.phoneNumber);
         
@@ -105,33 +105,33 @@ public class ContactsMultiselectPreferenceAdapter extends BaseAdapter
         return convertView;
     }
 
-	/**
-	 * @return the photo URI
-	 */
-	private Uri getPhotoUri(long contactId)
-	{
-	/*    try {
-	        Cursor cur = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
-	                		ContactsContract.Data.CONTACT_ID + "=" + photoId + " AND "
-	                        + ContactsContract.Data.MIMETYPE + "='"
-	                        + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
-	                        null);
-	        if (cur != null) 
-	        {
-	            if (!cur.moveToFirst()) 
-	            {
-	                return null; // no photo
-	            }
-	        } 
-	        else 
-	            return null; // error in cursor process
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return null;
-	    }
-	    */
-	    Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
-	    return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
-	}
+    /**
+     * @return the photo URI
+     */
+    private Uri getPhotoUri(long contactId)
+    {
+    /*    try {
+            Cursor cur = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
+                            ContactsContract.Data.CONTACT_ID + "=" + photoId + " AND "
+                            + ContactsContract.Data.MIMETYPE + "='"
+                            + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
+                            null);
+            if (cur != null)
+            {
+                if (!cur.moveToFirst())
+                {
+                    return null; // no photo
+                }
+            }
+            else
+                return null; // error in cursor process
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        */
+        Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+        return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+    }
 
 }

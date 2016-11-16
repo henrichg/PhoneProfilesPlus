@@ -11,33 +11,33 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CalendarsMultiselectPreferenceAdapter extends BaseAdapter 
+class CalendarsMultiselectPreferenceAdapter extends BaseAdapter
 {
-	List<CalendarEvent> calendarList = null;	
-	
+    private List<CalendarEvent> calendarList = null;
+
     private LayoutInflater inflater;
     //private Context context;
 
-    public CalendarsMultiselectPreferenceAdapter(Context context, List<CalendarEvent> calendarList) 
+    CalendarsMultiselectPreferenceAdapter(Context context, List<CalendarEvent> calendarList)
     {
-    	this.calendarList = calendarList;
-    	
-    	// Cache the LayoutInflate to avoid asking for a new one each time.
+        this.calendarList = calendarList;
+
+        // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
         //this.context = context; 
     }
 
-	public int getCount() {
-		return calendarList.size();
-	}
+    public int getCount() {
+        return calendarList.size();
+    }
 
-	public Object getItem(int position) {
-		return calendarList.get(position); 
-	}
+    public Object getItem(int position) {
+        return calendarList.get(position);
+    }
 
-	public long getItemId(int position) {
-		return position;
-	}
+    public long getItemId(int position) {
+        return position;
+    }
     
     public View getView(int position, View convertView, ViewGroup parent)
     {

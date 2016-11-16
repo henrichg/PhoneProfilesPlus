@@ -8,34 +8,34 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class ContactGroupsMultiselectPreferenceAdapter extends BaseAdapter
+class ContactGroupsMultiselectPreferenceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     //private Context context;
 
-    public ContactGroupsMultiselectPreferenceAdapter(Context context)
+    ContactGroupsMultiselectPreferenceAdapter(Context context)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
         //this.context = context; 
     }
 
-	public int getCount() {
-		return EditorProfilesActivity.getContactGroupsCache().getLength();
-	}
+    public int getCount() {
+        return EditorProfilesActivity.getContactGroupsCache().getLength();
+    }
 
-	public Object getItem(int position) {
-		return EditorProfilesActivity.getContactGroupsCache().getContactGroup(position);
-	}
+    public Object getItem(int position) {
+        return EditorProfilesActivity.getContactGroupsCache().getContactGroup(position);
+    }
 
-	public long getItemId(int position) {
-		return position;
-	}
+    public long getItemId(int position) {
+        return position;
+    }
     
     public View getView(int position, View convertView, ViewGroup parent)
     {
-		ContactGroupsCache contactGroupsCahce = EditorProfilesActivity.getContactGroupsCache();
-    	
+        ContactGroupsCache contactGroupsCahce = EditorProfilesActivity.getContactGroupsCache();
+
         // Contact group to display
         ContactGroup contactGroup = contactGroupsCahce.getContactGroup(position);
         //System.out.println(String.valueOf(position));

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,6 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     String value = "";
 
     // Layout widgets.
-    private ListView listView = null;
     private LinearLayout linlaProgress;
     private LinearLayout linlaListView;
 
@@ -52,7 +52,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
                         {
                             // sem narvi stringy kontatkov oddelenych |
@@ -82,7 +82,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
         linlaProgress = (LinearLayout)layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
         linlaListView = (LinearLayout)layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_listview);
-        listView = (ListView)layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
+        ListView listView = (ListView)layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
@@ -203,6 +203,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                         if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
                             contact.checked = true;
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -243,12 +244,14 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                                     ContactsContract.CommonDataKinds.Phone._ID + "=" + splits2[1];
                             Cursor phones = _context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, selection, null, null);
                             if (phones != null) {
-                                while (phones.moveToNext()) {
+                                //while (phones.moveToNext()) {
+                                if (phones.moveToFirst()) {
                                     found = true;
                                     prefVolumeDataSummary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)) + '\n' +
                                             phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                    break;
+                                    //break;
                                 }
+                                phones.close();
                             }
                             if (found)
                                 break;

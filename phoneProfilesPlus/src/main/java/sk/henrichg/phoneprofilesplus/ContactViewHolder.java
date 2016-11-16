@@ -4,20 +4,20 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ContactViewHolder {
-	
-	public ImageView imageViewPhoto;
+class ContactViewHolder {
+
+    public ImageView imageViewPhoto;
     public TextView textViewDisplayName;
     public TextView textViewPhoneNumber;
     public CheckBox checkBox;
 
-    public ContactViewHolder() {
-    }
+    //ContactViewHolder() {
+    //}
 
-    public ContactViewHolder(ImageView imageViewPhoto, TextView textViewDisplayName, TextView textViewPhoneNumber, CheckBox checkBox) 
+    ContactViewHolder(ImageView imageViewPhoto, TextView textViewDisplayName, TextView textViewPhoneNumber, CheckBox checkBox)
     {
         this.imageViewPhoto = imageViewPhoto;
-    	this.textViewDisplayName = textViewDisplayName;
+        this.textViewDisplayName = textViewDisplayName;
         this.textViewPhoneNumber = textViewPhoneNumber;
         this.checkBox = checkBox;
     }

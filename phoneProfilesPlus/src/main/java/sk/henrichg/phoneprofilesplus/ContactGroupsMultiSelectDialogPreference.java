@@ -26,7 +26,6 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     String value = "";
 
     // Layout widgets.
-    private ListView listView = null;
     private LinearLayout linlaProgress;
     private LinearLayout linlaListView;
 
@@ -82,7 +81,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 
         linlaProgress = (LinearLayout)layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);
         linlaListView = (LinearLayout)layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_listview);
-        listView = (ListView)layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
+        ListView listView = (ListView)layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
@@ -201,6 +200,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                         if (contactGroup.groupId == groupId)
                             contactGroup.checked = true;
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -234,10 +234,11 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                     Cursor mCursor = _context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, null);
 
                     if (mCursor != null) {
-                        while (mCursor.moveToNext()) {
+                        //while (mCursor.moveToNext()) {
+                        if (mCursor.moveToFirst()) {
                             found = true;
                             prefVolumeDataSummary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
-                            break;
+                            //break;
                         }
                         mCursor.close();
                     }

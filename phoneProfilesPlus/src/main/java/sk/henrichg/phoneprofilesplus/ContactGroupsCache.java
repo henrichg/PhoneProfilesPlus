@@ -7,13 +7,13 @@ import android.provider.ContactsContract;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactGroupsCache {
+class ContactGroupsCache {
 
     private ArrayList<ContactGroup> contactGroupList;
     private boolean cached;
     private boolean cancelled;
 
-    public ContactGroupsCache()
+    ContactGroupsCache()
     {
         contactGroupList = new ArrayList<ContactGroup>();
         cached = false;
@@ -91,6 +91,7 @@ public class ContactGroupsCache {
             return null;
     }
 
+    /*
     public long getContactGroupId(int position)
     {
         if (cached)
@@ -106,6 +107,7 @@ public class ContactGroupsCache {
         else
             return "";
     }
+    */
 
     public void clearCache(boolean nullList)
     {

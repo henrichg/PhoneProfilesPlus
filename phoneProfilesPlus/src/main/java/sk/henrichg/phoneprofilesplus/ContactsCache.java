@@ -7,15 +7,15 @@ import android.provider.ContactsContract;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactsCache {
+class ContactsCache {
 
     private ArrayList<Contact> contactList;
     private boolean cached;
     private boolean cancelled;
 
-    public ContactsCache()
+    ContactsCache()
     {
-        contactList = new ArrayList<Contact>();
+        contactList = new ArrayList<>();
         cached = false;
     }
 
@@ -107,6 +107,7 @@ public class ContactsCache {
             return null;
     }
 
+    /*
     public long getContactId(int position)
     {
         if (cached)
@@ -146,6 +147,7 @@ public class ContactsCache {
         else
             return 0;
     }
+    */
 
     public void clearCache(boolean nullList)
     {
