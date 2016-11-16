@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -45,12 +46,12 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
     private ApplicationsPreferenceAdapter listAdapter;
 
-    ImageView packageIcon;
-    RelativeLayout packageIcons;
-    ImageView packageIcon1;
-    ImageView packageIcon2;
-    ImageView packageIcon3;
-    ImageView packageIcon4;
+    private ImageView packageIcon;
+    private RelativeLayout packageIcons;
+    private ImageView packageIcon1;
+    private ImageView packageIcon2;
+    private ImageView packageIcon3;
+    private ImageView packageIcon4;
 
     private DataWrapper dataWrapper;
 
@@ -109,7 +110,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                 .negativeText(getNegativeButtonText());
         mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
             @Override
-            public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                 if (shouldPersist())
                 {
                     // sem narvi stringy aplikacii oddelenych |
@@ -137,7 +138,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         });
         mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
             @Override
-            public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                 mDialog.dismiss();
             }
         });

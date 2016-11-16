@@ -10,7 +10,6 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
 
     private DataWrapper dataWrapper;
 
-    private String profileName;
     private long profile_id = 0;
 
     @Override
@@ -20,7 +19,7 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
         //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
-        profileName = intent.getStringExtra(GlobalData.EXTRA_PROFILE_NAME);
+        String profileName = intent.getStringExtra(GlobalData.EXTRA_PROFILE_NAME);
         profileName = profileName.trim();
         //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profileName="+profileName);
 

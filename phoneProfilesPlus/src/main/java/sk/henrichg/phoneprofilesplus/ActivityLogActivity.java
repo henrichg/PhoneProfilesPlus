@@ -49,9 +49,11 @@ public class ActivityLogActivity extends AppCompatActivity {
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.title_activity_activity_log);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.title_activity_activity_log);
+        }
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 

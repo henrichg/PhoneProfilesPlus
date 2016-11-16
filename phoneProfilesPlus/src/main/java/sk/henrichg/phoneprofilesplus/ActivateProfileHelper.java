@@ -67,7 +67,7 @@ public class ActivateProfileHelper {
     private NotificationManager notificationManager;
     private Handler brightnessHandler;
 
-    private int networkType = -1;
+    //private int networkType = -1;
 
     public static boolean lockRefresh = false;
 
@@ -93,7 +93,7 @@ public class ActivateProfileHelper {
         notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
-    public void initializeNoNotificationManager(Context c)
+    private void initializeNoNotificationManager(Context c)
     {
         context = c;
     }
@@ -208,7 +208,7 @@ public class ActivateProfileHelper {
                 if (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_WIFI, context) == GlobalData.PREFERENCE_ALLOWED) {
                     boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
                     if (!isWifiAPEnabled) { // only when wifi AP is not enabled, change wifi
-                        GlobalData.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=" + isWifiAPEnabled);
+                        GlobalData.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=false");
                         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
                         int wifiState = wifiManager.getWifiState();
                         boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
@@ -312,7 +312,7 @@ public class ActivateProfileHelper {
                     case 3:
                         if (!isEnabled) {
                             setGPS(context, true);
-                        } else if (isEnabled) {
+                        } else {
                             setGPS(context, false);
                         }
                         break;
@@ -404,7 +404,7 @@ public class ActivateProfileHelper {
                  ));
     }
 
-    public void correctVolume0(AudioManager audioManager) {
+    private void correctVolume0(AudioManager audioManager) {
         int ringerMode, zenMode;
         ringerMode = GlobalData.getRingerMode(context);
         zenMode = GlobalData.getZenMode(context);
@@ -893,7 +893,7 @@ public class ActivateProfileHelper {
                             }
                             visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
                         }
-                        int ret = wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                        wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
                     }
                     else
                         wallpaperManager.setBitmap(decodedSampleBitmap);
@@ -931,8 +931,8 @@ public class ActivateProfileHelper {
             Intent intent;
             PackageManager packageManager = context.getPackageManager();
 
-            ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
+            //ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            //List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();
 
             for (int i = 0; i < splits.length; i++) {
                 //Log.d("ActivateProfileHelper.executeForRunApplications","app data="+splits[i]);
@@ -949,7 +949,7 @@ public class ActivateProfileHelper {
                             try {
                                 context.startActivity(intent);
                             } catch (Exception e) {
-                                System.out.println(e);
+                                e.printStackTrace();
                             }
                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                             //SystemClock.sleep(1000);
@@ -977,7 +977,7 @@ public class ActivateProfileHelper {
                                         try {
                                             context.startActivity(intent);
                                         } catch (Exception e) {
-                                            System.out.println(e);
+                                            e.printStackTrace();
                                         }
                                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                                         //SystemClock.sleep(1000);
@@ -1001,8 +1001,6 @@ public class ActivateProfileHelper {
         //Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
 
         Profile profile = GlobalData.getMappedProfile(_profile, context);
-
-        boolean interactive = _interactive;
 
         // nahodenie volume
         // run service for execute volumes
@@ -1310,7 +1308,7 @@ public class ActivateProfileHelper {
             }
         }
 
-        if (interactive)
+        if (_interactive)
         {
             // preferences, ktore vyzaduju interakciu uzivatela
 
@@ -1395,6 +1393,7 @@ public class ActivateProfileHelper {
             try {
                 windowManager.removeView(GUIData.keepScreenOnView);
             } catch (Exception e) {
+                e.printStackTrace();
             }
             GUIData.keepScreenOnView = null;
         }
@@ -1414,6 +1413,7 @@ public class ActivateProfileHelper {
                 try {
                     windowManager.removeView(GUIData.brightneesView);
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 GUIData.brightneesView = null;
             }
@@ -1452,6 +1452,7 @@ public class ActivateProfileHelper {
             try {
                 windowManager.removeView(GUIData.brightneesView);
             } catch (Exception e) {
+                e.printStackTrace();
             }
             GUIData.brightneesView = null;
         }
@@ -2020,17 +2021,7 @@ public class ActivateProfileHelper {
 
                 OK = true;
 
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -2044,21 +2035,16 @@ public class ActivateProfileHelper {
 
                     OK = true;
 
-                } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
     }
 
+    /*
     private int getPreferredNetworkType(Context context) {
-        if (GlobalData.isRooted()/*GlobalData.isRootGranted()*/)
+        if (GlobalData.isRooted())
         {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
@@ -2104,6 +2090,7 @@ public class ActivateProfileHelper {
             networkType = -1;
         return networkType;
     }
+    */
 
     private void setPreferredNetworkType(Context context, int networkType)
     {
@@ -2272,8 +2259,8 @@ public class ActivateProfileHelper {
                 poke.setData(Uri.parse("3"));
                 context.sendBroadcast(poke);
             }
-            else
-            {
+            //else
+            //{
                 /*GlobalData.logE("ActivateProfileHelper.setGPS", "old method");
 
                 try {
@@ -2288,7 +2275,7 @@ public class ActivateProfileHelper {
             /*	Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent); */
-            }
+            //}
         }
         else
         //if(provider.contains(LocationManager.GPS_PROVIDER) && (!enable))
@@ -2361,8 +2348,8 @@ public class ActivateProfileHelper {
                 poke.setData(Uri.parse("3"));
                 context.sendBroadcast(poke);
             }
-            else
-            {
+            //else
+            //{
                 //GlobalData.logE("ActivateProfileHelper.setGPS", "old method");
 
                 /*try {
@@ -2377,7 +2364,7 @@ public class ActivateProfileHelper {
             /*	Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent); */
-            }
+            //}
         }	    	
     }
 
@@ -2412,13 +2399,13 @@ public class ActivateProfileHelper {
                 Log.e("AirPlaneMode_SDK17.setAirplaneMode", "Error on run su");
             }
         }
-        else
-        {
+        //else
+        //{
             // for normal apps it is only possible to open the system settings dialog
         /*	Intent intent = new Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent); */
-        }
+        //}
     }
 
     @SuppressWarnings("deprecation")
@@ -2463,39 +2450,5 @@ public class ActivateProfileHelper {
             Log.e("ActivateProfileHelper", "Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }	
-
-    public static int getMinimumScreenBrightnessSetting (Context context)
-    {
-        final Resources res = Resources.getSystem();
-        int id = res.getIdentifier("config_screenBrightnessSettingMinimum", "integer", "android"); // API17+
-        if (id == 0)
-            id = res.getIdentifier("config_screenBrightnessDim", "integer", "android"); // lower API levels
-        if (id != 0)
-        {
-            try {
-                return res.getInteger(id);
-            }
-            catch (Resources.NotFoundException e) {
-              // ignore
-            }
-        }
-        return 0;
-    }
-
-    public static int getMaximumScreenBrightnessSetting (Context context)
-    {
-        final Resources res = Resources.getSystem();
-        final int id = res.getIdentifier("config_screenBrightnessSettingMaximum", "integer", "android");  // API17+
-        if (id != 0)
-        {
-            try {
-                return res.getInteger(id);
-            }
-            catch (Resources.NotFoundException e) {
-              // ignore
-            }
-        }
-        return 255;
-    }
 
 }

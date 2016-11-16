@@ -12,14 +12,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ActivateProfileListAdapter extends BaseAdapter
+class ActivateProfileListAdapter extends BaseAdapter
 {
 
     private List<Profile> profileList;
     private ActivateProfileListFragment fragment;
     private DataWrapper dataWrapper;
 
-    public ActivateProfileListAdapter(ActivateProfileListFragment f, List<Profile> pl, DataWrapper dataWrapper)
+    ActivateProfileListAdapter(ActivateProfileListFragment f, List<Profile> pl, DataWrapper dataWrapper)
     {
         fragment = f;
         profileList = pl;

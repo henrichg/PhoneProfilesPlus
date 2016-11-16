@@ -10,29 +10,23 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.List;
 
-public class ApplicationEditorDialog
+class ApplicationEditorDialog
 {
 
     public ApplicationsDialogPreference preference;
-    private ApplicationEditorDialogAdapter listAdapter;
     private List<Application> cachedApplicationList;
 
-    private Context _context;
-
     private MaterialDialog mDialog;
-    private ListView listView;
 
     Application application;
-    int dialogPrefPosition;
+    private int dialogPrefPosition;
 
-    public ApplicationEditorDialog(Context context, ApplicationsDialogPreference preference,
+    ApplicationEditorDialog(Context context, ApplicationsDialogPreference preference,
                                         Application application, int dialogPrefPosition)
     {
         this.preference = preference;
         this.application = application;
         this.dialogPrefPosition = dialogPrefPosition;
-
-        _context = context;
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.applications_editor_dialog_title)
@@ -42,7 +36,7 @@ public class ApplicationEditorDialog
 
         mDialog = dialogBuilder.build();
 
-        listView = (ListView)mDialog.getCustomView().findViewById(R.id.applications_editor_dialog_listview);
+        ListView listView = (ListView)mDialog.getCustomView().findViewById(R.id.applications_editor_dialog_listview);
 
         if (EditorProfilesActivity.getApplicationsCache() == null)
             EditorProfilesActivity.createApplicationsCache();
@@ -65,7 +59,7 @@ public class ApplicationEditorDialog
             }
         }
 
-        listAdapter = new ApplicationEditorDialogAdapter(this, _context, application, position);
+        ApplicationEditorDialogAdapter listAdapter = new ApplicationEditorDialogAdapter(this, context, application, position);
         listView.setAdapter(listAdapter);
 
         if (position > -1) {

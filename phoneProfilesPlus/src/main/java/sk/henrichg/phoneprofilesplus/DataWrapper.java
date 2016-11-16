@@ -887,7 +887,7 @@ public class DataWrapper {
         }
     }
 
-    public static Event getNoinitializedEvent(String name, int startOrder)
+    public Event getNoinitializedEvent(String name, int startOrder)
     {
         return new Event(name,
                 startOrder,

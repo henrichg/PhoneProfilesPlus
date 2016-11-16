@@ -848,10 +848,44 @@ public class Profile {
         return value == 1;
     }
 
+    private static int getMinimumScreenBrightnessSetting (Context context)
+    {
+        final Resources res = Resources.getSystem();
+        int id = res.getIdentifier("config_screenBrightnessSettingMinimum", "integer", "android"); // API17+
+        if (id == 0)
+            id = res.getIdentifier("config_screenBrightnessDim", "integer", "android"); // lower API levels
+        if (id != 0)
+        {
+            try {
+                return res.getInteger(id);
+            }
+            catch (Resources.NotFoundException e) {
+                // ignore
+            }
+        }
+        return 0;
+    }
+
+    private static int getMaximumScreenBrightnessSetting (Context context)
+    {
+        final Resources res = Resources.getSystem();
+        final int id = res.getIdentifier("config_screenBrightnessSettingMaximum", "integer", "android");  // API17+
+        if (id != 0)
+        {
+            try {
+                return res.getInteger(id);
+            }
+            catch (Resources.NotFoundException e) {
+                // ignore
+            }
+        }
+        return 255;
+    }
+
     public static int convertPercentsToBrightnessManualValue(int perc, Context context)
     {
-        int maximumValue = ActivateProfileHelper.getMaximumScreenBrightnessSetting(context);
-        int minimumValue = ActivateProfileHelper.getMinimumScreenBrightnessSetting(context);
+        int maximumValue = getMaximumScreenBrightnessSetting(context);
+        int minimumValue = getMinimumScreenBrightnessSetting(context);
 
         if (maximumValue-minimumValue > 65535) {
             minimumValue = 0;
@@ -910,8 +944,8 @@ public class Profile {
 
     public void setDeviceBrightnessManualValue(int value, Context context)
     {
-        int maxValue = ActivateProfileHelper.getMaximumScreenBrightnessSetting(context);
-        int minValue = ActivateProfileHelper.getMinimumScreenBrightnessSetting(context);
+        int maxValue = getMaximumScreenBrightnessSetting(context);
+        int minValue = getMinimumScreenBrightnessSetting(context);
 
         if (maxValue-minValue > 65535) {
             minValue = 0;

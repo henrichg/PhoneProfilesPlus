@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,19 +32,19 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     Context _context = null;
     String value = "";
 
-    int addShortcuts;
+    private int addShortcuts;
 
     // Layout widgets.
     private ListView listView = null;
     private LinearLayout linlaProgress;
     private LinearLayout linlaListView;
 
-    ImageView packageIcon;
-    RelativeLayout packageIcons;
-    ImageView packageIcon1;
-    ImageView packageIcon2;
-    ImageView packageIcon3;
-    ImageView packageIcon4;
+    private ImageView packageIcon;
+    private RelativeLayout packageIcons;
+    private ImageView packageIcon1;
+    private ImageView packageIcon2;
+    private ImageView packageIcon3;
+    private ImageView packageIcon4;
 
     private ApplicationsMultiselectPreferenceAdapter listAdapter;
 
@@ -91,7 +92,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 .negativeText(getNegativeButtonText())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist())
                         {
                             // sem narvi stringy kontatkov oddelenych |

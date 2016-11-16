@@ -13,7 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ApplicationsPreferenceAdapter extends BaseAdapter
+class ApplicationsPreferenceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     private Context context;
@@ -21,7 +21,7 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
 
     private ApplicationsDialogPreference preference;
 
-    public ApplicationsPreferenceAdapter(Context context, ApplicationsDialogPreference preference)
+    ApplicationsPreferenceAdapter(Context context, ApplicationsDialogPreference preference)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
@@ -43,7 +43,7 @@ public class ApplicationsPreferenceAdapter extends BaseAdapter
         return position;
     }
 
-    public static void setTextStyle(TextView textView, boolean errorColor)
+    private static void setTextStyle(TextView textView, boolean errorColor)
     {
         if (textView != null) {
             CharSequence title = textView.getText();

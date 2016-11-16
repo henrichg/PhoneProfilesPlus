@@ -20,11 +20,6 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     private static ActivateProfileActivity instance;
 
-    private float popupWidth;
-    private float popupMaxHeight;
-    private float popupHeight;
-    private int actionBarHeight;
-
     @SuppressLint("NewApi")
     @SuppressWarnings({ "deprecation" })
     @Override
@@ -47,6 +42,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
         params.alpha = 1.0f;
         params.dimAmount = 0.5f;
         getWindow().setAttributes(params);
+
+        float popupWidth;
+        float popupMaxHeight;
+        float popupHeight;
+        int actionBarHeight;
 
         // display dimensions
         popupWidth = display.getWidth();
@@ -134,7 +134,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.act_prof_tollbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle(R.string.title_activity_activator);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(R.string.title_activity_activator);
 
         refreshGUI(false);
 

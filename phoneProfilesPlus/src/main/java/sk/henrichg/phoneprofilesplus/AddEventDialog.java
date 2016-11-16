@@ -12,24 +12,17 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddEventDialog
+class AddEventDialog
 {
-    private AddEventAdapter addEventAdapter;
-
-    public List<Event> eventList;
-
-    private Context _context;
     public EditorEventListFragment eventListFragment;
 
     private MaterialDialog mDialog;
-    private ListView listView;
 
-    public AddEventDialog(Context context, EditorEventListFragment eventListFragment)
+    AddEventDialog(Context context, EditorEventListFragment eventListFragment)
     {
-        _context = context;
         this.eventListFragment = eventListFragment;
 
-        eventList = new ArrayList<Event>();
+        List<Event> eventList = new ArrayList<Event>();
 
         boolean monochrome = false;
         int monochromeValue = 0xFF;
@@ -56,12 +49,12 @@ public class AddEventDialog
 
         mDialog = dialogBuilder.build();
 
-        listView = (ListView)mDialog.getCustomView().findViewById(R.id.event_pref_dlg_listview);
+        ListView listView = (ListView)mDialog.getCustomView().findViewById(R.id.event_pref_dlg_listview);
         TextView help = (TextView)mDialog.getCustomView().findViewById(R.id.event_pref_dlg_help);
         if (!profileNotExists)
             help.setVisibility(View.GONE);
 
-        addEventAdapter = new AddEventAdapter(this, _context, eventList);
+        AddEventAdapter addEventAdapter = new AddEventAdapter(this, context, eventList);
         listView.setAdapter(addEventAdapter);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -73,7 +66,7 @@ public class AddEventDialog
 
     }
 
-    public void doOnItemSelected(int position)
+    private void doOnItemSelected(int position)
     {
         eventListFragment.startEventPreferencesActivity(null, position);
         mDialog.dismiss();

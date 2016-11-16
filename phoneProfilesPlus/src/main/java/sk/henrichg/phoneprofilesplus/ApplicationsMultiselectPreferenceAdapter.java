@@ -9,14 +9,14 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
+class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     private Context context;
 
-    boolean noShortcuts;
+    private boolean noShortcuts;
 
-    public ApplicationsMultiselectPreferenceAdapter(Context context, int addShortcuts)
+    ApplicationsMultiselectPreferenceAdapter(Context context, int addShortcuts)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);

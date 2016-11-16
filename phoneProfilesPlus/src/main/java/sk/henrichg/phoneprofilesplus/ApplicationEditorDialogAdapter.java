@@ -9,16 +9,16 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class ApplicationEditorDialogAdapter extends BaseAdapter
+class ApplicationEditorDialogAdapter extends BaseAdapter
 {
     private LayoutInflater inflater;
     private Context context;
 
     ApplicationEditorDialog dialog;
     Application application;
-    int selectedPosition;
+    private int selectedPosition;
 
-    public ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context,
+    ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context,
                                                 Application application, int selectedPosition)
     {
         // Cache the LayoutInflate to avoid asking for a new one each time.

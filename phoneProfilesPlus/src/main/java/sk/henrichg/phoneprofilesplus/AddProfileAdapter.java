@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class AddProfileAdapter extends BaseAdapter {
+class AddProfileAdapter extends BaseAdapter {
 
     public List<Profile> profileList;
     AddProfileDialog dialog;
@@ -20,7 +20,7 @@ public class AddProfileAdapter extends BaseAdapter {
 
     private LayoutInflater inflater = null;
 
-    public AddProfileAdapter(AddProfileDialog dialog, Context c, List<Profile> profileList)
+    AddProfileAdapter(AddProfileDialog dialog, Context c, List<Profile> profileList)
     {
         context = c;
 
@@ -31,8 +31,7 @@ public class AddProfileAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        int count = profileList.size();
-        return count;
+        return profileList.size();
     }
 
     public Object getItem(int position) {

@@ -13,11 +13,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class AddEventAdapter extends BaseAdapter {
+class AddEventAdapter extends BaseAdapter {
 
-    public List<Event> eventList;
+    private List<Event> eventList;
     private String[] profileNamesArray;
-    private TypedArray profileIconsTypedArray;
     private int[] profileIconsArray;
     private int defaultColor;
 
@@ -25,28 +24,26 @@ public class AddEventAdapter extends BaseAdapter {
 
     private Context context;
 
-    private LayoutInflater inflater = null;
-
-    public AddEventAdapter(AddEventDialog dialog, Context c, List<Event> eventList)
+    AddEventAdapter(AddEventDialog dialog, Context c, List<Event> eventList)
     {
         context = c;
 
         this.dialog = dialog;
         this.eventList = eventList;
 
-        inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //LayoutInflater inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         profileNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
-        profileIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedStartProfileIconsArray);
+        TypedArray profileIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedStartProfileIconsArray);
         profileIconsArray = new int[profileIconsTypedArray.length()];
         for (int i = 0; i < profileIconsTypedArray.length(); i++) {
             profileIconsArray[i] = profileIconsTypedArray.getResourceId(i, -1);
         }
+        profileIconsTypedArray.recycle();
     }
 
     public int getCount() {
-        int count = eventList.size();
-        return count;
+        return eventList.size();
     }
 
     public Object getItem(int position) {

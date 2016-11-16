@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.TimeZone;
 
-public class ActivityLogAdapter extends CursorAdapter {
+class ActivityLogAdapter extends CursorAdapter {
 
     private final int KEY_AL_LOG_DATE_TIME;
     private final int KEY_AL_LOG_TYPE;
@@ -26,10 +26,10 @@ public class ActivityLogAdapter extends CursorAdapter {
     //private final int KEY_AL_PROFILE_ICON;
     //private final int KEY_AL_DURATION_DELAY;
 
-    HashMap<Integer, Integer> activityTypeStrings = new HashMap<Integer, Integer>();
-    HashMap<Integer, Integer> activityTypeColors = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> activityTypeStrings = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> activityTypeColors = new HashMap<Integer, Integer>();
 
-    public ActivityLogAdapter(Context context, Cursor cursor) {
+    ActivityLogAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
 
         KEY_AL_LOG_DATE_TIME = cursor.getColumnIndex(DatabaseHandler.KEY_AL_LOG_DATE_TIME);
@@ -127,7 +127,7 @@ public class ActivityLogAdapter extends CursorAdapter {
         //rowData.durationDelay.setText(cursor.getString(KEY_AL_DURATION_DELAY));
     }
 
-    public static class MyRowViewHolder {
+    private static class MyRowViewHolder {
         FrameLayout logTypeColor;
         TextView logDateTime;
         TextView logType;
@@ -137,12 +137,11 @@ public class ActivityLogAdapter extends CursorAdapter {
         //TextView durationDelay;
     }
 
-    public static String formatDateTime(Context context, String timeToFormat) {
+    private String formatDateTime(Context context, String timeToFormat) {
 
         String finalDateTime = "";
 
-        SimpleDateFormat iso8601Format = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date date = null;
         if (timeToFormat != null) {
@@ -181,7 +180,7 @@ public class ActivityLogAdapter extends CursorAdapter {
         return finalDateTime;
     }
 
-    private static String timeDateStringFromTimestamp(Context applicationContext,long timestamp){
+    private String timeDateStringFromTimestamp(Context applicationContext,long timestamp){
         String timeDate;
         String androidDateTime=android.text.format.DateFormat.getDateFormat(applicationContext).format(new Date(timestamp))+" "+
                 android.text.format.DateFormat.getTimeFormat(applicationContext).format(new Date(timestamp));

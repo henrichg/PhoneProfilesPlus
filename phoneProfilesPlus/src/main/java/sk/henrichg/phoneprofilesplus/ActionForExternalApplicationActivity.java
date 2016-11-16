@@ -137,7 +137,7 @@ public class ActionForExternalApplicationActivity extends Activity {
         }
         else {
             if (event_id != 0) {
-                Event event = dataWrapper.getEventById(event_id);
+                //Event event = dataWrapper.getEventById(event_id);
                 //Log.d("ActionForExternalApplicationActivity.onCreate", "event=" + event);
 
                 dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);

@@ -11,21 +11,16 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddProfileDialog
+class AddProfileDialog
 {
-    private AddProfileAdapter addProfileAdapter;
-
     public List<Profile> profileList;
 
-    private Context _context;
     private EditorProfileListFragment profileListFragment;
 
     private MaterialDialog mDialog;
-    private ListView listView;
 
-    public AddProfileDialog(Context context, EditorProfileListFragment profileListFragment)
+    AddProfileDialog(Context context, EditorProfileListFragment profileListFragment)
     {
-        _context = context;
         this.profileListFragment = profileListFragment;
 
         profileList = new ArrayList<Profile>();
@@ -55,9 +50,9 @@ public class AddProfileDialog
 
         mDialog = dialogBuilder.build();
 
-        listView = (ListView)mDialog.getCustomView().findViewById(R.id.profile_pref_dlg_listview);
+        ListView listView = (ListView)mDialog.getCustomView().findViewById(R.id.profile_pref_dlg_listview);
 
-        addProfileAdapter = new AddProfileAdapter(this, _context, profileList);
+        AddProfileAdapter addProfileAdapter = new AddProfileAdapter(this, context, profileList);
         listView.setAdapter(addProfileAdapter);
 
         listView.setOnItemClickListener(new OnItemClickListener() {

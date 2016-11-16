@@ -80,11 +80,11 @@ public class ActivateProfileListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        doOnViewCreated(view, savedInstanceState);
+        doOnViewCreated(view/*, savedInstanceState*/);
     }
 
     //@Override
-    public void doOnViewCreated(View view, Bundle savedInstanceState)
+    public void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         activeProfileName = (TextView)view.findViewById(R.id.act_prof_activated_profile_name);
         activeProfileIcon = (ImageView)view.findViewById(R.id.act_prof_activated_profile_icon);
@@ -132,7 +132,7 @@ public class ActivateProfileListFragment extends Fragment {
         if (profileList == null)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this);
-            this.asyncTaskContext = new WeakReference<LoadProfileListAsyncTask >(asyncTask );
+            this.asyncTaskContext = new WeakReference<LoadProfileListAsyncTask>(asyncTask );
             asyncTask.execute();
         }
         else

@@ -55,14 +55,15 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.about_application_title);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.about_application_title);
+        }
 
         TextView text = (TextView) findViewById(R.id.about_application_application_version);
         try {
-            PackageInfo pinfo = null;
-            pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String packageVersion = pinfo.versionName;
             text.setText(getString(R.string.about_application_version) + " " + packageVersion);
         } catch (PackageManager.NameNotFoundException e) {
@@ -90,10 +91,10 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_EMAIL, email);
                 String packageVersion = "";
                 try {
-                    PackageInfo pinfo = null;
-                    pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                    PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                     packageVersion = " - v" + pinfo.versionName;
                 } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
                 }
                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
                 //if (intent.resolveActivity(getPackageManager()) != null) {
