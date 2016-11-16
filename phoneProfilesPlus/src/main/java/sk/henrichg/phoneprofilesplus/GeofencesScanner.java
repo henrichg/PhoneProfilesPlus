@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -17,7 +18,7 @@ import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
 
-public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
+class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                          GoogleApiClient.OnConnectionFailedListener,
                                          LocationListener
 {
@@ -26,20 +27,20 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     private Context context;
     DataWrapper dataWrapper;
 
-    Location lastLocation;
+    private Location lastLocation;
 
-    protected LocationRequest mLocationRequest;
+    private LocationRequest mLocationRequest;
     //public boolean mPowerSaveMode = false;
-    public boolean mUpdatesStarted = false;
+    boolean mUpdatesStarted = false;
 
     // Bool to track whether the app is already resolving an error
-    public boolean mResolvingError = false;
+    boolean mResolvingError = false;
     // Request code to use when launching the resolution activity
-    public static final int REQUEST_RESOLVE_ERROR = 1001;
+    static final int REQUEST_RESOLVE_ERROR = 1001;
     // Unique tag for the error dialog fragment
-    public static final String DIALOG_ERROR = "dialog_error";
+    static final String DIALOG_ERROR = "dialog_error";
 
-    public GeofencesScanner(Context context) {
+    GeofencesScanner(Context context) {
         this.context = context;
         dataWrapper = new DataWrapper(context, false, false, 0);
 
@@ -54,14 +55,14 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         lastLocation = new Location("GL");
     }
 
-    public void connect() {
+    void connect() {
         if (!mResolvingError) {
             if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
                 mGoogleApiClient.connect();
         }
-    };
+    }
 
-    public void connectForResolve() {
+    void connectForResolve() {
         if (!mGoogleApiClient.isConnecting() &&
                 !mGoogleApiClient.isConnected()) {
             if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
@@ -69,7 +70,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         }
     }
 
-    public void disconnect() {
+    void disconnect() {
         if (mGoogleApiClient.isConnected()) {
             stopLocationUpdates();
         }
@@ -98,11 +99,11 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         //Log.d("GeofencesScanner.onConnectionFailed", "xxx");
         if (mResolvingError) {
             // Already attempting to resolve an error.
-            return;
+            //return;
         } else if (connectionResult.hasResolution()) {
             /*try {
                 mResolvingError = true;
@@ -131,7 +132,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         //updateGeofencesInDB();
     }
 
-    public void updateGeofencesInDB() {
+    void updateGeofencesInDB() {
         List<Geofence> geofences = dataWrapper.getDatabaseHandler().getAllGeofences();
 
         //boolean change = false;
@@ -145,7 +146,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
             float distance = lastLocation.distanceTo(geofenceLocation);
             float radius = lastLocation.getAccuracy()+geofence._radius;
 
-            int transitionType = 0;
+            int transitionType;
             if (distance <= radius)
                 transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
             else
@@ -164,14 +165,14 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         }
     }
 
-    public void clearAllEventGeofences() {
+    void clearAllEventGeofences() {
         // clear all geofence transitions
         dataWrapper.getDatabaseHandler().clearAllGeofenceTransitions();
     }
 
     //-------------------------------------------
 
-    protected void createLocationRequest() {
+    private void createLocationRequest() {
         GlobalData.loadPreferences(context);
 
         //Log.d("GeofenceScanner.createLocationRequest", "xxx");
@@ -225,7 +226,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     /**
      * Requests location updates from the FusedLocationApi.
      */
-    protected void startLocationUpdates() {
+    void startLocationUpdates() {
         // The final argument to {@code requestLocationUpdates()} is a LocationListener
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
 
@@ -239,7 +240,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 } catch (SecurityException securityException) {
                     // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
                     mUpdatesStarted = false;
-                    return;
+                    //return;
                 }
             }
 
@@ -249,7 +250,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     /**
      * Removes location updates from the FusedLocationApi.
      */
-    protected void stopLocationUpdates() {
+    void stopLocationUpdates() {
         // It is a good practice to remove location requests when the activity is in a paused or
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
@@ -264,7 +265,7 @@ public class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         }
     }
 
-    public void resetLocationUpdates(boolean oldPowerSaveMode, boolean forceReset) {
+    void resetLocationUpdates(boolean oldPowerSaveMode, boolean forceReset) {
         if ((forceReset) || (GlobalData.isPowerSaveMode != oldPowerSaveMode)) {
             stopLocationUpdates();
             createLocationRequest();

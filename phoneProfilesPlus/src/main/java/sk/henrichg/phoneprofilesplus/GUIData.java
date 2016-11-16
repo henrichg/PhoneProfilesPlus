@@ -32,18 +32,18 @@ import java.util.Locale;
 
 public class GUIData {
 
-    public static BrightnessView brightneesView = null;
-    public static BrightnessView keepScreenOnView = null;
-    public static Collator collator = null;
+    static BrightnessView brightneesView = null;
+    static BrightnessView keepScreenOnView = null;
+    static Collator collator = null;
 
     // import/export
-    public static final String DB_FILEPATH = "/data/" + GlobalData.PACKAGE_NAME + "/databases";
-    public static final String REMOTE_EXPORT_PATH = "/PhoneProfiles";
-    public static final String EXPORT_APP_PREF_FILENAME = "ApplicationPreferences.backup";
-    public static final String EXPORT_DEF_PROFILE_PREF_FILENAME = "DefaultProfilePreferences.backup";
+    static final String DB_FILEPATH = "/data/" + GlobalData.PACKAGE_NAME + "/databases";
+    static final String REMOTE_EXPORT_PATH = "/PhoneProfiles";
+    static final String EXPORT_APP_PREF_FILENAME = "ApplicationPreferences.backup";
+    static final String EXPORT_DEF_PROFILE_PREF_FILENAME = "DefaultProfilePreferences.backup";
 
-    // this string is from material-preferences linrary (https://github.com/ferrannp/material-preferences)
-    public static final String MAIN_PREFERENCE_FRAGMENT_TAG = "com.fnp.materialpreferences.MainFragment";
+    // this string is from material-preferences binary (https://github.com/ferrannp/material-preferences)
+    //public static final String MAIN_PREFERENCE_FRAGMENT_TAG = "com.fnp.materialpreferences.MainFragment";
 
     public static void setLanguage(Context context)//, boolean restart)
     {
@@ -106,7 +106,7 @@ public class GUIData {
         activity.setTheme(getTheme(forPopup, withToolbar));
     }
 
-    public static int getTheme(boolean forPopup, boolean withToolbar) {
+    static int getTheme(boolean forPopup, boolean withToolbar) {
         if (GlobalData.applicationTheme.equals("material"))
         {
             if (forPopup)
@@ -163,6 +163,7 @@ public class GUIData {
         return 0;
     }
 
+    /*
     public static int getDialogTheme(boolean forAlert) {
         if (GlobalData.applicationTheme.equals("material"))
         {
@@ -189,8 +190,9 @@ public class GUIData {
         }
         return 0;
     }
+    */
 
-    public static void reloadActivity(Activity activity, boolean newIntent)
+    static void reloadActivity(Activity activity, boolean newIntent)
     {
         if (newIntent)
         {
@@ -237,7 +239,7 @@ public class GUIData {
         }
     }
 
-    public static void registerOnActivityDestroyListener(Preference preference, PreferenceManager.OnActivityDestroyListener listener) {
+    static void registerOnActivityDestroyListener(Preference preference, PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
             Method method = pm.getClass().getDeclaredMethod(
@@ -249,7 +251,7 @@ public class GUIData {
         }
     }
 
-    public static void unregisterOnActivityDestroyListener(Preference preference, PreferenceManager.OnActivityDestroyListener listener) {
+    static void unregisterOnActivityDestroyListener(Preference preference, PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
             Method method = pm.getClass().getDeclaredMethod(
@@ -269,7 +271,7 @@ public class GUIData {
      * @param item The menu item to modify
      * @param iconResId The icon ID
      */
-    public static void setImageButtonEnabled(boolean enabled, AppCompatImageButton item, int iconResId, Context context) {
+    static void setImageButtonEnabled(boolean enabled, AppCompatImageButton item, int iconResId, Context context) {
         item.setEnabled(enabled);
         Drawable originalIcon = ContextCompat.getDrawable(context, iconResId);
         Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
@@ -284,7 +286,7 @@ public class GUIData {
      * @return a mutated version of the given drawable with a color filter
      *         applied.
      */
-    public static Drawable convertDrawableToGrayScale(Drawable drawable) {
+    private static Drawable convertDrawableToGrayScale(Drawable drawable) {
         if (drawable == null) {
             return null;
         }
@@ -293,11 +295,13 @@ public class GUIData {
         return res;
     }
 
-    public static float pixelsToSp(Context context, float px) {
+    /*
+    static float pixelsToSp(Context context, float px) {
         return px / context.getResources().getDisplayMetrics().scaledDensity;
     }
+    */
 
-    public static float spToPixels(Context context, float sp) {
+    private static float spToPixels(Context context, float sp) {
         return sp * context.getResources().getDisplayMetrics().scaledDensity;
     }
 
@@ -305,7 +309,7 @@ public class GUIData {
      * Uses reflection to access divider private attribute and override its color
      * Use Color.Transparent if you wish to hide them
      */
-    public static void setSeparatorColorForNumberPicker(NumberPicker picker, int separatorColor) {
+    static void setSeparatorColorForNumberPicker(NumberPicker picker, int separatorColor) {
         Field[] pickerFields = NumberPicker.class.getDeclaredFields();
         for (Field pf : pickerFields) {
             if (pf.getName().equals("mSelectionDivider")) {
@@ -320,7 +324,7 @@ public class GUIData {
         }
     }
 
-    public static void updateTextAttributesForNumberPicker(NumberPicker picker, /*int textColor,*/ int textSizeSP) {
+    static void updateTextAttributesForNumberPicker(NumberPicker picker, /*int textColor,*/ int textSizeSP) {
         for (int i = 0; i < picker.getChildCount(); i++){
             View child = picker.getChildAt(i);
             if (child instanceof EditText) {

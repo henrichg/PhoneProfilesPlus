@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
@@ -37,7 +38,6 @@ public class GrantPermissionActivity extends Activity {
     private boolean interactive;
     private boolean log;
     private String applicationDataPath;
-    private long event_id;
     private boolean activateProfile;
 
     private Profile profile;
@@ -79,7 +79,7 @@ public class GrantPermissionActivity extends Activity {
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
         activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true);
 
-        event_id = intent.getLongExtra(GlobalData.EXTRA_EVENT_ID, 0);
+        long event_id = intent.getLongExtra(GlobalData.EXTRA_EVENT_ID, 0);
 
         dataWrapper = new DataWrapper(getApplicationContext(), forGUI, monochrome, monochromeValue);
         profile = dataWrapper.getProfileById(profile_id, mergedProfile);
@@ -362,7 +362,7 @@ public class GrantPermissionActivity extends Activity {
                 return;
             }
             else {
-                String showRequestString = "";
+                String showRequestString;
 
                 if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE)
                     showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
@@ -532,7 +532,8 @@ public class GrantPermissionActivity extends Activity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CODE: {
                 // If request is cancelled, the result arrays are empty.
@@ -561,7 +562,7 @@ public class GrantPermissionActivity extends Activity {
                     if (mergedNotification)
                         GlobalData.clearMergedPermissions(getApplicationContext());
                 }
-                return;
+                //return;
             }
 
             // other 'case' lines to check for other
@@ -640,6 +641,7 @@ public class GrantPermissionActivity extends Activity {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void requestPermissions(int iteration) {
 
         if (iteration == 1) {
@@ -671,7 +673,7 @@ public class GrantPermissionActivity extends Activity {
                 requestPermissions(3);
         }
         else {
-            List<String> permList = new ArrayList<String>();
+            List<String> permList = new ArrayList<>();
             for (Permissions.PermissionType permissionType : permissions) {
                 if ((!permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) &&
                     (!permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) &&

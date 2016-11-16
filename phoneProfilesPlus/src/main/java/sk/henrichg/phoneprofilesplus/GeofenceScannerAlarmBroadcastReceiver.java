@@ -96,7 +96,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
             int updateDuration = 30;
-            int interval = 0;
+            int interval;
             if (PhoneProfilesService.instance.geofencesScanner.mUpdatesStarted) {
                 interval = GlobalData.applicationEventLocationUpdateInterval * 60;
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);

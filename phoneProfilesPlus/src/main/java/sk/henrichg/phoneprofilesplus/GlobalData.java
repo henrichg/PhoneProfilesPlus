@@ -283,7 +283,7 @@ public class GlobalData extends Application {
     public static final String SCANNER_TYPE_WIFI = "wifi";
     public static final String SCANNER_TYPE_BLUETOOTH = "bluetooth";
 
-    public static final String RESCAN_TYPE_NONE = "0";
+    //public static final String RESCAN_TYPE_NONE = "0";
     public static final String RESCAN_TYPE_SCREEN_ON = "1";
     public static final String RESCAN_TYPE_RESTART_EVENTS = "2";
     public static final String RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS = "3";
@@ -477,9 +477,11 @@ public class GlobalData extends Application {
         File sd = Environment.getExternalStorageDirectory();
         File exportDir = new File(sd, GlobalData.EXPORT_PATH);
         if (!(exportDir.exists() && exportDir.isDirectory()))
+            //noinspection ResultOfMethodCallIgnored
             exportDir.mkdirs();
 
         File logFile = new File(sd, EXPORT_PATH + "/" + LOG_FILENAME);
+        //noinspection ResultOfMethodCallIgnored
         logFile.delete();
     }
 
@@ -494,6 +496,7 @@ public class GlobalData extends Application {
             File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, GlobalData.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory()))
+                //noinspection ResultOfMethodCallIgnored
                 exportDir.mkdirs();
 
             File logFile = new File(sd, EXPORT_PATH + "/" + LOG_FILENAME);
@@ -503,6 +506,7 @@ public class GlobalData extends Application {
 
             if (!logFile.exists())
             {
+                //noinspection ResultOfMethodCallIgnored
                 logFile.createNewFile();
             }
 
@@ -619,9 +623,9 @@ public class GlobalData extends Application {
         applicationWidgetListLightnessB = preferences.getString(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, "0");
         applicationWidgetListLightnessT = preferences.getString(PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, "100");
         applicationWidgetIconColor = preferences.getString(PREF_APPLICATION_WIDGET_ICON_COLOR, "0");
-        applicationWidgetIconLightness = preferences.getString(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, "100");;
+        applicationWidgetIconLightness = preferences.getString(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, "100");
         applicationWidgetListIconColor = preferences.getString(PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, "0");
-        applicationWidgetListIconLightness = preferences.getString(PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, "100");;
+        applicationWidgetListIconLightness = preferences.getString(PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, "100");
         applicationEditorAutoCloseDrawer = preferences.getBoolean(PREF_APPLICATION_EDITOR_AUTO_CLOSE_DRAWER, true);
         applicationEditorSaveEditorState = preferences.getBoolean(PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
         notificationPrefIndicator = preferences.getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
@@ -959,7 +963,7 @@ public class GlobalData extends Application {
             return mappedProfile;
         }
         else
-            return profile;
+            return null;
     }
 
     static public boolean getGlobalEventsRuning(Context context)
@@ -1751,9 +1755,8 @@ public class GlobalData extends Application {
     {
         // test expoiting power manager widget
         PackageManager pacman = context.getPackageManager();
-        PackageInfo pacInfo = null;
         try {
-            pacInfo = pacman.getPackageInfo("com.android.settings", PackageManager.GET_RECEIVERS);
+            PackageInfo pacInfo = pacman.getPackageInfo("com.android.settings", PackageManager.GET_RECEIVERS);
 
             if(pacInfo != null){
                 for(ActivityInfo actInfo : pacInfo.receivers){
@@ -1806,6 +1809,7 @@ public class GlobalData extends Application {
             // The "TRANSACTION_setDataEnabled" field is not available,
             // or named differently in the current API level, so we throw
             // an exception and inform users that the method is not available.
+            e.printStackTrace();
             throw e;
         }
     }
@@ -1813,11 +1817,11 @@ public class GlobalData extends Application {
     static boolean telephonyServiceExists(Context context, String preference) {
         try {
             if (preference.equals(PREF_PROFILE_DEVICE_MOBILE_DATA)) {
-                String s = getTransactionCode(context, "TRANSACTION_setDataEnabled");
+                getTransactionCode(context, "TRANSACTION_setDataEnabled");
             }
             else
             if (preference.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
-                String s = getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
+                getTransactionCode(context, "TRANSACTION_setPreferredNetworkType");
             }
             return true;
         } catch(Exception e) {
@@ -2010,6 +2014,7 @@ public class GlobalData extends Application {
                                 is.close();
                             }
                         } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
@@ -2110,6 +2115,7 @@ public class GlobalData extends Application {
             fos.close();
 
             File file = context.getFileStreamPath(name);
+            //noinspection ResultOfMethodCallIgnored
             file.setExecutable(true);
 
             return file.getAbsolutePath();
@@ -2220,10 +2226,12 @@ public class GlobalData extends Application {
                         return ActivateProfileHelper.ZENMODE_NONE;
                     case NotificationManager.INTERRUPTION_FILTER_ALARMS:
                         return ActivateProfileHelper.ZENMODE_ALARMS;
+                    case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
+                        return ActivateProfileHelper.ZENMODE_ALL;
                 }
             }
             else {
-                int interuptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);;
+                int interuptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
                 switch (interuptionFilter) {
                     case 0:
                         return ActivateProfileHelper.ZENMODE_ALL;
@@ -2237,7 +2245,7 @@ public class GlobalData extends Application {
             }
         }
         if ((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) {
-            int interuptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);;
+            int interuptionFilter = Settings.Global.getInt(context.getContentResolver(), "zen_mode", -1);
             switch (interuptionFilter) {
                 case 0:
                     return ActivateProfileHelper.ZENMODE_ALL;
