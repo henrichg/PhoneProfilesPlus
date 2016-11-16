@@ -25,37 +25,37 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class EventPreferencesCalendar extends EventPreferences {
+class EventPreferencesCalendar extends EventPreferences {
 
-    public String _calendars;
-    public int _searchField;
-    public String _searchString;
-    public int _availability;
-    public boolean _ignoreAllDayEvents;
+    String _calendars;
+    int _searchField;
+    String _searchString;
+    int _availability;
+    boolean _ignoreAllDayEvents;
 
-    public long _startTime;
-    public long _endTime;
-    public boolean _eventFound;
+    long _startTime;
+    long _endTime;
+    boolean _eventFound;
 
     static final String PREF_EVENT_CALENDAR_ENABLED = "eventCalendarEnabled";
-    static final String PREF_EVENT_CALENDAR_CALENDARS = "eventCalendarCalendars";
-    static final String PREF_EVENT_CALENDAR_SEARCH_FIELD = "eventCalendarSearchField";
-    static final String PREF_EVENT_CALENDAR_SEARCH_STRING = "eventCalendarSearchString";
-    static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";
-    static final String PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS = "eventCalendarIgnoreAllDayEvents";
+    private static final String PREF_EVENT_CALENDAR_CALENDARS = "eventCalendarCalendars";
+    private static final String PREF_EVENT_CALENDAR_SEARCH_FIELD = "eventCalendarSearchField";
+    private static final String PREF_EVENT_CALENDAR_SEARCH_STRING = "eventCalendarSearchString";
+    private static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";
+    private static final String PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS = "eventCalendarIgnoreAllDayEvents";
 
-    static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategory";
+    private static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategory";
 
-    static final int SEARCH_FIELD_TITLE = 0;
-    static final int SEARCH_FIELD_DESCRIPTION = 1;
-    static final int SEARCH_FIELD_LOCATION = 2;
+    private static final int SEARCH_FIELD_TITLE = 0;
+    private static final int SEARCH_FIELD_DESCRIPTION = 1;
+    private static final int SEARCH_FIELD_LOCATION = 2;
 
-    static final int AVAILABILITY_NO_CHECK = 0;
-    static final int AVAILABILITY_BUSY = 1;
-    static final int AVAILABILITY_FREE = 2;
-    static final int AVAILABILITY_TENTATIVE = 3;
+    //private static final int AVAILABILITY_NO_CHECK = 0;
+    private static final int AVAILABILITY_BUSY = 1;
+    private static final int AVAILABILITY_FREE = 2;
+    private static final int AVAILABILITY_TENTATIVE = 3;
 
-    public EventPreferencesCalendar(Event event,
+    EventPreferencesCalendar(Event event,
                                 boolean enabled,
                                 String calendars,
                                 int searchField,
@@ -79,12 +79,12 @@ public class EventPreferencesCalendar extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._enabled;
-        this._calendars = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._calendars;
-        this._searchField = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._searchField;
-        this._searchString = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._searchString;
-        this._availability = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._availability;
-        this._ignoreAllDayEvents = ((EventPreferencesCalendar)fromEvent._eventPreferencesCalendar)._ignoreAllDayEvents;
+        this._enabled = fromEvent._eventPreferencesCalendar._enabled;
+        this._calendars = fromEvent._eventPreferencesCalendar._calendars;
+        this._searchField = fromEvent._eventPreferencesCalendar._searchField;
+        this._searchString = fromEvent._eventPreferencesCalendar._searchString;
+        this._availability = fromEvent._eventPreferencesCalendar._availability;
+        this._ignoreAllDayEvents = fromEvent._eventPreferencesCalendar._ignoreAllDayEvents;
 
         this._startTime = 0;
         this._endTime = 0;
@@ -154,7 +154,7 @@ public class EventPreferencesCalendar extends EventPreferences {
                     if (_eventFound) {
                         long alarmTime;
                         //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
-                        String alarmTimeS = "";
+                        String alarmTimeS;
                         if (_event.getStatus() == Event.ESTATUS_PAUSE) {
                             alarmTime = computeAlarm(true);
                             // date and time format by user system settings configuration
@@ -278,7 +278,7 @@ public class EventPreferencesCalendar extends EventPreferences {
         return true;
     }
 
-    public long computeAlarm(boolean startEvent)
+    long computeAlarm(boolean startEvent)
     {
         GlobalData.logE("EventPreferencesCalendar.computeAlarm","startEvent="+startEvent);
 
@@ -315,8 +315,8 @@ public class EventPreferencesCalendar extends EventPreferences {
         // from broadcast will by called EventsService
 
 
-        removeAlarm(true, context);
-        removeAlarm(false, context);
+        //removeAlarm(true, context);
+        removeAlarm(/*false, */context);
 
         searchEvent(context);
 
@@ -334,8 +334,8 @@ public class EventPreferencesCalendar extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsService
 
-        removeAlarm(true, context);
-        removeAlarm(false, context);
+        //removeAlarm(true, context);
+        removeAlarm(/*false, */context);
 
         searchEvent(context);
 
@@ -350,15 +350,15 @@ public class EventPreferencesCalendar extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        removeAlarm(true, context);
-        removeAlarm(false, context);
+        //removeAlarm(true, context);
+        removeAlarm(/*false, */context);
 
         _eventFound = false;
 
         GlobalData.logE("EventPreferencesCalendar.removeSystemEvent", "xxx");
     }
 
-    public void removeAlarm(boolean startEvent, Context context)
+    public void removeAlarm(/*boolean startEvent, */Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
@@ -401,7 +401,7 @@ public class EventPreferencesCalendar extends EventPreferences {
             alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
     }
 
-    public void searchEvent(Context context)
+    private void searchEvent(Context context)
     {
         if (!(isRunnable(context) && _enabled && Permissions.checkCalendar(context)))
         {
@@ -427,13 +427,13 @@ public class EventPreferencesCalendar extends EventPreferences {
         // The indices for the projection array above.
         final int PROJECTION_BEGIN_INDEX = 0;
         final int PROJECTION_END_INDEX = 1;
-        final int PROJECTION_TITLE_INDEX = 2;
+        //final int PROJECTION_TITLE_INDEX = 2;
         //final int PROJECTION_DESCRIPTION_INDEX = 3;
         final int PROJECTION_CALENDAR_ID_INDEX = 4;
         final int PROJECTION_ALL_DAY_INDEX = 5;
         //final int PROJECTION_EVENT_TIMEZONE_INDEX = 6;
 
-        Cursor cur = null;
+        Cursor cur;
         ContentResolver cr = context.getContentResolver();
 
         String selection =  "(    ";
@@ -516,8 +516,8 @@ public class EventPreferencesCalendar extends EventPreferences {
                 if ((cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1) && this._ignoreAllDayEvents)
                     continue;
 
-                long beginVal = 0;
-                long endVal = 0;
+                long beginVal;
+                long endVal;
                 //String title = null;
 
                 //Log.e("** EventPrefCalendar", "title="+cur.getString(PROJECTION_TITLE_INDEX));
@@ -571,7 +571,7 @@ public class EventPreferencesCalendar extends EventPreferences {
 
     }
 
-    public void saveStartEndTime(DataWrapper dataWrapper) {
+    void saveStartEndTime(DataWrapper dataWrapper) {
         _event._eventPreferencesCalendar.searchEvent(dataWrapper.context);
         if (_event.getStatus() == Event.ESTATUS_RUNNING)
             _event._eventPreferencesCalendar.setSystemEventForPause(dataWrapper.context);

@@ -20,35 +20,35 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class EventPreferencesSMS extends EventPreferences {
+class EventPreferencesSMS extends EventPreferences {
 
     //public int _smsEvent;
-    public String _contacts;
-    public String _contactGroups;
-    public int _contactListType;
-    public long _startTime;
-    public boolean _permanentRun;
-    public int _duration;
+    String _contacts;
+    String _contactGroups;
+    int _contactListType;
+    long _startTime;
+    boolean _permanentRun;
+    int _duration;
 
     static final String PREF_EVENT_SMS_ENABLED = "eventSMSEnabled";
     //static final String PREF_EVENT_SMS_EVENT = "eventSMSEvent";
-    static final String PREF_EVENT_SMS_CONTACTS = "eventSMSContacts";
-    static final String PREF_EVENT_SMS_CONTACT_GROUPS = "eventSMSContactGroups";
-    static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
-    static final String PREF_EVENT_SMS_PERMANENT_RUN = "eventSMSPermanentRun";
-    static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
+    private static final String PREF_EVENT_SMS_CONTACTS = "eventSMSContacts";
+    private static final String PREF_EVENT_SMS_CONTACT_GROUPS = "eventSMSContactGroups";
+    private static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
+    private static final String PREF_EVENT_SMS_PERMANENT_RUN = "eventSMSPermanentRun";
+    private static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
 
-    static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategory";
+    private static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategory";
 
     //static final int SMS_EVENT_UNDEFINED = -1;
     //static final int SMS_EVENT_INCOMING = 0;
     //static final int SMS_EVENT_OUTGOING = 1;
 
-    static final int CONTACT_LIST_TYPE_WHITE_LIST = 0;
-    static final int CONTACT_LIST_TYPE_BLACK_LIST = 1;
-    static final int CONTACT_LIST_TYPE_NOT_USE = 2;
+    //static final int CONTACT_LIST_TYPE_WHITE_LIST = 0;
+    //static final int CONTACT_LIST_TYPE_BLACK_LIST = 1;
+    private static final int CONTACT_LIST_TYPE_NOT_USE = 2;
 
-    public EventPreferencesSMS(Event event,
+    EventPreferencesSMS(Event event,
                                     boolean enabled,
                                     //int smsEvent,
                                     String contacts,
@@ -72,13 +72,13 @@ public class EventPreferencesSMS extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._enabled;
-        //this._smsEvent = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._smsEvent;
-        this._contacts = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contacts;
-        this._contactGroups = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contactGroups;
-        this._contactListType = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._contactListType;
-        this._permanentRun = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._permanentRun;
-        this._duration = ((EventPreferencesSMS)fromEvent._eventPreferencesSMS)._duration;
+        this._enabled = fromEvent._eventPreferencesSMS._enabled;
+        //this._smsEvent = fromEvent._eventPreferencesSMS._smsEvent;
+        this._contacts = fromEvent._eventPreferencesSMS._contacts;
+        this._contactGroups = fromEvent._eventPreferencesSMS._contactGroups;
+        this._contactListType = fromEvent._eventPreferencesSMS._contactListType;
+        this._permanentRun = fromEvent._eventPreferencesSMS._permanentRun;
+        this._duration = fromEvent._eventPreferencesSMS._duration;
 
         this._startTime = 0;
     }
@@ -245,7 +245,7 @@ public class EventPreferencesSMS extends EventPreferences {
         return true;
     }
 
-    public long computeAlarm()
+    long computeAlarm()
     {
         GlobalData.logE("EventPreferencesSMS.computeAlarm","xxx");
 
@@ -342,7 +342,7 @@ public class EventPreferencesSMS extends EventPreferences {
         }
     }
 
-    public void saveStartTime(DataWrapper dataWrapper, String phoneNumber, long startTime) {
+    void saveStartTime(DataWrapper dataWrapper, String phoneNumber, long startTime) {
         if (Permissions.checkContacts(dataWrapper.context)) {
 
             boolean phoneNumberFound = false;

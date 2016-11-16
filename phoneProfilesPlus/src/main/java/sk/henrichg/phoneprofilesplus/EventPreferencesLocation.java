@@ -7,20 +7,20 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.Html;
 
-public class EventPreferencesLocation extends EventPreferences {
+class EventPreferencesLocation extends EventPreferences {
 
-    public String _geofences;
-    public boolean _whenOutside;
+    String _geofences;
+    boolean _whenOutside;
 
     static final String PREF_EVENT_LOCATION_ENABLED = "eventLocationEnabled";
-    static final String PREF_EVENT_LOCATION_GEOFENCES = "eventLocationGeofences";
-    static final String PREF_EVENT_LOCATION_WHEN_OUTSIDE = "eventLocationStartWhenOutside";
+    private static final String PREF_EVENT_LOCATION_GEOFENCES = "eventLocationGeofences";
+    private static final String PREF_EVENT_LOCATION_WHEN_OUTSIDE = "eventLocationStartWhenOutside";
 
-    static final String PREF_EVENT_LOCATION_CATEGORY = "eventLocationCategory";
+    private static final String PREF_EVENT_LOCATION_CATEGORY = "eventLocationCategory";
 
     private DataWrapper dataWrapper = null;
 
-    public EventPreferencesLocation(Event event,
+    EventPreferencesLocation(Event event,
                                     boolean enabled,
                                     String geofences,
                                     boolean _whenOutside)
@@ -34,9 +34,9 @@ public class EventPreferencesLocation extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._enabled;
-        this._geofences = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._geofences;
-        this._whenOutside = ((EventPreferencesLocation)fromEvent._eventPreferencesLocation)._whenOutside;
+        this._enabled = fromEvent._eventPreferencesLocation._enabled;
+        this._geofences = fromEvent._eventPreferencesLocation._geofences;
+        this._whenOutside = fromEvent._eventPreferencesLocation._whenOutside;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class EventPreferencesLocation extends EventPreferences {
 
         if (!this._enabled)
         {
-            ;
+
         }
         else
         {

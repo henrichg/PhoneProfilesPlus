@@ -11,19 +11,19 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.Html;
 
-public class EventPreferencesApplication extends EventPreferences {
+class EventPreferencesApplication extends EventPreferences {
 
-    public String _applications;
-    //public long _startTime;
-    //public int _duration;
+    String _applications;
+    //long _startTime;
+    //int _duration;
 
     static final String PREF_EVENT_APPLICATION_ENABLED = "eventApplicationEnabled";
-    static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
-    //static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
+    private static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
+    //private static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
 
-    static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategory";
+    private static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategory";
 
-    public EventPreferencesApplication(Event event,
+    EventPreferencesApplication(Event event,
                                        boolean enabled,
                                        String applications/*,
                                        int duration*/)
@@ -39,9 +39,9 @@ public class EventPreferencesApplication extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesApplication)fromEvent._eventPreferencesApplication)._enabled;
-        this._applications = ((EventPreferencesApplication)fromEvent._eventPreferencesApplication)._applications;
-        //this._duration = ((EventPreferencesApplication)fromEvent._eventPreferencesNotification)._duration;
+        this._enabled = fromEvent._eventPreferencesApplication._enabled;
+        this._applications = fromEvent._eventPreferencesApplication._applications;
+        //this._duration = fromEvent._eventPreferencesNotification._duration;
 
         //this._startTime = 0;
     }

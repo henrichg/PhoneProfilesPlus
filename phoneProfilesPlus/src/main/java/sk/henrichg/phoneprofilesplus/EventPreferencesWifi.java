@@ -10,10 +10,10 @@ import android.text.Html;
 
 import java.util.Arrays;
 
-public class EventPreferencesWifi extends EventPreferences {
+class EventPreferencesWifi extends EventPreferences {
 
-    public String _SSID;
-    public int _connectionType;
+    String _SSID;
+    int _connectionType;
 
     static final int CTYPE_CONNECTED = 0;
     static final int CTYPE_INFRONT = 1;
@@ -22,15 +22,15 @@ public class EventPreferencesWifi extends EventPreferences {
 
     //static final String PREF_EVENT_WIFI_ENABLE_SCANNING_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
     static final String PREF_EVENT_WIFI_ENABLED = "eventWiFiEnabled";
-    static final String PREF_EVENT_WIFI_SSID = "eventWiFiSSID";
-    static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
+    private static final String PREF_EVENT_WIFI_SSID = "eventWiFiSSID";
+    private static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
 
-    static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
+    private static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
 
     static final String CONFIGURED_SSIDS_VALUE = "^configured_ssids^";
     static final String ALL_SSIDS_VALUE = "%";
 
-    public EventPreferencesWifi(Event event,
+    EventPreferencesWifi(Event event,
                                     boolean enabled,
                                     String SSID,
                                     int connectionType)
@@ -44,9 +44,9 @@ public class EventPreferencesWifi extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesWifi)fromEvent._eventPreferencesWifi)._enabled;
-        this._SSID = ((EventPreferencesWifi)fromEvent._eventPreferencesWifi)._SSID;
-        this._connectionType = ((EventPreferencesWifi)fromEvent._eventPreferencesWifi)._connectionType;
+        this._enabled = fromEvent._eventPreferencesWifi._enabled;
+        this._SSID = fromEvent._eventPreferencesWifi._SSID;
+        this._connectionType = fromEvent._eventPreferencesWifi._connectionType;
     }
 
     @Override

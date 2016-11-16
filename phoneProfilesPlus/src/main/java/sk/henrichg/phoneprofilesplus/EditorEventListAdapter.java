@@ -15,17 +15,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class EditorEventListAdapter extends BaseAdapter
+class EditorEventListAdapter extends BaseAdapter
 {
 
     private EditorEventListFragment fragment;
     private DataWrapper dataWrapper;
     private int filterType;
-    public List<Event> eventList;
-    public boolean released = false;
+    private List<Event> eventList;
+    boolean released = false;
     private int defaultColor;
 
-    public EditorEventListAdapter(EditorEventListFragment f, DataWrapper pdw, int filterType)
+    EditorEventListAdapter(EditorEventListFragment f, DataWrapper pdw, int filterType)
     {
         fragment = f;
         dataWrapper = pdw;
@@ -133,7 +133,7 @@ public class EditorEventListAdapter extends BaseAdapter
         return -1;
     }
 
-    public int getItemPosition(Event event)
+    int getItemPosition(Event event)
     {
         if (eventList == null)
             return -1;
@@ -177,7 +177,7 @@ public class EditorEventListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
-    public void addItem(Event event, boolean refresh)
+    void addItem(Event event, boolean refresh)
     {
         if (eventList == null)
             return;
@@ -187,7 +187,7 @@ public class EditorEventListAdapter extends BaseAdapter
             notifyDataSetChanged();
     }
 
-    public void deleteItemNoNotify(Event event)
+    void deleteItemNoNotify(Event event)
     {
         if (eventList == null)
             return;
@@ -195,11 +195,13 @@ public class EditorEventListAdapter extends BaseAdapter
         eventList.remove(event);
     }
 
+    /*
     public void deleteItem(Event event)
     {
         deleteItemNoNotify(event);
         notifyDataSetChanged();
     }
+    */
 
     public void clear()
     {
@@ -222,7 +224,7 @@ public class EditorEventListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
-    public void changeItemOrder(int from, int to)
+    void changeItemOrder(int from, int to)
     {
         if (eventList == null)
             return;
@@ -519,7 +521,7 @@ public class EditorEventListAdapter extends BaseAdapter
             holder.eventItemEditMenu.setOnClickListener(new OnClickListener() {
 
                     public void onClick(View v) {
-                        ((EditorEventListFragment)fragment).showEditMenu(eventItemEditMenu);
+                        fragment.showEditMenu(eventItemEditMenu);
                     }
                 });
 

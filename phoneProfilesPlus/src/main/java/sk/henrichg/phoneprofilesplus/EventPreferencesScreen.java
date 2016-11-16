@@ -12,21 +12,21 @@ import android.text.Html;
 
 import java.util.Arrays;
 
-public class EventPreferencesScreen extends EventPreferences {
+class EventPreferencesScreen extends EventPreferences {
 
-    public int _eventType;
-    public boolean _whenUnlocked;
+    int _eventType;
+    boolean _whenUnlocked;
 
-    public static final int ETYPE_SCREENON = 0;
-    public static final int ETYPE_SCREENOFF = 1;
+    static final int ETYPE_SCREENON = 0;
+    //static final int ETYPE_SCREENOFF = 1;
 
     static final String PREF_EVENT_SCREEN_ENABLED = "eventScreenEnabled";
-    static final String PREF_EVENT_SCREEN_EVENT_TYPE = "eventScreenEventType";
-    static final String PREF_EVENT_SCREEN_WHEN_UNLOCKED = "eventScreenWhenUnlocked";
+    private static final String PREF_EVENT_SCREEN_EVENT_TYPE = "eventScreenEventType";
+    private static final String PREF_EVENT_SCREEN_WHEN_UNLOCKED = "eventScreenWhenUnlocked";
 
-    static final String PREF_EVENT_SCREEN_CATEGORY = "eventScreenCategory";
+    private static final String PREF_EVENT_SCREEN_CATEGORY = "eventScreenCategory";
 
-    public EventPreferencesScreen(Event event,
+    EventPreferencesScreen(Event event,
                                     boolean enabled,
                                     int eventType,
                                     boolean whenUnlocked)
@@ -40,9 +40,9 @@ public class EventPreferencesScreen extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesScreen)fromEvent._eventPreferencesScreen)._enabled;
-        this._eventType = ((EventPreferencesScreen)fromEvent._eventPreferencesScreen)._eventType;
-        this._whenUnlocked = ((EventPreferencesScreen)fromEvent._eventPreferencesScreen)._whenUnlocked;
+        this._enabled = fromEvent._eventPreferencesScreen._enabled;
+        this._eventType = fromEvent._eventPreferencesScreen._eventType;
+        this._whenUnlocked = fromEvent._eventPreferencesScreen._whenUnlocked;
     }
 
     @Override

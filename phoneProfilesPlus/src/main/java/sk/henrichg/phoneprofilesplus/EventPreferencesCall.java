@@ -8,20 +8,20 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.Html;
 
-public class EventPreferencesCall extends EventPreferences {
+class EventPreferencesCall extends EventPreferences {
 
-    public int _callEvent;
-    public String _contacts;
-    public String _contactGroups;
-    public int _contactListType;
+    int _callEvent;
+    String _contacts;
+    String _contactGroups;
+    int _contactListType;
 
     static final String PREF_EVENT_CALL_ENABLED = "eventCallEnabled";
-    static final String PREF_EVENT_CALL_EVENT = "eventCallEvent";
-    static final String PREF_EVENT_CALL_CONTACTS = "eventCallContacts";
-    static final String PREF_EVENT_CALL_CONTACT_GROUPS = "eventCallContactGroups";
-    static final String PREF_EVENT_CALL_CONTACT_LIST_TYPE = "eventCallContactListType";
+    private static final String PREF_EVENT_CALL_EVENT = "eventCallEvent";
+    private static final String PREF_EVENT_CALL_CONTACTS = "eventCallContacts";
+    private static final String PREF_EVENT_CALL_CONTACT_GROUPS = "eventCallContactGroups";
+    private static final String PREF_EVENT_CALL_CONTACT_LIST_TYPE = "eventCallContactListType";
 
-    static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategory";
+    private static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategory";
 
     static final int CALL_EVENT_RINGING = 0;
     static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 1;
@@ -31,7 +31,7 @@ public class EventPreferencesCall extends EventPreferences {
     static final int CONTACT_LIST_TYPE_BLACK_LIST = 1;
     static final int CONTACT_LIST_TYPE_NOT_USE = 2;
 
-    public EventPreferencesCall(Event event,
+    EventPreferencesCall(Event event,
                                     boolean enabled,
                                     int callEvent,
                                     String contacts,
@@ -49,11 +49,11 @@ public class EventPreferencesCall extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._enabled;
-        this._callEvent = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._callEvent;
-        this._contacts = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._contacts;
-        this._contactGroups = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._contactGroups;
-        this._contactListType = ((EventPreferencesCall)fromEvent._eventPreferencesCall)._contactListType;
+        this._enabled = fromEvent._eventPreferencesCall._enabled;
+        this._callEvent = fromEvent._eventPreferencesCall._callEvent;
+        this._contacts = fromEvent._eventPreferencesCall._contacts;
+        this._contactGroups = fromEvent._eventPreferencesCall._contactGroups;
+        this._contactListType = fromEvent._eventPreferencesCall._contactListType;
     }
 
     @Override

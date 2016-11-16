@@ -22,78 +22,78 @@ import java.util.TimeZone;
 
 public class Event {
 
-    public long _id;
-    public String _name;
-    public int _startOrder;
-    public long _fkProfileStart;
-    public long _fkProfileEnd;
+    long _id;
+    String _name;
+    int _startOrder;
+    long _fkProfileStart;
+    long _fkProfileEnd;
     //public boolean _undoneProfile;
-    public int _atEndDo;
+    int _atEndDo;
     private int _status;
-    public String _notificationSound;
-    public boolean _forceRun;
-    public boolean _blocked;
-    public int _priority;
-    public int _delayStart;
-    public boolean _isInDelayStart;
-    public boolean _manualProfileActivation;
-    public long _fkProfileStartWhenActivated;
-    public int _delayEnd;
-    public boolean _isInDelayEnd;
-    public long _startStatusTime;
-    public long _pauseStatusTime;
+    String _notificationSound;
+    boolean _forceRun;
+    boolean _blocked;
+    int _priority;
+    int _delayStart;
+    boolean _isInDelayStart;
+    boolean _manualProfileActivation;
+    long _fkProfileStartWhenActivated;
+    int _delayEnd;
+    boolean _isInDelayEnd;
+    long _startStatusTime;
+    long _pauseStatusTime;
 
-    public EventPreferencesTime _eventPreferencesTime;
-    public EventPreferencesBattery _eventPreferencesBattery;
-    public EventPreferencesCall _eventPreferencesCall;
-    public EventPreferencesPeripherals _eventPreferencesPeripherals;
-    public EventPreferencesCalendar _eventPreferencesCalendar;
-    public EventPreferencesWifi _eventPreferencesWifi;
-    public EventPreferencesScreen _eventPreferencesScreen;
-    public EventPreferencesBluetooth _eventPreferencesBluetooth;
-    public EventPreferencesSMS _eventPreferencesSMS;
-    public EventPreferencesNotification _eventPreferencesNotification;
-    public EventPreferencesApplication _eventPreferencesApplication;
-    public EventPreferencesLocation _eventPreferencesLocation;
-    public EventPreferencesOrientation _eventPreferencesOrientation;
-    public EventPreferencesMobileCells _eventPreferencesMobileCells;
-    public EventPreferencesNFC _eventPreferencesNFC;
+    EventPreferencesTime _eventPreferencesTime;
+    EventPreferencesBattery _eventPreferencesBattery;
+    EventPreferencesCall _eventPreferencesCall;
+    EventPreferencesPeripherals _eventPreferencesPeripherals;
+    EventPreferencesCalendar _eventPreferencesCalendar;
+    EventPreferencesWifi _eventPreferencesWifi;
+    EventPreferencesScreen _eventPreferencesScreen;
+    EventPreferencesBluetooth _eventPreferencesBluetooth;
+    EventPreferencesSMS _eventPreferencesSMS;
+    EventPreferencesNotification _eventPreferencesNotification;
+    EventPreferencesApplication _eventPreferencesApplication;
+    EventPreferencesLocation _eventPreferencesLocation;
+    EventPreferencesOrientation _eventPreferencesOrientation;
+    EventPreferencesMobileCells _eventPreferencesMobileCells;
+    EventPreferencesNFC _eventPreferencesNFC;
 
-    public static final int ESTATUS_STOP = 0;
-    public static final int ESTATUS_PAUSE = 1;
-    public static final int ESTATUS_RUNNING = 2;
-    public static final int ESTATUS_NONE = 99;
+    static final int ESTATUS_STOP = 0;
+    static final int ESTATUS_PAUSE = 1;
+    static final int ESTATUS_RUNNING = 2;
+    //static final int ESTATUS_NONE = 99;
 
-    public static final int EPRIORITY_LOWEST = -5;
-    public static final int EPRIORITY_VERY_LOW = -4;
-    public static final int EPRIORITY_LOWER = -3;
-    public static final int EPRIORITY_LOW = -1;
-    public static final int EPRIORITY_LOWER_MEDIUM = -1;
-    public static final int EPRIORITY_MEDIUM = 0;
-    public static final int EPRIORITY_UPPER_MEDIUM = 1;
-    public static final int EPRIORITY_HIGH = 2;
-    public static final int EPRIORITY_HIGHER = 3;
-    public static final int EPRIORITY_VERY_HIGH = 4;
-    public static final int EPRIORITY_HIGHEST = 5;
+    //static final int EPRIORITY_LOWEST = -5;
+    //static final int EPRIORITY_VERY_LOW = -4;
+    //static final int EPRIORITY_LOWER = -3;
+    //static final int EPRIORITY_LOW = -1;
+    //static final int EPRIORITY_LOWER_MEDIUM = -1;
+    static final int EPRIORITY_MEDIUM = 0;
+    //static final int EPRIORITY_UPPER_MEDIUM = 1;
+    //static final int EPRIORITY_HIGH = 2;
+    static final int EPRIORITY_HIGHER = 3;
+    //static final int EPRIORITY_VERY_HIGH = 4;
+    static final int EPRIORITY_HIGHEST = 5;
 
-    public static final int EATENDDO_NONE = 0;
-    public static final int EATENDDO_UNDONE_PROFILE = 1;
-    public static final int EATENDDO_RESTART_EVENTS = 2;
+    static final int EATENDDO_NONE = 0;
+    static final int EATENDDO_UNDONE_PROFILE = 1;
+    static final int EATENDDO_RESTART_EVENTS = 2;
 
-    static final String PREF_EVENT_ID = "eventId";
+    private static final String PREF_EVENT_ID = "eventId";
     static final String PREF_EVENT_ENABLED = "eventEnabled";
     static final String PREF_EVENT_NAME = "eventName";
-    static final String PREF_EVENT_PROFILE_START = "eventProfileStart";
-    static final String PREF_EVENT_PROFILE_END = "eventProfileEnd";
-    static final String PREF_EVENT_NOTIFICATION_SOUND = "eventNotificationSound";
-    static final String PREF_EVENT_FORCE_RUN = "eventForceRun";
+    private static final String PREF_EVENT_PROFILE_START = "eventProfileStart";
+    private static final String PREF_EVENT_PROFILE_END = "eventProfileEnd";
+    private static final String PREF_EVENT_NOTIFICATION_SOUND = "eventNotificationSound";
+    private static final String PREF_EVENT_FORCE_RUN = "eventForceRun";
     //static final String PREF_EVENT_UNDONE_PROFILE = "eventUndoneProfile";
-    static final String PREF_EVENT_PRIORITY = "eventPriority";
-    static final String PREF_EVENT_DELAY_START = "eventDelayStart";
-    static final String PREF_EVENT_AT_END_DO = "eventAtEndDo";
-    static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
-    static final String PREF_EVENT_START_WHEN_ACTIVATED_PROFILE = "eventStartWhenActivatedProfile";
-    static final String PREF_EVENT_DELAY_END = "eventDelayEnd";
+    private static final String PREF_EVENT_PRIORITY = "eventPriority";
+    private static final String PREF_EVENT_DELAY_START = "eventDelayStart";
+    private static final String PREF_EVENT_AT_END_DO = "eventAtEndDo";
+    private static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";
+    private static final String PREF_EVENT_START_WHEN_ACTIVATED_PROFILE = "eventStartWhenActivatedProfile";
+    private static final String PREF_EVENT_DELAY_END = "eventDelayEnd";
 
     // Empty constructor
     public Event(){
@@ -192,7 +192,7 @@ public class Event {
         createEventPreferences();
     }
 
-    public void copyEvent(Event event)
+    void copyEvent(Event event)
     {
         this._id = event._id;
         this._name = event._name;
@@ -293,7 +293,7 @@ public class Event {
         this._eventPreferencesNFC = new EventPreferencesNFC(this, false, "", true, 5);
     }
 
-    public void createEventPreferences()
+    void createEventPreferences()
     {
         createEventPreferencesTime();
         createEventPreferencesBattery();
@@ -312,7 +312,7 @@ public class Event {
         createEventPreferencesNFC();
     }
 
-    public void copyEventPreferences(Event fromEvent)
+    void copyEventPreferences(Event fromEvent)
     {
         if (this._eventPreferencesTime == null)
             createEventPreferencesTime();
@@ -507,10 +507,9 @@ public class Event {
                 key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
         {
             ProfilePreference preference = (ProfilePreference)prefMng.findPreference(key);
-            String sProfileId = value;
             long lProfileId;
             try {
-                lProfileId = Long.parseLong(sProfileId);
+                lProfileId = Long.parseLong(value);
             } catch (Exception e) {
                 lProfileId = 0;
             }
@@ -524,14 +523,13 @@ public class Event {
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND))
         {
             Preference preference = prefMng.findPreference(key);
-            String ringtoneUri = value.toString();
-            if (ringtoneUri.isEmpty()) {
+            if (value.isEmpty()) {
                 preference.setSummary(R.string.preferences_notificationSound_None);
                 GUIData.setPreferenceTitleStyle(preference, false, false, false);
             }
             else
             {
-                Uri uri = Uri.parse(ringtoneUri);
+                Uri uri = Uri.parse(value);
                 Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
                 String ringtoneName;
                 if (ringtone == null)
@@ -601,11 +599,11 @@ public class Event {
                 key.equals(PREF_EVENT_DELAY_END) ||
                 key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
             //boolean forceRunChanged = false;
-            boolean manualProfileActivationChanged = false;
-            boolean profileStartWhenActivatedChanged = false;
-            boolean delayStartChanged = false;
-            boolean delayEndChanged = false;
-            boolean notificationSoundChanged = false;
+            boolean manualProfileActivationChanged;
+            boolean profileStartWhenActivatedChanged;
+            boolean delayStartChanged;
+            boolean delayEndChanged;
+            boolean notificationSoundChanged;
 
             long fkProfileStartWhenActivated;
             int delayStart;
@@ -673,15 +671,15 @@ public class Event {
             }
             preference = prefMng.findPreference("eventEndOthersCategory");
             if (preference != null) {
-                boolean bold = (delayEndChanged);
-                GUIData.setPreferenceTitleStyle(preference, bold, false, false);
-                if (bold) {
+                //boolean bold = (delayEndChanged);
+                GUIData.setPreferenceTitleStyle(preference, delayEndChanged, false, false);
+                if (delayEndChanged) {
                     String summary = "";
-                    if (delayEndChanged) {
+                    //if (delayEndChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
                         summary = summary + delayEnd;
-                    }
+                    //}
                     preference.setSummary(summary);
                 }
                 else
@@ -888,17 +886,16 @@ public class Event {
     }
 
     private EventTimeline addEventTimeline(DataWrapper dataWrapper,
-                                            List<EventTimeline> eventTimelineList,
-                                            Profile mergedProfile)
+                                            List<EventTimeline> eventTimelineList/*,
+                                            Profile mergedProfile*/)
     {
         EventTimeline eventTimeline = new EventTimeline();
         eventTimeline._fkEvent = this._id;
         eventTimeline._eorder = 0;
 
-        Profile profile = null;
         if (eventTimelineList.size() == 0)
         {
-            profile = dataWrapper.getActivatedProfile();
+            Profile profile = dataWrapper.getActivatedProfile();
             if (profile != null)
                 eventTimeline._fkProfileEndActivated = profile._id;
             else
@@ -922,7 +919,7 @@ public class Event {
         return eventTimeline;
     }
 
-    public void startEvent(DataWrapper dataWrapper,
+    void startEvent(DataWrapper dataWrapper,
                             List<EventTimeline> eventTimelineList,
                             boolean ignoreGlobalPref,
                             boolean interactive,
@@ -989,7 +986,7 @@ public class Event {
         boolean exists = true;
         while (exists)
         {
-            exists = false;
+            //exists = false;
 
             int timeLineSize = eventTimelineList.size();
 
@@ -1029,7 +1026,7 @@ public class Event {
         }
     //////////////////////////////////
 
-        addEventTimeline(dataWrapper, eventTimelineList, mergedProfile);
+        addEventTimeline(dataWrapper, eventTimelineList/*, mergedProfile*/);
 
 
         setSystemEvent(dataWrapper.context, ESTATUS_RUNNING);
@@ -1084,7 +1081,7 @@ public class Event {
             dataWrapper.updateNotificationAndWidgets(activatedProfile/*, ""*/);
         }
 
-        return;
+        //return;
     }
 
     private void doActivateEndProfile(DataWrapper dataWrapper,
@@ -1185,7 +1182,7 @@ public class Event {
 
     }
 
-    public void pauseEvent(DataWrapper dataWrapper,
+    void pauseEvent(DataWrapper dataWrapper,
                             List<EventTimeline> eventTimelineList,
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
@@ -1227,11 +1224,10 @@ public class Event {
         int timeLineSize = eventTimelineList.size();
 
         // test whenever event exists in timeline
-        boolean exists = false;
         int eventPosition = getEventTimelinePosition(eventTimelineList);
         GlobalData.logE("Event.pauseEvent","eventPosition="+eventPosition);
 
-        exists = eventPosition != -1;
+        boolean exists = eventPosition != -1;
 
         EventTimeline eventTimeline = null;
 
@@ -1315,10 +1311,10 @@ public class Event {
 
         }
 
-        return;
+        //return;
     }
 
-    public void stopEvent(DataWrapper dataWrapper,
+    void stopEvent(DataWrapper dataWrapper,
                             List<EventTimeline> eventTimelineList,
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
@@ -1352,7 +1348,7 @@ public class Event {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTOP, _name, null, null, 0);
         }
 
-        return;
+        //return;
     }
 
     public int getStatus()
@@ -1360,7 +1356,7 @@ public class Event {
         return _status;
     }
 
-    public int getStatusFromDB(DataWrapper dataWrapper)
+    int getStatusFromDB(DataWrapper dataWrapper)
     {
         return dataWrapper.getDatabaseHandler().getEventStatus(this);
     }
@@ -1370,7 +1366,7 @@ public class Event {
         _status = status;
     }
 
-    public void setSystemEvent(Context context, int forStatus)
+    private void setSystemEvent(Context context, int forStatus)
     {
         if (forStatus == ESTATUS_PAUSE)
         {
@@ -1437,7 +1433,7 @@ public class Event {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    public void setDelayStartAlarm(DataWrapper dataWrapper)
+    void setDelayStartAlarm(DataWrapper dataWrapper)
     {
         removeDelayStartAlarm(dataWrapper);
 
@@ -1508,10 +1504,10 @@ public class Event {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, _name, null, null, _delayStart);
         }
 
-        return;
+        //return;
     }
 
-    public void checkDelayStart(DataWrapper dataWrapper) {
+    void checkDelayStart(/*DataWrapper dataWrapper*/) {
         Calendar now = Calendar.getInstance();
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long nowTime = now.getTimeInMillis() - gmtOffset;
@@ -1521,7 +1517,7 @@ public class Event {
             this._isInDelayStart = false;
     }
 
-    public void removeDelayStartAlarm(DataWrapper dataWrapper)
+    void removeDelayStartAlarm(DataWrapper dataWrapper)
     {
         AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
@@ -1541,7 +1537,7 @@ public class Event {
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
-    public void setDelayEndAlarm(DataWrapper dataWrapper)
+    void setDelayEndAlarm(DataWrapper dataWrapper)
     {
         removeDelayEndAlarm(dataWrapper);
 
@@ -1612,10 +1608,10 @@ public class Event {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTENDDELAY, _name, null, null, _delayEnd);
         }
 
-        return;
+        //return;
     }
 
-    public void checkDelayEnd(DataWrapper dataWrapper) {
+    void checkDelayEnd(/*DataWrapper dataWrapper*/) {
         Calendar now = Calendar.getInstance();
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long nowTime = now.getTimeInMillis() - gmtOffset;
@@ -1625,7 +1621,7 @@ public class Event {
             this._isInDelayEnd = false;
     }
 
-    public void removeDelayEndAlarm(DataWrapper dataWrapper)
+    void removeDelayEndAlarm(DataWrapper dataWrapper)
     {
         AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 

@@ -38,7 +38,7 @@ public class EventDetailsFragment extends Fragment {
      */
     // invoked when start profile preference fragment/activity needed
     public interface OnStartEventPreferencesFromDetail {
-        public void onStartEventPreferencesFromDetail(Event event);
+        void onStartEventPreferencesFromDetail(Event event);
     }
 
     /**

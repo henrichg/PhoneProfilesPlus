@@ -71,7 +71,7 @@ public class EditorProfileListFragment extends Fragment {
      */
     // invoked when start profile preference fragment/activity needed
     public interface OnStartProfilePreferences {
-        public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex);
+        void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex);
     }
 
     /**
@@ -224,7 +224,7 @@ public class EditorProfileListFragment extends Fragment {
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                activateProfile((Profile) profileListAdapter.getItem(position), true);
+                activateProfile((Profile) profileListAdapter.getItem(position)/*, true*/);
                 return true;
             }
 
@@ -241,7 +241,7 @@ public class EditorProfileListFragment extends Fragment {
         if (profileList == null)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
-            this.asyncTaskContext = new WeakReference<LoadProfileListAsyncTask >(asyncTask );
+            this.asyncTaskContext = new WeakReference<>(asyncTask );
             asyncTask.execute();
         }
         else
@@ -266,7 +266,7 @@ public class EditorProfileListFragment extends Fragment {
         boolean defaultEventsGenerated = false;
 
         private LoadProfileListAsyncTask (EditorProfileListFragment fragment, int filterType) {
-            this.fragmentWeakRef = new WeakReference<EditorProfileListFragment>(fragment);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
             this.filterType = filterType;
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
@@ -397,13 +397,12 @@ public class EditorProfileListFragment extends Fragment {
 
     public void startProfilePreferencesActivity(Profile profile, int predefinedProfileIndex)
     {
-        Profile _profile = profile;
         int editMode;
 
-        if (_profile != null)
+        if (profile != null)
         {
             // editacia profilu
-            int profilePos = profileListAdapter.getItemPosition(_profile);
+            int profilePos = profileListAdapter.getItemPosition(profile);
             listView.setItemChecked(profilePos, true);
             int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
@@ -421,7 +420,7 @@ public class EditorProfileListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartProfilePreferencesCallback.onStartProfilePreferences(_profile, editMode, predefinedProfileIndex);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(profile, editMode, predefinedProfileIndex);
     }
 
     public void duplicateProfile(Profile origProfile)
@@ -555,7 +554,7 @@ public class EditorProfileListFragment extends Fragment {
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
                 case R.id.profile_list_item_menu_activate:
-                    activateProfile(profile, true);
+                    activateProfile(profile/*, true*/);
                     return true;
                 case R.id.profile_list_item_menu_duplicate:
                     duplicateProfile(profile);
@@ -755,14 +754,14 @@ public class EditorProfileListFragment extends Fragment {
                     profileListAdapter.activateProfile(profile);
                 updateHeader(profile);
              }
-             if (resultCode == Activity.RESULT_CANCELED)
-             {
+             //if (resultCode == Activity.RESULT_CANCELED)
+             //{
                  //Write your code if there's no result
-             }
+             //}
         }
     }
 
-    public void activateProfile(Profile profile, boolean interactive)
+    public void activateProfile(Profile profile/*, boolean interactive*/)
     {
         dataWrapper.activateProfile(profile._id, GlobalData.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
     }
@@ -815,18 +814,19 @@ public class EditorProfileListFragment extends Fragment {
             setProfileSelection(profile, refreshIcons);
     }
 
+    /*
     public int getFilterType()
     {
         return filterType;
     }
+    */
 
     public static void sortAlphabetically(List<Profile> profileList)
     {
         class AlphabeticallyComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
 
-                int res = GUIData.collator.compare(lhs._name, rhs._name);
-                return res;
+                return GUIData.collator.compare(lhs._name, rhs._name);
             }
         }
         Collections.sort(profileList, new AlphabeticallyComparator());

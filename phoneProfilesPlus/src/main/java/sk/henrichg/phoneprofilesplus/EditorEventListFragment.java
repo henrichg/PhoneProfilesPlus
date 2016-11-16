@@ -72,7 +72,7 @@ public class EditorEventListFragment extends Fragment {
      */
     // invoked when start profile preference fragment/activity needed
     public interface OnStartEventPreferences {
-        public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex);
+        void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex);
     }
 
     /**
@@ -219,8 +219,8 @@ public class EditorEventListFragment extends Fragment {
 
         if (eventList == null)
         {
-            LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, orderType);
-            this.asyncTaskContext = new WeakReference<LoadEventListAsyncTask >(asyncTask );
+            LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+            this.asyncTaskContext = new WeakReference<>(asyncTask );
             asyncTask.execute();
         }
         else
@@ -236,8 +236,8 @@ public class EditorEventListFragment extends Fragment {
         private int filterType;
         private int orderType;
 
-        private LoadEventListAsyncTask (EditorEventListFragment fragment, int orderType) {
-            this.fragmentWeakRef = new WeakReference<EditorEventListFragment>(fragment);
+        private LoadEventListAsyncTask (EditorEventListFragment fragment, int filterType, int orderType) {
+            this.fragmentWeakRef = new WeakReference<>(fragment);
             this.filterType = filterType;
             this.orderType = orderType;
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
@@ -341,14 +341,12 @@ public class EditorEventListFragment extends Fragment {
 
     public void startEventPreferencesActivity(Event event, int predefinedEventIndex)
     {
-
-        Event _event = event;
         int editMode;
 
-        if (_event != null)
+        if (event != null)
         {
             // editacia udalosti
-            int profilePos = eventListAdapter.getItemPosition(_event);
+            int profilePos = eventListAdapter.getItemPosition(event);
             listView.setItemChecked(profilePos, true);
             int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
@@ -367,7 +365,7 @@ public class EditorEventListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartEventPreferencesCallback.onStartEventPreferences(_event, editMode, predefinedEventIndex);
+        onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
     public void runStopEvent(Event event)
@@ -601,10 +599,12 @@ public class EditorEventListFragment extends Fragment {
         }
     }
 
+    /*
     public int getFilterType()
     {
         return filterType;
     }
+    */
 
     public void changeListOrder(int orderType)
     {
@@ -622,15 +622,13 @@ public class EditorEventListFragment extends Fragment {
 
         class EventNameComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
-                int res = GUIData.collator.compare(lhs._name, rhs._name);
-                return res;
+                return GUIData.collator.compare(lhs._name, rhs._name);
             }
         }
 
         class StartOrderComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
-                int res = lhs._startOrder - rhs._startOrder;
-                return res;
+                return lhs._startOrder - rhs._startOrder;
             }
         }
 
@@ -642,16 +640,14 @@ public class EditorEventListFragment extends Fragment {
                 if (profileLhs != null) nameLhs = profileLhs._name;
                 String nameRhs = "";
                 if (profileRhs != null) nameRhs = profileRhs._name;
-                int res = GUIData.collator.compare(nameLhs, nameRhs);
-                return res;
+                return GUIData.collator.compare(nameLhs, nameRhs);
             }
         }
 
         class PriorityComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
                 //int res =  lhs._priority - rhs._priority;
-                int res = rhs._priority - lhs._priority;
-                return res;
+                return rhs._priority - lhs._priority;
             }
         }
 
@@ -684,10 +680,8 @@ public class EditorEventListFragment extends Fragment {
         {
             int status = dataWrapper.getDatabaseHandler().getEventStatus(event);
             event.setStatus(status);
-            boolean isInDelayStart = dataWrapper.getDatabaseHandler().getEventInDelayStart(event);
-            event._isInDelayStart = isInDelayStart;
-            boolean isInDelayEnd = dataWrapper.getDatabaseHandler().getEventInDelayEnd(event);
-            event._isInDelayEnd = isInDelayEnd;
+            event._isInDelayStart = dataWrapper.getDatabaseHandler().getEventInDelayStart(event);
+            event._isInDelayEnd = dataWrapper.getDatabaseHandler().getEventInDelayEnd(event);
             dataWrapper.getDatabaseHandler().setEventCalendarTimes(event);
             dataWrapper.getDatabaseHandler().getSMSStartTime(event);
             dataWrapper.getDatabaseHandler().getNotificationStartTime(event);

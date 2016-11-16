@@ -8,14 +8,14 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.Html;
 
-public class EventPreferencesPeripherals extends EventPreferences {
+class EventPreferencesPeripherals extends EventPreferences {
 
-    public int _peripheralType;
+    int _peripheralType;
 
     static final String PREF_EVENT_PERIPHERAL_ENABLED = "eventPeripheralEnabled";
-    static final String PREF_EVENT_PERIPHERAL_TYPE = "eventPeripheralType";
+    private static final String PREF_EVENT_PERIPHERAL_TYPE = "eventPeripheralType";
 
-    static final String PREF_EVENT_PERIPHERAL_CATEGORY = "eventAccessoriesCategory";
+    private static final String PREF_EVENT_PERIPHERAL_CATEGORY = "eventAccessoriesCategory";
 
     static final int PERIPHERAL_TYPE_DESK_DOCK = 0;
     static final int PERIPHERAL_TYPE_CAR_DOCK = 1;
@@ -23,7 +23,7 @@ public class EventPreferencesPeripherals extends EventPreferences {
     static final int PERIPHERAL_TYPE_BLUETOOTH_HEADSET = 3;
     static final int PERIPHERAL_TYPE_HEADPHONES = 4;
 
-    public EventPreferencesPeripherals(Event event,
+    EventPreferencesPeripherals(Event event,
                                     boolean enabled,
                                     int peripheralType)
     {
@@ -35,8 +35,8 @@ public class EventPreferencesPeripherals extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesPeripherals)fromEvent._eventPreferencesPeripherals)._enabled;
-        this._peripheralType = ((EventPreferencesPeripherals)fromEvent._eventPreferencesPeripherals)._peripheralType;
+        this._enabled = fromEvent._eventPreferencesPeripherals._enabled;
+        this._peripheralType = fromEvent._eventPreferencesPeripherals._peripheralType;
     }
 
     @Override

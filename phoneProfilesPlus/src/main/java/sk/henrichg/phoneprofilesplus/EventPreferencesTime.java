@@ -19,28 +19,28 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class EventPreferencesTime extends EventPreferences {
+class EventPreferencesTime extends EventPreferences {
 
-    public boolean _sunday;
-    public boolean _monday;
-    public boolean _tuesday;
-    public boolean _wendesday;
-    public boolean _thursday;
-    public boolean _friday;
-    public boolean _saturday;
-    public long _startTime;
-    public long _endTime;
-    //public boolean _useEndTime;
+    boolean _sunday;
+    boolean _monday;
+    boolean _tuesday;
+    boolean _wendesday;
+    boolean _thursday;
+    boolean _friday;
+    boolean _saturday;
+    long _startTime;
+    long _endTime;
+    //boolean _useEndTime;
 
     static final String PREF_EVENT_TIME_ENABLED = "eventTimeEnabled";
-    static final String PREF_EVENT_TIME_DAYS = "eventTimeDays";
-    static final String PREF_EVENT_TIME_START_TIME = "eventTimeStartTime";
-    static final String PREF_EVENT_TIME_END_TIME = "eventTimeEndTime";
-    //static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
+    private static final String PREF_EVENT_TIME_DAYS = "eventTimeDays";
+    private static final String PREF_EVENT_TIME_START_TIME = "eventTimeStartTime";
+    private static final String PREF_EVENT_TIME_END_TIME = "eventTimeEndTime";
+    //private static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
 
-    static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategory";
+    private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategory";
 
-    public EventPreferencesTime(Event event,
+    EventPreferencesTime(Event event,
                                 boolean enabled,
                                 boolean sunday,
                                 boolean monday,
@@ -71,17 +71,17 @@ public class EventPreferencesTime extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._enabled;
-        this._sunday = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._sunday;
-        this._monday = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._monday;
-        this._tuesday = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._tuesday;
-        this._wendesday = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._wendesday;
-        this._thursday = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._thursday;
-        this._friday = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._friday;
-        this._saturday = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._saturday;
-        this._startTime = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._startTime;
-        this._endTime = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._endTime;
-        //this._useEndTime = ((EventPreferencesTime)fromEvent._eventPreferencesTime)._useEndTime;
+        this._enabled = fromEvent._eventPreferencesTime._enabled;
+        this._sunday = fromEvent._eventPreferencesTime._sunday;
+        this._monday = fromEvent._eventPreferencesTime._monday;
+        this._tuesday = fromEvent._eventPreferencesTime._tuesday;
+        this._wendesday = fromEvent._eventPreferencesTime._wendesday;
+        this._thursday = fromEvent._eventPreferencesTime._thursday;
+        this._friday = fromEvent._eventPreferencesTime._friday;
+        this._saturday = fromEvent._eventPreferencesTime._saturday;
+        this._startTime = fromEvent._eventPreferencesTime._startTime;
+        this._endTime = fromEvent._eventPreferencesTime._endTime;
+        //this._useEndTime = fromEvent._eventPreferencesTime._useEndTime;
     }
 
     @Override
@@ -221,7 +221,7 @@ public class EventPreferencesTime extends EventPreferences {
                 if (GlobalData.getGlobalEventsRuning(context)) {
                     long alarmTime;
                     //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
-                    String alarmTimeS = "";
+                    String alarmTimeS;
                     if (_event.getStatus() == Event.ESTATUS_PAUSE) {
                         alarmTime = computeAlarm(true);
                         // date and time format by user system settings configuration
@@ -246,7 +246,7 @@ public class EventPreferencesTime extends EventPreferences {
 
     // dayOfWeek: value are (for exapmple) Calendar.SUNDAY-1
     // return: value are (for exapmple) Calendar.MONDAY-1
-    public static int getDayOfWeekByLocale(int dayOfWeek)
+    static int getDayOfWeekByLocale(int dayOfWeek)
     {
 
         Calendar cal = Calendar.getInstance();
@@ -316,8 +316,7 @@ public class EventPreferencesTime extends EventPreferences {
 
         boolean runable = super.isRunnable(context);
 
-        boolean dayOfWeek = false;
-        dayOfWeek = dayOfWeek || this._sunday;
+        boolean dayOfWeek = this._sunday;
         dayOfWeek = dayOfWeek || this._monday;
         dayOfWeek = dayOfWeek || this._tuesday;
         dayOfWeek = dayOfWeek || this._wendesday;
@@ -335,7 +334,7 @@ public class EventPreferencesTime extends EventPreferences {
         return true; //_useEndTime;
     }
 
-    public long computeAlarm(boolean startEvent)
+    long computeAlarm(boolean startEvent)
     {
         GlobalData.logE("EventPreferencesTime.computeAlarm","startEvent="+startEvent);
 
@@ -462,8 +461,8 @@ public class EventPreferencesTime extends EventPreferences {
         // from broadcast will by called EventsService
 
 
-        removeAlarm(true, context);
-        removeAlarm(false, context);
+        //removeAlarm(true, context);
+        removeAlarm(/*false, */context);
 
         if (!(isRunnable(context) && _enabled))
             return;
@@ -479,8 +478,8 @@ public class EventPreferencesTime extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsService
 
-        removeAlarm(true, context);
-        removeAlarm(false, context);
+        //removeAlarm(true, context);
+        removeAlarm(/*false, */context);
 
         if (!(isRunnable(context) && _enabled))
             return;
@@ -493,13 +492,13 @@ public class EventPreferencesTime extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        removeAlarm(true, context);
-        removeAlarm(false, context);
+        //removeAlarm(true, context);
+        removeAlarm(/*false, */context);
 
         GlobalData.logE("EventPreferencesTime.removeSystemEvent","xxx");
     }
 
-    public void removeAlarm(boolean startEvent, Context context)
+    public void removeAlarm(/*boolean startEvent, */Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 

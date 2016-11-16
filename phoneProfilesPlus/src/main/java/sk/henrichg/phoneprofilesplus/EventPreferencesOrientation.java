@@ -16,22 +16,22 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class EventPreferencesOrientation extends EventPreferences {
+class EventPreferencesOrientation extends EventPreferences {
 
-    public String _display;
-    public String _sides;
-    public int _distance;
-    public String _ignoredApplications;
-
-    static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategory";
+    String _display;
+    String _sides;
+    int _distance;
+    String _ignoredApplications;
 
     static final String PREF_EVENT_ORIENTATION_ENABLED = "eventOrientationEnabled";
-    static final String PREF_EVENT_ORIENTATION_DISPLAY = "eventOrientationDisplay";
-    static final String PREF_EVENT_ORIENTATION_SIDES = "eventOrientationSides";
-    static final String PREF_EVENT_ORIENTATION_DISTANCE = "eventOrientationDistance";
-    static final String PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS = "eventOrientationIgnoredApplications";
+    private static final String PREF_EVENT_ORIENTATION_DISPLAY = "eventOrientationDisplay";
+    private static final String PREF_EVENT_ORIENTATION_SIDES = "eventOrientationSides";
+    private static final String PREF_EVENT_ORIENTATION_DISTANCE = "eventOrientationDistance";
+    private static final String PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS = "eventOrientationIgnoredApplications";
 
-    public EventPreferencesOrientation(Event event,
+    private static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategory";
+
+    EventPreferencesOrientation(Event event,
                                        boolean enabled,
                                        String display,
                                        String sides,
@@ -49,11 +49,11 @@ public class EventPreferencesOrientation extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesOrientation)fromEvent._eventPreferencesOrientation)._enabled;
-        this._display = ((EventPreferencesOrientation)fromEvent._eventPreferencesOrientation)._display;
-        this._sides = ((EventPreferencesOrientation)fromEvent._eventPreferencesOrientation)._sides;
-        this._distance = ((EventPreferencesOrientation)fromEvent._eventPreferencesOrientation)._distance;
-        this._ignoredApplications = ((EventPreferencesOrientation)fromEvent._eventPreferencesOrientation)._ignoredApplications;
+        this._enabled = fromEvent._eventPreferencesOrientation._enabled;
+        this._display = fromEvent._eventPreferencesOrientation._display;
+        this._sides = fromEvent._eventPreferencesOrientation._sides;
+        this._distance = fromEvent._eventPreferencesOrientation._distance;
+        this._ignoredApplications = fromEvent._eventPreferencesOrientation._ignoredApplications;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class EventPreferencesOrientation extends EventPreferences {
                 if (!sides.isEmpty())
                     sides = sides + "|";
                 sides = sides + s;
-            };
+            }
         }
         this._display = sides;
 
@@ -98,7 +98,7 @@ public class EventPreferencesOrientation extends EventPreferences {
                 if (!sides.isEmpty())
                     sides = sides + "|";
                 sides = sides + s;
-            };
+            }
         }
         this._sides = sides;
 
@@ -216,10 +216,10 @@ public class EventPreferencesOrientation extends EventPreferences {
             }
             //GUIData.setPreferenceTitleStyle(listPreference, false, true, false);
         }
-        if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
-            Preference preference = prefMng.findPreference(key);
+        //if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
+        //    Preference preference = prefMng.findPreference(key);
             //GUIData.setPreferenceTitleStyle(preference, false, true, false);
-        }
+        //}
 
     }
 

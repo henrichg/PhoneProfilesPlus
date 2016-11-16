@@ -7,21 +7,21 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.Html;
 
-public class EventPreferencesMobileCells extends EventPreferences {
+class EventPreferencesMobileCells extends EventPreferences {
 
-    public String _cells;
-    public boolean _whenOutside;
+    String _cells;
+    boolean _whenOutside;
 
     static final String PREF_EVENT_MOBILE_CELLS_ENABLED = "eventMobileCellsEnabled";
-    static final String PREF_EVENT_MOBILE_CELLS_CELLS = "eventMobileCellsCells";
-    static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
-    static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
+    private static final String PREF_EVENT_MOBILE_CELLS_CELLS = "eventMobileCellsCells";
+    private static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
+    private static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
 
-    static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategory";
+    private static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategory";
 
-    private DataWrapper dataWrapper = null;
+    //private DataWrapper dataWrapper = null;
 
-    public EventPreferencesMobileCells(Event event,
+    EventPreferencesMobileCells(Event event,
                                        boolean enabled,
                                        String cells,
                                        boolean _whenOutside)
@@ -35,9 +35,9 @@ public class EventPreferencesMobileCells extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesMobileCells)fromEvent._eventPreferencesMobileCells)._enabled;
-        this._cells = ((EventPreferencesMobileCells)fromEvent._eventPreferencesMobileCells)._cells;
-        this._whenOutside = ((EventPreferencesMobileCells)fromEvent._eventPreferencesMobileCells)._whenOutside;
+        this._enabled = fromEvent._eventPreferencesMobileCells._enabled;
+        this._cells = fromEvent._eventPreferencesMobileCells._cells;
+        this._whenOutside = fromEvent._eventPreferencesMobileCells._whenOutside;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class EventPreferencesMobileCells extends EventPreferences {
 
         if (!this._enabled)
         {
-            ;
+
         }
         else
         {

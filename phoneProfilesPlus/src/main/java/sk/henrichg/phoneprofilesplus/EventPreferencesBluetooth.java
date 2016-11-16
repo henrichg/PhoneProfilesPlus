@@ -10,11 +10,11 @@ import android.text.Html;
 
 import java.util.Arrays;
 
-public class EventPreferencesBluetooth extends EventPreferences {
+class EventPreferencesBluetooth extends EventPreferences {
 
-    public String _adapterName;
-    public int _connectionType;
-    public int _devicesType;
+    String _adapterName;
+    int _connectionType;
+    int _devicesType;
 
     static final int CTYPE_CONNECTED = 0;
     static final int CTYPE_INFRONT = 1;
@@ -26,16 +26,16 @@ public class EventPreferencesBluetooth extends EventPreferences {
 
     //static final String PREF_EVENT_BLUETOOTH_ENABLE_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
     static final String PREF_EVENT_BLUETOOTH_ENABLED = "eventBluetoothEnabled";
-    static final String PREF_EVENT_BLUETOOTH_ADAPTER_NAME = "eventBluetoothAdapterNAME";
-    static final String PREF_EVENT_BLUETOOTH_CONNECTION_TYPE = "eventBluetoothConnectionType";
-    static final String PREF_EVENT_BLUETOOTH_DEVICES_TYPE = "eventBluetoothDevicesType";
+    private static final String PREF_EVENT_BLUETOOTH_ADAPTER_NAME = "eventBluetoothAdapterNAME";
+    private static final String PREF_EVENT_BLUETOOTH_CONNECTION_TYPE = "eventBluetoothConnectionType";
+    private static final String PREF_EVENT_BLUETOOTH_DEVICES_TYPE = "eventBluetoothDevicesType";
 
-    static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategory";
+    private static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategory";
 
     static final String CONFIGURED_BLUETOOTH_NAMES_VALUE = "^configured_bluetooth_names^";
     static final String ALL_BLUETOOTH_NAMES_VALUE = "%";
 
-    public EventPreferencesBluetooth(Event event,
+    EventPreferencesBluetooth(Event event,
                                     boolean enabled,
                                     String adapterName,
                                     int connectionType,
@@ -51,10 +51,10 @@ public class EventPreferencesBluetooth extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesBluetooth)fromEvent._eventPreferencesBluetooth)._enabled;
-        this._adapterName = ((EventPreferencesBluetooth)fromEvent._eventPreferencesBluetooth)._adapterName;
-        this._connectionType = ((EventPreferencesBluetooth)fromEvent._eventPreferencesBluetooth)._connectionType;
-        this._devicesType = ((EventPreferencesBluetooth)fromEvent._eventPreferencesBluetooth)._devicesType;
+        this._enabled = fromEvent._eventPreferencesBluetooth._enabled;
+        this._adapterName = fromEvent._eventPreferencesBluetooth._adapterName;
+        this._connectionType = fromEvent._eventPreferencesBluetooth._connectionType;
+        this._devicesType = fromEvent._eventPreferencesBluetooth._devicesType;
     }
 
     @Override

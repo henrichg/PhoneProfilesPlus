@@ -2667,7 +2667,7 @@ public class DataWrapper {
                             }
                             if (event._isInDelayStart) {
                                 // if delay timeouted, start event
-                                event.checkDelayStart(this);
+                                event.checkDelayStart(/*this*/);
                             }
                         }
                         GlobalData.logE("[***] DataWrapper.doEventService", "event._isInDelayStart="+event._isInDelayStart);
@@ -2701,7 +2701,7 @@ public class DataWrapper {
                             }
                             if (event._isInDelayEnd) {
                                 // if delay timeouted, pause event
-                                event.checkDelayEnd(this);
+                                event.checkDelayEnd(/*this*/);
                             }
                         }
                         if (!event._isInDelayEnd) {

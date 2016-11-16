@@ -9,22 +9,22 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.widget.Toast;
 
-public class EventPreferencesBattery extends EventPreferences {
+class EventPreferencesBattery extends EventPreferences {
 
-    public int _levelLow;
-    public int _levelHight;
-    public boolean _charging;
-    public boolean _powerSaveMode;
+    int _levelLow;
+    int _levelHight;
+    boolean _charging;
+    boolean _powerSaveMode;
 
     static final String PREF_EVENT_BATTERY_ENABLED = "eventBatteryEnabled";
-    static final String PREF_EVENT_BATTERY_LEVEL_LOW = "eventBatteryLevelLow";
-    static final String PREF_EVENT_BATTERY_LEVEL_HIGHT = "eventBatteryLevelHight";
-    static final String PREF_EVENT_BATTERY_CHARGING = "eventBatteryCharging";
-    static final String PREF_EVENT_BATTERY_POWER_SAVE_MODE = "eventBatteryPowerSaveMode";
+    private static final String PREF_EVENT_BATTERY_LEVEL_LOW = "eventBatteryLevelLow";
+    private static final String PREF_EVENT_BATTERY_LEVEL_HIGHT = "eventBatteryLevelHight";
+    private static final String PREF_EVENT_BATTERY_CHARGING = "eventBatteryCharging";
+    private static final String PREF_EVENT_BATTERY_POWER_SAVE_MODE = "eventBatteryPowerSaveMode";
 
-    static final String PREF_EVENT_BATTERY_CATEGORY = "eventBatteryCategory";
+    private static final String PREF_EVENT_BATTERY_CATEGORY = "eventBatteryCategory";
 
-    public EventPreferencesBattery(Event event,
+    EventPreferencesBattery(Event event,
                                     boolean enabled,
                                     int levelLow,
                                     int levelHight,
@@ -42,11 +42,11 @@ public class EventPreferencesBattery extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesBattery)fromEvent._eventPreferencesBattery)._enabled;
-        this._levelLow = ((EventPreferencesBattery)fromEvent._eventPreferencesBattery)._levelLow;
-        this._levelHight = ((EventPreferencesBattery)fromEvent._eventPreferencesBattery)._levelHight;
-        this._charging = ((EventPreferencesBattery)fromEvent._eventPreferencesBattery)._charging;
-        this._powerSaveMode = ((EventPreferencesBattery)fromEvent._eventPreferencesBattery)._powerSaveMode;
+        this._enabled = fromEvent._eventPreferencesBattery._enabled;
+        this._levelLow = fromEvent._eventPreferencesBattery._levelLow;
+        this._levelHight = fromEvent._eventPreferencesBattery._levelHight;
+        this._charging = fromEvent._eventPreferencesBattery._charging;
+        this._powerSaveMode = fromEvent._eventPreferencesBattery._powerSaveMode;
     }
 
     @Override

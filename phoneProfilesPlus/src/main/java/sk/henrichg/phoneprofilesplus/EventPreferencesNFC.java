@@ -16,21 +16,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class EventPreferencesNFC extends EventPreferences {
+class EventPreferencesNFC extends EventPreferences {
 
-    public String _nfcTags;
-    public long _startTime;
-    public boolean _permanentRun;
-    public int _duration;
+    String _nfcTags;
+    long _startTime;
+    boolean _permanentRun;
+    int _duration;
 
     static final String PREF_EVENT_NFC_ENABLED = "eventNFCEnabled";
-    static final String PREF_EVENT_NFC_NFC_TAGS = "eventNFCTags";
-    static final String PREF_EVENT_NFC_PERMANENT_RUN = "eventNFCPermanentRun";
-    static final String PREF_EVENT_NFC_DURATION = "eventNFCDuration";
+    private static final String PREF_EVENT_NFC_NFC_TAGS = "eventNFCTags";
+    private static final String PREF_EVENT_NFC_PERMANENT_RUN = "eventNFCPermanentRun";
+    private static final String PREF_EVENT_NFC_DURATION = "eventNFCDuration";
 
-    static final String PREF_EVENT_NFC_CATEGORY = "eventNFCCategory";
+    private static final String PREF_EVENT_NFC_CATEGORY = "eventNFCCategory";
 
-    public EventPreferencesNFC(Event event,
+    EventPreferencesNFC(Event event,
                                boolean enabled,
                                String nfcTags,
                                boolean permanentRun,
@@ -47,10 +47,10 @@ public class EventPreferencesNFC extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesNFC)fromEvent._eventPreferencesNFC)._enabled;
-        this._nfcTags = ((EventPreferencesNFC)fromEvent._eventPreferencesNFC)._nfcTags;
-        this._permanentRun = ((EventPreferencesNFC)fromEvent._eventPreferencesNFC)._permanentRun;
-        this._duration = ((EventPreferencesNFC)fromEvent._eventPreferencesNFC)._duration;
+        this._enabled = fromEvent._eventPreferencesNFC._enabled;
+        this._nfcTags = fromEvent._eventPreferencesNFC._nfcTags;
+        this._permanentRun = fromEvent._eventPreferencesNFC._permanentRun;
+        this._duration = fromEvent._eventPreferencesNFC._duration;
 
         this._startTime = 0;
     }
@@ -246,7 +246,7 @@ public class EventPreferencesNFC extends EventPreferences {
         return true;
     }
 
-    public long computeAlarm()
+    long computeAlarm()
     {
         GlobalData.logE("EventPreferencesNFC.computeAlarm","xxx");
 
@@ -343,7 +343,7 @@ public class EventPreferencesNFC extends EventPreferences {
         }
     }
 
-    public void saveStartTime(DataWrapper dataWrapper, String tagName, long startTime) {
+    void saveStartTime(DataWrapper dataWrapper, String tagName, long startTime) {
         boolean tagFound = false;
 
         String[] splits = this._nfcTags.split("\\|");

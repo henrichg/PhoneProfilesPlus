@@ -21,23 +21,23 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class EventPreferencesNotification extends EventPreferences {
+class EventPreferencesNotification extends EventPreferences {
 
-    public String _applications;
-    public long _startTime;
-    public boolean _permanentRun;
-    public int _duration;
-    public boolean _endWhenRemoved;
+    String _applications;
+    long _startTime;
+    boolean _permanentRun;
+    int _duration;
+    boolean _endWhenRemoved;
 
     static final String PREF_EVENT_NOTIFICATION_ENABLED = "eventNotificationEnabled";
-    static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
-    static final String PREF_EVENT_NOTIFICATION_PERMANENT_RUN = "eventNotificationPermanentRun";
-    static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
-    static final String PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED = "eventNotificationEndWhenRemoved";
+    private static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
+    private static final String PREF_EVENT_NOTIFICATION_PERMANENT_RUN = "eventNotificationPermanentRun";
+    private static final String PREF_EVENT_NOTIFICATION_DURATION = "eventNotificationDuration";
+    private static final String PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED = "eventNotificationEndWhenRemoved";
 
-    static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategory";
+    private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategory";
 
-    public EventPreferencesNotification(Event event,
+    EventPreferencesNotification(Event event,
                                         boolean enabled,
                                         String applications,
                                         boolean permanentRun,
@@ -57,11 +57,11 @@ public class EventPreferencesNotification extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        this._enabled = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._enabled;
-        this._applications = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._applications;
-        this._permanentRun = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._permanentRun;
-        this._duration = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._duration;
-        this._endWhenRemoved = ((EventPreferencesNotification)fromEvent._eventPreferencesNotification)._endWhenRemoved;
+        this._enabled = fromEvent._eventPreferencesNotification._enabled;
+        this._applications = fromEvent._eventPreferencesNotification._applications;
+        this._permanentRun = fromEvent._eventPreferencesNotification._permanentRun;
+        this._duration = fromEvent._eventPreferencesNotification._duration;
+        this._endWhenRemoved = fromEvent._eventPreferencesNotification._endWhenRemoved;
 
         this._startTime = 0;
     }
@@ -285,7 +285,7 @@ public class EventPreferencesNotification extends EventPreferences {
         return true;
     }
 
-    public long computeAlarm()
+    long computeAlarm()
     {
         GlobalData.logE("EventPreferencesNotification.computeAlarm","xxx");
 
@@ -382,7 +382,7 @@ public class EventPreferencesNotification extends EventPreferences {
         }
     }
 
-    public boolean isNotificationVisible(DataWrapper dataWrapper) {
+    boolean isNotificationVisible(DataWrapper dataWrapper) {
 
         PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 
@@ -397,7 +397,7 @@ public class EventPreferencesNotification extends EventPreferences {
         return false;
     }
 
-    public void saveStartTime(DataWrapper dataWrapper) {
+    void saveStartTime(DataWrapper dataWrapper) {
         if (!_endWhenRemoved) {
             PPNotificationListenerService.getNotifiedPackages(dataWrapper.context);
 

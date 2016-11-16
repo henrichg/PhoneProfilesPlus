@@ -25,7 +25,7 @@ public class EventsService extends IntentService
     public static int oldZenMode;
     public static String oldRingtone;
 
-    public static final String BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER = "noBroadcastReceiver";
+    //public static final String BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER = "noBroadcastReceiver";
 
     public EventsService() {
         super("EventsService");
@@ -322,7 +322,6 @@ public class EventsService extends IntentService
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
             int runningEventCountE = eventTimelineList.size();
 
-            boolean backgroundProfileActivated = false;
             Profile activatedProfile = dataWrapper.getActivatedProfileFromDB();
 
             if (!dataWrapper.getIsManualProfileActivation()) {
@@ -339,32 +338,14 @@ public class EventsService extends IntentService
                         if (activatedProfile != null)
                             activatedProfileId = activatedProfile._id;
                         if ((activatedProfileId != profileId) || isRestart) {
-                            if (mergedProfile == null) {
-                                dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, /*"",*/ true);
-                                // wait for profile activation
-                                //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                                //SystemClock.sleep(500);
-                                GlobalData.sleep(500);
-                                backgroundProfileActivated = true;
-                            } else
-                                mergedProfile.mergeProfiles(profileId, dataWrapper);
+                            mergedProfile.mergeProfiles(profileId, dataWrapper);
                             GlobalData.logE("$$$ EventsService.onHandleIntent", "activated default profile");
                         }
                     }
                 /*else
                 if (activatedProfile == null)
                 {
-                    if (mergedProfile == null) {
-                        dataWrapper.activateProfileFromEvent(0, interactive, "");
-                        // wait for profile activation
-                        try {
-                            Thread.sleep(500); // // 0.5 second for activating profile from EventsService
-                        } catch (InterruptedException e) {
-                        }
-                        backgroundProfileActivated = true;
-                    }
-                    else
-                        mergedProfile.mergeProfiles(0, dataWrapper);
+                    mergedProfile.mergeProfiles(0, dataWrapper);
                     GlobalData.logE("### EventsService.onHandleIntent", "not activated profile");
                 }*/
                 }
@@ -375,70 +356,54 @@ public class EventsService extends IntentService
                 if (profileId != GlobalData.PROFILE_NO_ACTIVATE) {
                     if (activatedProfile == null) {
                         // if not profile activated, activate Default profile
-                        if (mergedProfile == null) {
-                            dataWrapper.activateProfileFromEvent(profileId, interactive, false, false, /*"",*/ true);
-                            // wait for profile activation
-                            //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(500);
-                            GlobalData.sleep(500);
-                            backgroundProfileActivated = true;
-                        } else
-                            mergedProfile.mergeProfiles(profileId, dataWrapper);
+                        mergedProfile.mergeProfiles(profileId, dataWrapper);
                         GlobalData.logE("$$$ EventsService.onHandleIntent", "not activated profile");
                     }
                 }
             }
             ////////////////
 
-            if (!backgroundProfileActivated) {
-                // no background profile activated, refresh notification and widgets for activated profile
+            String eventNotificationSound = "";
 
-                String eventNotificationSound = "";
+            if ((!isRestart) && (runningEventCountE > runningEventCount0)) {
+                // only when not restart events and running events is increased, play event notification sound
 
-                if ((!isRestart) && (runningEventCountE > runningEventCount0)) {
-                    // only when not restart events and running events is increased, play event notification sound
+                EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
+                Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
+                if (event != null)
+                    eventNotificationSound = event._notificationSound;
+            }
 
-                    EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
-                    Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-                    if (event != null)
-                        eventNotificationSound = event._notificationSound;
-                }
+            GlobalData.logE("$$$ EventsService.onHandleIntent", "mergedProfile=" + mergedProfile);
 
-                GlobalData.logE("$$$ EventsService.onHandleIntent", "mergedProfile=" + mergedProfile);
+            GlobalData.logE("$$$ EventsService.onHandleIntent", "mergedProfile._id=" + mergedProfile._id);
+            if (mergedProfile._id != 0) {
+                // activate merged profile
+                GlobalData.logE("$$$ EventsService.onHandleIntent", "profileName=" + mergedProfile._name);
+                GlobalData.logE("$$$ EventsService.onHandleIntent", "profileId=" + mergedProfile._id);
+                GlobalData.logE("$$$ EventsService.onHandleIntent", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
+                GlobalData.logE("$$$ EventsService.onHandleIntent", "interactive=" + interactive);
+                dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
+                dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
 
-                if (mergedProfile == null)
-                    dataWrapper.updateNotificationAndWidgets(activatedProfile);
-                else {
-                    GlobalData.logE("$$$ EventsService.onHandleIntent", "mergedProfile._id=" + mergedProfile._id);
-                    if (mergedProfile._id != 0) {
-                        // activate merged profile
-                        GlobalData.logE("$$$ EventsService.onHandleIntent", "profileName=" + mergedProfile._name);
-                        GlobalData.logE("$$$ EventsService.onHandleIntent", "profileId=" + mergedProfile._id);
-                        GlobalData.logE("$$$ EventsService.onHandleIntent", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
-                        GlobalData.logE("$$$ EventsService.onHandleIntent", "interactive=" + interactive);
-                        dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                        dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound);
 
-                        if (PhoneProfilesService.instance != null)
-                            PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound);
+                // wait for profile activation
+                //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                //SystemClock.sleep(500);
+                GlobalData.sleep(500);
+            } else {
+                /*long prId0 = 0;
+                long prId = 0;
+                if (activatedProfile0 != null) prId0 = activatedProfile0._id;
+                if (activatedProfile != null) prId = activatedProfile._id;
+                if ((prId0 != prId) || (prId == 0))*/
+                dataWrapper.updateNotificationAndWidgets(activatedProfile);
 
-                        // wait for profile activation
-                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                        //SystemClock.sleep(500);
-                        GlobalData.sleep(500);
-                    } else {
-                        /*long prId0 = 0;
-                        long prId = 0;
-                        if (activatedProfile0 != null) prId0 = activatedProfile0._id;
-                        if (activatedProfile != null) prId = activatedProfile._id;
-                        if ((prId0 != prId) || (prId == 0))*/
-                        dataWrapper.updateNotificationAndWidgets(activatedProfile);
+                if (PhoneProfilesService.instance != null)
+                    PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound);
 
-                        if (PhoneProfilesService.instance != null)
-                            PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound);
-
-                    }
-                }
             }
 
         }

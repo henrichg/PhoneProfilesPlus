@@ -12,17 +12,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class EditorProfileListAdapter extends BaseAdapter
+class EditorProfileListAdapter extends BaseAdapter
 {
 
     private EditorProfileListFragment fragment;
     private DataWrapper dataWrapper;
     private int filterType;
-    public List<Profile> profileList;
-    public boolean released = false;
+    List<Profile> profileList;
 
 
-    public EditorProfileListAdapter(EditorProfileListFragment f, DataWrapper pdw, int filterType)
+    EditorProfileListAdapter(EditorProfileListFragment f, DataWrapper pdw, int filterType)
     {
         fragment = f;
         dataWrapper = pdw;
@@ -32,8 +31,6 @@ public class EditorProfileListAdapter extends BaseAdapter
 
     public void release()
     {
-        released = true;
-
         fragment = null;
         profileList = null;
         dataWrapper = null;
@@ -120,7 +117,7 @@ public class EditorProfileListAdapter extends BaseAdapter
         return -1;
     }
 
-    public int getItemPosition(Profile profile)
+    int getItemPosition(Profile profile)
     {
         if (profile == null)
             return -1;
@@ -159,7 +156,7 @@ public class EditorProfileListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
-    public void addItem(Profile profile, boolean refresh)
+    void addItem(Profile profile, boolean refresh)
     {
         if (profileList == null)
             return;
@@ -169,18 +166,20 @@ public class EditorProfileListAdapter extends BaseAdapter
             notifyDataSetChanged();
     }
 
-    public void deleteItemNoNotify(Profile profile)
+    void deleteItemNoNotify(Profile profile)
     {
         dataWrapper.deleteProfile(profile);
     }
 
+    /*
     public void deleteItem(Profile profile)
     {
         deleteItemNoNotify(profile);
         notifyDataSetChanged();
     }
+    */
 
-    public void clearNoNotify()
+    void clearNoNotify()
     {
         dataWrapper.deleteAllProfiles();
     }
@@ -191,7 +190,7 @@ public class EditorProfileListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
-    public void changeItemOrder(int from, int to)
+    void changeItemOrder(int from, int to)
     {
         if (profileList == null)
             return;
@@ -390,7 +389,7 @@ public class EditorProfileListAdapter extends BaseAdapter
             holder.profileItemEditMenu.setOnClickListener(new OnClickListener() {
 
                     public void onClick(View v) {
-                        ((EditorProfileListFragment)fragment).showEditMenu(profileItemEditMenu);
+                        fragment.showEditMenu(profileItemEditMenu);
                     }
                 });
 

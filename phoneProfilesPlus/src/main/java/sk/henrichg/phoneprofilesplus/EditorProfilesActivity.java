@@ -119,8 +119,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private int drawerSelectedItem = 1;
     private int orderSelectedItem = 0;
-    private int profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
-    private int eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
     private int eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
 
     private static final int COUNT_DRAWER_PROFILE_ITEMS = 3;
@@ -328,8 +326,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         
         // Enable ActionBar app icon to behave as action to toggle nav drawer
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
@@ -624,6 +624,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }	
             return super.onOptionsItemSelected(item);
         case R.id.menu_restart_events:
+            //noinspection ConstantConditions
             getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
             // ignoruj manualnu aktivaciu profilu
@@ -635,6 +636,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             DataWrapper dataWrapper = getDataWrapper();
             if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
             {
+                //noinspection ConstantConditions
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
 
                 // no setup for next start
@@ -659,6 +661,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             else
             {
+                //noinspection ConstantConditions
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
 
                 GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
@@ -775,6 +778,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             editor.commit();
 
             Bundle arguments;
+
+            int profilesFilterType;
+            int eventsFilterType;
 
             switch (drawerSelectedItem) {
             case DSI_PROFILES_ALL:
@@ -957,6 +963,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 if (profile_id > 0)
                 {
+                    //noinspection ConstantConditions
                     Profile profile = getDataWrapper().getDatabaseHandler().getProfile(profile_id, false);
                     // generate bitmaps
                     profile.generateIconBitmap(getBaseContext(), false, 0);
@@ -993,6 +1000,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 if (event_id > 0)
                 {
+                    //noinspection ConstantConditions
                     Event event = getDataWrapper().getDatabaseHandler().getEvent(event_id);
 
                     // redraw list fragment , notifications, widgets after finish EventPreferencesFragmentActivity
@@ -1095,13 +1103,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                     String key = entry.getKey();
 
                     if (v instanceof Boolean)
-                        prefEdit.putBoolean(key, ((Boolean) v).booleanValue());
+                        prefEdit.putBoolean(key, (Boolean) v);
                     else if (v instanceof Float)
-                        prefEdit.putFloat(key, ((Float) v).floatValue());
+                        prefEdit.putFloat(key, (Float) v);
                     else if (v instanceof Integer)
-                        prefEdit.putInt(key, ((Integer) v).intValue());
+                        prefEdit.putInt(key, (Integer) v);
                     else if (v instanceof Long)
-                        prefEdit.putLong(key, ((Long) v).longValue());
+                        prefEdit.putLong(key, (Long) v);
                     else if (v instanceof String)
                         prefEdit.putString(key, ((String) v));
 
@@ -1109,7 +1117,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     {
                         if (key.equals(GlobalData.PREF_APPLICATION_THEME))
                         {
-                            if (((String)v).equals("light"))
+                            if (v.equals("light"))
                                 prefEdit.putString(key, "material");
                         }
                     }
@@ -1120,9 +1128,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // no error, this is OK
             //e.printStackTrace();
             res = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }finally {
             try {
@@ -1147,7 +1153,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 private MaterialDialog dialog;
                 private DataWrapper dataWrapper;
 
-                ImportAsyncTask() {
+                private ImportAsyncTask() {
                     this.dialog = new MaterialDialog.Builder(activity)
                             .content(R.string.import_profiles_alert_title)
                                     //.disableDefaultFonts()
@@ -1411,7 +1417,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 private MaterialDialog dialog;
                 private DataWrapper dataWrapper;
 
-                ExportAsyncTask() {
+                private ExportAsyncTask() {
                     this.dialog = new MaterialDialog.Builder(activity)
                             .content(R.string.export_profiles_alert_title)
                                     //.disableDefaultFonts()
@@ -1546,7 +1552,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
      @Override
      public void setTitle(CharSequence title) {
-         getSupportActionBar().setTitle(title);
+         if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(title);
      }
 
      /*

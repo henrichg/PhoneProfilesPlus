@@ -1,10 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-public class EventTimeline {
+class EventTimeline {
 
-	public long _id;
-	public long _fkEvent;
-	public long _fkProfileEndActivated;
-	public int _eorder;
-	
+    long _id;
+    long _fkEvent;
+    long _fkProfileEndActivated;
+    int _eorder;
+
 }
