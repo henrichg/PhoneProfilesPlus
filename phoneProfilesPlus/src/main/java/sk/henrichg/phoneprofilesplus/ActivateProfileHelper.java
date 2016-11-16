@@ -1322,11 +1322,13 @@ public class ActivateProfileHelper {
                         final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
                         intent.setComponent(componentName);
                         context.startActivity(intent);
+                        GlobalData.logE("#### ActivateProfileHelper.execute","mobile data prefs. 1");
                     } catch (Exception e) {
                         try {
                             final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent);
+                            GlobalData.logE("#### ActivateProfileHelper.execute","mobile data prefs. 2");
                         } catch (Exception e2) {
                             e2.printStackTrace();
                         }
