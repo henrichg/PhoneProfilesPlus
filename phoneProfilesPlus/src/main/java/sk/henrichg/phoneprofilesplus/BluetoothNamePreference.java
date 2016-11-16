@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -44,7 +45,6 @@ public class BluetoothNamePreference extends DialogPreference {
     private RelativeLayout dataRelativeLayout;
     private EditText bluetoothName;
     private ImageView addIcon;
-    private ListView bluetoothListView;
     private BluetoothNamePreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
@@ -54,8 +54,8 @@ public class BluetoothNamePreference extends DialogPreference {
         
         this.context = context;
         
-        bluetoothList = new ArrayList<BluetoothDeviceData>();
-        customBluetoothList = new ArrayList<BluetoothDeviceData>();
+        bluetoothList = new ArrayList<>();
+        customBluetoothList = new ArrayList<>();
 
         GlobalData.loadPreferences(context);
     }
@@ -75,7 +75,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist()) {
                             /*
                             bluetoothName.clearFocus();
@@ -97,13 +97,13 @@ public class BluetoothNamePreference extends DialogPreference {
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mDialog.dismiss();
                     }
                 })
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (Permissions.grantBluetoothScanDialogPermissions(context, BluetoothNamePreference.this))
                             refreshListView(true);
                     }
@@ -156,7 +156,7 @@ public class BluetoothNamePreference extends DialogPreference {
 
         addIcon.setEnabled(!bluetoothName.getText().toString().isEmpty());
 
-        bluetoothListView = (ListView) layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
+        ListView bluetoothListView = (ListView) layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
         listAdapter = new BluetoothNamePreferenceAdapter(context, this);
         bluetoothListView.setAdapter(listAdapter);
 
@@ -164,8 +164,8 @@ public class BluetoothNamePreference extends DialogPreference {
 
         bluetoothListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                BluetoothNamePreferenceAdapter.ViewHolder viewHolder =
-                        (BluetoothNamePreferenceAdapter.ViewHolder) v.getTag();
+                //BluetoothNamePreferenceAdapter.ViewHolder viewHolder =
+                //        (BluetoothNamePreferenceAdapter.ViewHolder) v.getTag();
                 String btName = bluetoothList.get(position).getName();
                 if (!(btName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE) ||
                       btName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))) {
@@ -244,10 +244,10 @@ public class BluetoothNamePreference extends DialogPreference {
         
     }    
 
-    public String getBluetoothNames()
+    /*public String getBluetoothNames()
     {
         return value;
-    }
+    }*/
 
     public void addBluetoothName(String bluetoothName) {
         String[] splits = value.split("\\|");

@@ -10,11 +10,11 @@ import android.os.Build;
 import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class BluetoothLEScanCallback21 extends ScanCallback {
+class BluetoothLEScanCallback21 extends ScanCallback {
 
     private Context context;
 
-    public BluetoothLEScanCallback21(Context _context) {
+    BluetoothLEScanCallback21(Context _context) {
         context = _context;
     }
 

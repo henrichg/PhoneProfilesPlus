@@ -27,8 +27,8 @@ public class ApplicationsCache {
 
     public ApplicationsCache()
     {
-        applicationsList = new ArrayList<Application>();
-        applicationsNoShortcutsList = new ArrayList<Application>();
+        applicationsList = new ArrayList<>();
+        applicationsNoShortcutsList = new ArrayList<>();
         cached = false;
     }
 
@@ -221,9 +221,9 @@ public class ApplicationsCache {
     }
 
     public static long getShortcutId(String value) {
-        long shortcutId = 0;
         if (value.length() > 2) {
-            String activityName;
+            long shortcutId = 0;
+            //String activityName;
             String[] splits2 = value.split("/");
             if (splits2.length == 2) {
                 String[] splits3 = splits2[1].split("#");

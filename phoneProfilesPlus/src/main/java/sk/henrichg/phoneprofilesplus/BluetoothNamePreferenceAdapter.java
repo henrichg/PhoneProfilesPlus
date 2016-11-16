@@ -10,7 +10,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class BluetoothNamePreferenceAdapter extends BaseAdapter 
+class BluetoothNamePreferenceAdapter extends BaseAdapter
 {
     BluetoothNamePreference preference;
     Context context;
@@ -18,7 +18,7 @@ public class BluetoothNamePreferenceAdapter extends BaseAdapter
     private LayoutInflater inflater;
     //private Context context;
 
-    public BluetoothNamePreferenceAdapter(Context context, BluetoothNamePreference preference) 
+    BluetoothNamePreferenceAdapter(Context context, BluetoothNamePreference preference)
     {
         this.preference = preference;
         this.context = context;

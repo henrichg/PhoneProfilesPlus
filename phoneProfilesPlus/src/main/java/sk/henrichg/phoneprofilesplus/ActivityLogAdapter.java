@@ -143,7 +143,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
         SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        Date date = null;
+        Date date;
         if (timeToFormat != null) {
             try {
                 date = iso8601Format.parse(timeToFormat);

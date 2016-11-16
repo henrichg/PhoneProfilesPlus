@@ -113,7 +113,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
 
             if (connectedDevices == null)
-                connectedDevices = new ArrayList<BluetoothDeviceData>();
+                connectedDevices = new ArrayList<>();
 
             connectedDevices.clear();
 
@@ -138,7 +138,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
         synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
 
             if (connectedDevices == null)
-                connectedDevices = new ArrayList<BluetoothDeviceData>();
+                connectedDevices = new ArrayList<>();
 
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();

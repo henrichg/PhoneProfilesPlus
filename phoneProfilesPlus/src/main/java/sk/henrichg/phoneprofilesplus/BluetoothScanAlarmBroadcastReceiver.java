@@ -60,7 +60,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     public static BluetoothAdapter getBluetoothAdapter(Context context) {
-        BluetoothAdapter adapter = null;
+        BluetoothAdapter adapter;
         if (android.os.Build.VERSION.SDK_INT < 18)
             adapter = BluetoothAdapter.getDefaultAdapter();
         else {
@@ -371,7 +371,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                         builder.setReportDelay(GlobalData.applicationEventBluetoothLEScanDuration * 1000);
                     ScanSettings settings = builder.build();
 
-                    List<ScanFilter> filters = new ArrayList<ScanFilter>();
+                    List<ScanFilter> filters = new ArrayList<>();
                     ScannerService.leScanner.startScan(filters, settings, ScannerService.leScanCallback21);
                 }
                 else {
@@ -494,7 +494,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //boundedDevicesList.clear();
 
-        List<BluetoothDeviceData> boundedDevicesList  = new ArrayList<BluetoothDeviceData>();
+        List<BluetoothDeviceData> boundedDevicesList  = new ArrayList<>();
 
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -544,7 +544,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
 
         if (count >= 0) {
-            List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
+            List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
             Gson gson = new Gson();
 
@@ -576,7 +576,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         List<BluetoothDeviceData> savedScanResults = getScanResults(context);
         if (savedScanResults == null)
-            savedScanResults = new ArrayList<BluetoothDeviceData>();
+            savedScanResults = new ArrayList<>();
 
         for (BluetoothDeviceData device : scanResults) {
             boolean found = false;
@@ -612,7 +612,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     public static void addScanResult(Context context, BluetoothDeviceData device) {
         List<BluetoothDeviceData> savedScanResults = getScanResults(context);
         if (savedScanResults == null)
-            savedScanResults = new ArrayList<BluetoothDeviceData>();
+            savedScanResults = new ArrayList<>();
 
         boolean found = false;
         for (BluetoothDeviceData _device : savedScanResults) {

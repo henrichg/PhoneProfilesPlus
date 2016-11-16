@@ -7,8 +7,8 @@ public class BluetoothDeviceData {
     public int type;
     public boolean custom;
 
-    public BluetoothDeviceData() {
-    }
+    //public BluetoothDeviceData() {
+    //}
 
     public BluetoothDeviceData(String name, String address, int type, boolean custom)
     {

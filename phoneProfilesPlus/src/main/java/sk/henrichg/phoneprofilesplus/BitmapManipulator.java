@@ -21,7 +21,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import java.io.File;
 import java.io.IOException;
 
-public class BitmapManipulator {
+class BitmapManipulator {
 
     public static Bitmap resampleBitmap(String bitmapFile, int width, int height, Context context)
     {
@@ -86,7 +86,7 @@ public class BitmapManipulator {
             return null;
     }
 
-    public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
+    private static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
 
         Matrix matrix = new Matrix();
         switch (orientation) {
@@ -149,9 +149,7 @@ public class BitmapManipulator {
         options.inSampleSize = calculateInSampleSize(options, width, height);
         // decode bitmap with inSampleSize
         options.inJustDecodeBounds = false;
-        Bitmap decodedSampleBitmap = BitmapFactory.decodeResource(resources, bitmapResource, options);
-
-        return decodedSampleBitmap;
+        return BitmapFactory.decodeResource(resources, bitmapResource, options);
     }
 
     public static Bitmap recolorBitmap(Bitmap bitmap, int color, Context context)

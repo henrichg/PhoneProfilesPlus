@@ -22,10 +22,10 @@ class AddEventDialog
     {
         this.eventListFragment = eventListFragment;
 
-        List<Event> eventList = new ArrayList<Event>();
+        List<Event> eventList = new ArrayList<>();
 
-        boolean monochrome = false;
-        int monochromeValue = 0xFF;
+        //boolean monochrome = false;
+        //int monochromeValue = 0xFF;
 
         Event event;
         event = eventListFragment.dataWrapper.getNoinitializedEvent(context.getResources().getString(R.string.event_name_default), 0);

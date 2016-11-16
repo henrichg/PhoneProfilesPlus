@@ -72,7 +72,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         this.context = context;
         dataWrapper = new DataWrapper(context, false, false, 0);
 
-        applicationsList = new ArrayList<Application>();
+        applicationsList = new ArrayList<>();
 
         setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
 

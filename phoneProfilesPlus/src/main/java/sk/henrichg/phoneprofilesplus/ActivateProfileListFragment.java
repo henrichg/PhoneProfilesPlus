@@ -132,7 +132,7 @@ public class ActivateProfileListFragment extends Fragment {
         if (profileList == null)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this);
-            this.asyncTaskContext = new WeakReference<LoadProfileListAsyncTask>(asyncTask );
+            this.asyncTaskContext = new WeakReference<>(asyncTask );
             asyncTask.execute();
         }
         else
@@ -158,7 +158,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
 
         private LoadProfileListAsyncTask (ActivateProfileListFragment fragment) {
-            this.fragmentWeakRef = new WeakReference<ActivateProfileListFragment>(fragment);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
 

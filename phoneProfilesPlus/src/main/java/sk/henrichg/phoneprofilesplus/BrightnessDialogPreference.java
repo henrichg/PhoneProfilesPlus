@@ -9,6 +9,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,7 +55,7 @@ public class BrightnessDialogPreference extends
     private int value = 0;
 
     private boolean adaptiveAllowed = true;
-    Profile _defaultProfile;
+    private Profile _defaultProfile;
 
     private int savedBrightness;
     private float savedAdaptiveBrightness;
@@ -103,7 +104,7 @@ public class BrightnessDialogPreference extends
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist()) {
                             persistString(Integer.toString(value + minimumValue)
                                     + "|" + Integer.toString(noChange)
@@ -480,6 +481,7 @@ public class BrightnessDialogPreference extends
         }
     }
 
+    /*
     private static void commandWait(Command cmd) throws Exception {
         int waitTill = 50;
         int waitTillMultiplier = 2;
@@ -501,6 +503,7 @@ public class BrightnessDialogPreference extends
             Log.e("ActivateProfileHelper", "Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
+    */
 
     public static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");

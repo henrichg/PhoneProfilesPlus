@@ -52,7 +52,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                         BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
 
                         if (tmpScanResults == null)
-                            tmpScanResults = new ArrayList<BluetoothDeviceData>();
+                            tmpScanResults = new ArrayList<>();
                         else
                             tmpScanResults.clear();
                     }
@@ -106,7 +106,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
         if (tmpScanResults != null)
             tmpScanResults.clear();
         else
-            tmpScanResults = new ArrayList<BluetoothDeviceData>();
+            tmpScanResults = new ArrayList<>();
     }
 
     static public void finishScan(Context context) {
@@ -116,7 +116,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
             discoveryStarted = false;
 
-            List<BluetoothDeviceData> scanResults = new ArrayList<BluetoothDeviceData>();
+            List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
             for (BluetoothDeviceData device : tmpScanResults) {
                 scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
