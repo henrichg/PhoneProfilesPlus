@@ -8,6 +8,7 @@ import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,7 +37,7 @@ import java.util.List;
 public class NFCTagPreference extends DialogPreference {
 
     private String value;
-    public List<NFCTagData> nfcTagList = null;
+    List<NFCTagData> nfcTagList = null;
 
     Context context;
 
@@ -45,7 +46,6 @@ public class NFCTagPreference extends DialogPreference {
     private RelativeLayout dataRelativeLayout;
     private EditText nfcTagName;
     private ImageView addIcon;
-    private ListView nfcTagListView;
     private NFCTagPreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
@@ -55,7 +55,7 @@ public class NFCTagPreference extends DialogPreference {
         
         this.context = context;
 
-        nfcTagList = new ArrayList<NFCTagData>();
+        nfcTagList = new ArrayList<>();
     }
 
     @Override
@@ -73,7 +73,7 @@ public class NFCTagPreference extends DialogPreference {
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist()) {
                             if (callChangeListener(value))
                             {
@@ -85,7 +85,7 @@ public class NFCTagPreference extends DialogPreference {
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mDialog.dismiss();
                     }
                 })
@@ -132,7 +132,7 @@ public class NFCTagPreference extends DialogPreference {
 
         addIcon.setEnabled(!nfcTagName.getText().toString().isEmpty());
 
-        nfcTagListView = (ListView) layout.findViewById(R.id.nfc_tag_pref_dlg_listview);
+        ListView nfcTagListView = (ListView) layout.findViewById(R.id.nfc_tag_pref_dlg_listview);
         listAdapter = new NFCTagPreferenceAdapter(context, this);
         nfcTagListView.setAdapter(listAdapter);
 
@@ -140,8 +140,8 @@ public class NFCTagPreference extends DialogPreference {
 
         nfcTagListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                NFCTagPreferenceAdapter.ViewHolder viewHolder =
-                        (NFCTagPreferenceAdapter.ViewHolder) v.getTag();
+                //NFCTagPreferenceAdapter.ViewHolder viewHolder =
+                //        (NFCTagPreferenceAdapter.ViewHolder) v.getTag();
                 String nfcTag = nfcTagList.get(position).name;
                 nfcTagName.setText(nfcTag);
             }
@@ -206,12 +206,12 @@ public class NFCTagPreference extends DialogPreference {
         }
     }
 
-    public String getNfcTags()
+    /*public String getNfcTags()
     {
         return value;
-    }
+    }*/
 
-    public void addNfcTag(String tag) {
+    void addNfcTag(String tag) {
         String[] splits = value.split("\\|");
         boolean found = false;
         for (String _tag : splits) {
@@ -226,7 +226,7 @@ public class NFCTagPreference extends DialogPreference {
         //Log.d("WifiSSIDPreference.addSSID","value="+value);
     }
 
-    public void removeNfcTag(String tag) {
+    void removeNfcTag(String tag) {
         String[] splits = value.split("\\|");
         value = "";
         for (String _tag : splits) {
@@ -241,7 +241,7 @@ public class NFCTagPreference extends DialogPreference {
         //Log.d("WifiSSIDPreference.removeSSID","value="+value);
     }
 
-    public boolean isNfcTagSelected(String tag) {
+    boolean isNfcTagSelected(String tag) {
         String[] splits = value.split("\\|");
         for (String _tag : splits) {
             if (_tag.equals(tag))
@@ -271,9 +271,9 @@ public class NFCTagPreference extends DialogPreference {
             protected Void doInBackground(Void... params) {
                 nfcTagList.clear();
 
-                if (_forRescan)
-                {
-                }
+                //if (_forRescan)
+                //{
+                //}
 
                 // add all from db
                 List<NFCTag> tags = DatabaseHandler.getInstance(context).getAllNFCTags();
@@ -398,8 +398,6 @@ public class NFCTagPreference extends DialogPreference {
 
     private void writeToNFCTag(String tag) {
 
-        final String _tag = tag;
-
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
         if (!nfcAdapter.isEnabled()) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
@@ -411,7 +409,7 @@ public class NFCTagPreference extends DialogPreference {
         }
 
         Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagWriteActivity.class);
-        nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_NAME, _tag);
+        nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_NAME, tag);
         context.startActivity(nfcTagIntent);
     }
 

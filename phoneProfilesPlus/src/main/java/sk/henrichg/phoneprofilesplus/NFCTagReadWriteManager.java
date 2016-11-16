@@ -18,15 +18,8 @@ import java.io.IOException;
 
 import sk.henrichg.phoneprofilesplus.NFCTagWriteException.NFCErrorType;
 
-//import com.google.common.base.Preconditions;
-
-/**
- * NFC manager.
- * 
- * 
- */
-public class NFCTagReadWriteManager {
-    NfcAdapter nfcAdapter;
+class NFCTagReadWriteManager {
+    private NfcAdapter nfcAdapter;
     Activity activity;
     PendingIntent pendingIntent;
 
@@ -36,58 +29,58 @@ public class NFCTagReadWriteManager {
     boolean tagIsWritable;  // is tag writable?
     String tagType;         // tag type
 
-    TagReadListener onTagReadListener;
-    TagWriteListener onTagWriteListener;
-    TagWriteErrorListener onTagWriteErrorListener;
+    private TagReadListener onTagReadListener;
+    private TagWriteListener onTagWriteListener;
+    private TagWriteErrorListener onTagWriteErrorListener;
 
-    String writeText = null;
+    private String writeText = null;
 
 
-    public NFCTagReadWriteManager(Activity activity) {
+    NFCTagReadWriteManager(Activity activity) {
         this.activity = activity;
     }
 
     /**
      * Sets the listener to read events
      */
-    public void setOnTagReadListener(TagReadListener onTagReadListener) {
+    void setOnTagReadListener(TagReadListener onTagReadListener) {
         this.onTagReadListener = onTagReadListener;
     }
 
     /**
      * Sets the listener to write events
      */
-    public void setOnTagWriteListener(TagWriteListener onTagWriteListener) {
+    void setOnTagWriteListener(TagWriteListener onTagWriteListener) {
         this.onTagWriteListener = onTagWriteListener;
     }
 
     /**
      * Sets the listener to write error events
      */
-    public void setOnTagWriteErrorListener(TagWriteErrorListener onTagWriteErrorListener) {
+    void setOnTagWriteErrorListener(TagWriteErrorListener onTagWriteErrorListener) {
         this.onTagWriteErrorListener = onTagWriteErrorListener;
     }
 
     /**
      * Indicates that we want to write the given text to the next tag detected
      */
-    public void writeText(String writeText) {
+    void writeText(String writeText) {
         this.writeText = writeText;
     }
 
     /**
      * Stops a writeText operation
      */
-    public void undoWriteText() {
+    /*public void undoWriteText() {
         this.writeText = null;
-    }
+    }*/
 
 
     /**
      * To be executed on OnCreate of the activity
      * @return true if the device has nfc capabilities
      */
-    public boolean onActivityCreate() {
+    boolean onActivityCreate() {
         nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
         pendingIntent = PendingIntent.getActivity(activity, 0,
                 new Intent(activity, activity.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -97,7 +90,7 @@ public class NFCTagReadWriteManager {
     /**
      * To be executed on onResume of the activity
      */
-    public void onActivityResume() {
+    void onActivityResume() {
         if (nfcAdapter != null) {
             nfcAdapter.enableForegroundDispatch(activity, pendingIntent, null, null);
         }
@@ -108,7 +101,7 @@ public class NFCTagReadWriteManager {
     /**
      * To be executed on onPause of the activity
      */
-    public void onActivityPause() {
+    void onActivityPause() {
         if (nfcAdapter != null) {
             nfcAdapter.disableForegroundDispatch(activity);
         }
@@ -116,9 +109,9 @@ public class NFCTagReadWriteManager {
 
     /**
      * To be executed on onNewIntent of activity
-     * @param intent
+     * @param intent x
      */
-    public void onActivityNewIntent(Intent intent) {
+    void onActivityNewIntent(Intent intent) {
         // activity.setIntent(intent);
 
         //if (writeText == null)
@@ -139,7 +132,7 @@ public class NFCTagReadWriteManager {
 
     /**
      * Reads a tag for a given intent and notifies listeners
-     * @param intent
+     * @param intent x
      */
     private void readTagFromIntent(Intent intent) {
         if (intent != null){
@@ -148,7 +141,7 @@ public class NFCTagReadWriteManager {
                 tagReaded = true;
 
                 // get NDEF tag details
-                Tag tag = (Tag) intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 Ndef ndefTag = Ndef.get(tag);
                 tagSize = ndefTag.getMaxSize();         // tag size
                 tagIsWritable = ndefTag.isWritable();   // is tag writable?
@@ -164,24 +157,23 @@ public class NFCTagReadWriteManager {
         }
     }
 
-    public String ndefRecordToString(NdefRecord record) {
+    private String ndefRecordToString(NdefRecord record) {
         byte[] payload = record.getPayload();
         return new String(payload);
     }
 
     /**
      * Writes a text to a tag
-     * @param context
-     * @param tag
-     * @param data
+     * @param context x
+     * @param tag x
+     * @param data x
      * @throws NFCTagWriteException
      */
-    protected void writeTag(Context context, Tag tag, String data) throws NFCTagWriteException {
+    private  void writeTag(Context context, Tag tag, String data) throws NFCTagWriteException {
         // Record with actual data we care about
         //NdefRecord relayRecord = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, null, data.getBytes());
 
-        String msg = data;
-        byte[] textBytes = msg.getBytes();
+        byte[] textBytes = data.getBytes();
         NdefRecord relayRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,
                 "application/vnd.phoneprofilesplus.events".getBytes(), new byte[] {}, textBytes);
 
@@ -212,10 +204,8 @@ public class NFCTagReadWriteManager {
                 ndef.writeNdefMessage(message);
             } catch (TagLostException tle) {
                 throw new NFCTagWriteException(NFCTagWriteException.NFCErrorType.tagLost, tle);
-            } catch (IOException ioe) {
+            } catch (IOException | FormatException ioe) {
                 throw new NFCTagWriteException(NFCErrorType.formattingError, ioe);// nfcFormattingErrorTitle
-            } catch (FormatException fe) {
-                throw new NFCTagWriteException(NFCErrorType.formattingError, fe);
             }
         } else {
             // If the tag is not formatted, format it with the message
@@ -226,10 +216,8 @@ public class NFCTagReadWriteManager {
                     format.format(message);
                 } catch (TagLostException tle) {
                     throw new NFCTagWriteException(NFCErrorType.tagLost, tle);
-                } catch (IOException ioe) {
+                } catch (IOException | FormatException ioe) {
                     throw new NFCTagWriteException(NFCErrorType.formattingError, ioe);
-                } catch (FormatException fe) {
-                    throw new NFCTagWriteException(NFCErrorType.formattingError, fe);
                 }
             } else {
                 throw new NFCTagWriteException(NFCErrorType.noNdefError);
@@ -238,15 +226,15 @@ public class NFCTagReadWriteManager {
 
     }
 
-    public interface TagReadListener {
-        public void onTagRead(String tagRead);
+    interface TagReadListener {
+        void onTagRead(String tagRead);
     }
 
-    public interface TagWriteListener {
-        public void onTagWritten();
+    interface TagWriteListener {
+        void onTagWritten();
     }
 
-    public interface TagWriteErrorListener {
-        public void onTagWriteError(NFCTagWriteException exception);
+    interface TagWriteErrorListener {
+        void onTagWriteError(NFCTagWriteException exception);
     }
 }

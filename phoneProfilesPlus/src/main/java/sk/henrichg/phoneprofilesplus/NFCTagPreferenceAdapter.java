@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class NFCTagPreferenceAdapter extends BaseAdapter
+class NFCTagPreferenceAdapter extends BaseAdapter
 {
     NFCTagPreference preference;
     //private RadioButton selectedRB;
@@ -18,7 +18,7 @@ public class NFCTagPreferenceAdapter extends BaseAdapter
     private LayoutInflater inflater;
     //private Context context;
 
-    public NFCTagPreferenceAdapter(Context context, NFCTagPreference preference)
+    NFCTagPreferenceAdapter(Context context, NFCTagPreference preference)
     {
         this.preference = preference;
 

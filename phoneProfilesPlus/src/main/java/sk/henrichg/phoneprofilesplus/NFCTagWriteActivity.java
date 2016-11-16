@@ -53,9 +53,11 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
 
-        getSupportActionBar().setHomeButtonEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setTitle(R.string.nfc_tag_pref_dlg_writeTagTitle);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeButtonEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setTitle(R.string.nfc_tag_pref_dlg_writeTagTitle);
+        }
 
         Intent intent = getIntent();
         tagName = intent.getStringExtra(EXTRA_TAG_NAME);

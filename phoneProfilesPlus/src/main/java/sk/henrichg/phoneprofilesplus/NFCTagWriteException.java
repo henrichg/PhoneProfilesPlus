@@ -3,21 +3,21 @@ package sk.henrichg.phoneprofilesplus;
 /**
  * Exception thrown when writng nfc tags
  */
-public class NFCTagWriteException extends Exception {
+class NFCTagWriteException extends Exception {
     //private static final long serialVersionUID = 4647185067874734143L;
 
-    public enum NFCErrorType {
+    enum NFCErrorType {
         ReadOnly, NoEnoughSpace, tagLost, formattingError, noNdefError, unknownError
-    };
+    }
 
     NFCErrorType type;
 
-    public NFCTagWriteException(NFCErrorType type) {
+    NFCTagWriteException(NFCErrorType type) {
         super();
         this.type = type;
     }
 
-    public NFCTagWriteException(NFCErrorType type, Exception e) {
+    NFCTagWriteException(NFCErrorType type, Exception e) {
         super(e);
         this.type = type;
     }

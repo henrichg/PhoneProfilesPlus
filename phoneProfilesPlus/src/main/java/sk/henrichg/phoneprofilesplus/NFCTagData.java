@@ -1,13 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
-public class NFCTagData {
+class NFCTagData {
 
-    public String name;
+    String name;
 
-    public NFCTagData() {
-    }
+    //NFCTagData() {
+    //}
 
-    public NFCTagData(String name)
+    NFCTagData(String name)
     {
         this.name = name;
     }
