@@ -659,7 +659,8 @@ public class GrantPermissionActivity extends Activity {
         if (iteration == 2) {
             boolean accessNotificationPolicyFound = false;
             for (Permissions.PermissionType permissionType : permissions) {
-                if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+                boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+                if (no60 && permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
                     accessNotificationPolicyFound = true;
                     final Intent intent = new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                     startActivityForResult(intent, ACCESS_NOTIFICATION_POLICY_REQUEST_CODE);
