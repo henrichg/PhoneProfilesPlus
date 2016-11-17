@@ -1078,7 +1078,7 @@ public class Event {
         }
         else
         {
-            dataWrapper.updateNotificationAndWidgets(activatedProfile/*, ""*/);
+            dataWrapper.updateNotificationAndWidgets(activatedProfile);
         }
 
         //return;
@@ -1177,7 +1177,7 @@ public class Event {
 
         if (!profileActivated)
         {
-            dataWrapper.updateNotificationAndWidgets(activatedProfile/*, ""*/);
+            dataWrapper.updateNotificationAndWidgets(activatedProfile);
         }
 
     }

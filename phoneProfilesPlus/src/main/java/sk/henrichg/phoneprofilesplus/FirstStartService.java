@@ -51,7 +51,7 @@ public class FirstStartService extends IntentService {
             }
         //}
 
-        if (GlobalData.getApplicationStarted(context))
+        if (GlobalData.firstStartServiceStarted)
             return;
 
         GlobalData.logE("$$$ FirstStartService.onHandleIntent","application not started");
@@ -87,9 +87,6 @@ public class FirstStartService extends IntentService {
         // show info notification
         ImportantInfoNotification.showInfoNotification(context);
 
-        /*// start PhoneProfilesService
-        context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));*/
-
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         GlobalData.setActivatedProfileForDuration(context, 0);
 
@@ -111,6 +108,7 @@ public class FirstStartService extends IntentService {
 
         GlobalData.setMobileCellsAutoRegistration(context, true);
 
+        GlobalData.firstStartServiceStarted = true;
         GlobalData.setApplicationStarted(context, true);
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 

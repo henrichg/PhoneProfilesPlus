@@ -36,10 +36,10 @@ public class EventsService extends IntentService
 
         context = getApplicationContext();
 
-        GlobalData.logE("$$$ EventsService.onHandleIntent", "-- start --------------------------------");
+        GlobalData.logE("#### EventsService.onHandleIntent", "-- start --------------------------------");
 
         broadcastReceiverType = intent.getStringExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE);
-        GlobalData.logE("$$$ EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);
+        GlobalData.logE("#### EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);
 
         restartAtEndOfEvent = false;
 

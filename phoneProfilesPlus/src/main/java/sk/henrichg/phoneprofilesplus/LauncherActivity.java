@@ -38,6 +38,7 @@ public class LauncherActivity extends Activity {
             startService(firstStartServiceIntent);*/
 
             // start PhoneProfilesService
+            GlobalData.firstStartServiceStarted = false;
             startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
         }
         else
@@ -46,6 +47,7 @@ public class LauncherActivity extends Activity {
 
             if (PhoneProfilesService.instance == null) {
                 // start PhoneProfilesService
+                GlobalData.firstStartServiceStarted = false;
                 startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
             }
 
@@ -55,7 +57,7 @@ public class LauncherActivity extends Activity {
 
                 // pre profil, ktory je prave aktivny, treba aktualizovat notifikaciu a widgety
                 Profile profile = dataWrapper.getActivatedProfile();
-                dataWrapper.getActivateProfileHelper().showNotification(profile/*, ""*/);
+                dataWrapper.getActivateProfileHelper().showNotification(profile);
                 dataWrapper.getActivateProfileHelper().updateWidget();
                 startupSource = GlobalData.STARTUP_SOURCE_LAUNCHER;
             }

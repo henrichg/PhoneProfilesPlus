@@ -46,6 +46,8 @@ public class GlobalData extends Application {
 
     static String PACKAGE_NAME;
 
+    public static boolean firstStartServiceStarted = false;
+
     public static final boolean exactAlarms = true;
 
     private static boolean logIntoLogCat = true;
@@ -54,11 +56,19 @@ public class GlobalData extends Application {
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
+                                         +"|##### GlobalData.onCreate"
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|#### ActivateProfileHelper.execute"
+                                         //+"|#### ActivateProfileHelper.execute"
 
+                                         +"|BootUpReceiver"
+                                         +"|##### PackageReplacedReceiver.onReceive"
+                                         +"|ScreenOnOffBroadcastReceiver"
+                                         +"|ActivateProfileHelper.showNotification"
+                                         +"|$$$ PhoneProfilesService.onCreate"
+                                         +"|#### EventsService.onHandleIntent"
+                                         +"|DataWrapper.updateNotificationAndWidgets"
 
                                          //+"|%%%% WifiScanAlarmBroadcastReceiver.fillScanResults"
                                          //+"|%%%% ScannerService.onHandleIntent"
@@ -436,6 +446,10 @@ public class GlobalData extends Application {
         //resetLog();
 
         super.onCreate();
+
+        GlobalData.logE("##### GlobalData.onCreate", "xxx");
+
+        firstStartServiceStarted = false;
 
         PACKAGE_NAME = this.getPackageName();
 
@@ -983,14 +997,20 @@ public class GlobalData extends Application {
     static public boolean getApplicationStarted(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_APPLICATION_STARTED, false) && firstStartServiceStarted;
+    }
+
+    static public boolean getApplicationStartedIgnoreFirstStartService(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         return preferences.getBoolean(PREF_APPLICATION_STARTED, false);
     }
 
-    static public void setApplicationStarted(Context context, boolean globalEventsStarted)
+    static public void setApplicationStarted(Context context, boolean appStarted)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(PREF_APPLICATION_STARTED, globalEventsStarted);
+        editor.putBoolean(PREF_APPLICATION_STARTED, appStarted);
         editor.commit();
     }
 

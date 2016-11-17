@@ -80,8 +80,10 @@ public class ActionForExternalApplicationActivity extends Activity {
     {
         super.onStart();
 
-        if (!GlobalData.getApplicationStarted(getApplicationContext()) || (PhoneProfilesService.instance == null))
+        if (!GlobalData.getApplicationStarted(getApplicationContext()) || (PhoneProfilesService.instance == null)) {
+            GlobalData.firstStartServiceStarted = false;
             startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
+        }
 
         if (action.equals(ACTION_ACTIVATE_PROFILE)) {
             if (profile_id != 0) {

@@ -30,7 +30,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                 //dataWrapper.getActivateProfileHelper().removeNotification();
                 //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                 Profile activatedProfile = dataWrapper.getActivatedProfile();
-                dataWrapper.getActivateProfileHelper().showNotification(activatedProfile/*, ""*/);
+                dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
                 dataWrapper.invalidateDataWrapper();
             }
         }
@@ -46,7 +46,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                     //dataWrapper.getActivateProfileHelper().removeNotification();
                     //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                     Profile activatedProfile = dataWrapper.getActivatedProfile();
-                    dataWrapper.getActivateProfileHelper().showNotification(activatedProfile/*, ""*/);
+                    dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
                     dataWrapper.invalidateDataWrapper();
                 }
             }
@@ -125,7 +125,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                     //dataWrapper.getActivateProfileHelper().removeNotification();
                     //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                     Profile activatedProfile = dataWrapper.getActivatedProfile();
-                    dataWrapper.getActivateProfileHelper().showNotification(activatedProfile/*, ""*/);
+                    dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
                     dataWrapper.invalidateDataWrapper();
                 }
             }
