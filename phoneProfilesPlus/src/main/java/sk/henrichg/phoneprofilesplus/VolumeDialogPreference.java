@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,7 +119,7 @@ public class VolumeDialogPreference extends
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist()) {
                             persistString(Integer.toString(value + minimumValue)
                                     + "|" + Integer.toString(noChange)
@@ -226,7 +227,9 @@ public class VolumeDialogPreference extends
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
             try {
                 mediaPlayer.start();
-            } catch (Exception e) { };
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -319,7 +322,7 @@ public class VolumeDialogPreference extends
             mediaPlayer.release();
     }
 
-    public static boolean changeEnabled(String value) {
+    static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");
         if (splits.length > 1) {
             try {
@@ -380,13 +383,13 @@ public class VolumeDialogPreference extends
     // SavedState class
     private static class SavedState extends BaseSavedState
     {
-        public int value = 0;
-        public String volumeType = null;
-        public int noChange = 0;
-        public int defaultProfile = 0;
-        public int disableDefaultProfile = 0;
+        int value = 0;
+        String volumeType = null;
+        int noChange = 0;
+        int defaultProfile = 0;
+        int disableDefaultProfile = 0;
 
-        public SavedState(Parcel source)
+        SavedState(Parcel source)
         {
             super(source);
 
@@ -411,7 +414,7 @@ public class VolumeDialogPreference extends
             dest.writeInt(disableDefaultProfile);
         }
 
-        public SavedState(Parcelable superState)
+        SavedState(Parcelable superState)
         {
             super(superState);
         }

@@ -331,7 +331,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
         //if (wifiConfigurationList == null)
         //    wifiConfigurationList = new ArrayList<WifiSSIDData>();
 
-        List<WifiSSIDData> wifiConfigurationList = new ArrayList<WifiSSIDData>();
+        List<WifiSSIDData> wifiConfigurationList = new ArrayList<>();
 
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -369,7 +369,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
     @SuppressWarnings("deprecation")
     static public void fillScanResults(Context context)
     {
-        List<WifiSSIDData> scanResults = new ArrayList<WifiSSIDData>();
+        List<WifiSSIDData> scanResults = new ArrayList<>();
         boolean save = false;
 
         if (wifi == null)
@@ -418,7 +418,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
             //wifiConfigurationList.clear();
 
-            List<WifiSSIDData> wifiConfigurationList = new ArrayList<WifiSSIDData>();
+            List<WifiSSIDData> wifiConfigurationList = new ArrayList<>();
 
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.WIFI_CONFIGURATION_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -471,7 +471,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
 
             if (count > -1) {
-                List<WifiSSIDData> scanResults = new ArrayList<WifiSSIDData>();
+                List<WifiSSIDData> scanResults = new ArrayList<>();
 
                 Gson gson = new Gson();
 

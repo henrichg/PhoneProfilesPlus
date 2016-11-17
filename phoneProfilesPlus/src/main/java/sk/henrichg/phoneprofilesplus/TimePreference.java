@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -44,11 +45,13 @@ public class TimePreference extends DialogPreference {
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist()) {
                             picker.clearFocus();
 
+                            //noinspection deprecation
                             calendar.set(Calendar.HOUR_OF_DAY, picker.getCurrentHour());
+                            //noinspection deprecation
                             calendar.set(Calendar.MINUTE, picker.getCurrentMinute());
 
                             setSummary(getSummary());
@@ -83,7 +86,9 @@ public class TimePreference extends DialogPreference {
     @Override
     protected void onBindDialogView(View v) {
         super.onBindDialogView(v);
+        //noinspection deprecation
         picker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
+        //noinspection deprecation
         picker.setCurrentMinute(calendar.get(Calendar.MINUTE));
     }
 

@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -33,7 +34,7 @@ import java.util.List;
 public class WifiSSIDPreference extends DialogPreference {
 
     private String value;
-    public List<WifiSSIDData> SSIDList = null;
+    List<WifiSSIDData> SSIDList = null;
     private List<WifiSSIDData> customSSIDList = null;
 
     Context context;
@@ -43,7 +44,6 @@ public class WifiSSIDPreference extends DialogPreference {
     private RelativeLayout dataRelativeLayout;
     private EditText SSIDName;
     private ImageView addIcon;
-    private ListView SSIDListView;
     private WifiSSIDPreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
@@ -53,8 +53,8 @@ public class WifiSSIDPreference extends DialogPreference {
         
         this.context = context;
         
-        SSIDList = new ArrayList<WifiSSIDData>();
-        customSSIDList = new ArrayList<WifiSSIDData>();
+        SSIDList = new ArrayList<>();
+        customSSIDList = new ArrayList<>();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class WifiSSIDPreference extends DialogPreference {
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist()) {
                             /*
                             SSIDName.clearFocus();
@@ -94,13 +94,13 @@ public class WifiSSIDPreference extends DialogPreference {
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mDialog.dismiss();
                     }
                 })
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (Permissions.grantWifiScanDialogPermissions(context, WifiSSIDPreference.this))
                             refreshListView(true);
                     }
@@ -149,7 +149,7 @@ public class WifiSSIDPreference extends DialogPreference {
 
         addIcon.setEnabled(!SSIDName.getText().toString().isEmpty());
 
-        SSIDListView = (ListView) layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
+        ListView SSIDListView = (ListView) layout.findViewById(R.id.wifi_ssid_pref_dlg_listview);
         listAdapter = new WifiSSIDPreferenceAdapter(context, this);
         SSIDListView.setAdapter(listAdapter);
 
@@ -157,8 +157,8 @@ public class WifiSSIDPreference extends DialogPreference {
 
         SSIDListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                WifiSSIDPreferenceAdapter.ViewHolder viewHolder =
-                        (WifiSSIDPreferenceAdapter.ViewHolder) v.getTag();
+                //WifiSSIDPreferenceAdapter.ViewHolder viewHolder =
+                //        (WifiSSIDPreferenceAdapter.ViewHolder) v.getTag();
                 String ssid = SSIDList.get(position).ssid;
                 if (!(ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE) ||
                         ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))) {
@@ -241,7 +241,7 @@ public class WifiSSIDPreference extends DialogPreference {
         return value;
     }
 
-    public void addSSID(String ssid) {
+    void addSSID(String ssid) {
         String[] splits = value.split("\\|");
         boolean found = false;
         for (String _ssid : splits) {
@@ -256,7 +256,7 @@ public class WifiSSIDPreference extends DialogPreference {
         //Log.d("WifiSSIDPreference.addSSID","value="+value);
     }
 
-    public void removeSSID(String ssid) {
+    void removeSSID(String ssid) {
         String[] splits = value.split("\\|");
         value = "";
         for (String _ssid : splits) {
@@ -271,7 +271,7 @@ public class WifiSSIDPreference extends DialogPreference {
         //Log.d("WifiSSIDPreference.removeSSID","value="+value);
     }
 
-    public boolean isSSIDSelected(String ssid) {
+    boolean isSSIDSelected(String ssid) {
         String[] splits = value.split("\\|");
         for (String _ssid : splits) {
             if (_ssid.equals(ssid))

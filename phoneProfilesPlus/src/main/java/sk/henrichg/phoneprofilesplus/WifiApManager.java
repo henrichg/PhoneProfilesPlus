@@ -7,27 +7,27 @@ import android.util.Log;
 
 import java.lang.reflect.Method;
 
-public final class WifiApManager {
-    private static final int WIFI_AP_STATE_FAILED = 4;
+final class WifiApManager {
+    //private static final int WIFI_AP_STATE_FAILED = 4;
     private final WifiManager mWifiManager;
     private final String TAG = "Wifi Access Manager";
     private Method wifiControlMethod;
     private Method wifiApConfigurationMethod;
-    private Method wifiApState;
+    //private Method wifiApState;
     private Method wifiApEnabled;
 
-    public WifiApManager(Context context) throws SecurityException, NoSuchMethodException {
+    WifiApManager(Context context) throws SecurityException, NoSuchMethodException {
         mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         wifiControlMethod = mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class,boolean.class);
         wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration"/*,null*/);
-        wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
+        //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
         wifiApEnabled = mWifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
     }
 
-    public boolean setWifiApState(WifiConfiguration config, boolean enabled) {
+    private boolean setWifiApState(WifiConfiguration config, boolean enabled) {
         try {
             if (enabled) {
-                mWifiManager.setWifiEnabled(!enabled);
+                mWifiManager.setWifiEnabled(false);
             }
             wifiControlMethod.setAccessible(true);
             return (Boolean) wifiControlMethod.invoke(mWifiManager, config, enabled);
@@ -37,12 +37,12 @@ public final class WifiApManager {
         }
     }
 
-    public boolean setWifiApState(boolean enabled) {
+    boolean setWifiApState(boolean enabled) {
         WifiConfiguration wifiConfiguration = getWifiApConfiguration();
         return setWifiApState(wifiConfiguration, enabled);
     }
 
-    public WifiConfiguration getWifiApConfiguration()
+    private WifiConfiguration getWifiApConfiguration()
     {
         try{
             wifiApConfigurationMethod.setAccessible(true);
@@ -54,6 +54,7 @@ public final class WifiApManager {
         }
     }
 
+    /*
     public int getWifiApState() {
         try {
             wifiApState.setAccessible(true);
@@ -63,8 +64,9 @@ public final class WifiApManager {
             return WIFI_AP_STATE_FAILED;
         }
     }
+    */
 
-    public boolean isWifiAPEnabled() {
+    boolean isWifiAPEnabled() {
         try {
             wifiApEnabled.setAccessible(true);
             return (Boolean) wifiApEnabled.invoke(mWifiManager);
@@ -75,7 +77,7 @@ public final class WifiApManager {
 
     }
 
-    public static boolean isWifiAPEnabled(Context context) {
+    static boolean isWifiAPEnabled(Context context) {
         try {
             WifiApManager wifiApManager = new WifiApManager(context);
                     /*
@@ -91,7 +93,7 @@ public final class WifiApManager {
         }
     }
 
-    public static boolean canExploitWifiAP(Context context) {
+    static boolean canExploitWifiAP(Context context) {
         try {
             WifiApManager wifiApManager = new WifiApManager(context);
             return true;

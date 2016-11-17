@@ -11,7 +11,7 @@ package sk.henrichg.phoneprofilesplus;
  * This method uses recursive matching, as in linux or windows. regexp works the same.
  * This method is very fast, comparing to similar implementations.
  */
-public class Wildcard {
+class Wildcard {
 
     /**
      * Checks whether a string matches a given wildcard pattern.
@@ -22,20 +22,20 @@ public class Wildcard {
      * @param more wildcard for more characters
      * @return      <code>true</code> if string matches the pattern, otherwise <code>false</code>
      */
-    public static boolean match(String string, String pattern, char one, char more, boolean caseInsensitive) {
+    static boolean match(String string, String pattern, char one, char more, boolean caseInsensitive) {
         return match(string, pattern, one, more, 0, 0, caseInsensitive);
     }
 
     /**
-     * Checks if two strings are equals or if they {@link #match(String, String, char, char)}.
+     * Checks if two strings are equals or if they {@link ##match(String, String, char, char)}.
      * Useful for cases when matching a lot of equal strings and speed is important.
      */
-    public static boolean equalsOrMatch(String string, String pattern, char one, char more, boolean caseInsensitive) {
-        if (string.equals(pattern) == true) {
+    /*public static boolean equalsOrMatch(String string, String pattern, char one, char more, boolean caseInsensitive) {
+        if (string.equals(pattern)) {
             return true;
         }
         return match(string, pattern, one, more, 0, 0, caseInsensitive);
-    }
+    }*/
 
 
     /**
@@ -56,7 +56,7 @@ public class Wildcard {
         while (true) {
 
             // check if end of string and/or pattern occurred
-            if ((sNdx >= sLen) == true) {   // end of string still may have pending <more> in pattern
+            if (sNdx >= sLen) {   // end of string still may have pending <more> in pattern
                 while ((pNdx < pLen) && (pattern.charAt(pNdx) == more)) {
                     pNdx++;
                 }
@@ -68,7 +68,7 @@ public class Wildcard {
             char p = pattern.charAt(pNdx);    // pattern char
 
             // perform logic
-            if (nextIsNotWildcard == false) {
+            if (!nextIsNotWildcard) {
 
                 if (p == '\\') {
                     pNdx++;
@@ -95,7 +95,7 @@ public class Wildcard {
                     // find recursively if there is any substring from the end of the
                     // line that matches the rest of the pattern !!!
                     for (i = string.length(); i >= sNdx; i--) {
-                        if (match(string, pattern, one, more, i, pNdx, caseInsensitive) == true) {
+                        if (match(string, pattern, one, more, i, pNdx, caseInsensitive)) {
                             return true;
                         }
                     }
@@ -126,11 +126,11 @@ public class Wildcard {
     /**
      * Matches string to at least one pattern.
      * Returns index of matched pattern, or <code>-1</code> otherwise.
-     * @see #match(String, String, char, char)
+     * @see ##match(String, String, char, char)
      */
     public static int matchOne(String src, String[] patterns, char one, char more, boolean caseInsensitive) {
         for (int i = 0; i < patterns.length; i++) {
-            if (match(src, patterns[i], one, more, caseInsensitive) == true) {
+            if (match(src, patterns[i], one, more, caseInsensitive)) {
                 return i;
             }
         }

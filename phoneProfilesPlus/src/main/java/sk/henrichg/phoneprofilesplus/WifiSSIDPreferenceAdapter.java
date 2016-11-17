@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class WifiSSIDPreferenceAdapter extends BaseAdapter 
+class WifiSSIDPreferenceAdapter extends BaseAdapter
 {
     WifiSSIDPreference preference;
     //private RadioButton selectedRB;
@@ -18,7 +18,7 @@ public class WifiSSIDPreferenceAdapter extends BaseAdapter
     private LayoutInflater inflater;
     //private Context context;
 
-    public WifiSSIDPreferenceAdapter(Context context, WifiSSIDPreference preference) 
+    WifiSSIDPreferenceAdapter(Context context, WifiSSIDPreference preference)
     {
         this.preference = preference;
 

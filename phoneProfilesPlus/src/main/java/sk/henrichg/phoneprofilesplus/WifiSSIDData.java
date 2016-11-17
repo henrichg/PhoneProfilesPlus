@@ -1,15 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
-public class WifiSSIDData {
+class WifiSSIDData {
 
-    public String ssid;
-    public String bssid;
-    public boolean custom;
+    String ssid;
+    String bssid;
+    boolean custom;
 
-    public WifiSSIDData() {
-    }
+    //WifiSSIDData() {
+    //}
 
-    public WifiSSIDData(String ssid, String bssid, boolean custom)
+    WifiSSIDData(String ssid, String bssid, boolean custom)
     {
         this.ssid = ssid;
         this.bssid = bssid;
