@@ -1316,7 +1316,7 @@ public class ActivateProfileHelper {
             {
                 if (profile._deviceMobileDataPrefs == 1)
                 {
-                    try {
+                    /*try {
                         final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
@@ -1334,6 +1334,14 @@ public class ActivateProfileHelper {
                             e2.printStackTrace();
                             GlobalData.logE("#### ActivateProfileHelper.execute","mobile data prefs. 2 E="+e2);
                         }
+                    }*/
+                    try {
+                        Intent intent = new Intent();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$DataUsageSummaryActivity"));
+                        context.startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
