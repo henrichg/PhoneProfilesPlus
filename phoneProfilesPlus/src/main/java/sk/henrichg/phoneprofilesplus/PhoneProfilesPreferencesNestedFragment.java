@@ -42,7 +42,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     static final int RESULT_SCANNING_SYSTEM_SETTINGS = 1992;
     static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
     static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
-    static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
+    //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
     static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
     static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
     static final String PREF_LOCATION_EDITOR = "applicationEventLocationsEditor";
@@ -308,6 +308,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
     }
 
+    /*
     private void setTitleStyle(Preference preference, boolean bold, boolean underline)
     {
         CharSequence title = preference.getTitle();
@@ -330,6 +331,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             preference.setTitle(sbt);
         }
     }
+    */
 
     public void setSummary(String key)
     {
@@ -358,10 +360,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         if (key.equals(GlobalData.PREF_APPLICATION_BACKGROUND_PROFILE))
         {
-            String sProfileId = stringValue;
             long lProfileId;
             try {
-                lProfileId = Long.parseLong(sProfileId);
+                lProfileId = Long.parseLong(stringValue);
             } catch (Exception e) {
                 lProfileId = 0;
             }
@@ -385,7 +386,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preference.setSummary(sSummary);
             }
             else
-                preference.setSummary(summary);
+                preference.setSummary(null);
 
             //if (key.equals(GlobalData.PREF_APPLICATION_LANGUAGE))
             //    setTitleStyle(preference, true, false);
@@ -436,7 +437,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         if (mobileCellsRegistrationBroadcastReceiver != null) {
             try {
                 getActivity().unregisterReceiver(mobileCellsRegistrationBroadcastReceiver);
-            } catch (IllegalArgumentException e) { }
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
             mobileCellsRegistrationBroadcastReceiver = null;
         }
         super.onDestroy();

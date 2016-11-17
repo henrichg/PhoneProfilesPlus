@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 
-public class ProfilePreferencesIndicator {
+class ProfilePreferencesIndicator {
 
     private static Bitmap createIndicatorBitmap(Context context, int countDrawables)
     {
@@ -19,7 +19,7 @@ public class ProfilePreferencesIndicator {
         return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
     }
 
-    private static void addIndicator(Bitmap indicatorBitmap, int preferenceBitmapResourceID, int index, Context context, Canvas canvas)
+    private static void addIndicator(int preferenceBitmapResourceID, int index, Context context, Canvas canvas)
     {
         Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
 
@@ -29,7 +29,7 @@ public class ProfilePreferencesIndicator {
 
     }
 
-    public static Bitmap paint(Profile _profile, Context context)
+    static Bitmap paint(Profile _profile, Context context)
     {
 
         int[] drawables = new int[30];
@@ -199,7 +199,7 @@ public class ProfilePreferencesIndicator {
                 Canvas canvas = new Canvas(indicatorBitmap);
 
                 for (int i = 0; i < countDrawables; i++)
-                    addIndicator(indicatorBitmap, drawables[i], i, context, canvas);
+                    addIndicator(drawables[i], i, context, canvas);
             }
             else
                 indicatorBitmap = createIndicatorBitmap(context, 1);

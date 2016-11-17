@@ -32,7 +32,7 @@ public class ProfileDetailsFragment extends Fragment {
      */
     // invoked when start profile preference fragment/activity needed
     public interface OnStartProfilePreferencesFromDetail {
-        public void onStartProfilePreferencesFromDetail(Profile profile);
+        void onStartProfilePreferencesFromDetail(Profile profile);
     }
 
     /**

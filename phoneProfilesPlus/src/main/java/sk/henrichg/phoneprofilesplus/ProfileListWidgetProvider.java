@@ -82,8 +82,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         // set background
         int red = 0;
-        int green = 0;
-        int blue = 0;
+        int green;
+        int blue;
         if (GlobalData.applicationWidgetListLightnessB.equals("0")) red = 0x00;
         if (GlobalData.applicationWidgetListLightnessB.equals("25")) red = 0x40;
         if (GlobalData.applicationWidgetListLightnessB.equals("50")) red = 0x80;
@@ -159,8 +159,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //if (GlobalData.applicationWidgetListIconColor.equals("1"))
             //{
                 red = 0xFF;
-                green = 0xFF;
-                blue = 0xFF;
                 if (GlobalData.applicationWidgetListLightnessT.equals("0")) red = 0x00;
                 if (GlobalData.applicationWidgetListLightnessT.equals("25")) red = 0x40;
                 if (GlobalData.applicationWidgetListLightnessT.equals("50")) red = 0x80;
@@ -181,8 +179,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (largeLayout)
             {
                 red = 0xFF;
-                green = 0xFF;
-                blue = 0xFF;
                 if (GlobalData.applicationWidgetListLightnessT.equals("0")) red = 0x00;
                 if (GlobalData.applicationWidgetListLightnessT.equals("25")) red = 0x40;
                 if (GlobalData.applicationWidgetListLightnessT.equals("50")) red = 0x80;

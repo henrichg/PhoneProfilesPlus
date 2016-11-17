@@ -22,16 +22,17 @@ import com.stericson.roottools.RootTools;
 
 import java.util.List;
 
-public class PhoneProfilesHelper {
+class PhoneProfilesHelper {
 
-    public static int PPHelperVersion = -1;
+    static int PPHelperVersion = -1;
 
-    public static final int PPHELPER_CURRENT_VERSION = 59;
+    //static final int PPHELPER_CURRENT_VERSION = 59;
 
     private static boolean errorNoRoot = false;
-    private static boolean nowPPHelperUninstalled = false;
+    //private static boolean nowPPHelperUninstalled = false;
 
-    static public boolean isPPHelperInstalled(Context context, int minVersion)
+    /*
+    static boolean isPPHelperInstalled(Context context, int minVersion)
     {
         PPHelperVersion = -1;
 
@@ -50,10 +51,11 @@ public class PhoneProfilesHelper {
         }
         return PPHelperVersion >= minVersion;
     }
+    */
 
     static private boolean doUninstallPPHelper(Activity activity)
     {
-        boolean OK = false;
+        boolean OK;
         errorNoRoot = false;
 
         /*if (!GlobalData.isRooted(false))
@@ -123,7 +125,7 @@ public class PhoneProfilesHelper {
 
         if (OK)
         {
-            nowPPHelperUninstalled = true;
+            //nowPPHelperUninstalled = true;
 
             Context context = activity.getApplicationContext();
             // update profiles for hardware changes
@@ -138,7 +140,7 @@ public class PhoneProfilesHelper {
         return OK;
     }
 
-    static public void uninstallPPHelper(Activity activity)
+    static void uninstallPPHelper(Activity activity)
     {
         final Activity _activity = activity;
 
@@ -152,7 +154,7 @@ public class PhoneProfilesHelper {
                 {
                     private MaterialDialog dialog;
 
-                    UninstallAsyncTask()
+                    private UninstallAsyncTask()
                     {
                         this.dialog = new MaterialDialog.Builder(_activity)
                                 .content(R.string.phoneprofilehepler_uninstall_title)
@@ -174,10 +176,7 @@ public class PhoneProfilesHelper {
 
                     @Override
                     protected Boolean doInBackground(Void... params) {
-
-                        boolean OK = doUninstallPPHelper(_activity);
-
-                        return OK;
+                        return doUninstallPPHelper(_activity);
                     }
 
                     @Override
@@ -191,10 +190,10 @@ public class PhoneProfilesHelper {
 
                         if (result)
                         {
-                            restartAndroid(_activity, 2, false);
+                            restartAndroid(_activity, /*2,*/ false);
                         }
                         else
-                            installUnInstallPPhelperErrorDialog(_activity, 2, false);
+                            installUnInstallPPhelperErrorDialog(_activity, /*2,*/ false);
                     }
 
                     private void lockScreenOrientation() {
@@ -219,7 +218,7 @@ public class PhoneProfilesHelper {
         dialogBuilder.show();
     }
 
-    static private void restartAndroid(Activity activity, int installUninstall, boolean finishActivity)
+    static private void restartAndroid(Activity activity, /*int installUninstall,*/ boolean finishActivity)
     {
         final Activity _activity = activity;
         final boolean _finishActivity = finishActivity;
@@ -283,9 +282,9 @@ public class PhoneProfilesHelper {
         }
         
         return OK;
-    }	
+    }
 
-    static private void installUnInstallPPhelperErrorDialog(Activity activity, int installUninstall, boolean finishActivity)
+    static private void installUnInstallPPhelperErrorDialog(Activity activity, /*int installUninstall,*/ boolean finishActivity)
     {
         final Activity _activity = activity;
         final boolean _finishActivity = finishActivity;

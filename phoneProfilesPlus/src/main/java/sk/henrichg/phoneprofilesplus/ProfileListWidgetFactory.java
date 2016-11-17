@@ -17,7 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @SuppressLint("NewApi")
-public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
+class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private DataWrapper dataWrapper;
 
@@ -25,13 +25,13 @@ public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsF
     //private int appWidgetId;
     private List<Profile> profileList;
 
-    public ProfileListWidgetFactory(Context ctxt, Intent intent) {
+    ProfileListWidgetFactory(Context ctxt, Intent intent) {
         context = ctxt;
         /*appWidgetId=intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                                        AppWidgetManager.INVALID_APPWIDGET_ID);*/
     }
   
-    public void createProfilesDataWrapper()
+    private void createProfilesDataWrapper()
     {
         GlobalData.loadPreferences(context);
 
@@ -120,8 +120,8 @@ public class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsF
                 row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
             }
             int red = 0xFF;
-            int green = 0xFF;
-            int blue = 0xFF;
+            int green;
+            int blue;
             if (GlobalData.applicationWidgetListLightnessT.equals("0")) red = 0x00;
             if (GlobalData.applicationWidgetListLightnessT.equals("25")) red = 0x40;
             if (GlobalData.applicationWidgetListLightnessT.equals("50")) red = 0x80;

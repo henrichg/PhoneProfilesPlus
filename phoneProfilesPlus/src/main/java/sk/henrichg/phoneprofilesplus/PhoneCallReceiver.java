@@ -63,10 +63,10 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
         boolean isIncoming;
         String savedNumber;  //because the passed incoming is only valid in ringing
 
-        public PhonecallStartEndDetector() {}
+        PhonecallStartEndDetector() {}
 
         //The outgoing number is only sent via a separate intent, so we need to store it out of band
-        public void setOutgoingNumber(String number){
+        void setOutgoingNumber(String number){
             inCall = false;
             isIncoming = false;
             savedNumber = number;
@@ -76,7 +76,7 @@ public abstract class PhoneCallReceiver extends WakefulBroadcastReceiver {
 
         //Incoming call-  goes from IDLE to RINGING when it rings, to OFFHOOK when it's answered, to IDLE when its hung up
         //Outgoing call-  goes from IDLE to OFFHOOK when it dials out, to IDLE when hung up
-        public void onCallStateChanged(Intent intent) {
+        void onCallStateChanged(Intent intent) {
             int state = telephony.getCallState();
             if(lastState == state){
                 //No change, debounce extras

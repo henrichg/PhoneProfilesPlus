@@ -156,7 +156,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(GlobalData.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, false);
             editor.commit();
-            Preference preference = (Preference) prefMng.findPreference("wifiScanningCategory");
+            Preference preference = prefMng.findPreference("wifiScanningCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
             preference.setEnabled(false);
@@ -174,7 +174,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, false);
             editor.commit();
-            Preference preference = (Preference) prefMng.findPreference("bluetoothScanninCategory");
+            Preference preference = prefMng.findPreference("bluetoothScanninCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
             preference.setEnabled(false);
@@ -183,7 +183,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         if (GlobalData.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, preferencesActivity.getApplicationContext())
                 != GlobalData.PREFERENCE_ALLOWED)
         {
-            Preference preference = (Preference) prefMng.findPreference("orientationScanningCategory");
+            Preference preference = prefMng.findPreference("orientationScanningCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
             preference.setEnabled(false);
@@ -191,7 +191,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         if (GlobalData.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, preferencesActivity.getApplicationContext())
                 != GlobalData.PREFERENCE_ALLOWED)
         {
-            Preference preference = (Preference) prefMng.findPreference("mobileCellsScanningCategory");
+            Preference preference = prefMng.findPreference("mobileCellsScanningCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
             preference.setEnabled(false);

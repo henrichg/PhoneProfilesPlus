@@ -11,8 +11,6 @@ import android.widget.RemoteViews;
 
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
-    private DataWrapper dataWrapper;
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
@@ -26,7 +24,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         if (GlobalData.applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
         if (GlobalData.applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
-        dataWrapper = new DataWrapper(context, true, GlobalData.applicationWidgetListIconColor.equals("1"), monochromeValue);
+        DataWrapper dataWrapper = new DataWrapper(context, true, GlobalData.applicationWidgetListIconColor.equals("1"), monochromeValue);
 
         Profile profile = dataWrapper.getActivatedProfile();
 
@@ -70,8 +68,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
             // set background
             int red = 0;
-            int green = 0;
-            int blue = 0;
+            int green;
+            int blue;
             if (GlobalData.applicationWidgetListLightnessB.equals("0")) red = 0x00;
             if (GlobalData.applicationWidgetListLightnessB.equals("25")) red = 0x40;
             if (GlobalData.applicationWidgetListLightnessB.equals("50")) red = 0x80;
@@ -103,8 +101,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             //if (GlobalData.applicationWidgetListIconColor.equals("1"))
             //{
                 red = 0xFF;
-                green = 0xFF;
-                blue = 0xFF;
                 if (GlobalData.applicationWidgetListLightnessT.equals("0")) red = 0x00;
                 if (GlobalData.applicationWidgetListLightnessT.equals("25")) red = 0x40;
                 if (GlobalData.applicationWidgetListLightnessT.equals("50")) red = 0x80;
@@ -158,8 +154,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         }
 
         dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
-
     }
 
 }

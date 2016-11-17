@@ -20,7 +20,7 @@ public class PhoneCallService extends IntentService {
 
     public static final int CALL_EVENT_UNDEFINED = 0;
     public static final int CALL_EVENT_INCOMING_CALL_RINGING = 1;
-    public static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
+    //public static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
     public static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 3;
     public static final int CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
     public static final int CALL_EVENT_INCOMING_CALL_ENDED = 5;
@@ -63,10 +63,11 @@ public class PhoneCallService extends IntentService {
         } catch (InterruptedException e) {
         }*/
 
-        PhoneCallBroadcastReceiver.completeWakefulIntent(intent);
+        if (intent != null)
+            PhoneCallBroadcastReceiver.completeWakefulIntent(intent);
     }
 
-    private void doCallEvent(int eventType, String phoneNumber, DataWrapper dataWrapper)
+    private void doCallEvent(int eventType, String phoneNumber)
     {
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -92,11 +93,7 @@ public class PhoneCallService extends IntentService {
         speakerphoneSelected = false;
 
         if (incoming) {
-            DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-
-            doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, dataWrapper);
-
-            dataWrapper.invalidateDataWrapper();
+            doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber);
         }
     }
 
@@ -126,8 +123,6 @@ public class PhoneCallService extends IntentService {
 
     private void callAnswered(boolean incoming, String phoneNumber)
     {
-        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
@@ -150,11 +145,9 @@ public class PhoneCallService extends IntentService {
             PhoneProfilesService.instance.stopSimulatingRingingCall();
 
         if (incoming)
-            doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, dataWrapper);
+            doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber);
         else
-            doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber, dataWrapper);
-
-        dataWrapper.invalidateDataWrapper();
+            doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber);
     }
 
     private void callEnded(boolean incoming, String phoneNumber)
@@ -188,14 +181,10 @@ public class PhoneCallService extends IntentService {
         // audiomode is set to MODE_NORMAL by system
         //Log.e("PhoneCallService", "callEnded (before unlink/EventsService) audioMode="+audioManager.getMode());
 
-        DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-
         if (incoming)
-            doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber, dataWrapper);
+            doCallEvent(CALL_EVENT_INCOMING_CALL_ENDED, phoneNumber);
         else
-            doCallEvent(CALL_EVENT_OUTGOING_CALL_ENDED, phoneNumber, dataWrapper);
-
-        dataWrapper.invalidateDataWrapper();
+            doCallEvent(CALL_EVENT_OUTGOING_CALL_ENDED, phoneNumber);
 
     }
 

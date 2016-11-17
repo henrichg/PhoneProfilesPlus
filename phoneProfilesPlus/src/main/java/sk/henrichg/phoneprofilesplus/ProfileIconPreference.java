@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,13 +32,11 @@ public class ProfileIconPreference extends DialogPreference {
 
     private ImageView imageView;
     ProfileIconPreferenceAdapter adapter;
-    ImageView dialogIcon;
+    private ImageView dialogIcon;
     private Context prefContext;
     private Button colorChooserButton;
 
-    CharSequence preferenceTitle;
-
-    public static int RESULT_LOAD_IMAGE = 1971;
+    static int RESULT_LOAD_IMAGE = 1971;
 
     public ProfileIconPreference(Context context, AttributeSet attrs)
     {
@@ -59,8 +58,6 @@ public class ProfileIconPreference extends DialogPreference {
         customColor = 0;
 
         prefContext = context;
-
-        preferenceTitle = getTitle();
 
         setWidgetLayoutResource(R.layout.profileicon_preference); // resource na layout custom preference - TextView-ImageView
 
@@ -90,7 +87,7 @@ public class ProfileIconPreference extends DialogPreference {
                 .content(getDialogMessage())
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (shouldPersist()) {
                             setImageIdentifierAndType("", true, true);
                         }
@@ -99,13 +96,13 @@ public class ProfileIconPreference extends DialogPreference {
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         mDialog.dismiss();
                     }
                 })
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         // zavolat galeriu na vyzdvihnutie image
                         if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this)) {
                             startGallery();
@@ -122,7 +119,7 @@ public class ProfileIconPreference extends DialogPreference {
         GridView gridView = (GridView)layout.findViewById(R.id.profileicon_pref_dlg_gridview);
         adapter = new ProfileIconPreferenceAdapter(prefContext, imageIdentifier, isImageResourceID, useCustomColor, customColor);
         gridView.setAdapter(adapter);
-        gridView.setSelection(adapter.getImageResourcePosition(imageIdentifier));
+        gridView.setSelection(ProfileIconPreferenceAdapter.getImageResourcePosition(imageIdentifier));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -303,7 +300,7 @@ public class ProfileIconPreference extends DialogPreference {
     }
     */
 
-    public void setImageIdentifierAndType(String newImageIdentifier, boolean newIsImageResourceID, boolean saveToPreference)
+    void setImageIdentifierAndType(String newImageIdentifier, boolean newIsImageResourceID, boolean saveToPreference)
     {
         String newValue = newImageIdentifier+"|"+((newIsImageResourceID) ? "1" : "0");
 
@@ -342,14 +339,14 @@ public class ProfileIconPreference extends DialogPreference {
 
     }
 
-    public void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
+    void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
         useCustomColor = newUseCustomColor;
         customColor = newCustomColor;
         adapter.setCustomColor(useCustomColor, customColor);
         updateIcon(true);
     }
 
-    public void startGallery()
+    void startGallery()
     {
         //Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
@@ -368,7 +365,7 @@ public class ProfileIconPreference extends DialogPreference {
         dialog.show();
     }
 
-    public void updateIcon(boolean inDialog) {
+    private void updateIcon(boolean inDialog) {
         ImageView imageView;
         if (inDialog)
             imageView = this.dialogIcon;

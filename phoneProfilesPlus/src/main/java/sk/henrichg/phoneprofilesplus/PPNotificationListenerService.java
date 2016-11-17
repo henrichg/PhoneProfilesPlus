@@ -67,7 +67,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        String alarmTimeS = sdf.format(sbn.getPostTime());
+        //String alarmTimeS = sdf.format(sbn.getPostTime());
         //GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
 
         int gmtOffset = TimeZone.getDefault().getRawOffset();
@@ -266,10 +266,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return false;
     }
 
-    private static Intent getInterruptionFilterRequestIntent(Context context, final int filter) {
+    private static Intent getInterruptionFilterRequestIntent(final int filter) {
         Intent request = new Intent(ACTION_REQUEST_INTERRUPTION_FILTER);
-        //request.setComponent(new ComponentName(context, PPNotificationListenerService.class));
-        //request.setPackage(context.getPackageName());
         request.putExtra(EXTRA_FILTER, filter);
         return request;
     }
@@ -294,7 +292,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                     break;
             }
             //Log.e(TAG, "requestInterruptionFilter(" + interruptionFilter + ')');
-            Intent request = getInterruptionFilterRequestIntent(context, interruptionFilter);
+            Intent request = getInterruptionFilterRequestIntent(interruptionFilter);
             context.sendBroadcast(request);
         }
     }
@@ -373,7 +371,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         synchronized (GlobalData.notificationsChangeMutex) {
 
             if (notifications == null)
-                notifications = new ArrayList<PostedNotificationData>();
+                notifications = new ArrayList<>();
 
             notifications.clear();
 
@@ -398,7 +396,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         synchronized (GlobalData.notificationsChangeMutex) {
 
             if (notifications == null)
-                notifications = new ArrayList<PostedNotificationData>();
+                notifications = new ArrayList<>();
 
             SharedPreferences preferences = context.getSharedPreferences(GlobalData.POSTED_NOTIFICATIONS_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
@@ -423,7 +421,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         synchronized (GlobalData.notificationsChangeMutex) {
 
             if (notifications == null)
-                notifications = new ArrayList<PostedNotificationData>();
+                notifications = new ArrayList<>();
 
             boolean found = false;
             for (PostedNotificationData _notification : notifications) {
@@ -444,7 +442,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         synchronized (GlobalData.notificationsChangeMutex) {
 
             if (notifications == null)
-                notifications = new ArrayList<PostedNotificationData>();
+                notifications = new ArrayList<>();
 
             int index = 0;
             boolean found = false;
@@ -460,12 +458,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
     }
 
-    public static PostedNotificationData getNotificationPosted(Context context, String packageName)
+    public static PostedNotificationData getNotificationPosted(String packageName)
     {
         synchronized (GlobalData.notificationsChangeMutex) {
 
             if (notifications == null)
-                notifications = new ArrayList<PostedNotificationData>();
+                notifications = new ArrayList<>();
 
             for (PostedNotificationData _notification : notifications) {
                 String _packageName = _notification.getPackageName();

@@ -11,17 +11,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ProfilePreferenceAdapter extends BaseAdapter {
+class ProfilePreferenceAdapter extends BaseAdapter {
 
-    public List<Profile> profileList;
-    long profileId;
+    List<Profile> profileList;
+    private long profileId;
     ProfilePreferenceDialog dialog;
 
     private Context context;
 
     private LayoutInflater inflater = null;
 
-    public ProfilePreferenceAdapter(ProfilePreferenceDialog dialog, Context c, String profileId, List<Profile> profileList)
+    ProfilePreferenceAdapter(ProfilePreferenceDialog dialog, Context c, String profileId, List<Profile> profileList)
     {
         context = c;
 

@@ -16,21 +16,16 @@ import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-public class ProfileIconColorChooserDialog implements View.OnClickListener {
-
-    int selectedColor;
+class ProfileIconColorChooserDialog implements View.OnClickListener {
 
     private ProfileIconPreference profileIconPreference;
-    private Context _context;
     private MaterialDialog mDialog;
 
     private int[] mColors;
 
-    public ProfileIconColorChooserDialog(Context context, ProfileIconPreference preference, boolean useCustomColor, int selectedColor, int defaultColor)
+    ProfileIconColorChooserDialog(Context context, ProfileIconPreference preference, boolean useCustomColor, int selectedColor, int defaultColor)
     {
         profileIconPreference = preference;
-
-        _context = context;
 
         MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(R.string.colorChooser_pref_dialog_title)

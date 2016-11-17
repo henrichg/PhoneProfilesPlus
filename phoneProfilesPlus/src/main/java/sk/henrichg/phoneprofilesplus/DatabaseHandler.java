@@ -1152,7 +1152,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     String[] splits = brightness.split("\\|");
 
                     int perc = Integer.parseInt(splits[0]);
-                    perc = (int)Profile.convertBrightnessToPercents(perc, 255, 1, context);
+                    perc = (int)Profile.convertBrightnessToPercents(perc, 255, 1);
 
                     // hm, found brightness values without default profile :-/
                     if (splits.length == 4)
@@ -6357,7 +6357,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             String[] splits = value.split("\\|");
 
                                             int perc = Integer.parseInt(splits[0]);
-                                            perc = (int) Profile.convertBrightnessToPercents(perc, 255, 1, context);
+                                            perc = (int) Profile.convertBrightnessToPercents(perc, 255, 1);
 
                                             // hm, found brightness values without default profile :-/
                                             if (splits.length == 4)

@@ -12,11 +12,9 @@ import android.widget.ImageView;
 public class ProfilePreference extends Preference {
 
     private String profileId;
-    private ImageView profileIcon;
-    //private CharSequence preferenceTitle;
-    public int addNoActivateItem;
-    public int noActivateAsDoNotApply;
-    public int showDuration;
+    int addNoActivateItem;
+    int noActivateAsDoNotApply;
+    int showDuration;
 
     private Context prefContext;
 
@@ -53,7 +51,7 @@ public class ProfilePreference extends Preference {
         //preferenceTitleView = (TextView)view.findViewById(R.id.applications_pref_label);  // resource na title
         //preferenceTitleView.setText(preferenceTitle);
 
-        profileIcon = (ImageView)view.findViewById(R.id.profile_pref_icon); // resource na ImageView v custom preference layoute
+        ImageView profileIcon = (ImageView)view.findViewById(R.id.profile_pref_icon); // resource na ImageView v custom preference layoute
 
         if (profileIcon != null)
         {
@@ -162,8 +160,7 @@ public class ProfilePreference extends Preference {
         // restore instance state
         SavedState myState = (SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
-        String value = (String) myState.profileId;
-        profileId = value;
+        profileId = myState.profileId;
         addNoActivateItem = myState.addNoActivateItem;
         noActivateAsDoNotApply = myState.noActivateAsDoNotApply;
         showDuration = myState.showDuration;
@@ -180,12 +177,14 @@ public class ProfilePreference extends Preference {
         dataWrapper = null;
     }
 
+    /*
     public String getProfileId()
     {
         return profileId;
     }
+    */
 
-    public void setProfileId(long newProfileId)
+    void setProfileId(long newProfileId)
     {
         String newValue = String.valueOf(newProfileId);
 
@@ -233,11 +232,11 @@ public class ProfilePreference extends Preference {
     private static class SavedState extends BaseSavedState
     {
         String profileId;
-        public int addNoActivateItem;
-        public int noActivateAsDoNotApply;
-        public int showDuration;
+        int addNoActivateItem;
+        int noActivateAsDoNotApply;
+        int showDuration;
 
-        public SavedState(Parcel source)
+        SavedState(Parcel source)
         {
             super(source);
 
@@ -260,7 +259,7 @@ public class ProfilePreference extends Preference {
             dest.writeInt(showDuration);
         }
 
-        public SavedState(Parcelable superState)
+        SavedState(Parcelable superState)
         {
             super(superState);
         }

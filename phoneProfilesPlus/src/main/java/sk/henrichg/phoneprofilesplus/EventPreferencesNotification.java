@@ -390,7 +390,7 @@ class EventPreferencesNotification extends EventPreferences {
         for (int i = 0; i < splits.length; i++) {
             String packageName = ApplicationsCache.getPackageName(splits[i]);
 
-            PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(dataWrapper.context, packageName);
+            PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName);
             if (notification != null)
                 return true;
         }
@@ -409,7 +409,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (ApplicationsCache.isShortcut(splits[i]))
                     packageName = ApplicationsCache.getPackageName(splits[i]);
 
-                PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(dataWrapper.context, packageName);
+                PostedNotificationData notification = PPNotificationListenerService.getNotificationPosted(packageName);
                 if (notification != null) {
                     notificationFound = true;
                     _startTime = notification.time;

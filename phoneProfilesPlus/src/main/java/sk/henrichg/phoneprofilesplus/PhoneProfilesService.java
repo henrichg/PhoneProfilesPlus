@@ -58,7 +58,6 @@ public class PhoneProfilesService extends Service
     private static final int MAX_COUNT_GZ_CHANGE = 5;
     private float mGravity[] = new float[3];
     private float mGeomagnetic[] = new float[3];
-    private float mProximity = -100;
     private float mMaxProximityDistance;
     private float mGravityZ = 0;  //gravity acceleration along the z axis
 
@@ -82,9 +81,7 @@ public class PhoneProfilesService extends Service
     public static int mDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
 
     private static int tmpSideUp = DEVICE_ORIENTATION_UNKNOWN;
-    private static int tmpDeviceDistance = DEVICE_ORIENTATION_UNKNOWN;
     private static long tmpSideTimestamp = 0;
-    private static long tmpDistanceTimestamp = 0;
 
     //------------------------
 
@@ -101,7 +98,7 @@ public class PhoneProfilesService extends Service
 
     //--------------------------
 
-    public static SipManager mSipManager = null;
+    //public static SipManager mSipManager = null;
 
     @Override
     public void onCreate()
@@ -338,11 +335,12 @@ public class PhoneProfilesService extends Service
             try {
                 locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
             } catch (Settings.SettingNotFoundException e) {
-                e.printStackTrace();;
+                e.printStackTrace();
             }
             return  locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
         else {
+            //noinspection deprecation
             locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
             return  !TextUtils.isEmpty(locationProviders);
         }
@@ -407,12 +405,12 @@ public class PhoneProfilesService extends Service
             mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
         return mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
     }
-    @SuppressWarnings("deprecation")
+    /*@SuppressWarnings("deprecation")
     public static Sensor getOrientationSensor(Context context) {
         if (mSensorManager == null)
             mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
         return mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-    }
+    }*/
 
     //--------------------------------------------------------------------------
 
@@ -508,8 +506,9 @@ public class PhoneProfilesService extends Service
             //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
             //if (event.timestamp - tmpDistanceTimestamp >= 250000000L /*1000000000L*/) {
             //    tmpDistanceTimestamp = event.timestamp;
-                mProximity = event.values[0];
+                float mProximity = event.values[0];
                 //if (mProximity == 0)
+                int tmpDeviceDistance;
                 if (mProximity < mMaxProximityDistance)
                     tmpDeviceDistance = DEVICE_ORIENTATION_DEVICE_IS_NEAR;
                 else

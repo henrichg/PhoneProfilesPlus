@@ -92,7 +92,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         else
             fragment = new PhoneProfilesPreferencesFragment();
 
-        String extraScrollTo = "";
+        String extraScrollTo;
         //String extraScrollToType = "";
 
         Intent intent = getIntent();
@@ -158,13 +158,13 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         GlobalData.loadPreferences(getApplicationContext());
 
-        if (activeLanguage != GlobalData.applicationLanguage)
+        if (!activeLanguage.equals(GlobalData.applicationLanguage))
         {
             GUIData.setLanguage(getBaseContext());
             invalidateEditor = true;
         }
         else
-        if (activeTheme != GlobalData.applicationTheme)
+        if (!activeTheme.equals(GlobalData.applicationTheme))
         {
             //EditorProfilesActivity.setTheme(this, false);
             invalidateEditor = true;
@@ -224,9 +224,11 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         super.finish();
     }
 
+    /*
     public void onPreferenceAttached(PreferenceScreen root, int xmlId) {
 
     }
+    */
 
     @Override
     public PreferenceFragment onCreateNestedPreferenceFragment() {

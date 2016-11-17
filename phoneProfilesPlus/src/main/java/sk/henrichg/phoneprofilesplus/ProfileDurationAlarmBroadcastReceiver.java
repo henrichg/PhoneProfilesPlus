@@ -127,7 +127,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //dataWrapper.getDatabaseHandler().updateEventInDelay(this);
 
-        return;
     }
 
     static public void removeAlarm(Context context)

@@ -24,24 +24,24 @@ import android.telephony.gsm.GsmCellLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhoneStateScanner extends PhoneStateListener {
+class PhoneStateScanner extends PhoneStateListener {
 
     private Context context;
     private TelephonyManager telephonyManager = null;
     //private TelephonyManager telephonyManager2 = null;
 
-    public int registeredCell = Integer.MAX_VALUE;
+    int registeredCell = Integer.MAX_VALUE;
     //public int registeredCell2 = Integer.MAX_VALUE;
 
-    public boolean enabledAutoRegistration = false;
-    public int durationForAutoRegistration = 0;
-    public String cellsNameForAutoRegistration = "";
+    boolean enabledAutoRegistration = false;
+    int durationForAutoRegistration = 0;
+    String cellsNameForAutoRegistration = "";
 
-    public static MobileCellsRegistrationService autoRegistrationService = null;
+    static MobileCellsRegistrationService autoRegistrationService = null;
 
-    public static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
+    static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
 
-    public PhoneStateScanner(Context context) {
+    PhoneStateScanner(Context context) {
         this.context = context;
         /*if (Build.VERSION.SDK_INT >= 24) {
             TelephonyManager telephonyManager = (TelephonyManager) this.context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -68,7 +68,7 @@ public class PhoneStateScanner extends PhoneStateListener {
         GlobalData.getMobileCellsAutoRegistration(context);
     }
 
-    public void connect() {
+    void connect() {
         if (GlobalData.isPowerSaveMode && GlobalData.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
             // start scanning in power save mode is not allowed
             return;
@@ -102,9 +102,9 @@ public class PhoneStateScanner extends PhoneStateListener {
                 //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
             );*/
         startAutoRegistration();
-    };
+    }
 
-    public void disconnect() {
+    void disconnect() {
         if ((telephonyManager != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
             telephonyManager.listen(this, PhoneStateListener.LISTEN_NONE);
         /*if ((telephonyManager2 != null) && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY))
@@ -112,7 +112,7 @@ public class PhoneStateScanner extends PhoneStateListener {
         stopAutoRegistration();
     }
 
-    public void resetListening(boolean oldPowerSaveMode, boolean forceReset) {
+    void resetListening(boolean oldPowerSaveMode, boolean forceReset) {
         if ((forceReset) || (GlobalData.isPowerSaveMode != oldPowerSaveMode)) {
             disconnect();
             connect();
@@ -153,8 +153,7 @@ public class PhoneStateScanner extends PhoneStateListener {
                     } else if (_cellInfo instanceof CellInfoWcdma) {
                         //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
                         if (android.os.Build.VERSION.SDK_INT >= 18) {
-                            CellIdentityWcdma identityWcdma = null;
-                            identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
+                            CellIdentityWcdma identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
                             if (identityWcdma.getCid() != Integer.MAX_VALUE) {
                                 //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=" + identityWcdma.getCid());
                                 if (_cellInfo.isRegistered())
@@ -189,7 +188,7 @@ public class PhoneStateScanner extends PhoneStateListener {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void getAllCellInfo() {
+    private void getAllCellInfo() {
         if (telephonyManager != null) {
             List<CellInfo> cellInfo = telephonyManager.getAllCellInfo();
             getAllCellInfo(cellInfo);
@@ -258,7 +257,7 @@ public class PhoneStateScanner extends PhoneStateListener {
             GlobalData.logE("PhoneStateScanner.getCellLocation", "location is null");
     }
 
-    public void getCellLocation() {
+    private void getCellLocation() {
         if (telephonyManager != null) {
             CellLocation location = telephonyManager.getCellLocation();
             getCellLocation(location);
@@ -290,13 +289,13 @@ public class PhoneStateScanner extends PhoneStateListener {
     }
     */
 
-    public void getRegisteredCell() {
+    void getRegisteredCell() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getAllCellInfo();
         getCellLocation();
     }
 
-    public void rescanMobileCells() {
+    void rescanMobileCells() {
         getRegisteredCell();
         doAutoRegistration();
         sendBroadcast();
@@ -320,14 +319,14 @@ public class PhoneStateScanner extends PhoneStateListener {
 
         if (enabledAutoRegistration) {
             //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
-            List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
+            List<MobileCellsData> localCellsList = new ArrayList<>();
             localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false));
             DatabaseHandler db = DatabaseHandler.getInstance(context);
             db.saveMobileCellsList(localCellsList, true);
         }
     }
 
-    public void startAutoRegistration() {
+    void startAutoRegistration() {
         if (!GlobalData.getApplicationStarted(context))
             // application is not started
             return;
@@ -340,7 +339,7 @@ public class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
-    public void stopAutoRegistration() {
+    void stopAutoRegistration() {
         if (autoRegistrationService != null) {
             context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
             autoRegistrationService = null;

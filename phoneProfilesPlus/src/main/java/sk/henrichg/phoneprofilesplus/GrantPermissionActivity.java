@@ -815,6 +815,13 @@ public class GrantPermissionActivity extends Activity {
             if (Permissions.brightnessDialogPreference != null)
                 Permissions.brightnessDialogPreference.enableViews();
         }
+        else
+        if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
+            if (Permissions.mobileCellsPreference != null)
+                Permissions.mobileCellsPreference.refreshListView(true);
+            dataWrapper.restartEvents(false, true, false);
+            finish();
+        }
         else {
             // Profile permission
 

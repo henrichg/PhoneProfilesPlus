@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-public class Event {
+class Event {
 
     long _id;
     String _name;
@@ -96,12 +96,12 @@ public class Event {
     private static final String PREF_EVENT_DELAY_END = "eventDelayEnd";
 
     // Empty constructor
-    public Event(){
+    Event(){
         createEventPreferences();
     }
 
     // constructor
-    public Event(long id,
+    Event(long id,
                  String name,
                  int startOrder,
                  long fkProfileStart,
@@ -149,7 +149,7 @@ public class Event {
     }
 
     // constructor
-    public Event(String name,
+    Event(String name,
                  int startOrder,
                  long fkProfileStart,
                  long fkProfileEnd,

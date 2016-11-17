@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-public class ProfileIconPreferenceAdapter extends BaseAdapter {
+class ProfileIconPreferenceAdapter extends BaseAdapter {
 
     private Context context;
     private LayoutInflater inflater = null;
-    String imageIdentifier;
-    boolean isImageResourceID;
+    private String imageIdentifier;
+    private boolean isImageResourceID;
     private boolean useCustomColor;
     private int customColor;
 
-    static final String[] ThumbsIds = {
+    private static final String[] ThumbsIds = {
         "ic_profile_default",
 
         "ic_profile_home", "ic_profile_home_2",
@@ -45,7 +45,7 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
         "ic_profile_culture_1", "ic_profile_culture_2", "ic_profile_culture_3", "ic_profile_culture_4"
     };
 
-    static final int[] ThumbsColors = {
+    private static final int[] ThumbsColors = {
             0xff1c9cd7,
 
             0xff99cc00, 0xff99cc00,
@@ -72,7 +72,7 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
             0xff38d043, 0xff38d043, 0xff38d043, 0xff38d043
     };
 
-    public ProfileIconPreferenceAdapter(Context c, String imageIdentifier, boolean isImageResourceID, boolean useCustomColor, int customColor)
+    ProfileIconPreferenceAdapter(Context c, String imageIdentifier, boolean isImageResourceID, boolean useCustomColor, int customColor)
     {
         context = c;
 
@@ -139,7 +139,7 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
         return vi;
     }
 
-    public void imageIdentifierAndTypeChanged(String imageIdentifier, boolean isImageResourceID) {
+    void imageIdentifierAndTypeChanged(String imageIdentifier, boolean isImageResourceID) {
         if (!this.imageIdentifier.equals(imageIdentifier)) {
             this.useCustomColor = false;
             this.customColor = 0;
@@ -149,7 +149,7 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public static int getImageResourcePosition(String imageIdentifier) {
+    static int getImageResourcePosition(String imageIdentifier) {
         for (int pos = 0; pos < ThumbsIds.length; pos++) {
             if (ThumbsIds[pos].equals(imageIdentifier))
                 return pos;
@@ -157,13 +157,13 @@ public class ProfileIconPreferenceAdapter extends BaseAdapter {
         return 0;
     }
 
-    public void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
+    void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
         useCustomColor = newUseCustomColor;
         customColor = newCustomColor;
         notifyDataSetChanged();
     }
 
-    public static int getIconColor(String imageIdentifier) {
+    static int getIconColor(String imageIdentifier) {
         return ThumbsColors[getImageResourcePosition(imageIdentifier)];
     }
 
