@@ -5,7 +5,7 @@ import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.os.Handler;
 
-public class SettingsContentObserver  extends ContentObserver {
+class SettingsContentObserver  extends ContentObserver {
 
     //public static boolean internalChange = false;
 
@@ -19,7 +19,7 @@ public class SettingsContentObserver  extends ContentObserver {
 
     Context context;
 
-    public SettingsContentObserver(Context c, Handler handler) {
+    SettingsContentObserver(Context c, Handler handler) {
         super(handler);
         context=c;
 

@@ -79,7 +79,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         if (profileList == null)
         {
             LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this);
-            this.asyncTaskContext = new WeakReference<LoadProfileListAsyncTask >(asyncTask );
+            this.asyncTaskContext = new WeakReference<>(asyncTask );
             asyncTask.execute();
         }
         else
@@ -96,13 +96,12 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         private class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
-                int res = GUIData.collator.compare(lhs._name, rhs._name);
-                return res;
+                return GUIData.collator.compare(lhs._name, rhs._name);
             }
         }
 
         private LoadProfileListAsyncTask (ShortcutCreatorListFragment fragment) {
-            this.fragmentWeakRef = new WeakReference<ShortcutCreatorListFragment>(fragment);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), true, false, 0);
         }
 
@@ -125,7 +124,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                 List<Profile> profileList = this.dataWrapper.getProfileList();
 
                 // add restart events
-                Profile profile = this.dataWrapper.getNoinitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
+                Profile profile = DataWrapper.getNoinitializedProfile(this.dataWrapper.context.getString(R.string.menu_restart_events),
                                             "ic_action_events_restart_color", 0);
                 profileList.add(0, profile);
 
@@ -177,7 +176,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         Profile profile = profileList.get(position);
         boolean isIconResourceID;
         String iconIdentifier;
-        Bitmap profileBitmap = null;
+        Bitmap profileBitmap;
         Bitmap shortcutOverlayBitmap;
         Bitmap profileShortcutBitmap;
         String profileName;
@@ -208,6 +207,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             shortcutIntent = new Intent(getActivity().getApplicationContext(), BackgroundActivateProfileActivity.class);
             // BackgroundActivateProfileActivity musi toto testovat, a len spravit aktivaciu profilu
             shortcutIntent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_SHORTCUT);
+            //noinspection ConstantConditions
             shortcutIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
         }
 
@@ -217,6 +217,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         if (isIconResourceID)
         {
+            //noinspection ConstantConditions
             if (profile._iconBitmap != null)
                 profileBitmap = profile._iconBitmap;
             else {

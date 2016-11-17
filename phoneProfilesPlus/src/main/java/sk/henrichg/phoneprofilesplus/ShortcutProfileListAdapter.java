@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ShortcutProfileListAdapter extends BaseAdapter {
+class ShortcutProfileListAdapter extends BaseAdapter {
 
     private Fragment fragment;
     private List<Profile> profileList;
 
-    public ShortcutProfileListAdapter(Fragment f, List<Profile> pl)
+    ShortcutProfileListAdapter(Fragment f, List<Profile> pl)
     {
         fragment = f;
         profileList = pl;

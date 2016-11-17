@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
 
-public class RootToolsSmall {
+class RootToolsSmall {
 
     private static final HashMap<String, Boolean> BIN_MAP = new HashMap<String, Boolean>();
 
-    private static final boolean hasBinary(String binaryName) {
+    private static boolean hasBinary(String binaryName) {
         Boolean exists = BIN_MAP.get(binaryName);
         if (exists != null) {
             return exists;
@@ -40,18 +40,18 @@ public class RootToolsSmall {
         return hasBinary("/su");
     }
 
-    public static boolean hasSettingBin() {
+    static boolean hasSettingBin() {
         return hasBinary("/settings");
     }
 
-    public static boolean hasServiceBin() {
+    static boolean hasServiceBin() {
         return hasBinary("/service");
     }
 
     /**
      * Runs a command using su binary.
      */
-    public static boolean runSuCommand(String command) {
+    static boolean runSuCommand(String command) {
         if (!isRooted()) {
             return false;
         }
@@ -104,6 +104,7 @@ public class RootToolsSmall {
       fos.close();
 
       File file = context.getFileStreamPath(name);
+      //noinspection ResultOfMethodCallIgnored
       file.setExecutable(true);
       return RootToolsSmall.runSuCommand(file.getAbsolutePath());
     } catch (Exception e) {

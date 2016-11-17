@@ -12,12 +12,6 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;
 
-    private float popupWidth;
-    private float popupMaxHeight;
-    private float popupHeight;
-    private float actionBarHeight;
-
-
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +33,10 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         getWindow().setAttributes(params);
 
         // display dimensions
-        popupWidth = display.getWidth();
-        popupMaxHeight = display.getHeight();
-        popupHeight = 0;
-        actionBarHeight = 0;
+        float popupWidth = display.getWidth();
+        float popupMaxHeight = display.getHeight();
+        float popupHeight = 0;
+        float actionBarHeight = 0;
 
         // action bar height
         TypedValue tv = new TypedValue();
@@ -87,7 +81,8 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_shortcut_creator);
 
-        getSupportActionBar().setTitle(R.string.title_activity_shortcut_creator);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(R.string.title_activity_shortcut_creator);
 
         //databaseHandler = new DatabaseHandler(this);
 

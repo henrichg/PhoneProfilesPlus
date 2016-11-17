@@ -63,6 +63,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
         setWillNotDraw(true);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected boolean fitSystemWindows(Rect insets) {
         mInsets = new Rect(insets);
@@ -130,11 +131,11 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
      * UI chrome insets (e.g. a Google Map or a ListView). When using with ListView or GridView, remember to set
      * clipToPadding to false.
      */
-    public void setOnInsetsCallback(OnInsetsCallback onInsetsCallback) {
+    /*public void setOnInsetsCallback(OnInsetsCallback onInsetsCallback) {
         mOnInsetsCallback = onInsetsCallback;
-    }
+    }*/
 
-    public static interface OnInsetsCallback {
-        public void onInsetsChanged(Rect insets);
+    public interface OnInsetsCallback {
+        void onInsetsChanged(Rect insets);
     }
 }

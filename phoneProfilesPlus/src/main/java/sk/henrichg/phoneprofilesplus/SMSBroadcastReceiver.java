@@ -35,13 +35,14 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
 
             Bundle extras = intent.getExtras();
             Object[] pdus = (Object[]) extras.get("pdus");
-            for (Object pdu : pdus)
-            {
-                SmsMessage msg = SmsMessage.createFromPdu((byte[]) pdu);
-                origin = msg.getOriginatingAddress();
-                //body = msg.getMessageBody();
+            if (pdus != null) {
+                for (Object pdu : pdus) {
+                    //noinspection deprecation
+                    SmsMessage msg = SmsMessage.createFromPdu((byte[]) pdu);
+                    origin = msg.getOriginatingAddress();
+                    //body = msg.getMessageBody();
+                }
             }
-
 
         }
         /*else
@@ -61,15 +62,17 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
             if (bundle != null)
             {
                 byte[] buffer = bundle.getByteArray("data");
-                String incomingNumber = new String(buffer);
-                int indx = incomingNumber.indexOf("/TYPE");
+                if (buffer != null) {
+                    String incomingNumber = new String(buffer);
+                    int indx = incomingNumber.indexOf("/TYPE");
 
-                if(indx>0 && (indx-15)>0){
-                    int newIndx = indx - 15;
-                    incomingNumber = incomingNumber.substring(newIndx, indx);
-                    indx = incomingNumber.indexOf("+");
-                    if(indx>0){
-                        origin = incomingNumber.substring(indx);
+                    if (indx > 0 && (indx - 15) > 0) {
+                        int newIndx = indx - 15;
+                        incomingNumber = incomingNumber.substring(newIndx, indx);
+                        indx = incomingNumber.indexOf("+");
+                        if (indx > 0) {
+                            origin = incomingNumber.substring(indx);
+                        }
                     }
                 }
                 /*int transactionId = bundle.getInt("transactionId");

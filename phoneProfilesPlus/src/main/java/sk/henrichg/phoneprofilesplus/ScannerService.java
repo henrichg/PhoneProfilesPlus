@@ -47,9 +47,6 @@ public class ScannerService extends IntentService
     public static BluetoothLEScanCallback18 leScanCallback18 = null;
     public static BluetoothLEScanCallback21 leScanCallback21 = null;
 
-    private boolean classicDevicesScan;
-    private boolean leDevicesScan;
-
     public ScannerService()
     {
         super("ScannerService");
@@ -83,6 +80,7 @@ public class ScannerService extends IntentService
             }
         }
         else {
+            //noinspection deprecation
             if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
                 GlobalData.logE("%%%% ScannerService.onHandleIntent", "-- END - airplane mode ON -------");
                 return;
@@ -269,7 +267,8 @@ public class ScannerService extends IntentService
                 boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0;
                 int forceScan = GlobalData.getForceOneBluetoothScan(dataWrapper.context);
                 int forceScanLE = GlobalData.getForceOneLEBluetoothScan(context);
-                classicDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
+                boolean classicDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
+                boolean leDevicesScan;
                 if (bluetoothLESupported(context))
                     leDevicesScan = dataWrapper.getDatabaseHandler().getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
                 else
@@ -513,6 +512,7 @@ public class ScannerService extends IntentService
             wakeLock.release();
     }
 
+    /*
     private boolean canScanWifi(DataWrapper dataWrapper)
     {
         int wifiState = WifiScanAlarmBroadcastReceiver.wifi.getWifiState();
@@ -568,6 +568,7 @@ public class ScannerService extends IntentService
 
         return true;
     }
+    */
 
     @SuppressLint("NewApi")
     private int enableWifi(DataWrapper dataWrapper, WifiManager wifi, Handler wifiBluetoothChangeHandler)
@@ -582,17 +583,17 @@ public class ScannerService extends IntentService
             if (wifiState != WifiManager.WIFI_STATE_ENABLING)
             {
                 boolean isWifiEnabled = (wifiState == WifiManager.WIFI_STATE_ENABLED);
-                boolean isScanAlwaysAvailable = false;
-                if (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+                //boolean isScanAlwaysAvailable = false;
+                //if (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     // from dialog preference wifi must be enabled for saved wifi configuration
                     // (see WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList)
 
                     // this must be disabled because scanning not working, when wifi is disabled after disabled WiFi AP
                     //if (android.os.Build.VERSION.SDK_INT >= 18)
                     //    isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
-                }
+                //}
                 //GlobalData.logE("@@@ ScannerService.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
-                isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
+                //isWifiEnabled = isWifiEnabled || isScanAlwaysAvailable;
                 if (!isWifiEnabled)
                 {
                     if (GlobalData.applicationEventWifiEnableWifi || (forceScan != GlobalData.FORCE_ONE_SCAN_DISABLED))
@@ -630,10 +631,10 @@ public class ScannerService extends IntentService
                 }
                 else
                 {
-                    if (isScanAlwaysAvailable) {
-                        GlobalData.logE("@@@ ScannerService.enableWifi", "already enabled");
-                        wifiState =  WifiManager.WIFI_STATE_ENABLED;
-                    }
+                    //if (isScanAlwaysAvailable) {
+                    //    GlobalData.logE("@@@ ScannerService.enableWifi", "already enabled");
+                    //    wifiState =  WifiManager.WIFI_STATE_ENABLED;
+                    //}
                     return wifiState;
                 }
             }
@@ -642,6 +643,7 @@ public class ScannerService extends IntentService
         return wifiState;
     }
 
+    /*
     private boolean canScanBluetooth(DataWrapper dataWrapper)
     {
         int bluetoothState = BluetoothScanAlarmBroadcastReceiver.bluetooth.getState();
@@ -692,6 +694,7 @@ public class ScannerService extends IntentService
 
         return true;
     }
+    */
 
     @SuppressLint("NewApi")
     private int enableBluetooth(DataWrapper dataWrapper,

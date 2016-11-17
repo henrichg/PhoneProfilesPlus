@@ -1,5 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-public class RadioChangeStateMutex {
+class RadioChangeStateMutex {
 
 }
