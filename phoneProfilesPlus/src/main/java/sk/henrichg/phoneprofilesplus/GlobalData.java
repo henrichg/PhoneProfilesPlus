@@ -1112,6 +1112,7 @@ public class GlobalData extends Application {
         editor.commit();
     }
 
+    /*
     static public int getForceOneGeofenceScan(Context context)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -1125,6 +1126,7 @@ public class GlobalData extends Application {
         editor.putInt(PREF_FORCE_ONE_GEOFENCE_SCAN, forceScan);
         editor.commit();
     }
+    */
 
     static public boolean getLockscreenDisabled(Context context)
     {
@@ -1300,7 +1302,7 @@ public class GlobalData extends Application {
     {
         SharedPreferences preferences = context.getSharedPreferences(PERMISSIONS_PREFS_NAME, Context.MODE_PRIVATE);
 
-        List<Permissions.PermissionType> permissions = new ArrayList<Permissions.PermissionType>();
+        List<Permissions.PermissionType> permissions = new ArrayList<>();
 
         int count = preferences.getInt(PREF_MERGED_PERMISSIONS_COUNT, 0);
 
