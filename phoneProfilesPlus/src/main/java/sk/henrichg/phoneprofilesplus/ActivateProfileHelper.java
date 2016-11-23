@@ -1380,10 +1380,14 @@ public class ActivateProfileHelper {
 
         screenTimeoutUnlock(context);
 
+        int type;
+        if (android.os.Build.VERSION.SDK_INT < 25)
+            type = WindowManager.LayoutParams.TYPE_TOAST;
+        else
+            type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 1, 1,
-                LayoutParams.TYPE_SYSTEM_OVERLAY,
-                //TYPE_SYSTEM_ALERT,
+                type,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | /*WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |*/ WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 PixelFormat.TRANSLUCENT
         );
@@ -1438,31 +1442,17 @@ public class ActivateProfileHelper {
                 }
                 GUIData.brightneesView = null;
             }
+            int type;
+            if (android.os.Build.VERSION.SDK_INT < 25)
+                type = WindowManager.LayoutParams.TYPE_TOAST;
+            else
+                type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
-                        WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-                        //TYPE_SYSTEM_ALERT,
+                        type,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE /*| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE*/,
                         PixelFormat.TRANSLUCENT
                     );
-            /*if (android.os.Build.VERSION.SDK_INT < 17)
-                params.gravity = Gravity.RIGHT | Gravity.TOP;
-            else
-                params.gravity = Gravity.END | Gravity.TOP;*/
-            /*WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-            if (android.os.Build.VERSION.SDK_INT < 17)
-                params.gravity = Gravity.LEFT | Gravity.TOP;
-            else
-                params.gravity = Gravity.START | Gravity.TOP;
-            params.height = 1;
-            params.width = 1;
-            params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-            params.format = PixelFormat.TRANSLUCENT;
-            params.windowAnimations = 0;
-            if (profile.getDeviceBrightnessAutomatic())
-                params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-            else
-                params.screenBrightness = profile.getDeviceBrightnessManualValue(context) / (float) 255;*/
             GUIData.brightneesView = new BrightnessView(context);
             try {
                 windowManager.addView(GUIData.brightneesView, params);
