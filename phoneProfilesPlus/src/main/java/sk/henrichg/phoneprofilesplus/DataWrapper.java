@@ -27,6 +27,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -1253,12 +1254,19 @@ public class DataWrapper {
 
     private void showToastAfterActivation(Profile profile)
     {
-        String profileName = getProfileNameWithManualIndicator(profile, true, false, false);
-        Toast msg = Toast.makeText(context,
-                context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
-                context.getResources().getString(R.string.toast_profile_activated_1),
-                Toast.LENGTH_SHORT);
-        msg.show();
+        Log.d("DataWrapper.showToastAfterActivation", "xxx");
+        try {
+            String profileName = getProfileNameWithManualIndicator(profile, true, false, false);
+            Toast msg = Toast.makeText(context,
+                    context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
+                            context.getResources().getString(R.string.toast_profile_activated_1),
+                    Toast.LENGTH_SHORT);
+            msg.show();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("DataWrapper.showToastAfterActivation", "-- end");
     }
 
     private void activateProfileWithAlert(Profile profile, int startupSource, final boolean interactive,

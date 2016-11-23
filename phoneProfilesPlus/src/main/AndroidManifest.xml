@@ -16,7 +16,7 @@
     <!--
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="23" />
+        android:targetSdkVersion="25" />
     -->
     <!-- <uses-sdk tools:overrideLibrary="no.nordicsemi.android.support.v18.scanner"/> -->
 
@@ -57,6 +57,7 @@
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
     <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
 
     <uses-permission android:name="com.android.vending.BILLING" />

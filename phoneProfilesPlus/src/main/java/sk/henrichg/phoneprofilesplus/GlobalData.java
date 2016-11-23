@@ -50,7 +50,7 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -60,15 +60,15 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         //+"|#### ActivateProfileHelper.execute"
+                                         +"|##### RemoveBrightnessViewBroadcastReceiver.onReceive"
 
-                                         +"|BootUpReceiver"
+                                         /*+"|BootUpReceiver"
                                          +"|##### PackageReplacedReceiver.onReceive"
                                          +"|ScreenOnOffBroadcastReceiver"
                                          +"|ActivateProfileHelper.showNotification"
                                          +"|$$$ PhoneProfilesService.onCreate"
                                          +"|#### EventsService.onHandleIntent"
-                                         +"|DataWrapper.updateNotificationAndWidgets"
+                                         +"|DataWrapper.updateNotificationAndWidgets"*/
 
                                          //+"|%%%% WifiScanAlarmBroadcastReceiver.fillScanResults"
                                          //+"|%%%% ScannerService.onHandleIntent"

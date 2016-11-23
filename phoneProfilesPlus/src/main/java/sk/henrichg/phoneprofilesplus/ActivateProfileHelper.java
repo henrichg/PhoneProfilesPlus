@@ -42,6 +42,7 @@ import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
@@ -893,6 +894,7 @@ public class ActivateProfileHelper {
                             }
                             visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
                         }
+                        //noinspection WrongConstant
                         wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
                     }
                     else
@@ -1373,13 +1375,14 @@ public class ActivateProfileHelper {
 
     private static void screenTimeoutLock(Context context)
     {
+        Log.d("ActivateProfileHelper.screenTimeoutLock","xxx");
         WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
 
         screenTimeoutUnlock(context);
 
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 1, 1,
-                WindowManager.LayoutParams.TYPE_TOAST,
+                LayoutParams.TYPE_SYSTEM_OVERLAY,
                 //TYPE_SYSTEM_ALERT,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | /*WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |*/ WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 PixelFormat.TRANSLUCENT
@@ -1395,10 +1398,13 @@ public class ActivateProfileHelper {
             GUIData.keepScreenOnView = null;
             e.printStackTrace();
         }
+        Log.d("ActivateProfileHelper.screenTimeoutLock","-- end");
     }
 
     static void screenTimeoutUnlock(Context context)
     {
+        Log.d("ActivateProfileHelper.screenTimeoutUnlock","xxx");
+
         if (GUIData.keepScreenOnView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
@@ -1410,18 +1416,21 @@ public class ActivateProfileHelper {
             GUIData.keepScreenOnView = null;
         }
 
-        GlobalData.logE("@@@ screenTimeoutLock.unlock", "xxx");
+        Log.d("ActivateProfileHelper.screenTimeoutUnlock","-- end");
     }
 
     @SuppressLint("RtlHardcoded")
     private void createBrightnessView(Profile profile, Context context)
     {
+        Log.d("ActivateProfileHelper.createBrightnessView","xxx");
+
         //if (dataWrapper.context != null)
         //{
 
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
             if (GUIData.brightneesView != null)
             {
+                Log.d("ActivateProfileHelper.createBrightnessView","GUIData.brightneesView != null");
                 try {
                     windowManager.removeView(GUIData.brightneesView);
                 } catch (Exception e) {
@@ -1431,7 +1440,7 @@ public class ActivateProfileHelper {
             }
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
-                        WindowManager.LayoutParams.TYPE_TOAST,
+                        WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
                         //TYPE_SYSTEM_ALERT,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE /*| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE*/,
                         PixelFormat.TRANSLUCENT
@@ -1440,10 +1449,20 @@ public class ActivateProfileHelper {
                 params.gravity = Gravity.RIGHT | Gravity.TOP;
             else
                 params.gravity = Gravity.END | Gravity.TOP;*/
+            /*WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+            if (android.os.Build.VERSION.SDK_INT < 17)
+                params.gravity = Gravity.LEFT | Gravity.TOP;
+            else
+                params.gravity = Gravity.START | Gravity.TOP;
+            params.height = 1;
+            params.width = 1;
+            params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+            params.format = PixelFormat.TRANSLUCENT;
+            params.windowAnimations = 0;
             if (profile.getDeviceBrightnessAutomatic())
                 params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
             else
-                params.screenBrightness = profile.getDeviceBrightnessManualValue(context) / (float) 255;
+                params.screenBrightness = profile.getDeviceBrightnessManualValue(context) / (float) 255;*/
             GUIData.brightneesView = new BrightnessView(context);
             try {
                 windowManager.addView(GUIData.brightneesView, params);
@@ -1453,6 +1472,8 @@ public class ActivateProfileHelper {
             }
 
             RemoveBrightnessViewBroadcastReceiver.setAlarm(context);
+
+        Log.d("ActivateProfileHelper.createBrightnessView","-- end");
 
         //}
     }
