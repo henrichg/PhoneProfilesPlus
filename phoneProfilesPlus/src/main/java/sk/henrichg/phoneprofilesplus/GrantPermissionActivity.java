@@ -49,6 +49,7 @@ public class GrantPermissionActivity extends Activity {
     private static final int WRITE_SETTINGS_REQUEST_CODE = 909090;
     private static final int PERMISSIONS_REQUEST_CODE = 909091;
     private static final int ACCESS_NOTIFICATION_POLICY_REQUEST_CODE = 909092;
+    private static final int DRAW_OVERLAYS_REQUEST_CODE = 909093;
 
     private static final String NOTIFICATION_DELETED_ACTION = "sk.henrichg.phoneprofilesplus.PERMISSIONS_NOTIFICATION_DELETED";
 
@@ -166,6 +167,7 @@ public class GrantPermissionActivity extends Activity {
 
         boolean showRequestWriteSettings = false;
         boolean showRequestAccessNotificationPolicy = false;
+        boolean showRequestDrawOverlays = false;
         boolean showRequestReadExternalStorage = false;
         boolean showRequestReadPhoneState = false;
         boolean showRequestProcessOutgoingCalls = false;
@@ -187,6 +189,8 @@ public class GrantPermissionActivity extends Activity {
                 showRequestWriteSettings = GlobalData.getShowRequestWriteSettingsPermission(context);
             if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY))
                 showRequestAccessNotificationPolicy = GlobalData.getShowRequestAccessNotificationPolicyPermission(context);
+            if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW))
+                showRequestDrawOverlays = GlobalData.getShowRequestDrawOverlaysPermission(context);
             if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE))
                 showRequestReadExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE);
             if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE))
@@ -221,6 +225,7 @@ public class GrantPermissionActivity extends Activity {
         //Log.d("GrantPermissionActivity.onStart", "showRequestAccessCoarseLocation="+showRequestAccessCoarseLocation);
         //Log.d("GrantPermissionActivity.onStart", "showRequestAccessFineLocation="+showRequestAccessFineLocation);
         //Log.d("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
+        //Log.d("GrantPermissionActivity.onStart", "showRequestDrawOverlays="+showRequestDrawOverlays);
 
         if (showRequestWriteSettings ||
                 showRequestReadExternalStorage ||
@@ -233,7 +238,8 @@ public class GrantPermissionActivity extends Activity {
                 showRequestReadSMS ||
                 showRequestAccessCoarseLocation ||
                 showRequestAccessFineLocation ||
-                showRequestAccessNotificationPolicy) {
+                showRequestAccessNotificationPolicy ||
+                showRequestDrawOverlays) {
 
             if (onlyNotification) {
                 int notificationID;
@@ -454,6 +460,11 @@ public class GrantPermissionActivity extends Activity {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
+                if (showRequestDrawOverlays) {
+                    //Log.e("GrantPermissionActivity", "onStart - showRequestDrawOverlays");
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overalys) + "</b>";
+                    showRequestString = showRequestString + "<br>";
+                }
 
                 showRequestString = showRequestString + "<br>";
 
@@ -491,6 +502,7 @@ public class GrantPermissionActivity extends Activity {
 
                 final boolean _showRequestWriteSettings = showRequestWriteSettings;
                 final boolean _showRequestAccessNotificationPolicy = showRequestAccessNotificationPolicy;
+                final boolean _showRequestDrawOverlays = showRequestDrawOverlays;
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                 dialogBuilder.setTitle(R.string.permissions_alert_title);
@@ -498,11 +510,13 @@ public class GrantPermissionActivity extends Activity {
                 dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int iteration = 3;
+                        int iteration = 4;
                         if (_showRequestWriteSettings)
                             iteration = 1;
                         else if (_showRequestAccessNotificationPolicy)
                             iteration = 2;
+                        else if (_showRequestDrawOverlays)
+                            iteration = 3;
                         requestPermissions(iteration);
                     }
                 });
@@ -574,7 +588,6 @@ public class GrantPermissionActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         final Context context = getApplicationContext();
         if (requestCode == WRITE_SETTINGS_REQUEST_CODE) {
-
             if (!Settings.System.canWrite(context)) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                 dialogBuilder.setTitle(R.string.permissions_alert_title);
@@ -639,6 +652,38 @@ public class GrantPermissionActivity extends Activity {
                 requestPermissions(3);
             }
         }
+        if (requestCode == DRAW_OVERLAYS_REQUEST_CODE) {
+            if (!Settings.canDrawOverlays(context)) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.permissions_alert_title);
+                dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GlobalData.setShowRequestDrawOverlaysPermission(context, false);
+                        requestPermissions(4);
+                    }
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        GlobalData.setShowRequestDrawOverlaysPermission(context, true);
+                        requestPermissions(4);
+                    }
+                });
+                dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        requestPermissions(4);
+                    }
+                });
+                dialogBuilder.show();
+            }
+            else {
+                GlobalData.setShowRequestDrawOverlaysPermission(context, true);
+                requestPermissions(4);
+            }
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -672,11 +717,27 @@ public class GrantPermissionActivity extends Activity {
             if (!accessNotificationPolicyFound)
                 requestPermissions(3);
         }
+        else
+        if (iteration == 3) {
+            boolean drawOverlaysFound = false;
+            boolean api25 = android.os.Build.VERSION.SDK_INT >= 25;
+            for (Permissions.PermissionType permissionType : permissions) {
+                if (api25 && permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                    drawOverlaysFound = true;
+                    final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                    startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
+                    break;
+                }
+            }
+            if (!drawOverlaysFound)
+                requestPermissions(4);
+        }
         else {
             List<String> permList = new ArrayList<>();
             for (Permissions.PermissionType permissionType : permissions) {
                 if ((!permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) &&
                     (!permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) &&
+                    (!permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) &&
                     (!permList.contains(permissionType.permission))) {
                     //Log.e("GrantPermissionActivity", "requestPermissions - permission=" + permissionType.permission);
                     //if (ContextCompat.checkSelfPermission(getApplicationContext(), permissionType.permission) != PackageManager.PERMISSION_GRANTED)

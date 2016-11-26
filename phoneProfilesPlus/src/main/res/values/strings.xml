@@ -880,4 +880,8 @@
     <string name="array_pref_value_ro">ro</string>
     <string name="array_pref_value_pt_PT">pt-PT</string>
     <string name="about_application_releases">Releases</string>
+    <string name="permission_group_name_draw_overalys">Draw over the apps</string>
+    <string name="permissions_draw_overlays_not_allowed_confirm">You have not enabled \"Draw over the apps\". Never ask again for this?</string>
+    <string name="phone_profiles_pref_drawOverlaysPermissions">Draw over the apps</string>
+    <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Please search for \"PhoneProfiles\" application and enable it.</string>
 </resources>

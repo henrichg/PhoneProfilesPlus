@@ -124,6 +124,12 @@
             android:widgetLayout="@layout/start_activity_preference" >
         </Preference>
         <Preference
+            android:key="permissionsDrawOverlaysPermissions"
+            android:title="@string/phone_profiles_pref_drawOverlaysPermissions"
+            android:summary="@string/phone_profiles_pref_drawOverlaysPermissions_summary"
+            android:widgetLayout="@layout/start_activity_preference" >
+        </Preference>
+        <Preference
             android:key="permissionsApplicationPermissions"
             android:title="@string/phone_profiles_pref_applicationPermissions"
             android:summary="@string/phone_profiles_pref_applicationPermissions_summary"

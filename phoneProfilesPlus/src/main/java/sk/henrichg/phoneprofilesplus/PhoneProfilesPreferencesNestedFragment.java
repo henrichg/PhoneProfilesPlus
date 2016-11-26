@@ -52,6 +52,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     static final int RESULT_LOCALE_SETTINGS = 1996;
     static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
     static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
+    static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
+    static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
 
 
     @Override
@@ -186,6 +188,24 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
                             intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+                            return false;
+                        }
+                    });
+                } else {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryPermissions");
+                    preferenceCategory.removePreference(preference);
+                }
+            }
+            preference = prefMng.findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
+            if (preference != null) {
+                if (android.os.Build.VERSION.SDK_INT >= 25) {
+                    //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                    preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                             return false;
                         }
                     });
@@ -449,7 +469,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     {
         if ((requestCode == RESULT_APPLICATION_PERMISSIONS) ||
             (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) ||
-            (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS)) {
+            (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
+            (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS)) {
 
             Context context = PhoneProfilesPreferencesFragment.preferencesActivity.getApplicationContext();
             DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
