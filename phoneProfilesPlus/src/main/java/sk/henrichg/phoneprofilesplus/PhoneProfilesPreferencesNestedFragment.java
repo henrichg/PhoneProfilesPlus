@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -473,6 +474,23 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS)) {
 
             Context context = PhoneProfilesPreferencesFragment.preferencesActivity.getApplicationContext();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
+                    if (Settings.System.canWrite(context))
+                        GlobalData.setShowRequestWriteSettingsPermission(context, true);
+                }
+                if (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) {
+                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (mNotificationManager.isNotificationPolicyAccessGranted())
+                        GlobalData.setShowRequestAccessNotificationPolicyPermission(context, true);
+                }
+                if (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {
+                    if (Settings.canDrawOverlays(context))
+                        GlobalData.setShowRequestDrawOverlaysPermission(context, true);
+                }
+            }
+
             DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
             ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
