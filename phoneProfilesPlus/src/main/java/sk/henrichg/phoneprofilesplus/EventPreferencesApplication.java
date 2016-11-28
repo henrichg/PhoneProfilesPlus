@@ -87,7 +87,8 @@ class EventPreferencesApplication extends EventPreferences {
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             if (!ForegroundApplicationChangedService.isEnabled(context.getApplicationContext())) {
-                selectedApplications = context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             }
             else
             if (!this._applications.isEmpty() && !this._applications.equals("-")) {

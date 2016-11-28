@@ -79,7 +79,8 @@ class EventPreferencesLocation extends EventPreferences {
 
             String selectedLocations = "";
             if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
-                selectedLocations = context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                selectedLocations = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             }
             else {
                 String[] splits = this._geofences.split("\\|");
@@ -110,7 +111,8 @@ class EventPreferencesLocation extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
-                    preference.setSummary(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                    preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                            ": "+R.string.preference_not_allowed_reason_not_configured_in_system_settings);
                 }
                 else {
                     String[] splits = value.split("\\|");
