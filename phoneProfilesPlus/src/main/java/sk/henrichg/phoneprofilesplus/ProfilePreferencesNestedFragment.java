@@ -686,7 +686,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (listPreference != null) {
                         listPreference.setEnabled(false);
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+getResources().getString(R.string.preference_not_allowed_reason_no_configured_in_system_settings));
+                                ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                         GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
                         setCategorySummary(listPreference, false);
                     }
