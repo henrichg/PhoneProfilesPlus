@@ -133,7 +133,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
                 }
             }
-            descr = descr + selectedSides;
+            descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": " + selectedSides;
 
             if (PhoneProfilesService.getMagneticFieldSensor(context) != null) {
                 selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -148,16 +148,20 @@ class EventPreferencesOrientation extends EventPreferences {
                         selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
                     }
                 }
-                descr = descr + "; " + selectedSides;
+                descr = descr + "; " + context.getString(R.string.event_preferences_orientation_sides) + ": " + selectedSides;
             }
 
             String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
             String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
             int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
             if (i != -1)
-                descr = descr + "; " + distanceNames[i];
+                descr = descr + "; " + context.getString(R.string.event_preferences_orientation_distance) + ": " + distanceNames[i];
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            if (!ForegroundApplicationChangedService.isEnabled(context.getApplicationContext())) {
+                selectedApplications = context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+            }
+            else
             if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
                 String[] splits = this._ignoredApplications.split("\\|");
                 if (splits.length == 1) {
@@ -186,7 +190,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 else
                     selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             }
-            descr = descr + "; " + selectedApplications;
+            descr = descr + "; " + "(S) "+context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": " + selectedApplications;
 
         }
 
@@ -199,12 +203,12 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_DISPLAY)) {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_SIDES)) {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false);
+            GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_DISTANCE))
         {
@@ -216,11 +220,10 @@ class EventPreferencesOrientation extends EventPreferences {
             }
             //GUIData.setPreferenceTitleStyle(listPreference, false, true, false);
         }
-        //if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
-        //    Preference preference = prefMng.findPreference(key);
-            //GUIData.setPreferenceTitleStyle(preference, false, true, false);
-        //}
-
+        if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
+            Preference preference = prefMng.findPreference(key);
+            GUIData.setPreferenceTitleStyle(preference, false, false, false, true);
+        }
     }
 
     @Override
@@ -294,7 +297,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
+                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }
@@ -350,10 +353,13 @@ class EventPreferencesOrientation extends EventPreferences {
             preference.setEnabled(enabled);
         }
         enabled = ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
-        Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
+        ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(enabled);
+            applicationsPreference.setSummaryAMSDP();
         }
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setCategorySummary(prefMng, "", preferences, context);
     }
 
     @Override

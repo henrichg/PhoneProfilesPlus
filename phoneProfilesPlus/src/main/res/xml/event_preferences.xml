@@ -489,6 +489,7 @@
                 android:key="eventNotificationApplications"
                 android:title="@string/event_preferences_notifications_applications"
                 app:addShortcuts="0"
+                app:systemSettings="notifications"
                 android:dependency="eventNotificationEnabled" />
             <CheckBoxPreference
                 android:key="eventNotificationEndWhenRemoved"
@@ -530,6 +531,7 @@
                 android:key="eventApplicationApplications"
                 android:title="@string/event_preferences_applications_applications"
                 app:addShortcuts="0"
+                app:systemSettings="accessibility"
                 android:dependency="eventApplicationEnabled" />
         </PreferenceScreen>
         <PreferenceScreen
@@ -584,6 +586,7 @@
                 android:key="eventOrientationIgnoredApplications"
                 android:title="@string/event_preferences_orientation_ignoreForApplications"
                 app:addShortcuts="0"
+                app:systemSettings="accessibility"
                 android:dependency="eventOrientationEnabled" />
         </PreferenceScreen>
         <PreferenceScreen

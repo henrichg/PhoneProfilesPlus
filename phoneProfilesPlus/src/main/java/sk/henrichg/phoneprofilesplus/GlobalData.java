@@ -1742,7 +1742,7 @@ public class GlobalData extends Application {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
                 featurePresented = PREFERENCE_ALLOWED;
             else
-                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS;
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
         }
         else
         if (preferenceKey.equals(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED))

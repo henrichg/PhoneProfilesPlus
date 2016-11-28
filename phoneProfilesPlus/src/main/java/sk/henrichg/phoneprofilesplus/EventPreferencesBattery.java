@@ -149,7 +149,7 @@ class EventPreferencesBattery extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
+                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }

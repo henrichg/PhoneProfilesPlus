@@ -130,10 +130,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         entries[6] = "(S) "+getString(R.string.array_pref_ringerModeArray_ZenMode);
                         ringerModePreference.setEntries(entries);
                     }
-                    Preference preference = prefMng.findPreference("prf_pref_volumeZenMode");
+                    /*Preference preference = prefMng.findPreference("prf_pref_volumeZenMode");
                     if (preference != null) {
                         preference.setTitle("(S) "+getString(R.string.profile_preferences_volumeZenMode));
-                    }
+                    }*/
                     //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
                     notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
@@ -171,7 +171,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         Preference zenModePreference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
 
                         zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode);
-                        GUIData.setPreferenceTitleStyle(zenModePreference, false, false, false);
+
+                        boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60));
+                        GUIData.setPreferenceTitleStyle(zenModePreference, false, false, false, addS);
 
                         return true;
                     }
@@ -321,7 +324,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         doOnActivityResult(requestCode, resultCode, data);
     }
 
-    private String getTitleWhenPreferenceChanged(String key) {
+    private String getTitleWhenPreferenceChanged(String key, boolean systemSettings) {
         Preference preference = prefMng.findPreference(key);
         String title = "";
         if ((preference != null) && (preference.isEnabled())) {
@@ -347,6 +350,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         title = preference.getTitle().toString();
                 }
             }
+            if (systemSettings) {
+                if (!title.isEmpty() && !title.contains("(S)"))
+                    title = "(S) " + title;
+            }
             return title;
         }
         else
@@ -362,14 +369,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (key.equals(GlobalData.PREF_PROFILE_DURATION) ||
             key.equals(GlobalData.PREF_PROFILE_AFTER_DURATION_DO) ||
             key.equals(GlobalData.PREF_PROFILE_ASK_FOR_DURATION)) {
-            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DURATION);
-            String afterDurationDoTitle = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_AFTER_DURATION_DO);
+            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DURATION, false);
+            String afterDurationDoTitle = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_AFTER_DURATION_DO, false);
             if ((!afterDurationDoTitle.isEmpty()) && (!title.isEmpty())) {
                 _bold = true;
                 summary = summary + title + " • ";
                 summary = summary + afterDurationDoTitle;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_ASK_FOR_DURATION);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_ASK_FOR_DURATION, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -382,24 +389,26 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 key.equals(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE) ||
                 key.equals(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
                 key.equals(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING)) {
-            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE);
+            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
-            }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+            boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60));
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, addS);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -415,42 +424,42 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 key.equals(GlobalData.PREF_PROFILE_VOLUME_SYSTEM) ||
                 key.equals(GlobalData.PREF_PROFILE_VOLUME_VOICE) ||
                 key.equals(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE)) {
-            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_RINGTONE);
+            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
-            }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_MEDIA);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_ALARM);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_MEDIA, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_SYSTEM);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_ALARM, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_VOICE);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_SYSTEM, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_VOICE, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -465,20 +474,20 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 //key.equals(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION) ||
                 key.equals(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE)) {
             //key.equals(GlobalData.PREF_PROFILE_SOUND_ALARM)) {
-            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
             //_bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_RINGTONE);
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
             //_bold = _bold || isBold(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION);
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -499,66 +508,66 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_NFC) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
-            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
-            }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_WIFI);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_WIFI, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_GPS);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_GPS, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_NFC);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_NFC, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -572,30 +581,30 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS) ||
                 key.equals(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE) ||
                 key.equals(GlobalData.PREF_PROFILE_NOTIFICATION_LED)) {
-            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
+            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
-            }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_NOTIFICATION_LED);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_NOTIFICATION_LED, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -609,19 +618,19 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             //key.equals(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
             key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)) {
             //key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER)) {
-            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
+            String title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
             //_bold = _bold || isBold(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, false);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -632,7 +641,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
 
         if (preferenceScreen != null) {
-            GUIData.setPreferenceTitleStyle(preferenceScreen, _bold, false, false);
+            GUIData.setPreferenceTitleStyle(preferenceScreen, _bold, false, false, false);
             if (_bold)
                 preferenceScreen.setSummary(summary);
             else
@@ -654,7 +663,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value.toString());
-                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+                GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
                 setCategorySummary(preference, false);
             }
         }
@@ -666,7 +675,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -687,7 +696,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         listPreference.setEnabled(false);
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
-                        GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
+                        boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60));
+                        GUIData.setPreferenceTitleStyle(listPreference, false, false, false, addS);
                         setCategorySummary(listPreference, false);
                     }
                 }
@@ -715,7 +726,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             iRingerMode = Integer.parseInt(sRingerMode);
 
                         if (iRingerMode == 5) {
-                            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                            boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                            boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60));
+                            GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, addS);
                             setCategorySummary(listPreference, index > 0);
                         }
                         listPreference.setEnabled(iRingerMode == 5);
@@ -733,7 +746,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -800,7 +813,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (canChange == GlobalData.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
-                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
+                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
             }
@@ -814,7 +827,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     listPreference.setSummary(summary);
                     //if (key.equals(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA))
                     //    Log.e("ProfilePreferencesFragment", "index="+index);
-                    GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                    GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
             }
@@ -832,7 +845,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
                 listPreference.setEnabled(!secureKeyguard);
                 if (secureKeyguard) {
-                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
+                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+getResources().getString(R.string.preference_not_allowed_reason_not_supported));
@@ -841,7 +854,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                    GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
             }
@@ -854,7 +867,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -866,7 +879,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -885,7 +898,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -904,14 +917,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (canChange == GlobalData.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
-                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false);
+                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 } else {
                     String sValue = value.toString();
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                    GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
             }
@@ -925,7 +938,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 if (!sValue.isEmpty())
                     iValue = Integer.valueOf(sValue);
                 //preference.setSummary(sValue);
-                GUIData.setPreferenceTitleStyle(preference, iValue > 0, false, false);
+                GUIData.setPreferenceTitleStyle(preference, iValue > 0, false, false, false);
                 setCategorySummary(preference, iValue > 0);
             }
         }
@@ -937,7 +950,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false);
+                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -947,7 +960,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
             if (checkBoxPreference != null) {
                 boolean show = sValue.equals("true");
-                GUIData.setPreferenceTitleStyle(checkBoxPreference, show, false, false);
+                GUIData.setPreferenceTitleStyle(checkBoxPreference, show, false, false, false);
                 setCategorySummary(checkBoxPreference, show);
             }
         }
@@ -962,7 +975,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (preference != null) {
                 String sValue = value.toString();
                 boolean change = VolumeDialogPreference.changeEnabled(sValue);
-                GUIData.setPreferenceTitleStyle(preference, change, false, false);
+                GUIData.setPreferenceTitleStyle(preference, change, false, false, false);
                 setCategorySummary(preference, change);
             }
         }
@@ -972,7 +985,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (preference != null) {
                 String sValue = value.toString();
                 boolean change = BrightnessDialogPreference.changeEnabled(sValue);
-                GUIData.setPreferenceTitleStyle(preference, change, false, false);
+                GUIData.setPreferenceTitleStyle(preference, change, false, false, false);
                 setCategorySummary(preference, change);
             }
         }

@@ -86,6 +86,10 @@ class EventPreferencesApplication extends EventPreferences {
             }
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            if (!ForegroundApplicationChangedService.isEnabled(context.getApplicationContext())) {
+                selectedApplications = context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+            }
+            else
             if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                 String[] splits = this._applications.split("\\|");
                 if (splits.length == 1) {
@@ -114,7 +118,7 @@ class EventPreferencesApplication extends EventPreferences {
                 else
                     selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             }
-            descr = descr + selectedApplications;
+            descr = descr + "(S) "+context.getString(R.string.event_preferences_applications_applications) + ": " + selectedApplications;
 
             //descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
             //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
@@ -129,7 +133,7 @@ class EventPreferencesApplication extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)) {
                 Preference preference = prefMng.findPreference(key);
-                GUIData.setPreferenceTitleStyle(preference, false, true, false);
+                GUIData.setPreferenceTitleStyle(preference, false, true, false, true);
             }
             /*if (key.equals(PREF_EVENT_NOTIFICATION_DURATION)) {
                 Preference preference = prefMng.findPreference(key);
@@ -168,7 +172,7 @@ class EventPreferencesApplication extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
+                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }
@@ -198,12 +202,15 @@ class EventPreferencesApplication extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             final boolean enabled =
                     ForegroundApplicationChangedService.isEnabled(context.getApplicationContext());
-            Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
+            ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
             if (applicationsPreference != null) {
                 //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
                 applicationsPreference.setEnabled(enabled);
                 //durationPreference.setEnabled(enabled);
+                applicationsPreference.setSummaryAMSDP();
             }
+            SharedPreferences preferences = prefMng.getSharedPreferences();
+            setCategorySummary(prefMng, "", preferences, context);
         //}
         /*else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");

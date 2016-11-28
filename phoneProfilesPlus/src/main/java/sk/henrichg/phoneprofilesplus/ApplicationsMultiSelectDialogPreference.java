@@ -33,6 +33,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     String value = "";
 
     private int addShortcuts;
+    private String systemSettings;
 
     // Layout widgets.
     private ListView listView = null;
@@ -58,6 +59,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         addShortcuts = typedArray.getInteger(
                 R.styleable.ApplicationsMultiSelectDialogPreference_addShortcuts, 0);
+        systemSettings = typedArray.getString(
+                R.styleable.ApplicationsMultiSelectDialogPreference_systemSettings);
 
         typedArray.recycle();
 
@@ -284,12 +287,20 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
     }
 
-    private void setSummaryAMSDP()
+    void setSummaryAMSDP()
     {
-        String prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
+        String prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
+        if (systemSettings.equals("notifications") && (!PPNotificationListenerService.isNotificationListenerServiceEnabled(_context))) {
+            prefDataSummary = _context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+        }
+        else
+        if (systemSettings.equals("accessibility") && (!ForegroundApplicationChangedService.isEnabled(_context))) {
+            prefDataSummary = _context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+        }
+        else
         if (!value.isEmpty() && !value.equals("-")) {
             String[] splits = value.split("\\|");
-            prefVolumeDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+            prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             if (splits.length == 1) {
                 PackageManager packageManager = _context.getPackageManager();
                 if (!ApplicationsCache.isShortcut(splits[0])) {
@@ -298,7 +309,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         try {
                             app = packageManager.getApplicationInfo(splits[0], 0);
                             if (app != null)
-                                prefVolumeDataSummary = packageManager.getApplicationLabel(app).toString();
+                                prefDataSummary = packageManager.getApplicationLabel(app).toString();
                         } catch (PackageManager.NameNotFoundException e) {
                             //e.printStackTrace();
                         }
@@ -308,7 +319,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
                         ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
                         if (info != null)
-                            prefVolumeDataSummary = info.loadLabel(packageManager).toString();
+                            prefDataSummary = info.loadLabel(packageManager).toString();
                     }
                 }
                 else {
@@ -316,11 +327,11 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
                     ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
                     if (info != null)
-                        prefVolumeDataSummary = info.loadLabel(packageManager).toString();
+                        prefDataSummary = info.loadLabel(packageManager).toString();
                 }
             }
         }
-        setSummary(prefVolumeDataSummary);
+        setSummary(prefDataSummary);
     }
 
     private void setIcons() {

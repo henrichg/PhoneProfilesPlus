@@ -215,7 +215,7 @@ public class GUIData {
             activity.recreate();
     }
 
-    public static void setPreferenceTitleStyle(Preference preference, boolean bold, boolean underline, boolean errorColor)
+    public static void setPreferenceTitleStyle(Preference preference, boolean bold, boolean underline, boolean errorColor, boolean systemSettings)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();
@@ -225,6 +225,12 @@ public class GUIData {
                 if (span instanceof CharacterStyle)
                     sbt.removeSpan(span);
             }
+            if (systemSettings) {
+                String s = title.toString();
+                if (!s.contains("(S)"))
+                    title = "(S) " + title;
+            }
+            sbt = new SpannableString(title);
             if (bold || underline) {
                 if (bold)
                     sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

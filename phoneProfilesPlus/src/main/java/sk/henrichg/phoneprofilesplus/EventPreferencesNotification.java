@@ -110,8 +110,8 @@ class EventPreferencesNotification extends EventPreferences {
             }
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context) != GlobalData.PREFERENCE_ALLOWED) {
-                selectedApplications = context.getString(GlobalData.getNotAllowedPreferenceReasonString());
+            if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                selectedApplications = context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             }
             else {
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
@@ -141,7 +141,7 @@ class EventPreferencesNotification extends EventPreferences {
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
             }
-            descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications + "; ";
+            descr = descr + "(S) "+context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications + "; ";
             if (this._endWhenRemoved)
                 descr = descr + context.getString(R.string.event_preferences_notifications_end_when_removed);
             else {
@@ -162,7 +162,7 @@ class EventPreferencesNotification extends EventPreferences {
             if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)) {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
-                    GUIData.setPreferenceTitleStyle(preference, false, true, false);
+                    GUIData.setPreferenceTitleStyle(preference, false, true, false, true);
                 }
             }
             if (key.equals(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED)) {
@@ -224,7 +224,7 @@ class EventPreferencesNotification extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context));
+                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(Html.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }
@@ -253,12 +253,14 @@ class EventPreferencesNotification extends EventPreferences {
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             boolean enabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
-            Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
+            ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
             Preference endWhenRemovedPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_END_WHEN_REMOVED);
             Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_PERMANENT_RUN);
             Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
-            if (applicationsPreference != null)
+            if (applicationsPreference != null) {
                 applicationsPreference.setEnabled(enabled);
+                applicationsPreference.setSummaryAMSDP();
+            }
             if (endWhenRemovedPreference != null)
                 endWhenRemovedPreference.setEnabled(enabled);
             if (permanentRunPreference != null)
@@ -273,6 +275,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (durationPreference != null)
                     durationPreference.setEnabled(enabled);
             }
+            setCategorySummary(prefMng, "", preferences, context);
         }
         else {
             PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
