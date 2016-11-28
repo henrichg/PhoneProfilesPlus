@@ -65,16 +65,24 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         boolean news = false;
         boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news2190 = ((versionCode >= 2190) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
 
         if (newsLatest) {
             // empty this, for switch off news
-            /*TextView infoText1 = (TextView) findViewById(R.id.activity_info_event_start_order1);
+        }
+        else {
+            // empty this, for switch off news
+        }
+
+        if (news2190) {
+            // empty this, for switch off news
+            TextView infoText1 = (TextView) findViewById(R.id.activity_info_event_start_order1);
             infoText1.setVisibility(View.GONE);
             TextView infoText2 = (TextView) findViewById(R.id.activity_info_event_start_order2);
             infoText2.setVisibility(View.GONE);
-            news = true;*/
+            news = true;
         }
         else {
             // empty this, for switch off news
