@@ -427,8 +427,8 @@
     <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>
     <string name="phone_profiles_pref_applicationEventRescan_restartEvents">Restart events</string>
     <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>
-    <string name="array_pref_ringerModeArray_ZenMode">(S) Interruptions</string>
-    <string name="profile_preferences_volumeZenMode">(S) Interruptions type</string>
+    <string name="array_pref_ringerModeArray_ZenMode">Interruptions</string>
+    <string name="profile_preferences_volumeZenMode">Interruptions type</string>
     <string name="array_pref_zenModeArray_all">All</string>
     <string name="array_pref_zenModeArray_priority">Priority</string>
     <string name="array_pref_zenModeArray_none">None</string>
@@ -847,7 +847,7 @@
     <string name="alert_button_continue">Continue</string>
     <string name="nfc_tag_pref_dlg_writeTagTitle">Write to NFC Tag</string>
     <string name="write_nfc_tag_in_progress">Write to the NFC tag is in progress</string>
-    <string name="write_nfc_tag_writed">Tag writen</string>
+    <string name="write_nfc_tag_writed">Tag written</string>
     <string name="write_nfc_tag_error">Tag write ERROR</string>
     <string name="read_nfc_tag_readed">Tag readed</string>
     <string name="read_nfc_tag_error">Read tag ERROR</string>
@@ -883,5 +883,5 @@
     <string name="permission_group_name_draw_overalys">Draw over the apps</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">You have not enabled \"Draw over the apps\". Never ask again for this?</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions">Draw over the apps</string>
-    <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Please search for \"PhoneProfiles\" application and enable it.</string>
+    <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>
 </resources>
