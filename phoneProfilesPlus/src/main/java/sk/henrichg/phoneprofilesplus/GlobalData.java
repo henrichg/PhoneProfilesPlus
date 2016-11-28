@@ -286,6 +286,7 @@ public class GlobalData extends Application {
     public static final int PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND = 2;
     public static final int PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND = 3;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED = 4;
+    public static final int PREFERENCE_NOT_ALLOWED_NO_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
 
     public static final long DEFAULT_PROFILE_ID = -999L;  // source profile id
     public static final long PROFILE_NO_ACTIVATE = -999;
@@ -1741,7 +1742,7 @@ public class GlobalData extends Application {
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
                 featurePresented = PREFERENCE_ALLOWED;
             else
-                notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED;
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_CONFIGURED_IN_SYSTEM_SETTINGS;
         }
         else
         if (preferenceKey.equals(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED))
@@ -1784,6 +1785,7 @@ public class GlobalData extends Application {
             case PREFERENCE_NOT_ALLOWED_NOT_ROOTED: return R.string.preference_not_allowed_reason_not_rooted;
             case PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND: return R.string.preference_not_allowed_reason_settings_not_found;
             case PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND: return R.string.preference_not_allowed_reason_service_not_found;
+            case PREFERENCE_NOT_ALLOWED_NO_CONFIGURED_IN_SYSTEM_SETTINGS: return R.string.preference_not_allowed_reason_no_configured_in_system_settings;
             default: return R.string.preference_not_allowed_reason_not_supported;
         }
     }

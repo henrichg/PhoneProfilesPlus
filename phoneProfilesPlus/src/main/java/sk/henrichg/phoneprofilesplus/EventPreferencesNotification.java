@@ -110,35 +110,38 @@ class EventPreferencesNotification extends EventPreferences {
             }
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                String[] splits = this._applications.split("\\|");
-                if (splits.length == 1) {
-                    String packageName = ApplicationsCache.getPackageName(splits[0]);
-
-                    PackageManager packageManager = context.getPackageManager();
-                    if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
-                        ApplicationInfo app;
-                        try {
-                            app = packageManager.getApplicationInfo(packageName, 0);
-                            if (app != null)
-                                selectedApplications = packageManager.getApplicationLabel(app).toString();
-                        } catch (PackageManager.NameNotFoundException e) {
-                            //e.printStackTrace();
-                            selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
-                        }
-                    }
-                    else {
-                        Intent intent = new Intent();
-                        intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
-                        ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                        if (info != null)
-                            selectedApplications = info.loadLabel(packageManager).toString();
-                    }
-                }
-                else
-                    selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+            if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context) != GlobalData.PREFERENCE_ALLOWED) {
+                selectedApplications = context.getString(GlobalData.getNotAllowedPreferenceReasonString());
             }
-            descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
+            else {
+                if (!this._applications.isEmpty() && !this._applications.equals("-")) {
+                    String[] splits = this._applications.split("\\|");
+                    if (splits.length == 1) {
+                        String packageName = ApplicationsCache.getPackageName(splits[0]);
+
+                        PackageManager packageManager = context.getPackageManager();
+                        if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                            ApplicationInfo app;
+                            try {
+                                app = packageManager.getApplicationInfo(packageName, 0);
+                                if (app != null)
+                                    selectedApplications = packageManager.getApplicationLabel(app).toString();
+                            } catch (PackageManager.NameNotFoundException e) {
+                                //e.printStackTrace();
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                            }
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                            if (info != null)
+                                selectedApplications = info.loadLabel(packageManager).toString();
+                        }
+                    } else
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                }
+            }
+            descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications + "; ";
             if (this._endWhenRemoved)
                 descr = descr + context.getString(R.string.event_preferences_notifications_end_when_removed);
             else {
