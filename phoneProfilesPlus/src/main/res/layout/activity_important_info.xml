@@ -115,18 +115,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="@string/important_into_samsung_no_save_power"
             android:id="@+id/activity_info_notification_dialog_info_text10b"
             android:textStyle="bold" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="@string/important_into_sony_stamina_mode"
             android:id="@+id/activity_info_notification_dialog_info_text10c"
             android:textStyle="bold" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="@string/important_into_huawei_protected_apps"
             android:id="@+id/activity_info_notification_dialog_info_text10d"
             android:textStyle="bold" />
