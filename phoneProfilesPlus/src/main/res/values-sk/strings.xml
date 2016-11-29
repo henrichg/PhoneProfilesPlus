@@ -641,7 +641,7 @@
   <string name="important_info_profile_activation_text11">- červená farba: udalosti sú zastavené - beh udalostí môže byt povolený z menu Editor a položkou \"Povoľ beh udalostí\".</string>
   <string name="important_info_profile_activation_restart_events_icon">Ikona Reštart udalostí:</string>
   <string name="important_info_profile_activation_traffic_light_icon">Ikona \"semafór\":</string>
-  <string name="important_info_android_doze_mode">V Android 6 je implenentovaný \"Doze mode\" a \"App Standby\". Ak ste narazili na problémy s aktiváciou profilu z udalostí, ak ste nechali zariadenie v kľude a odpojené nejakú dobu, s vypnutou obrazovkou, pridajte PhoneProfilesPlus do \"Batéria\"-&gt;\"Optimalizácia batérie\"-&gt;\"Neoptimalizované\".</string>
+  <string name="important_info_android_doze_mode">V Android 6 je implenentovaný \"Doze mode\" a \"App Standby\". Ak ste narazili na problémy s aktiváciou profilu z udalostí, ak ste nechali zariadenie v kľude a odpojené nejakú dobu, s vypnutou obrazovkou, pridajte PhoneProfilesPlus do \"Batéria\"→\"Optimalizácia batérie\"→\"Neoptimalizované\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrovať pri zvonení</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_summary">V Android 6 toto systémové nastavenie je možné zmeniť len v rootnutých zariadeniach. Postihnuté sú režimy zvonenia a typy vyrušení s vybráciou.</string>
   <string name="info_notification_event_states">Udalosť môže byť v 4 stavoch:</string>
