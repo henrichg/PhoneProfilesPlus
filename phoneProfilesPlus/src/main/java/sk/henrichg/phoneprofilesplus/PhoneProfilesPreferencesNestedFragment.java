@@ -134,11 +134,10 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
                                 try {
                                     startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
-                                } catch (Exception e2) {
-                                    e2.printStackTrace();
+                                } catch (Exception ignored) {
                                 }
-                            } else
-                                e.printStackTrace();
+                            }// else
+                            //    e.printStackTrace();
                         }
                         return false;
                     }
@@ -458,8 +457,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         if (mobileCellsRegistrationBroadcastReceiver != null) {
             try {
                 getActivity().unregisterReceiver(mobileCellsRegistrationBroadcastReceiver);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+            } catch (IllegalArgumentException ignored) {
             }
             mobileCellsRegistrationBroadcastReceiver = null;
         }

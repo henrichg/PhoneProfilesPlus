@@ -322,8 +322,7 @@ public class GUIData {
                 pf.setAccessible(true);
                 try {
                     pf.set(picker, new ColorDrawable(separatorColor));
-                } catch (IllegalAccessException | IllegalArgumentException e) {
-                    e.printStackTrace();
+                } catch (IllegalAccessException | IllegalArgumentException ignored) {
                 }
                 break;
             }
@@ -349,8 +348,7 @@ public class GUIData {
                     picker.invalidate();
                     break;
                 }
-                catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException e) {
-                    e.printStackTrace();
+                catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException ignored) {
                 }
             }
         }

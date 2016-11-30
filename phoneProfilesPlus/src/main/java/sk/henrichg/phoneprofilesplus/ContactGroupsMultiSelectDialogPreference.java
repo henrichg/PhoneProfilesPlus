@@ -200,8 +200,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                         long groupId = Long.parseLong(splits[i]);
                         if (contactGroup.groupId == groupId)
                             contactGroup.checked = true;
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                 }
             }

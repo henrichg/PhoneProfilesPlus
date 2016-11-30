@@ -537,9 +537,7 @@ public class GlobalData extends Application {
             buf.flush();
             buf.close();
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
+        catch (IOException ignored) {
         }
     }
 
@@ -1821,7 +1819,7 @@ public class GlobalData extends Application {
             getMobileDataEnabledMethod.setAccessible(true);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
     }
@@ -1842,7 +1840,7 @@ public class GlobalData extends Application {
             // The "TRANSACTION_setDataEnabled" field is not available,
             // or named differently in the current API level, so we throw
             // an exception and inform users that the method is not available.
-            e.printStackTrace();
+            //e.printStackTrace();
             throw e;
         }
     }
@@ -2046,8 +2044,7 @@ public class GlobalData extends Application {
                             } finally {
                                 is.close();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } catch (Exception ignored) {
                         }
                     }
 
@@ -2154,7 +2151,7 @@ public class GlobalData extends Application {
             return file.getAbsolutePath();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
@@ -2214,7 +2211,7 @@ public class GlobalData extends Application {
         try {
             return context.getResources().getIdentifier(pVariableName, pResourcename, context.getPackageName());
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return -1;
         }
     }

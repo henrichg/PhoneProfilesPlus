@@ -341,7 +341,7 @@ public class MobileCellsPreference extends DialogPreference {
                             int iCell = Integer.parseInt(cell);
                             cellsList.add(new MobileCellsData(iCell, _cellName, false, false));
                         }
-                        catch (Exception e) { e.printStackTrace(); }
+                        catch (Exception ignored) { }
                     }
                 }
 

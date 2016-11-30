@@ -113,8 +113,7 @@ public class MaterialListPreference extends ListPreference {
                                 Field clickedIndex = ListPreference.class.getDeclaredField("mClickedDialogEntryIndex");
                                 clickedIndex.setAccessible(true);
                                 clickedIndex.set(MaterialListPreference.this, which);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            } catch (Exception ignored) {
                             }
                         }
                         return true;

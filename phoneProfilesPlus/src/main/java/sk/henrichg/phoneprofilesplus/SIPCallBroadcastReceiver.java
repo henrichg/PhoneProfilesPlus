@@ -59,8 +59,7 @@ public class SIPCallBroadcastReceiver extends BroadcastReceiver {
 
             };
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
 
     }

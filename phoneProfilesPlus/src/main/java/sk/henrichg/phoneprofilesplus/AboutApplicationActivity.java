@@ -93,8 +93,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
                     packageVersion = " - v" + pinfo.versionName;
-                } catch (PackageManager.NameNotFoundException e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
                 //if (intent.resolveActivity(getPackageManager()) != null) {

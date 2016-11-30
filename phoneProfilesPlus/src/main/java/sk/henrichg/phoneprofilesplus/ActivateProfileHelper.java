@@ -166,8 +166,7 @@ public class ActivateProfileHelper {
                 WifiApManager wifiApManager = null;
                 try {
                     wifiApManager = new WifiApManager(context);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
                 if (wifiApManager != null) {
                     boolean setWifiAPState = false;
@@ -758,13 +757,11 @@ public class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL); not needed, called from setZenMode
                     try {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                     try {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                     setVibrateWhenRinging(null, 0);
                     break;
@@ -773,13 +770,11 @@ public class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL); not needed, called from setZenMode
                     try {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                     try {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                     setVibrateWhenRinging(null, 1);
                     break;
@@ -788,13 +783,11 @@ public class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE); not needed, called from setZenMode
                     try {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                     try {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                     setVibrateWhenRinging(null, 1);
                     break;
@@ -810,13 +803,11 @@ public class ActivateProfileHelper {
                         setZenMode(ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_SILENT);
                         try {
                             audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } catch (Exception ignored) {
                         }
                         try {
                             audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        } catch (Exception ignored) {
                         }
                     }
                     setVibrateWhenRinging(null, 0);
@@ -950,8 +941,7 @@ public class ActivateProfileHelper {
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             try {
                                 context.startActivity(intent);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            } catch (Exception ignored) {
                             }
                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                             //SystemClock.sleep(1000);
@@ -978,8 +968,7 @@ public class ActivateProfileHelper {
                                         //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
                                         try {
                                             context.startActivity(intent);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                                        } catch (Exception ignored) {
                                         }
                                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                                         //SystemClock.sleep(1000);
@@ -987,8 +976,7 @@ public class ActivateProfileHelper {
                                     //} else
                                     //    GlobalData.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
                                 }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            } catch (Exception ignored) {
                             }
                         }
                     }
@@ -1342,8 +1330,7 @@ public class ActivateProfileHelper {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.setComponent(new ComponentName("com.android.settings","com.android.settings.Settings$DataUsageSummaryActivity"));
                         context.startActivity(intent);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                 }
             }
@@ -1356,8 +1343,7 @@ public class ActivateProfileHelper {
                         final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                 }
             //}
@@ -1400,7 +1386,7 @@ public class ActivateProfileHelper {
             windowManager.addView(GUIData.keepScreenOnView, params);
         } catch (Exception e) {
             GUIData.keepScreenOnView = null;
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         Log.d("ActivateProfileHelper.screenTimeoutLock","-- end");
     }
@@ -1414,8 +1400,7 @@ public class ActivateProfileHelper {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
             try {
                 windowManager.removeView(GUIData.keepScreenOnView);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignored) {
             }
             GUIData.keepScreenOnView = null;
         }
@@ -1437,8 +1422,7 @@ public class ActivateProfileHelper {
                 Log.d("ActivateProfileHelper.createBrightnessView","GUIData.brightneesView != null");
                 try {
                     windowManager.removeView(GUIData.brightneesView);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
                 GUIData.brightneesView = null;
             }
@@ -1458,7 +1442,7 @@ public class ActivateProfileHelper {
                 windowManager.addView(GUIData.brightneesView, params);
             } catch (Exception e) {
                 GUIData.brightneesView = null;
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
             RemoveBrightnessViewBroadcastReceiver.setAlarm(context);
@@ -1474,8 +1458,7 @@ public class ActivateProfileHelper {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
             try {
                 windowManager.removeView(GUIData.brightneesView);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignored) {
             }
             GUIData.brightneesView = null;
         }
@@ -1848,7 +1831,7 @@ public class ActivateProfileHelper {
                 getMobileDataEnabledMethod.setAccessible(true);
                 return (Boolean)getMobileDataEnabledMethod.invoke(connectivityManager);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return false;
             }
         }
@@ -1877,7 +1860,7 @@ public class ActivateProfileHelper {
                 return (Boolean)getDataEnabledMethod.invoke(ITelephonyStub);
 
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return false;
             }
         }
@@ -1897,7 +1880,7 @@ public class ActivateProfileHelper {
                 return (Boolean)getDataEnabledMethod.invoke(telephonyManager);
 
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return false;
             }
         }
@@ -2009,8 +1992,7 @@ public class ActivateProfileHelper {
 
                 OK = true;
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignored) {
             }
 
             if (!OK)
@@ -2023,8 +2005,7 @@ public class ActivateProfileHelper {
 
                     //OK = true;
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
             }
         }
@@ -2125,8 +2106,7 @@ public class ActivateProfileHelper {
                         }
                     }
                 }
-            } catch(Exception e) {
-                e.printStackTrace();
+            } catch(Exception ignored) {
             }
         }
     }
@@ -2429,8 +2409,7 @@ public class ActivateProfileHelper {
                         cmd.wait(waitTill);
                         waitTill *= waitTillMultiplier;
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
             }
         }

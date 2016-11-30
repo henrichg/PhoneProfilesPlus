@@ -4998,9 +4998,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.delete(TABLE_ACTIVITY_LOG, null, null);
 
            // db.setTransactionSuccessful();
-        } catch (Exception e){
+        } catch (Exception ignored){
             //Error in between database transaction
-            e.printStackTrace();
         //} finally {
             //db.endTransaction();
         }

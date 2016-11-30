@@ -1128,15 +1128,13 @@ public class EditorProfilesActivity extends AppCompatActivity
             // no error, this is OK
             //e.printStackTrace();
             res = true;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }finally {
             try {
                 if (input != null) {
                     input.close();
                 }
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException ignored) {
             }
         }
         return res;
@@ -1373,16 +1371,14 @@ public class EditorProfilesActivity extends AppCompatActivity
             // this is OK
             //e.printStackTrace();
             res = true;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }finally {
             try {
                 if (output != null) {
                     output.flush();
                     output.close();
                 }
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException ignored) {
             }
         }
         return res;

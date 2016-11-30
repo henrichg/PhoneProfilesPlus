@@ -108,18 +108,15 @@ public class DurationDialogPreference2 extends DialogPreference
                 String[] splits = value.split(":");
                 try {
                     hours = Integer.parseInt(splits[0].replaceFirst("\\s+$", ""));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
                 try {
                     minutes = Integer.parseInt(splits[1].replaceFirst("\\s+$", ""));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
                 try {
                     seconds = Integer.parseInt(splits[2].replaceFirst("\\s+$", ""));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignored) {
                 }
 
                 int iValue = (hours * 3600 + minutes * 60 + seconds);

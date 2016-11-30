@@ -334,8 +334,7 @@ public class PhoneProfilesService extends Service
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             try {
                 locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-            } catch (Settings.SettingNotFoundException e) {
-                e.printStackTrace();
+            } catch (Settings.SettingNotFoundException ignored) {
             }
             return  locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
@@ -973,7 +972,7 @@ public class PhoneProfilesService extends Service
                     RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 } catch (Exception e) {
                     GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "exception");
-                    e.printStackTrace();
+                    //e.printStackTrace();
                     eventNotificationIsPlayed = false;
                     RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 }

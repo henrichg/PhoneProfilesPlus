@@ -227,8 +227,7 @@ public class VolumeDialogPreference extends
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, 0);
             try {
                 mediaPlayer.start();
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignored) {
             }
         }
     }

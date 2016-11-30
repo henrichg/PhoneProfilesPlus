@@ -245,8 +245,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                         long calendarId = Long.parseLong(splits[i]);
                         if (calendar.calendarId == calendarId)
                             calendar.checked = true;
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                 }
             }

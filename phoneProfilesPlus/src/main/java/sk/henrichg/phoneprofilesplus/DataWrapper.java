@@ -1263,8 +1263,7 @@ public class DataWrapper {
                     Toast.LENGTH_SHORT);
             msg.show();
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (Exception ignored) {
         }
         Log.d("DataWrapper.showToastAfterActivation", "-- end");
     }
@@ -2476,8 +2475,7 @@ public class DataWrapper {
                                                 lDisplayPassed = true;
                                                 break;
                                             }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                                        } catch (Exception ignored) {
                                         }
                                     }
                                 }
@@ -2504,8 +2502,7 @@ public class DataWrapper {
                                                     break;
                                                 }
                                             }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                                        } catch (Exception ignored) {
                                         }
                                     }
                                 }

@@ -43,7 +43,7 @@ public class LaunchShortcutActivity extends Activity {
             try {
                 startActivityForResult(intent, 100);
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 finish();
             }
         //}

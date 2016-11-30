@@ -202,8 +202,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                         long phoneId = Long.parseLong(splits2[1]);
                         if ((contact.contactId == contactId) && (contact.phoneId == phoneId))
                             contact.checked = true;
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                 }
             }
