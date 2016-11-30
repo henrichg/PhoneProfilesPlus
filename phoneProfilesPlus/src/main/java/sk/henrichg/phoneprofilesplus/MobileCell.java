@@ -5,4 +5,5 @@ class MobileCell {
     int _cellId;
     String _name;
     boolean _new;
+    long _lastConnectedTime;
 }

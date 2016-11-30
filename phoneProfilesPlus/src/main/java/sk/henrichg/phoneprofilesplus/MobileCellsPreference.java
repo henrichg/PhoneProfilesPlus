@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -288,19 +289,21 @@ public class MobileCellsPreference extends DialogPreference {
         rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
             String _cellName;
+            List<MobileCellsData> _cellsList = null;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
 
                 _cellName = cellName.getText().toString();
+                _cellsList = new ArrayList<>();
+
                 //dataRelativeLayout.setVisibility(View.GONE);
                 //progressLinearLayout.setVisibility(View.VISIBLE);
             }
 
             @Override
             protected Void doInBackground(Void... params) {
-                cellsList.clear();
 
                 if (forRescan) {
                     PhoneProfilesService.instance.phoneStateScanner.getRegisteredCell();
@@ -312,11 +315,11 @@ public class MobileCellsPreference extends DialogPreference {
 
                 // add all from table
                 DatabaseHandler db = DatabaseHandler.getInstance(context);
-                db.addMobileCellsToList(cellsList);
+                db.addMobileCellsToList(_cellsList);
 
                 // add registered cell
                 boolean found = false;
-                for (MobileCellsData cell : cellsList) {
+                for (MobileCellsData cell : _cellsList) {
                     if (cell.cellId == PhoneProfilesService.instance.phoneStateScanner.registeredCell) {
                         cell.connected = true;
                         found = true;
@@ -324,13 +327,14 @@ public class MobileCellsPreference extends DialogPreference {
                     }
                 }
                 if (!found)
-                    cellsList.add(new MobileCellsData(PhoneProfilesService.instance.phoneStateScanner.registeredCell, _cellName, true, true));
+                    _cellsList.add(new MobileCellsData(PhoneProfilesService.instance.phoneStateScanner.registeredCell,
+                            _cellName, true, true, PhoneProfilesService.instance.phoneStateScanner.lastConnectedTime));
 
                 // add all from value
                 String[] splits = value.split("\\|");
                 for (String cell : splits) {
                     found = false;
-                    for (MobileCellsData mCell : cellsList) {
+                    for (MobileCellsData mCell : _cellsList) {
                         if (cell.equals(Integer.toString(mCell.cellId))) {
                             found = true;
                             break;
@@ -339,15 +343,15 @@ public class MobileCellsPreference extends DialogPreference {
                     if (!found) {
                         try {
                             int iCell = Integer.parseInt(cell);
-                            cellsList.add(new MobileCellsData(iCell, _cellName, false, false));
+                            _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0));
                         }
                         catch (Exception ignored) { }
                     }
                 }
 
-                db.saveMobileCellsList(cellsList, true);
+                db.saveMobileCellsList(_cellsList, true);
 
-                Collections.sort(cellsList, new SortList());
+                Collections.sort(_cellsList, new SortList());
 
                 return null;
             }
@@ -356,6 +360,7 @@ public class MobileCellsPreference extends DialogPreference {
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
 
+                cellsList = new ArrayList<>(_cellsList);
                 listAdapter.notifyDataSetChanged();
                 //progressLinearLayout.setVisibility(View.GONE);
                 //dataRelativeLayout.setVisibility(View.VISIBLE);
@@ -443,12 +448,13 @@ public class MobileCellsPreference extends DialogPreference {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            //Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
+            Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
             if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
                 // save new registered cell
                 List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
                 localCellsList.add(new MobileCellsData(PhoneProfilesService.instance.phoneStateScanner.registeredCell,
-                        preference.cellName.getText().toString(), true, false));
+                        preference.cellName.getText().toString(), true, false,
+                        PhoneProfilesService.instance.phoneStateScanner.lastConnectedTime));
                 DatabaseHandler db = DatabaseHandler.getInstance(context);
                 db.saveMobileCellsList(localCellsList, true);
 

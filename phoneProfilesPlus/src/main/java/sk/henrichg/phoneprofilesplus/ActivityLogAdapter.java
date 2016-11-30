@@ -103,7 +103,7 @@ class ActivityLogAdapter extends CursorAdapter {
         //rowData.durationDelay  = (TextView) view.findViewById(R.id.activity_log_row_duration_delay);
 
         rowData.logTypeColor.setBackgroundColor(context.getResources().getColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
-        rowData.logDateTime.setText(formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        rowData.logDateTime.setText(GUIData.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
         rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
@@ -120,7 +120,7 @@ class ActivityLogAdapter extends CursorAdapter {
         MyRowViewHolder rowData = (MyRowViewHolder) view.getTag();
 
         rowData.logTypeColor.setBackgroundColor(context.getResources().getColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
-        rowData.logDateTime.setText(formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        rowData.logDateTime.setText(GUIData.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
         rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
@@ -135,72 +135,6 @@ class ActivityLogAdapter extends CursorAdapter {
         TextView profileName;
         //ImageView profileIcon;
         //TextView durationDelay;
-    }
-
-    private String formatDateTime(Context context, String timeToFormat) {
-
-        String finalDateTime = "";
-
-        SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        Date date;
-        if (timeToFormat != null) {
-            try {
-                date = iso8601Format.parse(timeToFormat);
-            } catch (ParseException e) {
-                date = null;
-            }
-
-            if (date != null) {
-                long when = date.getTime();
-                when += TimeZone.getDefault().getOffset(when);
-
-                /*
-                int flags = 0;
-                flags |= DateUtils.FORMAT_SHOW_TIME;
-                flags |= DateUtils.FORMAT_SHOW_DATE;
-                flags |= DateUtils.FORMAT_NUMERIC_DATE;
-                flags |= DateUtils.FORMAT_SHOW_YEAR;
-
-                finalDateTime = android.text.format.DateUtils.formatDateTime(context,
-                        when, flags);
-
-                finalDateTime = DateFormat.getDateFormat(context).format(when) +
-                        " " + DateFormat.getTimeFormat(context).format(when);
-                */
-
-                /*
-                SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss");
-                finalDateTime = sdf.format(when);
-                */
-
-                finalDateTime = timeDateStringFromTimestamp(context, when);
-            }
-        }
-        return finalDateTime;
-    }
-
-    private String timeDateStringFromTimestamp(Context applicationContext,long timestamp){
-        String timeDate;
-        String androidDateTime=android.text.format.DateFormat.getDateFormat(applicationContext).format(new Date(timestamp))+" "+
-                android.text.format.DateFormat.getTimeFormat(applicationContext).format(new Date(timestamp));
-        String javaDateTime = DateFormat.getDateTimeInstance().format(new Date(timestamp));
-        String AmPm="";
-        if(!Character.isDigit(androidDateTime.charAt(androidDateTime.length()-1))) {
-            if(androidDateTime.contains(new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM])){
-                AmPm=" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM];
-            }else{
-                AmPm=" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.PM];
-            }
-            androidDateTime=androidDateTime.replace(AmPm, "");
-        }
-        if(!Character.isDigit(javaDateTime.charAt(javaDateTime.length()-1))){
-            javaDateTime=javaDateTime.replace(" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.AM], "");
-            javaDateTime=javaDateTime.replace(" "+new SimpleDateFormat().getDateFormatSymbols().getAmPmStrings()[Calendar.PM], "");
-        }
-        javaDateTime=javaDateTime.substring(javaDateTime.length()-3);
-        timeDate=androidDateTime.concat(javaDateTime);
-        return timeDate.concat(AmPm);
     }
 
     public void reload(DataWrapper dataWrapper) {

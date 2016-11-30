@@ -22,6 +22,7 @@ import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 class PhoneStateScanner extends PhoneStateListener {
@@ -31,7 +32,7 @@ class PhoneStateScanner extends PhoneStateListener {
     //private TelephonyManager telephonyManager2 = null;
 
     int registeredCell = Integer.MAX_VALUE;
-    //public int registeredCell2 = Integer.MAX_VALUE;
+    long lastConnectedTime = 0;
 
     boolean enabledAutoRegistration = false;
     int durationForAutoRegistration = 0;
@@ -139,16 +140,20 @@ class PhoneStateScanner extends PhoneStateListener {
                         CellIdentityGsm identityGsm = ((CellInfoGsm) _cellInfo).getCellIdentity();
                         if (identityGsm.getCid() != Integer.MAX_VALUE) {
                             //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "gsm mCid="+identityGsm.getCid());
-                            if (_cellInfo.isRegistered())
+                            if (_cellInfo.isRegistered()) {
                                 registeredCell = identityGsm.getCid();
+                                lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                            }
                         }
                     } else if (_cellInfo instanceof CellInfoLte) {
                         //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "lte info="+_cellInfo);
                         CellIdentityLte identityLte = ((CellInfoLte) _cellInfo).getCellIdentity();
                         if (identityLte.getCi() != Integer.MAX_VALUE) {
                             //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "lte mCi="+identityLte.getCi());
-                            if (_cellInfo.isRegistered())
+                            if (_cellInfo.isRegistered()) {
                                 registeredCell = identityLte.getCi();
+                                lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                            }
                         }
                     } else if (_cellInfo instanceof CellInfoWcdma) {
                         //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
@@ -156,8 +161,10 @@ class PhoneStateScanner extends PhoneStateListener {
                             CellIdentityWcdma identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
                             if (identityWcdma.getCid() != Integer.MAX_VALUE) {
                                 //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=" + identityWcdma.getCid());
-                                if (_cellInfo.isRegistered())
+                                if (_cellInfo.isRegistered()) {
                                     registeredCell = identityWcdma.getCid();
+                                    lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                                }
                             }
                         }
                         //else {
@@ -168,8 +175,10 @@ class PhoneStateScanner extends PhoneStateListener {
                         CellIdentityCdma identityCdma = ((CellInfoCdma) _cellInfo).getCellIdentity();
                         if (identityCdma.getBasestationId() != Integer.MAX_VALUE) {
                             //GlobalData.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid="+identityCdma.getBasestationId());
-                            if (_cellInfo.isRegistered())
+                            if (_cellInfo.isRegistered()) {
                                 registeredCell = identityCdma.getBasestationId();
+                                lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                            }
                         }
                     }
                     //else {
@@ -207,6 +216,9 @@ class PhoneStateScanner extends PhoneStateListener {
         else
             getAllCellInfo(cellInfo);
 
+        DatabaseHandler db = DatabaseHandler.getInstance(context);
+        db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
+
         doAutoRegistration();
         sendBroadcast();
     }
@@ -218,6 +230,9 @@ class PhoneStateScanner extends PhoneStateListener {
         GlobalData.logE("PhoneStateScanner.onServiceStateChanged", "serviceState="+serviceState);
 
         getRegisteredCell();
+
+        DatabaseHandler db = DatabaseHandler.getInstance(context);
+        db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
 
         doAutoRegistration();
         sendBroadcast();
@@ -235,6 +250,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     if (gcLoc.getCid() != Integer.MAX_VALUE) {
                         //GlobalData.logE("PhoneStateScanner.getCellLocation", "gsm mCid="+gcLoc.getCid());
                         registeredCell = gcLoc.getCid();
+                        lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                     }
                 } else if (location instanceof CdmaCellLocation) {
                     CdmaCellLocation ccLoc = (CdmaCellLocation) location;
@@ -242,6 +258,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     if (ccLoc.getBaseStationId() != Integer.MAX_VALUE) {
                         //GlobalData.logE("PhoneStateScanner.getCellLocation", "cdma mCid="+ccLoc.getBaseStationId());
                         registeredCell = ccLoc.getBaseStationId();
+                        lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                     }
                 }
                 //else {
@@ -274,6 +291,9 @@ class PhoneStateScanner extends PhoneStateListener {
             getCellLocation();
         else
             getCellLocation(location);
+
+        DatabaseHandler db = DatabaseHandler.getInstance(context);
+        db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
 
         doAutoRegistration();
         sendBroadcast();
@@ -320,7 +340,7 @@ class PhoneStateScanner extends PhoneStateListener {
         if (enabledAutoRegistration) {
             //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
             List<MobileCellsData> localCellsList = new ArrayList<>();
-            localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false));
+            localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false, lastConnectedTime));
             DatabaseHandler db = DatabaseHandler.getInstance(context);
             db.saveMobileCellsList(localCellsList, true);
         }

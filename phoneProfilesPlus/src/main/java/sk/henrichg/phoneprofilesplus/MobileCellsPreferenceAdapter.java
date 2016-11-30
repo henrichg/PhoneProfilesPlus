@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 class MobileCellsPreferenceAdapter extends BaseAdapter
 {
     MobileCellsPreference preference;
@@ -16,7 +19,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
     //int selectedRBIndex = -1;
 
     private LayoutInflater inflater;
-    //private Context context;
+    private Context context;
 
     MobileCellsPreferenceAdapter(Context context, MobileCellsPreference preference)
     {
@@ -24,7 +27,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
 
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
-        //this.context = context;
+        this.context = context;
     }
 
     public int getCount() {
@@ -41,6 +44,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
     
     static class ViewHolder {
           TextView cellId;
+          TextView lastConnectedTime;
           CheckBox checkBox;
           ImageView itemEditMenu;
           int position;
@@ -49,8 +53,11 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         // cell to display
-        MobileCellsData cellData = preference.cellsList.get(position);
-        //System.out.println(String.valueOf(position));
+
+        //java.lang.IllegalStateException: The content of the adapter has changed but ListView did not receive a notification.
+        // Make sure the content of your adapter is not modified from a background thread, but only from the UI thread.
+        // Make sure your adapter calls notifyDataSetChanged() when its content changes. [in ListView(2131689809, class android.widget.ListView)
+        // with Adapter(class sk.henrichg.phoneprofilesplus.MobileCellsPreferenceAdapter)]
 
         ViewHolder holder;
         
@@ -60,6 +67,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
             vi = inflater.inflate(R.layout.mobile_cells_preference_list_item, parent, false);
             holder = new ViewHolder();
             holder.cellId = (TextView)vi.findViewById(R.id.mobile_cells_pref_dlg_item_label);
+            holder.lastConnectedTime = (TextView)vi.findViewById(R.id.mobile_cells_pref_dlg_item_lastConnectedTime);
             holder.checkBox = (CheckBox) vi.findViewById(R.id.mobile_cells_pref_dlg_item_checkbox);
             holder.itemEditMenu = (ImageView)  vi.findViewById(R.id.mobile_cells_pref_dlg_item_edit_menu);
             vi.setTag(holder);
@@ -68,6 +76,12 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
         {
             holder = (ViewHolder)vi.getTag();
         }
+
+        if (preference.cellsList.size() == 0)
+            return vi;
+
+        MobileCellsData cellData = preference.cellsList.get(position);
+        //System.out.println(String.valueOf(position));
 
         String cellName = "";
         if (!cellData.name.isEmpty())
@@ -81,6 +95,15 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
             cellName = cellName + "(" + cellFlags + ") ";
         cellName = cellName + cellData.cellId;
         holder.cellId.setText(cellName);
+
+        if (cellData.lastConnectedTime != 0) {
+            //Calendar calendar = Calendar.getInstance().setTimeInMillis(cellData.lastConnectedTime);
+            holder.lastConnectedTime.setText(context.getString(R.string.mobile_cells_pref_dlg_last_connected) + " " +
+                    GUIData.timeDateStringFromTimestamp(context, cellData.lastConnectedTime));
+        }
+        else {
+            holder.lastConnectedTime.setText("");
+        }
 
         holder.checkBox.setTag(position);
         holder.checkBox.setChecked(preference.isCellSelected(cellData.cellId));

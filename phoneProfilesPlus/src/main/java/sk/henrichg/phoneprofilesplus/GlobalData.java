@@ -60,7 +60,9 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|##### RemoveBrightnessViewBroadcastReceiver.onReceive"
+                                         +"|PhoneStateScanner.onCellInfoChanged"
+                                         +"|PhoneStateScanner.onServiceStateChanged"
+                                         +"|PhoneStateScanner.onCellLocationChanged"
 
                                          /*+"|BootUpReceiver"
                                          +"|##### PackageReplacedReceiver.onReceive"

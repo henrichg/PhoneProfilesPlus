@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp" >
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
     <LinearLayout
         android:id="@+id/mobile_cells_pref_dlg_item_buttons_root"
@@ -38,18 +40,31 @@
             android:layout_marginStart="10dp"
             android:layout_centerVertical="true"
             android:checked="false"
-            android:focusable="false"
-            android:text="@string/empty_string" />
+            android:focusable="false" />
 
-        <TextView
-            android:id="@+id/mobile_cells_pref_dlg_item_label"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_toEndOf="@+id/mobile_cells_pref_dlg_item_checkbox"
             android:layout_centerVertical="true"
-            android:paddingStart="10dp"
-            android:text="@string/empty_string"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:paddingStart="10dp" >
+
+            <TextView
+                android:id="@+id/mobile_cells_pref_dlg_item_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/mobile_cells_pref_dlg_item_lastConnectedTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_string"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1790;
+    private static final int DATABASE_VERSION = 1800;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -271,6 +271,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_MC_CELL_ID = "cellId";
     private static final String KEY_MC_NAME = "name";
     private static final String KEY_MC_NEW = "new";
+    private static final String KEY_MC_LAST_CONNECTED_TIME = "lastConnectedTime";
 
     // NFC tags Colums names
     private static final String KEY_NT_ID = "_id";
@@ -548,7 +549,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_MC_ID + " INTEGER PRIMARY KEY,"
                 + KEY_MC_CELL_ID + " INTEGER,"
                 + KEY_MC_NAME + " TEXT,"
-                + KEY_MC_NEW + " INTEGER"
+                + KEY_MC_NEW + " INTEGER,"
+                + KEY_MC_LAST_CONNECTED_TIME + " INTEGER"
                 + ")";
         db.execSQL(CREATE_MOBILE_CELLS_TABLE);
 
@@ -1889,6 +1891,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_PERMANENT_RUN + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_PERMANENT_RUN + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_PERMANENT_RUN + "=1");
+        }
+
+        if (oldVersion < 1800)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_MOBILE_CELLS + " ADD COLUMN " + KEY_MC_LAST_CONNECTED_TIME + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_MOBILE_CELLS + " SET " + KEY_MC_LAST_CONNECTED_TIME +  "=0");
         }
 
         GlobalData.logE("DatabaseHandler.onUpgrade", "END");
@@ -5692,6 +5703,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_MC_CELL_ID, mobileCell._cellId);
         values.put(KEY_MC_NAME, mobileCell._name);
         values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
+        values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
 
         db.beginTransaction();
 
@@ -5720,7 +5732,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{KEY_MC_ID,
                         KEY_MC_CELL_ID,
                         KEY_MC_NAME,
-                        KEY_MC_NEW
+                        KEY_MC_NEW,
+                        KEY_MC_LAST_CONNECTED_TIME
                 },
                 KEY_MC_ID + "=?",
                 new String[]{String.valueOf(mobileCellId)}, null, null, null, null);
@@ -5738,6 +5751,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 mobileCell._cellId = cursor.getInt(1);
                 mobileCell._name = cursor.getString(2);
                 mobileCell._new = cursor.getInt(3) == 1;
+                mobileCell._lastConnectedTime = cursor.getLong(4);
             }
 
             cursor.close();
@@ -5758,6 +5772,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_MC_CELL_ID, mobileCell._cellId);
         values.put(KEY_MC_NAME, mobileCell._name);
         values.put(KEY_MC_NEW, mobileCell._new ? 1 : 0);
+        values.put(KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
 
         int r = 0;
 
@@ -5815,7 +5830,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Select All Query
         final String selectQuery = "SELECT " + KEY_MC_CELL_ID + "," +
                             KEY_MC_NAME + "," +
-                            KEY_MC_NEW +
+                            KEY_MC_NEW + "," +
+                            KEY_MC_LAST_CONNECTED_TIME +
                 " FROM " + TABLE_MOBILE_CELLS;
 
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -5829,6 +5845,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 int cellId = cursor.getInt(0);
                 String name = cursor.getString(1);
                 boolean _new = cursor.getInt(2) == 1;
+                long lastConnectedTime = cursor.getLong(3);
                 //Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
                 boolean found = false;
                 for (MobileCellsData cell : cellsList) {
@@ -5838,7 +5855,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                 }
                 if (!found) {
-                    MobileCellsData cell = new MobileCellsData(cellId, name, false, _new);
+                    MobileCellsData cell = new MobileCellsData(cellId, name, false, _new, lastConnectedTime);
                     cellsList.add(cell);
                 }
             } while (cursor.moveToNext());
@@ -5853,7 +5870,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Select All Query
         final String selectQuery = "SELECT " + KEY_MC_ID + "," +
                         KEY_MC_CELL_ID + "," +
-                        KEY_MC_NAME +
+                        KEY_MC_NAME + "," +
+                        KEY_MC_LAST_CONNECTED_TIME +
                 " FROM " + TABLE_MOBILE_CELLS;
 
         //SQLiteDatabase db = this.getReadableDatabase();
@@ -5865,12 +5883,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             boolean found = false;
             long foundedDbId = 0;
             String foundedCellName = "";
+            long foundedLastConnectedTime = 0;
             if (cursor.moveToFirst()) {
                 do {
                     String dbCellId = Integer.toString(cursor.getInt(1));
                     if (dbCellId.equals(Integer.toString(cell.cellId))) {
                         foundedDbId = cursor.getLong(0);
                         foundedCellName = cursor.getString(2);
+                        foundedLastConnectedTime = cursor.getLong(3);
                         found = true;
                         break;
                     }
@@ -5882,6 +5902,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 mobileCell._cellId = cell.cellId;
                 mobileCell._name = cell.name;
                 mobileCell._new = true;
+                mobileCell._lastConnectedTime = cell.lastConnectedTime;
                 addMobileCell(mobileCell);
             } else {
                 //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
@@ -5890,6 +5911,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 mobileCell._cellId = cell.cellId;
                 mobileCell._name = foundedCellName;
                 mobileCell._new = _new && cell._new;
+                if (cell.connected)
+                    mobileCell._lastConnectedTime = cell.lastConnectedTime;
+                else
+                    mobileCell._lastConnectedTime = foundedLastConnectedTime;
                 updateMobileCell(mobileCell);
             }
         }
@@ -5932,6 +5957,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         mobileCell._cellId = cell.cellId;
                         mobileCell._name = cell.name;
                         mobileCell._new = cell._new;
+                        mobileCell._lastConnectedTime = cell.lastConnectedTime;
                         updateMobileCell(mobileCell);
                     }
                 }
@@ -5945,6 +5971,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             mobileCell._cellId = cell.cellId;
                             mobileCell._name = cell.name;
                             mobileCell._new = cell._new;
+                            mobileCell._lastConnectedTime = cell.lastConnectedTime;
                             updateMobileCell(mobileCell);
                         }
                     }
@@ -5978,6 +6005,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
+    void updateMobileCellLastConnectedTime(int mobileCell, long lastConnectedTime) {
+        //SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getMyWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_MC_LAST_CONNECTED_TIME, lastConnectedTime);
+
+        int r = 0;
+
+        db.beginTransaction();
+
+        try {
+            // updating row
+            r = db.update(TABLE_MOBILE_CELLS, values, KEY_MC_ID + " = ?",
+                    new String[] { String.valueOf(mobileCell) });
+
+            db.setTransactionSuccessful();
+
+        } catch (Exception e){
+            //Error in between database transaction
+            Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", e.toString());
+            r = 0;
+        } finally {
+            db.endTransaction();
+        }
+
+        //db.close();
+    }
 
 // NFC_TAGS ----------------------------------------------------------------------
 
@@ -7061,6 +7116,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 // for non existent fields set default value
                                 if (exportedDBObj.getVersion() < 1700) {
                                     values.put(KEY_MC_NEW, 0);
+                                }
+                                if (exportedDBObj.getVersion() < 1800) {
+                                    values.put(KEY_MC_LAST_CONNECTED_TIME, 0);
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper
