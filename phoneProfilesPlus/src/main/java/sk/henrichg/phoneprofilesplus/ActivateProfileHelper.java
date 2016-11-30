@@ -1140,6 +1140,7 @@ public class ActivateProfileHelper {
             //else
             //{
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            //noinspection deprecation
             isScreenOn = pm.isScreenOn();
             //}
             GlobalData.logE("$$$ ActivateProfileHelper.execute","isScreenOn="+isScreenOn);
@@ -1207,15 +1208,14 @@ public class ActivateProfileHelper {
                 }
 
                 if (brightnessHandler != null) {
-                    final Profile __profile = profile;
                     final Context __context = context;
                     brightnessHandler.post(new Runnable() {
                         public void run() {
-                            createBrightnessView(__profile, __context);
+                            createBrightnessView(__context);
                         }
                     });
                 } else
-                    createBrightnessView(profile, context);
+                    createBrightnessView(context);
             }
         }
 
@@ -1424,7 +1424,7 @@ public class ActivateProfileHelper {
     }
 
     @SuppressLint("RtlHardcoded")
-    private void createBrightnessView(Profile profile, Context context)
+    private void createBrightnessView(Context context)
     {
         Log.d("ActivateProfileHelper.createBrightnessView","xxx");
 
@@ -1789,6 +1789,7 @@ public class ActivateProfileHelper {
         if (android.os.Build.VERSION.SDK_INT >= 17)
             return Settings.Global.getInt(context.getContentResolver(), Global.AIRPLANE_MODE_ON, 0) != 0;
         else
+            //noinspection deprecation
             return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     }
 
@@ -1846,19 +1847,7 @@ public class ActivateProfileHelper {
                 final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
                 getMobileDataEnabledMethod.setAccessible(true);
                 return (Boolean)getMobileDataEnabledMethod.invoke(connectivityManager);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return false;
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-                return false;
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                return false;
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                return false;
-            } catch (InvocationTargetException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
@@ -1887,19 +1876,7 @@ public class ActivateProfileHelper {
 
                 return (Boolean)getDataEnabledMethod.invoke(ITelephonyStub);
 
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                return false;
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                return false;
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-                return false;
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-                return false;
-            } catch (ClassNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
@@ -1919,19 +1896,7 @@ public class ActivateProfileHelper {
 
                 return (Boolean)getDataEnabledMethod.invoke(telephonyManager);
 
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                return false;
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                return false;
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-                return false;
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-                return false;
-            } catch (ClassNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
