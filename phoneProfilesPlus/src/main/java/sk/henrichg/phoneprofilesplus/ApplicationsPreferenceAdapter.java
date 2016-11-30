@@ -62,6 +62,20 @@ class ApplicationsPreferenceAdapter extends BaseAdapter
         }
     }
 
+    void changeItemOrder(int from, int to)
+    {
+        if (preference.applicationsList == null)
+            return;
+
+        int plFrom = preference.applicationsList.indexOf(getItem(from));
+        int plTo = preference.applicationsList.indexOf(getItem(to));
+
+        Application application = preference.applicationsList.get(plFrom);
+        preference.applicationsList.remove(plFrom);
+        preference.applicationsList.add(plTo, application);
+        notifyDataSetChanged();
+    }
+
     public View getView(int position, View convertView, ViewGroup parent)
     {
         // Application to display

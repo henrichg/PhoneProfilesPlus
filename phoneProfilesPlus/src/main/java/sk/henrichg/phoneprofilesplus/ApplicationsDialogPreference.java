@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -26,6 +27,7 @@ import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
     private MaterialDialog mDialog;
 
-    private ListView applicationsListView;
+    private DragSortListView applicationsListView;
     private LinearLayout linlaProgress;
     private RelativeLayout rellaDialog;
 
@@ -62,9 +64,9 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
         /*
         TypedArray applicationsType = context.obtainStyledAttributes(attrs,
-                R.styleable.ApplicationsPreference, 0, 0);
+                R.styleable.ApplicationsDialogPreference, 0, 0);
 
-        onlyEdit = applicationsType.getInt(R.styleable.ApplicationsPreference_onlyEdit, 0);
+        orderHandler = applicationsType.getBoolean(R.styleable.ApplicationsDialogPreference_orderHandler, false);
 
         applicationsType.recycle();
         */
@@ -148,7 +150,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
 
         AppCompatImageButton addButton = (AppCompatImageButton)layout.findViewById(R.id.applications_pref_dlg_add);
 
-        applicationsListView = (ListView) layout.findViewById(R.id.applications_pref_dlg_listview);
+        applicationsListView = (DragSortListView) layout.findViewById(R.id.applications_pref_dlg_listview);
         linlaProgress = (LinearLayout)layout.findViewById(R.id.applications_pref_dlg_linla_progress);
         rellaDialog = (RelativeLayout) layout.findViewById(R.id.applications_pref_dlg_rella_dialog);
 
@@ -175,6 +177,11 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                 startEditor(position);
             }
 
+        });
+        applicationsListView.setDropListener(new DragSortListView.DropListener() {
+            public void drop(int from, int to) {
+                listAdapter.changeItemOrder(from, to); // swap profiles
+            }
         });
 
         mDialog = mBuilder.build();
@@ -260,11 +267,13 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         if (cachedApplicationList != null)
         {
             String[] splits = value.split("\\|");
-            for (Application application : cachedApplicationList)
+            for (int i = 0; i < splits.length; i++)
             {
-                application.checked = false;
-                for (int i = 0; i < splits.length; i++)
+                Application _application = null;
+                for (Application application : cachedApplicationList)
                 {
+                    application.checked = false;
+
                     String packageName;
                     String activityName;
                     String shortcut;
@@ -311,17 +320,20 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                                     application.checked = true;
                             }
                         }
+                        _application = application;
+                        if (_application.checked)
+                            break;
                     }
                 }
-                if (application.checked) {
+                if ((_application != null) && _application.checked) {
                     Application newInfo = new Application();
 
-                    newInfo.shortcut = application.shortcut;
-                    newInfo.appLabel = application.appLabel;
-                    newInfo.packageName = application.packageName;
-                    newInfo.activityName = application.activityName;
-                    newInfo.icon = application.icon;
-                    newInfo.shortcutId = application.shortcutId;
+                    newInfo.shortcut = _application.shortcut;
+                    newInfo.appLabel = _application.appLabel;
+                    newInfo.packageName = _application.packageName;
+                    newInfo.activityName = _application.activityName;
+                    newInfo.icon = _application.icon;
+                    newInfo.shortcutId = _application.shortcutId;
 
                     //Log.d("ApplicationsDialogPreference.getValueAMSDP","app="+newInfo.appLabel);
                     applicationsList.add(newInfo);

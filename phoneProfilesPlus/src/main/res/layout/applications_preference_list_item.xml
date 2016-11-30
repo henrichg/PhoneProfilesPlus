@@ -35,44 +35,61 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" >
 
-    <ImageView
-        android:id="@+id/applications_pref_dlg_item_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:contentDescription="@string/empty_string"
-        android:padding="3dp"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/ic_launcher" />
+        <ImageView
+            android:id="@+id/applications_pref_dlg_item_drag_handle"
+            android:layout_width="25dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/empty_string"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:scaleType="center"
+            android:src="?attr/dragHandleIcon" />
 
-    <TextView
-        android:id="@+id/applications_pref_dlg_item_app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@+id/applications_pref_dlg_item_icon"
-        android:layout_toEndOf="@+id/applications_pref_dlg_item_icon"
-        android:text="@string/empty_string"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <ImageView
+            android:id="@+id/applications_pref_dlg_item_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/applications_pref_dlg_item_drag_handle"
+            android:layout_toEndOf="@+id/applications_pref_dlg_item_drag_handle"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:contentDescription="@string/empty_string"
+            android:padding="3dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/applications_pref_dlg_item_app_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_toRightOf="@+id/applications_pref_dlg_item_icon"
-        android:layout_toEndOf="@+id/applications_pref_dlg_item_icon"
-        android:layout_below="@+id/applications_pref_dlg_item_app_name"
-        android:text="@string/empty_string"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="italic" />
+        <TextView
+            android:id="@+id/applications_pref_dlg_item_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@+id/applications_pref_dlg_item_icon"
+            android:layout_toEndOf="@+id/applications_pref_dlg_item_icon"
+            android:text="@string/empty_string"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/applications_pref_dlg_item_app_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_toRightOf="@+id/applications_pref_dlg_item_icon"
+            android:layout_toEndOf="@+id/applications_pref_dlg_item_icon"
+            android:layout_below="@+id/applications_pref_dlg_item_app_name"
+            android:text="@string/empty_string"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="italic" />
 
     </RelativeLayout>
 
