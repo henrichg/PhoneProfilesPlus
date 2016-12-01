@@ -5865,7 +5865,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //db.close();
     }
 
-    void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new) {
+    void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new, boolean renameExistingCell) {
 
         // Select All Query
         final String selectQuery = "SELECT " + KEY_MC_ID + "," +
@@ -5909,7 +5909,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 MobileCell mobileCell = new MobileCell();
                 mobileCell._id = foundedDbId;
                 mobileCell._cellId = cell.cellId;
-                mobileCell._name = foundedCellName;
+                if (renameExistingCell)
+                    mobileCell._name = cell.name;
+                else
+                    mobileCell._name = foundedCellName;
                 mobileCell._new = _new && cell._new;
                 if (cell.connected)
                     mobileCell._lastConnectedTime = cell.lastConnectedTime;
@@ -6018,7 +6021,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         try {
             // updating row
-            r = db.update(TABLE_MOBILE_CELLS, values, KEY_MC_ID + " = ?",
+            r = db.update(TABLE_MOBILE_CELLS, values, KEY_MC_CELL_ID + " = ?",
                     new String[] { String.valueOf(mobileCell) });
 
             db.setTransactionSuccessful();

@@ -206,6 +206,24 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             }
         });
 
+        mCellsName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String value = mCellsName.getText().toString();
+                MDButton button = mDialog.getActionButton(DialogAction.POSITIVE);
+                button.setEnabled(!value.isEmpty());
+            }
+        });
+
         //mSeekBarHours.setRotation(180);
         //mSeekBarMinutes.setRotation(180);
         //mSeekBarSeconds.setRotation(180);
@@ -254,6 +272,11 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
+
+        String value = mCellsName.getText().toString();
+        MDButton button = mDialog.getActionButton(DialogAction.POSITIVE);
+        button.setEnabled(!value.isEmpty());
+
         mDialog.show();
 
         updateInterface(0);

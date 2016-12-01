@@ -102,7 +102,7 @@ public class MobileCellsPreference extends DialogPreference {
                             {
                                 //Log.d("MobileCellsPreference.onPositive", "2");
                                 DatabaseHandler db = DatabaseHandler.getInstance(context);
-                                db.saveMobileCellsList(cellsList, false);
+                                db.saveMobileCellsList(cellsList, false, false);
                                 persistString(value);
                             }
                         }
@@ -349,7 +349,7 @@ public class MobileCellsPreference extends DialogPreference {
                     }
                 }
 
-                db.saveMobileCellsList(_cellsList, true);
+                db.saveMobileCellsList(_cellsList, true, false);
 
                 Collections.sort(_cellsList, new SortList());
 
@@ -456,7 +456,7 @@ public class MobileCellsPreference extends DialogPreference {
                         preference.cellName.getText().toString(), true, false,
                         PhoneProfilesService.instance.phoneStateScanner.lastConnectedTime));
                 DatabaseHandler db = DatabaseHandler.getInstance(context);
-                db.saveMobileCellsList(localCellsList, true);
+                db.saveMobileCellsList(localCellsList, true, false);
 
                 preference.refreshListView(false);
             }

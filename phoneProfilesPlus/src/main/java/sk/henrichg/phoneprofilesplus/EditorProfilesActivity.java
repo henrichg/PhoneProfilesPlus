@@ -656,7 +656,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (PhoneProfilesService.instance != null) {
                     GlobalData.stopGeofenceScanner(getApplicationContext());
                     GlobalData.stopOrientationScanner(getApplicationContext());
-                    GlobalData.stopPhoneStateScanner(getApplicationContext());
+                    // no stop mobile cells scanner, must run for last connection time
+                    //GlobalData.stopPhoneStateScanner(getApplicationContext());
                 }
             }
             else

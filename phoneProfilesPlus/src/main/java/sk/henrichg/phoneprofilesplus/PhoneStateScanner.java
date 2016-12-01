@@ -209,7 +209,7 @@ class PhoneStateScanner extends PhoneStateListener {
     {
         super.onCellInfoChanged(cellInfo);
 
-        GlobalData.logE("PhoneStateScanner.onCellInfoChanged", "xxx");
+        GlobalData.logE("PhoneStateScanner.onCellInfoChanged", "telephonyManager="+telephonyManager);
 
         if (cellInfo == null)
             getAllCellInfo();
@@ -227,7 +227,7 @@ class PhoneStateScanner extends PhoneStateListener {
     public void onServiceStateChanged (ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 
-        GlobalData.logE("PhoneStateScanner.onServiceStateChanged", "serviceState="+serviceState);
+        GlobalData.logE("PhoneStateScanner.onServiceStateChanged", "telephonyManager="+telephonyManager);
 
         getRegisteredCell();
 
@@ -285,7 +285,7 @@ class PhoneStateScanner extends PhoneStateListener {
     public void onCellLocationChanged (CellLocation location) {
         super.onCellLocationChanged(location);
 
-        GlobalData.logE("PhoneStateScanner.onCellLocationChanged", "xxx");
+        GlobalData.logE("PhoneStateScanner.onCellLocationChanged", "telephonyManager="+telephonyManager);
 
         if (location == null)
             getCellLocation();
@@ -342,7 +342,7 @@ class PhoneStateScanner extends PhoneStateListener {
             List<MobileCellsData> localCellsList = new ArrayList<>();
             localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false, lastConnectedTime));
             DatabaseHandler db = DatabaseHandler.getInstance(context);
-            db.saveMobileCellsList(localCellsList, true);
+            db.saveMobileCellsList(localCellsList, true, true);
         }
     }
 
