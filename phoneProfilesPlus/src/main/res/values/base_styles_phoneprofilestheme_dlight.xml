@@ -15,13 +15,13 @@
         <item name="activityPopupBackground">@color/activityPopupBackground_phoneprofilestheme</item>
         <item name="cardShape">@drawable/card</item>
         <item name="headerCardShape">@drawable/header_card_dlight</item>
-        <item name="cardSelector">@drawable/abc_item_background_holo_light</item>
+        <item name="cardSelector">@drawable/card_selector</item>
         <item name="dragHandleIcon">@drawable/ic_drag_handle</item>
         <item name="actionProfilePrefSave">@drawable/ic_action_profile_pref_save_dark</item>
         <item name="actionProfilePrefCancel">@drawable/ic_action_profile_pref_cancel_dark</item>
         <item name="actionProfileToolBackground">@drawable/abc_item_background_holo_light</item>
         <item name="actionProfileButtonTextStyle">@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</item> 
-        <item name="navigationDrawerBackground">@color/background_material_light</item> 
+        <item name="navigationDrawerBackground">@color/navigationDrawerBackground_phoneprofiletheme</item>
         <item name="navigationDrawerText">@color/navigationDrawerTextColor_phoneprofiletheme</item>
         <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor_phoneprofiletheme</item>
         <item name="navigationDrawerSelector">@drawable/editor_drawer_selector</item>

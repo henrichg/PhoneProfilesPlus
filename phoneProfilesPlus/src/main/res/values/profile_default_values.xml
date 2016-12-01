@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress CheckTagEmptyBody -->
 <resources>
     <string name="prf_pref_profileName"></string>
     <string name="prf_pref_profileIcon">ic_profile_default|1|0|0</string>

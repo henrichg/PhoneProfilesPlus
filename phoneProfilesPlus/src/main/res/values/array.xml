@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<!--suppress CheckTagEmptyBody -->
 <string-array name="emptyArray"></string-array>
 <string-array name="phoneProfilesNavigator">
     <item>@string/array_phone_profiles_navigator_profiles</item>
     <item>@string/array_phone_profiles_navigator_events</item>
 </string-array>
-<string-array name="ringerModeArray">
+<string-array name="ringerModeArray" tools:ignore="InconsistentArrays">
     <item>@string/array_pref_no_change</item>
     <item>@string/array_pref_default_profile</item>
     <item>@string/array_pref_ringerModeArray_ring</item>
@@ -13,7 +14,7 @@
     <item>@string/array_pref_ringerModeArray_vibrate</item>
     <item>@string/array_pref_ringerModeArray_silent</item>
 </string-array>
-<string-array name="ringerModeValues">
+<string-array name="ringerModeValues" tools:ignore="InconsistentArrays">
     <item>0</item>
     <item>99</item>
     <item>1</item>
@@ -262,14 +263,14 @@
     <item>1</item>
 </string-array>
 
-<string-array name="ringerModeDPArray">
+<string-array name="ringerModeDPArray" tools:ignore="InconsistentArrays">
     <item>@string/array_pref_no_change</item>
     <item>@string/array_pref_ringerModeArray_ring</item>
     <item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
     <item>@string/array_pref_ringerModeArray_vibrate</item>
     <item>@string/array_pref_ringerModeArray_silent</item>
 </string-array>
-<string-array name="ringerModeDPValues">
+<string-array name="ringerModeDPValues" tools:ignore="InconsistentArrays">
     <item>0</item>
     <item>1</item>
     <item>2</item>
@@ -558,7 +559,7 @@
     <item>2</item>
     <item>3</item>
 </string-array>        
-<string-array name="zenModeArray">
+<string-array name="zenModeArray" tools:ignore="InconsistentArrays">
     <item>@string/array_pref_no_change</item>
     <item>@string/array_pref_default_profile</item>
     <item>@string/array_pref_zenModeArray_all</item>
@@ -567,7 +568,7 @@
     <item>@string/array_pref_zenModeArray_priorityWithVibration</item>
     <item>@string/array_pref_zenModeArray_none</item>
 </string-array>
-<string-array name="zenModeValues">
+<string-array name="zenModeValues" tools:ignore="InconsistentArrays">
     <item>0</item>
     <item>99</item>
     <item>1</item>
@@ -576,7 +577,7 @@
     <item>5</item>
     <item>3</item>
 </string-array>
-<string-array name="zenModeDPArray">
+<string-array name="zenModeDPArray" tools:ignore="InconsistentArrays">
     <item>@string/array_pref_no_change</item>
     <item>@string/array_pref_zenModeArray_all</item>
     <item>@string/array_pref_zenModeArray_allWithVibration</item>
@@ -584,7 +585,7 @@
     <item>@string/array_pref_zenModeArray_priorityWithVibration</item>
     <item>@string/array_pref_zenModeArray_none</item>
 </string-array>
-<string-array name="zenModeDPValues">
+<string-array name="zenModeDPValues" tools:ignore="InconsistentArrays">
     <item>0</item>
     <item>1</item>
     <item>4</item>
@@ -592,7 +593,7 @@
     <item>5</item>
     <item>3</item>
 </string-array>
-<string-array name="zenModeSummaryArray">
+<string-array name="zenModeSummaryArray" tools:ignore="InconsistentArrays">
     <item>@string/profile_preferences_zenMode_all_summary</item>
     <item>@string/profile_preferences_zenMode_priority_summary</item>
     <item>@string/profile_preferences_zenMode_none_summary</item>
@@ -698,12 +699,12 @@
     <item>1</item>
     <item>2</item>
 </string-array>
-<string-array name="powerSaveModeArray">
+<string-array name="powerSaveModeArray" tools:ignore="InconsistentArrays">
     <item>@string/array_pref_powerSaveMode_off</item>
     <item>@string/array_pref_powerSaveMode_5</item>
     <item>@string/array_pref_powerSaveMode_15</item>
 </string-array>
-<string-array name="powerSaveModeValues">
+<string-array name="powerSaveModeValues" tools:ignore="InconsistentArrays">
     <item>0</item>
     <item>1</item>
     <item>2</item>

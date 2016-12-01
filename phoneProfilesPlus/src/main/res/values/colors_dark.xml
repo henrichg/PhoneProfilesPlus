@@ -3,12 +3,13 @@
     <color name="profile_all_primary_dark">#202020</color>      <!-- 800 -->
     <color name="profile_all_primaryDark_dark">#141414</color> <!-- 900 -->
     <color name="profile_all_accent_dark">#DC8160</color>       <!-- A100 -->
-    
+
     <color name="activityPopupBackground_phoneprofilestheme_dark">#FF303030</color>
     <color name="activityCardBackground_phoneprofilestheme_dark">#FF202020</color>
     <color name="activityCardSelected_phoneprofilestheme_dark">#4033b5e5</color>
     <color name="navigationDrawerTextColor_phoneprofiletheme_dark">#ffffffff</color>
     <color name="navigationDrawerSubTextColor_phoneprofiletheme_dark">#80ffffff</color>
+    <color name="navigationDrawerBackground_phoneprofiletheme_dark">#FF303030</color>
     <color name="preferenceDialogBackgroud_dark">#FF000000</color>
     <color name="editorDrawerListHeaderTitleColor_dark">#FFFFFFFF</color>
     <color name="dialog_divider_dark">#10FFFFFF</color>
