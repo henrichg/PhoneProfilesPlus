@@ -25,7 +25,7 @@
         android:maxWidth="40dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_profile_default"
-        android:contentDescription="@string/empty_string"/>
+        android:contentDescription="@string/profile_preferences_profileIcon"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

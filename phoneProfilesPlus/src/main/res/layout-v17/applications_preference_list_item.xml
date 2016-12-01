@@ -20,7 +20,7 @@
             android:scaleType="center"
             android:clickable="true"
             android:background="?attr/actionProfileToolBackground"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription="@string/preference_item_edit_menu"
             android:src="?attr/editItemMenuIcon" />
 
     </LinearLayout>
@@ -38,7 +38,7 @@
             android:layout_height="45dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription="@string/preference_item_drag_handler"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:layout_marginStart="3dp"
@@ -52,7 +52,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/applications_pref_dlg_item_drag_handle"
             android:layout_marginStart="10dp"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription="@string/applications_editor_dialog_item_icon"
             android:padding="3dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/ic_launcher" />

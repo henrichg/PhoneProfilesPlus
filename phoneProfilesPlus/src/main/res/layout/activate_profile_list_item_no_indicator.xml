@@ -17,7 +17,7 @@
         android:layout_marginLeft="7dp"
         android:layout_marginStart="7dp"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/empty_string"
+        android:contentDescription="@string/profile_preferences_profileIcon"
         android:maxHeight="50dp"
         android:maxWidth="50dp"
         android:scaleType="centerCrop"

@@ -21,7 +21,7 @@
         android:layout_marginStart="3dp"
         android:layout_toEndOf="@+id/profile_pref_dlg_item_radiobtn"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/empty_string"
+        android:contentDescription="@string/profile_preferences_profileIcon"
         android:maxHeight="40dp"
         android:maxWidth="40dp"
         android:scaleType="centerCrop"

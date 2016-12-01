@@ -24,7 +24,7 @@
             android:scaleType="center"
             android:clickable="true"
             android:background="?attr/actionProfileToolBackground"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription="@string/preference_item_edit_menu"
             android:src="?attr/editItemMenuIcon" />
 
     </LinearLayout>
@@ -47,7 +47,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription="@string/editor_event_list_item_event_status"
             android:scaleType="@integer/profilePrefIndicatorScaleType"
             android:src="@drawable/ic_event_status_stop"
             android:paddingLeft="2dp"
@@ -76,7 +76,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/event_list_item_status"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription="@string/editor_event_list_item_profile_start_icon"
             android:scaleType="centerCrop"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
@@ -104,7 +104,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/event_list_item_profile_start_icon"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription="@string/editor_event_list_item_profile_end_icon"
             android:scaleType="centerCrop"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"

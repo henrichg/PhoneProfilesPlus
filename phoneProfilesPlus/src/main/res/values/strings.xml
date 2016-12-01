@@ -894,4 +894,12 @@
     <string name="mobile_cells_pref_dlg_rename_icon">Rename cell</string>
     <string name="nfc_tag_pref_dlg_add_icon">Add NFC tag</string>
     <string name="wifi_ssid_pref_dlg_add_wifi_ssid_icon">Add Wi-fi SSID</string>
+    <string name="about_application_application_icon">PhoneProfilesPlus icon</string>
+    <string name="applications_editor_dialog_item_icon">Application icon</string>
+    <string name="preference_item_edit_menu">Edit menu</string>
+    <string name="preference_item_drag_handler">Order change handler</string>
+    <string name="contacts_multiselect_pref_dlg_contact_photo">Contact photo</string>
+    <string name="editor_event_list_item_event_status">Event status indicator</string>
+    <string name="editor_event_list_item_profile_start_icon">Start of event profile icon</string>
+    <string name="editor_event_list_item_profile_end_icon">End of event profile icon</string>
 </resources>

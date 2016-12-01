@@ -24,7 +24,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="3dp"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription="@string/profile_preferences_profileIcon"
             android:maxHeight="40dp"
             android:maxWidth="40dp"
             android:scaleType="centerCrop"

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/empty_string"
+            android:contentDescription="@string/about_application_application_icon"
             android:maxHeight="60dp"
             android:maxWidth="60dp"
             android:scaleType="centerCrop"

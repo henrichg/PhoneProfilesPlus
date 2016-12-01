@@ -21,7 +21,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="3dp"
         android:layout_toEndOf="@+id/applications_multiselect_pref_dlg_item_checkbox"
-        android:contentDescription="@string/empty_string"
+        android:contentDescription="@string/applications_editor_dialog_item_icon"
         android:padding="3dp"
         android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher" />
