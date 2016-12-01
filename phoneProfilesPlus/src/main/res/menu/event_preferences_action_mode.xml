@@ -4,6 +4,5 @@
         android:title="@string/phone_preferences_actionmode_save"
         android:orderInCategory="100"
         henrichg:showAsAction="always"
-	    android:icon="?attr/actionProfilePrefSave"        
-         />
+        android:icon="?attr/actionProfilePrefSave" />
 </menu>

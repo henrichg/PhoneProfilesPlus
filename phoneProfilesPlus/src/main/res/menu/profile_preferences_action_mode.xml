@@ -1,9 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus">
+      xmlns:app="http://schemas.android.com/apk/res-auto" >
     <item android:id="@+id/profile_preferences_action_mode_save"
         android:title="@string/phone_preferences_actionmode_save"
         android:orderInCategory="100"
-        henrichg:showAsAction="always"
-	    android:icon="?attr/actionProfilePrefSave"        
-         />
+        app:showAsAction="always"
+        android:icon="?attr/actionProfilePrefSave" />
 </menu>

@@ -9,14 +9,13 @@
         app:showAsAction="ifRoom|withText"
         android:icon="?attr/actionActivityLogReloadIcon" />
     <item android:id="@+id/menu_activity_log_play_pause"
-          android:title="@string/menu_activity_log_pause"
-          android:orderInCategory="150"
-          app:showAsAction="never|withText"
-          android:icon="?attr/actionActivityLogPauseIcon" />
+        android:title="@string/menu_activity_log_pause"
+        android:orderInCategory="150"
+        app:showAsAction="never|withText"
+        android:icon="?attr/actionActivityLogPauseIcon" />
     <item android:id="@+id/menu_activity_log_clear"
-          android:title="@string/menu_activity_log_clear"
-          android:orderInCategory="200"
-          app:showAsAction="never|withText"
-          android:icon="?attr/actionDeleteAllIcon" />
-
+        android:title="@string/menu_activity_log_clear"
+        android:orderInCategory="200"
+        app:showAsAction="never|withText"
+        android:icon="?attr/actionDeleteAllIcon" />
 </menu>
