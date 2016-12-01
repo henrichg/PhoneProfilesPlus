@@ -46,7 +46,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:contentDescription="@string/preference_item_drag_handler"
+            android:contentDescription="@string/preference_item_drag_handle"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:layout_marginLeft="3dp"
