@@ -1,50 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout   xmlns:android="http://schemas.android.com/apk/res/android"
-               android:layout_width="match_parent"
-               android:layout_height="85dp" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/act_prof_list_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/act_prof_list_item_root"
+    <ImageView
+        android:id="@+id/act_prof_list_item_profile_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:maxHeight="45dp"
+        android:maxWidth="45dp"
+        android:scaleType="@integer/profilePrefIndicatorScaleType"
+        android:src="@drawable/ic_profile_default"
+        android:contentDescription="@string/empty_string"/>
+
+    <!-- space between icon and name - usefull for multiline profile name -->
+    <FrameLayout
+        android:id="@+id/act_prof_list_item_space"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-        <ImageView
-            android:id="@+id/act_prof_list_item_profile_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="2dp"
-            android:layout_gravity="center_horizontal"
-            android:adjustViewBounds="true"
-            android:maxHeight="45dp"
-            android:maxWidth="45dp"
-            android:scaleType="@integer/profilePrefIndicatorScaleType"
-            android:src="@drawable/ic_profile_default"
-            android:contentDescription="@string/empty_string"/>
+    <TextView
+        android:id="@+id/act_prof_list_item_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center_horizontal"
+        android:minLines="1"
+        android:maxLines = "2"
+        android:text="@string/profile_name_default"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="center_horizontal" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+</LinearLayout>
 
-        <TextView
-            android:id="@+id/act_prof_list_item_profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center_horizontal"
-            android:singleLine="false"
-            android:minLines="1"
-            android:maxLines = "2"
-            android:text="@string/profile_name_default"
-            android:textSize="13sp"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center_horizontal" />
-
-    </LinearLayout>
-
-</FrameLayout>

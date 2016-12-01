@@ -28,7 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/wifi_ssid_pref_dlg_item_buttons_root"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" >
 
@@ -49,6 +48,7 @@
             android:layout_toEndOf="@+id/wifi_ssid_pref_dlg_item_checkbox"
             android:layout_centerVertical="true"
             android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="@string/empty_string"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

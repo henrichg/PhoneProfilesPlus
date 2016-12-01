@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
@@ -14,7 +15,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="10dp"
         android:textSize="15sp"
-        android:text="00:00:00 - 00:05:00"/>
+        android:text="00:00:00 - 00:05:00"
+        tools:ignore="HardcodedText"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -58,7 +60,8 @@
             android:layout_marginBottom="10dp"
             android:max="24"
             android:rotation="180"
-            android:splitTrack="false" />
+            android:splitTrack="false"
+            tools:ignore="UnusedAttribute"/>
         <SeekBar
             android:id="@+id/duration_pref_dlg_minutes"
             android:layout_width="match_parent"
@@ -69,7 +72,8 @@
             android:layout_marginBottom="10dp"
             android:max="59"
             android:rotation="180"
-            android:splitTrack="false" />
+            android:splitTrack="false"
+            tools:ignore="UnusedAttribute"/>
         <SeekBar
             android:id="@+id/duration_pref_dlg_seconds"
             android:layout_width="match_parent"
@@ -80,7 +84,8 @@
             android:layout_marginBottom="12dp"
             android:max="59"
             android:rotation="180"
-            android:splitTrack="false" />
+            android:splitTrack="false"
+            tools:ignore="UnusedAttribute"/>
 
     </LinearLayout>
 
@@ -113,6 +118,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textSize="15sp"
-        android:text="00:00:00"/>
+        android:text="00:00:00"
+        tools:ignore="HardcodedText"/>
 
 </LinearLayout>

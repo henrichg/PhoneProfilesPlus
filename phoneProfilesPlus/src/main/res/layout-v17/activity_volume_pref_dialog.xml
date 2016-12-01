@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="16dip"
     android:paddingRight="16dip"
@@ -24,12 +25,14 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="1"
-        android:textSize="32sp" />
+        android:textSize="32sp"
+        tools:ignore="HardcodedText"/>
 
     <SeekBar
         android:id="@+id/volumePrefDialogSeekbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:splitTrack="false" />
+        android:splitTrack="false"
+        tools:ignore="UnusedAttribute"/>
 
 </LinearLayout>

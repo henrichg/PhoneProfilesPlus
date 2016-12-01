@@ -48,6 +48,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/bluetooth_name_pref_dlg_item_checkbox"
             android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="@string/empty_string"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

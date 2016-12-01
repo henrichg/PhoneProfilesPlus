@@ -36,7 +36,7 @@
         android:text="@string/empty_string"
         android:textSize="13sp"
         android:textStyle="bold"
-        android:singleLine="true" />
+        android:maxLines="1"/>
 
     <TextView
         android:id="@+id/contacts_multiselect_pref_dlg_item_phone_number"
@@ -47,6 +47,6 @@
         android:layout_toEndOf="@+id/contacts_multiselect_pref_dlg_item_icon"
         android:text="@string/empty_string"
         android:textSize="13sp"
-        android:singleLine="true" />
+        android:maxLines="1"/>
     
 </RelativeLayout>

@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -45,7 +46,8 @@
                 android:maxHeight="50dp"
                 android:maxWidth="50dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_profile_default" />
+                android:src="@drawable/ic_profile_default"
+                android:contentDescription="@string/profile_preferences_profileIcon"/>
 
             <Button
                 android:id="@+id/profileicon_pref_dlg_change_color"
@@ -56,7 +58,8 @@
                 android:layout_centerInParent="true"
                 android:text="@string/profileicon_pref_dialog_customColor_button"
                 android:textColor="?attr/colorAccent"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/selectableItemBackground"
+                tools:ignore="RelativeOverlap"/>
 
             <ImageView
                 android:id="@+id/profileicon_pref_dlg_helpIcon"
@@ -74,7 +77,8 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_action_profileicon_help"
                 android:background="?attr/selectableItemBackground"
-                android:clickable="true" />
+                android:clickable="true"
+                android:contentDescription="@string/menu_help"/>
 
         </RelativeLayout>
 

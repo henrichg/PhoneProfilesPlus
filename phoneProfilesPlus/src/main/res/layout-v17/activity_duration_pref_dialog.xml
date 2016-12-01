@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
@@ -14,7 +15,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:textSize="18sp"
-        android:text="00:00:00 - 00:05:00"/>
+        android:text="00:00:00 - 00:05:00"
+        tools:ignore="HardcodedText"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -34,7 +36,8 @@
             android:gravity="center"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:text=":"/>
+            android:text=":"
+            tools:ignore="HardcodedText"/>
         <NumberPicker
             android:id="@+id/duration_pref_dlg_minutes"
             android:layout_width="60dp"
@@ -48,7 +51,8 @@
             android:gravity="center"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:text=":"/>
+            android:text=":"
+            tools:ignore="HardcodedText"/>
         <NumberPicker
             android:id="@+id/duration_pref_dlg_seconds"
             android:layout_width="60dp"

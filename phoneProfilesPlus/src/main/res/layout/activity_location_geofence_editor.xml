@@ -105,7 +105,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:text="1" />
+                    android:text="1"
+                    tools:ignore="HardcodedText"/>
 
                 <SeekBar
                     android:id="@+id/location_pref_dlg_radius_seekbar"
@@ -184,7 +185,7 @@
             android:layout_marginRight="15dp"
             android:layout_alignParentBottom="true"
             android:text="@string/empty_string"
-            android:singleLine="true"/>
+            android:maxLines="1"/>
 
         <fragment android:id="@+id/location_editor_map"
                   android:name="com.google.android.gms.maps.SupportMapFragment"

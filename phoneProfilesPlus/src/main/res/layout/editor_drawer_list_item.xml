@@ -3,7 +3,8 @@
     style="?attr/spinnerDropDownItemStyle"
     android:background="?attr/navigationDrawerSelector"
     android:layout_width="match_parent"
-    android:layout_height="?attr/dropdownListPreferredItemHeight" >
+    android:layout_height="wrap_content"
+    android:padding="7dp" >
  
     <ImageView
         android:id="@+id/editor_drawer_list_item_icon"
@@ -26,11 +27,11 @@
         android:layout_toRightOf="@+id/editor_drawer_list_item_icon"
         android:layout_toEndOf="@+id/editor_drawer_list_item_icon"
         android:paddingLeft="10dp"
-        android:paddingStart="10dp"
+        android:paddingRight="10dp"
         android:ellipsize="end"
-        android:singleLine="true" />
+        android:maxLines="1"/>
     
- 	<TextView
+    <TextView
         android:id="@+id/editor_drawer_list_item_subtitle"
         android:textColor="?attr/navigationDrawerSubText"
         android:layout_width="wrap_content"
@@ -39,9 +40,9 @@
         android:layout_toRightOf="@+id/editor_drawer_list_item_icon"
         android:layout_toEndOf="@+id/editor_drawer_list_item_icon"
         android:paddingLeft="10dp"
-        android:paddingStart="10dp"
+        android:paddingRight="10dp"
         android:ellipsize="end"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceSmall" />    
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:maxLines="1"/>
  
 </RelativeLayout>

@@ -34,8 +34,8 @@
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/applications_editor_dialog_item_icon"
         android:text="@string/empty_string"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:maxLines="1"/>
 
     <TextView
         android:id="@+id/applications_editor_dialog_item_app_type"
@@ -45,8 +45,8 @@
         android:layout_toEndOf="@+id/applications_editor_dialog_item_icon"
         android:layout_below="@+id/applications_editor_dialog_item_app_name"
         android:text="@string/empty_string"
-        android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:maxLines="1"/>
 
 </RelativeLayout>

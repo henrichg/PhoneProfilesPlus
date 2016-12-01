@@ -29,7 +29,7 @@
         android:layout_toRightOf="@+id/widget_profile_list_item_profile_icon"
         android:layout_toEndOf="@+id/widget_profile_list_item_profile_icon"
         android:paddingLeft="10dp"
-        android:paddingStart="10dp"
+        android:paddingRight="10dp"
         android:shadowColor="#ff000000"
         android:shadowDx="1"
         android:shadowDy="1"
@@ -38,7 +38,7 @@
         android:textSize="15sp"
         android:textColor="#ffffffff"
         android:fontFamily="sans-serif-condensed"
-        android:singleLine="true" />
+        android:maxLines="1"/>
     
     <ImageView
         android:id="@+id/widget_profile_list_profile_pref_indicator"
@@ -52,7 +52,7 @@
         android:scaleType="@integer/profilePrefIndicatorScaleType"
         android:src="@drawable/ic_profile_pref_volume_on"
         android:paddingLeft="10dp"
-        android:paddingStart="10dp" />
+        android:paddingRight="10dp" />
     
         
 </RelativeLayout>

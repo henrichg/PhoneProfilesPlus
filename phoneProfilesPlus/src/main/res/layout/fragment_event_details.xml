@@ -58,7 +58,7 @@
                 android:scaleType="@integer/profilePrefIndicatorScaleType"
                 android:src="@drawable/ic_event_status_stop"
                 android:paddingLeft="2dp"
-                android:paddingStart="2dp"
+                android:paddingRight="2dp"
                 android:paddingTop="2dp" />
 
             <TextView
@@ -69,11 +69,10 @@
                 android:layout_toRightOf="@+id/event_detail_status"
                 android:layout_toEndOf="@+id/event_detail_status"
                 android:paddingLeft="11dp"
-                android:paddingStart="11dp"
+                android:paddingRight="11dp"
                 android:paddingTop="3dp"
                 android:text="@string/event_name_default"
                 android:textSize="15sp"
-                android:singleLine="false"
                 android:scrollHorizontally="true"
                 android:ellipsize="end" />
 
@@ -85,10 +84,10 @@
                 android:layout_toRightOf="@+id/event_detail_status"
                 android:layout_toEndOf="@+id/event_detail_status"
                 android:paddingLeft="11dp"
-                android:paddingStart="11dp"
+                android:paddingRight="11dp"
                 android:textSize="11sp"
-                android:singleLine="false"
-                android:scrollHorizontally="true" />
+                android:scrollHorizontally="true"
+                tools:ignore="SmallSp"/>
 
             <ImageView
                 android:id="@+id/event_detail_profile_start_icon"
@@ -112,10 +111,10 @@
                 android:layout_toRightOf="@+id/event_detail_profile_start_icon"
                 android:layout_toEndOf="@+id/event_detail_profile_start_icon"
                 android:paddingLeft="10dp"
-                android:paddingStart="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/profile_preference_profile_not_set"
                 android:textSize="15sp"
-                android:singleLine="true" />
+                android:maxLines="1"/>
 
             <ImageView
                 android:id="@+id/event_detail_profile_start_pref_indicator"
@@ -129,7 +128,7 @@
                 android:scaleType="@integer/profilePrefIndicatorScaleType"
                 android:src="@drawable/ic_profile_pref_volume_on"
                 android:paddingLeft="10dp"
-                android:paddingStart="10dp"
+                android:paddingRight="10dp"
                 android:layout_marginBottom="2dp" />
 
             <ImageView
@@ -154,10 +153,10 @@
                 android:layout_toRightOf="@+id/event_detail_profile_end_icon"
                 android:layout_toEndOf="@+id/event_detail_profile_end_icon"
                 android:paddingLeft="10dp"
-                android:paddingStart="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/profile_preference_profile_not_set"
                 android:textSize="15sp"
-                android:singleLine="true" />
+                android:maxLines="1"/>
 
             <ImageView
                 android:id="@+id/event_detail_profile_end_pref_indicator"
@@ -171,7 +170,7 @@
                 android:scaleType="@integer/profilePrefIndicatorScaleType"
                 android:src="@drawable/ic_profile_pref_volume_on"
                 android:paddingLeft="10dp"
-                android:paddingStart="10dp"
+                android:paddingRight="10dp"
                 android:layout_marginBottom="2dp" />
 
         </RelativeLayout>

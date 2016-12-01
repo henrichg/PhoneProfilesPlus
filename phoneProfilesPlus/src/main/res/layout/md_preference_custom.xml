@@ -30,7 +30,8 @@
         android:layout_marginRight="6dip"
         android:layout_marginStart="@dimen/md_preference_content_inset"
         android:layout_marginTop="12dip"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        tools:ignore="RtlHardcoded">
 
         <TextView
             android:id="@android:id/title"
@@ -41,9 +42,9 @@
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:fontFamily="sans-serif"
-            android:singleLine="true"
             style="@style/MD_Preference_Title"
-            tools:text="Title" />
+            tools:text="Title"
+            android:maxLines="1"/>
 
         <TextView
             android:id="@android:id/summary"
@@ -67,6 +68,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="end|right|center_vertical"
         android:gravity="center_vertical"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded"/>
 
 </LinearLayout>

@@ -52,7 +52,7 @@
             android:layout_toEndOf="@+id/mobile_cells_pref_dlg_item_checkbox"
             android:layout_toRightOf="@+id/mobile_cells_pref_dlg_item_checkbox"
             android:layout_centerVertical="true"
-            android:paddingStart="10dp"
+            android:paddingRight="10dp"
             android:paddingLeft="10dp" >
 
             <TextView

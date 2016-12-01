@@ -46,11 +46,11 @@
                 android:layout_toRightOf="@+id/act_prof_activated_profile_icon"
                 android:layout_toEndOf="@+id/act_prof_activated_profile_icon"
                 android:paddingLeft="10dp"
-                android:paddingStart="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/profile_name_default"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:singleLine="true" />
+                android:maxLines="1"/>
 
             <!--
             <ImageView
@@ -80,7 +80,7 @@
                 android:scaleType="@integer/profilePrefIndicatorScaleType"
                 android:src="@drawable/ic_profile_pref_volume_on"
                 android:paddingLeft="10dp"
-                android:paddingStart="10dp" />
+                android:paddingRight="10dp" />
 
         </RelativeLayout>
 

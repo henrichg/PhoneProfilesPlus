@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ActivatorActivity" >
+    android:orientation="vertical" >
  
-    <LinearLayout 
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="3dp"
         android:orientation="vertical"
         android:background="?attr/colorPrimary"
-        android:elevation="8dp" >
+        android:elevation="8dp"
+        tools:ignore="UnusedAttribute">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/act_prof_tollbar"

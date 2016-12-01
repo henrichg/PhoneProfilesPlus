@@ -31,10 +31,10 @@
         android:layout_toRightOf="@+id/act_prof_list_item_profile_icon"
         android:layout_toEndOf="@+id/act_prof_list_item_profile_icon"
         android:paddingLeft="10dp"
-        android:paddingStart="10dp"
+        android:paddingRight="10dp"
         android:text="@string/profile_name_default"
         android:textSize="15sp"
-        android:singleLine="true" />
+        android:maxLines="1"/>
 
     <ImageView
         android:id="@+id/act_prof_list_profile_pref_indicator"
@@ -48,7 +48,7 @@
         android:scaleType="@integer/profilePrefIndicatorScaleType"
         android:src="@drawable/ic_profile_pref_volume_on"
         android:paddingLeft="10dp"
-        android:paddingStart="10dp" />
+        android:paddingRight="10dp" />
 
 </RelativeLayout>
 

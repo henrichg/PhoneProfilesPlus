@@ -14,7 +14,8 @@
         android:maxHeight="50dp"
         android:maxWidth="50dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_profile_default" />
+        android:src="@drawable/ic_profile_default"
+        android:contentDescription="@string/empty_string"/>
 
     
 </RelativeLayout>

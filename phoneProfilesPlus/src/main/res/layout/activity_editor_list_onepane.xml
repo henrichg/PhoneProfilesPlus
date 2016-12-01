@@ -25,8 +25,7 @@
             android:layout_alignParentTop="true"
             android:paddingBottom="3dp"
             android:orientation="vertical"
-            android:background="?attr/colorPrimary"
-            android:elevation="8dp" >
+            android:background="?attr/colorPrimary" >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/editor_tollbar"
@@ -51,11 +50,13 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/editor_list_run_stop_indicator"
+                        android:layout_toLeftOf="@+id/editor_list_run_stop_indicator"
                         android:layout_centerVertical="true"
                         android:ellipsize="end"
-                        android:singleLine="true"
                         android:textColor="@android:color/white"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:maxLines="1"/>
 
                     <ImageView
                         android:id="@+id/editor_list_run_stop_indicator"
@@ -103,11 +104,11 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginStart="5dp"
                     android:ellipsize="end"
-                    android:singleLine="true"
                     android:textSize="14sp"
                     android:textColor="@android:color/white"
                     android:clickable="true"
-                    android:text="@string/editor_drawer_order_label" />
+                    android:text="@string/editor_drawer_order_label"
+                    android:maxLines="1"/>
 
                 <Spinner
                     android:id="@+id/editor_list_bottom_bar_order"
@@ -152,7 +153,6 @@
         style="@style/NavDrawer"
         android:background="?attr/navigationDrawerBackground"
         android:fitsSystemWindows="true"
-        android:elevation="8dp"
         app:insetForeground="#4000" >
 
         <RelativeLayout

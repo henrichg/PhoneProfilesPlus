@@ -1,77 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="5dp" >
-   
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="1dp" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="6dp" >
 
-        <ImageView
-            android:id="@+id/notification_activated_profile_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/empty_string"
-            android:maxHeight="48dp"
-            android:maxWidth="48dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_profile_default" />
+    <ImageView
+        android:id="@+id/notification_activated_profile_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string"
+        android:maxHeight="48dp"
+        android:maxWidth="48dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_profile_default" />
 
-        <TextView
-            android:id="@+id/notification_activated_profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp"
-            android:layout_toRightOf="@+id/notification_activated_profile_icon"
-            android:layout_toEndOf="@+id/notification_activated_profile_icon"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp"
-            android:text="@string/profile_name_default"
-            android:textAppearance="@style/NotificationTitle"
-            android:singleLine="true" />
+    <TextView
+        android:id="@+id/notification_activated_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/notification_activated_profile_icon"
+        android:layout_toEndOf="@+id/notification_activated_profile_icon"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="@string/profile_name_default"
+        android:textAppearance="@style/NotificationTitle"
+        android:maxLines="1"
+        tools:ignore="RelativeOverlap"/>
 
-        <ImageView
-            android:id="@+id/notification_activated_profile_pref_indicator"
-            android:layout_width="200dp"
-            android:layout_height="15dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginStart="3dp"
-            android:layout_below="@+id/notification_activated_profile_name"
-            android:layout_toRightOf="@+id/notification_activated_profile_icon"
-            android:layout_toEndOf="@+id/notification_activated_profile_icon"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/empty_string"
-            android:scaleType="@integer/profilePrefIndicatorScaleType"
-            android:src="@drawable/ic_empty"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp" />
+    <ImageView
+        android:id="@+id/notification_activated_profile_pref_indicator"
+        android:layout_width="200dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_below="@+id/notification_activated_profile_name"
+        android:layout_toRightOf="@+id/notification_activated_profile_icon"
+        android:layout_toEndOf="@+id/notification_activated_profile_icon"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string"
+        android:scaleType="@integer/profilePrefIndicatorScaleType"
+        android:src="@drawable/ic_empty"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
-        <ImageView
-            android:id="@+id/notification_activated_profile_restart_events"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
-            android:layout_marginEnd="3dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/menu_restart_events"
-            android:maxHeight="48dp"
-            android:maxWidth="48dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_action_events_restart_dark" />
+    <ImageView
+        android:id="@+id/notification_activated_profile_restart_events"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/menu_restart_events"
+        android:maxHeight="48dp"
+        android:maxWidth="48dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_action_events_restart_dark" />
 
-    </RelativeLayout>
+</RelativeLayout>
 
-</LinearLayout>		

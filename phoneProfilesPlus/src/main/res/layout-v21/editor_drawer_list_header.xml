@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- FrameLayout is used for proper header height -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:background="?attr/editorDrawerListHeaderBackground"
         android:layout_width="match_parent"
-        android:layout_height="105dp" >
+        android:layout_height="105dp"
+        tools:ignore="UselessParent">
 
         <ImageView
             android:id="@+id/editor_drawer_list_header_icon_bg"
@@ -41,9 +43,10 @@
             android:layout_toEndOf="@+id/editor_drawer_list_header_icon_bg"
             android:paddingTop="39dp"
             android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:ellipsize="end"
-            android:singleLine="true"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:maxLines="1"/>
 
         <TextView
             android:id="@+id/editor_drawer_list_header_subtitle"
@@ -52,10 +55,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/editor_drawer_list_header_icon_bg"
             android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:paddingTop="0dp"
             android:ellipsize="end"
-            android:singleLine="true"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:maxLines="1"/>
 
     </RelativeLayout>
 

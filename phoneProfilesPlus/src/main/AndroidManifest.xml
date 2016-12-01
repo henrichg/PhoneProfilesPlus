@@ -9,16 +9,7 @@
         2322 = keep checked "Use Priority event parameter"
         2400 = start About application alarm for notification "Please donate me."
     -->
-
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
-
-
-    <!--
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="25" />
-    -->
-    <!-- <uses-sdk tools:overrideLibrary="no.nordicsemi.android.support.v18.scanner"/> -->
 
     <supports-screens
         android:anyDensity="true"

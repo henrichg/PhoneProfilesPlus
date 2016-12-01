@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_profile_list_root"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/widget_profile_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:divider="@android:color/transparent"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay" />
 
-        <ListView
-            android:id="@+id/widget_profile_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dip"
-            android:divider="@android:color/transparent"
-            android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay" />
+    <TextView
+        android:id="@+id/widget_profiles_list_empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:shadowColor="#ff000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="3"
+        android:text="@string/profile_list_empty"
+        android:gravity="center"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/widget_profiles_list_empty"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:shadowColor="#ff000000"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="3"
-            android:text="@string/profile_list_empty"
-            android:gravity="center"
-            android:fontFamily="sans-serif-condensed"
-            android:textSize="15sp" />
-
-
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

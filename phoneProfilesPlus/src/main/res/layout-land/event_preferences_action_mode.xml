@@ -29,10 +29,10 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="9dp"
         android:layout_marginStart="9dp"
-        android:singleLine="true"
         android:layout_toRightOf="@+id/event_preferences_action_menu_cancel"
         android:layout_toEndOf="@+id/event_preferences_action_menu_cancel"
         android:text="@string/profile_name_default"
-        style="?attr/actionProfileButtonTextStyle" />
+        style="?attr/actionProfileButtonTextStyle"
+        android:maxLines="1"/>
     
 </RelativeLayout>

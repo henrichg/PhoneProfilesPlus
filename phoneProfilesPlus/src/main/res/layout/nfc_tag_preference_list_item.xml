@@ -53,7 +53,7 @@
             android:layout_toEndOf="@+id/nfc_tag_pref_dlg_item_checkbox"
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
-            android:paddingStart="10dp"
+            android:paddingRight="10dp"
             android:text="@string/empty_string"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

@@ -26,6 +26,6 @@
         android:layout_toEndOf="@+id/days_of_week_pref_dlg_item_checkbox"
         android:text="@string/empty_string"
         android:textSize="17sp"
-        android:singleLine="true" />
+        android:maxLines="1"/>
 
 </RelativeLayout>

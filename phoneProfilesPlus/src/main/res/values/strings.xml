@@ -889,4 +889,8 @@
     <string name="important_into_xiaomi_no_restrictions">When you have Xiaomi device, please set \"No restrictions\" for PhoneProfilesPlus in \"Settings\"→\"Battery &amp; performance\"→\"Manager apps battery usage\"→\"Choose apps\". Without this, application will not work correctly.</string>
     <string name="important_into_samsung_no_save_power">When you have Samsung device, please turn off \"App power saving\" for PhoneProfilesPlus in \"Settings\"→\"Battery\"→\"App power saving\"→\"Detail\". Without this, application will not work correctly.</string>
     <string name="mobile_cells_pref_dlg_last_connected">connected:</string>
+    <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Add Bluetooth name</string>
+    <string name="mobile_cells_pref_dlg_rename_icon">Rename cell</string>
+    <string name="nfc_tag_pref_dlg_add_icon">Add NFC tag</string>
+    <string name="wifi_ssid_pref_dlg_add_wifi_ssid_icon">Add Wi-fi SSID</string>
 </resources>

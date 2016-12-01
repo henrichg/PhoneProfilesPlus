@@ -4,6 +4,5 @@
     android:id="@+id/activity_event_preferences_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EventPreferencesActivity"
     tools:ignore="MergeRootFrame"
     android:fitsSystemWindows="true" />

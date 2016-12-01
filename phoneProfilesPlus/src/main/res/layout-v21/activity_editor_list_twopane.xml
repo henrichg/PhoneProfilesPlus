@@ -47,10 +47,11 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/editor_list_run_stop_indicator"
                         android:ellipsize="end"
-                        android:singleLine="true"
                         android:textSize="15sp"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:maxLines="1"/>
 
                     <ImageView
                         android:id="@+id/editor_list_run_stop_indicator"
@@ -94,11 +95,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:ellipsize="end"
-                    android:singleLine="true"
                     android:textSize="14sp"
                     android:textColor="@android:color/white"
                     android:clickable="true"
-                    android:text="@string/editor_drawer_order_label" />
+                    android:text="@string/editor_drawer_order_label"
+                    android:maxLines="1"/>
 
                 <Spinner
                     android:id="@+id/editor_list_bottom_bar_order"

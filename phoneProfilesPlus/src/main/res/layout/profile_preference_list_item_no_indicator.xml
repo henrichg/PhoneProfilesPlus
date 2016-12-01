@@ -45,10 +45,10 @@
             android:layout_marginLeft="3dp"
             android:layout_marginStart="3dp"
             android:paddingLeft="10dp"
-            android:paddingStart="10dp"
+            android:paddingRight="10dp"
             android:text="@string/profile_name_default"
             android:textSize="15sp"
-            android:singleLine="true" />
+            android:maxLines="1"/>
 
     </LinearLayout>
 
