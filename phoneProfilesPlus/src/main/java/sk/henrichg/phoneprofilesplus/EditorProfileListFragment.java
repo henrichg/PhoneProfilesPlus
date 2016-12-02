@@ -193,16 +193,16 @@ public class EditorProfileListFragment extends Fragment {
                     case R.id.menu_delete_all_profiles:
                         deleteAllProfiles();
                         return true;
-                    case R.id.menu_default_profile:
+                    /*case R.id.menu_default_profile:
                         // start preferences activity for default profile
                         Intent intent = new Intent(getActivity().getBaseContext(), ProfilePreferencesFragmentActivity.class);
                         intent.putExtra(GlobalData.EXTRA_PROFILE_ID, GlobalData.DEFAULT_PROFILE_ID);
                         intent.putExtra(GlobalData.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
                         intent.putExtra(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
                         getActivity().startActivityForResult(intent, GlobalData.REQUEST_CODE_PROFILE_PREFERENCES);
-                        return true;
+                        return true;*/
                     case R.id.important_info:
-                        intent = new Intent(getActivity().getBaseContext(), ImportantInfoActivity.class);
+                        Intent intent = new Intent(getActivity().getBaseContext(), ImportantInfoActivity.class);
                         getActivity().startActivity(intent);
                         return true;
                 }

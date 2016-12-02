@@ -957,7 +957,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if ((resultCode == RESULT_OK) && (data != null))
             {
-                // redraw list fragment after finish ProfilePreferencesFragmentActivity
                 long profile_id = data.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
                 int newProfileMode = data.getIntExtra(GlobalData.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
                 int predefinedProfileIndex = data.getIntExtra(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, 0);

@@ -902,4 +902,5 @@
     <string name="editor_event_list_item_event_status">Event status indicator</string>
     <string name="editor_event_list_item_profile_start_icon">Start of event profile icon</string>
     <string name="editor_event_list_item_profile_end_icon">End of event profile icon</string>
+    <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Source profile. Click here to configure the Source profile parameters.</string>
 </resources>

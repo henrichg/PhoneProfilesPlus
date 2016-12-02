@@ -228,6 +228,7 @@
             android:id="@+id/activity_info_profile_activation11"
             android:textStyle="bold" />
 
+        <!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -241,6 +242,7 @@
             android:id="@+id/activity_info_notification_dialog_info_text41"
             android:drawableEnd="?attr/actionSourceProfileIconInverse"
             android:drawablePadding="4dp" />
+        -->
 
         <TextView
             android:layout_width="wrap_content"

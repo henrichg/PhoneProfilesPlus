@@ -48,6 +48,11 @@
             android:title="@string/profile_preferences_askForDuration"
             android:defaultValue="@bool/prf_pref_askForDuration" />
     </PreferenceScreen>
+    <Preference
+        android:key="prf_pref_sourceProfileInfo"
+        android:title="@string/title_activity_default_profile_preferences"
+        android:summary="@string/profile_preferences_sourceProfileInfo_summary"
+        android:widgetLayout="@layout/start_activity_preference" />
     <PreferenceScreen
         android:title="@string/profile_preferences_category_sound_profile"
         android:key="prf_pref_soundProfileCategory"
