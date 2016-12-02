@@ -370,7 +370,7 @@ public class EditorEventListFragment extends Fragment {
         onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
-    public void runStopEvent(Event event)
+    void runStopEvent(Event event)
     {
         if (GlobalData.getGlobalEventsRuning(dataWrapper.context)) {
             // events are not globally stopped

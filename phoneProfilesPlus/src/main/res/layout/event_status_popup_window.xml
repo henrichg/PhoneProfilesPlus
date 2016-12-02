@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/event_string_0"
+            android:textStyle="bold"
+            android:id="@+id/event_status_popup_window_text0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_notification_event_states"
+            android:id="@+id/event_status_popup_window_text1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="@string/info_notification_event_states_running"
+            android:id="@+id/event_status_popup_window_text2"
+            android:drawableLeft="@drawable/ic_event_status_running"
+            android:drawableStart="@drawable/ic_event_status_running"
+            android:drawablePadding="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="@string/info_notification_event_states_paused"
+            android:id="@+id/event_status_popup_window_text3"
+            android:drawableLeft="@drawable/ic_event_status_pause"
+            android:drawableStart="@drawable/ic_event_status_pause"
+            android:drawablePadding="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="@string/info_notification_event_states_paused_delay"
+            android:id="@+id/event_status_popup_window_text4"
+            android:drawableLeft="@drawable/ic_event_status_pause_delay"
+            android:drawableStart="@drawable/ic_event_status_pause_delay"
+            android:drawablePadding="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:text="@string/info_notification_event_states_running_delay"
+            android:id="@+id/event_status_popup_window_text5"
+            android:drawableLeft="@drawable/ic_event_status_running_delay"
+            android:drawableStart="@drawable/ic_event_status_running_delay"
+            android:drawablePadding="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/info_notification_event_states_stopped"
+            android:id="@+id/event_status_popup_window_text6"
+            android:drawableLeft="@drawable/ic_event_status_stop"
+            android:drawableStart="@drawable/ic_event_status_stop"
+            android:drawablePadding="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/run_stop_indicator_popup_window_important_infos"
+            android:id="@+id/event_status_popup_window_text7" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/event_status_popup_window_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:checked="false"
+            android:focusable="false"
+            android:text="@string/event_list_item_menu_run" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

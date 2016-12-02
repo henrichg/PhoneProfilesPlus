@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
+
 import java.util.List;
 
 class EditorEventListAdapter extends BaseAdapter
@@ -524,6 +526,16 @@ class EditorEventListAdapter extends BaseAdapter
                         fragment.showEditMenu(eventItemEditMenu);
                     }
                 });
+
+            final ImageView _eventStatus = holder.eventStatus;
+            holder.eventStatus.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EventStatusPopupWindow popup = new EventStatusPopupWindow(fragment, event);
+                    popup.showOnAnchor(_eventStatus, RelativePopupWindow.VerticalPosition.ABOVE,
+                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT);
+                }
+            });
 
         }
         
