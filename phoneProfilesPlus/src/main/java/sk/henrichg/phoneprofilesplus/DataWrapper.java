@@ -3088,4 +3088,48 @@ public class DataWrapper {
         }
     }
 
+    void runStopEvents() {
+        if (GlobalData.getGlobalEventsRuning(context))
+        {
+            //noinspection ConstantConditions
+            addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
+
+            // no setup for next start
+            resetAllEventsInDelayStart(false);
+            resetAllEventsInDelayEnd(false);
+            // no set system events, unblock all events, no activate return profile
+            pauseAllEvents(true, false/*, false*/);
+            GlobalData.setGlobalEventsRuning(context, false);
+            // stop Wifi scanner
+            WifiScanAlarmBroadcastReceiver.initialize(context);
+            WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+            // stop bluetooth scanner
+            BluetoothScanAlarmBroadcastReceiver.initialize(context);
+            BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+            // stop geofences scanner
+            GeofenceScannerAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
+            if (PhoneProfilesService.instance != null) {
+                GlobalData.stopGeofenceScanner(context);
+                GlobalData.stopOrientationScanner(context);
+                // no stop mobile cells scanner, must run for last connection time
+                //GlobalData.stopPhoneStateScanner(getApplicationContext());
+            }
+        }
+        else
+        {
+            //noinspection ConstantConditions
+            addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
+
+            GlobalData.setGlobalEventsRuning(context, true);
+
+            if (PhoneProfilesService.instance != null) {
+                GlobalData.startGeofenceScanner(context);
+                GlobalData.startOrientationScanner(context);
+                GlobalData.startPhoneStateScanner(context);
+            }
+
+            // setup for next start
+            firstStartEvents(false);
+        }
+    }
 }

@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.File;
@@ -364,6 +365,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerLayout.setDrawerListener(drawerToggle);
         
         filterStatusbarTitle = (TextView) findViewById(R.id.editor_filter_title);
+        filterStatusbarTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(drawerRoot);
+            }
+        });
        
         orderSpinner = (Spinner) findViewById(R.id.editor_list_bottom_bar_order);
         ArrayAdapter<CharSequence> orderSpinneAadapter = ArrayAdapter.createFromResource(
@@ -433,6 +440,14 @@ public class EditorProfilesActivity extends AppCompatActivity
     */
 
         eventsRunStopIndicator = (ImageView)findViewById(R.id.editor_list_run_stop_indicator);
+        eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorProfilesActivity.this);
+                popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.BELOW,
+                        RelativePopupWindow.HorizontalPosition.ALIGN_LEFT);
+            }
+        });
         
         // set drawer item and order
         if ((savedInstanceState != null) || (GlobalData.applicationEditorSaveEditorState))
@@ -634,48 +649,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             return true;
         case R.id.menu_run_stop_events:
             DataWrapper dataWrapper = getDataWrapper();
-            if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
-            {
-                //noinspection ConstantConditions
-                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
+            if (dataWrapper != null)
+                dataWrapper.runStopEvents();
 
-                // no setup for next start
-                dataWrapper.resetAllEventsInDelayStart(false);
-                dataWrapper.resetAllEventsInDelayEnd(false);
-                // no set system events, unblock all events, no activate return profile
-                dataWrapper.pauseAllEvents(true, false/*, false*/);
-                GlobalData.setGlobalEventsRuning(getApplicationContext(), false);
-                // stop Wifi scanner
-                WifiScanAlarmBroadcastReceiver.initialize(getApplicationContext());
-                WifiScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
-                // stop bluetooth scanner
-                BluetoothScanAlarmBroadcastReceiver.initialize(getApplicationContext());
-                BluetoothScanAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
-                // stop geofences scanner
-                GeofenceScannerAlarmBroadcastReceiver.removeAlarm(getApplicationContext()/*, false*/);
-                if (PhoneProfilesService.instance != null) {
-                    GlobalData.stopGeofenceScanner(getApplicationContext());
-                    GlobalData.stopOrientationScanner(getApplicationContext());
-                    // no stop mobile cells scanner, must run for last connection time
-                    //GlobalData.stopPhoneStateScanner(getApplicationContext());
-                }
-            }
-            else
-            {
-                //noinspection ConstantConditions
-                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
-
-                GlobalData.setGlobalEventsRuning(getApplicationContext(), true);
-
-                if (PhoneProfilesService.instance != null) {
-                    GlobalData.startGeofenceScanner(getApplicationContext());
-                    GlobalData.startOrientationScanner(getApplicationContext());
-                    GlobalData.startPhoneStateScanner(getApplicationContext());
-                }
-
-                // setup for next start
-                dataWrapper.firstStartEvents(false);
-            }
             invalidateOptionsMenu();
             refreshGUI(false, true);
             return true;

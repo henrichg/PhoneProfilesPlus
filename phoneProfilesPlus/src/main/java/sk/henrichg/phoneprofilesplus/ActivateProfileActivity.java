@@ -12,13 +12,18 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 
+import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
+
 public class ActivateProfileActivity extends AppCompatActivity {
 
     private static ActivateProfileActivity instance;
+
+    private ImageView eventsRunStopIndicator;
 
     @SuppressLint("NewApi")
     @SuppressWarnings({ "deprecation" })
@@ -137,6 +142,16 @@ public class ActivateProfileActivity extends AppCompatActivity {
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(R.string.title_activity_activator);
 
+        eventsRunStopIndicator = (ImageView)findViewById(R.id.act_prof_run_stop_indicator);
+        eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), ActivateProfileActivity.this);
+                popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.BELOW,
+                        RelativePopupWindow.HorizontalPosition.ALIGN_LEFT);
+            }
+        });
+
         refreshGUI(false);
 
     //-----------------------------------------------------------------------------------------		
@@ -223,15 +238,16 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
             return true;
         case R.id.menu_restart_events:
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
+            DataWrapper dataWrapper = getDataWrapper();
+            if (dataWrapper != null) {
+                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
-
-            // ignoruj manualnu aktivaciu profilu
-            // a odblokuj forceRun eventy
-            GlobalData.logE("$$$ restartEvents","from ActivateProfileActivity.onOptionsItemSelected menu_restart_events");
-            dataWrapper.restartEventsWithAlert(this);
-            dataWrapper.invalidateDataWrapper();
+                // ignoruj manualnu aktivaciu profilu
+                // a odblokuj forceRun eventy
+                GlobalData.logE("$$$ restartEvents", "from ActivateProfileActivity.onOptionsItemSelected menu_restart_events");
+                dataWrapper.restartEventsWithAlert(this);
+                dataWrapper.invalidateDataWrapper();
+            }
             return true;
         default:
             return super.onOptionsItemSelected(item);
@@ -261,10 +277,17 @@ public class ActivateProfileActivity extends AppCompatActivity {
         }
     }
 
+    private DataWrapper getDataWrapper()
+    {
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
+        if (fragment != null)
+            return ((ActivateProfileListFragment)fragment).dataWrapper;
+        else
+            return null;
+    }
+
     public void setEventsRunStopIndicator()
     {
-        ImageView eventsRunStopIndicator = (ImageView)findViewById(R.id.act_prof_run_stop_indicator);
-
         if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
         {
             if (GlobalData.getEventsBlocked(getApplicationContext()))

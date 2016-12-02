@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ActivateProfileListFragment extends Fragment {
 
-    private DataWrapper dataWrapper;
+    DataWrapper dataWrapper;
     private List<Profile> profileList = null;
     private ActivateProfileListAdapter profileListAdapter = null;
     private ListView listView = null;
