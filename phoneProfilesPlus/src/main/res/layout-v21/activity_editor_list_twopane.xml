@@ -61,7 +61,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
                         android:adjustViewBounds="true"
-                        android:contentDescription="@string/empty_string"
+                        android:contentDescription="@string/run_stop_events_indicator"
                         android:maxHeight="15dp"
                         android:maxWidth="50dp"
                         android:scaleType="centerCrop"
