@@ -362,7 +362,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                   }
             }            
         };
-        drawerLayout.setDrawerListener(drawerToggle);
+        drawerLayout.addDrawerListener(drawerToggle);
         
         filterStatusbarTitle = (TextView) findViewById(R.id.editor_filter_title);
         filterStatusbarTitle.setOnClickListener(new View.OnClickListener() {
