@@ -903,5 +903,7 @@
     <string name="editor_event_list_item_profile_start_icon">Start of event profile icon</string>
     <string name="editor_event_list_item_profile_end_icon">End of event profile icon</string>
     <string name="profile_preferences_sourceProfileInfo_summary">For each profile parameter can be set that it is used Source profile. Click here to configure the Source profile parameters.</string>
-    <string name="run_stop_events_indicator">Global events run/stop indicator</string>
+    <string name="run_stop_events_indicator">Enable/stop events run indicator</string>
+    <string name="run_stop_indicator_popup_window_important_infos">For more informations look at \"Important info\" (question mark icon in Editor bottom toolbar).</string>
+    <string name="important_info_how_to_show_ppp">This important info can be viewed In Editor through the question mark icon in the bottom toolbar.</string>
 </resources>
