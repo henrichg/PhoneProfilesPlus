@@ -897,7 +897,7 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">unsupported secure lock</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">can\'t be change</string>
     <string name="event_preferences_sensorsInfo_title">Sensors functionality</string>
-    <string name="event_preferences_sensorsInfo_summary">Parameters of all sensors with \"Enable sensor\" parameter checked, must be fulfilled for start of event. Check \"Enable sensor\" only for needed sensors for this event. Sensor name with \"Enable sensor\" checked is marked with bold text.\nSome sensor parameters are required. Required parameter name is marked with underline text. If any required parameter is not configured, event will not be started and parameter \"Enable sensor\" is unchecked.</string>
+    <string name="event_preferences_sensorsInfo_summary">Event will be started, if parameters of all sensors with \"Enable sensor\" parameter checked, are fulfilled. Running event will be ended, if any sensor parameter is not fulfilled. Check \"Enable sensor\" only for needed sensors for this event. Sensor name with \"Enable sensor\" checked is marked with bold text.\nSome sensor parameters are required. Required parameter name is marked with underline text. If any required parameter is not configured, event will not be started and parameter \"Enable sensor\" is unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not supports colorful icons in status bar.</string>
     <string name="pref_dlg_change_selection_title">Change selection</string>
@@ -909,4 +909,5 @@
     <string name="array_pref_change_selection_bluetooth_name_select_by_name">Select by bluetooth name</string>
     <string name="array_pref_change_selection_nfc_tags_select_by_name">Select by NFC tag name</string>
     <string name="event_preferences_enable_sensor">Enable sensor</string>
+    <string name="info_preference_click_here">Click here for show infomations</string>
 </resources>
