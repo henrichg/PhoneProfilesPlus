@@ -105,6 +105,11 @@
     <PreferenceCategory
         android:title="@string/event_preferences_category_sensors"
         android:key="eventEventsCategory" >
+        <Preference
+            android:key="eventSensorsInfo"
+            android:title="@string/event_preferences_sensorsInfo_title"
+            android:summary="@string/event_preferences_sensorsInfo_summary"
+            android:widgetLayout="@layout/info_preference" />
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventTimeParameters"
             android:key="eventTimeCategory"
