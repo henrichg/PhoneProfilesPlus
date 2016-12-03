@@ -116,7 +116,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventTimeEnabled"
-                android:title="@string/event_preferences_time_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <sk.henrichg.phoneprofilesplus.DaysOfWeekPreference
                 android:key="eventTimeDays"
@@ -152,7 +152,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventCalendarEnabled"
-                android:title="@string/event_preferences_calendar_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreference
                 android:key="eventCalendarCalendars"
@@ -196,7 +196,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventBatteryEnabled"
-                android:title="@string/event_preferences_battery_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <sk.henrichg.phoneprofilesplus.NumberPickerPreference
                 android:key="eventBatteryLevelLow"
@@ -231,7 +231,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventCallEnabled"
-                android:title="@string/event_preferences_call_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_call_event"
@@ -268,7 +268,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventSMSEnabled"
-                android:title="@string/event_preferences_sms_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
     <!-- 		<ListPreference android:title="@string/event_preferences_sms_event"
                 android:summary="@string/array_event_pref_incoming_sms"
@@ -317,7 +317,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventLocationEnabled"
-                android:title="@string/event_preferences_locations_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <Preference
                 android:key="eventLocationScanningSystemSettings"
@@ -344,7 +344,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventWiFiEnabled"
-                android:title="@string/event_preferences_wifi_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <Preference
                 android:key="eventEnableWiFiScaningAppSettings"
@@ -374,7 +374,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventBluetoothEnabled"
-                android:title="@string/event_preferences_bluetooth_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <Preference
                 android:key="eventEnableBluetoothScaningAppSettings"
@@ -413,7 +413,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventMobileCellsEnabled"
-                android:title="@string/event_preferences_mobile_cells_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <Preference
                 android:key="eventMobileCellsScaningAppSettings"
@@ -439,7 +439,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventPeripheralEnabled"
-                android:title="@string/event_preferences_peripheral_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_peripheral_type"
@@ -457,7 +457,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventScreenEnabled"
-                android:title="@string/event_preferences_screen_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_screen_event_type"
@@ -480,7 +480,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventNotificationEnabled"
-                android:title="@string/event_preferences_notifications_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <Preference
                 android:key="eventNotificationNotificationsAccessSettings"
@@ -522,7 +522,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventApplicationEnabled"
-                android:title="@string/event_preferences_applications_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <Preference
                 android:key="eventApplicationAccessibilitySettings"
@@ -545,7 +545,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventOrientationEnabled"
-                android:title="@string/event_preferences_orientation_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <Preference
                 android:key="eventEnableOrientationScanningAppSettings"
@@ -600,7 +600,7 @@
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventNFCEnabled"
-                android:title="@string/event_preferences_nfc_enabled"
+                android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false" />
             <sk.henrichg.phoneprofilesplus.NFCTagPreference
                 android:defaultValue=""
