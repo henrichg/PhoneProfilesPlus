@@ -304,7 +304,7 @@ class EventPreferencesTime extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                        ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

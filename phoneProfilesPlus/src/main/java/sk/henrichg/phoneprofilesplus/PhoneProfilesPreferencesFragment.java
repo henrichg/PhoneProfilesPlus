@@ -158,7 +158,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             editor.commit();
             Preference preference = prefMng.findPreference("wifiScanningCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                    ": "+GlobalData.getNotAllowedPreferenceReasonString(getActivity()));
             preference.setEnabled(false);
         }
 
@@ -176,7 +176,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             editor.commit();
             Preference preference = prefMng.findPreference("bluetoothScanninCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                    ": "+GlobalData.getNotAllowedPreferenceReasonString(getActivity()));
             preference.setEnabled(false);
         }
 
@@ -185,7 +185,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         {
             Preference preference = prefMng.findPreference("orientationScanningCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                    ": "+GlobalData.getNotAllowedPreferenceReasonString(getActivity()));
             preference.setEnabled(false);
         }
         if (GlobalData.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, preferencesActivity.getApplicationContext())
@@ -193,7 +193,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         {
             Preference preference = prefMng.findPreference("mobileCellsScanningCategory");
             preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                    ": "+GlobalData.getNotAllowedPreferenceReasonString(getActivity()));
             preference.setEnabled(false);
         }
 

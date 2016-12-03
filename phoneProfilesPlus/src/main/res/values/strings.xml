@@ -906,4 +906,9 @@
     <string name="run_stop_events_indicator">Enable/stop events run indicator</string>
     <string name="run_stop_indicator_popup_window_important_infos">For more informations look at \"Important info\" (question mark icon in Editor bottom toolbar).</string>
     <string name="important_info_how_to_show_ppp">This important info can be viewed In Editor through the question mark icon in the bottom toolbar.</string>
+    <string name="preference_not_allowed_reason_not_supported_by_application">not supported by application</string>
+    <string name="preference_not_allowed_reason_detail_old_android">old Android version</string>
+    <string name="preference_not_allowed_reason_detail_network_type">unsupported network type or can\'t be change</string>
+    <string name="preference_not_allowed_reason_detail_secure_lock">unsupported secure lock</string>
+    <string name="preference_not_allowed_reason_detail_cant_be_change">can\'t be change</string>
 </resources>

@@ -843,7 +843,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     listPreference.setEnabled(false);
                     if (canChange == GlobalData.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                                ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
                     GUIData.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
@@ -868,19 +868,16 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
             if (listPreference != null) {
-                boolean secureKeyguard;
-                KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Activity.KEYGUARD_SERVICE);
-                if (android.os.Build.VERSION.SDK_INT >= 16)
-                    secureKeyguard = keyguardManager.isKeyguardSecure();
-                else
-                    secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
-                listPreference.setEnabled(!secureKeyguard);
-                if (secureKeyguard) {
+                int canChange = GlobalData.isProfilePreferenceAllowed(key, context);
+                if (canChange != GlobalData.PREFERENCE_ALLOWED) {
+                    listPreference.setEnabled(false);
+                    if (canChange == GlobalData.PREFERENCE_NOT_ALLOWED)
+                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                                ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
                     GUIData.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
-                    listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                            ": "+getResources().getString(R.string.preference_not_allowed_reason_not_supported));
-                } else {
+                }
+                else {
                     String sValue = value.toString();
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -947,7 +944,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     listPreference.setEnabled(false);
                     if (canChange == GlobalData.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+getResources().getString(GlobalData.getNotAllowedPreferenceReasonString()));
+                                ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
                     GUIData.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 } else {
