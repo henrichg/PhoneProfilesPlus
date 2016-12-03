@@ -7,50 +7,56 @@
     android:layout_height="wrap_content"
     app:cardUseCompatPadding="true">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/important_info_profile_activation_traffic_light_icon"
-            android:id="@+id/run_stop_indicator_popup_window_text1"
-            android:drawablePadding="6dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/important_info_profile_activation_text9"
-            android:id="@+id/run_stop_indicator_popup_window_text2" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/important_info_profile_activation_text10"
-            android:id="@+id/run_stop_indicator_popup_window_text3" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:text="@string/important_info_profile_activation_text11"
-            android:id="@+id/run_stop_indicator_popup_window_text4" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:text="@string/run_stop_indicator_popup_window_important_infos"
-            android:id="@+id/run_stop_indicator_popup_window_important_infos" />
+            android:padding="10dp">
 
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/run_stop_indicator_popup_window_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:checked="false"
-            android:focusable="false"
-            android:text="@string/menu_run_events" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_traffic_light_icon"
+                android:id="@+id/run_stop_indicator_popup_window_text1"
+                android:drawablePadding="6dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text9"
+                android:id="@+id/run_stop_indicator_popup_window_text2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/important_info_profile_activation_text10"
+                android:id="@+id/run_stop_indicator_popup_window_text3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/important_info_profile_activation_text11"
+                android:id="@+id/run_stop_indicator_popup_window_text4" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/run_stop_indicator_popup_window_important_infos"
+                android:id="@+id/run_stop_indicator_popup_window_important_infos" />
 
-    </LinearLayout>
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/run_stop_indicator_popup_window_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:checked="false"
+                android:focusable="false"
+                android:text="@string/menu_run_events" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </android.support.v7.widget.CardView>
