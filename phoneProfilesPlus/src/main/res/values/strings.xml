@@ -912,7 +912,7 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">unsupported secure lock</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">can\'t be change</string>
     <string name="event_preferences_sensorsInfo_title">Sensors functinality</string>
-    <string name="event_preferences_sensorsInfo_summary">Parameters of all enabled sensors must be fulfilled to start of event. Enable only needed sensors for this event. Enabled sensor name is marked with bold text.\nSome sensor parameters are required. Required parameter name is marked with underline text. If any required parameter is not configured, event will not be started and parameter \"Enable run\" is unchecked.</string>
+    <string name="event_preferences_sensorsInfo_summary">Parameters of all sensors with \"Enable run\" parameter checked, must be fulfilled to start of event. Check \"Enable run\" only for needed sensors for this event. Sensor name with \"Enable run\" checked is marked with bold text.\nSome sensor parameters are required. Required parameter name is marked with underline text. If any required parameter is not configured, event will not be started and parameter \"Enable run\" is unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not supports colorful icons in status bar.</string>
     <string name="pref_dlg_change_selection_title">Change selection</string>
