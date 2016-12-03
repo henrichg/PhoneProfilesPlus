@@ -1413,9 +1413,9 @@ public class GlobalData extends Application {
     static public void getMobileCellsAutoRegistration(Context context) {
         if (PhoneProfilesService.isPhoneStateStarted()) {
             SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
-            PhoneProfilesService.instance.phoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
-            PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+            PhoneProfilesService.phoneStateScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
+            PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
+            PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
         }
     }
 
@@ -1423,12 +1423,12 @@ public class GlobalData extends Application {
         if (PhoneProfilesService.isPhoneStateStarted()) {
             SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
-            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration);
-            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneProfilesService.instance.phoneStateScanner.cellsNameForAutoRegistration);
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneProfilesService.phoneStateScanner.durationForAutoRegistration);
+            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration);
             if (firstStart)
                 editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
             else
-                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration);
+                editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PhoneProfilesService.phoneStateScanner.enabledAutoRegistration);
             editor.commit();
         }
     }

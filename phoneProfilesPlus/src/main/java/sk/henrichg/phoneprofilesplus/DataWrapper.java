@@ -1831,11 +1831,8 @@ public class DataWrapper {
                             && isDesk)
                         peripheralPassed = true;
                     else
-                    if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK)
-                            && isCar)
-                        peripheralPassed = true;
-                    else
-                        peripheralPassed = false;
+                        peripheralPassed = (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK)
+                                && isCar;
                 }
                 else
                     peripheralPassed = false;
@@ -1861,11 +1858,8 @@ public class DataWrapper {
                             && headsetMicrophone && bluetoothHeadset)
                         peripheralPassed = true;
                     else
-                    if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES)
-                            && (!headsetMicrophone) && (!bluetoothHeadset))
-                        peripheralPassed = true;
-                    else
-                        peripheralPassed = false;
+                        peripheralPassed = (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES)
+                                && (!headsetMicrophone) && (!bluetoothHeadset);
                 }
                 else
                     peripheralPassed = false;
@@ -2178,12 +2172,8 @@ public class DataWrapper {
                         // event BT adapter is connected
                         done = true;
 
-                        bluetoothPassed = true;
-
-                        if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) ||
-                            (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
-                            // for this connectionTypes, BT must not be connected to event BT adapter
-                            bluetoothPassed = false;
+                        bluetoothPassed = !((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) ||
+                                (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT));
                     }
                     else {
                         if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) {
@@ -2513,9 +2503,7 @@ public class DataWrapper {
                         boolean lDistancePassed = true;
                         if (enabled) {
                             if (event._eventPreferencesOrientation._distance != 0) {
-                                lDistancePassed = false;
-                                if (event._eventPreferencesOrientation._distance == PhoneProfilesService.mDeviceDistance)
-                                    lDistancePassed = true;
+                                lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.mDeviceDistance;
                             }
                         }
 
@@ -2536,10 +2524,10 @@ public class DataWrapper {
                 (GlobalData.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
-            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isPhoneStateStarted()) {
+            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
 
                 String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
-                String registeredCell = Integer.toString(PhoneProfilesService.instance.phoneStateScanner.registeredCell);
+                String registeredCell = Integer.toString(PhoneProfilesService.phoneStateScanner.registeredCell);
                 boolean found = false;
                 for (String cell : splits) {
                     if (cell.equals(registeredCell)) {
@@ -2814,7 +2802,7 @@ public class DataWrapper {
             if (getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0)
                 // rescan mobile cells
                 if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
-                    PhoneProfilesService.instance.phoneStateScanner.rescanMobileCells();
+                    PhoneProfilesService.phoneStateScanner.rescanMobileCells();
                 }
         }
 
@@ -2914,10 +2902,7 @@ public class DataWrapper {
         if (!GlobalData.getEventsBlocked(context))
             return false;
         else
-        if (GlobalData.getForceRunEventRunning(context))
-            return false;
-        else
-            return true;
+            return !GlobalData.getForceRunEventRunning(context);
     }
 
     private String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList, boolean addIndicators, boolean addDuration, boolean multyline, Context context)

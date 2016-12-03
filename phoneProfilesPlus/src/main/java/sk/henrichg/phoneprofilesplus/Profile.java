@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -564,7 +565,7 @@ public class Profile {
     }
 
     // geting icon custom color
-    int getIconCustomColor() {
+    private int getIconCustomColor() {
         int value;
         try {
             String[] splits = _icon.split("\\|");
@@ -1076,6 +1077,7 @@ public class Profile {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     String getProfileNameWithDuration(boolean multyline, Context context) {
         String profileName = _name;
         if ((_duration > 0) && (_afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
@@ -1104,7 +1106,8 @@ public class Profile {
         return profileName;
     }
 
-    private static String timeDateStringFromTimestamp(Context applicationContext,long timestamp){
+    @SuppressLint("SimpleDateFormat")
+    private static String timeDateStringFromTimestamp(Context applicationContext, long timestamp){
         String timeDate;
         String timestampDate = android.text.format.DateFormat.getDateFormat(applicationContext).format(new Date(timestamp));
         Calendar calendar = Calendar.getInstance();

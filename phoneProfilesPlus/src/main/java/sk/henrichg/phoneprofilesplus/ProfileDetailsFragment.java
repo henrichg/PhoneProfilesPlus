@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -45,15 +46,15 @@ public class ProfileDetailsFragment extends Fragment {
     };
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof OnStartProfilePreferencesFromDetail)) {
+        if (!(getActivity() instanceof OnStartProfilePreferencesFromDetail)) {
             throw new IllegalStateException(
                     "Activity must implement fragment's callbacks.");
         }
-        onStartProfilePreferencesCallback = (OnStartProfilePreferencesFromDetail) activity;
+        onStartProfilePreferencesCallback = (OnStartProfilePreferencesFromDetail) getActivity();
     }
 
     @Override

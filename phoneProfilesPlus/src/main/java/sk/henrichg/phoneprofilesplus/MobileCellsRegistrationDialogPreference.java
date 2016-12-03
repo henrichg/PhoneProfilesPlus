@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -58,7 +59,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         this.context = context;
 
-        if (!PhoneProfilesService.instance.isPhoneStateStarted()) {
+        if (!PhoneProfilesService.isPhoneStateStarted()) {
             //Log.d("MobileCellsPreference","no scanner started");
             GlobalData.startPhoneStateScanner(context);
         }
@@ -75,6 +76,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void showDialog(Bundle state) {
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
@@ -101,11 +103,11 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                         if (PhoneProfilesService.isPhoneStateStarted()) {
                             //Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
                             GlobalData.setMobileCellsAutoRegistrationRemainingDuration(context, iValue);
-                            PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration = iValue;
-                            PhoneProfilesService.instance.phoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
-                            PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration = true;
+                            PhoneProfilesService.phoneStateScanner.durationForAutoRegistration = iValue;
+                            PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
+                            PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = true;
                             GlobalData.setMobileCellsAutoRegistration(context, false);
-                            PhoneProfilesService.instance.phoneStateScanner.startAutoRegistration();
+                            PhoneProfilesService.phoneStateScanner.startAutoRegistration();
                         }
                         value = String.valueOf(iValue);
                         setSummaryDDP(0);
@@ -127,10 +129,10 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                             GlobalData.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
                             //GlobalData.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
                             //GlobalData.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
-                            PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration = false;
+                            PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
                             GlobalData.setMobileCellsAutoRegistration(context, false);
                             setSummaryDDP(0);
-                            PhoneProfilesService.instance.phoneStateScanner.stopAutoRegistration();
+                            PhoneProfilesService.phoneStateScanner.stopAutoRegistration();
                         }
                     }
                 })
@@ -303,7 +305,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         }*/
 
         if (PhoneProfilesService.isPhoneStateStarted()) {
-            value = Integer.toString(PhoneProfilesService.instance.phoneStateScanner.durationForAutoRegistration);
+            value = Integer.toString(PhoneProfilesService.phoneStateScanner.durationForAutoRegistration);
             //Log.d("MobileCellsRegistrationDialogPreference.onSetInitialValue", "value=" + value);
         } else {
             value = "0";
@@ -313,12 +315,13 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         setSummaryDDP(0);
     }
 
+    @SuppressLint("DefaultLocale")
     private void setSummaryDDP(long millisUntilFinished)
     {
         String summary = "";
         boolean started = false;
         if (PhoneProfilesService.isPhoneStateStarted()) {
-            if (PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration) {
+            if (PhoneProfilesService.phoneStateScanner.enabledAutoRegistration) {
                 if (millisUntilFinished > 0) {
                     summary = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_started);
                     String time = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
@@ -344,12 +347,13 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         setSummary(summary);
     }
 
-    public void updateInterface(long millisUntilFinished) {
+    @SuppressLint("DefaultLocale")
+    private void updateInterface(long millisUntilFinished) {
         if ((mDialog != null) && mDialog.isShowing()) {
             boolean started = false;
             if (PhoneProfilesService.isPhoneStateStarted()) {
-                mCellsName.setText(PhoneProfilesService.instance.phoneStateScanner.cellsNameForAutoRegistration);
-                if (PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration) {
+                mCellsName.setText(PhoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration);
+                if (PhoneProfilesService.phoneStateScanner.enabledAutoRegistration) {
                     mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_started);
                     if (millisUntilFinished > 0) {
                         mRemainingTime.setVisibility(View.VISIBLE);
@@ -373,6 +377,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         }
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {

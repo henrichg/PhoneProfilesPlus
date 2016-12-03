@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -63,15 +64,15 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof OnCreateNestedPreferenceFragment)) {
+        if (!(getActivity() instanceof OnCreateNestedPreferenceFragment)) {
             throw new IllegalStateException(
                     "Activity must implement fragment's callbacks.");
         }
-        onCreateNestedPreferenceFragmentCallback = (OnCreateNestedPreferenceFragment) activity;
+        onCreateNestedPreferenceFragmentCallback = (OnCreateNestedPreferenceFragment) getActivity();
     }
 
     @Override

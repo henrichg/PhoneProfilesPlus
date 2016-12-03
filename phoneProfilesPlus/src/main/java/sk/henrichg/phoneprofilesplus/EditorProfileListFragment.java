@@ -87,15 +87,15 @@ public class EditorProfileListFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof OnStartProfilePreferences)) {
+        if (!(getActivity() instanceof OnStartProfilePreferences)) {
             throw new IllegalStateException(
                     "Activity must implement fragment's callbacks.");
         }
-        onStartProfilePreferencesCallback = (OnStartProfilePreferences) activity;
+        onStartProfilePreferencesCallback = (OnStartProfilePreferences) getActivity();
     }
 
     @Override

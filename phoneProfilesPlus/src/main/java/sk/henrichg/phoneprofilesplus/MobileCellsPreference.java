@@ -55,7 +55,7 @@ public class MobileCellsPreference extends DialogPreference {
         
         cellsList = new ArrayList<>();
 
-        if (!PhoneProfilesService.instance.isPhoneStateStarted()) {
+        if (!PhoneProfilesService.isPhoneStateStarted()) {
             //Log.d("MobileCellsPreference","no scanner started");
             GlobalData.startPhoneStateScanner(context);
         }
@@ -306,7 +306,7 @@ public class MobileCellsPreference extends DialogPreference {
             protected Void doInBackground(Void... params) {
 
                 if (forRescan) {
-                    PhoneProfilesService.instance.phoneStateScanner.getRegisteredCell();
+                    PhoneProfilesService.phoneStateScanner.getRegisteredCell();
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
@@ -320,15 +320,15 @@ public class MobileCellsPreference extends DialogPreference {
                 // add registered cell
                 boolean found = false;
                 for (MobileCellsData cell : _cellsList) {
-                    if (cell.cellId == PhoneProfilesService.instance.phoneStateScanner.registeredCell) {
+                    if (cell.cellId == PhoneProfilesService.phoneStateScanner.registeredCell) {
                         cell.connected = true;
                         found = true;
                         break;
                     }
                 }
                 if (!found)
-                    _cellsList.add(new MobileCellsData(PhoneProfilesService.instance.phoneStateScanner.registeredCell,
-                            _cellName, true, true, PhoneProfilesService.instance.phoneStateScanner.lastConnectedTime));
+                    _cellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
+                            _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime));
 
                 // add all from value
                 String[] splits = value.split("\\|");
@@ -452,9 +452,9 @@ public class MobileCellsPreference extends DialogPreference {
             if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
                 // save new registered cell
                 List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();
-                localCellsList.add(new MobileCellsData(PhoneProfilesService.instance.phoneStateScanner.registeredCell,
+                localCellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
                         preference.cellName.getText().toString(), true, false,
-                        PhoneProfilesService.instance.phoneStateScanner.lastConnectedTime));
+                        PhoneProfilesService.phoneStateScanner.lastConnectedTime));
                 DatabaseHandler db = DatabaseHandler.getInstance(context);
                 db.saveMobileCellsList(localCellsList, true, false);
 

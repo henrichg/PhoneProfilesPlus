@@ -107,7 +107,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                         // rescan mobile cells
                         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
-                            PhoneProfilesService.instance.phoneStateScanner.rescanMobileCells();
+                            PhoneProfilesService.phoneStateScanner.rescanMobileCells();
                         }
                     }
                 }

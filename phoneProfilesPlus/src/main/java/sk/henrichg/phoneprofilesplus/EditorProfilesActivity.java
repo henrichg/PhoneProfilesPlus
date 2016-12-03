@@ -993,8 +993,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             {
                 if (PhoneProfilesService.instance != null) {
                     boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
-                    if (PhoneProfilesService.instance.geofencesScanner != null) {
-                        PhoneProfilesService.instance.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
+                    if (PhoneProfilesService.geofencesScanner != null) {
+                        PhoneProfilesService.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
                     }
                     PhoneProfilesService.instance.resetListeningOrientationSensors(powerSaveMode, true);
                 }

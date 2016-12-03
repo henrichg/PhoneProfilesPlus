@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -102,6 +103,7 @@ public class DurationDialogPreference extends DialogPreference {
         hours = mMax / 3600;
         minutes = (mMax % 3600) / 60;
         seconds = mMax % 60;
+        @SuppressLint("DefaultLocale")
         final String sMax = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         mNumberPickerHours.setMaxValue(hours);
         if (hours == 0)
@@ -115,6 +117,7 @@ public class DurationDialogPreference extends DialogPreference {
         hours = mMin / 3600;
         minutes = (mMin % 3600) / 60;
         seconds = mMin % 60;
+        @SuppressLint("DefaultLocale")
         final String sMin = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         mNumberPickerHours.setMinValue(0);
         mNumberPickerMinutes.setMinValue(0);
@@ -164,6 +167,7 @@ public class DurationDialogPreference extends DialogPreference {
         setSummaryDDP();
     }
 
+    @SuppressLint("DefaultLocale")
     private void setSummaryDDP()
     {
         int iValue = Integer.parseInt(value);

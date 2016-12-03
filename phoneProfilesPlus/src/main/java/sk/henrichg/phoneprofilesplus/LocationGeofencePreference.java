@@ -289,7 +289,7 @@ public class LocationGeofencePreference extends DialogPreference {
                                 if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                     // stop location updates
                                     if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                                        PhoneProfilesService.instance.geofencesScanner.disconnect();
+                                        PhoneProfilesService.geofencesScanner.disconnect();
                                 }
                             }
                             else {

@@ -89,15 +89,15 @@ public class EditorEventListFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof OnStartEventPreferences)) {
+        if (!(getActivity() instanceof OnStartEventPreferences)) {
             throw new IllegalStateException(
                     "Activity must implement fragment's callbacks.");
         }
-        onStartEventPreferencesCallback = (OnStartEventPreferences) activity;
+        onStartEventPreferencesCallback = (OnStartEventPreferences) getActivity();
     }
 
     @Override

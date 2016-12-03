@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -406,7 +407,8 @@ public class GUIData {
         return finalDateTime;
     }
 
-    static String timeDateStringFromTimestamp(Context applicationContext,long timestamp){
+    @SuppressLint("SimpleDateFormat")
+    static String timeDateStringFromTimestamp(Context applicationContext, long timestamp){
         String timeDate;
         String androidDateTime=android.text.format.DateFormat.getDateFormat(applicationContext).format(new Date(timestamp))+" "+
                 android.text.format.DateFormat.getTimeFormat(applicationContext).format(new Date(timestamp));

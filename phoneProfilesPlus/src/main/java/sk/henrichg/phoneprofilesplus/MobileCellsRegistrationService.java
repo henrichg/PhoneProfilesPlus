@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -51,7 +52,7 @@ public class MobileCellsRegistrationService extends Service {
             public void onFinish() {
                 //Log.d("MobileCellsRegistrationService", "Timer finished");
 
-                PhoneProfilesService.instance.phoneStateScanner.enabledAutoRegistration = false;
+                PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
                 GlobalData.setMobileCellsAutoRegistration(context, false);
 
                 // broadcast for application preferences
@@ -90,6 +91,7 @@ public class MobileCellsRegistrationService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @SuppressLint("DefaultLocale")
     private void showNotification(long millisUntilFinished) {
         String text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
         String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
