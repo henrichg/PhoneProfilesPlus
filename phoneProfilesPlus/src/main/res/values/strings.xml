@@ -910,4 +910,6 @@
     <string name="array_pref_change_selection_nfc_tags_select_by_name">Select by NFC tag name</string>
     <string name="event_preferences_enable_sensor">Enable sensor</string>
     <string name="info_preference_click_here">Click here for show infomations</string>
+    <string name="profile_preferences_category_profileActivationParameters">Activation parameters</string>
+    <string name="profile_preferences_category_profileDeviceParameters">Device parameters</string>
 </resources>
