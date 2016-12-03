@@ -26,6 +26,8 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     Context _context = null;
     String value = "";
 
+    MaterialDialog mDialog;
+
     // Layout widgets.
     private LinearLayout linlaProgress;
     private LinearLayout linlaListView;
@@ -49,7 +51,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
+                .neutralText(R.string.pref_dlg_change_selection_button_unselect_all)
                 .content(getDialogMessage())
+                .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -73,7 +77,21 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                             persistString(value);
 
                             setSummaryCMSDP();
+                            mDialog.dismiss();
                         }
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mDialog.dismiss();
+                    }
+                })
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        value="";
+                        refreshListView(false);
                     }
                 });
 
@@ -106,7 +124,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
-        MaterialDialog mDialog = mBuilder.build();
+        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
@@ -114,7 +132,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
-    public void refreshListView() {
+    public void refreshListView(final boolean notForUnselect) {
 
         new AsyncTask<Void, Integer, Void>() {
 
@@ -122,8 +140,10 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                linlaListView.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
+                if (notForUnselect) {
+                    linlaListView.setVisibility(View.GONE);
+                    linlaProgress.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -131,7 +151,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                 if (!EditorProfilesActivity.getContactsCache().isCached())
                     EditorProfilesActivity.getContactsCache().getContactList(_context);
 
-                getValueCMSDP();
+                getValueCMSDP(notForUnselect);
 
                 return null;
             }
@@ -145,8 +165,10 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     EditorProfilesActivity.getContactsCache().clearCache(false);
 
                 listAdapter.notifyDataSetChanged();
-                linlaListView.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
+                if (notForUnselect) {
+                    linlaListView.setVisibility(View.VISIBLE);
+                    linlaProgress.setVisibility(View.GONE);
+                }
             }
 
         }.execute();
@@ -154,7 +176,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
     public void onShow(DialogInterface dialog) {
         if (Permissions.grantContactsDialogPermissions(_context, this))
-            refreshListView();
+            refreshListView(true);
     }
 
     public void onDismiss (DialogInterface dialog)
@@ -170,7 +192,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     {
         if (restoreValue) {
             // restore state
-            getValueCMSDP();
+            getValueCMSDP(true);
         }
         else {
             // set state
@@ -181,10 +203,11 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP();
     }
 
-    private void getValueCMSDP()
+    private void getValueCMSDP(boolean notForUnselect)
     {
-        // Get the persistent value
-        value = getPersistedString(value);
+        if (notForUnselect)
+            // Get the persistent value
+            value = getPersistedString(value);
 
         // change checked state by value
         List<Contact> contactList = EditorProfilesActivity.getContactsCache().getList();

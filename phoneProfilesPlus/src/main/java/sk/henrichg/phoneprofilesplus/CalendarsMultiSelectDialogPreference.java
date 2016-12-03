@@ -30,6 +30,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
     String value = "";
 
     private List<CalendarEvent> calendarList = null;
+    MaterialDialog mDialog;
 
     // Layout widgets.
     private ListView listView = null;
@@ -65,7 +66,9 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
+                .neutralText(R.string.pref_dlg_change_selection_button_unselect_all)
                 .content(getDialogMessage())
+                .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -88,7 +91,21 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                             persistString(value);
 
                             setSummaryCMSDP();
+                            mDialog.dismiss();
                         }
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mDialog.dismiss();
+                    }
+                })
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        value="";
+                        refreshListView(false);
                     }
                 });
 
@@ -120,7 +137,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
-        MaterialDialog mDialog = mBuilder.build();
+        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
@@ -128,7 +145,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
-    public void refreshListView() {
+    public void refreshListView(final boolean notForUnselect) {
 
         new AsyncTask<Void, Integer, Void>() {
 
@@ -136,8 +153,10 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                linlaLisView.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
+                if (notForUnselect) {
+                    linlaLisView.setVisibility(View.GONE);
+                    linlaProgress.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -183,7 +202,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                     }
                 }
 
-                getValueCMSDP();
+                getValueCMSDP(notForUnselect);
 
                 return null;
             }
@@ -199,8 +218,10 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 }
                 else
                     listAdapter.notifyDataSetChanged();
-                linlaLisView.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
+                if (notForUnselect) {
+                    linlaLisView.setVisibility(View.VISIBLE);
+                    linlaProgress.setVisibility(View.GONE);
+                }
             }
 
         }.execute();
@@ -208,7 +229,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 
     public void onShow(DialogInterface dialog) {
         if (Permissions.grantCalendarDialogPermissions(_context, this))
-            refreshListView();
+            refreshListView(true);
     }
 
     @Override
@@ -216,7 +237,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
     {
         if (restoreValue) {
             // restore state
-            getValueCMSDP();
+            getValueCMSDP(true);
         }
         else {
             // set state
@@ -227,10 +248,11 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP();
     }
 
-    private void getValueCMSDP()
+    private void getValueCMSDP(boolean notForUnselect)
     {
-        // Get the persistent value
-        value = getPersistedString(value);
+        if (notForUnselect)
+            // Get the persistent value
+            value = getPersistedString(value);
 
         // change checked state by value
         if (calendarList != null)

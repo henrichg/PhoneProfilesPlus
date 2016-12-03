@@ -915,4 +915,12 @@
     <string name="event_preferences_sensorsInfo_summary">Parameters of all enabled sensors must be fulfilled to start of event. Enable only needed sensors for this event. Enabled sensor name is marked with bold text.\nSome sensor parameters are required. Required parameter name is marked with underline text. If any required parameter is not configured, event will not be started and parameter \"Enable run\" is unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not supports colorful icons in status bar.</string>
+    <string name="pref_dlg_change_selection_title">Change selection</string>
+    <string name="pref_dlg_change_selection_button">Change</string>
+    <string name="array_pref_change_selection_unselect_all">Unselect all</string>
+    <string name="array_pref_change_selection_mobile_cells_select_by_name">Select by cell name</string>
+    <string name="pref_dlg_change_selection_button_unselect_all">Unselect all</string>
+    <string name="array_pref_change_selection_wifi_ssid_select_by_name">Select by SSID name</string>
+    <string name="array_pref_change_selection_bluetooth_name_select_by_name">Select by bluetooth name</string>
+    <string name="array_pref_change_selection_nfc_tags_select_by_name">Select by NFC tag name</string>
 </resources>

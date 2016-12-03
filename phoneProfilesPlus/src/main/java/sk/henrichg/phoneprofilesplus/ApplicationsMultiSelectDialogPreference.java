@@ -32,6 +32,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     Context _context = null;
     String value = "";
 
+    MaterialDialog mDialog;
+
     private int addShortcuts;
     private String systemSettings;
 
@@ -93,6 +95,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 //.disableDefaultFonts()
                 .positiveText(getPositiveButtonText())
                 .negativeText(getNegativeButtonText())
+                .neutralText(R.string.pref_dlg_change_selection_button_unselect_all)
+                .autoDismiss(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -119,7 +123,21 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
                             setIcons();
                             setSummaryAMSDP();
+                            mDialog.dismiss();
                         }
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mDialog.dismiss();
+                    }
+                })
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        value="";
+                        refreshListView(false);
                     }
                 })
                 .content(getDialogMessage());
@@ -142,6 +160,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         });
 
         listAdapter = new ApplicationsMultiselectPreferenceAdapter(_context, addShortcuts);
+        listView.setAdapter(listAdapter);
 
         mBuilder.customView(layout, false);
 
@@ -152,7 +171,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
-        MaterialDialog mDialog = mBuilder.build();
+        mDialog = mBuilder.build();
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
@@ -160,16 +179,17 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         mDialog.show();
     }
 
-    public void onShow(DialogInterface dialog) {
-
+    public void refreshListView(final boolean notForUnselect) {
         new AsyncTask<Void, Integer, Void>() {
 
             @Override
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                linlaListView.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
+                if (notForUnselect) {
+                    linlaListView.setVisibility(View.GONE);
+                    linlaProgress.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -177,7 +197,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 if (!EditorProfilesActivity.getApplicationsCache().isCached())
                     EditorProfilesActivity.getApplicationsCache().getApplicationsList(_context);
 
-                getValueAMSDP();
+                getValueAMSDP(notForUnselect);
 
                 return null;
             }
@@ -190,12 +210,18 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 if (!EditorProfilesActivity.getApplicationsCache().isCached())
                     EditorProfilesActivity.getApplicationsCache().clearCache(false);
 
-                listView.setAdapter(listAdapter);
-                linlaListView.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
+                listAdapter.notifyDataSetChanged();
+                if (notForUnselect) {
+                    linlaListView.setVisibility(View.VISIBLE);
+                    linlaProgress.setVisibility(View.GONE);
+                }
             }
 
         }.execute();
+    }
+
+    public void onShow(DialogInterface dialog) {
+        refreshListView(true);
     }
 
     public void onDismiss (DialogInterface dialog)
@@ -211,7 +237,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     {
         if (restoreValue) {
             // restore state
-            getValueAMSDP();
+            getValueAMSDP(true);
         }
         else {
             // set state
@@ -222,10 +248,11 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         setSummaryAMSDP();
     }
 
-    private void getValueAMSDP()
+    private void getValueAMSDP(boolean notForUnselect)
     {
-        // Get the persistent value
-        value = getPersistedString(value);
+        if (notForUnselect)
+            // Get the persistent value
+            value = getPersistedString(value);
 
         // change checked state by value
         List<Application> applicationList = EditorProfilesActivity.getApplicationsCache().getList(addShortcuts == 0);

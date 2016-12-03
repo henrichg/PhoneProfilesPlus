@@ -199,6 +199,36 @@ public class WifiSSIDPreference extends DialogPreference {
                 helpText.setVisibility(visibility);
             }
         });
+        ImageView changeSelectionIcon = (ImageView)layout.findViewById(R.id.wifi_ssid_pref_dlg_changeSelection);
+        changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new MaterialDialog.Builder(context)
+                        .title(R.string.pref_dlg_change_selection_title)
+                        .items(R.array.wifiSSIDChangeSelectionArray)
+                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                            @Override
+                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                switch (which) {
+                                    case 0:
+                                        value = "";
+                                        break;
+                                    case 1:
+                                        for (WifiSSIDData ssid : SSIDList) {
+                                            if (ssid.ssid.equals(SSIDName.getText().toString()))
+                                                addSSID(ssid.ssid);
+                                        }
+                                        break;
+                                    default:
+                                }
+                                refreshListView(false);
+                                return true;
+                            }
+                        })
+                        .positiveText(R.string.pref_dlg_change_selection_button)
+                        .show();
+            }
+        });
 
         mDialog = mBuilder.build();
         if (state != null)

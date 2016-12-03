@@ -827,16 +827,16 @@ public class GrantPermissionActivity extends Activity {
         else
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
             if (Permissions.calendarsMultiSelectDialogPreference != null)
-                Permissions.calendarsMultiSelectDialogPreference.refreshListView();
+                Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);
             dataWrapper.restartEvents(false, true, false);
             finish();
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG) {
             if (Permissions.contactsMultiSelectDialogPreference != null)
-                Permissions.contactsMultiSelectDialogPreference.refreshListView();
+                Permissions.contactsMultiSelectDialogPreference.refreshListView(true);
             if (Permissions.contactGroupsMultiSelectDialogPreference != null)
-                Permissions.contactGroupsMultiSelectDialogPreference.refreshListView();
+                Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);
             dataWrapper.restartEvents(false, true, false);
             finish();
         }

@@ -70,7 +70,8 @@ public class LocationGeofencePreference extends DialogPreference {
 
         if (onlyEdit == 0) {
             mBuilder.positiveText(getPositiveButtonText())
-                    .negativeText(getNegativeButtonText());
+                    .negativeText(getNegativeButtonText())
+                    .neutralText(R.string.pref_dlg_change_selection_button_unselect_all);
             mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
                 @Override
                 public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
@@ -82,6 +83,13 @@ public class LocationGeofencePreference extends DialogPreference {
                 @Override
                 public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                     mDialog.dismiss();
+                }
+            });
+            mBuilder.onNeutral(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    dataWrapper.getDatabaseHandler().checkGeofence("", 0);
+                    refreshListView();
                 }
             });
 

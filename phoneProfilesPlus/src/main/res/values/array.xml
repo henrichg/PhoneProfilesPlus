@@ -954,7 +954,7 @@
     <item>1</item>
     <item>2</item>
 </string-array>
-<string-array name="materislCellsRenameArray">
+<string-array name="mobileCellsRenameArray">
     <item>@string/array_pref_mobile_cells_rename_new</item>
     <item>@string/array_pref_mobile_cells_rename_selected</item>
 </string-array>
@@ -965,6 +965,22 @@
 <string-array name="scanInPowerSaveModeMobileCellsValues">
     <item>1</item>
     <item>2</item>
+</string-array>
+<string-array name="mobileCellsChangeSelectionArray">
+    <item>@string/array_pref_change_selection_unselect_all</item>
+    <item>@string/array_pref_change_selection_mobile_cells_select_by_name</item>
+</string-array>
+<string-array name="wifiSSIDChangeSelectionArray">
+    <item>@string/array_pref_change_selection_unselect_all</item>
+    <item>@string/array_pref_change_selection_wifi_ssid_select_by_name</item>
+</string-array>
+<string-array name="bluetoothNameDChangeSelectionArray">
+    <item>@string/array_pref_change_selection_unselect_all</item>
+    <item>@string/array_pref_change_selection_bluetooth_name_select_by_name</item>
+</string-array>
+<string-array name="nfcTagsChangeSelectionArray">
+    <item>@string/array_pref_change_selection_unselect_all</item>
+    <item>@string/array_pref_change_selection_nfc_tags_select_by_name</item>
 </string-array>
 
 </resources>
