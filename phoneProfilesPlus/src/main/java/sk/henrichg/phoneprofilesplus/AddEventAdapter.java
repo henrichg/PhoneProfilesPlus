@@ -130,7 +130,7 @@ class AddEventAdapter extends BaseAdapter {
             {
                 if (holder.eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(vi.getContext());
-                    holder.eventPreferencesDescription.setText(Html.fromHtml(eventPrefDescription));
+                    holder.eventPreferencesDescription.setText(GUIData.fromHtml(eventPrefDescription));
                 }
             }
 

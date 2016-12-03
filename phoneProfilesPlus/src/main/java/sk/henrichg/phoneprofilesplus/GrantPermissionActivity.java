@@ -509,7 +509,7 @@ public class GrantPermissionActivity extends Activity {
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                 dialogBuilder.setTitle(R.string.permissions_alert_title);
-                dialogBuilder.setMessage(Html.fromHtml(showRequestString));
+                dialogBuilder.setMessage(GUIData.fromHtml(showRequestString));
                 dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
