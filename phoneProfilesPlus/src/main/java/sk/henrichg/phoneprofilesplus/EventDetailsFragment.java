@@ -51,16 +51,17 @@ public class EventDetailsFragment extends Fragment {
         }
     };
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         // Activities containing this fragment must implement its callbacks.
-        if (!(getActivity() instanceof OnStartEventPreferencesFromDetail)) {
+        if (!(activity instanceof OnStartEventPreferencesFromDetail)) {
             throw new IllegalStateException(
                     "Activity must implement fragment's callbacks.");
         }
-        onStartEventPreferencesCallback = (OnStartEventPreferencesFromDetail) getActivity();
+        onStartEventPreferencesCallback = (OnStartEventPreferencesFromDetail) activity;
     }
 
     @Override

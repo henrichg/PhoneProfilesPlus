@@ -64,15 +64,15 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         // Activities containing this fragment must implement its callbacks.
-        if (!(getActivity() instanceof OnCreateNestedPreferenceFragment)) {
+        if (!(activity instanceof OnCreateNestedPreferenceFragment)) {
             throw new IllegalStateException(
                     "Activity must implement fragment's callbacks.");
         }
-        onCreateNestedPreferenceFragmentCallback = (OnCreateNestedPreferenceFragment) getActivity();
+        onCreateNestedPreferenceFragmentCallback = (OnCreateNestedPreferenceFragment) activity;
     }
 
     @Override

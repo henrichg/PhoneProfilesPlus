@@ -45,16 +45,17 @@ public class ProfileDetailsFragment extends Fragment {
         }
     };
 
+    @SuppressWarnings("deprecation")
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         // Activities containing this fragment must implement its callbacks.
-        if (!(getActivity() instanceof OnStartProfilePreferencesFromDetail)) {
+        if (!(activity instanceof OnStartProfilePreferencesFromDetail)) {
             throw new IllegalStateException(
                     "Activity must implement fragment's callbacks.");
         }
-        onStartProfilePreferencesCallback = (OnStartProfilePreferencesFromDetail) getActivity();
+        onStartProfilePreferencesCallback = (OnStartProfilePreferencesFromDetail) activity;
     }
 
     @Override
