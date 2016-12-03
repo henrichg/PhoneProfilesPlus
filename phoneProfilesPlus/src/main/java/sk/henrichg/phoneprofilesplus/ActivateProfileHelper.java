@@ -1559,7 +1559,8 @@ public class ActivateProfileHelper {
                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                 }
                 else {
-                    if (GlobalData.notificationStatusBarStyle.equals("0") && (android.os.Build.VERSION.SDK_INT < 21)) {
+                    // some devices supports color icons
+                    if (GlobalData.notificationStatusBarStyle.equals("0")/* && (android.os.Build.VERSION.SDK_INT < 21)*/) {
                         //notificationBuilder.setSmallIcon(0);
                         iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", context.getPackageName());
                         if (iconSmallResource == 0)
@@ -1570,7 +1571,10 @@ public class ActivateProfileHelper {
                     } else {
                         //notificationBuilder.setSmallIcon(0);
                         //contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, null);
+
+                        // test color statusbar icon
                         iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", context.getPackageName());
+
                         if (iconSmallResource == 0)
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                         notificationBuilder.setSmallIcon(iconSmallResource);

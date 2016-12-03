@@ -99,7 +99,8 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
         //setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_CANCEL);
 
-        if (android.os.Build.VERSION.SDK_INT >= 21)
+        // some devices supports color icon
+        /*if (android.os.Build.VERSION.SDK_INT >= 21)
         {
             // for Android 5.0, color notification icon is not supported
             Preference preference = prefMng.findPreference(GlobalData.PREF_NOTIFICATION_STATUS_BAR_STYLE);
@@ -109,7 +110,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
                 preferenceCategory.removePreference(preference);
             }
         }
-        else
+        else*/
             setSummary(GlobalData.PREF_NOTIFICATION_STATUS_BAR_STYLE);
 
         setSummary(GlobalData.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR);
