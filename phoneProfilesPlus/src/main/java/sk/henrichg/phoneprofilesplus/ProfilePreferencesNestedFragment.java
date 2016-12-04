@@ -127,7 +127,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     ListPreference listPreference = (ListPreference) prefMng.findPreference("prf_pref_volumeRingerMode");
                     if (listPreference != null) {
                         CharSequence[] entries = listPreference.getEntries();
-                        entries[6] = "(S) "+getString(R.string.array_pref_ringerModeArray_ZenMode);
+                        if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+                            entries[5] = "(S) "+getString(R.string.array_pref_ringerModeArray_ZenMode);
+                        else
+                            entries[6] = "(S) "+getString(R.string.array_pref_ringerModeArray_ZenMode);
                         ringerModePreference.setEntries(entries);
                     }
                     /*Preference preference = prefMng.findPreference("prf_pref_volumeZenMode");
