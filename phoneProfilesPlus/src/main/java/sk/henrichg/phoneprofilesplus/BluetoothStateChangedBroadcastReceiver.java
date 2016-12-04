@@ -11,6 +11,9 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### BluetoothStateChangedBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))

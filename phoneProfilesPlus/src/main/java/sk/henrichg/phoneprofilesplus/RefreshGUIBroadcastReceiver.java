@@ -11,6 +11,8 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### RefreshGUIBroadcastReceiver.onReceive", "xxx");
 
         GlobalData.logE("$$$ RefreshGUIBroadcastReceiver","xxx");

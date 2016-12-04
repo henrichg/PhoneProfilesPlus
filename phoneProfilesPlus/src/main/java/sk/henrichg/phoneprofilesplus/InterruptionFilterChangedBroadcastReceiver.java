@@ -14,6 +14,9 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60) {

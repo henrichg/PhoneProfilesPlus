@@ -10,6 +10,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("##### ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 

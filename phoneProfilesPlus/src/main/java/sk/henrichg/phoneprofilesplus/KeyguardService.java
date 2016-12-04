@@ -22,6 +22,8 @@ public class KeyguardService extends Service {
     @Override
     public void onCreate()
     {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("$$$ KeyguardService.onStartCommand","onCreate");
         keyguardManager = (KeyguardManager)getBaseContext().getSystemService(Activity.KEYGUARD_SERVICE);
         keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);

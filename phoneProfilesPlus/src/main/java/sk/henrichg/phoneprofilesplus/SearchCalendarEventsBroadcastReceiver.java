@@ -16,6 +16,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("##### SearchCalendarEventsBroadcastReceiver.onReceive", "xxx");
 

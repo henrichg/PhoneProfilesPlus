@@ -63,6 +63,8 @@ public class ScannerService extends IntentService
     @Override
     protected void onHandleIntent(Intent intent)
     {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         context = getApplicationContext();
 
         GlobalData.logE("%%%% ScannerService.onHandleIntent", "-- START ------------");

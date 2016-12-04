@@ -11,6 +11,8 @@ public class EventTimeBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### EventTimeBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))

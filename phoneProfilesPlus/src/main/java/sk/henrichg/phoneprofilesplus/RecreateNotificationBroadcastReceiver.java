@@ -8,6 +8,7 @@ public class RecreateNotificationBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 

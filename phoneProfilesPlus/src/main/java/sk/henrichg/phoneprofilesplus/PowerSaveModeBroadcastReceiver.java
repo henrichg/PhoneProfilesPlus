@@ -14,6 +14,8 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))

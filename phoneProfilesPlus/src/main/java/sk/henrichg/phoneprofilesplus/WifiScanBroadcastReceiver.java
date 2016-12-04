@@ -11,6 +11,7 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
         //GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");

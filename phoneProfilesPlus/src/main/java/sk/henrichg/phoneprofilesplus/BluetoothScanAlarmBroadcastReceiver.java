@@ -35,6 +35,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
 
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
         GlobalData.loadPreferences(context);

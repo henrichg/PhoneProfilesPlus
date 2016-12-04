@@ -21,6 +21,9 @@ class SettingsContentObserver  extends ContentObserver {
 
     SettingsContentObserver(Context c, Handler handler) {
         super(handler);
+
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         context=c;
 
         //Log.e("### SettingsContentObserver", "xxx");

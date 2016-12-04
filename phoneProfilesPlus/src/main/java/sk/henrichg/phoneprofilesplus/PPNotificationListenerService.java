@@ -38,6 +38,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onCreate() {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         super.onCreate();
 
         nlservicereceiver = new NLServiceReceiver();

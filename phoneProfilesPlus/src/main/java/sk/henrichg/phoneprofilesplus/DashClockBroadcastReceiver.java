@@ -10,6 +10,9 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### DashClockBroadcastReceiver.onReceive", "xxx");
 
         PhoneProfilesDashClockExtension dashClockExtension =

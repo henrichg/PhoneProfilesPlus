@@ -10,6 +10,7 @@ public class SMSEventEndBroadcastReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("##### SMSEventEndBroadcastReceiver.onReceive", "xxx");
 

@@ -19,6 +19,8 @@ public class AboutApplicationBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### AboutApplicationBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))

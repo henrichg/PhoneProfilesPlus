@@ -16,6 +16,9 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         super.onCreate(savedInstanceState);
 
         GlobalData.loadPreferences(getApplicationContext());

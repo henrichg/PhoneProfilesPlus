@@ -14,6 +14,9 @@ public class DeviceIdleModeBroadcastReceiver extends WakefulBroadcastReceiver {
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### DeviceIdleModeBroadcastReceiver.onReceive","xxx");
 
         if (!GlobalData.getApplicationStarted(context))

@@ -12,6 +12,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     public PhoneProfilesDashClockExtension()
     {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         instance = this;
     }
 

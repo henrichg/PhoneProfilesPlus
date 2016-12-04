@@ -11,6 +11,8 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### DeviceOrientationBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))

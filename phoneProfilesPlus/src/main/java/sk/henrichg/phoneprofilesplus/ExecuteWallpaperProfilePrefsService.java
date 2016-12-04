@@ -13,6 +13,8 @@ public class ExecuteWallpaperProfilePrefsService extends IntentService
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("$$$ ExecuteWallpaperProfilePrefsService.onHandleIntent", "-- START ----------");
 
         Context context = getApplicationContext();

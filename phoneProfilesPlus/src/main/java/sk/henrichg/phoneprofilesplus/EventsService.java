@@ -34,6 +34,8 @@ public class EventsService extends IntentService
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         context = getApplicationContext();
 
         GlobalData.logE("#### EventsService.onHandleIntent", "-- start --------------------------------");

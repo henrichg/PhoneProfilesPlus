@@ -13,6 +13,8 @@ public class StartEventsServiceBroadcastReceiver extends WakefulBroadcastReceive
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### StartEventsServiceBroadcastReceiver.onReceive", "xxx");
 
         if (!GlobalData.getApplicationStarted(context))

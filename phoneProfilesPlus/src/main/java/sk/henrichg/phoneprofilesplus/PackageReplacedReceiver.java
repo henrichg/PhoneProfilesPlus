@@ -7,10 +7,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import java.util.EmptyStackException;
+
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### PackageReplacedReceiver.onReceive", "xxx");
 
         //int intentUid = intent.getExtras().getInt("android.intent.extra.UID");
@@ -72,6 +76,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             }
         //}
+
     }
 
 }

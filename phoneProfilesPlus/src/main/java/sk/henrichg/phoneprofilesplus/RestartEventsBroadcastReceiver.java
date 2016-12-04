@@ -11,6 +11,8 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### RestartEventsBroadcastReceiver.onReceive", "xxx");
 
         GlobalData.logE("@@@ RestartEventsBroadcastReceiver.onReceive","####");

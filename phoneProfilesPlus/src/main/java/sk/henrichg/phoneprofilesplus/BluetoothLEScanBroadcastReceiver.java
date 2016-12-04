@@ -11,6 +11,8 @@ public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
         GlobalData.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "----- start");

@@ -9,6 +9,9 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### LocaleChangedReceiver.onReceive","xxx");
 
         GlobalData.loadPreferences(context);

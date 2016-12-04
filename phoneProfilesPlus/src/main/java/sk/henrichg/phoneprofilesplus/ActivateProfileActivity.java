@@ -19,6 +19,8 @@ import android.widget.ImageView;
 
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
+import java.util.EmptyStackException;
+
 public class ActivateProfileActivity extends AppCompatActivity {
 
     private static ActivateProfileActivity instance;
@@ -29,6 +31,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
     @SuppressWarnings({ "deprecation" })
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         super.onCreate(savedInstanceState);
 

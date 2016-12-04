@@ -103,6 +103,8 @@ public class PhoneProfilesService extends Service
     @Override
     public void onCreate()
     {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         super.onCreate();
 
         GlobalData.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT="+android.os.Build.VERSION.SDK_INT);

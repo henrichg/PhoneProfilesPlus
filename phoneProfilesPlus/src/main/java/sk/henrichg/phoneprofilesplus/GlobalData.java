@@ -87,6 +87,7 @@ public class GlobalData extends Application {
 
     public static final String EXPORT_PATH = "/PhoneProfilesPlus";
     public static final String LOG_FILENAME = "log.txt";
+    public static final String CRASH_FILENAME = "crash.txt";
 
     static final String EXTRA_PROFILE_ID = "profile_id";
     static final String EXTRA_MERGED_PROFILE = "merged_profile";

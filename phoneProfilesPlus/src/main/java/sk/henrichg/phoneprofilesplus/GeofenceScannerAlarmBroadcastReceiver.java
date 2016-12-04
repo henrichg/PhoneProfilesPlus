@@ -18,6 +18,8 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("##### GeofenceScannerAlarmBroadcastReceiver.onReceive", "xxx");
 
         GlobalData.loadPreferences(context);

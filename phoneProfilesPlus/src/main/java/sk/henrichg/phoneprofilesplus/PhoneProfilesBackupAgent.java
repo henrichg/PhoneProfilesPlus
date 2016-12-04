@@ -6,6 +6,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
     public void onCreate() {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("PhoneProfilesBackupAgent","onCreate");
     }
 
