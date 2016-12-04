@@ -2,10 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 <!--suppress CheckTagEmptyBody -->
 <string-array name="emptyArray"></string-array>
-<string-array name="phoneProfilesNavigator">
-    <item>@string/array_phone_profiles_navigator_profiles</item>
-    <item>@string/array_phone_profiles_navigator_events</item>
-</string-array>
 <string-array name="ringerModeArray" tools:ignore="InconsistentArrays">
     <item>@string/array_pref_no_change</item>
     <item>@string/array_pref_default_profile</item>
@@ -166,43 +162,11 @@
     <item>0</item>
     <item>1</item>
 </string-array>
-<string-array name="daysOfWeekArray">
-    <item>@string/array_pref_event_all</item>
-    <item>@string/array_pref_event_sunday</item>
-    <item>@string/array_pref_event_monday</item>
-    <item>@string/array_pref_event_tuesday</item>
-    <item>@string/array_pref_event_wendesday</item>
-    <item>@string/array_pref_event_thursday</item>
-    <item>@string/array_pref_event_friday</item>
-    <item>@string/array_pref_event_saturday</item>
-</string-array>
-<string-array name="daysOfWeekValues">
-    <item>#ALL#</item>
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-    <item>4</item>
-    <item>5</item>
-    <item>6</item>
-</string-array>
 <string-array name="drawerOrderEvents">
     <item>@string/editor_drawer_order_start_order</item>
     <item>@string/editor_drawer_order_event_name</item>
     <item>@string/editor_drawer_order_profile_name</item>
     <item>@string/editor_drawer_order_priority</item>
-</string-array>
-<string-array name="displayRotationArray">
-    <item>@string/array_pref_no_change</item>
-    <item>@string/array_pref_default_profile</item>
-    <item>@string/array_pref_value_auto_rotate_on</item>
-    <item>@string/array_pref_value_auto_rotate_off</item>
-</string-array>
-<string-array name="displayRotationValues">
-    <item>0</item>
-    <item>99</item>
-    <item>1</item>
-    <item>2</item>
 </string-array>
 <string-array name="displayRotationArray11">
     <item>@string/array_pref_no_change</item>
@@ -308,16 +272,6 @@
     <item>7</item>
     <item>5</item>
     <item>6</item>
-</string-array>
-<string-array name="displayRotationDPArray">
-    <item>@string/array_pref_no_change</item>
-    <item>@string/array_pref_value_auto_rotate_on</item>
-    <item>@string/array_pref_value_auto_rotate_off</item>
-</string-array>
-<string-array name="displayRotationDPValues">
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
 </string-array>
 <string-array name="displayRotationDPArray11">
     <item>@string/array_pref_no_change</item>
@@ -529,14 +483,6 @@
     <item>2</item>
     <item>3</item>
 </string-array>
-<!-- <string-array name="eventSMSEventsArray">
-    <item>@string/array_event_pref_incoming_sms</item>
-    <item>@string/array_event_pref_outgoing_sms</item>
-</string-array>
-<string-array name="eventSMSEventsValues">
-    <item>0</item>
-    <item>1</item>
-</string-array>  -->
 <string-array name="eventSMSContactListTypeArray">
     <item>@string/array_event_pref_contact_list_type_white_list</item>
     <item>@string/array_event_pref_contact_list_type_black_list</item>
@@ -716,33 +662,6 @@
 <string-array name="eventBluetoothDevicesTypeValues">
     <item>0</item>
     <item>1</item>
-</string-array>
-<string-array name="addProfilePredefinedNamesArray">
-    <item>@string/new_empty_profile</item>
-    <item>@string/default_profile_name_home</item>
-    <item>@string/default_profile_name_outdoor</item>
-    <item>@string/default_profile_name_work</item>
-    <item>@string/default_profile_name_meeting</item>
-    <item>@string/default_profile_name_sleep</item>
-    <item>@string/default_profile_name_battery_low</item>
-</string-array>
-<string-array name="addProfilePredefinedIconsArray">
-    <item>@drawable/ic_profile_default</item>
-    <item>@drawable/ic_profile_home_2</item>
-    <item>@drawable/ic_profile_outdoors_1</item>
-    <item>@drawable/ic_profile_work_5</item>
-    <item>@drawable/ic_profile_meeting_2</item>
-    <item>@drawable/ic_profile_sleep</item>
-    <item>@drawable/ic_profile_battery_1</item>
-</string-array>
-<string-array name="addEventPredefinedArray">
-    <item>@string/new_empty_event</item>
-    <item>@string/default_event_name_during_the_week</item>
-    <item>@string/default_event_name_weekend</item>
-    <item>@string/default_event_name_during_the_work</item>
-    <item>@string/default_event_name_overnight</item>
-    <item>@string/default_event_name_night_call</item>
-    <item>@string/default_event_name_low_battery</item>
 </string-array>
 <string-array name="addEventPredefinedStartProfilesArray">
     <item>@string/profile_preference_profile_not_set</item>

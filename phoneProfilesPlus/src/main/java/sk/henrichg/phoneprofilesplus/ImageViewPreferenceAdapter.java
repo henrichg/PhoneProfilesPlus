@@ -14,33 +14,6 @@ class ImageViewPreferenceAdapter extends BaseAdapter {
     private String imageIdentifier;
     private boolean isImageResourceID;
 
-    static final String[] ThumbsIds = {
-        "ic_profile_default",
-
-        "ic_profile_home", "ic_profile_home_2",
-
-        "ic_profile_outdoors_1", "ic_profile_outdoors_2", "ic_profile_outdoors_3", "ic_profile_outdoors_4",
-        "ic_profile_outdoors_5",
-
-        "ic_profile_meeting", "ic_profile_meeting_2", "ic_profile_meeting_3", "ic_profile_mute", "ic_profile_mute_2",
-        "ic_profile_volume_1", "ic_profile_volume_2", "ic_profile_volume_3",
-
-        "ic_profile_work_1", "ic_profile_work_2", "ic_profile_work_3", "ic_profile_work_4", "ic_profile_work_5",
-        "ic_profile_work_6", "ic_profile_work_7", "ic_profile_work_8", "ic_profile_work_9", "ic_profile_work_10",
-        "ic_profile_work_11", "ic_profile_work_12",
-
-        "ic_profile_sleep", "ic_profile_sleep_2", "ic_profile_night",
-        "ic_profile_call_1",
-
-        "ic_profile_car_1", "ic_profile_car_2", "ic_profile_car_3", "ic_profile_car_4", "ic_profile_car_5",
-        "ic_profile_car_6", "ic_profile_car_7", "ic_profile_car_8", "ic_profile_car_9",
-        "ic_profile_airplane_1", "ic_profile_airplane_2", "ic_profile_airplane_3",
-
-        "ic_profile_battery_1", "ic_profile_battery_2", "ic_profile_battery_3",
-
-        "ic_profile_culture_1", "ic_profile_culture_2", "ic_profile_culture_3", "ic_profile_culture_4"
-    };
-
     ImageViewPreferenceAdapter(Context c, String imageIdentifier, boolean isImageResourceID)
     {
         context = c;
@@ -52,11 +25,11 @@ class ImageViewPreferenceAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return ThumbsIds.length;
+        return Profile.profileIconId.length;
     }
 
     public Object getItem(int position) {
-        return ThumbsIds[position];
+        return Profile.profileIconId[position];
     }
 
     public long getItemId(int position) {
@@ -85,7 +58,7 @@ class ImageViewPreferenceAdapter extends BaseAdapter {
             holder = (ViewHolder)vi.getTag();
         }
 
-        if (ThumbsIds[position].equals(imageIdentifier) && isImageResourceID)
+        if (Profile.profileIconId[position].equals(imageIdentifier) && isImageResourceID)
             if (GlobalData.applicationTheme.equals("dark"))
                 holder.icon.setBackgroundResource(R.drawable.abc_list_pressed_holo_dark);
             else
@@ -93,7 +66,7 @@ class ImageViewPreferenceAdapter extends BaseAdapter {
         else
             holder.icon.setBackgroundResource(0);
 
-        holder.icon.setImageResource(context.getResources().getIdentifier(ThumbsIds[position], "drawable", context.getPackageName()));
+        holder.icon.setImageResource(context.getResources().getIdentifier(Profile.profileIconId[position], "drawable", context.getPackageName()));
 
         return vi;
     }

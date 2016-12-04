@@ -46,7 +46,7 @@ class ImageViewPreferenceDialog  {
 
         gridView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                imageViewPreference.setImageIdentifierAndType(ImageViewPreferenceAdapter.ThumbsIds[position], true);
+                imageViewPreference.setImageIdentifierAndType(Profile.profileIconId[position], true);
                 dialog.dismiss();
             }
 

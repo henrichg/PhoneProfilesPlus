@@ -332,14 +332,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // ActionBarDrawerToggle ties together the the proper interactions
-        // between the sliding drawer and the action bar app icon
-        /*int drawerIconId;
-        if (GlobalData.applicationTheme.equals("light"))
-            drawerIconId = R.drawable.ic_drawer;
-        else
-            drawerIconId = R.drawable.ic_drawer_dark;*/
-        
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.editor_drawer_open, R.string.editor_drawer_open)
         {
 

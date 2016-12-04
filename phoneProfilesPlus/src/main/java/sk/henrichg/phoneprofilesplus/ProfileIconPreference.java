@@ -123,7 +123,7 @@ public class ProfileIconPreference extends DialogPreference {
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                setImageIdentifierAndType(ImageViewPreferenceAdapter.ThumbsIds[position], true, false);
+                setImageIdentifierAndType(Profile.profileIconId[position], true, false);
                 adapter.imageIdentifierAndTypeChanged(imageIdentifier, isImageResourceID);
                 updateIcon(true);
                 if (isImageResourceID)

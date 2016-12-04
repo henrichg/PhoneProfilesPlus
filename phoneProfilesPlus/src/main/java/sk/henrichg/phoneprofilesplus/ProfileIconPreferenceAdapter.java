@@ -18,60 +18,6 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
     private boolean useCustomColor;
     private int customColor;
 
-    private static final String[] ThumbsIds = {
-        "ic_profile_default",
-
-        "ic_profile_home", "ic_profile_home_2",
-
-        "ic_profile_outdoors_1", "ic_profile_outdoors_2", "ic_profile_outdoors_3", "ic_profile_outdoors_4",
-        "ic_profile_outdoors_5",
-
-        "ic_profile_meeting", "ic_profile_meeting_2", "ic_profile_meeting_3", "ic_profile_mute", "ic_profile_mute_2",
-        "ic_profile_volume_1", "ic_profile_volume_2", "ic_profile_volume_3",
-
-        "ic_profile_work_1", "ic_profile_work_2", "ic_profile_work_3", "ic_profile_work_4", "ic_profile_work_5",
-        "ic_profile_work_6", "ic_profile_work_7", "ic_profile_work_8", "ic_profile_work_9", "ic_profile_work_10",
-        "ic_profile_work_11", "ic_profile_work_12",
-
-        "ic_profile_sleep", "ic_profile_sleep_2", "ic_profile_night",
-        "ic_profile_call_1",
-
-        "ic_profile_car_1", "ic_profile_car_2", "ic_profile_car_3", "ic_profile_car_4", "ic_profile_car_5",
-        "ic_profile_car_6", "ic_profile_car_7", "ic_profile_car_8", "ic_profile_car_9",
-        "ic_profile_airplane_1", "ic_profile_airplane_2", "ic_profile_airplane_3",
-
-        "ic_profile_battery_1", "ic_profile_battery_2", "ic_profile_battery_3",
-
-        "ic_profile_culture_1", "ic_profile_culture_2", "ic_profile_culture_3", "ic_profile_culture_4"
-    };
-
-    private static final int[] ThumbsColors = {
-            0xff1c9cd7,
-
-            0xff99cc00, 0xff99cc00,
-
-            0xffffbc33, 0xffffbc33, 0xffffbc33, 0xffffbc33,
-            0xffffbc33,
-
-            0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000, 0xffcc0000,
-            0xffcc0000, 0xffcc0000, 0xffcc0000,
-
-            0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
-            0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff, 0xffa801ff,
-            0xffa801ff, 0xffa801ff,
-
-            0xff0099cc, 0xff0099cc, 0xff0099cc,
-            0xff0099cc,
-
-            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
-            0xff28a174, 0xff28a174, 0xff28a174, 0xff28a174,
-            0xff28a174, 0xff28a174, 0xff28a174,
-
-            0xffdb3514, 0xffdb9714, 0xff2aa561,
-
-            0xff38d043, 0xff38d043, 0xff38d043, 0xff38d043
-    };
-
     ProfileIconPreferenceAdapter(Context c, String imageIdentifier, boolean isImageResourceID, boolean useCustomColor, int customColor)
     {
         context = c;
@@ -85,11 +31,11 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return ThumbsIds.length;
+        return Profile.profileIconId.length;
     }
 
     public Object getItem(int position) {
-        return ThumbsIds[position];
+        return Profile.profileIconId[position];
     }
 
     public long getItemId(int position) {
@@ -118,7 +64,7 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
             holder = (ViewHolder)vi.getTag();
         }
 
-        if (ThumbsIds[position].equals(imageIdentifier) && isImageResourceID) {
+        if (Profile.profileIconId[position].equals(imageIdentifier) && isImageResourceID) {
             if (GlobalData.applicationTheme.equals("dark"))
                 holder.icon.setBackgroundResource(R.drawable.abc_list_pressed_holo_dark);
             else
@@ -127,8 +73,8 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         else
             holder.icon.setBackgroundResource(0);
 
-        int res = context.getResources().getIdentifier(ThumbsIds[position], "drawable", context.getPackageName());
-        if (ThumbsIds[position].equals(imageIdentifier) && isImageResourceID && useCustomColor) {
+        int res = context.getResources().getIdentifier(Profile.profileIconId[position], "drawable", context.getPackageName());
+        if (Profile.profileIconId[position].equals(imageIdentifier) && isImageResourceID && useCustomColor) {
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), res);
             bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor/*, context*/);
             holder.icon.setImageBitmap(bitmap);
@@ -150,8 +96,8 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
     }
 
     static int getImageResourcePosition(String imageIdentifier) {
-        for (int pos = 0; pos < ThumbsIds.length; pos++) {
-            if (ThumbsIds[pos].equals(imageIdentifier))
+        for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
+            if (Profile.profileIconId[pos].equals(imageIdentifier))
                 return pos;
         }
         return 0;
@@ -164,7 +110,7 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
     }
 
     static int getIconColor(String imageIdentifier) {
-        return ThumbsColors[getImageResourcePosition(imageIdentifier)];
+        return Profile.profileIconColor[getImageResourcePosition(imageIdentifier)];
     }
 
 }

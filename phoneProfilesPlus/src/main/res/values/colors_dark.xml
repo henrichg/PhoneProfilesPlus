@@ -5,8 +5,6 @@
     <color name="profile_all_accent_dark">#DC8160</color>       <!-- A100 -->
 
     <color name="activityPopupBackground_phoneprofilestheme_dark">#FF303030</color>
-    <color name="activityCardBackground_phoneprofilestheme_dark">#FF202020</color>
-    <color name="activityCardSelected_phoneprofilestheme_dark">#4033b5e5</color>
     <color name="navigationDrawerTextColor_phoneprofiletheme_dark">#ffffffff</color>
     <color name="navigationDrawerSubTextColor_phoneprofiletheme_dark">#80ffffff</color>
     <color name="navigationDrawerBackground_phoneprofiletheme_dark">#FF303030</color>
