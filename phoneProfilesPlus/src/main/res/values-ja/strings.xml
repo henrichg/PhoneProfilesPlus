@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">エディタ</string>
   <string name="menu_settings">設定</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">プロファイル設定</string>
   <string name="title_activity_event_preferences">イベント設定</string>
   <string name="menu_new_profile">新規プロファイル</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">プロファイルの有効化</string>
   <string name="menu_restart_events">イベントを再始動</string>
   <string name="event_preferences_ForceRun">Ignore manual activation</string>
-  <string name="manual_profile_activation_forceRun_message">Any event with option \"Ignore manual activation\" is running. Activate anyway?</string>
   <string name="restart_events_alert_title">イベントを再始動</string>
   <string name="restart_events_alert_message">よろしいですか？</string>
   <string name="event_preferences_ForceRun_summary">Start the event despite the fact that he was manually activated profile</string>

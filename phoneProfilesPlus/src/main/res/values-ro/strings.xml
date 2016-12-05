@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">Editor</string>
   <string name="menu_settings">Setări</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Preferințe profil</string>
   <string name="title_activity_event_preferences">Preferințe eveniment</string>
   <string name="menu_new_profile">Profil nou</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">Activează profilul</string>
   <string name="menu_restart_events">Repornire evenimente</string>
   <string name="event_preferences_ForceRun">Ignoră activarea manuală</string>
-  <string name="manual_profile_activation_forceRun_message">Un eveniment cu opțiunea \"Ignoră activarea manuală\" se execută. Activați oricum?</string>
   <string name="restart_events_alert_title">Repornire evenimente</string>
   <string name="restart_events_alert_message">Ești sigur?</string>
   <string name="event_preferences_ForceRun_summary">Pornește evenimentul chiar dacă profilul a fost activat manual</string>

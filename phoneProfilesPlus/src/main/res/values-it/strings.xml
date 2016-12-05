@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">Editor</string>
   <string name="menu_settings">Impostazioni</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Preferenze profilo</string>
   <string name="title_activity_event_preferences">Preferenze evento</string>
   <string name="menu_new_profile">Nuovo profilo</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">Attiva il profilo</string>
   <string name="menu_restart_events">Riavvia gli eventi</string>
   <string name="event_preferences_ForceRun">Ignora l\'attivazione manuale</string>
-  <string name="manual_profile_activation_forceRun_message">Esegue qualsiasi evento con opzione \"Ignora attivazione manuale\". Attivare comunque?</string>
   <string name="restart_events_alert_title">Riavvia gli eventi</string>
   <string name="restart_events_alert_message">Sei sicuro?</string>
   <string name="event_preferences_ForceRun_summary">Inizia l\'evento nonostate il profilo fosse attivato manualmente</string>

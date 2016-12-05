@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">עורך</string>
   <string name="menu_settings">הגדרות</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">העדפות פרופיל</string>
   <string name="title_activity_event_preferences">העדפות אירוע</string>
   <string name="menu_new_profile">פרופיל חדש</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">הפעלת פרופיל</string>
   <string name="menu_restart_events">הפעלת אירועים מחדש</string>
   <string name="event_preferences_ForceRun">התעלמות מהפעלה ידנית</string>
-  <string name="manual_profile_activation_forceRun_message">מופעל כבר אירוע עם אפשרות \"התעלמות ההפעלה הידנית\". להפעיל בכל מקרה?</string>
   <string name="restart_events_alert_title">הפעלת אירועים מחדש</string>
   <string name="restart_events_alert_message">את/ה בטוח/ה?</string>
   <string name="event_preferences_ForceRun_summary">הפעלת האירוע למרות שהוא מוגדר להפעלה ידנית</string>
@@ -843,25 +842,28 @@
   <string name="run_stop_events_indicator">הפעלה/הפסקה של מחוון הפעלת האירועים</string>
   <string name="run_stop_indicator_popup_window_important_infos">למידע נוסף ראו \"מידע חשוב\" (סמל סימן השאלה בסרגל הכלים התחתון בעורך).</string>
   <string name="important_info_how_to_show_ppp">ניתן לצפות במידע חשוב זה בעורך דרך סמל סימן השאלה בסרגל הכלים התחתון.</string>
-  <string name="preference_not_allowed_reason_not_supported_by_application">not supported by application</string>
-  <string name="preference_not_allowed_reason_detail_old_android">old Android version</string>
-  <string name="preference_not_allowed_reason_detail_network_type">unsupported network type or can\'t be change</string>
-  <string name="preference_not_allowed_reason_detail_secure_lock">unsupported secure lock</string>
-  <string name="preference_not_allowed_reason_detail_cant_be_change">can\'t be change</string>
-  <string name="event_preferences_sensorsInfo_title">Sensors functionality</string>
-  <string name="event_preferences_sensorsInfo_summary">Event will be started, if parameters of all sensors with \"Enable sensor\" parameter checked, are fulfilled. Running event will be ended, if any sensor parameter is not fulfilled. Check \"Enable sensor\" only for needed sensors for this event. Sensor name with \"Enable sensor\" checked is marked with bold text.\nSome sensor parameters are required. Required parameter name is marked with underline text. If any required parameter is not configured, event will not be started and parameter \"Enable sensor\" is unchecked.</string>
-  <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
-  <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not supports colorful icons in status bar.</string>
-  <string name="pref_dlg_change_selection_title">Change selection</string>
-  <string name="pref_dlg_change_selection_button">Change</string>
-  <string name="array_pref_change_selection_unselect_all">Unselect all</string>
-  <string name="array_pref_change_selection_mobile_cells_select_by_name">Select by cell name</string>
-  <string name="pref_dlg_change_selection_button_unselect_all">Unselect all</string>
-  <string name="array_pref_change_selection_wifi_ssid_select_by_name">Select by SSID name</string>
-  <string name="array_pref_change_selection_bluetooth_name_select_by_name">Select by bluetooth name</string>
-  <string name="array_pref_change_selection_nfc_tags_select_by_name">Select by NFC tag name</string>
-  <string name="event_preferences_enable_sensor">Enable sensor</string>
-  <string name="info_preference_click_here">Click here for show infomations</string>
-  <string name="profile_preferences_category_profileActivationParameters">Activation parameters</string>
-  <string name="profile_preferences_category_profileDeviceParameters">Device parameters</string>
+  <string name="preference_not_allowed_reason_not_supported_by_application">לא נתמך על-ידי היישום</string>
+  <string name="preference_not_allowed_reason_detail_old_android">גרסת אנדרואיד ישנה</string>
+  <string name="preference_not_allowed_reason_detail_network_type">סוג הרשת אינו נתמך או שאין אפשרות לשנותו</string>
+  <string name="preference_not_allowed_reason_detail_secure_lock">נעילה מאובטחת שאינה נתמכת</string>
+  <string name="preference_not_allowed_reason_detail_cant_be_change">לא ניתן לשינוי</string>
+  <string name="event_preferences_sensorsInfo_title">תפקוד החיישנים</string>
+  <string name="event_preferences_sensorsInfo_summary">אירוע יחל רק אם הפרמטר \'איפשור החיישן\' מסומן עבור כל החיישנים.
+אירוע פעיל יסתיים אם אחד מהפרמטרים של החיישנים אינו מתקיים.
+סמנו \"איפשור החיישן\" רק עבור חיישנים הדרושים לאירוע.
+שם החיישן עם \"איפשור החיישן\" יוצג במלל מודגש. \n חלק מהפרמטרים של החיישנים נדרשים. שמו של פרמטר נדרש יוצג עם קו תחתון. אם פרמטר נדרש לא הוגדר, האירוע לא יופעל, והפרמטר \'איפשור חיישן\' לא יסומן.</string>
+  <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">סמל צבעוני</string>
+  <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">מכשירים מסוימים אינם תומכים בסמלים צבעוניים בשורת המצב.</string>
+  <string name="pref_dlg_change_selection_title">שינוי הבחירה</string>
+  <string name="pref_dlg_change_selection_button">שינוי</string>
+  <string name="array_pref_change_selection_unselect_all">ביטול בחירה של הכל</string>
+  <string name="array_pref_change_selection_mobile_cells_select_by_name">בחירה עפ\"י שם תא</string>
+  <string name="pref_dlg_change_selection_button_unselect_all">ביטול בחירה של הכל</string>
+  <string name="array_pref_change_selection_wifi_ssid_select_by_name">בחירה עפ\"י שם SSID</string>
+  <string name="array_pref_change_selection_bluetooth_name_select_by_name">בחירה עפ\"י שם bluetooth</string>
+  <string name="array_pref_change_selection_nfc_tags_select_by_name">בחירה עפ\"י שם תג NFC</string>
+  <string name="event_preferences_enable_sensor">איפשור החיישן</string>
+  <string name="info_preference_click_here">לחצו כאן להצגת מידע</string>
+  <string name="profile_preferences_category_profileActivationParameters">פרמטרים של הפעלה</string>
+  <string name="profile_preferences_category_profileDeviceParameters">פרמטרי ההתקן</string>
 </resources>

@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">Edytor</string>
   <string name="menu_settings">Ustawienia</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Ustawienia profilu</string>
   <string name="title_activity_event_preferences">Ustawienia zdarzeń</string>
   <string name="menu_new_profile">Nowy profil</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">Aktywuj profil</string>
   <string name="menu_restart_events">Zrestartuj zdarzenia</string>
   <string name="event_preferences_ForceRun">Ignoruj ręczną aktywację</string>
-  <string name="manual_profile_activation_forceRun_message">Zdarzenie z opcją \"Ignoruj ręczną aktywację\" działa. Aktywować mimo to?</string>
   <string name="restart_events_alert_title">Zrestartuj zdarzenia</string>
   <string name="restart_events_alert_message">Czy na pewno?</string>
   <string name="event_preferences_ForceRun_summary">Uruchom zdarzenie pomimo tego, że był to profil aktywowany ręcznie</string>

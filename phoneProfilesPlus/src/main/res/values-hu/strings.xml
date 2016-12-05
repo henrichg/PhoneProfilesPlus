@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">Szerkesztő</string>
   <string name="menu_settings">Beállítások</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Profil tulajdonságai</string>
   <string name="title_activity_event_preferences">Esemény tulajdonságai</string>
   <string name="menu_new_profile">Új profil</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">Aktív profil</string>
   <string name="menu_restart_events">Eseményt újra indít</string>
   <string name="event_preferences_ForceRun">Aktiválás kihagyása</string>
-  <string name="manual_profile_activation_forceRun_message">Futtatás során minden esetben \"Figyelmen kívül hagyja az aktiválást\". Egyébként aktivál?</string>
   <string name="restart_events_alert_title">Eseményt újra indít</string>
   <string name="restart_events_alert_message">Biztos vagy benne?</string>
   <string name="event_preferences_ForceRun_summary">Eseményt indít annak ellenére, hogy kézzel aktivál egy profilt</string>

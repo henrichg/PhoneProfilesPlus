@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">Editor</string>
   <string name="menu_settings">Nastavení</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Parametry profilu</string>
   <string name="title_activity_event_preferences">Parametry události</string>
   <string name="menu_new_profile">Nový profil</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">Aktivovat profil</string>
   <string name="menu_restart_events">Restart událostí</string>
   <string name="event_preferences_ForceRun">Ignoruj ​​manuální aktivaci</string>
-  <string name="manual_profile_activation_forceRun_message">Nějaká událost s parametrem \"Ignoruj ​​manuální aktivaci\" běží. I tak aktivovat?</string>
   <string name="restart_events_alert_title">Restartovat události</string>
   <string name="restart_events_alert_message">Jste si jistý?</string>
   <string name="event_preferences_ForceRun_summary">Spustit událost přesto, že byl manuálně aktivovaný profil</string>
@@ -839,7 +838,7 @@
   <string name="editor_event_list_item_event_status">Indikátor stavu události</string>
   <string name="editor_event_list_item_profile_start_icon">Ikona profilu začátku události</string>
   <string name="editor_event_list_item_profile_end_icon">Ikona profilu konce události</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Pro každý profil je možné nastavit, že se má použít Zdrojový profil. Klikněte sem pro nakonfigurování parametrů Zdrojového profilu.</string>
+  <string name="profile_preferences_sourceProfileInfo_summary">Pro každý profil je možné nastavit, že se má použít Zdrojový profil. Klikněte zde pro nakonfigurování parametrů Zdrojového profilu.</string>
   <string name="run_stop_events_indicator">Povol/zastav běh událostí</string>
   <string name="run_stop_indicator_popup_window_important_infos">Pro více informací se podívejte \"Důležité informace\" (ikona otazníku na spodní nástrojové liště editoru).</string>
   <string name="important_info_how_to_show_ppp">Tyto důležité informace lze zobrazit v Editoru přes ikonu otazníku ve spodní nástrojové liště.</string>
@@ -861,7 +860,7 @@
   <string name="array_pref_change_selection_bluetooth_name_select_by_name">Vybrat podle názvu bluetooth</string>
   <string name="array_pref_change_selection_nfc_tags_select_by_name">Vybrat podle názvu NFC tagu</string>
   <string name="event_preferences_enable_sensor">Povolte senzor</string>
-  <string name="info_preference_click_here">Click here for show infomations</string>
-  <string name="profile_preferences_category_profileActivationParameters">Activation parameters</string>
-  <string name="profile_preferences_category_profileDeviceParameters">Device parameters</string>
+  <string name="info_preference_click_here">Klikněte zde pro zobrazení informací</string>
+  <string name="profile_preferences_category_profileActivationParameters">Parametry aktivace</string>
+  <string name="profile_preferences_category_profileDeviceParameters">Parametry zařízení</string>
 </resources>

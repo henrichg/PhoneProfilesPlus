@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">Editor</string>
   <string name="menu_settings">Configuració</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Preferències de perfil</string>
   <string name="title_activity_event_preferences">Preferències d\'esdeveniment</string>
   <string name="menu_new_profile">Nou perfil</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">Activar perfil</string>
   <string name="menu_restart_events">Reiniciar esdeveniments</string>
   <string name="event_preferences_ForceRun">Ignorar activació manual</string>
-  <string name="manual_profile_activation_forceRun_message">Qualsevol esdeveniment amb l\'opció \"Ignorar activació manual\" s\'està executant. Activar igualment?</string>
   <string name="restart_events_alert_title">Reiniciar esdeveniments</string>
   <string name="restart_events_alert_message">Esteu segur?</string>
   <string name="event_preferences_ForceRun_summary">Inici de l\'esdeveniment malgrat que va ser activat manualment el seu perfil</string>

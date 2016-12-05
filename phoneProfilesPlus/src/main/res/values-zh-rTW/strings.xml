@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">編輯器</string>
   <string name="menu_settings">設置</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">設定檔偏好設定</string>
   <string name="title_activity_event_preferences">事件偏好設定</string>
   <string name="menu_new_profile">新設定檔</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">激活設定檔</string>
   <string name="menu_restart_events">重新啟動事件</string>
   <string name="event_preferences_ForceRun">忽略手動激活</string>
-  <string name="manual_profile_activation_forceRun_message">任何有 \"忽略手動激活\" 選項的活動都正在運行。無論如何都激活它?</string>
   <string name="restart_events_alert_title">重新啟動事件</string>
   <string name="restart_events_alert_message">是否確定？</string>
   <string name="event_preferences_ForceRun_summary">開始事件儘管它是手動激活設定檔</string>

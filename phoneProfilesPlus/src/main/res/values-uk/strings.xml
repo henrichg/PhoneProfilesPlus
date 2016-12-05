@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">Редактор</string>
   <string name="menu_settings">Налаштування</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Налаштування профілю</string>
   <string name="title_activity_event_preferences">Налаштування подій</string>
   <string name="menu_new_profile">Новий профіль</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">Активувати профіль</string>
   <string name="menu_restart_events">Перезапустити події</string>
   <string name="event_preferences_ForceRun">Ігнорувати ручну активацію</string>
-  <string name="manual_profile_activation_forceRun_message">Будь-яка подія з опцією \"Ігнорувати ручну активацію\" працює. Активувати?</string>
   <string name="restart_events_alert_title">Перезавантаження подій</string>
   <string name="restart_events_alert_message">Ви впевнені?</string>
   <string name="event_preferences_ForceRun_summary">Розпочати подію, незважаючи на те, що діє вручну активований профіль</string>

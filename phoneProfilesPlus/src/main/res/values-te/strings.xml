@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">ఎడిటర్</string>
   <string name="menu_settings">సెట్టింగులు</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">ప్రొఫైల్ ప్రాధన్యతులు</string>
   <string name="title_activity_event_preferences">ఈవెంట్ ప్రాధన్యతులు</string>
   <string name="menu_new_profile">కొత్త ప్రొఫైల్</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">ప్రొఫైల్ను సక్రియం</string>
   <string name="menu_restart_events">ఈవెంట్స్ పునఃప్రారంభించు</string>
   <string name="event_preferences_ForceRun">Ignore manual activation</string>
-  <string name="manual_profile_activation_forceRun_message">ఎంపికను తో ఏదైనా సంఘటన \"మాన్యువల్ క్రియాశీలతను విస్మరించు\" నడుస్తుంటే. ఏమైనప్పటికీ సక్రియం ?</string>
   <string name="restart_events_alert_title">ఈవెంట్స్ పునఃప్రారంభించు</string>
   <string name="restart_events_alert_message">Are you sure?</string>
   <string name="event_preferences_ForceRun_summary">అది మానవీయంగా ప్రొఫైల్ యాక్టివేట్ వాస్తవం ఉన్నప్పటికీ ఈవెంట్ ప్రారంభించండి</string>

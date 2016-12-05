@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">Editor</string>
   <string name="menu_settings">Nastavenia</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Parametre profilu</string>
   <string name="title_activity_event_preferences">Parametre udalosti</string>
   <string name="menu_new_profile">Nový profil</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">Aktivovať profil</string>
   <string name="menu_restart_events">Reštart udalostí</string>
   <string name="event_preferences_ForceRun">Ignoruj manuálnu aktiváciu</string>
-  <string name="manual_profile_activation_forceRun_message">Dáka udalosť s parametrom \"Ignoruj manuálnu aktiváciu\" beží. Aj tak aktivovať?</string>
   <string name="restart_events_alert_title">Reštartovať udalosti</string>
   <string name="restart_events_alert_message">Ste si istý?</string>
   <string name="event_preferences_ForceRun_summary">Spustiť udalosť napriek tomu, že bol manuálne aktivovaný profil</string>

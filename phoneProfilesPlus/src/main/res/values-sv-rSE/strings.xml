@@ -5,7 +5,7 @@
   <string name="app_name">PhoneProfilesPlus</string>
   <string name="menu_edit_profiles">Redigerare</string>
   <string name="menu_settings">Inställningar</string>
-  <string name="title_activity_phone_profiles">PhoneProfiles Plus</string>
+  <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Profilegenskaper</string>
   <string name="title_activity_event_preferences">Händelseegenskaper</string>
   <string name="menu_new_profile">Ny profil</string>
@@ -275,7 +275,6 @@
   <string name="event_preferences_eventProfileEnd">Aktivera profil</string>
   <string name="menu_restart_events">Starta om händelser</string>
   <string name="event_preferences_ForceRun">Ignorera manuell aktivering</string>
-  <string name="manual_profile_activation_forceRun_message">En händelse med alternativet \"Ignorera manuell aktivering\" körs. Aktivera ändå?</string>
   <string name="restart_events_alert_title">Starta om händelser</string>
   <string name="restart_events_alert_message">Är du säker?</string>
   <string name="event_preferences_ForceRun_summary">Starta händelsen trots att det finns en manuellt aktiverat profil?</string>
