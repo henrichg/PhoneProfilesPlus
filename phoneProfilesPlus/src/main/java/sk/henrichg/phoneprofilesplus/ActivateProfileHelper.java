@@ -1364,7 +1364,7 @@ public class ActivateProfileHelper {
 
     private static void screenTimeoutLock(Context context)
     {
-        Log.d("ActivateProfileHelper.screenTimeoutLock","xxx");
+        //Log.d("ActivateProfileHelper.screenTimeoutLock","xxx");
         WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
 
         screenTimeoutUnlock(context);
@@ -1391,12 +1391,12 @@ public class ActivateProfileHelper {
             GUIData.keepScreenOnView = null;
             //e.printStackTrace();
         }
-        Log.d("ActivateProfileHelper.screenTimeoutLock","-- end");
+        //Log.d("ActivateProfileHelper.screenTimeoutLock","-- end");
     }
 
     static void screenTimeoutUnlock(Context context)
     {
-        Log.d("ActivateProfileHelper.screenTimeoutUnlock","xxx");
+        //Log.d("ActivateProfileHelper.screenTimeoutUnlock","xxx");
 
         if (GUIData.keepScreenOnView != null)
         {
@@ -1408,13 +1408,13 @@ public class ActivateProfileHelper {
             GUIData.keepScreenOnView = null;
         }
 
-        Log.d("ActivateProfileHelper.screenTimeoutUnlock","-- end");
+        //Log.d("ActivateProfileHelper.screenTimeoutUnlock","-- end");
     }
 
     @SuppressLint("RtlHardcoded")
     private void createBrightnessView(Context context)
     {
-        Log.d("ActivateProfileHelper.createBrightnessView","xxx");
+        //Log.d("ActivateProfileHelper.createBrightnessView","xxx");
 
         //if (dataWrapper.context != null)
         //{
@@ -1422,7 +1422,7 @@ public class ActivateProfileHelper {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
             if (GUIData.brightneesView != null)
             {
-                Log.d("ActivateProfileHelper.createBrightnessView","GUIData.brightneesView != null");
+                //Log.d("ActivateProfileHelper.createBrightnessView","GUIData.brightneesView != null");
                 try {
                     windowManager.removeView(GUIData.brightneesView);
                 } catch (Exception ignored) {
@@ -1450,7 +1450,7 @@ public class ActivateProfileHelper {
 
             RemoveBrightnessViewBroadcastReceiver.setAlarm(context);
 
-        Log.d("ActivateProfileHelper.createBrightnessView","-- end");
+        //Log.d("ActivateProfileHelper.createBrightnessView","-- end");
 
         //}
     }

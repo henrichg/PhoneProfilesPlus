@@ -478,7 +478,7 @@ public class MobileCellsPreference extends DialogPreference {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
+            //Log.d("MobileCellsPreference.PhoneStateChangedBroadcastReceiver", "xxx");
             if ((preference.mDialog != null) && preference.mDialog.isShowing()) {
                 // save new registered cell
                 List<MobileCellsData> localCellsList = new ArrayList<MobileCellsData>();

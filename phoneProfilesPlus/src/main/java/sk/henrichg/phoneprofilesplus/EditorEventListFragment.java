@@ -250,7 +250,7 @@ public class EditorEventListFragment extends Fragment {
             dataWrapper.getProfileList();
 
             List<Event> eventList = dataWrapper.getEventList();
-            Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
+            //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (filterType == FILTER_TYPE_START_ORDER)
                 EditorEventListFragment.sortList(eventList, ORDER_TYPE_START_ORDER, dataWrapper);
             else

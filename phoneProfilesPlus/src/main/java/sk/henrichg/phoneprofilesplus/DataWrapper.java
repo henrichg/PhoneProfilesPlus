@@ -1254,7 +1254,7 @@ public class DataWrapper {
 
     private void showToastAfterActivation(Profile profile)
     {
-        Log.d("DataWrapper.showToastAfterActivation", "xxx");
+        //Log.d("DataWrapper.showToastAfterActivation", "xxx");
         try {
             String profileName = getProfileNameWithManualIndicator(profile, true, false, false);
             Toast msg = Toast.makeText(context,
@@ -1265,7 +1265,7 @@ public class DataWrapper {
         }
         catch (Exception ignored) {
         }
-        Log.d("DataWrapper.showToastAfterActivation", "-- end");
+        //Log.d("DataWrapper.showToastAfterActivation", "-- end");
     }
 
     private void activateProfileWithAlert(Profile profile, int startupSource, final boolean interactive,
