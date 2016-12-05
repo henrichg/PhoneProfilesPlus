@@ -40,6 +40,8 @@ public class KeyguardService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         Context context = getBaseContext();
 
         if (!GlobalData.getApplicationStarted(context)) {

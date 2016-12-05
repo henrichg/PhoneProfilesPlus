@@ -80,6 +80,8 @@ class SettingsContentObserver  extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         super.onChange(selfChange);
 
         //Log.e("### SettingsContentObserver", "onChange - internalChange=" + internalChange);

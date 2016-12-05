@@ -277,6 +277,8 @@ public class PhoneProfilesService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
         GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
 
         if (intent != null) {
