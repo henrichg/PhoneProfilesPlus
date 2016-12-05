@@ -576,8 +576,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
         }
     }
 
-    void updateShortcut(Intent shortcutIntent, String shortcutName,
-                               Bitmap shortcutIcon, int position) {
+    void updateShortcut(Intent shortcutIntent, String shortcutName, int position) {
         /* Storing Intent to SQLite ;-)
         You can simply store the intent in a String way:
 

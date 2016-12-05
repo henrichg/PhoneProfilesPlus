@@ -178,7 +178,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         //Log.d("GeofenceScanner.createLocationRequest", "xxx");
 
         // check power save mode
-        boolean powerSaveMode = DataWrapper.isPowerSaveMode(context);
+        boolean powerSaveMode = DataWrapper.isPowerSaveMode();
         if (powerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
             mLocationRequest = null;
             return;

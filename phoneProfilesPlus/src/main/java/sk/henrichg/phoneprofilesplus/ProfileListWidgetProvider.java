@@ -272,9 +272,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     {
         createProfilesDataWrapper(context);
 
-        for (int i=0; i<appWidgetIds.length; i++)
-        {
-            doOnUpdate(context, appWidgetManager, appWidgetIds[i]);
+        for (int appWidgetId : appWidgetIds) {
+            doOnUpdate(context, appWidgetManager, appWidgetId);
         }
 
         super.onUpdate(context, appWidgetManager, appWidgetIds);
@@ -360,19 +359,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         if (isKeyguard)
         {
-            if (minHeight < 250) {
-               isLargeLayout = false;
-            } else {
-                isLargeLayout = true;
-            }
+            isLargeLayout = minHeight >= 250;
         }
         else
         {
-            if (minHeight < 110) {
-                isLargeLayout = false;
-            } else {
-                isLargeLayout = true;
-            }
+            isLargeLayout = minHeight >= 110;
         }
         
         if (preferences.contains(preferenceKey))
@@ -389,11 +380,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     private void setLayoutParamsMotorola(Context context, int spanX, int spanY, int appWidgetId)
     {
         isKeyguard = false;
-        if (spanY == 1) {
-            isLargeLayout = false;
-        } else {
-            isLargeLayout = true;
-        }
+        isLargeLayout = spanY != 1;
         
         String preferenceKey = "isLargeLayout_"+appWidgetId;
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -443,9 +430,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
 
-        for (int i=0; i<appWidgetIds.length; i++)
-        {
-            updateWidget(context, appWidgetIds[i]);
+        for (int appWidgetId : appWidgetIds) {
+            updateWidget(context, appWidgetId);
         }
     }
 

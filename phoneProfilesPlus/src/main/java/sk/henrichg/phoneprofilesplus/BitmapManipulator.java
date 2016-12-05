@@ -13,13 +13,9 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
-import android.support.v4.graphics.drawable.DrawableCompat;
 
 import java.io.File;
-import java.io.IOException;
 
 class BitmapManipulator {
 
@@ -64,7 +60,9 @@ class BitmapManipulator {
 
             int rotatedWidth, rotatedHeight;
             if (rotate == 90 || rotate == 270) {
+                //noinspection SuspiciousNameCombination
                 rotatedWidth = height;
+                //noinspection SuspiciousNameCombination
                 rotatedHeight = width;
             } else {
                 rotatedWidth = width;
@@ -177,7 +175,8 @@ class BitmapManipulator {
         return recolorBitmap(bitmap, color/*, context*/);
     }
 
-    static Drawable tintDrawableByColor(Drawable drawable, int color) {
+    /*
+    public static Drawable tintDrawableByColor(Drawable drawable, int color) {
         Drawable wrapDrawable = DrawableCompat.wrap(drawable);
         //DrawableCompat.setTintMode(wrapDrawable,  PorterDuff.Mode.DST_ATOP);
         DrawableCompat.setTint(wrapDrawable, color);
@@ -201,6 +200,7 @@ class BitmapManipulator {
 
         return bitmap;
     }
+    */
 
     static Bitmap grayscaleBitmap(Bitmap bitmap)
     {

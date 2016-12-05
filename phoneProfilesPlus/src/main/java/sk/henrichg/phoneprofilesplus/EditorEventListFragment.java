@@ -130,7 +130,7 @@ public class EditorEventListFragment extends Fragment {
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
 
         dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getActivity(), getActivity().getApplicationContext());
+        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getActivity().getApplicationContext());
 
         databaseHandler = dataWrapper.getDatabaseHandler();
 

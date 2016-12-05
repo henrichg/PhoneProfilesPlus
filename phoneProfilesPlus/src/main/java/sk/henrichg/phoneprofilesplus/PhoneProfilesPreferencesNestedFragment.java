@@ -492,7 +492,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
             ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
-            activateProfileHelper.initialize(dataWrapper, null, context);
+            activateProfileHelper.initialize(dataWrapper, context);
 
             Profile activatedProfile = dataWrapper.getActivatedProfile();
             dataWrapper.refreshProfileIcon(activatedProfile, false, 0);

@@ -23,9 +23,8 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         StackTraceElement[] arr = e.getStackTrace();
         String report = e.toString()+"\n\n";
         report += "--------- Stack trace ---------\n\n";
-        for (int i=0; i<arr.length; i++)
-        {
-            report += "    "+arr[i].toString()+"\n";
+        for (StackTraceElement anArr : arr) {
+            report += "    " + anArr.toString() + "\n";
         }
         report += "-------------------------------\n\n";
 
@@ -36,9 +35,8 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         if(cause != null) {
             report += cause.toString() + "\n\n";
             arr = cause.getStackTrace();
-            for (int i=0; i<arr.length; i++)
-            {
-                report += "    "+arr[i].toString()+"\n";
+            for (StackTraceElement anArr : arr) {
+                report += "    " + anArr.toString() + "\n";
             }
         }
         report += "-------------------------------\n\n";

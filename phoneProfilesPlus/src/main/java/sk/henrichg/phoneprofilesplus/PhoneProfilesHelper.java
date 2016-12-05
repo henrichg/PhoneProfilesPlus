@@ -26,12 +26,11 @@ class PhoneProfilesHelper {
 
     static int PPHelperVersion = -1;
 
-    //static final int PPHELPER_CURRENT_VERSION = 59;
+    static final int PPHELPER_CURRENT_VERSION = 59;
 
     private static boolean errorNoRoot = false;
-    //private static boolean nowPPHelperUninstalled = false;
+    private static boolean nowPPHelperUninstalled = false;
 
-    /*
     static boolean isPPHelperInstalled(Context context, int minVersion)
     {
         PPHelperVersion = -1;
@@ -40,9 +39,8 @@ class PhoneProfilesHelper {
             return false;
 
         // get package version
-        PackageInfo pinfo = null;
         try {
-            pinfo = context.getPackageManager().getPackageInfo("sk.henrichg.phoneprofileshelper", 0);
+            PackageInfo pinfo = context.getPackageManager().getPackageInfo("sk.henrichg.phoneprofileshelper", 0);
             GlobalData.logE("PhoneProfilesHelper.isPPHelperInstalled", "found");
             PPHelperVersion = pinfo.versionCode;
         } catch (NameNotFoundException e) {
@@ -51,7 +49,6 @@ class PhoneProfilesHelper {
         }
         return PPHelperVersion >= minVersion;
     }
-    */
 
     static private boolean doUninstallPPHelper(Activity activity)
     {
@@ -125,7 +122,7 @@ class PhoneProfilesHelper {
 
         if (OK)
         {
-            //nowPPHelperUninstalled = true;
+            nowPPHelperUninstalled = true;
 
             Context context = activity.getApplicationContext();
             // update profiles for hardware changes

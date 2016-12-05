@@ -131,7 +131,7 @@ public class WifiScanAlarmBroadcastReceiver extends BroadcastReceiver {
             }
             else {
                 int interval = GlobalData.applicationEventWifiScanInterval;
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
                 if (isPowerSaveMode && GlobalData.applicationEventWifiScanInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
                 calendar.add(Calendar.MINUTE, interval);

@@ -25,20 +25,17 @@ class AddProfileDialog
 
         profileList = new ArrayList<>();
 
-        boolean monochrome = false;
-        int monochromeValue = 0xFF;
-
         Profile profile;
         profile = DataWrapper.getNoinitializedProfile(
                                         context.getResources().getString(R.string.profile_name_default),
                                         GlobalData.PROFILE_ICON_DEFAULT, 0);
-        profile.generateIconBitmap(context, monochrome, monochromeValue);
-        profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+        profile.generateIconBitmap(context, false, 0xFF);
+        profile.generatePreferencesIndicator(context, false, 0xFF);
         profileList.add(profile);
         for (int index = 0; index < 6; index++) {
             profile = profileListFragment.dataWrapper.getPredefinedProfile(index, false);
-            profile.generateIconBitmap(context, monochrome, monochromeValue);
-            profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+            profile.generateIconBitmap(context, false, 0xFF);
+            profile.generatePreferencesIndicator(context, false, 0xFF);
             profileList.add(profile);
         }
 

@@ -49,7 +49,7 @@ public class ExecuteRadioProfilePrefsService extends IntentService
             if (Permissions.checkProfileRadioPreferences(context, profile)) {
                 // run execute radios from ActivateProfileHelper
                 ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
-                aph.initialize(dataWrapper, null, context);
+                aph.initialize(dataWrapper, context);
                 aph.executeForRadios(profile);
             }
         }

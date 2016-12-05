@@ -115,7 +115,7 @@ public class EventsService extends IntentService
             return;
         }
 
-        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
+        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
 
         // create a handler to post messages to the main thread
         Handler toastHandler = new Handler(getMainLooper());

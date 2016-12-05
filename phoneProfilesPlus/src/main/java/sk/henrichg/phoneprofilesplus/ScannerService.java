@@ -90,7 +90,7 @@ public class ScannerService extends IntentService
         }
 
         // check power save mode
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
         if (isPowerSaveMode) {
             int forceScan = GlobalData.getForceOneWifiScan(context);
             if (forceScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {

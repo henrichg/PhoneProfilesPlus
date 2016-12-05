@@ -346,7 +346,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 ProfilePreferencesFragment.applicationsDialogPreference.updateShortcut(
                         (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
                         data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),
-                        (Bitmap)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON),
+                        /*(Bitmap)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON),*/
                         data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, -1));
             }
         }

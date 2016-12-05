@@ -148,7 +148,7 @@ public class MaterialDialogPreference extends DialogPreference {
         boolean isDialogShowing;
         Bundle dialogBundle;
 
-        public SavedState(Parcel source) {
+        SavedState(Parcel source) {
             super(source);
             isDialogShowing = source.readInt() == 1;
             dialogBundle = source.readBundle();
@@ -161,7 +161,7 @@ public class MaterialDialogPreference extends DialogPreference {
             dest.writeBundle(dialogBundle);
         }
 
-        public SavedState(Parcelable superState) {
+        SavedState(Parcelable superState) {
             super(superState);
         }
 

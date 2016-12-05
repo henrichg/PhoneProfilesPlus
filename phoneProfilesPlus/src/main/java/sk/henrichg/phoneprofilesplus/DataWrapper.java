@@ -459,14 +459,14 @@ public class DataWrapper {
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
                 startupSource, interactive, null, true, true)) {
-            getActivateProfileHelper().initialize(this, null, context);
+            getActivateProfileHelper().initialize(this, context);
             _activateProfile(profile, merged, startupSource, interactive, null, log);
         }
     }
 
     void updateNotificationAndWidgets(Profile profile)
     {
-        getActivateProfileHelper().initialize(this, null, context);
+        getActivateProfileHelper().initialize(this, context);
         getActivateProfileHelper().showNotification(profile);
         getActivateProfileHelper().updateWidget();
     }
@@ -746,7 +746,7 @@ public class DataWrapper {
     }
 
     // pauses all events
-    void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
+    private void pauseAllEvents(boolean noSetSystemEvent, boolean blockEvents/*, boolean activateReturnProfile*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
@@ -1271,30 +1271,8 @@ public class DataWrapper {
     private void activateProfileWithAlert(Profile profile, int startupSource, final boolean interactive,
                                             Activity activity)
     {
-        boolean isforceRunEvent = false;
-
-        /*
-        if (interactive)
-        {
-            // search for forceRun events
-            getEventList();
-            for (Event event : eventList)
-            {
-                if (event != null)
-                {
-                    if ((event.getStatus() == Event.ESTATUS_RUNNING) && (event._forceRun))
-                    {
-                        isforceRunEvent = true;
-                        break;
-                    }
-                }
-            }
-        }
-        */
-
-        if ((interactive) && (GlobalData.applicationActivateWithAlert ||
-                             (startupSource == GlobalData.STARTUP_SOURCE_EDITOR) ||
-                             (isforceRunEvent)))
+        if (interactive && (GlobalData.applicationActivateWithAlert ||
+                            (startupSource == GlobalData.STARTUP_SOURCE_EDITOR)))
         {
             // set theme and language for dialog alert ;-)
             // not working on Android 2.3.x
@@ -1309,23 +1287,20 @@ public class DataWrapper {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(activity.getResources().getString(R.string.profile_string_0) + ": " + profile._name);
-            if (isforceRunEvent)
-                dialogBuilder.setMessage(R.string.manual_profile_activation_forceRun_message);
-            else
-                dialogBuilder.setMessage(activity.getResources().getString(R.string.activate_profile_alert_message));
+            dialogBuilder.setMessage(activity.getResources().getString(R.string.activate_profile_alert_message));
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     if (Permissions.grantProfilePermissions(context, _profile, false, false,
                             forGUI, monochrome, monochromeValue,
-                            _startupSource, interactive, _activity, true, true)) {
+                            _startupSource, true, _activity, true, true)) {
                         if (_profile._askForDuration) {
                             FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
-                                    interactive, true);
+                                    true, true);
                             dlg.show();
                         }
                         else
-                            _activateProfile(_profile, false, _startupSource, interactive, _activity, true);
+                            _activateProfile(_profile, false, _startupSource, true, _activity, true);
                     }
                     else {
                         Intent returnIntent = new Intent();
@@ -1367,16 +1342,16 @@ public class DataWrapper {
 
                 granted = Permissions.grantProfilePermissions(context, profile, false, false,
                         forGUI, monochrome, monochromeValue,
-                        startupSource, interactive, activity, true, true);
+                        startupSource, true, activity, true, true);
             }
             else
                 granted = Permissions.grantProfilePermissions(context, profile, false, true,
                                         forGUI, monochrome, monochromeValue,
-                                        startupSource, interactive, null, true, true);
+                                        startupSource, false, null, true, true);
             if (granted) {
                 if (profile._askForDuration && interactive) {
                     FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this, startupSource,
-                                                            interactive, true);
+                                                            true, true);
                     dlg.show();
                 }
                 else
@@ -1414,10 +1389,7 @@ public class DataWrapper {
         }
 
         if (finish)
-        {
-            //if (_activity != null)
-                _activity.finish();
-        }
+            _activity.finish();
     }
 
     public void activateProfile(long profile_id, int startupSource, Activity activity)
@@ -1656,7 +1628,7 @@ public class DataWrapper {
                     }
                 }
                 if (batteryPassed && event._eventPreferencesBattery._powerSaveMode) {
-                    batteryPassed = DataWrapper.isPowerSaveMode(context);
+                    batteryPassed = isPowerSaveMode();
                 }
             }
             else
@@ -1681,12 +1653,12 @@ public class DataWrapper {
                 {
                     // find phone number in groups
                     String[] splits = event._eventPreferencesCall._contactGroups.split("\\|");
-                    for (int i = 0; i < splits.length; i++) {
+                    for (String split : splits) {
                         String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
                         String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
-                                                + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
-                                                + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
-                        String[] selectionArgs = new String[]{splits[i]};
+                                + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
+                                + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
+                        String[] selectionArgs = new String[]{split};
                         Cursor mCursor = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
                         if (mCursor != null) {
                             while (mCursor.moveToNext()) {
@@ -1718,8 +1690,8 @@ public class DataWrapper {
                     if (!phoneNumberFinded) {
                         // find phone number in contacts
                         splits = event._eventPreferencesCall._contacts.split("\\|");
-                        for (int i = 0; i < splits.length; i++) {
-                            String[] splits2 = splits[i].split("#");
+                        for (String split : splits) {
+                            String[] splits2 = split.split("#");
 
                             // get phone number from contacts
                             String[] projection = new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.HAS_PHONE_NUMBER};
@@ -2438,8 +2410,8 @@ public class DataWrapper {
                     boolean lApplicationPassed = false;
                     if (!foregroundApplication.isEmpty()) {
                         String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
-                        for (int i = 0; i < splits.length; i++) {
-                            String packageName = ApplicationsCache.getPackageName(splits[i]);
+                        for (String split : splits) {
+                            String packageName = ApplicationsCache.getPackageName(split);
 
                             if (foregroundApplication.equals(packageName)) {
                                 lApplicationPassed = true;
@@ -2458,9 +2430,9 @@ public class DataWrapper {
                                 String[] splits = event._eventPreferencesOrientation._display.split("\\|");
                                 if (splits.length > 0) {
                                     lDisplayPassed = false;
-                                    for (int i = 0; i < splits.length; i++) {
+                                    for (String split : splits) {
                                         try {
-                                            int side = Integer.valueOf(splits[i]);
+                                            int side = Integer.valueOf(split);
                                             if (side == PhoneProfilesService.mDisplayUp) {
                                                 lDisplayPassed = true;
                                                 break;
@@ -2478,9 +2450,9 @@ public class DataWrapper {
                                 String[] splits = event._eventPreferencesOrientation._sides.split("\\|");
                                 if (splits.length > 0) {
                                     lSidePassed = false;
-                                    for (int i = 0; i < splits.length; i++) {
+                                    for (String split : splits) {
                                         try {
-                                            int side = Integer.valueOf(splits[i]);
+                                            int side = Integer.valueOf(split);
                                             if (side == PhoneProfilesService.DEVICE_ORIENTATION_HORIZONTAL) {
                                                 if (PhoneProfilesService.mSideUp == PhoneProfilesService.mDisplayUp) {
                                                     lSidePassed = true;
@@ -3003,7 +2975,7 @@ public class DataWrapper {
             return "";
     }
 
-    void resetAllEventsInDelayStart(boolean onlyFromDb)
+    private void resetAllEventsInDelayStart(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
             for (Event event : getEventList()) {
@@ -3014,7 +2986,7 @@ public class DataWrapper {
         getDatabaseHandler().resetAllEventsInDelayStart();
     }
 
-    void resetAllEventsInDelayEnd(boolean onlyFromDb)
+    private void resetAllEventsInDelayEnd(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
             for (Event event : getEventList()) {
@@ -3025,7 +2997,7 @@ public class DataWrapper {
         getDatabaseHandler().resetAllEventsInDelayStart();
     }
 
-    public static boolean isPowerSaveMode(Context context) {
+    public static boolean isPowerSaveMode(/*Context context*/) {
         // Internal Power save mode
         if (Build.VERSION.SDK_INT < 21) {
             return GlobalData.isPowerSaveMode;

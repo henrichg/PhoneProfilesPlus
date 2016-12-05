@@ -55,6 +55,7 @@ public class GUIData {
     // this string is from material-preferences binary (https://github.com/ferrannp/material-preferences)
     //public static final String MAIN_PREFERENCE_FRAGMENT_TAG = "com.fnp.materialpreferences.MainFragment";
 
+    @SuppressWarnings("deprecation")
     public static void setLanguage(Context context)//, boolean restart)
     {
         if (android.os.Build.VERSION.SDK_INT < 24) {
@@ -71,14 +72,23 @@ public class GUIData {
                 else
                     appLocale = new Locale(langSplit[0], langSplit[1]);
             } else {
-                appLocale = Resources.getSystem().getConfiguration().locale;
+                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                //    appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
+                //else
+                    appLocale = Resources.getSystem().getConfiguration().locale;
             }
 
             Locale.setDefault(appLocale);
             Configuration appConfig = new Configuration();
-            appConfig.locale = appLocale;
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            //    appConfig.setLocale(appLocale);
+            //else
+                appConfig.locale = appLocale;
 
-            context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            //    Context context  = context.createConfigurationContext(appConfig);
+            //else
+                context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
         }
 
         // collator for application locale sorting
@@ -100,7 +110,12 @@ public class GUIData {
                 else
                     appLocale = new Locale(langSplit[0], langSplit[1]);
             } else {
-                appLocale = Resources.getSystem().getConfiguration().locale;
+                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                //    appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
+                //} else {
+                    //noinspection deprecation
+                    appLocale = Resources.getSystem().getConfiguration().locale;
+                //}
             }
             // get collator for application locale
             return Collator.getInstance(appLocale);

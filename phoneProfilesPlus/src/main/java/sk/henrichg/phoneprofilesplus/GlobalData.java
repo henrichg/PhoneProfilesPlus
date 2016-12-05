@@ -1868,7 +1868,7 @@ public class GlobalData extends Application {
     }
 
     static public String getTransactionCode(Context context, String fieldName) throws Exception {
-        try {
+        //try {
             final TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             final Class<?> mTelephonyClass = Class.forName(mTelephonyManager.getClass().getName());
             final Method mTelephonyMethod = mTelephonyClass.getDeclaredMethod("getITelephony");
@@ -1879,13 +1879,13 @@ public class GlobalData extends Application {
             final Field field = mClass.getDeclaredField(fieldName);
             field.setAccessible(true);
             return String.valueOf(field.getInt(null));
-        } catch (Exception e) {
+        //} catch (Exception e) {
             // The "TRANSACTION_setDataEnabled" field is not available,
             // or named differently in the current API level, so we throw
             // an exception and inform users that the method is not available.
             //e.printStackTrace();
-            throw e;
-        }
+        //    throw e;
+        //}
     }
 
     static boolean telephonyServiceExists(Context context, String preference) {
@@ -2291,14 +2291,14 @@ public class GlobalData extends Application {
                 NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 int interuptionFilter = mNotificationManager.getCurrentInterruptionFilter();
                 switch (interuptionFilter) {
-                    case NotificationManager.INTERRUPTION_FILTER_ALL:
-                        return ActivateProfileHelper.ZENMODE_ALL;
-                    case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                        return ActivateProfileHelper.ZENMODE_PRIORITY;
-                    case NotificationManager.INTERRUPTION_FILTER_NONE:
-                        return ActivateProfileHelper.ZENMODE_NONE;
                     case NotificationManager.INTERRUPTION_FILTER_ALARMS:
                         return ActivateProfileHelper.ZENMODE_ALARMS;
+                    case NotificationManager.INTERRUPTION_FILTER_ALL:
+                        return ActivateProfileHelper.ZENMODE_ALL;
+                    case NotificationManager.INTERRUPTION_FILTER_NONE:
+                        return ActivateProfileHelper.ZENMODE_NONE;
+                    case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
+                        return ActivateProfileHelper.ZENMODE_PRIORITY;
                     case NotificationManager.INTERRUPTION_FILTER_UNKNOWN:
                         return ActivateProfileHelper.ZENMODE_ALL;
                 }

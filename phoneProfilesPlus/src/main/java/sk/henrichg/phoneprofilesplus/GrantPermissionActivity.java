@@ -559,8 +559,8 @@ public class GrantPermissionActivity extends Activity {
                 // If request is cancelled, the result arrays are empty.
 
                 boolean allGranted = true;
-                for (int i=0; i < grantResults.length; i++) {
-                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                for (int grantResult : grantResults) {
+                    if (grantResult == PackageManager.PERMISSION_DENIED) {
                         allGranted = false;
                         break;
                     }
@@ -768,7 +768,7 @@ public class GrantPermissionActivity extends Activity {
         Context context = getApplicationContext();
 
         ActivateProfileHelper activateProfileHelper = dataWrapper.getActivateProfileHelper();
-        activateProfileHelper.initialize(dataWrapper, Permissions.profileActivationActivity, context);
+        activateProfileHelper.initialize(dataWrapper, context);
 
         if (forGUI && (profile != null))
         {

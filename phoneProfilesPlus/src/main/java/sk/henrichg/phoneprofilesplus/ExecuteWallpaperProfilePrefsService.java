@@ -32,7 +32,7 @@ public class ExecuteWallpaperProfilePrefsService extends IntentService
         if (profile != null)
         {
             ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
-            aph.initialize(dataWrapper, null, context);
+            aph.initialize(dataWrapper, context);
             aph.executeForWallpaper(profile);
         }
 

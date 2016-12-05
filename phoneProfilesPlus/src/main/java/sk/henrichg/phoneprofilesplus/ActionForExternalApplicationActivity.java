@@ -45,7 +45,7 @@ public class ActionForExternalApplicationActivity extends Activity {
             //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
             if (!profileName.isEmpty()) {
-                dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
+                dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
 
                 List<Profile> profileList = dataWrapper.getProfileList();
                 for (Profile profile : profileList) {

@@ -95,7 +95,7 @@ final class WifiApManager {
 
     static boolean canExploitWifiAP(Context context) {
         try {
-            WifiApManager wifiApManager = new WifiApManager(context);
+            /*WifiApManager wifiApManager = */new WifiApManager(context);
             return true;
         } catch (NoSuchMethodException e) {
             //e.printStackTrace();

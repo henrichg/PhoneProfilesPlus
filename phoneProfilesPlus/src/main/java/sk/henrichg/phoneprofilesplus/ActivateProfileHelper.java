@@ -79,6 +79,7 @@ public class ActivateProfileHelper {
     static final int ZENMODE_PRIORITY = 1;
     static final int ZENMODE_NONE = 2;
     static final int ZENMODE_ALARMS = 3;
+    @SuppressWarnings("WeakerAccess")
     static final int ZENMODE_SILENT = 99;
 
     public ActivateProfileHelper()
@@ -86,7 +87,7 @@ public class ActivateProfileHelper {
 
     }
 
-    public void initialize(DataWrapper dataWrapper, Activity a, Context c)
+    public void initialize(DataWrapper dataWrapper, Context c)
     {
         this.dataWrapper = dataWrapper;
 
@@ -855,7 +856,9 @@ public class ActivateProfileHelper {
             int height = displayMetrics.heightPixels;
             int width = displayMetrics.widthPixels;
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                //noinspection SuspiciousNameCombination
                 height = displayMetrics.widthPixels;
+                //noinspection SuspiciousNameCombination
                 width = displayMetrics.heightPixels;
             }
             //Log.d("ActivateProfileHelper.executeForWallpaper", "height="+height);
@@ -2079,7 +2082,7 @@ public class ActivateProfileHelper {
                     List<SubscriptionInfo> subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                     if (subscriptionList != null) {
                         for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
-                            if (transactionCode != null && transactionCode.length() > 0) {
+                            if (transactionCode.length() > 0) {
                                 // Get the active subscription ID for a given SIM card.
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 if (subscriptionInfo != null) {
@@ -2098,7 +2101,7 @@ public class ActivateProfileHelper {
                         }
                     }
                 } else  {
-                    if (transactionCode != null && transactionCode.length() > 0) {
+                    if (transactionCode.length() > 0) {
                         String command1 = "service call phone " + transactionCode + " i32 " + networkType;
                         Command command = new Command(0, false, command1);
                         try {

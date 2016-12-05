@@ -549,7 +549,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 menuItem.setVisible(false);
         }
 
-        //boolean isPPHInstalled = PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext(), PhoneProfilesHelper.PPHELPER_CURRENT_VERSION);
+        PhoneProfilesHelper.isPPHelperInstalled(getApplicationContext(), PhoneProfilesHelper.PPHELPER_CURRENT_VERSION);
 
         menuItem = menu.findItem(R.id.menu_pphelper_uninstall);
         if (menuItem != null)
@@ -986,7 +986,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (resultCode == RESULT_OK)
             {
                 if (PhoneProfilesService.instance != null) {
-                    boolean powerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
+                    boolean powerSaveMode = DataWrapper.isPowerSaveMode();
                     if (PhoneProfilesService.geofencesScanner != null) {
                         PhoneProfilesService.geofencesScanner.resetLocationUpdates(powerSaveMode, true);
                     }

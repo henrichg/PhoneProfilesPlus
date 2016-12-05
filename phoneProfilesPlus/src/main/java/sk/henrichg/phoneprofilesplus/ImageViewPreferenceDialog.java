@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -30,7 +31,7 @@ class ImageViewPreferenceDialog  {
             dialogBuilder.positiveText(R.string.imageview_resource_file_pref_dialog_gallery_btn);
             dialogBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
                 @Override
-                public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
+                public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                     // zavolat galeriu na vyzdvihnutie image
                     if (Permissions.grantWallpaperPermissions(context, imageViewPreference))
                         imageViewPreference.startGallery();
@@ -41,6 +42,7 @@ class ImageViewPreferenceDialog  {
 
         dialog = dialogBuilder.build();
 
+        //noinspection ConstantConditions
         GridView gridView = (GridView)dialog.getCustomView().findViewById(R.id.imageview_resource_pref_dlg_gridview);
         gridView.setAdapter(new ImageViewPreferenceAdapter(context, imageIdentifier, isImageResourceID));
 

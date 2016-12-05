@@ -67,7 +67,9 @@ class ApplicationsPreferenceAdapter extends BaseAdapter
         if (preference.applicationsList == null)
             return;
 
+        //noinspection SuspiciousMethodCalls
         int plFrom = preference.applicationsList.indexOf(getItem(from));
+        //noinspection SuspiciousMethodCalls
         int plTo = preference.applicationsList.indexOf(getItem(to));
 
         Application application = preference.applicationsList.get(plFrom);

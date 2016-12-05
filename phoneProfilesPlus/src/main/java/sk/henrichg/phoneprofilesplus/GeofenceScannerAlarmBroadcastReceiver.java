@@ -43,7 +43,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
         if (isPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
             removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
@@ -101,7 +101,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             int interval;
             if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
                 interval = GlobalData.applicationEventLocationUpdateInterval * 60;
-                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
                 if (isPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
                 interval = interval - updateDuration;

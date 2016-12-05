@@ -27,7 +27,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             GlobalData.setScreenUnlocked(context, false);
             if (!GlobalData.getGlobalEventsRuning(context)) {
                 DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
-                dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
+                dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
                 //dataWrapper.getActivateProfileHelper().removeNotification();
                 //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                 Profile activatedProfile = dataWrapper.getActivatedProfile();
@@ -43,7 +43,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                 if (GlobalData.notificationShowInStatusBar &&
                     GlobalData.notificationHideInLockscreen) {
                     DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
-                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
                     //dataWrapper.getActivateProfileHelper().removeNotification();
                     //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                     Profile activatedProfile = dataWrapper.getActivatedProfile();
@@ -122,7 +122,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
                 if (GlobalData.notificationShowInStatusBar &&
                     GlobalData.notificationHideInLockscreen) {
                     DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
-                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, context);
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
                     //dataWrapper.getActivateProfileHelper().removeNotification();
                     //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                     Profile activatedProfile = dataWrapper.getActivatedProfile();

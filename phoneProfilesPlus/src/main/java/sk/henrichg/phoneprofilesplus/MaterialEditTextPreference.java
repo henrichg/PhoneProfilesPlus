@@ -225,7 +225,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
         boolean isDialogShowing;
         Bundle dialogBundle;
 
-        public SavedState(Parcel source) {
+        SavedState(Parcel source) {
             super(source);
             isDialogShowing = source.readInt() == 1;
             dialogBundle = source.readBundle();
@@ -238,7 +238,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
             dest.writeBundle(dialogBundle);
         }
 
-        public SavedState(Parcelable superState) {
+        SavedState(Parcelable superState) {
             super(superState);
         }
 

@@ -26,7 +26,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         final ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
-        aph.initialize(dataWrapper, null, context);
+        aph.initialize(dataWrapper, context);
 
         // link, unlink volumes during activation of profile
         // required for phone call events

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -65,6 +66,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private static boolean vibrationIsOn(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
         int vibrateType = -999;

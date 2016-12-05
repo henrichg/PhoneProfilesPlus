@@ -20,7 +20,7 @@ public class LauncherActivity extends Activity {
         overridePendingTransition(0, 0);
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
-        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
+        dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
 
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, 0);

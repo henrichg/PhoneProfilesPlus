@@ -30,7 +30,7 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
             GlobalData.loadPreferences(getApplicationContext());
 
             dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
-            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, this, getApplicationContext());
+            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
 
             List<Profile> profileList = dataWrapper.getProfileList();
             for (Profile profile : profileList) {

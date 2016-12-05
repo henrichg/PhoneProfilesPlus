@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -68,7 +69,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //GlobalData.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
 
         //GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
-        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+        //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
         //String alarmTimeS = sdf.format(sbn.getPostTime());
         //GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
 
@@ -275,6 +276,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     }
 
     /** Convenience method for sending an {@link android.content.Intent} with {@link #ACTION_REQUEST_INTERRUPTION_FILTER}. */
+    @SuppressLint("InlinedApi")
     public static void requestInterruptionFilter(Context context, final int zenMode) {
         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
         if (((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) || a60) {
@@ -346,6 +348,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 if (!TextUtils.isEmpty(intent.getAction())) {
                     if (ACTION_REQUEST_INTERRUPTION_FILTER.equals(intent.getAction())) {
                         if (intent.hasExtra(EXTRA_FILTER)) {
+                            @SuppressLint("InlinedApi")
                             final int filter = intent.getIntExtra(EXTRA_FILTER, INTERRUPTION_FILTER_ALL);
                             //Log.e(TAG, "filter= " + filter);
                             switch (filter) {

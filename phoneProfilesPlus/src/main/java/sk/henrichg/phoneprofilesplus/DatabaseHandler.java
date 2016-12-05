@@ -2308,11 +2308,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             // unlink shortcuts from profile
             String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-            for (int i = 0; i < splits.length; i++)
-            {
-                boolean shortcut = ApplicationsCache.isShortcut(splits[i]);
+            for (String split : splits) {
+                boolean shortcut = ApplicationsCache.isShortcut(split);
                 if (shortcut) {
-                    long shortcutId = ApplicationsCache.getShortcutId(splits[i]);
+                    long shortcutId = ApplicationsCache.getShortcutId(split);
                     deleteShortcut(shortcutId);
                 }
             }
@@ -4274,6 +4273,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    /*
     boolean isSSIDScanned(String SSID, int connectionType)
     {
         final String countQuery;
@@ -4306,6 +4306,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return r != 0;
     }
+    */
 
     boolean getEventInDelayStart(Event event)
     {
@@ -6015,13 +6016,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_MC_LAST_CONNECTED_TIME, lastConnectedTime);
 
-        int r = 0;
-
         db.beginTransaction();
 
         try {
             // updating row
-            r = db.update(TABLE_MOBILE_CELLS, values, KEY_MC_CELL_ID + " = ?",
+            db.update(TABLE_MOBILE_CELLS, values, KEY_MC_CELL_ID + " = ?",
                     new String[] { String.valueOf(mobileCell) });
 
             db.setTransactionSuccessful();
@@ -6029,7 +6028,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } catch (Exception e){
             //Error in between database transaction
             Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", e.toString());
-            r = 0;
         } finally {
             db.endTransaction();
         }
