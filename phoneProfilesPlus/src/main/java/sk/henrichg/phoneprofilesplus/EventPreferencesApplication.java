@@ -9,7 +9,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.text.Html;
 
 class EventPreferencesApplication extends EventPreferences {
 

@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.text.Html;
 import android.text.format.DateFormat;
 
 import java.sql.Date;

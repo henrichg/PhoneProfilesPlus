@@ -9,13 +9,7 @@ import android.widget.CursorAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.TimeZone;
 
 class ActivityLogAdapter extends CursorAdapter {
 

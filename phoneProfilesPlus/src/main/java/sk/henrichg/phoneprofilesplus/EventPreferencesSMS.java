@@ -14,7 +14,6 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
-import android.text.Html;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

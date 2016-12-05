@@ -6,7 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
-import android.text.Html;
 import android.widget.Toast;
 
 class EventPreferencesBattery extends EventPreferences {

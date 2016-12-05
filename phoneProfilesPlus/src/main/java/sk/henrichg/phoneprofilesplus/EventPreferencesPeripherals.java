@@ -6,7 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.text.Html;
 
 class EventPreferencesPeripherals extends EventPreferences {
 

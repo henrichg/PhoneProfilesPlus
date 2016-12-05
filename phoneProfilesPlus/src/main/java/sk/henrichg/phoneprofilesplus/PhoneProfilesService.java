@@ -16,7 +16,6 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.net.sip.SipManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;

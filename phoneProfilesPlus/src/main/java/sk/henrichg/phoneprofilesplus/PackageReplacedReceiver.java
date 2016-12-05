@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import java.util.EmptyStackException;
-
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @Override

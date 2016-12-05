@@ -15,7 +15,6 @@ import android.os.Build;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.text.Html;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

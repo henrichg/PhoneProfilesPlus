@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.text.Html;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
