@@ -149,10 +149,15 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 
         new AsyncTask<Void, Integer, Void>() {
 
+            List<CalendarEvent> _calendarList = null;
+
             @Override
             protected void onPreExecute()
             {
                 super.onPreExecute();
+
+                _calendarList = new ArrayList<>();
+
                 if (notForUnselect) {
                     linlaLisView.setVisibility(View.GONE);
                     linlaProgress.setVisibility(View.VISIBLE);
@@ -161,8 +166,6 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 
             @Override
             protected Void doInBackground(Void... params) {
-
-                calendarList.clear();
 
                 if (Permissions.checkCalendar(_context)) {
                     Cursor cur;
@@ -195,7 +198,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                             aCalendar.name = displayName;
                             aCalendar.color = color;
 
-                            calendarList.add(aCalendar);
+                            _calendarList.add(aCalendar);
 
                         }
                         cur.close();
@@ -211,6 +214,8 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
             protected void onPostExecute(Void result)
             {
                 super.onPostExecute(result);
+
+                calendarList = new ArrayList<>(_calendarList);
 
                 if (listAdapter == null) {
                     listAdapter = new CalendarsMultiselectPreferenceAdapter(_context, calendarList);

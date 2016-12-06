@@ -286,10 +286,14 @@ public class NFCTagPreference extends DialogPreference {
 
         rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
+            List<NFCTagData> _nfcTagList = null;
+
             @Override
             protected void onPreExecute()
             {
                 super.onPreExecute();
+
+                _nfcTagList = new ArrayList<>();
 
                 if (_forRescan) {
                     dataRelativeLayout.setVisibility(View.GONE);
@@ -299,7 +303,6 @@ public class NFCTagPreference extends DialogPreference {
 
             @Override
             protected Void doInBackground(Void... params) {
-                nfcTagList.clear();
 
                 //if (_forRescan)
                 //{
@@ -308,7 +311,7 @@ public class NFCTagPreference extends DialogPreference {
                 // add all from db
                 List<NFCTag> tags = DatabaseHandler.getInstance(context).getAllNFCTags();
                 for (NFCTag tag : tags)
-                    nfcTagList.add(new NFCTagData(tag._name));
+                    _nfcTagList.add(new NFCTagData(tag._name));
 
                 // add all from value
                 boolean found;
@@ -316,19 +319,19 @@ public class NFCTagPreference extends DialogPreference {
                 for (String _tag : splits) {
                     if (!_tag.isEmpty()) {
                         found = false;
-                        for (NFCTagData tag : nfcTagList) {
+                        for (NFCTagData tag : _nfcTagList) {
                             if (_tag.equals(tag.name)) {
                                 found = true;
                                 break;
                             }
                         }
                         if (!found) {
-                            nfcTagList.add(new NFCTagData(_tag));
+                            _nfcTagList.add(new NFCTagData(_tag));
                         }
                     }
                 }
 
-                Collections.sort(nfcTagList, new SortList());
+                Collections.sort(_nfcTagList, new SortList());
 
                 return null;
             }
@@ -338,6 +341,7 @@ public class NFCTagPreference extends DialogPreference {
             {
                 super.onPostExecute(result);
 
+                nfcTagList = new ArrayList<>(_nfcTagList);
                 listAdapter.notifyDataSetChanged();
 
                 if (_forRescan) {

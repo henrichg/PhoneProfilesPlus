@@ -323,10 +323,14 @@ public class BluetoothNamePreference extends DialogPreference {
 
         rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
+            List<BluetoothDeviceData> _bluetoothList = null;
+
             @Override
             protected void onPreExecute()
             {
                 super.onPreExecute();
+
+                _bluetoothList = new ArrayList<>();
 
                 if (_forRescan) {
                     dataRelativeLayout.setVisibility(View.GONE);
@@ -336,7 +340,6 @@ public class BluetoothNamePreference extends DialogPreference {
 
             @Override
             protected Void doInBackground(Void... params) {
-                bluetoothList.clear();
 
                 if (_forRescan)
                 {
@@ -351,12 +354,12 @@ public class BluetoothNamePreference extends DialogPreference {
                 }
 
                 if (android.os.Build.VERSION.SDK_INT >= 18) {
-                    bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
-                    bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
+                    _bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
+                    _bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", BluetoothDevice.DEVICE_TYPE_DUAL, false));
                 }
                 else {
-                    bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", 0, false));
-                    bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false));
+                    _bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE, "", 0, false));
+                    _bluetoothList.add(new BluetoothDeviceData(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE, "", 0, false));
                 }
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
@@ -364,7 +367,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 {
                     for (BluetoothDeviceData device : boundedDevicesList)
                     {
-                        bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
+                        _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
                     }
                 }
 
@@ -376,7 +379,7 @@ public class BluetoothNamePreference extends DialogPreference {
                         if (!device.getName().isEmpty())
                         {
                             boolean exists = false;
-                            for (BluetoothDeviceData _device : bluetoothList)
+                            for (BluetoothDeviceData _device : _bluetoothList)
                             {
                                 if (_device.getName().equalsIgnoreCase(device.getName()))
                                 {
@@ -385,7 +388,7 @@ public class BluetoothNamePreference extends DialogPreference {
                                 }
                             }
                             if (!exists)
-                                bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
+                                _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
                         }
                     }
                 }
@@ -395,7 +398,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 {
                     if (customBTName.getName() != null) {
                         boolean exists = false;
-                        for (BluetoothDeviceData btNameData : bluetoothList)
+                        for (BluetoothDeviceData btNameData : _bluetoothList)
                         {
                             if (customBTName.getName().equals(btNameData.getName())) {
                                 exists = true;
@@ -404,9 +407,9 @@ public class BluetoothNamePreference extends DialogPreference {
                         }
                         if (!exists) {
                             if (android.os.Build.VERSION.SDK_INT >= 18)
-                                bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", BluetoothDevice.DEVICE_TYPE_DUAL, true));
+                                _bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", BluetoothDevice.DEVICE_TYPE_DUAL, true));
                             else
-                                bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", 0, true));
+                                _bluetoothList.add(new BluetoothDeviceData(customBTName.getName(), "", 0, true));
                         }
                     }
                 }
@@ -417,7 +420,7 @@ public class BluetoothNamePreference extends DialogPreference {
                 for (String _bluetoothName : splits) {
                     if (!_bluetoothName.isEmpty()) {
                         found = false;
-                        for (BluetoothDeviceData bluetoothName : bluetoothList) {
+                        for (BluetoothDeviceData bluetoothName : _bluetoothList) {
                             if (_bluetoothName.equals(bluetoothName.getName())) {
                                 found = true;
                                 break;
@@ -425,18 +428,18 @@ public class BluetoothNamePreference extends DialogPreference {
                         }
                         if (!found) {
                             if (android.os.Build.VERSION.SDK_INT >= 18) {
-                                bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true));
+                                _bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true));
                                 customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true));
                             }
                             else {
-                                bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true));
+                                _bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true));
                                 customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true));
                             }
                         }
                     }
                 }
 
-                Collections.sort(bluetoothList, new SortList());
+                Collections.sort(_bluetoothList, new SortList());
 
                 return null;
             }
@@ -446,6 +449,7 @@ public class BluetoothNamePreference extends DialogPreference {
             {
                 super.onPostExecute(result);
 
+                bluetoothList = new ArrayList<>(_bluetoothList);
                 listAdapter.notifyDataSetChanged();
 
                 if (_forRescan) {
