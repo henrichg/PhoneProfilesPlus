@@ -41,6 +41,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
         GlobalData.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
         GlobalData.setShowEnableLocationNotification(getApplicationContext(), true);
         GlobalData.setScreenUnlocked(getApplicationContext(), true);
+        GlobalData.setMergedRingNotificationVolumes(getApplicationContext());
     }
 
 

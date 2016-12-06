@@ -278,13 +278,23 @@ public class PhoneProfilesService extends Service
     {
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "xxxxx");
+        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
+
+        if (intent == null)
+            GlobalData.setMergedRingNotificationVolumes(getApplicationContext());
 
         if (intent != null) {
             boolean simulateRingingCall = intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false);
             if (simulateRingingCall)
                 doSimulatingRingingCall(intent);
             boolean startStopScanner = intent.getBooleanExtra(GlobalData.EXTRA_START_STOP_SCANNER, false);
+
+            if (!simulateRingingCall && !startStopScanner) {
+                // default start service
+                GlobalData.setMergedRingNotificationVolumes(getApplicationContext());
+            }
+
+
             if (startStopScanner) {
                 switch (intent.getIntExtra(GlobalData.EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                     case GlobalData.SCANNER_START_GEOFENCE_SCANNER:
@@ -556,6 +566,7 @@ public class PhoneProfilesService extends Service
                             //orientation[1]: pitch, rotation around the -X axis, i.e the opposite direction of X axis.
                             //orientation[2]: roll, rotation around the Y axis.
 
+                            //noinspection SuspiciousNameCombination
                             SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, I);
                             SensorManager.getOrientation(I, orientation);
 

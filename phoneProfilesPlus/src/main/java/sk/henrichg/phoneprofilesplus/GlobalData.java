@@ -62,13 +62,12 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         //+"|PhoneStateScanner.onCellInfoChanged"
-                                         //+"|PhoneStateScanner.onServiceStateChanged"
-                                         //+"|PhoneStateScanner.onCellLocationChanged"
+                                         +"|$$$ PhoneProfilesService.onStartCommand"
+                                         +"|$$$ PhoneProfilesService.onCreate"
 
-                                         /*+"|BootUpReceiver"
-                                         +"|##### PackageReplacedReceiver.onReceive"
-                                         +"|ScreenOnOffBroadcastReceiver"
+                                         +"|BootUpReceiver"
+                                         +"|PackageReplacedReceiver"
+                                         /*+"|ScreenOnOffBroadcastReceiver"
                                          +"|ActivateProfileHelper.showNotification"
                                          +"|$$$ PhoneProfilesService.onCreate"
                                          +"|#### EventsService.onHandleIntent"
@@ -338,6 +337,7 @@ public class GlobalData extends Application {
     private static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
     private static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";
     private static final String PREF_SHOW_REQUEST_DRAW_OVERLAYS_PERMISSION = "show_request_draw_overlays_permission";
+    private static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
     public static final int FORCE_ONE_SCAN_DISABLED = 0;
     public static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
@@ -2331,6 +2331,43 @@ public class GlobalData extends Application {
             }
         }
         return defaultValue;
+    }
+
+    public static boolean getMergedRingNotificationVolumes(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true);
+    }
+
+    // test if ring and notification volumes are merged
+    public static void setMergedRingNotificationVolumes(Context context) {
+        boolean merged;
+        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+        int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+        int oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+        if (oldRingVolume == oldNotificationVolume) {
+            int newRingVolume;
+            if (oldRingVolume == maximumRingValue)
+                newRingVolume = oldRingVolume - 1;
+            else
+                newRingVolume = oldRingVolume + 1;
+            audioManager.setStreamVolume(AudioManager.STREAM_RING, newRingVolume, 0);
+            GlobalData.sleep(500);
+            if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == newRingVolume)
+                merged = true;
+            else
+                merged = false;
+        }
+        else
+            merged = false;
+        audioManager.setStreamVolume(AudioManager.STREAM_RING, oldRingVolume, 0);
+
+        Log.d("GlobalData.setMergedRingNotificationVolumes", "merged="+merged);
+
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        Editor editor = preferences.edit();
+        editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
+        editor.commit();
     }
 
 }

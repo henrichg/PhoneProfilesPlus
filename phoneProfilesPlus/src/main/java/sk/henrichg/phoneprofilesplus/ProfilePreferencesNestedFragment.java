@@ -284,6 +284,22 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
+        boolean mergedVolumes = GlobalData.getMergedRingNotificationVolumes(context);
+        if (mergedVolumes && !GlobalData.applicationUnlinkRingerNotificationVolumes) {
+            preference = prefMng.findPreference("prf_pref_volumeNotification");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_volumeCategory");
+                preferenceCategory.removePreference(preference);
+            }
+        }
+        else
+        if (!mergedVolumes) {
+            preference = prefMng.findPreference("prf_pref_volumeUnlinkVolumesAppSettings");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_volumeCategory");
+                preferenceCategory.removePreference(preference);
+            }
+        }
     }
 
     @Override
@@ -461,11 +477,13 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 _bold = true;
                 summary = summary + title;
             }
-            title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, false);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + title;
+            if (!GlobalData.getMergedRingNotificationVolumes(context) || GlobalData.applicationUnlinkRingerNotificationVolumes) {
+                title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, false);
+                if (!title.isEmpty()) {
+                    _bold = true;
+                    if (!summary.isEmpty()) summary = summary + " • ";
+                    summary = summary + title;
+                }
             }
             title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_MEDIA, false);
             if (!title.isEmpty()) {

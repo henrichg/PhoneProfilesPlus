@@ -321,6 +321,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
+        if (!GlobalData.getMergedRingNotificationVolumes(getActivity().getApplicationContext())) {
+            preference = prefMng.findPreference("applicationUnlinkRingerNotificationVolumes");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
+                preferenceCategory.removePreference(preference);
+            }
+        }
     }
 
     /*

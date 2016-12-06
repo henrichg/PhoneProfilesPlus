@@ -401,6 +401,12 @@ public class ActivateProfileHelper {
                  ));
     }
 
+    private boolean isVibratedRinging(int ringerMode, int zenMode) {
+        return (ringerMode == 3);
+
+    }
+
+    /*
     private void correctVolume0(AudioManager audioManager) {
         int ringerMode, zenMode;
         ringerMode = GlobalData.getRingerMode(context);
@@ -418,6 +424,7 @@ public class ActivateProfileHelper {
             }
         }
     }
+    */
 
     @SuppressLint("NewApi")
     void setVolumes(Profile profile, AudioManager audioManager, int linkUnlink, boolean forProfileActivation)
@@ -447,12 +454,13 @@ public class ActivateProfileHelper {
 
             GlobalData.logE("ActivateProfileHelper.setVolumes", "ringer/notif/system change");
 
-            if (Permissions.checkAccessNotificationPolicy(context)) {
+            //if (Permissions.checkAccessNotificationPolicy(context)) {
+
                 if (forProfileActivation) {
                     if (profile.getVolumeSystemChange()) {
                         audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, profile.getVolumeSystemValue(), 0);
                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_SYSTEM, profile.getVolumeSystemValue());
-                        correctVolume0(audioManager);
+                        //correctVolume0(audioManager);
                     }
                 }
 
@@ -460,7 +468,7 @@ public class ActivateProfileHelper {
                 int callState = telephony.getCallState();
 
                 boolean volumesSet = false;
-                if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
+                if (GlobalData.getMergedRingNotificationVolumes(context) && GlobalData.applicationUnlinkRingerNotificationVolumes) {
                     //if (doUnlink) {
                     //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
                     if (callState == TelephonyManager.CALL_STATE_RINGING) {
@@ -475,7 +483,7 @@ public class ActivateProfileHelper {
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
-                            correctVolume0(audioManager);
+                            //correctVolume0(audioManager);
                         }
                         volumesSet = true;
                     } else if (linkUnlink == PhoneCallService.LINKMODE_LINK) {
@@ -497,7 +505,7 @@ public class ActivateProfileHelper {
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, profile.getVolumeNotificationValue());
                         }
-                        correctVolume0(audioManager);
+                        //correctVolume0(audioManager);
                         volumesSet = true;
                     } else {
                         int volume = GlobalData.getRingerVolume(context);
@@ -506,14 +514,14 @@ public class ActivateProfileHelper {
                             audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
                             PhoneProfilesService.ringingVolume = volume;
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
-                            correctVolume0(audioManager);
+                            //correctVolume0(audioManager);
                         }
                         volume = GlobalData.getNotificationVolume(context);
                         GlobalData.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING  notification volume=" + volume);
                         if (volume != -999) {
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
-                            correctVolume0(audioManager);
+                            //correctVolume0(audioManager);
                         }
                         volumesSet = true;
                     }
@@ -529,12 +537,15 @@ public class ActivateProfileHelper {
                 }
                 if (!volumesSet) {
                     // reverted order for disabled unlink
-                    int volume = GlobalData.getNotificationVolume(context);
-                    GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
-                    if (volume != -999) {
-                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
-                        //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
-                        correctVolume0(audioManager);
+                    int volume;
+                    if (!GlobalData.getMergedRingNotificationVolumes(context)) {
+                        volume = GlobalData.getNotificationVolume(context);
+                        GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  notification volume=" + volume);
+                        if (volume != -999) {
+                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
+                            //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_NOTIFICATION, volume);
+                            //correctVolume0(audioManager);
+                        }
                     }
                     volume = GlobalData.getRingerVolume(context);
                     GlobalData.logE("ActivateProfileHelper.setVolumes", "no doUnlink  ringer volume=" + volume);
@@ -542,12 +553,12 @@ public class ActivateProfileHelper {
                         audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
                         PhoneProfilesService.ringingVolume = volume;
                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
-                        correctVolume0(audioManager);
+                        //correctVolume0(audioManager);
                     }
                 }
-            }
-            else
-                GlobalData.logE("ActivateProfileHelper.setVolumes", "not granted");
+            //}
+            //else
+            //    GlobalData.logE("ActivateProfileHelper.setVolumes", "not granted");
         }
 
         if (forProfileActivation) {
@@ -725,13 +736,16 @@ public class ActivateProfileHelper {
             GlobalData.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "ringerMode=" + ringerMode);
             GlobalData.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "zenMode=" + zenMode);
 
-            // for ringer mode VIBRATE or SILENT or
-            // for interruption types NONE and ONLY_ALARMS
-            // not change ringer mode
-            // (Android 6 - priority mode = ONLY_ALARMS)
-            if (isAudibleRinging(ringerMode, zenMode) && (profile.getVolumeRingtoneValue() == 0)) {
-                // change ringer mode to Silent
-                profile._volumeRingerMode = 4;
+            // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
+            if (!isVibratedRinging(profile._volumeRingerMode, profile._volumeZenMode)) {
+                // for ringer mode VIBRATE or SILENT or
+                // for interruption types NONE and ONLY_ALARMS
+                // not change ringer mode
+                // (Android 6 - priority mode = ONLY_ALARMS)
+                if (isAudibleRinging(ringerMode, zenMode) && (profile.getVolumeRingtoneValue() == 0)) {
+                    // change ringer mode to Silent
+                    profile._volumeRingerMode = 4;
+                }
             }
         }
     }
