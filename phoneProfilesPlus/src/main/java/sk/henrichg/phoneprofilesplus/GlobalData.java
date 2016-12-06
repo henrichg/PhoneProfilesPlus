@@ -62,11 +62,8 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|$$$ PhoneProfilesService.onStartCommand"
-                                         +"|$$$ PhoneProfilesService.onCreate"
+                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
 
-                                         +"|BootUpReceiver"
-                                         +"|PackageReplacedReceiver"
                                          /*+"|ScreenOnOffBroadcastReceiver"
                                          +"|ActivateProfileHelper.showNotification"
                                          +"|$$$ PhoneProfilesService.onCreate"

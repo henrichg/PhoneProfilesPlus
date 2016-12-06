@@ -742,8 +742,9 @@ public class ActivateProfileHelper {
                 // for interruption types NONE and ONLY_ALARMS
                 // not change ringer mode
                 // (Android 6 - priority mode = ONLY_ALARMS)
-                if (isAudibleRinging(ringerMode, zenMode) && (profile.getVolumeRingtoneValue() == 0)) {
+                if (isAudibleRinging(profile._volumeRingerMode, profile._volumeZenMode) && (profile.getVolumeRingtoneValue() == 0)) {
                     // change ringer mode to Silent
+                    GlobalData.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to silent");
                     profile._volumeRingerMode = 4;
                 }
             }
