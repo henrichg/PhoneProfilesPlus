@@ -82,6 +82,10 @@
                 henrichg:vDisableDefaultProfile="1"
                 android:title="@string/profile_preferences_volumeNotification"
                 android:summary="@string/volume_pref_dialog_no_change_chb" />
+            <sk.henrichg.phoneprofilesplus.NotificationVolume0DialogPreference
+                android:key="prf_pref_volumeNotificationVolume0"
+                android:title="@string/profile_preferences_volumeNotificationVolume0_title"
+                android:summary="@string/profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0" />
             <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
                 android:key="prf_pref_volumeMedia"
                 henrichg:volumeType="media"

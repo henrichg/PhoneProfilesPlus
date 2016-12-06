@@ -10,9 +10,9 @@ import android.util.AttributeSet;
 
 public class InfoDialogPreference extends DialogPreference {
 
-    String infoText;
+    private String infoText;
 
-    Context _context;
+    private Context _context;
 
     public InfoDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

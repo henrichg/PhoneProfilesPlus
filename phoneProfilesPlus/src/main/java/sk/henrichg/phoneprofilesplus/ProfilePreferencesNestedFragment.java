@@ -35,6 +35,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
     static final String PREF_UNLINK_VOLUMES_APP_PREFERENCES = "prf_pref_volumeUnlinkVolumesAppSettings";
     static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
+    static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
 
     @Override
     public int addPreferencesFromResource() {
@@ -708,6 +709,19 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
     }
 
+    private void setSummaryForNotificationVolume0() {
+        Preference preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
+        if (preference != null) {
+            String notificationToneChange = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
+            String notificationTone = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, "");
+            String uriId = FirstStartService.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_NOTIFICATION);
+            if (notificationToneChange.equals("1") && notificationTone.equals(uriId))
+                preference.setSummary(R.string.profile_preferences_volumeNotificationVolume0_summaryConfigured);
+            else
+                preference.setSummary(R.string.profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0);
+        }
+    }
+
     private void setSummary(String key, Object value)
     {
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS)) {
@@ -808,6 +822,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
+            setSummaryForNotificationVolume0();
         }
         if (key.equals(GlobalData.PREF_PROFILE_SOUND_RINGTONE) ||
             key.equals(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION) ||
@@ -835,6 +850,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     preference.setSummary(ringtoneName);
                 }
             }
+            setSummaryForNotificationVolume0();
         }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
             key.equals(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC) ||
@@ -1035,6 +1051,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(preference, change);
             }
         }
+        if (key.equals(PREF_VOLUME_NOTIFICATION_VOLUME0)) {
+            setSummaryForNotificationVolume0();
+        }
         if (key.equals(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS))
         {
             Preference preference = prefMng.findPreference(key);
@@ -1070,6 +1089,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             return true;
     }
 
+    private boolean getEnableVolumeNotificationVolume0(boolean notificationEnabled, String notificationValue) {
+        return  notificationEnabled && GlobalData.getMergedRingNotificationVolumes(context) &&
+                    GlobalData.applicationUnlinkRingerNotificationVolumes &&
+                    Profile.getVolumeRingtoneChange(notificationValue) && (Profile.getVolumeRingtoneValue(notificationValue) == 0);
+    }
+
     private void disableDependedPref(String key, Object value)
     {
         String sValue = value.toString();
@@ -1083,12 +1108,21 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
             if (preference != null)
                 preference.setEnabled(enabled);
+            String notificationValue = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, "");
+            enabled = getEnableVolumeNotificationVolume0(enabled, notificationValue);
+            preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
+            if (preference != null)
+                preference.setEnabled(enabled);
         }
         if (key.equals(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION)) {
             String ringtoneValue = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, "");
             boolean enabled = (!GlobalData.getMergedRingNotificationVolumes(context) || GlobalData.applicationUnlinkRingerNotificationVolumes) &&
                                     getEnableVolumeNotificationByRingtone(ringtoneValue);
             Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
+            if (preference != null)
+                preference.setEnabled(enabled);
+            enabled = getEnableVolumeNotificationVolume0(enabled, sValue);
+            preference = prefMng.findPreference(PREF_VOLUME_NOTIFICATION_VOLUME0);
             if (preference != null)
                 preference.setEnabled(enabled);
         }

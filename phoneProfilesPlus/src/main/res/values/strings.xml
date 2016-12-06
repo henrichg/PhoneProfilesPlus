@@ -864,4 +864,9 @@
     <string name="info_preference_click_here">Click here for show infomations</string>
     <string name="profile_preferences_category_profileActivationParameters">Activation parameters</string>
     <string name="profile_preferences_category_profileDeviceParameters">Device parameters</string>
+    <string name="profile_preferences_volumeNotificationVolume0_title">Set notification tone</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For notification volume = 0 configure notification tone to \"PhoneProfiles Silent\" for properly silent notifications.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
 </resources>
