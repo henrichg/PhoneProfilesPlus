@@ -167,28 +167,44 @@ public class ImportantInfoActivity extends AppCompatActivity {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
                 TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);
                 infoText14.setVisibility(View.GONE);
-                TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
-                infoText13.setOnClickListener(new View.OnClickListener() {
+
+                boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60)) {
+                    TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
+                    infoText13.setVisibility(View.GONE);
+                }
+                else {
+                    TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
+                    infoText13.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                            startActivity(intent);
+                        }
+                    });
+                    news = true;
+                }
+            }
+        }
+        else {
+            TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
+            infoText13.setVisibility(View.GONE);
+
+            boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+            if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60)) {
+                TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);
+                infoText14.setVisibility(View.GONE);
+            }
+            else {
+                TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);
+                infoText14.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                         startActivity(intent);
                     }
                 });
-                news = true;
             }
-        }
-        else {
-            TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
-            infoText13.setVisibility(View.GONE);
-            TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);
-            infoText14.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                    startActivity(intent);
-                }
-            });
         }
 
         if (android.os.Build.VERSION.SDK_INT < 23) {
