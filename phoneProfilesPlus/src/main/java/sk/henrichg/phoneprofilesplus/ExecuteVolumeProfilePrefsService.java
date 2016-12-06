@@ -33,7 +33,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
         int linkUnlink = PhoneCallService.LINKMODE_NONE;
-        if (GlobalData.applicationUnlinkRingerNotificationVolumes) {
+        if (GlobalData.getMergedRingNotificationVolumes(context) && GlobalData.applicationUnlinkRingerNotificationVolumes) {
             if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) ||
                 (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED)) {
                 linkUnlink = PhoneCallService.LINKMODE_UNLINK;
