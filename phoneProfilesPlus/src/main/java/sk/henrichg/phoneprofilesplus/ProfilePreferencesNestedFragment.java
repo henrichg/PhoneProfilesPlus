@@ -484,7 +484,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 _bold = true;
                 summary = summary + title;
             }
-            if (!GlobalData.getMergedRingNotificationVolumes(context) || GlobalData.applicationUnlinkRingerNotificationVolumes) {
+            String ringtoneValue = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, "");
+            if ((!GlobalData.getMergedRingNotificationVolumes(context) || GlobalData.applicationUnlinkRingerNotificationVolumes) &&
+                    getEnableVolumeNotificationByRingtone(ringtoneValue)) {
                 title = getTitleWhenPreferenceChanged(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, false);
                 if (!title.isEmpty()) {
                     _bold = true;
