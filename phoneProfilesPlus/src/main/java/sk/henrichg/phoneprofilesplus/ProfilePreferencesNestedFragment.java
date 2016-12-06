@@ -34,6 +34,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
     static final String PREF_UNLINK_VOLUMES_APP_PREFERENCES = "prf_pref_volumeUnlinkVolumesAppSettings";
+    static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
 
     @Override
     public int addPreferencesFromResource() {
@@ -145,11 +146,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         }
                     });
                 }
-            }
-
-            Preference volumeUnlinkPreference = prefMng.findPreference(PREF_UNLINK_VOLUMES_APP_PREFERENCES);
-            if (volumeUnlinkPreference != null) {
-                //volumeUnlinkPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             }
 
             if (ringerModePreference != null) {
@@ -284,20 +280,27 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        boolean mergedVolumes = GlobalData.getMergedRingNotificationVolumes(context);
-        if (mergedVolumes && !GlobalData.applicationUnlinkRingerNotificationVolumes) {
-            preference = prefMng.findPreference("prf_pref_volumeNotification");
+        if (!GlobalData.getMergedRingNotificationVolumes(context)) {
+            preference = prefMng.findPreference(PREF_UNLINK_VOLUMES_APP_PREFERENCES);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_volumeCategory");
                 preferenceCategory.removePreference(preference);
             }
         }
-        else
-        if (!mergedVolumes) {
-            preference = prefMng.findPreference("prf_pref_volumeUnlinkVolumesAppSettings");
+        else {
+            preference = prefMng.findPreference(PREF_UNLINK_VOLUMES_APP_PREFERENCES);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_volumeCategory");
-                preferenceCategory.removePreference(preference);
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        // start preferences activity for default profile
+                        Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPreferencesActivity.class);
+                        intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "categorySystem");
+                        intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                        getActivity().startActivityForResult(intent, RESULT_UNLINK_VOLUMES_APP_PREFERENCES);
+                        return false;
+                    }
+                });
             }
         }
     }
@@ -363,6 +366,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         /*(Bitmap)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON),*/
                         data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, -1));
             }
+        }
+        if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
+            disableDependedPref(GlobalData.PREF_PROFILE_VOLUME_RINGTONE);
+            disableDependedPref(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
         }
     }
 
@@ -1051,6 +1058,16 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         setSummary(key, value);
     }
 
+    private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
+        boolean enabled = Profile.getVolumeRingtoneChange(ringtoneValue);
+        if (enabled) {
+            int volume = Profile.getVolumeRingtoneValue(ringtoneValue);
+            return volume > 0;
+        }
+        else
+            return true;
+    }
+
     private void disableDependedPref(String key, Object value)
     {
         String sValue = value.toString();
@@ -1059,6 +1076,20 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         final String DEFAULT_PROFILE = "99";
         final String ON = "1";
 
+        if (key.equals(GlobalData.PREF_PROFILE_VOLUME_RINGTONE)) {
+            boolean enabled = getEnableVolumeNotificationByRingtone(sValue);
+            Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
+            if (preference != null)
+                preference.setEnabled(enabled);
+        }
+        if (key.equals(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION)) {
+            String ringtoneValue = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, "");
+            boolean enabled = (!GlobalData.getMergedRingNotificationVolumes(context) || GlobalData.applicationUnlinkRingerNotificationVolumes) &&
+                                    getEnableVolumeNotificationByRingtone(ringtoneValue);
+            Preference preference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
+            if (preference != null)
+                preference.setEnabled(enabled);
+        }
         if (key.equals(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE))
         {
             boolean enabled = !(sValue.equals(DEFAULT_PROFILE) || sValue.equals(NO_CHANGE));

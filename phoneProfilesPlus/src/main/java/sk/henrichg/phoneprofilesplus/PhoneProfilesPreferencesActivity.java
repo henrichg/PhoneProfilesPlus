@@ -31,7 +31,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     PhoneProfilesPreferencesNestedFragment fragment;
 
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
-    //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
+    public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
