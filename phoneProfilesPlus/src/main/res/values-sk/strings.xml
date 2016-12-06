@@ -439,7 +439,6 @@
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Zrušte začiarknutie políčka ak Vaše zariadenie má oddelenú hlasitosť zvonenia a notifikácií</string>
   <string name="profileicon_pref_dialog_info_about_status_bar_icon">Ak zmeníte farbu ikony, ikona v stavovom riadku bude biela. Ak zvolíte vlastnú ikonu, v stavovom riadku bude ikona aplikácie.</string>
   <string name="info_notification_title">Dôležité informácie</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">Pre zakázanie oddeľovania hlasitostí, ak váš prístroj má oddelenú hlasitosť vyzváňania a upozornení, kliknite sem.</string>
   <string name="info_notification_text">Kliknite sem pre zobrazenie dôležitých informácií</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi prístupový bod</string>
   <string name="array_pref_ringerModeArray_silentL">Prioritný mód</string>
@@ -600,7 +599,6 @@
   <string name="info_notification_event_states_paused_delay">Pozastavená s pozdržaním: udalosť je spustená, ale čaká v pozdržaní. Parametre udalosti sú splnené.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignoruj \"celodenné\" udalosti</string>
   <string name="important_info_default_profile">Ak nebežia žiadne udalosti, aktivovaný je \"Predvolený profil\". Predvolený profil môžete nastaviť v nastaveniach aplikácie v \"Aktivácia profilu\". Kliknite sem na jeho nakonfigurovanie.</string>
-  <string name="info_notification_unlink_ringer_notification_volumes2">Ak vaše zariadenie nemá oddelenú hlasitosť zvonenia a notifikácií, nechajte povolené ich oddeľovanie.</string>
   <string name="important_info_how_does_volume_separation_work">Ako funguje \"oddeľovanie hlasitostí\": Aktivácia profilu nastaví hlasitosť zariadenia podľa hlasitosti notifikácií v profile. Ak je zachytený príchodzí hovor, nastaví sa hlasitosť zvonenia z profilu. Po ukončení hovoru sa spať nastaví hlasitosť notifikácií z profilu.</string>
   <string name="event_type_locations">Poloha</string>
   <string name="event_preferences_category_eventLocationsParameters">Parametre polohy</string>

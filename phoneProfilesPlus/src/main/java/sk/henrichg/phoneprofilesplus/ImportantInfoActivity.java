@@ -221,17 +221,23 @@ public class ImportantInfoActivity extends AppCompatActivity {
             infoText14.setVisibility(View.GONE);
         }
 
-        TextView infoText3 = (TextView)findViewById(R.id.activity_info_notification_dialog_info_text3);
-        infoText3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "categorySystem");
-                //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                startActivity(intent);
-            }
-        });
+        if (GlobalData.getMergedRingNotificationVolumes(context)) {
+            TextView infoText3 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text3);
+            infoText3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "categorySystem");
+                    //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    startActivity(intent);
+                }
+            });
+        }
+        else {
+            TextView infoText3 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text3);
+            infoText3.setVisibility(View.GONE);
+        }
 
         TextView infoText40 = (TextView)findViewById(R.id.activity_info_default_profile);
         infoText40.setOnClickListener(new View.OnClickListener() {
