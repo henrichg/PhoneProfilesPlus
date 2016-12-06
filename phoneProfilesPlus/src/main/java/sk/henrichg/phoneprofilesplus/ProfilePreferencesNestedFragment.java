@@ -33,7 +33,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
-    static final String PREF_UNLINK_VOLUMES_APP_PREFERENCES = "prf_pref_volumeUnlinkVolumesAppSettings";
     static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
     static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
 
@@ -282,14 +281,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             });
         }
         if (!GlobalData.getMergedRingNotificationVolumes(context)) {
-            preference = prefMng.findPreference(PREF_UNLINK_VOLUMES_APP_PREFERENCES);
+            preference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_volumeCategory");
                 preferenceCategory.removePreference(preference);
             }
         }
         else {
-            preference = prefMng.findPreference(PREF_UNLINK_VOLUMES_APP_PREFERENCES);
+            preference = prefMng.findPreference(GlobalData.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
@@ -724,13 +723,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     private void setSummary(String key, Object value)
     {
-        if (key.equals(GlobalData.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS)) {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.menu_settings) + ": " +
-                        context.getResources().getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes));
-            }
-        }
         if (key.equals(GlobalData.PREF_PROFILE_NAME))
         {
             Preference preference = prefMng.findPreference(key);

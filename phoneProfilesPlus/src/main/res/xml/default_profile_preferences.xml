@@ -64,7 +64,7 @@
             <Preference
                 android:key="prf_pref_volumeUnlinkVolumesAppSettings"
                 android:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
-                android:summary="@string/menu_settings"
+                android:summary="@string/info_notification_unlink_ringer_notification_volumes"
                 android:widgetLayout="@layout/start_activity_preference" />
             <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
                 android:key="prf_pref_volumeRingtone"
