@@ -265,12 +265,9 @@ public class PhoneProfilesService extends Service
         stopGeofenceScanner();
         stopOrientationScanner();
         stopPhoneStateScanner();
-
-        instance = null;
-
         stopSimulatingRingingCall();
 
-        //GlobalData.cleanPhoneProfilesServiceMessenger(getApplicationContext());
+        instance = null;
     }
 
     @Override
