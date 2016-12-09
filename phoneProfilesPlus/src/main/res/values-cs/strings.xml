@@ -436,10 +436,8 @@
   <string name="colorChooser_pref_dialog_title">Nastavit barvu</string>
   <string name="phone_profiles_pref_category_system">Systém</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Odděl hlasitost vyzvánění a oznámení.</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Zrušte zaškrtnutí políčka pokud Vaše zařízení má oddělenou hlasitost vyzvánění a oznámení</string>
   <string name="profileicon_pref_dialog_info_about_status_bar_icon">Pokud změníte barvu ikony, ikona ve stavovém řádku bude bílá. Pokud zvolíte vlastní ikonu, ve stavovém řádku bude ikona aplikace.</string>
   <string name="info_notification_title">Důležité informace</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">Pro zakázání oddělování hlasitostí, pokud váš přístroj má oddělenou hlasitost vyzvánění a oznámení, klikněte zde.</string>
   <string name="info_notification_text">Kliknutím zde zobrazíte důležité informace</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi přístupový bod</string>
   <string name="array_pref_ringerModeArray_silentL">Prioritní režim</string>
@@ -863,4 +861,11 @@
   <string name="info_preference_click_here">Klikněte zde pro zobrazení informací</string>
   <string name="profile_preferences_category_profileActivationParameters">Parametry aktivace</string>
   <string name="profile_preferences_category_profileDeviceParameters">Parametry zařízení</string>
+  <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For notification volume = 0 configure notification tone to \"PhoneProfiles Silent\" for true silent notifications.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
+  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
 </resources>

@@ -598,6 +598,7 @@
   <string name="info_notification_event_states_paused_delay">Pozastavená s pozdržaním: udalosť je spustená, ale čaká v pozdržaní. Parametre udalosti sú splnené.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignoruj \"celodenné\" udalosti</string>
   <string name="important_info_default_profile">Ak nebežia žiadne udalosti, aktivovaný je \"Predvolený profil\". Predvolený profil môžete nastaviť v nastaveniach aplikácie v \"Aktivácia profilu\". Kliknite sem na jeho nakonfigurovanie.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes2">Ak vaše zariadenie nemá oddelenú hlasitosť zvonenia a notifikácií, nechajte povolené ich oddeľovanie.</string>
   <string name="important_info_how_does_volume_separation_work">Ako funguje \"oddeľovanie hlasitostí\": Aktivácia profilu nastaví hlasitosť zariadenia podľa hlasitosti notifikácií v profile. Ak je zachytený príchodzí hovor, nastaví sa hlasitosť zvonenia z profilu. Po ukončení hovoru sa spať nastaví hlasitosť notifikácií z profilu.</string>
   <string name="event_type_locations">Poloha</string>
   <string name="event_preferences_category_eventLocationsParameters">Parametre polohy</string>
@@ -860,4 +861,11 @@
   <string name="info_preference_click_here">Kliknite sem pre zobrazenie informácií</string>
   <string name="profile_preferences_category_profileActivationParameters">Parametre aktivácie</string>
   <string name="profile_preferences_category_profileDeviceParameters">Parametre zariadenia</string>
+  <string name="profile_preferences_volumeNotificationVolume0_title">Zmena tónu notifikácie</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Tón notifikácie \"PhoneProfiles Silent\" je nakonfigurovaný.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pre hlasitosť notifikácie = 0 nastavte tón notifikácie na \"PhoneProfiles Silent\" pre skutočne tiché notifikácie.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_question">Nastaviť tón notifikácie na \"PhoneProfiles Silent\"?</string>
+  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Tón notifikácie \"PhoneProfiles Silent\" nie je nainštalovaný. Nainštalujte ho z menu Editora a skúste znova.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Vaše zariadenie má zlúčenú hlasitosť zvonenia hovorov a notifikácií. Môžete použiť \"Oddeľ hlasitosť zvonenia a notif.\" Kliknite sem pre jej nakonfigurovanie.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Vaše zariadenie má zlúčenú hlasitosť zvonenia hovorov a notifikácií. Ak chcete hlasitosti rozdeliť, zaškrtnite tento parameter.</string>
 </resources>

@@ -436,10 +436,8 @@
   <string name="colorChooser_pref_dialog_title">Elegir color</string>
   <string name="phone_profiles_pref_category_system">Sistema</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Desvincular vols. de llamadas y notif.</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Desmarcar si tu dispositivo tiene volúmenes separados para llamadas y notificaciones</string>
   <string name="profileicon_pref_dialog_info_about_status_bar_icon">Si cambias el color del icono, en la barra de estado será blanco. Si eliges un icono personalizado, en la barra de estado se verá el icono de la aplicación.</string>
   <string name="info_notification_title">Información importante</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">Si tu dispositivo tiene volúmenes independientes para llamadas y notificaciones, haz clic aquí para desactivar la separación de volúmenes.</string>
   <string name="info_notification_text">Haz clic aquí para ver información importante</string>
   <string name="profile_preferences_deviceWiFiAP">Punto de acceso Wi-Fi</string>
   <string name="array_pref_ringerModeArray_silentL">Modo prioritario</string>
@@ -863,4 +861,11 @@
   <string name="info_preference_click_here">Click here for show infomations</string>
   <string name="profile_preferences_category_profileActivationParameters">Activation parameters</string>
   <string name="profile_preferences_category_profileDeviceParameters">Device parameters</string>
+  <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For notification volume = 0 configure notification tone to \"PhoneProfiles Silent\" for true silent notifications.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
+  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
 </resources>

@@ -436,10 +436,8 @@
   <string name="colorChooser_pref_dialog_title">設置的顏色</string>
   <string name="phone_profiles_pref_category_system">系統</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">取消鈴聲和通知音效的連結</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">取消選取它當您的設備已分開鈴聲和通知音效的連結</string>
   <string name="profileicon_pref_dialog_info_about_status_bar_icon">如果您更改圖示的顏色，在狀態列中的圖示將會是白色的。如果您選擇自訂圖示，在狀態列將顯示應用程式圖示。</string>
   <string name="info_notification_title">重要訊息</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">如果您的設備有分開鈴聲和通知音效，請按一下此處停用音量分離。</string>
   <string name="info_notification_text">按一下此處以顯示重要資訊</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi 熱點</string>
   <string name="array_pref_ringerModeArray_silentL">優先模式</string>
@@ -867,4 +865,11 @@ Note: \"紅綠燈\" 是在激活器和編輯器的標題中。</string>
   <string name="info_preference_click_here">Click here for show infomations</string>
   <string name="profile_preferences_category_profileActivationParameters">Activation parameters</string>
   <string name="profile_preferences_category_profileDeviceParameters">Device parameters</string>
+  <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For notification volume = 0 configure notification tone to \"PhoneProfiles Silent\" for true silent notifications.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
+  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
 </resources>
