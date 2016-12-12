@@ -145,64 +145,103 @@
             android:key="notificationsToast"
             android:title="@string/phone_profiles_pref_notificationsToast"
             android:defaultValue="false" />
-        <CheckBoxPreference
-            android:key="notificationStatusBar"
-            android:title="@string/phone_profiles_pref_notificationStatusBar"
-            android:summary="@string/phone_profiles_pref_notificationStatusBarRecommended"
-            android:defaultValue="true" />
-        <CheckBoxPreference
-            android:key="notificationShowInStatusBar"
-            android:title="@string/phone_profiles_pref_notificationShowInStatusBar"
-            android:defaultValue="true"
-            android:dependency="notificationStatusBar" />
-        <CheckBoxPreference
-            android:key="notificationHideInLockscreen"
-            android:title="@string/phone_profiles_pref_notificationHideInLockscreen"
-            android:defaultValue="false"
-            android:dependency="notificationStatusBar" />
-        <CheckBoxPreference
-            android:key="notificationStatusBarPermanent"
-            android:title="@string/phone_profiles_pref_notificationStatusBarPermanent"
-            android:summary="@string/phone_profiles_pref_notificationStatusBarRecommended"
-            android:defaultValue="true"
-            android:disableDependentsState="true"
-            android:dependency="notificationStatusBar" />
-        <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
-            android:key="notificationStatusBarCancel"
-            android:summary="@string/phone_profiles_pref_notificationStatusBarCancel"
-            android:title="@string/phone_profiles_pref_notificationStatusBarCancel"
-            android:defaultValue="10"
-            henrichg:dMin="0"
-            henrichg:dMax="300"
-            android:dependency="notificationStatusBarPermanent" />
-        <Preference
-            android:key="eventSensorsInfo"
-            android:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
-            android:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
-            android:widgetLayout="@layout/info_preference" />
-        <sk.henrichg.phoneprofilesplus.MaterialListPreference
-            android:title="@string/phone_profiles_pref_notificationStatusBarStyle"
-            android:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
-            android:key="notificationStatusBarStyle"
-            android:defaultValue="1"
-            android:entries="@array/notificationIconStyleArray"
-            android:entryValues="@array/notificationIconStyleValues"
-            android:dependency="notificationStatusBar"
-            app:useStockLayout="true" />
-        <CheckBoxPreference
-            android:key="notificationPrefIndicator"
-            android:title="@string/phone_profiles_pref_notificationPrefIndicator"
-            android:defaultValue="true"
-            android:dependency="notificationStatusBar" />
-        <sk.henrichg.phoneprofilesplus.MaterialListPreference
-            android:title="@string/phone_profiles_pref_notificationTextColor"
-            android:summary="@string/array_pref_no_change"
-            android:key="notificationTextColor"
-            android:defaultValue="0"
-            android:entries="@array/notificationTextColorArray"
-            android:entryValues="@array/notificationTextColorValues"
-            android:dependency="notificationStatusBar"
-            app:useStockLayout="true" />
+        <PreferenceCategory
+            android:title="@string/phone_profiles_pref_notificationStatusBarNew" >
+            <CheckBoxPreference
+                android:key="notificationShowInStatusBar"
+                android:title="@string/phone_profiles_pref_notificationShowInStatusBar"
+                android:defaultValue="true" />
+            <CheckBoxPreference
+                android:key="notificationHideInLockscreen"
+                android:title="@string/phone_profiles_pref_notificationHideInLockscreen"
+                android:defaultValue="false" />
+            <Preference
+                android:key="eventSensorsInfo"
+                android:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
+                android:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
+                android:widgetLayout="@layout/info_preference" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/phone_profiles_pref_notificationStatusBarStyle"
+                android:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
+                android:key="notificationStatusBarStyle"
+                android:defaultValue="1"
+                android:entries="@array/notificationIconStyleArray"
+                android:entryValues="@array/notificationIconStyleValues"
+                app:useStockLayout="true" />
+            <CheckBoxPreference
+                android:key="notificationPrefIndicator"
+                android:title="@string/phone_profiles_pref_notificationPrefIndicator"
+                android:defaultValue="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/phone_profiles_pref_notificationTextColor"
+                android:summary="@string/array_pref_no_change"
+                android:key="notificationTextColor"
+                android:defaultValue="0"
+                android:entries="@array/notificationTextColorArray"
+                android:entryValues="@array/notificationTextColorValues"
+                app:useStockLayout="true" />
+
+            <!--
+            <CheckBoxPreference
+                android:key="notificationStatusBar"
+                android:title="@string/phone_profiles_pref_notificationStatusBar"
+                android:summary="@string/phone_profiles_pref_notificationStatusBarRecommended"
+                android:defaultValue="true" />
+            <CheckBoxPreference
+                android:key="notificationShowInStatusBar"
+                android:title="@string/phone_profiles_pref_notificationShowInStatusBar"
+                android:defaultValue="true"
+                android:dependency="notificationStatusBar" />
+            <CheckBoxPreference
+                android:key="notificationHideInLockscreen"
+                android:title="@string/phone_profiles_pref_notificationHideInLockscreen"
+                android:defaultValue="false"
+                android:dependency="notificationStatusBar" />
+            <CheckBoxPreference
+                android:key="notificationStatusBarPermanent"
+                android:title="@string/phone_profiles_pref_notificationStatusBarPermanent"
+                android:summary="@string/phone_profiles_pref_notificationStatusBarRecommended"
+                android:defaultValue="true"
+                android:disableDependentsState="true"
+                android:dependency="notificationStatusBar" />
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+                android:key="notificationStatusBarCancel"
+                android:summary="@string/phone_profiles_pref_notificationStatusBarCancel"
+                android:title="@string/phone_profiles_pref_notificationStatusBarCancel"
+                android:defaultValue="10"
+                henrichg:dMin="0"
+                henrichg:dMax="300"
+                android:dependency="notificationStatusBarPermanent" />
+            <Preference
+                android:key="eventSensorsInfo"
+                android:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
+                android:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
+                android:widgetLayout="@layout/info_preference" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/phone_profiles_pref_notificationStatusBarStyle"
+                android:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
+                android:key="notificationStatusBarStyle"
+                android:defaultValue="1"
+                android:entries="@array/notificationIconStyleArray"
+                android:entryValues="@array/notificationIconStyleValues"
+                android:dependency="notificationStatusBar"
+                app:useStockLayout="true" />
+            <CheckBoxPreference
+                android:key="notificationPrefIndicator"
+                android:title="@string/phone_profiles_pref_notificationPrefIndicator"
+                android:defaultValue="true"
+                android:dependency="notificationStatusBar" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/phone_profiles_pref_notificationTextColor"
+                android:summary="@string/array_pref_no_change"
+                android:key="notificationTextColor"
+                android:defaultValue="0"
+                android:entries="@array/notificationTextColorArray"
+                android:entryValues="@array/notificationTextColorValues"
+                android:dependency="notificationStatusBar"
+                app:useStockLayout="true" />
+            -->
+        </PreferenceCategory>
     </PreferenceScreen>
 
     <PreferenceScreen
