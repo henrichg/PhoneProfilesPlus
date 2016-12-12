@@ -22,7 +22,7 @@ public class SearchCalendarEventsBroadcastReceiver extends WakefulBroadcastRecei
 
         setAlarm(context, false);
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

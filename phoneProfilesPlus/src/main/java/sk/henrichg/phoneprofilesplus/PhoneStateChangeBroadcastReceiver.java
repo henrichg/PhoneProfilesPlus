@@ -14,7 +14,7 @@ public class PhoneStateChangeBroadcastReceiver extends WakefulBroadcastReceiver 
 
         GlobalData.logE("##### PhoneStateChangeBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, false))
             // application is not started
             return;
 

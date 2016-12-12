@@ -14,7 +14,7 @@ public class NotificationBroadcastReceiver extends WakefulBroadcastReceiver {
 
         GlobalData.logE("##### NotificationBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

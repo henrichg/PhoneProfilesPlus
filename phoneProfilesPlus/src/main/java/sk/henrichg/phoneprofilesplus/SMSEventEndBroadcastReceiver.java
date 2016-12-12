@@ -14,7 +14,7 @@ public class SMSEventEndBroadcastReceiver extends WakefulBroadcastReceiver {
 
         GlobalData.logE("##### SMSEventEndBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

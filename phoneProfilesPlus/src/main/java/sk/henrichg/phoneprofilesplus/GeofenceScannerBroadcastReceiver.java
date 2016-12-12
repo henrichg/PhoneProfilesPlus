@@ -15,7 +15,7 @@ public class GeofenceScannerBroadcastReceiver extends WakefulBroadcastReceiver {
 
         GlobalData.logE("##### GeofenceScannerBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

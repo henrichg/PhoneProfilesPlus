@@ -54,7 +54,7 @@ public class FirstStartService extends IntentService {
             }
         //}
 
-        if (GlobalData.firstStartServiceStarted)
+        if (GlobalData.getApplicationStarted(getApplicationContext(), false))
             return;
 
         GlobalData.logE("$$$ FirstStartService.onHandleIntent","application not started");
@@ -111,7 +111,6 @@ public class FirstStartService extends IntentService {
 
         GlobalData.setMobileCellsAutoRegistration(context, true);
 
-        GlobalData.firstStartServiceStarted = true;
         GlobalData.setApplicationStarted(context, true);
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 

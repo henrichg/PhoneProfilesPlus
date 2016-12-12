@@ -15,7 +15,7 @@ public class LocationModeChangedBroadcastReceiver extends WakefulBroadcastReceiv
 
         GlobalData.logE("##### LocationModeChangedBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

@@ -14,7 +14,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
 
         GlobalData.logE("##### ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 
@@ -39,7 +39,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
             GlobalData.setScreenUnlocked(context, true);
 
-            if (GlobalData.getApplicationStarted(context)) {
+            if (GlobalData.getApplicationStarted(context, true)) {
                 if (GlobalData.notificationShowInStatusBar &&
                     GlobalData.notificationHideInLockscreen) {
                     DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
@@ -118,7 +118,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
         }
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-            if (GlobalData.getApplicationStarted(context)) {
+            if (GlobalData.getApplicationStarted(context, true)) {
                 if (GlobalData.notificationShowInStatusBar &&
                     GlobalData.notificationHideInLockscreen) {
                     DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);

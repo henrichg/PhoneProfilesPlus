@@ -17,7 +17,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
         GlobalData.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
 
-        if (GlobalData.getApplicationStarted(context))
+        if (GlobalData.getApplicationStarted(context, true))
         {
             GlobalData.loadPreferences(context);
 

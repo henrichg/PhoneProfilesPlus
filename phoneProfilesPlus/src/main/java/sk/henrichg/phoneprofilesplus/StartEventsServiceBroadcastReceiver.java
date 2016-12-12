@@ -17,7 +17,7 @@ public class StartEventsServiceBroadcastReceiver extends WakefulBroadcastReceive
 
         GlobalData.logE("##### StartEventsServiceBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

@@ -362,7 +362,7 @@ public class PhoneProfilesService extends Service
             geofencesScanner = null;
         }
 
-        if (GlobalData.getApplicationStarted(this)) {
+        if (GlobalData.getApplicationStarted(this, false)) {
             geofencesScanner = new GeofencesScanner(this);
             geofencesScanner.connect();
         }
@@ -387,7 +387,7 @@ public class PhoneProfilesService extends Service
         if (mStartedSensors)
             stopListeningOrientationSensors();
 
-        if (GlobalData.getApplicationStarted(this))
+        if (GlobalData.getApplicationStarted(this, false))
             startListeningOrientationSensors();
     }
 
@@ -431,7 +431,7 @@ public class PhoneProfilesService extends Service
             //phoneStateScanner = null;
         }
 
-        if (GlobalData.getApplicationStarted(this)) {
+        if (GlobalData.getApplicationStarted(this, false)) {
             if (phoneStateScanner == null)
                 phoneStateScanner = new PhoneStateScanner(this);
             phoneStateScanner.connect();

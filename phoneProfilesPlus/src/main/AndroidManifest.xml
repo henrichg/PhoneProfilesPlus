@@ -3,7 +3,7 @@
           package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="internalOnly"
-          android:versionCode="2416"
+          android:versionCode="2418"
           android:versionName="3.4.5b">
     <!--
         Release versions (look at PackageReplacedReceiver)

@@ -333,7 +333,7 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     private void doAutoRegistration() {
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 
@@ -347,7 +347,7 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     void startAutoRegistration() {
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

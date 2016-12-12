@@ -49,7 +49,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
             saveConnectedDevices(context);
 
-            if (!GlobalData.getApplicationStarted(context))
+            if (!GlobalData.getApplicationStarted(context, true))
                 // application is not started
                 return;
 

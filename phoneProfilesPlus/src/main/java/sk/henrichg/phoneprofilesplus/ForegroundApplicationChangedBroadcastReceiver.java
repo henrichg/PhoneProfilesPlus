@@ -15,7 +15,7 @@ public class ForegroundApplicationChangedBroadcastReceiver extends WakefulBroadc
 
         GlobalData.logE("##### ForegroundApplicationChangedBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

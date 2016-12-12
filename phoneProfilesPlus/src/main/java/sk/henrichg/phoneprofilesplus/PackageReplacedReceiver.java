@@ -56,7 +56,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
             GlobalData.logE("PackageReplacedReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);
 
-            if (GlobalData.getApplicationStartedIgnoreFirstStartService(context))
+            if (GlobalData.getApplicationStarted(context, false))
             {
                 GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
 

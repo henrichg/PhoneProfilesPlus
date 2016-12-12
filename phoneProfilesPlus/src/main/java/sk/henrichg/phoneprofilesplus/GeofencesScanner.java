@@ -82,7 +82,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         //Log.d("GeofencesScanner.onConnected", "xxx");
         if (mGoogleApiClient.isConnected()) {
             clearAllEventGeofences();
-            if (GlobalData.getApplicationStarted(context)) {
+            if (GlobalData.getApplicationStarted(context, true)) {
                 mUpdatesStarted = false;
                 GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, false);
             }

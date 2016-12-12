@@ -48,12 +48,12 @@ public class GlobalData extends Application {
 
     static String PACKAGE_NAME;
 
-    public static boolean firstStartServiceStarted = false;
+    //public static boolean firstStartServiceStarted = false;
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
-     private static boolean logIntoFile = false;
+    private static boolean logIntoLogCat = true;
+     private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -62,7 +62,12 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
+                                         +"|##### BootUpReceiver.onReceive"
+                                         +"|$$$ PhoneProfilesService.onCreate"
+                                         +"|$$$ FirstStartService.onHandleInten"
+
+
+                                         //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
 
                                          /*+"|ScreenOnOffBroadcastReceiver"
                                          +"|ActivateProfileHelper.showNotification"
@@ -455,7 +460,7 @@ public class GlobalData extends Application {
 
         GlobalData.logE("##### GlobalData.onCreate", "xxx");
 
-        firstStartServiceStarted = false;
+        //firstStartServiceStarted = false;
 
         PACKAGE_NAME = this.getPackageName();
 
@@ -998,16 +1003,13 @@ public class GlobalData extends Application {
         editor.commit();
     }
 
-    static public boolean getApplicationStarted(Context context)
+    static public boolean getApplicationStarted(Context context, boolean testService)
     {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_APPLICATION_STARTED, false) && firstStartServiceStarted;
-    }
-
-    static public boolean getApplicationStartedIgnoreFirstStartService(Context context)
-    {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_APPLICATION_STARTED, false);
+        if (testService)
+            return preferences.getBoolean(PREF_APPLICATION_STARTED, false) && (PhoneProfilesService.instance != null);
+        else
+            return preferences.getBoolean(PREF_APPLICATION_STARTED, false);
     }
 
     static public void setApplicationStarted(Context context, boolean appStarted)

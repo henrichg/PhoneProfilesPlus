@@ -44,7 +44,7 @@ public class KeyguardService extends Service {
 
         Context context = getBaseContext();
 
-        if (!GlobalData.getApplicationStarted(context)) {
+        if (!GlobalData.getApplicationStarted(context, true)) {
             reenableKeyguard();
             stopSelf();
             return START_NOT_STICKY;

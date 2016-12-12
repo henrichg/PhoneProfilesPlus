@@ -22,7 +22,7 @@ public class AboutApplicationBroadcastReceiver extends BroadcastReceiver {
 
         GlobalData.logE("##### AboutApplicationBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, false))
             // application is not started
             return;
 

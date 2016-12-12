@@ -20,7 +20,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     {
         GlobalData.logE("##### PhoneCallBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(savedContext))
+        if (!GlobalData.getApplicationStarted(savedContext, false))
             return false;
 
         GlobalData.loadPreferences(savedContext);

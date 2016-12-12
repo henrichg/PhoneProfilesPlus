@@ -27,7 +27,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
         if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
             BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

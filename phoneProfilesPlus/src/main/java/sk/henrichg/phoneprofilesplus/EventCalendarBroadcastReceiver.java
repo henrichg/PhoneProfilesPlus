@@ -15,7 +15,7 @@ public class EventCalendarBroadcastReceiver extends WakefulBroadcastReceiver {
 
         GlobalData.logE("##### EventCalendarBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

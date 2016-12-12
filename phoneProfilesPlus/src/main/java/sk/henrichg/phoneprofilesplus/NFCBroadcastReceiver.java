@@ -32,7 +32,7 @@ public class NFCBroadcastReceiver extends WakefulBroadcastReceiver {
 
     private static void startService(Context context, String tagName, long time)
     {
-        if (!GlobalData.getApplicationStarted(context))
+        if (!GlobalData.getApplicationStarted(context, true))
             // application is not started
             return;
 

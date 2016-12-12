@@ -17,7 +17,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
         Context appContext = context.getApplicationContext();
 
-        if (!GlobalData.getApplicationStarted(appContext))
+        if (!GlobalData.getApplicationStarted(context.getApplicationContext(), true))
             return;
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {

@@ -1374,7 +1374,7 @@ public class DataWrapper {
             if (GlobalData.applicationClose)
             {
                 // ma sa zatvarat aktivita po aktivacii
-                if (GlobalData.getApplicationStarted(context))
+                if (GlobalData.getApplicationStarted(context, false))
                     // aplikacia je uz spustena, mozeme aktivitu zavriet
                     // tymto je vyriesene, ze pri spusteni aplikacie z launchera
                     // sa hned nezavrie
@@ -2931,7 +2931,7 @@ public class DataWrapper {
     private String getLastStartedEventName(List<EventTimeline> eventTimelineList)
     {
 
-        if (GlobalData.getGlobalEventsRuning(context) && GlobalData.getApplicationStarted(context))
+        if (GlobalData.getGlobalEventsRuning(context) && GlobalData.getApplicationStarted(context, false))
         {
             if (eventTimelineList.size() > 0)
             {
