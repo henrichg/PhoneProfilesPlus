@@ -868,7 +868,7 @@
     <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Use priority</string>
-    <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Enable using \"Priority\" parameter in application settings.</string>
+    <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Enable usage of parameter \"Priority\" in application settings.</string>
     <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>
     <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Currently configured:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Ringtone volume = 0</string>
