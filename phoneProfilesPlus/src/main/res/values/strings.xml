@@ -442,8 +442,6 @@
     <string name="info_notification_text">Click here for show important info</string>
     <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
     <string name="array_pref_ringerModeArray_silentL">Priority mode</string>
-    <string name="info_notification_silent_mode_lollipop">Priority mode: For simulating silent mode, change volume for ringer and notifications in profile to minimal (0).</string>
-    <string name="info_notification_minimal_ringer_and_notification_volumes">When your device sets vibration for minimal ringer or notification volume (0), application sets volume to 1. You can use ringer and notification tone \"PhoneProfiles Silent\" for full silence.</string>
     <string name="menu_import_export">Import/Export</string>
     <string name="array_pref_screenTimeoutArray_5minutes">5 minutes</string>
     <string name="info_notification_event_not_started">Event is not started when:\n1. You have disabled global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".\n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
@@ -873,4 +871,6 @@
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Enable using \"Priority\" parameter in application settings.</string>
     <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>
     <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Currently configured:</string>
+    <string name="profile_preferences_volumeRingtone0Info_title">Ringtone volume = 0</string>
+    <string name="profile_preferences_volumeRingtone0Info_summary">Ringtone volume = 0 configures the device to silent mode. Notification volume is ignored.</string>
 </resources>

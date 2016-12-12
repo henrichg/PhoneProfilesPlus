@@ -229,8 +229,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
         }
 
         if (android.os.Build.VERSION.SDK_INT < 21) {
-            TextView infoText11 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text11);
-            infoText11.setVisibility(View.GONE);
             TextView infoText13 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text13);
             infoText13.setVisibility(View.GONE);
             TextView infoText14 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text14);

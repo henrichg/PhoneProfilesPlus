@@ -125,6 +125,11 @@
                 henrichg:vDisableDefaultProfile="0"
                 android:title="@string/profile_preferences_volumeRingtone"
                 android:summary="@string/volume_pref_dialog_no_change_chb" />
+            <Preference
+                android:key="prf_pref_volumeRingtone0Info"
+                android:title="@string/profile_preferences_volumeRingtone0Info_title"
+                android:summary="@string/profile_preferences_volumeRingtone0Info_summary"
+                android:widgetLayout="@layout/info_preference" />
             <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
                 android:key="prf_pref_volumeNotification"
                 henrichg:volumeType="notification"
