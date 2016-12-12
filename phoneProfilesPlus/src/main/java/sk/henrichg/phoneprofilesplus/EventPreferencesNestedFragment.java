@@ -37,6 +37,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     static final int RESULT_ORIENTATION_SCANNING_SETTINGS = 1986;
     static final String PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS = "eventMobileCellsScaningAppSettings";
     static final int RESULT_MOBILE_CELLS_SCANNING_SETTINGS = 1987;
+    static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
+    static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
 
     @Override
     public int addPreferencesFromResource() {
@@ -184,6 +186,21 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
+        preference = prefMng.findPreference(PREF_USE_PRIORITY_APP_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(context, PhoneProfilesPreferencesActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "eventRunCategory");
+                    //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    startActivityForResult(intent, RESULT_USE_PRIORITY_SETTINGS);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -232,6 +249,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         }
         if (requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) {
             event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
+            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context);
         }
     }
 

@@ -88,7 +88,7 @@ class Event {
     private static final String PREF_EVENT_NOTIFICATION_SOUND = "eventNotificationSound";
     private static final String PREF_EVENT_FORCE_RUN = "eventForceRun";
     //static final String PREF_EVENT_UNDONE_PROFILE = "eventUndoneProfile";
-    private static final String PREF_EVENT_PRIORITY = "eventPriority";
+    static final String PREF_EVENT_PRIORITY = "eventPriority";
     private static final String PREF_EVENT_DELAY_START = "eventDelayStart";
     private static final String PREF_EVENT_AT_END_DO = "eventAtEndDo";
     private static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION = "manualProfileActivation";

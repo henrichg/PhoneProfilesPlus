@@ -19,6 +19,11 @@
             android:title="@string/event_preferences_eventName"
             android:selectAllOnFocus="true"
             app:useStockLayout="true" />
+        <Preference
+            android:key="eventUsePriorityAppSettings"
+            android:title="@string/phone_profiles_pref_eventUsePriorityAppSettings"
+            android:summary="@string/phone_profiles_pref_eventUsePriorityAppSettings_summary"
+            android:widgetLayout="@layout/start_activity_preference" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/event_preferences_priority"
             android:summary="@string/array_event_pref_priorityMedium"
@@ -325,8 +330,7 @@
                 android:title="@string/phone_profiles_pref_eventLocationAppSettings"
                 android:summary="@string/phone_profiles_pref_eventLocationAppSettings_summary"
                 android:dependency="eventLocationEnabled"
-                android:widgetLayout="@layout/start_activity_preference" >
-            </Preference>
+                android:widgetLayout="@layout/start_activity_preference" />
             <sk.henrichg.phoneprofilesplus.LocationGeofencePreference
                 android:defaultValue="0"
                 android:key="eventLocationGeofences"
