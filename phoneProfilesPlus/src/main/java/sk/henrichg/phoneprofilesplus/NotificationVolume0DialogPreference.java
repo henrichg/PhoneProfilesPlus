@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.preference.DialogPreference;
@@ -26,11 +27,6 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         final SharedPreferences preferences = getSharedPreferences();
 
-        //String notificationToneChange = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
-        //String notificationTone = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, "");
-        //Log.d("NotificationVolume0DialogPreference.showDialog","notificationToneChange="+notificationToneChange);
-        //Log.d("NotificationVolume0DialogPreference.showDialog","notificationTone="+notificationTone);
-
         //Log.d("NotificationVolume0DialogPreference.showDialog","toneInstalled="+FirstStartService.isToneInstalled(FirstStartService.TONE_ID, _context));
 
         final String uriId = FirstStartService.getPhoneProfilesSilentUri(_context, RingtoneManager.TYPE_NOTIFICATION);
@@ -42,8 +38,27 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
         }
         else {
+
+            String notificationToneChange = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
+            String notificationTone = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, "");
+            Log.d("NotificationVolume0DialogPreference.showDialog","notificationToneChange="+notificationToneChange);
+            Log.d("NotificationVolume0DialogPreference.showDialog","notificationTone="+notificationTone);
+
+
+            String message = "";
+            if (!notificationToneChange.equals("0")) {
+                message = _context.getString(R.string.profile_preferences_volumeNotificationVolume0_questionNowConfigured);
+                if (notificationToneChange.equals("99"))
+                    message = message + " " + _context.getString(R.string.default_profile_name);
+                else {
+                    message = message + " " + FirstStartService.getToneName(_context, RingtoneManager.TYPE_NOTIFICATION, notificationTone);
+                }
+                message = message + "\n\n";
+            }
+            message = message + _context.getString(R.string.profile_preferences_volumeNotificationVolume0_question);
+
             dialogBuilder.setTitle(getDialogTitle());
-            dialogBuilder.setMessage(R.string.profile_preferences_volumeNotificationVolume0_question);
+            dialogBuilder.setMessage(message);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -53,7 +68,8 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
                     editor.apply();
                 }
             });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+            /*dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     SharedPreferences.Editor editor = preferences.edit();
@@ -61,7 +77,7 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
                     editor.putString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, "");
                     editor.apply();
                 }
-            });
+            });*/
         }
 
         GUIData.registerOnActivityDestroyListener(this, this);

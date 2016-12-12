@@ -153,6 +153,27 @@ public class FirstStartService extends IntentService {
         return "";
     }
 
+    static String getToneName(Context context, int type, String _uri) {
+        RingtoneManager manager = new RingtoneManager(context);
+        manager.setType(type);
+        Cursor cursor = manager.getCursor();
+
+        while (cursor.moveToNext()) {
+            String id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+            String uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+            String title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+
+            String uriId = uri + "/" + id;
+
+            Log.d("FirstStartService.getToneName", "title="+title);
+            Log.d("FirstStartService.getToneName", "uriId="+uriId);
+
+            if (uriId.equals(_uri))
+                return title;
+        }
+        return "";
+    }
+
     private static boolean  isToneInstalled(int resID, String directory, Context context) {
         // Make sure the shared storage is currently writable
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {

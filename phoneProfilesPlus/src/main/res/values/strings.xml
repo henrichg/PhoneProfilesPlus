@@ -872,4 +872,5 @@
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Use priority</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Enable using \"Priority\" parameter in application settings.</string>
     <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>
+    <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Currently configured:</string>
 </resources>
