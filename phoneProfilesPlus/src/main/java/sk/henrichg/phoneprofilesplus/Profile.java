@@ -674,6 +674,21 @@ public class Profile {
         return value == 1;
     }
 
+    void setVolumeRingtoneValue(int value) {
+
+        try {
+            String[] splits = _volumeRingtone.split("\\|");
+            splits[0] = String.valueOf(value);
+            _volumeRingtone = "";
+            for (String split : splits) {
+                if (!_volumeRingtone.isEmpty())
+                    _volumeRingtone = _volumeRingtone + "|";
+                _volumeRingtone = _volumeRingtone + split;
+            }
+        } catch (Exception ignore) {
+        }
+    }
+
     int getVolumeNotificationValue()
     {
         int value;

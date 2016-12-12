@@ -746,6 +746,7 @@ public class ActivateProfileHelper {
                     // change ringer mode to Silent
                     GlobalData.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to silent");
                     profile._volumeRingerMode = 4;
+                    profile.setVolumeRingtoneValue(1);
                 }
             }
         }
