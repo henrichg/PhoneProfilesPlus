@@ -9,6 +9,7 @@
         Release versions (look at PackageReplacedReceiver)
         2322 = keep checked "Use Priority event parameter"
         2400 = start About application alarm for notification "Please donate me."
+        2500 = hide profile notification from status bar"
     -->
     <!-- android:installLocation="internalOnly" is needed for working BOOT_COMPLETED broadcast -->
 

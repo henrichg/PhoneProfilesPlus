@@ -35,19 +35,29 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                 if (oldVersionCode < actualVersionCode) {
                     if (actualVersionCode <= 2322) {
+                        // for old packages use Priority in events
                         SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        // for old packages use Priority in events
                         GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "applicationEventUsePriority=true");
                         editor.putBoolean(GlobalData.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                         editor.commit();
-
                         GlobalData.loadPreferences(context);
                     }
                     if (actualVersionCode <= 2400) {
                         GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "donation alarm restart");
                         GlobalData.setDaysAfterFirstStart(context, 0);
                         AboutApplicationBroadcastReceiver.setAlarm(context);
+                    }
+                    if (actualVersionCode <= 2500) {
+                        // for old packages hide profile notification from status bar if notification is disabled
+                        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                        if (!preferences.getBoolean(GlobalData.PREF_NOTIFICATION_STATUS_BAR, true)) {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            GlobalData.logE("@@@ PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
+                            editor.putBoolean(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
+                            editor.commit();
+                            GlobalData.loadPreferences(context);
+                        }
                     }
                 }
             } catch (PackageManager.NameNotFoundException e) {
