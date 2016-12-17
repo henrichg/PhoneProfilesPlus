@@ -725,6 +725,21 @@ public class Profile {
         return value == 1;
     }
 
+    void setVolumeNotificationValue(int value) {
+
+        try {
+            String[] splits = _volumeNotification.split("\\|");
+            splits[0] = String.valueOf(value);
+            _volumeNotification = "";
+            for (String split : splits) {
+                if (!_volumeNotification.isEmpty())
+                    _volumeNotification = _volumeNotification + "|";
+                _volumeNotification = _volumeNotification + split;
+            }
+        } catch (Exception ignore) {
+        }
+    }
+
     int getVolumeMediaValue()
     {
         int value;
