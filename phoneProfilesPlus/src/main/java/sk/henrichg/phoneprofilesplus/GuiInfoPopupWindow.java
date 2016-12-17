@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v13.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -38,7 +39,8 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
     public void showOnAnchor(@NonNull View anchor, int vertPos, int horizPos, int x, int y) {
         super.showOnAnchor(anchor, vertPos, horizPos, x, y);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            circularReveal(anchor);
+            if (ViewCompat.isAttachedToWindow(view))
+                circularReveal(anchor);
         }
     }
 
