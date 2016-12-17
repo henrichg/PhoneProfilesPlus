@@ -956,14 +956,31 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             key.equals(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
             key.equals(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR))
         {
-            String sValue = value.toString();
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            if (listPreference != null) {
-                int index = listPreference.findIndexOfValue(sValue);
-                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                listPreference.setSummary(summary);
-                GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
-                setCategorySummary(listPreference, index > 0);
+            int canChange = GlobalData.PREFERENCE_ALLOWED;
+            if (key.equals(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING))
+                canChange = GlobalData.isProfilePreferenceAllowed(key, context);
+            if (canChange != GlobalData.PREFERENCE_ALLOWED)
+            {
+                ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+                if (listPreference != null) {
+                    listPreference.setEnabled(false);
+                    if (canChange == GlobalData.PREFERENCE_NOT_ALLOWED)
+                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                                ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
+                    GUIData.setPreferenceTitleStyle(listPreference, false, false, false, false);
+                    setCategorySummary(listPreference, false);
+                }
+            }
+            else {
+                String sValue = value.toString();
+                ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
+                if (listPreference != null) {
+                    int index = listPreference.findIndexOfValue(sValue);
+                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    listPreference.setSummary(summary);
+                    GUIData.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                    setCategorySummary(listPreference, index > 0);
+                }
             }
         }
         if (key.equals(GlobalData.PREF_PROFILE_NOTIFICATION_LED))
@@ -1172,7 +1189,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 String ringerMode = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
                 String zenMode = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
                 boolean enabled = false;
-                if (ringerMode.equals("5")) {
+                if ((GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, context) == GlobalData.PREFERENCE_ALLOWED) &&
+                        ringerMode.equals("5")) {
                     if (zenMode.equals("1") || zenMode.equals("2"))
                         enabled = true;
                 }
