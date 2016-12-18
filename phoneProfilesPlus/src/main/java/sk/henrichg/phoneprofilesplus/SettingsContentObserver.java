@@ -11,10 +11,10 @@ class SettingsContentObserver  extends ContentObserver {
 
     private static int previousVolumeRing = 0;
     private static int previousVolumeNotification = 0;
-    private static int previousVolumeMusic = 0;
-    private static int previousVolumeAlarm = 0;
-    private static int previousVolumeSystem = 0;
-    private static int previousVolumeVoice = 0;
+    //private static int previousVolumeMusic = 0;
+    //private static int previousVolumeAlarm = 0;
+    //private static int previousVolumeSystem = 0;
+    //private static int previousVolumeVoice = 0;
     //private int defaultRingerMode = 0;
 
     Context context;
@@ -31,10 +31,10 @@ class SettingsContentObserver  extends ContentObserver {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         previousVolumeRing = audioManager.getStreamVolume(AudioManager.STREAM_RING);
         previousVolumeNotification = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-        previousVolumeMusic = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        previousVolumeAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-        previousVolumeSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
-        previousVolumeVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+        //previousVolumeMusic = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        //previousVolumeAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+        //previousVolumeSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
+        //previousVolumeVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
     }
 
     @Override
@@ -92,11 +92,11 @@ class SettingsContentObserver  extends ContentObserver {
         if ((audioMode == AudioManager.MODE_NORMAL) || (audioMode == AudioManager.MODE_RINGTONE)) {
             previousVolumeRing = volumeChangeDetect(AudioManager.STREAM_RING, previousVolumeRing, audioManager);
             previousVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, audioManager);
-            previousVolumeMusic = volumeChangeDetect(AudioManager.STREAM_MUSIC, previousVolumeMusic, audioManager);
-            previousVolumeAlarm = volumeChangeDetect(AudioManager.STREAM_ALARM, previousVolumeAlarm, audioManager);
-            previousVolumeSystem = volumeChangeDetect(AudioManager.STREAM_SYSTEM, previousVolumeSystem, audioManager);
+            //previousVolumeMusic = volumeChangeDetect(AudioManager.STREAM_MUSIC, previousVolumeMusic, audioManager);
+            //previousVolumeAlarm = volumeChangeDetect(AudioManager.STREAM_ALARM, previousVolumeAlarm, audioManager);
+            //previousVolumeSystem = volumeChangeDetect(AudioManager.STREAM_SYSTEM, previousVolumeSystem, audioManager);
         }
-        previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
+        //previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
     }
 
 }

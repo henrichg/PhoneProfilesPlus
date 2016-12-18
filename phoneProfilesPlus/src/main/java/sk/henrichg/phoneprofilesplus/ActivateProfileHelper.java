@@ -760,14 +760,13 @@ public class ActivateProfileHelper {
     }
 
     @SuppressWarnings("deprecation")
-    void setRingerMode(Profile profile, AudioManager audioManager, boolean firstCall, /*int linkUnlink,*/ boolean forProfileActivation)
+    void setRingerMode(Profile profile, AudioManager audioManager, boolean firstCall, boolean forProfileActivation)
     {
         //GlobalData.logE("@@@ ActivateProfileHelper.setRingerMode", "andioM.ringerMode=" + audioManager.getRingerMode());
 
         int ringerMode;
         int zenMode;
 
-        //if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivaton) {
         if (forProfileActivation) {
             if (profile._volumeRingerMode != 0) {
                 GlobalData.setRingerMode(context, profile._volumeRingerMode);
@@ -785,7 +784,6 @@ public class ActivateProfileHelper {
         GlobalData.logE("ActivateProfileHelper.setRingerMode", "ringerMode=" + ringerMode);
         GlobalData.logE("ActivateProfileHelper.setRingerMode", "zenMode=" + zenMode);
 
-        //if ((linkUnlink == PhoneCallService.LINKMODE_NONE) || forProfileActivation) {
         if (forProfileActivation) {
 
             GlobalData.logE("ActivateProfileHelper.setRingerMode", "ringer mode change");

@@ -62,9 +62,16 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|##### BootUpReceiver.onReceive"
-                                         +"|$$$ PhoneProfilesService.onCreate"
-                                         +"|$$$ FirstStartService.onHandleInten"
+                                         +"|RingerModeChangeReceiver.getRingerMode"
+                                         +"|PPNotificationListenerService.getZenMode"
+                                         +"|InterruptionFilterChangedBroadcastReceiver.getZenMode"
+                                         +"|### SettingsContentObserver"
+                                         +"|GlobalData.vibrationIsOn"
+                                         +"|ActivateProfileHelper.setVolumes"
+
+                                         //+"|##### BootUpReceiver.onReceive"
+                                         //+"|$$$ PhoneProfilesService.onCreate"
+                                         //+"|$$$ FirstStartService.onHandleInten"
 
 
                                          //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
@@ -2367,6 +2374,30 @@ public class GlobalData extends Application {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
         editor.commit();
+    }
+
+    @SuppressWarnings("deprecation")
+    public static boolean vibrationIsOn(Context context, AudioManager audioManager, boolean testRingerMode) {
+        int ringerMode = -999;
+        if (testRingerMode)
+            ringerMode = audioManager.getRingerMode();
+        int vibrateType = -999;
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1)
+            vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
+        //int vibrateWhenRinging;
+        //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
+        //    vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
+        //else
+        //    vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
+
+        GlobalData.logE("GlobalData.vibrationIsOn", "ringerMode="+ringerMode);
+        GlobalData.logE("GlobalData.vibrationIsOn", "vibrateType="+vibrateType);
+        //GlobalData.logE("GlobalData.vibrationIsOn", "vibrateWhenRinging="+vibrateWhenRinging);
+
+        return (ringerMode == AudioManager.RINGER_MODE_VIBRATE) ||
+                (vibrateType == AudioManager.VIBRATE_SETTING_ON) ||
+                (vibrateType == AudioManager.VIBRATE_SETTING_ONLY_SILENT);// ||
+                //(vibrateWhenRinging == 1);
     }
 
 }
