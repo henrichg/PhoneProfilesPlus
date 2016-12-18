@@ -1093,48 +1093,15 @@ public class ActivateProfileHelper {
 
         // screen timeout
         if (Permissions.checkProfileScreenTimeout(context, profile)) {
-            switch (profile._deviceScreenTimeout) {
-                case 1:
-                    screenTimeoutUnlock(context);
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-                    break;
-                case 2:
-                    screenTimeoutUnlock(context);
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
-                    break;
-                case 3:
-                    screenTimeoutUnlock(context);
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
-                    break;
-                case 4:
-                    screenTimeoutUnlock(context);
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
-                    break;
-                case 5:
-                    screenTimeoutUnlock(context);
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
-                    break;
-                case 6:
-                    //2147483647 = Integer.MAX_VALUE
-                    //18000000   = 5 hours
-                    //86400000   = 24 hounrs
-                    //43200000   = 12 hours
-                    screenTimeoutUnlock(context);
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 86400000); //18000000);
-                    break;
-                case 7:
-                    screenTimeoutUnlock(context);
-                    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
-                    break;
-                case 8:
-                    screenTimeoutUnlock(context);
-                    //if (android.os.Build.VERSION.SDK_INT < 19)  // not working in Sony
-                    //    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
-                    //else
-                        screenTimeoutLock(context);
-                    break;
-            }
+            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            //noinspection deprecation
+            if (pm.isScreenOn())
+                setScreenTimeout(profile._deviceScreenTimeout);
+            else
+                GlobalData.setActivatedProfileScreenTimeout(context, profile._deviceScreenTimeout);
         }
+        //else
+        //    GlobalData.setActivatedProfileScreenTimeout(context, 0);
 
         // zapnutie/vypnutie lockscreenu
         //GlobalData.logE("$$$ ActivateProfileHelper.execute","keyguard");
@@ -1392,6 +1359,51 @@ public class ActivateProfileHelper {
             }
         }
 
+    }
+
+    void setScreenTimeout(int screenTimeout) {
+        switch (screenTimeout) {
+            case 1:
+                screenTimeoutUnlock(context);
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                break;
+            case 2:
+                screenTimeoutUnlock(context);
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
+                break;
+            case 3:
+                screenTimeoutUnlock(context);
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
+                break;
+            case 4:
+                screenTimeoutUnlock(context);
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
+                break;
+            case 5:
+                screenTimeoutUnlock(context);
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
+                break;
+            case 6:
+                //2147483647 = Integer.MAX_VALUE
+                //18000000   = 5 hours
+                //86400000   = 24 hounrs
+                //43200000   = 12 hours
+                screenTimeoutUnlock(context);
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 86400000); //18000000);
+                break;
+            case 7:
+                screenTimeoutUnlock(context);
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
+                break;
+            case 8:
+                screenTimeoutUnlock(context);
+                //if (android.os.Build.VERSION.SDK_INT < 19)  // not working in Sony
+                //    Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
+                //else
+                screenTimeoutLock(context);
+                break;
+        }
+        GlobalData.setActivatedProfileScreenTimeout(context, 0);
     }
 
     private static void screenTimeoutLock(Context context)

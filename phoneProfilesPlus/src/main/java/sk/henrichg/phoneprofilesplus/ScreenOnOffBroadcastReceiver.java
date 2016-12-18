@@ -39,22 +39,30 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
             GlobalData.setScreenUnlocked(context, true);
 
+            DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+            dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
+            Profile activatedProfile = dataWrapper.getActivatedProfile();
+
             if (GlobalData.getApplicationStarted(context, true)) {
                 if (GlobalData.notificationShowInStatusBar &&
                     GlobalData.notificationHideInLockscreen) {
-                    DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
-                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
                     //dataWrapper.getActivateProfileHelper().removeNotification();
                     //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
-                    Profile activatedProfile = dataWrapper.getActivatedProfile();
                     dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
-                    dataWrapper.invalidateDataWrapper();
                 }
             }
+
+            // change screen timeout
+            int screenTimeout = GlobalData.getActivatedProfileScreenTimeout(context);
+            if (screenTimeout > 0)
+                dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
+
+            dataWrapper.invalidateDataWrapper();
 
             // enable/disable keyguard
             Intent keyguardService = new Intent(context.getApplicationContext(), KeyguardService.class);
             context.startService(keyguardService);
+
             return;
         }
 
