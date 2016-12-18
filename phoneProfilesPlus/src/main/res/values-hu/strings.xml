@@ -441,8 +441,6 @@
   <string name="info_notification_text">Kattints ide ha látni akarod a fontos információt</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
   <string name="array_pref_ringerModeArray_silentL">Prioritás mód</string>
-  <string name="info_notification_silent_mode_lollipop">Elsőbbségi mód: néma üzemmód szimulálása, csengő- és értesítések hangereje a profilban minimális (0).</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Amikor az eszközön a beállítás rezegés, minimális csengő-, vagy értesítési hangerő (0), az alkalmazás beállítja a hangerőt 1. Segítségével csengő- és értesítési hang \"PhoneProfiles Silent\" teljes csend.</string>
   <string name="menu_import_export">Importálás/exportálás</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 perc</string>
   <string name="info_notification_event_not_started">Esemény nem indul el akkor:\n1. Az összes esemény futtatását kikapcsoltad (piros \"lámpa\") - Ezt a Szerkesztő menüben \"Esemény indítás engedélyezés\".\n2. Kézi aktiválás esetén az aktív profil mellett (\"Sárga lámpa\") - az esemény újra indítása szükséges. Használt az esemény újra indítás ikont a Profilokban, Szerkesztőben vagy az eseményekben. Kézzel aktivált profil jelzése \"[M]\" a profil neve előtt. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
@@ -868,4 +866,10 @@
   <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
   <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings">Use priority</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Enable usage of parameter \"Priority\" in application settings.</string>
+  <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>
+  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Currently configured:</string>
+  <string name="profile_preferences_volumeRingtone0Info_title">Ringtone volume = 0</string>
+  <string name="profile_preferences_volumeRingtone0Info_summary">Ringtone volume = 0 configures the device to silent mode. Notification volume is ignored.</string>
 </resources>

@@ -441,8 +441,6 @@
   <string name="info_notification_text">Kliknite sem pre zobrazenie dôležitých informácií</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi prístupový bod</string>
   <string name="array_pref_ringerModeArray_silentL">Prioritný mód</string>
-  <string name="info_notification_silent_mode_lollipop">Prioritný mód: Pre simuláciu tichého režimu, zmente hlasitosť zvonenia a notifikácií v profile na minimálnu (0).</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Keď vaše zariadenie nastaví vibrovanie pri minimálnej hodnote (0) hlasitosti zvonenia alebo notifikácie, aplikácia nastaví hlasitosť na 1. Môžete použiť tón \"PhoneProfiles Silent\" pre zvonenia a notifikácie pre nastavenie úplného ticha.</string>
   <string name="menu_import_export">Import/Export</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minút</string>
   <string name="info_notification_event_not_started">Udalosť sa nespustí, keď:\n1. Máte zakázané spúšťanie udalostí (červený \"semafór\") - povoľte spúšťanie udalostí v menu Editora položkou menu \"Povoľ beh udalostí\".\n2. Máte manuálne aktivovaný profil (oranžový \"semafór\") - musíte reštartovať udalosti. Použite ikonu \"Reštart udalostí\" v titulku Aktivátora, Editora alebo v notifikácii. Manuálna aktivácia profilu je tiež indikovaná \"[M]\" pred názvom profilu. Výnimkou z blokovania udalosti manuálnou aktiváciou je, ak máte v parametroch udalosti zaškrnutý parameter \"Ignoruj manuálnu aktiváciu\".\n3. Máte zakázané spustenie udalosti v jeho parametroch - parameter \"Povoľ beh\" musí byť zaškrtnutý.\nPoznámka: \"Semafór\" sa nachádza v titulku Aktivátora a Editora.</string>
@@ -868,4 +866,10 @@
   <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Tón notifikácie \"PhoneProfiles Silent\" nie je nainštalovaný. Nainštalujte ho z menu Editora a skúste znova.</string>
   <string name="info_notification_unlink_ringer_notification_volumes">Vaše zariadenie má zlúčenú hlasitosť zvonenia hovorov a notifikácií. Môžete použiť \"Oddeľ hlasitosť zvonenia a notif.\" Kliknite sem pre jej nakonfigurovanie.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Vaše zariadenie má zlúčenú hlasitosť zvonenia hovorov a notifikácií. Ak chcete hlasitosti rozdeliť, zaškrtnite tento parameter.</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings">Používať prioritu</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Povoľte použitie parametra \"Priorita\" v nastaveniach aplikácie.</string>
+  <string name="phone_profiles_pref_notificationStatusBarNew">Notifikácia v stavovom riadku</string>
+  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Aktuálne nakonfigurovaný:</string>
+  <string name="profile_preferences_volumeRingtone0Info_title">Hlasitosť zvonenia = 0</string>
+  <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitosť zvonenia = 0 nakonfiguruje zariadenie na tichého režimu. Hlasitosť notifikácie sa ignoruje.</string>
 </resources>

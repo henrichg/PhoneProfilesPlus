@@ -441,8 +441,6 @@
   <string name="info_notification_text">Klik hier om belangrijke informatie te tonen</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi-hotspot</string>
   <string name="array_pref_ringerModeArray_silentL">Prioriteitsmodus</string>
-  <string name="info_notification_silent_mode_lollipop">Prioriteitsmodus: voor het simuleren van stille modus, volume voor beltoon en meldingen in profiel wijzigen naar minimaal (0).</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Wanneer uw Apparaat automatisch op trillen gaat bij de laagste bel en meldingen volume (0), wordt toepassing volume automatisch ingesteld op 1. U kunt beltoon en meldingen optie \"PhoneProfiles Silent\" gebruiken voor volledige stilte.</string>
   <string name="menu_import_export">Import/Export</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minuten</string>
   <string name="info_notification_event_not_started">Event wordt niet gestart wanneer:\n1. Je de events globaal hebt uitgeschakeld (rood verkeerslicht) - Zet deze in de editor aan met \"Events activeren\". \n2. Je handmatig een profiel hebt geactiveerd (oranje verkeerslicht) - herstart de events. Gebruik de \"Events herstarten\" knop in de Header van de activator, de editor of in de notificatie. Handmatig geactiveerde profielen zijn ook herkenbaar aan de \"[M]\" voor de profielnaam. De enige uitzondering is wanneer er in een event de optie \"Negeer handmatige activatie\" is geselecteerd. \n3 Je hebt een of meerdere events niet geactiveerd, activeer deze per event in de editor door \"Uitvoeren inschakelen\" te selecteren.\notitie: het \"verkeerslicht\" is zichtbaar in de header van de activator en de editor.</string>
@@ -861,11 +859,17 @@
   <string name="info_preference_click_here">Klik hier om informatie te tonen</string>
   <string name="profile_preferences_category_profileActivationParameters">Activatie parameters</string>
   <string name="profile_preferences_category_profileDeviceParameters">Apparaat parameters</string>
-  <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For notification volume = 0 configure notification tone to \"PhoneProfiles Silent\" for true silent notifications.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
-  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_title">Wijzig notificatie toon</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notificatie toon \"PhoneProfiles Stil\" geconfigureerd.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Voor notificatie volume = 0 configureer de \"PhoneProfiles Stil\" toon voor echt stille meldingen.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_question">Zet notificatie toon op \"PhoneProfiles Silent\"?</string>
+  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notificatie toon \"PhoneProfiles Stil\" is niet geïnstalleerd. Installeer het vanuit het Editor menu en probeer opnieuw.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Je apparaat heeft een samengevoegd volume voor beltoon en notificatie toon. Je kunt \"Volume ontkoppelen\" instellen. Tik hier om te configureren.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Je apparaat heeft een samengevoegd volume voor beltoon en notificatie toon. Als je ontkoppeld volume wilt, deze parameter aanvinken.</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings">Gebruik prioriteit</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Schakel het gebruik van de parameter \'Prioriteit\' in bij toepassingsinstellingen.</string>
+  <string name="phone_profiles_pref_notificationStatusBarNew">Statusbalknotificatie</string>
+  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Op dit moment geconfigureerd:</string>
+  <string name="profile_preferences_volumeRingtone0Info_title">Beltoonvolume = 0</string>
+  <string name="profile_preferences_volumeRingtone0Info_summary">Beltoonvolume = 0 configureert het apparaat naar de Stille modus. Notificatievolume wordt genegeerd.</string>
 </resources>

@@ -441,8 +441,6 @@
   <string name="info_notification_text">לחצו כאן להצגת מידע חשוב</string>
   <string name="profile_preferences_deviceWiFiAP">נקודת גישה Wi-Fi</string>
   <string name="array_pref_ringerModeArray_silentL">מצב עדיפות</string>
-  <string name="info_notification_silent_mode_lollipop">מצב עדיפות: על מנת לדמות מצב שקט, יש לשנות עצמת הקול לצלצול ולהודעות בפרופיל לנמוכה ביותר (0).</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">כאשר המכשיר מגדיר רטט לצלצול החלש ביותר או עוצמת קול ההודעות (0), היישום מגדיר את עוצמת הקול ל-1. באפשרותך להשתמש בצליל הצלצול וההודעה \"PhoneProfiles Silent\" לשקט מלא.</string>
   <string name="menu_import_export">ייבוא/ייצוא</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 דקות</string>
   <string name="info_notification_event_not_started">האירוע אינו מתחיל כאשר: /n1. ביטלת הפעלת אירועים גורפת (\"רמזור\" אדום) - יש לאפשר זאת בתפריט העורך עם \"אפשרות להפעלת אירועים\"./n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
@@ -864,11 +862,17 @@
   <string name="info_preference_click_here">לחצו כאן להצגת מידע</string>
   <string name="profile_preferences_category_profileActivationParameters">פרמטרים של הפעלה</string>
   <string name="profile_preferences_category_profileDeviceParameters">פרמטרי ההתקן</string>
-  <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For notification volume = 0 configure notification tone to \"PhoneProfiles Silent\" for true silent notifications.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
-  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_title">שינוי צליל ההתראה</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">צליל ההתראה \"PhoneProfilesשקט\" מוגדר.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">כדי שעוצמת צליל ההתראה תהיה = 0, הגדירו את צליל ההתראה \"PhoneProfiles שקט\" לשקט אמיתי מהתראות.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_question">להגדיר את צליל ההתראות ל\"PhoneProfiles שקט\"?</string>
+  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">צליל ההתראות \"PhoneProfiles שקט\" אינו מותקן. אנא התקינו אותו מהתפריט העורך ונסו שוב.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">מכשירך מוגדר למזג את עוצמות הצליל עבור שיחות והודעות. באפשרותך להשתמש ב\"ביטול קישור עוצמת צלצול עבור שיחות והודעות\", לחצו כאן כדי לקבוע את תצורתו.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">מכשירך מוגדר למזג את עוצמות הצליל עבור שיחות והודעות. אם ברצונכם לבטל קישור עוצמות הצלצול עבור שיחות והודעות, סמנו פרמטר זה.</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings">השתמש בעדיפות</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">איפשור שימוש בפרמטר \"עדיפות\" בהגדרות יישום.</string>
+  <string name="phone_profiles_pref_notificationStatusBarNew">הודעות בשורת הסטטוס</string>
+  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">ההגדרות כעת:</string>
+  <string name="profile_preferences_volumeRingtone0Info_title">עוצמת צלצול = 0</string>
+  <string name="profile_preferences_volumeRingtone0Info_summary">עוצמת צלצול = 0 מגדירה את המכשיר למצב שקט. המערכת מתעלמת מעוצמת צליל ההודעות.</string>
 </resources>

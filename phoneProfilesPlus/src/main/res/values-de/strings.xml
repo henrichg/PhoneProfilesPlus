@@ -441,8 +441,6 @@
   <string name="info_notification_text">Klicke hier, um wichtige Informationen zu bekommen.</string>
   <string name="profile_preferences_deviceWiFiAP">WLAN-Hotspot</string>
   <string name="array_pref_ringerModeArray_silentL">Prioritätsmodus</string>
-  <string name="info_notification_silent_mode_lollipop">Prioritätsmodus: Um Anrufe und Benachrichtigungen still zu bekommen, setze sie beide im Profil auf 0.</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Wenn dein Telefon Vibration als Lautstärke 0 wählt, wird PPP die Lautstärke auf 1 setzen. Verwende die Tondatei \"PhoneProfiles Silent\" als Anrufton oder Benachrichtigungston, um sie wirklich leise zu bekommen.</string>
   <string name="menu_import_export">Importieren/Exportieren</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 Minuten</string>
   <string name="info_notification_event_not_started">Ereignis wird nicht gestartet, wenn...\n1. ...du das allgemeine Ausführen von Ereignissen angehalten hast (rote \"Ampel\"). Im Editor kannst du es mit dem Menüpunkt \"Laufende Ereignisse aktivieren\" wieder aktivieren.\n2. ...du ein Profil manuell aktiviert hast (gelbe \"Ampel\"). Dann musst du \"Ereignisse neu starten\" im Starter, Editor oder der Benachrichtigung wählen. Ein manuell aktiviertes Profil wird auch mit einem \"[M]\" vor dem Profilnamen angezeigt. Ausnahmen bilden Ereignisse, in denen \"Manuelle Aktivierung ignorieren\" ausgewählt ist.\n3. ...du das Ereignis in den Ereigniseinstellungen angehalten hast. \"Ereignis aktiveren\" muss ausgewählt sein.\nBeachte: Die \"Ampel\" ist oben im Starter und Editor.</string>
@@ -858,14 +856,20 @@
   <string name="array_pref_change_selection_bluetooth_name_select_by_name">Wählen durch den Bluetooth-Namen</string>
   <string name="array_pref_change_selection_nfc_tags_select_by_name">Wählen durch den NFC-Tag-Namen</string>
   <string name="event_preferences_enable_sensor">Sensor aktivieren</string>
-  <string name="info_preference_click_here">Click here for show infomations</string>
-  <string name="profile_preferences_category_profileActivationParameters">Activation parameters</string>
+  <string name="info_preference_click_here">Klicke hier, um Informationen zu bekommen</string>
+  <string name="profile_preferences_category_profileActivationParameters">Aktivierungsparamater</string>
   <string name="profile_preferences_category_profileDeviceParameters">Geräte-Parameter</string>
-  <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
+  <string name="profile_preferences_volumeNotificationVolume0_title">Benachrichtigungston ändern</string>
   <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
   <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For notification volume = 0 configure notification tone to \"PhoneProfiles Silent\" for true silent notifications.</string>
   <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
   <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
   <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings">Use priority</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Enable usage of parameter \"Priority\" in application settings.</string>
+  <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>
+  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Currently configured:</string>
+  <string name="profile_preferences_volumeRingtone0Info_title">Ringtone volume = 0</string>
+  <string name="profile_preferences_volumeRingtone0Info_summary">Ringtone volume = 0 configures the device to silent mode. Notification volume is ignored.</string>
 </resources>

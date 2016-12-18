@@ -441,8 +441,6 @@
   <string name="info_notification_text">Mühim malumat için buraya dokunun</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi internet paylaş</string>
   <string name="array_pref_ringerModeArray_silentL">Öncelik modu</string>
-  <string name="info_notification_silent_mode_lollipop">Öncelik modu: Sessiz mod simülasyonu için profildeki zil ve bildirim ses seviyelerini en az (0) olacak şekilde değiştirin.</string>
-  <string name="info_notification_minimal_ringer_and_notification_volumes">Cihaz titreşim ayarı, en az zil veya bildirim ses seviyesi için ayarlandığında (0), uygulama ses seviyesini 1\'e ayarlar. Tam sessizlik için zil ve bildirim sesi olarak \"PhoneProfiles sessiz\"i kullanabilirsiniz.</string>
   <string name="menu_import_export">İçe/Dışa Aktar</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 dakika</string>
   <string name="info_notification_event_not_started">Durum başlamıyorsa:\n1. Genel Durumları çalıştırmayı devre dışı bırakmışsınızdır: (Kırmızı \"trafik ışığı\" parlaktır) - Düzenleyici menüsünde \"Durumların çalışmasına izin ver\" kutusunu işaretleyin.\n2. El ile başlattığınız herhangi bir profil vardır (Turuncu \"trafik ışığı\" parlaktır) - Durumları tekrar başlatmanız gerekir. Başlatıcı, Düzenleyici veya bildirim başlığında bulunan, \"Durumları tekrar başlat\" simgesine dokunun. Ayrıca El ile başlatılmış profil isminin önünde \"[M]\" işareti gösterilir. İstisnaî vaziyet ise Durum tercihinde \"El ile başlatmayı ihmal et\" işaretlenmiş olmasıdır.\n3. Durum tercihlerinde - Durum, devre dışı bırakılmıştır. \"Durumu çalıştır\" tercihi işaretlenmesi gerekir.\nNot: \"Trafik ışığı\" Başlatıcı ve Düzenleyici başlığında bulunur.</string>
@@ -861,11 +859,17 @@
   <string name="info_preference_click_here">Malumat için buraya dokunun</string>
   <string name="profile_preferences_category_profileActivationParameters">Faaliyet şartları</string>
   <string name="profile_preferences_category_profileDeviceParameters">Cihaz şartları</string>
-  <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For notification volume = 0 configure notification tone to \"PhoneProfiles Silent\" for true silent notifications.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
-  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu a try again.</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">Your device has merged volume for call ringing and notifications. You can use \"Unlink ringer and notif. volumes\". Click here to configure it.</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has merged volume for call ringing and notifications. If you want unlink volumes, check this parameter.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_title">Bildirim sesini değiştir</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Bildirim sesi \"PhoneProfiles sessiz\" olarak yapılandırıldı.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Gerçek sessiz bildirimleri için bildirim ses hacmi = 0 şartı \"PhoneProfiles sessiz\"i bildirim sesi olarak yapılandırmaktır.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_question">Bildirim sesi \"PhoneProfiles sessiz\" olarak yapılandırılsın mı?</string>
+  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Bildirim sesi \"PhoneProfiles sessiz\" yüklü değil. Lütfen Düzenleyici menüsünden tekrar yüklemeyi bir deneyin.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Cihazınızın zil ve bildirim ses hacimleri birleştirilmiş. \"Zil ve bildirim ses hacimlerini ayır\"ı kullanabilirsiniz. Yapılandırmak için buraya dokunun.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Cihazınızın zil ve bildirim ses hacimleri birleştirilmiş. Ses hacimlerini ayırmak isterseniz bu şartı işaretleyin.</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings">Öncelik kullan</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Uygulama ayarlarında \"Öncelik\" şartını kullanmaya izin verin.</string>
+  <string name="phone_profiles_pref_notificationStatusBarNew">Durum çubuğu bildirimi</string>
+  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Şu anda yapılandırılan:</string>
+  <string name="profile_preferences_volumeRingtone0Info_title">Zil sesi hacmi = 0</string>
+  <string name="profile_preferences_volumeRingtone0Info_summary">Zil sesi hacmi = 0 cihazı sessiz moda yapılandırır. Bildirim hacmi göz ardı edilir.</string>
 </resources>
