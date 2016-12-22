@@ -1572,7 +1572,7 @@ public class ActivateProfileHelper {
             notificationBuilder = new Notification.Builder(context)
                     .setContentIntent(pIntent);
 
-            if (android.os.Build.VERSION.SDK_INT >= 16) {
+            if (Build.VERSION.SDK_INT >= 16) {
                 if (notificationShowInStatusBar) {
                     boolean screenUnlocked = GlobalData.getScreenUnlocked(context);
                     if (GlobalData.notificationHideInLockscreen && (!screenUnlocked))
@@ -1584,7 +1584,7 @@ public class ActivateProfileHelper {
                     notificationBuilder.setPriority(Notification.PRIORITY_MIN);
                 //notificationBuilder.setPriority(Notification.PRIORITY_HIGH); // for heads-up in Android 5.0
             }
-            if (android.os.Build.VERSION.SDK_INT >= 21)
+            if (Build.VERSION.SDK_INT >= 21)
             {
                 notificationBuilder.setCategory(Notification.CATEGORY_STATUS);
                 notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
@@ -1648,14 +1648,19 @@ public class ActivateProfileHelper {
                     }
                 }
             }
-            else
-            {
-                int iconSmallResource;
-                if (GlobalData.notificationStatusBarStyle.equals("0"))
-                    iconSmallResource = R.drawable.ic_profile_default;
-                else
-                    iconSmallResource = R.drawable.ic_profile_default_notify;
-                notificationBuilder.setSmallIcon(iconSmallResource);
+            else {
+                // FC in Note 4, 6.0.1 :-/
+                //if ((Build.VERSION.SDK_INT >= 23) && (iconBitmap != null)) {
+                //    notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
+                //}
+                //else {
+                    int iconSmallResource;
+                    if (GlobalData.notificationStatusBarStyle.equals("0"))
+                        iconSmallResource = R.drawable.ic_profile_default;
+                    else
+                        iconSmallResource = R.drawable.ic_profile_default_notify;
+                    notificationBuilder.setSmallIcon(iconSmallResource);
+                //}
 
                 if (iconBitmap != null)
                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
@@ -1664,18 +1669,18 @@ public class ActivateProfileHelper {
             }
 
             // workaround for LG G4, Android 6.0
-            if (android.os.Build.VERSION.SDK_INT < 24)
+            if (Build.VERSION.SDK_INT < 24)
                 contentView.setInt(R.id.notification_activated_app_root, "setVisibility", View.GONE);
 
             if (GlobalData.notificationTextColor.equals("1")) {
                 contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
-                if (android.os.Build.VERSION.SDK_INT >= 24)
+                if (Build.VERSION.SDK_INT >= 24)
                     contentView.setTextColor(R.id.notification_activated_app_name, Color.BLACK);
             }
             else
             if (GlobalData.notificationTextColor.equals("2")) {
                 contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
-                if (android.os.Build.VERSION.SDK_INT >= 24)
+                if (Build.VERSION.SDK_INT >= 24)
                     contentView.setTextColor(R.id.notification_activated_app_name, Color.WHITE);
             }
             contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
