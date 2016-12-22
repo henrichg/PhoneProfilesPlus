@@ -400,7 +400,7 @@ public class ActivateProfileHelper {
                  ));
     }
 
-    private boolean isVibratedRinging(int ringerMode, int zenMode) {
+    private boolean isVibrateRingerMode(int ringerMode, int zenMode) {
         return (ringerMode == 3);
 
     }
@@ -735,17 +735,20 @@ public class ActivateProfileHelper {
             //GlobalData.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "ringerMode=" + ringerMode);
             //GlobalData.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "zenMode=" + zenMode);
 
-            // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
-            if (!isVibratedRinging(profile._volumeRingerMode, profile._volumeZenMode)) {
-                // for ringer mode VIBRATE or SILENT or
-                // for interruption types NONE and ONLY_ALARMS
-                // not change ringer mode
-                // (Android 6 - priority mode = ONLY_ALARMS)
-                if (isAudibleRinging(profile._volumeRingerMode, profile._volumeZenMode) && (profile.getVolumeRingtoneValue() == 0)) {
-                    // change ringer mode to Silent
-                    GlobalData.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to silent");
-                    profile._volumeRingerMode = 4;
-                    profile.setVolumeRingtoneValue(1);
+            if (profile.getVolumeRingtoneValue() == 0) {
+                profile.setVolumeRingtoneValue(1);
+
+                // for profile ringer/zen mode = "only vibrate" do not change ringer mode to Silent
+                if (!isVibrateRingerMode(profile._volumeRingerMode, profile._volumeZenMode)) {
+                    // for ringer mode VIBRATE or SILENT or
+                    // for interruption types NONE and ONLY_ALARMS
+                    // not change ringer mode
+                    // (Android 6 - priority mode = ONLY_ALARMS)
+                    if (isAudibleRinging(profile._volumeRingerMode, profile._volumeZenMode)) {
+                        // change ringer mode to Silent
+                        GlobalData.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to silent");
+                        profile._volumeRingerMode = 4;
+                    }
                 }
             }
         }
@@ -753,7 +756,7 @@ public class ActivateProfileHelper {
 
     void changeNotificationVolumeForVolumeEqual0(Profile profile) {
         if (profile.getVolumeNotificationChange() && GlobalData.getMergedRingNotificationVolumes(context)) {
-            if (isAudibleRinging(profile._volumeRingerMode, profile._volumeZenMode) && (profile.getVolumeNotificationValue() == 0)) {
+            if (profile.getVolumeNotificationValue() == 0) {
                 GlobalData.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "changed notification value to 1");
                 profile.setVolumeNotificationValue(1);
             }
