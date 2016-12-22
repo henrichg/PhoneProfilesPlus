@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.graphics.drawable.Icon;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
@@ -1525,7 +1526,7 @@ public class ActivateProfileHelper {
             boolean notificationStatusBarPermanent = GlobalData.notificationStatusBarPermanent;
 
             // close showed notification
-            //notificationManager.cancel(GlobalData.NOTIFICATION_ID);
+            //notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
 
             // vytvorenie intentu na aktivitu, ktora sa otvori na kliknutie na notifikaciu
             Intent intent = new Intent(context, LauncherActivity.class);
@@ -1541,7 +1542,7 @@ public class ActivateProfileHelper {
 
             // vytvorenie samotnej notifikacie
 
-            NotificationCompat.Builder notificationBuilder;
+            Notification.Builder notificationBuilder;
 
             RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_drawer);
 
@@ -1568,7 +1569,7 @@ public class ActivateProfileHelper {
                 preferencesIndicator = null;
             }
 
-            notificationBuilder = new NotificationCompat.Builder(context)
+            notificationBuilder = new Notification.Builder(context)
                     .setContentIntent(pIntent);
 
             if (android.os.Build.VERSION.SDK_INT >= 16) {
@@ -1595,36 +1596,50 @@ public class ActivateProfileHelper {
             {
                 int iconSmallResource;
                 if (iconBitmap != null) {
-                    iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", context.getPackageName());
-                    if (iconSmallResource == 0) {
-                        if (GlobalData.notificationStatusBarStyle.equals("0"))
-                            iconSmallResource = R.drawable.ic_profile_default;
-                        else
-                            iconSmallResource = R.drawable.ic_profile_default_notify;
+                    if (GlobalData.notificationStatusBarStyle.equals("0")) {
+                        // colorful icon
+
+                        // FC in Note 4, 6.0.1 :-/
+                        //if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        //    notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
+                        //}
+                        //else {
+                            iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", context.getPackageName());
+                            if (iconSmallResource == 0)
+                                iconSmallResource = R.drawable.ic_profile_default;
+                            notificationBuilder.setSmallIcon(iconSmallResource);
+                        //}
                     }
-                    notificationBuilder.setSmallIcon(iconSmallResource);
+                    else {
+                        // native icon
+                        iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", context.getPackageName());
+                        if (iconSmallResource == 0)
+                            iconSmallResource = R.drawable.ic_profile_default_notify;
+                        notificationBuilder.setSmallIcon(iconSmallResource);
+                    }
+
                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                 }
                 else {
-                    // some devices supports color icons
-                    if (GlobalData.notificationStatusBarStyle.equals("0")/* && (android.os.Build.VERSION.SDK_INT < 21)*/) {
-                        //notificationBuilder.setSmallIcon(0);
+                    if (GlobalData.notificationStatusBarStyle.equals("0")) {
+                        // colorful icon
                         iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", context.getPackageName());
                         if (iconSmallResource == 0)
                             iconSmallResource = R.drawable.ic_profile_default;
                         notificationBuilder.setSmallIcon(iconSmallResource);
-                        //contentView.setImageViewResource(R.id.notification_activated_profile_icon, 0);
-                        contentView.setImageViewResource(R.id.notification_activated_profile_icon, iconSmallResource);
+
+                        int iconLargeResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                        if (iconLargeResource == 0)
+                            iconLargeResource = R.drawable.ic_profile_default;
+                        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), iconLargeResource);
+                        contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                     } else {
-                        //notificationBuilder.setSmallIcon(0);
-                        //contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, null);
-
-                        // test color statusbar icon
+                        // native icon
                         iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", context.getPackageName());
-
                         if (iconSmallResource == 0)
                             iconSmallResource = R.drawable.ic_profile_default_notify;
                         notificationBuilder.setSmallIcon(iconSmallResource);
+
                         int iconLargeResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
                         if (iconLargeResource == 0)
                             iconLargeResource = R.drawable.ic_profile_default;
@@ -1640,8 +1655,8 @@ public class ActivateProfileHelper {
                     iconSmallResource = R.drawable.ic_profile_default;
                 else
                     iconSmallResource = R.drawable.ic_profile_default_notify;
-                //notificationBuilder.setSmallIcon(0);
                 notificationBuilder.setSmallIcon(iconSmallResource);
+
                 if (iconBitmap != null)
                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                 else
