@@ -701,21 +701,23 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
          //Log.e("*** EditorPrActivity","keyCode="+keyCode);
-         if ((keyCode == KeyEvent.KEYCODE_MENU) &&
-              (Build.VERSION.SDK_INT <= 16) &&
-              (Build.MANUFACTURER.compareTo("LGE") == 0)) {
-           return true;
-         }
-         return super.onKeyDown(keyCode, event);
+        String manufacturer = GlobalData.getROMManufacturer();
+        if ((keyCode == KeyEvent.KEYCODE_MENU) &&
+            (Build.VERSION.SDK_INT <= 16) &&
+            (manufacturer != null) && (manufacturer.compareTo("lge") == 0)) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
+        String manufacturer = GlobalData.getROMManufacturer();
         if ((keyCode == KeyEvent.KEYCODE_MENU) &&
-                 (Build.VERSION.SDK_INT <= 16) &&
-                 (Build.MANUFACTURER.compareTo("LGE") == 0)) {
-           openOptionsMenu();
-         return true;
+            (Build.VERSION.SDK_INT <= 16) &&
+            (manufacturer != null) && (manufacturer.compareTo("lge") == 0)) {
+            openOptionsMenu();
+            return true;
         }
         return super.onKeyUp(keyCode, event);
     }

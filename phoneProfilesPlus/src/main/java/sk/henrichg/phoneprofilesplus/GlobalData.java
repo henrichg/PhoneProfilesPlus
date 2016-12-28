@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.stericson.rootshell.RootShell;
 import com.stericson.roottools.RootTools;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +36,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -2413,6 +2415,32 @@ public class GlobalData extends Application {
                 (vibrateType == AudioManager.VIBRATE_SETTING_ON) ||
                 (vibrateType == AudioManager.VIBRATE_SETTING_ONLY_SILENT);// ||
                 //(vibrateWhenRinging == 1);
+    }
+
+    public static String getROMManufacturer() {
+        String line;
+        BufferedReader input = null;
+        try {
+            Process p = Runtime.getRuntime().exec("getprop ro.product.brand");
+            input = new BufferedReader(new InputStreamReader(p.getInputStream()), 1024);
+            line = input.readLine();
+            input.close();
+        }
+        catch (IOException ex) {
+            Log.e("GlobalData.getROMManufacturer", "Unable to read sysprop ro.product.brand", ex);
+            return null;
+        }
+        finally {
+            if (input != null) {
+                try {
+                    input.close();
+                }
+                catch (IOException e) {
+                    Log.e("GlobalData.getROMManufacturer", "Exception while closing InputStream", e);
+                }
+            }
+        }
+        return line;
     }
 
 }
