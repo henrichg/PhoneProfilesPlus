@@ -1099,10 +1099,14 @@ public class ActivateProfileHelper {
         if (Permissions.checkProfileScreenTimeout(context, profile)) {
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             //noinspection deprecation
-            if (pm.isScreenOn())
+            if (pm.isScreenOn()) {
+                Log.d("ActivateProfileHelper.execute","screen on");
                 setScreenTimeout(profile._deviceScreenTimeout);
-            else
+            }
+            else {
+                Log.d("ActivateProfileHelper.execute","screen off");
                 GlobalData.setActivatedProfileScreenTimeout(context, profile._deviceScreenTimeout);
+            }
         }
         //else
         //    GlobalData.setActivatedProfileScreenTimeout(context, 0);
@@ -1366,6 +1370,7 @@ public class ActivateProfileHelper {
     }
 
     void setScreenTimeout(int screenTimeout) {
+        Log.d("ActivateProfileHelper.setScreenTimeout", "current="+Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0));
         switch (screenTimeout) {
             case 1:
                 screenTimeoutUnlock(context);
