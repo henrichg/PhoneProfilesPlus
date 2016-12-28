@@ -16,11 +16,10 @@ public class ImportantInfoNotification {
 
     static public void showInfoNotification(Context context) {
         //Log.d("ImportantInfoNotification.showInfoNotification","xxx");
-        PackageInfo pinfo = null;
         int packageVersionCode = 0;
         int savedVersionCode = 0;
         try {
-            pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            PackageInfo pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             packageVersionCode = pinfo.versionCode;
             savedVersionCode = GlobalData.getShowInfoNotificationOnStartVersion(context);
             if (packageVersionCode > savedVersionCode) {

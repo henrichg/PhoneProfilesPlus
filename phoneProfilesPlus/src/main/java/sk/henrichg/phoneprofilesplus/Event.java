@@ -1051,28 +1051,14 @@ class Event {
             // no activate profile, when is already activated
             GlobalData.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
 
-            if (interactive) {
-                if (mergedProfile == null)
-                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, /*_notificationSound,*/ true);
-                else {
-                    mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
-                    if (this._manualProfileActivation) {
-                        dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                        dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, /*_notificationSound,*/ true);
-                        mergedProfile._id = 0;
-                    }
-                }
-            }
+            if (mergedProfile == null)
+                dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, true);
             else {
-                if (mergedProfile == null)
-                    dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, /*"",*/ true);
-                else {
-                    mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
-                    if (this._manualProfileActivation) {
-                        dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                        dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, /*"",*/ true);
-                        mergedProfile._id = 0;
-                    }
+                mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
+                if (this._manualProfileActivation) {
+                    dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, true);
+                    mergedProfile._id = 0;
                 }
             }
         }
