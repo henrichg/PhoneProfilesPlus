@@ -54,8 +54,8 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
-     private static boolean logIntoFile = false;
+    private static boolean logIntoLogCat = true;
+     private static boolean logIntoFile = true;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -64,16 +64,16 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
-                                         +"|RingerModeChangeReceiver.getRingerMode"
-                                         +"|PPNotificationListenerService.getZenMode"
-                                         +"|InterruptionFilterChangedBroadcastReceiver.getZenMode"
-                                         +"|### SettingsContentObserver"
-                                         +"|GlobalData.vibrationIsOn"
-                                         +"|ActivateProfileHelper.setVolumes"
+                                         //+"|RingerModeChangeReceiver.getRingerMode"
+                                         //+"|PPNotificationListenerService.getZenMode"
+                                         //+"|InterruptionFilterChangedBroadcastReceiver.getZenMode"
+                                         //+"|### SettingsContentObserver"
+                                         //+"|GlobalData.vibrationIsOn"
+                                         //+"|ActivateProfileHelper.setVolumes"
 
-                                         //+"|##### BootUpReceiver.onReceive"
-                                         //+"|$$$ PhoneProfilesService.onCreate"
-                                         //+"|$$$ FirstStartService.onHandleInten"
+                                         +"|##### BootUpReceiver.onReceive"
+                                         +"|$$$ PhoneProfilesService.onCreate"
+                                         +"|$$$ FirstStartService.onHandleInten"
 
 
                                          //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
