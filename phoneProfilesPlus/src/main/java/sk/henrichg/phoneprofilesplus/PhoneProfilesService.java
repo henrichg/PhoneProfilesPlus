@@ -199,7 +199,8 @@ public class PhoneProfilesService extends Service
 
         if (settingsContentObserver != null)
             getContentResolver().unregisterContentObserver(settingsContentObserver);
-        settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
+        //settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
+        settingsContentObserver = new SettingsContentObserver(this, new Handler());
         getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
 
         /*
@@ -250,11 +251,14 @@ public class PhoneProfilesService extends Service
         //unregisterReceiver(bluetoothStateChangedReceiver);
         //getApplicationContext().unregisterReceiver(restartEventsReceiver);
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
+            if (deviceIdleModeReceiver != null)
+                getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
         if (android.os.Build.VERSION.SDK_INT >= 21)
-            getApplicationContext().unregisterReceiver(powerSaveModeReceiver);
+            if (powerSaveModeReceiver != null)
+                getApplicationContext().unregisterReceiver(powerSaveModeReceiver);
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            getApplicationContext().unregisterReceiver(interruptionFilterChangedReceiver);
+            if (interruptionFilterChangedReceiver != null)
+                getApplicationContext().unregisterReceiver(interruptionFilterChangedReceiver);
 
         //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(this);
