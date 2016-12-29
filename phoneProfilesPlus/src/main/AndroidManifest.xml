@@ -281,6 +281,7 @@
         </activity>
 
         <receiver android:name=".PhoneProfilesInstall"
+            android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="100">
                 <action android:name="android.intent.action.PACKAGE_INSTALL"/>
@@ -292,6 +293,7 @@
             android:name=".IconWidgetProvider"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/widget_label_icon"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -305,6 +307,7 @@
             android:name=".OneRowWidgetProvider"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/widget_label_one_row"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -318,6 +321,7 @@
             android:name=".ProfileListWidgetProvider"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/widget_label_list"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -352,6 +356,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".PackageReplacedReceiver"
+                  android:enabled="true"
                   android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
@@ -363,6 +368,7 @@
             android:icon="@drawable/ic_dashclock"
             android:label="@string/app_name"
             android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension"/>
@@ -482,6 +488,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".PhoneCallBroadcastReceiver"
+                  android:enabled="true"
                   android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
@@ -491,6 +498,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".DockConnectionBroadcastReceiver"
+                  android:enabled="true"
                   android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_DOCK_EVENT"/>
@@ -504,6 +512,7 @@
         <receiver
             android:name=".CalendarProviderChangedBroadcastReceiver"
             android:priority="1000"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PROVIDER_CHANGED"/>
@@ -554,6 +563,7 @@
             android:exported="false">
         </receiver>
         <receiver android:name=".BluetoothConnectionBroadcastReceiver"
+                  android:enabled="true"
                   android:exported="true">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.ACL_CONNECTED"/>
@@ -563,6 +573,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".BluetoothStateChangedBroadcastReceiver"
+                  android:enabled="true"
                   android:exported="true">
             <intent-filter>
                 <action android:name="android.bluetooth.adapter.action.STATE_CHANGED"/>
