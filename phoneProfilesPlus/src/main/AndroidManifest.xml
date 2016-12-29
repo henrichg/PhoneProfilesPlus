@@ -280,7 +280,8 @@
             android:label="@string/donation_activity_title">
         </activity>
 
-        <receiver android:name=".PhoneProfilesInstall">
+        <receiver android:name=".PhoneProfilesInstall"
+            android:exported="true">
             <intent-filter android:priority="100">
                 <action android:name="android.intent.action.PACKAGE_INSTALL"/>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
@@ -290,7 +291,8 @@
         <receiver
             android:name=".IconWidgetProvider"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/widget_label_icon">
+            android:label="@string/widget_label_icon"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -302,7 +304,8 @@
         <receiver
             android:name=".OneRowWidgetProvider"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/widget_label_one_row">
+            android:label="@string/widget_label_one_row"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -314,7 +317,8 @@
         <receiver
             android:name=".ProfileListWidgetProvider"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/widget_label_list">
+            android:label="@string/widget_label_list"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -330,7 +334,8 @@
 
         <receiver
             android:name=".LocaleChangedReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED"/>
 
@@ -340,24 +345,15 @@
         <receiver
             android:name=".BootUpReceiver"
             android:enabled="true"
+            android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
-        <!--
-        <receiver android:name=".PackageReplacedReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-
-                <data
-                    android:path="sk.henrichg.phoneprofilesplus"
-                    android:scheme="package" />
-            </intent-filter>
-        </receiver>
-        -->
-        <receiver android:name=".PackageReplacedReceiver">
+        <receiver android:name=".PackageReplacedReceiver"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             </intent-filter>
@@ -367,7 +363,8 @@
             android:name=".PhoneProfilesDashClockExtension"
             android:icon="@drawable/ic_dashclock"
             android:label="@string/app_name"
-            android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
+            android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension"/>
             </intent-filter>
@@ -465,17 +462,6 @@
             android:enabled="true">
         </service>
 
-        <!--
-        <receiver
-            android:name=".RestartEventsBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="sk.henrichg.phoneprofilesplus.RESTART_EVENTS"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </receiver>
-        -->
         <receiver
             android:name=".RestartEventsBroadcastReceiver"
             android:enabled="true"
@@ -496,7 +482,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".PhoneCallBroadcastReceiver">
+        <receiver android:name=".PhoneCallBroadcastReceiver"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
             </intent-filter>
@@ -504,7 +491,8 @@
                 <action android:name="android.intent.action.PHONE_STATE"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".DockConnectionBroadcastReceiver">
+        <receiver android:name=".DockConnectionBroadcastReceiver"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_DOCK_EVENT"/>
             </intent-filter>
@@ -516,7 +504,8 @@
         </receiver>
         <receiver
             android:name=".CalendarProviderChangedBroadcastReceiver"
-            android:priority="1000">
+            android:priority="1000"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PROVIDER_CHANGED"/>
 
@@ -532,7 +521,7 @@
         <receiver
             android:name=".WifiConnectionBroadcastReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.net.wifi.STATE_CHANGE"/>
             </intent-filter>
@@ -540,7 +529,7 @@
         <receiver
             android:name=".WifiStateChangedBroadcastReceiver"
             android:enabled="true"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
             </intent-filter>
@@ -565,7 +554,8 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        <receiver android:name=".BluetoothConnectionBroadcastReceiver">
+        <receiver android:name=".BluetoothConnectionBroadcastReceiver"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.ACL_CONNECTED"/>
                 <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED"/>
@@ -573,7 +563,8 @@
                 <action android:name="android.bluetooth.device.action.NAME_CHANGED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".BluetoothStateChangedBroadcastReceiver">
+        <receiver android:name=".BluetoothStateChangedBroadcastReceiver"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.bluetooth.adapter.action.STATE_CHANGED"/>
             </intent-filter>
@@ -588,18 +579,11 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        <!--
-            <receiver android:name=".SMSBroadcastReceiver"  android:enabled="true">
-            <intent-filter android:priority="1000">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-                <action android:name="android.provider.Telephony.SMS_SENT"/>
-            </intent-filter>
-        </receiver>
-        -->
         <receiver
             android:name=".SMSBroadcastReceiver"
             android:enabled="true"
-            android:permission="android.permission.BROADCAST_SMS">
+            android:permission="android.permission.BROADCAST_SMS"
+            android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
@@ -672,7 +656,8 @@
         </receiver>
         <receiver
             android:name=".RingerModeChangeReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.media.RINGER_MODE_CHANGED"/>
             </intent-filter>
@@ -712,7 +697,8 @@
         </receiver>
         <receiver
             android:name=".WifiAPStateChangeBroadcastReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.net.wifi.WIFI_AP_STATE_CHANGED"/>
             </intent-filter>
@@ -724,7 +710,8 @@
         </receiver>
         <receiver
             android:name=".LocationModeChangedBroadcastReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.location.MODE_CHANGED"/>
                 <action android:name="android.location.PROVIDERS_CHANGED"/>
@@ -764,7 +751,7 @@
         <receiver
             android:name=".InterruptionFilterChangedBroadcastReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
         </receiver>
         -->
         <receiver
