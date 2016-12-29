@@ -229,13 +229,13 @@ public class PhoneProfilesService extends Service
         Intent serviceIntent = new Intent(getApplicationContext(), FirstStartService.class);
         getApplicationContext().startService(serviceIntent);
 
-        // this starts also listeners!!!
-        // but will by stopped when events not exists
+        //// this not starts for boot, because GlobalData.getApplicationStarted() == false,
+        //// but it starts from EventsService
         startGeofenceScanner();
-        startOrientationScanner();
-        GlobalData.logE("PhoneProfilesService.startPhoneStateScanner", "+++");
         startPhoneStateScanner();
-
+        // this will be stopped latter in DeviceOrientationBroadcastReceiver, if events not exists
+        startOrientationScanner();
+        ////
     }
 
     @Override
@@ -269,6 +269,7 @@ public class PhoneProfilesService extends Service
         stopGeofenceScanner();
         stopOrientationScanner();
         stopPhoneStateScanner();
+
         stopSimulatingRingingCall();
 
         instance = null;

@@ -845,11 +845,12 @@ public class DataWrapper {
     // this is called in boot or first start application
     void firstStartEvents(boolean startedFromService)
     {
+        GlobalData.logE("DataWrapper.firstStartEvents", "startedFromService="+startedFromService);
+
         if (startedFromService)
             invalidateEventList();  // force load form db
 
         if (!startedFromService) {
-            GlobalData.logE("$$$ setEventsBlocked", "DataWrapper.FirstStartEvents, false");
             GlobalData.setEventsBlocked(context, false);
             for (Event event : getEventList())
             {
@@ -876,7 +877,7 @@ public class DataWrapper {
         SearchCalendarEventsBroadcastReceiver.setAlarm(context, true);
 
         if (!getIsManualProfileActivation()) {
-            // GeofenceScanner will be started from EventsService
+            GlobalData.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
             Intent intent = new Intent(context, RestartEventsBroadcastReceiver.class);
             intent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false);
             intent.putExtra(GlobalData.EXTRA_INTERACTIVE, false);
@@ -884,7 +885,7 @@ public class DataWrapper {
         }
         else
         {
-            //GlobalData.setApplicationStarted(context, true);
+            GlobalData.logE("DataWrapper.firstStartEvents", "manual profile activation, activate profile");
             activateProfileOnBoot();
         }
     }

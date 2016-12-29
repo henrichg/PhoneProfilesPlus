@@ -54,10 +54,12 @@ public class FirstStartService extends IntentService {
             }
         //}
 
-        if (GlobalData.getApplicationStarted(getApplicationContext(), false))
+        if (GlobalData.getApplicationStarted(getApplicationContext(), false)) {
+            GlobalData.logE("$$$ FirstStartService.onHandleIntent","application already started");
             return;
+        }
 
-        GlobalData.logE("$$$ FirstStartService.onHandleIntent","application not started");
+        GlobalData.logE("$$$ FirstStartService.onHandleIntent","application not started, start it");
 
         GlobalData.clearMergedPermissions(context);
 
@@ -114,18 +116,21 @@ public class FirstStartService extends IntentService {
         GlobalData.setApplicationStarted(context, true);
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
+        GlobalData.logE("$$$ FirstStartService.onHandleIntent","application started");
+
+        // this scanner must be started, used is for mobile cells registration, events existence is not needed
+        GlobalData.startPhoneStateScanner(context);
+
         // startneme eventy
         if (GlobalData.getGlobalEventsRuning(context))
         {
-            // must by false for avoiding starts/pause events from receivers before restart events
-            //GlobalData.setApplicationStarted(context, false);
+            GlobalData.logE("$$$ FirstStartService.onHandleIntent","global event run is enabled, first start events");
             dataWrapper.firstStartEvents(true);
         }
         else
         {
+            GlobalData.logE("$$$ FirstStartService.onHandleIntent","global event run is not enabled, manually activate profile");
             //GlobalData.setApplicationStarted(context, true);
-            // this scanner must be started, used is for mobile cells registration, events existence is not needed
-            GlobalData.startPhoneStateScanner(context);
             dataWrapper.activateProfileOnBoot();
         }
 

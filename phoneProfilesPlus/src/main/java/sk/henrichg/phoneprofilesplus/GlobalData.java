@@ -71,9 +71,11 @@ public class GlobalData extends Application {
                                          //+"|GlobalData.vibrationIsOn"
                                          //+"|ActivateProfileHelper.setVolumes"
 
-                                         +"|##### BootUpReceiver.onReceive"
+                                         +"|BootUpReceiver.onReceive"
+                                         +"|PackageReplacedReceiver.onReceive"
                                          +"|$$$ PhoneProfilesService.onCreate"
                                          +"|$$$ FirstStartService.onHandleInten"
+                                         +"|DataWrapper.firstStartEvents"
 
 
                                          //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
