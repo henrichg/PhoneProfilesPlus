@@ -98,14 +98,14 @@ public class LauncherActivity extends Activity {
                 break;
         }
 
-        finish();
-
         intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intentLaunch.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
         getApplicationContext().startActivity(intentLaunch);
 
         // reset, aby sa to dalej chovalo ako normalne spustenie z lauchera
         startupSource = 0;
+
+        finish();
     }
 
     @Override
