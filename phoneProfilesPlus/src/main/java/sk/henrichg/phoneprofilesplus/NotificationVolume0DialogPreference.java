@@ -3,15 +3,11 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
-import android.database.Cursor;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
-import android.util.Log;
 
 public class NotificationVolume0DialogPreference extends DialogPreference {
 

@@ -34,7 +34,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
-import android.support.v4.app.NotificationCompat;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
