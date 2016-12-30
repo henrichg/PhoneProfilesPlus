@@ -41,8 +41,8 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
 
             String notificationToneChange = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
             String notificationTone = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, "");
-            Log.d("NotificationVolume0DialogPreference.showDialog","notificationToneChange="+notificationToneChange);
-            Log.d("NotificationVolume0DialogPreference.showDialog","notificationTone="+notificationTone);
+            //Log.d("NotificationVolume0DialogPreference.showDialog","notificationToneChange="+notificationToneChange);
+            //Log.d("NotificationVolume0DialogPreference.showDialog","notificationTone="+notificationTone);
 
 
             String message = "";

@@ -1100,11 +1100,11 @@ public class ActivateProfileHelper {
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             //noinspection deprecation
             if (pm.isScreenOn()) {
-                Log.d("ActivateProfileHelper.execute","screen on");
+                //Log.d("ActivateProfileHelper.execute","screen on");
                 setScreenTimeout(profile._deviceScreenTimeout);
             }
             else {
-                Log.d("ActivateProfileHelper.execute","screen off");
+                //Log.d("ActivateProfileHelper.execute","screen off");
                 GlobalData.setActivatedProfileScreenTimeout(context, profile._deviceScreenTimeout);
             }
         }
@@ -1370,7 +1370,7 @@ public class ActivateProfileHelper {
     }
 
     void setScreenTimeout(int screenTimeout) {
-        Log.d("ActivateProfileHelper.setScreenTimeout", "current="+Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0));
+        //Log.d("ActivateProfileHelper.setScreenTimeout", "current="+Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0));
         switch (screenTimeout) {
             case 1:
                 screenTimeoutUnlock(context);
@@ -1613,7 +1613,7 @@ public class ActivateProfileHelper {
                         boolean isNote4 = (manufacturer != null) && (manufacturer.compareTo("samsung") == 0) &&
                                           Build.MODEL.startsWith("SM-N910") &&
                                           (android.os.Build.VERSION.SDK_INT == 23);
-                        Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
+                        //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
                         if ((android.os.Build.VERSION.SDK_INT >= 23) && (!isNote4)) {
                             notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                         }
@@ -1668,7 +1668,7 @@ public class ActivateProfileHelper {
                 boolean isNote4 = (manufacturer != null) && (manufacturer.compareTo("samsung") == 0) &&
                         Build.MODEL.startsWith("SM-N910") &&
                         (android.os.Build.VERSION.SDK_INT == 23);
-                Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
+                //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
                 if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
                     notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                 }

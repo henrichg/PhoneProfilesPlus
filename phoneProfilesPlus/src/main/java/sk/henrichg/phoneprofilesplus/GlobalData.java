@@ -54,8 +54,8 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = true;
-     private static boolean logIntoFile = true;
+    private static boolean logIntoLogCat = false;
+     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -2387,7 +2387,7 @@ public class GlobalData extends Application {
             merged = false;
         audioManager.setStreamVolume(AudioManager.STREAM_RING, oldRingVolume, 0);
 
-        Log.d("GlobalData.setMergedRingNotificationVolumes", "merged="+merged);
+        //Log.d("GlobalData.setMergedRingNotificationVolumes", "merged="+merged);
 
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
