@@ -871,7 +871,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Aktuálně nakonfigurován:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Hlasitost vyzvánění = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitost vyzvánění = 0 nakonfiguruje zařízení do tichého režimu. Hlasitost oznámení se ignoruje.</string>
-  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
-  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
-  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Důležitá informace!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Probíhající oznámení je vyžadované pro službu PhoneProfilesService. S oznámením se PhoneProfilesService změní na \"služba v popředí\". A tento typ služby není zabíjen Androidem. PhoneProfilesService musí stále běžet.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Vyžadované pro službu v pozadí PhoneProfilesService</string>
 </resources>
