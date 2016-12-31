@@ -685,7 +685,6 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 uur</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Altijd aan</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Wanneer de optie van \"24 uren\" niet werkt op uw apparaat (LG), gebruik de optie \"Altijd aan\". Optie \"Altijd aan\" kan problemen geven op uw apparaat (Samsung). Gebruik dan de optie \"24 uur\".</string>
-  <string name="phone_profiles_pref_notificationStatusBarRecommended">Aanbevolen voor achtergrond service PhoneProfilesService</string>
   <string name="profile_preferences_vibrateWhenRinging">Trillen bij bellen</string>
   <string name="permissions_for_play_ringtone_notification_text1">Je hebt een beltoon/notificatie ingesteld vanaf sdcard. Geluid wordt niet afgespeeld omdat dit machtigingen vereist.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Sta het toe in de volgende schermen. Dan zal het geluid afspelen.</string>
@@ -872,4 +871,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Op dit moment geconfigureerd:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Beltoonvolume = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Beltoonvolume = 0 configureert het apparaat naar de Stille modus. Notificatievolume wordt genegeerd.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
 </resources>

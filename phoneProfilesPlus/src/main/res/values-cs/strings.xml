@@ -685,7 +685,6 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 hodin</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Vždy zapnuto</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Když volba \"24 hodin\" nefunguje na vašem zařízení (LG), použijte volbu \"Vždy zapnuto\". Volba \"Vždy zapnuto\", může dělat problémy ve vašem zařízení (Samsung). Tehdy použijte volbu \"24 hodin\".</string>
-  <string name="phone_profiles_pref_notificationStatusBarRecommended">Doporučeno pro službu na pozadí PhoneProfilesService</string>
   <string name="profile_preferences_vibrateWhenRinging">Vibrovat při vyzvánění</string>
   <string name="permissions_for_play_ringtone_notification_text1">Máte nastaven tón vyzvánění/oznámení z sd karty. Tón nebude přehrán, protože to vyžaduje některá povolení.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Prosím, povolte je v následujících dialogových oknech. Pak tón bude přehráván.</string>
@@ -872,4 +871,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Aktuálně nakonfigurován:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Hlasitost vyzvánění = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitost vyzvánění = 0 nakonfiguruje zařízení do tichého režimu. Hlasitost oznámení se ignoruje.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
 </resources>

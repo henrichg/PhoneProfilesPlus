@@ -685,7 +685,6 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 שעות</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">מופעל תמיד</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">כאשר האפשרות \"24 שעות\" לא עובדת במכשירך (LG), יש להשתמש באפשרות \"מופעל תמיד\". האפשרות \"מופעל תמיד\" עלולה להיתקל בבעיות במכשירך (סמסונג) ואז להשתמש באפשרות \"24 שעות\".</string>
-  <string name="phone_profiles_pref_notificationStatusBarRecommended">מומלץ עבור שירות ברקע PhoneProfilesService</string>
   <string name="profile_preferences_vibrateWhenRinging">רטט בעת צלצול</string>
   <string name="permissions_for_play_ringtone_notification_text1">נבחר צליל צלצול/הודעות מכרטיס sdcard. הצליל לא יושמע כיוון שפעולה זו דורשת הרשאות מסוימות.</string>
   <string name="permissions_for_play_ringtone_notification_text2">אנא התירו אותן בתיבות דו-שיח הבאות, ואז הצליל יושמע.</string>
@@ -875,4 +874,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">ההגדרות כעת:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">עוצמת צלצול = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">עוצמת צלצול = 0 מגדירה את המכשיר למצב שקט. המערכת מתעלמת מעוצמת צליל ההודעות.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
 </resources>

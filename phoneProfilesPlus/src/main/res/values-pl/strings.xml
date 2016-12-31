@@ -685,7 +685,6 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 godziny</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Zawsze włączony</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Gdy opcja \"24 godziny\" nie działa na Twoim urządzeniu (LG), użyj opcji \"Zawsze włączony\". Opcja \"Zawsze włączony\" może powodować problemy na niektórych urządzeniach (Samsung). Użyj wtedy opcji \"24 godziny\".</string>
-  <string name="phone_profiles_pref_notificationStatusBarRecommended">Zalecane dla usługi PhoneProfilesService</string>
   <string name="profile_preferences_vibrateWhenRinging">Wibracje podczas dzwonienia</string>
   <string name="permissions_for_play_ringtone_notification_text1">You have selected ringer/notification tone from sdcard. Tone will not be played, because this requires some permissions.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Please grant them in next dialogs. Then tone will be played.</string>
@@ -872,4 +871,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Currently configured:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Ringtone volume = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Ringtone volume = 0 configures the device to silent mode. Notification volume is ignored.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
 </resources>

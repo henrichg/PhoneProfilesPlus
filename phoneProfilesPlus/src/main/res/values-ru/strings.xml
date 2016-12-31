@@ -685,7 +685,6 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 часа</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Включено всегда</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Если опция «24 часа» не работает на вашем устройстве (LG), попробуйте использовать вариант «Включено всегда». Опция «Включено всегда» может не работать на вашем устройстве (Samsung), попробуйте использовать вариант «24 часа».</string>
-  <string name="phone_profiles_pref_notificationStatusBarRecommended">Рекомендуется для фоновой работы PhoneProfilesService</string>
   <string name="profile_preferences_vibrateWhenRinging">Вибрация при звонке</string>
   <string name="permissions_for_play_ringtone_notification_text1">Вы выбрали мелодию звонка/уведомления расположенную на sdcard. Звук не будет воспроизводиться, поскольку для этого требуются дополнительные разрешения.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Дайте разрешения в следующих диалоговых окнах. Затем мелодия будет установлена.</string>
@@ -873,4 +872,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Текущие настройки:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Громкость звонка = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Громкость звонка = 0 настраивает устройство в тихий режим. Громкость уведомления игнорируется.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
 </resources>

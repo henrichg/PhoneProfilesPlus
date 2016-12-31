@@ -155,12 +155,12 @@
             <CheckBoxPreference
                 android:key="notificationStatusBar"
                 android:title="@string/phone_profiles_pref_notificationStatusBar"
-                android:summary="@string/phone_profiles_pref_notificationStatusBarRecommended"
+                android:summary="@string/phone_profiles_pref_notificationStatusBarRequired"
                 android:defaultValue="true" />
             <CheckBoxPreference
                 android:key="notificationStatusBarPermanent"
                 android:title="@string/phone_profiles_pref_notificationStatusBarPermanent"
-                android:summary="@string/phone_profiles_pref_notificationStatusBarRecommended"
+                android:summary="@string/phone_profiles_pref_notificationStatusBarRequired"
                 android:defaultValue="true"
                 android:disableDependentsState="true"
                 android:dependency="notificationStatusBar" />

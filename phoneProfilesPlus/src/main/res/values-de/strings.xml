@@ -685,7 +685,6 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 Stunden</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Immer an</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Wenn die Option \"24 Stunden\" an deinem Gerät (LG) nicht funktioniert, benutze die Option \"Immer an\". Auch die Option \"Immer an\" könnte an deinem Gerät (Samsung) nicht funktionieren. Dann benutze die Option \"24 Stunden\".</string>
-  <string name="phone_profiles_pref_notificationStatusBarRecommended">Wird benötigt um die PhoneProfilesServices im Hintergrund laufen zu lassen</string>
   <string name="profile_preferences_vibrateWhenRinging">Beim Klingeln vibrieren</string>
   <string name="permissions_for_play_ringtone_notification_text1">Du hast einen Benachrichtigungs/Anrufston von der SD-Karte gewählt. Der Ton wird nicht abgespielt, da dies Berechtigungen benötigt.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Bitte erteile sie in den nächsten Dialogen. Der Ton wird dann abgespielt.</string>
@@ -730,7 +729,7 @@
   <string name="phone_profiles_pref_eventMobileCellsAppSettings">Einstellungen für Mobilzellen</string>
   <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Richten Sie die Mobilzellen-Parameter in den Anwendungseinstellungen ein.</string>
   <string name="phone_profiles_pref_category_mobile_cells_scanning">Mobilzellen Scannen</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Anruf-Registrierung</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Mobilzellen-Aufzeichnung</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Mobilzellen im Energiesparmodus scannen</string>
   <string name="array_pref_scanInPowerSaveMode_scan">Suche</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Mobilzellen erneut scannen</string>
@@ -872,4 +871,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Currently configured:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Ringtone volume = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Ringtone volume = 0 configures the device to silent mode. Notification volume is ignored.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
 </resources>

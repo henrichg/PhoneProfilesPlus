@@ -685,7 +685,6 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 óra</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Mindig bekapcsolva</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Amikor a \"24 óra\" opció nem működik a készülékedben (LG), használd a \"Mindig bekapcsolva\" opciót. \"Mindig bekapcsolva\" opció lehet, hogy nem jól működik a készülékeden (Samsung), akkor használd a \"24 óra\" opciót.</string>
-  <string name="phone_profiles_pref_notificationStatusBarRecommended">Ajánlott háttérben tartani a PhoneProfilesService szolgáltatást</string>
   <string name="profile_preferences_vibrateWhenRinging">Csengetéskor rezegjen</string>
   <string name="permissions_for_play_ringtone_notification_text1">Csengő/értesítés hangot a Sdcard-ról választotta. Hang nem fog lejátszódni, mert ehhez bizonyos engedélyekre van szükség.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Végezd el a beállításokat. Majd a hang le fog játszódni.</string>
@@ -872,4 +871,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Jelenleg konfigurálva:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Csengőhang hangereje = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Csengetési hangerő = 0 beállítása a készüléken a csendes módhoz. Értesítési hangerő kihagyva.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
 </resources>

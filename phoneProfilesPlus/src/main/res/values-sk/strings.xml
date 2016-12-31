@@ -685,7 +685,6 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 hodín</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Vždy zapnutá</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Keď voľba \"24 hodín\" nefunguje na vašom zariadení (LG), použite voľbu \"Vždy zapnutá\". Voľba \"Vždy zapnutá\", môže robiť problémy vo vašom zariadení (Samsung). Vtedy použite voľbu \"24 hodín\".</string>
-  <string name="phone_profiles_pref_notificationStatusBarRecommended">Odporúčané pre službu v pozadí PhoneProfilesService</string>
   <string name="profile_preferences_vibrateWhenRinging">Vibrovať pri zvonení</string>
   <string name="permissions_for_play_ringtone_notification_text1">Máte nastavený tón zvonenia/notifikácie z sd karty. Tón nebude prehratý, pretože to vyžaduje niektoré povolenia.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom tón bude prehrávaný.</string>
@@ -874,4 +873,5 @@
   <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitosť zvonenia = 0 nakonfiguruje zariadenie na tichého režimu. Hlasitosť notifikácie sa ignoruje.</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_title">Dôležitá informácia!</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Prebiehajúca notifikácia je vyžadovaná pre službu PhoneProfilesService. S notifikáciou sa PhoneProfilesService zmení na \"služba v popredí\". A tento typ služby nie je zabíjaný Androidom. PhoneProfilesService musí stále bežať.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Vyžadované pre službu v pozadí PhoneProfilesService</string>
 </resources>

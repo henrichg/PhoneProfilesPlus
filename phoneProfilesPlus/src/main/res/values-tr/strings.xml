@@ -685,7 +685,6 @@
   <string name="array_pref_screenTimeoutArray_24hours">24 saat</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Her zaman Açık</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Cihazınızda 24 saat tercihi çalışmadığı zaman (LG), \"Her zaman açık\" tercihini kullanın. Bu tercih cihazınızda karşılan sorunları (Samsung) çözebilir. Bundan sonra \"24 saat\" tercihini kullanın.</string>
-  <string name="phone_profiles_pref_notificationStatusBarRecommended">PhoneProfilesHizmeti arka-plan hizmeti önerilir</string>
   <string name="profile_preferences_vibrateWhenRinging">Çalarken titret</string>
   <string name="permissions_for_play_ringtone_notification_text1">Zil/bildirim sesini hafıza kartından seçtiniz. Fakat bazı izinler gerekli olduğundan bu ses çalınmayacak.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Lütfen sonraki iletişim kutularında izinleri verin. Daha sonra ses çalınacak.</string>
@@ -874,4 +873,5 @@
   <string name="profile_preferences_volumeRingtone0Info_summary">Zil sesi hacmi = 0 cihazı sessiz moda yapılandırır. Bildirim hacmi göz ardı edilir.</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
 </resources>
