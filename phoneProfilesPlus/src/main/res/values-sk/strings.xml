@@ -872,4 +872,6 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Aktuálne nakonfigurovaný:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Hlasitosť zvonenia = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitosť zvonenia = 0 nakonfiguruje zariadenie na tichého režimu. Hlasitosť notifikácie sa ignoruje.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Dôležitá informácia!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Prebiehajúca notifikácia je vyžadovaná pre službu PhoneProfilesService. S notifikáciou sa PhoneProfilesService zmení na \"služba v popredí\". A tento typ služby nie je zabíjaný Androidom. PhoneProfilesService musí stále bežať.</string>
 </resources>

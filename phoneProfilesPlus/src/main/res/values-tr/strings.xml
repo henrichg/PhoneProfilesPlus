@@ -406,8 +406,8 @@
   <string name="altype_eventStartDelay">gecikmeli Durum başlangıcı</string>
   <string name="altype_eventEnd_none">Durum fasılası</string>
   <string name="altype_eventEnd_activateProfile">Durum fasılası - profil başlat</string>
-  <string name="altype_eventEnd_undoProfile">Durum fasılası - profili geri alındı</string>
-  <string name="altype_eventEnd_activateProfile_undoProfile">Durum fasılası- profil başladı ve geri alındı</string>
+  <string name="altype_eventEnd_undoProfile">Durum fasılası - profil geri alındı</string>
+  <string name="altype_eventEnd_activateProfile_undoProfile">Durum fasılası - profil başladı ve geri alındı</string>
   <string name="altype_restartEvents">Durumlar tekrar başladı</string>
   <string name="altype_runEvents_disable">Durumları durdur</string>
   <string name="altype_runEvents_enable">Durumların çalışmasına izin ver</string>
@@ -756,18 +756,18 @@
   <string name="info_notification_event_priority_new">4. Her Durumun \"Öncelik\"i vardır. Daha yüksek öncelik ile çalışan başka bir Durum varsa istenen Durum başlatılmaz.</string>
   <string name="info_notification_event_start_order">Durumlar \"Başlama sırası\" ile çalışır. Durumların başlama sırasını Düzenleyici\'deki durumlar görünümünde \"Başlama sırası\" kısmında ayarlayabilirsiniz. Bu görünümde, durumu \"Sıra düzenleyici\" vasıtasıyla yukarı/aşağı sürükleyebilirsiniz.</string>
   <string name="info_notification_event_start_order_handler_icon">Sıra düzenleyici:</string>
-  <string name="info_notification_activate_profile_from_tasker">Profili Çalıştırıcı\'dan başlatabilirsiniz. \"Sistem\"/\"Maksad Gönderimi\" vazifesini şu şartlar ile yapılandırın:</string>
+  <string name="info_notification_activate_profile_from_tasker">Profili Tasker uygulamasından başlatabilirsiniz. \"Sistem\"/\"Maksad Gönderimi\" vazifesini şu şartlar ile yapılandırın:</string>
   <string name="phone_profiles_pref_notificationHideInLockscreen">Kilit ekranında gizle</string>
   <string name="phone_profiles_pref_deleteOldActivityLogs">Eski faaliyet kütüklerini (günler) sil</string>
   <string name="phone_profiles_pref_applicationWidgetIconBackground">Arkaplan șeffaflığı (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Arkaplan hafifliği (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Metin hafifliği (widget)</string>
   <string name="altype_eventStop">durum durdurma</string>
-  <string name="info_notification_manage_events_from_tasker">Durumları Çalıştırıcı\'dan yönetebilirsiniz. \"Sistem\"/\"Maksad Gönderimi\" vazifesini şu şartlar ile yapılandırın:</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- Durumları tekrar başlatın:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- Durumlar için çalışmaya izin verin:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- Durumlara fasıla verin:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- Durumları durdurun:</string>
+  <string name="info_notification_manage_events_from_tasker">Durumları Taker uygulamasından yönetebilirsiniz. \"Sistem\"/\"Maksad Gönderimi\" vazifesini şu şartlar ile yapılandırın:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">- Durumları tekrar başlatmak için:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- Durumların çalışmasına izin vermek için:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">- Durumlara fasıla vermek için:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">- Durumları durdurmak için:</string>
   <string name="phone_profiles_pref_category_eventRun">Durum çalıştır</string>
   <string name="phone_profiles_pref_eventRunUsePriority">\"Öncelik\" durum şartı kullan</string>
   <string name="event_preferences_priority_notUse">Kullanılmıyor</string>
@@ -820,7 +820,7 @@
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">sistem ayarlarında yapılandırılmamış</string>
   <string name="important_into_huawei_protected_apps">Cihazınız Huawei ise, lütfen PhoneProfilesPlus korunmasını, \"Gelişmiş Ayarlar\" → \"Pil Yöneticisi\" → \"Korunan uygulamalar\"da etkinleştirin. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
   <string name="important_into_xiaomi_no_restrictions">Cihazınız Xiaomi ise, lütfen \"Kısıtlama yok\" ayarında, PhoneProfilesPlus için \"Ayarlar\" → \"Pil &amp; performans\" → \"Uygulama pil kullanımı yöneticisi\" → \"Uygulamaları Seç\"te ayarlayın. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
-  <string name="important_into_samsung_no_save_power">Cihazınız. Samsung ise, lütfen \"Uygulama güç tasarrufu\"nu PhoneProfilesPlus için \"Ayarlar\" → \"Pil\" → \"Uygulama güç tasarrufu\" → \"Ayrıntı\"dan kapatın. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
+  <string name="important_into_samsung_no_save_power">Cihazınız Samsung ise, lütfen \"Uygulama güç tasarrufu\"nu PhoneProfilesPlus için \"Ayarlar\" → \"Pil\" → \"Uygulama güç tasarrufu\" → \"Ayrıntı\"dan kapatın. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
   <string name="mobile_cells_pref_dlg_last_connected">bağlı:</string>
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Bluetooth ismi ekle</string>
   <string name="mobile_cells_pref_dlg_rename_icon">Hücreye yeni isim ver</string>
@@ -872,4 +872,6 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Şu anda yapılandırılan:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Zil sesi hacmi = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Zil sesi hacmi = 0 cihazı sessiz moda yapılandırır. Bildirim hacmi göz ardı edilir.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
 </resources>
