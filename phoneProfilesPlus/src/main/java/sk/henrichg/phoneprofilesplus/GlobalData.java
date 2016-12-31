@@ -645,9 +645,9 @@ public class GlobalData extends Application {
         applicationActivatorHeader = preferences.getBoolean(PREF_APPLICATION_ACTIVATOR_HEADER, true);
         applicationEditorHeader = preferences.getBoolean(PREF_APPLICATION_EDITOR_HEADER, true);
         notificationsToast = preferences.getBoolean(PREF_NOTIFICATION_TOAST, true);
-        notificationStatusBar = true; //preferences.getBoolean(PREF_NOTIFICATION_STATUS_BAR, true);
-        notificationStatusBarPermanent = true; //preferences.getBoolean(PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
-        notificationStatusBarCancel = "10"; //preferences.getString(PREF_NOTIFICATION_STATUS_BAR_CANCEL, "10");
+        notificationStatusBar = preferences.getBoolean(PREF_NOTIFICATION_STATUS_BAR, true);
+        notificationStatusBarPermanent = preferences.getBoolean(PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
+        notificationStatusBarCancel = preferences.getString(PREF_NOTIFICATION_STATUS_BAR_CANCEL, "10");
         notificationStatusBarStyle = preferences.getString(PREF_NOTIFICATION_STATUS_BAR_STYLE, "1");
         notificationShowInStatusBar = preferences.getBoolean(PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, true);
         notificationTextColor = preferences.getString(PREF_NOTIFICATION_TEXT_COLOR, "0");
