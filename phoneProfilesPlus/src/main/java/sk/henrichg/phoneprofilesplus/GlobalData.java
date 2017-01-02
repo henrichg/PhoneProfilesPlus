@@ -54,7 +54,7 @@ public class GlobalData extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
      private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -64,6 +64,10 @@ public class GlobalData extends Application {
                                          +"|GlobalData._isRooted"
                                          +"|GlobalData.isRootGranted"
 
+                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.setRingerMode"
+
                                          //+"|RingerModeChangeReceiver.getRingerMode"
                                          //+"|PPNotificationListenerService.getZenMode"
                                          //+"|InterruptionFilterChangedBroadcastReceiver.getZenMode"
@@ -71,11 +75,11 @@ public class GlobalData extends Application {
                                          //+"|GlobalData.vibrationIsOn"
                                          //+"|ActivateProfileHelper.setVolumes"
 
-                                         +"|BootUpReceiver.onReceive"
-                                         +"|PackageReplacedReceiver.onReceive"
-                                         +"|$$$ PhoneProfilesService.onCreate"
-                                         +"|$$$ FirstStartService.onHandleInten"
-                                         +"|DataWrapper.firstStartEvents"
+                                         //+"|BootUpReceiver.onReceive"
+                                         //+"|PackageReplacedReceiver.onReceive"
+                                         //+"|$$$ PhoneProfilesService.onCreate"
+                                         //+"|$$$ FirstStartService.onHandleInten"
+                                         //+"|DataWrapper.firstStartEvents"
 
 
                                          //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
