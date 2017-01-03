@@ -3,7 +3,7 @@
           package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="internalOnly"
-          android:versionCode="2506"
+          android:versionCode="2508"
           android:versionName="3.4.5.1">
     <!--
         Release versions (look at PackageReplacedReceiver)
@@ -131,7 +131,6 @@
 
         <activity
             android:name=".LauncherActivity"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_phone_profiles"
             android:theme="@style/EmptyActivity">
@@ -144,7 +143,6 @@
         <activity
             android:name=".ActivateProfileActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:label="@string/title_activity_activator"
             android:theme="@style/PopupTheme_withToolbar_material">
         </activity>
@@ -172,7 +170,6 @@
         <activity
             android:name=".ShortcutCreatorActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:icon="@drawable/ic_shortcut"
             android:label="@string/title_activity_shortcut_creator"
             android:theme="@style/PopupTheme_material">
