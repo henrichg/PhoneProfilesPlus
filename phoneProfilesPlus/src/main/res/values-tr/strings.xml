@@ -137,7 +137,7 @@
   <string name="profile_preferences_deviceMobileData">Şebeke interneti</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Şebeke internet bağlantı tercihleri</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Renkli</string>
-  <string name="phone_profiles_pref_notificationStatusBarStyle_android">Bildrm rengi</string>
+  <string name="phone_profiles_pref_notificationStatusBarStyle_android">Bildirim rengi</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Tercihi başlatmak için uzun basın</string>
   <string name="alert_title_delete_all_profiles">Profillerin tamamını sil</string>
   <string name="alert_message_delete_all_profiles">Emin misiniz?</string>
@@ -368,7 +368,7 @@
   <string name="event_preferences_sms_contacts">Kişiler</string>
   <string name="toast_events_restarted">Durumlar tekrar başladı</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Kalıcı bildirim</string>
-  <string name="phone_profiles_pref_notificationStatusBarCancel">(Saniye) Sonra iptal</string>
+  <string name="phone_profiles_pref_notificationStatusBarCancel">(Saniye) Sonra iptal et</string>
   <string name="event_name_background_profile">Varsayılan profil</string>
   <string name="phoneprofilehepler_uninstall_error_no_root">PPHelper kaldırılması için kök izni gerekli</string>
   <string name="phoneprofilehepler_reboot_title_uninstall">PPHelper\'ı kaldır</string>
@@ -755,14 +755,14 @@
   <string name="info_notification_event_priority_new">4. Her Durumun \"Öncelik\"i vardır. Daha yüksek öncelik ile çalışan başka bir Durum varsa istenen Durum başlatılmaz.</string>
   <string name="info_notification_event_start_order">Durumlar \"Başlama sırası\" ile çalışır. Durumların başlama sırasını Düzenleyici\'deki durumlar görünümünde \"Başlama sırası\" kısmında ayarlayabilirsiniz. Bu görünümde, durumu \"Sıra düzenleyici\" vasıtasıyla yukarı/aşağı sürükleyebilirsiniz.</string>
   <string name="info_notification_event_start_order_handler_icon">Sıra düzenleyici:</string>
-  <string name="info_notification_activate_profile_from_tasker">Profili Tasker uygulamasından başlatabilirsiniz. \"Sistem\"/\"Maksad Gönderimi\" vazifesini şu şartlar ile yapılandırın:</string>
+  <string name="info_notification_activate_profile_from_tasker">Profili Tasker uygulamasından başlatabilirsiniz. \"System\"/\"Send Intent\" vazifesini şu şartlar ile yapılandırın:</string>
   <string name="phone_profiles_pref_notificationHideInLockscreen">Kilit ekranında gizle</string>
   <string name="phone_profiles_pref_deleteOldActivityLogs">Eski faaliyet kütüklerini (günler) sil</string>
   <string name="phone_profiles_pref_applicationWidgetIconBackground">Arkaplan șeffaflığı (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Arkaplan hafifliği (widget)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Metin hafifliği (widget)</string>
   <string name="altype_eventStop">durum durdurma</string>
-  <string name="info_notification_manage_events_from_tasker">Durumları Taker uygulamasından yönetebilirsiniz. \"Sistem\"/\"Maksad Gönderimi\" vazifesini şu şartlar ile yapılandırın:</string>
+  <string name="info_notification_manage_events_from_tasker">Durumları Tasker uygulamasından yönetebilirsiniz. \"System\"/\"Send Intent\" vazifesini şu şartlar ile yapılandırın:</string>
   <string name="info_notification_manage_events_from_tasker_restart_events">- Durumları tekrar başlatmak için:</string>
   <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- Durumların çalışmasına izin vermek için:</string>
   <string name="info_notification_manage_events_from_tasker_pause_event">- Durumlara fasıla vermek için:</string>
@@ -871,7 +871,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Şu anda yapılandırılan:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Zil sesi hacmi = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Zil sesi hacmi = 0 cihazı sessiz moda yapılandırır. Bildirim hacmi göz ardı edilir.</string>
-  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
-  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
-  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Mühim malumat!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Devam eden durum çubuğu bildirimi, PhoneProfilesHizmeti hitmetini gerektirir. Bildirim ile PhoneProfilesHizmeti \"ön plan hizmetine\" değiştirilir. Ve bu tür bir hizmet Android tarafından bitirilemez. PhoneProfilesHizmeti kalıcı çalışması gerekir.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">PhoneProfilesHizmeti arka plan hizmeti için gereklidir</string>
 </resources>

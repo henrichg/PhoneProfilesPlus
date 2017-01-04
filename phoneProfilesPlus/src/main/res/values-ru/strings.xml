@@ -872,7 +872,7 @@
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Текущие настройки:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Громкость звонка = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Громкость звонка = 0 настраивает устройство в тихий режим. Громкость уведомления игнорируется.</string>
-  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
-  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Ongoing status bar notification is required for service PhoneProfilesService. With notification, PhoneProfilesService is changed to \"foreground service\". And this type of service is not killed by Android. PhoneProfilesService must permanent running.</string>
-  <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_title">Важная информация!</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Текущее состояние уведомления панели требуется для службы PhoneProfilesService. С уведомлением PhoneProfilesService изменено на «foreground service». Этот тип службы система Android не завершает. Служба PhoneProfilesService должна постоянно работать.</string>
+  <string name="phone_profiles_pref_notificationStatusBarRequired">Требуется для фоновой службы PhoneProfilesService</string>
 </resources>
