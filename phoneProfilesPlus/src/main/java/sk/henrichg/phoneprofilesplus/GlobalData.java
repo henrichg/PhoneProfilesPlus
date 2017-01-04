@@ -2368,35 +2368,39 @@ public class GlobalData extends Application {
     }
 
     // test if ring and notification volumes are merged
-    public static void setMergedRingNotificationVolumes(Context context) {
-        boolean merged;
-        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-        int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-        int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-        int oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-        if (oldRingVolume == oldNotificationVolume) {
-            int newRingVolume;
-            if (oldRingVolume == maximumRingValue)
-                newRingVolume = oldRingVolume - 1;
-            else
-                newRingVolume = oldRingVolume + 1;
-            audioManager.setStreamVolume(AudioManager.STREAM_RING, newRingVolume, 0);
-            GlobalData.sleep(500);
-            if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == newRingVolume)
-                merged = true;
-            else
-                merged = false;
-        }
-        else
-            merged = false;
-        audioManager.setStreamVolume(AudioManager.STREAM_RING, oldRingVolume, 0);
-
-        //Log.d("GlobalData.setMergedRingNotificationVolumes", "merged="+merged);
-
+    public static void setMergedRingNotificationVolumes(Context context, boolean force) {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        Editor editor = preferences.edit();
-        editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
-        editor.commit();
+
+        if (!preferences.contains(PREF_MERGED_RING_NOTIFICATION_VOLUMES) || force) {
+            boolean merged;
+            AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            int ringerMode = audioManager.getRingerMode();
+            int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+            int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+            int oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+            if (oldRingVolume == oldNotificationVolume) {
+                int newRingVolume;
+                if (oldRingVolume == maximumRingValue)
+                    newRingVolume = oldRingVolume - 1;
+                else
+                    newRingVolume = oldRingVolume + 1;
+                audioManager.setStreamVolume(AudioManager.STREAM_RING, newRingVolume, 0);
+                GlobalData.sleep(500);
+                if (audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == newRingVolume)
+                    merged = true;
+                else
+                    merged = false;
+            } else
+                merged = false;
+            audioManager.setStreamVolume(AudioManager.STREAM_RING, oldRingVolume, 0);
+            audioManager.setRingerMode(ringerMode);
+
+            //Log.d("GlobalData.setMergedRingNotificationVolumes", "merged="+merged);
+
+            Editor editor = preferences.edit();
+            editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
+            editor.commit();
+        }
     }
 
     @SuppressWarnings("deprecation")

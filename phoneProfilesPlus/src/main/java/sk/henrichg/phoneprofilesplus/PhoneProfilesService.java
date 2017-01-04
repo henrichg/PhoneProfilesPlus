@@ -283,7 +283,7 @@ public class PhoneProfilesService extends Service
         GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
         if (intent == null)
-            GlobalData.setMergedRingNotificationVolumes(getApplicationContext());
+            GlobalData.setMergedRingNotificationVolumes(getApplicationContext(), false);
 
         if (intent != null) {
             boolean simulateRingingCall = intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false);
@@ -293,7 +293,7 @@ public class PhoneProfilesService extends Service
 
             if (!simulateRingingCall && !startStopScanner) {
                 // default start service
-                GlobalData.setMergedRingNotificationVolumes(getApplicationContext());
+                GlobalData.setMergedRingNotificationVolumes(getApplicationContext(), false);
             }
 
 
