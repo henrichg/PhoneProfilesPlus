@@ -121,6 +121,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         }
     }
 
+    boolean isConnected() {
+        return mGoogleApiClient.isConnected();
+    }
+
     /**
      * Callback that fires when the location changes.
      */

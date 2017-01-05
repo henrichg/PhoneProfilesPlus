@@ -864,9 +864,12 @@ public class GrantPermissionActivity extends Activity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
-            if (Permissions.locationGeofenceEditorActivity != null) {
-                Permissions.locationGeofenceEditorActivity.refreshActivity(true);
+            if (!PhoneProfilesService.isGeofenceScannerStarted()) {
+                GlobalData.startGeofenceScanner(getApplicationContext());
+                GlobalData.sleep(1000);
             }
+            if (Permissions.locationGeofenceEditorActivity != null)
+                Permissions.locationGeofenceEditorActivity.refreshActivity(true);
             dataWrapper.restartEvents(false, true, false);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                 WifiScanAlarmBroadcastReceiver.setAlarm(context, true, false);

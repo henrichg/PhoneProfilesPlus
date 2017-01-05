@@ -451,9 +451,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private void getLastLocation() {
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
             try {
+                //noinspection MissingPermission
                 mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            } catch (SecurityException securityException) {
-                // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+            } catch (Exception ignored) {
                 return;
             }
 
@@ -491,10 +491,9 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
             try {
+                //noinspection MissingPermission
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            } catch (SecurityException securityException) {
-                // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                //return;
+            } catch (Exception ignored) {
             }
         }
     }
