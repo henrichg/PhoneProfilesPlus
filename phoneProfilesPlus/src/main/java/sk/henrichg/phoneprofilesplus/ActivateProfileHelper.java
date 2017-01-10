@@ -674,32 +674,50 @@ public class ActivateProfileHelper {
         if (Permissions.checkProfileRingtones(context, profile)) {
             if (profile._soundRingtoneChange == 1) {
                 if (!profile._soundRingtone.isEmpty()) {
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
-                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, Uri.parse(profile._soundRingtone));
+                    try {
+                        //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
+                        RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, Uri.parse(profile._soundRingtone));
+                    }
+                    catch (Exception ignored){ }
                 } else {
                     // selected is None tone
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
-                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, null);
+                    try {
+                        //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
+                        RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, null);
+                    }
+                    catch (Exception ignored){ }
                 }
             }
             if (profile._soundNotificationChange == 1) {
                 if (!profile._soundNotification.isEmpty()) {
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, profile._soundNotification);
-                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(profile._soundNotification));
+                    try {
+                        //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, profile._soundNotification);
+                        RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, Uri.parse(profile._soundNotification));
+                    }
+                    catch (Exception ignored){ }
                 } else {
                     // selected is None tone
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
-                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, null);
+                    try {
+                        //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
+                        RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, null);
+                    }
+                    catch (Exception ignored){ }
                 }
             }
             if (profile._soundAlarmChange == 1) {
                 if (!profile._soundAlarm.isEmpty()) {
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, profile._soundAlarm);
-                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, Uri.parse(profile._soundAlarm));
+                    try {
+                        //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, profile._soundAlarm);
+                        RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, Uri.parse(profile._soundAlarm));
+                    }
+                    catch (Exception ignored){ }
                 } else {
                     // selected is None tone
-                    //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
-                    RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, null);
+                    try {
+                        //Settings.System.putString(context.getContentResolver(), Settings.System.ALARM_ALERT, null);
+                        RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, null);
+                    }
+                    catch (Exception ignored){ }
                 }
             }
         }
