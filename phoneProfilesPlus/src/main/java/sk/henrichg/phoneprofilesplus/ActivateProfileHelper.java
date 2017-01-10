@@ -1629,7 +1629,7 @@ public class ActivateProfileHelper {
                         // colorful icon
 
                         // FC in Note 4, 6.0.1 :-/
-                        String manufacturer = GlobalData.getROMManufacturer();
+                        /*String manufacturer = GlobalData.getROMManufacturer();
                         boolean isNote4 = (manufacturer != null) && (manufacturer.compareTo("samsung") == 0) &&
                                           Build.MODEL.startsWith("SM-N910") &&
                                           (android.os.Build.VERSION.SDK_INT == 23);
@@ -1637,12 +1637,12 @@ public class ActivateProfileHelper {
                         if ((android.os.Build.VERSION.SDK_INT >= 23) && (!isNote4)) {
                             notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                         }
-                        else {
+                        else {*/
                             iconSmallResource = context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", context.getPackageName());
                             if (iconSmallResource == 0)
                                 iconSmallResource = R.drawable.ic_profile_default;
                             notificationBuilder.setSmallIcon(iconSmallResource);
-                        }
+                        //}
                     }
                     else {
                         // native icon
@@ -1684,7 +1684,7 @@ public class ActivateProfileHelper {
             }
             else {
                 // FC in Note 4, 6.0.1 :-/
-                String manufacturer = GlobalData.getROMManufacturer();
+                /*String manufacturer = GlobalData.getROMManufacturer();
                 boolean isNote4 = (manufacturer != null) && (manufacturer.compareTo("samsung") == 0) &&
                         Build.MODEL.startsWith("SM-N910") &&
                         (android.os.Build.VERSION.SDK_INT == 23);
@@ -1692,14 +1692,14 @@ public class ActivateProfileHelper {
                 if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
                     notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                 }
-                else {
+                else {*/
                     int iconSmallResource;
                     if (GlobalData.notificationStatusBarStyle.equals("0"))
                         iconSmallResource = R.drawable.ic_profile_default;
                     else
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                     notificationBuilder.setSmallIcon(iconSmallResource);
-                }
+                //}
 
                 if (iconBitmap != null)
                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
