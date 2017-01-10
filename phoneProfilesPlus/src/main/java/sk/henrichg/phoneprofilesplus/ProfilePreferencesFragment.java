@@ -5,16 +5,6 @@ import android.os.Bundle;
 
 public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 {
-    //private DataWrapper dataWrapper;
-    //private Profile profile;
-    //private boolean first_start_activity;
-    //private int new_profile_mode;
-    //private int predefineProfileIndex;
-    public static int startupSource;
-    //private PreferenceManager prefMng;
-    //private SharedPreferences preferences;
-    //private Context context;
-
     public static ImageViewPreference changedImageViewPreference;
     public static ProfileIconPreference changedProfileIconPreference;
     public static Activity preferencesActivity = null;

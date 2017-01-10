@@ -96,10 +96,11 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         Bundle arguments = new Bundle();
         arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile_id);
         arguments.putInt(GlobalData.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        if (profile_id == GlobalData.DEFAULT_PROFILE_ID)
-            ProfilePreferencesFragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
+        if (profile_id == GlobalData.DEFAULT_PROFILE_ID) {
+            fragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
+        }
         else
-            ProfilePreferencesFragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
+            fragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
         arguments.putInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         fragment.setArguments(arguments);
 
@@ -155,14 +156,14 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
             fragment.doOnActivityResult(requestCode, resultCode, data);
     }
 
-    public static Profile createProfile(Context context, long profile_id, int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
+    private Profile createProfile(Context context, long profile_id, int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
         if (!leaveSaveMenu)
             showSaveMenu = false;
 
-        if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (fragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
             profile = GlobalData.getDefaultProfile(context);
         }
@@ -251,13 +252,13 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         if (profile != null)
         {
             String PREFS_NAME;
-            if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
+            if (fragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
                 PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_ACTIVITY;
             else
-            if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
+            if (fragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
                 PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_FRAGMENT;
             else
-            if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+            if (fragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
                 PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_DEFAULT_PROFILE;
             else
                 PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_FRAGMENT;
@@ -265,7 +266,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
             SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
             SharedPreferences.Editor editor = preferences.edit();
-            if (ProfilePreferencesFragment.startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+            if (fragment.startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             {
                 /*
                 editor.remove(GlobalData.PREF_PROFILE_NAME).putString(GlobalData.PREF_PROFILE_NAME, profile._name);
@@ -330,13 +331,13 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         Profile profile = createProfile(getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
 
         String PREFS_NAME;
-        if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
+        if (fragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_ACTIVITY;
         else
-        if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
+        if (fragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
             PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_FRAGMENT;
         else
-        if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (fragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_DEFAULT_PROFILE;
         else
             PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_FRAGMENT;
@@ -344,7 +345,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
         // save preferences into profile
-        if (ProfilePreferencesFragment.startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (fragment.startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
             profile._name = preferences.getString(GlobalData.PREF_PROFILE_NAME, "");
             profile._icon = preferences.getString(GlobalData.PREF_PROFILE_ICON, "");
@@ -410,7 +411,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         profile._notificationLed = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_NOTIFICATION_LED, ""));
         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, ""));
 
-        if (ProfilePreferencesFragment.startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (fragment.startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
             if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                     (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))

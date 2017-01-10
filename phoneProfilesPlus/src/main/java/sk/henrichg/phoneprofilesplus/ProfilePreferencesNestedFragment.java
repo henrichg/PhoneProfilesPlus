@@ -23,6 +23,8 @@ import com.fnp.materialpreferences.PreferenceFragment;
 public class ProfilePreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
+    int startupSource;
+
     protected PreferenceManager prefMng;
     protected SharedPreferences preferences;
     private Context context;
@@ -58,13 +60,13 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         //Log.d("------ ProfilePreferencesFragment.onActivityCreated", "xxxx");
 
         String PREFS_NAME;
-        if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
+        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = PREFS_NAME_ACTIVITY;
         else
-        if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
+        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
             PREFS_NAME = PREFS_NAME_FRAGMENT;
         else
-        if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             PREFS_NAME = PREFS_NAME_DEFAULT_PROFILE;
         else
             PREFS_NAME = PREFS_NAME_FRAGMENT;
@@ -126,7 +128,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     ListPreference listPreference = (ListPreference) prefMng.findPreference("prf_pref_volumeRingerMode");
                     if (listPreference != null) {
                         CharSequence[] entries = listPreference.getEntries();
-                        if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+                        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
                             entries[5] = "(S) "+getString(R.string.array_pref_ringerModeArray_ZenMode);
                         else
                             entries[6] = "(S) "+getString(R.string.array_pref_ringerModeArray_ZenMode);
@@ -232,7 +234,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 final int phoneType = telephonyManager.getPhoneType();
 
                 if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
-                    if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                    if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
                     } else {
@@ -245,7 +247,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
 
                 if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
-                    if (ProfilePreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
+                    if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE) {
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
                     } else {
