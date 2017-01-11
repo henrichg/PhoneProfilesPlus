@@ -22,7 +22,7 @@ public class KeyguardService extends Service {
     @Override
     public void onCreate()
     {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("$$$ KeyguardService.onStartCommand","onCreate");
         keyguardManager = (KeyguardManager)getBaseContext().getSystemService(Activity.KEYGUARD_SERVICE);
@@ -40,7 +40,7 @@ public class KeyguardService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         Context context = getBaseContext();
 

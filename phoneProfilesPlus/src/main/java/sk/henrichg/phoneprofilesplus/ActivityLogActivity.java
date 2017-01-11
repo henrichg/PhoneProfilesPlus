@@ -25,7 +25,7 @@ public class ActivityLogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         // must by called before super.onCreate() for PreferenceActivity
         GUIData.setTheme(this, false, false); // must by called before super.onCreate()

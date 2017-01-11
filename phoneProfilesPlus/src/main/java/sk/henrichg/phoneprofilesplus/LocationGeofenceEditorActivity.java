@@ -100,7 +100,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         // must by called before super.onCreate() for PreferenceActivity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)

@@ -17,7 +17,7 @@ public class NFCBroadcastReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("##### NFCBroadcastReceiver.onReceive", "xxx");
 

@@ -102,7 +102,7 @@ public class PhoneProfilesService extends Service
     @Override
     public void onCreate()
     {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         super.onCreate();
 
@@ -278,7 +278,7 @@ public class PhoneProfilesService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 

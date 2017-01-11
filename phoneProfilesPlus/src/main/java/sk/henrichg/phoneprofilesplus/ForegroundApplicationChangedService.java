@@ -21,7 +21,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
     @Override
     protected void onServiceConnected() {
 
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         super.onServiceConnected();
 

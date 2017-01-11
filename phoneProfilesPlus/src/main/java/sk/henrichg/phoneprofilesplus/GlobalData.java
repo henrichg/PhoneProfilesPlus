@@ -468,6 +468,9 @@ public class GlobalData extends Application {
     @Override
     public void onCreate()
     {
+
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+
     //	Debug.startMethodTracing("phoneprofiles");
 
         //resetLog();

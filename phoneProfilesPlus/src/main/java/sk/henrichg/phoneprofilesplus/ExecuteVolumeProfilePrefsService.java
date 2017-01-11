@@ -16,7 +16,7 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
     //@Override
     protected void onHandleIntent(Intent intent) {
 
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("##### ExecuteVolumeProfilePrefsService.onHandleIntent", "xxx");
 

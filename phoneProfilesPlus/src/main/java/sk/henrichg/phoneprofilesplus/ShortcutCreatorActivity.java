@@ -15,7 +15,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
     @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         super.onCreate(savedInstanceState);
 

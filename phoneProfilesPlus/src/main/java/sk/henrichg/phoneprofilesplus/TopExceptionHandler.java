@@ -43,7 +43,12 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         logIntoFile("E","TopExceptionHandler", report);
 
-        defaultUEH.uncaughtException(t, e);
+        if (defaultUEH != null)
+            //Delegates to Android's error handling
+            defaultUEH.uncaughtException(t, e);
+        else
+            //Prevents the service/app from freezing
+            System.exit(2);
     }
 
     @SuppressLint("SimpleDateFormat")

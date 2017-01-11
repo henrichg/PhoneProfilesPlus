@@ -13,7 +13,7 @@ import java.util.Calendar;
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
 

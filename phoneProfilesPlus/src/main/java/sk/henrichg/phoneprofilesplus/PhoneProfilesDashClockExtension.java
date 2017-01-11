@@ -22,7 +22,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     @Override
     protected void onInitialize(boolean isReconnect) {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         super.onInitialize(isReconnect);
 
@@ -61,7 +61,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     @Override
     protected void onUpdateData(int reason) {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         Profile profile;
 

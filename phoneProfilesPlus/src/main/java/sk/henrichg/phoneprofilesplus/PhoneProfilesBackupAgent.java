@@ -11,7 +11,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
     public void onRestoreFinished() {
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         GlobalData.logE("PhoneProfilesBackupAgent","onRestoreFinished");
 

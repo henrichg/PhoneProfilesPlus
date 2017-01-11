@@ -55,7 +55,7 @@ public class GrantPermissionActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
+        //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         super.onCreate(savedInstanceState);
 
