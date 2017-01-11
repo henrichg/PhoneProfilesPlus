@@ -1150,12 +1150,12 @@ class Event {
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
                 GlobalData.logE("Event.pauseEvent","restart events");
 
-                EventsService.restartAtEndOfEvent = true;
+                //EventsService.restartAtEndOfEvent = true;
 
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
                 GlobalData.logE("$$$ restartEvents", "from Event.doActivateEndProfile");
-                dataWrapper.restartEventsWithDelay(3, true, false);
+                dataWrapper.restartEventsWithDelay(5, true, false);
                 profileActivated = true;
             }
 

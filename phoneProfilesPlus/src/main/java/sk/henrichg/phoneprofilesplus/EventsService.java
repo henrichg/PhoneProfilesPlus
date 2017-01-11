@@ -17,7 +17,7 @@ public class EventsService extends IntentService
     DataWrapper dataWrapper;
     String broadcastReceiverType;
 
-    public static boolean restartAtEndOfEvent = false;
+    //public static boolean restartAtEndOfEvent = false;
     public static boolean eventsProcessed;
 
     private int callEventType;
@@ -43,7 +43,7 @@ public class EventsService extends IntentService
         broadcastReceiverType = intent.getStringExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE);
         GlobalData.logE("#### EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);
 
-        restartAtEndOfEvent = false;
+        //restartAtEndOfEvent = false;
 
         // disabled for firstStartEvents
         //if (!GlobalData.getApplicationStarted(context))
@@ -313,8 +313,8 @@ public class EventsService extends IntentService
         else
             GlobalData.logE("$$$ EventsService.profile for activation","profileName="+mergedProfile._name);
 
-        if ((!restartAtEndOfEvent) || isRestart) {
-            // No any paused events has "Restart events" at end of event
+        //if ((!restartAtEndOfEvent) || isRestart) {
+        //    // No any paused events has "Restart events" at end of event
 
             //////////////////
             //// when no events are running or manual activation,
@@ -408,9 +408,9 @@ public class EventsService extends IntentService
 
             }
 
-        }
+        //}
 
-        restartAtEndOfEvent = false;
+        //restartAtEndOfEvent = false;
         eventsProcessed = true;
 
         doEndService(intent);
