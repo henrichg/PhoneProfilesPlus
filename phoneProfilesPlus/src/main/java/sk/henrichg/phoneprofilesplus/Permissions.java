@@ -144,10 +144,10 @@ class Permissions {
         if (profile == null) return permissions;
         //Log.e("Permissions", "checkProfilePermissions - profile.icon="+profile._icon);
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (!checkProfileVolumePreferences(context, profile)) {
+            /*if (!checkProfileVolumePreferences(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_VOLUME_PREFERENCES, permission.WRITE_SETTINGS));
                 //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VOLUME_PREFERENCES");
-            }
+            }*/
             if (!checkProfileVibrationOnTouch(context, profile)) {
                 permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_ON_TOUCH, permission.WRITE_SETTINGS));
                 //Log.d("Permissions.checkProfilePermissions","PERMISSION_PROFILE_VIBRATION_ON_TOUCH");
@@ -207,10 +207,9 @@ class Permissions {
             return permissions;
     }
 
+    /*
     static boolean checkProfileVolumePreferences(Context context, Profile profile) {
         //Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0); -- NOT WORKING, used is root
-        return true;
-        /*
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             if ((profile._volumeRingerMode != 0) ||
@@ -228,8 +227,8 @@ class Permissions {
         }
         else
             return true;
-        */
     }
+    */
 
     static boolean checkInstallTone(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -481,7 +480,7 @@ class Permissions {
             return true;
     }
 
-    private static boolean checkProfileAccessNotificationPolicy(Context context, Profile profile) {
+    static boolean checkProfileAccessNotificationPolicy(Context context, Profile profile) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");

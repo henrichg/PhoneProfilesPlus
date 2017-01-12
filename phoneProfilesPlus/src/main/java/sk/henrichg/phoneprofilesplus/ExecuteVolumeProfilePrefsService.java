@@ -24,6 +24,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         GlobalData.loadPreferences(context);
 
+        GlobalData.setMergedRingNotificationVolumes(getApplicationContext(), false);
+
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         final ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
         aph.initialize(dataWrapper, context);
@@ -68,7 +70,8 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
         {
             aph.setTones(profile);
 
-            if (Permissions.checkProfileVolumePreferences(context, profile)) {
+            if (/*Permissions.checkProfileVolumePreferences(context, profile) &&*/
+                Permissions.checkProfileAccessNotificationPolicy(context, profile)) {
 
                 aph.changeRingerModeForVolumeEqual0(profile);
                 aph.changeNotificationVolumeForVolumeEqual0(profile);
