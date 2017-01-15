@@ -10,7 +10,6 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 {
     public static ImageViewPreference changedImageViewPreference;
     public static ProfileIconPreference changedProfileIconPreference;
-    private static Activity preferencesActivity = null;
     public static ApplicationsDialogPreference applicationsDialogPreference;
 
     static final String PREFS_NAME_ACTIVITY = "profile_preferences_activity";
@@ -25,7 +24,6 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         // must by false to avoid FC when rotation changes and preference dialogs are shown
         setRetainInstance(false);
 
-        preferencesActivity = getActivity();
         //context = getActivity().getApplicationContext();
 
         /*
@@ -132,11 +130,6 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             disableDependedPref(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
 
         //}
-    }
-
-    static public Activity getPreferencesActivity()
-    {
-        return preferencesActivity;
     }
 
     static public void setChangedImageViewPreference(ImageViewPreference changedImageViewPref)

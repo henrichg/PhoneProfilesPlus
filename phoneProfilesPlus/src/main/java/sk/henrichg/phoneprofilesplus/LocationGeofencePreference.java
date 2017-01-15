@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -256,11 +257,11 @@ public class LocationGeofencePreference extends DialogPreference {
         // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
         if (onlyEdit == 0) {
             EventPreferencesFragment.setChangedLocationGeofencePreference(this);
-            EventPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
+            ((Activity)context).startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
         }
         else {
             PhoneProfilesPreferencesFragment.setChangedLocationGeofencePreference(this);
-            PhoneProfilesPreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
+            ((Activity)context).startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
         }
     }
 

@@ -18,7 +18,6 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
     //private SharedPreferences preferences;
     private Context context;
 
-    public static Activity preferencesActivity = null;
     public static LocationGeofencePreference changedLocationGeofencePreference;
 
     static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
@@ -45,7 +44,6 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
         // must by false to avoid FC when rotation changes and preference dialogs are shown
         setRetainInstance(false);
 
-        preferencesActivity = getActivity();
         context = getActivity().getBaseContext();
 
         /*
@@ -105,11 +103,6 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
 
         Event event = new Event();
         event.setAllSummary(prefMng, preferences, context);
-    }
-
-    static public Activity getPreferencesActivity()
-    {
-        return preferencesActivity;
     }
 
     static public void setChangedLocationGeofencePreference(LocationGeofencePreference changedLocationGeofencePref)

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -216,7 +217,7 @@ public class BrightnessDialogPreference extends
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
         }
 
-        Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
+        Window win = ((Activity)_context).getWindow();
         WindowManager.LayoutParams layoutParams = win.getAttributes();
         if (savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
             layoutParams.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
@@ -291,7 +292,7 @@ public class BrightnessDialogPreference extends
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, savedBrightnessMode);
             }
 
-            Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
+            Window win = ((Activity)_context).getWindow();
             WindowManager.LayoutParams layoutParams = win.getAttributes();
             if (savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC)
                 layoutParams.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
@@ -311,7 +312,7 @@ public class BrightnessDialogPreference extends
                     Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
             }
 
-            Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
+            Window win = ((Activity)_context).getWindow();
             WindowManager.LayoutParams layoutParams = win.getAttributes();
             if (_automatic == 1)
                 layoutParams.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
@@ -334,7 +335,7 @@ public class BrightnessDialogPreference extends
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
         }
 
-        Window win = ProfilePreferencesFragment.getPreferencesActivity().getWindow();
+        Window win = ((Activity)_context).getWindow();
         WindowManager.LayoutParams layoutParams = win.getAttributes();
         if (automatic == 1)
             layoutParams.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;

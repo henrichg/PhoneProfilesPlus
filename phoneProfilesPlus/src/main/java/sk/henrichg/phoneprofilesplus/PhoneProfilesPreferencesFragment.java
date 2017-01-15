@@ -12,7 +12,6 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
 
     //private PreferenceManager prefMng;
     //private SharedPreferences preferences;
-    public static Activity preferencesActivity = null;
     public static LocationGeofencePreference changedLocationGeofencePreference;
     private String extraScrollTo;
     //private String extraScrollToType;
@@ -25,8 +24,6 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         // this is really important in order to save the state across screen
         // configuration changes for example
         setRetainInstance(false);
-
-        preferencesActivity = getActivity();
 
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);
@@ -147,7 +144,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(GlobalData.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T);
 
 
-        if (GlobalData.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, preferencesActivity.getApplicationContext())
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext())
                     != GlobalData.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
@@ -163,7 +160,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             preference.setEnabled(false);
         }
 
-        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, preferencesActivity.getApplicationContext())
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, getActivity().getApplicationContext())
                 != GlobalData.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
@@ -181,7 +178,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             preference.setEnabled(false);
         }
 
-        if (GlobalData.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, preferencesActivity.getApplicationContext())
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext())
                 != GlobalData.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference("orientationScanningCategory");
@@ -189,7 +186,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
                     ": "+GlobalData.getNotAllowedPreferenceReasonString(getActivity()));
             preference.setEnabled(false);
         }
-        if (GlobalData.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, preferencesActivity.getApplicationContext())
+        if (GlobalData.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext())
                 != GlobalData.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference("mobileCellsScanningCategory");
@@ -198,7 +195,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             preference.setEnabled(false);
         }
 
-        if (!PhoneProfilesService.isLocationEnabled(preferencesActivity.getApplicationContext())) {
+        if (!PhoneProfilesService.isLocationEnabled(getActivity().getApplicationContext())) {
             Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
             preference.setEnabled(false);
         }
@@ -252,11 +249,6 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             extraScrollTo = null;
         }
 
-    }
-
-    static public Activity getPreferencesActivity()
-    {
-        return preferencesActivity;
     }
 
     static public void setChangedLocationGeofencePreference(LocationGeofencePreference changedLocationGeofencePref)

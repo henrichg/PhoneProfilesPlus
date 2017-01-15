@@ -212,10 +212,10 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 }
             }
 
-            int locationMode = Settings.Secure.getInt(PhoneProfilesPreferencesFragment.preferencesActivity.getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+            int locationMode = Settings.Secure.getInt(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
 
             if (WifiScanAlarmBroadcastReceiver.wifi == null)
-                WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) PhoneProfilesPreferencesFragment.preferencesActivity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
             if ((locationMode == Settings.Secure.LOCATION_MODE_OFF) || (!WifiScanAlarmBroadcastReceiver.wifi.isScanAlwaysAvailable())) {
                 preference = prefMng.findPreference(PREF_WIFI_SCANNING_SYSTEM_SETTINGS);
@@ -298,7 +298,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
-        if (!ScannerService.bluetoothLESupported(PhoneProfilesPreferencesFragment.preferencesActivity.getApplicationContext())) {
+        if (!ScannerService.bluetoothLESupported(getActivity().getApplicationContext())) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
             Preference preference = findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
             if (preference != null)
@@ -475,7 +475,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
             (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS)) {
 
-            Context context = PhoneProfilesPreferencesFragment.preferencesActivity.getApplicationContext();
+            Context context = getActivity().getApplicationContext();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
@@ -510,12 +510,12 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             context.sendBroadcast(intent5);
             */
 
-            PhoneProfilesPreferencesFragment.preferencesActivity.setResult(RESULT_CANCELED);
-            PhoneProfilesPreferencesFragment.preferencesActivity.finishAffinity();
+            getActivity().setResult(RESULT_CANCELED);
+            getActivity().finishAffinity();
         }
 
         if (requestCode == RESULT_LOCATION_SYSTEM_SETTINGS) {
-            final boolean enabled = PhoneProfilesService.isLocationEnabled(PhoneProfilesPreferencesFragment.preferencesActivity.getApplicationContext());
+            final boolean enabled = PhoneProfilesService.isLocationEnabled(getActivity().getApplicationContext());
             Preference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
             preference.setEnabled(enabled);
         }

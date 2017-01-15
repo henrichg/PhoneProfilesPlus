@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -262,7 +263,7 @@ public class ImageViewPreference extends Preference {
 
         // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
         ProfilePreferencesFragment.setChangedImageViewPreference(this);
-        ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
+        ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
 
 

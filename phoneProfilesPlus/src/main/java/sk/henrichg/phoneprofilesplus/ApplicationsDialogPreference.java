@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -568,7 +569,7 @@ public class ApplicationsDialogPreference  extends DialogPreference {
                 intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, _position);
 
                 ProfilePreferencesFragment.setApplicationsDialogPreference(this);
-                ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
+                ((Activity)context).startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
             }
         }
     }

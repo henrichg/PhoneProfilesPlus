@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -356,7 +357,7 @@ public class ProfileIconPreference extends DialogPreference {
 
         // hm, neda sa ziskat aktivita z preference, tak vyuzivam static metodu
         ProfilePreferencesFragment.setChangedProfileIconPreference(this);
-        ProfilePreferencesFragment.getPreferencesActivity().startActivityForResult(intent, RESULT_LOAD_IMAGE);
+        ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
     }
 
     private void showCustomColorChooser() {
