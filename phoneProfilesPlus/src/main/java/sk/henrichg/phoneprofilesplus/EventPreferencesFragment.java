@@ -64,8 +64,6 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
         event = new Event();
         */
 
-        prefMng = getPreferenceManager();
-        preferences = prefMng.getSharedPreferences();
         //Log.e("------------- EventPreferencesFragment", prefMng.getSharedPreferencesName());
 
         //if (savedInstanceState == null)

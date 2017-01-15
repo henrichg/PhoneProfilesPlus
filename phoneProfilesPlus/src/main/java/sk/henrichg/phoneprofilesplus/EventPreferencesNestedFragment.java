@@ -55,8 +55,10 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
         context = getActivity().getBaseContext();
 
-        event = new Event();
+        prefMng = getPreferenceManager();
+        preferences = prefMng.getSharedPreferences();
 
+        event = new Event();
     }
 
     @Override

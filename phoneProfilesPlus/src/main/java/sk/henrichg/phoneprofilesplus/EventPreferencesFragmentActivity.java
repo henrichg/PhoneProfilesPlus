@@ -153,11 +153,13 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        PreferenceFragment fragment = getFragment();
         if (fragment != null)
-            fragment.doOnActivityResult(requestCode, resultCode, data);
+            ((EventPreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
-    public Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex, boolean leaveSaveMenu) {
+    public Event createEvent(EventPreferencesNestedFragment fragment, Context context,
+                             long event_id, int new_event_mode, int predefinedEventIndex, boolean leaveSaveMenu) {
         Event event;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
@@ -209,7 +211,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     }
 
     private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
-        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
+        Event event = createEvent(fragment, getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
 
         if (event != null)
         {
@@ -256,7 +258,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
-        Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        Event event = createEvent(fragment, getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
 
         String PREFS_NAME;
         if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
