@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -83,7 +85,6 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         }
 
         setPreferenceFragment(fragment);
-
     }
 
     private ProfilePreferencesNestedFragment createFragment(boolean nested) {
@@ -96,9 +97,8 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
         Bundle arguments = new Bundle();
         arguments.putLong(GlobalData.EXTRA_PROFILE_ID, profile_id);
         arguments.putInt(GlobalData.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        if (profile_id == GlobalData.DEFAULT_PROFILE_ID) {
+        if (profile_id == GlobalData.DEFAULT_PROFILE_ID)
             fragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
-        }
         else
             fragment.startupSource = GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
         arguments.putInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
@@ -152,11 +152,13 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        PreferenceFragment fragment = getFragment();
         if (fragment != null)
-            fragment.doOnActivityResult(requestCode, resultCode, data);
+            ((ProfilePreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
-    private Profile createProfile(Context context, long profile_id, int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
+    private Profile createProfile(ProfilePreferencesNestedFragment fragment, Context context, long profile_id,
+                                  int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
 
@@ -247,7 +249,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
 
         //Log.e("------------ ProfilePreferencesFragmentActivity", "loadPreferences");
 
-        Profile profile = createProfile(getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, false);
+        Profile profile = createProfile(fragment, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, false);
 
         if (profile != null)
         {
@@ -328,7 +330,7 @@ public class ProfilePreferencesFragmentActivity extends PreferenceActivity
     private void savePreferences(int new_profile_mode, int predefinedProfileIndex)
     {
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
-        Profile profile = createProfile(getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
+        Profile profile = createProfile(fragment, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
 
         String PREFS_NAME;
         if (fragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)

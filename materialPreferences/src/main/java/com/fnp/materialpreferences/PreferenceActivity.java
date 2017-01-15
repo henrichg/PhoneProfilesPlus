@@ -1,6 +1,7 @@
 package com.fnp.materialpreferences;
 
 import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,6 +60,17 @@ public abstract class PreferenceActivity extends AppCompatPreferenceActivity
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public PreferenceFragment getFragment() {
+        int id;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            id = R.id.content;
+        } else {
+            id = android.R.id.content;
+        }
+
+        return (PreferenceFragment) getFragmentManager().findFragmentById(id);
     }
 
 }
