@@ -40,60 +40,60 @@ public class FirstStartService extends IntentService {
 
         Context context = getApplicationContext();
 
-        GlobalData.logE("$$$ FirstStartService.onHandleIntent","--- START");
+        PPApplication.logE("$$$ FirstStartService.onHandleIntent","--- START");
 
-        GlobalData.initRoot();
+        PPApplication.initRoot();
         // grant root
-        //if (GlobalData.isRooted(false))
+        //if (PPApplication.isRooted(false))
         //{
-            if (GlobalData.isRootGranted())
+            if (PPApplication.isRootGranted())
             {
-                GlobalData.settingsBinaryExists();
-                GlobalData.serviceBinaryExists();
-                //GlobalData.getSUVersion();
+                PPApplication.settingsBinaryExists();
+                PPApplication.serviceBinaryExists();
+                //PPApplication.getSUVersion();
             }
         //}
 
-        if (GlobalData.getApplicationStarted(getApplicationContext(), false)) {
-            GlobalData.logE("$$$ FirstStartService.onHandleIntent","application already started");
+        if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
+            PPApplication.logE("$$$ FirstStartService.onHandleIntent","application already started");
             return;
         }
 
-        GlobalData.logE("$$$ FirstStartService.onHandleIntent","application not started, start it");
+        PPApplication.logE("$$$ FirstStartService.onHandleIntent","application not started, start it");
 
-        GlobalData.clearMergedPermissions(context);
+        PPApplication.clearMergedPermissions(context);
 
-        //int startType = intent.getStringExtra(GlobalData.EXTRA_FIRST_START_TYPE);
+        //int startType = intent.getStringExtra(PPApplication.EXTRA_FIRST_START_TYPE);
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
         GUIData.setLanguage(context);
 
         installTone(TONE_ID, TONE_NAME, context, false);
 
-        GlobalData.setLockscreenDisabled(context, false);
+        PPApplication.setLockscreenDisabled(context, false);
 
         AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-        GlobalData.setRingerVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_RING));
-        GlobalData.setNotificationVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
+        PPApplication.setRingerVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_RING));
+        PPApplication.setNotificationVolume(context, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
         RingerModeChangeReceiver.setRingerMode(context, audioManager);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
             PPNotificationListenerService.setZenMode(context, audioManager);
         InterruptionFilterChangedBroadcastReceiver.setZenMode(context, audioManager);
 
-        GlobalData.setActivatedProfileForDuration(context, 0);
-        GlobalData.setApplicationInForeground(context, "");
+        PPApplication.setActivatedProfileForDuration(context, 0);
+        PPApplication.setApplicationInForeground(context, "");
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-        editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
+        editor.putInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+        editor.putString(PPApplication.PREF_EVENT_CALL_PHONE_NUMBER, "");
         editor.commit();
 
         // show info notification
         ImportantInfoNotification.showInfoNotification(context);
 
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-        GlobalData.setActivatedProfileForDuration(context, 0);
+        PPApplication.setActivatedProfileForDuration(context, 0);
 
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
@@ -111,26 +111,26 @@ public class FirstStartService extends IntentService {
         WifiScanAlarmBroadcastReceiver.initialize(context);
         BluetoothScanAlarmBroadcastReceiver.initialize(context);
 
-        GlobalData.setMobileCellsAutoRegistration(context, true);
+        PPApplication.setMobileCellsAutoRegistration(context, true);
 
-        GlobalData.setApplicationStarted(context, true);
+        PPApplication.setApplicationStarted(context, true);
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
-        GlobalData.logE("$$$ FirstStartService.onHandleIntent","application started");
+        PPApplication.logE("$$$ FirstStartService.onHandleIntent","application started");
 
         // this scanner must be started, used is for mobile cells registration, events existence is not needed
-        GlobalData.startPhoneStateScanner(context);
+        PPApplication.startPhoneStateScanner(context);
 
         // startneme eventy
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("$$$ FirstStartService.onHandleIntent","global event run is enabled, first start events");
+            PPApplication.logE("$$$ FirstStartService.onHandleIntent","global event run is enabled, first start events");
             dataWrapper.firstStartEvents(true);
         }
         else
         {
-            GlobalData.logE("$$$ FirstStartService.onHandleIntent","global event run is not enabled, manually activate profile");
-            //GlobalData.setApplicationStarted(context, true);
+            PPApplication.logE("$$$ FirstStartService.onHandleIntent","global event run is not enabled, manually activate profile");
+            //PPApplication.setApplicationStarted(context, true);
             dataWrapper.activateProfileOnBoot();
         }
 
@@ -368,7 +368,7 @@ public class FirstStartService extends IntentService {
 
                             //try { Thread.sleep(300); } catch (InterruptedException e) { }
                             //SystemClock.sleep(300);
-                            GlobalData.sleep(300);
+                            PPApplication.sleep(300);
                         }
                         else {
                             Log.e("FirstStartService","newUri is emty");

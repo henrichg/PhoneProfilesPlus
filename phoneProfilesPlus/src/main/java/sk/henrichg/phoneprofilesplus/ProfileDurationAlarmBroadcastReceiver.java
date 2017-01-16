@@ -15,13 +15,13 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "xxx");
 
-        if (GlobalData.getApplicationStarted(context, true))
+        if (PPApplication.getApplicationStarted(context, true))
         {
-            GlobalData.loadPreferences(context);
+            PPApplication.loadPreferences(context);
 
-            long profileId = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
+            long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
             if (profileId != 0)
             {
                 DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
@@ -40,8 +40,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         long activateProfileId = 0;
                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_BACKGROUNPROFILE)
                         {
-                            activateProfileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
-                            if (activateProfileId == GlobalData.PROFILE_NO_ACTIVATE)
+                            activateProfileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
+                            if (activateProfileId == PPApplication.PROFILE_NO_ACTIVATE)
                                 activateProfileId = 0;
 
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, null,
@@ -50,7 +50,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         }
                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_UNDOPROFILE)
                         {
-                            activateProfileId = GlobalData.getActivatedProfileForDuration(context);
+                            activateProfileId = PPApplication.getActivatedProfileForDuration(context);
 
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, null,
                                     dataWrapper.getProfileNameWithManualIndicator(profile, true, true, false),
@@ -64,13 +64,13 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-                            GlobalData.logE("$$$ restartEvents", "from ProfileDurationAlarmBroadcastReceiver");
+                            PPApplication.logE("$$$ restartEvents", "from ProfileDurationAlarmBroadcastReceiver");
                             dataWrapper.restartEventsWithDelay(3, true, false);
                         }
                         else
                         {
                             dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
-                            dataWrapper.activateProfile(activateProfileId, GlobalData.STARTUP_SOURCE_SERVICE, null/*, ""*/);
+                            dataWrapper.activateProfile(activateProfileId, PPApplication.STARTUP_SOURCE_SERVICE, null/*, ""*/);
                         }
                     }
                 }
@@ -99,22 +99,22 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             now.add(Calendar.SECOND, profile._duration);
             long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
 
-            GlobalData.setActivatedProfileEndDurationTime(context, alarmTime);
+            PPApplication.setActivatedProfileEndDurationTime(context, alarmTime);
 
             //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             //String result = sdf.format(alarmTime);
 
             Intent intent = new Intent(context, ProfileDurationAlarmBroadcastReceiver.class);
-            intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
                 alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
@@ -146,7 +146,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         //this._isInDelay = false;
         //dataWrapper.getDatabaseHandler().updateEventInDelay(this);
 
-        GlobalData.setActivatedProfileEndDurationTime(context, 0);
+        PPApplication.setActivatedProfileEndDurationTime(context, 0);
     }
 
 }

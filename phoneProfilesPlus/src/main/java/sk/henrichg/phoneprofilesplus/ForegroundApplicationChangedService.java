@@ -56,7 +56,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
                     String packageInForeground = event.getPackageName().toString();
                     //Log.d("ForegroundApplicationChangedService", "packageInForeground="+packageInForeground);
-                    GlobalData.setApplicationInForeground(context, packageInForeground);
+                    PPApplication.setApplicationInForeground(context, packageInForeground);
 
                     Intent intent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
                     context.sendBroadcast(intent);
@@ -85,7 +85,7 @@ public class ForegroundApplicationChangedService extends AccessibilityService {
 
         Context context = getApplicationContext();
 
-        GlobalData.setApplicationInForeground(context, "");
+        PPApplication.setApplicationInForeground(context, "");
 
         Intent bintent = new Intent(context, ForegroundApplicationChangedBroadcastReceiver.class);
         context.sendBroadcast(bintent);

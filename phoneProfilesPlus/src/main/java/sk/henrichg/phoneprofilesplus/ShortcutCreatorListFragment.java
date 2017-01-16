@@ -192,7 +192,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         else
         {
             isIconResourceID = true;
-            iconIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
+            iconIdentifier = PPApplication.PROFILE_ICON_DEFAULT;
             profileName = getResources().getString(R.string.profile_name_default);
             useCustomColor = false;
         }
@@ -206,9 +206,9 @@ public class ShortcutCreatorListFragment extends Fragment {
         else {
             shortcutIntent = new Intent(getActivity().getApplicationContext(), BackgroundActivateProfileActivity.class);
             // BackgroundActivateProfileActivity musi toto testovat, a len spravit aktivaciu profilu
-            shortcutIntent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_SHORTCUT);
+            shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
             //noinspection ConstantConditions
-            shortcutIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+            shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         }
 
         Intent intent = new Intent();
@@ -239,14 +239,14 @@ public class ShortcutCreatorListFragment extends Fragment {
             shortcutOverlayBitmap = BitmapManipulator.resampleResource(resources, R.drawable.ic_shortcut_overlay, width, height);
         }
         
-        if (GlobalData.applicationWidgetIconColor.equals("1"))
+        if (PPApplication.applicationWidgetIconColor.equals("1"))
         {
             int monochromeValue = 0xFF;
-            if (GlobalData.applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
-            if (GlobalData.applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
-            if (GlobalData.applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
-            if (GlobalData.applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
-            if (GlobalData.applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
+            if (PPApplication.applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
+            if (PPApplication.applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
+            if (PPApplication.applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
+            if (PPApplication.applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
+            if (PPApplication.applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
             
             if (isIconResourceID || useCustomColor) {
                 // icon is from resource or colored by custom color
@@ -281,7 +281,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         Canvas canvas = new Canvas(combined);
         canvas.drawBitmap(bitmap1, 0f, 0f, null);
-        if (GlobalData.applicationShortcutEmblem)
+        if (PPApplication.applicationShortcutEmblem)
             canvas.drawBitmap(bitmap2, 0f, 0f, null);
 
         return combined;

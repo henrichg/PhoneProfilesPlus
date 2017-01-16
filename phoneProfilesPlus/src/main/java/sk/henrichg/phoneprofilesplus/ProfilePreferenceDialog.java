@@ -56,7 +56,7 @@ class ProfilePreferenceDialog
             iProfileId = 0;
         else
             iProfileId = Long.valueOf(profileId);
-        if ((addNoActivateItem == 1) && (iProfileId == GlobalData.PROFILE_NO_ACTIVATE))
+        if ((addNoActivateItem == 1) && (iProfileId == PPApplication.PROFILE_NO_ACTIVATE))
             position = 0;
         else
         {
@@ -98,7 +98,7 @@ class ProfilePreferenceDialog
         {
             long profileId;
             if (position == 0)
-                profileId = GlobalData.PROFILE_NO_ACTIVATE;
+                profileId = PPApplication.PROFILE_NO_ACTIVATE;
             else
                 profileId = profilePreferenceAdapter.profileList.get(position-1)._id;
             profilePreference.setProfileId(profileId);

@@ -13,42 +13,42 @@ public class RestartEventsBroadcastReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### RestartEventsBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### RestartEventsBroadcastReceiver.onReceive", "xxx");
 
-        GlobalData.logE("@@@ RestartEventsBroadcastReceiver.onReceive","####");
+        PPApplication.logE("@@@ RestartEventsBroadcastReceiver.onReceive","####");
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            boolean unblockEventsRun = intent.getBooleanExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false);
-            boolean interactive = intent.getBooleanExtra(GlobalData.EXTRA_INTERACTIVE, false);
+            boolean unblockEventsRun = intent.getBooleanExtra(PPApplication.EXTRA_UNBLOCKEVENTSRUN, false);
+            boolean interactive = intent.getBooleanExtra(PPApplication.EXTRA_INTERACTIVE, false);
 
-            if (GlobalData.getEventsBlocked(context) && (!unblockEventsRun))
+            if (PPApplication.getEventsBlocked(context) && (!unblockEventsRun))
                 return;
 
-            GlobalData.logE("$$$ restartEvents","in RestartEventsBroadcastReceiver, unblockEventsRun="+unblockEventsRun);
+            PPApplication.logE("$$$ restartEvents","in RestartEventsBroadcastReceiver, unblockEventsRun="+unblockEventsRun);
 
             /*if (unblockEventsRun)
             {
                 // remove alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                GlobalData.setActivatedProfileForDuration(context, 0);
+                PPApplication.setActivatedProfileForDuration(context, 0);
 
                 DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
-                GlobalData.setEventsBlocked(context, false);
+                PPApplication.setEventsBlocked(context, false);
                 dataWrapper.getDatabaseHandler().unblockAllEvents();
-                GlobalData.setForceRunEventRunning(context, false);
+                PPApplication.setForceRunEventRunning(context, false);
 
                 dataWrapper.invalidateDataWrapper();
             }*/
 
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-            eventsServiceIntent.putExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
-            eventsServiceIntent.putExtra(GlobalData.EXTRA_INTERACTIVE, interactive);
+            eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+            eventsServiceIntent.putExtra(PPApplication.EXTRA_UNBLOCKEVENTSRUN, unblockEventsRun);
+            eventsServiceIntent.putExtra(PPApplication.EXTRA_INTERACTIVE, interactive);
             startWakefulService(context, eventsServiceIntent);
         }
     }

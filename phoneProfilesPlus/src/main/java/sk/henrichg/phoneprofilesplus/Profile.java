@@ -398,7 +398,7 @@ public class Profile {
 
     void mergeProfiles(long withProfileId, DataWrapper dataWrapper)
     {
-        GlobalData.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
+        PPApplication.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
 
         Profile withProfile = dataWrapper.getProfileById(withProfileId, false);
 
@@ -1175,7 +1175,7 @@ public class Profile {
         if ((_duration > 0) && (_afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
             boolean showEndTime = false;
             if (_checked) {
-                long endDurationTime = GlobalData.getActivatedProfileEndDurationTime(context);
+                long endDurationTime = PPApplication.getActivatedProfileEndDurationTime(context);
                 if (endDurationTime > 0) {
                     if (multyline)
                         profileName = "(de:" + timeDateStringFromTimestamp(context, endDurationTime) + ")\n" + profileName;

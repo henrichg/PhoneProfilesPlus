@@ -20,9 +20,9 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### GeofenceScannerAlarmBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### GeofenceScannerAlarmBroadcastReceiver.onReceive", "xxx");
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
@@ -44,13 +44,13 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-        if (isPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
+        if (isPowerSaveMode && PPApplication.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
             removeAlarm(context/*, false*/);
             //removeAlarm(context/*, true*/);
             return;
         }
 
-        if (GlobalData.getGlobalEventsRuning(context)) {
+        if (PPApplication.getGlobalEventsRuning(context)) {
             if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.geofencesScanner != null)) {
                 if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
                     PhoneProfilesService.geofencesScanner.stopLocationUpdates();
@@ -79,7 +79,7 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("NewApi")
     public static void setAlarm(Context context, boolean startScanning, boolean forScreenOn)
     {
-        GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "xxx");
+        PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "xxx");
 
         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
 
@@ -95,14 +95,14 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             Calendar calendar = Calendar.getInstance();
 
             //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
+            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
             int updateDuration = 30;
             int interval;
             if (PhoneProfilesService.geofencesScanner.mUpdatesStarted) {
-                interval = GlobalData.applicationEventLocationUpdateInterval * 60;
+                interval = PPApplication.applicationEventLocationUpdateInterval * 60;
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-                if (isPowerSaveMode && GlobalData.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
+                if (isPowerSaveMode && PPApplication.applicationEventLocationUpdateInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
                 interval = interval - updateDuration;
             }
@@ -125,22 +125,22 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             //intent.putExtra(EXTRA_ONESHOT, 0);
             PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
                 //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
                 alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
                 //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
                 alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             else
                 alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         }
 
-        GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "alarm is set");
+        PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.setAlarm", "alarm is set");
     }
 
     public static void removeAlarm(Context context/*, boolean oneshot*/)
     {
-        //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
+        //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         Intent intent = new Intent(context, GeofenceScannerAlarmBroadcastReceiver.class);
@@ -151,15 +151,15 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
-            GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","alarm found");
+            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
+            PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
         else
-            //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
-            GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","alarm not found");
+            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
+            PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.removeAlarm","alarm not found");
     }
 
     public static boolean isAlarmSet(Context context/*, boolean oneshot*/)
@@ -172,11 +172,11 @@ public class GeofenceScannerAlarmBroadcastReceiver extends BroadcastReceiver {
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
 
         if (pendingIntent != null)
-            //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
-            GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet","alarm found");
+            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
+            PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet","alarm found");
         else
-            //GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
-            GlobalData.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet", "alarm not found");
+            //PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
+            PPApplication.logE("@@@ GeofenceScannerAlarmBroadcastReceiver.isAlarmSet", "alarm not found");
 
         return (pendingIntent != null);
     }

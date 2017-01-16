@@ -6,42 +6,42 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
     @Override
     public void onCreate() {
-        GlobalData.logE("PhoneProfilesBackupAgent","onCreate");
+        PPApplication.logE("PhoneProfilesBackupAgent","onCreate");
     }
 
     @Override
     public void onRestoreFinished() {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("PhoneProfilesBackupAgent","onRestoreFinished");
+        PPApplication.logE("PhoneProfilesBackupAgent","onRestoreFinished");
 
         // NEZAVRIE APLIKACIU PO RESTORE.
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
-        GlobalData.loadPreferences(getApplicationContext());
+        PPApplication.loadPreferences(getApplicationContext());
 
         EditorProfilesActivity.exitApp(getApplicationContext(), dataWrapper, null);
 
         ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
         if (activateProfileActivity != null)
         {
-            GlobalData.logE("PhoneProfilesBackupAgent","close ActivateProfileActivity");
+            PPApplication.logE("PhoneProfilesBackupAgent","close ActivateProfileActivity");
             activateProfileActivity.finish();
         }
 
         EditorProfilesActivity editorProfilesActivity = EditorProfilesActivity.getInstance();
         if (editorProfilesActivity != null)
         {
-            GlobalData.logE("PhoneProfilesBackupAgent","close EditorProfilesActivity");
+            PPApplication.logE("PhoneProfilesBackupAgent","close EditorProfilesActivity");
             editorProfilesActivity.finish();
         }
 
-        GlobalData.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
-        GlobalData.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
-        GlobalData.setShowEnableLocationNotification(getApplicationContext(), true);
-        GlobalData.setScreenUnlocked(getApplicationContext(), true);
-        GlobalData.setMergedRingNotificationVolumes(getApplicationContext(), true);
+        PPApplication.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
+        PPApplication.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
+        PPApplication.setShowEnableLocationNotification(getApplicationContext(), true);
+        PPApplication.setScreenUnlocked(getApplicationContext(), true);
+        PPApplication.setMergedRingNotificationVolumes(getApplicationContext(), true);
     }
 
 

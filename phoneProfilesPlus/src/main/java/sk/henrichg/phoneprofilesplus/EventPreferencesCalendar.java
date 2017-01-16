@@ -149,7 +149,7 @@ class EventPreferencesCalendar extends EventPreferences {
             //Calendar calendar = Calendar.getInstance();
 
             if (addBullet) {
-                if (GlobalData.getGlobalEventsRuning(context)) {
+                if (PPApplication.getGlobalEventsRuning(context)) {
                     if (_eventFound) {
                         long alarmTime;
                         //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
@@ -238,7 +238,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
+        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._searchField, this._searchString, this._availability, this._ignoreAllDayEvents);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -253,7 +253,7 @@ class EventPreferencesCalendar extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
+                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -279,7 +279,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
     long computeAlarm(boolean startEvent)
     {
-        GlobalData.logE("EventPreferencesCalendar.computeAlarm","startEvent="+startEvent);
+        PPApplication.logE("EventPreferencesCalendar.computeAlarm","startEvent="+startEvent);
 
         ///// set calendar for startTime and endTime
         Calendar calStartTime = Calendar.getInstance();
@@ -354,7 +354,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         _eventFound = false;
 
-        GlobalData.logE("EventPreferencesCalendar.removeSystemEvent", "xxx");
+        PPApplication.logE("EventPreferencesCalendar.removeSystemEvent", "xxx");
     }
 
     public void removeAlarm(/*boolean startEvent, */Context context)
@@ -366,7 +366,7 @@ class EventPreferencesCalendar extends EventPreferences {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("EventPreferencesCalendar.removeAlarm","alarm found");
+            PPApplication.logE("EventPreferencesCalendar.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
@@ -379,25 +379,25 @@ class EventPreferencesCalendar extends EventPreferences {
         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
         String result = sdf.format(alarmTime);
         if (startEvent)
-            GlobalData.logE("EventPreferencesCalendar.setAlarm","startTime="+result);
+            PPApplication.logE("EventPreferencesCalendar.setAlarm","startTime="+result);
         else
-            GlobalData.logE("EventPreferencesCalendar.setAlarm","endTime="+result);
+            PPApplication.logE("EventPreferencesCalendar.setAlarm","endTime="+result);
 
         Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
 
-        //intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
+        //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime+ PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
         else
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime+ PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
         else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime+ PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
     }
 
     private void searchEvent(Context context)

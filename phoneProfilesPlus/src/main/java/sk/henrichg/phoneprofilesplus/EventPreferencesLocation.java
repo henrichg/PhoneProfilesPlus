@@ -150,7 +150,7 @@ class EventPreferencesLocation extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
+        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofences, this._whenOutside);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -165,7 +165,7 @@ class EventPreferencesLocation extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
+                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

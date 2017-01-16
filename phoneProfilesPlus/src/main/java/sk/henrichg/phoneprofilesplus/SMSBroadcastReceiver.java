@@ -21,7 +21,7 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### SMSBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### SMSBroadcastReceiver.onReceive", "xxx");
 
         boolean smsMmsReceived = false;
 
@@ -30,7 +30,7 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
         {
-            GlobalData.logE("SMSBroadcastReceiver.onReceive","SMS received");
+            PPApplication.logE("SMSBroadcastReceiver.onReceive","SMS received");
 
             smsMmsReceived = true;
 
@@ -49,13 +49,13 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
         /*else
         if(intent.getAction().equals("android.provider.Telephony.SMS_SENT"))
         {
-            GlobalData.logE("SMSBroadcastReceiver.onReceive","sent");
+            PPApplication.logE("SMSBroadcastReceiver.onReceive","sent");
         }*/
         else
         if (intent.getAction().equals("android.provider.Telephony.WAP_PUSH_RECEIVED") &&
             intent.getType().equals("application/vnd.wap.mms-message"))
         {
-            GlobalData.logE("SMSBroadcastReceiver.onReceive","MMS received");
+            PPApplication.logE("SMSBroadcastReceiver.onReceive","MMS received");
 
             smsMmsReceived = true;
 
@@ -85,8 +85,8 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
 
         if (smsMmsReceived)
         {
-            GlobalData.logE("SMSBroadcastReceiver.onReceive","from="+origin);
-            //GlobalData.logE("SMSBroadcastReceiver.onReceive","message="+body);
+            PPApplication.logE("SMSBroadcastReceiver.onReceive","from="+origin);
+            //PPApplication.logE("SMSBroadcastReceiver.onReceive","message="+body);
 
             Calendar now = Calendar.getInstance();
             int gmtOffset = TimeZone.getDefault().getRawOffset();
@@ -98,30 +98,30 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
 
     private static void startService(Context context, String origin, long time)
     {
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ SMSBroadcastReceiver.startService","xxx");
+            PPApplication.logE("@@@ SMSBroadcastReceiver.startService","xxx");
 
             /*boolean smsEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             smsEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_SMS) > 0;
-            GlobalData.logE("SMSBroadcastReceiver.onReceive","smsEventsExists="+smsEventsExists);
+            PPApplication.logE("SMSBroadcastReceiver.onReceive","smsEventsExists="+smsEventsExists);
             dataWrapper.invalidateDataWrapper();
 
             if (smsEventsExists)
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_SMS_DATE, time);
+                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_SMS_PHONE_NUMBER, origin);
+                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_SMS_DATE, time);
                 startWakefulService(context, eventsServiceIntent);
             //}
         }
@@ -146,7 +146,7 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
         {
             public void onChange(boolean selfChange)
             {
-                GlobalData.logE("SMSBroadcastReceiver.smsObserver.onChange","xxx");
+                PPApplication.logE("SMSBroadcastReceiver.smsObserver.onChange","xxx");
 
                 // read outgoing sms from db
                 Cursor cursor = _context.getContentResolver().query(Uri.parse(CONTENT_SMS), null, null, null, null);
@@ -158,7 +158,7 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
                     // is sent successfully (available in SENT box).
                     if (protocol != null || type != MESSAGE_TYPE_SENT)
                     {
-                        GlobalData.logE("SMSBroadcastReceiver.smsObserver.onChange","no SMS in SENT box");
+                        PPApplication.logE("SMSBroadcastReceiver.smsObserver.onChange","no SMS in SENT box");
                         return;
                     }
                     int dateColumn = cursor.getColumnIndex("date");
@@ -169,18 +169,18 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
                     Date date = new Date(cursor.getLong(dateColumn));
                     //String message = cursor.getString(bodyColumn);
 
-                    GlobalData.logE("SMSBroadcastReceiver.smsObserver.onChange","sms sent");
-                    GlobalData.logE("SMSBroadcastReceiver.smsObserver.onChange","to="+to);
-                    GlobalData.logE("SMSBroadcastReceiver.smsObserver.onChange","date="+date);
-                    //GlobalData.logE("SMSBroadcastReceiver.smsObserver.onChange","message="+message);
+                    PPApplication.logE("SMSBroadcastReceiver.smsObserver.onChange","sms sent");
+                    PPApplication.logE("SMSBroadcastReceiver.smsObserver.onChange","to="+to);
+                    PPApplication.logE("SMSBroadcastReceiver.smsObserver.onChange","date="+date);
+                    //PPApplication.logE("SMSBroadcastReceiver.smsObserver.onChange","message="+message);
 
-                    SharedPreferences preferences = _context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                    SharedPreferences preferences = _context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                     Editor editor = preferences.edit();
-                    editor.putInt(GlobalData.PREF_EVENT_SMS_EVENT_TYPE, EventPreferencesSMS.SMS_EVENT_OUTGOING);
-                    editor.putString(GlobalData.PREF_EVENT_SMS_PHONE_NUMBER, to);
+                    editor.putInt(PPApplication.PREF_EVENT_SMS_EVENT_TYPE, EventPreferencesSMS.SMS_EVENT_OUTGOING);
+                    editor.putString(PPApplication.PREF_EVENT_SMS_PHONE_NUMBER, to);
                     int gmtOffset = TimeZone.getDefault().getRawOffset();
                     long time = date.getTime() + gmtOffset;
-                    editor.putLong(GlobalData.PREF_EVENT_SMS_DATE, time);
+                    editor.putLong(PPApplication.PREF_EVENT_SMS_DATE, time);
                     editor.commit();
                 }
                 cursor.close();
@@ -216,7 +216,7 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
         {
             public void onChange(boolean selfChange)
             {
-                GlobalData.logE("SMSBroadcastReceiver.mmsObserver.onChange","xxx");
+                PPApplication.logE("SMSBroadcastReceiver.mmsObserver.onChange","xxx");
 
                 // read outgoing mms from db
                 Uri uriMMSURI = Uri.parse("content://mms/");
@@ -227,8 +227,8 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
                    currMMSCount = mmsCur.getCount();
                 }
 
-                GlobalData.logE("SMSBroadcastReceiver.mmsObserver.onChange","mmsCount="+mmsCount);
-                GlobalData.logE("SMSBroadcastReceiver.mmsObserver.onChange","currMMSCount="+currMMSCount);
+                PPApplication.logE("SMSBroadcastReceiver.mmsObserver.onChange","mmsCount="+mmsCount);
+                PPApplication.logE("SMSBroadcastReceiver.mmsObserver.onChange","currMMSCount="+currMMSCount);
                 
                 if (currMMSCount > mmsCount)
                 {
@@ -237,12 +237,12 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
                         // 132 (RETRIEVE CONF) 130 (NOTIF IND) 128 (SEND REQ)
                         int type = Integer.parseInt(mmsCur.getString(mmsCur.getColumnIndex("m_type")));
 
-                        GlobalData.logE("SMSBroadcastReceiver.mmsObserver.onChange","type="+type);
+                        PPApplication.logE("SMSBroadcastReceiver.mmsObserver.onChange","type="+type);
 
                         if (type == 128) {
                            // Outgoing MMS
 
-                            GlobalData.logE("SMSBroadcastReceiver.mmsObserver.onChange","mms sent");
+                            PPApplication.logE("SMSBroadcastReceiver.mmsObserver.onChange","mms sent");
 
                             int id = Integer.parseInt(mmsCur.getString(mmsCur.getColumnIndex("_id")));
 
@@ -258,16 +258,16 @@ public class SMSBroadcastReceiver extends WakefulBroadcastReceiver {
                                         int addColIndx = addrCur.getColumnIndex("address");
                                         String to = addrCur.getString(addColIndx);
 
-                                        GlobalData.logE("SMSBroadcastReceiver.mmsObserver.onChange","to="+to);
+                                        PPApplication.logE("SMSBroadcastReceiver.mmsObserver.onChange","to="+to);
 
-                                        SharedPreferences preferences = _context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                                        SharedPreferences preferences = _context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                                         Editor editor = preferences.edit();
-                                        editor.putInt(GlobalData.PREF_EVENT_SMS_EVENT_TYPE, EventPreferencesSMS.SMS_EVENT_OUTGOING);
-                                        editor.putString(GlobalData.PREF_EVENT_SMS_PHONE_NUMBER, to);
+                                        editor.putInt(PPApplication.PREF_EVENT_SMS_EVENT_TYPE, EventPreferencesSMS.SMS_EVENT_OUTGOING);
+                                        editor.putString(PPApplication.PREF_EVENT_SMS_PHONE_NUMBER, to);
                                         Calendar now = Calendar.getInstance();
                                         int gmtOffset = TimeZone.getDefault().getRawOffset();
                                         long time = now.getTimeInMillis() + gmtOffset;
-                                        editor.putLong(GlobalData.PREF_EVENT_SMS_DATE, time);
+                                        editor.putLong(PPApplication.PREF_EVENT_SMS_DATE, time);
                                         editor.commit();
 
                                         startService(_context);

@@ -109,7 +109,7 @@ class EventPreferencesPeripherals extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_PERIPHERAL_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
+        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_PERIPHERAL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesPeripherals tmp = new EventPreferencesPeripherals(this._event, this._enabled, this._peripheralType);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -124,7 +124,7 @@ class EventPreferencesPeripherals extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_PERIPHERAL_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
+                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

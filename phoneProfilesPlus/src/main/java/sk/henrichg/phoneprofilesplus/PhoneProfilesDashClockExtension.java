@@ -26,7 +26,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
         super.onInitialize(isReconnect);
 
-        GlobalData.loadPreferences(this);
+        PPApplication.loadPreferences(this);
         GUIData.setLanguage(this);
 
         if (dataWrapper == null)
@@ -68,7 +68,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         if (dataWrapper == null)
             return;
 
-        profile = GlobalData.getMappedProfile(
+        profile = PPApplication.getMappedProfile(
                                     dataWrapper.getActivatedProfile(), this);
 
         boolean isIconResourceID;
@@ -83,14 +83,14 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         else
         {
             isIconResourceID = true;
-            iconIdentifier = GlobalData.PROFILE_ICON_DEFAULT;
+            iconIdentifier = PPApplication.PROFILE_ICON_DEFAULT;
             profileName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
         }
         int iconResource;
         if (isIconResourceID)
             iconResource = getResources().getIdentifier(iconIdentifier, "drawable", getPackageName());
         else
-            iconResource = getResources().getIdentifier(GlobalData.PROFILE_ICON_DEFAULT, "drawable", getPackageName());
+            iconResource = getResources().getIdentifier(PPApplication.PROFILE_ICON_DEFAULT, "drawable", getPackageName());
 
         // profile preferences indicator
         String indicator1 = "";
@@ -251,11 +251,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
         // intent
         Intent intent = new Intent(this, LauncherActivity.class);
-        intent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_WIDGET);
+        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
 
         String status = "";
-        if (GlobalData.getEventsBlocked(getApplicationContext()))
-            if (GlobalData.getForceRunEventRunning(getApplicationContext()))
+        if (PPApplication.getEventsBlocked(getApplicationContext()))
+            if (PPApplication.getForceRunEventRunning(getApplicationContext()))
             {
                 /*if (android.os.Build.VERSION.SDK_INT >= 16)
                     status = "\u23E9";

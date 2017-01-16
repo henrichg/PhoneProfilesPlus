@@ -20,17 +20,17 @@ public class AboutApplicationBroadcastReceiver extends BroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### AboutApplicationBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### AboutApplicationBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, false))
+        if (!PPApplication.getApplicationStarted(context, false))
             // application is not started
             return;
 
-        int daysAfterFirstStart = GlobalData.getDaysAfterFirtsStart(context)+1;
-        GlobalData.logE("@@@ AboutApplicationBroadcastReceiver.onReceive", "daysAfterFirstStart="+daysAfterFirstStart);
+        int daysAfterFirstStart = PPApplication.getDaysAfterFirtsStart(context)+1;
+        PPApplication.logE("@@@ AboutApplicationBroadcastReceiver.onReceive", "daysAfterFirstStart="+daysAfterFirstStart);
 
         if (daysAfterFirstStart == 7) {
-            GlobalData.setDaysAfterFirstStart(context, 8);
+            PPApplication.setDaysAfterFirstStart(context, 8);
             // show notification about "Please donate me."
             NotificationCompat.Builder mBuilder;
             Intent _intent = new Intent(context, AboutApplicationActivity.class);
@@ -59,20 +59,20 @@ public class AboutApplicationBroadcastReceiver extends BroadcastReceiver {
                 mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
             }
             NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-            mNotificationManager.notify(GlobalData.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, mBuilder.build());
+            mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, mBuilder.build());
         }
         else
         if (daysAfterFirstStart < 7)
-            GlobalData.setDaysAfterFirstStart(context, daysAfterFirstStart);
+            PPApplication.setDaysAfterFirstStart(context, daysAfterFirstStart);
 
         setAlarm(context);
     }
 
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     public static void setAlarm(Context context) {
-        GlobalData.logE("@@@ AboutApplicationBroadcastReceiver.setAlarm","xxx");
+        PPApplication.logE("@@@ AboutApplicationBroadcastReceiver.setAlarm","xxx");
 
-        int daysAfterFirstStart = GlobalData.getDaysAfterFirtsStart(context);
+        int daysAfterFirstStart = PPApplication.getDaysAfterFirtsStart(context);
         if (daysAfterFirstStart >= 7)
             return;
 
@@ -86,40 +86,40 @@ public class AboutApplicationBroadcastReceiver extends BroadcastReceiver {
         calendar.add(Calendar.DAY_OF_YEAR, 1);
 
         //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        //GlobalData.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
+        //PPApplication.logE("@@@ WifiScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
         long alarmTime = calendar.getTimeInMillis();
 
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+        if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
             //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-        else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+        else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
             //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
         else
             alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
 
-        GlobalData.logE("@@@ AboutApplicationBroadcastReceiver.setAlarm", "alarm is set");
+        PPApplication.logE("@@@ AboutApplicationBroadcastReceiver.setAlarm", "alarm is set");
 
     }
 
     public static void removeAlarm(Context context) {
-        GlobalData.logE("@@@ AboutApplicationBroadcastReceiver.removeAlarm","xxx");
+        PPApplication.logE("@@@ AboutApplicationBroadcastReceiver.removeAlarm","xxx");
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         Intent intent = new Intent(context, AboutApplicationBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("@@@ AboutApplicationBroadcastReceiver.removeAlarm","alarm found");
+            PPApplication.logE("@@@ AboutApplicationBroadcastReceiver.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
         else
-            GlobalData.logE("@@@ AboutApplicationBroadcastReceiver.removeAlarm","alarm not found");
+            PPApplication.logE("@@@ AboutApplicationBroadcastReceiver.removeAlarm","alarm not found");
     }
 
 }

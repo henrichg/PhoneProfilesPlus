@@ -17,10 +17,10 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### RingerModeChangeReceiver.onReceive", "xxx");
+        PPApplication.logE("##### RingerModeChangeReceiver.onReceive", "xxx");
 
         if (!internalChange) {
-            GlobalData.logE("RingerModeChangeReceiver.onReceive", "!internalChange");
+            PPApplication.logE("RingerModeChangeReceiver.onReceive", "!internalChange");
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             setRingerMode(context, audioManager);
         }
@@ -31,17 +31,17 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
     private static int getRingerMode(Context context, AudioManager audioManager) {
         int ringerMode = audioManager.getRingerMode();
 
-        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "ringerMode="+ringerMode);
+        PPApplication.logE("RingerModeChangeReceiver.getRingerMode", "ringerMode="+ringerMode);
 
         // convert to profile ringerMode
         int pRingerMode = 0;
         if (android.os.Build.VERSION.SDK_INT >= 21) {
-            int systemZenMode = GlobalData.getSystemZenMode(context, -1);
-            GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "systemZenMode=" + systemZenMode);
+            int systemZenMode = PPApplication.getSystemZenMode(context, -1);
+            PPApplication.logE("RingerModeChangeReceiver.getRingerMode", "systemZenMode=" + systemZenMode);
             if (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) {
                 switch (ringerMode) {
                     case AudioManager.RINGER_MODE_NORMAL:
-                        if (GlobalData.vibrationIsOn(context, audioManager, false))
+                        if (PPApplication.vibrationIsOn(context, audioManager, false))
                             pRingerMode = 2;
                         else
                             pRingerMode = 1;
@@ -60,7 +60,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         else {
             switch (ringerMode) {
                 case AudioManager.RINGER_MODE_NORMAL:
-                    if (GlobalData.vibrationIsOn(context, audioManager, false))
+                    if (PPApplication.vibrationIsOn(context, audioManager, false))
                         pRingerMode = 2;
                     else
                         pRingerMode = 1;
@@ -74,7 +74,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
             }
         }
 
-        GlobalData.logE("RingerModeChangeReceiver.getRingerMode", "pRingerMode=" + pRingerMode);
+        PPApplication.logE("RingerModeChangeReceiver.getRingerMode", "pRingerMode=" + pRingerMode);
 
         return pRingerMode;
     }
@@ -83,7 +83,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         int pRingerMode = getRingerMode(context, audioManager);
         if (pRingerMode != 0) {
             //Log.e("RingerModeChangeReceiver",".setRingerMode  new ringerMode="+pRingerMode);
-            GlobalData.setRingerMode(context, pRingerMode);
+            PPApplication.setRingerMode(context, pRingerMode);
         }
     }
 

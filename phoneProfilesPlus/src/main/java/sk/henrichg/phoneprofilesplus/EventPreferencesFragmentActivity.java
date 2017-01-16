@@ -59,7 +59,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (GlobalData.applicationTheme.equals("material"))
+            if (PPApplication.applicationTheme.equals("material"))
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
@@ -69,9 +69,9 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setTitle(R.string.title_activity_event_preferences);
 
-        event_id = getIntent().getLongExtra(GlobalData.EXTRA_EVENT_ID, 0L);
-        newEventMode = getIntent().getIntExtra(GlobalData.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
-        predefinedEventIndex = getIntent().getIntExtra(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+        event_id = getIntent().getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
+        newEventMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
+        predefinedEventIndex = getIntent().getIntExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
         fragment = createFragment(false);
 
@@ -90,9 +90,9 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             fragment = new EventPreferencesFragment();
 
         Bundle arguments = new Bundle();
-        arguments.putLong(GlobalData.EXTRA_EVENT_ID, event_id);
-        arguments.putInt(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
-        arguments.putInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+        arguments.putLong(PPApplication.EXTRA_EVENT_ID, event_id);
+        arguments.putInt(PPApplication.EXTRA_NEW_EVENT_MODE, newEventMode);
+        arguments.putInt(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         fragment.setArguments(arguments);
 
         return fragment;
@@ -116,9 +116,9 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
-        returnIntent.putExtra(GlobalData.EXTRA_EVENT_ID, event_id);
-        returnIntent.putExtra(GlobalData.EXTRA_NEW_EVENT_MODE, newEventMode);
-        returnIntent.putExtra(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+        returnIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+        returnIntent.putExtra(PPApplication.EXTRA_NEW_EVENT_MODE, newEventMode);
+        returnIntent.putExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         setResult(resultCode,returnIntent);
 
         super.finish();
@@ -261,10 +261,10 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
         Event event = createEvent(fragment, getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
 
         String PREFS_NAME;
-        if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
+        if (EventPreferencesFragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = EventPreferencesFragment.PREFS_NAME_ACTIVITY;
         else
-        if (EventPreferencesFragment.startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
+        if (EventPreferencesFragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
             PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
         else
             PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
@@ -284,7 +284,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             event_id = event._id;
 
             // restart Events
-            GlobalData.logE("$$$ restartEvents","from EventPreferencesFragment.savePreferences");
+            PPApplication.logE("$$$ restartEvents","from EventPreferencesFragment.savePreferences");
             dataWrapper.restartEvents(false, true, false);
         }
         else
@@ -306,7 +306,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
                 // pause event
                 event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
             // restart Events
-            GlobalData.logE("$$$ restartEvents","from EventPreferencesFragmentActivity.savePreferences");
+            PPApplication.logE("$$$ restartEvents","from EventPreferencesFragmentActivity.savePreferences");
             dataWrapper.restartEvents(false, true, false);
 
         }

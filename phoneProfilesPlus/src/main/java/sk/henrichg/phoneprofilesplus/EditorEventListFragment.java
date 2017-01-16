@@ -372,7 +372,7 @@ public class EditorEventListFragment extends Fragment {
 
     void runStopEvent(Event event)
     {
-        if (GlobalData.getGlobalEventsRuning(dataWrapper.context)) {
+        if (PPApplication.getGlobalEventsRuning(dataWrapper.context)) {
             // events are not globally stopped
 
             if (event.getStatusFromDB(dataWrapper) == Event.ESTATUS_STOP) {
@@ -382,7 +382,7 @@ public class EditorEventListFragment extends Fragment {
                 // redraw event list
                 updateListView(event, false, false, true);
                 // restart events
-                GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
+                PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
                 dataWrapper.restartEvents(false, true, false);
             } else {
                 // stop event
@@ -391,7 +391,7 @@ public class EditorEventListFragment extends Fragment {
                 // redraw event list
                 updateListView(event, false, false, true);
                 // restart events
-                GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
+                PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
                 dataWrapper.restartEvents(false, true, false);
             }
         }
@@ -456,7 +456,7 @@ public class EditorEventListFragment extends Fragment {
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
         event.stopEvent(dataWrapper, eventTimelineList, false, true, true, false, false);
         // restart events
-        GlobalData.logE("$$$ restartEvents","from EditorEventListFragment.deleteEvent");
+        PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.deleteEvent");
         dataWrapper.restartEvents(false, true, false);
 
         eventListAdapter.deleteItemNoNotify(event);
@@ -481,7 +481,7 @@ public class EditorEventListFragment extends Fragment {
         final Event event = (Event)view.getTag();
 
         MenuItem menuItem = menu.findItem(R.id.event_list_item_menu_run_stop);
-        //if (GlobalData.getGlobalEventsRuning(dataWrapper.context))
+        //if (PPApplication.getGlobalEventsRuning(dataWrapper.context))
         //{
             //menuItem.setVisible(true);
 
@@ -665,7 +665,7 @@ public class EditorEventListFragment extends Fragment {
                 Collections.sort(eventList, new ProfileNameComparator());
                 break;
             case ORDER_TYPE_PRIORITY:
-                if (GlobalData.applicationEventUsePriority)
+                if (PPApplication.applicationEventUsePriority)
                     Collections.sort(eventList, new PriorityComparator());
                 else
                     Collections.sort(eventList, new StartOrderComparator());

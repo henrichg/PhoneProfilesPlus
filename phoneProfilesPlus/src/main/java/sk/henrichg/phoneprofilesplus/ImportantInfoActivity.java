@@ -24,7 +24,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.loadPreferences(getApplicationContext());
+        PPApplication.loadPreferences(getApplicationContext());
 
         // must by called before super.onCreate() for PreferenceActivity
         GUIData.setTheme(this, false, false); // must by called before super.onCreate()
@@ -44,7 +44,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (GlobalData.applicationTheme.equals("material"))
+            if (PPApplication.applicationTheme.equals("material"))
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
@@ -235,7 +235,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
             infoText14.setVisibility(View.GONE);
         }
 
-        if (GlobalData.getMergedRingNotificationVolumes(context)) {
+        if (PPApplication.getMergedRingNotificationVolumes(context)) {
             TextView infoText3 = (TextView) findViewById(R.id.activity_info_notification_dialog_info_text3);
             infoText3.setOnClickListener(new View.OnClickListener() {
                 @Override

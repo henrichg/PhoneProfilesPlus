@@ -19,15 +19,15 @@ public class RemoveBrightnessViewBroadcastReceiver extends BroadcastReceiver
     {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### RemoveBrightnessViewBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### RemoveBrightnessViewBroadcastReceiver.onReceive", "xxx");
 
         WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         if (GUIData.brightneesView != null)
         {
             try {
-                GlobalData.logE("##### RemoveBrightnessViewBroadcastReceiver.onReceive", "before removeView");
+                PPApplication.logE("##### RemoveBrightnessViewBroadcastReceiver.onReceive", "before removeView");
                 windowManager.removeView(GUIData.brightneesView);
-                GlobalData.logE("##### RemoveBrightnessViewBroadcastReceiver.onReceive", "after removeView");
+                PPApplication.logE("##### RemoveBrightnessViewBroadcastReceiver.onReceive", "after removeView");
             } catch (Exception ignored) {
             }
             GUIData.brightneesView = null;
@@ -39,7 +39,7 @@ public class RemoveBrightnessViewBroadcastReceiver extends BroadcastReceiver
     {
         if (context != null)
         {
-            GlobalData.logE("@@@ RemoveBrightnessViewBroadcastReceiver.setAlarm","xxx");
+            PPApplication.logE("@@@ RemoveBrightnessViewBroadcastReceiver.setAlarm","xxx");
 
             removeAlarm(context);
 
@@ -48,17 +48,17 @@ public class RemoveBrightnessViewBroadcastReceiver extends BroadcastReceiver
             long alarmTime = calendar.getTimeInMillis();
 
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            GlobalData.logE("@@@ RemoveBrightnessViewBroadcastReceiver.setAlarm","alarmTime="+sdf.format(alarmTime));
+            PPApplication.logE("@@@ RemoveBrightnessViewBroadcastReceiver.setAlarm","alarmTime="+sdf.format(alarmTime));
 
             AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, RemoveBrightnessViewBroadcastReceiver.class);
 
             PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             // not needed exact for removing notification
-            /*if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            /*if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
                 alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             else
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
                 alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             else*/
                 alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
@@ -67,7 +67,7 @@ public class RemoveBrightnessViewBroadcastReceiver extends BroadcastReceiver
 
     public static void removeAlarm(Context context)
     {
-        GlobalData.logE("@@@ RemoveBrightnessViewBroadcastReceiver.removeAlarm","xxx");
+        PPApplication.logE("@@@ RemoveBrightnessViewBroadcastReceiver.removeAlarm","xxx");
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         Intent intent = new Intent(context, RemoveBrightnessViewBroadcastReceiver.class);
@@ -75,13 +75,13 @@ public class RemoveBrightnessViewBroadcastReceiver extends BroadcastReceiver
         pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("@@@ RemoveBrightnessViewBroadcastReceiver.removeAlarm","alarm found");
+            PPApplication.logE("@@@ RemoveBrightnessViewBroadcastReceiver.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
         else
-            GlobalData.logE("@@@ RemoveBrightnessViewBroadcastReceiver.removeAlarm","alarm not found");
+            PPApplication.logE("@@@ RemoveBrightnessViewBroadcastReceiver.removeAlarm","alarm not found");
     }
 
 }

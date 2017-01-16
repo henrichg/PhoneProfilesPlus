@@ -12,20 +12,20 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
-            GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
+            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
         else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-            GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
-            GlobalData.setScreenUnlocked(context, false);
-            if (!GlobalData.getGlobalEventsRuning(context)) {
+            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
+            PPApplication.setScreenUnlocked(context, false);
+            if (!PPApplication.getGlobalEventsRuning(context)) {
                 DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
                 dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
                 //dataWrapper.getActivateProfileHelper().removeNotification();
@@ -36,16 +36,16 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             }
         }
         else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
-            GlobalData.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
-            GlobalData.setScreenUnlocked(context, true);
+            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
+            PPApplication.setScreenUnlocked(context, true);
 
             DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
             dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
             Profile activatedProfile = dataWrapper.getActivatedProfile();
 
-            if (GlobalData.getApplicationStarted(context, true)) {
-                if (GlobalData.notificationShowInStatusBar &&
-                    GlobalData.notificationHideInLockscreen) {
+            if (PPApplication.getApplicationStarted(context, true)) {
+                if (PPApplication.notificationShowInStatusBar &&
+                    PPApplication.notificationHideInLockscreen) {
                     //dataWrapper.getActivateProfileHelper().removeNotification();
                     //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                     dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
@@ -53,7 +53,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             }
 
             // change screen timeout
-            int screenTimeout = GlobalData.getActivatedProfileScreenTimeout(context);
+            int screenTimeout = PPApplication.getActivatedProfileScreenTimeout(context);
             if (screenTimeout > 0)
                 dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
 
@@ -66,14 +66,14 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             return;
         }
 
-        if (GlobalData.getGlobalEventsRuning(context)) {
+        if (PPApplication.getGlobalEventsRuning(context)) {
 
             /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0); */
 
             /*boolean screenEventsExists = false;
 
             screenEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_SCREEN) > 0;
-            GlobalData.logE("ScreenOnOffBroadcastReceiver.onReceive","screenEventsExists="+screenEventsExists);
+            PPApplication.logE("ScreenOnOffBroadcastReceiver.onReceive","screenEventsExists="+screenEventsExists);
             dataWrapper.invalidateDataWrapper();
             */
 
@@ -81,38 +81,38 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             //{
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+            eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
             startWakefulService(context, eventsServiceIntent);
             //}
 
             if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
                 DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
-                if (GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
-                        GlobalData.applicationEventWifiRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                if (PPApplication.applicationEventWifiRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
+                        PPApplication.applicationEventWifiRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0) {
                         // send broadcast for one wifi scan
                         WifiScanAlarmBroadcastReceiver.setAlarm(context, true, true);
                         //WifiScanAlarmBroadcastReceiver.sendBroadcast(context);
                     }
                 }
-                if (GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
-                        GlobalData.applicationEventBluetoothRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                if (PPApplication.applicationEventBluetoothRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
+                        PPApplication.applicationEventBluetoothRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0) {
                         // send broadcast for one bluetooth scan
                         BluetoothScanAlarmBroadcastReceiver.setAlarm(context, true, true);
                         //BluetoothScanAlarmBroadcastReceiver.sendBroadcast(context);
                     }
                 }
-                if (GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
-                        GlobalData.applicationEventLocationRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                if (PPApplication.applicationEventLocationRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
+                        PPApplication.applicationEventLocationRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0) {
                         // send broadcast for location scan
                         GeofenceScannerAlarmBroadcastReceiver.setAlarm(context, true, true);
                         //GeofenceScannerAlarmBroadcastReceiver.sendBroadcast(context);
                     }
                 }
-                if (GlobalData.applicationEventMobileCellsRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON) ||
-                        GlobalData.applicationEventMobileCellsRescan.equals(GlobalData.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                if (PPApplication.applicationEventMobileCellsRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
+                        PPApplication.applicationEventMobileCellsRescan.equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                         // rescan mobile cells
                         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
@@ -126,9 +126,9 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
         }
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-            if (GlobalData.getApplicationStarted(context, true)) {
-                if (GlobalData.notificationShowInStatusBar &&
-                    GlobalData.notificationHideInLockscreen) {
+            if (PPApplication.getApplicationStarted(context, true)) {
+                if (PPApplication.notificationShowInStatusBar &&
+                    PPApplication.notificationHideInLockscreen) {
                     DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
                     dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
                     //dataWrapper.getActivateProfileHelper().removeNotification();

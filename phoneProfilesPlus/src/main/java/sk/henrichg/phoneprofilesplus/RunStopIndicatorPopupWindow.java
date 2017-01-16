@@ -4,7 +4,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.os.Build;
 import android.support.v7.widget.SwitchCompat;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
@@ -21,7 +20,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         final Activity _activity = activity;
 
         SwitchCompat checkBox = (SwitchCompat) view.findViewById(R.id.run_stop_indicator_popup_window_checkbox);
-        checkBox.setChecked(GlobalData.getGlobalEventsRuning(activity.getApplicationContext()));
+        checkBox.setChecked(PPApplication.getGlobalEventsRuning(activity.getApplicationContext()));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

@@ -28,9 +28,9 @@ public class MobileCellsRegistrationService extends Service {
 
         PhoneStateScanner.autoRegistrationService = this;
 
-        showNotification(GlobalData.getMobileCellsAutoRegistrationRemainingDuration(this));
+        showNotification(PPApplication.getMobileCellsAutoRegistrationRemainingDuration(this));
 
-        int remainingDuration = GlobalData.getMobileCellsAutoRegistrationRemainingDuration(this);
+        int remainingDuration = PPApplication.getMobileCellsAutoRegistrationRemainingDuration(this);
 
         final Context context = this;
 
@@ -42,7 +42,7 @@ public class MobileCellsRegistrationService extends Service {
 
                 showNotification(millisUntilFinished);
 
-                GlobalData.setMobileCellsAutoRegistrationRemainingDuration(context, (int) millisUntilFinished / 1000);
+                PPApplication.setMobileCellsAutoRegistrationRemainingDuration(context, (int) millisUntilFinished / 1000);
 
                 // broadcast for application preferences
                 Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
@@ -55,7 +55,7 @@ public class MobileCellsRegistrationService extends Service {
                 //Log.d("MobileCellsRegistrationService", "Timer finished");
 
                 PhoneProfilesService.phoneStateScanner.enabledAutoRegistration = false;
-                GlobalData.setMobileCellsAutoRegistration(context, false);
+                PPApplication.setMobileCellsAutoRegistration(context, false);
 
                 // broadcast for application preferences
                 Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
@@ -127,7 +127,7 @@ public class MobileCellsRegistrationService extends Service {
 
         notification = mBuilder.build();
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
-        startForeground(GlobalData.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
+        startForeground(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
     }
 
 }

@@ -12,23 +12,23 @@ public class PhoneStateChangeBroadcastReceiver extends WakefulBroadcastReceiver 
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### PhoneStateChangeBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### PhoneStateChangeBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, false))
+        if (!PPApplication.getApplicationStarted(context, false))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ PhoneStateChangeBroadcastReceiver.onReceive", "-----------");
+            PPApplication.logE("@@@ PhoneStateChangeBroadcastReceiver.onReceive", "-----------");
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
             }
             dataWrapper.invalidateDataWrapper();

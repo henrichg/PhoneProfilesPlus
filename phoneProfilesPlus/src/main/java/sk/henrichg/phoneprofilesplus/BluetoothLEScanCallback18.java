@@ -21,10 +21,10 @@ class BluetoothLEScanCallback18 implements BluetoothAdapter.LeScanCallback {
         boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context));
 
         if (scanStarted) {
-            //GlobalData.logE("BluetoothLEScanCallback18", "onLeScan - device=" + device.toString());
+            //PPApplication.logE("BluetoothLEScanCallback18", "onLeScan - device=" + device.toString());
 
             String btName = device.getName();
-            GlobalData.logE("BluetoothLEScanCallback18", "onLeScan - deviceName=" + btName);
+            PPApplication.logE("BluetoothLEScanCallback18", "onLeScan - deviceName=" + btName);
 
             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
                     BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false);

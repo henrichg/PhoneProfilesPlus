@@ -47,7 +47,7 @@ public class GUIData {
     static Collator collator = null;
 
     // import/export
-    static final String DB_FILEPATH = "/data/" + GlobalData.PACKAGE_NAME + "/databases";
+    static final String DB_FILEPATH = "/data/" + PPApplication.PACKAGE_NAME + "/databases";
     static final String REMOTE_EXPORT_PATH = "/PhoneProfiles";
     static final String EXPORT_APP_PREF_FILENAME = "ApplicationPreferences.backup";
     static final String EXPORT_DEF_PROFILE_PREF_FILENAME = "DefaultProfilePreferences.backup";
@@ -61,7 +61,7 @@ public class GUIData {
         if (android.os.Build.VERSION.SDK_INT < 24) {
 
             // jazyk na aky zmenit
-            String lang = GlobalData.applicationLanguage;
+            String lang = PPApplication.applicationLanguage;
 
             Locale appLocale;
 
@@ -101,7 +101,7 @@ public class GUIData {
     {
         if (android.os.Build.VERSION.SDK_INT < 24) {
             // get application Locale
-            String lang = GlobalData.applicationLanguage;
+            String lang = PPApplication.applicationLanguage;
             Locale appLocale;
             if (!lang.equals("system")) {
                 String[] langSplit = lang.split("-");
@@ -132,7 +132,7 @@ public class GUIData {
     }
 
     static int getTheme(boolean forPopup, boolean withToolbar) {
-        if (GlobalData.applicationTheme.equals("material"))
+        if (PPApplication.applicationTheme.equals("material"))
         {
             if (forPopup)
             {
@@ -150,7 +150,7 @@ public class GUIData {
             }
         }
         else
-        if (GlobalData.applicationTheme.equals("dark"))
+        if (PPApplication.applicationTheme.equals("dark"))
         {
             if (forPopup)
             {
@@ -168,7 +168,7 @@ public class GUIData {
             }
         }
         else
-        if (GlobalData.applicationTheme.equals("dlight"))
+        if (PPApplication.applicationTheme.equals("dlight"))
         {
             if (forPopup)
             {
@@ -190,7 +190,7 @@ public class GUIData {
 
     /*
     public static int getDialogTheme(boolean forAlert) {
-        if (GlobalData.applicationTheme.equals("material"))
+        if (PPApplication.applicationTheme.equals("material"))
         {
             if (forAlert)
                 return R.style.AlertDialogStyle;
@@ -198,7 +198,7 @@ public class GUIData {
                 return R.style.DialogStyle;
         }
         else
-        if (GlobalData.applicationTheme.equals("dark"))
+        if (PPApplication.applicationTheme.equals("dark"))
         {
             if (forAlert)
                 return R.style.AlertDialogStyleDark;
@@ -206,7 +206,7 @@ public class GUIData {
                 return R.style.DialogStyleDark;
         }
         else
-        if (GlobalData.applicationTheme.equals("dlight"))
+        if (PPApplication.applicationTheme.equals("dlight"))
         {
             if (forAlert)
                 return R.style.AlertDialogStyle;

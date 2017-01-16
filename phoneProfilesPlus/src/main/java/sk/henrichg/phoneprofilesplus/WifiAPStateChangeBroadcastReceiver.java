@@ -10,15 +10,15 @@ public class WifiAPStateChangeBroadcastReceiver extends WakefulBroadcastReceiver
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### WifiAPStateChangeBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### WifiAPStateChangeBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
             // get Wi-Fi Hotspot state here
             //int state = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
@@ -26,12 +26,12 @@ public class WifiAPStateChangeBroadcastReceiver extends WakefulBroadcastReceiver
             //if (WifiManager.WIFI_STATE_ENABLED == state % 10) {
             if (WifiApManager.isWifiAPEnabled(context)) {
                 // Wifi AP is enabled
-                GlobalData.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP enabled");
+                PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP enabled");
                 // remove broadcast for one wifi scan
                 WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, true*/);
             }
             else {
-                GlobalData.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP disabled");
+                PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP disabled");
                 // send broadcast for one wifi scan
                 DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)

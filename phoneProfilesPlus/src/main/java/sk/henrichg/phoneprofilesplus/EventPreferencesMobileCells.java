@@ -124,7 +124,7 @@ class EventPreferencesMobileCells extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
+        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesMobileCells tmp = new EventPreferencesMobileCells(this._event,
                     this._enabled, this._cells, this._whenOutside);
             if (preferences != null)
@@ -140,7 +140,7 @@ class EventPreferencesMobileCells extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
+                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -172,7 +172,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     {
         if (PhoneProfilesService.instance != null) {
             if (_enabled && (!PhoneProfilesService.isPhoneStateStarted())) {
-                GlobalData.startPhoneStateScanner(context);
+                PPApplication.startPhoneStateScanner(context);
             }
         }
     }

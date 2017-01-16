@@ -21,30 +21,30 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### BluetoothScanBroadcastReceiver.onReceive","xxx");
-        //GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- start");
+        PPApplication.logE("##### BluetoothScanBroadcastReceiver.onReceive","xxx");
+        //PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- start");
 
         if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
             BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
 
             boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context));
 
             if (scanStarted)
             {
-                GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","xxx");
+                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","xxx");
 
                 String action = intent.getAction();
 
-                GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","action="+action);
+                PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","action="+action);
 
                 if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action))
                 {
@@ -86,8 +86,8 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                     {
                         tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
                                 BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false));
-                        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_d="+btNameD);
-                        GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_e="+btNameE);
+                        PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_d="+btNameD);
+                        PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_e="+btNameE);
                     }
                 }
                 else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
@@ -99,7 +99,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
         }
 
-        //GlobalData.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- end");
+        //PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","----- end");
 
     }
 
@@ -112,7 +112,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
     }
 
     static public void finishScan(Context context) {
-        GlobalData.logE("BluetoothScanBroadcastReceiver.finishScan","discoveryStarted="+discoveryStarted);
+        PPApplication.logE("BluetoothScanBroadcastReceiver.finishScan","discoveryStarted="+discoveryStarted);
 
         if (discoveryStarted) {
 
@@ -132,21 +132,21 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
             {
                 for (BluetoothDevice device : BluetoothScanAlarmBroadcastReceiver.scanResults)
                 {
-                    GlobalData.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
+                    PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
                 }
             }
             */
 
             BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 
-            int forceOneScan = GlobalData.getForceOneBluetoothScan(context);
-            GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+            int forceOneScan = PPApplication.getForceOneBluetoothScan(context);
+            PPApplication.setForceOneBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
 
-            if (forceOneScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
+            if (forceOneScan != PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
             {
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
             }
         }

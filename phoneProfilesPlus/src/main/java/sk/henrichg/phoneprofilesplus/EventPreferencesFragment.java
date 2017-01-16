@@ -52,11 +52,11 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
         long event_id = 0;
 
         // getting attached fragment data
-        if (getArguments().containsKey(GlobalData.EXTRA_NEW_EVENT_MODE))
-            new_event_mode = getArguments().getInt(GlobalData.EXTRA_NEW_EVENT_MODE);
-        if (getArguments().containsKey(GlobalData.EXTRA_EVENT_ID))
-            event_id = getArguments().getLong(GlobalData.EXTRA_EVENT_ID);
-        predefinedEventIndex = getArguments().getInt(GlobalData.EXTRA_PREDEFINED_EVENT_INDEX);
+        if (getArguments().containsKey(PPApplication.EXTRA_NEW_EVENT_MODE))
+            new_event_mode = getArguments().getInt(PPApplication.EXTRA_NEW_EVENT_MODE);
+        if (getArguments().containsKey(PPApplication.EXTRA_EVENT_ID))
+            event_id = getArguments().getLong(PPApplication.EXTRA_EVENT_ID);
+        predefinedEventIndex = getArguments().getInt(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX);
 
         //event = EventPreferencesFragmentActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
         event = new Event();
@@ -73,10 +73,10 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
 
     public static String getPreferenceName() {
         String PREFS_NAME;
-        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = PREFS_NAME_ACTIVITY;
         else
-        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
             PREFS_NAME = PREFS_NAME_FRAGMENT;
         else
             PREFS_NAME = PREFS_NAME_FRAGMENT;

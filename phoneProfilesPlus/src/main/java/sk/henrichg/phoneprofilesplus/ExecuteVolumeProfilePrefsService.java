@@ -18,13 +18,13 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### ExecuteVolumeProfilePrefsService.onHandleIntent", "xxx");
+        PPApplication.logE("##### ExecuteVolumeProfilePrefsService.onHandleIntent", "xxx");
 
         final Context context = getApplicationContext();
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        GlobalData.setMergedRingNotificationVolumes(getApplicationContext(), false);
+        PPApplication.setMergedRingNotificationVolumes(getApplicationContext(), false);
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
         final ActivateProfileHelper aph = dataWrapper.getActivateProfileHelper();
@@ -32,10 +32,10 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
 
         // link, unlink volumes during activation of profile
         // required for phone call events
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        int callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        int callEventType = preferences.getInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
         int linkUnlink = PhoneCallService.LINKMODE_NONE;
-        if (GlobalData.getMergedRingNotificationVolumes(context) && GlobalData.applicationUnlinkRingerNotificationVolumes) {
+        if (PPApplication.getMergedRingNotificationVolumes(context) && PPApplication.applicationUnlinkRingerNotificationVolumes) {
             if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING) ||
                 (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED)) {
                 linkUnlink = PhoneCallService.LINKMODE_UNLINK;
@@ -48,17 +48,17 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
             // link, unlink is executed, not needed do it from EventsService
             PhoneCallService.linkUnlinkExecuted = true;
 
-        long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
-        boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
+        long profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+        boolean merged = intent.getBooleanExtra(PPApplication.EXTRA_MERGED_PROFILE, false);
         Profile profile = dataWrapper.getProfileById(profile_id, merged);
-        profile = GlobalData.getMappedProfile(profile, context);
+        profile = PPApplication.getMappedProfile(profile, context);
 
-        boolean forProfileActivation = intent.getBooleanExtra(GlobalData.EXTRA_FOR_PROFILE_ACTIVATION, false);
+        boolean forProfileActivation = intent.getBooleanExtra(PPApplication.EXTRA_FOR_PROFILE_ACTIVATION, false);
 
         if (profile != null)
-            GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "profile.name="+profile._name);
+            PPApplication.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "profile.name="+profile._name);
         else
-            GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "profile=null");
+            PPApplication.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "profile=null");
 
         if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
             (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
@@ -82,15 +82,15 @@ public class ExecuteVolumeProfilePrefsService extends IntentService
                 final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
                 aph.setRingerMode(profile, audioManager, true, /*linkUnlink,*/ forProfileActivation);
-                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
+                PPApplication.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
                 aph.setVolumes(profile, audioManager, linkUnlink, forProfileActivation);
-                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
+                PPApplication.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
                 aph.setRingerMode(profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
-                GlobalData.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
+                PPApplication.logE("ExecuteVolumeProfilePrefsService.onHandleIntent", "internalChange="+RingerModeChangeReceiver.internalChange);
 
                 //try { Thread.sleep(500); } catch (InterruptedException e) { }
                 //SystemClock.sleep(500);
-                GlobalData.sleep(500);
+                PPApplication.sleep(500);
 
                 RingerModeChangeReceiver.setAlarmForDisableInternalChange(context);
 

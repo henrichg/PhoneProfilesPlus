@@ -11,16 +11,16 @@ public class PhoneProfilesInstall extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String packageName=intent.getData().getEncodedSchemeSpecificPart();
-        GlobalData.logE("PhoneProfilesInstall.onReceive","packageName="+packageName);
+        PPApplication.logE("PhoneProfilesInstall.onReceive","packageName="+packageName);
 
         if (!intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) {
             try {
                 PackageInfo pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
                 if (packageName.equals(pinfo.packageName)) {
-                    GlobalData.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
-                    GlobalData.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
-                    GlobalData.setShowEnableLocationNotification(context.getApplicationContext(), true);
-                    GlobalData.setScreenUnlocked(context.getApplicationContext(), true);
+                    PPApplication.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
+                    PPApplication.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
+                    PPApplication.setShowEnableLocationNotification(context.getApplicationContext(), true);
+                    PPApplication.setScreenUnlocked(context.getApplicationContext(), true);
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 //e.printStackTrace();

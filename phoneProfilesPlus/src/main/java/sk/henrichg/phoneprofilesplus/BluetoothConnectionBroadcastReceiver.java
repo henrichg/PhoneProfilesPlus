@@ -22,7 +22,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
 
         getConnectedDevices(context);
 
@@ -49,29 +49,29 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
             saveConnectedDevices(context);
 
-            if (!GlobalData.getApplicationStarted(context, true))
+            if (!PPApplication.getApplicationStarted(context, true))
                 // application is not started
                 return;
 
-            GlobalData.loadPreferences(context);
+            PPApplication.loadPreferences(context);
 
-            /*SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            int lastState = preferences.getInt(GlobalData.PREF_EVENT_BLUETOOTH_LAST_STATE, -1);
+            /*SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            int lastState = preferences.getInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, -1);
             int currState = -1;
             if (connected)
                 currState = 1;
             if (!connected)
                 currState = 0;
             Editor editor = preferences.edit();
-            editor.putInt(GlobalData.PREF_EVENT_BLUETOOTH_LAST_STATE, currState);
+            editor.putInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, currState);
             editor.commit();*/
 
-            if (GlobalData.getGlobalEventsRuning(context))
+            if (PPApplication.getGlobalEventsRuning(context))
             {
 
                 //if (lastState != currState)
                 //{
-                    GlobalData.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","connected"+connected);
+                    PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","connected"+connected);
 
                     if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                          (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
@@ -87,11 +87,11 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
                         if (bluetoothEventsExists)
                         {
-                            GlobalData.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","bluetoothEventsExists="+bluetoothEventsExists);
+                            PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","bluetoothEventsExists="+bluetoothEventsExists);
                         */
                             // start service
                             Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                            eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                             startWakefulService(context, eventsServiceIntent);
                         //}
                     }
@@ -113,14 +113,14 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private static void getConnectedDevices(Context context)
     {
-        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
+        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
 
             if (connectedDevices == null)
                 connectedDevices = new ArrayList<>();
 
             connectedDevices.clear();
 
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
 
             int count = preferences.getInt(CONNECTED_DEVICES_COUNT_PREF, 0);
 
@@ -138,12 +138,12 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private static void saveConnectedDevices(Context context)
     {
-        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
+        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
 
             if (connectedDevices == null)
                 connectedDevices = new ArrayList<>();
 
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 
             editor.clear();
@@ -163,7 +163,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private void addConnectedDevice(BluetoothDevice device)
     {
-        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
+        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
 
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
@@ -181,7 +181,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private void removeConnectedDevice(BluetoothDevice device)
     {
-        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
+        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             int index = 0;
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
@@ -198,7 +198,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
     private void changeDeviceName(BluetoothDevice device, String deviceName)
     {
-        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
+        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             for (BluetoothDeviceData _device : connectedDevices) {
                 if (_device.address.equals(device.getAddress()) && !deviceName.isEmpty()) {
                     _device.setName(deviceName);
@@ -212,7 +212,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
     {
         getConnectedDevices(context);
 
-        synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
+        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if (adapterName.isEmpty())
                 return (connectedDevices != null) && (connectedDevices.size() > 0);
             else {
@@ -234,7 +234,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
     {
         if (isBluetoothConnected(dataWrapper.context, ""))
         {
-            synchronized (GlobalData.bluetoothConnectionChangeStateMutex) {
+            synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
                 if (connectedDevices != null) {
                     for (BluetoothDeviceData _device : connectedDevices) {
                         if (dataWrapper.getDatabaseHandler().isBluetoothAdapterNameScanned(_device.getName(), connectionType))

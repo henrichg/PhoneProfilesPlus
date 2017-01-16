@@ -23,7 +23,7 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### HeadsetConnectionBroadcastReceiver.onReceive","xxx");
+        PPApplication.logE("##### HeadsetConnectionBroadcastReceiver.onReceive","xxx");
 
         boolean broadcast = false;
 
@@ -64,27 +64,27 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
 
         if (broadcast)
         {
-            GlobalData.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","xxx");
+            PPApplication.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","xxx");
 
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
-            editor.putBoolean(GlobalData.PREF_EVENT_HEADSET_CONNECTED, connectedHeadphones);
-            editor.putBoolean(GlobalData.PREF_EVENT_HEADSET_MICROPHONE, connectedMicrophone);
-            editor.putBoolean(GlobalData.PREF_EVENT_HEADSET_BLUETOOTH, bluetoothHeadset);
+            editor.putBoolean(PPApplication.PREF_EVENT_HEADSET_CONNECTED, connectedHeadphones);
+            editor.putBoolean(PPApplication.PREF_EVENT_HEADSET_MICROPHONE, connectedMicrophone);
+            editor.putBoolean(PPApplication.PREF_EVENT_HEADSET_BLUETOOTH, bluetoothHeadset);
             editor.commit();
         }
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
         
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
             if (broadcast)
             {
-                GlobalData.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","xxx");
+                PPApplication.logE("@@@ HeadsetConnectionBroadcastReceiver.onReceive","xxx");
 
                 /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                 boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
@@ -94,7 +94,7 @@ public class HeadsetConnectionBroadcastReceiver extends WakefulBroadcastReceiver
                 {*/
                     // start service
                     Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                    eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                    eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                     startWakefulService(context, eventsServiceIntent);
                 //}
             }

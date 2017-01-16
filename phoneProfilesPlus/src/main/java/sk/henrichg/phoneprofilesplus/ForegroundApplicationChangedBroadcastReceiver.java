@@ -13,33 +13,33 @@ public class ForegroundApplicationChangedBroadcastReceiver extends WakefulBroadc
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### ForegroundApplicationChangedBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### ForegroundApplicationChangedBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            String packageName = GlobalData.getApplicationInForeground(context);
-            GlobalData.logE("@@@ ForegroundApplicationChangedBroadcastReceiver.onReceive","packageName="+packageName);
+            String packageName = PPApplication.getApplicationInForeground(context);
+            PPApplication.logE("@@@ ForegroundApplicationChangedBroadcastReceiver.onReceive","packageName="+packageName);
 
             /*boolean applicationEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             applicationEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION) > 0;
-            GlobalData.logE("ForegroundApplicationChangedBroadcastReceiver.onReceive","applicationEventsExists="+applicationEventsExists);
+            PPApplication.logE("ForegroundApplicationChangedBroadcastReceiver.onReceive","applicationEventsExists="+applicationEventsExists);
             dataWrapper.invalidateDataWrapper();
 
             if (notificationEventsExists)
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                //eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
-                //eventsServiceIntent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));
+                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME));
+                //eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));
                 startWakefulService(context, eventsServiceIntent);
             //}
         }

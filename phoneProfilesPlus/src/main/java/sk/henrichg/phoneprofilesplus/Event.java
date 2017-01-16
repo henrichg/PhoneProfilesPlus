@@ -452,7 +452,7 @@ class Event {
     {
         this._name = preferences.getString(PREF_EVENT_NAME, "");
         this._fkProfileStart = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_START, "0"));
-        this._fkProfileEnd = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_END, Long.toString(GlobalData.PROFILE_NO_ACTIVATE)));
+        this._fkProfileEnd = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_END, Long.toString(PPApplication.PROFILE_NO_ACTIVATE)));
         this._status = (preferences.getBoolean(PREF_EVENT_ENABLED, false)) ? ESTATUS_PAUSE : ESTATUS_STOP;
         this._notificationSound = preferences.getString(PREF_EVENT_NOTIFICATION_SOUND, "");
         this._forceRun = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
@@ -460,7 +460,7 @@ class Event {
         this._priority = Integer.parseInt(preferences.getString(PREF_EVENT_PRIORITY, Integer.toString(EPRIORITY_MEDIUM)));
         this._atEndDo = Integer.parseInt(preferences.getString(PREF_EVENT_AT_END_DO, Integer.toString(EATENDDO_UNDONE_PROFILE)));
         this._manualProfileActivation = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
-        this._fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(GlobalData.PROFILE_NO_ACTIVATE)));
+        this._fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, Long.toString(PPApplication.PROFILE_NO_ACTIVATE)));
 
         String sDelayStart = preferences.getString(PREF_EVENT_DELAY_START, "0");
         if (sDelayStart.isEmpty()) sDelayStart = "0";
@@ -517,7 +517,7 @@ class Event {
             if (key.equals(PREF_EVENT_PROFILE_START))
                 GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
             if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
-                GUIData.setPreferenceTitleStyle(preference, lProfileId != GlobalData.PROFILE_NO_ACTIVATE, false, false, false);
+                GUIData.setPreferenceTitleStyle(preference, lProfileId != PPApplication.PROFILE_NO_ACTIVATE, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND))
@@ -543,7 +543,7 @@ class Event {
         if (key.equals(PREF_EVENT_PRIORITY))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
-            if (GlobalData.applicationEventUsePriority) {
+            if (PPApplication.applicationEventUsePriority) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
@@ -551,7 +551,7 @@ class Event {
             else {
                 listPreference.setSummary(R.string.event_preferences_priority_notUse);
             }
-            listPreference.setEnabled(GlobalData.applicationEventUsePriority);
+            listPreference.setEnabled(PPApplication.applicationEventUsePriority);
         }
         if (key.equals(PREF_EVENT_AT_END_DO))
         {
@@ -612,7 +612,7 @@ class Event {
             if (preferences == null) {
                 //forceRunChanged = this._forceRun;
                 manualProfileActivationChanged = this._manualProfileActivation;
-                profileStartWhenActivatedChanged = this._fkProfileStartWhenActivated != GlobalData.PROFILE_NO_ACTIVATE;
+                profileStartWhenActivatedChanged = this._fkProfileStartWhenActivated != PPApplication.PROFILE_NO_ACTIVATE;
                 fkProfileStartWhenActivated = this._fkProfileStartWhenActivated;
                 delayStartChanged = this._delayStart != 0;
                 delayEndChanged = this._delayEnd != 0;
@@ -623,8 +623,8 @@ class Event {
             else {
                 //forceRunChanged = preferences.getBoolean(PREF_EVENT_FORCE_RUN, false);
                 manualProfileActivationChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
-                fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(GlobalData.PROFILE_NO_ACTIVATE)));
-                profileStartWhenActivatedChanged = fkProfileStartWhenActivated != GlobalData.PROFILE_NO_ACTIVATE;
+                fkProfileStartWhenActivated = Long.parseLong(preferences.getString(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE, String.valueOf(PPApplication.PROFILE_NO_ACTIVATE)));
+                profileStartWhenActivatedChanged = fkProfileStartWhenActivated != PPApplication.PROFILE_NO_ACTIVATE;
                 delayStartChanged = !preferences.getString(PREF_EVENT_DELAY_START, "0").equals("0");
                 delayEndChanged = !preferences.getString(PREF_EVENT_DELAY_END, "0").equals("0");
                 delayStart = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_START, "0"));
@@ -931,7 +931,7 @@ class Event {
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
 
-        if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!PPApplication.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -939,13 +939,13 @@ class Event {
             // event is not runnable, no pause it
             return;
 
-        if (GlobalData.getEventsBlocked(dataWrapper.context))
+        if (PPApplication.getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
-            GlobalData.logE("Event.startEvent","event_id="+this._id+" events blocked");
+            PPApplication.logE("Event.startEvent","event_id="+this._id+" events blocked");
 
-            GlobalData.logE("Event.startEvent","event_id="+this._id+" forceRun="+_forceRun);
-            GlobalData.logE("Event.startEvent","event_id="+this._id+" blocked="+_blocked);
+            PPApplication.logE("Event.startEvent","event_id="+this._id+" forceRun="+_forceRun);
+            PPApplication.logE("Event.startEvent","event_id="+this._id+" blocked="+_blocked);
 
 
             if (!_forceRun)
@@ -969,16 +969,16 @@ class Event {
         for (EventTimeline eventTimeline : eventTimelineList)
         {
             Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-            if ((event != null) && GlobalData.applicationEventUsePriority && (event._priority > this._priority))
+            if ((event != null) && PPApplication.applicationEventUsePriority && (event._priority > this._priority))
                 // is running event with higher priority
                 return;
         }
 
         if (_forceRun)
-            GlobalData.setForceRunEventRunning(dataWrapper.context, true);
+            PPApplication.setForceRunEventRunning(dataWrapper.context, true);
 
-        GlobalData.logE("@@@ Event.startEvent","event_id="+this._id+"-----------------------------------");
-        GlobalData.logE("@@@ Event.startEvent","-- event_name="+this._name);
+        PPApplication.logE("@@@ Event.startEvent","event_id="+this._id+"-----------------------------------");
+        PPApplication.logE("@@@ Event.startEvent","-- event_name="+this._name);
 
         EventTimeline eventTimeline;
 
@@ -993,7 +993,7 @@ class Event {
             // test whenever event exists in timeline
             eventTimeline = null;
             int eventPosition = getEventTimelinePosition(eventTimelineList);
-            GlobalData.logE("Event.startEvent","eventPosition="+eventPosition);
+            PPApplication.logE("Event.startEvent","eventPosition="+eventPosition);
             if (eventPosition != -1)
                 eventTimeline = eventTimelineList.get(eventPosition);
 
@@ -1049,7 +1049,7 @@ class Event {
         if ((this._fkProfileStart != activatedProfileId) || this._manualProfileActivation || reactivate)
         {
             // no activate profile, when is already activated
-            GlobalData.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
+            PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
 
             if (mergedProfile == null)
                 dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, true);
@@ -1105,11 +1105,11 @@ class Event {
             if (activatedProfile != null)
                 activatedProfileId = activatedProfile._id;
             // first activate _fkProfileEnd
-            if (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE)
+            if (_fkProfileEnd != PPApplication.PROFILE_NO_ACTIVATE)
             {
                 if (_fkProfileEnd != activatedProfileId)
                 {
-                    GlobalData.logE("Event.pauseEvent","activate end porfile");
+                    PPApplication.logE("Event.pauseEvent","activate end porfile");
                     if (mergedProfile == null)
                         dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, false, /*"",*/ true);
                     else
@@ -1134,8 +1134,8 @@ class Event {
 
                 if (eventTimeline._fkProfileEndActivated != activatedProfileId)
                 {
-                    GlobalData.logE("Event.pauseEvent","undone profile");
-                    GlobalData.logE("Event.pauseEvent","_fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
+                    PPApplication.logE("Event.pauseEvent","undone profile");
+                    PPApplication.logE("Event.pauseEvent","_fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
                         if (mergedProfile == null)
@@ -1148,13 +1148,13 @@ class Event {
             }
             // restart events when is set
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
-                GlobalData.logE("Event.pauseEvent","restart events");
+                PPApplication.logE("Event.pauseEvent","restart events");
 
                 //EventsService.restartAtEndOfEvent = true;
 
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-                GlobalData.logE("$$$ restartEvents", "from Event.doActivateEndProfile");
+                PPApplication.logE("$$$ restartEvents", "from Event.doActivateEndProfile");
                 dataWrapper.restartEventsWithDelay(5, true, false);
                 profileActivated = true;
             }
@@ -1181,7 +1181,7 @@ class Event {
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
 
-        if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!PPApplication.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -1189,10 +1189,10 @@ class Event {
             // event is not runnable, no pause it
             return;
 
-/*		if (GlobalData.getEventsBlocked(dataWrapper.context))
+/*		if (PPApplication.getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
-            GlobalData.logE("Event.pauseEvent","event_id="+this._id+" events blocked");
+            PPApplication.logE("Event.pauseEvent","event_id="+this._id+" events blocked");
 
 
             if (!_forceRun)
@@ -1204,14 +1204,14 @@ class Event {
         // unblock event when paused
         dataWrapper.setEventBlocked(this, false);
 
-        GlobalData.logE("@@@ Event.pauseEvent","event_id="+this._id+"-----------------------------------");
-        GlobalData.logE("@@@ Event.pauseEvent","-- event_name="+this._name);
+        PPApplication.logE("@@@ Event.pauseEvent","event_id="+this._id+"-----------------------------------");
+        PPApplication.logE("@@@ Event.pauseEvent","-- event_name="+this._name);
 
         int timeLineSize = eventTimelineList.size();
 
         // test whenever event exists in timeline
         int eventPosition = getEventTimelinePosition(eventTimelineList);
-        GlobalData.logE("Event.pauseEvent","eventPosition="+eventPosition);
+        PPApplication.logE("Event.pauseEvent","eventPosition="+eventPosition);
 
         boolean exists = eventPosition != -1;
 
@@ -1257,15 +1257,15 @@ class Event {
 
         if (log && (status != this._status)) {
             int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
-            if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE))
+            if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != PPApplication.PROFILE_NO_ACTIVATE))
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
-            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE))
+            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != PPApplication.PROFILE_NO_ACTIVATE))
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS;
             else if (_atEndDo == EATENDDO_UNDONE_PROFILE)
                 alType = DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE;
             else if (_atEndDo == EATENDDO_RESTART_EVENTS)
                 alType = DatabaseHandler.ALTYPE_EVENTEND_RESTARTEVENTS;
-            else if (_fkProfileEnd != GlobalData.PROFILE_NO_ACTIVATE)
+            else if (_fkProfileEnd != PPApplication.PROFILE_NO_ACTIVATE)
                 alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
 
             dataWrapper.addActivityLog(alType, _name, null, null, 0);
@@ -1286,7 +1286,7 @@ class Event {
             }
 
             if (!forceRunRunning)
-                GlobalData.setForceRunEventRunning(dataWrapper.context, false);
+                PPApplication.setForceRunEventRunning(dataWrapper.context, false);
         //}
 
         if (exists)
@@ -1312,12 +1312,12 @@ class Event {
         removeDelayStartAlarm(dataWrapper); // for start delay
         removeDelayEndAlarm(dataWrapper); // for end delay
 
-        if ((!GlobalData.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!PPApplication.getGlobalEventsRuning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
-        GlobalData.logE("@@@ Event.stopEvent","event_id="+this._id+"-----------------------------------");
-        GlobalData.logE("@@@ Event.stopEvent", "-- event_name=" + this._name);
+        PPApplication.logE("@@@ Event.stopEvent","event_id="+this._id+"-----------------------------------");
+        PPApplication.logE("@@@ Event.stopEvent", "-- event_name=" + this._name);
 
         if (this._status != ESTATUS_STOP)
         {
@@ -1423,7 +1423,7 @@ class Event {
     {
         removeDelayStartAlarm(dataWrapper);
 
-        if (!GlobalData.getGlobalEventsRuning(dataWrapper.context))
+        if (!PPApplication.getGlobalEventsRuning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -1431,10 +1431,10 @@ class Event {
             // event is not runnable, no pause it
             return;
 
-        if (GlobalData.getEventsBlocked(dataWrapper.context))
+        if (PPApplication.getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
-            GlobalData.logE("Event.setDelayStartAlarm","event_id="+this._id+" events blocked");
+            PPApplication.logE("Event.setDelayStartAlarm","event_id="+this._id+" events blocked");
 
 
             if (!_forceRun)
@@ -1445,9 +1445,9 @@ class Event {
                 return;
         }
 
-        GlobalData.logE("@@@ Event.setDelayStartAlarm","event_id="+this._id+"-----------------------------------");
-        GlobalData.logE("@@@ Event.setDelayStartAlarm","-- event_name="+this._name);
-        GlobalData.logE("@@@ Event.setDelayStartAlarm","-- delay="+this._delayStart);
+        PPApplication.logE("@@@ Event.setDelayStartAlarm","event_id="+this._id+"-----------------------------------");
+        PPApplication.logE("@@@ Event.setDelayStartAlarm","-- event_name="+this._name);
+        PPApplication.logE("@@@ Event.setDelayStartAlarm","-- delay="+this._delayStart);
 
         if (this._delayStart > 0)
         {
@@ -1460,19 +1460,19 @@ class Event {
 
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String result = sdf.format(alarmTime);
-            GlobalData.logE("Event.setDelayStartAlarm","startTime="+result);
+            PPApplication.logE("Event.setDelayStartAlarm","startTime="+result);
 
             Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
-            //intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
+            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
                 alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
@@ -1512,7 +1512,7 @@ class Event {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("Event.removeDelayStartAlarm","alarm found");
+            PPApplication.logE("Event.removeDelayStartAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
@@ -1527,7 +1527,7 @@ class Event {
     {
         removeDelayEndAlarm(dataWrapper);
 
-        if (!GlobalData.getGlobalEventsRuning(dataWrapper.context))
+        if (!PPApplication.getGlobalEventsRuning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -1535,10 +1535,10 @@ class Event {
             // event is not runnable, no pause it
             return;
 
-        if (GlobalData.getEventsBlocked(dataWrapper.context))
+        if (PPApplication.getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
-            GlobalData.logE("Event.setDelayEndAlarm","event_id="+this._id+" events blocked");
+            PPApplication.logE("Event.setDelayEndAlarm","event_id="+this._id+" events blocked");
 
 
             if (!_forceRun)
@@ -1549,9 +1549,9 @@ class Event {
                 return;
         }
 
-        GlobalData.logE("@@@ Event.setDelayEndAlarm","event_id="+this._id+"-----------------------------------");
-        GlobalData.logE("@@@ Event.setDelayEndAlarm","-- event_name="+this._name);
-        GlobalData.logE("@@@ Event.setDelayEndAlarm","-- delay="+this._delayEnd);
+        PPApplication.logE("@@@ Event.setDelayEndAlarm","event_id="+this._id+"-----------------------------------");
+        PPApplication.logE("@@@ Event.setDelayEndAlarm","-- event_name="+this._name);
+        PPApplication.logE("@@@ Event.setDelayEndAlarm","-- delay="+this._delayEnd);
 
         if (this._delayEnd > 0)
         {
@@ -1564,19 +1564,19 @@ class Event {
 
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String result = sdf.format(alarmTime);
-            GlobalData.logE("Event.setDelayEndAlarm","endTime="+result);
+            PPApplication.logE("Event.setDelayEndAlarm","endTime="+result);
 
             Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
-            //intent.putExtra(GlobalData.EXTRA_EVENT_ID, this._id);
+            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
 
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             else
                 alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
@@ -1616,7 +1616,7 @@ class Event {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("Event.removeDelayEndAlarm","alarm found");
+            PPApplication.logE("Event.removeDelayEndAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();

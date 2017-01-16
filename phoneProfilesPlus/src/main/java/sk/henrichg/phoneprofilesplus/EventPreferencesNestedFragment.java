@@ -73,7 +73,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         preferences.registerOnSharedPreferenceChangeListener(this);
 
         //RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
-        //notificationSoundPreference.setEnabled(GlobalData.notificationStatusBar);
+        //notificationSoundPreference.setEnabled(PPApplication.notificationStatusBar);
 
         event.checkPreferences(prefMng, context);
 

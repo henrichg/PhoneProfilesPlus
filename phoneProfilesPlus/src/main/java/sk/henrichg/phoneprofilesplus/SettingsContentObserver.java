@@ -45,9 +45,9 @@ class SettingsContentObserver  extends ContentObserver {
     private int volumeChangeDetect(int volumeStream, int previousVolume, AudioManager audioManager) {
 
         int currentVolume = audioManager.getStreamVolume(volumeStream);
-        GlobalData.logE("### SettingsContentObserver", "channel=" + volumeStream + " currentVolume=" + currentVolume);
-        GlobalData.logE("### SettingsContentObserver", "channel=" + volumeStream + " previousVolume=" + previousVolume);
-        GlobalData.logE("### SettingsContentObserver", "internalChange="+RingerModeChangeReceiver.internalChange);
+        PPApplication.logE("### SettingsContentObserver", "channel=" + volumeStream + " currentVolume=" + currentVolume);
+        PPApplication.logE("### SettingsContentObserver", "channel=" + volumeStream + " previousVolume=" + previousVolume);
+        PPApplication.logE("### SettingsContentObserver", "internalChange="+RingerModeChangeReceiver.internalChange);
 
         int delta=previousVolume-currentVolume;
 
@@ -56,11 +56,11 @@ class SettingsContentObserver  extends ContentObserver {
             //Log.e("### SettingsContentObserver", "channel="+volumeStream+" Decreased");
             if (!RingerModeChangeReceiver.internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING) {
-                    GlobalData.setRingerVolume(context, currentVolume);
+                    PPApplication.setRingerVolume(context, currentVolume);
                     PhoneProfilesService.ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION)
-                    GlobalData.setNotificationVolume(context, currentVolume);
+                    PPApplication.setNotificationVolume(context, currentVolume);
             }
         }
         else if(delta<0)
@@ -68,11 +68,11 @@ class SettingsContentObserver  extends ContentObserver {
             //Log.e("### SettingsContentObserver", "channel="+volumeStream+" Increased");
             if (!RingerModeChangeReceiver.internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING) {
-                    GlobalData.setRingerVolume(context, currentVolume);
+                    PPApplication.setRingerVolume(context, currentVolume);
                     PhoneProfilesService.ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION)
-                    GlobalData.setNotificationVolume(context, currentVolume);
+                    PPApplication.setNotificationVolume(context, currentVolume);
             }
         }
         return currentVolume;

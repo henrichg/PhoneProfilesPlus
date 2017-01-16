@@ -24,7 +24,7 @@ public class KeyguardService extends Service {
     {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("$$$ KeyguardService.onStartCommand","onCreate");
+        PPApplication.logE("$$$ KeyguardService.onStartCommand","onCreate");
         keyguardManager = (KeyguardManager)getBaseContext().getSystemService(Activity.KEYGUARD_SERVICE);
         keyguardLock = keyguardManager.newKeyguardLock(KEYGUARD_LOCK);
     }
@@ -32,7 +32,7 @@ public class KeyguardService extends Service {
     @Override
     public void onDestroy()
     {
-        GlobalData.logE("$$$ KeyguardService.onStartCommand", "onDestroy");
+        PPApplication.logE("$$$ KeyguardService.onStartCommand", "onDestroy");
         reenableKeyguard();
     }
 
@@ -44,7 +44,7 @@ public class KeyguardService extends Service {
 
         Context context = getBaseContext();
 
-        if (!GlobalData.getApplicationStarted(context, true)) {
+        if (!PPApplication.getApplicationStarted(context, true)) {
             reenableKeyguard();
             stopSelf();
             return START_NOT_STICKY;
@@ -67,32 +67,32 @@ public class KeyguardService extends Service {
             secureKeyguard = keyguardManager.isKeyguardSecure();
         else
             secureKeyguard = keyguardManager.inKeyguardRestrictedInputMode();
-        GlobalData.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
+        PPApplication.logE("$$$ KeyguardService.onStartCommand","secureKeyguard="+secureKeyguard);
         if (!secureKeyguard)
         {
-            GlobalData.logE("$$$ KeyguardService.onStartCommand xxx","getLockscreenDisabled="+GlobalData.getLockscreenDisabled(context));
+            PPApplication.logE("$$$ KeyguardService.onStartCommand xxx","getLockscreenDisabled="+ PPApplication.getLockscreenDisabled(context));
 
 
             if (isScreenOn) {
-                GlobalData.logE("$$$ KeyguardService.onStartCommand", "screen on");
+                PPApplication.logE("$$$ KeyguardService.onStartCommand", "screen on");
 
-                if (GlobalData.getLockscreenDisabled(context)) {
-                    GlobalData.logE("$$$ KeyguardService.onStartCommand", "Keyguard.disable(), START_STICKY");
+                if (PPApplication.getLockscreenDisabled(context)) {
+                    PPApplication.logE("$$$ KeyguardService.onStartCommand", "Keyguard.disable(), START_STICKY");
                     reenableKeyguard();
                     disableKeyguard();
                     return START_STICKY;
                 } else {
-                    GlobalData.logE("$$$ KeyguardService.onStartCommand", "Keyguard.reenable(), stopSelf(), START_NOT_STICKY");
+                    PPApplication.logE("$$$ KeyguardService.onStartCommand", "Keyguard.reenable(), stopSelf(), START_NOT_STICKY");
                     reenableKeyguard();
                     stopSelf();
                     return START_NOT_STICKY;
                 }
             }
             /*else {
-                GlobalData.logE("$$$ KeyguardService.onStartCommand", "screen off");
+                PPApplication.logE("$$$ KeyguardService.onStartCommand", "screen off");
 
-                if (GlobalData.getLockscreenDisabled(context)) {
-                    GlobalData.logE("$$$ KeyguardService.onStartCommand", "Keyguard.disable(), START_STICKY");
+                if (PPApplication.getLockscreenDisabled(context)) {
+                    PPApplication.logE("$$$ KeyguardService.onStartCommand", "Keyguard.disable(), START_STICKY");
 
                     // renable with old keyguardLock
                     Keyguard.reenable(keyguardLock);
@@ -106,7 +106,7 @@ public class KeyguardService extends Service {
             }*/
         }
 
-        GlobalData.logE("$$$ KeyguardService.onStartCommand"," secureKeyguard, stopSelf(), START_NOT_STICKY");
+        PPApplication.logE("$$$ KeyguardService.onStartCommand"," secureKeyguard, stopSelf(), START_NOT_STICKY");
         stopSelf();
         return START_NOT_STICKY;
     }
@@ -119,14 +119,14 @@ public class KeyguardService extends Service {
 
     public void disableKeyguard()
     {
-        GlobalData.logE("$$$ Keyguard.disable","keyguardLock="+keyguardLock);
+        PPApplication.logE("$$$ Keyguard.disable","keyguardLock="+keyguardLock);
         if (keyguardLock != null)
             keyguardLock.disableKeyguard();
     }
 
     public void reenableKeyguard()
     {
-        GlobalData.logE("$$$ Keyguard.reenable","keyguardLock="+keyguardLock);
+        PPApplication.logE("$$$ Keyguard.reenable","keyguardLock="+keyguardLock);
         if (keyguardLock != null)
             keyguardLock.reenableKeyguard();
     }

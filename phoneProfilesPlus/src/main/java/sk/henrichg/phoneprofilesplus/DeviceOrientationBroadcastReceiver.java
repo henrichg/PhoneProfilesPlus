@@ -13,58 +13,58 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### DeviceOrientationBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### DeviceOrientationBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "-----------");
+            PPApplication.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "-----------");
 
             if (PhoneProfilesService.mDeviceDistance == PhoneProfilesService.DEVICE_ORIENTATION_DEVICE_IS_NEAR)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is NEAR.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is NEAR.");
             else
             if (PhoneProfilesService.mDeviceDistance == PhoneProfilesService.DEVICE_ORIENTATION_DEVICE_IS_FAR)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is FAR");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "now device is FAR");
             else
             if (PhoneProfilesService.mDeviceDistance == PhoneProfilesService.DEVICE_ORIENTATION_UNKNOWN)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "unknown distance");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "unknown distance");
 
             if (PhoneProfilesService.mDisplayUp == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_UP)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(D) now screen is facing up.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(D) now screen is facing up.");
             if (PhoneProfilesService.mDisplayUp == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_DOWN)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(D) now screen is facing down.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(D) now screen is facing down.");
             if (PhoneProfilesService.mDisplayUp == PhoneProfilesService.DEVICE_ORIENTATION_UNKNOWN)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(D) unknown display orientation.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(D) unknown display orientation.");
 
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_UP)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now screen is facing up.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now screen is facing up.");
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_DISPLAY_DOWN)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now screen is facing down.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now screen is facing down.");
 
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.mDisplayUp)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now device is horizontal.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now device is horizontal.");
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_UP_SIDE_UP)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now up side is facing up.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now up side is facing up.");
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_DOWN_SIDE_UP)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now down side is facing up.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now down side is facing up.");
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_RIGHT_SIDE_UP)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now right side is facing up.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now right side is facing up.");
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_LEFT_SIDE_UP)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now left side is facing up.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) now left side is facing up.");
             if (PhoneProfilesService.mSideUp == PhoneProfilesService.DEVICE_ORIENTATION_UNKNOWN)
-                GlobalData.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) unknown side.");
+                PPApplication.logE("DeviceOrientationBroadcastReceiver.onReceive", "(S) unknown side.");
 
-            GlobalData.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "-----------");
+            PPApplication.logE("@@@ DeviceOrientationBroadcastReceiver.onReceive", "-----------");
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) == 0) {
                 if (PhoneProfilesService.instance != null) {
-                    GlobalData.stopOrientationScanner(dataWrapper.context);
+                    PPApplication.stopOrientationScanner(dataWrapper.context);
                 }
                 dataWrapper.invalidateDataWrapper();
                 return;
@@ -72,7 +72,7 @@ public class DeviceOrientationBroadcastReceiver extends WakefulBroadcastReceiver
 
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+            eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
             startWakefulService(context, eventsServiceIntent);
         }
 

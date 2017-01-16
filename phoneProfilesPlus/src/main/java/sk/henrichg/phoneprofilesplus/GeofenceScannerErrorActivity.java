@@ -21,7 +21,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        GlobalData.loadPreferences(getApplicationContext());
+        PPApplication.loadPreferences(getApplicationContext());
 
         dialogError = getIntent().getIntExtra(GeofencesScanner.DIALOG_ERROR, 0);
 

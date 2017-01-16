@@ -13,23 +13,23 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### RefreshGUIBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### RefreshGUIBroadcastReceiver.onReceive", "xxx");
 
-        GlobalData.logE("$$$ RefreshGUIBroadcastReceiver","xxx");
+        PPApplication.logE("$$$ RefreshGUIBroadcastReceiver","xxx");
 
         boolean refreshIcons = intent.getBooleanExtra(EXTRA_REFRESH_ICONS, false);
 
         ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
         if (activateProfileActivity != null)
         {
-            GlobalData.logE("$$$ RefreshGUIBroadcastReceiver","ActivateProfileActivity");
+            PPApplication.logE("$$$ RefreshGUIBroadcastReceiver","ActivateProfileActivity");
             activateProfileActivity.refreshGUI(refreshIcons);
         }
 
         EditorProfilesActivity editorProfilesActivity = EditorProfilesActivity.getInstance();
         if (editorProfilesActivity != null)
         {
-            GlobalData.logE("$$$ RefreshGUIBroadcastReceiver","EditorProfilesActivity");
+            PPApplication.logE("$$$ RefreshGUIBroadcastReceiver","EditorProfilesActivity");
             editorProfilesActivity.refreshGUI(refreshIcons, true);
         }
 

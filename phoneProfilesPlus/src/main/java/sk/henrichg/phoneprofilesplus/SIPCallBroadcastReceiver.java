@@ -20,43 +20,43 @@ public class SIPCallBroadcastReceiver extends BroadcastReceiver {
 
                 @Override
                 public void onRinging(SipAudioCall call, SipProfile caller) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onRinging");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onRinging");
                 }
                 @Override
                 public void onCallBusy(SipAudioCall call) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onCallBusy");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onCallBusy");
                 }
                 @Override
                 public void onCallEnded(SipAudioCall call) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onCallEnded");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onCallEnded");
                 }
                 @Override
                 public void onCallEstablished(SipAudioCall call) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onCallEstablished");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onCallEstablished");
                 }
                 @Override
                 public void onCallHeld(SipAudioCall call) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onCallHeld");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onCallHeld");
                 }
                 @Override
                 public void onCalling(SipAudioCall call) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onCalling");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onCalling");
                 }
                 @Override
                 public void onChanged(SipAudioCall call) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onChanged");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onChanged");
                 }
                 @Override
                 public void onError(SipAudioCall call, int errorCode, String errorMessage) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onError");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onError");
                 }
                 @Override
                 public void onReadyToCall(SipAudioCall call) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onReadyToCall");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onReadyToCall");
                 }
                 @Override
                 public void onRingingBack(SipAudioCall call) {
-                    GlobalData.logE("SIPCallBroadcastReceiver","onRingingBack");
+                    PPApplication.logE("SIPCallBroadcastReceiver","onRingingBack");
                 }
 
             };

@@ -57,7 +57,7 @@ public class BluetoothNamePreference extends DialogPreference {
         bluetoothList = new ArrayList<>();
         customBluetoothList = new ArrayList<>();
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
     }
 
     @Override
@@ -343,13 +343,13 @@ public class BluetoothNamePreference extends DialogPreference {
 
                 if (_forRescan)
                 {
-                    GlobalData.setForceOneBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
-                    GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
+                    PPApplication.setForceOneBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
+                    PPApplication.setForceOneLEBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     BluetoothScanAlarmBroadcastReceiver.startScanner(context);
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
-                    GlobalData.sleep(200);
+                    PPApplication.sleep(200);
                     ScannerService.waitForForceOneBluetoothScanEnd(context, this);
                 }
 

@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class GlobalData extends Application {
+public class PPApplication extends Application {
 
     static String PACKAGE_NAME;
 
@@ -60,9 +60,9 @@ public class GlobalData extends Application {
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
 
-                                         //+"|##### GlobalData.onCreate"
-                                         +"|GlobalData._isRooted"
-                                         +"|GlobalData.isRootGranted"
+                                         //+"|##### PPApplication.onCreate"
+                                         +"|PPApplication._isRooted"
+                                         +"|PPApplication.isRootGranted"
 
                                          +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                          +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
@@ -72,7 +72,7 @@ public class GlobalData extends Application {
                                          //+"|PPNotificationListenerService.getZenMode"
                                          //+"|InterruptionFilterChangedBroadcastReceiver.getZenMode"
                                          //+"|### SettingsContentObserver"
-                                         //+"|GlobalData.vibrationIsOn"
+                                         //+"|PPApplication.vibrationIsOn"
                                          //+"|ActivateProfileHelper.setVolumes"
 
                                          //+"|BootUpReceiver.onReceive"
@@ -477,7 +477,7 @@ public class GlobalData extends Application {
 
         super.onCreate();
 
-        GlobalData.logE("##### GlobalData.onCreate", "xxx");
+        PPApplication.logE("##### PPApplication.onCreate", "xxx");
 
         //firstStartServiceStarted = false;
 
@@ -486,7 +486,7 @@ public class GlobalData extends Application {
         // initialization
         loadPreferences(this);
 
-        GlobalData.initRoot();
+        PPApplication.initRoot();
 
         /*
         try {
@@ -501,9 +501,9 @@ public class GlobalData extends Application {
         }
         */
 
-        //Log.d("GlobalData.onCreate", "memory usage (after create activateProfileHelper)=" + Debug.getNativeHeapAllocatedSize());
+        //Log.d("PPApplication.onCreate", "memory usage (after create activateProfileHelper)=" + Debug.getNativeHeapAllocatedSize());
 
-        //Log.d("GlobalData.onCreate","xxx");
+        //Log.d("PPApplication.onCreate","xxx");
 
     }
 
@@ -519,7 +519,7 @@ public class GlobalData extends Application {
     static private void resetLog()
     {
         File sd = Environment.getExternalStorageDirectory();
-        File exportDir = new File(sd, GlobalData.EXPORT_PATH);
+        File exportDir = new File(sd, PPApplication.EXPORT_PATH);
         if (!(exportDir.exists() && exportDir.isDirectory()))
             //noinspection ResultOfMethodCallIgnored
             exportDir.mkdirs();
@@ -538,7 +538,7 @@ public class GlobalData extends Application {
         try
         {
             File sd = Environment.getExternalStorageDirectory();
-            File exportDir = new File(sd, GlobalData.EXPORT_PATH);
+            File exportDir = new File(sd, PPApplication.EXPORT_PATH);
             if (!(exportDir.exists() && exportDir.isDirectory()))
                 //noinspection ResultOfMethodCallIgnored
                 exportDir.mkdirs();
@@ -636,7 +636,7 @@ public class GlobalData extends Application {
 
     static public void loadPreferences(Context context)
     {
-        GlobalData.logE("GlobalData.loadPreferences", "xxx");
+        PPApplication.logE("PPApplication.loadPreferences", "xxx");
 
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -811,45 +811,45 @@ public class GlobalData extends Application {
         profile._porder = 0;
         profile._duration = 0;
         profile._afterDurationDo = Profile.AFTERDURATIONDO_NOTHING;
-        profile._volumeRingerMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE, "1")); // ring
-        profile._volumeZenMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE, "1")); // all
-        profile._volumeRingtone = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_RINGTONE, getVolumeLevelString(71, maximumValueRing) + "|0|0");
-        profile._volumeNotification = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION, getVolumeLevelString(86, maximumValueNotification)+"|0|0");
-        profile._volumeMedia = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_MEDIA, getVolumeLevelString(80, maximumValueMusic)+"|0|0");
-        profile._volumeAlarm = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_ALARM, getVolumeLevelString(100, maximumValueAlarm)+"|0|0");
-        profile._volumeSystem = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_SYSTEM, getVolumeLevelString(70, maximumValueSystem)+"|0|0");
-        profile._volumeVoice = preferences.getString(GlobalData.PREF_PROFILE_VOLUME_VOICE, getVolumeLevelString(70, maximumValueVoicecall)+"|0|0");
-        profile._soundRingtoneChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
-        profile._soundRingtone = preferences.getString(GlobalData.PREF_PROFILE_SOUND_RINGTONE, Settings.System.DEFAULT_RINGTONE_URI.toString());
-        profile._soundNotificationChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
-        profile._soundNotification = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, Settings.System.DEFAULT_NOTIFICATION_URI.toString());
-        profile._soundAlarmChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
-        profile._soundAlarm = preferences.getString(GlobalData.PREF_PROFILE_SOUND_ALARM, Settings.System.DEFAULT_ALARM_ALERT_URI.toString());
-        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "2")); // OFF
-        profile._deviceWiFi = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WIFI, "2")); // OFF
-        profile._deviceBluetooth = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH, "2")); //OFF
-        profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "2")); // 30 seconds
-        profile._deviceBrightness = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|0|1|0");  // automatic on
-        profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
-        profile._deviceWallpaper = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER, "-|0");
-        profile._deviceMobileData = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA, "1")); //ON
-        profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, "0"));
-        profile._deviceGPS = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_GPS, "2")); //OFF
-        profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0"));
-        profile._deviceRunApplicationPackageName = preferences.getString(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
-        profile._deviceAutosync = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC, "1")); // ON
-        profile._deviceAutoRotate = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE, "1")); // ON
-        profile._deviceLocationServicePrefs = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, "0"));
-        profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
-        profile._deviceNFC = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NFC, "0"));
-        profile._deviceKeyguard = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD, "0"));
-        profile._vibrationOnTouch = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
-        profile._deviceWiFiAP = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP, "2")); // OFF
-        profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0"));
-        profile._deviceNetworkType = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
-        profile._notificationLed = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_NOTIFICATION_LED, "0"));
-        profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
-        profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0"));
+        profile._volumeRingerMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, "1")); // ring
+        profile._volumeZenMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, "1")); // all
+        profile._volumeRingtone = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGTONE, getVolumeLevelString(71, maximumValueRing) + "|0|0");
+        profile._volumeNotification = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION, getVolumeLevelString(86, maximumValueNotification)+"|0|0");
+        profile._volumeMedia = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_MEDIA, getVolumeLevelString(80, maximumValueMusic)+"|0|0");
+        profile._volumeAlarm = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_ALARM, getVolumeLevelString(100, maximumValueAlarm)+"|0|0");
+        profile._volumeSystem = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_SYSTEM, getVolumeLevelString(70, maximumValueSystem)+"|0|0");
+        profile._volumeVoice = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_VOICE, getVolumeLevelString(70, maximumValueVoicecall)+"|0|0");
+        profile._soundRingtoneChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
+        profile._soundRingtone = preferences.getString(PPApplication.PREF_PROFILE_SOUND_RINGTONE, Settings.System.DEFAULT_RINGTONE_URI.toString());
+        profile._soundNotificationChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
+        profile._soundNotification = preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION, Settings.System.DEFAULT_NOTIFICATION_URI.toString());
+        profile._soundAlarmChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
+        profile._soundAlarm = preferences.getString(PPApplication.PREF_PROFILE_SOUND_ALARM, Settings.System.DEFAULT_ALARM_ALERT_URI.toString());
+        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "2")); // OFF
+        profile._deviceWiFi = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WIFI, "2")); // OFF
+        profile._deviceBluetooth = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH, "2")); //OFF
+        profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "2")); // 30 seconds
+        profile._deviceBrightness = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|0|1|0");  // automatic on
+        profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
+        profile._deviceWallpaper = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER, "-|0");
+        profile._deviceMobileData = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA, "1")); //ON
+        profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, "0"));
+        profile._deviceGPS = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_GPS, "2")); //OFF
+        profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0"));
+        profile._deviceRunApplicationPackageName = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
+        profile._deviceAutosync = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_AUTOSYNC, "1")); // ON
+        profile._deviceAutoRotate = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_AUTOROTATE, "1")); // ON
+        profile._deviceLocationServicePrefs = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, "0"));
+        profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
+        profile._deviceNFC = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_NFC, "0"));
+        profile._deviceKeyguard = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_KEYGUARD, "0"));
+        profile._vibrationOnTouch = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
+        profile._deviceWiFiAP = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP, "2")); // OFF
+        profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0"));
+        profile._deviceNetworkType = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
+        profile._notificationLed = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_NOTIFICATION_LED, "0"));
+        profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
+        profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0"));
 
         return profile;
     }
@@ -1613,7 +1613,7 @@ public class GlobalData extends Application {
         {
             if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
             {
-                logE("GlobalData.hardwareCheck","NFC=presented");
+                logE("PPApplication.hardwareCheck","NFC=presented");
 
                 // device ma nfc
                 if (isRooted())
@@ -1623,7 +1623,7 @@ public class GlobalData extends Application {
             }
             else
             {
-                logE("GlobalData.hardwareCheck","NFC=not presented");
+                logE("PPApplication.hardwareCheck","NFC=not presented");
                 notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
         }
@@ -1949,7 +1949,7 @@ public class GlobalData extends Application {
     static private boolean serviceBinaryExists;
 
     static synchronized void initRoot() {
-        //synchronized (GlobalData.rootMutex) {
+        //synchronized (PPApplication.rootMutex) {
             //rootChecked = false;
             rooted = false;
             //settingsBinaryChecked = false;
@@ -1970,7 +1970,7 @@ public class GlobalData extends Application {
         //if (!rootChecked)
         if (!rooted)
         {
-            GlobalData.logE("GlobalData._isRooted", "start isRootAvailable");
+            PPApplication.logE("PPApplication._isRooted", "start isRootAvailable");
             //rootChecking = true;
             /*try {
                 RootTools.closeAllShells();
@@ -1980,11 +1980,11 @@ public class GlobalData extends Application {
             //if (RootTools.isRootAvailable()) {
             if (RootToolsSmall.isRooted()) {
                 // zariadenie je rootnute
-                GlobalData.logE("GlobalData._isRooted", "root available");
+                PPApplication.logE("PPApplication._isRooted", "root available");
                 //rootChecked = true;
                 rooted = true;
             } else {
-                GlobalData.logE("GlobalData._isRooted", "root NOT available");
+                PPApplication.logE("PPApplication._isRooted", "root NOT available");
                 //rootChecked = true;
                 rooted = false;
                 settingsBinaryExists = false;
@@ -2003,7 +2003,7 @@ public class GlobalData extends Application {
     }
 
     static boolean isRooted() {
-        //synchronized (GlobalData.rootMutex) {
+        //synchronized (PPApplication.rootMutex) {
             _isRooted();
         //}
         return rooted;
@@ -2013,10 +2013,10 @@ public class GlobalData extends Application {
     {
         RootShell.debugMode = rootToolsDebug;
 
-        //synchronized (GlobalData.rootMutex) {
+        //synchronized (PPApplication.rootMutex) {
 
             if (_isRooted()) {
-                GlobalData.logE("GlobalData.isRootGranted", "start isAccessGiven");
+                PPApplication.logE("PPApplication.isRootGranted", "start isAccessGiven");
                 //grantChecking = true;
                 /*try {
                     RootTools.closeAllShells();
@@ -2025,16 +2025,16 @@ public class GlobalData extends Application {
                 }*/
                 if (RootTools.isAccessGiven()) {
                     // root grantnuty
-                    GlobalData.logE("GlobalData.isRootGranted", "root granted");
+                    PPApplication.logE("PPApplication.isRootGranted", "root granted");
                     return true;
                 } else {
                     // grant odmietnuty
-                    GlobalData.logE("GlobalData.isRootGranted", "root NOT granted");
+                    PPApplication.logE("PPApplication.isRootGranted", "root NOT granted");
                     return false;
                 }
             }
             else {
-                GlobalData.logE("GlobalData.isRootGranted", "not rooted");
+                PPApplication.logE("PPApplication.isRootGranted", "not rooted");
                 return false;
             }
         //}
@@ -2047,8 +2047,8 @@ public class GlobalData extends Application {
         //if (!settingsBinaryChecked)
         if (!settingsBinaryExists)
         {
-            //synchronized (GlobalData.rootMutex) {
-                GlobalData.logE("GlobalData.settingsBinaryExists", "start");
+            //synchronized (PPApplication.rootMutex) {
+                PPApplication.logE("PPApplication.settingsBinaryExists", "start");
                 //settingsBinaryChecking = true;
                 /*try {
                     RootTools.closeAllShells();
@@ -2061,7 +2061,7 @@ public class GlobalData extends Application {
                 //settingsBinaryChecked = true;
             //}
         }
-        GlobalData.logE("GlobalData.settingsBinaryExists", "settingsBinaryExists="+settingsBinaryExists);
+        PPApplication.logE("PPApplication.settingsBinaryExists", "settingsBinaryExists="+settingsBinaryExists);
         return settingsBinaryExists;
     }
 
@@ -2072,8 +2072,8 @@ public class GlobalData extends Application {
         //if (!serviceBinaryChecked)
         if (!serviceBinaryExists)
         {
-            //synchronized (GlobalData.rootMutex) {
-                GlobalData.logE("GlobalData.serviceBinaryExists", "start");
+            //synchronized (PPApplication.rootMutex) {
+                PPApplication.logE("PPApplication.serviceBinaryExists", "start");
                 //serviceBinaryChecking = true;
                 /*try {
                     RootTools.closeAllShells();
@@ -2086,7 +2086,7 @@ public class GlobalData extends Application {
                 //serviceBinaryChecked = true;
             //}
         }
-        GlobalData.logE("GlobalData.serviceBinaryExists", "serviceBinaryExists="+serviceBinaryExists);
+        PPApplication.logE("PPApplication.serviceBinaryExists", "serviceBinaryExists="+serviceBinaryExists);
         return serviceBinaryExists;
     }
 
@@ -2103,7 +2103,7 @@ public class GlobalData extends Application {
         //if (!isSELinuxEnforcingChecked)
         if (!isSELinuxEnforcing)
         {
-            //synchronized (GlobalData.rootMutex) {
+            //synchronized (PPApplication.rootMutex) {
                 boolean enforcing = false;
 
                 // First known firmware with SELinux built-in was a 4.2 (17)
@@ -2137,7 +2137,7 @@ public class GlobalData extends Application {
             //}
         }
         
-        GlobalData.logE("GlobalData.isSELinuxEnforcing", "isSELinuxEnforcing="+isSELinuxEnforcing);
+        PPApplication.logE("PPApplication.isSELinuxEnforcing", "isSELinuxEnforcing="+isSELinuxEnforcing);
         
         return isSELinuxEnforcing;
     }
@@ -2171,7 +2171,7 @@ public class GlobalData extends Application {
                 commandWait(command);
                 suVersionChecked = true;
             } catch (Exception e) {
-                Log.e("GlobalData.getSUVersion", "Error on run su");
+                Log.e("PPApplication.getSUVersion", "Error on run su");
             }
         }
         return suVersion;
@@ -2389,7 +2389,7 @@ public class GlobalData extends Application {
                     else
                         newNotificationVolume = oldNotificationVolume + 1;
                     audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, 0);
-                    GlobalData.sleep(500);
+                    PPApplication.sleep(500);
                     if (audioManager.getStreamVolume(AudioManager.STREAM_RING) == newNotificationVolume)
                         merged = true;
                     else
@@ -2399,7 +2399,7 @@ public class GlobalData extends Application {
                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, 0);
                 audioManager.setRingerMode(ringerMode);
 
-                //Log.d("GlobalData.setMergedRingNotificationVolumes", "merged="+merged);
+                //Log.d("PPApplication.setMergedRingNotificationVolumes", "merged="+merged);
 
                 Editor editor = preferences.edit();
                 editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
@@ -2422,9 +2422,9 @@ public class GlobalData extends Application {
         //else
         //    vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, 0);
 
-        GlobalData.logE("GlobalData.vibrationIsOn", "ringerMode="+ringerMode);
-        GlobalData.logE("GlobalData.vibrationIsOn", "vibrateType="+vibrateType);
-        //GlobalData.logE("GlobalData.vibrationIsOn", "vibrateWhenRinging="+vibrateWhenRinging);
+        PPApplication.logE("PPApplication.vibrationIsOn", "ringerMode="+ringerMode);
+        PPApplication.logE("PPApplication.vibrationIsOn", "vibrateType="+vibrateType);
+        //PPApplication.logE("PPApplication.vibrationIsOn", "vibrateWhenRinging="+vibrateWhenRinging);
 
         return (ringerMode == AudioManager.RINGER_MODE_VIBRATE) ||
                 (vibrateType == AudioManager.VIBRATE_SETTING_ON) ||
@@ -2442,7 +2442,7 @@ public class GlobalData extends Application {
             input.close();
         }
         catch (IOException ex) {
-            Log.e("GlobalData.getROMManufacturer", "Unable to read sysprop ro.product.brand", ex);
+            Log.e("PPApplication.getROMManufacturer", "Unable to read sysprop ro.product.brand", ex);
             return null;
         }
         finally {
@@ -2451,7 +2451,7 @@ public class GlobalData extends Application {
                     input.close();
                 }
                 catch (IOException e) {
-                    Log.e("GlobalData.getROMManufacturer", "Exception while closing InputStream", e);
+                    Log.e("PPApplication.getROMManufacturer", "Exception while closing InputStream", e);
                 }
             }
         }

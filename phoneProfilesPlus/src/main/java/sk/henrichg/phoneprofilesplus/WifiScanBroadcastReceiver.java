@@ -13,25 +13,25 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
-        //GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
+        PPApplication.logE("##### WifiScanBroadcastReceiver.onReceive","xxx");
+        //PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive", "----- start");
 
         if (WifiScanAlarmBroadcastReceiver.wifi == null)
             WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
 
             //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
-            //GlobalData.logE("$$$ WifiAP", "WifiScanBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
+            //PPApplication.logE("$$$ WifiAP", "WifiScanBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
 
-            //GlobalData.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
+            //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
 
             WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
             //if ((android.os.Build.VERSION.SDK_INT < 23) || (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)))
@@ -41,25 +41,25 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
             /*
             List<WifiSSIDData> scanResults = WifiScanAlarmBroadcastReceiver.getScanResults(context);
             if (scanResults != null) {
-                GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults.size="+scanResults.size());
+                PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults.size="+scanResults.size());
                 //for (WifiSSIDData result : scanResults) {
-                //    GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
+                //    PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
                 //}
             }
             else
-                GlobalData.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults=null");
+                PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults=null");
             */
 
             boolean scanStarted = (WifiScanAlarmBroadcastReceiver.getWaitForResults(context));
 
             if (scanStarted)
             {
-                GlobalData.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted");
+                PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted");
 
                 /*
                 if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context))
                 {
-                    GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive","disable wifi");
+                    PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive","disable wifi");
                     WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
                     // not call this, due WifiConnectionBroadcastReceiver
                     //WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
@@ -68,21 +68,21 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
                 WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 
-                int forceOneScan = GlobalData.getForceOneWifiScan(context);
-                GlobalData.setForceOneWifiScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+                int forceOneScan = PPApplication.getForceOneWifiScan(context);
+                PPApplication.setForceOneWifiScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
 
-                if (forceOneScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
+                if (forceOneScan != PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                 {
                     // start service
                     Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                    eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                    eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                     startWakefulService(context, eventsServiceIntent);
                 }
             }
 
         }
 
-        GlobalData.logE("@@@ WifiScanBroadcastReceiver.onReceive","----- end");
+        PPApplication.logE("@@@ WifiScanBroadcastReceiver.onReceive","----- end");
 
     }
 

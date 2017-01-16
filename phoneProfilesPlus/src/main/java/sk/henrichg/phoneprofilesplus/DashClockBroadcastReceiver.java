@@ -13,13 +13,13 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### DashClockBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### DashClockBroadcastReceiver.onReceive", "xxx");
 
         PhoneProfilesDashClockExtension dashClockExtension =
                 PhoneProfilesDashClockExtension.getInstance();
         if (dashClockExtension != null)
         {
-            GlobalData.loadPreferences(context);
+            PPApplication.loadPreferences(context);
             dashClockExtension.updateExtension();
         }
 

@@ -64,12 +64,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
 
-        //GlobalData.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
+        //PPApplication.logE("#### PPNotificationListenerService.onNotificationPosted","xxx");
 
-        //GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
+        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
         //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
         //String alarmTimeS = sdf.format(sbn.getPostTime());
-        //GlobalData.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
+        //PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "time=" + alarmTimeS);
 
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long time = sbn.getPostTime() + gmtOffset;
@@ -79,9 +79,9 @@ public class PPNotificationListenerService extends NotificationListenerService {
         saveNotifiedPackages(context);
 
         Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
-        //intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
-        //intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, time);
-        intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
+        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
+        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
+        intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "posted");
         context.sendBroadcast(intent);
 
     }
@@ -96,16 +96,16 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
 
-        //GlobalData.logE("#### PPNotificationListenerService.onNotificationRemoved","xxx");
+        //PPApplication.logE("#### PPNotificationListenerService.onNotificationRemoved","xxx");
 
         getNotifiedPackages(context);
         removeNotifiedPackage(sbn.getPackageName());
         saveNotifiedPackages(context);
 
         Intent intent = new Intent(context, NotificationBroadcastReceiver.class);
-        //intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
-        //intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, time);
-        intent.putExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
+        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME, sbn.getPackageName());
+        //intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, time);
+        intent.putExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED, "removed");
         context.sendBroadcast(intent);
 
     }
@@ -123,8 +123,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onInterruptionFilterChanged(int interruptionFilter) {
         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
         if (((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) || a60) {
-            GlobalData.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
-            GlobalData.logE(TAG, "onInterruptionFilterChanged(internalChange=" + RingerModeChangeReceiver.internalChange + ")");
+            PPApplication.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
+            PPApplication.logE(TAG, "onInterruptionFilterChanged(internalChange=" + RingerModeChangeReceiver.internalChange + ")");
             if (!RingerModeChangeReceiver.internalChange) {
 
                 final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
@@ -133,13 +133,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 int zenMode = 0;
                 switch (interruptionFilter) {
                     case NotificationListenerService.INTERRUPTION_FILTER_ALL:
-                        if (GlobalData.vibrationIsOn(getApplicationContext(), audioManager, true))
+                        if (PPApplication.vibrationIsOn(getApplicationContext(), audioManager, true))
                             zenMode = 4;
                         else
                             zenMode = 1;
                         break;
                     case NotificationListenerService.INTERRUPTION_FILTER_PRIORITY:
-                        if (GlobalData.vibrationIsOn(getApplicationContext(), audioManager, true))
+                        if (PPApplication.vibrationIsOn(getApplicationContext(), audioManager, true))
                             zenMode = 5;
                         else
                             zenMode = 2;
@@ -151,11 +151,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         zenMode = 6;
                         break;
                 }
-                GlobalData.logE(TAG, "onInterruptionFilterChanged(zenMode=" + zenMode + ')');
+                PPApplication.logE(TAG, "onInterruptionFilterChanged(zenMode=" + zenMode + ')');
                 if (zenMode != 0) {
                     //Log.e(TAG, "onInterruptionFilterChanged  new zenMode=" + zenMode);
-                    GlobalData.setRingerMode(getApplicationContext(), 5);
-                    GlobalData.setZenMode(getApplicationContext(), zenMode);
+                    PPApplication.setRingerMode(getApplicationContext(), 5);
+                    PPApplication.setZenMode(getApplicationContext(), zenMode);
                 }
             }
 
@@ -166,17 +166,17 @@ public class PPNotificationListenerService extends NotificationListenerService {
     private static int getZenMode(Context context, AudioManager audioManager) {
         // convert to profile zenMode
         int zenMode = 0;
-        int systemZenMode = GlobalData.getSystemZenMode(context, -1);
-        GlobalData.logE("PPNotificationListenerService.getZenMode", "systemZenMode=" + systemZenMode);
+        int systemZenMode = PPApplication.getSystemZenMode(context, -1);
+        PPApplication.logE("PPNotificationListenerService.getZenMode", "systemZenMode=" + systemZenMode);
         switch (systemZenMode) {
             case ActivateProfileHelper.ZENMODE_ALL:
-                if (GlobalData.vibrationIsOn(context, audioManager, true))
+                if (PPApplication.vibrationIsOn(context, audioManager, true))
                     zenMode = 4;
                 else
                     zenMode = 1;
                 break;
             case ActivateProfileHelper.ZENMODE_PRIORITY:
-                if (GlobalData.vibrationIsOn(context, audioManager, true))
+                if (PPApplication.vibrationIsOn(context, audioManager, true))
                     zenMode = 5;
                 else
                     zenMode = 2;
@@ -188,7 +188,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 zenMode = 6;
                 break;
         }
-        GlobalData.logE("PPNotificationListenerService.getZenMode", "zenMode=" + zenMode);
+        PPApplication.logE("PPNotificationListenerService.getZenMode", "zenMode=" + zenMode);
         return zenMode;
     }
 
@@ -197,8 +197,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) || a60) {
             int zenMode = getZenMode(context, audioManager);
             if (zenMode != 0) {
-                GlobalData.setRingerMode(context, 5);
-                GlobalData.setZenMode(context, zenMode);
+                PPApplication.setRingerMode(context, 5);
+                PPApplication.setZenMode(context, zenMode);
             }
         }
     }
@@ -349,14 +349,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     public static void getNotifiedPackages(Context context)
     {
-        synchronized (GlobalData.notificationsChangeMutex) {
+        synchronized (PPApplication.notificationsChangeMutex) {
 
             if (notifications == null)
                 notifications = new ArrayList<>();
 
             notifications.clear();
 
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.POSTED_NOTIFICATIONS_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.POSTED_NOTIFICATIONS_PREFS_NAME, Context.MODE_PRIVATE);
 
             int count = preferences.getInt(POSTED_NOTIFICATIONS_COUNT_PREF, 0);
 
@@ -374,12 +374,12 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     private static void saveNotifiedPackages(Context context)
     {
-        synchronized (GlobalData.notificationsChangeMutex) {
+        synchronized (PPApplication.notificationsChangeMutex) {
 
             if (notifications == null)
                 notifications = new ArrayList<>();
 
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.POSTED_NOTIFICATIONS_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.POSTED_NOTIFICATIONS_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 
             editor.clear();
@@ -399,7 +399,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     private void addNotifiedPackage(String packageName, long time)
     {
-        synchronized (GlobalData.notificationsChangeMutex) {
+        synchronized (PPApplication.notificationsChangeMutex) {
 
             if (notifications == null)
                 notifications = new ArrayList<>();
@@ -420,7 +420,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     private void removeNotifiedPackage(String packageName)
     {
-        synchronized (GlobalData.notificationsChangeMutex) {
+        synchronized (PPApplication.notificationsChangeMutex) {
 
             if (notifications == null)
                 notifications = new ArrayList<>();
@@ -441,7 +441,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     public static PostedNotificationData getNotificationPosted(String packageName)
     {
-        synchronized (GlobalData.notificationsChangeMutex) {
+        synchronized (PPApplication.notificationsChangeMutex) {
 
             if (notifications == null)
                 notifications = new ArrayList<>();

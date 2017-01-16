@@ -231,8 +231,8 @@ class EventPreferencesBluetooth extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_DEVICES_TYPE, preferences, context);
 
-        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
-                != GlobalData.PREFERENCE_ALLOWED)
+        if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
+                != PPApplication.PREFERENCE_ALLOWED)
         {
             prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED).setEnabled(false);
             prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME).setEnabled(false);
@@ -244,7 +244,7 @@ class EventPreferencesBluetooth extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
+        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesBluetooth tmp = new EventPreferencesBluetooth(this._event, this._enabled, this._adapterName, this._connectionType, this._devicesType);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -259,7 +259,7 @@ class EventPreferencesBluetooth extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
+                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

@@ -41,10 +41,10 @@ class PhoneProfilesHelper {
         // get package version
         try {
             PackageInfo pinfo = context.getPackageManager().getPackageInfo("sk.henrichg.phoneprofileshelper", 0);
-            GlobalData.logE("PhoneProfilesHelper.isPPHelperInstalled", "found");
+            PPApplication.logE("PhoneProfilesHelper.isPPHelperInstalled", "found");
             PPHelperVersion = pinfo.versionCode;
         } catch (NameNotFoundException e) {
-            GlobalData.logE("PhoneProfilesHelper.isPPHelperInstalled", "not found");
+            PPApplication.logE("PhoneProfilesHelper.isPPHelperInstalled", "not found");
             //e.printStackTrace();
         }
         return PPHelperVersion >= minVersion;
@@ -55,16 +55,16 @@ class PhoneProfilesHelper {
         boolean OK;
         errorNoRoot = false;
 
-        /*if (!GlobalData.isRooted(false))
+        /*if (!PPApplication.isRooted(false))
         {
             Log.e("PhoneProfilesHelper.doUninstallPPHelper", "Device is not rooted");
             errorNoRoot = true;
             return false;
         }*/
 
-        if (!GlobalData.isRooted()/*GlobalData.isRootGranted()*/)
+        if (!PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
         {
-            GlobalData.logE("PhoneProfilesHelper.doUninstallPPHelper", "Grant root failed");
+            PPApplication.logE("PhoneProfilesHelper.doUninstallPPHelper", "Grant root failed");
             errorNoRoot = true;
             return false;
         }
@@ -75,34 +75,34 @@ class PhoneProfilesHelper {
         else
             destinationFile = "/system/app/"+destinationFile;
 
-        if (GlobalData.isSELinuxEnforcing())
+        if (PPApplication.isSELinuxEnforcing())
             Shell.defaultContext = Shell.ShellContext.RECOVERY;
         OK = RootTools.remount("/system", "RW");
         boolean remountOK = OK;
         if (!OK)
-            GlobalData.logE("PhoneProfilesHelper.doUninstallPPHelper", "remount RW ERROR");
+            PPApplication.logE("PhoneProfilesHelper.doUninstallPPHelper", "remount RW ERROR");
         if (OK)
             //OK = RootTools.deleteFileOrDirectory(destinationFile, true);
             OK = deleteFile_su(destinationFile);
         if (!OK)
-            GlobalData.logE("PhoneProfilesHelper.doUninstallPPHelper", "delete file ERROR");
+            PPApplication.logE("PhoneProfilesHelper.doUninstallPPHelper", "delete file ERROR");
         if (remountOK)
             //OK =
             RootTools.remount("/system", "RO");
         //if (!OK)
         //    Log.e("PhoneProfilesHelper.doUninstallPPHelper", "remount RO ERROR");
-        if (GlobalData.isSELinuxEnforcing())
+        if (PPApplication.isSELinuxEnforcing())
             Shell.defaultContext = Shell.ShellContext.NORMAL;
 
         /*
         String command1 = "mount -o remount,rw /system";		//mounts the system partition to be writeable
         String command2 = "rm "+destinationFile;				//removes the old systemapp
         String command3 = "mount -o remount,ro /system";		//mounts the system partition to be read-only again
-        //if (GlobalData.isSELinuxEnforcing())
+        //if (PPApplication.isSELinuxEnforcing())
         //{
-        //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.RECOVERY);
-        //	command2 = GlobalData.getSELinuxEnforceCommand(command2, Shell.ShellContext.RECOVERY);
-        //	command3 = GlobalData.getSELinuxEnforceCommand(command3, Shell.ShellContext.RECOVERY);
+        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.RECOVERY);
+        //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.RECOVERY);
+        //	command3 = PPApplication.getSELinuxEnforceCommand(command3, Shell.ShellContext.RECOVERY);
         //}
         Command command = new Command(0, false, command1, command2, command3);
         try {
@@ -325,8 +325,8 @@ class PhoneProfilesHelper {
         List<String> settingsPaths = RootTools.findBinary("rm");
         if (settingsPaths.size() > 0) {
             String command1 = "rm " + file;
-            //if (GlobalData.isSELinuxEnforcing())
-            //	command1 = GlobalData.getSELinuxEnforceCommad(command1);
+            //if (PPApplication.isSELinuxEnforcing())
+            //	command1 = PPApplication.getSELinuxEnforceCommad(command1);
             Command command = new Command(0, false, command1);
             try {
                 //RootTools.closeAllShells();

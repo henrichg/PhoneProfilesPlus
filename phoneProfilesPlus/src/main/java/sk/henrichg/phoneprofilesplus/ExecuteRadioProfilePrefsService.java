@@ -16,34 +16,34 @@ public class ExecuteRadioProfilePrefsService extends IntentService
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- START ----------");
+        PPApplication.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- START ----------");
 
         Context context = getApplicationContext();
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
         DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
 
-        long profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
-        boolean merged = intent.getBooleanExtra(GlobalData.EXTRA_MERGED_PROFILE, false);
+        long profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+        boolean merged = intent.getBooleanExtra(PPApplication.EXTRA_MERGED_PROFILE, false);
         Profile profile = dataWrapper.getProfileById(profile_id, merged);
 
         /*
         // synchronization, wait for end of radio state change
-        GlobalData.logE("@@@ ActivateProfileHelper.executeForRadios", "start waiting for radio change");
-        GlobalData.waitForRadioChangeState(context);
-        GlobalData.logE("@@@ ActivateProfileHelper.executeForRadios", "end waiting for radio change");
+        PPApplication.logE("@@@ ActivateProfileHelper.executeForRadios", "start waiting for radio change");
+        PPApplication.waitForRadioChangeState(context);
+        PPApplication.logE("@@@ ActivateProfileHelper.executeForRadios", "end waiting for radio change");
 
-        GlobalData.setRadioChangeState(context, true);
+        PPApplication.setRadioChangeState(context, true);
         */
 
-        GlobalData.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "before synchronized block");
+        PPApplication.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "before synchronized block");
 
-        synchronized (GlobalData.radioChangeStateMutex) {
+        synchronized (PPApplication.radioChangeStateMutex) {
 
-        GlobalData.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "in synchronized block - start");
+        PPApplication.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "in synchronized block - start");
 
-        profile = GlobalData.getMappedProfile(profile, context);
+        profile = PPApplication.getMappedProfile(profile, context);
         if (profile != null) {
 
             if (Permissions.checkProfileRadioPreferences(context, profile)) {
@@ -54,19 +54,19 @@ public class ExecuteRadioProfilePrefsService extends IntentService
             }
         }
 
-        GlobalData.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "in synchronized block - end");
+        PPApplication.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "in synchronized block - end");
 
         }
 
-        GlobalData.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "after synchronized block");
+        PPApplication.logE("$$$ ExecuteRadioProfilePrefsService.onHandleIntent", "after synchronized block");
 
-        //GlobalData.setRadioChangeState(context, false);
+        //PPApplication.setRadioChangeState(context, false);
 
         dataWrapper.invalidateDataWrapper();
 
-        GlobalData.sleep(500);
+        PPApplication.sleep(500);
 
-        GlobalData.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- END ----------");
+        PPApplication.logE("ExecuteRadioProfilePrefsService.onHandleIntent","-- END ----------");
 
     }
 }

@@ -172,8 +172,8 @@ class EventPreferencesNFC extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_NFC_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_NFC_DURATION, preferences, context);
 
-        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context)
-                != GlobalData.PREFERENCE_ALLOWED)
+        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context)
+                != PPApplication.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
             if (preference != null) preference.setEnabled(false);
@@ -186,7 +186,7 @@ class EventPreferencesNFC extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
+        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesNFC tmp = new EventPreferencesNFC(this._event, this._enabled, this._nfcTags, this._permanentRun, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -201,7 +201,7 @@ class EventPreferencesNFC extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
+                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -221,7 +221,7 @@ class EventPreferencesNFC extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context)
     {
-        boolean enabled = GlobalData.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED;
+        boolean enabled = PPApplication.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
         Preference nfcTagsPreference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
         Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NFC_PERMANENT_RUN);
         Preference durationPreference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
@@ -247,7 +247,7 @@ class EventPreferencesNFC extends EventPreferences {
 
     long computeAlarm()
     {
-        GlobalData.logE("EventPreferencesNFC.computeAlarm","xxx");
+        PPApplication.logE("EventPreferencesNFC.computeAlarm","xxx");
 
         Calendar calEndTime = Calendar.getInstance();
 
@@ -271,7 +271,7 @@ class EventPreferencesNFC extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsService
 
-        GlobalData.logE("EventPreferencesNFC.setSystemRunningEvent","xxx");
+        PPApplication.logE("EventPreferencesNFC.setSystemRunningEvent","xxx");
 
         removeAlarm(context);
     }
@@ -284,7 +284,7 @@ class EventPreferencesNFC extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsService
 
-        GlobalData.logE("EventPreferencesNFC.setSystemPauseEvent","xxx");
+        PPApplication.logE("EventPreferencesNFC.setSystemPauseEvent","xxx");
 
         removeAlarm(context);
 
@@ -299,7 +299,7 @@ class EventPreferencesNFC extends EventPreferences {
     {
         removeAlarm(context);
 
-        GlobalData.logE("EventPreferencesNFC.removeSystemEvent", "xxx");
+        PPApplication.logE("EventPreferencesNFC.removeSystemEvent", "xxx");
     }
 
     public void removeAlarm(Context context)
@@ -311,7 +311,7 @@ class EventPreferencesNFC extends EventPreferences {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("EventPreferencesNFC.removeAlarm","alarm found");
+            PPApplication.logE("EventPreferencesNFC.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
@@ -324,21 +324,21 @@ class EventPreferencesNFC extends EventPreferences {
         if (!_permanentRun) {
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String result = sdf.format(alarmTime);
-            GlobalData.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
+            PPApplication.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
 
             Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
-            //intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
+            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-            else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
             else
-                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + GlobalData.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
         }
     }
 

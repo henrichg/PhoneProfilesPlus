@@ -35,8 +35,8 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
         }
         else {
 
-            String notificationToneChange = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
-            String notificationTone = preferences.getString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, "");
+            String notificationToneChange = preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
+            String notificationTone = preferences.getString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION, "");
             //Log.d("NotificationVolume0DialogPreference.showDialog","notificationToneChange="+notificationToneChange);
             //Log.d("NotificationVolume0DialogPreference.showDialog","notificationTone="+notificationTone);
 
@@ -59,8 +59,8 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "1");
-                    editor.putString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, uriId);
+                    editor.putString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "1");
+                    editor.putString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION, uriId);
                     editor.apply();
                 }
             });
@@ -69,8 +69,8 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
-                    editor.putString(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION, "");
+                    editor.putString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
+                    editor.putString(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION, "");
                     editor.apply();
                 }
             });*/

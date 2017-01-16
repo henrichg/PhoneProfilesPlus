@@ -13,30 +13,30 @@ public class EventCalendarBroadcastReceiver extends WakefulBroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### EventCalendarBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### EventCalendarBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ EventCalendarBroadcastReceiver.onReceive","xxx");
+            PPApplication.logE("@@@ EventCalendarBroadcastReceiver.onReceive","xxx");
 
             /*boolean calendarEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             calendarEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR) > 0;
-            GlobalData.logE("EventCalendarBroadcastReceiver.onReceive","calendarEventsExists="+calendarEventsExists);
+            PPApplication.logE("EventCalendarBroadcastReceiver.onReceive","calendarEventsExists="+calendarEventsExists);
             dataWrapper.invalidateDataWrapper();
 
             if (calendarEventsExists)
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
             //}
 

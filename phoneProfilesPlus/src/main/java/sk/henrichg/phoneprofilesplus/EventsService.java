@@ -38,29 +38,29 @@ public class EventsService extends IntentService
 
         context = getApplicationContext();
 
-        GlobalData.logE("#### EventsService.onHandleIntent", "-- start --------------------------------");
+        PPApplication.logE("#### EventsService.onHandleIntent", "-- start --------------------------------");
 
-        broadcastReceiverType = intent.getStringExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE);
-        GlobalData.logE("#### EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);
+        broadcastReceiverType = intent.getStringExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE);
+        PPApplication.logE("#### EventsService.onHandleIntent", "broadcastReceiverType=" + broadcastReceiverType);
 
         //restartAtEndOfEvent = false;
 
         // disabled for firstStartEvents
-        //if (!GlobalData.getApplicationStarted(context))
+        //if (!PPApplication.getApplicationStarted(context))
         // application is not started
         //	return;
 
-        //GlobalData.setApplicationStarted(context, true);
+        //PPApplication.setApplicationStarted(context, true);
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
         dataWrapper = new DataWrapper(context, true, false, 0);
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        callEventType = preferences.getInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        callEventType = preferences.getInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
-        oldRingerMode = GlobalData.getRingerMode(context);
-        oldZenMode = GlobalData.getZenMode(context);
+        oldRingerMode = PPApplication.getRingerMode(context);
+        oldZenMode = PPApplication.getZenMode(context);
 
         try {
             Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
@@ -78,16 +78,16 @@ public class EventsService extends IntentService
         if (PhoneProfilesService.instance != null) {
             // start of GeofenceScanner
             if (!PhoneProfilesService.isGeofenceScannerStarted())
-                GlobalData.startGeofenceScanner(context);
+                PPApplication.startGeofenceScanner(context);
             // start of CellTowerScanner
             if (!PhoneProfilesService.isPhoneStateStarted()) {
-                GlobalData.logE("EventsService.startPhoneStateScanner", "xxx");
-                //GlobalData.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
-                GlobalData.startPhoneStateScanner(context);
+                PPApplication.logE("EventsService.startPhoneStateScanner", "xxx");
+                //PPApplication.sendMessageToService(this, PhoneProfilesService.MSG_START_PHONE_STATE_SCANNER);
+                PPApplication.startPhoneStateScanner(context);
             }
         }
 
-        if (!GlobalData.getGlobalEventsRuning(context)) {
+        if (!PPApplication.getGlobalEventsRuning(context)) {
             // events are globally stopped
 
             doEndService(intent);
@@ -100,7 +100,7 @@ public class EventsService extends IntentService
         if (PhoneProfilesService.instance != null) {
             if (!PhoneProfilesService.isOrientationScannerStarted()) {
                 if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
-                    GlobalData.startOrientationScanner(context);
+                    PPApplication.startOrientationScanner(context);
             }
         }
 
@@ -110,7 +110,7 @@ public class EventsService extends IntentService
             doEndService(intent);
             dataWrapper.invalidateDataWrapper();
 
-            GlobalData.logE("@@@ EventsService.onHandleIntent", "-- end: not events found --------------------------------");
+            PPApplication.logE("@@@ EventsService.onHandleIntent", "-- end: not events found --------------------------------");
 
             return;
         }
@@ -123,7 +123,7 @@ public class EventsService extends IntentService
         Handler brightnessHandler = new Handler(getMainLooper());
         dataWrapper.getActivateProfileHelper().setBrightnessHandler(brightnessHandler);
 
-        GlobalData.logE("%%%% EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
+        PPApplication.logE("%%%% EventsService.onHandleIntent","broadcastReceiverType="+broadcastReceiverType);
 
         List<Event> eventList = dataWrapper.getEventList();
 
@@ -131,27 +131,27 @@ public class EventsService extends IntentService
                              broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
                              broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)*/);
 
-        boolean interactive = (!isRestart) || intent.getBooleanExtra(GlobalData.EXTRA_INTERACTIVE, false);
+        boolean interactive = (!isRestart) || intent.getBooleanExtra(PPApplication.EXTRA_INTERACTIVE, false);
 
         if (isRestart) {
-            if (intent.getBooleanExtra(GlobalData.EXTRA_UNBLOCKEVENTSRUN, false)) {
+            if (intent.getBooleanExtra(PPApplication.EXTRA_UNBLOCKEVENTSRUN, false)) {
                 // remove alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                GlobalData.setActivatedProfileForDuration(context, 0);
+                PPApplication.setActivatedProfileForDuration(context, 0);
 
-                GlobalData.setEventsBlocked(context, false);
+                PPApplication.setEventsBlocked(context, false);
                 dataWrapper.getDatabaseHandler().unblockAllEvents();
-                GlobalData.setForceRunEventRunning(context, false);
+                PPApplication.setForceRunEventRunning(context, false);
             }
         }
 
         if (broadcastReceiverType.equals(CalendarProviderChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE) ||
                 broadcastReceiverType.equals(SearchCalendarEventsBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
             // search for calendar events
-            GlobalData.logE("EventsService.onHandleIntent", "search for calendar events");
+            PPApplication.logE("EventsService.onHandleIntent", "search for calendar events");
             for (Event _event : eventList) {
                 if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-                    GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                    PPApplication.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                     _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
                 }
             }
@@ -173,14 +173,14 @@ public class EventsService extends IntentService
             // for no-restart events, stet startTime to actual time
             if (broadcastReceiverType.equals(SMSBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
                 // search for sms events, save start time
-                GlobalData.logE("EventsService.onHandleIntent", "search for sms events");
+                PPApplication.logE("EventsService.onHandleIntent", "search for sms events");
                 for (Event _event : eventList) {
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         if (_event._eventPreferencesSMS._enabled) {
-                            GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                            PPApplication.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                             _event._eventPreferencesSMS.saveStartTime(dataWrapper,
-                                    intent.getStringExtra(GlobalData.EXTRA_EVENT_SMS_PHONE_NUMBER),
-                                    intent.getLongExtra(GlobalData.EXTRA_EVENT_SMS_DATE, 0));
+                                    intent.getStringExtra(PPApplication.EXTRA_EVENT_SMS_PHONE_NUMBER),
+                                    intent.getLongExtra(PPApplication.EXTRA_EVENT_SMS_DATE, 0));
                         }
                     }
                 }
@@ -188,15 +188,15 @@ public class EventsService extends IntentService
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 if (broadcastReceiverType.equals(NotificationBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
                     // search for notification events, save start time
-                    GlobalData.logE("EventsService.onHandleIntent", "search for notification events");
+                    PPApplication.logE("EventsService.onHandleIntent", "search for notification events");
                     for (Event _event : eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesNotification._enabled) {
-                                GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                                PPApplication.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                         /*_event._eventPreferencesNotification.saveStartTime(dataWrapper,
-                                intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
-                                intent.getLongExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
-                                if (intent.getStringExtra(GlobalData.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted"))
+                                intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_PACKAGE_NAME),
+                                intent.getLongExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_TIME, 0));*/
+                                if (intent.getStringExtra(PPApplication.EXTRA_EVENT_NOTIFICATION_POSTED_REMOVED).equals("posted"))
                                     _event._eventPreferencesNotification.saveStartTime(dataWrapper);
 
                             }
@@ -206,14 +206,14 @@ public class EventsService extends IntentService
             }
             if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
                 // search for sms events, save start time
-                GlobalData.logE("EventsService.onHandleIntent", "search for nfc events");
+                PPApplication.logE("EventsService.onHandleIntent", "search for nfc events");
                 for (Event _event : eventList) {
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         if (_event._eventPreferencesNFC._enabled) {
-                            GlobalData.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
+                            PPApplication.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                             _event._eventPreferencesNFC.saveStartTime(dataWrapper,
-                                    intent.getStringExtra(GlobalData.EXTRA_EVENT_NFC_TAG_NAME),
-                                    intent.getLongExtra(GlobalData.EXTRA_EVENT_NFC_DATE, 0));
+                                    intent.getStringExtra(PPApplication.EXTRA_EVENT_NFC_TAG_NAME),
+                                    intent.getLongExtra(PPApplication.EXTRA_EVENT_NFC_DATE, 0));
                         }
                     }
                 }
@@ -223,9 +223,9 @@ public class EventsService extends IntentService
         boolean forDelayStartAlarm = broadcastReceiverType.equals(EventDelayStartBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
         boolean forDelayEndAlarm = broadcastReceiverType.equals(EventDelayEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
 
-        //GlobalData.logE("@@@ EventsService.onHandleIntent","isRestart="+isRestart);
-        GlobalData.logE("@@@ EventsService.onHandleIntent","forDelayStartAlarm="+forDelayStartAlarm);
-        GlobalData.logE("@@@ EventsService.onHandleIntent","forDelayEndAlarm="+forDelayEndAlarm);
+        //PPApplication.logE("@@@ EventsService.onHandleIntent","isRestart="+isRestart);
+        PPApplication.logE("@@@ EventsService.onHandleIntent","forDelayStartAlarm="+forDelayStartAlarm);
+        PPApplication.logE("@@@ EventsService.onHandleIntent","forDelayEndAlarm="+forDelayEndAlarm);
 
         // get running events count
         List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
@@ -243,15 +243,15 @@ public class EventsService extends IntentService
 
         if (isRestart)
         {
-            GlobalData.logE("$$$ EventsService.onHandleIntent","restart events");
+            PPApplication.logE("$$$ EventsService.onHandleIntent","restart events");
 
             // 1. pause events
             dataWrapper.sortEventsByStartOrderDesc();
             for (Event _event : eventList)
             {
-                GlobalData.logE("EventsService.onHandleIntent","state PAUSE");
-                GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
-                GlobalData.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
+                PPApplication.logE("EventsService.onHandleIntent","state PAUSE");
+                PPApplication.logE("EventsService.onHandleIntent","event._id="+_event._id);
+                PPApplication.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
 
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
@@ -262,9 +262,9 @@ public class EventsService extends IntentService
             dataWrapper.sortEventsByStartOrderAsc();
             for (Event _event : eventList)
             {
-                GlobalData.logE("EventsService.onHandleIntent","state RUNNING");
-                GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
-                GlobalData.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
+                PPApplication.logE("EventsService.onHandleIntent","state RUNNING");
+                PPApplication.logE("EventsService.onHandleIntent","event._id="+_event._id);
+                PPApplication.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
 
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
@@ -274,7 +274,7 @@ public class EventsService extends IntentService
         }
         else
         {
-            GlobalData.logE("$$$ EventsService.onHandleIntent","NO restart events");
+            PPApplication.logE("$$$ EventsService.onHandleIntent","NO restart events");
 
             //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
@@ -282,9 +282,9 @@ public class EventsService extends IntentService
             dataWrapper.sortEventsByStartOrderDesc();
             for (Event _event : eventList)
             {
-                GlobalData.logE("EventsService.onHandleIntent","state PAUSE");
-                GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
-                GlobalData.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
+                PPApplication.logE("EventsService.onHandleIntent","state PAUSE");
+                PPApplication.logE("EventsService.onHandleIntent","event._id="+_event._id);
+                PPApplication.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
 
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
@@ -295,9 +295,9 @@ public class EventsService extends IntentService
             dataWrapper.sortEventsByStartOrderAsc();
             for (Event _event : eventList)
             {
-                GlobalData.logE("EventsService.onHandleIntent","state RUNNING");
-                GlobalData.logE("EventsService.onHandleIntent","event._id="+_event._id);
-                GlobalData.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
+                PPApplication.logE("EventsService.onHandleIntent","state RUNNING");
+                PPApplication.logE("EventsService.onHandleIntent","event._id="+_event._id);
+                PPApplication.logE("EventsService.onHandleIntent","event.getStatus()="+_event.getStatus());
 
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
@@ -309,9 +309,9 @@ public class EventsService extends IntentService
         ActivateProfileHelper.lockRefresh = false;
 
         if (mergedProfile._id == 0)
-            GlobalData.logE("$$$ EventsService.profile for activation","no profile for activation");
+            PPApplication.logE("$$$ EventsService.profile for activation","no profile for activation");
         else
-            GlobalData.logE("$$$ EventsService.profile for activation","profileName="+mergedProfile._name);
+            PPApplication.logE("$$$ EventsService.profile for activation","profileName="+mergedProfile._name);
 
         //if ((!restartAtEndOfEvent) || isRestart) {
         //    // No any paused events has "Restart events" at end of event
@@ -327,39 +327,39 @@ public class EventsService extends IntentService
             Profile activatedProfile = dataWrapper.getActivatedProfileFromDB();
 
             if (!dataWrapper.getIsManualProfileActivation()) {
-                GlobalData.logE("$$$ EventsService.onHandleIntent", "active profile is NOT activated manually");
-                GlobalData.logE("$$$ EventsService.onHandleIntent", "runningEventCountE=" + runningEventCountE);
+                PPApplication.logE("$$$ EventsService.onHandleIntent", "active profile is NOT activated manually");
+                PPApplication.logE("$$$ EventsService.onHandleIntent", "runningEventCountE=" + runningEventCountE);
                 // no manual profile activation
                 if (runningEventCountE == 0) {
-                    GlobalData.logE("$$$ EventsService.onHandleIntent", "no events running");
+                    PPApplication.logE("$$$ EventsService.onHandleIntent", "no events running");
                     // no events running
-                    long profileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
-                    if (profileId != GlobalData.PROFILE_NO_ACTIVATE) {
-                        GlobalData.logE("$$$ EventsService.onHandleIntent", "default profile is set");
+                    long profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
+                    if (profileId != PPApplication.PROFILE_NO_ACTIVATE) {
+                        PPApplication.logE("$$$ EventsService.onHandleIntent", "default profile is set");
                         long activatedProfileId = 0;
                         if (activatedProfile != null)
                             activatedProfileId = activatedProfile._id;
                         if ((activatedProfileId != profileId) || isRestart) {
                             mergedProfile.mergeProfiles(profileId, dataWrapper);
-                            GlobalData.logE("$$$ EventsService.onHandleIntent", "activated default profile");
+                            PPApplication.logE("$$$ EventsService.onHandleIntent", "activated default profile");
                         }
                     }
                 /*else
                 if (activatedProfile == null)
                 {
                     mergedProfile.mergeProfiles(0, dataWrapper);
-                    GlobalData.logE("### EventsService.onHandleIntent", "not activated profile");
+                    PPApplication.logE("### EventsService.onHandleIntent", "not activated profile");
                 }*/
                 }
             } else {
-                GlobalData.logE("$$$ EventsService.onHandleIntent", "active profile is activated manually");
+                PPApplication.logE("$$$ EventsService.onHandleIntent", "active profile is activated manually");
                 // manual profile activation
-                long profileId = Long.valueOf(GlobalData.applicationBackgroundProfile);
-                if (profileId != GlobalData.PROFILE_NO_ACTIVATE) {
+                long profileId = Long.valueOf(PPApplication.applicationBackgroundProfile);
+                if (profileId != PPApplication.PROFILE_NO_ACTIVATE) {
                     if (activatedProfile == null) {
                         // if not profile activated, activate Default profile
                         mergedProfile.mergeProfiles(profileId, dataWrapper);
-                        GlobalData.logE("$$$ EventsService.onHandleIntent", "not activated profile");
+                        PPApplication.logE("$$$ EventsService.onHandleIntent", "not activated profile");
                     }
                 }
             }
@@ -376,15 +376,15 @@ public class EventsService extends IntentService
                     eventNotificationSound = event._notificationSound;
             }
 
-            GlobalData.logE("$$$ EventsService.onHandleIntent", "mergedProfile=" + mergedProfile);
+            PPApplication.logE("$$$ EventsService.onHandleIntent", "mergedProfile=" + mergedProfile);
 
-            GlobalData.logE("$$$ EventsService.onHandleIntent", "mergedProfile._id=" + mergedProfile._id);
+            PPApplication.logE("$$$ EventsService.onHandleIntent", "mergedProfile._id=" + mergedProfile._id);
             if (mergedProfile._id != 0) {
                 // activate merged profile
-                GlobalData.logE("$$$ EventsService.onHandleIntent", "profileName=" + mergedProfile._name);
-                GlobalData.logE("$$$ EventsService.onHandleIntent", "profileId=" + mergedProfile._id);
-                GlobalData.logE("$$$ EventsService.onHandleIntent", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
-                GlobalData.logE("$$$ EventsService.onHandleIntent", "interactive=" + interactive);
+                PPApplication.logE("$$$ EventsService.onHandleIntent", "profileName=" + mergedProfile._name);
+                PPApplication.logE("$$$ EventsService.onHandleIntent", "profileId=" + mergedProfile._id);
+                PPApplication.logE("$$$ EventsService.onHandleIntent", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
+                PPApplication.logE("$$$ EventsService.onHandleIntent", "interactive=" + interactive);
                 dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
 
@@ -394,7 +394,7 @@ public class EventsService extends IntentService
                 // wait for profile activation
                 //try { Thread.sleep(500); } catch (InterruptedException e) { }
                 //SystemClock.sleep(500);
-                GlobalData.sleep(500);
+                PPApplication.sleep(500);
             } else {
                 /*long prId0 = 0;
                 long prId = 0;
@@ -422,7 +422,7 @@ public class EventsService extends IntentService
 
         dataWrapper.invalidateDataWrapper();
 
-        GlobalData.logE("@@@ EventsService.onHandleIntent","-- end --------------------------------");
+        PPApplication.logE("@@@ EventsService.onHandleIntent","-- end --------------------------------");
 
     }
 
@@ -532,8 +532,8 @@ public class EventsService extends IntentService
     }
 
     private void doEndService(Intent intent) {
-        GlobalData.logE("EventsService.doEndService","broadcastReceiverType="+broadcastReceiverType);
-        GlobalData.logE("EventsService.doEndService","callEventType="+callEventType);
+        PPApplication.logE("EventsService.doEndService","broadcastReceiverType="+broadcastReceiverType);
+        PPApplication.logE("EventsService.doEndService","callEventType="+callEventType);
 
         if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
 
@@ -547,17 +547,17 @@ public class EventsService extends IntentService
                     linkUnlink = true;
                 if (linkUnlink) {
                     Profile profile = dataWrapper.getActivatedProfile();
-                    profile = GlobalData.getMappedProfile(profile, context);
+                    profile = PPApplication.getMappedProfile(profile, context);
                     if (profile != null) {
-                        GlobalData.logE("EventsService.doEndService", "callEventType=" + callEventType);
+                        PPApplication.logE("EventsService.doEndService", "callEventType=" + callEventType);
                         Intent volumeServiceIntent = new Intent(context, ExecuteVolumeProfilePrefsService.class);
-                        volumeServiceIntent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
-                        volumeServiceIntent.putExtra(GlobalData.EXTRA_FOR_PROFILE_ACTIVATION, false);
+                        volumeServiceIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                        volumeServiceIntent.putExtra(PPApplication.EXTRA_FOR_PROFILE_ACTIVATION, false);
                         context.startService(volumeServiceIntent);
                         // wait for link/unlink
                         //try { Thread.sleep(500); } catch (InterruptedException e) { }
                         //SystemClock.sleep(500);
-                        GlobalData.sleep(500);
+                        PPApplication.sleep(500);
                     }
                 }
             } else
@@ -566,10 +566,10 @@ public class EventsService extends IntentService
             if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)) {
                 // start PhoneProfilesService for ringing call simulation
                 Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                lIntent.putExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, true);
-                lIntent.putExtra(GlobalData.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                lIntent.putExtra(GlobalData.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                lIntent.putExtra(GlobalData.EXTRA_OLD_RINGTONE, oldRingtone);
+                lIntent.putExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, true);
+                lIntent.putExtra(PPApplication.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                lIntent.putExtra(PPApplication.EXTRA_OLD_ZEN_MODE, oldZenMode);
+                lIntent.putExtra(PPApplication.EXTRA_OLD_RINGTONE, oldRingtone);
                 context.startService(lIntent);
             }
 
@@ -579,7 +579,7 @@ public class EventsService extends IntentService
                 if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
                         (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
                     Profile profile = dataWrapper.getActivatedProfile();
-                    profile = GlobalData.getMappedProfile(profile, context);
+                    profile = PPApplication.getMappedProfile(profile, context);
                     PhoneCallService.setSpeakerphoneOn(profile, context);
                 }
             } else
@@ -587,10 +587,10 @@ public class EventsService extends IntentService
 
             if ((callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) ||
                 (callEventType == PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
-                SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
-                editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                editor.putInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
+                editor.putString(PPApplication.PREF_EVENT_CALL_PHONE_NUMBER, "");
                 editor.commit();
             }
         }

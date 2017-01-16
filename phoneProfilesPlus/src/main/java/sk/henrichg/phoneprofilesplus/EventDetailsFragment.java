@@ -79,7 +79,7 @@ public class EventDetailsFragment extends Fragment {
         // configuration changes for example
         setRetainInstance(true);
 
-        event_id = getArguments().getLong(GlobalData.EXTRA_EVENT_ID, 0);
+        event_id = getArguments().getLong(PPApplication.EXTRA_EVENT_ID, 0);
 
     }
 
@@ -112,7 +112,7 @@ public class EventDetailsFragment extends Fragment {
         profileStartIcon = (ImageView)view.findViewById(R.id.event_detail_profile_start_icon);
         profileEndName = (TextView)view.findViewById(R.id.event_detail_profile_end_name);
         profileEndIcon = (ImageView)view.findViewById(R.id.event_detail_profile_end_icon);
-        //if (GlobalData.applicationEditorPrefIndicator)
+        //if (PPApplication.applicationEditorPrefIndicator)
         //{
             eventPreferencesDescription  = (TextView)view.findViewById(R.id.event_detail_preferences_description);
             //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
@@ -169,7 +169,7 @@ public class EventDetailsFragment extends Fragment {
 
             String _eventName = event._name;
             String eventPriority = "";
-            if (GlobalData.applicationEventUsePriority)
+            if (PPApplication.applicationEventUsePriority)
                 eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
             //else
             //    eventPriority = "[P:" + "5" + "] ";
@@ -186,7 +186,7 @@ public class EventDetailsFragment extends Fragment {
                 _eventName = _eventName + "\n\n" + getResources().getString(R.string.event_preferences_error);
             eventName.setText(_eventName);
 
-            //if (GlobalData.applicationEditorPrefIndicator)
+            //if (PPApplication.applicationEditorPrefIndicator)
             //{
                 if (eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(getActivity().getApplicationContext());
@@ -220,7 +220,7 @@ public class EventDetailsFragment extends Fragment {
                     profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
-                //if (GlobalData.applicationEditorPrefIndicator)
+                //if (PPApplication.applicationEditorPrefIndicator)
                 //{
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -233,7 +233,7 @@ public class EventDetailsFragment extends Fragment {
             {
                 profileStartName.setText(R.string.profile_preference_profile_not_set);
                 profileStartIcon.setImageResource(R.drawable.ic_profile_default);
-                //if (GlobalData.applicationEditorPrefIndicator)
+                //if (PPApplication.applicationEditorPrefIndicator)
                 //{
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -279,7 +279,7 @@ public class EventDetailsFragment extends Fragment {
                         profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
-                    //if (GlobalData.applicationEditorPrefIndicator) {
+                    //if (PPApplication.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -295,14 +295,14 @@ public class EventDetailsFragment extends Fragment {
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {
-                        if (event._fkProfileEnd == GlobalData.PROFILE_NO_ACTIVATE)
+                        if (event._fkProfileEnd == PPApplication.PROFILE_NO_ACTIVATE)
                             profileName = profileName + getResources().getString(R.string.profile_preference_profile_end_no_activate);
                         else
                             profileName = profileName + getResources().getString(R.string.profile_preference_profile_not_set);
                     }
                     profileEndName.setText(profileName);
                     profileEndIcon.setImageResource(R.drawable.ic_empty);
-                    //if (GlobalData.applicationEditorPrefIndicator) {
+                    //if (PPApplication.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);

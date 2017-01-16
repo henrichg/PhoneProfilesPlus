@@ -30,7 +30,7 @@ public class ActionForExternalApplicationActivity extends Activity {
 
         //Log.d("ActionForExternalApplicationActivity.onCreate", "xxx");
 
-        GlobalData.loadPreferences(getApplicationContext());
+        PPApplication.loadPreferences(getApplicationContext());
 
         Intent intent = getIntent();
 
@@ -40,7 +40,7 @@ public class ActionForExternalApplicationActivity extends Activity {
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
         if (action.equals(ACTION_ACTIVATE_PROFILE)) {
-            String profileName = intent.getStringExtra(GlobalData.EXTRA_PROFILE_NAME);
+            String profileName = intent.getStringExtra(PPApplication.EXTRA_PROFILE_NAME);
             profileName = profileName.trim();
             //Log.d("ActionForExternalApplicationActivity.onCreate", "profileName="+profileName);
 
@@ -61,7 +61,7 @@ public class ActionForExternalApplicationActivity extends Activity {
 
         }
         else {
-            String eventName = intent.getStringExtra(GlobalData.EXTRA_EVENT_NAME);
+            String eventName = intent.getStringExtra(PPApplication.EXTRA_EVENT_NAME);
             eventName = eventName.trim();
             //Log.d("ActionForExternalApplicationActivity.onCreate", "eventName=" + eventName);
 
@@ -83,7 +83,7 @@ public class ActionForExternalApplicationActivity extends Activity {
     {
         super.onStart();
 
-        if (!GlobalData.getApplicationStarted(getApplicationContext(), true)) {
+        if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
             startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
         }
 
@@ -92,16 +92,16 @@ public class ActionForExternalApplicationActivity extends Activity {
                 Profile profile = dataWrapper.getProfileById(profile_id, false);
                 //Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
                 if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
-                        true, false, 0, GlobalData.STARTUP_SOURCE_EXTERNAL_APP, true, this, true, true)) {
-                    dataWrapper._activateProfile(profile, false, GlobalData.STARTUP_SOURCE_EXTERNAL_APP, true, this, true);
+                        true, false, 0, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, true, this, true, true)) {
+                    dataWrapper._activateProfile(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, true, this, true);
                 }
             }
             else
-                dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
         }
         else if (action.equals(ACTION_RESTART_EVENTS)) {
             dataWrapper.restartEventsWithRescan(true, true);
-            dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+            dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
         }
         else if (action.equals(ACTION_ENABLE_RUN_FOR_EVENT)) {
             if (event_id != 0) {
@@ -111,9 +111,9 @@ public class ActionForExternalApplicationActivity extends Activity {
                     event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, true, null, false); // activate return profile
                     dataWrapper.restartEvents(false, true, true);
                 }
-                dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
             } else
-                dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
         }
         else if (action.equals(ACTION_PAUSE_EVENT)) {
             if (event_id != 0) {
@@ -123,9 +123,9 @@ public class ActionForExternalApplicationActivity extends Activity {
                     event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, true, null, false); // activate return profile
                     //dataWrapper.restartEvents(false, true, true);
                 }
-                dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
             } else
-                dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
         }
         else if (action.equals(ACTION_STOP_EVENT)) {
             if (event_id != 0) {
@@ -135,18 +135,18 @@ public class ActionForExternalApplicationActivity extends Activity {
                     event.stopEvent(dataWrapper, eventTimelineList, true, false, true, true, false); // activate return profile
                     dataWrapper.restartEvents(false, true, true);
                 }
-                dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
             } else
-                dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
         }
         else {
             if (event_id != 0) {
                 //Event event = dataWrapper.getEventById(event_id);
                 //Log.d("ActionForExternalApplicationActivity.onCreate", "event=" + event);
 
-                dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
             } else
-                dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
         }
     }
 

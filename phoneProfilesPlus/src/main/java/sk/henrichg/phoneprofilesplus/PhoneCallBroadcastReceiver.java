@@ -18,12 +18,12 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     protected boolean onStartReceive()
     {
-        GlobalData.logE("##### PhoneCallBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### PhoneCallBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(savedContext, false))
+        if (!PPApplication.getApplicationStarted(savedContext, false))
             return false;
 
-        GlobalData.loadPreferences(savedContext);
+        PPApplication.loadPreferences(savedContext);
 
         return true;
     }

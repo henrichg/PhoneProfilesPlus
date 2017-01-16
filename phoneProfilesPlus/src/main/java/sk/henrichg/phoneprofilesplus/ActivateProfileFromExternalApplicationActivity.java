@@ -22,12 +22,12 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
         //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
-        String profileName = intent.getStringExtra(GlobalData.EXTRA_PROFILE_NAME);
+        String profileName = intent.getStringExtra(PPApplication.EXTRA_PROFILE_NAME);
         profileName = profileName.trim();
         //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profileName="+profileName);
 
         if (!profileName.isEmpty()) {
-            GlobalData.loadPreferences(getApplicationContext());
+            PPApplication.loadPreferences(getApplicationContext());
 
             dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
             dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
@@ -48,7 +48,7 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
     {
         super.onStart();
 
-        if (!GlobalData.getApplicationStarted(getApplicationContext(), true)) {
+        if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
             startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
         }
 
@@ -56,12 +56,12 @@ public class ActivateProfileFromExternalApplicationActivity extends Activity {
             Profile profile = dataWrapper.getProfileById(profile_id, false);
             //Log.d("ActivateProfileFromExternalApplicationActivity.onCreate", "profile="+profile);
             if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
-                    true, false, 0, GlobalData.STARTUP_SOURCE_EXTERNAL_APP, true, this, true, true)) {
-                dataWrapper._activateProfile(profile, false, GlobalData.STARTUP_SOURCE_EXTERNAL_APP, true, this, true);
+                    true, false, 0, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, true, this, true, true)) {
+                dataWrapper._activateProfile(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, true, this, true);
             }
         }
         else
-            dataWrapper.finishActivity(GlobalData.STARTUP_SOURCE_EXTERNAL_APP, false, this);
+            dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
     }
 
     @Override

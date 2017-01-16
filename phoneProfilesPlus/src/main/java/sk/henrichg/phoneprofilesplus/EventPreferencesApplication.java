@@ -165,7 +165,7 @@ class EventPreferencesApplication extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
-        if (GlobalData.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context) == GlobalData.PREFERENCE_ALLOWED) {
+        if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -180,7 +180,7 @@ class EventPreferencesApplication extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+GlobalData.getNotAllowedPreferenceReasonString(context));
+                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -229,7 +229,7 @@ class EventPreferencesApplication extends EventPreferences {
     /*
     public long computeAlarm()
     {
-        GlobalData.logE("EventPreferencesNotification.computeAlarm","xxx");
+        PPApplication.logE("EventPreferencesNotification.computeAlarm","xxx");
 
         Calendar calEndTime = Calendar.getInstance();
 
@@ -254,7 +254,7 @@ class EventPreferencesApplication extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsService
 
-        //GlobalData.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
+        //PPApplication.logE("EventPreferencesNotification.setSystemRunningEvent","xxx");
 
         //removeAlarm(context);
     }
@@ -267,7 +267,7 @@ class EventPreferencesApplication extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsService
 
-        //GlobalData.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
+        //PPApplication.logE("EventPreferencesNotification.setSystemPauseEvent","xxx");
 
         //removeAlarm(context);
 
@@ -282,7 +282,7 @@ class EventPreferencesApplication extends EventPreferences {
     {
         //removeAlarm(context);
 
-        //GlobalData.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
+        //PPApplication.logE("EventPreferencesNotification.removeSystemEvent", "xxx");
     }
 
     /*
@@ -295,7 +295,7 @@ class EventPreferencesApplication extends EventPreferences {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            GlobalData.logE("EventPreferencesNotification.removeAlarm","alarm found");
+            PPApplication.logE("EventPreferencesNotification.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
@@ -307,19 +307,19 @@ class EventPreferencesApplication extends EventPreferences {
     {
         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
         String result = sdf.format(alarmTime);
-        GlobalData.logE("EventPreferencesNotification.setAlarm","endTime="+result);
+        PPApplication.logE("EventPreferencesNotification.setAlarm","endTime="+result);
 
         Intent intent = new Intent(context, NotificationEventEndBroadcastReceiver.class);
-        intent.putExtra(GlobalData.EXTRA_EVENT_ID, _event._id);
+        intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-        if (GlobalData.exactAlarms && (Build.VERSION.SDK_INT >= 23))
+        if (PPApplication.exactAlarms && (Build.VERSION.SDK_INT >= 23))
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         else
-        if (GlobalData.exactAlarms && (Build.VERSION.SDK_INT >= 19))
+        if (PPApplication.exactAlarms && (Build.VERSION.SDK_INT >= 19))
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         else
             alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);

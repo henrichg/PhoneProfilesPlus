@@ -59,7 +59,7 @@ class AddProfileAdapter extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
         {
-            if (GlobalData.applicationEditorPrefIndicator)
+            if (PPApplication.applicationEditorPrefIndicator)
                 vi = inflater.inflate(R.layout.profile_preference_list_item, parent, false);
             else
                 vi = inflater.inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
@@ -67,7 +67,7 @@ class AddProfileAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.profileIcon = (ImageView)vi.findViewById(R.id.profile_pref_dlg_item_icon);
             holder.profileLabel = (TextView)vi.findViewById(R.id.profile_pref_dlg_item_label);
-            if (GlobalData.applicationEditorPrefIndicator)
+            if (PPApplication.applicationEditorPrefIndicator)
                 holder.profileIndicator = (ImageView)vi.findViewById(R.id.profile_pref_dlg_item_indicator);
             holder.radioBtn = (RadioButton)vi.findViewById(R.id.profile_pref_dlg_item_radiobtn);
             vi.setTag(holder);
@@ -110,7 +110,7 @@ class AddProfileAdapter extends BaseAdapter {
             }
             else
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
-            if (GlobalData.applicationEditorPrefIndicator) {
+            if (PPApplication.applicationEditorPrefIndicator) {
                 holder.profileIndicator.setVisibility(View.VISIBLE);
                 holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
             }
@@ -121,7 +121,7 @@ class AddProfileAdapter extends BaseAdapter {
             holder.profileLabel.setText("");
             holder.profileIcon.setVisibility(View.VISIBLE);
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
-            if (GlobalData.applicationEditorPrefIndicator) {
+            if (PPApplication.applicationEditorPrefIndicator) {
                 holder.profileIndicator.setVisibility(View.VISIBLE);
                 holder.profileIndicator.setImageResource(R.drawable.ic_empty);
             }

@@ -135,10 +135,10 @@ public class EditorProfileListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        if (GlobalData.applicationEditorPrefIndicator && GlobalData.applicationEditorHeader)
+        if (PPApplication.applicationEditorPrefIndicator && PPApplication.applicationEditorHeader)
             rootView = inflater.inflate(R.layout.editor_profile_list, container, false);
         else
-        if (GlobalData.applicationEditorHeader)
+        if (PPApplication.applicationEditorHeader)
             rootView = inflater.inflate(R.layout.editor_profile_list_no_indicator, container, false);
         else
             rootView = inflater.inflate(R.layout.editor_profile_list_no_header, container, false);
@@ -197,10 +197,10 @@ public class EditorProfileListFragment extends Fragment {
                     /*case R.id.menu_default_profile:
                         // start preferences activity for default profile
                         Intent intent = new Intent(getActivity().getBaseContext(), ProfilePreferencesFragmentActivity.class);
-                        intent.putExtra(GlobalData.EXTRA_PROFILE_ID, GlobalData.DEFAULT_PROFILE_ID);
-                        intent.putExtra(GlobalData.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                        intent.putExtra(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-                        getActivity().startActivityForResult(intent, GlobalData.REQUEST_CODE_PROFILE_PREFERENCES);
+                        intent.putExtra(PPApplication.EXTRA_PROFILE_ID, PPApplication.DEFAULT_PROFILE_ID);
+                        intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                        intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                        getActivity().startActivityForResult(intent, PPApplication.REQUEST_CODE_PROFILE_PREFERENCES);
                         return true;*/
                     case R.id.important_info:
                         Intent intent = new Intent(getActivity().getBaseContext(), ImportantInfoActivity.class);
@@ -520,7 +520,7 @@ public class EditorProfileListFragment extends Fragment {
         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
             // remove alarm for profile duration
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-            GlobalData.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+            PPApplication.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
         }
 
         dataWrapper.stopEventsForProfile(profile, true);
@@ -668,7 +668,7 @@ public class EditorProfileListFragment extends Fragment {
 
                 // remove alarm for profile duration
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-                GlobalData.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+                PPApplication.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
 
                 dataWrapper.stopAllEvents(true, false);
                 dataWrapper.unlinkAllEvents();
@@ -694,7 +694,7 @@ public class EditorProfileListFragment extends Fragment {
 
     public void updateHeader(Profile profile)
     {
-        if (!GlobalData.applicationEditorHeader)
+        if (!PPApplication.applicationEditorHeader)
             return;
 
         if ((activeProfileName == null) || (activeProfileIcon == null))
@@ -728,7 +728,7 @@ public class EditorProfileListFragment extends Fragment {
             }
         }
 
-        if (GlobalData.applicationEditorPrefIndicator)
+        if (PPApplication.applicationEditorPrefIndicator)
         {
             ImageView profilePrefIndicatorImageView = (ImageView)getActivity().findViewById(R.id.activated_profile_pref_indicator);
             if (profilePrefIndicatorImageView != null)
@@ -744,11 +744,11 @@ public class EditorProfileListFragment extends Fragment {
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
-        if (requestCode == GlobalData.REQUEST_CODE_ACTIVATE_PROFILE)
+        if (requestCode == PPApplication.REQUEST_CODE_ACTIVATE_PROFILE)
         {
             if(resultCode == Activity.RESULT_OK)
             {
-                long profile_id = data.getLongExtra(GlobalData.EXTRA_PROFILE_ID, -1);
+                long profile_id = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, -1);
                 Profile profile = dataWrapper.getProfileById(profile_id, false);
 
                 if (profileListAdapter != null)
@@ -764,7 +764,7 @@ public class EditorProfileListFragment extends Fragment {
 
     public void activateProfile(Profile profile/*, boolean interactive*/)
     {
-        dataWrapper.activateProfile(profile._id, GlobalData.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
+        dataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity()/*, ""*/);
     }
 
     private void setProfileSelection(Profile profile, boolean refreshIcons) {
@@ -851,7 +851,7 @@ public class EditorProfileListFragment extends Fragment {
         if ((dataWrapper == null) || (profileListAdapter == null))
             return;
 
-        GlobalData.logE("EditorProfileListFragment.refreshGUI","refresh");
+        PPApplication.logE("EditorProfileListFragment.refreshGUI","refresh");
 
         Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
         if (profileFromAdapter != null)
@@ -860,7 +860,7 @@ public class EditorProfileListFragment extends Fragment {
         Profile profileFromDB = dataWrapper.getDatabaseHandler().getActivatedProfile();
         if (profileFromDB != null)
         {
-            GlobalData.logE("EditorProfileListFragment.refreshGUI","profile activated");
+            PPApplication.logE("EditorProfileListFragment.refreshGUI","profile activated");
             Profile profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, false);
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
@@ -869,7 +869,7 @@ public class EditorProfileListFragment extends Fragment {
         }
         else
         {
-            GlobalData.logE("EditorProfileListFragment.refreshGUI","profile not activated");
+            PPApplication.logE("EditorProfileListFragment.refreshGUI","profile not activated");
             updateHeader(null);
             updateListView(null, false, refreshIcons, setPosition);
         }

@@ -15,7 +15,7 @@ public class LauncherActivity extends Activity {
 
         super.onCreate(savedInstanceState);
 
-        GlobalData.loadPreferences(getApplicationContext());
+        PPApplication.loadPreferences(getApplicationContext());
 
         overridePendingTransition(0, 0);
 
@@ -23,7 +23,7 @@ public class LauncherActivity extends Activity {
         dataWrapper.getActivateProfileHelper().initialize(dataWrapper, getApplicationContext());
 
         Intent intent = getIntent();
-        startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, 0);
+        startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class LauncherActivity extends Activity {
     {
         super.onStart();
 
-        if (!GlobalData.getApplicationStarted(getApplicationContext(), false))
+        if (!PPApplication.getApplicationStarted(getApplicationContext(), false))
         {
             //Log.d("LauncherActivity.onStart","app. not started");
 
@@ -40,7 +40,7 @@ public class LauncherActivity extends Activity {
             startService(firstStartServiceIntent);*/
 
             // start PhoneProfilesService
-            //GlobalData.firstStartServiceStarted = false;
+            //PPApplication.firstStartServiceStarted = false;
             startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
         }
         else
@@ -49,7 +49,7 @@ public class LauncherActivity extends Activity {
 
             if (PhoneProfilesService.instance == null) {
                 // start PhoneProfilesService
-                //GlobalData.firstStartServiceStarted = false;
+                //PPApplication.firstStartServiceStarted = false;
                 startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
             }
 
@@ -61,37 +61,37 @@ public class LauncherActivity extends Activity {
                 Profile profile = dataWrapper.getActivatedProfile();
                 dataWrapper.getActivateProfileHelper().showNotification(profile);
                 dataWrapper.getActivateProfileHelper().updateWidget();
-                startupSource = GlobalData.STARTUP_SOURCE_LAUNCHER;
+                startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }
         }
 
         if (startupSource == 0)
-            startupSource = GlobalData.STARTUP_SOURCE_LAUNCHER;
+            startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
         endOnStart();
     }
 
     private void endOnStart()
     {
         //  aplikacia uz je 1. krat spustena - is in FirstStartService
-        //GlobalData.setApplicationStarted(getBaseContext(), true);
+        //PPApplication.setApplicationStarted(getBaseContext(), true);
 
         Intent intentLaunch;
 
         switch (startupSource) {
-            case GlobalData.STARTUP_SOURCE_NOTIFICATION:
-                if (GlobalData.applicationNotificationLauncher.equals("activator"))
+            case PPApplication.STARTUP_SOURCE_NOTIFICATION:
+                if (PPApplication.applicationNotificationLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
-            case GlobalData.STARTUP_SOURCE_WIDGET:
-                if (GlobalData.applicationWidgetLauncher.equals("activator"))
+            case PPApplication.STARTUP_SOURCE_WIDGET:
+                if (PPApplication.applicationWidgetLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
             default:
-                if (GlobalData.applicationHomeLauncher.equals("activator"))
+                if (PPApplication.applicationHomeLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
@@ -101,7 +101,7 @@ public class LauncherActivity extends Activity {
         finish();
 
         intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intentLaunch.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
+        intentLaunch.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
         getApplicationContext().startActivity(intentLaunch);
 
         // reset, aby sa to dalej chovalo ako normalne spustenie z lauchera

@@ -31,13 +31,13 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                     int zenMode = 0;
                     switch (interruptionFilter) {
                         case NotificationManager.INTERRUPTION_FILTER_ALL:
-                            if (GlobalData.vibrationIsOn(context.getApplicationContext(), audioManager, true))
+                            if (PPApplication.vibrationIsOn(context.getApplicationContext(), audioManager, true))
                                 zenMode = 4;
                             else
                                 zenMode = 1;
                             break;
                         case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                            if (GlobalData.vibrationIsOn(context.getApplicationContext(), audioManager, true))
+                            if (PPApplication.vibrationIsOn(context.getApplicationContext(), audioManager, true))
                                 zenMode = 5;
                             else
                                 zenMode = 2;
@@ -52,11 +52,11 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                             zenMode = 1;
                             break;
                     }
-                    GlobalData.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
+                    PPApplication.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
                     if (zenMode != 0) {
                         //Log.e(TAG, "onInterruptionFilterChanged  new zenMode=" + zenMode);
-                        GlobalData.setRingerMode(context.getApplicationContext(), 5);
-                        GlobalData.setZenMode(context.getApplicationContext(), zenMode);
+                        PPApplication.setRingerMode(context.getApplicationContext(), 5);
+                        PPApplication.setZenMode(context.getApplicationContext(), zenMode);
                     }
                 }
 
@@ -71,16 +71,16 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         int zenMode = 0;
         NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         int interruptionFilter = mNotificationManager.getCurrentInterruptionFilter();
-        GlobalData.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
+        PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "interruptionFilter=" + interruptionFilter);
         switch (interruptionFilter) {
             case NotificationManager.INTERRUPTION_FILTER_ALL:
-                if (GlobalData.vibrationIsOn(context, audioManager, true))
+                if (PPApplication.vibrationIsOn(context, audioManager, true))
                     zenMode = 4;
                 else
                     zenMode = 1;
                 break;
             case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                if (GlobalData.vibrationIsOn(context, audioManager, true))
+                if (PPApplication.vibrationIsOn(context, audioManager, true))
                     zenMode = 5;
                 else
                     zenMode = 2;
@@ -95,7 +95,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                 zenMode = 1;
                 break;
         }
-        GlobalData.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "zenMode=" + zenMode);
+        PPApplication.logE("InterruptionFilterChangedBroadcastReceiver.getZenMode", "zenMode=" + zenMode);
         return zenMode;
     }
 
@@ -105,8 +105,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
             if (no60) {
                 int zenMode = getZenMode(context, audioManager);
                 if (zenMode != 0) {
-                    GlobalData.setRingerMode(context, 5);
-                    GlobalData.setZenMode(context, zenMode);
+                    PPApplication.setRingerMode(context, 5);
+                    PPApplication.setZenMode(context, zenMode);
                 }
             }
         }

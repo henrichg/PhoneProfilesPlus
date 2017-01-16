@@ -81,11 +81,11 @@ public class BrightnessDialogPreference extends
 
         typedArray.recycle();
 
-        _defaultProfile = GlobalData.getDefaultProfile(_context);
+        _defaultProfile = PPApplication.getDefaultProfile(_context);
 
         adaptiveAllowed = (android.os.Build.VERSION.SDK_INT <= 21) ||
-                (GlobalData.isProfilePreferenceAllowed(GlobalData.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context)
-                        == GlobalData.PREFERENCE_ALLOWED);
+                (PPApplication.isProfilePreferenceAllowed(PPApplication.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context)
+                        == PPApplication.PREFERENCE_ALLOWED);
 
         savedBrightness = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 128);
         savedBrightnessMode = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
@@ -467,8 +467,8 @@ public class BrightnessDialogPreference extends
             else {
                 String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
                         Float.toString(value);
-                //if (GlobalData.isSELinuxEnforcing())
-                //	command1 = GlobalData.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                //if (PPApplication.isSELinuxEnforcing())
+                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                 Command command = new Command(0, false, command1); //, command2);
                 try {
                     //RootTools.closeAllShells();

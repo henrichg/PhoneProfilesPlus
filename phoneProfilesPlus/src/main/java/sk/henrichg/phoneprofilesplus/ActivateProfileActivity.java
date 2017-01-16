@@ -36,7 +36,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         instance = this;
 
-        GlobalData.loadPreferences(getApplicationContext());
+        PPApplication.loadPreferences(getApplicationContext());
         GUIData.setTheme(this, true, true);
         GUIData.setLanguage(getBaseContext());
 
@@ -88,7 +88,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         final float scale = getResources().getDisplayMetrics().density;
 
         // add header height
-        if (GlobalData.applicationActivatorHeader)
+        if (PPApplication.applicationActivatorHeader)
             popupHeight = popupHeight + 64f * scale;
 
         // add toolbar height
@@ -98,7 +98,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         int profileCount = dataWrapper.getDatabaseHandler().getProfilesCount(true);
         dataWrapper.invalidateDataWrapper();
 
-        if (!GlobalData.applicationActivatorGridLayout)
+        if (!PPApplication.applicationActivatorGridLayout)
         {
             // add list items height
             popupHeight = popupHeight + (50f * scale * profileCount); // item
@@ -132,11 +132,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         //requestWindowFeature(Window.FEATURE_ACTION_BAR);
 
-        //long nanoTimeStart = GlobalData.startMeasuringRunTime();
+        //long nanoTimeStart = PPApplication.startMeasuringRunTime();
 
         setContentView(R.layout.activity_activate_profile);
 
-        //GlobalData.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContnetView");
+        //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContnetView");
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.act_prof_tollbar);
         setSupportActionBar(toolbar);
@@ -220,7 +220,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(GlobalData.getGlobalEventsRuning(getApplicationContext()));
+            menuItem.setVisible(PPApplication.getGlobalEventsRuning(getApplicationContext()));
         }
 
         return super.onPrepareOptionsMenu(menu);
@@ -233,7 +233,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         case R.id.menu_edit_profiles:
             Intent intent = new Intent(getApplicationContext(), EditorProfilesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_ACTIVATOR);
+            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
             getApplicationContext().startActivity(intent);
 
             finish();
@@ -246,7 +246,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 // ignoruj manualnu aktivaciu profilu
                 // a odblokuj forceRun eventy
-                GlobalData.logE("$$$ restartEvents", "from ActivateProfileActivity.onOptionsItemSelected menu_restart_events");
+                PPApplication.logE("$$$ restartEvents", "from ActivateProfileActivity.onOptionsItemSelected menu_restart_events");
                 dataWrapper.restartEventsWithAlert(this);
                 dataWrapper.invalidateDataWrapper();
             }
@@ -290,9 +290,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     public void setEventsRunStopIndicator()
     {
-        if (GlobalData.getGlobalEventsRuning(getApplicationContext()))
+        if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
         {
-            if (GlobalData.getEventsBlocked(getApplicationContext()))
+            if (PPApplication.getEventsBlocked(getApplicationContext()))
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
             else
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running);

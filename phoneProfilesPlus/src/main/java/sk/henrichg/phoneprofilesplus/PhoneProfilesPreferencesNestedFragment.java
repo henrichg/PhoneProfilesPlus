@@ -75,7 +75,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         super.onActivityCreated(savedInstanceState);
 
         prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(GlobalData.APPLICATION_PREFS_NAME);
+        prefMng.setSharedPreferencesName(PPApplication.APPLICATION_PREFS_NAME);
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         preferences = prefMng.getSharedPreferences();
@@ -83,7 +83,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         if (Build.VERSION.SDK_INT >= 24) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("applicationInterfaceCategory");
-            Preference preference = findPreference(GlobalData.PREF_APPLICATION_LANGUAGE);
+            Preference preference = findPreference(PPApplication.PREF_APPLICATION_LANGUAGE);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
             preference = findPreference(PREF_APPLICATION_LANGUAGE_24);
@@ -300,7 +300,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (!ScannerService.bluetoothLESupported(getActivity().getApplicationContext())) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanninCategory");
-            Preference preference = findPreference(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
+            Preference preference = findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
@@ -319,11 +319,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (android.os.Build.VERSION.SDK_INT < 21) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryNotifications");
-            preference = prefMng.findPreference(GlobalData.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
+            preference = prefMng.findPreference(PPApplication.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
-        if (!GlobalData.getMergedRingNotificationVolumes(getActivity().getApplicationContext())) {
+        if (!PPApplication.getMergedRingNotificationVolumes(getActivity().getApplicationContext())) {
             preference = prefMng.findPreference("applicationUnlinkRingerNotificationVolumes");
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
@@ -366,9 +366,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             return;
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
-            if (key.equals(GlobalData.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
+            if (key.equals(PPApplication.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
                 boolean show = preferences.getBoolean(key, true);
-                Preference _preference = prefMng.findPreference(GlobalData.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
+                Preference _preference = prefMng.findPreference(PPApplication.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
                 _preference.setEnabled(show);
             }
         }
@@ -382,7 +382,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         String stringValue = preferences.getString(key, "");
 
-        if (key.equals(GlobalData.PREF_APPLICATION_BACKGROUND_PROFILE))
+        if (key.equals(PPApplication.PREF_APPLICATION_BACKGROUND_PROFILE))
         {
             long lProfileId;
             try {
@@ -412,7 +412,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             else
                 preference.setSummary(null);
 
-            //if (key.equals(GlobalData.PREF_APPLICATION_LANGUAGE))
+            //if (key.equals(PPApplication.PREF_APPLICATION_LANGUAGE))
             //    setTitleStyle(preference, true, false);
 
 
@@ -480,16 +480,16 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
                     if (Settings.System.canWrite(context))
-                        GlobalData.setShowRequestWriteSettingsPermission(context, true);
+                        PPApplication.setShowRequestWriteSettingsPermission(context, true);
                 }
                 if (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) {
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (mNotificationManager.isNotificationPolicyAccessGranted())
-                        GlobalData.setShowRequestAccessNotificationPolicyPermission(context, true);
+                        PPApplication.setShowRequestAccessNotificationPolicyPermission(context, true);
                 }
                 if (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {
                     if (Settings.canDrawOverlays(context))
-                        GlobalData.setShowRequestDrawOverlaysPermission(context, true);
+                        PPApplication.setShowRequestDrawOverlaysPermission(context, true);
                 }
             }
 

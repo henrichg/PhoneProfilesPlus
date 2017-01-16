@@ -272,14 +272,14 @@ class EditorProfileListAdapter extends BaseAdapter
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
             if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
             {
-                if (GlobalData.applicationEditorPrefIndicator)
+                if (PPApplication.applicationEditorPrefIndicator)
                     vi = inflater.inflate(R.layout.editor_profile_list_item, parent, false);
                 else
                     vi = inflater.inflate(R.layout.editor_profile_list_item_no_indicator, parent, false);
             }
             else
             {
-                if (GlobalData.applicationEditorPrefIndicator)
+                if (PPApplication.applicationEditorPrefIndicator)
                     vi = inflater.inflate(R.layout.editor_profile_list_item_no_order_handler, parent, false);
                 else
                     vi = inflater.inflate(R.layout.editor_profile_list_item_no_indicator_no_order_handler, parent, false);
@@ -290,7 +290,7 @@ class EditorProfileListAdapter extends BaseAdapter
             holder.profileIcon = (ImageView)vi.findViewById(R.id.profile_list_item_profile_icon);
             holder.profileItemEditMenu = (ImageView)vi.findViewById(R.id.profile_list_item_edit_menu);
             holder.profileShowInActivator = (ImageView)vi.findViewById(R.id.profile_list_item_show_in_activator);
-            if (GlobalData.applicationEditorPrefIndicator)
+            if (PPApplication.applicationEditorPrefIndicator)
                 holder.profileIndicator = (ImageView)vi.findViewById(R.id.profile_list_profile_pref_indicator);
             vi.setTag(holder);        
         }
@@ -324,34 +324,34 @@ class EditorProfileListAdapter extends BaseAdapter
             }
             */
 
-            if (profile._checked && (!GlobalData.applicationEditorHeader))
+            if (profile._checked && (!PPApplication.applicationEditorHeader))
             {
-                if (GlobalData.applicationTheme.equals("material"))
+                if (PPApplication.applicationTheme.equals("material"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
                 else
-                if (GlobalData.applicationTheme.equals("dark"))
+                if (PPApplication.applicationTheme.equals("dark"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dark);
                 else
-                if (GlobalData.applicationTheme.equals("dlight"))
+                if (PPApplication.applicationTheme.equals("dlight"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
                 holder.profileName.setTypeface(null, Typeface.BOLD);
             }
             else
             {
-                if (GlobalData.applicationTheme.equals("material"))
+                if (PPApplication.applicationTheme.equals("material"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.card);
                 else
-                if (GlobalData.applicationTheme.equals("dark"))
+                if (PPApplication.applicationTheme.equals("dark"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.card_dark);
                 else
-                if (GlobalData.applicationTheme.equals("dlight"))
+                if (PPApplication.applicationTheme.equals("dlight"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.card);
                 holder.profileName.setTypeface(null, Typeface.NORMAL);
             }
 
             String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
                     profile._checked &&
-                    (!GlobalData.applicationEditorHeader), true, false);
+                    (!PPApplication.applicationEditorHeader), true, false);
             holder.profileName.setText(profileName);
 
             if (profile.getIsIconResourceID())
@@ -375,7 +375,7 @@ class EditorProfileListAdapter extends BaseAdapter
             else
                 holder.profileShowInActivator.setImageResource(R.drawable.ic_profile_show_in_activator_off);
 
-            if (GlobalData.applicationEditorPrefIndicator)
+            if (PPApplication.applicationEditorPrefIndicator)
             {
                 //profilePrefIndicatorImageView.setImageBitmap(null);
                 //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());

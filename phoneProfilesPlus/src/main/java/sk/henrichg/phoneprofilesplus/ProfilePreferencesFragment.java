@@ -1,10 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
 public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 {
@@ -14,7 +10,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 
     static final String PREFS_NAME_ACTIVITY = "profile_preferences_activity";
     static final String PREFS_NAME_FRAGMENT = "profile_preferences_fragment";
-    static final String PREFS_NAME_DEFAULT_PROFILE = GlobalData.DEFAULT_PROFILE_PREFS_NAME;
+    static final String PREFS_NAME_DEFAULT_PROFILE = PPApplication.DEFAULT_PROFILE_PREFS_NAME;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,11 +28,11 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         long profile_id = 0;
 
         // getting attached fragment data
-        if (getArguments().containsKey(GlobalData.EXTRA_NEW_PROFILE_MODE))
-            new_profile_mode = getArguments().getInt(GlobalData.EXTRA_NEW_PROFILE_MODE);
-        if (getArguments().containsKey(GlobalData.EXTRA_PROFILE_ID))
-            profile_id = getArguments().getLong(GlobalData.EXTRA_PROFILE_ID);
-        predefineProfileIndex = getArguments().getInt(GlobalData.EXTRA_PREDEFINED_PROFILE_INDEX);
+        if (getArguments().containsKey(PPApplication.EXTRA_NEW_PROFILE_MODE))
+            new_profile_mode = getArguments().getInt(PPApplication.EXTRA_NEW_PROFILE_MODE);
+        if (getArguments().containsKey(PPApplication.EXTRA_PROFILE_ID))
+            profile_id = getArguments().getLong(PPApplication.EXTRA_PROFILE_ID);
+        predefineProfileIndex = getArguments().getInt(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX);
 
         profile = ProfilePreferencesFragmentActivity.createProfile(context.getApplicationContext(), profile_id, new_profile_mode, predefineProfileIndex, true);
         */
@@ -57,7 +53,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 
     @Override
     public int addPreferencesFromResource() {
-        if (startupSource == GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             return R.xml.default_profile_preferences;
         else
             return R.xml.profile_preferences;
@@ -70,64 +66,64 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 
             // updating activity with selected profile preferences
 
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
 
-            if (startupSource != GlobalData.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             {
-                setSummary(GlobalData.PREF_PROFILE_NAME);
-                setSummary(GlobalData.PREF_PROFILE_DURATION);
-                setSummary(GlobalData.PREF_PROFILE_AFTER_DURATION_DO);
-                setSummary(GlobalData.PREF_PROFILE_ASK_FOR_DURATION);
+                setSummary(PPApplication.PREF_PROFILE_NAME);
+                setSummary(PPApplication.PREF_PROFILE_DURATION);
+                setSummary(PPApplication.PREF_PROFILE_AFTER_DURATION_DO);
+                setSummary(PPApplication.PREF_PROFILE_ASK_FOR_DURATION);
             }
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_RINGTONE);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE);
-            setSummary(GlobalData.PREF_PROFILE_SOUND_ALARM);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_WIFI);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_BLUETOOTH);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_GPS);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_AUTOSYNC);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_AUTOROTATE);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_NFC);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_KEYGUARD);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_RINGTONE);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_MEDIA);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_ALARM);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_SYSTEM);
-            setSummary(GlobalData.PREF_PROFILE_VOLUME_VOICE);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_BRIGHTNESS);
-            setSummary(GlobalData.PREF_PROFILE_VIBRATION_ON_TOUCH);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_NETWORK_TYPE);
-            setSummary(GlobalData.PREF_PROFILE_NOTIFICATION_LED);
-            setSummary(GlobalData.PREF_PROFILE_VIBRATE_WHEN_RINGING);
-            setSummary(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);
+            setSummary(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+            setSummary(PPApplication.PREF_PROFILE_SOUND_RINGTONE);
+            setSummary(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+            setSummary(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION);
+            setSummary(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE);
+            setSummary(PPApplication.PREF_PROFILE_SOUND_ALARM);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_WIFI);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_GPS);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_AUTOSYNC);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_AUTOROTATE);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_NFC);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_KEYGUARD);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_RINGTONE);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_MEDIA);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_ALARM);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_SYSTEM);
+            setSummary(PPApplication.PREF_PROFILE_VOLUME_VOICE);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_BRIGHTNESS);
+            setSummary(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE);
+            setSummary(PPApplication.PREF_PROFILE_NOTIFICATION_LED);
+            setSummary(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            setSummary(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
 
             // disable depended preferences
-            disableDependedPref(GlobalData.PREF_PROFILE_VOLUME_RINGTONE);
-            disableDependedPref(GlobalData.PREF_PROFILE_VOLUME_NOTIFICATION);
-            disableDependedPref(GlobalData.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
-            disableDependedPref(GlobalData.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
-            disableDependedPref(GlobalData.PREF_PROFILE_SOUND_ALARM_CHANGE);
-            disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
-            disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
-            disableDependedPref(GlobalData.PREF_PROFILE_DEVICE_WIFI_AP);
-            disableDependedPref(GlobalData.PREF_PROFILE_VOLUME_RINGER_MODE);
-            disableDependedPref(GlobalData.PREF_PROFILE_VOLUME_ZEN_MODE);
+            disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGTONE);
+            disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
+            disableDependedPref(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+            disableDependedPref(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+            disableDependedPref(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE);
+            disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+            disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+            disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP);
+            disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE);
+            disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);
 
         //}
     }

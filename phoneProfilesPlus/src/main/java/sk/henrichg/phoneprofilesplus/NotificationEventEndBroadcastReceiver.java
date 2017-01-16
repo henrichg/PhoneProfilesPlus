@@ -12,30 +12,30 @@ public class NotificationEventEndBroadcastReceiver extends WakefulBroadcastRecei
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### NotificationEventEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### NotificationEventEndBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ NotificationEventEndBroadcastReceiver.onReceive","xxx");
+            PPApplication.logE("@@@ NotificationEventEndBroadcastReceiver.onReceive","xxx");
 
             /*boolean notificationEventsExists = false;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
             notificationEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION) > 0;
-            GlobalData.logE("NotificationEventEndBroadcastReceiver.onReceive","notificationEventsExists="+notificationEventsExists);
+            PPApplication.logE("NotificationEventEndBroadcastReceiver.onReceive","notificationEventsExists="+notificationEventsExists);
             dataWrapper.invalidateDataWrapper();
 
             if (notificationEventsExists)
             {*/
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
             //}
 

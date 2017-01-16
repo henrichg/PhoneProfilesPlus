@@ -71,10 +71,10 @@ public class PhoneCallService extends IntentService {
 
     private void doCallEvent(int eventType, String phoneNumber)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt(GlobalData.PREF_EVENT_CALL_EVENT_TYPE, eventType);
-        editor.putString(GlobalData.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
+        editor.putInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, eventType);
+        editor.putString(PPApplication.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
         editor.commit();
 
         linkUnlinkExecuted = false;
@@ -82,7 +82,7 @@ public class PhoneCallService extends IntentService {
 
         // start service
         Intent eventsServiceIntent = new Intent(context, EventsService.class);
-        eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
+        eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE);
         context.startService(eventsServiceIntent);
 
     }

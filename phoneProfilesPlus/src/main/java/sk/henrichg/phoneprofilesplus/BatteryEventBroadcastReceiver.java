@@ -16,23 +16,23 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### BatteryEventBroadcastReceiver.onReceive","xxx");
+        PPApplication.logE("##### BatteryEventBroadcastReceiver.onReceive","xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
         //boolean batteryEventsExists = false;
 
         int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-        GlobalData.logE("BatteryEventBroadcastReceiver.onReceive", "status=" + status);
+        PPApplication.logE("BatteryEventBroadcastReceiver.onReceive", "status=" + status);
 
         if (status != -1) {
             boolean _isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
-            GlobalData.logE("BatteryEventBroadcastReceiver.onReceive", "isCharging=" + isCharging);
+            PPApplication.logE("BatteryEventBroadcastReceiver.onReceive", "isCharging=" + isCharging);
 
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
             int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
@@ -40,31 +40,31 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
 
 
             if ((isCharging != _isCharging) || (batteryPct != pct)) {
-                GlobalData.logE("@@@ BatteryEventBroadcastReceiver.onReceive", "xxx");
+                PPApplication.logE("@@@ BatteryEventBroadcastReceiver.onReceive", "xxx");
 
-                GlobalData.logE("BatteryEventBroadcastReceiver.onReceive", "state changed");
-                GlobalData.logE("BatteryEventBroadcastReceiver.onReceive", "batteryPct=" + pct);
-                GlobalData.logE("BatteryEventBroadcastReceiver.onReceive", "level=" + level);
-                GlobalData.logE("BatteryEventBroadcastReceiver.onReceive", "isCharging=" + isCharging);
-                GlobalData.logE("BatteryEventBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
+                PPApplication.logE("BatteryEventBroadcastReceiver.onReceive", "state changed");
+                PPApplication.logE("BatteryEventBroadcastReceiver.onReceive", "batteryPct=" + pct);
+                PPApplication.logE("BatteryEventBroadcastReceiver.onReceive", "level=" + level);
+                PPApplication.logE("BatteryEventBroadcastReceiver.onReceive", "isCharging=" + isCharging);
+                PPApplication.logE("BatteryEventBroadcastReceiver.onReceive", "_isCharging=" + _isCharging);
 
                 isCharging = _isCharging;
                 batteryPct = pct;
 
-                boolean oldPowerSaveMode = GlobalData.isPowerSaveMode;
-                GlobalData.isPowerSaveMode = false;
+                boolean oldPowerSaveMode = PPApplication.isPowerSaveMode;
+                PPApplication.isPowerSaveMode = false;
                 if ((!isCharging) &&
-                    ((GlobalData.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
-                     (GlobalData.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))))
-                    GlobalData.isPowerSaveMode = true;
+                    ((PPApplication.applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5)) ||
+                     (PPApplication.applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15))))
+                    PPApplication.isPowerSaveMode = true;
                 else {
                     if (isCharging)
-                        GlobalData.isPowerSaveMode = false;
+                        PPApplication.isPowerSaveMode = false;
                     else
-                        GlobalData.isPowerSaveMode = oldPowerSaveMode;
+                        PPApplication.isPowerSaveMode = oldPowerSaveMode;
                 }
 
-                if (GlobalData.getGlobalEventsRuning(context)) {
+                if (PPApplication.getGlobalEventsRuning(context)) {
 
                     if (PhoneProfilesService.instance != null) {
                         if (PhoneProfilesService.isGeofenceScannerStarted())
@@ -82,7 +82,7 @@ public class BatteryEventBroadcastReceiver extends WakefulBroadcastReceiver {
                     {*/
                     // start service
                     Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                    eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                    eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                     startWakefulService(context, eventsServiceIntent);
                     //}
                 }

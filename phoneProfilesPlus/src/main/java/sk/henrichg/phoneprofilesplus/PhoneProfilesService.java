@@ -106,7 +106,7 @@ public class PhoneProfilesService extends Service
 
         super.onCreate();
 
-        GlobalData.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT="+android.os.Build.VERSION.SDK_INT);
+        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT="+android.os.Build.VERSION.SDK_INT);
 
         instance = this;
 
@@ -114,16 +114,16 @@ public class PhoneProfilesService extends Service
         try {
             PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             int actualVersionCode = pinfo.versionCode;
-            GlobalData.setSavedVersionCode(getApplicationContext(), actualVersionCode);
+            PPApplication.setSavedVersionCode(getApplicationContext(), actualVersionCode);
         } catch (PackageManager.NameNotFoundException e) {
             //e.printStackTrace();
         }
 
         AboutApplicationBroadcastReceiver.setAlarm(this);
 
-        GlobalData.loadPreferences(getApplicationContext());
+        PPApplication.loadPreferences(getApplicationContext());
 
-        //GlobalData.initPhoneProfilesServiceMessenger(getApplicationContext());
+        //PPApplication.initPhoneProfilesServiceMessenger(getApplicationContext());
 
         IntentFilter intentFilter1 = new IntentFilter();
         intentFilter1.addAction(Intent.ACTION_BATTERY_CHANGED);
@@ -229,7 +229,7 @@ public class PhoneProfilesService extends Service
         Intent serviceIntent = new Intent(getApplicationContext(), FirstStartService.class);
         getApplicationContext().startService(serviceIntent);
 
-        //// this not starts for boot, because GlobalData.getApplicationStarted() == false,
+        //// this not starts for boot, because PPApplication.getApplicationStarted() == false,
         //// but it starts from EventsService
         startGeofenceScanner();
         startPhoneStateScanner();
@@ -241,7 +241,7 @@ public class PhoneProfilesService extends Service
     @Override
     public void onDestroy()
     {
-        GlobalData.logE("PhoneProfilesService.onDestroy", "xxxxx");
+        PPApplication.logE("PhoneProfilesService.onDestroy", "xxxxx");
 
         getApplicationContext().unregisterReceiver(batteryEventReceiver);
         getApplicationContext().unregisterReceiver(headsetPlugReceiver);
@@ -280,47 +280,47 @@ public class PhoneProfilesService extends Service
     {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
+        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
         if (intent == null)
-            GlobalData.setMergedRingNotificationVolumes(getApplicationContext(), false);
+            PPApplication.setMergedRingNotificationVolumes(getApplicationContext(), false);
 
         if (intent != null) {
-            boolean simulateRingingCall = intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false);
+            boolean simulateRingingCall = intent.getBooleanExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, false);
             if (simulateRingingCall)
                 doSimulatingRingingCall(intent);
-            boolean startStopScanner = intent.getBooleanExtra(GlobalData.EXTRA_START_STOP_SCANNER, false);
+            boolean startStopScanner = intent.getBooleanExtra(PPApplication.EXTRA_START_STOP_SCANNER, false);
 
             if (!simulateRingingCall && !startStopScanner) {
                 // default start service
-                GlobalData.setMergedRingNotificationVolumes(getApplicationContext(), false);
+                PPApplication.setMergedRingNotificationVolumes(getApplicationContext(), false);
             }
 
 
             if (startStopScanner) {
-                switch (intent.getIntExtra(GlobalData.EXTRA_START_STOP_SCANNER_TYPE, 0)) {
-                    case GlobalData.SCANNER_START_GEOFENCE_SCANNER:
-                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
+                switch (intent.getIntExtra(PPApplication.EXTRA_START_STOP_SCANNER_TYPE, 0)) {
+                    case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
                         startGeofenceScanner();
                         break;
-                    case GlobalData.SCANNER_STOP_GEOFENCE_SCANNER:
-                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
+                    case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
                         stopGeofenceScanner();
                         break;
-                    case GlobalData.SCANNER_START_ORIENTATION_SCANNER:
-                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_ORIENTATION_SCANNER");
+                    case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_ORIENTATION_SCANNER");
                         startOrientationScanner();
                         break;
-                    case GlobalData.SCANNER_STOP_ORIENTATION_SCANNER:
-                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
+                    case PPApplication.SCANNER_STOP_ORIENTATION_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
                         stopOrientationScanner();
                         break;
-                    case GlobalData.SCANNER_START_PHONE_STATE_SCANNER:
-                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_PHONE_STATE_SCANNER");
+                    case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_PHONE_STATE_SCANNER");
                         startPhoneStateScanner();
                         break;
-                    case GlobalData.SCANNER_STOP_PHONE_STATE_SCANNER:
-                        GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
+                    case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
                         stopPhoneStateScanner();
                         break;
                 }
@@ -367,7 +367,7 @@ public class PhoneProfilesService extends Service
             geofencesScanner = null;
         }
 
-        if (GlobalData.getApplicationStarted(this, false)) {
+        if (PPApplication.getApplicationStarted(this, false)) {
             geofencesScanner = new GeofencesScanner(this);
             geofencesScanner.connect();
         }
@@ -392,7 +392,7 @@ public class PhoneProfilesService extends Service
         if (mStartedSensors)
             stopListeningOrientationSensors();
 
-        if (GlobalData.getApplicationStarted(this, false))
+        if (PPApplication.getApplicationStarted(this, false))
             startListeningOrientationSensors();
     }
 
@@ -436,7 +436,7 @@ public class PhoneProfilesService extends Service
             //phoneStateScanner = null;
         }
 
-        if (GlobalData.getApplicationStarted(this, false)) {
+        if (PPApplication.getApplicationStarted(this, false)) {
             if (phoneStateScanner == null)
                 phoneStateScanner = new PhoneStateScanner(this);
             phoneStateScanner.connect();
@@ -462,7 +462,7 @@ public class PhoneProfilesService extends Service
 
         if (!mStartedSensors) {
 
-            if (GlobalData.isPowerSaveMode && GlobalData.applicationEventOrientationScanInPowerSaveMode.equals("2"))
+            if (PPApplication.isPowerSaveMode && PPApplication.applicationEventOrientationScanInPowerSaveMode.equals("2"))
                 // start scanning in power save mode is not allowed
                 return;
 
@@ -470,25 +470,25 @@ public class PhoneProfilesService extends Service
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) == 0)
                 return;
 
-            int interval = GlobalData.applicationEventOrientationScanInterval;
-            if (GlobalData.isPowerSaveMode && GlobalData.applicationEventOrientationScanInPowerSaveMode.equals("1"))
+            int interval = PPApplication.applicationEventOrientationScanInterval;
+            if (PPApplication.isPowerSaveMode && PPApplication.applicationEventOrientationScanInPowerSaveMode.equals("1"))
                 interval *= 2;
             Sensor accelerometer = getAccelerometerSensor(this);
-            GlobalData.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
+            PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
             if (accelerometer != null)
                 mSensorManager.registerListener(this, accelerometer, 1000000 * interval);
             Sensor magneticField = getMagneticFieldSensor(this);
-            GlobalData.logE("PhoneProfilesService.startListeningOrientationSensors","magneticField="+magneticField);
+            PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","magneticField="+magneticField);
             if (magneticField != null)
                 mSensorManager.registerListener(this, magneticField, 1000000 * interval);
             Sensor proximity = getProximitySensor(this);
-            GlobalData.logE("PhoneProfilesService.startListeningOrientationSensors","proximity="+proximity);
+            PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","proximity="+proximity);
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
                 mSensorManager.registerListener(this, proximity, 1000000 * interval);
             }
-            //Sensor orientation = GlobalData.getOrientationSensor(this);
-            //GlobalData.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
+            //Sensor orientation = PPApplication.getOrientationSensor(this);
+            //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
             mStartedSensors = true;
         }
     }
@@ -502,7 +502,7 @@ public class PhoneProfilesService extends Service
     }
 
     public void resetListeningOrientationSensors(boolean oldPowerSaveMode, boolean forceReset) {
-        if ((forceReset) || (GlobalData.isPowerSaveMode != oldPowerSaveMode)) {
+        if ((forceReset) || (PPApplication.isPowerSaveMode != oldPowerSaveMode)) {
             stopListeningOrientationSensors();
             startListeningOrientationSensors();
         }
@@ -516,7 +516,7 @@ public class PhoneProfilesService extends Service
         //    return;
 
         if (sensorType == Sensor.TYPE_PROXIMITY) {
-            //GlobalData.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
+            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "proximity value="+event.values[0]);
             //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
             //if (event.timestamp - tmpDistanceTimestamp >= 250000000L /*1000000000L*/) {
             //    tmpDistanceTimestamp = event.timestamp;
@@ -576,8 +576,8 @@ public class PhoneProfilesService extends Service
                             float pitch = (float) Math.toDegrees(orientation[1]);
                             float roll = (float) Math.toDegrees(orientation[2]);
 
-                            //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
-                            //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                            //PPApplication.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
 
                             int side = DEVICE_ORIENTATION_UNKNOWN;
                             if (pitch > -30 && pitch < 30) {
@@ -602,9 +602,9 @@ public class PhoneProfilesService extends Service
                             if ((tmpSideUp == DEVICE_ORIENTATION_UNKNOWN) || (/*(side != DEVICE_ORIENTATION_UNKNOWN) &&*/ (side != tmpSideUp))) {
                                 mEventCountSinceGZChanged = 0;
 
-                                //GlobalData.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
-                                //GlobalData.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
-                                //GlobalData.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
+                                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "azimuth="+azimuth);
+                                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "pitch=" + pitch);
+                                //PPApplication.logE("PhoneProfilesService.onSensorChanged", "roll=" + roll);
 
                                 tmpSideUp = side;
                             } else {
@@ -620,20 +620,20 @@ public class PhoneProfilesService extends Service
 
                                         /*
                                         if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_UP)
-                                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
+                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
                                         if (mDisplayUp == DEVICE_ORIENTATION_DISPLAY_DOWN)
-                                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
 
                                         if (mSideUp == DEVICE_ORIENTATION_UP_SIDE_UP)
-                                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now up side is facing up.");
+                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now up side is facing up.");
                                         if (mSideUp == DEVICE_ORIENTATION_DOWN_SIDE_UP)
-                                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now down side is facing up.");
+                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now down side is facing up.");
                                         if (mSideUp == DEVICE_ORIENTATION_RIGHT_SIDE_UP)
-                                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
+                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now right side is facing up.");
                                         if (mSideUp == DEVICE_ORIENTATION_LEFT_SIDE_UP)
-                                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
+                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "now left side is facing up.");
                                         if (mSideUp == DEVICE_ORIENTATION_UNKNOWN)
-                                            GlobalData.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
+                                            PPApplication.logE("PhoneProfilesService.onSensorChanged", "unknown side.");
                                         */
 
                                         Intent broadcastIntent = new Intent(this, DeviceOrientationBroadcastReceiver.class);
@@ -662,10 +662,10 @@ public class PhoneProfilesService extends Service
                                 mEventCountSinceGZChanged = 0;
 
                                 if (gravityZ > 0) {
-                                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
+                                    PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing up.");
                                     mSideUp = DEVICE_ORIENTATION_DISPLAY_UP;
                                 } else if (gravityZ < 0) {
-                                    GlobalData.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
+                                    PPApplication.logE("PhoneProfilesService.onSensorChanged", "now screen is facing down.");
                                     mSideUp = DEVICE_ORIENTATION_DISPLAY_DOWN;
                                 }
 
@@ -705,19 +705,19 @@ public class PhoneProfilesService extends Service
     //---------------------------
 
     private void doSimulatingRingingCall(Intent intent) {
-        if (intent.getBooleanExtra(GlobalData.EXTRA_SIMULATE_RINGING_CALL, false))
+        if (intent.getBooleanExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, false))
         {
-            GlobalData.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
+            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "simulate ringing call");
 
             Context context = getApplicationContext();
 
             ringingCallIsSimulating = false;
 
-            int oldRingerMode = intent.getIntExtra(GlobalData.EXTRA_OLD_RINGER_MODE, 0);
-            int oldZenMode = intent.getIntExtra(GlobalData.EXTRA_OLD_ZEN_MODE, 0);
-            String oldRingtone = intent.getStringExtra(GlobalData.EXTRA_OLD_RINGTONE);
-            int newRingerMode = GlobalData.getRingerMode(context);
-            int newZenMode = GlobalData.getZenMode(context);
+            int oldRingerMode = intent.getIntExtra(PPApplication.EXTRA_OLD_RINGER_MODE, 0);
+            int oldZenMode = intent.getIntExtra(PPApplication.EXTRA_OLD_ZEN_MODE, 0);
+            String oldRingtone = intent.getStringExtra(PPApplication.EXTRA_OLD_RINGTONE);
+            int newRingerMode = PPApplication.getRingerMode(context);
+            int newZenMode = PPApplication.getZenMode(context);
             String newRingtone;
             try {
                 Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
@@ -732,16 +732,16 @@ public class PhoneProfilesService extends Service
                 newRingtone = "";
             }
 
-            GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingerMode=" + oldRingerMode);
-            GlobalData.logE("PhoneProfilesService.onStartCommand", "oldZenMode=" + oldZenMode);
-            GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingerMode=" + newRingerMode);
-            GlobalData.logE("PhoneProfilesService.onStartCommand", "newZenMode=" + newZenMode);
-            GlobalData.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
-            GlobalData.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
+            PPApplication.logE("PhoneProfilesService.onStartCommand", "oldRingerMode=" + oldRingerMode);
+            PPApplication.logE("PhoneProfilesService.onStartCommand", "oldZenMode=" + oldZenMode);
+            PPApplication.logE("PhoneProfilesService.onStartCommand", "newRingerMode=" + newRingerMode);
+            PPApplication.logE("PhoneProfilesService.onStartCommand", "newZenMode=" + newZenMode);
+            PPApplication.logE("PhoneProfilesService.onStartCommand", "oldRingtone=" + oldRingtone);
+            PPApplication.logE("PhoneProfilesService.onStartCommand", "newRingtone=" + newRingtone);
 
             if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
 
-                GlobalData.logE("PhoneProfilesService.onStartCommand", "ringing is audible");
+                PPApplication.logE("PhoneProfilesService.onStartCommand", "ringing is audible");
 
                 boolean simulateRinging = false;
                 int stream = AudioManager.STREAM_RING;
@@ -758,7 +758,7 @@ public class PhoneProfilesService extends Service
                             // old ringer/zen mode is NONE and ONLY_ALARMS
                             simulateRinging = true;
                             stream = AudioManager.STREAM_MUSIC;
-                            GlobalData.logE("PhoneProfilesService.onStartCommand", "stream=MUSIC");
+                            PPApplication.logE("PhoneProfilesService.onStartCommand", "stream=MUSIC");
                         }
                     }
 
@@ -772,7 +772,7 @@ public class PhoneProfilesService extends Service
                                 // old ringer/zen mode is PRIORITY
                                 simulateRinging = true;
                                 stream = AudioManager.STREAM_RING;
-                                GlobalData.logE("PhoneProfilesService.onStartCommand", "stream=RING");
+                                PPApplication.logE("PhoneProfilesService.onStartCommand", "stream=RING");
                             }
                         }
                     }
@@ -781,7 +781,7 @@ public class PhoneProfilesService extends Service
                 if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
                     simulateRinging = true;
 
-                GlobalData.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
+                PPApplication.logE("PhoneProfilesService.onStartCommand", "simulateRinging=" + simulateRinging);
 
                 if (simulateRinging)
                     startSimulatingRingingCall(stream);
@@ -792,7 +792,7 @@ public class PhoneProfilesService extends Service
 
     private void startSimulatingRingingCall(int stream) {
         if (!ringingCallIsSimulating) {
-            GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "stream="+stream);
+            PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "stream="+stream);
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
@@ -821,7 +821,7 @@ public class PhoneProfilesService extends Service
 
                         oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringingVolume=" + ringingVolume);
+                        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringingVolume=" + ringingVolume);
 
                         int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
                         int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -829,7 +829,7 @@ public class PhoneProfilesService extends Service
                         float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
                         mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
-                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "mediaVolume=" + mediaVolume);
+                        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "mediaVolume=" + mediaVolume);
 
                         /*if (android.os.Build.VERSION.SDK_INT >= 23)
                             audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, 0);
@@ -840,16 +840,16 @@ public class PhoneProfilesService extends Service
                         ringingMediaPlayer.start();
 
                         ringingCallIsSimulating = true;
-                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing played");
+                        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing played");
                     } else
-                        GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
+                        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
                 } catch (SecurityException e) {
-                    GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
+                    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true);
                     ringingMediaPlayer = null;
                     RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 } catch (Exception e) {
-                    GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
+                    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
                     ringingMediaPlayer = null;
                     RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 }
@@ -859,7 +859,7 @@ public class PhoneProfilesService extends Service
 
     public void stopSimulatingRingingCall() {
         //if (ringingCallIsSimulating) {
-            GlobalData.logE("PhoneProfilesService.stopSimulatingRingingCall", "xxx");
+            PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "xxx");
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
@@ -874,7 +874,7 @@ public class PhoneProfilesService extends Service
                     audioManager.setStreamMute(AudioManager.STREAM_RING, false);*/
 
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-                GlobalData.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing stopped");
+                PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing stopped");
             }
             audioManager.abandonAudioFocus(this);
         //}
@@ -944,9 +944,9 @@ public class PhoneProfilesService extends Service
 
                     oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-                    int notificationVolume = GlobalData.getNotificationVolume(this);
+                    int notificationVolume = PPApplication.getNotificationVolume(this);
 
-                    GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "notificationVolume=" + notificationVolume);
+                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "notificationVolume=" + notificationVolume);
 
                     int maximumNotificationValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
                     int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -954,7 +954,7 @@ public class PhoneProfilesService extends Service
                     float percentage = (float) notificationVolume / maximumNotificationValue * 100.0f;
                     mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
-                    GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "mediaVolume=" + mediaVolume);
+                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "mediaVolume=" + mediaVolume);
 
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mediaVolume, 0);
 
@@ -972,7 +972,7 @@ public class PhoneProfilesService extends Service
                                 eventNotificationMediaPlayer.stop();
 
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-                            GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "event notification stopped");
+                            PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "event notification stopped");
 
                             eventNotificationIsPlayed = false;
 
@@ -982,12 +982,12 @@ public class PhoneProfilesService extends Service
                     }, eventNotificationMediaPlayer.getDuration());
 
                 } catch (SecurityException e) {
-                    GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "security exception");
+                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true);
                     eventNotificationIsPlayed = false;
                     RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
                 } catch (Exception e) {
-                    GlobalData.logE("PhoneProfilesService.playEventNotificationSound", "exception");
+                    PPApplication.logE("PhoneProfilesService.playEventNotificationSound", "exception");
                     //e.printStackTrace();
                     eventNotificationIsPlayed = false;
                     RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
@@ -1002,7 +1002,7 @@ public class PhoneProfilesService extends Service
     @Override
     public void onTaskRemoved(Intent rootIntent)
     {
-        GlobalData.logE("$$$ PhoneProfilesService.onTaskRemoved", "xxxxx");
+        PPApplication.logE("$$$ PhoneProfilesService.onTaskRemoved", "xxxxx");
 
         ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
         super.onTaskRemoved(rootIntent);

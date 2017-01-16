@@ -13,21 +13,21 @@ public class EventDelayEndBroadcastReceiver extends WakefulBroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### EventDelayEndBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### EventDelayEndBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ EventDelayEndBroadcastReceiver.onReceive","xxx");
+            PPApplication.logE("@@@ EventDelayEndBroadcastReceiver.onReceive","xxx");
 
             // start service
             Intent eventsServiceIntent = new Intent(context, EventsService.class);
-            eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+            eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
             startWakefulService(context, eventsServiceIntent);
         }
 

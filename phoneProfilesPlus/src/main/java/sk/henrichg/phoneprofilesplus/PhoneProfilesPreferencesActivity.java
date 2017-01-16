@@ -61,7 +61,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (GlobalData.applicationTheme.equals("material"))
+            if (PPApplication.applicationTheme.equals("material"))
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
@@ -74,14 +74,14 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         //getSupportActionBar().setTitle(R.string.title_activity_phone_profiles_preferences);
 
 
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, MODE_PRIVATE);
-        activeLanguage = preferences.getString(GlobalData.PREF_APPLICATION_LANGUAGE, "system");
-        activeTheme = preferences.getString(GlobalData.PREF_APPLICATION_THEME, "material");
-        showEditorPrefIndicator = preferences.getBoolean(GlobalData.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
-        showEditorHeader = preferences.getBoolean(GlobalData.PREF_APPLICATION_EDITOR_HEADER, true);
-        wifiScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "10"));
-        bluetoothScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
-        locationScanInterval = Integer.valueOf(preferences.getString(GlobalData.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, MODE_PRIVATE);
+        activeLanguage = preferences.getString(PPApplication.PREF_APPLICATION_LANGUAGE, "system");
+        activeTheme = preferences.getString(PPApplication.PREF_APPLICATION_THEME, "material");
+        showEditorPrefIndicator = preferences.getBoolean(PPApplication.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
+        showEditorHeader = preferences.getBoolean(PPApplication.PREF_APPLICATION_EDITOR_HEADER, true);
+        wifiScanInterval = Integer.valueOf(preferences.getString(PPApplication.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "10"));
+        bluetoothScanInterval = Integer.valueOf(preferences.getString(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "10"));
+        locationScanInterval = Integer.valueOf(preferences.getString(PPApplication.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "5"));
 
         fragment = createFragment(false);
 
@@ -156,42 +156,42 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     @Override
     public void finish() {
 
-        GlobalData.loadPreferences(getApplicationContext());
+        PPApplication.loadPreferences(getApplicationContext());
 
-        if (!activeLanguage.equals(GlobalData.applicationLanguage))
+        if (!activeLanguage.equals(PPApplication.applicationLanguage))
         {
             GUIData.setLanguage(getBaseContext());
             invalidateEditor = true;
         }
         else
-        if (!activeTheme.equals(GlobalData.applicationTheme))
+        if (!activeTheme.equals(PPApplication.applicationTheme))
         {
             //EditorProfilesActivity.setTheme(this, false);
             invalidateEditor = true;
         }
         else
-        if (showEditorPrefIndicator != GlobalData.applicationEditorPrefIndicator)
+        if (showEditorPrefIndicator != PPApplication.applicationEditorPrefIndicator)
         {
             invalidateEditor = true;
         }
         else
-        if (showEditorHeader != GlobalData.applicationEditorHeader)
+        if (showEditorHeader != PPApplication.applicationEditorHeader)
         {
             invalidateEditor = true;
         }
 
         DataWrapper dataWrapper =  new DataWrapper(getApplicationContext(), false, false, 0);
-        if (wifiScanInterval != GlobalData.applicationEventWifiScanInterval)
+        if (wifiScanInterval != PPApplication.applicationEventWifiScanInterval)
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT) > 0)
                 WifiScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
         }
-        if (bluetoothScanInterval != GlobalData.applicationEventBluetoothScanInterval)
+        if (bluetoothScanInterval != PPApplication.applicationEventBluetoothScanInterval)
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT) > 0)
                 BluetoothScanAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
         }
-        if (locationScanInterval != GlobalData.applicationEventLocationUpdateInterval)
+        if (locationScanInterval != PPApplication.applicationEventLocationUpdateInterval)
         {
             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION) > 0)
                 GeofenceScannerAlarmBroadcastReceiver.setAlarm(getApplicationContext(), true, false);
@@ -199,16 +199,16 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         dataWrapper.invalidateDataWrapper();
 
         /*
-        if (activeBackgroundProfile != GlobalData.applicationBackgroundProfile)
+        if (activeBackgroundProfile != PPApplication.applicationBackgroundProfile)
         {
-            long lApplicationBackgroundProfile = Long.valueOf(GlobalData.applicationBackgroundProfile);
-            if (lApplicationBackgroundProfile != GlobalData.PROFILE_NO_ACTIVATE)
+            long lApplicationBackgroundProfile = Long.valueOf(PPApplication.applicationBackgroundProfile);
+            if (lApplicationBackgroundProfile != PPApplication.PROFILE_NO_ACTIVATE)
             {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
                 if (dataWrapper.getActivatedProfile() == null)
                 {
                     dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, getApplicationContext());
-                    dataWrapper.activateProfile(lApplicationBackgroundProfile, GlobalData.STARTUP_SOURCE_SERVICE, null, "");
+                    dataWrapper.activateProfile(lApplicationBackgroundProfile, PPApplication.STARTUP_SOURCE_SERVICE, null, "");
                 }
                 //invalidateEditor = true;
             }
@@ -218,7 +218,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
-        returnIntent.putExtra(GlobalData.EXTRA_RESET_EDITOR, invalidateEditor);
+        returnIntent.putExtra(PPApplication.EXTRA_RESET_EDITOR, invalidateEditor);
         setResult(RESULT_OK,returnIntent);
 
         super.finish();

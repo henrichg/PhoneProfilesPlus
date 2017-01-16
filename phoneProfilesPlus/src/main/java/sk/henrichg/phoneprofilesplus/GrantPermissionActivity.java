@@ -59,7 +59,7 @@ public class GrantPermissionActivity extends Activity {
 
         super.onCreate(savedInstanceState);
 
-        GlobalData.loadPreferences(getApplicationContext());
+        PPApplication.loadPreferences(getApplicationContext());
 
         Intent intent = getIntent();
         grantType = intent.getIntExtra(Permissions.EXTRA_GRANT_TYPE, 0);
@@ -67,28 +67,28 @@ public class GrantPermissionActivity extends Activity {
         permissions = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
         mergedNotification = false;
         if (permissions == null) {
-            permissions = GlobalData.getMergedPermissions(getApplicationContext());
+            permissions = PPApplication.getMergedPermissions(getApplicationContext());
             mergedNotification = true;
         }
 
-        profile_id = intent.getLongExtra(GlobalData.EXTRA_PROFILE_ID, 0);
+        profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
         mergedProfile = intent.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
         forGUI = intent.getBooleanExtra(Permissions.EXTRA_FOR_GUI, false);
         monochrome = intent.getBooleanExtra(Permissions.EXTRA_MONOCHROME, false);
         monochromeValue = intent.getIntExtra(Permissions.EXTRA_MONOCHROME_VALUE, 0xFF);
-        startupSource = intent.getIntExtra(GlobalData.EXTRA_STARTUP_SOURCE, GlobalData.STARTUP_SOURCE_ACTIVATOR);
+        startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
         interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
         log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
-        activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true) && (profile_id != GlobalData.DEFAULT_PROFILE_ID);
+        activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true) && (profile_id != PPApplication.DEFAULT_PROFILE_ID);
 
-        long event_id = intent.getLongExtra(GlobalData.EXTRA_EVENT_ID, 0);
+        long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 
         dataWrapper = new DataWrapper(getApplicationContext(), forGUI, monochrome, monochromeValue);
-        if (profile_id != GlobalData.DEFAULT_PROFILE_ID)
+        if (profile_id != PPApplication.DEFAULT_PROFILE_ID)
             profile = dataWrapper.getProfileById(profile_id, mergedProfile);
         else
-            profile = GlobalData.getDefaultProfile(getApplicationContext());
+            profile = PPApplication.getDefaultProfile(getApplicationContext());
         event = dataWrapper.getEventById(event_id);
 
         //Log.e("GrantPermissionActivity", "onShow grantType="+grantType);
@@ -144,7 +144,7 @@ public class GrantPermissionActivity extends Activity {
             else
             if (grantType == Permissions.GRANT_TYPE_EVENT) {
                 // get permissions from shared preferences and recheck it
-                permissions = Permissions.recheckPermissions(context, GlobalData.getMergedPermissions(context));
+                permissions = Permissions.recheckPermissions(context, PPApplication.getMergedPermissions(context));
                 mergedNotification = true;
                 if (permissions.size() == 0) {
                     Toast msg = Toast.makeText(context,
@@ -157,7 +157,7 @@ public class GrantPermissionActivity extends Activity {
             }
             else {
                 // get permissions from shared preferences and recheck it
-                permissions = Permissions.recheckPermissions(context, GlobalData.getMergedPermissions(context));
+                permissions = Permissions.recheckPermissions(context, PPApplication.getMergedPermissions(context));
                 mergedNotification = true;
                 if (permissions.size() == 0) {
                     Toast msg = Toast.makeText(context,
@@ -191,11 +191,11 @@ public class GrantPermissionActivity extends Activity {
             //Log.d("GrantPermissionActivity.onStart", "Manifest.permission.WRITE_SETTINGS="+Manifest.permission.WRITE_SETTINGS);
 
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS))
-                showRequestWriteSettings = GlobalData.getShowRequestWriteSettingsPermission(context);
+                showRequestWriteSettings = PPApplication.getShowRequestWriteSettingsPermission(context);
             if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY))
-                showRequestAccessNotificationPolicy = GlobalData.getShowRequestAccessNotificationPolicyPermission(context);
+                showRequestAccessNotificationPolicy = PPApplication.getShowRequestAccessNotificationPolicyPermission(context);
             if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW))
-                showRequestDrawOverlays = GlobalData.getShowRequestDrawOverlaysPermission(context);
+                showRequestDrawOverlays = PPApplication.getShowRequestDrawOverlaysPermission(context);
             if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE))
                 showRequestReadExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE);
             if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE))
@@ -266,7 +266,7 @@ public class GrantPermissionActivity extends Activity {
                             .setContentText(ntext)
                             .setStyle(new NotificationCompat.BigTextStyle().bigText(ntext))
                             .setAutoCancel(true); // clear notification after click
-                    notificationID = GlobalData.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID;
+                    notificationID = PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else
                 if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
@@ -283,7 +283,7 @@ public class GrantPermissionActivity extends Activity {
                             .setContentText(ntext)
                             .setStyle(new NotificationCompat.BigTextStyle().bigText(ntext))
                             .setAutoCancel(true); // clear notification after click
-                    notificationID = GlobalData.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID;
+                    notificationID = PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT) {
@@ -313,8 +313,8 @@ public class GrantPermissionActivity extends Activity {
                     PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
                     mBuilder.setDeleteIntent(deletePendingIntent);
 
-                    intent.putExtra(GlobalData.EXTRA_EVENT_ID, event._id);
-                    notificationID = GlobalData.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
+                    intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                    notificationID = PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
                 }
                 else {
                     String ntitle = context.getString(R.string.permissions_for_profile_text_notification);
@@ -343,17 +343,17 @@ public class GrantPermissionActivity extends Activity {
                     PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
                     mBuilder.setDeleteIntent(deletePendingIntent);
 
-                    intent.putExtra(GlobalData.EXTRA_PROFILE_ID, profile._id);
+                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                     intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);
                     intent.putExtra(Permissions.EXTRA_MONOCHROME, monochrome);
                     intent.putExtra(Permissions.EXTRA_MONOCHROME_VALUE, monochromeValue);
-                    notificationID = GlobalData.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID;
+                    notificationID = PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID;
                 }
                 permissions.clear();
                 intent.putExtra(Permissions.EXTRA_GRANT_TYPE, grantType);
                 intent.putParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES, (ArrayList<Permissions.PermissionType>) permissions);
                 intent.putExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
-                intent.putExtra(GlobalData.EXTRA_STARTUP_SOURCE, startupSource);
+                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
                 intent.putExtra(Permissions.EXTRA_INTERACTIVE, interactive);
                 intent.putExtra(Permissions.EXTRA_LOG, log);
 
@@ -531,14 +531,14 @@ public class GrantPermissionActivity extends Activity {
                         finish();
                         Permissions.releaseReferences();
                         if (mergedNotification)
-                            GlobalData.clearMergedPermissions(context);
+                            PPApplication.clearMergedPermissions(context);
                     }
                 });
                 dialogBuilder.show();
             }
         }
         else {
-            GlobalData.logE("GrantPermissionActivity.onStart","no show request dialog");
+            PPApplication.logE("GrantPermissionActivity.onStart","no show request dialog");
             requestPermissions(3);
         }
     }
@@ -579,7 +579,7 @@ public class GrantPermissionActivity extends Activity {
                     finish();
                     Permissions.releaseReferences();
                     if (mergedNotification)
-                        GlobalData.clearMergedPermissions(getApplicationContext());
+                        PPApplication.clearMergedPermissions(getApplicationContext());
                 }
                 //return;
                 break;
@@ -601,14 +601,14 @@ public class GrantPermissionActivity extends Activity {
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        GlobalData.setShowRequestWriteSettingsPermission(context, false);
+                        PPApplication.setShowRequestWriteSettingsPermission(context, false);
                         requestPermissions(2);
                     }
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        GlobalData.setShowRequestWriteSettingsPermission(context, true);
+                        PPApplication.setShowRequestWriteSettingsPermission(context, true);
                         requestPermissions(2);
                     }
                 });
@@ -621,7 +621,7 @@ public class GrantPermissionActivity extends Activity {
                 dialogBuilder.show();
             }
             else {
-                GlobalData.setShowRequestWriteSettingsPermission(context, true);
+                PPApplication.setShowRequestWriteSettingsPermission(context, true);
                 requestPermissions(2);
             }
         }
@@ -634,14 +634,14 @@ public class GrantPermissionActivity extends Activity {
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        GlobalData.setShowRequestAccessNotificationPolicyPermission(context, false);
+                        PPApplication.setShowRequestAccessNotificationPolicyPermission(context, false);
                         requestPermissions(3);
                     }
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        GlobalData.setShowRequestAccessNotificationPolicyPermission(context, true);
+                        PPApplication.setShowRequestAccessNotificationPolicyPermission(context, true);
                         requestPermissions(3);
                     }
                 });
@@ -654,7 +654,7 @@ public class GrantPermissionActivity extends Activity {
                 dialogBuilder.show();
             }
             else {
-                GlobalData.setShowRequestAccessNotificationPolicyPermission(context, true);
+                PPApplication.setShowRequestAccessNotificationPolicyPermission(context, true);
                 requestPermissions(3);
             }
         }
@@ -666,14 +666,14 @@ public class GrantPermissionActivity extends Activity {
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        GlobalData.setShowRequestDrawOverlaysPermission(context, false);
+                        PPApplication.setShowRequestDrawOverlaysPermission(context, false);
                         requestPermissions(4);
                     }
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        GlobalData.setShowRequestDrawOverlaysPermission(context, true);
+                        PPApplication.setShowRequestDrawOverlaysPermission(context, true);
                         requestPermissions(4);
                     }
                 });
@@ -686,7 +686,7 @@ public class GrantPermissionActivity extends Activity {
                 dialogBuilder.show();
             }
             else {
-                GlobalData.setShowRequestDrawOverlaysPermission(context, true);
+                PPApplication.setShowRequestDrawOverlaysPermission(context, true);
                 requestPermissions(4);
             }
         }
@@ -751,7 +751,7 @@ public class GrantPermissionActivity extends Activity {
                 }
             }
 
-            GlobalData.logE("GrantPermissionActivity.requestPermissions", "permList.size=" + permList.size());
+            PPApplication.logE("GrantPermissionActivity.requestPermissions", "permList.size=" + permList.size());
             if (permList.size() > 0) {
 
                 String[] permArray = new String[permList.size()];
@@ -865,8 +865,8 @@ public class GrantPermissionActivity extends Activity {
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
             if (!(PhoneProfilesService.isGeofenceScannerStarted() && PhoneProfilesService.geofencesScanner.isConnected())) {
-                GlobalData.startGeofenceScanner(getApplicationContext());
-                GlobalData.sleep(1000);
+                PPApplication.startGeofenceScanner(getApplicationContext());
+                PPApplication.sleep(1000);
             }
             if (Permissions.locationGeofenceEditorActivity != null)
                 Permissions.locationGeofenceEditorActivity.refreshActivity(true);
@@ -895,9 +895,9 @@ public class GrantPermissionActivity extends Activity {
         else {
             // Profile permission
 
-            GlobalData.logE("GrantPermissionActivity.finishGrant", "profile");
-            GlobalData.logE("GrantPermissionActivity.finishGrant", "startupSource="+startupSource);
-            GlobalData.logE("GrantPermissionActivity.finishGrant", "interactive="+interactive);
+            PPApplication.logE("GrantPermissionActivity.finishGrant", "profile");
+            PPApplication.logE("GrantPermissionActivity.finishGrant", "startupSource="+startupSource);
+            PPApplication.logE("GrantPermissionActivity.finishGrant", "interactive="+interactive);
 
             //finishAffinity();
             finish();
@@ -914,7 +914,7 @@ public class GrantPermissionActivity extends Activity {
         }
         Permissions.releaseReferences();
         if (mergedNotification)
-            GlobalData.clearMergedPermissions(context);
+            PPApplication.clearMergedPermissions(context);
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             Profile activatedProfile = dataWrapper.getActivatedProfile();

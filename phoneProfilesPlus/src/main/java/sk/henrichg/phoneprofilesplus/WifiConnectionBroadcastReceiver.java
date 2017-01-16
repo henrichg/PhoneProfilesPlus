@@ -14,28 +14,28 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### WifiConnectionBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### WifiConnectionBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
         NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 
         if (info != null)
         {
 
-            if (GlobalData.getGlobalEventsRuning(context))
+            if (PPApplication.getGlobalEventsRuning(context))
             {
-                GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
+                PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive","state="+info.getState());
 
                 if ((info.getState() == NetworkInfo.State.CONNECTED) ||
                     (info.getState() == NetworkInfo.State.DISCONNECTED))
                 {
                     //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
-                    //GlobalData.logE("$$$ WifiAP", "WifiConnectionBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
+                    //PPApplication.logE("$$$ WifiAP", "WifiConnectionBroadcastReceiver.onReceive-isWifiAPEnabled="+isWifiAPEnabled);
 
                     //if (!isWifiAPEnabled) {
                         if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
@@ -43,22 +43,22 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
                                 (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
                             // wifi is not scanned
 
-                            GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
+                            PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
 
                             /*DataWrapper dataWrapper = new DataWrapper(context, false, false, 0);
                             boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;
                             dataWrapper.invalidateDataWrapper();
 
                             if (wifiEventsExists) {
-                                GlobalData.logE("@@@ WifiConnectionBroadcastReceiver.onReceive", "wifiEventsExists=" + wifiEventsExists);
+                                PPApplication.logE("@@@ WifiConnectionBroadcastReceiver.onReceive", "wifiEventsExists=" + wifiEventsExists);
                             */
                                 // start service
                                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                                 startWakefulService(context, eventsServiceIntent);
                             //}
                         } else
-                            GlobalData.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
+                            PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
                     //}
 
                 }

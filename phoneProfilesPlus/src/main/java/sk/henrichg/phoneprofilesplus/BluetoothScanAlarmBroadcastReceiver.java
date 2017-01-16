@@ -37,14 +37,14 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
         setAlarm(context, false, false);
 
-        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
-                GlobalData.PREFERENCE_ALLOWED) {
+        if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
+                PPApplication.PREFERENCE_ALLOWED) {
             removeAlarm(context);
             return;
         }
@@ -52,9 +52,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         if (bluetooth == null)
             bluetooth = getBluetoothAdapter(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
+            PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.onReceive", "xxx");
 
             startScanner(context);
         }
@@ -80,8 +80,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         setWaitForLEResults(context, false);
         setBluetoothEnabledForScan(context, false);
 
-        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
-                GlobalData.PREFERENCE_ALLOWED)
+        if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) !=
+                PPApplication.PREFERENCE_ALLOWED)
             return;
 
         if (bluetooth == null)
@@ -93,9 +93,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         clearScanResults(context);
 
-        /*SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        /*SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putInt(GlobalData.PREF_EVENT_BLUETOOTH_LAST_STATE, -1);
+        editor.putInt(PPApplication.PREF_EVENT_BLUETOOTH_LAST_STATE, -1);
         editor.commit();*/
 
         if (bluetooth.isEnabled())
@@ -108,12 +108,12 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     @SuppressLint("NewApi")
     public static void setAlarm(Context context, boolean shortInterval, boolean forScreenOn)
     {
-        //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
+        //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "oneshot=" + oneshot);
 
-        if (GlobalData.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
-                == GlobalData.PREFERENCE_ALLOWED)
+        if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
+                == PPApplication.PREFERENCE_ALLOWED)
         {
-            GlobalData.logE("BluetoothScanAlarmBroadcastReceiver.setAlarm","BluetoothHardware=true");
+            PPApplication.logE("BluetoothScanAlarmBroadcastReceiver.setAlarm","BluetoothHardware=true");
 
             AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
@@ -124,7 +124,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             Calendar calendar = Calendar.getInstance();
 
             //SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
+            //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm","oneshot="+oneshot+"; alarmTime="+sdf.format(alarmTime));
 
             if (shortInterval) {
                 if (forScreenOn)
@@ -133,9 +133,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     calendar.add(Calendar.SECOND, 5);
             }
             else {
-                int interval = GlobalData.applicationEventBluetoothScanInterval;
+                int interval = PPApplication.applicationEventBluetoothScanInterval;
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode();
-                if (isPowerSaveMode && GlobalData.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
+                if (isPowerSaveMode && PPApplication.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
                 calendar.add(Calendar.MINUTE, interval);
             }
@@ -144,25 +144,25 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             intent.putExtra(EXTRA_ONESHOT, 0);
             PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
                 //alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
                 alarmMgr.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
-            else if (GlobalData.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
                 //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
                 alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
             else
                 alarmMgr.set(AlarmManager.RTC_WAKEUP, alarmTime, alarmIntent);
 
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "alarm is set");
+            PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.setAlarm", "alarm is set");
 
         }
         else
-            GlobalData.logE("BluetoothScanAlarmBroadcastReceiver.setAlarm","BluetoothHardware=false");
+            PPApplication.logE("BluetoothScanAlarmBroadcastReceiver.setAlarm","BluetoothHardware=false");
     }
 
     public static void removeAlarm(Context context/*, boolean oneshot*/)
     {
-        //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
+        //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm", "oneshot=" + oneshot);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         Intent intent = new Intent(context, BluetoothScanAlarmBroadcastReceiver.class);
@@ -173,15 +173,15 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null)
         {
-            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","alarm found");
+            //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm found");
+            PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","alarm found");
 
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
         else
-            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","alarm not found");
+            //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","oneshot="+oneshot+"; alarm not found");
+            PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.removeAlarm","alarm not found");
     }
 
     public static boolean isAlarmSet(Context context/*, boolean oneshot*/)
@@ -194,11 +194,11 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
 
         if (pendingIntent != null)
-            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet","alarm found");
+            //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet","oneshot="+oneshot+"; alarm found");
+            PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet","alarm found");
         else
-            //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet", "alarm not found");
+            //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet", "oneshot=" + oneshot + "; alarm not found");
+            PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.isAlarmSet", "alarm not found");
 
         return (pendingIntent != null);
     }
@@ -213,7 +213,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         try {
             if (!wakeLock.isHeld())
                 wakeLock.acquire();
-        //	GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.lock","xxx");
+        //	PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.lock","xxx");
         } catch(Exception e) {
             Log.e("BluetoothScanAlarmBroadcastReceiver.lock", "Error getting Lock: "+e.getMessage());
         }*/
@@ -223,7 +223,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     {
         /*if ((wakeLock != null) && (wakeLock.isHeld()))
             wakeLock.release();*/
-        //GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.unlock","xxx");
+        //PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.unlock","xxx");
     }
     
     public static void sendBroadcast(Context context)
@@ -234,23 +234,23 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     
     static public boolean getScanRequest(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_SCAN_REQUEST, false);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PPApplication.PREF_EVENT_BLUETOOTH_SCAN_REQUEST, false);
     }
 
     static public void setScanRequest(Context context, boolean startScan)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_SCAN_REQUEST, startScan);
+        editor.putBoolean(PPApplication.PREF_EVENT_BLUETOOTH_SCAN_REQUEST, startScan);
         editor.commit();
     }
 
     static public boolean getLEScanRequest(Context context)
     {
         if (ScannerService.bluetoothLESupported(context)) {
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, false);
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            return preferences.getBoolean(PPApplication.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, false);
         }
         else
             return false;
@@ -259,32 +259,32 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public void setLEScanRequest(Context context, boolean startScan)
     {
         if (ScannerService.bluetoothLESupported(context)) {
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
-            editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, startScan);
+            editor.putBoolean(PPApplication.PREF_EVENT_BLUETOOTH_LE_SCAN_REQUEST, startScan);
             editor.commit();
         }
     }
 
     static public boolean getWaitForResults(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, false);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PPApplication.PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, false);
     }
 
     static public void setWaitForResults(Context context, boolean startScan)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, startScan);
+        editor.putBoolean(PPApplication.PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS, startScan);
         editor.commit();
     }
 
     static public boolean getWaitForLEResults(Context context)
     {
         if (ScannerService.bluetoothLESupported(context)) {
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-            return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, false);
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            return preferences.getBoolean(PPApplication.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, false);
         }
         else
             return false;
@@ -293,9 +293,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public void setWaitForLEResults(Context context, boolean startScan)
     {
         if (ScannerService.bluetoothLESupported(context)) {
-            SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             Editor editor = preferences.edit();
-            editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, startScan);
+            editor.putBoolean(PPApplication.PREF_EVENT_BLUETOOTH_WAIT_FOR_LE_RESULTS, startScan);
             editor.commit();
         }
     }
@@ -317,12 +317,12 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             // unlock() is then called at the end of the scan from ScannerService
 
             boolean startScan = bluetooth.startDiscovery();
-            GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan", "scanStarted=" + startScan);
+            PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan", "scanStarted=" + startScan);
 
             if (!startScan) {
                 unlock();
                 if (getBluetoothEnabledForScan(context)) {
-                    GlobalData.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan", "disable bluetooth");
+                    PPApplication.logE("@@@ BluetoothScanAlarmBroadcastReceiver.startScan", "disable bluetooth");
                     bluetooth.disable();
                 }
             }
@@ -363,14 +363,14 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     ScanSettings.Builder builder = new ScanSettings.Builder();
 
-                    int forceScan = GlobalData.getForceOneBluetoothScan(context);
-                    if (forceScan == GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
+                    int forceScan = PPApplication.getForceOneBluetoothScan(context);
+                    if (forceScan == PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
                         builder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
                     else
                         builder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
 
                     if (bluetooth.isOffloadedScanBatchingSupported())
-                        builder.setReportDelay(GlobalData.applicationEventBluetoothLEScanDuration * 1000);
+                        builder.setReportDelay(PPApplication.applicationEventBluetoothLEScanDuration * 1000);
                     ScanSettings settings = builder.build();
 
                     List<ScanFilter> filters = new ArrayList<>();
@@ -427,7 +427,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public void startScanner(Context context)
     {
         Intent scanServiceIntent = new Intent(context, ScannerService.class);
-        scanServiceIntent.putExtra(GlobalData.EXTRA_SCANNER_TYPE, GlobalData.SCANNER_TYPE_BLUETOOTH);
+        scanServiceIntent.putExtra(PPApplication.EXTRA_SCANNER_TYPE, PPApplication.SCANNER_TYPE_BLUETOOTH);
         context.startService(scanServiceIntent);
     }
 
@@ -440,21 +440,21 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         setBluetoothEnabledForScan(context, false);
         setScanRequest(context, false);
         setWaitForResults(context, false);
-        GlobalData.setForceOneBluetoothScan(context, false);
+        PPApplication.setForceOneBluetoothScan(context, false);
     }
     */
 
     static public boolean getBluetoothEnabledForScan(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(GlobalData.PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN, false);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PPApplication.PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN, false);
     }
 
     static public void setBluetoothEnabledForScan(Context context, boolean setEnabled)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();
-        editor.putBoolean(GlobalData.PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN, setEnabled);
+        editor.putBoolean(PPApplication.PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN, setEnabled);
         editor.commit();
     }
 
@@ -498,7 +498,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
         List<BluetoothDeviceData> boundedDevicesList  = new ArrayList<>();
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
         int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
 
@@ -521,7 +521,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         //if (boundedDevicesList == null)
         //    boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.clear();
@@ -542,7 +542,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     //public static void getScanResults(Context context)
     public static List<BluetoothDeviceData> getScanResults(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
 
         if (count >= 0) {
@@ -565,7 +565,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     public static void clearScanResults(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.clear();
@@ -594,7 +594,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.clear();
@@ -628,7 +628,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             savedScanResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false));
         }
 
-        SharedPreferences preferences = context.getSharedPreferences(GlobalData.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.clear();

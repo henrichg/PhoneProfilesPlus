@@ -76,7 +76,7 @@ public class ProfilePreference extends Preference {
             }
             else
             {
-                //if ((addNoActivateItem == 1) && (Long.parseLong(profileId) == GlobalData.PROFILE_NO_ACTIVATE))
+                //if ((addNoActivateItem == 1) && (Long.parseLong(profileId) == PPApplication.PROFILE_NO_ACTIVATE))
                 //    profileIcon.setImageResource(R.drawable.ic_profile_default); // resource na ikonu
                 //else
                     profileIcon.setImageResource(R.drawable.ic_empty); // resource na ikonu
@@ -218,7 +218,7 @@ public class ProfilePreference extends Preference {
         }
         else
         {
-            if ((addNoActivateItem == 1) && (profileId == GlobalData.PROFILE_NO_ACTIVATE))
+            if ((addNoActivateItem == 1) && (profileId == PPApplication.PROFILE_NO_ACTIVATE))
                 if (noActivateAsDoNotApply == 1)
                     setSummary(prefContext.getResources().getString(R.string.profile_preference_do_not_apply));
                 else

@@ -13,40 +13,40 @@ public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
-        GlobalData.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "----- start");
+        PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "----- start");
 
         //if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
         //    BluetoothScanAlarmBroadcastReceiver.bluetooth = (BluetoothAdapter) BluetoothAdapter.getDefaultAdapter();
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
 
             boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context));
 
             if (scanStarted)
             {
-                GlobalData.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","xxx");
+                PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","xxx");
 
                 BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
 
                 BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
 
-                int forceOneScan = GlobalData.getForceOneLEBluetoothScan(context);
-                GlobalData.setForceOneLEBluetoothScan(context, GlobalData.FORCE_ONE_SCAN_DISABLED);
+                int forceOneScan = PPApplication.getForceOneLEBluetoothScan(context);
+                PPApplication.setForceOneLEBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
 
-                if (forceOneScan != GlobalData.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
+                if (forceOneScan != PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
                     // start service
                     Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                    eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                    eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                     startWakefulService(context, eventsServiceIntent);
                 }
 
@@ -54,7 +54,7 @@ public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
         }
 
-        GlobalData.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","----- end");
+        PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","----- end");
 
     }
 

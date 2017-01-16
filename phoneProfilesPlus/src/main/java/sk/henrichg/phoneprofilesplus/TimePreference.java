@@ -64,7 +64,7 @@ public class TimePreference extends DialogPreference {
                 });
 
         /*
-        if (GlobalData.applicationTheme.equals("dark"))
+        if (PPApplication.applicationTheme.equals("dark"))
             picker = new TimePicker(context, attributeSet, TimePickerDialog.THEME_HOLO_DARK);
         else
             picker = new TimePicker(context, attributeSet, TimePickerDialog.THEME_HOLO_LIGHT);

@@ -16,24 +16,24 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("##### PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
-        if (!GlobalData.getApplicationStarted(context, true))
+        if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        boolean oldPowerSaveMode = GlobalData.isPowerSaveMode;
-        GlobalData.isPowerSaveMode = false;
-        if (GlobalData.applicationPowerSaveModeInternal.equals("3")) {
+        boolean oldPowerSaveMode = PPApplication.isPowerSaveMode;
+        PPApplication.isPowerSaveMode = false;
+        if (PPApplication.applicationPowerSaveModeInternal.equals("3")) {
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            GlobalData.isPowerSaveMode = powerManager.isPowerSaveMode();
+            PPApplication.isPowerSaveMode = powerManager.isPowerSaveMode();
         }
         else
-            GlobalData.isPowerSaveMode = oldPowerSaveMode;
+            PPApplication.isPowerSaveMode = oldPowerSaveMode;
 
-        if (GlobalData.getGlobalEventsRuning(context))
+        if (PPApplication.getGlobalEventsRuning(context))
         {
             if (PhoneProfilesService.instance != null) {
                 if (PhoneProfilesService.isGeofenceScannerStarted())
@@ -47,7 +47,7 @@ public class PowerSaveModeBroadcastReceiver extends WakefulBroadcastReceiver {
             //{
                 // start service
                 Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                eventsServiceIntent.putExtra(GlobalData.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
+                eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 startWakefulService(context, eventsServiceIntent);
             //}
         }

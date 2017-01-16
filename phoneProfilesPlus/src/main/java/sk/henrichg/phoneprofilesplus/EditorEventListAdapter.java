@@ -265,13 +265,13 @@ class EditorEventListAdapter extends BaseAdapter
         {
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-                if (GlobalData.applicationEditorPrefIndicator)
+                if (PPApplication.applicationEditorPrefIndicator)
                     vi = inflater.inflate(R.layout.editor_event_list_item_with_order, parent, false);
                 else
                     vi = inflater.inflate(R.layout.editor_event_list_item_no_indicator_with_order, parent, false);
             }
             else {
-                if (GlobalData.applicationEditorPrefIndicator)
+                if (PPApplication.applicationEditorPrefIndicator)
                     vi = inflater.inflate(R.layout.editor_event_list_item, parent, false);
                 else
                     vi = inflater.inflate(R.layout.editor_event_list_item_no_indicator, parent, false);
@@ -285,7 +285,7 @@ class EditorEventListAdapter extends BaseAdapter
             holder.profileStartIcon = (ImageView)vi.findViewById(R.id.event_list_item_profile_start_icon);
             holder.profileEndName = (TextView)vi.findViewById(R.id.event_list_item_profile_end_name);
             holder.profileEndIcon = (ImageView)vi.findViewById(R.id.event_list_item_profile_end_icon);
-            if (GlobalData.applicationEditorPrefIndicator)
+            if (PPApplication.applicationEditorPrefIndicator)
             {
                 holder.eventPreferencesDescription  = (TextView)vi.findViewById(R.id.event_list_item_preferences_description);
                 //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
@@ -308,24 +308,24 @@ class EditorEventListAdapter extends BaseAdapter
 
             if (eventStatus == Event.ESTATUS_RUNNING)
             {
-                if (GlobalData.applicationTheme.equals("material"))
+                if (PPApplication.applicationTheme.equals("material"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
                 else
-                if (GlobalData.applicationTheme.equals("dark"))
+                if (PPApplication.applicationTheme.equals("dark"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dark);
                 else
-                if (GlobalData.applicationTheme.equals("dlight"))
+                if (PPApplication.applicationTheme.equals("dlight"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
             }
             else
             {
-                if (GlobalData.applicationTheme.equals("material"))
+                if (PPApplication.applicationTheme.equals("material"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.card);
                 else
-                if (GlobalData.applicationTheme.equals("dark"))
+                if (PPApplication.applicationTheme.equals("dark"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.card_dark);
                 else
-                if (GlobalData.applicationTheme.equals("dlight"))
+                if (PPApplication.applicationTheme.equals("dlight"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.card);
             }
 
@@ -373,7 +373,7 @@ class EditorEventListAdapter extends BaseAdapter
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
                 eventStartOrder = "";
             String eventPriority = "";
-            if (GlobalData.applicationEventUsePriority)
+            if (PPApplication.applicationEventUsePriority)
                 eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
             //else
             //    eventPriority = "[P:" + "5" + "] ";
@@ -390,7 +390,7 @@ class EditorEventListAdapter extends BaseAdapter
                 eventName = eventName + "\n\n" + vi.getResources().getString(R.string.event_preferences_error);
             holder.eventName.setText(eventName);
 
-            if (GlobalData.applicationEditorPrefIndicator)
+            if (PPApplication.applicationEditorPrefIndicator)
             {
                 if (holder.eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(vi.getContext());
@@ -424,7 +424,7 @@ class EditorEventListAdapter extends BaseAdapter
                     holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
-                if (GlobalData.applicationEditorPrefIndicator)
+                if (PPApplication.applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -437,7 +437,7 @@ class EditorEventListAdapter extends BaseAdapter
             {
                 holder.profileStartName.setText(R.string.profile_preference_profile_not_set);
                 holder.profileStartIcon.setImageResource(R.drawable.ic_profile_default);
-                if (GlobalData.applicationEditorPrefIndicator)
+                if (PPApplication.applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -483,7 +483,7 @@ class EditorEventListAdapter extends BaseAdapter
                         holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
-                    if (GlobalData.applicationEditorPrefIndicator) {
+                    if (PPApplication.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -499,14 +499,14 @@ class EditorEventListAdapter extends BaseAdapter
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {
-                        if (event._fkProfileEnd == GlobalData.PROFILE_NO_ACTIVATE)
+                        if (event._fkProfileEnd == PPApplication.PROFILE_NO_ACTIVATE)
                             profileName = profileName + vi.getResources().getString(R.string.profile_preference_profile_end_no_activate);
                         else
                             profileName = profileName + vi.getResources().getString(R.string.profile_preference_profile_not_set);
                     }
                     holder.profileEndName.setText(profileName);
                     holder.profileEndIcon.setImageResource(R.drawable.ic_empty);
-                    if (GlobalData.applicationEditorPrefIndicator) {
+                    if (PPApplication.applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);

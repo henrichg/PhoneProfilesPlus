@@ -56,7 +56,7 @@ public class MobileCellsPreference extends DialogPreference {
 
         if (!PhoneProfilesService.isPhoneStateStarted()) {
             //Log.d("MobileCellsPreference","no scanner started");
-            GlobalData.startPhoneStateScanner(context);
+            PPApplication.startPhoneStateScanner(context);
         }
         //else
         //    Log.d("MobileCellsPreference","scanner started");
@@ -339,7 +339,7 @@ public class MobileCellsPreference extends DialogPreference {
 
                     //try { Thread.sleep(200); } catch (InterruptedException e) { }
                     //SystemClock.sleep(200);
-                    //GlobalData.sleep(200);
+                    //PPApplication.sleep(200);
                 }
 
                 // add all from table

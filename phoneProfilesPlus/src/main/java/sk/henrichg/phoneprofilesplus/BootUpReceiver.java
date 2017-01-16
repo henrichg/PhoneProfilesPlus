@@ -11,26 +11,26 @@ public class BootUpReceiver extends BroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### BootUpReceiver.onReceive", "xxx");
+        PPApplication.logE("##### BootUpReceiver.onReceive", "xxx");
 
-        //GlobalData.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
+        //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        GlobalData.logE("BootUpReceiver.onReceive", "applicationStartOnBoot="+GlobalData.applicationStartOnBoot);
-        //GlobalData.logE("BootUpReceiver.onReceive", "globalEventsRunning="+GlobalData.getGlobalEventsRuning(context));
+        PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot="+ PPApplication.applicationStartOnBoot);
+        //PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning="+PPApplication.getGlobalEventsRuning(context));
 
-        GlobalData.setApplicationStarted(context, false);
+        PPApplication.setApplicationStarted(context, false);
 
-        if (GlobalData.applicationStartOnBoot)
+        if (PPApplication.applicationStartOnBoot)
         {
-            GlobalData.logE("BootUpReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);
+            PPApplication.logE("BootUpReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);
 
             // start ReceiverService
             context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
         }
 
-        //GlobalData.logE("@@@ BootUpReceiver.onReceive", "#### -- end");
+        //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- end");
 
     }
 

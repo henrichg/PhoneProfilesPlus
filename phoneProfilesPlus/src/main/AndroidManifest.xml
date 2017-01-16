@@ -101,7 +101,7 @@
         android:required="false"/>
 
     <application
-        android:name=".GlobalData"
+        android:name=".PPApplication"
         android:allowBackup="true"
         android:backupAgent=".PhoneProfilesBackupAgent"
         android:fullBackupContent="@xml/phoneprofiles_backup_scheme"

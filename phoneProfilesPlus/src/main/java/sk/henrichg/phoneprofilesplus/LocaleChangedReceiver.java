@@ -12,17 +12,17 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
-        GlobalData.logE("##### LocaleChangedReceiver.onReceive","xxx");
+        PPApplication.logE("##### LocaleChangedReceiver.onReceive","xxx");
 
-        GlobalData.loadPreferences(context);
+        PPApplication.loadPreferences(context);
 
-        if (GlobalData.applicationLanguage.equals("system"))
+        if (PPApplication.applicationLanguage.equals("system"))
         {
             if (PhoneProfilesService.instance != null)
                 PhoneProfilesService.instance.stopForeground(true);
             else {
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.cancel(GlobalData.PROFILE_NOTIFICATION_ID);
+                notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
             }
         }
     }

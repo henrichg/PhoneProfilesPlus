@@ -28,7 +28,7 @@ class AddProfileDialog
         Profile profile;
         profile = DataWrapper.getNoinitializedProfile(
                                         context.getResources().getString(R.string.profile_name_default),
-                                        GlobalData.PROFILE_ICON_DEFAULT, 0);
+                                        PPApplication.PROFILE_ICON_DEFAULT, 0);
         profile.generateIconBitmap(context, false, 0xFF);
         profile.generatePreferencesIndicator(context, false, 0xFF);
         profileList.add(profile);

@@ -45,7 +45,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (GlobalData.applicationTheme.equals("material"))
+            if (PPApplication.applicationTheme.equals("material"))
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
@@ -83,7 +83,7 @@ public class ActivityLogActivity extends AppCompatActivity {
         /*MenuItem menuItem = menu.findItem(R.id.menu_settingsX);
         menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
-        if (GlobalData.getActivityLogEnabled(getApplicationContext())) {
+        if (PPApplication.getActivityLogEnabled(getApplicationContext())) {
             TypedArray a = getTheme().obtainStyledAttributes(GUIData.getTheme(false, false), new int[]{R.attr.actionActivityLogPauseIcon});
             int attributeResourceId = a.getResourceId(0, 0);
             menuItem.setIcon(attributeResourceId);
@@ -124,10 +124,10 @@ public class ActivityLogActivity extends AppCompatActivity {
                 dialogBuilder.show();
                 return true;
             case R.id.menu_activity_log_play_pause:
-                boolean enabled = GlobalData.getActivityLogEnabled(getApplicationContext());
+                boolean enabled = PPApplication.getActivityLogEnabled(getApplicationContext());
                 if (enabled)
                     dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PAUSEDLOGGING, null, null, null, 0);
-                GlobalData.setActivityLogEnabled(getApplicationContext(), !enabled);
+                PPApplication.setActivityLogEnabled(getApplicationContext(), !enabled);
                 if (!enabled)
                     dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_STARTEDLOGGING, null, null, null, 0);
                 activityLogAdapter.reload(dataWrapper);
