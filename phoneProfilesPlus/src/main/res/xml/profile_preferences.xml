@@ -22,7 +22,8 @@
         <CheckBoxPreference
             android:key="prf_pref_showInActivator"
             android:title="@string/profile_preferences_showInActivator"
-            android:defaultValue="@bool/prf_pref_showInActivator" />
+            android:defaultValue="@bool/prf_pref_showInActivator"
+            android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceCategory>
     <PreferenceCategory
         android:summary="@string/profile_preferences_category_profileActivationParameters"
@@ -49,7 +50,8 @@
             <CheckBoxPreference
                 android:key="prf_pref_askForDuration"
                 android:title="@string/profile_preferences_askForDuration"
-                android:defaultValue="@bool/prf_pref_askForDuration" />
+                android:defaultValue="@bool/prf_pref_askForDuration"
+                android:widgetLayout="@layout/mp_preference_switch" />
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory

@@ -59,7 +59,8 @@
         <CheckBoxPreference
             android:key="applicationShortcutEmblem"
             android:title="@string/phone_profiles_pref_applicationShortcutEmblem"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -69,11 +70,13 @@
         <CheckBoxPreference
             android:key="applicationStartOnBoot"
             android:title="@string/phone_profiles_pref_applicationStartOnBoot"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationActivate"
             android:title="@string/phone_profiles_pref_applicationActivate"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -84,7 +87,8 @@
             android:key="applicationUnlinkRingerNotificationVolumes"
             android:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
             android:summary="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <Preference
             android:key="applicationBatteryOptimization"
             android:title="@string/phone_profiles_pref_applicationBatteryOptimization"
@@ -144,7 +148,8 @@
         <CheckBoxPreference
             android:key="notificationsToast"
             android:title="@string/phone_profiles_pref_notificationsToast"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <PreferenceCategory
             android:title="@string/phone_profiles_pref_notificationStatusBarNew" >
             <Preference
@@ -156,14 +161,16 @@
                 android:key="notificationStatusBar"
                 android:title="@string/phone_profiles_pref_notificationStatusBar"
                 android:summary="@string/phone_profiles_pref_notificationStatusBarRequired"
-                android:defaultValue="true" />
+                android:defaultValue="true"
+                android:widgetLayout="@layout/mp_preference_switch" />
             <CheckBoxPreference
                 android:key="notificationStatusBarPermanent"
                 android:title="@string/phone_profiles_pref_notificationStatusBarPermanent"
                 android:summary="@string/phone_profiles_pref_notificationStatusBarRequired"
                 android:defaultValue="true"
                 android:disableDependentsState="true"
-                android:dependency="notificationStatusBar" />
+                android:dependency="notificationStatusBar"
+                android:widgetLayout="@layout/mp_preference_switch" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
                 android:key="notificationStatusBarCancel"
                 android:summary="@string/phone_profiles_pref_notificationStatusBarCancel"
@@ -176,12 +183,14 @@
                 android:key="notificationShowInStatusBar"
                 android:title="@string/phone_profiles_pref_notificationShowInStatusBar"
                 android:defaultValue="true"
-                android:dependency="notificationStatusBar" />
+                android:dependency="notificationStatusBar"
+                android:widgetLayout="@layout/mp_preference_switch" />
             <CheckBoxPreference
                 android:key="notificationHideInLockscreen"
                 android:title="@string/phone_profiles_pref_notificationHideInLockscreen"
                 android:defaultValue="false"
-                android:dependency="notificationStatusBar" />
+                android:dependency="notificationStatusBar"
+                android:widgetLayout="@layout/mp_preference_switch" />
             <Preference
                 android:key="notificationStatusBarStyleInfo"
                 android:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
@@ -200,7 +209,8 @@
                 android:key="notificationPrefIndicator"
                 android:title="@string/phone_profiles_pref_notificationPrefIndicator"
                 android:defaultValue="true"
-                android:dependency="notificationStatusBar" />
+                android:dependency="notificationStatusBar"
+                android:widgetLayout="@layout/mp_preference_switch" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/phone_profiles_pref_notificationTextColor"
                 android:summary="@string/array_pref_no_change"
@@ -225,7 +235,8 @@
         <CheckBoxPreference
             android:key="applicationAlert"
             android:title="@string/phone_profiles_pref_applicationAlert"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -235,7 +246,8 @@
         <CheckBoxPreference
             android:key="applicationEventUsePriority"
             android:title="@string/phone_profiles_pref_eventRunUsePriority"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -279,7 +291,8 @@
         <CheckBoxPreference
             android:key="applicationEventLocationUseGPS"
             android:title="@string/phone_profiles_pref_applicationEventLocationsUseGPS"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -296,7 +309,8 @@
             android:key="applicationEventWifiEnableWifi"
             android:title="@string/phone_profiles_pref_applicationEventWifiEnableWifi"
             android:summary="@string/phone_profiles_pref_applicationEventWifiEnableWifi_summary"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.NumberPickerPreference
             android:key="applicationEventWifiScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
@@ -336,7 +350,8 @@
             android:key="applicationEventBluetoothEnableBluetooth"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth"
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothEnableBluetooth_summary"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.NumberPickerPreference
             android:key="applicationEventBluetoothScanInterval"
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
@@ -426,23 +441,28 @@
         <CheckBoxPreference
             android:key="applicationActivatorPrefIndicator"
             android:title="@string/phone_profiles_pref_applicationPrefIndicator"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationActivatorHeader"
             android:title="@string/phone_profiles_pref_applicationHeader"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationLongClickActivation"
             android:title="@string/phone_profiles_pref_applicationLongClickActivation"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationClose"
             android:title="@string/phone_profiles_pref_applicationClose"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationActivatorGridLayout"
             android:title="@string/phone_profiles_pref_applicationGridLayout"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
     
     <PreferenceScreen
@@ -452,19 +472,23 @@
         <CheckBoxPreference
             android:key="applicationEditorPrefIndicator"
             android:title="@string/phone_profiles_pref_applicationPrefIndicator"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationEditorHeader"
             android:title="@string/phone_profiles_pref_applicationHeader"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationEditorSaveEditorState"
             android:title="@string/phone_profiles_pref_applicationEditorSaveEditorState"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationEditorAutoCloseDrawer"
             android:title="@string/phone_profiles_pref_applicationAutoCloseDrawer"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.NumberPickerPreference
             android:key="applicationDeleteOldActivityLogs"
             android:summary="@string/phone_profiles_pref_deleteOldActivityLogs"
@@ -481,15 +505,18 @@
         <CheckBoxPreference
             android:key="applicationWidgetListPrefIndicator"
             android:title="@string/phone_profiles_pref_applicationPrefIndicator"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationWidgetListHeader"
             android:title="@string/phone_profiles_pref_applicationHeader"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <CheckBoxPreference
             android:key="applicationWidgetListGridLayout"
             android:title="@string/phone_profiles_pref_applicationGridLayout"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetBackground"
             android:summary="25%"
@@ -539,7 +566,8 @@
         <CheckBoxPreference
             android:key="applicationWidgetIconHideProfileName"
             android:title="@string/phone_profiles_pref_applicationWidgetIconHideProfileName"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetIconBackground"
             android:summary="0%"
