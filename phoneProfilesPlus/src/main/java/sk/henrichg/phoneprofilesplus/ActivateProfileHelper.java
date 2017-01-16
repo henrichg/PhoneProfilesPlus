@@ -878,6 +878,8 @@ public class ActivateProfileHelper {
                             setVibrateWhenRinging(profile, -1);
                             break;
                         case 3:
+                            // must be AudioManager.RINGER_MODE_SILENT, because, ZENMODE_NONE set it to silent
+                            // without this, duplicate set this zen mode not working
                             setZenMode(ZENMODE_NONE, audioManager, AudioManager.RINGER_MODE_SILENT);
                             break;
                         case 4:
@@ -889,6 +891,8 @@ public class ActivateProfileHelper {
                             setVibrateWhenRinging(null, 1);
                             break;
                         case 6:
+                            // must be AudioManager.RINGER_MODE_SILENT, because, ZENMODE_ALARMS set it to silent
+                            // without this, duplicate set this zen mode not working
                             setZenMode(ZENMODE_ALARMS, audioManager, AudioManager.RINGER_MODE_SILENT);
                             break;
                     }
