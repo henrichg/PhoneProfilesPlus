@@ -502,8 +502,8 @@ public class GrantPermissionActivity extends Activity {
 
                 // set theme and language for dialog alert ;-)
                 // not working on Android 2.3.x
-                GUIData.setTheme(this, true, false);
-                GUIData.setLanguage(this.getBaseContext());
+                GlobalGUIRoutines.setTheme(this, true, false);
+                GlobalGUIRoutines.setLanguage(this.getBaseContext());
 
                 final boolean _showRequestWriteSettings = showRequestWriteSettings;
                 final boolean _showRequestAccessNotificationPolicy = showRequestAccessNotificationPolicy;
@@ -511,7 +511,7 @@ public class GrantPermissionActivity extends Activity {
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                 dialogBuilder.setTitle(R.string.permissions_alert_title);
-                dialogBuilder.setMessage(GUIData.fromHtml(showRequestString));
+                dialogBuilder.setMessage(GlobalGUIRoutines.fromHtml(showRequestString));
                 dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

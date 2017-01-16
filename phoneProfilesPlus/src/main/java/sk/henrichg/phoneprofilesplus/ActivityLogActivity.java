@@ -28,8 +28,8 @@ public class ActivityLogActivity extends AppCompatActivity {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         // must by called before super.onCreate() for PreferenceActivity
-        GUIData.setTheme(this, false, false); // must by called before super.onCreate()
-        GUIData.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setTheme(this, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
 
@@ -84,13 +84,13 @@ public class ActivityLogActivity extends AppCompatActivity {
         menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
         if (PPApplication.getActivityLogEnabled(getApplicationContext())) {
-            TypedArray a = getTheme().obtainStyledAttributes(GUIData.getTheme(false, false), new int[]{R.attr.actionActivityLogPauseIcon});
+            TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false), new int[]{R.attr.actionActivityLogPauseIcon});
             int attributeResourceId = a.getResourceId(0, 0);
             menuItem.setIcon(attributeResourceId);
             menuItem.setTitle(R.string.menu_activity_log_pause);
         }
         else {
-            TypedArray a = getTheme().obtainStyledAttributes(GUIData.getTheme(false, false), new int[] {R.attr.actionActivityLogPlayIcon});
+            TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false), new int[] {R.attr.actionActivityLogPlayIcon});
             int attributeResourceId = a.getResourceId(0, 0);
             menuItem.setIcon(attributeResourceId);
             menuItem.setTitle(R.string.menu_activity_log_play);

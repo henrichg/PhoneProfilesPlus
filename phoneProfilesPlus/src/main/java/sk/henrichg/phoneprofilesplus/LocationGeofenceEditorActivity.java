@@ -104,10 +104,10 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
         // must by called before super.onCreate() for PreferenceActivity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            GUIData.setTheme(this, false, true);
+            GlobalGUIRoutines.setTheme(this, false, true);
         else
-            GUIData.setTheme(this, false, false);
-        GUIData.setLanguage(getBaseContext());
+            GlobalGUIRoutines.setTheme(this, false, false);
+        GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
 
@@ -440,7 +440,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             }
         }
         if (addressButton.isEnabled())
-            GUIData.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
+            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
         String name = geofenceNameEditText.getText().toString();
 
         updateEditedMarker(setMapCamera);
@@ -558,7 +558,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 enableAddressButton = true;
             }
 
-            GUIData.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
+            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
 
             //mAddressRequested = false;
         }

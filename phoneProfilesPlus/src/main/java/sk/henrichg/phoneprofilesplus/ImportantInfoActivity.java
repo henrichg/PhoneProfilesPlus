@@ -27,8 +27,8 @@ public class ImportantInfoActivity extends AppCompatActivity {
         PPApplication.loadPreferences(getApplicationContext());
 
         // must by called before super.onCreate() for PreferenceActivity
-        GUIData.setTheme(this, false, false); // must by called before super.onCreate()
-        GUIData.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setTheme(this, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
 

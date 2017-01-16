@@ -394,7 +394,7 @@ class EditorEventListAdapter extends BaseAdapter
             {
                 if (holder.eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(vi.getContext());
-                    holder.eventPreferencesDescription.setText(GUIData.fromHtml(eventPrefDescription));
+                    holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription));
                 }
             }
 

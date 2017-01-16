@@ -460,7 +460,7 @@ public class WifiSSIDPreference extends DialogPreference {
     private class SortList implements Comparator<WifiSSIDData> {
 
         public int compare(WifiSSIDData lhs, WifiSSIDData rhs) {
-            return GUIData.collator.compare(lhs.ssid, rhs.ssid);
+            return GlobalGUIRoutines.collator.compare(lhs.ssid, rhs.ssid);
         }
 
     }

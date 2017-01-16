@@ -128,7 +128,7 @@ class EventPreferencesLocation extends EventPreferences {
                         }
                     }
                 }
-                GUIData.setPreferenceTitleStyle(preference, false, true, false, true);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
             }
         }
     }
@@ -157,8 +157,8 @@ class EventPreferencesLocation extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
-                preference.setSummary(GUIData.fromHtml(tmp.getPreferencesDescription(false, context)));
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }
         else {

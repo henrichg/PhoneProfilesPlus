@@ -40,10 +40,10 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
         // must by called before super.onCreate() for PreferenceActivity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            GUIData.setTheme(this, false, true);
+            GlobalGUIRoutines.setTheme(this, false, true);
         else
-            GUIData.setTheme(this, false, false);
-        GUIData.setLanguage(getBaseContext());
+            GlobalGUIRoutines.setTheme(this, false, false);
+        GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
 
@@ -109,7 +109,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
         /*
         EventPreferencesFragment fragment = (EventPreferencesFragment)getFragmentManager().
-                findFragmentByTag(GUIData.MAIN_PREFERENCE_FRAGMENT_TAG);
+                findFragmentByTag(GlobalGUIRoutines.MAIN_PREFERENCE_FRAGMENT_TAG);
         if (fragment != null)
             event_id = fragment.event_id;
         */

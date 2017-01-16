@@ -173,7 +173,7 @@ public class BrightnessDialogPreference extends
             mDialog.onRestoreInstanceState(state);
 
 
-        GUIData.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         mDialog.setOnDismissListener(this);
 
@@ -209,7 +209,7 @@ public class BrightnessDialogPreference extends
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        GUIData.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
 
         if (Permissions.checkScreenBrightness(_context)) {
             Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, savedBrightness);

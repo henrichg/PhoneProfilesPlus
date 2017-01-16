@@ -501,7 +501,7 @@ class Event {
         {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
         }
         if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END)||
                 key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
@@ -515,9 +515,9 @@ class Event {
             }
             preference.setSummary(lProfileId);
             if (key.equals(PREF_EVENT_PROFILE_START))
-                GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE)) {
-                GUIData.setPreferenceTitleStyle(preference, lProfileId != PPApplication.PROFILE_NO_ACTIVATE, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, lProfileId != PPApplication.PROFILE_NO_ACTIVATE, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND))
@@ -525,7 +525,7 @@ class Event {
             Preference preference = prefMng.findPreference(key);
             if (value.isEmpty()) {
                 preference.setSummary(R.string.preferences_notificationSound_None);
-                GUIData.setPreferenceTitleStyle(preference, false, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, false);
             }
             else
             {
@@ -537,7 +537,7 @@ class Event {
                 else
                     ringtoneName = ringtone.getTitle(context);
                 preference.setSummary(ringtoneName);
-                GUIData.setPreferenceTitleStyle(preference, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_PRIORITY))
@@ -569,7 +569,7 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GUIData.setPreferenceTitleStyle(preference, delay > 0, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, delay > 0, false, false, false);
         }
         if (key.equals(PREF_EVENT_DELAY_END))
         {
@@ -580,12 +580,12 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GUIData.setPreferenceTitleStyle(preference, delay > 0, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, delay > 0, false, false, false);
         }
         if (key.equals(PREF_EVENT_FORCE_RUN) ||
                 key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION)) {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, value.equals("true"), false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, value.equals("true"), false, false, false);
         }
 
     }
@@ -638,7 +638,7 @@ class Event {
                                 profileStartWhenActivatedChanged ||
                                 delayStartChanged ||
                                 notificationSoundChanged);
-                GUIData.setPreferenceTitleStyle(preference, bold, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, bold, false, false, false);
                 if (bold) {
                     String summary = "";
                     //if (forceRunChanged)
@@ -672,7 +672,7 @@ class Event {
             preference = prefMng.findPreference("eventEndOthersCategory");
             if (preference != null) {
                 //boolean bold = (delayEndChanged);
-                GUIData.setPreferenceTitleStyle(preference, delayEndChanged, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, delayEndChanged, false, false, false);
                 if (delayEndChanged) {
                     String summary = "";
                     //if (delayEndChanged) {

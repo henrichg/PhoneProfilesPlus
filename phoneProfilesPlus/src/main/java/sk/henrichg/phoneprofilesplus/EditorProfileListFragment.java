@@ -827,7 +827,7 @@ public class EditorProfileListFragment extends Fragment {
         class AlphabeticallyComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
 
-                return GUIData.collator.compare(lhs._name, rhs._name);
+                return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
             }
         }
         Collections.sort(profileList, new AlphabeticallyComparator());

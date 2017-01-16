@@ -37,8 +37,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
         instance = this;
 
         PPApplication.loadPreferences(getApplicationContext());
-        GUIData.setTheme(this, true, true);
-        GUIData.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setTheme(this, true, true);
+        GlobalGUIRoutines.setLanguage(getBaseContext());
 
     // set window dimensions ----------------------------------------------------------
 
@@ -264,7 +264,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
         //setContentView(R.layout.activity_phone_profiles);
-        GUIData.reloadActivity(this, false);
+        GlobalGUIRoutines.reloadActivity(this, false);
     }
     */
 

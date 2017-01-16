@@ -19,8 +19,8 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        GUIData.setTheme(this, true, false);
-        GUIData.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setTheme(this, true, false);
+        GlobalGUIRoutines.setLanguage(getBaseContext());
 
         dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
 
@@ -113,7 +113,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
 
         getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
-        GUIData.reloadActivity(this, false);
+        GlobalGUIRoutines.reloadActivity(this, false);
     }
     */
 

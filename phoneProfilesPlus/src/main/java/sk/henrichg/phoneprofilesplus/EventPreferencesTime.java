@@ -265,7 +265,7 @@ class EventPreferencesTime extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
     }
@@ -295,8 +295,8 @@ class EventPreferencesTime extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
-                preference.setSummary(GUIData.fromHtml(tmp.getPreferencesDescription(false, context)));
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }
         else {

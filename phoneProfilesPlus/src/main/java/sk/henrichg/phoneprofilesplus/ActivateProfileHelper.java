@@ -1455,11 +1455,11 @@ public class ActivateProfileHelper {
             params.gravity = Gravity.RIGHT | Gravity.TOP;
         else
             params.gravity = Gravity.END | Gravity.TOP;*/
-        GUIData.keepScreenOnView = new BrightnessView(context);
+        GlobalGUIRoutines.keepScreenOnView = new BrightnessView(context);
         try {
-            windowManager.addView(GUIData.keepScreenOnView, params);
+            windowManager.addView(GlobalGUIRoutines.keepScreenOnView, params);
         } catch (Exception e) {
-            GUIData.keepScreenOnView = null;
+            GlobalGUIRoutines.keepScreenOnView = null;
             //e.printStackTrace();
         }
         //Log.d("ActivateProfileHelper.screenTimeoutLock","-- end");
@@ -1469,14 +1469,14 @@ public class ActivateProfileHelper {
     {
         //Log.d("ActivateProfileHelper.screenTimeoutUnlock","xxx");
 
-        if (GUIData.keepScreenOnView != null)
+        if (GlobalGUIRoutines.keepScreenOnView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
             try {
-                windowManager.removeView(GUIData.keepScreenOnView);
+                windowManager.removeView(GlobalGUIRoutines.keepScreenOnView);
             } catch (Exception ignored) {
             }
-            GUIData.keepScreenOnView = null;
+            GlobalGUIRoutines.keepScreenOnView = null;
         }
 
         //Log.d("ActivateProfileHelper.screenTimeoutUnlock","-- end");
@@ -1491,14 +1491,14 @@ public class ActivateProfileHelper {
         //{
 
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-            if (GUIData.brightneesView != null)
+            if (GlobalGUIRoutines.brightneesView != null)
             {
-                //Log.d("ActivateProfileHelper.createBrightnessView","GUIData.brightneesView != null");
+                //Log.d("ActivateProfileHelper.createBrightnessView","GlobalGUIRoutines.brightneesView != null");
                 try {
-                    windowManager.removeView(GUIData.brightneesView);
+                    windowManager.removeView(GlobalGUIRoutines.brightneesView);
                 } catch (Exception ignored) {
                 }
-                GUIData.brightneesView = null;
+                GlobalGUIRoutines.brightneesView = null;
             }
             int type;
             if (android.os.Build.VERSION.SDK_INT < 25)
@@ -1511,11 +1511,11 @@ public class ActivateProfileHelper {
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE /*| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE*/,
                         PixelFormat.TRANSLUCENT
                     );
-            GUIData.brightneesView = new BrightnessView(context);
+            GlobalGUIRoutines.brightneesView = new BrightnessView(context);
             try {
-                windowManager.addView(GUIData.brightneesView, params);
+                windowManager.addView(GlobalGUIRoutines.brightneesView, params);
             } catch (Exception e) {
-                GUIData.brightneesView = null;
+                GlobalGUIRoutines.brightneesView = null;
                 //e.printStackTrace();
             }
 
@@ -1527,14 +1527,14 @@ public class ActivateProfileHelper {
     }
 
     static void removeBrightnessView(Context context) {
-        if (GUIData.brightneesView != null)
+        if (GlobalGUIRoutines.brightneesView != null)
         {
             WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
             try {
-                windowManager.removeView(GUIData.brightneesView);
+                windowManager.removeView(GlobalGUIRoutines.brightneesView);
             } catch (Exception ignored) {
             }
-            GUIData.brightneesView = null;
+            GlobalGUIRoutines.brightneesView = null;
         }
     }
 

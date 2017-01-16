@@ -624,7 +624,7 @@ public class EditorEventListFragment extends Fragment {
 
         class EventNameComparator implements Comparator<Event> {
             public int compare(Event lhs, Event rhs) {
-                return GUIData.collator.compare(lhs._name, rhs._name);
+                return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
             }
         }
 
@@ -642,7 +642,7 @@ public class EditorEventListFragment extends Fragment {
                 if (profileLhs != null) nameLhs = profileLhs._name;
                 String nameRhs = "";
                 if (profileRhs != null) nameRhs = profileRhs._name;
-                return GUIData.collator.compare(nameLhs, nameRhs);
+                return GlobalGUIRoutines.collator.compare(nameLhs, nameRhs);
             }
         }
 

@@ -187,7 +187,7 @@ class EventPreferencesCalendar extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
         if (key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
@@ -210,7 +210,7 @@ class EventPreferencesCalendar extends EventPreferences {
                         context.getString(R.string.calendar_pref_dlg_info_about_wildcards) + " " +
                         context.getString(R.string.pref_dlg_info_about_wildcards_3);
                 ((EditTextPreference) preference).setDialogMessage(helpString);
-                GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
     }
@@ -245,8 +245,8 @@ class EventPreferencesCalendar extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
-                preference.setSummary(GUIData.fromHtml(tmp.getPreferencesDescription(false, context)));
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }
         else {

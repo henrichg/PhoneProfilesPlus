@@ -432,7 +432,7 @@ public class MobileCellsPreference extends DialogPreference {
                 _rhs = _rhs + rhs.name;
             _rhs = _rhs + "-" + rhs.cellId;
 
-            return GUIData.collator.compare(_lhs, _rhs);
+            return GlobalGUIRoutines.collator.compare(_lhs, _rhs);
         }
 
     }

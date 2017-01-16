@@ -102,7 +102,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     selectedCells = selectedCells + " " + splits.length;
                     preference.setSummary(selectedCells);
                 }
-                GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
     }
@@ -132,8 +132,8 @@ class EventPreferencesMobileCells extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
-                preference.setSummary(GUIData.fromHtml(tmp.getPreferencesDescription(false, context)));
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }
         else {

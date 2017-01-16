@@ -87,12 +87,12 @@ public class DurationDialogPreference extends DialogPreference {
 
         TypedValue tv = new TypedValue();
         getContext().getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-        GUIData.setSeparatorColorForNumberPicker(mNumberPickerHours, tv.data);
-        GUIData.updateTextAttributesForNumberPicker(mNumberPickerHours, 18);
-        GUIData.setSeparatorColorForNumberPicker(mNumberPickerMinutes, tv.data);
-        GUIData.updateTextAttributesForNumberPicker(mNumberPickerMinutes, 18);
-        GUIData.setSeparatorColorForNumberPicker(mNumberPickerSeconds, tv.data);
-        GUIData.updateTextAttributesForNumberPicker(mNumberPickerSeconds, 18);
+        GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPickerHours, tv.data);
+        GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPickerHours, 18);
+        GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPickerMinutes, tv.data);
+        GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPickerMinutes, 18);
+        GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPickerSeconds, tv.data);
+        GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPickerSeconds, 18);
 
         // Initialize state
         int hours;

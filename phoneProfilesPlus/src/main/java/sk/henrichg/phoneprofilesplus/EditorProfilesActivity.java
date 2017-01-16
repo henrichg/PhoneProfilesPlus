@@ -132,8 +132,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         //Log.e("$$$ PPP","EditorProfilesActivity.onCreate");
 
-        GUIData.setTheme(this, false, true);
-        GUIData.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setTheme(this, false, true);
+        GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
 
@@ -952,7 +952,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
                 {
                     // refresh activity for changes of default profile
-                    GUIData.reloadActivity(this, false);
+                    GlobalGUIRoutines.reloadActivity(this, false);
 
                     Profile defaultProfile = PPApplication.getDefaultProfile(getApplicationContext());
                     Permissions.grantProfilePermissions(getApplicationContext(), defaultProfile, false, false,
@@ -1000,7 +1000,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (restart)
                 {
                     // refresh activity for special changes
-                    GUIData.reloadActivity(this, true);
+                    GlobalGUIRoutines.reloadActivity(this, true);
                 }
             }
         }
@@ -1009,7 +1009,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (resultCode == RESULT_OK)
             {
-                doImportData(GUIData.REMOTE_EXPORT_PATH);
+                doImportData(GlobalGUIRoutines.REMOTE_EXPORT_PATH);
             }
         }
     }
@@ -1162,11 +1162,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
                     if (ret == 1) {
                         File sd = Environment.getExternalStorageDirectory();
-                        File exportFile = new File(sd, _applicationDataPath + "/" + GUIData.EXPORT_APP_PREF_FILENAME);
+                        File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                         if (!importApplicationPreferences(exportFile, 1))
                             ret = 0;
                         else {
-                            exportFile = new File(sd, _applicationDataPath + "/" + GUIData.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                            exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!importApplicationPreferences(exportFile, 2))
                                 ret = 0;
                         }
@@ -1230,7 +1230,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         msg.show();
 
                         // refresh activity
-                        GUIData.reloadActivity(activity, true);
+                        GlobalGUIRoutines.reloadActivity(activity, true);
                     } else {
                         importExportErrorDialog(1);
                     }
@@ -1410,11 +1410,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                     int ret = dataWrapper.getDatabaseHandler().exportDB();
                     if (ret == 1) {
                         File sd = Environment.getExternalStorageDirectory();
-                        File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GUIData.EXPORT_APP_PREF_FILENAME);
+                        File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                         if (!exportApplicationPreferences(exportFile, 1))
                             ret = 0;
                         else {
-                            exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GUIData.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                            exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
                                 ret = 0;
                         }

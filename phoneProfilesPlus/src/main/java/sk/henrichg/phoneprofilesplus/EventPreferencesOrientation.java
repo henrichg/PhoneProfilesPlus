@@ -203,12 +203,12 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_DISPLAY)) {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_SIDES)) {
             Preference preference = prefMng.findPreference(key);
             preference.setSummary(value);
-            GUIData.setPreferenceTitleStyle(preference, false, true, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_DISTANCE))
         {
@@ -218,11 +218,11 @@ class EventPreferencesOrientation extends EventPreferences {
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
             }
-            //GUIData.setPreferenceTitleStyle(listPreference, false, true, false);
+            //GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, true, false);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
             Preference preference = prefMng.findPreference(key);
-            GUIData.setPreferenceTitleStyle(preference, false, false, false, true);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, true);
         }
     }
 
@@ -297,8 +297,8 @@ class EventPreferencesOrientation extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
-                preference.setSummary(GUIData.fromHtml(tmp.getPreferencesDescription(false, context)));
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }
         else {

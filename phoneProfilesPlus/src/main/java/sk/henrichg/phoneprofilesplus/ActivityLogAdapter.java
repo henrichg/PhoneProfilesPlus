@@ -97,7 +97,7 @@ class ActivityLogAdapter extends CursorAdapter {
         //rowData.durationDelay  = (TextView) view.findViewById(R.id.activity_log_row_duration_delay);
 
         rowData.logTypeColor.setBackgroundColor(context.getResources().getColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
-        rowData.logDateTime.setText(GUIData.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
         rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
@@ -114,7 +114,7 @@ class ActivityLogAdapter extends CursorAdapter {
         MyRowViewHolder rowData = (MyRowViewHolder) view.getTag();
 
         rowData.logTypeColor.setBackgroundColor(context.getResources().getColor(activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
-        rowData.logDateTime.setText(GUIData.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
         rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));

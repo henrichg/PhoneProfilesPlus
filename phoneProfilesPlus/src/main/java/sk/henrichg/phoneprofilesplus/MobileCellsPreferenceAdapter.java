@@ -96,7 +96,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
         if (cellData.lastConnectedTime != 0) {
             //Calendar calendar = Calendar.getInstance().setTimeInMillis(cellData.lastConnectedTime);
             holder.lastConnectedTime.setText(context.getString(R.string.mobile_cells_pref_dlg_last_connected) + " " +
-                    GUIData.timeDateStringFromTimestamp(context, cellData.lastConnectedTime));
+                    GlobalGUIRoutines.timeDateStringFromTimestamp(context, cellData.lastConnectedTime));
         }
         else {
             holder.lastConnectedTime.setText("");

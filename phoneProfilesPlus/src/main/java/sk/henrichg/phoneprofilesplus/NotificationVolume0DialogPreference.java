@@ -76,7 +76,7 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
             });*/
         }
 
-        GUIData.registerOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         dialogBuilder.show();
     }
@@ -84,7 +84,7 @@ public class NotificationVolume0DialogPreference extends DialogPreference {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        GUIData.unregisterOnActivityDestroyListener(this, this);
+        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 
     @Override

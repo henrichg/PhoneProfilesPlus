@@ -190,7 +190,7 @@ public class EventDetailsFragment extends Fragment {
             //{
                 if (eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(getActivity().getApplicationContext());
-                    eventPreferencesDescription.setText(GUIData.fromHtml(eventPrefDescription));
+                    eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription));
                 }
             //}
 

@@ -133,7 +133,7 @@ class EventPreferencesApplication extends EventPreferences {
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)) {
                 Preference preference = prefMng.findPreference(key);
-                GUIData.setPreferenceTitleStyle(preference, false, true, false, true);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
             }
             /*if (key.equals(PREF_EVENT_NOTIFICATION_DURATION)) {
                 Preference preference = prefMng.findPreference(key);
@@ -172,8 +172,8 @@ class EventPreferencesApplication extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
-                GUIData.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
-                preference.setSummary(GUIData.fromHtml(tmp.getPreferencesDescription(false, context)));
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, context)));
             }
         }
         else {

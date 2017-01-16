@@ -42,10 +42,10 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         // must by called before super.onCreate() for PreferenceActivity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            GUIData.setTheme(this, false, true);
+            GlobalGUIRoutines.setTheme(this, false, true);
         else
-            GUIData.setTheme(this, false, false);
-        GUIData.setLanguage(getBaseContext());
+            GlobalGUIRoutines.setTheme(this, false, false);
+        GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
 
@@ -160,7 +160,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         if (!activeLanguage.equals(PPApplication.applicationLanguage))
         {
-            GUIData.setLanguage(getBaseContext());
+            GlobalGUIRoutines.setLanguage(getBaseContext());
             invalidateEditor = true;
         }
         else

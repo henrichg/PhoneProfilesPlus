@@ -92,8 +92,8 @@ public class NumberPickerPreference extends DialogPreference {
         mNumberPicker.setWrapSelectorWheel(false);
         TypedValue tv = new TypedValue();
         getContext().getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-        GUIData.setSeparatorColorForNumberPicker(mNumberPicker, tv.data);
-        GUIData.updateTextAttributesForNumberPicker(mNumberPicker, 18);
+        GlobalGUIRoutines.setSeparatorColorForNumberPicker(mNumberPicker, tv.data);
+        GlobalGUIRoutines.updateTextAttributesForNumberPicker(mNumberPicker, 18);
 
         mBuilder.customView(layout, false);
 

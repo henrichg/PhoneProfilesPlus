@@ -1273,8 +1273,8 @@ public class DataWrapper {
         {
             // set theme and language for dialog alert ;-)
             // not working on Android 2.3.x
-            GUIData.setTheme(activity, true, false);
-            GUIData.setLanguage(activity.getBaseContext());
+            GlobalGUIRoutines.setTheme(activity, true, false);
+            GlobalGUIRoutines.setLanguage(activity.getBaseContext());
 
             final Profile _profile = profile;
             //final boolean _interactive = interactive;
@@ -1334,8 +1334,8 @@ public class DataWrapper {
             if (interactive) {
                 // set theme and language for dialog alert ;-)
                 // not working on Android 2.3.x
-                GUIData.setTheme(activity, true, false);
-                GUIData.setLanguage(activity.getBaseContext());
+                GlobalGUIRoutines.setTheme(activity, true, false);
+                GlobalGUIRoutines.setLanguage(activity.getBaseContext());
 
                 granted = Permissions.grantProfilePermissions(context, profile, false, false,
                         forGUI, monochrome, monochromeValue,
