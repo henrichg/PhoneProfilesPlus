@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 
+import android.support.v7.widget.SwitchCompat;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
             TextView eventName = (TextView) view.findViewById(R.id.event_status_popup_window_text0);
             eventName.setText(fragment.getString(R.string.event_string_0)+": "+event._name);
 
-            CheckBox checkBox = (CheckBox) view.findViewById(R.id.event_status_popup_window_checkbox);
+            SwitchCompat checkBox = (SwitchCompat) view.findViewById(R.id.event_status_popup_window_checkbox);
             checkBox.setChecked(event.getStatus() != Event.ESTATUS_STOP);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
