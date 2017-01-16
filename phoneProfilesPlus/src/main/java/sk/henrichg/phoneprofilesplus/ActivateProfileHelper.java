@@ -1392,6 +1392,7 @@ public class ActivateProfileHelper {
     }
 
     void setScreenTimeout(int screenTimeout) {
+        DisableScreenTimeoutInternalChangeReceiver.internalChange = true;
         //Log.d("ActivateProfileHelper.setScreenTimeout", "current="+Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0));
         switch (screenTimeout) {
             case 1:
@@ -1435,6 +1436,7 @@ public class ActivateProfileHelper {
                 break;
         }
         PPApplication.setActivatedProfileScreenTimeout(context, 0);
+        DisableScreenTimeoutInternalChangeReceiver.setAlarm(context);
     }
 
     private static void screenTimeoutLock(Context context)

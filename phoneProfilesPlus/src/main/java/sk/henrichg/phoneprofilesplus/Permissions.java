@@ -310,6 +310,23 @@ class Permissions {
             return true;
     }
 
+    static boolean checkScreenTimeout(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            boolean grantedWriteSettings = Settings.System.canWrite(context);
+            if (grantedWriteSettings)
+                PPApplication.setShowRequestWriteSettingsPermission(context, true);
+            boolean grantedDrawOverlays = true;
+            if (android.os.Build.VERSION.SDK_INT >= 25) {
+                grantedDrawOverlays = Settings.canDrawOverlays(context);
+                if (grantedDrawOverlays)
+                    PPApplication.setShowRequestDrawOverlaysPermission(context, true);
+            }
+            return grantedWriteSettings && grantedDrawOverlays;
+        }
+        else
+            return true;
+    }
+
     static boolean checkProfileScreenTimeout(Context context, Profile profile) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {

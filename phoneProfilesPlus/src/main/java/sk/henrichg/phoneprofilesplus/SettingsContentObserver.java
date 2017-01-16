@@ -86,6 +86,7 @@ class SettingsContentObserver  extends ContentObserver {
 
         //Log.e("### SettingsContentObserver", "onChange - internalChange=" + internalChange);
 
+        ////// volume change
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int audioMode = audioManager.getMode();
 
@@ -97,6 +98,16 @@ class SettingsContentObserver  extends ContentObserver {
             //previousVolumeSystem = volumeChangeDetect(AudioManager.STREAM_SYSTEM, previousVolumeSystem, audioManager);
         }
         //previousVolumeVoice = volumeChangeDetect(AudioManager.STREAM_VOICE_CALL, previousVolumeVoice, audioManager);
+        //////////////
+
+        ////// screen timeout change
+        if (!DisableScreenTimeoutInternalChangeReceiver.internalChange) {
+            if (Permissions.checkScreenTimeout(context)) {
+                PPApplication.setActivatedProfileScreenTimeout(context, 0);
+                ActivateProfileHelper.screenTimeoutUnlock(context);
+            }
+        }
+        /////////////
     }
 
 }

@@ -700,7 +700,7 @@
             android:exported="false">
         </receiver>
         <receiver
-            android:name=".DisableInernalChangeBroadcastReceiver"
+            android:name=".DisableRingerModeInernalChangeBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
@@ -785,6 +785,11 @@
         </receiver>
         <receiver
             android:name=".AboutApplicationBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".DisableScreenTimeoutInternalChangeReceiver"
             android:enabled="true"
             android:exported="false">
         </receiver>
