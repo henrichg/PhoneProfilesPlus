@@ -246,6 +246,7 @@
         <CheckBoxPreference
             android:key="applicationEventUsePriority"
             android:title="@string/phone_profiles_pref_eventRunUsePriority"
+            android:summary="@string/event_preferences_event_priorityInfo_summary"
             android:defaultValue="false"
             android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>

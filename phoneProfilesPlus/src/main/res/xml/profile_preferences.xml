@@ -62,6 +62,12 @@
             android:title="@string/title_activity_default_profile_preferences"
             android:summary="@string/profile_preferences_sourceProfileInfo_summary"
             android:widgetLayout="@layout/start_activity_preference" />
+        <sk.henrichg.phoneprofilesplus.InfoDialogPreference
+            android:key="prf_pref_prefernceTypesInfo"
+            android:title="@string/profile_preferences_preferenceTypesInfo_title"
+            android:summary="@string/info_preference_click_here"
+            henrichg:infoText="@string/empty_string"
+            android:widgetLayout="@layout/info_preference" />
         <PreferenceScreen
             android:title="@string/profile_preferences_category_sound_profile"
             android:key="prf_pref_soundProfileCategory"

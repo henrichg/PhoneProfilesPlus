@@ -190,7 +190,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         }
         preference = prefMng.findPreference(PREF_USE_PRIORITY_APP_SETTINGS);
         if (preference != null) {
-            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setSummary(getString(R.string.event_preferences_event_priorityInfo_summary)+"\n"+
+                                  getString(R.string.phone_profiles_pref_eventUsePriorityAppSettings_summary));
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
