@@ -63,9 +63,9 @@ class EventPreferencesMobileCells extends EventPreferences {
     {
         String descr = "";
 
-        if (!this._enabled)
-        {
-
+        if (!this._enabled) {
+            if (!addBullet)
+                descr = context.getString(R.string.event_preference_sensor_mobile_cells_summary);
         }
         else
         {

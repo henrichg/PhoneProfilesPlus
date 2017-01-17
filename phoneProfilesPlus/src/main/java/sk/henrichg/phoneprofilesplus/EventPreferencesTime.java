@@ -157,10 +157,9 @@ class EventPreferencesTime extends EventPreferences {
         String descr = "";
 
 
-        if (!this._enabled)
-        {
-            //descr = descr + context.getString(R.string.event_type_time) + ": ";
-            //descr = descr + context.getString(R.string.event_preferences_not_enabled);
+        if (!this._enabled) {
+            if (!addBullet)
+                descr = context.getString(R.string.event_preference_sensor_time_summary);
         }
         else
         {

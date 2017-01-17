@@ -121,6 +121,7 @@
             android:widgetLayout="@layout/info_preference" />
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventTimeParameters"
+            android:summary="@string/event_preference_sensor_time_summary"
             android:key="eventTimeCategory"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
@@ -159,6 +160,7 @@
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventCalendarParameters"
+            android:summary="@string/event_preference_sensor_calendar_summary"
             android:key="eventCalendarCategory"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
@@ -205,6 +207,7 @@
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventBatteryParameters"
+            android:summary="@string/event_preference_sensor_battery_summary"
             android:key="eventBatteryCategory"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
@@ -243,6 +246,7 @@
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventCallParameters"
+            android:summary="@string/event_preference_sensor_call_summary"
             android:key="eventCallCategory"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
@@ -281,6 +285,7 @@
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventSMSParameters"
+            android:summary="@string/event_preference_sensor_sms_summary"
             android:key="eventSMSCategory"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
@@ -333,6 +338,7 @@
         <PreferenceScreen
             android:key="eventLocationCategory"
             android:title="@string/event_preferences_category_eventLocationsParameters"
+            android:summary="@string/event_preference_sensor_location_summary"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventLocationEnabled"
@@ -361,6 +367,7 @@
         <PreferenceScreen
             android:key="eventWifiCategory"
             android:title="@string/event_preferences_category_eventWifiParameters"
+            android:summary="@string/event_preference_sensor_wifi_summary"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventWiFiEnabled"
@@ -392,6 +399,7 @@
         <PreferenceScreen
             android:key="eventBluetoothCategory"
             android:title="@string/event_preferences_category_eventBluetoothParameters"
+            android:summary="@string/event_preference_sensor_bluetooth_summary"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventBluetoothEnabled"
@@ -432,6 +440,7 @@
         <PreferenceScreen
             android:key="eventMobileCellsCategory"
             android:title="@string/event_preferences_category_eventMobileCellsParameters"
+            android:summary="@string/event_preference_sensor_mobile_cells_summary"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventMobileCellsEnabled"
@@ -459,6 +468,7 @@
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventPeripheralParameters"
+            android:summary="@string/event_preference_sensor_accessories_summary"
             android:key="eventAccessoriesCategory"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
@@ -478,6 +488,7 @@
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventScreenParameters"
+            android:summary="@string/event_preference_sensor_screen_summary"
             android:key="eventScreenCategory"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
@@ -504,6 +515,7 @@
         <PreferenceScreen
             android:key="eventNotificationCategory"
             android:title="@string/event_preferences_category_eventNotificationsParameters"
+            android:summary="@string/event_preference_sensor_notification_summary"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventNotificationEnabled"
@@ -549,6 +561,7 @@
         <PreferenceScreen
             android:key="eventApplicationCategory"
             android:title="@string/event_preferences_category_eventApplicationsParameters"
+            android:summary="@string/event_preference_sensor_application_summary"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventApplicationEnabled"
@@ -573,6 +586,7 @@
         <PreferenceScreen
             android:key="eventOrientationCategory"
             android:title="@string/event_preferences_category_eventOrientationParameters"
+            android:summary="@string/event_preference_sensor_orientation_summary"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventOrientationEnabled"
@@ -629,6 +643,7 @@
         <PreferenceScreen
             android:key="eventNFCCategory"
             android:title="@string/event_preferences_category_eventNFCParameters"
+            android:summary="@string/event_preference_sensor_nfc_summary"
             android:widgetLayout="@layout/start_activity_preference" >
             <CheckBoxPreference
                 android:key="eventNFCEnabled"

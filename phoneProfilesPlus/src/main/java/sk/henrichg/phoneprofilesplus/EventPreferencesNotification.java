@@ -96,10 +96,9 @@ class EventPreferencesNotification extends EventPreferences {
     {
         String descr = "";
 
-        if (!this._enabled)
-        {
-            //descr = descr + context.getString(R.string.event_type_notification) + ": ";
-            //descr = descr + context.getString(R.string.event_preferences_not_enabled);
+        if (!this._enabled) {
+            if (!addBullet)
+                descr = context.getString(R.string.event_preference_sensor_notification_summary);
         }
         else
         {

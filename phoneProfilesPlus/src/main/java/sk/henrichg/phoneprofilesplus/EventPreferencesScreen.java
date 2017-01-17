@@ -67,10 +67,9 @@ class EventPreferencesScreen extends EventPreferences {
     {
         String descr = "";
 
-        if (!this._enabled)
-        {
-            //descr = descr + context.getString(R.string.event_type_screen) + ": ";
-            //descr = descr + context.getString(R.string.event_preferences_not_enabled);
+        if (!this._enabled) {
+            if (!addBullet)
+                descr = context.getString(R.string.event_preference_sensor_screen_summary);
         }
         else
         {
