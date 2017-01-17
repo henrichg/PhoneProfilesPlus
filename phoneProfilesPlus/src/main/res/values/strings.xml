@@ -877,4 +877,5 @@
     <string name="phone_profiles_pref_notificationStatusBarRequired">Required for background service PhoneProfilesService</string>
     <string name="event_preferences_event_priorityInfo_summary">Priority functionality: Event will not be started, if is running event with higher priority.</string>
     <string name="profile_preferences_preferenceTypesInfo_title">Type of preferences</string>
+    <string name="event_preference_bluetooth_bt_types">Bluetooth types: [CL] classic, [LE] low energy, [DU] dual.</string>
 </resources>
