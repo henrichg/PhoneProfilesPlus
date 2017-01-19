@@ -1907,27 +1907,37 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
             final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
-            int iconWidth = restartEventsIcon.getIntrinsicWidth();
-            final Rect restartEventsTarget = new Rect(0, 0, iconWidth, restartEventsIcon.getIntrinsicHeight());
+            int iconWidth = restartEventsIcon.getIntrinsicWidth(); //GlobalGUIRoutines.dpToPx(30);
+            final Rect restartEventsTarget = new Rect(0, 0, restartEventsIcon.getIntrinsicWidth(), restartEventsIcon.getIntrinsicHeight());
             restartEventsTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
 
             getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
             final Drawable activityLogIcon = ContextCompat.getDrawable(this, tv.resourceId);
             final Rect activityLogTarget = new Rect(0, 0, activityLogIcon.getIntrinsicWidth(), activityLogIcon.getIntrinsicHeight());
-            activityLogTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) * 1 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
+            activityLogTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
 
-            final TapTargetSequence sequence = new TapTargetSequence(this)
-                    .targets(
+            final TapTargetSequence sequence = new TapTargetSequence(this);
+            if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
+                sequence.targets(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.").id(1),
                             TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.").id(2),
                             TapTarget.forBounds(restartEventsTarget, "Restart events", "Click on this to restart events.")
                                     .transparentTarget(true)
                                     .id(3),
-                            TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Loged are activities about start/pause/stop events, profile activation, start application, ...")
+                            TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Logged are activities about start/pause/stop events, profile activation, start application, ...")
                                     .transparentTarget(true)
                                     .id(4)
-                    )
-                    .listener(new TapTargetSequence.Listener() {
+                    );
+            else
+                sequence.targets(
+                        TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.").id(1),
+                        TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.").id(2),
+                        TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Logged are activities about start/pause/stop events, profile activation, start application, ...")
+                                .transparentTarget(true)
+                                .id(3)
+                );
+
+            sequence.listener(new TapTargetSequence.Listener() {
                         // This listener will tell us when interesting(tm) events happen in regards
                         // to the sequence
                         @Override
