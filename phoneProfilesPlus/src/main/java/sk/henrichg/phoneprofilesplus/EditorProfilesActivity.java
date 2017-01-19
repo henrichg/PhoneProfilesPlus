@@ -14,17 +14,25 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.ActionMenuItemView;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,6 +51,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -103,6 +113,7 @@ public class EditorProfilesActivity extends AppCompatActivity
      */
     public static boolean mTwoPane;
 
+    Toolbar editorToolbar;
     DrawerLayout drawerLayout;
     ScrimInsetsFrameLayout drawerRoot;
     ListView drawerListView;
@@ -325,9 +336,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerListView.setOnItemClickListener(new DrawerItemClickListener());
 
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.editor_tollbar);
-        setSupportActionBar(toolbar);
-        
+        editorToolbar = (Toolbar)findViewById(R.id.editor_tollbar);
+        setSupportActionBar(editorToolbar);
+
         // Enable ActionBar app icon to behave as action to toggle nav drawer
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -453,10 +464,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         // first must be set eventsOrderType
         changeEventOrder(orderSelectedItem, savedInstanceState != null);
-        selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null);
+        selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null, false);
 
         refreshGUI(false, true);
-
     }
 
     public static EditorProfilesActivity getInstance()
@@ -492,6 +502,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             instance = this;
             refreshGUI(false, false);
         }
+
+        showTargetHelps();
     }
 
 
@@ -564,6 +576,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
 
         return super.onPrepareOptionsMenu(menu);
+
     }
 
     public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity) {
@@ -732,11 +745,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 long id) {
             // header is position=0
             if (position > 0)
-                selectDrawerItem(position, true, false);
+                selectDrawerItem(position, true, false, true);
         }
     }
  
-    private void selectDrawerItem(int position, boolean removePreferences, boolean orientationChange) {
+    private void selectDrawerItem(int position, boolean removePreferences, boolean orientationChange, boolean startTargetHelps) {
 
         Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
         if (position == 0) position = 1;
@@ -761,6 +774,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment = new EditorProfileListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
+                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment").commit();
@@ -772,6 +786,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment = new EditorProfileListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
+                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment").commit();
@@ -783,6 +798,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment = new EditorProfileListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
+                arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment").commit();
@@ -795,6 +811,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER);
+                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
@@ -807,6 +824,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
                         .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
@@ -819,6 +837,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
@@ -831,6 +850,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
@@ -843,6 +863,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
                     .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
@@ -1868,5 +1889,60 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
     */
+
+    private void showTargetHelps() {
+        TypedValue tv = new TypedValue();
+        //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+
+        final Display display = getWindowManager().getDefaultDisplay();
+
+        getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
+        final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
+        int iconWidth = restartEventsIcon.getIntrinsicWidth();
+        final Rect restartEventsTarget = new Rect(0, 0, iconWidth, restartEventsIcon.getIntrinsicHeight());
+        restartEventsTarget.offset(display.getWidth() - (iconWidth+GlobalGUIRoutines.dpToPx(25)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
+
+        getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
+        final Drawable activityLogIcon = ContextCompat.getDrawable(this, tv.resourceId);
+        final Rect activityLogTarget = new Rect(0, 0, activityLogIcon.getIntrinsicWidth(), activityLogIcon.getIntrinsicHeight());
+        activityLogTarget.offset(display.getWidth() - (iconWidth+GlobalGUIRoutines.dpToPx(25)) * 1 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
+
+        final TapTargetSequence sequence = new TapTargetSequence(this)
+        .targets(
+                TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.").id(1),
+                TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.").id(2),
+                TapTarget.forBounds(restartEventsTarget, "Restart events", "Click on this to restart events.")
+                        .transparentTarget(true)
+                        .id(3),
+                TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Loged are activities about start/pause/stop events, profile activation, start application, ...")
+                        .transparentTarget(true)
+                        .id(4)
+        )
+        .listener(new TapTargetSequence.Listener() {
+            // This listener will tell us when interesting(tm) events happen in regards
+            // to the sequence
+            @Override
+            public void onSequenceFinish() {
+                Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment != null)
+                {
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment)fragment).showTargetHelps();
+                    else
+                        ((EditorEventListFragment)fragment).showTargetHelps();
+                }
+            }
+
+            @Override
+            public void onSequenceStep(TapTarget lastTarget) {
+                Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+            }
+
+            @Override
+            public void onSequenceCanceled(TapTarget lastTarget) {
+            }
+        });
+        sequence.start();
+    }
 
 }

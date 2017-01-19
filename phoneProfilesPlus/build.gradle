@@ -52,6 +52,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.0.1'
     compile 'com.afollestad.material-dialogs:core:0.9.2.3'
     compile 'com.labo.kaji:relativepopupwindow:0.2.1'
+    compile 'com.getkeepsafe.taptargetview:taptargetview:1.7.0'
 }
 
 

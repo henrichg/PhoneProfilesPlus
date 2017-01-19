@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.lang.ref.WeakReference;
@@ -35,6 +38,7 @@ public class EditorEventListFragment extends Fragment {
     private EditorEventListAdapter eventListAdapter;
     private DragSortListView listView;
     private DatabaseHandler databaseHandler;
+    private Toolbar bottomToolbar;
 
     private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
 
@@ -46,6 +50,7 @@ public class EditorEventListFragment extends Fragment {
 
     public static final String FILTER_TYPE_ARGUMENT = "filter_type";
     public static final String ORDER_TYPE_ARGUMENT = "order_type";
+    public static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
     public static final int FILTER_TYPE_ALL = 0;
     public static final int FILTER_TYPE_RUNNING = 1;
@@ -152,6 +157,10 @@ public class EditorEventListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         doOnViewCreated(view, savedInstanceState);
+
+        boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+        if (startTargetHelps)
+            showTargetHelps();
     }
 
     //@Override
@@ -173,7 +182,7 @@ public class EditorEventListFragment extends Fragment {
         final Activity activity = getActivity();
         final EditorEventListFragment fragment = this;
 
-        Toolbar bottomToolbar = (Toolbar)getActivity().findViewById(R.id.editor_list_bottom_bar);
+        bottomToolbar = (Toolbar)getActivity().findViewById(R.id.editor_list_bottom_bar);
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
@@ -695,6 +704,41 @@ public class EditorEventListFragment extends Fragment {
     public void removeAdapter() {
         if (listView != null)
             listView.setAdapter(null);
+    }
+
+    void showTargetHelps() {
+        //TypedValue tv = new TypedValue();
+        //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+
+        final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                .targets(
+                        TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, "New event", "Click on this to add new event.")
+                                .transparentTarget(true)
+                                .id(1),
+                        TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, "Delete all events", "Click on this to delete all events.")
+                                .transparentTarget(true)
+                                .id(2),
+                        TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
+                                .transparentTarget(true)
+                                .id(3)
+                )
+                .listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget) {
+                        Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                    }
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                    }
+                });
+        sequence.start();
     }
 
 }

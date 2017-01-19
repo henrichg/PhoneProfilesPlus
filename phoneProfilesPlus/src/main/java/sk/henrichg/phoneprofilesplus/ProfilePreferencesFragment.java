@@ -1,6 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Fragment;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 {
