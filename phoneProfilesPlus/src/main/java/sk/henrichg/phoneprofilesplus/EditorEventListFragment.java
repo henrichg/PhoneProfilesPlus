@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -62,6 +63,8 @@ public class EditorEventListFragment extends Fragment {
     public static final int ORDER_TYPE_EVENT_NAME = 1;
     public static final int ORDER_TYPE_PROFILE_NAME = 2;
     public static final int ORDER_TYPE_PRIORITY = 3;
+
+    private static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
 
     private int filterType = FILTER_TYPE_ALL;
     private int orderType = ORDER_TYPE_EVENT_NAME;
@@ -707,38 +710,45 @@ public class EditorEventListFragment extends Fragment {
     }
 
     void showTargetHelps() {
-        //TypedValue tv = new TypedValue();
-        //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+        SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
-        final TapTargetSequence sequence = new TapTargetSequence(getActivity())
-                .targets(
-                        TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, "New event", "Click on this to add new event.")
-                                .transparentTarget(true)
-                                .id(1),
-                        TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, "Delete all events", "Click on this to delete all events.")
-                                .transparentTarget(true)
-                                .id(2),
-                        TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
-                                .transparentTarget(true)
-                                .id(3)
-                )
-                .listener(new TapTargetSequence.Listener() {
-                    // This listener will tell us when interesting(tm) events happen in regards
-                    // to the sequence
-                    @Override
-                    public void onSequenceFinish() {
-                    }
+        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.commit();
+            //TypedValue tv = new TypedValue();
+            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-                    @Override
-                    public void onSequenceStep(TapTarget lastTarget) {
-                        Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                    }
+            final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                    .targets(
+                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, "New event", "Click on this to add new event.")
+                                    .transparentTarget(true)
+                                    .id(1),
+                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, "Delete all events", "Click on this to delete all events.")
+                                    .transparentTarget(true)
+                                    .id(2),
+                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
+                                    .transparentTarget(true)
+                                    .id(3)
+                    )
+                    .listener(new TapTargetSequence.Listener() {
+                        // This listener will tell us when interesting(tm) events happen in regards
+                        // to the sequence
+                        @Override
+                        public void onSequenceFinish() {
+                        }
 
-                    @Override
-                    public void onSequenceCanceled(TapTarget lastTarget) {
-                    }
-                });
-        sequence.start();
+                        @Override
+                        public void onSequenceStep(TapTarget lastTarget) {
+                            Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                        }
+
+                        @Override
+                        public void onSequenceCanceled(TapTarget lastTarget) {
+                        }
+                    });
+            sequence.start();
+        }
     }
 
 }

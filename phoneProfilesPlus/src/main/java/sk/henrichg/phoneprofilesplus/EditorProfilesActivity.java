@@ -107,6 +107,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final int DSI_EVENTS_PAUSED = 7;
     private static final int DSI_EVENTS_STOPPED = 8;
 
+    private static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
+
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -1891,58 +1893,65 @@ public class EditorProfilesActivity extends AppCompatActivity
     */
 
     private void showTargetHelps() {
-        TypedValue tv = new TypedValue();
-        //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+        SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
-        final Display display = getWindowManager().getDefaultDisplay();
+        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            Editor editor = preferences.edit();
+            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.commit();
 
-        getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
-        final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
-        int iconWidth = restartEventsIcon.getIntrinsicWidth();
-        final Rect restartEventsTarget = new Rect(0, 0, iconWidth, restartEventsIcon.getIntrinsicHeight());
-        restartEventsTarget.offset(display.getWidth() - (iconWidth+GlobalGUIRoutines.dpToPx(25)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
+            TypedValue tv = new TypedValue();
+            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-        getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
-        final Drawable activityLogIcon = ContextCompat.getDrawable(this, tv.resourceId);
-        final Rect activityLogTarget = new Rect(0, 0, activityLogIcon.getIntrinsicWidth(), activityLogIcon.getIntrinsicHeight());
-        activityLogTarget.offset(display.getWidth() - (iconWidth+GlobalGUIRoutines.dpToPx(25)) * 1 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
+            final Display display = getWindowManager().getDefaultDisplay();
 
-        final TapTargetSequence sequence = new TapTargetSequence(this)
-        .targets(
-                TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.").id(1),
-                TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.").id(2),
-                TapTarget.forBounds(restartEventsTarget, "Restart events", "Click on this to restart events.")
-                        .transparentTarget(true)
-                        .id(3),
-                TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Loged are activities about start/pause/stop events, profile activation, start application, ...")
-                        .transparentTarget(true)
-                        .id(4)
-        )
-        .listener(new TapTargetSequence.Listener() {
-            // This listener will tell us when interesting(tm) events happen in regards
-            // to the sequence
-            @Override
-            public void onSequenceFinish() {
-                Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-                if (fragment != null)
-                {
-                    if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment)fragment).showTargetHelps();
-                    else
-                        ((EditorEventListFragment)fragment).showTargetHelps();
-                }
-            }
+            getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
+            final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
+            int iconWidth = restartEventsIcon.getIntrinsicWidth();
+            final Rect restartEventsTarget = new Rect(0, 0, iconWidth, restartEventsIcon.getIntrinsicHeight());
+            restartEventsTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
 
-            @Override
-            public void onSequenceStep(TapTarget lastTarget) {
-                Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-            }
+            getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
+            final Drawable activityLogIcon = ContextCompat.getDrawable(this, tv.resourceId);
+            final Rect activityLogTarget = new Rect(0, 0, activityLogIcon.getIntrinsicWidth(), activityLogIcon.getIntrinsicHeight());
+            activityLogTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) * 1 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
 
-            @Override
-            public void onSequenceCanceled(TapTarget lastTarget) {
-            }
-        });
-        sequence.start();
+            final TapTargetSequence sequence = new TapTargetSequence(this)
+                    .targets(
+                            TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.").id(1),
+                            TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.").id(2),
+                            TapTarget.forBounds(restartEventsTarget, "Restart events", "Click on this to restart events.")
+                                    .transparentTarget(true)
+                                    .id(3),
+                            TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Loged are activities about start/pause/stop events, profile activation, start application, ...")
+                                    .transparentTarget(true)
+                                    .id(4)
+                    )
+                    .listener(new TapTargetSequence.Listener() {
+                        // This listener will tell us when interesting(tm) events happen in regards
+                        // to the sequence
+                        @Override
+                        public void onSequenceFinish() {
+                            Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+                            if (fragment != null) {
+                                if (fragment instanceof EditorProfileListFragment)
+                                    ((EditorProfileListFragment) fragment).showTargetHelps();
+                                else
+                                    ((EditorEventListFragment) fragment).showTargetHelps();
+                            }
+                        }
+
+                        @Override
+                        public void onSequenceStep(TapTarget lastTarget) {
+                            Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                        }
+
+                        @Override
+                        public void onSequenceCanceled(TapTarget lastTarget) {
+                        }
+                    });
+            sequence.start();
+        }
     }
 
 }

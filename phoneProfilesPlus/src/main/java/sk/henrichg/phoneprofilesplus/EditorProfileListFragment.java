@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -63,6 +64,8 @@ public class EditorProfileListFragment extends Fragment {
     public static final int FILTER_TYPE_ALL = 0;
     public static final int FILTER_TYPE_SHOW_IN_ACTIVATOR = 1;
     public static final int FILTER_TYPE_NO_SHOW_IN_ACTIVATOR = 2;
+
+    private static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
 
     private int filterType = FILTER_TYPE_ALL;
 
@@ -892,38 +895,46 @@ public class EditorProfileListFragment extends Fragment {
     }
 
     void showTargetHelps() {
-        //TypedValue tv = new TypedValue();
-        //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+        SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
-        final TapTargetSequence sequence = new TapTargetSequence(getActivity())
-                .targets(
-                        TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, "New profile", "Click on this to add new profile.")
-                                .transparentTarget(true)
-                                .id(1),
-                        TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, "Delete all profiles", "Click on this to delete all profiles.")
-                                .transparentTarget(true)
-                                .id(2),
-                        TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
-                                .transparentTarget(true)
-                                .id(3)
-                )
-                .listener(new TapTargetSequence.Listener() {
-                    // This listener will tell us when interesting(tm) events happen in regards
-                    // to the sequence
-                    @Override
-                    public void onSequenceFinish() {
-                    }
+        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.commit();
 
-                    @Override
-                    public void onSequenceStep(TapTarget lastTarget) {
-                        Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                    }
+            //TypedValue tv = new TypedValue();
+            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-                    @Override
-                    public void onSequenceCanceled(TapTarget lastTarget) {
-                    }
-                });
-        sequence.start();
+            final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                    .targets(
+                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, "New profile", "Click on this to add new profile.")
+                                    .transparentTarget(true)
+                                    .id(1),
+                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, "Delete all profiles", "Click on this to delete all profiles.")
+                                    .transparentTarget(true)
+                                    .id(2),
+                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
+                                    .transparentTarget(true)
+                                    .id(3)
+                    )
+                    .listener(new TapTargetSequence.Listener() {
+                        // This listener will tell us when interesting(tm) events happen in regards
+                        // to the sequence
+                        @Override
+                        public void onSequenceFinish() {
+                        }
+
+                        @Override
+                        public void onSequenceStep(TapTarget lastTarget) {
+                            Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                        }
+
+                        @Override
+                        public void onSequenceCanceled(TapTarget lastTarget) {
+                        }
+                    });
+            sequence.start();
+        }
     }
 
 }
