@@ -59,6 +59,14 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             PPApplication.loadPreferences(context);
                         }
                     }
+                    if (actualVersionCode <= 2600) {
+                        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
+                        editor.commit();
+                    }
                 }
             } catch (PackageManager.NameNotFoundException e) {
                 //e.printStackTrace();

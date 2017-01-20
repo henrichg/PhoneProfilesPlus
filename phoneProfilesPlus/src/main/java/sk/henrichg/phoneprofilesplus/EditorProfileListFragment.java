@@ -65,7 +65,7 @@ public class EditorProfileListFragment extends Fragment {
     public static final int FILTER_TYPE_SHOW_IN_ACTIVATOR = 1;
     public static final int FILTER_TYPE_NO_SHOW_IN_ACTIVATOR = 2;
 
-    private static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
 
     private int filterType = FILTER_TYPE_ALL;
 
@@ -424,6 +424,9 @@ public class EditorProfileListFragment extends Fragment {
                 listView.setSelection(profilePos);
                 //listView.smoothScrollToPosition(profilePos);
             }
+
+            showAdapterTargetHelps();
+
             editMode = EDIT_MODE_EDIT;
         }
         else
@@ -794,7 +797,7 @@ public class EditorProfileListFragment extends Fragment {
 
             if (profilePos != ListView.INVALID_POSITION)
             {
-                // set event visible in list
+                // set profile visible in list
                 listView.setItemChecked(profilePos, true);
                 int last = listView.getLastVisiblePosition();
                 int first = listView.getFirstVisiblePosition();
@@ -803,6 +806,8 @@ public class EditorProfileListFragment extends Fragment {
                     //listView.smoothScrollToPosition(profilePos);
                 }
             }
+
+            showAdapterTargetHelps();
         }
     }
 
@@ -908,13 +913,10 @@ public class EditorProfileListFragment extends Fragment {
             final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                     .targets(
                             TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, "New profile", "Click on this to add new profile.")
-                                    .transparentTarget(true)
                                     .id(1),
                             TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, "Delete all profiles", "Click on this to delete all profiles.")
-                                    .transparentTarget(true)
                                     .id(2),
                             TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
-                                    .transparentTarget(true)
                                     .id(3)
                     )
                     .listener(new TapTargetSequence.Listener() {
@@ -935,6 +937,10 @@ public class EditorProfileListFragment extends Fragment {
                     });
             sequence.start();
         }
+    }
+
+    private void showAdapterTargetHelps() {
+        View itemView = listView.getChildAt(0);
     }
 
 }

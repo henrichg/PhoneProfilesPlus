@@ -107,7 +107,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final int DSI_EVENTS_PAUSED = 7;
     private static final int DSI_EVENTS_STOPPED = 8;
 
-    private static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -1909,31 +1909,37 @@ public class EditorProfilesActivity extends AppCompatActivity
             final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
             int iconWidth = restartEventsIcon.getIntrinsicWidth(); //GlobalGUIRoutines.dpToPx(30);
             final Rect restartEventsTarget = new Rect(0, 0, restartEventsIcon.getIntrinsicWidth(), restartEventsIcon.getIntrinsicHeight());
-            restartEventsTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
+            restartEventsTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
+            restartEventsIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
 
-            getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
+            getTheme().resolveAttribute(R.attr.actionActivityLogIcon, tv, true);
             final Drawable activityLogIcon = ContextCompat.getDrawable(this, tv.resourceId);
             final Rect activityLogTarget = new Rect(0, 0, activityLogIcon.getIntrinsicWidth(), activityLogIcon.getIntrinsicHeight());
-            activityLogTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(30));
+            activityLogTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
+            activityLogIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
 
             final TapTargetSequence sequence = new TapTargetSequence(this);
             if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
                 sequence.targets(
-                            TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.").id(1),
-                            TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.").id(2),
+                            TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.")
+                                    .id(1),
+                            TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.")
+                                    .id(2),
                             TapTarget.forBounds(restartEventsTarget, "Restart events", "Click on this to restart events.")
-                                    .transparentTarget(true)
+                                    .icon(restartEventsIcon, true)
                                     .id(3),
                             TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Logged are activities about start/pause/stop events, profile activation, start application, ...")
-                                    .transparentTarget(true)
+                                    .icon(activityLogIcon, true)
                                     .id(4)
                     );
             else
                 sequence.targets(
-                        TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.").id(1),
-                        TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.").id(2),
+                        TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.")
+                                .id(1),
+                        TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.")
+                                .id(2),
                         TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Logged are activities about start/pause/stop events, profile activation, start application, ...")
-                                .transparentTarget(true)
+                                .icon(activityLogIcon, true)
                                 .id(3)
                 );
 

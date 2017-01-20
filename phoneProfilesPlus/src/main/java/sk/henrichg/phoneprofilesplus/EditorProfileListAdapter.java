@@ -20,7 +20,6 @@ class EditorProfileListAdapter extends BaseAdapter
     private int filterType;
     List<Profile> profileList;
 
-
     EditorProfileListAdapter(EditorProfileListFragment f, DataWrapper pdw, int filterType)
     {
         fragment = f;

@@ -64,7 +64,7 @@ public class EditorEventListFragment extends Fragment {
     public static final int ORDER_TYPE_PROFILE_NAME = 2;
     public static final int ORDER_TYPE_PRIORITY = 3;
 
-    private static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
+    public static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
 
     private int filterType = FILTER_TYPE_ALL;
     private int orderType = ORDER_TYPE_EVENT_NAME;
@@ -360,14 +360,17 @@ public class EditorEventListFragment extends Fragment {
         if (event != null)
         {
             // editacia udalosti
-            int profilePos = eventListAdapter.getItemPosition(event);
-            listView.setItemChecked(profilePos, true);
+            int eventPos = eventListAdapter.getItemPosition(event);
+            listView.setItemChecked(eventPos, true);
             int last = listView.getLastVisiblePosition();
             int first = listView.getFirstVisiblePosition();
-            if ((profilePos <= first) || (profilePos >= last)) {
-                listView.setSelection(profilePos);
-                //listView.smoothScrollToPosition(profilePos);
+            if ((eventPos <= first) || (eventPos >= last)) {
+                listView.setSelection(eventPos);
+                //listView.smoothScrollToPosition(eventPos);
             }
+
+            showAdapterTargetHelps();
+
             editMode = EDIT_MODE_EDIT;
         }
         else
@@ -610,6 +613,9 @@ public class EditorEventListFragment extends Fragment {
                     }
                 }
             }
+
+            showAdapterTargetHelps();
+
         }
     }
 
@@ -722,13 +728,10 @@ public class EditorEventListFragment extends Fragment {
             final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                     .targets(
                             TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, "New event", "Click on this to add new event.")
-                                    .transparentTarget(true)
                                     .id(1),
                             TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, "Delete all events", "Click on this to delete all events.")
-                                    .transparentTarget(true)
                                     .id(2),
                             TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
-                                    .transparentTarget(true)
                                     .id(3)
                     )
                     .listener(new TapTargetSequence.Listener() {
@@ -749,6 +752,10 @@ public class EditorEventListFragment extends Fragment {
                     });
             sequence.start();
         }
+    }
+
+    private void showAdapterTargetHelps() {
+        View itemView = listView.getChildAt(0);
     }
 
 }
