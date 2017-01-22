@@ -1902,11 +1902,16 @@ public class EditorProfilesActivity extends AppCompatActivity
                 preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
-            Editor editor = preferences.edit();
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
-            editor.commit();
+
+            Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+                Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+
+                Editor editor = preferences.edit();
+                editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.commit();
+
                 TypedValue tv = new TypedValue();
                 //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
@@ -1976,13 +1981,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                 sequence.start();
             }
             else {
-                Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-                if (fragment != null) {
-                    if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment) fragment).showTargetHelps();
-                    else
-                        ((EditorEventListFragment) fragment).showTargetHelps();
-                }
+                Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+                        if (fragment != null) {
+                            if (fragment instanceof EditorProfileListFragment)
+                                ((EditorProfileListFragment) fragment).showTargetHelps();
+                            else
+                                ((EditorEventListFragment) fragment).showTargetHelps();
+                        }
+                    }
+                }, 500);
             }
         }
     }

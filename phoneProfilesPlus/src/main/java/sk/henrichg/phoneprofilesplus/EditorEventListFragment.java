@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -725,11 +726,17 @@ public class EditorEventListFragment extends Fragment {
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(PREF_START_TARGET_HELPS, false);
-            editor.commit();
+
+            Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+
+                Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.commit();
+
                 //TypedValue tv = new TypedValue();
                 //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
@@ -762,7 +769,14 @@ public class EditorEventListFragment extends Fragment {
                 sequence.start();
             }
             else {
-                showAdapterTargetHelps();
+                Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showAdapterTargetHelps();
+                    }
+                }, 500);
             }
         }
     }
