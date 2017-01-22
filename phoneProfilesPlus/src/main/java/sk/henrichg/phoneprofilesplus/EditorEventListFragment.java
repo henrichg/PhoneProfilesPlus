@@ -742,11 +742,11 @@ public class EditorEventListFragment extends Fragment {
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                         .targets(
-                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, "New event", "Click on this to add new event.")
+                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, getString(R.string.editor_activity_targetHelps_newEventButton_title), getString(R.string.editor_activity_targetHelps_newEventButton_description))
                                         .id(1),
-                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, "Delete all events", "Click on this to delete all events.")
+                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_title), getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_description))
                                         .id(2),
-                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
+                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
                                         .id(3)
                         )
                         .listener(new TapTargetSequence.Listener() {

@@ -577,20 +577,20 @@ class EditorEventListAdapter extends BaseAdapter
                     editor.commit();
 
                     sequence.targets(
-                            TapTarget.forBounds(eventItemTarget, "Event preferences", "Click on this to open event preferences.")
+                            TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
                                     .transparentTarget(true)
                                     .id(1),
-                            TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), "Event menu", "Click on this to open event menu with options: Enable/Stop run, Duplicate and Delete event.")
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
                                     .id(2),
-                            TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), "Order handler", "Drag event up/down with this to change event \"Start order\".")
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
                                     .id(3)
                     );
                 } else {
                     sequence.targets(
-                            TapTarget.forBounds(eventItemTarget, "Event preferences", "Click on this to open event preferences.")
+                            TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
                                     .transparentTarget(true)
                                     .id(1),
-                            TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), "Event menu", "Click on this to open event menu with options: Enable/Stop run, Duplicate and Delete event.")
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_eventMenu_title), activity.getString(R.string.editor_activity_targetHelps_eventMenu_description))
                                     .id(2)
                     );
                 }
@@ -622,7 +622,7 @@ class EditorEventListAdapter extends BaseAdapter
 
                     final TapTargetSequence sequence = new TapTargetSequence(activity);
                     sequence.targets(
-                            TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), "Order handler", "Drag event up/down with this to change event \"Start order\".")
+                            TapTarget.forView(listItemView.findViewById(R.id.event_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_eventOrderHandler_description))
                                     .id(1)
                     );
                     sequence.listener(new TapTargetSequence.Listener() {

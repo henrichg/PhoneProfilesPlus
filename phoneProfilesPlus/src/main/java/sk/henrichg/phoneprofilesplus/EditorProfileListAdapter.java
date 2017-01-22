@@ -434,20 +434,20 @@ class EditorProfileListAdapter extends BaseAdapter
                     editor.commit();
 
                     sequence.targets(
-                            TapTarget.forBounds(profileItemTarget, "Profile preferences", "Click on this to open profile preferences.")
+                            TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
                                     .transparentTarget(true)
                                     .id(1),
-                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), "Profile menu", "Click on this to open profile menu with options: Activate, Duplicate and Delete profile.")
+                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .id(2),
-                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), "Order handler", "Drag profile up/down with this to change profile view order in Activator.")
+                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .id(3)
                     );
                 } else {
                     sequence.targets(
-                            TapTarget.forBounds(profileItemTarget, "Profile preferences", "Click on this to open profile preferences.")
+                            TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
                                     .transparentTarget(true)
                                     .id(1),
-                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), "Profile menu", "Click on this to open profile menu with options: Activate, Duplicate and Delete profile.")
+                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .id(2)
                     );
                 }
@@ -478,7 +478,7 @@ class EditorProfileListAdapter extends BaseAdapter
 
                     final TapTargetSequence sequence = new TapTargetSequence(activity);
                     sequence.targets(
-                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), "Order handler", "Drag profile up/down with this to change profile view order in Activator.")
+                            TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .id(1)
                     );
                     sequence.listener(new TapTargetSequence.Listener() {

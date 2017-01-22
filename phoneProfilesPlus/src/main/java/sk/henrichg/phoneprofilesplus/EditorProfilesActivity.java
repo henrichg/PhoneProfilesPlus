@@ -1933,24 +1933,24 @@ public class EditorProfilesActivity extends AppCompatActivity
                 final TapTargetSequence sequence = new TapTargetSequence(this);
                 if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
                     sequence.targets(
-                            TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.")
+                            TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .id(1),
-                            TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.")
+                            TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
                                     .id(2),
-                            TapTarget.forBounds(restartEventsTarget, "Restart events", "Click on this to restart events.")
+                            TapTarget.forBounds(restartEventsTarget, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
                                     .icon(restartEventsIcon, true)
                                     .id(3),
-                            TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Logged are activities about start/pause/stop events, profile activation, start application, ...")
+                            TapTarget.forBounds(activityLogTarget, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
                                     .icon(activityLogIcon, true)
                                     .id(4)
                     );
                 else
                     sequence.targets(
-                            TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.")
+                            TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .id(1),
-                            TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.")
+                            TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
                                     .id(2),
-                            TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Logged are activities about start/pause/stop events, profile activation, start application, ...")
+                            TapTarget.forBounds(activityLogTarget, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
                                     .icon(activityLogIcon, true)
                                     .id(3)
                     );
