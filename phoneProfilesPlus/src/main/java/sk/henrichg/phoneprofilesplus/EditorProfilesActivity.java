@@ -1895,32 +1895,39 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void showTargetHelps() {
         SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
-        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+                preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
+                preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
+                preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
+                preferences.getBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, true) ||
+                preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
+                preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
             Editor editor = preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.commit();
 
-            TypedValue tv = new TypedValue();
-            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+            if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+                TypedValue tv = new TypedValue();
+                //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-            final Display display = getWindowManager().getDefaultDisplay();
+                final Display display = getWindowManager().getDefaultDisplay();
 
-            getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
-            final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
-            int iconWidth = restartEventsIcon.getIntrinsicWidth(); //GlobalGUIRoutines.dpToPx(30);
-            final Rect restartEventsTarget = new Rect(0, 0, restartEventsIcon.getIntrinsicWidth(), restartEventsIcon.getIntrinsicHeight());
-            restartEventsTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
-            restartEventsIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
+                getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
+                final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
+                int iconWidth = restartEventsIcon.getIntrinsicWidth(); //GlobalGUIRoutines.dpToPx(30);
+                final Rect restartEventsTarget = new Rect(0, 0, restartEventsIcon.getIntrinsicWidth(), restartEventsIcon.getIntrinsicHeight());
+                restartEventsTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
+                restartEventsIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
 
-            getTheme().resolveAttribute(R.attr.actionActivityLogIcon, tv, true);
-            final Drawable activityLogIcon = ContextCompat.getDrawable(this, tv.resourceId);
-            final Rect activityLogTarget = new Rect(0, 0, activityLogIcon.getIntrinsicWidth(), activityLogIcon.getIntrinsicHeight());
-            activityLogTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
-            activityLogIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
+                getTheme().resolveAttribute(R.attr.actionActivityLogIcon, tv, true);
+                final Drawable activityLogIcon = ContextCompat.getDrawable(this, tv.resourceId);
+                final Rect activityLogTarget = new Rect(0, 0, activityLogIcon.getIntrinsicWidth(), activityLogIcon.getIntrinsicHeight());
+                activityLogTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
+                activityLogIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
 
-            final TapTargetSequence sequence = new TapTargetSequence(this);
-            if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
-                sequence.targets(
+                final TapTargetSequence sequence = new TapTargetSequence(this);
+                if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
+                    sequence.targets(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.")
                                     .id(1),
                             TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.")
@@ -1932,41 +1939,51 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .icon(activityLogIcon, true)
                                     .id(4)
                     );
-            else
-                sequence.targets(
-                        TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.")
-                                .id(1),
-                        TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.")
-                                .id(2),
-                        TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Logged are activities about start/pause/stop events, profile activation, start application, ...")
-                                .icon(activityLogIcon, true)
-                                .id(3)
-                );
+                else
+                    sequence.targets(
+                            TapTarget.forToolbarNavigationIcon(editorToolbar, "\"Views\" side panel", "Click on this or swipe left display side to right opens \"Views\" side panel. In this panel you can switch between Profiles and Events views.")
+                                    .id(1),
+                            TapTarget.forToolbarOverflow(editorToolbar, "Application menu", "Click on this opens Application menu. In this menu are application Settings.")
+                                    .id(2),
+                            TapTarget.forBounds(activityLogTarget, "Activity log", "Click on this to open activity log. Logged are activities about start/pause/stop events, profile activation, start application, ...")
+                                    .icon(activityLogIcon, true)
+                                    .id(3)
+                    );
 
-            sequence.listener(new TapTargetSequence.Listener() {
-                        // This listener will tell us when interesting(tm) events happen in regards
-                        // to the sequence
-                        @Override
-                        public void onSequenceFinish() {
-                            Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-                            if (fragment != null) {
-                                if (fragment instanceof EditorProfileListFragment)
-                                    ((EditorProfileListFragment) fragment).showTargetHelps();
-                                else
-                                    ((EditorEventListFragment) fragment).showTargetHelps();
-                            }
+                sequence.listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+                        if (fragment != null) {
+                            if (fragment instanceof EditorProfileListFragment)
+                                ((EditorProfileListFragment) fragment).showTargetHelps();
+                            else
+                                ((EditorEventListFragment) fragment).showTargetHelps();
                         }
+                    }
 
-                        @Override
-                        public void onSequenceStep(TapTarget lastTarget) {
-                            Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                        }
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget) {
+                        //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                    }
 
-                        @Override
-                        public void onSequenceCanceled(TapTarget lastTarget) {
-                        }
-                    });
-            sequence.start();
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                    }
+                });
+                sequence.start();
+            }
+            else {
+                Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment != null) {
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment) fragment).showTargetHelps();
+                    else
+                        ((EditorEventListFragment) fragment).showTargetHelps();
+                }
+            }
         }
     }
 

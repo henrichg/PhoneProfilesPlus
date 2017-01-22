@@ -64,7 +64,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                         editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
+                        editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                         editor.commit();
                     }
                 }

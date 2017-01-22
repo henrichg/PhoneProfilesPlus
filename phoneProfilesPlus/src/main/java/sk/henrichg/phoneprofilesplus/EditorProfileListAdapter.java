@@ -1,5 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+
 import java.util.List;
 
 class EditorProfileListAdapter extends BaseAdapter
@@ -19,6 +26,9 @@ class EditorProfileListAdapter extends BaseAdapter
     private DataWrapper dataWrapper;
     private int filterType;
     List<Profile> profileList;
+
+    static final String PREF_START_TARGET_HELPS = "editor_profile_list_adapter_start_target_helps";
+    static final String PREF_START_TARGET_HELPS_ORDER = "editor_profile_list_adapter_start_target_helps_order";
 
     EditorProfileListAdapter(EditorProfileListFragment f, DataWrapper pdw, int filterType)
     {
@@ -395,6 +405,65 @@ class EditorProfileListAdapter extends BaseAdapter
         }
       
         return vi;
+    }
+
+    void showTargetHelps(final Activity activity, final View listItemView) {
+        SharedPreferences preferences = activity.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+
+        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) || preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.commit();
+
+            Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
+            int[] screenLocation = new int[2];
+            listItemView.getLocationOnScreen(screenLocation);
+            profileItemTarget.offset(screenLocation[0] + listItemView.getWidth() / 2 - listItemView.getHeight() / 2, screenLocation[1]);
+
+            final TapTargetSequence sequence = new TapTargetSequence(activity);
+
+            if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
+                editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
+                editor.commit();
+
+                sequence.targets(
+                        TapTarget.forBounds(profileItemTarget, "Profile preferences", "Click on this to open profile preferences.")
+                                .transparentTarget(true)
+                                .id(1),
+                        TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), "Profile menu", "Click on this to open profile menu with options: Activate, Duplicate and Delete profile.")
+                                .id(2),
+                        TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), "Order handler", "Drag profile up/down with this to change profile view order in Activator.")
+                                .id(3)
+                );
+            }
+            else {
+                sequence.targets(
+                        TapTarget.forBounds(profileItemTarget, "Profile preferences", "Click on this to open profile preferences.")
+                                .transparentTarget(true)
+                                .id(1),
+                        TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), "Profile menu", "Click on this to open profile menu with options: Activate, Duplicate and Delete profile.")
+                                .id(2)
+                );
+            }
+            sequence.listener(new TapTargetSequence.Listener() {
+                // This listener will tell us when interesting(tm) events happen in regards
+                // to the sequence
+                @Override
+                public void onSequenceFinish() {
+                }
+
+                @Override
+                public void onSequenceStep(TapTarget lastTarget) {
+                    //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                }
+
+                @Override
+                public void onSequenceCanceled(TapTarget lastTarget) {
+                }
+            });
+            sequence.start();
+        }
+
     }
 
 }

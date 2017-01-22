@@ -425,7 +425,9 @@ public class EditorProfileListFragment extends Fragment {
                 //listView.smoothScrollToPosition(profilePos);
             }
 
-            showAdapterTargetHelps();
+            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            if (startTargetHelps)
+                showAdapterTargetHelps();
 
             editMode = EDIT_MODE_EDIT;
         }
@@ -807,7 +809,9 @@ public class EditorProfileListFragment extends Fragment {
                 }
             }
 
-            showAdapterTargetHelps();
+            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+            if (startTargetHelps)
+                showAdapterTargetHelps();
         }
     }
 
@@ -902,45 +906,59 @@ public class EditorProfileListFragment extends Fragment {
     void showTargetHelps() {
         SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
-        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+                preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
+                preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.commit();
 
-            //TypedValue tv = new TypedValue();
-            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+            if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+                //TypedValue tv = new TypedValue();
+                //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
 
-            final TapTargetSequence sequence = new TapTargetSequence(getActivity())
-                    .targets(
-                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, "New profile", "Click on this to add new profile.")
-                                    .id(1),
-                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, "Delete all profiles", "Click on this to delete all profiles.")
-                                    .id(2),
-                            TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
-                                    .id(3)
-                    )
-                    .listener(new TapTargetSequence.Listener() {
-                        // This listener will tell us when interesting(tm) events happen in regards
-                        // to the sequence
-                        @Override
-                        public void onSequenceFinish() {
-                        }
+                final TapTargetSequence sequence = new TapTargetSequence(getActivity())
+                        .targets(
+                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, "New profile", "Click on this to add new profile.")
+                                        .id(1),
+                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, "Delete all profiles", "Click on this to delete all profiles.")
+                                        .id(2),
+                                TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, "Important info", "Click on this to show Important info. Please read these informations.")
+                                        .id(3)
+                        )
+                        .listener(new TapTargetSequence.Listener() {
+                            // This listener will tell us when interesting(tm) events happen in regards
+                            // to the sequence
+                            @Override
+                            public void onSequenceFinish() {
+                                showAdapterTargetHelps();
+                            }
 
-                        @Override
-                        public void onSequenceStep(TapTarget lastTarget) {
-                            Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                        }
+                            @Override
+                            public void onSequenceStep(TapTarget lastTarget) {
+                                //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                            }
 
-                        @Override
-                        public void onSequenceCanceled(TapTarget lastTarget) {
-                        }
-                    });
-            sequence.start();
+                            @Override
+                            public void onSequenceCanceled(TapTarget lastTarget) {
+                            }
+                        });
+                sequence.start();
+            }
+            else {
+                showAdapterTargetHelps();
+            }
         }
     }
 
     private void showAdapterTargetHelps() {
-        View itemView = listView.getChildAt(0);
+        View itemView;
+        if (listView.getChildCount() > 1)
+            itemView = listView.getChildAt(1);
+        else
+            itemView = listView.getChildAt(0);
+        if ((profileListAdapter != null) && (itemView != null))
+            profileListAdapter.showTargetHelps(getActivity(), itemView);
     }
 
 }
