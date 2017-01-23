@@ -81,7 +81,7 @@ public class EditorEventListFragment extends Fragment {
      */
     // invoked when start profile preference fragment/activity needed
     public interface OnStartEventPreferences {
-        void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex);
+        void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex, boolean startTargetHelps);
     }
 
     /**
@@ -89,7 +89,7 @@ public class EditorEventListFragment extends Fragment {
      * nothing. Used only when this fragment is not attached to an activity.
      */
     private static OnStartEventPreferences sDummyOnStartEventPreferencesCallback = new OnStartEventPreferences() {
-        public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex) {
+        public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex, boolean startTargetHelps) {
         }
     };
 
@@ -385,7 +385,7 @@ public class EditorEventListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
+        onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex, true);
     }
 
     void runStopEvent(Event event)
@@ -461,7 +461,7 @@ public class EditorEventListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartEventPreferencesCallback.onStartEventPreferences(origEvent, editMode, 0);
+        onStartEventPreferencesCallback.onStartEventPreferences(origEvent, editMode, 0, true);
 
     }
 
@@ -484,7 +484,7 @@ public class EditorEventListFragment extends Fragment {
         {
             eventListAdapter.notifyDataSetChanged();
 
-            onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
+            onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
         }
     }
 
@@ -570,7 +570,7 @@ public class EditorEventListFragment extends Fragment {
                 databaseHandler.deleteAllEvents();
                 eventListAdapter.clear();
 
-                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
+                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0, true);
 
             }
         });

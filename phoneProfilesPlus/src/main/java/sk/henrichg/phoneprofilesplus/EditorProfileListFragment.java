@@ -81,7 +81,7 @@ public class EditorProfileListFragment extends Fragment {
      */
     // invoked when start profile preference fragment/activity needed
     public interface OnStartProfilePreferences {
-        void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex);
+        void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex, boolean startTargetHelps);
     }
 
     /**
@@ -89,7 +89,7 @@ public class EditorProfileListFragment extends Fragment {
      * nothing. Used only when this fragment is not attached to an activity.
      */
     private static OnStartProfilePreferences sDummyOnStartProfilePreferencesCallback = new OnStartProfilePreferences() {
-        public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex) {
+        public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex, boolean startTargetHelps) {
         }
     };
 
@@ -440,7 +440,7 @@ public class EditorProfileListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartProfilePreferencesCallback.onStartProfilePreferences(profile, editMode, predefinedProfileIndex);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(profile, editMode, predefinedProfileIndex, true);
     }
 
     public void duplicateProfile(Profile origProfile)
@@ -452,7 +452,7 @@ public class EditorProfileListFragment extends Fragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) one must start profile preferences
-        onStartProfilePreferencesCallback.onStartProfilePreferences(origProfile, editMode, 0);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(origProfile, editMode, 0, true);
 
     }
 
@@ -556,7 +556,7 @@ public class EditorProfileListFragment extends Fragment {
         activateProfileHelper.showNotification(_profile);
         activateProfileHelper.updateWidget();
 
-        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
+        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
 
     }
 
@@ -703,7 +703,7 @@ public class EditorProfileListFragment extends Fragment {
                 activateProfileHelper.removeNotification();
                 activateProfileHelper.updateWidget();
 
-                onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
+                onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0, true);
 
             }
         });
