@@ -415,6 +415,10 @@ class EditorProfileListAdapter extends BaseAdapter
 
             Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
+            int circleColor = 0xFFFFFF;
+            if (PPApplication.applicationTheme.equals("dark"))
+                circleColor = 0x7F7F7F;
+
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
                 Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
@@ -436,18 +440,31 @@ class EditorProfileListAdapter extends BaseAdapter
                     sequence.targets(
                             TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
                                     .transparentTarget(true)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
                                     .id(1),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
                                     .id(2),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
                                     .id(3)
                     );
                 } else {
                     sequence.targets(
                             TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
                                     .transparentTarget(true)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
                                     .id(1),
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
                                     .id(2)
                     );
                 }
@@ -479,6 +496,9 @@ class EditorProfileListAdapter extends BaseAdapter
                     final TapTargetSequence sequence = new TapTargetSequence(activity);
                     sequence.targets(
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
+                                    .targetCircleColorInt(circleColor)
+                                    .textColorInt(0xFFFFFF)
+                                    .drawShadow(true)
                                     .id(1)
                     );
                     sequence.listener(new TapTargetSequence.Listener() {

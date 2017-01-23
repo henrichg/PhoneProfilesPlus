@@ -737,16 +737,26 @@ public class EditorEventListFragment extends Fragment {
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.commit();
 
-                //TypedValue tv = new TypedValue();
-                //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+                int circleColor = 0xFFFFFF;
+                if (PPApplication.applicationTheme.equals("dark"))
+                    circleColor = 0x7F7F7F;
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity())
                         .targets(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, getString(R.string.editor_activity_targetHelps_newEventButton_title), getString(R.string.editor_activity_targetHelps_newEventButton_description))
+                                        .targetCircleColorInt(circleColor)
+                                        .textColorInt(0xFFFFFF)
+                                        .drawShadow(true)
                                         .id(1),
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_title), getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_description))
+                                        .targetCircleColorInt(circleColor)
+                                        .textColorInt(0xFFFFFF)
+                                        .drawShadow(true)
                                         .id(2),
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
+                                        .targetCircleColorInt(circleColor)
+                                        .textColorInt(0xFFFFFF)
+                                        .drawShadow(true)
                                         .id(3)
                         )
                         .listener(new TapTargetSequence.Listener() {
