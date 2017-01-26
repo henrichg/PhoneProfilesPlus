@@ -1,9 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +19,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -32,6 +39,9 @@ public class ActivateProfileListFragment extends Fragment {
     private ImageView activeProfileIcon;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
+
+    public static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
 
     public ActivateProfileListFragment() {
     }
@@ -81,6 +91,10 @@ public class ActivateProfileListFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         doOnViewCreated(view/*, savedInstanceState*/);
+
+        boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+        if (startTargetHelps)
+            showTargetHelps();
     }
 
     //@Override
@@ -348,6 +362,64 @@ public class ActivateProfileListFragment extends Fragment {
 
         profileListAdapter.notifyDataSetChanged(refreshIcons);
 
+    }
+
+    void showTargetHelps() {
+        SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+
+        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+                preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+
+            Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
+
+            if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+
+                Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.commit();
+
+                showAdapterTargetHelps();
+            }
+            else {
+                Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showAdapterTargetHelps();
+                    }
+                }, 500);
+            }
+        }
+        else {
+            if (ActivatorTargetHelpsActivity.activity != null) {
+                Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
+                ActivatorTargetHelpsActivity.activity.finish();
+                ActivatorTargetHelpsActivity.activity = null;
+            }
+        }
+    }
+
+    private void showAdapterTargetHelps() {
+        View itemView;
+        if (!PPApplication.applicationActivatorGridLayout) {
+            if (listView.getChildCount() > 1)
+                itemView = listView.getChildAt(1);
+            else
+                itemView = listView.getChildAt(0);
+        }
+        else {
+            if (gridView.getChildCount() > 1)
+                itemView = gridView.getChildAt(1);
+            else
+                itemView = gridView.getChildAt(0);
+        }
+        Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
+        Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
+        if ((profileListAdapter != null) && (itemView != null))
+            profileListAdapter.showTargetHelps(getActivity(), itemView);
     }
 
 }

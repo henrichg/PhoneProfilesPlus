@@ -923,4 +923,9 @@
     <string name="editor_activity_targetHelps_eventMenu_description">Click this for opening event menu with options: Enable/Stop run, Duplicate and Delete event.</string>
     <string name="editor_activity_targetHelps_eventOrderHandler_title">Order handler</string>
     <string name="editor_activity_targetHelps_eventOrderHandler_description">Drag event up/down with this for changing event \"Start order\".</string>
+    <string name="activator_activity_targetHelps_editor_title">Editor</string>
+    <string name="activator_activity_targetHelps_editor_description_ppp">Click this for opening Editor. In Editor you can configure profiles, events, change application settings…</string>
+    <string name="activator_activity_targetHelps_editor_description_pp">Click this for opening Editor. In Editor you can configure profiles, change application settings…</string>
+    <string name="activator_activity_targetHelps_activateProfile_title">Activate profile</string>
+    <string name="activator_activity_targetHelps_activateProfile_description">Click this for activating profile.</string>
 </resources>

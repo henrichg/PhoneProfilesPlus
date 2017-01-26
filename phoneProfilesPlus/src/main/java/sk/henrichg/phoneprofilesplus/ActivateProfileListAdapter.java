@@ -1,6 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+
 import java.util.List;
 
 class ActivateProfileListAdapter extends BaseAdapter
@@ -18,6 +26,8 @@ class ActivateProfileListAdapter extends BaseAdapter
     private List<Profile> profileList;
     private ActivateProfileListFragment fragment;
     private DataWrapper dataWrapper;
+
+    static final String PREF_START_TARGET_HELPS = "activate_profile_list_adapter_start_target_helps";
 
     ActivateProfileListAdapter(ActivateProfileListFragment f, List<Profile> pl, DataWrapper dataWrapper)
     {
@@ -211,6 +221,63 @@ class ActivateProfileListAdapter extends BaseAdapter
         }
 
         return vi;
+    }
+
+    void showTargetHelps(final Activity activity, final View listItemView) {
+        SharedPreferences preferences = activity.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+
+        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+
+            Log.d("ActivateProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.commit();
+
+            Rect profileItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
+            int[] screenLocation = new int[2];
+            listItemView.getLocationOnScreen(screenLocation);
+            profileItemTarget.offset(screenLocation[0] + listItemView.getWidth() / 2 - listItemView.getHeight() / 2, screenLocation[1]);
+
+            final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
+
+            sequence.targets(
+                    TapTarget.forBounds(profileItemTarget, activity.getString(R.string.activator_activity_targetHelps_activateProfile_title), activity.getString(R.string.activator_activity_targetHelps_activateProfile_description))
+                            .transparentTarget(true)
+                            .textColorInt(0xFFFFFF)
+                            .drawShadow(true)
+                            .id(1)
+            );
+            sequence.listener(new TapTargetSequence.Listener() {
+                // This listener will tell us when interesting(tm) events happen in regards
+                // to the sequence
+                @Override
+                public void onSequenceFinish() {
+                    if (ActivatorTargetHelpsActivity.activity != null) {
+                        Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                        ActivatorTargetHelpsActivity.activity.finish();
+                        ActivatorTargetHelpsActivity.activity = null;
+                    }
+                }
+
+                @Override
+                public void onSequenceStep(TapTarget lastTarget) {
+                    //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                }
+
+                @Override
+                public void onSequenceCanceled(TapTarget lastTarget) {
+                }
+            });
+            sequence.start();
+        }
+        else {
+            if (ActivatorTargetHelpsActivity.activity != null) {
+                Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                ActivatorTargetHelpsActivity.activity.finish();
+                ActivatorTargetHelpsActivity.activity = null;
+            }
+        }
     }
 
 }

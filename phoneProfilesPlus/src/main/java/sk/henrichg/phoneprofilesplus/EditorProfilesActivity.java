@@ -1927,13 +1927,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                 final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
                 int iconWidth = restartEventsIcon.getIntrinsicWidth(); //GlobalGUIRoutines.dpToPx(30);
                 final Rect restartEventsTarget = new Rect(0, 0, restartEventsIcon.getIntrinsicWidth(), restartEventsIcon.getIntrinsicHeight());
-                restartEventsTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
+                restartEventsTarget.offset(display.getWidth() - (/*iconWidth + */GlobalGUIRoutines.dpToPx(50)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
                 restartEventsIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
 
                 getTheme().resolveAttribute(R.attr.actionActivityLogIcon, tv, true);
                 final Drawable activityLogIcon = ContextCompat.getDrawable(this, tv.resourceId);
                 final Rect activityLogTarget = new Rect(0, 0, activityLogIcon.getIntrinsicWidth(), activityLogIcon.getIntrinsicHeight());
-                activityLogTarget.offset(display.getWidth() - (iconWidth + GlobalGUIRoutines.dpToPx(25)) - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
+                activityLogTarget.offset(display.getWidth() - (/*iconWidth + */GlobalGUIRoutines.dpToPx(50)) - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
                 activityLogIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
 
                 int circleColor = 0xFFFFFF;
