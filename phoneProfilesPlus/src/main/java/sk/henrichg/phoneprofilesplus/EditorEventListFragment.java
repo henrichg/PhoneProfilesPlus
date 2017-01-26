@@ -721,7 +721,7 @@ public class EditorEventListFragment extends Fragment {
     }
 
     void showTargetHelps() {
-        SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        final SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
@@ -774,6 +774,11 @@ public class EditorEventListFragment extends Fragment {
 
                             @Override
                             public void onSequenceCanceled(TapTarget lastTarget) {
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
+                                if (filterType == FILTER_TYPE_START_ORDER)
+                                    editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                                editor.commit();
                             }
                         });
                 sequence.start();

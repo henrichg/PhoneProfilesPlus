@@ -1899,7 +1899,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     */
 
     private void showTargetHelps() {
-        SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        final SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
@@ -2007,6 +2007,20 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
+                        Editor editor = preferences.edit();
+                        if (drawerSelectedItem <= COUNT_DRAWER_PROFILE_ITEMS) {
+                            editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
+                            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+                            if (drawerSelectedItem == DSI_PROFILES_SHOW_IN_ACTIVATOR)
+                                editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                        }
+                        else {
+                            editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
+                            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
+                            if (drawerSelectedItem == DSI_EVENTS_START_ORDER)
+                                editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+                        }
+                        editor.commit();
                     }
                 });
                 sequence.start();

@@ -894,7 +894,7 @@
     <string name="event_preference_sensor_orientation_summary">This sensor is for start event by device orientation. Parameters: Display (Up, down), Sides (Horizontal, sude up), Distance (Near, far; used is proximity sensor), Ignore for applications (in foreground).</string>
     <string name="event_preference_sensor_nfc_summary">This sensor is for start event by NFC tags. Parameters: NFC tags, Permanent run, Duration (event running duration).</string>
     <string name="editor_activity_targetHelps_navigationIcon_title">\"Views\" side panel</string>
-    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or drag left display side to right, for opening \"Views\" side panel. In this panel you can switch between Profiles and Events views.</string>
+    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe left display side to right, for opening \"Views\" side panel. In this panel you can switch between Profiles and Events views.</string>
     <string name="editor_activity_targetHelps_applicationMenu_title">Application menu</string>
     <string name="editor_activity_targetHelps_applicationMenu_description">Click this for opening Application menu. In this menu are application Settings.</string>
     <string name="editor_activity_targetHelps_restartEvents_title">Restart events</string>
