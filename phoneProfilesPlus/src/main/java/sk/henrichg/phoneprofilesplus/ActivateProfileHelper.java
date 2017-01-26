@@ -1635,7 +1635,9 @@ public class ActivateProfileHelper {
                         // FC in Note 4, 6.0.1 :-/
                         String manufacturer = PPApplication.getROMManufacturer();
                         boolean isNote4 = (manufacturer != null) && (manufacturer.compareTo("samsung") == 0) &&
-                                          Build.MODEL.startsWith("SM-N910") &&
+                                          (Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
+                                           Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
+                                          ) &&
                                           (android.os.Build.VERSION.SDK_INT == 23);
                         //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
                         if ((android.os.Build.VERSION.SDK_INT >= 23) && (!isNote4)) {
@@ -1690,7 +1692,9 @@ public class ActivateProfileHelper {
                 // FC in Note 4, 6.0.1 :-/
                 String manufacturer = PPApplication.getROMManufacturer();
                 boolean isNote4 = (manufacturer != null) && (manufacturer.compareTo("samsung") == 0) &&
-                        Build.MODEL.startsWith("SM-N910") &&
+                        (Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
+                         Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
+                        ) &&
                         (android.os.Build.VERSION.SDK_INT == 23);
                 //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
                 if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
