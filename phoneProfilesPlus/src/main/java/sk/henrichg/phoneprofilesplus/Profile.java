@@ -957,7 +957,10 @@ public class Profile {
         if (id != 0)
         {
             try {
-                return res.getInteger(id);
+                int value = res.getInteger(id);
+                if (value > 255)
+                    value = 255;
+                return value;
             }
             catch (Resources.NotFoundException e) {
                 // ignore
@@ -971,9 +974,9 @@ public class Profile {
         int maximumValue = getMaximumScreenBrightnessSetting();
         int minimumValue = getMinimumScreenBrightnessSetting();
 
-        if (maximumValue-minimumValue > 65535) {
+        if (maximumValue-minimumValue > 255) {
             minimumValue = 0;
-            maximumValue = 65535;
+            maximumValue = 255;
         }
 
         int value;
