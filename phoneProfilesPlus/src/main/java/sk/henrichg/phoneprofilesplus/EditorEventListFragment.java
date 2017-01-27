@@ -65,6 +65,7 @@ public class EditorEventListFragment extends Fragment {
     public static final int ORDER_TYPE_PROFILE_NAME = 2;
     public static final int ORDER_TYPE_PRIORITY = 3;
 
+    public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
 
     private int filterType = FILTER_TYPE_ALL;
@@ -721,6 +722,9 @@ public class EditorEventListFragment extends Fragment {
     }
 
     void showTargetHelps() {
+        if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
+            return;
+
         final SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
@@ -764,6 +768,7 @@ public class EditorEventListFragment extends Fragment {
                             // to the sequence
                             @Override
                             public void onSequenceFinish() {
+                                targetHelpsSequenceStarted = false;
                                 showAdapterTargetHelps();
                             }
 
@@ -774,6 +779,7 @@ public class EditorEventListFragment extends Fragment {
 
                             @Override
                             public void onSequenceCanceled(TapTarget lastTarget) {
+                                targetHelpsSequenceStarted = false;
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
                                 if (filterType == FILTER_TYPE_START_ORDER)
@@ -781,6 +787,7 @@ public class EditorEventListFragment extends Fragment {
                                 editor.commit();
                             }
                         });
+                targetHelpsSequenceStarted = true;
                 sequence.start();
             }
             else {
@@ -803,7 +810,7 @@ public class EditorEventListFragment extends Fragment {
         else
             itemView = listView.getChildAt(0);
         if ((eventListAdapter != null) && (itemView != null))
-            eventListAdapter.showTargetHelps(getActivity(), itemView);
+            eventListAdapter.showTargetHelps(getActivity(), this, itemView);
     }
 
 }

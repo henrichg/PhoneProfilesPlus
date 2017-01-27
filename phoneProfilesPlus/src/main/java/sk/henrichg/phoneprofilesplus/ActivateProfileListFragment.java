@@ -41,6 +41,8 @@ public class ActivateProfileListFragment extends Fragment {
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
     public static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+
+    public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
 
     public ActivateProfileListFragment() {
@@ -374,6 +376,9 @@ public class ActivateProfileListFragment extends Fragment {
     }
 
     void showTargetHelps() {
+        if (((ActivateProfileActivity)getActivity()).targetHelpsSequenceStarted)
+            return;
+
         SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
@@ -436,7 +441,7 @@ public class ActivateProfileListFragment extends Fragment {
         Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
         Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
         if ((profileListAdapter != null) && (itemView != null))
-            profileListAdapter.showTargetHelps(getActivity(), itemView);
+            profileListAdapter.showTargetHelps(getActivity(), this, itemView);
     }
 
 }

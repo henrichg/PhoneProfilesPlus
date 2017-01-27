@@ -38,6 +38,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
 
+    public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
 
     @SuppressLint("NewApi")
@@ -383,6 +384,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
+                        targetHelpsSequenceStarted = false;
                         Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null)
                         {
@@ -397,6 +399,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
+                        targetHelpsSequenceStarted = false;
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -415,6 +418,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         editor.commit();
                     }
                 });
+                targetHelpsSequenceStarted = true;
                 sequence.start();
             }
             else {

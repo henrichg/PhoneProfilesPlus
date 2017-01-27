@@ -33,6 +33,7 @@ class EditorEventListAdapter extends BaseAdapter
     boolean released = false;
     private int defaultColor;
 
+    public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "editor_event_list_adapter_start_target_helps";
     static final String PREF_START_TARGET_HELPS_ORDER = "editor_event_list_adapter_start_target_helps_order";
 
@@ -551,7 +552,10 @@ class EditorEventListAdapter extends BaseAdapter
         return vi;
     }
 
-    void showTargetHelps(Activity activity, View listItemView) {
+    void showTargetHelps(Activity activity, EditorEventListFragment fragment, View listItemView) {
+        if (fragment.targetHelpsSequenceStarted)
+            return;
+
         SharedPreferences preferences = activity.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) || preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
@@ -616,6 +620,7 @@ class EditorEventListAdapter extends BaseAdapter
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
+                        targetHelpsSequenceStarted = false;
                     }
 
                     @Override
@@ -625,8 +630,10 @@ class EditorEventListAdapter extends BaseAdapter
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
+                        targetHelpsSequenceStarted = false;
                     }
                 });
+                targetHelpsSequenceStarted = true;
                 sequence.start();
             }
             else
@@ -650,6 +657,7 @@ class EditorEventListAdapter extends BaseAdapter
                         // to the sequence
                         @Override
                         public void onSequenceFinish() {
+                            targetHelpsSequenceStarted = false;
                         }
 
                         @Override
@@ -659,8 +667,10 @@ class EditorEventListAdapter extends BaseAdapter
 
                         @Override
                         public void onSequenceCanceled(TapTarget lastTarget) {
+                            targetHelpsSequenceStarted = false;
                         }
                     });
+                    targetHelpsSequenceStarted = true;
                     sequence.start();
                 }
             }

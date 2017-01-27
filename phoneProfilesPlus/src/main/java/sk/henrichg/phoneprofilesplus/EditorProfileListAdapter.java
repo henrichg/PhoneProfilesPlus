@@ -28,6 +28,7 @@ class EditorProfileListAdapter extends BaseAdapter
     private int filterType;
     List<Profile> profileList;
 
+    public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "editor_profile_list_adapter_start_target_helps";
     static final String PREF_START_TARGET_HELPS_ORDER = "editor_profile_list_adapter_start_target_helps_order";
 
@@ -408,7 +409,10 @@ class EditorProfileListAdapter extends BaseAdapter
         return vi;
     }
 
-    void showTargetHelps(final Activity activity, final View listItemView) {
+    void showTargetHelps(final Activity activity, final EditorProfileListFragment fragment, final View listItemView) {
+        if (fragment.targetHelpsSequenceStarted)
+            return;
+
         SharedPreferences preferences = activity.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) || preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
@@ -473,6 +477,7 @@ class EditorProfileListAdapter extends BaseAdapter
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
+                        targetHelpsSequenceStarted = false;
                     }
 
                     @Override
@@ -482,8 +487,10 @@ class EditorProfileListAdapter extends BaseAdapter
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
+                        targetHelpsSequenceStarted = false;
                     }
                 });
+                targetHelpsSequenceStarted = true;
                 sequence.start();
             }
             if (preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
@@ -506,6 +513,7 @@ class EditorProfileListAdapter extends BaseAdapter
                         // to the sequence
                         @Override
                         public void onSequenceFinish() {
+                            targetHelpsSequenceStarted = false;
                         }
 
                         @Override
@@ -515,8 +523,10 @@ class EditorProfileListAdapter extends BaseAdapter
 
                         @Override
                         public void onSequenceCanceled(TapTarget lastTarget) {
+                            targetHelpsSequenceStarted = false;
                         }
                     });
+                    targetHelpsSequenceStarted = true;
                     sequence.start();
                 }
             }

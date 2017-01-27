@@ -107,6 +107,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private static final int DSI_EVENTS_PAUSED = 7;
     private static final int DSI_EVENTS_STOPPED = 8;
 
+    public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
 
     /**
@@ -1942,6 +1943,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // to the sequence
                     @Override
                     public void onSequenceFinish() {
+                        targetHelpsSequenceStarted = false;
                         Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
                         if (fragment != null) {
                             if (fragment instanceof EditorProfileListFragment)
@@ -1958,6 +1960,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
+                        targetHelpsSequenceStarted = false;
                         Editor editor = preferences.edit();
                         if (drawerSelectedItem <= COUNT_DRAWER_PROFILE_ITEMS) {
                             editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, false);
@@ -1974,6 +1977,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         editor.commit();
                     }
                 });
+                targetHelpsSequenceStarted = true;
                 sequence.start();
             }
             else {
