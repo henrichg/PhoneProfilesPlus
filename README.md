@@ -8,11 +8,14 @@ Android application - manualy and event triggered change of device settings like
 Required external libs
 ----------------------
 
+- Android support library: core, appcomapt, gridlayout, cardview
+- Google Play services library (GMS): location, maps
 - RootTools - https://github.com/Stericson/RootTools
 - DashClock API - https://github.com/romannurik/dashclock/wiki/API
 - SystemBarTint - https://github.com/jgilfelt/SystemBarTint
 - GSon - https://code.google.com/p/google-gson/
 - Material Dialogs - https://github.com/afollestad/material-dialogs
-- Masked-Edittext - https://github.com/pinball83/Masked-Edittext
-- android-hidden-api - https://github.com/anggrayudi/android-hidden-api
-
+- MaterialPreferences - https://github.com/ferrannp/material-preferences 
+- Masked-EditText - https://github.com/pinball83/Masked-Edittext
+- RelativePopupWindow - https://github.com/kakajika/RelativePopupWindow
+- TapTargetView - https://github.com/KeepSafe/TapTargetView
