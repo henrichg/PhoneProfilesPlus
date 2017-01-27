@@ -409,45 +409,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         });
 
-        
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //getSupportActionBar().setTitle(R.string.title_activity_phone_profiles);
-
-    /*
-        // Create an array adapter to populate dropdownlist
-        ArrayAdapter<CharSequence> navigationAdapter =
-                ArrayAdapter.createFromResource(getSupportActionBar().getThemedContext(), R.array.phoneProfilesNavigator, R.layout.sherlock_spinner_item);
-
-        // Enabling dropdown list navigation for the action bar
-        getSupportActionBar().setNavigationMode(com.actionbarsherlock.app.ActionBar.NAVIGATION_MODE_LIST);
-
-        // Defining Navigation listener
-        ActionBar.OnNavigationListener navigationListener = new ActionBar.OnNavigationListener() {
-
-            public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-                switch(itemPosition) {
-                case 0:
-                    EditorProfileListFragment profileFragment = new EditorProfileListFragment();
-                    getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.editor_list_container, profileFragment, "EditorProfileListFragment").commit();
-                    onStartProfilePreferences(-1, false);
-                    break;
-                case 1:
-                    EditorEventListFragment eventFragment = new EditorEventListFragment();
-                    getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.editor_list_container, eventFragment, "EditorEventListFragment").commit();
-                    onStartEventPreferences(-1, false);
-                    break;
-                }
-                return false;
-            }
-        };
-
-        // Setting dropdown items and item navigation listener for the actionbar
-        getSupportActionBar().setListNavigationCallbacks(navigationAdapter, navigationListener);
-        navigationAdapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-    */
-
         eventsRunStopIndicator = (ImageView)findViewById(R.id.editor_list_run_stop_indicator);
         eventsRunStopIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -507,7 +468,13 @@ public class EditorProfilesActivity extends AppCompatActivity
             refreshGUI(false, false);
         }
 
-        showTargetHelps();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showTargetHelps();
+            }
+        }, 1000);
     }
 
 
@@ -1923,19 +1890,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 final Display display = getWindowManager().getDefaultDisplay();
 
-                getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
-                final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
-                int iconWidth = restartEventsIcon.getIntrinsicWidth(); //GlobalGUIRoutines.dpToPx(30);
-                final Rect restartEventsTarget = new Rect(0, 0, restartEventsIcon.getIntrinsicWidth(), restartEventsIcon.getIntrinsicHeight());
-                restartEventsTarget.offset(display.getWidth() - (/*iconWidth + */GlobalGUIRoutines.dpToPx(50)) * 2 - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
-                restartEventsIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
-
-                getTheme().resolveAttribute(R.attr.actionActivityLogIcon, tv, true);
-                final Drawable activityLogIcon = ContextCompat.getDrawable(this, tv.resourceId);
-                final Rect activityLogTarget = new Rect(0, 0, activityLogIcon.getIntrinsicWidth(), activityLogIcon.getIntrinsicHeight());
-                activityLogTarget.offset(display.getWidth() - (/*iconWidth + */GlobalGUIRoutines.dpToPx(50)) - GlobalGUIRoutines.dpToPx(30), GlobalGUIRoutines.dpToPx(35));
-                activityLogIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
-
                 int circleColor = 0xFFFFFF;
                 if (PPApplication.applicationTheme.equals("dark"))
                     circleColor = 0x7F7F7F;
@@ -1953,14 +1907,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
                                     .id(2),
-                            TapTarget.forBounds(restartEventsTarget, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
-                                    .icon(restartEventsIcon, true)
+                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_restart_events, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
                                     .id(3),
-                            TapTarget.forBounds(activityLogTarget, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
-                                    .icon(activityLogIcon, true)
+                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
@@ -1978,8 +1930,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
                                     .id(2),
-                            TapTarget.forBounds(activityLogTarget, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
-                                    .icon(activityLogIcon, true)
+                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)

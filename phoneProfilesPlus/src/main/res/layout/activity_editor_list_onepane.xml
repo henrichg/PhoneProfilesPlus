@@ -25,7 +25,9 @@
             android:layout_alignParentTop="true"
             android:paddingBottom="3dp"
             android:orientation="vertical"
-            android:background="?attr/colorPrimary" >
+            android:background="?attr/colorPrimary"
+            android:elevation="8dp"
+            tools:ignore="UnusedAttribute" >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/editor_tollbar"

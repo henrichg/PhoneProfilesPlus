@@ -198,7 +198,7 @@ public class ActivateProfileListFragment extends Fragment {
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
             
-            ActivateProfileListFragment fragment = this.fragmentWeakRef.get(); 
+            final ActivateProfileListFragment fragment = this.fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
 
@@ -232,6 +232,15 @@ public class ActivateProfileListFragment extends Fragment {
                 absListView.setAdapter(fragment.profileListAdapter);
 
                 fragment.doOnStart();
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((ActivateProfileActivity)fragment.getActivity()).startTargetHelpsActivity();
+                    }
+                }, 1000);
+
             }
         }
     }
@@ -394,11 +403,19 @@ public class ActivateProfileListFragment extends Fragment {
             }
         }
         else {
-            if (ActivatorTargetHelpsActivity.activity != null) {
-                Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
-                ActivatorTargetHelpsActivity.activity.finish();
-                ActivatorTargetHelpsActivity.activity = null;
-            }
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (ActivatorTargetHelpsActivity.activity != null) {
+                        if (ActivatorTargetHelpsActivity.activity != null) {
+                            Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
+                            ActivatorTargetHelpsActivity.activity.finish();
+                            ActivatorTargetHelpsActivity.activity = null;
+                        }
+                    }
+                }
+            }, 500);
         }
     }
 

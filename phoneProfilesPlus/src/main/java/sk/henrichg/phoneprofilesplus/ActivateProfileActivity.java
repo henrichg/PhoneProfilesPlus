@@ -203,13 +203,14 @@ public class ActivateProfileActivity extends AppCompatActivity {
     {
         //Debug.stopMethodTracing();
         super.onResume();
+
+        Log.d("ActivateProfilesActivity.onResume", "xxx");
+
         if (instance == null)
         {
             instance = this;
             refreshGUI(false);
         }
-
-        startTargetHelpsActivity();
     }
 
     @Override
@@ -316,12 +317,14 @@ public class ActivateProfileActivity extends AppCompatActivity {
             eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped);
     }
 
-    private void startTargetHelpsActivity() {
+    public void startTargetHelpsActivity() {
         SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
+
+            Log.d("ActivateProfilesActivity.startTargetHelpsActivity", "xxx");
 
             ActivatorTargetHelpsActivity.activatorActivity = this;
             Intent intent = new Intent(this, ActivatorTargetHelpsActivity.class);
@@ -346,56 +349,35 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.commit();
 
-                TypedValue tv = new TypedValue();
-                //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-
-                final Display display = getWindowManager().getDefaultDisplay();
-                int popupLeft = (int) (display.getWidth() - popupWidth) / 2;
-                int popupTop = (int) (display.getHeight() - popupHeight) / 2;
-
-                getTheme().resolveAttribute(R.attr.actionEventsRestartIcon, tv, true);
-                final Drawable restartEventsIcon = ContextCompat.getDrawable(this, tv.resourceId);
-                int iconWidth = restartEventsIcon.getIntrinsicWidth(); //GlobalGUIRoutines.dpToPx(30);
-                final Rect restartEventsTarget = new Rect(0, 0, restartEventsIcon.getIntrinsicWidth(), restartEventsIcon.getIntrinsicHeight());
-                restartEventsTarget.offset((popupLeft+(int)popupWidth) - (/*iconWidth + */GlobalGUIRoutines.dpToPx(50)) * 2 /*- GlobalGUIRoutines.dpToPx(30)*/, popupTop+GlobalGUIRoutines.dpToPx(35));
-                restartEventsIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
-
-                getTheme().resolveAttribute(R.attr.actionEditProfilesIcon, tv, true);
-                final Drawable actionEditProfilesIcon = ContextCompat.getDrawable(this, tv.resourceId);
-                final Rect actionEditProfilesTarget = new Rect(0, 0, actionEditProfilesIcon.getIntrinsicWidth(), actionEditProfilesIcon.getIntrinsicHeight());
-                actionEditProfilesTarget.offset((popupLeft+(int)popupWidth) - (/*iconWidth + */GlobalGUIRoutines.dpToPx(50))/* - GlobalGUIRoutines.dpToPx(30)*/, popupTop+GlobalGUIRoutines.dpToPx(35));
-                actionEditProfilesIcon.setBounds(0, 0, GlobalGUIRoutines.dpToPx(35), GlobalGUIRoutines.dpToPx(35));
-
                 int circleColor = 0xFFFFFF;
                 if (PPApplication.applicationTheme.equals("dark"))
                     circleColor = 0x7F7F7F;
 
+                View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
-                if (PPApplication.getGlobalEventsRuning(getApplicationContext()))
+                if (PPApplication.getGlobalEventsRuning(getApplicationContext())) {
+                    View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
                     sequence.targets(
-                            TapTarget.forBounds(actionEditProfilesTarget, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
-                                    .icon(actionEditProfilesIcon, true)
+                            TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
                                     .id(1),
-                            TapTarget.forBounds(restartEventsTarget, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
-                                    .icon(restartEventsIcon, true)
+                            TapTarget.forView(restartEventsActionView, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
                                     .id(2)
                     );
+                }
                 else
                     sequence.targets(
-                            TapTarget.forBounds(actionEditProfilesTarget, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
-                                    .icon(actionEditProfilesIcon, true)
+                            TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                     .targetCircleColorInt(circleColor)
                                     .textColorInt(0xFFFFFF)
                                     .drawShadow(true)
                                     .id(1)
                     );
-
                 sequence.listener(new TapTargetSequence.Listener() {
                     // This listener will tell us when interesting(tm) events happen in regards
                     // to the sequence
@@ -415,6 +397,18 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onSequenceCanceled(TapTarget lastTarget) {
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (ActivatorTargetHelpsActivity.activity != null) {
+                                    Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
+                                    ActivatorTargetHelpsActivity.activity.finish();
+                                    ActivatorTargetHelpsActivity.activity = null;
+                                }
+                            }
+                        }, 500);
+
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
