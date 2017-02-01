@@ -26,7 +26,9 @@
             android:layout_alignParentTop="true"
             android:paddingBottom="3dp"
             android:orientation="vertical"
-            android:background="?attr/colorPrimary" >
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            tools:ignore="UnusedAttribute" >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/editor_tollbar"
@@ -163,7 +165,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="8dp"
+                android:layout_height="4dp"
                 android:background="@drawable/bottombar_dropshadow"
                 android:layout_gravity="bottom" />
 
