@@ -275,11 +275,11 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
         //Activity activity = getActivity();
         //boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
-        //canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof EventPreferencesFragmentActivity));
+        //canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof EventPreferencesActivity));
         //if (canShow)
         //    showActionMode();
-        EventPreferencesFragmentActivity activity = (EventPreferencesFragmentActivity)getActivity();
-        EventPreferencesFragmentActivity.showSaveMenu = true;
+        EventPreferencesActivity activity = (EventPreferencesActivity)getActivity();
+        EventPreferencesActivity.showSaveMenu = true;
         activity.invalidateOptionsMenu();
     }
 

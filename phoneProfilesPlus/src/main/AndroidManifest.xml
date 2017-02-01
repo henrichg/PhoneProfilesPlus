@@ -3,7 +3,7 @@
           package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:installLocation="internalOnly"
-          android:versionCode="2614"
+          android:versionCode="2616"
           android:versionName="3.4.5.7b">
     <!--
         Release versions (look at PackageReplacedReceiver)
@@ -154,11 +154,11 @@
             android:label="@string/title_activity_editor">
         </activity>
         <activity
-            android:name=".ProfilePreferencesFragmentActivity"
+            android:name=".ProfilePreferencesActivity"
             android:label="@string/title_activity_profile_preferences">
         </activity>
         <activity
-            android:name=".EventPreferencesFragmentActivity"
+            android:name=".EventPreferencesActivity"
             android:label="@string/title_activity_event_preferences">
         </activity>
         <activity

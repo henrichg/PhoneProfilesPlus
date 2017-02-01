@@ -282,7 +282,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     // start preferences activity for default profile
-                    Intent intent = new Intent(getActivity().getBaseContext(), ProfilePreferencesFragmentActivity.class);
+                    Intent intent = new Intent(getActivity().getBaseContext(), ProfilePreferencesActivity.class);
                     intent.putExtra(PPApplication.EXTRA_PROFILE_ID, PPApplication.DEFAULT_PROFILE_ID);
                     intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
                     intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
@@ -1183,11 +1183,11 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         //Activity activity = getActivity();
         //boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
-        //canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof ProfilePreferencesFragmentActivity));
+        //canShow = canShow || ((!EditorProfilesActivity.mTwoPane) && (activity instanceof ProfilePreferencesActivity));
         //if (canShow)
         //    showActionMode();
-        ProfilePreferencesFragmentActivity activity = (ProfilePreferencesFragmentActivity)getActivity();
-        ProfilePreferencesFragmentActivity.showSaveMenu = true;
+        ProfilePreferencesActivity activity = (ProfilePreferencesActivity)getActivity();
+        ProfilePreferencesActivity.showSaveMenu = true;
         activity.invalidateOptionsMenu();
 
     }

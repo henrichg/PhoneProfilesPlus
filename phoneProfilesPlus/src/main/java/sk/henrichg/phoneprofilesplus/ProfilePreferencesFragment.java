@@ -44,7 +44,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             profile_id = getArguments().getLong(PPApplication.EXTRA_PROFILE_ID);
         predefineProfileIndex = getArguments().getInt(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX);
 
-        profile = ProfilePreferencesFragmentActivity.createProfile(context.getApplicationContext(), profile_id, new_profile_mode, predefineProfileIndex, true);
+        profile = ProfilePreferencesActivity.createProfile(context.getApplicationContext(), profile_id, new_profile_mode, predefineProfileIndex, true);
         */
 
         /*if (first_start_activity)*/

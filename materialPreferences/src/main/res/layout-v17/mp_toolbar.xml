@@ -3,6 +3,7 @@
 <!-- This layout will be used only for pre-Lollipop devices -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -19,11 +20,13 @@
         app:contentInsetRight="0dp"
         app:contentInsetStart="72dp"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="4dp"
+        tools:ignore="UnusedAttribute" />
 
-    <View
+    <!-- <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@drawable/toolbar_shadow" />
+        android:background="@drawable/toolbar_shadow" /> -->
 
 </LinearLayout>

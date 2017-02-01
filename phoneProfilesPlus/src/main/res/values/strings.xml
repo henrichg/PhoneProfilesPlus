@@ -928,4 +928,8 @@
     <string name="activator_activity_targetHelps_editor_description_pp">Click this for opening Editor. In Editor you can configure profiles, change application settings…</string>
     <string name="activator_activity_targetHelps_activateProfile_title">Activate profile</string>
     <string name="activator_activity_targetHelps_activateProfile_description">Click this for activating profile.</string>
+    <string name="profile_preference_activity_targetHelps_save_title">Save profile</string>
+    <string name="profile_preference_activity_targetHelps_save_description">Click this for saving profile preferences changes.</string>
+    <string name="event_preference_activity_targetHelps_save_title">Save event</string>
+    <string name="event_preference_activity_targetHelps_save_description">Click this for saving event preferences changes.</string>
 </resources>

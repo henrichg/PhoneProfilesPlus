@@ -41,10 +41,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         // must by called before super.onCreate() for PreferenceActivity
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            GlobalGUIRoutines.setTheme(this, false, true);
-        else
-            GlobalGUIRoutines.setTheme(this, false, false);
+        GlobalGUIRoutines.setTheme(this, false, true);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
@@ -65,6 +62,13 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
+        }
+        else
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (PPApplication.applicationTheme.equals("material"))
+                getWindow().setStatusBarColor(Color.parseColor("#1d6681"));
+            else
+                getWindow().setStatusBarColor(Color.parseColor("#141414"));
         }
 
         invalidateEditor = false;

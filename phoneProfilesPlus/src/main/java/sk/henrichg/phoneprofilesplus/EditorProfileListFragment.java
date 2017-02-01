@@ -211,7 +211,7 @@ public class EditorProfileListFragment extends Fragment {
                         return true;
                     /*case R.id.menu_default_profile:
                         // start preferences activity for default profile
-                        Intent intent = new Intent(getActivity().getBaseContext(), ProfilePreferencesFragmentActivity.class);
+                        Intent intent = new Intent(getActivity().getBaseContext(), ProfilePreferencesActivity.class);
                         intent.putExtra(PPApplication.EXTRA_PROFILE_ID, PPApplication.DEFAULT_PROFILE_ID);
                         intent.putExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
                         intent.putExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);

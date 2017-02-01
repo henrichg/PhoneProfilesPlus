@@ -21,13 +21,13 @@ public abstract class PreferenceActivity extends AppCompatPreferenceActivity
         }
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             fragmentTransaction.replace(R.id.content, preferenceFragment,
                     "com.fnp.materialpreferences.MainFragment");
-        }else{
-            fragmentTransaction.replace(android.R.id.content, preferenceFragment,
-                    "com.fnp.materialpreferences.MainFragment");
-        }
+        //}else{
+        //    fragmentTransaction.replace(android.R.id.content, preferenceFragment,
+        //            "com.fnp.materialpreferences.MainFragment");
+        //}
         fragmentTransaction.commit();
     }
 
@@ -37,11 +37,11 @@ public abstract class PreferenceActivity extends AppCompatPreferenceActivity
 
         // Do not add custom layout for lollipop devices or we lose the widgets animation
         // (app compat bug?)
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             setContentView(R.layout.mp_activity_settings);;
             Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
             setSupportActionBar(toolbar);
-        }
+        //}
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,11 +64,11 @@ public abstract class PreferenceActivity extends AppCompatPreferenceActivity
 
     public PreferenceFragment getFragment() {
         int id;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             id = R.id.content;
-        } else {
-            id = android.R.id.content;
-        }
+        //} else {
+        //    id = android.R.id.content;
+        //}
 
         return (PreferenceFragment) getFragmentManager().findFragmentById(id);
     }

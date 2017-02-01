@@ -14,21 +14,16 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ActionMenuItemView;
-import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
@@ -934,7 +929,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     profile.generateIconBitmap(getBaseContext(), false, 0);
                     profile.generatePreferencesIndicator(getBaseContext(), false, 0);
 
-                    // redraw list fragment , notifications, widgets after finish ProfilePreferencesFragmentActivity
+                    // redraw list fragment , notifications, widgets after finish ProfilePreferencesActivity
                     redrawProfileListFragment(profile, newProfileMode, predefinedProfileIndex, true);
 
                     Profile mappedProfile = PPApplication.getMappedProfile(profile, getApplicationContext());
@@ -958,7 +953,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if ((resultCode == RESULT_OK) && (data != null))
             {
-                // redraw list fragment after finish EventPreferencesFragmentActivity
+                // redraw list fragment after finish EventPreferencesActivity
                 long event_id = data.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
                 int newEventMode = data.getIntExtra(PPApplication.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
                 int predefinedEventIndex = data.getIntExtra(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, 0);
@@ -968,7 +963,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     //noinspection ConstantConditions
                     Event event = getDataWrapper().getDatabaseHandler().getEvent(event_id);
 
-                    // redraw list fragment , notifications, widgets after finish EventPreferencesFragmentActivity
+                    // redraw list fragment , notifications, widgets after finish EventPreferencesActivity
                     redrawEventListFragment(event, newEventMode, predefinedEventIndex, true);
 
                     Permissions.grantEventPermissions(getApplicationContext(), event, false);
@@ -1544,7 +1539,7 @@ public class EditorProfilesActivity extends AppCompatActivity
      }
 
     private void startProfilePreferenceActivity(Profile profile, int editMode, int predefinedProfileIndex) {
-        Intent intent = new Intent(getBaseContext(), ProfilePreferencesFragmentActivity.class);
+        Intent intent = new Intent(getBaseContext(), ProfilePreferencesActivity.class);
         if (editMode == EditorProfileListFragment.EDIT_MODE_INSERT)
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0L);
         else
@@ -1653,7 +1648,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     private void startEventPreferenceActivity(Event event, int editMode, int predefinedEventIndex) {
-        Intent intent = new Intent(getBaseContext(), EventPreferencesFragmentActivity.class);
+        Intent intent = new Intent(getBaseContext(), EventPreferencesActivity.class);
         if (editMode == EditorEventListFragment.EDIT_MODE_INSERT)
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
         else

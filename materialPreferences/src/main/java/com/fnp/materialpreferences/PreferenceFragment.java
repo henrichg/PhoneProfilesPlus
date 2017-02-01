@@ -230,11 +230,11 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             fragment.savePreferenceScreen(preference);
 
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 transaction.replace(R.id.content, fragment);
-            } else {
-                transaction.replace(android.R.id.content, fragment);
-            }
+            //} else {
+            //    transaction.replace(android.R.id.content, fragment);
+            //}
 
             //TODO make animation optional (or give methods to animate it)
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

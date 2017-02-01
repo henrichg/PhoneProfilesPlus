@@ -152,9 +152,9 @@ public class PPApplication extends Application {
 
     // request code for startActivityForResult with intent BackgroundActivateProfileActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
-    // request code for startActivityForResult with intent ProfilePreferencesFragmentActivity
+    // request code for startActivityForResult with intent ProfilePreferencesActivity
     static final int REQUEST_CODE_PROFILE_PREFERENCES = 6221;
-    // request code for startActivityForResult with intent EventPreferencesFragmentActivity
+    // request code for startActivityForResult with intent EventPreferencesActivity
     static final int REQUEST_CODE_EVENT_PREFERENCES = 6222;
     // request code for startActivityForResult with intent PhoneProfilesActivity
     static final int REQUEST_CODE_APPLICATION_PREFERENCES = 6229;

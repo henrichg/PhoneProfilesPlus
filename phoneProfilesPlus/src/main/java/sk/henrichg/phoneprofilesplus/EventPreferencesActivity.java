@@ -8,7 +8,12 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,11 +22,13 @@ import android.view.WindowManager;
 
 import com.fnp.materialpreferences.PreferenceActivity;
 import com.fnp.materialpreferences.PreferenceFragment;
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.List;
 
-public class EventPreferencesFragmentActivity extends PreferenceActivity
+public class EventPreferencesActivity extends PreferenceActivity
                                 implements PreferenceFragment.OnCreateNestedPreferenceFragment
 {
 
@@ -35,14 +42,14 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
 
     public static boolean showSaveMenu = false;
 
+    public boolean targetHelpsSequenceStarted;
+    public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         // must by called before super.onCreate() for PreferenceActivity
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            GlobalGUIRoutines.setTheme(this, false, true);
-        else
-            GlobalGUIRoutines.setTheme(this, false, false);
+        GlobalGUIRoutines.setTheme(this, false, true);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);
@@ -63,6 +70,13 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
             else
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
+        }
+        else
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (PPApplication.applicationTheme.equals("material"))
+                getWindow().setStatusBarColor(Color.parseColor("#1d6681"));
+            else
+                getWindow().setStatusBarColor(Color.parseColor("#141414"));
         }
 
         //getSupportActionBar().setHomeButtonEnabled(true);
@@ -133,6 +147,21 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
             inflater.inflate(R.menu.profile_preferences_action_mode, menu);
         }
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean ret = super.onPrepareOptionsMenu(menu);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showTargetHelps();
+            }
+        }, 1000);
+
+        return ret;
     }
 
     @Override
@@ -306,7 +335,7 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
                 // pause event
                 event.pauseEvent(dataWrapper, eventTimelineList, true, false, false, false, null, false);
             // restart Events
-            PPApplication.logE("$$$ restartEvents","from EventPreferencesFragmentActivity.savePreferences");
+            PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
             dataWrapper.restartEvents(false, true, false);
 
         }
@@ -315,5 +344,60 @@ public class EventPreferencesFragmentActivity extends PreferenceActivity
     @Override
     public PreferenceFragment onCreateNestedPreferenceFragment() {
         return createFragment(true);
+    }
+
+    private void showTargetHelps() {
+        if (!showSaveMenu)
+            return;
+
+        final SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+
+        if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            Log.d("EventPreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.commit();
+
+            Toolbar toolbar = (Toolbar) findViewById(R.id.mp_toolbar);
+
+            TypedValue tv = new TypedValue();
+            //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
+
+            final Display display = getWindowManager().getDefaultDisplay();
+
+            int circleColor = 0xFFFFFF;
+            if (PPApplication.applicationTheme.equals("dark"))
+                circleColor = 0x7F7F7F;
+
+            final TapTargetSequence sequence = new TapTargetSequence(this);
+            sequence.targets(
+                    TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_action_mode_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
+                            .targetCircleColorInt(circleColor)
+                            .textColorInt(0xFFFFFF)
+                            .drawShadow(true)
+                            .id(1)
+            );
+            sequence.listener(new TapTargetSequence.Listener() {
+                // This listener will tell us when interesting(tm) events happen in regards
+                // to the sequence
+                @Override
+                public void onSequenceFinish() {
+                    targetHelpsSequenceStarted = false;
+                }
+
+                @Override
+                public void onSequenceStep(TapTarget lastTarget) {
+                    //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                }
+
+                @Override
+                public void onSequenceCanceled(TapTarget lastTarget) {
+                    targetHelpsSequenceStarted = false;
+                }
+            });
+            targetHelpsSequenceStarted = true;
+            sequence.start();
+        }
     }
 }

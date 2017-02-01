@@ -58,7 +58,7 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
             event_id = getArguments().getLong(PPApplication.EXTRA_EVENT_ID);
         predefinedEventIndex = getArguments().getInt(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX);
 
-        //event = EventPreferencesFragmentActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        //event = EventPreferencesActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
         event = new Event();
         */
 
