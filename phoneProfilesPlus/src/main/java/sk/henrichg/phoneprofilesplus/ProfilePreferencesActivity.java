@@ -50,6 +50,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         super.onCreate(savedInstanceState);
 
+        Log.d("------ ProfilePreferencesActivity.onCreate", "this="+this);
+
         //setContentView(R.layout.activity_profile_preferences);
 
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
@@ -82,6 +84,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         newProfileMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
         predefinedProfileIndex = getIntent().getIntExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
+        Log.d("------ ProfilePreferencesActivity.onCreate", "profile_id="+profile_id);
+
         /*
         if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
             getSupportActionBar().setTitle(R.string.title_activity_default_profile_preferences);
@@ -91,9 +95,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         fragment = createFragment(false);
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
             loadPreferences(newProfileMode, predefinedProfileIndex);
-        }
 
         setPreferenceFragment(fragment);
     }
@@ -109,9 +112,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         arguments.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
         arguments.putInt(PPApplication.EXTRA_NEW_PROFILE_MODE, newProfileMode);
         if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
-            fragment.startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
+            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE);
         else
-            fragment.startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
+            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
         arguments.putInt(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         fragment.setArguments(arguments);
 
@@ -183,7 +186,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             ((ProfilePreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
-    private Profile createProfile(ProfilePreferencesNestedFragment fragment, Context context, long profile_id,
+    private Profile createProfile(int startupSource, Context context, long profile_id,
                                   int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
@@ -191,7 +194,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         if (!leaveSaveMenu)
             showSaveMenu = false;
 
-        if (fragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        Log.d("------ ProfilePreferencesActivity.createProfile", "startupSource="+startupSource);
+
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
             profile = PPApplication.getDefaultProfile(context);
         }
@@ -275,26 +280,22 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         //Log.e("------------ ProfilePreferencesActivity", "loadPreferences");
 
-        Profile profile = createProfile(fragment, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, false);
+        int startupSource;
+        if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
+        else
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
+
+        Profile profile = createProfile(startupSource, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, false);
 
         if (profile != null)
         {
-            String PREFS_NAME;
-            if (fragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
-                PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_ACTIVITY;
-            else
-            if (fragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-                PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_FRAGMENT;
-            else
-            if (fragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
-                PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_DEFAULT_PROFILE;
-            else
-                PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_FRAGMENT;
+            String PREFS_NAME = ProfilePreferencesNestedFragment.getPreferenceName(startupSource);
 
             SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
             SharedPreferences.Editor editor = preferences.edit();
-            if (fragment.startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             {
                 /*
                 editor.remove(PPApplication.PREF_PROFILE_NAME).putString(PPApplication.PREF_PROFILE_NAME, profile._name);
@@ -355,25 +356,23 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
     private void savePreferences(int new_profile_mode, int predefinedProfileIndex)
     {
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
-        Profile profile = createProfile(fragment, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
+        int startupSource;
+        if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE;
+        else
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
-        String PREFS_NAME;
-        if (fragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
-            PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_ACTIVITY;
-        else
-        if (fragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-            PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_FRAGMENT;
-        else
-        if (fragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
-            PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_DEFAULT_PROFILE;
-        else
-            PREFS_NAME = ProfilePreferencesFragment.PREFS_NAME_FRAGMENT;
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
+        Profile profile = createProfile(startupSource, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
+
+        Log.d("------ ProfilePreferencesActivity.savePreferences", "startupSource="+startupSource);
+
+        String PREFS_NAME = ProfilePreferencesNestedFragment.getPreferenceName(startupSource);
 
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
         // save preferences into profile
-        if (fragment.startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
             profile._name = preferences.getString(PPApplication.PREF_PROFILE_NAME, "");
             profile._icon = preferences.getString(PPApplication.PREF_PROFILE_ICON, "");
@@ -439,7 +438,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         profile._notificationLed = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_NOTIFICATION_LED, ""));
         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, ""));
 
-        if (fragment.startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
+        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
             if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                     (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE))

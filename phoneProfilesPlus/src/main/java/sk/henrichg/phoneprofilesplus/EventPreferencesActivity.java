@@ -87,11 +87,11 @@ public class EventPreferencesActivity extends PreferenceActivity
 
         fragment = createFragment(false);
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
             loadPreferences(newEventMode, predefinedEventIndex);
-        }
 
         setPreferenceFragment(fragment);
+
     }
 
     private EventPreferencesNestedFragment createFragment(boolean nested) {

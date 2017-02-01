@@ -22,7 +22,7 @@ import android.util.Log;
 public class ProfilePreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-    int startupSource;
+    protected int startupSource;
 
     protected PreferenceManager prefMng;
     protected SharedPreferences preferences;
@@ -46,8 +46,16 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d("------ ProfilePreferencesNestedFragment.onCreate", "this="+this);
+
         // must by false to avoid FC when rotation changes and preference dialogs are shown
         setRetainInstance(false);
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null)
+            startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+
+        Log.d("------ ProfilePreferencesNestedFragment.onCreate", "startupSource="+startupSource);
 
         context = getActivity().getApplicationContext();
 
@@ -55,7 +63,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         preferences = prefMng.getSharedPreferences();
     }
 
-    protected void setPreferencesManager() {
+    public static String getPreferenceName(int startupSource) {
         String PREFS_NAME;
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = PREFS_NAME_ACTIVITY;
@@ -67,6 +75,11 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             PREFS_NAME = PREFS_NAME_DEFAULT_PROFILE;
         else
             PREFS_NAME = PREFS_NAME_FRAGMENT;
+        return PREFS_NAME;
+    }
+
+    protected void setPreferencesManager() {
+        String PREFS_NAME = getPreferenceName(startupSource);
 
         prefMng = getPreferenceManager();
         prefMng.setSharedPreferencesName(PREFS_NAME);
@@ -81,9 +94,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);
 
-        Log.d("------ ProfilePreferencesFragment.onActivityCreated", "this="+this);
-        Log.d("------ ProfilePreferencesFragment.onActivityCreated", "prefMng="+prefMng);
-        Log.d("------ ProfilePreferencesFragment.onActivityCreated", "preferences="+preferences);
+        Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "this="+this);
+        Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "prefMng="+prefMng);
+        Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "preferences="+preferences);
 
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {

@@ -58,9 +58,6 @@ public class GlobalGUIRoutines {
     static final String EXPORT_APP_PREF_FILENAME = "ApplicationPreferences.backup";
     static final String EXPORT_DEF_PROFILE_PREF_FILENAME = "DefaultProfilePreferences.backup";
 
-    // this string is from material-preferences binary (https://github.com/ferrannp/material-preferences)
-    //public static final String MAIN_PREFERENCE_FRAGMENT_TAG = "com.fnp.materialpreferences.MainFragment";
-
     @SuppressWarnings("deprecation")
     public static void setLanguage(Context context)//, boolean restart)
     {

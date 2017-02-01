@@ -102,7 +102,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             } else { //Nested fragments will use the HashMap to set their PreferenceScreen
                 PreferenceScreen preferenceScreen = preferenceScreenHashMap
                         .get(savedInstanceState
-                                .getString("com.fnp.materialpreferences.nestedFragment"));
+                                .getString("sk.henrichg.phoneprofilesplus.nestedFragment"));
                 if (preferenceScreen != null) {
                     this.setPreferenceScreen(preferenceScreen);
                 }
@@ -126,7 +126,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        savedInstanceState.putString("com.fnp.materialpreferences.nestedFragment",
+        savedInstanceState.putString("sk.henrichg.phoneprofilesplus.nestedFragment",
                 getPreferenceScreen().getKey());
         super.onSaveInstanceState(savedInstanceState);
     }
