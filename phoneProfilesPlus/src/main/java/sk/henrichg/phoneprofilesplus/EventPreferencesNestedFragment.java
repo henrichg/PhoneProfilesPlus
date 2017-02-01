@@ -12,6 +12,8 @@ import android.provider.Settings;
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
+    protected int startupSource;
+
     private Event event;
     //private boolean first_start_activity;
     protected PreferenceManager prefMng;
@@ -19,6 +21,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private Context context;
 
     public static MobileCellsPreference.PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
+
+    static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
+    static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
 
     static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
@@ -59,12 +64,24 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         event = new Event();
     }
 
+    public static String getPreferenceName(int startupSource) {
+        String PREFS_NAME;
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
+            PREFS_NAME = PREFS_NAME_ACTIVITY;
+        else
+        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
+            PREFS_NAME = PREFS_NAME_FRAGMENT;
+        else
+            PREFS_NAME = PREFS_NAME_FRAGMENT;
+        return PREFS_NAME;
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(EventPreferencesFragment.getPreferenceName());
+        prefMng.setSharedPreferencesName(EventPreferencesNestedFragment.getPreferenceName(startupSource));
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         preferences = prefMng.getSharedPreferences();

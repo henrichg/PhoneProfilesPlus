@@ -8,33 +8,11 @@ import android.os.Bundle;
 public class EventPreferencesFragment extends EventPreferencesNestedFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-    //private DataWrapper dataWrapper;
-    //private Event event;
-    //private boolean first_start_activity;
-    //private int new_event_mode;
-    //private int predefinedEventIndex;
-    public static int startupSource;
-    //private PreferenceManager prefMng;
-    //private SharedPreferences preferences;
+    protected int startupSource;
+
     private Context context;
 
     public static LocationGeofencePreference changedLocationGeofencePreference;
-
-    static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
-    static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
-
-    /*
-    static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
-    static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
-    static final String PREF_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
-    static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
-    static final String PREF_LOCATION_SETTINGS = "eventLocationScanningSystemSettings";
-    static final int RESULT_LOCATION_SETTINGS = 1983;
-    static final String PREF_WIFI_SCANNING_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
-    static final int RESULT_WIFI_SCANNING_SETTINGS = 1984;
-    static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
-    static final int RESULT_BLUETOOTH_SCANNING_SETTINGS = 1985;
-    */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,22 +49,10 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
 
     }
 
-    public static String getPreferenceName() {
-        String PREFS_NAME;
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
-            PREFS_NAME = PREFS_NAME_ACTIVITY;
-        else
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-            PREFS_NAME = PREFS_NAME_FRAGMENT;
-        else
-            PREFS_NAME = PREFS_NAME_FRAGMENT;
-        return PREFS_NAME;
-    }
-
     @Override
     public void addPreferencesFromResource(int preferenceResId) {
         prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(getPreferenceName());
+        prefMng.setSharedPreferencesName(getPreferenceName(startupSource));
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         super.addPreferencesFromResource(preferenceResId);
@@ -94,6 +60,10 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
 
     @Override
     public int addPreferencesFromResource() {
+        Bundle bundle = this.getArguments();
+        if (bundle != null)
+            startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+
         return R.xml.event_preferences;
     }
 

@@ -105,6 +105,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         arguments.putLong(PPApplication.EXTRA_EVENT_ID, event_id);
         arguments.putInt(PPApplication.EXTRA_NEW_EVENT_MODE, newEventMode);
         arguments.putInt(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
+        arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
         fragment.setArguments(arguments);
 
         return fragment;
@@ -185,7 +186,7 @@ public class EventPreferencesActivity extends PreferenceActivity
             ((EventPreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
-    public Event createEvent(EventPreferencesNestedFragment fragment, Context context,
+    public Event createEvent(int startupSource, Context context,
                              long event_id, int new_event_mode, int predefinedEventIndex, boolean leaveSaveMenu) {
         Event event;
         DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
@@ -238,11 +239,11 @@ public class EventPreferencesActivity extends PreferenceActivity
     }
 
     private void loadPreferences(int new_event_mode, int predefinedEventIndex) {
-        Event event = createEvent(fragment, getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
+        Event event = createEvent(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY, getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, false);
 
         if (event != null)
         {
-            SharedPreferences preferences=getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Activity.MODE_PRIVATE);
+            SharedPreferences preferences=getSharedPreferences(EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY), Activity.MODE_PRIVATE);
 
             event.loadSharedPreferences(preferences);
         }
@@ -251,7 +252,7 @@ public class EventPreferencesActivity extends PreferenceActivity
     private boolean checkPreferences(final int new_event_mode, final int predefinedEventIndex)
     {
         if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
-            final SharedPreferences preferences = getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Activity.MODE_PRIVATE);
+            final SharedPreferences preferences = getSharedPreferences(EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY), Activity.MODE_PRIVATE);
             boolean enabled = preferences.getBoolean(Event.PREF_EVENT_ENABLED, false);
             if (!enabled) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -285,16 +286,9 @@ public class EventPreferencesActivity extends PreferenceActivity
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
-        Event event = createEvent(fragment, getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        Event event = createEvent(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY, getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
 
-        String PREFS_NAME;
-        if (EventPreferencesFragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
-            PREFS_NAME = EventPreferencesFragment.PREFS_NAME_ACTIVITY;
-        else
-        if (EventPreferencesFragment.startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-            PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
-        else
-            PREFS_NAME = EventPreferencesFragment.PREFS_NAME_FRAGMENT;
+        String PREFS_NAME = EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
 
         SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 

@@ -129,7 +129,8 @@ public class MobileCellsPreference extends DialogPreference {
         //dataRelativeLayout = (RelativeLayout) layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
 
         cellName = (EditText) layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name);
-        SharedPreferences sharedPreferences = context.getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences();
+                //context.getSharedPreferences(EventPreferencesFragment.getPreferenceName(), Context.MODE_PRIVATE);
         cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
 
         ListView cellsListView = (ListView) layout.findViewById(R.id.mobile_cells_pref_dlg_listview);
