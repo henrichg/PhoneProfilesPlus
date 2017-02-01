@@ -1,4 +1,4 @@
-package com.fnp.materialpreferences;
+package sk.henrichg.phoneprofilesplus;
 
 /*
  * Copyright (C) 2014 The Android Open Source Project

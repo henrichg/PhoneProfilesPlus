@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.fnp.materialpreferences.PreferenceActivity;
-import com.fnp.materialpreferences.PreferenceFragment;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class PhoneProfilesPreferencesActivity extends PreferenceActivity

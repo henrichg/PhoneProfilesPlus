@@ -20,8 +20,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.fnp.materialpreferences.PreferenceActivity;
-import com.fnp.materialpreferences.PreferenceFragment;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.readystatesoftware.systembartint.SystemBarTintManager;

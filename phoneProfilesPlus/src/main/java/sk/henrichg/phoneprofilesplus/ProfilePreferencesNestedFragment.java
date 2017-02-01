@@ -19,8 +19,6 @@ import android.preference.PreferenceScreen;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.fnp.materialpreferences.PreferenceFragment;
-
 public class ProfilePreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {

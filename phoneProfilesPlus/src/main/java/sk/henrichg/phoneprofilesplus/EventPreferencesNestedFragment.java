@@ -9,8 +9,6 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 
-import com.fnp.materialpreferences.PreferenceFragment;
-
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {

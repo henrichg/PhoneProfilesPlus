@@ -154,7 +154,6 @@
     <orderEntry type="module" module-name="masked-edittext" exported="" />
     <orderEntry type="module" module-name="RootTools" exported="" />
     <orderEntry type="module" module-name="dragSortListView" exported="" />
-    <orderEntry type="module" module-name="materialPreferences" exported="" />
     <orderEntry type="module" module-name="RootShell" exported="" />
   </component>
 </module>

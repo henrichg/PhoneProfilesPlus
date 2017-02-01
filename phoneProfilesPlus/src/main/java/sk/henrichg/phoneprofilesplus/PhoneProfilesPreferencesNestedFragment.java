@@ -18,8 +18,6 @@ import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
 
-import com.fnp.materialpreferences.PreferenceFragment;
-
 import static android.app.Activity.RESULT_CANCELED;
 
 public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment

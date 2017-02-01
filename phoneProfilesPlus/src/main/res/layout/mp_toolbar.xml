@@ -14,13 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu"
         app:contentInsetEnd="0dp"
         app:contentInsetLeft="72dp"
         app:contentInsetRight="0dp"
         app:contentInsetStart="72dp"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:elevation="4dp"
         tools:ignore="UnusedAttribute" />
 
