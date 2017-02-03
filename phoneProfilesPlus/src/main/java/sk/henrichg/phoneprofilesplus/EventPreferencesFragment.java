@@ -24,27 +24,6 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
 
         context = getActivity().getBaseContext();
 
-        /*
-        dataWrapper = new DataWrapper(context.getApplicationContext(), true, false, 0);
-
-        long event_id = 0;
-
-        // getting attached fragment data
-        if (getArguments().containsKey(PPApplication.EXTRA_NEW_EVENT_MODE))
-            new_event_mode = getArguments().getInt(PPApplication.EXTRA_NEW_EVENT_MODE);
-        if (getArguments().containsKey(PPApplication.EXTRA_EVENT_ID))
-            event_id = getArguments().getLong(PPApplication.EXTRA_EVENT_ID);
-        predefinedEventIndex = getArguments().getInt(PPApplication.EXTRA_PREDEFINED_EVENT_INDEX);
-
-        //event = EventPreferencesActivity.createEvent(context.getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
-        event = new Event();
-        */
-
-        //Log.e("------------- EventPreferencesFragment", prefMng.getSharedPreferencesName());
-
-        //if (savedInstanceState == null)
-        //    loadPreferences();
-
         updateSharedPreference();
 
     }

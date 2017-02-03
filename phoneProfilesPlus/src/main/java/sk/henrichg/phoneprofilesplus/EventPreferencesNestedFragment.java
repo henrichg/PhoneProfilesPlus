@@ -56,6 +56,10 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         // must by false to avoid FC when rotation changes and preference dialogs are shown
         setRetainInstance(false);
 
+        Bundle bundle = this.getArguments();
+        if (bundle != null)
+            startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+
         context = getActivity().getBaseContext();
 
         prefMng = getPreferenceManager();
