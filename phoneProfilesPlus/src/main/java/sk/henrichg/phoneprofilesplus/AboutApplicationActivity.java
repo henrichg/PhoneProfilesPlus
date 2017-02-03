@@ -108,6 +108,25 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
+        text = (TextView) findViewById(R.id.about_application_privacy_policy);
+        str1 = getString(R.string.about_application_privacy_policy);
+        str2 = str1 + " https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
+        sbt = new SpannableString(str2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                String url = "https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        };
+        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        text.setText(sbt);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
+
         text = (TextView) findViewById(R.id.about_application_releases);
         str1 = getString(R.string.about_application_releases);
         str2 = str1 + " https://github.com/henrichg/PhoneProfilesPlus/releases";

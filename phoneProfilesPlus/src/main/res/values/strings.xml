@@ -812,7 +812,7 @@
     <string name="array_pref_value_te">te</string>
     <string name="array_pref_value_ro">ro</string>
     <string name="array_pref_value_pt_PT">pt-PT</string>
-    <string name="about_application_releases">Releases</string>
+    <string name="about_application_releases">Releases:</string>
     <string name="permission_group_name_draw_overalys">Draw over the apps</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">You have not enabled \"Draw over the apps\". Never ask again for this?</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions">Draw over the apps</string>
@@ -932,4 +932,5 @@
     <string name="profile_preference_activity_targetHelps_save_description">Click this for saving profile preferences changes.</string>
     <string name="event_preference_activity_targetHelps_save_title">Save event</string>
     <string name="event_preference_activity_targetHelps_save_description">Click this for saving event preferences changes.</string>
+    <string name="about_application_privacy_policy">Privacy Policy:</string>
 </resources>
