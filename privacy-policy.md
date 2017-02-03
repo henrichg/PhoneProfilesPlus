@@ -33,8 +33,8 @@ We do not sell, trade, or otherwise transfer to outside parties your Personally 
 Third-party links
 -----------------
 In application are third-party links:
-      • GitHub link to application source code.
-      • Crowdin link to application string translations.
+- GitHub link to application source code.
+- Crowdin link to application string translations.
 
 Google
 ------
