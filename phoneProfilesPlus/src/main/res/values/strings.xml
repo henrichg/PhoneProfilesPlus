@@ -327,7 +327,7 @@
     <string name="pref_event_wifi_ssid">SSID</string>
     <string name="pref_event_wifi_connectionType">Connection</string>
     <string name="array_event_pref_wifiConnectionType_connected">Connected</string>
-    <string name="array_event_pref_wifiConnectionType_inFront">In front</string>
+    <string name="array_event_pref_wifiConnectionType_inFront">Around</string>
     <string name="event_preferences_wifi_connection_type">Connection type</string>
     <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi scan interval (min)</string>
     <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Enable Wi-Fi scanning</string>
@@ -357,7 +357,7 @@
     <string name="pref_event_bluetooth_adapterName">BT name</string>
     <string name="pref_event_bluetooth_connectionType">Connection</string>
     <string name="array_event_pref_bluetoothConnectionType_connected">Connected</string>
-    <string name="array_event_pref_bluetoothConnectionType_inFront">In front</string>
+    <string name="array_event_pref_bluetoothConnectionType_inFront">Around</string>
     <string name="event_preferences_bluetooth_connection_type">Connection type</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth scan interval (min)</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Enable Bluetooth scan</string>
@@ -391,9 +391,9 @@
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Hide profile name (widget)</string>
     <string name="array_pref_afterProfileDurationDo_restartEvents">Restart events</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Not connected</string>
-    <string name="array_event_pref_wifiConnectionType_notInFront">Not in front</string>
+    <string name="array_event_pref_wifiConnectionType_notInFront">Not around</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Not connected</string>
-    <string name="array_event_pref_bluetoothConnectionType_notInFront">Not in front</string>
+    <string name="array_event_pref_bluetoothConnectionType_notInFront">Not around</string>
     <string name="event_preferences_call_contact_groups">Contact groups</string>
     <string name="event_preferences_sms_contact_groups">Contact groups</string>
     <string name="event_preferences_error">Not all underlined parameters are set!</string>
@@ -456,7 +456,7 @@
     <string name="wifi_ssid_pref_dlg_info_about_wildcards">in SSID name,</string>
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">in bluetooth name,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">in search string,</string>
-    <string name="pref_dlg_info_about_wildcards_3">add \"\\\" in front of these characters.</string>
+    <string name="pref_dlg_info_about_wildcards_3">add \"\\\" around of these characters.</string>
     <string name="important_into_sony_stamina_mode">When you have Sony device and enabled \"Stamina\" mode in \"Power management\", please add PhoneProfilesPlus into \"Apps active in standby\". Without this, application will not work correctly.</string>
     <string name="important_info_profile_settings">Some profile preferences requires changes in system Settings. These preferences are marked with \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Notification access</string>
@@ -884,8 +884,8 @@
     <string name="event_preference_sensor_call_summary">This sensor is for start of event by calling contacts. Parameters: Call event (Ringing, Outgoing call started, …), Contact groups, Contacts, Contact list type (white/black list).</string>
     <string name="event_preference_sensor_sms_summary">This sensor is for start of event by received sms from contacts. Parameters: Contact groups, Contacts, Contact list type (white/black list), Permanent run, Duration (event running duration).</string>
     <string name="event_preference_sensor_location_summary">This sensor is for start of event by device location. Parameters: Location, Start when outside location.</string>
-    <string name="event_preference_sensor_wifi_summary">This sensor is for start of event by Wi-Fi SSID. Parameters: Connection Type (In front, Connected, …), SSID.</string>
-    <string name="event_preference_sensor_bluetooth_summary">This sensor is for start of event by Bluetooth name. Parameters: Connection Type (In front, Connected, …), Scanned device type (Classic, Low energy, …), Bluetooth name.</string>
+    <string name="event_preference_sensor_wifi_summary">This sensor is for start of event by Wi-Fi SSID. Parameters: Connection Type (Around, Connected, …), SSID.</string>
+    <string name="event_preference_sensor_bluetooth_summary">This sensor is for start of event by Bluetooth name. Parameters: Connection Type (Around, Connected, …), Scanned device type (Classic, Low energy, …), Bluetooth name.</string>
     <string name="event_preference_sensor_mobile_cells_summary">This sensor is for start of event by connected mobile cells (towers). Parameters: Cells, Start when outside cells.</string>
     <string name="event_preference_sensor_accessories_summary">This sensor is for start of event by connected accessory (car dock, wired handsfree, headphones, …). Parameters: Accessories type.</string>
     <string name="event_preference_sensor_screen_summary">This sensor is for start of event by screen on/off. Parameters: Event type (screen on, screen off, …), End when unlocked (end of event at unlock the device).</string>
