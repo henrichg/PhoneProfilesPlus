@@ -33,7 +33,9 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        int forceOneScan = PPApplication.getForceOneBluetoothScan(context);
+
+        if (PPApplication.getGlobalEventsRuning(context) || (forceOneScan == PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
 
             boolean scanStarted = (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context));

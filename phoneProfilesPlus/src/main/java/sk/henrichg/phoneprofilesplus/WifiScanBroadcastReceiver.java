@@ -25,7 +25,10 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.loadPreferences(context);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        int forceOneScan = PPApplication.getForceOneWifiScan(context);
+        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "forceOneScan="+forceOneScan);
+
+        if (PPApplication.getGlobalEventsRuning(context) || (forceOneScan == PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
 
             //boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
@@ -68,7 +71,6 @@ public class WifiScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
                 WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 
-                int forceOneScan = PPApplication.getForceOneWifiScan(context);
                 PPApplication.setForceOneWifiScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
 
                 if (forceOneScan != PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan

@@ -26,7 +26,10 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
 
         int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 
-        if (PPApplication.getGlobalEventsRuning(context))
+        int forceOneScan = PPApplication.getForceOneWifiScan(context);
+        PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "forceOneScan="+forceOneScan);
+
+        if (PPApplication.getGlobalEventsRuning(context) || (forceOneScan == PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
             PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive","state="+wifiState);
 

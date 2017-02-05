@@ -55,7 +55,7 @@ public class PPApplication extends Application {
     public static final boolean exactAlarms = true;
 
     private static boolean logIntoLogCat = false;
-     private static boolean logIntoFile = false;
+    private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
                                          +"|PhoneProfilesHelper.isPPHelperInstalled"
@@ -64,40 +64,11 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
-                                         +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
-                                         +"|ActivateProfileHelper.setRingerMode"
-
-                                         //+"|RingerModeChangeReceiver.getRingerMode"
-                                         //+"|PPNotificationListenerService.getZenMode"
-                                         //+"|InterruptionFilterChangedBroadcastReceiver.getZenMode"
-                                         //+"|### SettingsContentObserver"
-                                         //+"|PPApplication.vibrationIsOn"
-                                         //+"|ActivateProfileHelper.setVolumes"
-
-                                         //+"|BootUpReceiver.onReceive"
-                                         //+"|PackageReplacedReceiver.onReceive"
-                                         //+"|$$$ PhoneProfilesService.onCreate"
-                                         //+"|$$$ FirstStartService.onHandleInten"
-                                         //+"|DataWrapper.firstStartEvents"
-
-
-                                         //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
-
-                                         /*+"|ScreenOnOffBroadcastReceiver"
-                                         +"|ActivateProfileHelper.showNotification"
-                                         +"|$$$ PhoneProfilesService.onCreate"
+                                         +"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
+                                         +"|$$$ WifiConnectionBroadcastReceiver.onReceive"
+                                         +"|WifiScanBroadcastReceiver.onReceive"
                                          +"|#### EventsService.onHandleIntent"
-                                         +"|DataWrapper.updateNotificationAndWidgets"*/
 
-                                         //+"|%%%% WifiScanAlarmBroadcastReceiver.fillScanResults"
-                                         //+"|%%%% ScannerService.onHandleIntent"
-                                         //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
-                                         //+"|%%%% WifiScanBroadcastReceiver.onReceive"
-                                         //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
-                                         //+"|@@@ DataWrapper.doEventService"
-                                         //+"|%%%% EventsService.onHandleIntent"
-                                         //+"|%%%% DataWrapper.doEventService"
             ;
 
 
