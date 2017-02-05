@@ -9,15 +9,17 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.MDButton;
-import com.github.pinball83.maskededittext.MaskedEditText;
+import com.redmadrobot.inputmask.MaskedTextChangedListener;
 
 public class DurationDialogPreference2 extends DialogPreference
                                         implements SeekBar.OnSeekBarChangeListener {
@@ -27,7 +29,7 @@ public class DurationDialogPreference2 extends DialogPreference
     private int mMin, mMax;
 
     MaterialDialog mDialog;
-    private MaskedEditText mValue;
+    private EditText mValue;
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
     private SeekBar mSeekBarSeconds;
@@ -83,68 +85,10 @@ public class DurationDialogPreference2 extends DialogPreference
         onBindDialogView(layout);
 
         TextView mTextViewRange = (TextView) layout.findViewById(R.id.duration_pref_dlg_range);
-        mValue = (MaskedEditText) layout.findViewById(R.id.duration_pref_dlg_value);
+        mValue = (EditText) layout.findViewById(R.id.duration_pref_dlg_value);
         mSeekBarHours = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_hours);
         mSeekBarMinutes = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_minutes);
         mSeekBarSeconds = (SeekBar) layout.findViewById(R.id.duration_pref_dlg_seconds);
-
-        mValue.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String value = mValue.getText().toString();
-                int hours = 0;
-                int minutes = 0;
-                int seconds = 0;
-                String[] splits = value.split(":");
-                try {
-                    hours = Integer.parseInt(splits[0].replaceFirst("\\s+$", ""));
-                } catch (Exception ignored) {
-                }
-                try {
-                    minutes = Integer.parseInt(splits[1].replaceFirst("\\s+$", ""));
-                } catch (Exception ignored) {
-                }
-                try {
-                    seconds = Integer.parseInt(splits[2].replaceFirst("\\s+$", ""));
-                } catch (Exception ignored) {
-                }
-
-                int iValue = (hours * 3600 + minutes * 60 + seconds);
-
-                boolean badText = false;
-                if (iValue < mMin) {
-                    iValue = mMin;
-                    badText = true;
-                }
-                if (iValue > mMax) {
-                    iValue = mMax;
-                    badText = true;
-                }
-
-                if (mDialog != null) {
-                    MDButton button = mDialog.getActionButton(DialogAction.POSITIVE);
-                    button.setEnabled(!badText);
-                }
-
-                hours = iValue / 3600;
-                minutes = (iValue % 3600) / 60;
-                seconds = iValue % 60;
-
-                mSeekBarHours.setProgress(hours);
-                mSeekBarMinutes.setProgress(minutes);
-                mSeekBarSeconds.setProgress(seconds);
-            }
-        });
 
         //mSeekBarHours.setRotation(180);
         //mSeekBarMinutes.setRotation(180);
@@ -180,6 +124,65 @@ public class DurationDialogPreference2 extends DialogPreference
         mSeekBarSeconds.setProgress(seconds);
 
         mValue.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+
+        final MaskedTextChangedListener listener = new MaskedTextChangedListener(
+                "[00]{:}[00]{:}[00]",
+                true,
+                mValue,
+                null,
+                new MaskedTextChangedListener.ValueListener() {
+                    @Override
+                    public void onTextChanged(boolean maskFilled, @NonNull final String extractedValue) {
+                        Log.d(DurationDialogPreference2.class.getSimpleName(), extractedValue);
+                        Log.d(DurationDialogPreference2.class.getSimpleName(), String.valueOf(maskFilled));
+
+                        int hours = 0;
+                        int minutes = 0;
+                        int seconds = 0;
+                        String[] splits = extractedValue.split(":");
+                        try {
+                            hours = Integer.parseInt(splits[0].replaceFirst("\\s+$", ""));
+                        } catch (Exception ignored) {
+                        }
+                        try {
+                            minutes = Integer.parseInt(splits[1].replaceFirst("\\s+$", ""));
+                        } catch (Exception ignored) {
+                        }
+                        try {
+                            seconds = Integer.parseInt(splits[2].replaceFirst("\\s+$", ""));
+                        } catch (Exception ignored) {
+                        }
+
+                        int iValue = (hours * 3600 + minutes * 60 + seconds);
+
+                        boolean badText = false;
+                        if (iValue < mMin) {
+                            iValue = mMin;
+                            badText = true;
+                        }
+                        if (iValue > mMax) {
+                            iValue = mMax;
+                            badText = true;
+                        }
+
+                        if (mDialog != null) {
+                            MDButton button = mDialog.getActionButton(DialogAction.POSITIVE);
+                            button.setEnabled(!badText);
+                        }
+
+                        hours = iValue / 3600;
+                        minutes = (iValue % 3600) / 60;
+                        seconds = iValue % 60;
+
+                        mSeekBarHours.setProgress(hours);
+                        mSeekBarMinutes.setProgress(minutes);
+                        mSeekBarSeconds.setProgress(seconds);
+                    }
+                }
+        );
+        mValue.addTextChangedListener(listener);
+        mValue.setOnFocusChangeListener(listener);
+        mValue.setHint(listener.placeholder());
 
         mSeekBarHours.setOnSeekBarChangeListener(this);
         mSeekBarMinutes.setOnSeekBarChangeListener(this);

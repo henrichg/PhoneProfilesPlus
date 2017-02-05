@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <com.github.pinball83.maskededittext.MaskedEditText
+        <EditText
             android:id="@+id/duration_pref_dlg_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,12 +32,8 @@
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:inputType="number"
-            android:textSize="20sp"
-            app:mask="**:**:**"
-            app:notMaskedSymbol = "*"
-            app:replacementChar = "0"
-            app:deleteChar = "0"
-            app:format = "[1][2]:[3][4]:[5][6]"/>
+            android:digits="0123456789:"
+            android:textSize="20sp" />
 
         <!--
         <TextView
