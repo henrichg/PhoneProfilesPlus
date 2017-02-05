@@ -25,8 +25,8 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.stericson.rootshell.RootShell;
-import com.stericson.roottools.RootTools;
+import com.stericson.RootShell.RootShell;
+import com.stericson.RootTools.RootTools;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -54,7 +54,7 @@ public class PPApplication extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -64,10 +64,10 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
-                                         +"|$$$ WifiConnectionBroadcastReceiver.onReceive"
-                                         +"|WifiScanBroadcastReceiver.onReceive"
-                                         +"|#### EventsService.onHandleIntent"
+                                         //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
+                                         //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
+                                         //+"|WifiScanBroadcastReceiver.onReceive"
+                                         //+"|#### EventsService.onHandleIntent"
 
             ;
 

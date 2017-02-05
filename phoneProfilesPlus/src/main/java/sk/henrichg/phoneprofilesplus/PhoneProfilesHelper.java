@@ -16,9 +16,9 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.stericson.rootshell.execution.Command;
-import com.stericson.rootshell.execution.Shell;
-import com.stericson.roottools.RootTools;
+import com.stericson.RootShell.execution.Command;
+import com.stericson.RootShell.execution.Shell;
+import com.stericson.RootTools.RootTools;
 
 import java.util.List;
 
@@ -322,7 +322,7 @@ class PhoneProfilesHelper {
     private static boolean deleteFile_su(String file) {
         boolean OK;
 
-        List<String> settingsPaths = RootTools.findBinary("rm");
+        List<String> settingsPaths = RootTools.findBinary("rm", true);
         if (settingsPaths.size() > 0) {
             String command1 = "rm " + file;
             //if (PPApplication.isSELinuxEnforcing())
