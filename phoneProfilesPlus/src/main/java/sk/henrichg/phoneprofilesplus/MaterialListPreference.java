@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
 public class MaterialListPreference extends ListPreference {
 
     private Context context;
-    private MaterialDialog mDialog;
+    private MaterialDialog dialog;
 
     public MaterialListPreference(Context context) {
         super(context);
@@ -59,13 +59,13 @@ public class MaterialListPreference extends ListPreference {
     @Override
     public void setEntries(CharSequence[] entries) {
         super.setEntries(entries);
-        if (mDialog != null)
-            mDialog.setItems(entries);
+        if (dialog != null)
+            dialog.setItems(entries);
     }
 
     @Override
     public Dialog getDialog() {
-        return mDialog;
+        return dialog;
     }
 
     public RecyclerView getRecyclerView() {
@@ -130,11 +130,11 @@ public class MaterialListPreference extends ListPreference {
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = builder.build();
+        dialog = builder.build();
         if (state != null)
-            mDialog.onRestoreInstanceState(state);
-        onClick(mDialog, DialogInterface.BUTTON_NEGATIVE);
-        mDialog.show();
+            dialog.onRestoreInstanceState(state);
+        onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
+        dialog.show();
     }
 
     @Override
@@ -148,8 +148,8 @@ public class MaterialListPreference extends ListPreference {
     @Override
     public void onActivityDestroy() {
         super.onActivityDestroy();
-        if (mDialog != null && mDialog.isShowing())
-            mDialog.dismiss();
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
     }
 
     @Override

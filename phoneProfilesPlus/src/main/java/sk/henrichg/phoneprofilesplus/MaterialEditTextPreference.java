@@ -34,9 +34,9 @@ import com.afollestad.materialdialogs.util.DialogUtils;
  */
 public class MaterialEditTextPreference extends EditTextPreference {
 
-    private int mColor = 0;
-    private MaterialDialog mDialog;
-    private EditText mEditText;
+    private int color = 0;
+    private MaterialDialog dialog;
+    private EditText editText;
 
     public MaterialEditTextPreference(Context context) {
         super(context);
@@ -68,12 +68,12 @@ public class MaterialEditTextPreference extends EditTextPreference {
             fallback = DialogUtils.resolveColor(context, android.R.attr.colorAccent);
         else fallback = 0;
         fallback = DialogUtils.resolveColor(context, R.attr.colorAccent, fallback);
-        mColor = DialogUtils.resolveColor(context, R.attr.md_widget_color, fallback);
+        color = DialogUtils.resolveColor(context, R.attr.md_widget_color, fallback);
 
-        mEditText = new AppCompatEditText(context, attrs);
+        editText = new AppCompatEditText(context, attrs);
         // Give it an ID so it can be saved/restored
-        mEditText.setId(android.R.id.edit);
-        mEditText.setEnabled(true);
+        editText.setId(android.R.id.edit);
+        editText.setEnabled(true);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
     @SuppressLint("MissingSuperCall")
     @Override
     protected void onBindDialogView(@NonNull View view) {
-        EditText editText = mEditText;
+        EditText editText = this.editText;
         editText.setText(getText());
         // Initialize cursor to end of text
         if (editText.getText().length() > 0)
@@ -101,7 +101,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
-            String value = mEditText.getText().toString();
+            String value = editText.getText().toString();
             if (callChangeListener(value))
                 setText(value);
         }
@@ -109,12 +109,12 @@ public class MaterialEditTextPreference extends EditTextPreference {
 
     @Override
     public EditText getEditText() {
-        return mEditText;
+        return editText;
     }
 
     @Override
     public Dialog getDialog() {
-        return mDialog;
+        return dialog;
     }
 
     @Override
@@ -147,7 +147,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
         View layout = LayoutInflater.from(getContext()).inflate(R.layout.md_stub_inputpref, null);
         onBindDialogView(layout);
 
-        MDTintHelper.setTint(mEditText, mColor);
+        MDTintHelper.setTint(editText, color);
 
         TextView message = (TextView) layout.findViewById(android.R.id.message);
         if (getDialogMessage() != null && getDialogMessage().toString().length() > 0) {
@@ -160,12 +160,12 @@ public class MaterialEditTextPreference extends EditTextPreference {
 
         MaterialDialogsPrefUtil.registerOnActivityDestroyListener(this, this);
 
-        mDialog = mBuilder.build();
+        dialog = mBuilder.build();
         if (state != null)
-            mDialog.onRestoreInstanceState(state);
-        requestInputMethod(mDialog);
+            dialog.onRestoreInstanceState(state);
+        requestInputMethod(dialog);
 
-        mDialog.show();
+        dialog.show();
     }
 
     @Override
@@ -179,14 +179,15 @@ public class MaterialEditTextPreference extends EditTextPreference {
      */
     private void requestInputMethod(Dialog dialog) {
         Window window = dialog.getWindow();
+        if (window == null) return;
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
     @Override
     public void onActivityDestroy() {
         super.onActivityDestroy();
-        if (mDialog != null && mDialog.isShowing())
-            mDialog.dismiss();
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
     }
 
     @Override
