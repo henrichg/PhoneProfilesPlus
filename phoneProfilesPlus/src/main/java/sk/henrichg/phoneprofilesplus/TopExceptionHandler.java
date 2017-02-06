@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.content.pm.PackageInfo;
 import android.os.Environment;
 
 import java.io.BufferedWriter;
@@ -13,15 +14,25 @@ import java.util.Calendar;
 public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     private Thread.UncaughtExceptionHandler defaultUEH;
+    private int actualVersionCode;
 
-    public TopExceptionHandler() {
+    public TopExceptionHandler(int actualVersionCode) {
         this.defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+        this.actualVersionCode = actualVersionCode;
     }
 
     public void uncaughtException(Thread t, Throwable e)
     {
         StackTraceElement[] arr = e.getStackTrace();
         String report = e.toString()+"\n\n";
+
+        report += "----- App version code: " + actualVersionCode + "\n\n";
+
+        for (StackTraceElement anArr : arr) {
+            report += "    " + anArr.toString() + "\n";
+        }
+        report += "-------------------------------\n\n";
+
         report += "--------- Stack trace ---------\n\n";
         for (StackTraceElement anArr : arr) {
             report += "    " + anArr.toString() + "\n";
@@ -30,7 +41,7 @@ public class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         // If the exception was thrown in a background thread inside
         // AsyncTask, then the actual exception can be found with getCause
-        report += "--------- Cause ---------\n\n";
+        report += "--------- Cause ---------------\n\n";
         Throwable cause = e.getCause();
         if(cause != null) {
             report += cause.toString() + "\n\n";
