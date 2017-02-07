@@ -227,6 +227,11 @@
         android:title="@string/phone_profiles_pref_category_activation"
         android:key="profileActivationCategory"
         android:widgetLayout="@layout/start_activity_preference">
+        <Preference
+            android:key="applicationBackgroundProfileInfo"
+            android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
+            android:summary="@string/phone_profiles_pref_applicationBackgroundProfileInfo_summary"
+            android:widgetLayout="@layout/info_preference" />
         <sk.henrichg.phoneprofilesplus.ProfilePreference
             android:defaultValue="-999"
             android:key="applicationBackgroundProfile"
@@ -235,6 +240,7 @@
         <CheckBoxPreference
             android:key="applicationAlert"
             android:title="@string/phone_profiles_pref_applicationAlert"
+            android:summary="@string/phone_profiles_pref_applicationAlertSummary"
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceScreen>
