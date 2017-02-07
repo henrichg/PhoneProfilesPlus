@@ -935,4 +935,8 @@
     <string name="about_application_privacy_policy">Privacy Policy:</string>
     <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will be activated if no any event is running.</string>
     <string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>
+    <string name="phone_profiles_pref_notificationTheme">Notification theme</string>
+    <string name="array_pref_color_native">Native</string>
+    <string name="array_pref_color_dark">Dark</string>
+    <string name="array_pref_color_light">Light</string>
 </resources>

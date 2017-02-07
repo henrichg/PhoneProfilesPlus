@@ -1577,7 +1577,14 @@ public class ActivateProfileHelper {
 
             Notification.Builder notificationBuilder;
 
-            RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_drawer);
+            RemoteViews contentView;
+            if (PPApplication.notificationTheme.equals("1"))
+                contentView = new RemoteViews(context.getPackageName(), R.layout.notification_drawer_dark);
+            else
+            if (PPApplication.notificationTheme.equals("2"))
+                contentView = new RemoteViews(context.getPackageName(), R.layout.notification_drawer_light);
+            else
+                contentView = new RemoteViews(context.getPackageName(), R.layout.notification_drawer);
 
             boolean isIconResourceID;
             String iconIdentifier;

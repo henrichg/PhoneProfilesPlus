@@ -73,6 +73,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(PPApplication.PREF_NOTIFICATION_TOAST);
         setSummary(PPApplication.PREF_NOTIFICATION_STATUS_BAR);
         setSummary(PPApplication.PREF_NOTIFICATION_TEXT_COLOR);
+        setSummary(PPApplication.PREF_NOTIFICATION_THEME);
 
         if (android.os.Build.VERSION.SDK_INT >= 16) {
             setSummary(PPApplication.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);

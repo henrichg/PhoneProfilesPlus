@@ -270,6 +270,7 @@ public class PPApplication extends Application {
     public static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B = "applicationWidgetIconLightnessB";
     public static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T = "applicationWidgetIconLightnessT";
     public static final String PREF_APPLICATION_EVENT_USE_PRIORITY = "applicationEventUsePriority";
+    public static final String PREF_NOTIFICATION_THEME = "notificationTheme";
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
@@ -377,6 +378,7 @@ public class PPApplication extends Application {
     public static String notificationStatusBarStyle;
     public static boolean notificationShowInStatusBar;
     public static String notificationTextColor;
+    public static String notificationTheme;
     public static boolean notificationHideInLockscreen;
     public static boolean applicationWidgetListPrefIndicator;
     public static boolean applicationWidgetListHeader;
@@ -636,6 +638,7 @@ public class PPApplication extends Application {
         notificationShowInStatusBar = preferences.getBoolean(PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, true);
         notificationTextColor = preferences.getString(PREF_NOTIFICATION_TEXT_COLOR, "0");
         notificationHideInLockscreen = preferences.getBoolean(PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, false);
+        notificationTheme = preferences.getString(PREF_NOTIFICATION_THEME, "0");
         applicationWidgetListPrefIndicator = preferences.getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, true);
         applicationWidgetListHeader = preferences.getBoolean(PREF_APPLICATION_WIDGET_LIST_HEADER, true);
         applicationWidgetListBackground = preferences.getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "25");

@@ -220,6 +220,15 @@
                 android:entryValues="@array/notificationTextColorValues"
                 android:dependency="notificationStatusBar"
                 app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/phone_profiles_pref_notificationTheme"
+                android:summary="@string/array_pref_color_native"
+                android:key="notificationTheme"
+                android:defaultValue="0"
+                android:entries="@array/notificationThemeArray"
+                android:entryValues="@array/notificationThemeValues"
+                android:dependency="notificationStatusBar"
+                app:useStockLayout="true" />
         </PreferenceCategory>
     </PreferenceScreen>
 
