@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_profile_list_root"
     android:layout_width="fill_parent"
@@ -81,4 +81,4 @@
         android:fontFamily="sans-serif-condensed"
         android:textSize="15sp" />
 
-</RelativeLayout>
+</LinearLayout>
