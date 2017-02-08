@@ -84,7 +84,10 @@ public class ActionForExternalApplicationActivity extends Activity {
         super.onStart();
 
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
-            startService(new Intent(getApplicationContext(), PhoneProfilesService.class));
+            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PPApplication.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
+            startService(serviceIntent);
         }
 
         if (action.equals(ACTION_ACTIVATE_PROFILE)) {

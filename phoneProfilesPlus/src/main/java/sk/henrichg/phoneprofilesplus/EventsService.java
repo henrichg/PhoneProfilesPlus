@@ -566,6 +566,8 @@ public class EventsService extends IntentService
             if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallService.CALL_EVENT_INCOMING_CALL_RINGING)) {
                 // start PhoneProfilesService for ringing call simulation
                 Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
+                lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
                 lIntent.putExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, true);
                 lIntent.putExtra(PPApplication.EXTRA_OLD_RINGER_MODE, oldRingerMode);
                 lIntent.putExtra(PPApplication.EXTRA_OLD_ZEN_MODE, oldZenMode);

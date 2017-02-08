@@ -64,6 +64,8 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
+                                         +"|$$$ PhoneProfilesService.onStartCommand"
+
                                          //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
                                          //+"|WifiScanBroadcastReceiver.onReceive"
@@ -103,6 +105,8 @@ public class PPApplication extends Application {
     static final String EXTRA_EVENT_NAME = "event_name";
     static final String EXTRA_EVENT_NFC_DATE = "event_nfc_date";
     static final String EXTRA_EVENT_NFC_TAG_NAME = "event_nfc_tag_name";
+    static final String EXTRA_START_ON_BOOT = "start_on_boot";
+    static final String EXTRA_ONLY_START = "only_start";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
@@ -2217,6 +2221,8 @@ public class PPApplication extends Application {
 
     public static void startGeofenceScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_GEOFENCE_SCANNER);
         context.startService(lIntent);
@@ -2224,6 +2230,8 @@ public class PPApplication extends Application {
 
     public static void stopGeofenceScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
         context.startService(lIntent);
@@ -2231,6 +2239,8 @@ public class PPApplication extends Application {
 
     public static void startOrientationScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_ORIENTATION_SCANNER);
         context.startService(lIntent);
@@ -2238,6 +2248,8 @@ public class PPApplication extends Application {
 
     public static void stopOrientationScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
         context.startService(lIntent);
@@ -2245,6 +2257,8 @@ public class PPApplication extends Application {
 
     public static void startPhoneStateScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_PHONE_STATE_SCANNER);
         context.startService(lIntent);
@@ -2252,6 +2266,8 @@ public class PPApplication extends Application {
 
     public static void stopPhoneStateScanner(Context context) {
         Intent lIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+        lIntent.putExtra(PPApplication.EXTRA_ONLY_START, false);
+        lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER, true);
         lIntent.putExtra(EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
         context.startService(lIntent);

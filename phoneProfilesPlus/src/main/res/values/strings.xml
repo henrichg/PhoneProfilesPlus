@@ -939,4 +939,5 @@
     <string name="array_pref_color_native">Native</string>
     <string name="array_pref_color_dark">Dark</string>
     <string name="array_pref_color_light">Light</string>
+    <string name="altype_applicationStartOnBoot">start on boot</string>
 </resources>

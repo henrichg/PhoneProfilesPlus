@@ -89,6 +89,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ALTYPE_STARTEDLOGGING = 13;
     static final int ALTYPE_EVENTENDDELAY = 14;
     static final int ALTYPE_EVENTSTOP = 15;
+    static final int ALTYPE_APPLICATIONSTARTONBOOT = 16;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";

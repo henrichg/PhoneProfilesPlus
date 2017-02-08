@@ -61,6 +61,8 @@ public class FirstStartService extends IntentService {
 
         PPApplication.logE("$$$ FirstStartService.onHandleIntent","application not started, start it");
 
+        boolean startOnBoot = intent.getBooleanExtra(PPApplication.EXTRA_START_ON_BOOT, false);
+
         PPApplication.clearMergedPermissions(context);
 
         //int startType = intent.getStringExtra(PPApplication.EXTRA_FIRST_START_TYPE);
@@ -114,7 +116,10 @@ public class FirstStartService extends IntentService {
         PPApplication.setMobileCellsAutoRegistration(context, true);
 
         PPApplication.setApplicationStarted(context, true);
-        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
+        if (startOnBoot)
+            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
+        else
+            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
         PPApplication.logE("$$$ FirstStartService.onHandleIntent","application started");
 

@@ -224,11 +224,6 @@ public class PhoneProfilesService extends Service
         }
         */
 
-
-        // start service for first start
-        Intent serviceIntent = new Intent(getApplicationContext(), FirstStartService.class);
-        getApplicationContext().startService(serviceIntent);
-
         //// this not starts for boot, because PPApplication.getApplicationStarted() == false,
         //// but it starts from EventsService
         startGeofenceScanner();
@@ -236,6 +231,7 @@ public class PhoneProfilesService extends Service
         // this will be stopped latter in DeviceOrientationBroadcastReceiver, if events not exists
         startOrientationScanner();
         ////
+
     }
 
     @Override
@@ -275,6 +271,26 @@ public class PhoneProfilesService extends Service
         instance = null;
     }
 
+    // start service for first start
+    private boolean doForFirstStart(Intent intent, int flags, int startId) {
+        boolean onlyStart = true;
+
+        Intent serviceIntent = new Intent(getApplicationContext(), FirstStartService.class);
+
+        if (intent != null) {
+            onlyStart = intent.getBooleanExtra(PPApplication.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, intent.getBooleanExtra(PPApplication.EXTRA_START_ON_BOOT, false));
+        }
+
+        if (onlyStart) {
+            getApplicationContext().startService(serviceIntent);
+
+            PPApplication.setMergedRingNotificationVolumes(getApplicationContext(), false);
+        }
+
+        return onlyStart;
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
@@ -282,47 +298,38 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
-        if (intent == null)
-            PPApplication.setMergedRingNotificationVolumes(getApplicationContext(), false);
+        if (!doForFirstStart(intent, flags, startId)) {
+            if (intent != null) {
+                if (intent.getBooleanExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, false))
+                    doSimulatingRingingCall(intent);
 
-        if (intent != null) {
-            boolean simulateRingingCall = intent.getBooleanExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, false);
-            if (simulateRingingCall)
-                doSimulatingRingingCall(intent);
-            boolean startStopScanner = intent.getBooleanExtra(PPApplication.EXTRA_START_STOP_SCANNER, false);
-
-            if (!simulateRingingCall && !startStopScanner) {
-                // default start service
-                PPApplication.setMergedRingNotificationVolumes(getApplicationContext(), false);
-            }
-
-
-            if (startStopScanner) {
-                switch (intent.getIntExtra(PPApplication.EXTRA_START_STOP_SCANNER_TYPE, 0)) {
-                    case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
-                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
-                        startGeofenceScanner();
-                        break;
-                    case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
-                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
-                        stopGeofenceScanner();
-                        break;
-                    case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
-                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_ORIENTATION_SCANNER");
-                        startOrientationScanner();
-                        break;
-                    case PPApplication.SCANNER_STOP_ORIENTATION_SCANNER:
-                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
-                        stopOrientationScanner();
-                        break;
-                    case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
-                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_PHONE_STATE_SCANNER");
-                        startPhoneStateScanner();
-                        break;
-                    case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
-                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
-                        stopPhoneStateScanner();
-                        break;
+                if (intent.getBooleanExtra(PPApplication.EXTRA_START_STOP_SCANNER, false)) {
+                    switch (intent.getIntExtra(PPApplication.EXTRA_START_STOP_SCANNER_TYPE, 0)) {
+                        case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
+                            startGeofenceScanner();
+                            break;
+                        case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
+                            stopGeofenceScanner();
+                            break;
+                        case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_ORIENTATION_SCANNER");
+                            startOrientationScanner();
+                            break;
+                        case PPApplication.SCANNER_STOP_ORIENTATION_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
+                            stopOrientationScanner();
+                            break;
+                        case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_PHONE_STATE_SCANNER");
+                            startPhoneStateScanner();
+                            break;
+                        case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
+                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
+                            stopPhoneStateScanner();
+                            break;
+                    }
                 }
             }
         }

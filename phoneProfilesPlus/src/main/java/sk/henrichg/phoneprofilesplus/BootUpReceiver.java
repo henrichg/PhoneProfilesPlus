@@ -27,7 +27,10 @@ public class BootUpReceiver extends BroadcastReceiver {
             PPApplication.logE("BootUpReceiver.onReceive","PhoneProfilesService.instance="+PhoneProfilesService.instance);
 
             // start ReceiverService
-            context.startService(new Intent(context.getApplicationContext(), PhoneProfilesService.class));
+            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PPApplication.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, true);
+            context.startService(serviceIntent);
         }
 
         //PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- end");
