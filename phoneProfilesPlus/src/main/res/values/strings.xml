@@ -940,4 +940,5 @@
     <string name="array_pref_color_dark">Dark</string>
     <string name="array_pref_color_light">Light</string>
     <string name="altype_applicationStartOnBoot">start on boot</string>
+    <string name="profile_preferences_hideStatusBarIcon">Hide status bar icon</string>
 </resources>

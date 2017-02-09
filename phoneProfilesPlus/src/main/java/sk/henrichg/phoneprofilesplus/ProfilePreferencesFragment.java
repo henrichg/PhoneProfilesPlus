@@ -71,6 +71,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             setSummary(PPApplication.PREF_PROFILE_DURATION);
             setSummary(PPApplication.PREF_PROFILE_AFTER_DURATION_DO);
             setSummary(PPApplication.PREF_PROFILE_ASK_FOR_DURATION);
+            setSummary(PPApplication.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
         }
         setSummary(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE);
         setSummary(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);

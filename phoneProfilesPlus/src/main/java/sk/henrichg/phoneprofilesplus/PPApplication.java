@@ -195,6 +195,7 @@ public class PPApplication extends Application {
     static final String PREF_PROFILE_NOTIFICATION_LED = "prf_pref_notificationLed";
     static final String PREF_PROFILE_VIBRATE_WHEN_RINGING = "prf_pref_vibrateWhenRinging";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_FOR = "prf_pref_deviceWallpaperFor";
+    static final String PREF_PROFILE_HIDE_STATUS_BAR_ICON = "prf_pref_hideStatusBarIcon";
 
     // no preferences, bud checked from isProfilePreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
@@ -750,6 +751,7 @@ public class PPApplication extends Application {
                 x.getKey().equals(PREF_PROFILE_DEVICE_NFC) ||
                 x.getKey().equals(PREF_PROFILE_DURATION) ||
                 x.getKey().equals(PREF_PROFILE_AFTER_DURATION_DO) ||
+                x.getKey().equals(PREF_PROFILE_ASK_FOR_DURATION) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_KEYGUARD) ||
                 x.getKey().equals(PREF_PROFILE_VIBRATION_ON_TOUCH) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_WIFI_AP) ||
@@ -757,7 +759,8 @@ public class PPApplication extends Application {
                 x.getKey().equals(PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
                 x.getKey().equals(PREF_PROFILE_NOTIFICATION_LED) ||
                 x.getKey().equals(PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
-                x.getKey().equals(PREF_PROFILE_DEVICE_WALLPAPER_FOR))
+                x.getKey().equals(PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
+                x.getKey().equals(PREF_PROFILE_HIDE_STATUS_BAR_ICON))
             {
                 if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
                 else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
@@ -892,7 +895,8 @@ public class PPApplication extends Application {
                                profile._deviceNetworkType,
                                profile._notificationLed,
                                profile._vibrateWhenRinging,
-                               profile._deviceWallpaperFor);
+                               profile._deviceWallpaperFor,
+                               profile._hideStatusBarIcon);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {

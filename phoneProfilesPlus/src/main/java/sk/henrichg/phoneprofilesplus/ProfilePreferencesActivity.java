@@ -267,7 +267,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     origProfile._deviceNetworkType,
                     origProfile._notificationLed,
                     origProfile._vibrateWhenRinging,
-                    origProfile._deviceWallpaperFor);
+                    origProfile._deviceWallpaperFor,
+                    origProfile._hideStatusBarIcon);
             showSaveMenu = true;
         }
         else
@@ -310,6 +311,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 editor.putString(PPApplication.PREF_PROFILE_DURATION, Integer.toString(profile._duration));
                 editor.putString(PPApplication.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(profile._afterDurationDo));
                 editor.putBoolean(PPApplication.PREF_PROFILE_ASK_FOR_DURATION, profile._askForDuration);
+                editor.putBoolean(PPApplication.PREF_PROFILE_HIDE_STATUS_BAR_ICON, profile._hideStatusBarIcon);
             }
             editor.putString(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(profile._volumeRingerMode));
             editor.putString(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(profile._volumeZenMode));
@@ -381,6 +383,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             profile._duration = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DURATION, ""));
             profile._afterDurationDo = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_AFTER_DURATION_DO, ""));
             profile._askForDuration = preferences.getBoolean(PPApplication.PREF_PROFILE_ASK_FOR_DURATION, false);
+
+            profile._hideStatusBarIcon = preferences.getBoolean(PPApplication.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
 
             Profile activatedProfile = dataWrapper.getActivatedProfile();
             if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
