@@ -443,6 +443,19 @@
                 android:entries="@array/wallpaperForArray"
                 android:entryValues="@array/wallpaperForValues"
                 app:useStockLayout="true" />
+            <Preference
+                android:key="prf_pref_lockDevice_deviceAdminSettings"
+                android:title="@string/profile_preferences_lockDevice_deviceAdminSettings_title"
+                android:summary="@string/profile_preferences_lockDevice_deviceAdminSettings_summary"
+                android:widgetLayout="@layout/start_activity_preference" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/profile_preferences_lockDevice"
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_lockDevice"
+                android:defaultValue="@string/prf_pref_lockDevice"
+                android:entries="@array/lockDeviceArray"
+                android:entryValues="@array/lockDeviceValues"
+                app:useStockLayout="true" />
         </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>    

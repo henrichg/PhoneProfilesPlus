@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +21,8 @@ import android.preference.PreferenceScreen;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import static android.content.Context.DEVICE_POLICY_SERVICE;
+
 public class ProfilePreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
@@ -34,8 +38,13 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
-    static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
+
     static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
+
+    static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
+
+    static final String PREF_DEVICE_ADMINISTRATOR_SETTINGS = "prf_pref_lockDevice_deviceAdminSettings";
+    static final int RESULT_DEVICE_ADMINISTRATOR_SETTINGS = 1982;
 
     @Override
     public int addPreferencesFromResource() {
@@ -325,6 +334,24 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 });
             }
         }
+        Preference deviceAdminSettings = prefMng.findPreference(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
+        if (deviceAdminSettings != null) {
+            DevicePolicyManager manager = (DevicePolicyManager)getActivity().getSystemService(DEVICE_POLICY_SERVICE);
+            final ComponentName component = new ComponentName(getActivity(), PPDeviceAdminReceiver.class);
+            if (!manager.isAdminActive(component)) {
+                deviceAdminSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+                        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, component);
+                        getActivity().startActivityForResult(intent, RESULT_DEVICE_ADMINISTRATOR_SETTINGS);
+                        return false;
+                    }
+                });
+            }
+        }
+
+
         InfoDialogPreference infoDialogPreference = (InfoDialogPreference)prefMng.findPreference("prf_pref_prefernceTypesInfo");
         if (infoDialogPreference != null) {
             infoDialogPreference.setInfoText(
@@ -637,8 +664,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (key.equals(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
             key.equals(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE) ||
             //key.equals(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)) {
-            //key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER)) {
+            key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
+            //key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER)
+            key.equals(PPApplication.PREF_PROFILE_LOCK_DEVICE)) {
             String title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, false);
             if (!title.isEmpty()) {
                 _bold = true;
@@ -658,6 +686,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 summary = summary + title;
             }
             //_bold = _bold || isBold(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER);
+            title = getTitleWhenPreferenceChanged(PPApplication.PREF_PROFILE_LOCK_DEVICE, false);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
             preferenceScreen = prefMng.findPreference("prf_pref_othersCategory");
         }
 
@@ -916,7 +950,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             key.equals(PPApplication.PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
             key.equals(PPApplication.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
             key.equals(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
-            key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR))
+            key.equals(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
+            key.equals(PPApplication.PREF_PROFILE_LOCK_DEVICE))
         {
             int canChange = PPApplication.PREFERENCE_ALLOWED;
             if (key.equals(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING))
@@ -1175,6 +1210,17 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
         }
+        if (key.equals(PREF_DEVICE_ADMINISTRATOR_SETTINGS)) {
+            DevicePolicyManager manager = (DevicePolicyManager)getActivity().getSystemService(DEVICE_POLICY_SERVICE);
+            final ComponentName component = new ComponentName(getActivity(), PPDeviceAdminReceiver.class);
+            if (manager.isAdminActive(component)) {
+                Preference preference = prefMng.findPreference(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
+                if (preference != null) {
+                    preference.setSummary(R.string.profile_preferences_lockDevice_deviceAdminSettings_summary_activated);
+                    preference.setEnabled(false);
+                }
+            }
+        }
     }
 
     protected void disableDependedPref(String key) {
@@ -1277,6 +1323,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
             disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGTONE);
             disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
+        }
+        if (requestCode == RESULT_DEVICE_ADMINISTRATOR_SETTINGS) {
+            disableDependedPref(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
         }
     }
 

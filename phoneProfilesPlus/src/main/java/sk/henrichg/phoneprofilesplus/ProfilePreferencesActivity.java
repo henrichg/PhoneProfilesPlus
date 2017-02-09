@@ -268,7 +268,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     origProfile._notificationLed,
                     origProfile._vibrateWhenRinging,
                     origProfile._deviceWallpaperFor,
-                    origProfile._hideStatusBarIcon);
+                    origProfile._hideStatusBarIcon,
+                    origProfile._lockDevice);
             showSaveMenu = true;
         }
         else
@@ -352,6 +353,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             editor.putString(PPApplication.PREF_PROFILE_NOTIFICATION_LED, Integer.toString(profile._notificationLed));
             editor.putString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, Integer.toString(profile._vibrateWhenRinging));
             editor.putString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(profile._deviceWallpaperFor));
+            editor.putString(PPApplication.PREF_PROFILE_LOCK_DEVICE, Integer.toString(profile._lockDevice));
             editor.commit();
         }
     }
@@ -441,6 +443,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         profile._deviceNetworkType = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_NETWORK_TYPE, ""));
         profile._notificationLed = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_NOTIFICATION_LED, ""));
         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, ""));
+        profile._lockDevice = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_LOCK_DEVICE, ""));
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {

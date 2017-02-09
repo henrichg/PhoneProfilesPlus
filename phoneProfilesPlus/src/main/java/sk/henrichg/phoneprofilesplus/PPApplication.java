@@ -196,6 +196,7 @@ public class PPApplication extends Application {
     static final String PREF_PROFILE_VIBRATE_WHEN_RINGING = "prf_pref_vibrateWhenRinging";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_FOR = "prf_pref_deviceWallpaperFor";
     static final String PREF_PROFILE_HIDE_STATUS_BAR_ICON = "prf_pref_hideStatusBarIcon";
+    static final String PREF_PROFILE_LOCK_DEVICE = "prf_pref_lockDevice";
 
     // no preferences, bud checked from isProfilePreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
@@ -760,7 +761,8 @@ public class PPApplication extends Application {
                 x.getKey().equals(PREF_PROFILE_NOTIFICATION_LED) ||
                 x.getKey().equals(PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
-                x.getKey().equals(PREF_PROFILE_HIDE_STATUS_BAR_ICON))
+                x.getKey().equals(PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
+                x.getKey().equals(PREF_PROFILE_LOCK_DEVICE))
             {
                 if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
                 else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
@@ -837,6 +839,7 @@ public class PPApplication extends Application {
         profile._notificationLed = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_NOTIFICATION_LED, "0"));
         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
         profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0"));
+        profile._lockDevice = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_LOCK_DEVICE, "0"));
 
         return profile;
     }
@@ -896,7 +899,8 @@ public class PPApplication extends Application {
                                profile._notificationLed,
                                profile._vibrateWhenRinging,
                                profile._deviceWallpaperFor,
-                               profile._hideStatusBarIcon);
+                               profile._hideStatusBarIcon,
+                               profile._lockDevice);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {
@@ -986,6 +990,8 @@ public class PPApplication extends Application {
                 mappedProfile._notificationLed = defaultProfile._notificationLed;
             if (profile._vibrateWhenRinging == 99)
                 mappedProfile._vibrateWhenRinging = defaultProfile._vibrateWhenRinging;
+            if (profile._lockDevice == 99)
+                mappedProfile._lockDevice = defaultProfile._lockDevice;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;

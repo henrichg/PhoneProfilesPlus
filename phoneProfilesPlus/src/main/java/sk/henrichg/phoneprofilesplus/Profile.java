@@ -63,6 +63,7 @@ public class Profile {
     int _vibrateWhenRinging;
     int _deviceWallpaperFor;
     boolean _hideStatusBarIcon;
+    int _lockDevice;
 
 
     Bitmap _iconBitmap;
@@ -186,7 +187,8 @@ public class Profile {
                    int notificationLed,
                    int vibrateWhenRinging,
                    int deviceWallpaperFor,
-                   boolean hideStatusBarIcon)
+                   boolean hideStatusBarIcon,
+                   int lockDevice)
     {
         this._id = id;
         this._name = name;
@@ -238,6 +240,7 @@ public class Profile {
         this._vibrateWhenRinging = vibrateWhenRinging;
         this._deviceWallpaperFor = deviceWallpaperFor;
         this._hideStatusBarIcon = hideStatusBarIcon;
+        this._lockDevice = lockDevice;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -291,7 +294,8 @@ public class Profile {
                    int notificationLed,
                    int vibrateWhenRinging,
                    int deviceWallpaperFor,
-                   boolean hideStatusBarIcon)
+                   boolean hideStatusBarIcon,
+                   int lockDevice)
     {
         this._name = name;
         this._icon = icon;
@@ -341,6 +345,7 @@ public class Profile {
         this._vibrateWhenRinging = vibrateWhenRinging;
         this._deviceWallpaperFor = deviceWallpaperFor;
         this._hideStatusBarIcon = hideStatusBarIcon;
+        this._lockDevice = lockDevice;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -397,6 +402,7 @@ public class Profile {
         this._vibrateWhenRinging = profile._vibrateWhenRinging;
         this._deviceWallpaperFor = profile._deviceWallpaperFor;
         this._hideStatusBarIcon = profile._hideStatusBarIcon;
+        this._lockDevice = profile._lockDevice;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -571,6 +577,8 @@ public class Profile {
                 this._notificationLed = withProfile._notificationLed;
             if (withProfile._vibrateWhenRinging != 0)
                 this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
+            if (withProfile._lockDevice != 0)
+                this._lockDevice = withProfile._lockDevice;
 
             dataWrapper.getDatabaseHandler().activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
