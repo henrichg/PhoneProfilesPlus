@@ -941,4 +941,6 @@
     <string name="array_pref_color_light">Light</string>
     <string name="altype_applicationStartOnBoot">start on boot</string>
     <string name="profile_preferences_hideStatusBarIcon">Hide status bar icon</string>
+    <string name="device_admin_label">device_admin_label</string>
+    <string name="device_admin_description">device_admin_description</string>
 </resources>
