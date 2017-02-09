@@ -246,6 +246,9 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             // wallpaper
             if (profile._deviceWallpaperChange == 1)
                 indicator1 = addIntoIndicator(indicator1, "wlp");
+            // lock device
+            if (profile._lockDevice != 0)
+                indicator1 = addIntoIndicator(indicator1, "lck");
         }
         /////////////////////////////////////////////////////////////
 

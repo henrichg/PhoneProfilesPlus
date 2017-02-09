@@ -186,6 +186,8 @@ class ProfilePreferencesIndicator {
             // wallpaper
             if (profile._deviceWallpaperChange == 1)
                 drawables[countDrawables++] = R.drawable.ic_profile_pref_wallpaper;
+            if (profile._lockDevice != 0)
+                drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
         }
         else
             countDrawables = -1;
