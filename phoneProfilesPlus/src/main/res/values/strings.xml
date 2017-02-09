@@ -945,8 +945,8 @@
     <string name="device_admin_disable_warning_ppp">Disabling this, may cause malfunction of some profiles and events parameters.</string>
     <string name="device_admin_disable_warning_pp">Disabling this, may cause malfunction of some profiles parameters.</string>
     <string name="profile_preferences_lockDevice">Lock device</string>
-    <string name="array_pref_lockDevice_deviceAdmin">(S) Use Device administrator</string>
-    <string name="array_pref_lockDevice_root">(R) Use root</string>
+    <string name="array_pref_lockDevice_deviceAdmin">(S) Use Device administrator (unlock via fingerprint may not working)</string>
+    <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
     <string name="array_pref_lockDevice_screenOff">Use screen off</string>
     <string name="profile_preferences_lockDevice_deviceAdminSettings_title">Device administrator</string>
     <string name="profile_preferences_lockDevice_deviceAdminSettings_summary">Enable \"PhoneProfilesPlus"\ in Device administrator, for Lock method \"Use Device administrator\".</string>

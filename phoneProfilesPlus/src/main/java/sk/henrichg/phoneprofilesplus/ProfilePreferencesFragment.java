@@ -63,6 +63,19 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 
         // updating activity with selected profile preferences
 
+        // disable depended preferences
+        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGTONE);
+        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
+        disableDependedPref(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+        disableDependedPref(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+        disableDependedPref(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE);
+        disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+        disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+        disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP);
+        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE);
+        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);
+        disableDependedPref(ProfilePreferencesNestedFragment.PREF_DEVICE_ADMINISTRATOR_SETTINGS);
+
         setSummary(PPApplication.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
@@ -111,19 +124,6 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         setSummary(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING);
         setSummary(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
         setSummary(PPApplication.PREF_PROFILE_LOCK_DEVICE);
-
-        // disable depended preferences
-        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGTONE);
-        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_NOTIFICATION);
-        disableDependedPref(PPApplication.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_SOUND_ALARM_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
-        disableDependedPref(PPApplication.PREF_PROFILE_DEVICE_WIFI_AP);
-        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE);
-        disableDependedPref(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE);
-        disableDependedPref(ProfilePreferencesNestedFragment.PREF_DEVICE_ADMINISTRATOR_SETTINGS);
 
         //}
     }
