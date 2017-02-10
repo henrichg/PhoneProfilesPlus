@@ -444,6 +444,8 @@ public class PPApplication extends Application {
 
     public static Notification phoneProfilesNotification = null;
 
+    public static boolean startedOnBoot = false;
+
     @Override
     public void onCreate()
     {

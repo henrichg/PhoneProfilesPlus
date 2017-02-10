@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
-          package="sk.henrichg.phoneprofilesplus"
+<manifest package="sk.henrichg.phoneprofilesplus"
           xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           android:installLocation="internalOnly"
           android:versionCode="2621"
           android:versionName="3.4.6b">
+
     <!--
         Release versions (look at PackageReplacedReceiver)
         2322 = keep checked "Use Priority event parameter"
@@ -24,8 +25,9 @@
     <!-- <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" /> -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
-                     tools:ignore="ProtectedPermissions"/>
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
@@ -43,8 +45,9 @@
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"
-                     tools:ignore="ProtectedPermissions"/>
+    <uses-permission
+        android:name="android.permission.MODIFY_PHONE_STATE"
+        tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
@@ -56,7 +59,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
 
-    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="com.android.vending.BILLING"/>
 
     <!--
     <android:uses-permission
@@ -108,8 +111,8 @@
         android:fullBackupContent="@xml/phoneprofiles_backup_scheme"
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
@@ -132,9 +135,9 @@
 
         <activity
             android:name=".LauncherActivity"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_phone_profiles"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -145,8 +148,8 @@
         <activity
             android:name=".ActivateProfileActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:label="@string/title_activity_activator"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:theme="@style/PopupTheme_withToolbar_material">
         </activity>
         <activity
@@ -173,9 +176,9 @@
         <activity
             android:name=".ShortcutCreatorActivity"
             android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:icon="@drawable/ic_shortcut"
             android:label="@string/title_activity_shortcut_creator"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
             android:theme="@style/PopupTheme_material">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
@@ -265,6 +268,7 @@
             android:label="@string/nfc_tag_pref_dlg_writeTagTitle">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -275,7 +279,9 @@
             android:theme="@style/EmptyActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+
                 <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -289,21 +295,23 @@
             android:theme="@style/EmptyTargetHelpsActivity">
         </activity>
 
-        <receiver android:name=".PhoneProfilesInstall"
+        <receiver
+            android:name=".PhoneProfilesInstall"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="100">
                 <action android:name="android.intent.action.PACKAGE_INSTALL"/>
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
+
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
         <receiver
             android:name=".IconWidgetProvider"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/widget_label_icon"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_icon">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -314,10 +322,10 @@
         </receiver>
         <receiver
             android:name=".OneRowWidgetProvider"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/widget_label_one_row"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_one_row">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -328,10 +336,10 @@
         </receiver>
         <receiver
             android:name=".ProfileListWidgetProvider"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/widget_label_list"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_list">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -353,16 +361,17 @@
         <receiver
             android:name=".BootUpReceiver"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".PackageReplacedReceiver"
-                  android:enabled="true"
-                  android:exported="true">
+        <receiver
+            android:name=".PackageReplacedReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             </intent-filter>
@@ -373,6 +382,7 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.REFRESH_DASHCLOCK"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
@@ -396,9 +406,10 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".PhoneCallBroadcastReceiver"
-                  android:enabled="true"
-                  android:exported="true">
+        <receiver
+            android:name=".PhoneCallBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
             </intent-filter>
@@ -406,9 +417,10 @@
                 <action android:name="android.intent.action.PHONE_STATE"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".DockConnectionBroadcastReceiver"
-                  android:enabled="true"
-                  android:exported="true">
+        <receiver
+            android:name=".DockConnectionBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_DOCK_EVENT"/>
             </intent-filter>
@@ -420,9 +432,9 @@
         </receiver>
         <receiver
             android:name=".CalendarProviderChangedBroadcastReceiver"
-            android:priority="1000"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:priority="1000">
             <intent-filter>
                 <action android:name="android.intent.action.PROVIDER_CHANGED"/>
 
@@ -471,9 +483,10 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        <receiver android:name=".BluetoothConnectionBroadcastReceiver"
-                  android:enabled="true"
-                  android:exported="true">
+        <receiver
+            android:name=".BluetoothConnectionBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.ACL_CONNECTED"/>
                 <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED"/>
@@ -481,9 +494,10 @@
                 <action android:name="android.bluetooth.device.action.NAME_CHANGED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".BluetoothStateChangedBroadcastReceiver"
-                  android:enabled="true"
-                  android:exported="true">
+        <receiver
+            android:name=".BluetoothStateChangedBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.bluetooth.adapter.action.STATE_CHANGED"/>
             </intent-filter>
@@ -501,8 +515,8 @@
         <receiver
             android:name=".SMSBroadcastReceiver"
             android:enabled="true"
-            android:permission="android.permission.BROADCAST_SMS"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
             <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
@@ -698,15 +712,23 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        <receiver android:name="PPDeviceAdminReceiver"
-                  android:label="@string/app_name"
-                  android:description="@string/device_admin_description"
-                  android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data android:name="android.app.device_admin"
-                       android:resource="@xml/device_admin" />
+        <receiver
+            android:name=".PPDeviceAdminReceiver"
+            android:description="@string/device_admin_description"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin"/>
+
             <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
             </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".DelayedBootUpReceiver"
+            android:enabled="true"
+            android:exported="false">
         </receiver>
 
         <service
@@ -714,11 +736,11 @@
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
         <service
             android:name=".PhoneProfilesDashClockExtension"
+            android:enabled="true"
+            android:exported="true"
             android:icon="@drawable/ic_dashclock"
             android:label="@string/app_name"
-            android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA"
-            android:enabled="true"
-            android:exported="true">
+            android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
             <intent-filter>
                 <action android:name="com.google.android.apps.dashclock.Extension"/>
             </intent-filter>
@@ -737,7 +759,6 @@
             android:name=".ExecuteRadioProfilePrefsService"
             android:exported="false">
         </service>
-
         <service
             android:name=".ExecuteVolumeProfilePrefsService"
             android:exported="false">
@@ -804,7 +825,6 @@
             android:name=".MobileCellsRegistrationService"
             android:enabled="true">
         </service>
-
     </application>
 
 </manifest>
