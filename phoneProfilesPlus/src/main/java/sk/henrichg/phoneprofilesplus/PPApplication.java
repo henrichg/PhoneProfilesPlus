@@ -64,7 +64,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|$$$ PhoneProfilesService.onStartCommand"
+                                         +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
 
                                          //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
@@ -445,6 +445,9 @@ public class PPApplication extends Application {
     public static Notification phoneProfilesNotification = null;
 
     public static boolean startedOnBoot = false;
+
+    public static LockDeviceActivity lockDeviceActivity = null;
+    public static int screenTimeoutBeforeDeviceLock = 0;
 
     @Override
     public void onCreate()

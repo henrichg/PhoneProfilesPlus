@@ -294,6 +294,10 @@
             android:excludeFromRecents="true"
             android:theme="@style/EmptyTargetHelpsActivity">
         </activity>
+        <activity android:name=".LockDeviceActivity"
+                  android:excludeFromRecents="true"
+                  android:theme="@style/LockDeviceActivity" >
+        </activity>
 
         <receiver
             android:name=".PhoneProfilesInstall"
@@ -825,6 +829,7 @@
             android:name=".MobileCellsRegistrationService"
             android:enabled="true">
         </service>
+
     </application>
 
 </manifest>

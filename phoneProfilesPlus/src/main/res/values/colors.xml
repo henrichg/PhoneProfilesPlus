@@ -25,4 +25,6 @@
     <color name="notificationBackground_light">#FFFFFFFF</color>
     <color name="notificationTextColor_light">#FF000000</color>
 
+    <color name="lockDevice_textColor">#70FFFFFF</color>
+
 </resources>

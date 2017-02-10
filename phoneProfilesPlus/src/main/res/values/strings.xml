@@ -951,4 +951,5 @@
     <string name="profile_preferences_lockDevice_deviceAdminSettings_title">Device administrator</string>
     <string name="profile_preferences_lockDevice_deviceAdminSettings_summary">Enable \"PhoneProfilesPlus"\ in Device administrator, for Lock method \"Use Device administrator\".</string>
     <string name="profile_preferences_lockDevice_deviceAdminSettings_summary_activated">Already enabled</string>
+    <string name="lockDevice_screenOff_text">Screen off lock</string>
 </resources>

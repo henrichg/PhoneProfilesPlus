@@ -1333,8 +1333,10 @@ public class ActivateProfileHelper {
             }
         }
 
-        if (profile._lockDevice != 0) {
-            lockDevice(profile);
+        if (Permissions.checkProfileLockDevice(context, profile)) {
+            if (profile._lockDevice != 0) {
+                lockDevice(profile);
+            }
         }
 
         if (_interactive)
@@ -2553,7 +2555,11 @@ public class ActivateProfileHelper {
                     Log.e("ActivateProfileHelper.lockDevice", "Error on run su: " + e.toString());
                 }
                 break;
-            case 1: break;
+            case 1:
+                Intent intent = new Intent(context, LockDeviceActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
         }
     }
 

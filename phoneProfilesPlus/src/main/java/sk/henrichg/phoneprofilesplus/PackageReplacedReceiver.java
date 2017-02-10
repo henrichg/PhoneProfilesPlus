@@ -1,11 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+
+import java.util.Calendar;
 
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
@@ -19,6 +23,15 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         //int myUid = android.os.Process.myUid();
         //if (intentUid == myUid)
         //{
+
+            // start delayed bootup broadcast
+            PPApplication.startedOnBoot = true;
+            AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+            Intent delayedBootUpIntent = new Intent(context, DelayedBootUpReceiver.class);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, delayedBootUpIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.SECOND, 10);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmIntent);
 
             PPApplication.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
             PPApplication.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);

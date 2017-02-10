@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
@@ -18,12 +19,18 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             // application is not started
             return;
 
+        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+            if (PPApplication.lockDeviceActivity != null)
+                PPApplication.lockDeviceActivity.finish();
+        }
+
         PPApplication.loadPreferences(context);
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
         else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
+
             PPApplication.setScreenUnlocked(context, false);
             if (!PPApplication.getGlobalEventsRuning(context)) {
                 DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
@@ -43,17 +50,18 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
             Profile activatedProfile = dataWrapper.getActivatedProfile();
 
-            if (PPApplication.getApplicationStarted(context, true)) {
-                if (PPApplication.notificationShowInStatusBar &&
-                    PPApplication.notificationHideInLockscreen) {
-                    //dataWrapper.getActivateProfileHelper().removeNotification();
-                    //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
-                    dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
-                }
+            if (PPApplication.notificationShowInStatusBar &&
+                PPApplication.notificationHideInLockscreen) {
+                //dataWrapper.getActivateProfileHelper().removeNotification();
+                //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+                dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
             }
 
             // change screen timeout
+            if ((PPApplication.lockDeviceActivity != null) && Permissions.checkLockDevice(context))
+                Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
             int screenTimeout = PPApplication.getActivatedProfileScreenTimeout(context);
+            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout="+screenTimeout);
             if (screenTimeout > 0)
                 dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
 
@@ -126,17 +134,15 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
         }
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
-            if (PPApplication.getApplicationStarted(context, true)) {
-                if (PPApplication.notificationShowInStatusBar &&
-                    PPApplication.notificationHideInLockscreen) {
-                    DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
-                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
-                    //dataWrapper.getActivateProfileHelper().removeNotification();
-                    //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
-                    Profile activatedProfile = dataWrapper.getActivatedProfile();
-                    dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
-                    dataWrapper.invalidateDataWrapper();
-                }
+            if (PPApplication.notificationShowInStatusBar &&
+                PPApplication.notificationHideInLockscreen) {
+                DataWrapper dataWrapper = new DataWrapper(context, true, false, 0);
+                dataWrapper.getActivateProfileHelper().initialize(dataWrapper, context);
+                //dataWrapper.getActivateProfileHelper().removeNotification();
+                //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
+                Profile activatedProfile = dataWrapper.getActivatedProfile();
+                dataWrapper.getActivateProfileHelper().showNotification(activatedProfile);
+                dataWrapper.invalidateDataWrapper();
             }
         }
 
