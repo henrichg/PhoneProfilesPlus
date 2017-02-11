@@ -19,7 +19,9 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             // application is not started
             return;
 
+        boolean lockDeviceEnabled = false;
         if (PPApplication.lockDeviceActivity != null) {
+            lockDeviceEnabled = true;
             PPApplication.lockDeviceActivity.finish();
             PPApplication.lockDeviceActivity.overridePendingTransition(0, 0);
         }
@@ -58,7 +60,7 @@ public class ScreenOnOffBroadcastReceiver extends WakefulBroadcastReceiver {
             }
 
             // change screen timeout
-            if ((PPApplication.lockDeviceActivity != null) && Permissions.checkLockDevice(context))
+            if (lockDeviceEnabled && Permissions.checkLockDevice(context))
                 Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
             int screenTimeout = PPApplication.getActivatedProfileScreenTimeout(context);
             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout="+screenTimeout);
