@@ -2557,7 +2557,9 @@ public class ActivateProfileHelper {
                 break;
             case 1:
                 Intent intent = new Intent(context, LockDeviceActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 context.startActivity(intent);
                 break;
         }

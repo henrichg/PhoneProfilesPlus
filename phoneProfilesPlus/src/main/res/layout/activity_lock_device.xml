@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/activity_lock_device"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000"
     tools:context="sk.henrichg.phoneprofilesplus.LockDeviceActivity">
 
-    <LinearLayout
+    <TextClock
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:maxLines="1"
+        android:paddingBottom="200dp"
+        android:textColor="@color/lockDevice_textColor"
+        android:textSize="75sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/lockDevice_textColor"
-            android:text="@string/app_name"/>
+    <TextView
+        android:id="@+id/activity_lockDevice_screenOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/lockDevice_textColor"
+        android:text="@string/lockDevice_screenOff_text"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/lockDevice_textColor"
-            android:text="@string/lockDevice_screenOff_text"/>
-
-    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/activity_lockDevice_screenOff"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/lockDevice_textColor"
+        android:text="@string/app_name"/>
 
 </RelativeLayout>

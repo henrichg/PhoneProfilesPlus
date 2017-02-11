@@ -1,4 +1,4 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <style name="EmptyActivity" parent="android:Theme.Dialog">
         <item name="android:windowIsTranslucent">true</item>
@@ -31,10 +31,13 @@
         <item name="android:windowIsFloating">false</item>
     </style>
     <style name="LockDeviceActivity" parent="@style/Theme.AppCompat.NoActionBar">
-        <item name="android:windowAnimationStyle">@android:style/Animation.Toast</item>
-        <item name="android:background">#FF000000</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 
 

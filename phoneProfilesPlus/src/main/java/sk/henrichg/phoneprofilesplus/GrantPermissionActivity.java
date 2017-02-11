@@ -726,9 +726,9 @@ public class GrantPermissionActivity extends Activity {
         else
         if (iteration == 3) {
             boolean drawOverlaysFound = false;
-            boolean api25 = android.os.Build.VERSION.SDK_INT >= 25;
+            //boolean api25 = android.os.Build.VERSION.SDK_INT >= 25;
             for (Permissions.PermissionType permissionType : permissions) {
-                if (api25 && permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                if (/*api25 && */permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                     drawOverlaysFound = true;
                     final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                     startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
