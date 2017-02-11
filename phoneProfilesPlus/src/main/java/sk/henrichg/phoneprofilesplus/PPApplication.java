@@ -1919,6 +1919,24 @@ public class PPApplication extends Application {
         //}
     }
 
+    /*static public String getTransactionCode(String className, String methodName) throws Exception {
+        //try {
+        final String stubName = className + "$Stub";
+        final String fieldName = "TRANSACTION_" + methodName;
+
+        final Class<?> cls = Class.forName(stubName);
+        final Field declaredField = cls.getDeclaredField(fieldName);
+        declaredField.setAccessible(true);
+        return String.valueOf(declaredField.getInt(cls));
+        //} catch (Exception e) {
+        // The "TRANSACTION_setDataEnabled" field is not available,
+        // or named differently in the current API level, so we throw
+        // an exception and inform users that the method is not available.
+        //e.printStackTrace();
+        //    throw e;
+        //}
+    }*/
+
     static boolean telephonyServiceExists(Context context, String preference) {
         try {
             if (preference.equals(PREF_PROFILE_DEVICE_MOBILE_DATA)) {

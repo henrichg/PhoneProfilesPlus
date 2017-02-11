@@ -33,6 +33,7 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.telephony.SubscriptionInfo;
@@ -2545,15 +2546,45 @@ public class ActivateProfileHelper {
                     manager.lockNow();
                 break;
             case 2:
-                String command1 = "input keyevent 26";
-                Command command = new Command(0, false, command1);
-                try {
-                    //RootTools.closeAllShells();
-                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                    commandWait(command);
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.lockDevice", "Error on run su: " + e.toString());
+                /*if (PPApplication.isRooted()) {
+                    //String command1 = "input keyevent 26";
+                    Command command = new Command(0, false, command1);
+                    try {
+                        //RootTools.closeAllShells();
+                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                        commandWait(command);
+                    } catch (Exception e) {
+                        Log.e("ActivateProfileHelper.lockDevice", "Error on run su: " + e.toString());
+                    }
+                }*/
+                if (PPApplication.isRooted() && PPApplication.serviceBinaryExists())
+                {
+                    String command1 = PPApplication.getJavaCommandFile(CmdGoToSleep.class, "power", context, 0);
+                    Command command = new Command(0, false, command1);
+                    try {
+                        //RootTools.closeAllShells();
+                        RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
+                        commandWait(command);
+                    } catch (Exception e) {
+                        Log.e("ActivateProfileHelper.lockDevice", "Error on run su");
+                    }
                 }
+                /*if (PPApplication.isRooted()) {
+                    try {
+                        // Get the value of the "TRANSACTION_goToSleep" field.
+                        String transactionCode = PPApplication.getTransactionCode("android.os.IPowerManager", "TRANSACTION_goToSleep");
+                        String command1 = "service call power " + transactionCode + " i64 " + SystemClock.uptimeMillis();
+                        Command command = new Command(0, false, command1);
+                        try {
+                            //RootTools.closeAllShells();
+                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                            commandWait(command);
+                        } catch (Exception e) {
+                            Log.e("ActivateProfileHelper.lockDevice", "Error on run su");
+                        }
+                    } catch(Exception ignored) {
+                    }
+                */
                 break;
             case 1:
                 Intent intent = new Intent(context, LockDeviceActivity.class);
