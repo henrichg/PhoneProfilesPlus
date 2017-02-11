@@ -947,9 +947,9 @@
     <string name="profile_preferences_lockDevice">Lock device</string>
     <string name="array_pref_lockDevice_deviceAdmin">(S) Use Device administrator (unlock via fingerprint may not working)</string>
     <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
-    <string name="array_pref_lockDevice_screenOff">Use screen off</string>
+    <string name="array_pref_lockDevice_screenOff">Use quick screen off</string>
     <string name="profile_preferences_lockDevice_deviceAdminSettings_title">Device administrator</string>
     <string name="profile_preferences_lockDevice_deviceAdminSettings_summary">Enable \"PhoneProfilesPlus\" in Device administrator, for Lock method \"Use Device administrator\".</string>
     <string name="profile_preferences_lockDevice_deviceAdminSettings_summary_activated">Already enabled</string>
-    <string name="lockDevice_screenOff_text">Screen off lock</string>
+    <string name="lockDevice_screenOff_text">Quick screen off lock</string>
 </resources>
