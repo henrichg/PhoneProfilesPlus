@@ -298,7 +298,7 @@ class EventPreferencesCalendar extends EventPreferences {
         int gmtOffset = TimeZone.getDefault().getRawOffset();
 
         calStartTime.setTimeInMillis(_startTime - gmtOffset);
-        calStartTime.set(Calendar.SECOND, _startBeforeEvent);
+        calStartTime.set(Calendar.SECOND, -_startBeforeEvent);
         calStartTime.set(Calendar.MILLISECOND, 0);
 
         calEndTime.setTimeInMillis(_endTime - gmtOffset);
