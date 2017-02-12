@@ -141,7 +141,7 @@ class AddEventAdapter extends BaseAdapter {
                 if (event._manualProfileActivation)
                     profileName = "[M] " + profileName;
                 if (event._delayStart > 0)
-                    profileName = "[" + event._delayStart + "] " + profileName;
+                    profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayStart) + "] " + profileName;
                 holder.profileStartName.setText(profileName);
                 holder.profileStartName.setTextColor(defaultColor);
                 if (profile.getIsIconResourceID())

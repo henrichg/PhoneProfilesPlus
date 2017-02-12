@@ -504,7 +504,7 @@ class EditorEventListAdapter extends BaseAdapter
                 } else {
                     String profileName = "";
                     if (event._delayEnd > 0)
-                        profileName = "[" + event._delayEnd + "] ";
+                        profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] ";
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                         profileName = profileName + vi.getResources().getString(R.string.event_prefernce_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)

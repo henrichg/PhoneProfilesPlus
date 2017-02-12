@@ -202,7 +202,7 @@ public class EventDetailsFragment extends Fragment {
                 if (event._manualProfileActivation)
                     profileName = "[M] " + profileName;
                 if (event._delayStart > 0)
-                    profileName = "[" + event._delayStart + "] " + profileName;
+                    profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayStart) + "] " + profileName;
                 profileStartName.setText(profileName);
                 if (profile.getIsIconResourceID())
                 {
@@ -260,7 +260,7 @@ public class EventDetailsFragment extends Fragment {
                 if (profile != null) {
                     String profileName = profile._name;
                     if (event._delayStart > 0)
-                        profileName = "[" + event._delayStart + "] " + profileName;
+                        profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayStart) + "] " + profileName;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                         profileName = profileName + " + " + getResources().getString(R.string.event_prefernce_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
@@ -289,7 +289,7 @@ public class EventDetailsFragment extends Fragment {
                 } else {
                     String profileName = "";
                     if (event._delayEnd > 0)
-                        profileName = "[" + event._delayEnd + "] " + profileName;
+                        profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
                         profileName = profileName + getResources().getString(R.string.event_prefernce_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
