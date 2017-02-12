@@ -4055,10 +4055,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         int status = event.getStatus();
         ContentValues values = new ContentValues();
         values.put(KEY_E_STATUS, status);
-        if (status == Event.ESTATUS_RUNNING)
-            values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
-        if (status == Event.ESTATUS_PAUSE)
-            values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
 
         int r = 0;
 
@@ -4405,6 +4401,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_E_IS_IN_DELAY_START, event._isInDelayStart ? 1 : 0);
+        values.put(KEY_E_START_STATUS_TIME, event._startStatusTime);
 
         int r = 0;
 
@@ -4501,6 +4498,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_E_IS_IN_DELAY_END, event._isInDelayEnd ? 1 : 0);
+        values.put(KEY_E_PAUSE_STATUS_TIME, event._pauseStatusTime);
 
         int r = 0;
 

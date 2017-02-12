@@ -1032,9 +1032,6 @@ class Event {
         setSystemEvent(dataWrapper.context, ESTATUS_RUNNING);
         int status = this._status;
         this._status = ESTATUS_RUNNING;
-        Calendar now = Calendar.getInstance();
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
-        this._startStatusTime = now.getTimeInMillis() - gmtOffset;
         dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
         if (log && (status != this._status)) {
@@ -1250,9 +1247,6 @@ class Event {
             setSystemEvent(dataWrapper.context, ESTATUS_PAUSE);
         int status = this._status;
         this._status = ESTATUS_PAUSE;
-        Calendar now = Calendar.getInstance();
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
-        this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
         dataWrapper.getDatabaseHandler().updateEventStatus(this);
 
         if (log && (status != this._status)) {
@@ -1479,10 +1473,16 @@ class Event {
             //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
             //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
 
+            now = Calendar.getInstance();
+            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            this._startStatusTime = now.getTimeInMillis() - gmtOffset;
+
             this._isInDelayStart = true;
         }
-        else
+        else {
+            this._startStatusTime = 0;
             this._isInDelayStart = false;
+        }
 
         dataWrapper.getDatabaseHandler().updateEventInDelayStart(this);
 
@@ -1494,6 +1494,11 @@ class Event {
     }
 
     void checkDelayStart(/*DataWrapper dataWrapper*/) {
+        if (this._startStatusTime == 0) {
+            this._isInDelayStart = false;
+            return;
+        }
+
         Calendar now = Calendar.getInstance();
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long nowTime = now.getTimeInMillis() - gmtOffset;
@@ -1519,6 +1524,7 @@ class Event {
         }
 
         this._isInDelayStart = false;
+        this._startStatusTime = 0;
         dataWrapper.getDatabaseHandler().updateEventInDelayStart(this);
     }
 
@@ -1583,10 +1589,16 @@ class Event {
             //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
             //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
 
+            now = Calendar.getInstance();
+            int gmtOffset = TimeZone.getDefault().getRawOffset();
+            this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
+
             this._isInDelayEnd = true;
         }
-        else
+        else {
+            this._pauseStatusTime = 0;
             this._isInDelayEnd = false;
+        }
 
         dataWrapper.getDatabaseHandler().updateEventInDelayEnd(this);
 
@@ -1598,6 +1610,11 @@ class Event {
     }
 
     void checkDelayEnd(/*DataWrapper dataWrapper*/) {
+        if (this._pauseStatusTime == 0) {
+            this._isInDelayEnd = false;
+            return;
+        }
+
         Calendar now = Calendar.getInstance();
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long nowTime = now.getTimeInMillis() - gmtOffset;

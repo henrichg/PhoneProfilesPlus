@@ -256,7 +256,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj aj ked uz je zapauznuty
-                    dataWrapper.doEventService(_event, true, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
+                    dataWrapper.doEventService(_event, true, true, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, broadcastReceiverType);
             }
             // 2. start events
             dataWrapper.sortEventsByStartOrderAsc();
@@ -268,8 +268,8 @@ public class EventsService extends IntentService
 
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
-                    // spustaj len ak este nebezi
-                    dataWrapper.doEventService(_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
+                    // spustaj vsetky
+                    dataWrapper.doEventService(_event, false, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
             }
         }
         else
@@ -301,7 +301,7 @@ public class EventsService extends IntentService
 
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
-                    // spustaj len ak este nebezi
+                    // spustaj vsetky, musia sa aktivovat vsetky profily v poradi podla poradia udalosti
                     dataWrapper.doEventService(_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
             }
         }

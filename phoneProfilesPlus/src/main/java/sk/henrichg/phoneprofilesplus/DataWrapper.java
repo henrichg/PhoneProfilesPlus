@@ -2620,33 +2620,37 @@ public class DataWrapper {
                     PPApplication.logE("[***] DataWrapper.doEventService", "start event");
                     PPApplication.logE("[***] DataWrapper.doEventService", "event._name=" + event._name);
 
-                    if (!forDelayStartAlarm) {
-                        // called not for delay alarm
-                        if (restartEvent) {
-                            event._isInDelayStart = false;
-                        } else {
-                            if (!event._isInDelayStart) {
-                                // if not delay alarm is set, set it
-                                event.setDelayStartAlarm(this); // for start delay
+                    if (event._isInDelayEnd)
+                        event.removeDelayEndAlarm(this);
+                    else {
+                        if (!forDelayStartAlarm) {
+                            // called not for delay alarm
+                            if (restartEvent) {
+                                event._isInDelayStart = false;
+                            } else {
+                                if (!event._isInDelayStart) {
+                                    // if not delay alarm is set, set it
+                                    event.setDelayStartAlarm(this); // for start delay
+                                }
+                                if (event._isInDelayStart) {
+                                    // if delay timeouted, start event
+                                    event.checkDelayStart(/*this*/);
+                                }
                             }
-                            if (event._isInDelayStart) {
-                                // if delay timeouted, start event
-                                event.checkDelayStart(/*this*/);
+                            PPApplication.logE("[***] DataWrapper.doEventService", "event._isInDelayStart=" + event._isInDelayStart);
+                            if (!event._isInDelayStart) {
+                                // no delay alarm is set
+                                // start event
+                                event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
+                                PPApplication.logE("[***] DataWrapper.doEventService", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
-                        PPApplication.logE("[***] DataWrapper.doEventService", "event._isInDelayStart="+event._isInDelayStart);
-                        if (!event._isInDelayStart) {
-                            // no delay alarm is set
+
+                        if (forDelayStartAlarm && event._isInDelayStart) {
+                            // called for delay alarm
                             // start event
                             event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
-                            PPApplication.logE("[***] DataWrapper.doEventService", "mergedProfile._id="+mergedProfile._id);
                         }
-                    }
-
-                    if (forDelayStartAlarm && event._isInDelayStart) {
-                        // called for delay alarm
-                        // start event
-                        event.startEvent(this, eventTimelineList, false, interactive, reactivate, true, mergedProfile);
                     }
                 } else if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause) {
                     // when pausing and it is for restart events, force pause
@@ -2654,31 +2658,35 @@ public class DataWrapper {
                     PPApplication.logE("[***] DataWrapper.doEventService", "pause event");
                     PPApplication.logE("[***] DataWrapper.doEventService", "event._name=" + event._name);
 
-                    if (!forDelayEndAlarm) {
-                        // called not for delay alarm
-                        if (restartEvent) {
-                            event._isInDelayEnd = false;
-                        } else {
-                            if (!event._isInDelayEnd) {
-                                // if not delay alarm is set, set it
-                                event.setDelayEndAlarm(this); // for end delay
+                    if (event._isInDelayStart)
+                        event.removeDelayStartAlarm(this);
+                    else {
+                        if (!forDelayEndAlarm) {
+                            // called not for delay alarm
+                            if (restartEvent) {
+                                event._isInDelayEnd = false;
+                            } else {
+                                if (!event._isInDelayEnd) {
+                                    // if not delay alarm is set, set it
+                                    event.setDelayEndAlarm(this); // for end delay
+                                }
+                                if (event._isInDelayEnd) {
+                                    // if delay timeouted, pause event
+                                    event.checkDelayEnd(/*this*/);
+                                }
                             }
-                            if (event._isInDelayEnd) {
-                                // if delay timeouted, pause event
-                                event.checkDelayEnd(/*this*/);
+                            if (!event._isInDelayEnd) {
+                                // no delay alarm is set
+                                // pause event
+                                event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
                             }
                         }
-                        if (!event._isInDelayEnd) {
-                            // no delay alarm is set
+
+                        if (forDelayEndAlarm && event._isInDelayEnd) {
+                            // called for delay alarm
                             // pause event
                             event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
                         }
-                    }
-
-                    if (forDelayEndAlarm && event._isInDelayEnd) {
-                        // called for delay alarm
-                        // pause event
-                        event.pauseEvent(this, eventTimelineList, true, false, false, true, mergedProfile, !restartEvent);
                     }
                 }
             }
