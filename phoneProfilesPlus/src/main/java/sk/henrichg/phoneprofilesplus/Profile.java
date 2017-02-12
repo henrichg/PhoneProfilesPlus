@@ -1187,7 +1187,6 @@ public class Profile {
         }
     }
 
-    @SuppressLint("DefaultLocale")
     String getProfileNameWithDuration(boolean multyline, Context context) {
         String profileName = _name;
         if ((_duration > 0) && (_afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
@@ -1204,13 +1203,10 @@ public class Profile {
             }
             if (!showEndTime) {
                 //profileName = "[" + _duration + "] " + profileName;
-                final int hours = _duration / 3600;
-                final int minutes = (_duration % 3600) / 60;
-                final int seconds = _duration % 60;
                 if (multyline)
-                    profileName = "[" + String.format("%02d:%02d:%02d", hours, minutes, seconds) + "]\n" + profileName;
+                    profileName = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]\n" + profileName;
                 else
-                    profileName = "[" + String.format("%02d:%02d:%02d", hours, minutes, seconds) + "] " + profileName;
+                    profileName = "[" + GlobalGUIRoutines.getDurationString(_duration) + "] " + profileName;
             }
         }
         return profileName;

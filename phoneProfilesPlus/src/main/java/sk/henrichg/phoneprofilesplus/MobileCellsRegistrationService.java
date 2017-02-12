@@ -93,15 +93,11 @@ public class MobileCellsRegistrationService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    @SuppressLint("DefaultLocale")
     private void showNotification(long millisUntilFinished) {
         String text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
         String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
         long iValue = millisUntilFinished / 1000;
-        long hours = iValue / 3600;
-        long minutes = (iValue % 3600) / 60;
-        long seconds = iValue % 60;
-        time = time + ": " + String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        time = time + ": " + GlobalGUIRoutines.getDurationString((int)iValue);
         text = text + "; " + time;
 
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this)

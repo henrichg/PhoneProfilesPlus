@@ -468,4 +468,12 @@ public class GlobalGUIRoutines {
         }
     }
 
+    @SuppressLint("DefaultLocale")
+    static String getDurationString(int duration) {
+        int hours = duration / 3600;
+        int minutes = (duration % 3600) / 60;
+        int seconds = duration % 60;
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
 }

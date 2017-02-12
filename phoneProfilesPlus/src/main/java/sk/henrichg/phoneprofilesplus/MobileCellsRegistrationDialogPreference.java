@@ -75,7 +75,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
     protected void showDialog(Bundle state) {
         MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
@@ -178,7 +177,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         hours = mMax / 3600;
         minutes = (mMax % 3600) / 60;
         seconds = mMax % 60;
-        final String sMax = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        final String sMax = GlobalGUIRoutines.getDurationString(mMax);
         mSeekBarHours.setMax(hours);
         if (hours == 0)
             mSeekBarMinutes.setMax(minutes);
@@ -188,10 +187,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             mSeekBarSeconds.setMax(seconds);
         else
             mSeekBarSeconds.setMax(59);
-        hours = mMin / 3600;
-        minutes = (mMin % 3600) / 60;
-        seconds = mMin % 60;
-        final String sMin = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        final String sMin = GlobalGUIRoutines.getDurationString(mMin);
         int iValue = Integer.valueOf(value);
         hours = iValue / 3600;
         minutes = (iValue % 3600) / 60;
@@ -200,7 +196,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         mSeekBarMinutes.setProgress(minutes);
         mSeekBarSeconds.setProgress(seconds);
 
-        mValue.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+        mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
         final MaskedTextChangedListener listener = new MaskedTextChangedListener(
                 "[00]{:}[00]{:}[00]",
@@ -315,7 +311,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         setSummaryDDP(0);
     }
 
-    @SuppressLint("DefaultLocale")
     private void setSummaryDDP(long millisUntilFinished)
     {
         String summary = "";
@@ -326,10 +321,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                     summary = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_started);
                     String time = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
                     long iValue = millisUntilFinished / 1000;
-                    long hours = iValue / 3600;
-                    long minutes = (iValue % 3600) / 60;
-                    long seconds = iValue % 60;
-                    time = time + ": " + String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                    time = time + ": " + GlobalGUIRoutines.getDurationString((int)iValue);
                     summary = summary + "; " + time;
                             started = true;
                 }
@@ -338,16 +330,12 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         if (!started) {
             summary = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_stopped);
             int iValue = Integer.parseInt(value);
-            int hours = iValue / 3600;
-            int minutes = (iValue % 3600) / 60;
-            int seconds = iValue % 60;
-            summary = summary + "; " + String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            summary = summary + "; " + GlobalGUIRoutines.getDurationString(iValue);
         }
 
         setSummary(summary);
     }
 
-    @SuppressLint("DefaultLocale")
     private void updateInterface(long millisUntilFinished) {
         if ((mDialog != null) && mDialog.isShowing()) {
             boolean started = false;
@@ -359,10 +347,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                         mRemainingTime.setVisibility(View.VISIBLE);
                         String time = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
                         long iValue = millisUntilFinished / 1000;
-                        long hours = iValue / 3600;
-                        long minutes = (iValue % 3600) / 60;
-                        long seconds = iValue % 60;
-                        time = time + ": " + String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                        time = time + ": " + GlobalGUIRoutines.getDurationString((int)iValue);
                         mRemainingTime.setText(time);
                         started = true;
                     }
@@ -377,7 +362,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         }
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
@@ -389,11 +373,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             if (iValue < mMin) iValue = mMin;
             if (iValue > mMax) iValue = mMax;
 
-            hours = iValue / 3600;
-            minutes = (iValue % 3600) / 60;
-            seconds = iValue % 60;
-
-            mValue.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+            mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         }
     }
 

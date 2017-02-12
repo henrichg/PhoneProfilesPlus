@@ -110,7 +110,7 @@ class EventPreferencesNFC extends EventPreferences {
             if (this._permanentRun)
                 descr = descr + context.getString(R.string.pref_event_permanentRun);
             else
-                descr = descr + context.getString(R.string.pref_event_duration) + ": " +this._duration;
+                descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
         }
 
         return descr;

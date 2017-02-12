@@ -153,7 +153,7 @@ class EventPreferencesCalendar extends EventPreferences {
             descr = descr + availabilities[this._availability];
 
             if (this._startBeforeEvent > 0)
-                descr = descr + "; " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": " + this._startBeforeEvent;
+                descr = descr + "; " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": " + GlobalGUIRoutines.getDurationString(this._startBeforeEvent);
 
             if (addBullet) {
                 if (PPApplication.getGlobalEventsRuning(context)) {

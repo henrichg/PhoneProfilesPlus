@@ -101,8 +101,7 @@ public class DurationDialogPreference extends DialogPreference {
         hours = mMax / 3600;
         minutes = (mMax % 3600) / 60;
         seconds = mMax % 60;
-        @SuppressLint("DefaultLocale")
-        final String sMax = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        final String sMax = GlobalGUIRoutines.getDurationString(mMax);
         mNumberPickerHours.setMaxValue(hours);
         if (hours == 0)
             mNumberPickerMinutes.setMaxValue(minutes);
@@ -112,11 +111,7 @@ public class DurationDialogPreference extends DialogPreference {
             mNumberPickerSeconds.setMaxValue(seconds);
         else
             mNumberPickerSeconds.setMaxValue(59);
-        hours = mMin / 3600;
-        minutes = (mMin % 3600) / 60;
-        seconds = mMin % 60;
-        @SuppressLint("DefaultLocale")
-        final String sMin = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        final String sMin = GlobalGUIRoutines.getDurationString(mMin);
         mNumberPickerHours.setMinValue(0);
         mNumberPickerMinutes.setMinValue(0);
         mNumberPickerSeconds.setMinValue(0);
@@ -165,14 +160,9 @@ public class DurationDialogPreference extends DialogPreference {
         setSummaryDDP();
     }
 
-    @SuppressLint("DefaultLocale")
     private void setSummaryDDP()
     {
-        int iValue = Integer.parseInt(value);
-        int hours = iValue / 3600;
-        int minutes = (iValue % 3600) / 60;
-        int seconds = iValue % 60;
-        setSummary(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+        setSummary(GlobalGUIRoutines.getDurationString(Integer.parseInt(value)));
     }
 
 }

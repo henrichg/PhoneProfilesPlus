@@ -44,7 +44,6 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     //private int mColor = 0;
 
-    @SuppressLint("DefaultLocale")
     FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper, int startupSource,
                              boolean interactive, boolean log) {
 
@@ -125,7 +124,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         hours = mMax / 3600;
         minutes = (mMax % 3600) / 60;
         seconds = mMax % 60;
-        final String sMax = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        final String sMax = GlobalGUIRoutines.getDurationString(mMax);
         mSeekBarHours.setMax(hours);
         if (hours == 0)
             mSeekBarMinutes.setMax(minutes);
@@ -135,10 +134,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             mSeekBarSeconds.setMax(seconds);
         else
             mSeekBarSeconds.setMax(59);
-        hours = mMin / 3600;
-        minutes = (mMin % 3600) / 60;
-        seconds = mMin % 60;
-        final String sMin = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        final String sMin = GlobalGUIRoutines.getDurationString(mMin);
         int iValue = mProfile._duration;
         hours = iValue / 3600;
         minutes = (iValue % 3600) / 60;
@@ -147,7 +143,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mSeekBarMinutes.setProgress(minutes);
         mSeekBarSeconds.setProgress(seconds);
 
-        mValue.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+        mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
         final MaskedTextChangedListener listener = new MaskedTextChangedListener(
                 "[00]{:}[00]{:}[00]",
@@ -231,7 +227,6 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     }
 
 
-    @SuppressLint("DefaultLocale")
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (fromUser) {
@@ -243,11 +238,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             if (iValue < mMin) iValue = mMin;
             if (iValue > mMax) iValue = mMax;
 
-            hours = iValue / 3600;
-            minutes = (iValue % 3600) / 60;
-            seconds = iValue % 60;
-
-            mValue.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+            mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         }
     }
 

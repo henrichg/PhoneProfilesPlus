@@ -658,7 +658,7 @@ class Event {
                     if (delayStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + delayStart;
+                        summary = summary + GlobalGUIRoutines.getDurationString(delayStart);
                     }
                     if (notificationSoundChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -678,7 +678,7 @@ class Event {
                     //if (delayEndChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + delayEnd;
+                        summary = summary + GlobalGUIRoutines.getDurationString(delayEnd);
                     //}
                     preference.setSummary(summary);
                 }
