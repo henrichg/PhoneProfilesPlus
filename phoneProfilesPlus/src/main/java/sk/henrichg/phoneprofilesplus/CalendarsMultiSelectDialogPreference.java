@@ -11,6 +11,7 @@ import android.preference.DialogPreference;
 import android.provider.CalendarContract.Calendars;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -205,8 +206,6 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                     }
                 }
 
-                getValueCMSDP(notForUnselect);
-
                 return null;
             }
 
@@ -216,6 +215,9 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 super.onPostExecute(result);
 
                 calendarList = new ArrayList<>(_calendarList);
+                Log.d("CalendarsMultiSelectDialogPreference.refreshListView","caledarList.size()="+calendarList.size());
+
+                getValueCMSDP(notForUnselect);
 
                 if (listAdapter == null) {
                     listAdapter = new CalendarsMultiselectPreferenceAdapter(_context, calendarList);
@@ -262,6 +264,8 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         // change checked state by value
         if (calendarList != null)
         {
+            Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","value="+value);
+            Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","caledarList.size()="+calendarList.size());
             String[] splits = value.split("\\|");
             for (CalendarEvent calendar : calendarList)
             {
@@ -270,6 +274,8 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                 {
                     try {
                         long calendarId = Long.parseLong(splits[i]);
+                        Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","calendar.calendarId="+calendar.calendarId);
+                        Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","calendarId="+calendarId);
                         if (calendar.calendarId == calendarId)
                             calendar.checked = true;
                     } catch (Exception ignored) {

@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,8 @@ class CalendarsMultiselectPreferenceAdapter extends BaseAdapter
         // Display Contact data
         calendarColor.setBackgroundColor(0xff000000 + calendar.color);
         textViewDisplayName.setText(calendar.name);
-        
+
+        Log.d("CalendarsMultiselectPreferenceAdapter.getView","calendar.checked="+calendar.checked);
         checkBox.setChecked(calendar.checked);
 
         return convertView;
