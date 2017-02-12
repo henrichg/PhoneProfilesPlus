@@ -224,7 +224,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
                     listView.setAdapter(listAdapter);
                 }
                 else
-                    listAdapter.notifyDataSetChanged();
+                    listAdapter.setCalendarList(calendarList);
                 if (notForUnselect) {
                     linlaLisView.setVisibility(View.VISIBLE);
                     linlaProgress.setVisibility(View.GONE);
@@ -257,6 +257,8 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
 
     private void getValueCMSDP(boolean notForUnselect)
     {
+        Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","notForUnselect="+notForUnselect);
+
         if (notForUnselect)
             // Get the persistent value
             value = getPersistedString(value);
@@ -270,15 +272,16 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
             for (CalendarEvent calendar : calendarList)
             {
                 calendar.checked = false;
-                for (int i = 0; i < splits.length; i++)
-                {
-                    try {
-                        long calendarId = Long.parseLong(splits[i]);
-                        Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","calendar.calendarId="+calendar.calendarId);
-                        Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","calendarId="+calendarId);
-                        if (calendar.calendarId == calendarId)
-                            calendar.checked = true;
-                    } catch (Exception ignored) {
+                if (notForUnselect) {
+                    for (int i = 0; i < splits.length; i++) {
+                        try {
+                            long calendarId = Long.parseLong(splits[i]);
+                            Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP", "calendar.calendarId=" + calendar.calendarId);
+                            Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP", "calendarId=" + calendarId);
+                            if (calendar.calendarId == calendarId)
+                                calendar.checked = true;
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
             }

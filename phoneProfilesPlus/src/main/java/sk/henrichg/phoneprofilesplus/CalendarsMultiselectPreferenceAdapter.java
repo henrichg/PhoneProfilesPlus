@@ -28,6 +28,11 @@ class CalendarsMultiselectPreferenceAdapter extends BaseAdapter
         //this.context = context; 
     }
 
+    void setCalendarList(List<CalendarEvent> calendarList) {
+        this.calendarList = calendarList;
+        notifyDataSetChanged();
+    }
+
     public int getCount() {
         return calendarList.size();
     }
@@ -39,7 +44,7 @@ class CalendarsMultiselectPreferenceAdapter extends BaseAdapter
     public long getItemId(int position) {
         return position;
     }
-    
+
     public View getView(int position, View convertView, ViewGroup parent)
     {
         // Calendar to display
