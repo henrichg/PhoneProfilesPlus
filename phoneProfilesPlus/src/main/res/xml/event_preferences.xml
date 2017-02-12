@@ -204,6 +204,14 @@
                 android:entryValues="@array/eventCalendarAvailabilityValues"
                 android:dependency="eventCalendarEnabled"
                 app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+                android:key="eventCalendarStartBeforeEvent"
+                android:summary="@string/event_preferences_startBeforeEvent"
+                android:title="@string/event_preferences_startBeforeEvent"
+                android:defaultValue="0"
+                henrichg:dMin="0"
+                henrichg:dMax="86400"
+                android:dependency="eventCalendarEnabled" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventBatteryParameters"

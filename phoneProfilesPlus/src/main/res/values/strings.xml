@@ -952,4 +952,6 @@
     <string name="profile_preferences_lockDevice_deviceAdminSettings_summary">Enable \"PhoneProfilesPlus\" in Device administrator, for Lock method \"Use Device administrator\".</string>
     <string name="profile_preferences_lockDevice_deviceAdminSettings_summary_activated">Already enabled</string>
     <string name="lockDevice_screenOff_text">Quick screen off lock</string>
+    <string name="event_preferences_calendar_start_before_event">Start before the event</string>
+    <string name="event_preferences_startBeforeEvent">Start before the event (sec.)</string>
 </resources>
