@@ -28,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 1840;
+    private static final int DATABASE_VERSION = 1850;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -249,6 +249,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_AIRPLANE_MODE = "radioSwitchAirplaneMode";
     private static final String KEY_E_RADIO_SWITCH_START_TIME = "radioSwitchStartTime";
     private static final String KEY_E_RADIO_SWITCH_DURATION = "radioSwitchDuration";
+    private static final String KEY_E_RADIO_SWITCH_PERMANENT_RUN = "radioSwitchPermanentRun";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -519,7 +520,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_RADIO_SWITCH_NFC + " INTEGER,"
                 + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER,"
                 + KEY_E_RADIO_SWITCH_DURATION + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_START_TIME + " INTEGER"
+                + KEY_E_RADIO_SWITCH_START_TIME + " INTEGER,"
+                + KEY_E_RADIO_SWITCH_PERMANENT_RUN + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1984,6 +1986,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DURATION + "=5");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_START_TIME + "=0");
+        }
+
+        if (oldVersion < 1850)
+        {
+            // pridame nove stlpce
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_PERMANENT_RUN + " INTEGER");
+
+            // updatneme zaznamy
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_PERMANENT_RUN + "=1");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -3780,7 +3791,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_RADIO_SWITCH_NFC,
                         KEY_E_RADIO_SWITCH_AIRPLANE_MODE,
                         KEY_E_RADIO_SWITCH_DURATION,
-                        KEY_E_RADIO_SWITCH_START_TIME
+                        KEY_E_RADIO_SWITCH_START_TIME,
+                        KEY_E_RADIO_SWITCH_PERMANENT_RUN
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3801,6 +3813,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._airplaneMode = Integer.parseInt(cursor.getString(6));
                 eventPreferences._duration = cursor.getInt(7);
                 eventPreferences._startTime = Long.parseLong(cursor.getString(8));
+                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(9)) == 1);
             }
             cursor.close();
         }
@@ -4113,6 +4126,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, eventPreferences._airplaneMode);
         values.put(KEY_E_RADIO_SWITCH_DURATION, eventPreferences._duration);
         values.put(KEY_E_RADIO_SWITCH_START_TIME, eventPreferences._startTime);
+        values.put(KEY_E_RADIO_SWITCH_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
         return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -7190,6 +7204,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, 0);
                                     values.put(KEY_E_RADIO_SWITCH_DURATION, 5);
                                     values.put(KEY_E_RADIO_SWITCH_START_TIME, 0);
+                                }
+
+                                if (exportedDBObj.getVersion() < 1850) {
+                                    values.put(KEY_E_RADIO_SWITCH_PERMANENT_RUN, 1);
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper

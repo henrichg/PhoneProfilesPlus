@@ -407,6 +407,13 @@
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
                 app:useStockLayout="true" />
+            <CheckBoxPreference
+                android:key="eventRadioSwitchPermanentRun"
+                android:title="@string/pref_event_permanentRun"
+                android:summary="@string/pref_event_permanentRun_summary"
+                android:defaultValue="true"
+                android:dependency="eventRadioSwitchEnabled"
+                android:widgetLayout="@layout/mp_preference_switch" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
                 android:key="eventRadioSwitchDuration"
                 android:summary="@string/event_preferences_duration"

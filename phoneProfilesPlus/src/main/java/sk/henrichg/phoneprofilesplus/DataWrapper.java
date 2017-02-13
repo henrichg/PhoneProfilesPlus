@@ -2542,7 +2542,7 @@ public class DataWrapper {
                 if (broadcastType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
                     nfcPassed = true;
                 else if (!event._eventPreferencesNFC._permanentRun) {
-                    if (broadcastType.equals(SMSEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    if (broadcastType.equals(NFCEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
                         nfcPassed = false;
                     else
                         nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
@@ -2584,6 +2584,12 @@ public class DataWrapper {
 
                 if (broadcastType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
                     radioSwitchPassed = true;
+                else if (!event._eventPreferencesRadioSwitch._permanentRun) {
+                    if (broadcastType.equals(RadioSwitchEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                        radioSwitchPassed = false;
+                    else
+                        radioSwitchPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                }
                 else
                     radioSwitchPassed = nowAlarmTime >= startTime;
             }

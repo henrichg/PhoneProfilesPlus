@@ -26,6 +26,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     int _airplaneMode;
     long _startTime;
     int _duration;
+    boolean _permanentRun;
 
     static final int RADIO_TYPE_WIFI = 1;
     static final int RADIO_TYPE_BLUETOOTH = 2;
@@ -42,6 +43,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     private static final String PREF_EVENT_RADIO_SWITCH_NFC = "eventRadioSwitchNFC";
     private static final String PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE = "eventRadioSwitchAirplaneMode";
     private static final String PREF_EVENT_RADIO_SWITCH_DURATION = "eventRadioSwitchDuration";
+    private static final String PREF_EVENT_RADIO_SWITCH_PERMANENT_RUN = "eventRadioSwitchPermanentRun";
 
     private static final String PREF_EVENT_RADIO_SWITCH_CATEGORY = "eventRadioSwitchCategory";
 
@@ -53,6 +55,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 int gps,
                                 int nfc,
                                 int airplaneMode,
+                                boolean permanentRun,
                                 int duration)
     {
         super(event, enabled);
@@ -62,6 +65,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this._gps = gps;
         this._nfc = nfc;
         this._airplaneMode = airplaneMode;
+        this._permanentRun = permanentRun;
         this._duration = duration;
 
         this._startTime = 0;
@@ -77,6 +81,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this._gps = fromEvent._eventPreferencesRadioSwitch._gps;
         this._nfc = fromEvent._eventPreferencesRadioSwitch._nfc;
         this._airplaneMode = fromEvent._eventPreferencesRadioSwitch._airplaneMode;
+        this._permanentRun = fromEvent._eventPreferencesRadioSwitch._permanentRun;
         this._duration = fromEvent._eventPreferencesRadioSwitch._duration;
 
         this._startTime = 0;
@@ -93,6 +98,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         editor.putString(PREF_EVENT_RADIO_SWITCH_GPS, String.valueOf(this._gps));
         editor.putString(PREF_EVENT_RADIO_SWITCH_NFC, String.valueOf(this._nfc));
         editor.putString(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, String.valueOf(this._airplaneMode));
+        editor.putBoolean(PREF_EVENT_RADIO_SWITCH_PERMANENT_RUN, this._permanentRun);
         editor.putString(PREF_EVENT_RADIO_SWITCH_DURATION, String.valueOf(this._duration));
         editor.commit();
     }
@@ -107,6 +113,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this._gps = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_GPS, "0"));
         this._nfc = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_NFC, "0"));
         this._airplaneMode = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, "0"));
+        this._permanentRun = preferences.getBoolean(PREF_EVENT_RADIO_SWITCH_PERMANENT_RUN, true);
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_DURATION, "5"));
     }
 
@@ -162,7 +169,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 descr = descr + fields[this._airplaneMode] + "; ";
             }
 
-            descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+            if (this._permanentRun)
+                descr = descr + context.getString(R.string.pref_event_permanentRun);
+            else
+                descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
         }
 
         return descr;
@@ -185,6 +195,12 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 listPreference.setSummary(summary);
             }
         }
+        if (key.equals(PREF_EVENT_RADIO_SWITCH_PERMANENT_RUN)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_DURATION);
+            if (preference != null) {
+                preference.setEnabled(value.equals("false"));
+            }
+        }
     }
 
     @Override
@@ -200,6 +216,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
+        if (key.equals(PREF_EVENT_RADIO_SWITCH_PERMANENT_RUN)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true": "false", context);
+        }
     }
 
     @Override
@@ -211,6 +231,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_GPS, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_NFC, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_DURATION, preferences, context);
 
         if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context)
@@ -229,7 +250,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     public void setCategorySummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
         if (PPApplication.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
             EventPreferencesRadioSwitch tmp = new EventPreferencesRadioSwitch(this._event, this._enabled,
-                    this._wifi, this._bluetooth, this._mobileData, this._gps, this._nfc, this._airplaneMode, this._duration);
+                    this._wifi, this._bluetooth, this._mobileData, this._gps, this._nfc, this._airplaneMode,
+                    this._permanentRun, this._duration);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -264,7 +286,39 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context)
     {
-        //boolean enabled = PPApplication.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
+        boolean enabled = PPApplication.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
+        if (preference != null)
+            preference.setEnabled(enabled);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_BLUETOOTH);
+        if (preference != null)
+            preference.setEnabled(enabled);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
+        if (preference != null)
+            preference.setEnabled(enabled);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
+        if (preference != null)
+            preference.setEnabled(enabled);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_NFC);
+        if (preference != null)
+            preference.setEnabled(enabled);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
+        if (preference != null)
+            preference.setEnabled(enabled);
+
+        Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_PERMANENT_RUN);
+        Preference durationPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_DURATION);
+        if (permanentRunPreference != null)
+            permanentRunPreference.setEnabled(enabled);
+
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        if (preferences != null) {
+            boolean permanentRun = preferences.getBoolean(PREF_EVENT_RADIO_SWITCH_PERMANENT_RUN, false);
+            enabled = enabled && (!permanentRun);
+            if (durationPreference != null)
+                durationPreference.setEnabled(enabled);
+        }
     }
 
     @Override
@@ -349,23 +403,25 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     @SuppressLint({"SimpleDateFormat", "NewApi"})
     private void setAlarm(long alarmTime, Context context)
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-        String result = sdf.format(alarmTime);
-        PPApplication.logE("EventPreferencesRadioSwitch.setAlarm", "endTime=" + result);
+        if (!_permanentRun) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String result = sdf.format(alarmTime);
+            PPApplication.logE("EventPreferencesRadioSwitch.setAlarm", "endTime=" + result);
 
-        Intent intent = new Intent(context, RadioSwitchEventEndBroadcastReceiver.class);
-        //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
+            Intent intent = new Intent(context, RadioSwitchEventEndBroadcastReceiver.class);
+            //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
 
-        if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-        else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
-        else
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            else
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + PPApplication.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+        }
     }
 
     void saveStartTime(DataWrapper dataWrapper, int radioType, long startTime) {
