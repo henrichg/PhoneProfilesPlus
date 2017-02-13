@@ -431,7 +431,7 @@ class EventPreferencesNotification extends EventPreferences {
         }
         else {
             this._startTime = 0;
-            dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
+            dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
         }
     }
 

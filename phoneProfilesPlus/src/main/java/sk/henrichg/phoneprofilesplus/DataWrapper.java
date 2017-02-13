@@ -774,6 +774,8 @@ public class DataWrapper {
                 getDatabaseHandler().updateNotificationStartTime(event);
                 event._eventPreferencesNFC._startTime = 0;
                 getDatabaseHandler().updateNFCStartTime(event);
+                event._eventPreferencesRadioSwitch._startTime = 0;
+                getDatabaseHandler().updateRadioSwitchStartTime(event);
             }
         }
 
@@ -1543,6 +1545,7 @@ public class DataWrapper {
         boolean orientationPassed = true;
         boolean mobileCellPassed = true;
         boolean nfcPassed = true;
+        boolean radioSwitchPassed = true;
 
         PPApplication.logE("%%% DataWrapper.doEventService","--- start --------------------------");
         PPApplication.logE("%%% DataWrapper.doEventService","------- event._id="+event._id);
@@ -2513,7 +2516,7 @@ public class DataWrapper {
             }
         }
 
-        if ((event._eventPreferencesNFC._enabled) &&
+        if (event._eventPreferencesNFC._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
             // compute start time
@@ -2556,6 +2559,43 @@ public class DataWrapper {
             }
         }
 
+        if (event._eventPreferencesRadioSwitch._enabled &&
+                (PPApplication.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+        {
+            // compute start time
+
+            if (event._eventPreferencesRadioSwitch._startTime > 0) {
+                int gmtOffset = TimeZone.getDefault().getRawOffset();
+                long startTime = event._eventPreferencesRadioSwitch._startTime - gmtOffset;
+
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String alarmTimeS = sdf.format(startTime);
+                PPApplication.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
+
+                // compute end datetime
+                long endAlarmTime = event._eventPreferencesRadioSwitch.computeAlarm();
+                alarmTimeS = sdf.format(endAlarmTime);
+                PPApplication.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
+
+                Calendar now = Calendar.getInstance();
+                long nowAlarmTime = now.getTimeInMillis();
+                alarmTimeS = sdf.format(nowAlarmTime);
+                PPApplication.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
+
+                if (broadcastType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
+                    radioSwitchPassed = true;
+                else
+                    radioSwitchPassed = nowAlarmTime >= startTime;
+            }
+            else
+                radioSwitchPassed = false;
+
+            if (!radioSwitchPassed) {
+                event._eventPreferencesRadioSwitch._startTime = 0;
+                getDatabaseHandler().updateRadioSwitchStartTime(event);
+            }
+        }
+
         PPApplication.logE("DataWrapper.doEventService","ignoreChange="+ignoreChange);
 
         PPApplication.logE("DataWrapper.doEventService","timePassed="+timePassed);
@@ -2573,6 +2613,7 @@ public class DataWrapper {
         PPApplication.logE("DataWrapper.doEventService","orientationPassed="+orientationPassed);
         PPApplication.logE("DataWrapper.doEventService","mobileCellPassed="+mobileCellPassed);
         PPApplication.logE("DataWrapper.doEventService","nfcPassed="+nfcPassed);
+        PPApplication.logE("DataWrapper.doEventService","radioSwitchPassed="+radioSwitchPassed);
 
         //PPApplication.logE("DataWrapper.doEventService","eventStart="+eventStart);
         PPApplication.logE("DataWrapper.doEventService","restartEvent="+restartEvent);
@@ -2594,7 +2635,8 @@ public class DataWrapper {
             locationPassed &&
             orientationPassed &&
             mobileCellPassed &&
-            nfcPassed)
+            nfcPassed &&
+            radioSwitchPassed)
         {
             // podmienky sedia, vykoname, co treba
 

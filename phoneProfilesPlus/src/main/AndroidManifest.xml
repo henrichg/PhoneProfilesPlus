@@ -734,6 +734,16 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <receiver
+            android:name=".RadioSwitchBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".RadioSwitchEventEndBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
 
         <service
             android:name=".ProfileListWidgetService"

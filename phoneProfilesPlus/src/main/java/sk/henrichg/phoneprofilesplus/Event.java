@@ -58,6 +58,7 @@ class Event {
     EventPreferencesOrientation _eventPreferencesOrientation;
     EventPreferencesMobileCells _eventPreferencesMobileCells;
     EventPreferencesNFC _eventPreferencesNFC;
+    EventPreferencesRadioSwitch _eventPreferencesRadioSwitch;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -293,6 +294,11 @@ class Event {
         this._eventPreferencesNFC = new EventPreferencesNFC(this, false, "", true, 5);
     }
 
+    private void createEventPreferencesRadioSwitch()
+    {
+        this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0, 5);
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -310,6 +316,7 @@ class Event {
         createEventPreferencesOrientation();
         createEventPreferencesMobileCells();
         createEventPreferencesNFC();
+        createEventPreferencesRadioSwitch();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -344,6 +351,8 @@ class Event {
             createEventPreferencesMobileCells();
         if (this._eventPreferencesNFC == null)
             createEventPreferencesNFC();
+        if (this._eventPreferencesRadioSwitch == null)
+            createEventPreferencesRadioSwitch();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -359,6 +368,7 @@ class Event {
         this._eventPreferencesOrientation.copyPreferences(fromEvent);
         this._eventPreferencesMobileCells.copyPreferences(fromEvent);
         this._eventPreferencesNFC.copyPreferences(fromEvent);
+        this._eventPreferencesRadioSwitch.copyPreferences(fromEvent);
     }
 
     public boolean isRunnable(Context context)
@@ -378,7 +388,8 @@ class Event {
               this._eventPreferencesLocation._enabled ||
               this._eventPreferencesOrientation._enabled ||
               this._eventPreferencesMobileCells._enabled ||
-              this._eventPreferencesNFC._enabled))
+              this._eventPreferencesNFC._enabled ||
+              this._eventPreferencesRadioSwitch._enabled))
             runnable = false;
         if (this._eventPreferencesTime._enabled)
             runnable = runnable && this._eventPreferencesTime.isRunnable(context);
@@ -410,6 +421,8 @@ class Event {
             runnable = runnable && this._eventPreferencesMobileCells.isRunnable(context);
         if (this._eventPreferencesNFC._enabled)
             runnable = runnable && this._eventPreferencesNFC.isRunnable(context);
+        if (this._eventPreferencesRadioSwitch._enabled)
+            runnable = runnable && this._eventPreferencesRadioSwitch.isRunnable(context);
         return runnable;
     }
 
@@ -445,6 +458,7 @@ class Event {
         this._eventPreferencesOrientation.loadSharedPreferences(preferences);
         this._eventPreferencesMobileCells.loadSharedPreferences(preferences);
         this._eventPreferencesNFC.loadSharedPreferences(preferences);
+        this._eventPreferencesRadioSwitch.loadSharedPreferences(preferences);
         editor.commit();
     }
 
@@ -490,6 +504,7 @@ class Event {
         this._eventPreferencesOrientation.saveSharedPreferences(preferences);
         this._eventPreferencesMobileCells.saveSharedPreferences(preferences);
         this._eventPreferencesNFC.saveSharedPreferences(preferences);
+        this._eventPreferencesRadioSwitch.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context))
             this._status = ESTATUS_STOP;
@@ -736,6 +751,8 @@ class Event {
         _eventPreferencesMobileCells.setCategorySummary(prefMng, key, preferences, context);
         _eventPreferencesNFC.setSummary(prefMng, key, preferences, context);
         _eventPreferencesNFC.setCategorySummary(prefMng, key, preferences, context);
+        _eventPreferencesRadioSwitch.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesRadioSwitch.setCategorySummary(prefMng, key, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -786,6 +803,8 @@ class Event {
         _eventPreferencesMobileCells.setCategorySummary(prefMng, "", preferences, context);
         _eventPreferencesNFC.setAllSummary(prefMng, preferences, context);
         _eventPreferencesNFC.setCategorySummary(prefMng, "", preferences, context);
+        _eventPreferencesRadioSwitch.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesRadioSwitch.setCategorySummary(prefMng, "", preferences, context);
     }
 
     public String getPreferencesDescription(Context context)
@@ -807,6 +826,9 @@ class Event {
 
         if (_eventPreferencesSMS._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesSMS.getPreferencesDescription(true, context);
+
+        if (_eventPreferencesRadioSwitch._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
+        description = description + _eventPreferencesRadioSwitch.getPreferencesDescription(true, context);
 
         if (_eventPreferencesLocation._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesLocation.getPreferencesDescription(true, context);
@@ -859,6 +881,7 @@ class Event {
         _eventPreferencesOrientation.checkPreferences(prefMng, context);
         _eventPreferencesMobileCells.checkPreferences(prefMng, context);
         _eventPreferencesNFC.checkPreferences(prefMng, context);
+        _eventPreferencesRadioSwitch.checkPreferences(prefMng, context);
     }
 
     private boolean canActivateReturnProfile()
@@ -1367,6 +1390,7 @@ class Event {
             _eventPreferencesOrientation.setSystemEventForStart(context);
             _eventPreferencesMobileCells.setSystemEventForStart(context);
             _eventPreferencesNFC.setSystemEventForStart(context);
+            _eventPreferencesRadioSwitch.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -1388,6 +1412,7 @@ class Event {
             _eventPreferencesOrientation.setSystemEventForPause(context);
             _eventPreferencesMobileCells.setSystemEventForPause(context);
             _eventPreferencesNFC.setSystemEventForPause(context);
+            _eventPreferencesRadioSwitch.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -1409,6 +1434,7 @@ class Event {
             _eventPreferencesOrientation.removeSystemEvent(context);
             _eventPreferencesMobileCells.removeSystemEvent(context);
             _eventPreferencesNFC.removeSystemEvent(context);
+            _eventPreferencesRadioSwitch.removeSystemEvent(context);
         }
     }
 

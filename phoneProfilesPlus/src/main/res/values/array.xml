@@ -937,5 +937,17 @@
     <item>2</item>
     <item>3</item>
 </string-array>
+<string-array name="eventRadioSwitchArray">
+    <item>@string/array_pref_radioSwitch_notDetect</item>
+    <item>@string/array_pref_radioSwitch_on</item>
+    <item>@string/array_pref_radioSwitch_off</item>
+    <item>@string/array_pref_radioSwitch_both</item>
+</string-array>
+<string-array name="eventRadioSwitchValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+</string-array>
 
 </resources>

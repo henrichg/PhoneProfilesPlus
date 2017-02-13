@@ -712,6 +712,7 @@ public class EditorEventListFragment extends Fragment {
             dataWrapper.getDatabaseHandler().getSMSStartTime(event);
             dataWrapper.getDatabaseHandler().getNotificationStartTime(event);
             dataWrapper.getDatabaseHandler().getNFCStartTime(event);
+            dataWrapper.getDatabaseHandler().getRadioSwitchStartTime(event);
         }
         updateListView(null, false, refreshIcons, setPosition);
     }

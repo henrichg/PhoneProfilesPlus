@@ -344,6 +344,79 @@
                 android:dependency="eventSMSEnabled" />
         </PreferenceScreen>
         <PreferenceScreen
+            android:key="eventRadioSwitchCategory"
+            android:title="@string/event_preferences_category_eventRadioSwitchParameters"
+            android:summary="@string/event_preference_sensor_radioSwitch_summary"
+            android:widgetLayout="@layout/start_activity_preference" >
+            <CheckBoxPreference
+                android:key="eventRadioSwitchEnabled"
+                android:title="@string/event_preferences_enable_sensor"
+                android:defaultValue="false"
+                android:widgetLayout="@layout/mp_preference_switch" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/profile_preferences_deviceWiFi"
+                android:summary="@string/array_pref_radioSwitch_notDetect"
+                android:key="eventRadioSwitchWifi"
+                android:defaultValue="0"
+                android:entries="@array/eventRadioSwitchArray"
+                android:entryValues="@array/eventRadioSwitchValues"
+                android:dependency="eventRadioSwitchCategory"
+                app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/profile_preferences_deviceBluetooth"
+                android:summary="@string/array_pref_radioSwitch_notDetect"
+                android:key="eventRadioSwitchBluetooth"
+                android:defaultValue="0"
+                android:entries="@array/eventRadioSwitchArray"
+                android:entryValues="@array/eventRadioSwitchValues"
+                android:dependency="eventRadioSwitchCategory"
+                app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/profile_preferences_deviceMobileData"
+                android:summary="@string/array_pref_radioSwitch_notDetect"
+                android:key="eventRadioSwitchMobileData"
+                android:defaultValue="0"
+                android:entries="@array/eventRadioSwitchArray"
+                android:entryValues="@array/eventRadioSwitchValues"
+                android:dependency="eventRadioSwitchCategory"
+                app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/profile_preferences_deviceGPS"
+                android:summary="@string/array_pref_radioSwitch_notDetect"
+                android:key="eventRadioSwitchGPS"
+                android:defaultValue="0"
+                android:entries="@array/eventRadioSwitchArray"
+                android:entryValues="@array/eventRadioSwitchValues"
+                android:dependency="eventRadioSwitchCategory"
+                app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/profile_preferences_deviceNFC"
+                android:summary="@string/array_pref_radioSwitch_notDetect"
+                android:key="eventRadioSwitchNFC"
+                android:defaultValue="0"
+                android:entries="@array/eventRadioSwitchArray"
+                android:entryValues="@array/eventRadioSwitchValues"
+                android:dependency="eventRadioSwitchCategory"
+                app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/profile_preferences_deviceAirplaneMode"
+                android:summary="@string/array_pref_radioSwitch_notDetect"
+                android:key="eventRadioSwitchAirplaneMode"
+                android:defaultValue="0"
+                android:entries="@array/eventRadioSwitchArray"
+                android:entryValues="@array/eventRadioSwitchValues"
+                android:dependency="eventRadioSwitchCategory"
+                app:useStockLayout="true" />
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
+                android:key="eventRadioSwitchDuration"
+                android:summary="@string/event_preferences_duration"
+                android:title="@string/event_preferences_duration"
+                android:defaultValue="5"
+                henrichg:dMin="5"
+                henrichg:dMax="86400"
+                android:dependency="eventRadioSwitchEnabled" />
+        </PreferenceScreen>
+        <PreferenceScreen
             android:key="eventLocationCategory"
             android:title="@string/event_preferences_category_eventLocationsParameters"
             android:summary="@string/event_preference_sensor_location_summary"
