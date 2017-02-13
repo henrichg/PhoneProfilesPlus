@@ -744,6 +744,21 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+        <receiver android:name=".AirplaneModeStateChangedBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".GPSStateChangedBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.location.PROVIDERS_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".MobileDataStateChangedBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
 
         <service
             android:name=".ProfileListWidgetService"

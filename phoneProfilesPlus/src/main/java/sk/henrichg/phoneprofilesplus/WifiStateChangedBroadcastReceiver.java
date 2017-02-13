@@ -62,6 +62,12 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                             (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
                         // required for Wifi ConnectionType="Not connected"
 
+                        //if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED)) {
+                            Intent broadcastIntent = new Intent(context, RadioSwitchBroadcastReceiver.class);
+                            broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, EventPreferencesRadioSwitch.RADIO_TYPE_WIFI);
+                            broadcastIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, wifiState == WifiManager.WIFI_STATE_ENABLED);
+                            context.sendBroadcast(broadcastIntent);
+                        //}
 
 
                         /*boolean wifiEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED) > 0;

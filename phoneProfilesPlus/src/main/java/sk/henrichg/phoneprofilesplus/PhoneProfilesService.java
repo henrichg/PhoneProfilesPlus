@@ -16,6 +16,7 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -43,8 +44,10 @@ public class PhoneProfilesService extends Service
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
+    private final NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
 
     private static SettingsContentObserver settingsContentObserver = null;
+    private static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
 
     //-----------------------
 
@@ -100,13 +103,12 @@ public class PhoneProfilesService extends Service
     //public static SipManager mSipManager = null;
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         super.onCreate();
 
-        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT="+android.os.Build.VERSION.SDK_INT);
+        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT=" + android.os.Build.VERSION.SDK_INT);
 
         instance = this;
 
@@ -130,7 +132,7 @@ public class PhoneProfilesService extends Service
         getApplicationContext().registerReceiver(batteryEventReceiver, intentFilter1);
 
         IntentFilter intentFilter2 = new IntentFilter();
-        for (String action: HeadsetConnectionBroadcastReceiver.HEADPHONE_ACTIONS) {
+        for (String action : HeadsetConnectionBroadcastReceiver.HEADPHONE_ACTIONS) {
             intentFilter2.addAction(action);
         }
         getApplicationContext().registerReceiver(headsetPlugReceiver, intentFilter2);
@@ -224,6 +226,17 @@ public class PhoneProfilesService extends Service
         }
         */
 
+
+        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
+            IntentFilter intentFilter20 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
+            this.registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter20);
+        }
+
+        if (mobileDataStateChangedContentObserver != null)
+            getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
+        mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(this, new Handler());
+        getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
+
         //// this not starts for boot, because PPApplication.getApplicationStarted() == false,
         //// but it starts from EventsService
         startGeofenceScanner();
@@ -259,8 +272,15 @@ public class PhoneProfilesService extends Service
         //SMSBroadcastReceiver.unregisterSMSContentObserver(this);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(this);
 
+
+        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
+            getApplicationContext().unregisterReceiver(nfcStateChangedBroadcastReceiver);
+
         if (settingsContentObserver != null)
             getContentResolver().unregisterContentObserver(settingsContentObserver);
+
+        if (mobileDataStateChangedContentObserver != null)
+            getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
 
         stopGeofenceScanner();
         stopOrientationScanner();

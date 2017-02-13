@@ -54,7 +54,7 @@ public class PPApplication extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -64,7 +64,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
+                                         +"|RadioSwitchBroadcastReceiver"
 
                                          //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
@@ -109,6 +109,7 @@ public class PPApplication extends Application {
     static final String EXTRA_ONLY_START = "only_start";
     static final String EXTRA_EVENT_RADIO_SWITCH_DATE = "event_radio_switch_date";
     static final String EXTRA_EVENT_RADIO_SWITCH_TYPE = "event_radio_switch_type";
+    static final String EXTRA_EVENT_RADIO_SWITCH_STATE = "event_radio_switch_state";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;

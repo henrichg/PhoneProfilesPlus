@@ -229,6 +229,7 @@ public class EventsService extends IntentService
                             PPApplication.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
                             _event._eventPreferencesRadioSwitch.saveStartTime(dataWrapper,
                                     intent.getIntExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, 0),
+                                    intent.getBooleanExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, false),
                                     intent.getLongExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_DATE, 0));
                         }
                     }

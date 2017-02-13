@@ -424,7 +424,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         }
     }
 
-    void saveStartTime(DataWrapper dataWrapper, int radioType, long startTime) {
+    void saveStartTime(DataWrapper dataWrapper, int radioType, boolean radioState, long startTime) {
 
         boolean radioConfigured = false;
 

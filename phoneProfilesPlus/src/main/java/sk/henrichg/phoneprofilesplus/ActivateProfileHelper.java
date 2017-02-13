@@ -1955,7 +1955,7 @@ public class ActivateProfileHelper {
         }
     }
     */
-    private boolean isMobileData(Context context)
+    static boolean isMobileData(Context context)
     {
         if (android.os.Build.VERSION.SDK_INT < 21)
         {
