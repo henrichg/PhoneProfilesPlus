@@ -426,36 +426,60 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
     void saveStartTime(DataWrapper dataWrapper, int radioType, boolean radioState, long startTime) {
 
-        boolean radioConfigured = false;
+        boolean radioFound = false;
 
         switch (radioType) {
             case RADIO_TYPE_WIFI:
-                if (this._wifi != 0)
-                    radioConfigured = true;
+                if ((this._wifi == 1) && radioState)
+                    radioFound = true;
+                if ((this._wifi == 2) && (!radioState))
+                    radioFound = true;
+                if (this._wifi == 3)
+                    radioFound = true;
                 break;
             case RADIO_TYPE_BLUETOOTH:
-                if (this._bluetooth != 0)
-                    radioConfigured = true;
+                if ((this._bluetooth == 1) && radioState)
+                    radioFound = true;
+                if ((this._bluetooth == 2) && (!radioState))
+                    radioFound = true;
+                if (this._bluetooth == 3)
+                    radioFound = true;
                 break;
             case RADIO_TYPE_MOBILE_DATA:
-                if (this._mobileData != 0)
-                    radioConfigured = true;
+                if ((this._mobileData == 1) && radioState)
+                    radioFound = true;
+                if ((this._mobileData == 2) && (!radioState))
+                    radioFound = true;
+                if (this._mobileData == 3)
+                    radioFound = true;
                 break;
             case RADIO_TYPE_GPS:
-                if (this._gps != 0)
-                    radioConfigured = true;
+                if ((this._gps == 1) && radioState)
+                    radioFound = true;
+                if ((this._gps == 2) && (!radioState))
+                    radioFound = true;
+                if (this._gps == 3)
+                    radioFound = true;
                 break;
             case RADIO_TYPE_NFC:
-                if (this._nfc != 0)
-                    radioConfigured = true;
+                if ((this._nfc == 1) && radioState)
+                    radioFound = true;
+                if ((this._nfc == 2) && (!radioState))
+                    radioFound = true;
+                if (this._nfc == 3)
+                    radioFound = true;
                 break;
             case RADIO_TYPE_AIRPLANE_MODE:
-                if (this._airplaneMode != 0)
-                    radioConfigured = true;
+                if ((this._airplaneMode == 1) && radioState)
+                    radioFound = true;
+                if ((this._airplaneMode == 2) && (!radioState))
+                    radioFound = true;
+                if (this._airplaneMode == 3)
+                    radioFound = true;
                 break;
         }
 
-        if (radioConfigured)
+        if (radioFound)
             this._startTime = startTime;
         else
             this._startTime = 0;
