@@ -954,9 +954,9 @@
     <string name="lockDevice_screenOff_text">Quick screen off lock</string>
     <string name="event_preferences_calendar_start_before_event">Start before the event</string>
     <string name="event_preferences_startBeforeEvent">Start before the event (sec.)</string>
-    <string name="event_preferences_category_eventRadioSwitchParameters">Radio switch parameter</string>
+    <string name="event_preferences_category_eventRadioSwitchParameters">Radios parameters</string>
     <string name="event_preference_sensor_radioSwitch_summary">This sensor is for start of event by switch any radios on/off. Parameters: Wi-fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode, Duration (event running duration).</string>
-    <string name="event_type_radioSwitch">Radio switch</string>
+    <string name="event_type_radioSwitch">Radios</string>
     <string name="array_pref_radioSwitch_notDetect">Not detect</string>
     <string name="array_pref_radioSwitch_on">On</string>
     <string name="array_pref_radioSwitch_off">Off</string>
