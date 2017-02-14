@@ -1903,7 +1903,7 @@ public class ActivateProfileHelper {
 
     }
 
-    private boolean isAirplaneMode(Context context)
+    static boolean isAirplaneMode(Context context)
     {
         if (android.os.Build.VERSION.SDK_INT >= 17)
             return Settings.Global.getInt(context.getContentResolver(), Global.AIRPLANE_MODE_ON, 0) != 0;

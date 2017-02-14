@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.os.Handler;
@@ -40,12 +41,14 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
         PPApplication.logE("##### MobileDataStateChangedContentObserver", "onChange");
 
-        boolean actualState = ActivateProfileHelper.isMobileData(context);
-        if (previousState != actualState) {
-            Intent broadcastIntent = new Intent(context, MobileDataStateChangedBroadcastReceiver.class);
-            broadcastIntent.putExtra(MobileDataStateChangedBroadcastReceiver.EXTRA_STATE, actualState);
-            context.sendBroadcast(broadcastIntent);
-            previousState = actualState;
+        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
+            boolean actualState = ActivateProfileHelper.isMobileData(context);
+            if (previousState != actualState) {
+                Intent broadcastIntent = new Intent(context, MobileDataStateChangedBroadcastReceiver.class);
+                broadcastIntent.putExtra(MobileDataStateChangedBroadcastReceiver.EXTRA_STATE, actualState);
+                context.sendBroadcast(broadcastIntent);
+                previousState = actualState;
+            }
         }
     }
 

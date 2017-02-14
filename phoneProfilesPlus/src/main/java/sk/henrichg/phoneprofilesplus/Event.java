@@ -296,7 +296,7 @@ class Event {
 
     private void createEventPreferencesRadioSwitch()
     {
-        this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0, true, 5);
+        this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0);
     }
 
     void createEventPreferences()

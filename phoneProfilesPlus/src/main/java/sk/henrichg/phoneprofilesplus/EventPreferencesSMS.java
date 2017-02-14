@@ -427,11 +427,15 @@ class EventPreferencesSMS extends EventPreferences {
             if (phoneNumberFound)
                 this._startTime = startTime;
             else
+            if (this._permanentRun)
                 this._startTime = 0;
 
             dataWrapper.getDatabaseHandler().updateSMSStartTime(_event);
-            if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                setSystemEventForPause(dataWrapper.context);
+
+            if (phoneNumberFound) {
+                if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                    setSystemEventForPause(dataWrapper.context);
+            }
         }
     }
 

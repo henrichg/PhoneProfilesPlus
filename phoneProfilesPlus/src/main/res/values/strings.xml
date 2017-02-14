@@ -955,10 +955,15 @@
     <string name="event_preferences_calendar_start_before_event">Start before the event</string>
     <string name="event_preferences_startBeforeEvent">Start before the event (sec.)</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Radios parameters</string>
-    <string name="event_preference_sensor_radioSwitch_summary">This sensor is for start of event by switching radios (on/off). Parameters: Wi-fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode, Permanent run, Duration (event running duration).</string>
+    <string name="event_preference_sensor_radioSwitch_summary">This sensor is for start of event by switching radios (on/off). Parameters: Wi-fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
     <string name="event_type_radioSwitch">Radios</string>
     <string name="array_pref_radioSwitch_notDetect">Not detect</string>
     <string name="array_pref_radioSwitch_on">On</string>
     <string name="array_pref_radioSwitch_off">Off</string>
-    <string name="array_pref_radioSwitch_both">Both</string>
+    <string name="event_preferences_radioSwitch_wifi">Wi-Fi</string>
+    <string name="event_preferences_radioSwitch_bluetooth">Bluetooth</string>
+    <string name="event_preferences_radioSwitch_mobileData">Mobile data</string>
+    <string name="event_preferences_radioSwitch_gps">GPS</string>
+    <string name="event_preferences_radioSwitch_nfc">NFC</string>
+    <string name="event_preferences_radioSwitch_airplaneMode">Airplane mode</string>
 </resources>

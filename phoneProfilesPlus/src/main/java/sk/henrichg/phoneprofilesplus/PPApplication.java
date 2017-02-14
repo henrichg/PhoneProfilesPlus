@@ -65,6 +65,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication.isRootGranted"
 
                                          +"|RadioSwitchBroadcastReceiver"
+                                         +"|-###- DataWrapper.doEventService"
 
                                          //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
@@ -107,7 +108,6 @@ public class PPApplication extends Application {
     static final String EXTRA_EVENT_NFC_TAG_NAME = "event_nfc_tag_name";
     static final String EXTRA_START_ON_BOOT = "start_on_boot";
     static final String EXTRA_ONLY_START = "only_start";
-    static final String EXTRA_EVENT_RADIO_SWITCH_DATE = "event_radio_switch_date";
     static final String EXTRA_EVENT_RADIO_SWITCH_TYPE = "event_radio_switch_type";
     static final String EXTRA_EVENT_RADIO_SWITCH_STATE = "event_radio_switch_state";
 

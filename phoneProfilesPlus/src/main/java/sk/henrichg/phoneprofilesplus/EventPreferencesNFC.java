@@ -355,11 +355,15 @@ class EventPreferencesNFC extends EventPreferences {
         if (tagFound)
             this._startTime = startTime;
         else
+        if (this._permanentRun)
             this._startTime = 0;
 
         dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
-        if (_event.getStatus() == Event.ESTATUS_RUNNING)
-            setSystemEventForPause(dataWrapper.context);
+
+        if (tagFound) {
+            if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                setSystemEventForPause(dataWrapper.context);
+        }
     }
 
 }

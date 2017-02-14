@@ -12,12 +12,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.LocationManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.nfc.NfcAdapter;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
@@ -774,8 +777,6 @@ public class DataWrapper {
                 getDatabaseHandler().updateNotificationStartTime(event);
                 event._eventPreferencesNFC._startTime = 0;
                 getDatabaseHandler().updateNFCStartTime(event);
-                event._eventPreferencesRadioSwitch._startTime = 0;
-                getDatabaseHandler().updateRadioSwitchStartTime(event);
             }
         }
 
@@ -2564,23 +2565,23 @@ public class DataWrapper {
         {
             // compute start time
 
-            if (event._eventPreferencesRadioSwitch._startTime > 0) {
+            /*if (event._eventPreferencesRadioSwitch._startTime > 0) {
                 int gmtOffset = TimeZone.getDefault().getRawOffset();
                 long startTime = event._eventPreferencesRadioSwitch._startTime - gmtOffset;
 
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                 String alarmTimeS = sdf.format(startTime);
-                PPApplication.logE("DataWrapper.doEventService", "startTime=" + alarmTimeS);
+                PPApplication.logE("-###- DataWrapper.doEventService", "startTime=" + alarmTimeS);
 
                 // compute end datetime
                 long endAlarmTime = event._eventPreferencesRadioSwitch.computeAlarm();
                 alarmTimeS = sdf.format(endAlarmTime);
-                PPApplication.logE("DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
+                PPApplication.logE("-###- DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
                 alarmTimeS = sdf.format(nowAlarmTime);
-                PPApplication.logE("DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
+                PPApplication.logE("-###- DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
 
                 if (broadcastType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
                     radioSwitchPassed = true;
@@ -2600,6 +2601,116 @@ public class DataWrapper {
                 event._eventPreferencesRadioSwitch._startTime = 0;
                 getDatabaseHandler().updateRadioSwitchStartTime(event);
             }
+            */
+
+            radioSwitchPassed = false;
+
+            if ((event._eventPreferencesRadioSwitch._wifi == 1 || event._eventPreferencesRadioSwitch._wifi == 2)
+                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
+
+                if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                        (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                        (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
+                    // ignore for wifi scanning
+
+                    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                    int wifiState = wifiManager.getWifiState();
+                    boolean enabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                    PPApplication.logE("-###- DataWrapper.doEventService", "wifiState=" + enabled);
+                    if (event._eventPreferencesRadioSwitch._wifi == 1)
+                        radioSwitchPassed = radioSwitchPassed || enabled;
+                    else
+                        radioSwitchPassed = radioSwitchPassed || !enabled;
+                }
+                else
+                    ignoreChange = true;
+            }
+
+            if ((event._eventPreferencesRadioSwitch._bluetooth == 1 || event._eventPreferencesRadioSwitch._bluetooth == 2)
+                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)) {
+
+                if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                        (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
+                        (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                        (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context)) ||
+                        (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)))) {
+                    // ignore for bluetooth scanning
+
+
+                    BluetoothAdapter bluetoothAdapter = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
+                    if (bluetoothAdapter != null) {
+                        boolean enabled = bluetoothAdapter.isEnabled();
+                        PPApplication.logE("-###- DataWrapper.doEventService", "bluetoothState=" + enabled);
+                        if (event._eventPreferencesRadioSwitch._bluetooth == 1)
+                            radioSwitchPassed = radioSwitchPassed || enabled;
+                        else
+                            radioSwitchPassed = radioSwitchPassed || !enabled;
+                    }
+                }
+                else
+                    ignoreChange = true;
+            }
+
+            if ((event._eventPreferencesRadioSwitch._mobileData == 1 || event._eventPreferencesRadioSwitch._mobileData == 2)
+                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
+
+                ignoreChange = false;
+
+                boolean enabled = ActivateProfileHelper.isMobileData(context);
+                PPApplication.logE("-###- DataWrapper.doEventService", "mobileDataState=" + enabled);
+                if (event._eventPreferencesRadioSwitch._mobileData == 1)
+                    radioSwitchPassed = radioSwitchPassed || enabled;
+                else
+                    radioSwitchPassed = radioSwitchPassed || !enabled;
+            }
+
+            if ((event._eventPreferencesRadioSwitch._gps == 1 || event._eventPreferencesRadioSwitch._gps == 2)
+                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
+
+                ignoreChange = false;
+
+                boolean enabled;
+                if (android.os.Build.VERSION.SDK_INT < 21)
+                    enabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
+                else {
+                    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                    enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                }
+                PPApplication.logE("-###- DataWrapper.doEventService", "gpsState=" + enabled);
+                if (event._eventPreferencesRadioSwitch._gps == 1)
+                    radioSwitchPassed = radioSwitchPassed || enabled;
+                else
+                    radioSwitchPassed = radioSwitchPassed || !enabled;
+            }
+
+            if ((event._eventPreferencesRadioSwitch._nfc == 1 || event._eventPreferencesRadioSwitch._nfc == 2)
+                    && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
+
+                ignoreChange = false;
+
+                NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
+                if (nfcAdapter != null) {
+                    boolean enabled = nfcAdapter.isEnabled();
+                    PPApplication.logE("-###- DataWrapper.doEventService", "nfcState=" + enabled);
+                    if (event._eventPreferencesRadioSwitch._nfc == 1)
+                        radioSwitchPassed = radioSwitchPassed || enabled;
+                    else
+                        radioSwitchPassed = radioSwitchPassed || !enabled;
+                }
+            }
+
+            if (event._eventPreferencesRadioSwitch._airplaneMode == 1 || event._eventPreferencesRadioSwitch._airplaneMode == 2) {
+
+                ignoreChange = false;
+
+                boolean enabled = ActivateProfileHelper.isAirplaneMode(context);
+                PPApplication.logE("-###- DataWrapper.doEventService", "airplanModeState=" + enabled);
+                if (event._eventPreferencesRadioSwitch._airplaneMode == 1)
+                    radioSwitchPassed = radioSwitchPassed || enabled;
+                else
+                    radioSwitchPassed = radioSwitchPassed || !enabled;
+            }
+
         }
 
         PPApplication.logE("DataWrapper.doEventService","ignoreChange="+ignoreChange);

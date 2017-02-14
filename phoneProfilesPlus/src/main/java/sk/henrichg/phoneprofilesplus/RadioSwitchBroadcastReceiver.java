@@ -27,14 +27,10 @@ public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
         PPApplication.logE("  RadioSwitchBroadcastReceiver.onReceive", "radioSwitchType="+radioSwitchType);
         PPApplication.logE("  RadioSwitchBroadcastReceiver.onReceive", "radioSwitchState="+radioSwitchState);
 
-        Calendar now = Calendar.getInstance();
-        int gmtOffset = TimeZone.getDefault().getRawOffset();
-        long time = now.getTimeInMillis() + gmtOffset;
-
-        startService(context, radioSwitchType, radioSwitchState, time);
+        startService(context, radioSwitchType, radioSwitchState);
     }
 
-    private static void startService(Context context, int radioSwitchType, boolean radioSwitchState, long time)
+    private static void startService(Context context, int radioSwitchType, boolean radioSwitchState)
     {
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
@@ -60,7 +56,6 @@ public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
                 eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
                 eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, radioSwitchType);
                 eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, radioSwitchState);
-                eventsServiceIntent.putExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_DATE, time);
                 startWakefulService(context, eventsServiceIntent);
             //}
         }

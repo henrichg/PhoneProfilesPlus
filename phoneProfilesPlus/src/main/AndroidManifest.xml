@@ -739,11 +739,6 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
-        <receiver
-            android:name=".RadioSwitchEventEndBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
         <receiver android:name=".AirplaneModeStateChangedBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE"/>

@@ -354,7 +354,7 @@
                 android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/profile_preferences_deviceWiFi"
+                android:title="@string/event_preferences_radioSwitch_wifi"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
                 android:key="eventRadioSwitchWifi"
                 android:defaultValue="0"
@@ -363,7 +363,7 @@
                 android:dependency="eventRadioSwitchEnabled"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/profile_preferences_deviceBluetooth"
+                android:title="@string/event_preferences_radioSwitch_bluetooth"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
                 android:key="eventRadioSwitchBluetooth"
                 android:defaultValue="0"
@@ -372,7 +372,7 @@
                 android:dependency="eventRadioSwitchEnabled"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/profile_preferences_deviceMobileData"
+                android:title="@string/event_preferences_radioSwitch_mobileData"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
                 android:key="eventRadioSwitchMobileData"
                 android:defaultValue="0"
@@ -381,7 +381,7 @@
                 android:dependency="eventRadioSwitchEnabled"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/profile_preferences_deviceGPS"
+                android:title="@string/event_preferences_radioSwitch_gps"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
                 android:key="eventRadioSwitchGPS"
                 android:defaultValue="0"
@@ -390,7 +390,7 @@
                 android:dependency="eventRadioSwitchEnabled"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/profile_preferences_deviceNFC"
+                android:title="@string/event_preferences_radioSwitch_nfc"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
                 android:key="eventRadioSwitchNFC"
                 android:defaultValue="0"
@@ -399,7 +399,7 @@
                 android:dependency="eventRadioSwitchEnabled"
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/profile_preferences_deviceAirplaneMode"
+                android:title="@string/event_preferences_radioSwitch_airplaneMode"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
                 android:key="eventRadioSwitchAirplaneMode"
                 android:defaultValue="0"

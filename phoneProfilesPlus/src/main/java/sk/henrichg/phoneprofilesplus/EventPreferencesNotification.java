@@ -422,12 +422,15 @@ class EventPreferencesNotification extends EventPreferences {
                 }
             }
 
-            if (!notificationFound)
+            if ((!notificationFound) && this._permanentRun)
                 _startTime = 0;
 
             dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
-            if (_event.getStatus() == Event.ESTATUS_RUNNING)
-                setSystemEventForPause(dataWrapper.context);
+
+            if (notificationFound) {
+                if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                    setSystemEventForPause(dataWrapper.context);
+            }
         }
         else {
             this._startTime = 0;

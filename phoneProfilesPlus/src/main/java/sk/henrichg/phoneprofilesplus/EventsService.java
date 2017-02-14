@@ -167,8 +167,6 @@ public class EventsService extends IntentService
                 dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
                 _event._eventPreferencesNFC._startTime = 0;
                 dataWrapper.getDatabaseHandler().updateNFCStartTime(_event);
-                _event._eventPreferencesRadioSwitch._startTime = 0;
-                dataWrapper.getDatabaseHandler().updateRadioSwitchStartTime(_event);
             }
         }
         else {
@@ -216,21 +214,6 @@ public class EventsService extends IntentService
                             _event._eventPreferencesNFC.saveStartTime(dataWrapper,
                                     intent.getStringExtra(PPApplication.EXTRA_EVENT_NFC_TAG_NAME),
                                     intent.getLongExtra(PPApplication.EXTRA_EVENT_NFC_DATE, 0));
-                        }
-                    }
-                }
-            }
-            if (broadcastReceiverType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) {
-                // search for nfc events, save start time
-                PPApplication.logE("EventsService.onHandleIntent", "search for radio switch events");
-                for (Event _event : eventList) {
-                    if (_event.getStatus() != Event.ESTATUS_STOP) {
-                        if (_event._eventPreferencesRadioSwitch._enabled) {
-                            PPApplication.logE("EventsService.onHandleIntent", "event._id=" + _event._id);
-                            _event._eventPreferencesRadioSwitch.saveStartTime(dataWrapper,
-                                    intent.getIntExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_TYPE, 0),
-                                    intent.getBooleanExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_STATE, false),
-                                    intent.getLongExtra(PPApplication.EXTRA_EVENT_RADIO_SWITCH_DATE, 0));
                         }
                     }
                 }
@@ -544,9 +527,6 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
             eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
-        else
-        if (broadcastReceiverType.equals(RadioSwitchEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-            eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
 
         if (eventType > 0)
             return dataWrapper.getDatabaseHandler().getTypeEventsCount(eventType) > 0;
@@ -719,9 +699,6 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //SMS
             RadioSwitchBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(RadioSwitchEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //SMSAlarm
-            RadioSwitchEventEndBroadcastReceiver.completeWakefulIntent(intent);
 
         // this broadcast not starts service with wakefull method
         //if (broadcastReceiverType.equals(PhoneCallBroadcastReceiver.BROADCAST_RECEIVER_TYPE))

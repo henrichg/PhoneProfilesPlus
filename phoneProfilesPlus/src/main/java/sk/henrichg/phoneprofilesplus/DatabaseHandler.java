@@ -247,9 +247,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_GPS = "radioSwitchGPS";
     private static final String KEY_E_RADIO_SWITCH_NFC = "radioSwitchNFC";
     private static final String KEY_E_RADIO_SWITCH_AIRPLANE_MODE = "radioSwitchAirplaneMode";
-    private static final String KEY_E_RADIO_SWITCH_START_TIME = "radioSwitchStartTime";
-    private static final String KEY_E_RADIO_SWITCH_DURATION = "radioSwitchDuration";
-    private static final String KEY_E_RADIO_SWITCH_PERMANENT_RUN = "radioSwitchPermanentRun";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -518,10 +515,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_RADIO_SWITCH_MOBILE_DATA + " INTEGER,"
                 + KEY_E_RADIO_SWITCH_GPS + " INTEGER,"
                 + KEY_E_RADIO_SWITCH_NFC + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_DURATION + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_START_TIME + " INTEGER,"
-                + KEY_E_RADIO_SWITCH_PERMANENT_RUN + " INTEGER"
+                + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1973,8 +1967,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_GPS + " INTEGER");
             db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_NFC + " INTEGER");
             db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_DURATION + " INTEGER");
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_START_TIME + " INTEGER");
 
             // updatneme zaznamy
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_ENABLED + "=0");
@@ -1984,17 +1976,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_GPS + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_NFC + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DURATION + "=5");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_START_TIME + "=0");
         }
 
         if (oldVersion < 1850)
         {
-            // pridame nove stlpce
-            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_RADIO_SWITCH_PERMANENT_RUN + " INTEGER");
-
-            // updatneme zaznamy
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_PERMANENT_RUN + "=1");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -3789,10 +3774,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_RADIO_SWITCH_MOBILE_DATA,
                         KEY_E_RADIO_SWITCH_GPS,
                         KEY_E_RADIO_SWITCH_NFC,
-                        KEY_E_RADIO_SWITCH_AIRPLANE_MODE,
-                        KEY_E_RADIO_SWITCH_DURATION,
-                        KEY_E_RADIO_SWITCH_START_TIME,
-                        KEY_E_RADIO_SWITCH_PERMANENT_RUN
+                        KEY_E_RADIO_SWITCH_AIRPLANE_MODE
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -3811,9 +3793,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._gps = Integer.parseInt(cursor.getString(4));
                 eventPreferences._nfc = Integer.parseInt(cursor.getString(5));
                 eventPreferences._airplaneMode = Integer.parseInt(cursor.getString(6));
-                eventPreferences._duration = cursor.getInt(7);
-                eventPreferences._startTime = Long.parseLong(cursor.getString(8));
-                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(9)) == 1);
             }
             cursor.close();
         }
@@ -4124,9 +4103,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_RADIO_SWITCH_GPS, eventPreferences._gps);
         values.put(KEY_E_RADIO_SWITCH_NFC, eventPreferences._nfc);
         values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, eventPreferences._airplaneMode);
-        values.put(KEY_E_RADIO_SWITCH_DURATION, eventPreferences._duration);
-        values.put(KEY_E_RADIO_SWITCH_START_TIME, eventPreferences._startTime);
-        values.put(KEY_E_RADIO_SWITCH_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
 
         // updating row
         return db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4922,66 +4898,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (cursor.getCount() > 0)
             {
                 event._eventPreferencesNFC._startTime = Long.parseLong(cursor.getString(0));
-            }
-
-            cursor.close();
-        }
-
-        //db.close();
-
-    }
-
-    int updateRadioSwitchStartTime(Event event)
-    {
-        //SQLiteDatabase db = this.getWritableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_E_RADIO_SWITCH_START_TIME, event._eventPreferencesRadioSwitch._startTime);
-
-        int r = 0;
-
-        db.beginTransaction();
-
-        try {
-            // updating row
-            r = db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
-                    new String[] { String.valueOf(event._id) });
-
-            db.setTransactionSuccessful();
-
-        } catch (Exception e){
-            //Error in between database transaction
-            Log.e("DatabaseHandler.updateRadioSwitchStartTime", e.toString());
-            r = 0;
-        } finally {
-            db.endTransaction();
-        }
-
-        //db.close();
-
-        return r;
-
-    }
-
-    void getRadioSwitchStartTime(Event event)
-    {
-        //SQLiteDatabase db = this.getReadableDatabase();
-        SQLiteDatabase db = getMyWritableDatabase();
-
-        Cursor cursor = db.query(TABLE_EVENTS,
-                new String[] {
-                        KEY_E_RADIO_SWITCH_START_TIME
-                },
-                KEY_E_ID + "=?",
-                new String[] { String.valueOf(event._id) }, null, null, null, null);
-        if (cursor != null)
-        {
-            cursor.moveToFirst();
-
-            if (cursor.getCount() > 0)
-            {
-                event._eventPreferencesRadioSwitch._startTime = Long.parseLong(cursor.getString(0));
             }
 
             cursor.close();
@@ -7202,12 +7118,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     values.put(KEY_E_RADIO_SWITCH_GPS, 0);
                                     values.put(KEY_E_RADIO_SWITCH_NFC, 0);
                                     values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, 0);
-                                    values.put(KEY_E_RADIO_SWITCH_DURATION, 5);
-                                    values.put(KEY_E_RADIO_SWITCH_START_TIME, 0);
                                 }
 
                                 if (exportedDBObj.getVersion() < 1850) {
-                                    values.put(KEY_E_RADIO_SWITCH_PERMANENT_RUN, 1);
                                 }
 
                                 // Inserting Row do db z SQLiteOpenHelper
