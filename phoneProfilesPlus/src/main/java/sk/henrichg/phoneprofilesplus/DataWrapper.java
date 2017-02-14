@@ -1529,7 +1529,22 @@ public class DataWrapper {
 
         int newEventStatus;// = Event.ESTATUS_NONE;
 
-        boolean ignoreChange = false;
+        boolean ignoreTime = true;
+        boolean ignoreBattery = true;
+        boolean ignoreCall = true;
+        boolean ignorePeripheral = true;
+        boolean ignoreCalendar = true;
+        boolean ignoreWifi = true;
+        boolean ignoreScreen = true;
+        boolean ignoreBluetooth = true;
+        boolean ignoreSms = true;
+        boolean ignoreNotification = true;
+        boolean ignoreApplication = true;
+        boolean ignoreLocation = true;
+        boolean ignoreOrientation = true;
+        boolean ignoreMobileCell = true;
+        boolean ignoreNfc = true;
+        boolean ignoreRadioSwitch = true;
 
         boolean timePassed = true;
         boolean batteryPassed = true;
@@ -1556,6 +1571,8 @@ public class DataWrapper {
         if (event._eventPreferencesTime._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
+            ignoreTime = false;
+
             // compute start datetime
             long startAlarmTime;
             long endAlarmTime;
@@ -1592,6 +1609,8 @@ public class DataWrapper {
         if (event._eventPreferencesBattery._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
+            ignoreBattery = false;
+
             boolean isCharging;
             int batteryPct;
 
@@ -1644,6 +1663,8 @@ public class DataWrapper {
                 Permissions.checkEventCallContacts(context, event) &&
                 Permissions.checkEventPhoneBroadcast(context, event))
         {
+            ignoreCall = false;
+
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             int callEventType = preferences.getInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
             String phoneNumber = preferences.getString(PPApplication.PREF_EVENT_CALL_PHONE_NUMBER, "");
@@ -1779,6 +1800,8 @@ public class DataWrapper {
         if (event._eventPreferencesPeripherals._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
+            ignorePeripheral = false;
+
             if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_DESK_DOCK) ||
                 (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK))
             {
@@ -1846,6 +1869,8 @@ public class DataWrapper {
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) &&
                 (Permissions.checkEventCalendar(context, event)))
         {
+            ignoreCalendar = false;
+
             // compute start datetime
             long startAlarmTime;
             long endAlarmTime;
@@ -1886,6 +1911,8 @@ public class DataWrapper {
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
+            ignoreWifi = false;
+
             PPApplication.logE("%%%% DataWrapper.doEventService","-- eventSSID="+event._eventPreferencesWifi._SSID);
 
             wifiPassed = false;
@@ -2060,6 +2087,8 @@ public class DataWrapper {
         if (event._eventPreferencesScreen._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
+            ignoreScreen = false;
+
             boolean isScreenOn;
             //if (android.os.Build.VERSION.SDK_INT >= 20)
             //{
@@ -2104,6 +2133,8 @@ public class DataWrapper {
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
+            ignoreBluetooth = false;
+
             bluetoothPassed = false;
 
             List<BluetoothDeviceData> boundedDevicesList = BluetoothScanAlarmBroadcastReceiver.getBoundedDevicesList(context);
@@ -2257,6 +2288,8 @@ public class DataWrapper {
                 && Permissions.checkEventSMSContacts(context, event) &&
                 Permissions.checkEventSMSBroadcast(context, event))
         {
+            ignoreSms = false;
+
             // compute start time
 
             if (event._eventPreferencesSMS._startTime > 0) {
@@ -2301,6 +2334,8 @@ public class DataWrapper {
         if (event._eventPreferencesNotification._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
+            ignoreNotification = false;
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 if (!event._eventPreferencesNotification._endWhenRemoved) {
 
@@ -2344,11 +2379,15 @@ public class DataWrapper {
                     getDatabaseHandler().updateNotificationStartTime(event);
                 }
             }
+            else
+                ignoreNotification = true;
         }
 
         if (event._eventPreferencesApplication._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
+            ignoreApplication = false;
+
             applicationPassed = false;
 
             String foregroundApplication = PPApplication.getApplicationInForeground(context);
@@ -2370,6 +2409,8 @@ public class DataWrapper {
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
+            ignoreLocation = false;
+
             locationPassed = false;
 
             String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
@@ -2395,6 +2436,8 @@ public class DataWrapper {
         if (event._eventPreferencesOrientation._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
+            ignoreOrientation = false;
+
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
             int callEventType = preferences.getInt(PPApplication.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallService.CALL_EVENT_UNDEFINED);
 
@@ -2403,7 +2446,7 @@ public class DataWrapper {
                 (callEventType != PhoneCallService.CALL_EVENT_INCOMING_CALL_ENDED) &&
                 (callEventType != PhoneCallService.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                 // ignore changes during call
-                ignoreChange = true;
+                ignoreOrientation = true;
             }
             else
             {
@@ -2489,7 +2532,7 @@ public class DataWrapper {
                         orientationPassed = lDisplayPassed && lSidePassed && lDistancePassed;
                     }
                     else {
-                        ignoreChange = true;
+                        ignoreOrientation = true;
                     }
                 }
             }
@@ -2499,6 +2542,8 @@ public class DataWrapper {
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event))
         {
+            ignoreMobileCell = false;
+
             if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateStarted()) {
 
                 String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
@@ -2515,11 +2560,15 @@ public class DataWrapper {
                 if (event._eventPreferencesMobileCells._whenOutside)
                     mobileCellPassed = !mobileCellPassed;
             }
+            else
+                ignoreMobileCell = true;
         }
 
         if (event._eventPreferencesNFC._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
+            ignoreNfc = false;
+
             // compute start time
 
             if (event._eventPreferencesNFC._startTime > 0) {
@@ -2563,47 +2612,10 @@ public class DataWrapper {
         if (event._eventPreferencesRadioSwitch._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            // compute start time
+            ignoreRadioSwitch = true;
 
-            /*if (event._eventPreferencesRadioSwitch._startTime > 0) {
-                int gmtOffset = TimeZone.getDefault().getRawOffset();
-                long startTime = event._eventPreferencesRadioSwitch._startTime - gmtOffset;
-
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String alarmTimeS = sdf.format(startTime);
-                PPApplication.logE("-###- DataWrapper.doEventService", "startTime=" + alarmTimeS);
-
-                // compute end datetime
-                long endAlarmTime = event._eventPreferencesRadioSwitch.computeAlarm();
-                alarmTimeS = sdf.format(endAlarmTime);
-                PPApplication.logE("-###- DataWrapper.doEventService", "endAlarmTime=" + alarmTimeS);
-
-                Calendar now = Calendar.getInstance();
-                long nowAlarmTime = now.getTimeInMillis();
-                alarmTimeS = sdf.format(nowAlarmTime);
-                PPApplication.logE("-###- DataWrapper.doEventService", "nowAlarmTime=" + alarmTimeS);
-
-                if (broadcastType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                    radioSwitchPassed = true;
-                else if (!event._eventPreferencesRadioSwitch._permanentRun) {
-                    if (broadcastType.equals(RadioSwitchEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE))
-                        radioSwitchPassed = false;
-                    else
-                        radioSwitchPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                }
-                else
-                    radioSwitchPassed = nowAlarmTime >= startTime;
-            }
-            else
-                radioSwitchPassed = false;
-
-            if (!radioSwitchPassed) {
-                event._eventPreferencesRadioSwitch._startTime = 0;
-                getDatabaseHandler().updateRadioSwitchStartTime(event);
-            }
-            */
-
-            radioSwitchPassed = false;
+            radioSwitchPassed = true;
+            boolean tested = false;
 
             if ((event._eventPreferencesRadioSwitch._wifi == 1 || event._eventPreferencesRadioSwitch._wifi == 2)
                     && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
@@ -2617,13 +2629,14 @@ public class DataWrapper {
                     int wifiState = wifiManager.getWifiState();
                     boolean enabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                     PPApplication.logE("-###- DataWrapper.doEventService", "wifiState=" + enabled);
+                    tested = true;
                     if (event._eventPreferencesRadioSwitch._wifi == 1)
-                        radioSwitchPassed = radioSwitchPassed || enabled;
+                        radioSwitchPassed = radioSwitchPassed && enabled;
                     else
-                        radioSwitchPassed = radioSwitchPassed || !enabled;
+                        radioSwitchPassed = radioSwitchPassed && !enabled;
                 }
                 else
-                    ignoreChange = true;
+                    ignoreRadioSwitch = true;
             }
 
             if ((event._eventPreferencesRadioSwitch._bluetooth == 1 || event._eventPreferencesRadioSwitch._bluetooth == 2)
@@ -2641,33 +2654,35 @@ public class DataWrapper {
                     if (bluetoothAdapter != null) {
                         boolean enabled = bluetoothAdapter.isEnabled();
                         PPApplication.logE("-###- DataWrapper.doEventService", "bluetoothState=" + enabled);
+                        tested = true;
                         if (event._eventPreferencesRadioSwitch._bluetooth == 1)
-                            radioSwitchPassed = radioSwitchPassed || enabled;
+                            radioSwitchPassed = radioSwitchPassed && enabled;
                         else
-                            radioSwitchPassed = radioSwitchPassed || !enabled;
+                            radioSwitchPassed = radioSwitchPassed && !enabled;
                     }
                 }
                 else
-                    ignoreChange = true;
+                    ignoreRadioSwitch = true;
             }
 
             if ((event._eventPreferencesRadioSwitch._mobileData == 1 || event._eventPreferencesRadioSwitch._mobileData == 2)
                     && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
 
-                ignoreChange = false;
+                ignoreRadioSwitch = false;
 
                 boolean enabled = ActivateProfileHelper.isMobileData(context);
                 PPApplication.logE("-###- DataWrapper.doEventService", "mobileDataState=" + enabled);
+                tested = true;
                 if (event._eventPreferencesRadioSwitch._mobileData == 1)
-                    radioSwitchPassed = radioSwitchPassed || enabled;
+                    radioSwitchPassed = radioSwitchPassed && enabled;
                 else
-                    radioSwitchPassed = radioSwitchPassed || !enabled;
+                    radioSwitchPassed = radioSwitchPassed && !enabled;
             }
 
             if ((event._eventPreferencesRadioSwitch._gps == 1 || event._eventPreferencesRadioSwitch._gps == 2)
                     && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
 
-                ignoreChange = false;
+                ignoreRadioSwitch = false;
 
                 boolean enabled;
                 if (android.os.Build.VERSION.SDK_INT < 21)
@@ -2677,43 +2692,45 @@ public class DataWrapper {
                     enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                 }
                 PPApplication.logE("-###- DataWrapper.doEventService", "gpsState=" + enabled);
+                tested = true;
                 if (event._eventPreferencesRadioSwitch._gps == 1)
-                    radioSwitchPassed = radioSwitchPassed || enabled;
+                    radioSwitchPassed = radioSwitchPassed && enabled;
                 else
-                    radioSwitchPassed = radioSwitchPassed || !enabled;
+                    radioSwitchPassed = radioSwitchPassed && !enabled;
             }
 
             if ((event._eventPreferencesRadioSwitch._nfc == 1 || event._eventPreferencesRadioSwitch._nfc == 2)
                     && context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
 
-                ignoreChange = false;
+                ignoreRadioSwitch = false;
 
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
                 if (nfcAdapter != null) {
                     boolean enabled = nfcAdapter.isEnabled();
                     PPApplication.logE("-###- DataWrapper.doEventService", "nfcState=" + enabled);
+                    tested = true;
                     if (event._eventPreferencesRadioSwitch._nfc == 1)
-                        radioSwitchPassed = radioSwitchPassed || enabled;
+                        radioSwitchPassed = radioSwitchPassed && enabled;
                     else
-                        radioSwitchPassed = radioSwitchPassed || !enabled;
+                        radioSwitchPassed = radioSwitchPassed && !enabled;
                 }
             }
 
             if (event._eventPreferencesRadioSwitch._airplaneMode == 1 || event._eventPreferencesRadioSwitch._airplaneMode == 2) {
 
-                ignoreChange = false;
+                ignoreRadioSwitch = false;
 
                 boolean enabled = ActivateProfileHelper.isAirplaneMode(context);
                 PPApplication.logE("-###- DataWrapper.doEventService", "airplanModeState=" + enabled);
+                tested = true;
                 if (event._eventPreferencesRadioSwitch._airplaneMode == 1)
-                    radioSwitchPassed = radioSwitchPassed || enabled;
+                    radioSwitchPassed = radioSwitchPassed && enabled;
                 else
-                    radioSwitchPassed = radioSwitchPassed || !enabled;
+                    radioSwitchPassed = radioSwitchPassed && !enabled;
             }
 
+            radioSwitchPassed = radioSwitchPassed && tested;
         }
-
-        PPApplication.logE("DataWrapper.doEventService","ignoreChange="+ignoreChange);
 
         PPApplication.logE("DataWrapper.doEventService","timePassed="+timePassed);
         PPApplication.logE("DataWrapper.doEventService","batteryPassed="+batteryPassed);
@@ -2732,46 +2749,78 @@ public class DataWrapper {
         PPApplication.logE("DataWrapper.doEventService","nfcPassed="+nfcPassed);
         PPApplication.logE("DataWrapper.doEventService","radioSwitchPassed="+radioSwitchPassed);
 
+        PPApplication.logE("DataWrapper.doEventService","ignoreTime="+ignoreTime);
+        PPApplication.logE("DataWrapper.doEventService","ignoreBattery="+ignoreBattery);
+        PPApplication.logE("DataWrapper.doEventService","ignoreCall="+ignoreCall);
+        PPApplication.logE("DataWrapper.doEventService","ignorePeripheral="+ignorePeripheral);
+        PPApplication.logE("DataWrapper.doEventService","ignoreCalendar="+ignoreCalendar);
+        PPApplication.logE("DataWrapper.doEventService","ignoreWifi="+ignoreWifi);
+        PPApplication.logE("DataWrapper.doEventService","ignoreScreen="+ignoreScreen);
+        PPApplication.logE("DataWrapper.doEventService","ignoreBluetooth="+ignoreBluetooth);
+        PPApplication.logE("DataWrapper.doEventService","ignoreSms="+ignoreSms);
+        PPApplication.logE("DataWrapper.doEventService","ignoreNotification="+ignoreNotification);
+        PPApplication.logE("DataWrapper.doEventService","ignoreApplication="+ignoreApplication);
+        PPApplication.logE("DataWrapper.doEventService","ignoreLocation="+ignoreLocation);
+        PPApplication.logE("DataWrapper.doEventService","ignoreOrientation="+ignoreOrientation);
+        PPApplication.logE("DataWrapper.doEventService","ignoreMobileCell="+ignoreMobileCell);
+        PPApplication.logE("DataWrapper.doEventService","ignoreNfc="+ignoreNfc);
+        PPApplication.logE("DataWrapper.doEventService","ignoreEadioSwitch="+ignoreRadioSwitch);
+
         //PPApplication.logE("DataWrapper.doEventService","eventStart="+eventStart);
         PPApplication.logE("DataWrapper.doEventService","restartEvent="+restartEvent);
         PPApplication.logE("DataWrapper.doEventService","statePause="+statePause);
 
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
-        if (timePassed &&
-            batteryPassed &&
-            callPassed &&
-            peripheralPassed &&
-            calendarPassed &&
-            wifiPassed &&
-            screenPassed &&
-            bluetoothPassed &&
-            smsPassed &&
-            notificationPassed &&
-            applicationPassed &&
-            locationPassed &&
-            orientationPassed &&
-            mobileCellPassed &&
-            nfcPassed &&
-            radioSwitchPassed)
-        {
-            // podmienky sedia, vykoname, co treba
+        if (!(ignoreTime &&
+              ignoreBattery &&
+              ignoreCall &&
+              ignorePeripheral &&
+              ignoreCalendar &&
+              ignoreWifi &&
+              ignoreScreen &&
+              ignoreBluetooth &&
+              ignoreSms &&
+              ignoreNotification &&
+              ignoreApplication &&
+              ignoreLocation &&
+              ignoreOrientation &&
+              ignoreMobileCell &&
+              ignoreNfc &&
+              ignoreRadioSwitch)) {
+            // if some sensor is not ignored, do event start/apuse
 
-            //if (eventStart)
+            if (timePassed &&
+                batteryPassed &&
+                callPassed &&
+                peripheralPassed &&
+                calendarPassed &&
+                wifiPassed &&
+                screenPassed &&
+                bluetoothPassed &&
+                smsPassed &&
+                notificationPassed &&
+                applicationPassed &&
+                locationPassed &&
+                orientationPassed &&
+                mobileCellPassed &&
+                nfcPassed &&
+                radioSwitchPassed) {
+                // podmienky sedia, vykoname, co treba
+
+                //if (eventStart)
                 newEventStatus = Event.ESTATUS_RUNNING;
-            //else
-            //    newEventStatus = Event.ESTATUS_PAUSE;
+                //else
+                //    newEventStatus = Event.ESTATUS_PAUSE;
 
-        }
-        else
-            newEventStatus = Event.ESTATUS_PAUSE;
+            } else
+                newEventStatus = Event.ESTATUS_PAUSE;
 
-        PPApplication.logE("[***] DataWrapper.doEventService","event.getStatus()="+event.getStatus());
-        PPApplication.logE("[***] DataWrapper.doEventService","newEventStatus="+newEventStatus);
+            PPApplication.logE("[***] DataWrapper.doEventService", "event.getStatus()=" + event.getStatus());
+            PPApplication.logE("[***] DataWrapper.doEventService", "newEventStatus=" + newEventStatus);
 
-        //PPApplication.logE("@@@ DataWrapper.doEventService","restartEvent="+restartEvent);
+            //PPApplication.logE("@@@ DataWrapper.doEventService","restartEvent="+restartEvent);
 
-        if (!ignoreChange) {
             if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelayStart || event._isInDelayEnd) {
                 PPApplication.logE("[***] DataWrapper.doEventService", " do new event status");
 
