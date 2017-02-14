@@ -2612,7 +2612,7 @@ public class DataWrapper {
         if (event._eventPreferencesRadioSwitch._enabled &&
                 (PPApplication.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
         {
-            ignoreRadioSwitch = true;
+            ignoreRadioSwitch = false;
 
             radioSwitchPassed = true;
             boolean tested = false;
