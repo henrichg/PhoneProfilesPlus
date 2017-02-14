@@ -966,4 +966,6 @@
     <string name="event_preferences_radioSwitch_gps">GPS</string>
     <string name="event_preferences_radioSwitch_nfc">NFC</string>
     <string name="event_preferences_radioSwitch_airplaneMode">Airplane mode</string>
+    <string name="event_preferences_radioSwitch_info_title">Sensor configuration</string>
+    <string name="event_preferences_radioSwitch_info_summary">State of all radios must by fulfilled to start event. Configure only radios which you needed.</string>
 </resources>

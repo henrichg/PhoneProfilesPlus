@@ -353,6 +353,12 @@
                 android:title="@string/event_preferences_enable_sensor"
                 android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch" />
+            <Preference
+                android:key="eventRadioSwitchConfigInfo"
+                android:title="@string/event_preferences_radioSwitch_info_title"
+                android:summary="@string/event_preferences_radioSwitch_info_summary"
+                android:dependency="eventRadioSwitchEnabled"
+                android:widgetLayout="@layout/info_preference" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_wifi"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
@@ -407,21 +413,6 @@
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
                 app:useStockLayout="true" />
-            <CheckBoxPreference
-                android:key="eventRadioSwitchPermanentRun"
-                android:title="@string/pref_event_permanentRun"
-                android:summary="@string/pref_event_permanentRun_summary"
-                android:defaultValue="true"
-                android:dependency="eventRadioSwitchEnabled"
-                android:widgetLayout="@layout/mp_preference_switch" />
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference2
-                android:key="eventRadioSwitchDuration"
-                android:summary="@string/event_preferences_duration"
-                android:title="@string/event_preferences_duration"
-                android:defaultValue="5"
-                henrichg:dMin="5"
-                henrichg:dMax="86400"
-                android:dependency="eventRadioSwitchEnabled" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventLocationCategory"
