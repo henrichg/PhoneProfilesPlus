@@ -57,7 +57,7 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                             // refresh configured networks list
                             WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
 
-                            if (!PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                            /*if (!PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                                 WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
                                 List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
                                 for (WifiConfiguration i : list) {
@@ -73,7 +73,7 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                                 WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
                                 wifiManager.disconnect();
                                 wifiManager.reconnect();
-                            }
+                            }*/
                         }
                         //}
                     }
