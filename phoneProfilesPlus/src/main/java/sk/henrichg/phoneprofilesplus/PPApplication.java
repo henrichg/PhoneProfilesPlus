@@ -200,6 +200,7 @@ public class PPApplication extends Application {
     static final String PREF_PROFILE_DEVICE_WALLPAPER_FOR = "prf_pref_deviceWallpaperFor";
     static final String PREF_PROFILE_HIDE_STATUS_BAR_ICON = "prf_pref_hideStatusBarIcon";
     static final String PREF_PROFILE_LOCK_DEVICE = "prf_pref_lockDevice";
+    static final String PREF_PROFILE_DEVICE_CONNECT_TO_SSID = "prf_pref_deviceConnectToSSID";
 
     // no preferences, bud checked from isProfilePreferenceAllowed
     static final String PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS = "prf_pref_deviceAdaptiveBrightness";
@@ -770,7 +771,8 @@ public class PPApplication extends Application {
                 x.getKey().equals(PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
                 x.getKey().equals(PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
                 x.getKey().equals(PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
-                x.getKey().equals(PREF_PROFILE_LOCK_DEVICE))
+                x.getKey().equals(PREF_PROFILE_LOCK_DEVICE) ||
+                x.getKey().equals(PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
             {
                 if      (x.getValue().getClass().equals(Boolean.class)) editorNew.putBoolean(x.getKey(), (Boolean)x.getValue());
                 else if (x.getValue().getClass().equals(Float.class))   editorNew.putFloat(x.getKey(),   (Float)x.getValue());
@@ -848,6 +850,7 @@ public class PPApplication extends Application {
         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
         profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0"));
         profile._lockDevice = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_LOCK_DEVICE, "0"));
+        profile._deviceConnectToSSID = preferences.getString(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
 
         return profile;
     }
@@ -908,7 +911,8 @@ public class PPApplication extends Application {
                                profile._vibrateWhenRinging,
                                profile._deviceWallpaperFor,
                                profile._hideStatusBarIcon,
-                               profile._lockDevice);
+                               profile._lockDevice,
+                               profile._deviceConnectToSSID);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == 99) {
@@ -1000,6 +1004,8 @@ public class PPApplication extends Application {
                 mappedProfile._vibrateWhenRinging = defaultProfile._vibrateWhenRinging;
             if (profile._lockDevice == 99)
                 mappedProfile._lockDevice = defaultProfile._lockDevice;
+            if (profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE))
+                mappedProfile._deviceConnectToSSID = defaultProfile._deviceConnectToSSID;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -1777,6 +1783,15 @@ public class PPApplication extends Application {
             }
             else
                 featurePresented = PREFERENCE_ALLOWED;
+        }
+        else
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
+        {
+            if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI))
+                // device ma Wifi
+                featurePresented = PREFERENCE_ALLOWED;
+            else
+                notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
             featurePresented = PREFERENCE_ALLOWED;

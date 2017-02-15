@@ -124,6 +124,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         setSummary(PPApplication.PREF_PROFILE_VIBRATE_WHEN_RINGING);
         setSummary(PPApplication.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
         setSummary(PPApplication.PREF_PROFILE_LOCK_DEVICE);
+        setSummary(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
 
         //}
     }

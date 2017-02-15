@@ -49,6 +49,9 @@
     <declare-styleable name="InfoDialogPreference">
         <attr name="infoText" format="string" />
     </declare-styleable>
+    <declare-styleable name="ConnectToSSIDDialogPreference">
+        <attr name="ctsdpDisableDefaultProfile" format="integer" />
+    </declare-styleable>
 
     <declare-styleable name="ScrimInsetsView">
         <attr format="reference|color" name="insetForeground" />

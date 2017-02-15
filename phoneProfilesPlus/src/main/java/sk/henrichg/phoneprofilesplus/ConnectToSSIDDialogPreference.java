@@ -39,6 +39,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     Context context;
 
     String value = "";
+    private int disableDefaultProfile = 0;
 
     List<WifiSSIDData> ssidList = null;
 
@@ -52,10 +53,17 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     public ConnectToSSIDDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        TypedArray typedArray = context.obtainStyledAttributes(attrs,
+                R.styleable.ConnectToSSIDDialogPreference);
+
+        disableDefaultProfile = typedArray.getInteger(
+                R.styleable.ConnectToSSIDDialogPreference_ctsdpDisableDefaultProfile, 0);
+
         ssidList = new ArrayList<>();
 
         //setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
 
+        typedArray.recycle();
     }
 
     @Override
@@ -138,7 +146,9 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             @Override
             protected Void doInBackground(Void... params) {
 
-                _SSIDList.add(new WifiSSIDData("-", "", false));
+                _SSIDList.add(new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false));
+                if (disableDefaultProfile == 0)
+                    _SSIDList.add(new WifiSSIDData(Profile.CONNECTTOSSID_DEFAULTPROFILE, "", false));
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
                 if (wifiConfigurationList != null)
@@ -203,9 +213,10 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     private void setSummaryCTSDP()
     {
         String prefSummary = context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
-        if (!value.isEmpty() && !value.equals("-")) {
+        if (!value.isEmpty() && value.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE))
+            prefSummary = context.getString(R.string.array_pref_default_profile);
+        if (!value.isEmpty() && !value.equals("-"))
             prefSummary = value;
-        }
         setSummary(prefSummary);
     }
 
