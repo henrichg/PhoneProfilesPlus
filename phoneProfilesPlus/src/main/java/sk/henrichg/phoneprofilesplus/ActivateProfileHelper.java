@@ -275,6 +275,7 @@ public class ActivateProfileHelper {
                         wifiManager.reconnect();
                     }
                 }
+                PhoneProfilesService.connectToSSID = profile._deviceConnectToSSID;
             }
         }
 

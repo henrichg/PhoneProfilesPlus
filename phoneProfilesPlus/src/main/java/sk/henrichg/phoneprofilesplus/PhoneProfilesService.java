@@ -98,6 +98,8 @@ public class PhoneProfilesService extends Service
     private MediaPlayer eventNotificationMediaPlayer = null;
     private boolean eventNotificationIsPlayed = false;
 
+    public static String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
+
     //--------------------------
 
     //public static SipManager mSipManager = null;

@@ -7413,7 +7413,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     KEY_VOLUME_ZEN_MODE + "," +
                                                     KEY_DEVICE_NETWORK_TYPE + "," +
                                                     KEY_NOTIFICATION_LED + "," +
-                                                    KEY_VIBRATE_WHEN_RINGING +
+                                                    KEY_VIBRATE_WHEN_RINGING + "," +
+                                                    KEY_DEVICE_CONNECT_TO_SSID +
                                          " FROM " + TABLE_PROFILES;
         final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                                                     KEY_E_WIFI_ENABLED + "," +
@@ -7586,6 +7587,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     {
                         values.clear();
                         values.put(KEY_VIBRATE_WHEN_RINGING, 0);
+                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
+                    }
+
+                    if ((Integer.parseInt(cursor.getString(16)) != 0) &&
+                            (PPApplication.isProfilePreferenceAllowed(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_NOT_ALLOWED))
+                    {
+                        values.clear();
+                        values.put(KEY_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
                         db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                 new String[] { String.valueOf(Integer.parseInt(cursor.getString(0))) });
                     }
