@@ -15,6 +15,7 @@ import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -59,6 +60,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         disableDefaultProfile = typedArray.getInteger(
                 R.styleable.ConnectToSSIDDialogPreference_ctsdpDisableDefaultProfile, 0);
 
+        this.context = context;
         ssidList = new ArrayList<>();
 
         //setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
@@ -84,6 +86,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
                 if (callChangeListener(value))
                 {
                     persistString(value);
+                    setSummaryCTSDP();
                 }
                 mDialog.dismiss();
             }
@@ -115,6 +118,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 value = ssidList.get(position).ssid;
+                listAdapter.notifyDataSetChanged();
             }
         });
 
@@ -137,6 +141,8 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             {
                 super.onPreExecute();
 
+                Log.d("ConnectToSSIDDialogPreference.onShow","onPreExecute");
+
                 _SSIDList = new ArrayList<>();
 
                 listView.setVisibility(View.GONE);
@@ -145,6 +151,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
 
             @Override
             protected Void doInBackground(Void... params) {
+                Log.d("ConnectToSSIDDialogPreference.onShow","doInBackground");
 
                 _SSIDList.add(new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false));
                 if (disableDefaultProfile == 0)
@@ -160,7 +167,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
                     }
                 }
 
-                Collections.sort(_SSIDList, new ConnectToSSIDDialogPreference.SortList());
+                //Collections.sort(_SSIDList, new ConnectToSSIDDialogPreference.SortList());
 
                 return null;
             }
@@ -170,8 +177,10 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             {
                 super.onPostExecute(result);
 
+                Log.d("ConnectToSSIDDialogPreference.onShow","onPostExecute");
+
                 ssidList = new ArrayList<>(_SSIDList);
-                listAdapter.notifyDataSetChanged();
+                listView.setAdapter(listAdapter);
 
                 linlaProgress.setVisibility(View.GONE);
                 listView.setVisibility(View.VISIBLE);
@@ -197,8 +206,8 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         else {
             // set state
             // sem narvi default string aplikacii oddeleny |
-            value = "";
-            persistString("");
+            value = Profile.CONNECTTOSSID_JUSTANY;
+            persistString(value);
         }
         setSummaryCTSDP();
     }
@@ -212,10 +221,11 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
 
     private void setSummaryCTSDP()
     {
-        String prefSummary = context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
+        String prefSummary = "["+context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any)+"]";
         if (!value.isEmpty() && value.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE))
-            prefSummary = context.getString(R.string.array_pref_default_profile);
-        if (!value.isEmpty() && !value.equals("-"))
+            prefSummary = "["+context.getString(R.string.array_pref_default_profile)+"]";
+        else
+        if (!value.isEmpty() && !value.equals(Profile.CONNECTTOSSID_JUSTANY))
             prefSummary = value;
         setSummary(prefSummary);
     }

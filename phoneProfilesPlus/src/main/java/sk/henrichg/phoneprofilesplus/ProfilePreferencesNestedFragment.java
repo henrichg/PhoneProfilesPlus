@@ -887,6 +887,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 }
             }
             else
+            if (key.equals(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
+                Preference preference = prefMng.findPreference(key);
+                String sValue = value.toString();
+                boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, bold, false, false, false);
+                setCategorySummary(preference, bold);
+            }
+            else
             {
                 String sValue = value.toString();
                 ListPreference listPreference = (ListPreference)prefMng.findPreference(key);

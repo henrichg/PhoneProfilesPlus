@@ -248,7 +248,7 @@
                 android:defaultValue="@string/prf_pref_deviceConnectToSSID"
                 henrichg:ctsdpDisableDefaultProfile="1"
                 android:title="@string/profile_preferences_deviceConnectToSSID"
-                android:summary="@string/volume_pref_dialog_no_change_chb" />
+                android:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceWiFiAP"
                 android:summary="@string/array_pref_no_change"

@@ -1993,8 +1993,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             // updatneme zaznamy
-            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_CONNECT_TO_SSID + "\"="+Profile.CONNECTTOSSID_JUSTANY+"\"");
-            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_CONNECT_TO_SSID + "\"="+Profile.CONNECTTOSSID_JUSTANY+"\"");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_CONNECT_TO_SSID + "=\""+Profile.CONNECTTOSSID_JUSTANY+"\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_CONNECT_TO_SSID + "=\""+Profile.CONNECTTOSSID_JUSTANY+"\"");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
