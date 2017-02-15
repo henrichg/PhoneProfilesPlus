@@ -153,21 +153,22 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             protected Void doInBackground(Void... params) {
                 Log.d("ConnectToSSIDDialogPreference.onShow","doInBackground");
 
-                _SSIDList.add(new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false));
-                if (disableDefaultProfile == 0)
-                    _SSIDList.add(new WifiSSIDData(Profile.CONNECTTOSSID_DEFAULTPROFILE, "", false));
-
+                WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
                 List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
                 if (wifiConfigurationList != null)
                 {
                     for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
                     {
                         if (wifiConfiguration.ssid != null)
-                            _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid, false));
+                            _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, wifiConfiguration.bssid, false));
                     }
                 }
 
-                //Collections.sort(_SSIDList, new ConnectToSSIDDialogPreference.SortList());
+                Collections.sort(_SSIDList, new ConnectToSSIDDialogPreference.SortList());
+
+                if (disableDefaultProfile == 0)
+                    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_DEFAULTPROFILE, "", false));
+                _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false));
 
                 return null;
             }
@@ -221,9 +222,9 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
 
     private void setSummaryCTSDP()
     {
-        String prefSummary = "["+context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any)+"]";
+        String prefSummary = context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
         if (!value.isEmpty() && value.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE))
-            prefSummary = "["+context.getString(R.string.array_pref_default_profile)+"]";
+            prefSummary = context.getString(R.string.array_pref_default_profile);
         else
         if (!value.isEmpty() && !value.equals(Profile.CONNECTTOSSID_JUSTANY))
             prefSummary = value;

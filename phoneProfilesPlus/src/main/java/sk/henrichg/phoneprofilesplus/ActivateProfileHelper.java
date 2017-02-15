@@ -28,6 +28,7 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
@@ -245,6 +246,33 @@ public class ActivateProfileHelper {
                                 // when wifi is enabled from profile, no disable wifi after scan
                                 WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                         }
+                    }
+                }
+            }
+
+            // connect to SSID
+            if (PPApplication.isProfilePreferenceAllowed(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_ALLOWED) {
+                if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                    int wifiState = wifiManager.getWifiState();
+                    if  (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                        List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                        for (WifiConfiguration i : list) {
+                            if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
+                                wifiManager.disconnect();
+                                wifiManager.enableNetwork(i.networkId, true);
+                                wifiManager.reconnect();
+                                break;
+                            }
+                        }
+                    }
+                }
+                else {
+                    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                    int wifiState = wifiManager.getWifiState();
+                    if  (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                        wifiManager.disconnect();
+                        wifiManager.reconnect();
                     }
                 }
             }
