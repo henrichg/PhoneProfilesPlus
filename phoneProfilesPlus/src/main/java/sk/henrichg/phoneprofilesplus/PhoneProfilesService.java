@@ -847,8 +847,8 @@ public class PhoneProfilesService extends Service
                 // play repeating: default ringtone with ringing volume level
                 try {
                     int requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
-                    if (android.os.Build.VERSION.SDK_INT >= 19)
-                        requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
+                    //if (android.os.Build.VERSION.SDK_INT >= 19)
+                    //    requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
                     int result = audioManager.requestAudioFocus(this, usedStream, requestType);
                     if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         ringingMediaPlayer = new MediaPlayer();
