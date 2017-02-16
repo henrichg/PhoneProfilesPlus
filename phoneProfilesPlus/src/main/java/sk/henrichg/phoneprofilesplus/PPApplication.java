@@ -96,6 +96,7 @@ public class PPApplication extends Application {
     static final String EXTRA_EVENT_SMS_DATE = "event_sms_date";
     static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
     static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
+    static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
     static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
     static final String EXTRA_OLD_RINGTONE = "old_ringtone";
     static final String EXTRA_FOR_PROFILE_ACTIVATION = "for_profile_activation";

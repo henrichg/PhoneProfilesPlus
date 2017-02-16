@@ -57,22 +57,28 @@ public class WifiStateChangedBroadcastReceiver extends WakefulBroadcastReceiver 
                             // refresh configured networks list
                             WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
 
-                            /*if (!PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
-                                WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-                                List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
-                                for (WifiConfiguration i : list) {
-                                    if (i.SSID != null && i.SSID.equals(PhoneProfilesService.connectToSSID)) {
-                                        wifiManager.disconnect();
-                                        wifiManager.enableNetwork(i.networkId, true);
-                                        wifiManager.reconnect();
-                                        break;
+                            /*if (!((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
+                                    (WifiScanAlarmBroadcastReceiver.getWaitForResults(context)) ||
+                                    (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)))) {
+                                // ignore for wifi scanning
+
+                                if (!PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                                    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                                    List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                    for (WifiConfiguration i : list) {
+                                        if (i.SSID != null && i.SSID.equals(PhoneProfilesService.connectToSSID)) {
+                                            //wifiManager.disconnect();
+                                            wifiManager.enableNetwork(i.networkId, true);
+                                            //wifiManager.reconnect();
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                            else {
-                                WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-                                wifiManager.disconnect();
-                                wifiManager.reconnect();
+                                //else {
+                                //    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                                //    wifiManager.disconnect();
+                                //    wifiManager.reconnect();
+                                //}
                             }*/
                         }
                         //}

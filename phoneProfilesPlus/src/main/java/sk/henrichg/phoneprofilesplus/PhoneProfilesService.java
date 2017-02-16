@@ -743,6 +743,7 @@ public class PhoneProfilesService extends Service
             ringingCallIsSimulating = false;
 
             int oldRingerMode = intent.getIntExtra(PPApplication.EXTRA_OLD_RINGER_MODE, 0);
+            int oldSystemRingerMode = intent.getIntExtra(PPApplication.EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
             int oldZenMode = intent.getIntExtra(PPApplication.EXTRA_OLD_ZEN_MODE, 0);
             String oldRingtone = intent.getStringExtra(PPApplication.EXTRA_OLD_RINGTONE);
             int newRingerMode = PPApplication.getRingerMode(context);
@@ -762,6 +763,7 @@ public class PhoneProfilesService extends Service
             }
 
             PPApplication.logE("PhoneProfilesService.onStartCommand", "oldRingerMode=" + oldRingerMode);
+            PPApplication.logE("PhoneProfilesService.onStartCommand", "oldSystemRingerMode=" + oldSystemRingerMode);
             PPApplication.logE("PhoneProfilesService.onStartCommand", "oldZenMode=" + oldZenMode);
             PPApplication.logE("PhoneProfilesService.onStartCommand", "newRingerMode=" + newRingerMode);
             PPApplication.logE("PhoneProfilesService.onStartCommand", "newZenMode=" + newZenMode);
@@ -800,8 +802,14 @@ public class PhoneProfilesService extends Service
                                     ((oldRingerMode == 5) && (oldZenMode == 2))) {
                                 // old ringer/zen mode is PRIORITY
                                 simulateRinging = true;
-                                stream = AudioManager.STREAM_RING;
-                                PPApplication.logE("PhoneProfilesService.onStartCommand", "stream=RING");
+                                if (oldSystemRingerMode == AudioManager.RINGER_MODE_SILENT) {
+                                    stream = AudioManager.STREAM_MUSIC;
+                                    PPApplication.logE("PhoneProfilesService.onStartCommand", "stream=MUSIC");
+                                }
+                                else {
+                                    stream = AudioManager.STREAM_RING;
+                                    PPApplication.logE("PhoneProfilesService.onStartCommand", "stream=RING");
+                                }
                             }
                         }
                     }

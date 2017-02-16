@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -22,6 +23,7 @@ public class EventsService extends IntentService
 
     private int callEventType;
     public static int oldRingerMode;
+    public static int oldSystemRingerMode;
     public static int oldZenMode;
     public static String oldRingtone;
 
@@ -61,6 +63,8 @@ public class EventsService extends IntentService
 
         oldRingerMode = PPApplication.getRingerMode(context);
         oldZenMode = PPApplication.getZenMode(context);
+        final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        oldSystemRingerMode = audioManager.getRingerMode();
 
         try {
             Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
@@ -573,6 +577,7 @@ public class EventsService extends IntentService
                 lIntent.putExtra(PPApplication.EXTRA_START_ON_BOOT, false);
                 lIntent.putExtra(PPApplication.EXTRA_SIMULATE_RINGING_CALL, true);
                 lIntent.putExtra(PPApplication.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                lIntent.putExtra(PPApplication.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
                 lIntent.putExtra(PPApplication.EXTRA_OLD_ZEN_MODE, oldZenMode);
                 lIntent.putExtra(PPApplication.EXTRA_OLD_RINGTONE, oldRingtone);
                 context.startService(lIntent);

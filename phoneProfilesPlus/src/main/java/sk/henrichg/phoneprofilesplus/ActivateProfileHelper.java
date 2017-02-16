@@ -27,8 +27,10 @@ import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
@@ -256,25 +258,42 @@ public class ActivateProfileHelper {
                     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
                     int wifiState = wifiManager.getWifiState();
                     if  (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+
+                        // check if wifi is connected
+                        ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+                        boolean wifiConnected = (activeNetwork != null) &&
+                                (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
+                                activeNetwork.isConnected();
+                        WifiInfo wifiInfo = null;
+                        if (wifiConnected)
+                            wifiInfo = wifiManager.getConnectionInfo();
+
                         List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
                         for (WifiConfiguration i : list) {
                             if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
-                                wifiManager.disconnect();
-                                wifiManager.enableNetwork(i.networkId, true);
-                                wifiManager.reconnect();
+                                if (wifiConnected) {
+                                    if (!wifiInfo.getSSID().equals(i.SSID)) {
+                                        // conected to another SSID
+                                        wifiManager.disconnect();
+                                        wifiManager.enableNetwork(i.networkId, true);
+                                        wifiManager.reconnect();
+                                    }
+                                } else
+                                    wifiManager.enableNetwork(i.networkId, true);
                                 break;
                             }
                         }
                     }
                 }
-                else {
-                    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-                    int wifiState = wifiManager.getWifiState();
-                    if  (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                        wifiManager.disconnect();
-                        wifiManager.reconnect();
-                    }
-                }
+                //else {
+                //    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                //    int wifiState = wifiManager.getWifiState();
+                //    if  (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                //        wifiManager.disconnect();
+                //        wifiManager.reconnect();
+                //    }
+                //}
                 PhoneProfilesService.connectToSSID = profile._deviceConnectToSSID;
             }*/
         }
