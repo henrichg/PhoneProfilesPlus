@@ -64,12 +64,11 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|RadioSwitchBroadcastReceiver"
-                                         +"|-###- DataWrapper.doEventService"
+                                         +"|$$$ WifiConnectionBroadcastReceiver.onReceive"
 
-                                         +"|PhoneProfilesService.onStartCommand"
-                                         +"|PhoneProfilesService.startSimulatingRingingCall"
-                                         +"|PhoneProfilesService.stopSimulatingRingingCall"
+                                         //+"|PhoneProfilesService.onStartCommand"
+                                         //+"|PhoneProfilesService.startSimulatingRingingCall"
+                                         //+"|PhoneProfilesService.stopSimulatingRingingCall"
 
                                          //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"

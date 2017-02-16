@@ -99,6 +99,7 @@ public class PhoneProfilesService extends Service
     private boolean eventNotificationIsPlayed = false;
 
     public static String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
+    public static boolean connectToSSIDStarted = false;
 
     //--------------------------
 

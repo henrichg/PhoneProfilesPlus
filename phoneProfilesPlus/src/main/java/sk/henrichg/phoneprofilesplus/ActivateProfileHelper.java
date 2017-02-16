@@ -253,7 +253,7 @@ public class ActivateProfileHelper {
             }
 
             // connect to SSID
-            /*if (PPApplication.isProfilePreferenceAllowed(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_ALLOWED) {
+            if (PPApplication.isProfilePreferenceAllowed(PPApplication.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
                     int wifiState = wifiManager.getWifiState();
@@ -274,6 +274,9 @@ public class ActivateProfileHelper {
                             if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
                                 if (wifiConnected) {
                                     if (!wifiInfo.getSSID().equals(i.SSID)) {
+
+                                        PhoneProfilesService.connectToSSIDStarted = true;
+
                                         // conected to another SSID
                                         wifiManager.disconnect();
                                         wifiManager.enableNetwork(i.networkId, true);
@@ -295,7 +298,7 @@ public class ActivateProfileHelper {
                 //    }
                 //}
                 PhoneProfilesService.connectToSSID = profile._deviceConnectToSSID;
-            }*/
+            }
         }
 
         // nahodenie bluetooth
