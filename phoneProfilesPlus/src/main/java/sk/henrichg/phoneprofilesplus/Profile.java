@@ -429,7 +429,7 @@ public class Profile {
             this._iconBitmap = withProfile._iconBitmap;
             this._preferencesIndicator = withProfile._preferencesIndicator;
             this._duration = 0;
-            this._afterDurationDo = AFTERDURATIONDO_NOTHING;
+            this._afterDurationDo = AFTERDURATIONDO_RESTARTEVENTS;
             this._hideStatusBarIcon = withProfile._hideStatusBarIcon;
             this._deviceConnectToSSID = withProfile._deviceConnectToSSID;
 

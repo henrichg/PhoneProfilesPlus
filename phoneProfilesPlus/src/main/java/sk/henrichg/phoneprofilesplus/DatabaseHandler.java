@@ -1048,8 +1048,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_PROFILES + " ADD COLUMN " + KEY_AFTER_DURATION_DO + " INTEGER");
 
             // updatneme zaznamy
-            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DURATION + "=0");
-            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_AFTER_DURATION_DO + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DURATION + "=" + Profile.AFTERDURATIONDO_RESTARTEVENTS);
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_AFTER_DURATION_DO + "=" + Profile.AFTERDURATIONDO_RESTARTEVENTS);
         }
 
         if (oldVersion < 1125)
@@ -6665,7 +6665,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
                             if (exportedDBObj.getVersion() < 1120) {
                                 values.put(KEY_DURATION, 0);
-                                values.put(KEY_AFTER_DURATION_DO, 0);
+                                values.put(KEY_AFTER_DURATION_DO, Profile.AFTERDURATIONDO_RESTARTEVENTS);
                             }
                             if (exportedDBObj.getVersion() < 1150) {
                                 values.put(KEY_VOLUME_ZEN_MODE, 0);

@@ -165,7 +165,7 @@ public class DataWrapper {
                   0,
                   0,
                   0,
-                  Profile.AFTERDURATIONDO_NOTHING,
+                  Profile.AFTERDURATIONDO_RESTARTEVENTS,
                   0,
                   0,
                   0,

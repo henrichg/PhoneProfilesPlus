@@ -813,7 +813,7 @@ public class PPApplication extends Application {
         profile._checked = false;
         profile._porder = 0;
         profile._duration = 0;
-        profile._afterDurationDo = Profile.AFTERDURATIONDO_NOTHING;
+        profile._afterDurationDo = Profile.AFTERDURATIONDO_RESTARTEVENTS;
         profile._volumeRingerMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGER_MODE, "1")); // ring
         profile._volumeZenMode = Integer.parseInt(preferences.getString(PPApplication.PREF_PROFILE_VOLUME_ZEN_MODE, "1")); // all
         profile._volumeRingtone = preferences.getString(PPApplication.PREF_PROFILE_VOLUME_RINGTONE, getVolumeLevelString(71, maximumValueRing) + "|0|0");

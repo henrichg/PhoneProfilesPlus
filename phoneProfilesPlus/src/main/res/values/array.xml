@@ -460,16 +460,16 @@
     <item>0</item>
 </string-array>
 <string-array name="afterProfileDurationDoArray">
-    <item>@string/array_pref_afterProfileDurationDo_nothing</item>
+    <item>@string/array_pref_afterProfileDurationDo_restartEvents</item>
     <item>@string/array_pref_afterProfileDurationDo_undoProfile</item>
     <item>@string/array_pref_afterProfileDurationDo_backgroundProfile</item>
-    <item>@string/array_pref_afterProfileDurationDo_restartEvents</item>
+    <item>@string/array_pref_afterProfileDurationDo_nothing</item>
 </string-array>
 <string-array name="afterProfileDurationDoValues">
-    <item>0</item>
+    <item>3</item>
     <item>1</item>
     <item>2</item>
-    <item>3</item>
+    <item>0</item>
 </string-array>
 <string-array name="eventBluetoothConnectionTypeArray">
     <item>@string/array_event_pref_bluetoothConnectionType_connected</item>
