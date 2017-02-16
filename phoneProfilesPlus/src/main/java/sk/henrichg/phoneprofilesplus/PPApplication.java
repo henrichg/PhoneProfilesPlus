@@ -66,9 +66,9 @@ public class PPApplication extends Application {
 
                                          +"|$$$ WifiConnectionBroadcastReceiver.onReceive"
 
-                                         //+"|PhoneProfilesService.onStartCommand"
-                                         //+"|PhoneProfilesService.startSimulatingRingingCall"
-                                         //+"|PhoneProfilesService.stopSimulatingRingingCall"
+                                         +"|PhoneProfilesService.onStartCommand"
+                                         +"|PhoneProfilesService.startSimulatingRingingCall"
+                                         +"|PhoneProfilesService.stopSimulatingRingingCall"
 
                                          //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
