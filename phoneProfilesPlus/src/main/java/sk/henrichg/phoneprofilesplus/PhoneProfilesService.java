@@ -911,7 +911,7 @@ public class PhoneProfilesService extends Service
                     audioManager.setStreamMute(AudioManager.STREAM_RING, false);*/
 
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, oldMediaVolume, 0);
-                PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing stopped");
+                PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
             audioManager.abandonAudioFocus(this);
         //}
