@@ -1042,8 +1042,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
-                setCategorySummary(listPreference, index > 0);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, /*index > 0*/false, false, false, false);
+                setCategorySummary(listPreference, /*index > 0*/false);
             }
         }
         if (key.equals(PPApplication.PREF_PROFILE_ASK_FOR_DURATION))
