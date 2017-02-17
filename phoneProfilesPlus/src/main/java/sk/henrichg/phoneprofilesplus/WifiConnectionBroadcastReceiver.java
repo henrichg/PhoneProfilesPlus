@@ -37,8 +37,8 @@ public class WifiConnectionBroadcastReceiver extends WakefulBroadcastReceiver {
                     WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                     PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()="+wifiInfo.getSSID());
                     PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "PhoneProfilesService.connectToSSID="+PhoneProfilesService.connectToSSID);
-                    if ((PhoneProfilesService.connectToSSID == Profile.CONNECTTOSSID_JUSTANY) ||
-                        (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
+                    //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
+                    //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
                         PhoneProfilesService.connectToSSIDStarted = false;
                 }
             }
