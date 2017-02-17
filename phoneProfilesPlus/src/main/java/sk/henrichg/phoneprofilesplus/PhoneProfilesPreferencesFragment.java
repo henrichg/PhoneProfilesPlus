@@ -95,22 +95,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         }
 
         setSummary(PPApplication.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
-        //setSummary(PPApplication.PREF_NOTIFICATION_STATUS_BAR_CANCEL);
-
-        // some devices supports color icon
-        /*if (android.os.Build.VERSION.SDK_INT >= 21)
-        {
-            // for Android 5.0, color notification icon is not supported
-            Preference preference = prefMng.findPreference(PPApplication.PREF_NOTIFICATION_STATUS_BAR_STYLE);
-            if (preference != null)
-            {
-                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryNotifications");
-                preferenceCategory.removePreference(preference);
-            }
-        }
-        else*/
-            setSummary(PPApplication.PREF_NOTIFICATION_STATUS_BAR_STYLE);
-
+        setSummary(PPApplication.PREF_NOTIFICATION_STATUS_BAR_STYLE);
         setSummary(PPApplication.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR);
         setSummary(PPApplication.PREF_APPLICATION_WIDGET_LIST_HEADER);
         setSummary(PPApplication.PREF_APPLICATION_WIDGET_LIST_BACKGROUND);
@@ -145,6 +130,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(PPApplication.PREF_APPLICATION_WIDGET_ICON_BACKGROUND);
         setSummary(PPApplication.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
         setSummary(PPApplication.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T);
+        setSummary(PPApplication.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES);
 
 
         if (PPApplication.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext())

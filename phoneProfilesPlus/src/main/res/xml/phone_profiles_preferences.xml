@@ -90,6 +90,19 @@
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch" />
         <Preference
+            android:key="notificationStatusBarInfo"
+            android:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
+            android:summary="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info"
+            android:widgetLayout="@layout/info_preference" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:key="applicationForceSetMergeRingNotificationVolumes"
+            android:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
+            android:summary="@string/array_pref_forceSetMergeRingNotificationVolumes_keepDetected"
+            android:defaultValue="0"
+            android:entries="@array/forceSetMergeRingNotificationVolumesArray"
+            android:entryValues="@array/forceSetMergeRingNotificationVolumesValues"
+            app:useStockLayout="true" />
+        <Preference
             android:key="applicationBatteryOptimization"
             android:title="@string/phone_profiles_pref_applicationBatteryOptimization"
             android:summary="@string/phone_profiles_pref_applicationBatteryOptimization_summary"

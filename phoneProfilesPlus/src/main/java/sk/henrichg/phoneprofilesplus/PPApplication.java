@@ -70,6 +70,8 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.startSimulatingRingingCall"
                                          +"|PhoneProfilesService.stopSimulatingRingingCall"
 
+                                         +"|$$$ PhoneProfilesService.setMergedRingNotificationVolumes"
+
                                          //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"
                                          //+"|WifiScanBroadcastReceiver.onReceive"
@@ -285,6 +287,7 @@ public class PPApplication extends Application {
     public static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T = "applicationWidgetIconLightnessT";
     public static final String PREF_APPLICATION_EVENT_USE_PRIORITY = "applicationEventUsePriority";
     public static final String PREF_NOTIFICATION_THEME = "notificationTheme";
+    public static final String PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES = "applicationForceSetMergeRingNotificationVolumes";
 
     public static final int PREFERENCE_NOT_ALLOWED = 0;
     public static final int PREFERENCE_ALLOWED = 1;
@@ -438,6 +441,7 @@ public class PPApplication extends Application {
     public static String applicationWidgetIconLightnessB;
     public static String applicationWidgetIconLightnessT;
     public static boolean applicationEventUsePriority;
+    public static int applicationForceSetMergeRingNotificationVolumes;
 
     public static int notAllowedReason;
     public static String notAllowedReasonDetail;
@@ -702,6 +706,7 @@ public class PPApplication extends Application {
         applicationWidgetIconLightnessB = preferences.getString(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, "0");
         applicationWidgetIconLightnessT = preferences.getString(PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, "100");
         applicationEventUsePriority = preferences.getBoolean(PREF_APPLICATION_EVENT_USE_PRIORITY, false);
+        applicationForceSetMergeRingNotificationVolumes = Integer.valueOf(preferences.getString(PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, "0"));
 
         if (applicationTheme.equals("light"))
         {
@@ -2418,12 +2423,15 @@ public class PPApplication extends Application {
 
     public static boolean getMergedRingNotificationVolumes(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true);
+        return preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)/* ||
+                (applicationForceSetMergeRingNotificationVolumes == 1)*/;
     }
 
     // test if ring and notification volumes are merged
     public static void setMergedRingNotificationVolumes(Context context, boolean force) {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+
+        PPApplication.logE("$$$ PhoneProfilesService.setMergedRingNotificationVolumes", "xxx");
 
         if (!preferences.contains(PREF_MERGED_RING_NOTIFICATION_VOLUMES) || force) {
             try {
@@ -2440,7 +2448,7 @@ public class PPApplication extends Application {
                     else
                         newNotificationVolume = oldNotificationVolume + 1;
                     audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, 0);
-                    PPApplication.sleep(500);
+                    PPApplication.sleep(1000);
                     if (audioManager.getStreamVolume(AudioManager.STREAM_RING) == newNotificationVolume)
                         merged = true;
                     else

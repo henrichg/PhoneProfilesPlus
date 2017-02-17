@@ -970,4 +970,9 @@
     <string name="event_preferences_radioSwitch_info_summary">State of all radios must by fulfilled to start event. Configure only radios which you needed.</string>
     <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Just any</string>
     <string name="profile_preferences_deviceConnectToSSID">Connect to SSID</string>
+    <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Set ringer and volumes merge</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Keep detected</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volumes are merged</string>
+    <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volumes are not merged</string>
+    <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Use this, if detection of volumes merge is wrong.</string>
 </resources>

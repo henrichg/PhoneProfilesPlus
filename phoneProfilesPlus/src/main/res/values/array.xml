@@ -947,5 +947,15 @@
     <item>1</item>
     <item>2</item>
 </string-array>
+<string-array name="forceSetMergeRingNotificationVolumesArray">
+    <item>@string/array_pref_forceSetMergeRingNotificationVolumes_keepDetected</item>
+    <item>@string/array_pref_forceSetMergeRingNotificationVolumes_merged</item>
+    <item>@string/array_pref_forceSetMergeRingNotificationVolumes_notMerged</item>
+</string-array>
+<string-array name="forceSetMergeRingNotificationVolumesValues">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+</string-array>
 
 </resources>
