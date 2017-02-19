@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/activityPopupBackground"
     tools:context=".ActivateProfileActivity" >
 
     <LinearLayout
@@ -14,7 +14,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="?attr/headerCardShape"
         android:orientation="vertical"
         android:padding="5dp" >
     
@@ -36,19 +35,19 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_profile_default" />
 
-            <TextView
+            <sk.henrichg.phoneprofilesplus.UnderlinedTextView
                 android:id="@+id/act_prof_activated_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="3dp"
+                android:layout_marginStart="13dp"
+                android:layout_marginEnd="13dp"
                 android:layout_toEndOf="@+id/act_prof_activated_profile_icon"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
                 android:text="@string/profile_name_default"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                app:underlineColor="?attr/colorAccent"/>
 
             <ImageView
                 android:id="@+id/act_prof_activated_profile_pref_indicator"
@@ -71,9 +70,7 @@
         android:id="@+id/act_prof_profiles_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@android:color/transparent" 
         android:padding="10dip"
-        android:dividerHeight="5dp"
         android:drawSelectorOnTop="true"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay" />

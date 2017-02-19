@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -121,7 +122,7 @@ class ActivateProfileListAdapter extends BaseAdapter
     static class ViewHolder {
           ViewGroup listItemRoot;
           ImageView profileIcon;
-          TextView profileName;
+          UnderlinedTextView profileName;
           ImageView profileIndicator;
           int position;
         }
@@ -142,7 +143,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                 else
                     vi = inflater.inflate(R.layout.activate_profile_list_item_no_indicator, parent, false);
                 holder.listItemRoot = (RelativeLayout)vi.findViewById(R.id.act_prof_list_item_root);
-                holder.profileName = (TextView)vi.findViewById(R.id.act_prof_list_item_profile_name);
+                holder.profileName = (UnderlinedTextView) vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = (ImageView)vi.findViewById(R.id.act_prof_list_item_profile_icon);
                 if (PPApplication.applicationActivatorPrefIndicator)
                     holder.profileIndicator = (ImageView)vi.findViewById(R.id.act_prof_list_profile_pref_indicator);
@@ -151,7 +152,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             {
                 vi = inflater.inflate(R.layout.activate_profile_grid_item, parent, false);
                 holder.listItemRoot = (LinearLayout)vi.findViewById(R.id.act_prof_list_item_root);
-                holder.profileName = (TextView)vi.findViewById(R.id.act_prof_list_item_profile_name);
+                holder.profileName = (UnderlinedTextView) vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = (ImageView)vi.findViewById(R.id.act_prof_list_item_profile_icon);
             }
             vi.setTag(holder);
@@ -165,7 +166,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
         if (profile._checked && (!PPApplication.applicationActivatorHeader))
         {
-            if (PPApplication.applicationTheme.equals("material"))
+            /*if (PPApplication.applicationTheme.equals("material"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
             else
             if (PPApplication.applicationTheme.equals("dark"))
@@ -173,12 +174,13 @@ class ActivateProfileListAdapter extends BaseAdapter
             else
             if (PPApplication.applicationTheme.equals("dlight"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
-            // holder.profileName.setTypeface(null, Typeface.BOLD);
+            // holder.profileName.setTypeface(null, Typeface.BOLD);*/
             holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+            holder.profileName.setUnderLineColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
         }
         else
         {
-            if (PPApplication.applicationTheme.equals("material"))
+            /*if (PPApplication.applicationTheme.equals("material"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.card);
             else
             if (PPApplication.applicationTheme.equals("dark"))
@@ -186,8 +188,9 @@ class ActivateProfileListAdapter extends BaseAdapter
             else
             if (PPApplication.applicationTheme.equals("dlight"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.card);
-            //holder.profileName.setTypeface(null, Typeface.NORMAL);
+            //holder.profileName.setTypeface(null, Typeface.NORMAL);*/
             holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+            holder.profileName.setUnderLineColor(Color.argb(0, 0, 0, 0));
         }
       
         String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,

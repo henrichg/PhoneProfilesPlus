@@ -477,9 +477,10 @@ public class GlobalGUIRoutines {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
-    public static int getThemeAccentColor (final Context context) {
+    static int getThemeAccentColor (final Context context) {
         final TypedValue value = new TypedValue ();
         context.getTheme ().resolveAttribute (R.attr.colorAccent, value, true);
         return value.data;
     }
+
 }
