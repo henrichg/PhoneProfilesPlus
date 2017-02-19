@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -266,7 +267,7 @@ class EditorProfileListAdapter extends BaseAdapter
     static class ViewHolder {
           RelativeLayout listItemRoot;
           ImageView profileIcon;
-          TextView profileName;
+          UnderlinedTextView profileName;
           ImageView profileIndicator;
           ImageView profileItemEditMenu;
           ImageView profileShowInActivator;
@@ -297,7 +298,7 @@ class EditorProfileListAdapter extends BaseAdapter
             }
             holder = new ViewHolder();
             holder.listItemRoot = (RelativeLayout)vi.findViewById(R.id.profile_list_item_root);
-            holder.profileName = (TextView)vi.findViewById(R.id.profile_list_item_profile_name);
+            holder.profileName = (UnderlinedTextView)vi.findViewById(R.id.profile_list_item_profile_name);
             holder.profileIcon = (ImageView)vi.findViewById(R.id.profile_list_item_profile_icon);
             holder.profileItemEditMenu = (ImageView)vi.findViewById(R.id.profile_list_item_edit_menu);
             holder.profileShowInActivator = (ImageView)vi.findViewById(R.id.profile_list_item_show_in_activator);
@@ -337,27 +338,29 @@ class EditorProfileListAdapter extends BaseAdapter
 
             if (profile._checked && (!PPApplication.applicationEditorHeader))
             {
-                if (PPApplication.applicationTheme.equals("material"))
+                /*if (PPApplication.applicationTheme.equals("material"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
                 else
                 if (PPApplication.applicationTheme.equals("dark"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dark);
                 else
                 if (PPApplication.applicationTheme.equals("dlight"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
+                    holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);*/
                 holder.profileName.setTypeface(null, Typeface.BOLD);
+                holder.profileName.setUnderLineColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             }
             else
             {
-                if (PPApplication.applicationTheme.equals("material"))
+                /*if (PPApplication.applicationTheme.equals("material"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.card);
                 else
                 if (PPApplication.applicationTheme.equals("dark"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.card_dark);
                 else
                 if (PPApplication.applicationTheme.equals("dlight"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.card);
+                    holder.listItemRoot.setBackgroundResource(R.drawable.card);*/
                 holder.profileName.setTypeface(null, Typeface.NORMAL);
+                holder.profileName.setUnderLineColor(Color.argb(0, 0, 0, 0));
             }
 
             String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,

@@ -54,7 +54,7 @@
             android:paddingRight="2dp"
             android:paddingTop="2dp" />
 
-        <TextView
+        <sk.henrichg.phoneprofilesplus.UnderlinedTextView
             android:id="@+id/event_list_item_event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

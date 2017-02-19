@@ -253,7 +253,7 @@ class EditorEventListAdapter extends BaseAdapter
 
     static class ViewHolder {
           RelativeLayout listItemRoot;
-          TextView eventName;
+          UnderlinedTextView eventName;
           TextView eventPreferencesDescription;
           ImageView eventStatus;
           ImageView profileStartIcon;
@@ -289,7 +289,7 @@ class EditorEventListAdapter extends BaseAdapter
             }
             holder = new ViewHolder();
             holder.listItemRoot = (RelativeLayout)vi.findViewById(R.id.event_list_item_root);
-            holder.eventName = (TextView)vi.findViewById(R.id.event_list_item_event_name);
+            holder.eventName = (UnderlinedTextView) vi.findViewById(R.id.event_list_item_event_name);
             holder.eventStatus = (ImageView)vi.findViewById(R.id.event_list_item_status);
             holder.eventItemEditMenu = (ImageView)vi.findViewById(R.id.event_list_item_edit_menu);
             holder.profileStartName = (TextView)vi.findViewById(R.id.event_list_item_profile_start_name);
@@ -317,7 +317,7 @@ class EditorEventListAdapter extends BaseAdapter
         {
             int eventStatus = event.getStatusFromDB(dataWrapper);
 
-            if (eventStatus == Event.ESTATUS_RUNNING)
+            /*if (eventStatus == Event.ESTATUS_RUNNING)
             {
                 if (PPApplication.applicationTheme.equals("material"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
@@ -338,7 +338,7 @@ class EditorEventListAdapter extends BaseAdapter
                 else
                 if (PPApplication.applicationTheme.equals("dlight"))
                     holder.listItemRoot.setBackgroundResource(R.drawable.card);
-            }
+            }*/
 
             boolean isRunnable = event.isRunnable(dataWrapper.context);
             int statusRes = R.drawable.ic_event_status_stop_not_runnable;
@@ -368,15 +368,18 @@ class EditorEventListAdapter extends BaseAdapter
             if (eventStatus == Event.ESTATUS_RUNNING) {
                 holder.eventName.setTypeface(null, Typeface.BOLD);
                 holder.eventName.setTextColor(defaultColor);
+                holder.eventName.setUnderLineColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             }
             else
             if (!isRunnable) {
                 holder.eventName.setTypeface(null, Typeface.NORMAL);
                 holder.eventName.setTextColor(Color.RED);
+                holder.eventName.setUnderLineColor(Color.argb(0, 0, 0, 0));
             }
             else {
                 holder.eventName.setTypeface(null, Typeface.NORMAL);
                 holder.eventName.setTextColor(defaultColor);
+                holder.eventName.setUnderLineColor(Color.argb(0, 0, 0, 0));
             }
 
             String eventName = event._name;

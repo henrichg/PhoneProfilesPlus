@@ -119,7 +119,6 @@
                 android:id="@+id/editor_list_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/activityPopupBackground"
                 tools:context=".EditorProfileListActivity"  />
 
             <View

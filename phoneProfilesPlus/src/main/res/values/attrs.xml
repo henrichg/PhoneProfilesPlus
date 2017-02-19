@@ -57,6 +57,11 @@
         <attr format="reference|color" name="insetForeground" />
     </declare-styleable>
 
+    <declare-styleable name="UnderlinedTextView" >
+        <attr name="underlineWidth" format="dimension" />
+        <attr name="underlineColor" format="color" />
+    </declare-styleable>
+
     <!-- theme dependent drawables -->
     <attr name="actionNewProfileIcon" format="reference" />
     <attr name="actionDeleteAllIcon" format="reference" />

@@ -28,6 +28,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -476,4 +477,9 @@ public class GlobalGUIRoutines {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
+    public static int getThemeAccentColor (final Context context) {
+        final TypedValue value = new TypedValue ();
+        context.getTheme ().resolveAttribute (R.attr.colorAccent, value, true);
+        return value.data;
+    }
 }
