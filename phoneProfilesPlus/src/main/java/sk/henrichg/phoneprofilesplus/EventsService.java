@@ -696,13 +696,13 @@ public class EventsService extends IntentService
         if (broadcastReceiverType.equals(PhoneStateChangeBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //deviceOrientation
             PhoneStateChangeBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //SMS
+        if (broadcastReceiverType.equals(NFCBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //NFC
             NFCBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(NFCEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //SMSAlarm
+        if (broadcastReceiverType.equals(NFCEventEndBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //NFCAlarm
             NFCEventEndBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //SMS
+        if (broadcastReceiverType.equals(RadioSwitchBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //RadioSwitch
             RadioSwitchBroadcastReceiver.completeWakefulIntent(intent);
 
         // this broadcast not starts service with wakefull method

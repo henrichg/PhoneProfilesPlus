@@ -34,17 +34,13 @@ public class PhoneProfilesService extends Service
 {
     public static PhoneProfilesService instance = null;
 
-    private final BatteryEventBroadcastReceiver batteryEventReceiver = new BatteryEventBroadcastReceiver();
-    private final HeadsetConnectionBroadcastReceiver headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
-    //private final RestartEventsBroadcastReceiver restartEventsReceiver = new RestartEventsBroadcastReceiver();
-    //private final WifiStateChangedBroadcastReceiver wifiStateChangedReceiver = new WifiStateChangedBroadcastReceiver();
-    //private final WifiConnectionBroadcastReceiver wifiConnectionReceiver = new WifiConnectionBroadcastReceiver();
-    private final ScreenOnOffBroadcastReceiver screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
-    //private final BluetoothStateChangedBroadcastReceiver bluetoothStateChangedReceiver = new BluetoothStateChangedBroadcastReceiver();
+    private BatteryEventBroadcastReceiver batteryEventReceiver = null;
+    private HeadsetConnectionBroadcastReceiver headsetPlugReceiver = null;
+    private ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
-    private final NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
+    private NFCStateChangedBroadcastReceiver nfcStateChangedBroadcastReceiver = null;
 
     private static SettingsContentObserver settingsContentObserver = null;
     private static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
@@ -130,39 +126,34 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.initPhoneProfilesServiceMessenger(getApplicationContext());
 
+        if (batteryEventReceiver != null)
+            getApplicationContext().unregisterReceiver(batteryEventReceiver);
+        batteryEventReceiver = new BatteryEventBroadcastReceiver();
         IntentFilter intentFilter1 = new IntentFilter();
         intentFilter1.addAction(Intent.ACTION_BATTERY_CHANGED);
         getApplicationContext().registerReceiver(batteryEventReceiver, intentFilter1);
 
+        if (headsetPlugReceiver != null)
+            getApplicationContext().unregisterReceiver(headsetPlugReceiver);
+        headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
         IntentFilter intentFilter2 = new IntentFilter();
         for (String action : HeadsetConnectionBroadcastReceiver.HEADPHONE_ACTIONS) {
             intentFilter2.addAction(action);
         }
         getApplicationContext().registerReceiver(headsetPlugReceiver, intentFilter2);
 
-        /*
-        IntentFilter intentFilter7 = new IntentFilter();
-        intentFilter7.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        registerReceiver(wifiStateChangedReceiver, intentFilter7);
-
-        IntentFilter intentFilter3 = new IntentFilter();
-        intentFilter3.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        registerReceiver(wifiConnectionReceiver, intentFilter3);
-        */
-
+        if (screenOnOffReceiver != null)
+            getApplicationContext().unregisterReceiver(screenOnOffReceiver);
+        screenOnOffReceiver = new ScreenOnOffBroadcastReceiver();
         IntentFilter intentFilter5 = new IntentFilter();
         intentFilter5.addAction(Intent.ACTION_SCREEN_ON);
         intentFilter5.addAction(Intent.ACTION_SCREEN_OFF);
         intentFilter5.addAction(Intent.ACTION_USER_PRESENT);
         getApplicationContext().registerReceiver(screenOnOffReceiver, intentFilter5);
 
-        /*
-        IntentFilter intentFilter8 = new IntentFilter();
-        intentFilter8.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-        registerReceiver(bluetoothStateChangedReceiver, intentFilter8);
-        */
-
         if (android.os.Build.VERSION.SDK_INT >= 23) {
+            if (deviceIdleModeReceiver != null)
+                getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
             deviceIdleModeReceiver = new DeviceIdleModeBroadcastReceiver();
             IntentFilter intentFilter9 = new IntentFilter();
             intentFilter9.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
@@ -173,6 +164,8 @@ public class PhoneProfilesService extends Service
         }
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
+            if (powerSaveModeReceiver != null)
+                getApplicationContext().unregisterReceiver(powerSaveModeReceiver);
             powerSaveModeReceiver = new PowerSaveModeBroadcastReceiver();
             IntentFilter intentFilter10 = new IntentFilter();
             intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
@@ -182,13 +175,14 @@ public class PhoneProfilesService extends Service
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60) {
+                if (interruptionFilterChangedReceiver != null)
+                    getApplicationContext().unregisterReceiver(interruptionFilterChangedReceiver);
                 interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
                 IntentFilter intentFilter11 = new IntentFilter();
                 intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
                 getApplicationContext().registerReceiver(interruptionFilterChangedReceiver, intentFilter11);
             }
         }
-
 
         /*
         // receivers for system date and time change
@@ -230,9 +224,15 @@ public class PhoneProfilesService extends Service
         */
 
 
-        if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
-            IntentFilter intentFilter20 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
-            this.registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter20);
+        if (android.os.Build.VERSION.SDK_INT >= 18) {
+            if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
+                if (nfcStateChangedBroadcastReceiver != null)
+                    getApplicationContext().unregisterReceiver(nfcStateChangedBroadcastReceiver);
+                nfcStateChangedBroadcastReceiver = new NFCStateChangedBroadcastReceiver();
+                IntentFilter intentFilter20 = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
+                getApplicationContext().registerReceiver(nfcStateChangedBroadcastReceiver, intentFilter20);
+                PPApplication.logE("$$$ PhoneProfilesService.onCreate", "registered");
+            }
         }
 
         if (mobileDataStateChangedContentObserver != null)
@@ -255,13 +255,12 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("PhoneProfilesService.onDestroy", "xxxxx");
 
-        getApplicationContext().unregisterReceiver(batteryEventReceiver);
-        getApplicationContext().unregisterReceiver(headsetPlugReceiver);
-        //unregisterReceiver(wifiStateChangedReceiver);
-        //unregisterReceiver(wifiConnectionReceiver);
-        getApplicationContext().unregisterReceiver(screenOnOffReceiver);
-        //unregisterReceiver(bluetoothStateChangedReceiver);
-        //getApplicationContext().unregisterReceiver(restartEventsReceiver);
+        if (batteryEventReceiver != null)
+            getApplicationContext().unregisterReceiver(batteryEventReceiver);
+        if (headsetPlugReceiver != null)
+            getApplicationContext().unregisterReceiver(headsetPlugReceiver);
+        if (screenOnOffReceiver != null)
+            getApplicationContext().unregisterReceiver(screenOnOffReceiver);
         if (android.os.Build.VERSION.SDK_INT >= 23)
             if (deviceIdleModeReceiver != null)
                 getApplicationContext().unregisterReceiver(deviceIdleModeReceiver);
@@ -277,7 +276,12 @@ public class PhoneProfilesService extends Service
 
 
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC))
-            getApplicationContext().unregisterReceiver(nfcStateChangedBroadcastReceiver);
+            if (nfcStateChangedBroadcastReceiver != null) {
+                //try {
+                    getApplicationContext().unregisterReceiver(nfcStateChangedBroadcastReceiver);
+                //} catch (Exception ignored) {
+                //}
+            }
 
         if (settingsContentObserver != null)
             getContentResolver().unregisterContentObserver(settingsContentObserver);
@@ -292,6 +296,8 @@ public class PhoneProfilesService extends Service
         stopSimulatingRingingCall();
 
         instance = null;
+
+        super.onDestroy();
     }
 
     // start service for first start
@@ -317,6 +323,8 @@ public class PhoneProfilesService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        super.onStartCommand(intent, flags, startId);
+
         //Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler());
 
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);

@@ -64,13 +64,15 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|$$$ WifiConnectionBroadcastReceiver.onReceive"
+                                         +"|$$$ PhoneProfilesService.onCreate"
+                                         +"|PhoneProfilesService.onDestroy"
+                                         +"|##### NFCStateChangedBroadcastReceiver.onReceive"
 
-                                         +"|PhoneProfilesService.onStartCommand"
-                                         +"|PhoneProfilesService.startSimulatingRingingCall"
-                                         +"|PhoneProfilesService.stopSimulatingRingingCall"
+                                         //+"|PhoneProfilesService.onStartCommand"
+                                         //+"|PhoneProfilesService.startSimulatingRingingCall"
+                                         //+"|PhoneProfilesService.stopSimulatingRingingCall"
 
-                                         +"|$$$ PhoneProfilesService.setMergedRingNotificationVolumes"
+                                         //+"|$$$ PhoneProfilesService.setMergedRingNotificationVolumes"
 
                                          //+"|$$$ WifiStateChangedBroadcastReceiver.onReceive"
                                          //+"|$$$ WifiConnectionBroadcastReceiver.onReceive"

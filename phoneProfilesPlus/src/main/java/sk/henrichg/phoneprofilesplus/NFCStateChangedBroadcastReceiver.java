@@ -1,14 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class NFCStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {
-
-    public static final String BROADCAST_RECEIVER_TYPE = "nfcState";
+public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
