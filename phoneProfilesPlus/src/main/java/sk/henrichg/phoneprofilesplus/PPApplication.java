@@ -2423,8 +2423,10 @@ public class PPApplication extends Application {
 
     public static boolean getMergedRingNotificationVolumes(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)/* ||
-                (applicationForceSetMergeRingNotificationVolumes == 1)*/;
+        if (applicationForceSetMergeRingNotificationVolumes > 0)
+            return applicationForceSetMergeRingNotificationVolumes == 1;
+        else
+            return preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true);
     }
 
     // test if ring and notification volumes are merged

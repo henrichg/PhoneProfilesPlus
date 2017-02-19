@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
+import android.util.Log;
 
 import static android.app.Activity.RESULT_CANCELED;
 
@@ -439,8 +440,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(PPApplication.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
             Preference _preference = prefMng.findPreference(PPApplication.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
-            boolean enabled = PPApplication.getMergedRingNotificationVolumes(getActivity().getApplicationContext());
-            enabled = enabled /*|| (preferences.getString(key, "0").equals("1"))*/;
+            boolean enabled;
+            String value = preferences.getString(key, "0");
+            if (!value.equals("0"))
+                enabled = value.equals("1");
+            else
+                enabled = PPApplication.getMergedRingNotificationVolumes(getActivity().getApplicationContext());
+            Log.d("PhoneProfilesPreferencesNestedFragment.setSummary","enabled="+enabled);
             _preference.setEnabled(enabled);
         }
     }
