@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
-    android:orientation="horizontal" 
-    android:background="?attr/cardShape" >
+    android:orientation="horizontal" >
 
     <ImageView
         android:id="@+id/shortcut_list_item_profile_icon"
