@@ -54,7 +54,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_profile_default" />
 
-        <sk.henrichg.phoneprofilesplus.UnderlinedTextView
+        <TextView
             android:id="@+id/profile_list_item_profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

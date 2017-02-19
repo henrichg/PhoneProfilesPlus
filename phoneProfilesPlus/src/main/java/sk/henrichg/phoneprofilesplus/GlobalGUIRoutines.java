@@ -483,4 +483,10 @@ public class GlobalGUIRoutines {
         return value.data;
     }
 
+    static int getThemeTextColor (final Context context) {
+        final TypedValue value = new TypedValue ();
+        context.getTheme ().resolveAttribute (R.attr.activityTextColor, value, true);
+        return value.data;
+    }
+
 }

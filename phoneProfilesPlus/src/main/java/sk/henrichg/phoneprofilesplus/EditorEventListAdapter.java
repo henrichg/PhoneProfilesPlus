@@ -31,7 +31,7 @@ class EditorEventListAdapter extends BaseAdapter
     private int filterType;
     private List<Event> eventList;
     boolean released = false;
-    private int defaultColor;
+    //private int defaultColor;
 
     public boolean targetHelpsSequenceStarted;
     static final String PREF_START_TARGET_HELPS = "editor_event_list_adapter_start_target_helps";
@@ -253,7 +253,7 @@ class EditorEventListAdapter extends BaseAdapter
 
     static class ViewHolder {
           RelativeLayout listItemRoot;
-          UnderlinedTextView eventName;
+          TextView eventName;
           TextView eventPreferencesDescription;
           ImageView eventStatus;
           ImageView profileStartIcon;
@@ -289,7 +289,7 @@ class EditorEventListAdapter extends BaseAdapter
             }
             holder = new ViewHolder();
             holder.listItemRoot = (RelativeLayout)vi.findViewById(R.id.event_list_item_root);
-            holder.eventName = (UnderlinedTextView) vi.findViewById(R.id.event_list_item_event_name);
+            holder.eventName = (TextView) vi.findViewById(R.id.event_list_item_event_name);
             holder.eventStatus = (ImageView)vi.findViewById(R.id.event_list_item_status);
             holder.eventItemEditMenu = (ImageView)vi.findViewById(R.id.event_list_item_edit_menu);
             holder.profileStartName = (TextView)vi.findViewById(R.id.event_list_item_profile_start_name);
@@ -304,7 +304,7 @@ class EditorEventListAdapter extends BaseAdapter
                 holder.profileEndIndicator = (ImageView)vi.findViewById(R.id.event_list_item_profile_end_pref_indicator);
             }
             vi.setTag(holder);
-            defaultColor = holder.eventName.getTextColors().getDefaultColor();
+            //defaultColor = holder.eventName.getTextColors().getDefaultColor();
         }
         else
         {
@@ -367,19 +367,16 @@ class EditorEventListAdapter extends BaseAdapter
 
             if (eventStatus == Event.ESTATUS_RUNNING) {
                 holder.eventName.setTypeface(null, Typeface.BOLD);
-                holder.eventName.setTextColor(defaultColor);
-                holder.eventName.setUnderLineColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
+                holder.eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             }
             else
             if (!isRunnable) {
                 holder.eventName.setTypeface(null, Typeface.NORMAL);
                 holder.eventName.setTextColor(Color.RED);
-                holder.eventName.setUnderLineColor(Color.argb(0, 0, 0, 0));
             }
             else {
                 holder.eventName.setTypeface(null, Typeface.NORMAL);
-                holder.eventName.setTextColor(defaultColor);
-                holder.eventName.setUnderLineColor(Color.argb(0, 0, 0, 0));
+                holder.eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
             }
 
             String eventName = event._name;

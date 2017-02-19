@@ -8,6 +8,8 @@
         <item name="colorPrimaryDark">@color/profile_all_primaryDark</item>
         <item name="colorAccent">@color/profile_all_accent</item>
 
+        <item name="activityTextColor">@color/activityTextColor</item>
+
         <item name="md_widget_color">?attr/colorAccent</item>
 
         <item name="actionNewProfileIcon">@drawable/ic_action_new_profile_dark</item>

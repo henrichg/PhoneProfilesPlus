@@ -122,7 +122,7 @@ class ActivateProfileListAdapter extends BaseAdapter
     static class ViewHolder {
           ViewGroup listItemRoot;
           ImageView profileIcon;
-          UnderlinedTextView profileName;
+          TextView profileName;
           ImageView profileIndicator;
           int position;
         }
@@ -143,7 +143,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                 else
                     vi = inflater.inflate(R.layout.activate_profile_list_item_no_indicator, parent, false);
                 holder.listItemRoot = (RelativeLayout)vi.findViewById(R.id.act_prof_list_item_root);
-                holder.profileName = (UnderlinedTextView) vi.findViewById(R.id.act_prof_list_item_profile_name);
+                holder.profileName = (TextView) vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = (ImageView)vi.findViewById(R.id.act_prof_list_item_profile_icon);
                 if (PPApplication.applicationActivatorPrefIndicator)
                     holder.profileIndicator = (ImageView)vi.findViewById(R.id.act_prof_list_profile_pref_indicator);
@@ -152,7 +152,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             {
                 vi = inflater.inflate(R.layout.activate_profile_grid_item, parent, false);
                 holder.listItemRoot = (LinearLayout)vi.findViewById(R.id.act_prof_list_item_root);
-                holder.profileName = (UnderlinedTextView) vi.findViewById(R.id.act_prof_list_item_profile_name);
+                holder.profileName = (TextView) vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = (ImageView)vi.findViewById(R.id.act_prof_list_item_profile_icon);
             }
             vi.setTag(holder);
@@ -176,7 +176,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                 holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
             // holder.profileName.setTypeface(null, Typeface.BOLD);*/
             holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
-            holder.profileName.setUnderLineColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
+            holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
         }
         else
         {
@@ -190,7 +190,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                 holder.listItemRoot.setBackgroundResource(R.drawable.card);
             //holder.profileName.setTypeface(null, Typeface.NORMAL);*/
             holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-            holder.profileName.setUnderLineColor(Color.argb(0, 0, 0, 0));
+            holder.profileName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
         }
       
         String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
