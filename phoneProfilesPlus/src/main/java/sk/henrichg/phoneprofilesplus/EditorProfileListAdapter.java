@@ -338,28 +338,14 @@ class EditorProfileListAdapter extends BaseAdapter
 
             if (profile._checked && (!PPApplication.applicationEditorHeader))
             {
-                /*if (PPApplication.applicationTheme.equals("material"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
-                else
-                if (PPApplication.applicationTheme.equals("dark"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dark);
-                else
-                if (PPApplication.applicationTheme.equals("dlight"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);*/
                 holder.profileName.setTypeface(null, Typeface.BOLD);
+                holder.profileName.setTextSize(16);
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             }
             else
             {
-                /*if (PPApplication.applicationTheme.equals("material"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.card);
-                else
-                if (PPApplication.applicationTheme.equals("dark"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.card_dark);
-                else
-                if (PPApplication.applicationTheme.equals("dlight"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.card);*/
                 holder.profileName.setTypeface(null, Typeface.NORMAL);
+                holder.profileName.setTextSize(15);
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
             }
 

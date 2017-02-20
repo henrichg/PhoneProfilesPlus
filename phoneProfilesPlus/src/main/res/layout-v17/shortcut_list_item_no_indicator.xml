@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/shortcut_list_item_profile_icon"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:text="@string/profile_name_default"
         android:textSize="15sp"
         android:maxLines="1"/>

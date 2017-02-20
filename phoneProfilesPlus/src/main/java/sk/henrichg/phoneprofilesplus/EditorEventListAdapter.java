@@ -317,29 +317,6 @@ class EditorEventListAdapter extends BaseAdapter
         {
             int eventStatus = event.getStatusFromDB(dataWrapper);
 
-            /*if (eventStatus == Event.ESTATUS_RUNNING)
-            {
-                if (PPApplication.applicationTheme.equals("material"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
-                else
-                if (PPApplication.applicationTheme.equals("dark"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dark);
-                else
-                if (PPApplication.applicationTheme.equals("dlight"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
-            }
-            else
-            {
-                if (PPApplication.applicationTheme.equals("material"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.card);
-                else
-                if (PPApplication.applicationTheme.equals("dark"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.card_dark);
-                else
-                if (PPApplication.applicationTheme.equals("dlight"))
-                    holder.listItemRoot.setBackgroundResource(R.drawable.card);
-            }*/
-
             boolean isRunnable = event.isRunnable(dataWrapper.context);
             int statusRes = R.drawable.ic_event_status_stop_not_runnable;
             switch (eventStatus)
@@ -367,15 +344,18 @@ class EditorEventListAdapter extends BaseAdapter
 
             if (eventStatus == Event.ESTATUS_RUNNING) {
                 holder.eventName.setTypeface(null, Typeface.BOLD);
+                holder.eventName.setTextSize(16);
                 holder.eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             }
             else
             if (!isRunnable) {
                 holder.eventName.setTypeface(null, Typeface.NORMAL);
+                holder.eventName.setTextSize(15);
                 holder.eventName.setTextColor(Color.RED);
             }
             else {
                 holder.eventName.setTypeface(null, Typeface.NORMAL);
+                holder.eventName.setTextSize(15);
                 holder.eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
             }
 
