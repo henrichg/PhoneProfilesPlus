@@ -45,6 +45,8 @@ public class ActivateProfileListFragment extends Fragment {
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
 
+    public static int PORDER_FOR_IGNORED_PROFILE = 1000000;
+
     public ActivateProfileListFragment() {
     }
 
@@ -189,6 +191,25 @@ public class ActivateProfileListFragment extends Fragment {
                 {
                     profile._showInActivator = true;
                     profile._porder = -1;
+                }
+            }
+
+            if (PPApplication.applicationActivatorGridLayout) {
+                int count = 0;
+                for (Profile profile : profileList)
+                {
+                    if (profile._showInActivator)
+                        ++count;
+                }
+                int modulo = count % 3;
+                if (modulo > 0) {
+                    for (int i = 0; i < 3 - modulo; i++) {
+                        Profile profile = DataWrapper.getNoinitializedProfile(
+                                dataWrapper.context.getResources().getString(R.string.profile_name_default),
+                                PPApplication.PROFILE_ICON_DEFAULT, PORDER_FOR_IGNORED_PROFILE);
+                        profile._showInActivator = true;
+                        profileList.add(profile);
+                    }
                 }
             }
 
@@ -347,7 +368,8 @@ public class ActivateProfileListFragment extends Fragment {
 
     public void activateProfile(Profile profile, int startupSource)
     {
-        dataWrapper.activateProfile(profile._id, startupSource, getActivity()/*, ""*/);
+        if (profile._porder != PORDER_FOR_IGNORED_PROFILE)
+            dataWrapper.activateProfile(profile._id, startupSource, getActivity()/*, ""*/);
     }
 
     public void refreshGUI(boolean refreshIcons)

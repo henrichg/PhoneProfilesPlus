@@ -164,8 +164,13 @@ class ActivateProfileListAdapter extends BaseAdapter
 
         final Profile profile = (Profile)getItem(position);
 
-        if (profile._checked && (!PPApplication.applicationActivatorHeader))
-        {
+        if ((PPApplication.applicationActivatorGridLayout) &&
+                (profile._porder == ActivateProfileListFragment.PORDER_FOR_IGNORED_PROFILE)) {
+            holder.profileName.setText(R.string.empty_string);
+            holder.profileIcon.setImageResource(R.drawable.ic_empty);
+        }
+        else {
+            if (profile._checked && (!PPApplication.applicationActivatorHeader)) {
             /*if (PPApplication.applicationTheme.equals("material"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
             else
@@ -175,11 +180,9 @@ class ActivateProfileListAdapter extends BaseAdapter
             if (PPApplication.applicationTheme.equals("dlight"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.header_card_dlight);
             // holder.profileName.setTypeface(null, Typeface.BOLD);*/
-            holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
-            holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
-        }
-        else
-        {
+                holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+                holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
+            } else {
             /*if (PPApplication.applicationTheme.equals("material"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.card);
             else
@@ -189,40 +192,37 @@ class ActivateProfileListAdapter extends BaseAdapter
             if (PPApplication.applicationTheme.equals("dlight"))
                 holder.listItemRoot.setBackgroundResource(R.drawable.card);
             //holder.profileName.setTypeface(null, Typeface.NORMAL);*/
-            holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
-            holder.profileName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
-        }
-      
-        String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
-                                    (!PPApplication.applicationActivatorGridLayout) &&
-                                    profile._checked &&
-                                    (!PPApplication.applicationActivatorHeader), true,
-                                    PPApplication.applicationActivatorGridLayout);
-        holder.profileName.setText(profileName);
-
-
-        if (profile.getIsIconResourceID())
-        {
-            if (profile._iconBitmap != null)
-                holder.profileIcon.setImageBitmap(profile._iconBitmap);
-            else {
-                //holder.profileIcon.setImageBitmap(null);
-                int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                        vi.getContext().getPackageName());
-                holder.profileIcon.setImageResource(res); // resource na ikonu
+                holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                holder.profileName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
             }
-        }
-        else
-        {
-            holder.profileIcon.setImageBitmap(profile._iconBitmap);
-        }
 
-        if ((PPApplication.applicationActivatorPrefIndicator) && (!PPApplication.applicationActivatorGridLayout))
-        {
-            //profilePrefIndicatorImageView.setImageBitmap(null);
-            //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
-            //profilePrefIndicatorImageView.setImageBitmap(bitmap);
-            holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+            String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
+                    (!PPApplication.applicationActivatorGridLayout) &&
+                            profile._checked &&
+                            (!PPApplication.applicationActivatorHeader), true,
+                    PPApplication.applicationActivatorGridLayout);
+            holder.profileName.setText(profileName);
+
+
+            if (profile.getIsIconResourceID()) {
+                if (profile._iconBitmap != null)
+                    holder.profileIcon.setImageBitmap(profile._iconBitmap);
+                else {
+                    //holder.profileIcon.setImageBitmap(null);
+                    int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            vi.getContext().getPackageName());
+                    holder.profileIcon.setImageResource(res); // resource na ikonu
+                }
+            } else {
+                holder.profileIcon.setImageBitmap(profile._iconBitmap);
+            }
+
+            if ((PPApplication.applicationActivatorPrefIndicator) && (!PPApplication.applicationActivatorGridLayout)) {
+                //profilePrefIndicatorImageView.setImageBitmap(null);
+                //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
+                //profilePrefIndicatorImageView.setImageBitmap(bitmap);
+                holder.profileIndicator.setImageBitmap(profile._preferencesIndicator);
+            }
         }
 
         return vi;
