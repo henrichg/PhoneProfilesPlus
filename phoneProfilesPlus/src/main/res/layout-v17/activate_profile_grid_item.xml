@@ -3,7 +3,8 @@
     android:id="@+id/act_prof_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="85dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="?android:attr/windowBackground">
 
     <ImageView
         android:id="@+id/act_prof_list_item_profile_icon"
