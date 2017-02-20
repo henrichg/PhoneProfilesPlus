@@ -63,9 +63,6 @@
     <attr name="actionDeleteAllIcon" format="reference" />
     <attr name="actionEditProfilesIcon" format="reference" />
     <attr name="activityPopupBackground" format="reference" />
-    <attr name="cardShape" format="reference" />
-    <attr name="headerCardShape" format="reference" />
-    <attr name="cardSelector" format="reference" />
     <attr name="dragHandleIcon" format="reference" />
     <attr name="actionProfilePrefSave" format="reference" />
     <attr name="actionProfilePrefCancel" format="reference" />
