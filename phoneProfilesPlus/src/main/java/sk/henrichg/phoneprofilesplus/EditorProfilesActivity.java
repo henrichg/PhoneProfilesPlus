@@ -1143,20 +1143,26 @@ public class EditorProfilesActivity extends AppCompatActivity
                     this.dataWrapper.stopAllEvents(true, false);
 
                     int ret = this.dataWrapper.getDatabaseHandler().importDB(_applicationDataPath);
+                    Log.d("EditorProfilesActivity.doImportData"," importDB ret="+ret);
 
                     if (ret == 1) {
                         // check for hardware capability and update data
                         ret = this.dataWrapper.getDatabaseHandler().disableNotAllowedPreferences(getApplicationContext());
+                        Log.d("EditorProfilesActivity.doImportData"," disableNotAllowedPreferences ret="+ret);
                     }
                     if (ret == 1) {
                         File sd = Environment.getExternalStorageDirectory();
                         File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                        if (!importApplicationPreferences(exportFile, 1))
+                        if (!importApplicationPreferences(exportFile, 1)) {
                             ret = 0;
+                            Log.d("EditorProfilesActivity.doImportData"," importApplicationPreferences(ApplicationPreferences) ret="+ret);
+                        }
                         else {
                             exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                            if (!importApplicationPreferences(exportFile, 2))
+                            if (!importApplicationPreferences(exportFile, 2)) {
                                 ret = 0;
+                                Log.d("EditorProfilesActivity.doImportData"," importApplicationPreferences(DefaultProfilePreferences) ret="+ret);
+                            }
                         }
                     }
 
