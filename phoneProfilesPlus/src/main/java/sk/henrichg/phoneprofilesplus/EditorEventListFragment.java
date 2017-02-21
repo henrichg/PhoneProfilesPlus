@@ -811,6 +811,15 @@ public class EditorEventListFragment extends Fragment {
             itemView = listView.getChildAt(0);
         if ((eventListAdapter != null) && (itemView != null))
             eventListAdapter.showTargetHelps(getActivity(), this, itemView);
+        else {
+            targetHelpsSequenceStarted = false;
+            final SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
+            if (filterType == FILTER_TYPE_START_ORDER)
+                editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
+            editor.commit();
+        }
     }
 
 }

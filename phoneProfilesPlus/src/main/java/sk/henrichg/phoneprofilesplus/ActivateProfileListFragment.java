@@ -465,6 +465,21 @@ public class ActivateProfileListFragment extends Fragment {
         Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
         if ((profileListAdapter != null) && (itemView != null))
             profileListAdapter.showTargetHelps(getActivity(), this, itemView);
+        else {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (ActivatorTargetHelpsActivity.activity != null) {
+                        if (ActivatorTargetHelpsActivity.activity != null) {
+                            Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
+                            ActivatorTargetHelpsActivity.activity.finish();
+                            ActivatorTargetHelpsActivity.activity = null;
+                        }
+                    }
+                }
+            }, 500);
+        }
     }
 
 }

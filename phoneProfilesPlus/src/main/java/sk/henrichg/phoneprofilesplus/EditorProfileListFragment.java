@@ -997,6 +997,14 @@ public class EditorProfileListFragment extends Fragment {
         Log.d("EditorProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
         if ((profileListAdapter != null) && (itemView != null))
             profileListAdapter.showTargetHelps(getActivity(), this, itemView);
+        else {
+            targetHelpsSequenceStarted = false;
+            final SharedPreferences preferences = getActivity().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(PREF_START_TARGET_HELPS, false);
+            editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, false);
+            editor.commit();
+        }
     }
 
 }
