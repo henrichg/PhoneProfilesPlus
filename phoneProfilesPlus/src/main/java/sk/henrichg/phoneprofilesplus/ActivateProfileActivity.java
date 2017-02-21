@@ -102,8 +102,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
         final float scale = getResources().getDisplayMetrics().density;
 
         // add header height
-        if (PPApplication.applicationActivatorHeader)
-            popupHeight = popupHeight + 74f * scale;
+        if (PPApplication.applicationActivatorHeader) {
+            if (!PPApplication.applicationActivatorGridLayout)
+                popupHeight = popupHeight + 62f * scale;
+            else
+                popupHeight = popupHeight + 74f * scale;
+        }
 
         // add toolbar height
         popupHeight = popupHeight + (25f + 1f + 3f) * scale;
@@ -116,7 +120,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
         {
             // add list items height
             popupHeight = popupHeight + (50f * scale * profileCount); // item
-            popupHeight = popupHeight + (1f * scale * (profileCount-1)); // divider
+            popupHeight = popupHeight + (1f * scale * (profileCount)); // divider
+
+            popupHeight = popupHeight + (20f * scale); // listview padding
         }
         else
         {
@@ -127,10 +133,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 ++profileCount;
             popupHeight = popupHeight + (85f * scale * profileCount); // item
             popupHeight = popupHeight + (1f * scale * (profileCount-1)); // divider
-            //popupHeight = popupHeight - (2f * scale); // bottom divider
-        }
 
-        popupHeight = popupHeight + (20f * scale); // listview padding
+            popupHeight = popupHeight + (20f * scale); // gridview padding
+        }
 
         if (popupHeight > popupMaxHeight)
             popupHeight = popupMaxHeight;
