@@ -116,7 +116,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         {
             // add list items height
             popupHeight = popupHeight + (50f * scale * profileCount); // item
-            popupHeight = popupHeight + (5f * scale * (profileCount-1)); // divider
+            popupHeight = popupHeight + (1f * scale * (profileCount-1)); // divider
         }
         else
         {
