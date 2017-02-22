@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -487,7 +488,11 @@ public class BluetoothNamePreference extends DialogPreference {
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context context = view.getContext();
-        PopupMenu popup = new PopupMenu(context, view);
+        PopupMenu popup;
+        if (android.os.Build.VERSION.SDK_INT >= 19)
+            popup = new PopupMenu(context, view, Gravity.END);
+        else
+            popup = new PopupMenu(context, view);
         new MenuInflater(context).inflate(R.menu.bluetooth_name_pref_dlg_item_edit, popup.getMenu());
 
         int btNamePos = (int)view.getTag();

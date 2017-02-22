@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -493,7 +494,11 @@ public class EditorEventListFragment extends Fragment {
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context context = view.getContext();
-        PopupMenu popup = new PopupMenu(context, view);
+        PopupMenu popup;
+        if (android.os.Build.VERSION.SDK_INT >= 19)
+            popup = new PopupMenu(context, view, Gravity.END);
+        else
+            popup = new PopupMenu(context, view);
         Menu menu = popup.getMenu();
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_edit, menu);
 

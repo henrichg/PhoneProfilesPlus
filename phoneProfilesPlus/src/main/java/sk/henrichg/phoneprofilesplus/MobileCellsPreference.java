@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -442,7 +443,11 @@ public class MobileCellsPreference extends DialogPreference {
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context context = view.getContext();
-        PopupMenu popup = new PopupMenu(context, view);
+        PopupMenu popup;
+        if (android.os.Build.VERSION.SDK_INT >= 19)
+            popup = new PopupMenu(context, view, Gravity.END);
+        else
+            popup = new PopupMenu(context, view);
         new MenuInflater(context).inflate(R.menu.mobile_cells_pref_item_edit, popup.getMenu());
 
         final int cellId = (int)view.getTag();

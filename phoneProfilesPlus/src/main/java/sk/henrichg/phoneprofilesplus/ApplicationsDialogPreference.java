@@ -14,6 +14,7 @@ import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -497,7 +498,11 @@ public class ApplicationsDialogPreference  extends DialogPreference {
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context context = view.getContext();
-        PopupMenu popup = new PopupMenu(context, view);
+        PopupMenu popup;
+        if (android.os.Build.VERSION.SDK_INT >= 19)
+            popup = new PopupMenu(context, view, Gravity.END);
+        else
+            popup = new PopupMenu(context, view);
         new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
 
         final int position = (int)view.getTag();
