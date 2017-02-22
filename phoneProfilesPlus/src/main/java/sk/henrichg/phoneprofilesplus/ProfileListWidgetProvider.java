@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -187,18 +189,11 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 green = red; blue = red;
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(alpha, red, green, blue));
             }
-            /*
-            if (PPApplication.applicationWidgetListIconColor.equals("1"))
-            {
-                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_activated);
-                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue, context);
-                widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_activated, bitmap);
-            }
-            else
-            {
-                widget.setImageViewResource(R.id.widget_profile_list_header_profile_activated, R.drawable.ic_profile_activated);
-            }
-            */
+
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart);
+            bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+            widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
+
         }
         ////////////////////////////////////////////////
 
@@ -209,6 +204,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
+
+            Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
+            PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
+            widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
 
             if (!PPApplication.applicationWidgetListGridLayout)
                 widget.setRemoteAdapter(appWidgetId, R.id.widget_profile_list, svcIntent);
@@ -241,6 +240,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
+
+            Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
+            PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
+            widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
         }
 
         return widget;

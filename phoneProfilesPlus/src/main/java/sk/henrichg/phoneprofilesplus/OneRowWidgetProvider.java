@@ -6,6 +6,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.widget.RemoteViews;
 
@@ -122,27 +124,21 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 else
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_pref_indicator, profile._preferencesIndicator);
             }
-            /*
-            if (PPApplication.applicationWidgetListIconColor.equals("1"))
-            {
-                monochromeValue = 0xFF;
-                if (PPApplication.applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
-                if (PPApplication.applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
-                if (PPApplication.applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
-                if (PPApplication.applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-                if (PPApplication.applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
-                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_activated);
-                bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue, context);
-                remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_activated, bitmap);
-            }
-            else
-            {
-                remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_activated, R.drawable.ic_profile_activated);
-            }
-            */
+            monochromeValue = 0xFF;
+            if (PPApplication.applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
+            if (PPApplication.applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
+            if (PPApplication.applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
+            if (PPApplication.applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
+            if (PPApplication.applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_action_events_restart);
+            bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
+            remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
 
+            Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
+            PendingIntent pIntentRE = PendingIntent.getActivity(context, 0, intentRE, PendingIntent.FLAG_CANCEL_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events, pIntentRE);
 
             // konfiguracia, ze ma spustit hlavnu aktivitu zoznamu profilov, ked kliknme na widget
             Intent intent = new Intent(context, LauncherActivity.class);
