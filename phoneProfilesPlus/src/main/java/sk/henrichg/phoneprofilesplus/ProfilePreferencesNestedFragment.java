@@ -349,7 +349,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
         }
 
-
         InfoDialogPreference infoDialogPreference = (InfoDialogPreference)prefMng.findPreference("prf_pref_prefernceTypesInfo");
         if (infoDialogPreference != null) {
             infoDialogPreference.setInfoText(
@@ -357,6 +356,11 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     getString(R.string.important_info_profile_settings)+"\n\n"+
                     getString(R.string.important_info_profile_interactive));
         }
+
+        Preference showInActivatorPreference = prefMng.findPreference(PPApplication.PREF_PROFILE_SHOW_IN_ACTIVATOR);
+        if (showInActivatorPreference != null)
+            showInActivatorPreference.setTitle("[A] " + getResources().getString(R.string.profile_preferences_showInActivator));
+
     }
 
     @Override

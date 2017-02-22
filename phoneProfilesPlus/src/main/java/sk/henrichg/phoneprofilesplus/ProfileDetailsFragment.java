@@ -94,7 +94,6 @@ public class ProfileDetailsFragment extends Fragment {
         TextView profileName;
         ImageView profileIndicator;
         ImageView profileItemEdit;
-        ImageView profileShowInActivator;
 
         profileName = (TextView)view.findViewById(R.id.profile_detail_profile_name);
         profileIcon = (ImageView)view.findViewById(R.id.profile_detail_profile_icon);
@@ -103,7 +102,6 @@ public class ProfileDetailsFragment extends Fragment {
             profileIndicator = (ImageView)view.findViewById(R.id.profile_detail_profile_pref_indicator);
         //else
         //    profileIndicator = null;
-        profileShowInActivator = (ImageView)view.findViewById(R.id.profile_detail_show_in_activator);
 
         DataWrapper dataWrapper = new DataWrapper(getActivity().getApplicationContext(), true, false, 0);
 
@@ -113,7 +111,11 @@ public class ProfileDetailsFragment extends Fragment {
 
         if (profile != null) {
 
-            profileName.setText(profile.getProfileNameWithDuration(false, dataWrapper.context));
+            String sProfileName = profile.getProfileNameWithDuration(false, dataWrapper.context);
+            if (profile._showInActivator)
+                sProfileName = "[A] " + sProfileName;
+
+            profileName.setText(sProfileName);
 
             if (profile.getIsIconResourceID()) {
                 if (profile._iconBitmap != null)
@@ -127,11 +129,6 @@ public class ProfileDetailsFragment extends Fragment {
             } else {
                 profileIcon.setImageBitmap(profile._iconBitmap);
             }
-
-            if (profile._showInActivator)
-                profileShowInActivator.setImageResource(R.drawable.ic_profile_show_in_activator_on);
-            else
-                profileShowInActivator.setImageResource(R.drawable.ic_profile_show_in_activator_off);
 
             //if (PPApplication.applicationEditorPrefIndicator) {
                 //profilePrefIndicatorImageView.setImageBitmap(null);

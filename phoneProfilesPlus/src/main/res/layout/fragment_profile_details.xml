@@ -71,26 +71,12 @@
                 android:maxLines="1"/>
 
             <ImageView
-                android:id="@+id/profile_detail_show_in_activator"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:layout_below="@+id/profile_detail_profile_name"
-                android:layout_toRightOf="@+id/profile_detail_profile_icon"
-                android:layout_toEndOf="@+id/profile_detail_profile_icon"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/empty_string"
-                android:scaleType="@integer/profilePrefIndicatorScaleType"
-                android:src="@drawable/ic_profile_show_in_activator_on"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
-
-            <ImageView
                 android:id="@+id/profile_detail_profile_pref_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
                 android:layout_below="@+id/profile_detail_profile_name"
-                android:layout_toRightOf="@+id/profile_detail_show_in_activator"
-                android:layout_toEndOf="@+id/profile_detail_show_in_activator"
+                android:layout_toRightOf="@+id/profile_detail_profile_icon"
+                android:layout_toEndOf="@+id/profile_detail_profile_icon"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/empty_string"
                 android:scaleType="@integer/profilePrefIndicatorScaleType"

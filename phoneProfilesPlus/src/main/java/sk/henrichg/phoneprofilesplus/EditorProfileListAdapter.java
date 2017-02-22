@@ -270,7 +270,6 @@ class EditorProfileListAdapter extends BaseAdapter
           TextView profileName;
           ImageView profileIndicator;
           ImageView profileItemEditMenu;
-          ImageView profileShowInActivator;
           int position;
         }
 
@@ -301,7 +300,6 @@ class EditorProfileListAdapter extends BaseAdapter
             holder.profileName = (TextView)vi.findViewById(R.id.profile_list_item_profile_name);
             holder.profileIcon = (ImageView)vi.findViewById(R.id.profile_list_item_profile_icon);
             holder.profileItemEditMenu = (ImageView)vi.findViewById(R.id.profile_list_item_edit_menu);
-            holder.profileShowInActivator = (ImageView)vi.findViewById(R.id.profile_list_item_show_in_activator);
             if (PPApplication.applicationEditorPrefIndicator)
                 holder.profileIndicator = (ImageView)vi.findViewById(R.id.profile_list_profile_pref_indicator);
             vi.setTag(holder);        
@@ -352,6 +350,10 @@ class EditorProfileListAdapter extends BaseAdapter
             String profileName = dataWrapper.getProfileNameWithManualIndicator(profile,
                     profile._checked &&
                     (!PPApplication.applicationEditorHeader), true, false);
+
+            if (profile._showInActivator)
+                profileName = "[A] " + profileName;
+
             holder.profileName.setText(profileName);
 
             if (profile.getIsIconResourceID())
@@ -369,11 +371,6 @@ class EditorProfileListAdapter extends BaseAdapter
             {
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
-
-            if (profile._showInActivator)
-                holder.profileShowInActivator.setImageResource(R.drawable.ic_profile_show_in_activator_on);
-            else
-                holder.profileShowInActivator.setImageResource(R.drawable.ic_profile_show_in_activator_off);
 
             if (PPApplication.applicationEditorPrefIndicator)
             {
