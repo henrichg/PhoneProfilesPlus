@@ -7,22 +7,12 @@
     android:background="#000"
     tools:context="sk.henrichg.phoneprofilesplus.LockDeviceActivity">
 
-    <TextClock
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:maxLines="1"
-        android:paddingBottom="200dp"
-        android:textColor="@color/lockDevice_textColor"
-        android:textSize="75sp" />
-
     <TextView
         android:id="@+id/activity_lockDevice_screenOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/lockDevice_textColor"
         android:text="@string/lockDevice_screenOff_text"/>

@@ -53,7 +53,7 @@
 
             <ImageView
                 android:id="@+id/activated_profile_pref_indicator"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="15dp"
                 android:layout_below="@+id/activated_profile_name"
                 android:layout_toRightOf="@+id/activated_profile_icon"

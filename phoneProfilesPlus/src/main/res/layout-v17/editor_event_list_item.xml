@@ -104,7 +104,7 @@
 
         <ImageView
             android:id="@+id/event_list_item_profile_start_pref_indicator"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_below="@+id/event_list_item_profile_start_name"
             android:layout_toEndOf="@+id/event_list_item_profile_start_icon"
@@ -143,7 +143,7 @@
 
         <ImageView
             android:id="@+id/event_list_item_profile_end_pref_indicator"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_below="@+id/event_list_item_profile_end_name"
             android:layout_toEndOf="@+id/event_list_item_profile_end_icon"

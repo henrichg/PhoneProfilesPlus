@@ -47,7 +47,7 @@
 
         <ImageView
             android:id="@+id/profile_pref_dlg_item_indicator"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/empty_string"
