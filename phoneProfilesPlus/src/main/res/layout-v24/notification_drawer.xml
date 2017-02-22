@@ -53,7 +53,7 @@
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/menu_restart_events"
             android:scaleType="center"
-            android:src="@drawable/ic_action_events_restart_dark" />
+            android:src="@drawable/ic_action_events_restart" />
 
         <RelativeLayout
             android:id="@+id/notification_activated_profile_root"
