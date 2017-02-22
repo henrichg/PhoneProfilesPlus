@@ -4,7 +4,14 @@
     <style name="Theme.Phoneprofilestheme_withToolbar_material" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_material">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <!--
+    <style name="Theme.Phoneprofilestheme_withToolbar_material" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_material">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:popupMenuStyle">@style/PopupMenu_material</item>
     </style>
+    -->
 
 </resources>

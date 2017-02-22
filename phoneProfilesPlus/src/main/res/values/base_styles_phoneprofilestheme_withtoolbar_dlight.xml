@@ -61,8 +61,10 @@
 
     </style>
 
+    <!--
     <style name="PopupMenu_dlight" parent="@style/Widget.AppCompat.Light.PopupMenu">
         <item name="android:dropDownVerticalOffset">-36dp</item>
     </style>
+    -->
 
 </resources>
