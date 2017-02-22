@@ -11,7 +11,7 @@
             android:id="@+id/event_list_item_buttons_root"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:orientation="horizontal" >
