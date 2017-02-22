@@ -4,7 +4,10 @@
     android:id="@+id/profile_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="1dp"
+    android:paddingStart="1dp"
+    android:paddingEnd="1dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
     android:orientation="horizontal" >
 
     <LinearLayout 

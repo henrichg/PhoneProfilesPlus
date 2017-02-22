@@ -119,7 +119,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         if (!PPApplication.applicationActivatorGridLayout)
         {
             // add list items height
-            popupHeight = popupHeight + (50f * scale * profileCount); // item
+            popupHeight = popupHeight + (60f * scale * profileCount); // item
             popupHeight = popupHeight + (1f * scale * (profileCount)); // divider
 
             popupHeight = popupHeight + (20f * scale); // listview padding
