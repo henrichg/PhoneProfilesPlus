@@ -2252,13 +2252,31 @@ public class DataWrapper {
                                         break;
                                 } else {
                                     String _device = device.getName().toUpperCase();
-                                    String _adapterName = _bluetoothName.toUpperCase();
-                                    if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                        PPApplication.logE("[BTScan] DataWrapper.doEventService", "bluetooth found");
-                                        //PPApplication.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
-                                        //PPApplication.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
-                                        bluetoothPassed = true;
-                                        break;
+                                    if ((device.getName() == null) || device.getName().isEmpty()) {
+                                        // scanned device has not name (hidden BT?)
+                                        if ((device.getAddress() != null) && (!device.getAddress().isEmpty()))
+                                        {
+                                            // device has address
+                                            for (BluetoothDeviceData data : boundedDevicesList) {
+                                                if ((data.getAddress() != null) && data.getAddress().equals(device.getAddress())) {
+                                                    PPApplication.logE("[BTScan] DataWrapper.doEventService", "bluetooth found");
+                                                    //PPApplication.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
+                                                    //PPApplication.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
+                                                    bluetoothPassed = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        String _adapterName = _bluetoothName.toUpperCase();
+                                        if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
+                                            PPApplication.logE("[BTScan] DataWrapper.doEventService", "bluetooth found");
+                                            //PPApplication.logE("@@@ DataWrapper.doEventService","bluetoothAdapterName="+device.getName());
+                                            //PPApplication.logE("@@@ DataWrapper.doEventService","bluetoothAddress="+device.getAddress());
+                                            bluetoothPassed = true;
+                                            break;
+                                        }
                                     }
                                 }
                             }

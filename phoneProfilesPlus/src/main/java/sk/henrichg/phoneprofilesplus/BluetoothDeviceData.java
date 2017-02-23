@@ -25,6 +25,13 @@ class BluetoothDeviceData {
             return "";
     }
 
+    String getAddress() {
+        if (address != null)
+            return address;
+        else
+            return "";
+    }
+
     void setName(String name) {
         this.name = name;
     }
