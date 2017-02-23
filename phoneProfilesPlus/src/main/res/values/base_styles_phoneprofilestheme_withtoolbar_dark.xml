@@ -60,6 +60,11 @@
 
         <item name="actionProfileActivtionDuration">@drawable/ic_action_profile_activation_duration</item>
 
+        <item name="colorQSScrollbar">@color/colorQSScrollbar_dark</item>
+        <item name="colorQSHandlebarInactive">@color/colorQSHandlebarInactive_dark</item>
+        <item name="colorQSHandlebarActive">@color/colorQSHandlebarActive_dark</item>
+        <item name="colorQSHandlebarStroke">@color/colorQSHandlebarStroke_dark</item>
+
     </style>
 
 </resources>

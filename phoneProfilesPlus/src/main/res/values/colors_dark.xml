@@ -17,4 +17,9 @@
     <color name="notificationBackground_dark">#FF263238</color>
     <color name="notificationTextColor_dark">#FFFFFFFF</color>
 
+    <color name="colorQSScrollbar_dark">#64FFFFFF</color>
+    <color name="colorQSHandlebarInactive_dark">#80DC8160</color>
+    <color name="colorQSHandlebarActive_dark">#FFDC8160</color>
+    <color name="colorQSHandlebarStroke_dark">#80DC8160</color>
+
 </resources>

@@ -1,12 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.andraskindler.quickscroll.QuickScroll;
 
 import java.util.List;
 
@@ -61,6 +64,22 @@ class ApplicationEditorDialog
 
         ApplicationEditorDialogAdapter listAdapter = new ApplicationEditorDialogAdapter(this, context, application, position);
         listView.setAdapter(listAdapter);
+
+        TypedValue tv = new TypedValue();
+        preference.getContext().getTheme().resolveAttribute(R.attr.colorQSScrollbar, tv, true);
+        int colorQSScrollbar = tv.data;
+        preference.getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarInactive, tv, true);
+        int colorQSHandlebarInactive = tv.data;
+        preference.getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarActive, tv, true);
+        int colorQSHandlebarActive = tv.data;
+        preference.getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarStroke, tv, true);
+        int colorQSHandlebarStroke = tv.data;
+
+        final QuickScroll quickscroll = (QuickScroll) mDialog.getCustomView().findViewById(R.id.applications_editor_dialog_quickscroll);
+        quickscroll.init(QuickScroll.TYPE_INDICATOR_WITH_HANDLE, listView, listAdapter, QuickScroll.STYLE_HOLO, colorQSScrollbar);
+        quickscroll.setHandlebarColor(colorQSHandlebarInactive, colorQSHandlebarActive, colorQSHandlebarStroke);
+        quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);
+        quickscroll.setFixedSize(1);
 
         if (position > -1) {
             listView.setSelection(position);

@@ -92,5 +92,9 @@
     <attr name="actionActivityLogPlayIcon" format="reference" />
     <attr name="actionActivityLogPauseIcon" format="reference" />
     <attr name="actionProfileActivtionDuration" format="reference" />
+    <attr name="colorQSScrollbar" format="reference" />
+    <attr name="colorQSHandlebarInactive" format="reference" />
+    <attr name="colorQSHandlebarActive" format="reference" />
+    <attr name="colorQSHandlebarStroke" format="reference" />
 
 </resources>

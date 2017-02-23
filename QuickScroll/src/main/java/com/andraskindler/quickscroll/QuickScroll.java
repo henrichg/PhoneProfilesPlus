@@ -19,6 +19,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.*;
 import android.widget.AbsListView.OnScrollListener;
 
+@SuppressWarnings("ResourceType")
 public class QuickScroll extends View {
 
     // IDs
@@ -35,7 +36,7 @@ public class QuickScroll extends View {
     // base colors
     public static final int GREY_DARK = Color.parseColor("#e0585858");
     public static final int GREY_LIGHT = Color.parseColor("#f0888888");
-    public static final int GREY_SCROLLBAR = Color.parseColor("#64404040");
+    //public static final int GREY_SCROLLBAR = Color.parseColor("#64404040");
     public static final int BLUE_LIGHT = Color.parseColor("#FF33B5E5");
     public static final int BLUE_LIGHT_SEMITRANSPARENT = Color.parseColor("#8033B5E5");
     protected static final int SCROLLBAR_MARGIN = 10;
@@ -76,7 +77,8 @@ public class QuickScroll extends View {
      * @param list       the ListView
      * @param scrollable the adapter, must implement Scrollable interface
      */
-    public void init(final int type, final ListView list, final Scrollable scrollable, final int style) {
+    @SuppressWarnings("ResourceType")
+    public void init(final int type, final ListView list, final Scrollable scrollable, final int style, final int scrollBarColor) {
         if (isInitialized) return;
 
         this.type = type;
@@ -151,7 +153,7 @@ public class QuickScroll extends View {
             layout.setLayoutParams(params);
 
             final View scrollbar = new View(getContext());
-            scrollbar.setBackgroundColor(GREY_SCROLLBAR);
+            scrollbar.setBackgroundColor(scrollBarColor);
             final RelativeLayout.LayoutParams scrollBarParams = new RelativeLayout.LayoutParams(1, LayoutParams.MATCH_PARENT);
             scrollBarParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
             scrollBarParams.topMargin = SCROLLBAR_MARGIN;
