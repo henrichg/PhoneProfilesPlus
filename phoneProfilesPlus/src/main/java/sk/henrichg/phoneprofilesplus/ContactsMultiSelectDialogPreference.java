@@ -23,7 +23,7 @@ import java.util.List;
 public class ContactsMultiSelectDialogPreference extends DialogPreference
 {
 
-    Context _context = null;
+    Context _context = null;;
     String value = "";
 
     MaterialDialog mDialog;
