@@ -12,7 +12,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class ContactsMultiselectPreferenceAdapter extends BaseAdapter
+import com.andraskindler.quickscroll.Scrollable;
+
+class ContactsMultiselectPreferenceAdapter extends BaseAdapter implements Scrollable
 {
     private LayoutInflater inflater;
     //private Context context;
@@ -134,4 +136,17 @@ class ContactsMultiselectPreferenceAdapter extends BaseAdapter
         return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
     }
 
+    @Override
+    public String getIndicatorForPosition(int childposition, int groupposition) {
+        Contact contact = EditorProfilesActivity.getContactsCache().getContact(childposition);
+        if (contact.checked)
+            return "*";
+        else
+            return contact.name.substring(0, 1);
+    }
+
+    @Override
+    public int getScrollPosition(int childposition, int groupposition) {
+        return childposition;
+    }
 }

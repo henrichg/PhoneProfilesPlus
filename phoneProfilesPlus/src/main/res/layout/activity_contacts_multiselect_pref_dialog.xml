@@ -32,15 +32,32 @@
             android:layout_height="1dp"
             android:background="?attr/dialogDivider" />
 
-        <ListView
-            android:id="@+id/contacts_multiselect_pref_dlg_listview"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:padding="5dp"
-            android:gravity="center"
-            android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay"
-            android:divider="@android:color/transparent" />
+            android:gravity="center">
+
+            <com.andraskindler.quickscroll.QuickScroll
+                android:id="@+id/contacts_multiselect_pref_dlg_quickscroll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+
+            <ListView
+                android:id="@+id/contacts_multiselect_pref_dlg_listview"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/contacts_multiselect_pref_dlg_quickscroll"
+                android:layout_toStartOf="@+id/contacts_multiselect_pref_dlg_quickscroll"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:divider="@android:color/transparent" />
+
+        </RelativeLayout>
 
         <View
             android:id="@+id/contacts_multiselect_pref_dlg_buttonBarDivider"

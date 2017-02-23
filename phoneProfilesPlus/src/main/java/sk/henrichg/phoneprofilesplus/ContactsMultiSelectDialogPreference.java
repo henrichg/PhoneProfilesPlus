@@ -3,12 +3,14 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +19,7 @@ import android.widget.ListView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.andraskindler.quickscroll.QuickScroll;
 
 import java.util.List;
 
@@ -114,6 +117,22 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
         listAdapter = new ContactsMultiselectPreferenceAdapter(_context);
         listView.setAdapter(listAdapter);
+
+        TypedValue tv = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.colorQSScrollbar, tv, true);
+        int colorQSScrollbar = tv.data;
+        getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarInactive, tv, true);
+        int colorQSHandlebarInactive = tv.data;
+        getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarActive, tv, true);
+        int colorQSHandlebarActive = tv.data;
+        getContext().getTheme().resolveAttribute(R.attr.colorQSHandlebarStroke, tv, true);
+        int colorQSHandlebarStroke = tv.data;
+
+        final QuickScroll quickscroll = (QuickScroll)layout.findViewById(R.id.contacts_multiselect_pref_dlg_quickscroll);
+        quickscroll.init(QuickScroll.TYPE_INDICATOR_WITH_HANDLE, listView, listAdapter, QuickScroll.STYLE_HOLO, colorQSScrollbar);
+        quickscroll.setHandlebarColor(colorQSHandlebarInactive, colorQSHandlebarActive, colorQSHandlebarStroke);
+        quickscroll.setIndicatorColor(colorQSHandlebarActive, colorQSHandlebarActive, Color.WHITE);
+        quickscroll.setFixedSize(1);
 
         mBuilder.customView(layout, false);
 
