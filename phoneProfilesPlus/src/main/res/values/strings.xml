@@ -551,7 +551,7 @@
     <string name="important_info_profile_bluetoothScanning_location">In Android 6 (Marshmallow), for Bluetooth LE scanning must be enabled Location and "Bluetooth scanning" in Location settings.</string>
     <string name="profile_preferences_devicePowerSaveMode">(R) Power save mode</string>
     <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>
-    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
+    <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>
     <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (sec)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi scanning</string>
