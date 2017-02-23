@@ -38,7 +38,8 @@
                 android:title="@string/profile_preferences_duration"
                 android:defaultValue="@string/prf_pref_duration"
                 henrichg:dMin="0"
-                henrichg:dMax="86400" />
+                henrichg:dMax="86400"
+                android:dependency="prf_pref_askForDuration" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_afterDurationDo"
                 android:summary="@string/array_pref_afterProfileDurationDo_nothing"
@@ -46,12 +47,14 @@
                 android:defaultValue="@string/prf_pref_afterDurationDo"
                 android:entries="@array/afterProfileDurationDoArray"
                 android:entryValues="@array/afterProfileDurationDoValues"
+                android:dependency="prf_pref_askForDuration"
                 app:useStockLayout="true" />
             <CheckBoxPreference
                 android:key="prf_pref_askForDuration"
                 android:title="@string/profile_preferences_askForDuration"
                 android:defaultValue="@bool/prf_pref_askForDuration"
-                android:widgetLayout="@layout/mp_preference_switch" />
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:disableDependentsState="true"/>
         </PreferenceScreen>
         <CheckBoxPreference
             android:key="prf_pref_hideStatusBarIcon"
