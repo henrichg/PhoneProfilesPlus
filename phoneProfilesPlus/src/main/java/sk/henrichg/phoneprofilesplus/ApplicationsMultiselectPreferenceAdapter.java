@@ -9,7 +9,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
+import com.andraskindler.quickscroll.Scrollable;
+
+class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter implements Scrollable
 {
     private LayoutInflater inflater;
     private Context context;
@@ -114,4 +116,17 @@ class ApplicationsMultiselectPreferenceAdapter extends BaseAdapter
         return convertView;
     }
 
+    @Override
+    public String getIndicatorForPosition(int childposition, int groupposition) {
+        Application application = (Application) getItem(childposition);
+        if (application.checked)
+            return "*";
+        else
+            return application.appLabel.substring(0, 1);
+    }
+
+    @Override
+    public int getScrollPosition(int childposition, int groupposition) {
+        return childposition;
+    }
 }
