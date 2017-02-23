@@ -32,7 +32,7 @@ import com.stericson.RootTools.RootTools;
 public class BrightnessDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
-    Context _context = null;
+    Context _context = null;;
     MaterialDialog mDialog;
 
     // Layout widgets.

@@ -25,7 +25,7 @@ public class VolumeDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
     // Layout widgets.
 
-    Context _context;
+    Context _context;;
     private SeekBar seekBar = null;
     private TextView valueText = null;
     private CheckBox noChangeChBox = null;
