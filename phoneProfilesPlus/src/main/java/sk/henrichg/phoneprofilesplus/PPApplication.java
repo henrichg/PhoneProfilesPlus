@@ -64,9 +64,11 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|$$$ PhoneProfilesService.onCreate"
-                                         +"|PhoneProfilesService.onDestroy"
-                                         +"|##### NFCStateChangedBroadcastReceiver.onReceive"
+                                         //+"|$$$ PhoneProfilesService.onCreate"
+                                         //+"|PhoneProfilesService.onDestroy"
+
+                                         +"|BluetoothLEScanCallback21"
+                                         +"|@@@ BluetoothScanBroadcastReceiver.onReceive"
 
                                          //+"|PhoneProfilesService.onStartCommand"
                                          //+"|PhoneProfilesService.startSimulatingRingingCall"

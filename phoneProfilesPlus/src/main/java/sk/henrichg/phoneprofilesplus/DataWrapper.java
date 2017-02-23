@@ -2217,10 +2217,10 @@ public class DataWrapper {
             if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
                 (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
             {
-                bluetoothPassed = false;
-
                 if (!done)
                 {
+                    bluetoothPassed = false;
+
                     List<BluetoothDeviceData> scanResults = BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
 
                     if (scanResults != null)

@@ -75,6 +75,10 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                         btName = btNameE;
                     }
 
+                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_d="+btNameD);
+                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_e="+btNameE);
+                    PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceAddress="+device.getAddress());
+
                     boolean found = false;
                     for (BluetoothDeviceData _device : tmpScanResults)
                     {
@@ -88,8 +92,6 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                     {
                         tmpScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
                                 BluetoothScanAlarmBroadcastReceiver.getBluetoothType(device), false));
-                        PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_d="+btNameD);
-                        PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive","deviceName_e="+btNameE);
                     }
                 }
                 else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
