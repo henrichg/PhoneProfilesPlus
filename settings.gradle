@@ -1,4 +1,5 @@
 include ':dragSortListView'
 include ':RootShell'
 include ':RootTools'
+include ':QuickScroll'
 include ':phoneProfilesPlus'

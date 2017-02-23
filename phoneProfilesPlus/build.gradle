@@ -41,6 +41,7 @@ dependencies {
     compile project(':dragSortListView')
     compile project(':RootShell')
     compile project(':RootTools')
+    compile project(':QuickScroll')
     provided files('libs/hidden-apis.jar')
     provided files('libs/hidden-apis_2.jar')
     compile 'com.android.support:support-core-ui:25.2.0'
