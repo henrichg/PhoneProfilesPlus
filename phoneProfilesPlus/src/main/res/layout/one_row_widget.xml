@@ -78,7 +78,7 @@
 
             <ImageView
                 android:id="@+id/widget_one_row_header_profile_pref_indicator"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:layout_below="@+id/widget_one_row_header_profile_name"
                 android:layout_toRightOf="@+id/widget_one_row_header_profile_icon"

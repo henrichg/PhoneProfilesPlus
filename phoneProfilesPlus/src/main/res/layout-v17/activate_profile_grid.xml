@@ -67,7 +67,7 @@
 
             <ImageView
                 android:id="@+id/act_prof_activated_profile_pref_indicator"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:layout_below="@+id/act_prof_activated_profile_name"
                 android:layout_toEndOf="@+id/act_prof_activated_profile_icon"
