@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -523,11 +526,36 @@ class EditorEventListAdapter extends BaseAdapter
                 @Override
                 public void onClick(View view) {
                     EventStatusPopupWindow popup = new EventStatusPopupWindow(fragment, event);
-                    int alignVertical = RelativePopupWindow.VerticalPosition.ABOVE;
-                    if (Build.VERSION.SDK_INT < 25)
-                        alignVertical = RelativePopupWindow.VerticalPosition.CENTER;
-                    popup.showOnAnchor(_eventStatus, alignVertical,
-                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT);
+
+                    View contentView = popup.getContentView();
+                    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                    int measuredW = contentView.getMeasuredWidth();
+                    int measuredH = contentView.getMeasuredHeight();
+                    Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredW="+measuredW);
+                    Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredH="+measuredH);
+
+                    Point screenSize = GlobalGUIRoutines.getRealScreenSize(fragment.getActivity());
+
+                    int[] location = new int[2];
+                    _eventStatus.getLocationOnScreen(location);
+                    int x = 0;
+                    int y = 0;
+
+                    int statusBarHeight = (int) (24 * fragment.getResources().getDisplayMetrics().density + 0.5f);
+
+                    if ((location[0] + measuredW) > screenSize.x)
+                        x = -(location[0]
+                                - (screenSize.x - measuredW));
+
+                    if ((location[1] + _eventStatus.getHeight() + measuredH) > screenSize.y)
+                        y = -(location[1] - _eventStatus.getHeight()
+                                - (screenSize.y - measuredH)
+                                + GlobalGUIRoutines.getNavigationBarSize(fragment.getActivity()).y
+                                + statusBarHeight);
+
+                    popup.setClippingEnabled(false);
+                    popup.showOnAnchor(_eventStatus, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
+                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y);
                 }
             });
 

@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -410,8 +411,27 @@ public class EditorProfilesActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorProfilesActivity.this);
+
+                View contentView = popup.getContentView();
+                contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                int measuredW = contentView.getMeasuredWidth();
+                int measuredH = contentView.getMeasuredHeight();
+                Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredW="+measuredW);
+                Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredH="+measuredH);
+
+                int[] location = new int[2];
+                eventsRunStopIndicator.getLocationOnScreen(location);
+
+                int x = 0;
+                int y = 0;
+
+                if (location[0] + eventsRunStopIndicator.getWidth() - measuredW < 0)
+                    x = -(location[0] + eventsRunStopIndicator.getWidth() - measuredW);
+                Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","presah="+(location[0] + eventsRunStopIndicator.getWidth() - measuredW));
+
+                popup.setClippingEnabled(false);
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                        RelativePopupWindow.HorizontalPosition.ALIGN_LEFT);
+                        RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT);
             }
         });
         

@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -29,13 +30,16 @@ import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.Collator;
 import java.text.DateFormat;
@@ -475,6 +479,50 @@ public class GlobalGUIRoutines {
         int minutes = (duration % 3600) / 60;
         int seconds = duration % 60;
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public static Point getNavigationBarSize(Context context) {
+        Point appUsableSize = getAppUsableScreenSize(context);
+        Point realScreenSize = getRealScreenSize(context);
+
+        // navigation bar on the right
+        if (appUsableSize.x < realScreenSize.x) {
+            return new Point(realScreenSize.x - appUsableSize.x, appUsableSize.y);
+        }
+
+        // navigation bar at the bottom
+        if (appUsableSize.y < realScreenSize.y) {
+            return new Point(appUsableSize.x, realScreenSize.y - appUsableSize.y);
+        }
+
+        // navigation bar is not present
+        return new Point();
+    }
+
+    private static Point getAppUsableScreenSize(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
+
+    static Point getRealScreenSize(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+
+        if (Build.VERSION.SDK_INT >= 17) {
+            display.getRealSize(size);
+        } else if (Build.VERSION.SDK_INT >= 14) {
+            try {
+                size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
+                size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
+            }
+            catch (Exception ignored) { }
+        }
+
+        return size;
     }
 
     static int getThemeAccentColor (final Context context) {
