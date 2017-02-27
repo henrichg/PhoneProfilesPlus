@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -522,7 +523,10 @@ class EditorEventListAdapter extends BaseAdapter
                 @Override
                 public void onClick(View view) {
                     EventStatusPopupWindow popup = new EventStatusPopupWindow(fragment, event);
-                    popup.showOnAnchor(_eventStatus, RelativePopupWindow.VerticalPosition.ABOVE,
+                    int alignVertical = RelativePopupWindow.VerticalPosition.ABOVE;
+                    if (Build.VERSION.SDK_INT < 25)
+                        alignVertical = RelativePopupWindow.VerticalPosition.CENTER;
+                    popup.showOnAnchor(_eventStatus, alignVertical,
                             RelativePopupWindow.HorizontalPosition.ALIGN_LEFT);
                 }
             });

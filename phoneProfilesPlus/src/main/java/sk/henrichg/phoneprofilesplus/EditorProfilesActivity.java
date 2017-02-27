@@ -410,7 +410,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), EditorProfilesActivity.this);
-                popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.BELOW,
+                popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_LEFT);
             }
         });

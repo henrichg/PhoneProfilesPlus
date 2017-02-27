@@ -169,7 +169,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 RunStopIndicatorPopupWindow popup = new RunStopIndicatorPopupWindow(getDataWrapper(), ActivateProfileActivity.this);
-                popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.BELOW,
+                popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_LEFT);
             }
         });
