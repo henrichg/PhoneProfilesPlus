@@ -75,6 +75,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     if (actualVersionCode <= 2700) {
                         SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
+
+                        editor.putBoolean(PPApplication.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE, true);
+
                         editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, false);
                         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, false);
