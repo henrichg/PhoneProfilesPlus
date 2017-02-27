@@ -23,18 +23,21 @@
                 android:paddingBottom="10dp"
                 android:text="@string/event_string_0"
                 android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/event_status_popup_window_text0" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/info_notification_event_states"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/event_status_popup_window_text1" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="@string/info_notification_event_states_running"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/event_status_popup_window_text2"
                 android:drawableLeft="@drawable/ic_event_status_running"
                 android:drawableStart="@drawable/ic_event_status_running"
@@ -44,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="@string/info_notification_event_states_paused"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/event_status_popup_window_text3"
                 android:drawableLeft="@drawable/ic_event_status_pause"
                 android:drawableStart="@drawable/ic_event_status_pause"
@@ -53,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="@string/info_notification_event_states_paused_delay"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/event_status_popup_window_text4"
                 android:drawableLeft="@drawable/ic_event_status_pause_delay"
                 android:drawableStart="@drawable/ic_event_status_pause_delay"
@@ -62,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:text="@string/info_notification_event_states_running_delay"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/event_status_popup_window_text5"
                 android:drawableLeft="@drawable/ic_event_status_running_delay"
                 android:drawableStart="@drawable/ic_event_status_running_delay"
@@ -71,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="@string/info_notification_event_states_stopped"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/event_status_popup_window_text6"
                 android:drawableLeft="@drawable/ic_event_status_stop"
                 android:drawableStart="@drawable/ic_event_status_stop"
@@ -80,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
                 android:text="@string/run_stop_indicator_popup_window_important_infos"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/event_status_popup_window_text7" />
 
             <android.support.v7.widget.SwitchCompat
