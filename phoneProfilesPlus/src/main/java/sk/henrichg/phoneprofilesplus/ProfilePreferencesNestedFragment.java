@@ -19,7 +19,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
 

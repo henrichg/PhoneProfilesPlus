@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;

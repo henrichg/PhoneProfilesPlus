@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 
 import android.support.v7.widget.SwitchCompat;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 

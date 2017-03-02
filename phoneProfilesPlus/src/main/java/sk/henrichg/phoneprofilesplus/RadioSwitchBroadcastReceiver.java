@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-import java.util.Calendar;
-import java.util.TimeZone;
-
 public class RadioSwitchBroadcastReceiver extends WakefulBroadcastReceiver {
 
     public static final String BROADCAST_RECEIVER_TYPE = "radioSwitch";

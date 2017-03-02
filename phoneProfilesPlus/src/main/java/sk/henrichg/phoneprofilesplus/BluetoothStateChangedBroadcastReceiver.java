@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.WifiManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastReceiver {

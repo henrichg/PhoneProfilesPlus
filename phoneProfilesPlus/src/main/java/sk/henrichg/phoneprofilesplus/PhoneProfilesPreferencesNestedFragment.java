@@ -17,7 +17,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
-import android.util.Log;
 
 import static android.app.Activity.RESULT_CANCELED;
 

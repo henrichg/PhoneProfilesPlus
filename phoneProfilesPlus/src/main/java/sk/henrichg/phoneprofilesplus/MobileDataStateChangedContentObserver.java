@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
-import android.media.AudioManager;
 import android.os.Handler;
-import android.util.Log;
 
 class MobileDataStateChangedContentObserver extends ContentObserver {
 
