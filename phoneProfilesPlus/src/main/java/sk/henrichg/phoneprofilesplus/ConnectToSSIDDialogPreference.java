@@ -141,7 +141,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             {
                 super.onPreExecute();
 
-                Log.d("ConnectToSSIDDialogPreference.onShow","onPreExecute");
+                //Log.d("ConnectToSSIDDialogPreference.onShow","onPreExecute");
 
                 _SSIDList = new ArrayList<>();
 
@@ -151,7 +151,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
 
             @Override
             protected Void doInBackground(Void... params) {
-                Log.d("ConnectToSSIDDialogPreference.onShow","doInBackground");
+                //Log.d("ConnectToSSIDDialogPreference.onShow","doInBackground");
 
                 WifiScanAlarmBroadcastReceiver.fillWifiConfigurationList(context);
                 List<WifiSSIDData> wifiConfigurationList = WifiScanAlarmBroadcastReceiver.getWifiConfigurationList(context);
@@ -178,7 +178,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             {
                 super.onPostExecute(result);
 
-                Log.d("ConnectToSSIDDialogPreference.onShow","onPostExecute");
+                //Log.d("ConnectToSSIDDialogPreference.onShow","onPostExecute");
 
                 ssidList = new ArrayList<>(_SSIDList);
                 listView.setAdapter(listAdapter);

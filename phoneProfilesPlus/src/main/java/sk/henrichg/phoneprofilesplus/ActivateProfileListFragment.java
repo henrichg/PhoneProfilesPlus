@@ -410,11 +410,11 @@ public class ActivateProfileListFragment extends Fragment {
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
 
-            Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
+            //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
 
-                Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+                //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -423,7 +423,7 @@ public class ActivateProfileListFragment extends Fragment {
                 showAdapterTargetHelps();
             }
             else {
-                Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -440,7 +440,7 @@ public class ActivateProfileListFragment extends Fragment {
                 public void run() {
                     if (ActivatorTargetHelpsActivity.activity != null) {
                         if (ActivatorTargetHelpsActivity.activity != null) {
-                            Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
+                            //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
                             ActivatorTargetHelpsActivity.activity.finish();
                             ActivatorTargetHelpsActivity.activity = null;
                         }
@@ -464,8 +464,8 @@ public class ActivateProfileListFragment extends Fragment {
             else
                 itemView = gridView.getChildAt(0);
         }
-        Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
-        Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
+        //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
+        //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
         if ((profileListAdapter != null) && (itemView != null))
             profileListAdapter.showTargetHelps(getActivity(), this, itemView);
         else {
@@ -475,7 +475,7 @@ public class ActivateProfileListFragment extends Fragment {
                 public void run() {
                     if (ActivatorTargetHelpsActivity.activity != null) {
                         if (ActivatorTargetHelpsActivity.activity != null) {
-                            Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
+                            //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
                             ActivatorTargetHelpsActivity.activity.finish();
                             ActivatorTargetHelpsActivity.activity = null;
                         }

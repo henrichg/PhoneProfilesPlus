@@ -50,7 +50,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         super.onCreate(savedInstanceState);
 
-        Log.d("------ ProfilePreferencesActivity.onCreate", "this="+this);
+        //Log.d("------ ProfilePreferencesActivity.onCreate", "this="+this);
 
         //setContentView(R.layout.activity_profile_preferences);
 
@@ -84,7 +84,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         newProfileMode = getIntent().getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
         predefinedProfileIndex = getIntent().getIntExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
-        Log.d("------ ProfilePreferencesActivity.onCreate", "profile_id="+profile_id);
+        //Log.d("------ ProfilePreferencesActivity.onCreate", "profile_id="+profile_id);
 
         /*
         if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
@@ -194,7 +194,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         if (!leaveSaveMenu)
             showSaveMenu = false;
 
-        Log.d("------ ProfilePreferencesActivity.createProfile", "startupSource="+startupSource);
+        //Log.d("------ ProfilePreferencesActivity.createProfile", "startupSource="+startupSource);
 
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
         {
@@ -371,7 +371,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext().getApplicationContext(), false, false, 0);
         Profile profile = createProfile(startupSource, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
 
-        Log.d("------ ProfilePreferencesActivity.savePreferences", "startupSource="+startupSource);
+        //Log.d("------ ProfilePreferencesActivity.savePreferences", "startupSource="+startupSource);
 
         String PREFS_NAME = ProfilePreferencesNestedFragment.getPreferenceName(startupSource);
 
@@ -478,7 +478,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         final SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
-            Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+            //Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);

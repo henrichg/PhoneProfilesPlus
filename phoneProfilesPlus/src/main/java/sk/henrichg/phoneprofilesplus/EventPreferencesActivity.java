@@ -345,7 +345,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         final SharedPreferences preferences = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
-            Log.d("EventPreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+            //Log.d("EventPreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);

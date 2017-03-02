@@ -446,7 +446,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 enabled = value.equals("1");
             else
                 enabled = PPApplication.getMergedRingNotificationVolumes(getActivity().getApplicationContext());
-            Log.d("PhoneProfilesPreferencesNestedFragment.setSummary","enabled="+enabled);
+            //Log.d("PhoneProfilesPreferencesNestedFragment.setSummary","enabled="+enabled);
             _preference.setEnabled(enabled);
         }
     }

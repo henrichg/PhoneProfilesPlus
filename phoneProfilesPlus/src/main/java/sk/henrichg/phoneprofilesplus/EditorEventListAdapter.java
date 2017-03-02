@@ -531,8 +531,8 @@ class EditorEventListAdapter extends BaseAdapter
                     contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                     int measuredW = contentView.getMeasuredWidth();
                     int measuredH = contentView.getMeasuredHeight();
-                    Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredW="+measuredW);
-                    Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredH="+measuredH);
+                    //Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredW="+measuredW);
+                    //Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredH="+measuredH);
 
                     Point screenSize = GlobalGUIRoutines.getRealScreenSize(fragment.getActivity());
 
@@ -572,14 +572,14 @@ class EditorEventListAdapter extends BaseAdapter
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) || preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
 
-            Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
+            //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             int circleColor = 0xFFFFFF;
             if (PPApplication.applicationTheme.equals("dark"))
                 circleColor = 0x7F7F7F;
 
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
-                Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+                //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -650,7 +650,7 @@ class EditorEventListAdapter extends BaseAdapter
             }
             else
             if (preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
-                Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);

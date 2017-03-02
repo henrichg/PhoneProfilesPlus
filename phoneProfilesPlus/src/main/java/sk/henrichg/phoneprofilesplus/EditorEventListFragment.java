@@ -736,11 +736,11 @@ public class EditorEventListFragment extends Fragment {
                 preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
 
-            Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
+            //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
 
-                Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+                //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -796,7 +796,7 @@ public class EditorEventListFragment extends Fragment {
                 sequence.start();
             }
             else {
-                Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override

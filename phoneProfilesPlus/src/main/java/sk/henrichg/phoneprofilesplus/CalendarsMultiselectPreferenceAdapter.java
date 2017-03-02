@@ -100,7 +100,7 @@ class CalendarsMultiselectPreferenceAdapter extends BaseAdapter
         calendarColor.setBackgroundColor(0xff000000 + calendar.color);
         textViewDisplayName.setText(calendar.name);
 
-        Log.d("CalendarsMultiselectPreferenceAdapter.getView","calendar.checked="+calendar.checked);
+        //Log.d("CalendarsMultiselectPreferenceAdapter.getView","calendar.checked="+calendar.checked);
         checkBox.setChecked(calendar.checked);
 
         return convertView;

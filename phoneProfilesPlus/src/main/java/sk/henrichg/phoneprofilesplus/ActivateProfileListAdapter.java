@@ -226,7 +226,7 @@ class ActivateProfileListAdapter extends BaseAdapter
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
 
-            Log.d("ActivateProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+            //Log.d("ActivateProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -257,7 +257,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                         @Override
                         public void run() {
                             if (ActivatorTargetHelpsActivity.activity != null) {
-                                Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                                //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                                 ActivatorTargetHelpsActivity.activity.finish();
                                 ActivatorTargetHelpsActivity.activity = null;
                             }
@@ -278,7 +278,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                         @Override
                         public void run() {
                             if (ActivatorTargetHelpsActivity.activity != null) {
-                                Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                                //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                                 ActivatorTargetHelpsActivity.activity.finish();
                                 ActivatorTargetHelpsActivity.activity = null;
                             }
@@ -295,7 +295,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                 @Override
                 public void run() {
                     if (ActivatorTargetHelpsActivity.activity != null) {
-                        Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
+                        //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                         ActivatorTargetHelpsActivity.activity.finish();
                         ActivatorTargetHelpsActivity.activity = null;
                     }

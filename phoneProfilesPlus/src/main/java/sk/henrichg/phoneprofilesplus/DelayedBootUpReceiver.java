@@ -9,7 +9,7 @@ public class DelayedBootUpReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("DelayedBootUpReceiver.onReceive", "xxx");
+        //Log.d("DelayedBootUpReceiver.onReceive", "xxx");
 
         PPApplication.startedOnBoot = false;
     }

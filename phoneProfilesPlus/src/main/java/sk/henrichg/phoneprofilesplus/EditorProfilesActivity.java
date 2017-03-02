@@ -416,8 +416,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 int measuredW = contentView.getMeasuredWidth();
                 int measuredH = contentView.getMeasuredHeight();
-                Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredW="+measuredW);
-                Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredH="+measuredH);
+                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredW="+measuredW);
+                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredH="+measuredH);
 
                 int[] location = new int[2];
                 eventsRunStopIndicator.getLocationOnScreen(location);
@@ -427,7 +427,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 if (location[0] + eventsRunStopIndicator.getWidth() - measuredW < 0)
                     x = -(location[0] + eventsRunStopIndicator.getWidth() - measuredW);
-                Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","presah="+(location[0] + eventsRunStopIndicator.getWidth() - measuredW));
+                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","presah="+(location[0] + eventsRunStopIndicator.getWidth() - measuredW));
 
                 popup.setClippingEnabled(false);
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
@@ -1163,25 +1163,25 @@ public class EditorProfilesActivity extends AppCompatActivity
                     this.dataWrapper.stopAllEvents(true, false);
 
                     int ret = this.dataWrapper.getDatabaseHandler().importDB(_applicationDataPath);
-                    Log.d("EditorProfilesActivity.doImportData"," importDB ret="+ret);
+                    //Log.d("EditorProfilesActivity.doImportData"," importDB ret="+ret);
 
                     if (ret == 1) {
                         // check for hardware capability and update data
                         ret = this.dataWrapper.getDatabaseHandler().disableNotAllowedPreferences(getApplicationContext());
-                        Log.d("EditorProfilesActivity.doImportData"," disableNotAllowedPreferences ret="+ret);
+                        //Log.d("EditorProfilesActivity.doImportData"," disableNotAllowedPreferences ret="+ret);
                     }
                     if (ret == 1) {
                         File sd = Environment.getExternalStorageDirectory();
                         File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                         if (!importApplicationPreferences(exportFile, 1)) {
                             ret = 0;
-                            Log.d("EditorProfilesActivity.doImportData"," importApplicationPreferences(ApplicationPreferences) ret="+ret);
+                            //Log.d("EditorProfilesActivity.doImportData"," importApplicationPreferences(ApplicationPreferences) ret="+ret);
                         }
                         else {
                             exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!importApplicationPreferences(exportFile, 2)) {
                                 ret = 0;
-                                Log.d("EditorProfilesActivity.doImportData"," importApplicationPreferences(DefaultProfilePreferences) ret="+ret);
+                                //Log.d("EditorProfilesActivity.doImportData"," importApplicationPreferences(DefaultProfilePreferences) ret="+ret);
                             }
                         }
                     }
@@ -1898,10 +1898,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
 
-            Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
+            //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
-                Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+                //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 Editor editor = preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -2002,7 +2002,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 sequence.start();
             }
             else {
-                Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override

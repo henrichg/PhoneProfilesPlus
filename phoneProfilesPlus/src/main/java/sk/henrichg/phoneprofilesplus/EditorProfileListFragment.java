@@ -920,11 +920,11 @@ public class EditorProfileListFragment extends Fragment {
                 preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
                 preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true)) {
 
-            Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
+            //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
 
-                Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+                //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -980,7 +980,7 @@ public class EditorProfileListFragment extends Fragment {
                 sequence.start();
             }
             else {
-                Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -998,8 +998,8 @@ public class EditorProfileListFragment extends Fragment {
             itemView = listView.getChildAt(1);
         else
             itemView = listView.getChildAt(0);
-        Log.d("EditorProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
-        Log.d("EditorProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
+        //Log.d("EditorProfileListFragment.showAdapterTargetHelps", "profileListAdapter="+profileListAdapter);
+        //Log.d("EditorProfileListFragment.showAdapterTargetHelps", "itemView="+itemView);
         if ((profileListAdapter != null) && (itemView != null))
             profileListAdapter.showTargetHelps(getActivity(), this, itemView);
         else {

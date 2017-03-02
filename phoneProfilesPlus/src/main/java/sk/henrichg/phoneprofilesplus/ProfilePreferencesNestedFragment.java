@@ -55,7 +55,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("------ ProfilePreferencesNestedFragment.onCreate", "this="+this);
+        //Log.d("------ ProfilePreferencesNestedFragment.onCreate", "this="+this);
 
         // must by false to avoid FC when rotation changes and preference dialogs are shown
         setRetainInstance(false);
@@ -64,7 +64,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (bundle != null)
             startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
 
-        Log.d("------ ProfilePreferencesNestedFragment.onCreate", "startupSource="+startupSource);
+        //Log.d("------ ProfilePreferencesNestedFragment.onCreate", "startupSource="+startupSource);
 
         context = getActivity().getApplicationContext();
 
@@ -103,9 +103,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         preferences = prefMng.getSharedPreferences();
         preferences.registerOnSharedPreferenceChangeListener(this);
 
-        Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "this="+this);
-        Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "prefMng="+prefMng);
-        Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "preferences="+preferences);
+        //Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "this="+this);
+        //Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "prefMng="+prefMng);
+        //Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "preferences="+preferences);
 
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
@@ -1305,9 +1305,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
-        Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "this="+this);
-        Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "prefMng="+prefMng);
-        Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "preferences="+preferences);
+        //Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "this="+this);
+        //Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "prefMng="+prefMng);
+        //Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "preferences="+preferences);
 
         if (requestCode == PPApplication.REQUEST_CODE_PROFILE_PREFERENCES)
         {
@@ -1374,7 +1374,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("------ ProfilePreferencesFragment.onActivityResult", "this="+this);
+        //Log.d("------ ProfilePreferencesFragment.onActivityResult", "this="+this);
         doOnActivityResult(requestCode, resultCode, data);
     }
 

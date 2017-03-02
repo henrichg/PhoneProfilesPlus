@@ -403,14 +403,14 @@ class EditorProfileListAdapter extends BaseAdapter
 
         if (preferences.getBoolean(PREF_START_TARGET_HELPS, true) || preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
 
-            Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
+            //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             int circleColor = 0xFFFFFF;
             if (PPApplication.applicationTheme.equals("dark"))
                 circleColor = 0x7F7F7F;
 
             if (preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
-                Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
+                //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
@@ -480,7 +480,7 @@ class EditorProfileListAdapter extends BaseAdapter
                 sequence.start();
             }
             if (preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
-                Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);

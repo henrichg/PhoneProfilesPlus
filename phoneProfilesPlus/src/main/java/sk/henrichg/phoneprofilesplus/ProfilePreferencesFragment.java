@@ -27,8 +27,8 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 
         super.onCreate(savedInstanceState);
 
-        Log.d("------ ProfilePreferencesFragment.onCreate", "this="+this);
-        Log.d("------ ProfilePreferencesFragment.onCreate", "startupSource="+startupSource);
+        //Log.d("------ ProfilePreferencesFragment.onCreate", "this="+this);
+        //Log.d("------ ProfilePreferencesFragment.onCreate", "startupSource="+startupSource);
 
         // must by false to avoid FC when rotation changes and preference dialogs are shown
         setRetainInstance(false);
@@ -49,7 +49,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         if (bundle != null)
             startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
 
-        Log.d("------ ProfilePreferencesFragment.addPreferencesFromResource", "startupSource="+startupSource);
+        //Log.d("------ ProfilePreferencesFragment.addPreferencesFromResource", "startupSource="+startupSource);
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_DEFAUT_PROFILE)
             return R.xml.default_profile_preferences;
         else
