@@ -450,7 +450,7 @@
   <string name="important_info_profile_root">Some profile preferences requires ROOT privileges. These preferences are marked with \"(R)\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Start only when activ. profile</string>
   <string name="profile_preference_do_not_apply">Do not apply</string>
-  <string name="pref_dlg_info_about_wildcards_1">You can use wildcards: \"%\"=any characters, \"_\"=any one character.</string>
+  <string name="pref_dlg_info_about_wildcards_1">You can use wildcards: \"%\"=some characters, \"_\"=some one character.</string>
   <string name="pref_dlg_info_about_wildcards_2">If you have \"%\" or \"_\"</string>
   <string name="wifi_ssid_pref_dlg_info_about_wildcards">in SSID name,</string>
   <string name="bluetooth_name_pref_dlg_info_about_wildcards">in bluetooth name,</string>
@@ -550,7 +550,7 @@
   <string name="important_info_profile_bluetoothScanning_location">In Android 6 (Marshmallow), for Bluetooth LE scanning must be enabled Location and \"Bluetooth scanning\" in Location settings.</string>
   <string name="profile_preferences_devicePowerSaveMode">(R) Power save mode</string>
   <string name="event_preferences_bluetooth_devices_type">Scanned devices type</string>
-  <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CE]</string>
+  <string name="array_event_pref_bluetoothDevicesType_classic">Classic [CL]</string>
   <string name="array_event_pref_bluetoothDevicesType_le">Low energy [LE]</string>
   <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan duration (sec)</string>
   <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi scanning</string>
@@ -603,7 +603,7 @@
   <string name="event_preferences_locations_location">Location</string>
   <string name="event_preferences_locations_location_not_selected">Not selected</string>
   <string name="event_preferences_locations_cant_delete_location_title">Delete location</string>
-  <string name="event_preferences_locations_cant_delete_location_text">Can\'t delete, location is used in any event.</string>
+  <string name="event_preferences_locations_cant_delete_location_text">Can\'t delete, location is used in some event.</string>
   <string name="location_editor_title">Location editor</string>
   <string name="permissions_for_location_geofence_editor_activity_text1">Location requires some permissions.</string>
   <string name="permissions_for_location_geofence_editor_activity_text2">Please grant them in next dialogs. Then location change detection will be performed.</string>
@@ -843,7 +843,7 @@
   <string name="preference_not_allowed_reason_detail_secure_lock">unsupported secure lock</string>
   <string name="preference_not_allowed_reason_detail_cant_be_change">can\'t be change</string>
   <string name="event_preferences_sensorsInfo_title">Sensors functionality</string>
-  <string name="event_preferences_sensorsInfo_summary">Event will be started, if parameters of all sensors with \"Enable sensor\" parameter checked, are fulfilled. Running event will be ended, if any sensor parameter is not fulfilled. Check \"Enable sensor\" only for needed sensors for this event. Sensor name with \"Enable sensor\" checked is marked with bold text.\n\nSome sensor parameters are required. Required parameter name is marked with underline text. If any required parameter is not configured, event will not be started and parameter \"Enable sensor\" is unchecked.</string>
+  <string name="event_preferences_sensorsInfo_summary">Event will be started, if parameters of all sensors with \"Enable sensor\" parameter checked, are fulfilled. Running event will be ended, if some sensor parameter is not fulfilled. Check \"Enable sensor\" only for needed sensors for this event. Sensor name with \"Enable sensor\" checked is marked with bold text.\n\nSome sensor parameters are required. Required parameter name is marked with underline text. If some required parameter is not configured, event will not be started and parameter \"Enable sensor\" is unchecked.</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not supports colorful icons in status bar.</string>
   <string name="pref_dlg_change_selection_title">Change selection</string>
@@ -934,4 +934,44 @@
   <string name="about_application_privacy_policy">Privacy Policy:</string>
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will be activated if no any event is running.</string>
   <string name="phone_profiles_pref_applicationAlertSummary">This is used only for manual profile activation.</string>
+  <string name="phone_profiles_pref_notificationTheme">Notification theme</string>
+  <string name="array_pref_color_native">Native</string>
+  <string name="array_pref_color_dark">Dark</string>
+  <string name="array_pref_color_light">Light</string>
+  <string name="altype_applicationStartOnBoot">start on boot</string>
+  <string name="profile_preferences_hideStatusBarIcon">Hide status bar icon</string>
+  <string name="device_admin_description">Provides support for some PhoneProfilesPlus actions</string>
+  <string name="device_admin_disable_warning_ppp">Disabling this, may cause malfunction of some profiles and events parameters.</string>
+  <string name="device_admin_disable_warning_pp">Disabling this, may cause malfunction of some profiles parameters.</string>
+  <string name="profile_preferences_lockDevice">Lock device</string>
+  <string name="array_pref_lockDevice_deviceAdmin">(S) Use Device administrator (unlock via fingerprint may not working)</string>
+  <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
+  <string name="array_pref_lockDevice_screenOff">Use quick screen off</string>
+  <string name="profile_preferences_lockDevice_deviceAdminSettings_title">Device administrator</string>
+  <string name="profile_preferences_lockDevice_deviceAdminSettings_summary">Enable \"PhoneProfilesPlus\" in Device administrator, for Lock method \"Use Device administrator\".</string>
+  <string name="profile_preferences_lockDevice_deviceAdminSettings_summary_activated">Already enabled</string>
+  <string name="lockDevice_screenOff_text">Quick screen off lock</string>
+  <string name="event_preferences_calendar_start_before_event">Start before the event</string>
+  <string name="event_preferences_startBeforeEvent">Start before the event (sec.)</string>
+  <string name="event_preferences_category_eventRadioSwitchParameters">Radios parameters</string>
+  <string name="event_preference_sensor_radioSwitch_summary">This sensor is for start of event by switching radios (on/off). Parameters: Wi-fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
+  <string name="event_type_radioSwitch">Radios</string>
+  <string name="array_pref_radioSwitch_notDetect">Not detect</string>
+  <string name="array_pref_radioSwitch_on">On</string>
+  <string name="array_pref_radioSwitch_off">Off</string>
+  <string name="event_preferences_radioSwitch_wifi">Wi-Fi</string>
+  <string name="event_preferences_radioSwitch_bluetooth">Bluetooth</string>
+  <string name="event_preferences_radioSwitch_mobileData">Mobile data</string>
+  <string name="event_preferences_radioSwitch_gps">GPS</string>
+  <string name="event_preferences_radioSwitch_nfc">NFC</string>
+  <string name="event_preferences_radioSwitch_airplaneMode">Airplane mode</string>
+  <string name="event_preferences_radioSwitch_info_title">Sensor configuration</string>
+  <string name="event_preferences_radioSwitch_info_summary">State of all radios must by fulfilled to start event. Configure only radios which you needed.</string>
+  <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Just any</string>
+  <string name="profile_preferences_deviceConnectToSSID">Connect to SSID</string>
+  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Set volumes merge</string>
+  <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Keep detected</string>
+  <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volumes are merged</string>
+  <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volumes are not merged</string>
+  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Use this, if detection of volumes merge is wrong.</string>
 </resources>
