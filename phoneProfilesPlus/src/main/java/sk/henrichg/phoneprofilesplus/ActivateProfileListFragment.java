@@ -368,6 +368,9 @@ public class ActivateProfileListFragment extends Fragment {
 
     public void activateProfile(Profile profile, int startupSource)
     {
+        if ((dataWrapper == null) || (profile == null))
+            return;
+
         if (profile._porder != PORDER_FOR_IGNORED_PROFILE)
             dataWrapper.activateProfile(profile._id, startupSource, getActivity()/*, ""*/);
     }
