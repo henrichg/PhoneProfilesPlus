@@ -345,7 +345,7 @@ public class ActivateProfileHelper {
                 //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
                 boolean isEnabled;
-                if (android.os.Build.VERSION.SDK_INT < 21)
+                if (android.os.Build.VERSION.SDK_INT < 19)
                     isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
                 else {
                     LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -2342,7 +2342,7 @@ public class ActivateProfileHelper {
         }*/
 
         boolean isEnabled;
-        if (android.os.Build.VERSION.SDK_INT < 21)
+        if (android.os.Build.VERSION.SDK_INT < 19)
             isEnabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
         else {
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);

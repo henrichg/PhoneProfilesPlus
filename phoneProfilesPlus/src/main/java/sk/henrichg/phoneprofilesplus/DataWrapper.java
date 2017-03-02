@@ -2704,7 +2704,7 @@ public class DataWrapper {
                 ignoreRadioSwitch = false;
 
                 boolean enabled;
-                if (android.os.Build.VERSION.SDK_INT < 21)
+                if (android.os.Build.VERSION.SDK_INT < 19)
                     enabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
                 else {
                     LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
