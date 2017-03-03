@@ -360,6 +360,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     ScanSettings.Builder builder = new ScanSettings.Builder();
 
+                    tmpScanLEResults = null;
+
                     int forceScan = PPApplication.getForceOneBluetoothScan(context);
                     if (forceScan == PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
                         builder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
@@ -381,6 +383,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
 
                     lock(context); // lock wakeLock, then scan.
                     // unlock() is then called at the end of the scan from ScannerService
+
+                    tmpScanLEResults = null;
 
                     boolean startScan = bluetooth.startLeScan(ScannerService.leScanCallback18);
 
