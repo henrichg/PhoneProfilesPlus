@@ -57,7 +57,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         {
             //popupWidth = Math.round(popupWidth / 100f * 70f);
             //popupMaxHeight = Math.round(popupMaxHeight / 100f * 90f);
-            popupWidth = popupWidth / 100f * 70f;
+            popupWidth = popupWidth / 100f * 80f;
             popupMaxHeight = popupMaxHeight / 100f * 90f;
         }
 
@@ -67,9 +67,9 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         final float scale = getResources().getDisplayMetrics().density;
 
         // add list items height
-        int profileCount = dataWrapper.getDatabaseHandler().getProfilesCount(false);
-        popupHeight = popupHeight + (50f * scale * profileCount); // item
-        popupHeight = popupHeight + (5f * scale * (profileCount-1)); // divider
+        int profileCount = dataWrapper.getDatabaseHandler().getProfilesCount(false) + 1; // profiles count + "Restart events"
+        popupHeight = popupHeight + (60f * scale * profileCount); // item
+        popupHeight = popupHeight + (1f * scale * (profileCount-1)); // divider
 
         popupHeight = popupHeight + (20f * scale); // listview padding
 
