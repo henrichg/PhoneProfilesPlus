@@ -50,20 +50,24 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
                 if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action))
                 {
+                    // may be not invoked if not any BT is around
+
                     if (!discoveryStarted) {
                         discoveryStarted = true;
-
                         BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
-
-                        if (tmpScanResults == null)
-                            tmpScanResults = new ArrayList<>();
-                        else
-                            tmpScanResults.clear();
                     }
                 }
                 else if (BluetoothDevice.ACTION_FOUND.equals(action))
                 {
                     // When discovery finds a device
+
+                    if (!discoveryStarted) {
+                        discoveryStarted = true;
+                        BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
+                    }
+
+                    if (tmpScanResults == null)
+                        tmpScanResults = new ArrayList<>();
 
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
@@ -96,6 +100,11 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
                 else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action))
                 {
+                    if (!discoveryStarted) {
+                        discoveryStarted = true;
+                        BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
+                    }
+
                     finishScan(context);
                 }
 
@@ -114,15 +123,14 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
             discoveryStarted = false;
 
+            List<BluetoothDeviceData> scanResults = new ArrayList<>();
+
             if (tmpScanResults != null) {
-                List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
                 for (BluetoothDeviceData device : tmpScanResults) {
                     scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
                 }
                 tmpScanResults = null;
-
-                BluetoothScanAlarmBroadcastReceiver.saveCLScanResults(context, scanResults);
             }
 
             /*
@@ -134,6 +142,8 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
                 }
             }
             */
+
+            BluetoothScanAlarmBroadcastReceiver.saveCLScanResults(context, scanResults);
 
             BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
 

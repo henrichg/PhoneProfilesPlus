@@ -54,7 +54,7 @@ public class PPApplication extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -69,6 +69,7 @@ public class PPApplication extends Application {
 
                                          +"|BluetoothLEScanCallback21"
                                          +"|@@@ BluetoothScanBroadcastReceiver.onReceive"
+                                         +"|@@@ BluetoothScanAlarmBroadcastReceiver.startScan"
 
                                          //+"|PhoneProfilesService.onStartCommand"
                                          //+"|PhoneProfilesService.startSimulatingRingingCall"
