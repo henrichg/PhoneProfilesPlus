@@ -223,7 +223,8 @@ public class PPApplication extends Application {
     static final String WIFI_SCAN_RESULTS_PREFS_NAME = "wifi_scan_results";
     static final String BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME = "bluetooth_connected_devices";
     static final String BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME = "bluetooth_bounded_devices_list";
-    static final String BLUETOOTH_SCAN_RESULTS_PREFS_NAME = "bluetooth_scan_results";
+    static final String BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME = "bluetooth_cl_scan_results";
+    static final String BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME = "bluetooth_le_scan_results";
     static final String PERMISSIONS_PREFS_NAME = "permissions_list";
     static final String POSTED_NOTIFICATIONS_PREFS_NAME = "posted_notifications";
 

@@ -428,9 +428,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     static public void finishLEScan(Context context) {
         PPApplication.logE("BluetoothScanBroadcastReceiver.finishLEScan","xxx");
 
-        if (tmpScanLEResults != null) {
+        List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
-            List<BluetoothDeviceData> scanResults = new ArrayList<>();
+        if (tmpScanLEResults != null) {
 
             for (BluetoothDeviceData device : tmpScanLEResults) {
                 scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
@@ -447,8 +447,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
             }
             */
 
-            BluetoothScanAlarmBroadcastReceiver.saveScanResults(context, scanResults);
         }
+
+        BluetoothScanAlarmBroadcastReceiver.saveLEScanResults(context, scanResults);
     }
 
     static public void startScanner(Context context)
@@ -566,17 +567,15 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         editor.commit();
     }
 
-    //public static void getScanResults(Context context)
     public static List<BluetoothDeviceData> getScanResults(Context context)
     {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        List<BluetoothDeviceData> scanResults = new ArrayList<>();
+
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
 
         if (count >= 0) {
-            List<BluetoothDeviceData> scanResults = new ArrayList<>();
-
             Gson gson = new Gson();
-
             for (int i = 0; i < count; i++) {
                 String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
                 if (!json.isEmpty()) {
@@ -584,16 +583,39 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     scanResults.add(device);
                 }
             }
-
-            return scanResults;
         }
-        else
+
+        preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
+
+        if (count >= 0) {
+            Gson gson = new Gson();
+            for (int i = 0; i < count; i++) {
+                String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                if (!json.isEmpty()) {
+                    BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
+                    scanResults.add(device);
+                }
+            }
+        }
+
+        if (scanResults.size() == 0)
             return null;
+        else
+            return scanResults;
     }
 
     public static void clearScanResults(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+
+        editor.clear();
+        editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+
+        editor.commit();
+
+        preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        editor = preferences.edit();
 
         editor.clear();
         editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
@@ -601,37 +623,38 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         editor.commit();
     }
 
-    public static void saveScanResults(Context context, List<BluetoothDeviceData> scanResults)
+    public static void saveCLScanResults(Context context, List<BluetoothDeviceData> scanResults)
     {
-        List<BluetoothDeviceData> savedScanResults = getScanResults(context);
-        if (savedScanResults == null)
-            savedScanResults = new ArrayList<>();
-
-        for (BluetoothDeviceData device : scanResults) {
-            boolean found = false;
-            for (BluetoothDeviceData _device : savedScanResults) {
-
-                if (_device.address.equals(device.address)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                savedScanResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false));
-            }
-        }
-
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.clear();
 
-        editor.putInt(SCAN_RESULT_COUNT_PREF, savedScanResults.size());
+        editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
 
         Gson gson = new Gson();
-        for (int i = 0; i < savedScanResults.size(); i++)
+        for (int i = 0; i < scanResults.size(); i++)
         {
-            String json = gson.toJson(savedScanResults.get(i));
+            String json = gson.toJson(scanResults.get(i));
+            editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
+        }
+
+        editor.commit();
+    }
+
+    public static void saveLEScanResults(Context context, List<BluetoothDeviceData> scanResults)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.clear();
+
+        editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+
+        Gson gson = new Gson();
+        for (int i = 0; i < scanResults.size(); i++)
+        {
+            String json = gson.toJson(scanResults.get(i));
             editor.putString(SCAN_RESULT_DEVICE_PREF+i, json);
         }
 
@@ -674,7 +697,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     }
     */
 
-    public static void addScanResult(Context context, BluetoothDeviceData device) {
+    public static void addLEScanResult(Context context, BluetoothDeviceData device) {
         if (tmpScanLEResults == null)
             tmpScanLEResults = new ArrayList<>();
 
