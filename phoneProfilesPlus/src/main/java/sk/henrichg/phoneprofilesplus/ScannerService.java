@@ -315,7 +315,7 @@ public class ScannerService extends IntentService
 
                         BluetoothScanAlarmBroadcastReceiver.unlock();
 
-                        BluetoothScanAlarmBroadcastReceiver.clearScanResults(context);
+                        //BluetoothScanAlarmBroadcastReceiver.clearScanResults(context);
 
                         int bluetoothState;
 
@@ -348,7 +348,7 @@ public class ScannerService extends IntentService
 
                             if (bluetoothState == BluetoothAdapter.STATE_ON) {
                                 PPApplication.logE("$$$ ScannerService.onHandleIntent", "start classic scan");
-                                BluetoothScanAlarmBroadcastReceiver.startScan(context);
+                                BluetoothScanAlarmBroadcastReceiver.startCLScan(context);
                             }
 
                             if ((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
@@ -787,7 +787,7 @@ public class ScannerService extends IntentService
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
 
         BluetoothScanBroadcastReceiver.finishScan(context);
-        BluetoothScanAlarmBroadcastReceiver.stopScan(context);
+        BluetoothScanAlarmBroadcastReceiver.stopCLScan(context);
     }
 
     public static void waitForLEBluetoothScanEnd(Context context, AsyncTask<Void, Integer, Void> asyncTask)
@@ -807,6 +807,7 @@ public class ScannerService extends IntentService
                 SystemClock.sleep(100);
             } while (SystemClock.uptimeMillis() - start < PPApplication.applicationEventBluetoothLEScanDuration * 1000);
 
+            BluetoothScanAlarmBroadcastReceiver.finishLEScan(context);
             BluetoothScanAlarmBroadcastReceiver.stopLEScan(context);
         }
     }
@@ -826,7 +827,7 @@ public class ScannerService extends IntentService
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
         BluetoothScanBroadcastReceiver.finishScan(context);
-        BluetoothScanAlarmBroadcastReceiver.stopScan(context);
+        BluetoothScanAlarmBroadcastReceiver.stopCLScan(context);
 
         if (asyncTask != null)
         {
@@ -846,8 +847,8 @@ public class ScannerService extends IntentService
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < PPApplication.applicationEventBluetoothLEScanDuration * 1000);
+        BluetoothScanAlarmBroadcastReceiver.finishLEScan(context);
         BluetoothScanAlarmBroadcastReceiver.stopLEScan(context);
-
     }
 
     public static boolean bluetoothLESupported(Context context) {

@@ -55,15 +55,15 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
                         BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
 
-                        if (tmpScanResults == null)
-                            tmpScanResults = new ArrayList<>();
-                        else
-                            tmpScanResults.clear();
+                        tmpScanResults = null;
                     }
                 }
                 else if (BluetoothDevice.ACTION_FOUND.equals(action))
                 {
                     // When discovery finds a device
+
+                    if (tmpScanResults == null)
+                        tmpScanResults = new ArrayList<>();
 
                     BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
@@ -107,18 +107,10 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
     }
 
-    static public void initTmpScanResults()
-    {
-        if (tmpScanResults != null)
-            tmpScanResults.clear();
-        else
-            tmpScanResults = new ArrayList<>();
-    }
-
     static public void finishScan(Context context) {
         PPApplication.logE("BluetoothScanBroadcastReceiver.finishScan","discoveryStarted="+discoveryStarted);
 
-        if (discoveryStarted) {
+        if (discoveryStarted && (tmpScanResults != null)) {
 
             discoveryStarted = false;
 
@@ -127,7 +119,7 @@ public class BluetoothScanBroadcastReceiver extends WakefulBroadcastReceiver {
             for (BluetoothDeviceData device : tmpScanResults) {
                 scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
             }
-            tmpScanResults.clear();
+            tmpScanResults = null;
 
             BluetoothScanAlarmBroadcastReceiver.saveScanResults(context, scanResults);
 

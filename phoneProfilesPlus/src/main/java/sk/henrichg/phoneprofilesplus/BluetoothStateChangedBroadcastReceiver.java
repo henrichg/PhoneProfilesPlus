@@ -37,7 +37,7 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                         if (BluetoothScanAlarmBroadcastReceiver.getScanRequest(context))
                         {
                             PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start classic scan");
-                            BluetoothScanAlarmBroadcastReceiver.startScan(context.getApplicationContext());
+                            BluetoothScanAlarmBroadcastReceiver.startCLScan(context.getApplicationContext());
                         }
                         else
                         if (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context))

@@ -28,10 +28,9 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
     public static final String EXTRA_ONESHOT = "oneshot";
 
     public static BluetoothAdapter bluetooth = null;
-    //private static PowerManager.WakeLock wakeLock = null;
 
-    //public static List<BluetoothDeviceData> scanResults = null;
-    //public static List<BluetoothDeviceData> boundedDevicesList = null;
+    private static List<BluetoothDeviceData> tmpScanLEResults = null;
+
 
     public void onReceive(Context context, Intent intent) {
 
@@ -300,10 +299,8 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static public void startScan(Context context)
+    static public void startCLScan(Context context)
     {
-        BluetoothScanBroadcastReceiver.initTmpScanResults();
-
         if (bluetooth == null)
             bluetooth = getBluetoothAdapter(context);
 
@@ -331,7 +328,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         setScanRequest(context, false);
     }
 
-    static public void stopScan(Context context) {
+    static public void stopCLScan(Context context) {
         if (bluetooth == null)
             bluetooth = getBluetoothAdapter(context);
         if (bluetooth.isDiscovering())
@@ -421,6 +418,32 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
                     bluetooth.stopLeScan(ScannerService.leScanCallback18);
                 }
             }
+        }
+    }
+
+    static public void finishLEScan(Context context) {
+        PPApplication.logE("BluetoothScanBroadcastReceiver.finishLEScan","xxx");
+
+        if (tmpScanLEResults != null) {
+
+            List<BluetoothDeviceData> scanResults = new ArrayList<>();
+
+            for (BluetoothDeviceData device : tmpScanLEResults) {
+                scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false));
+            }
+            tmpScanLEResults = null;
+
+            /*
+            if (BluetoothScanAlarmBroadcastReceiver.scanResults != null)
+            {
+                for (BluetoothDevice device : BluetoothScanAlarmBroadcastReceiver.scanResults)
+                {
+                    PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","device.name="+device.getName());
+                }
+            }
+            */
+
+            BluetoothScanAlarmBroadcastReceiver.saveScanResults(context, scanResults);
         }
     }
 
@@ -611,6 +634,7 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         editor.commit();
     }
 
+    /*
     public static void addScanResult(Context context, BluetoothDeviceData device) {
         List<BluetoothDeviceData> savedScanResults = getScanResults(context);
         if (savedScanResults == null)
@@ -643,6 +667,24 @@ public class BluetoothScanAlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         editor.commit();
+    }
+    */
+
+    public static void addScanResult(Context context, BluetoothDeviceData device) {
+        if (tmpScanLEResults == null)
+            tmpScanLEResults = new ArrayList<>();
+
+        boolean found = false;
+        for (BluetoothDeviceData _device : tmpScanLEResults) {
+
+            if (_device.address.equals(device.address)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false));
+        }
     }
 
 }
