@@ -210,8 +210,6 @@ public class ShortcutCreatorListFragment extends Fragment {
             //noinspection ConstantConditions
             shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         }
-        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         Intent intent = new Intent();
         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);

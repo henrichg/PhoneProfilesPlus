@@ -379,20 +379,35 @@ public class ActivateProfileListFragment extends Fragment {
 
             if (profile != null)
                 profilePos = profileListAdapter.getItemPosition(profile);
-            else
-                profilePos = listView.getCheckedItemPosition();
+            else {
+                if (!PPApplication.applicationActivatorGridLayout)
+                    profilePos = listView.getCheckedItemPosition();
+                else
+                    profilePos = gridView.getCheckedItemPosition();
+            }
 
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
             if ((!PPApplication.applicationActivatorHeader) && (profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
-                listView.setItemChecked(profilePos, true);
-                int last = listView.getLastVisiblePosition();
-                int first = listView.getFirstVisiblePosition();
-                if ((profilePos <= first) || (profilePos >= last)) {
-                    listView.setSelection(profilePos);
-                    //listView.smoothScrollToPosition(profilePos);
+                if (!PPApplication.applicationActivatorGridLayout) {
+                    listView.setItemChecked(profilePos, true);
+                    int last = listView.getLastVisiblePosition();
+                    int first = listView.getFirstVisiblePosition();
+                    if ((profilePos <= first) || (profilePos >= last)) {
+                        listView.setSelection(profilePos);
+                        //listView.smoothScrollToPosition(profilePos);
+                    }
+                }
+                else {
+                    gridView.setItemChecked(profilePos, true);
+                    int last = gridView.getLastVisiblePosition();
+                    int first = gridView.getFirstVisiblePosition();
+                    if ((profilePos <= first) || (profilePos >= last)) {
+                        gridView.setSelection(profilePos);
+                        //listView.smoothScrollToPosition(profilePos);
+                    }
                 }
             }
         }

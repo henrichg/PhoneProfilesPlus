@@ -182,24 +182,24 @@
             android:theme="@style/PopupTheme_material">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".BackgroundActivateProfileActivity"
             android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
             android:label="@string/empty_string"
             android:theme="@style/EmptyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".ActivateProfileFromExternalApplicationActivity"
             android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:label="@string/empty_string"
             android:theme="@style/EmptyActivity">
             <intent-filter>
@@ -211,6 +211,7 @@
         <activity
             android:name=".ActionForExternalApplicationActivity"
             android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:label="@string/empty_string"
             android:theme="@style/EmptyActivity">
             <intent-filter>
