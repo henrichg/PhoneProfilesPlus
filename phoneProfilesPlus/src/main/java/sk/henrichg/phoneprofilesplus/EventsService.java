@@ -306,7 +306,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
                     // spustaj vsetky, musia sa aktivovat vsetky profily v poradi podla poradia udalosti
-                    dataWrapper.doEventService(_event, false, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
+                    dataWrapper.doEventService(_event, false, true, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, broadcastReceiverType);
             }
         }
 
