@@ -396,10 +396,6 @@ public class ActivateProfileListFragment extends Fragment {
                 }
             }
         }
-
-        boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-        if (startTargetHelps)
-            showAdapterTargetHelps();
     }
 
     public void refreshGUI(boolean refreshIcons)
