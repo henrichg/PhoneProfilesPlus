@@ -1,12 +1,17 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
-public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
+import java.util.Calendar;
 
-    public static final String BROADCAST_RECEIVER_TYPE = "bluetoothLEScan";
+public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -46,9 +51,7 @@ public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
                 if (forceOneScan != PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
                     // start service
-                    Intent eventsServiceIntent = new Intent(context, EventsService.class);
-                    eventsServiceIntent.putExtra(PPApplication.EXTRA_BROADCAST_RECEIVER_TYPE, BROADCAST_RECEIVER_TYPE);
-                    startWakefulService(context, eventsServiceIntent);
+                    setAlarm(context);
                 }
 
             }
@@ -57,6 +60,43 @@ public class BluetoothLEScanBroadcastReceiver extends WakefulBroadcastReceiver {
 
         PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","----- end");
 
+    }
+
+    private void removeAlarm(Context context)
+    {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+
+        Intent intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+        if (pendingIntent != null)
+        {
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private void setAlarm(Context context)
+    {
+        removeAlarm(context);
+
+        Intent intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.SECOND, 3);
+        long alarmTime = calendar.getTimeInMillis();
+
+        if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        else if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        else
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
     }
 
 }

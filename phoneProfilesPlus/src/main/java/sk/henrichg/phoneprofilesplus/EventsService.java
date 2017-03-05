@@ -612,12 +612,6 @@ public class EventsService extends IntentService
         if (broadcastReceiverType.equals(BluetoothConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //bluetoothConnection
             BluetoothConnectionBroadcastReceiver.completeWakefulIntent(intent);
         else
-        if (broadcastReceiverType.equals(BluetoothLEScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //bluetoothLEScan
-            BluetoothLEScanBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(BluetoothScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //bluetoothScan
-            BluetoothScanBroadcastReceiver.completeWakefulIntent(intent);
-        else
         if (broadcastReceiverType.equals(BluetoothStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //bluetoothState
             BluetoothStateChangedBroadcastReceiver.completeWakefulIntent(intent);
         else
@@ -686,9 +680,6 @@ public class EventsService extends IntentService
         else
         if (broadcastReceiverType.equals(WifiConnectionBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //wifiConnection
             WifiConnectionBroadcastReceiver.completeWakefulIntent(intent);
-        else
-        if (broadcastReceiverType.equals(WifiScanBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //wifiScan
-            WifiScanBroadcastReceiver.completeWakefulIntent(intent);
         else
         if (broadcastReceiverType.equals(WifiStateChangedBroadcastReceiver.BROADCAST_RECEIVER_TYPE)) //wifiState
             WifiStateChangedBroadcastReceiver.completeWakefulIntent(intent);
