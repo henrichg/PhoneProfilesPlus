@@ -384,7 +384,7 @@ public class ActivateProfileListFragment extends Fragment {
 
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
-            if ((!PPApplication.applicationEditorHeader) && (profilePos != ListView.INVALID_POSITION))
+            if ((!PPApplication.applicationActivatorHeader) && (profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
                 listView.setItemChecked(profilePos, true);
