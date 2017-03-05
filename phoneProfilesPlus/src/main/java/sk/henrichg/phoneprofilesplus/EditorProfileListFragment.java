@@ -802,7 +802,7 @@ public class EditorProfileListFragment extends Fragment {
 
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
-            if (profilePos != ListView.INVALID_POSITION)
+            if ((!PPApplication.applicationEditorHeader) && (profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
                 listView.setItemChecked(profilePos, true);
@@ -813,11 +813,11 @@ public class EditorProfileListFragment extends Fragment {
                     //listView.smoothScrollToPosition(profilePos);
                 }
             }
-
-            boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
-            if (startTargetHelps)
-                showAdapterTargetHelps();
         }
+
+        boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+        if (startTargetHelps)
+            showAdapterTargetHelps();
     }
 
     public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition)
