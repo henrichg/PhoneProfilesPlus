@@ -278,6 +278,7 @@ public class ActivateProfileListFragment extends Fragment {
         Profile profile = dataWrapper.getActivatedProfile();
 
         updateHeader(profile);
+        setProfileSelection(profile, false);
         endOnStart();
 
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onStart");
@@ -371,6 +372,36 @@ public class ActivateProfileListFragment extends Fragment {
             dataWrapper.activateProfile(profile._id, startupSource, getActivity()/*, ""*/);
     }
 
+    private void setProfileSelection(Profile profile, boolean refreshIcons) {
+        if (profileListAdapter != null)
+        {
+            int profilePos;
+
+            if (profile != null)
+                profilePos = profileListAdapter.getItemPosition(profile);
+            else
+                profilePos = listView.getCheckedItemPosition();
+
+            profileListAdapter.notifyDataSetChanged(refreshIcons);
+
+            if ((!PPApplication.applicationEditorHeader) && (profilePos != ListView.INVALID_POSITION))
+            {
+                // set profile visible in list
+                listView.setItemChecked(profilePos, true);
+                int last = listView.getLastVisiblePosition();
+                int first = listView.getFirstVisiblePosition();
+                if ((profilePos <= first) || (profilePos >= last)) {
+                    listView.setSelection(profilePos);
+                    //listView.smoothScrollToPosition(profilePos);
+                }
+            }
+        }
+
+        boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
+        if (startTargetHelps)
+            showAdapterTargetHelps();
+    }
+
     public void refreshGUI(boolean refreshIcons)
     {
         if ((dataWrapper == null) || (profileListAdapter == null))
@@ -389,9 +420,12 @@ public class ActivateProfileListFragment extends Fragment {
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);
+            setProfileSelection(profileFromDataWrapper, refreshIcons);
         }
-        else
+        else {
             updateHeader(null);
+            setProfileSelection(null, refreshIcons);
+        }
 
         profileListAdapter.notifyDataSetChanged(refreshIcons);
 
