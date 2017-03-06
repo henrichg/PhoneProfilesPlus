@@ -585,6 +585,9 @@ public class EditorEventListFragment extends Fragment {
 
     public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition)
     {
+        if (listView != null)
+            listView.cancelDrag();
+
         if (eventListAdapter != null)
         {
             if ((newEvent) && (event != null))

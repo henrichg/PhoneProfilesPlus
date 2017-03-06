@@ -822,6 +822,9 @@ public class EditorProfileListFragment extends Fragment {
 
     public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition)
     {
+        if (listView != null)
+            listView.cancelDrag();
+
         if (profileListAdapter != null)
         {
             if ((newProfile) && (profile != null))
