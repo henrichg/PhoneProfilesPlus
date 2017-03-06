@@ -238,7 +238,10 @@ public class PhoneProfilesService extends Service
         if (mobileDataStateChangedContentObserver != null)
             getContentResolver().unregisterContentObserver(mobileDataStateChangedContentObserver);
         mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(this, new Handler());
-        getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            getContentResolver().registerContentObserver(Settings.Global.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
+        else
+            getContentResolver().registerContentObserver(Settings.Secure.getUriFor("mobile_data"), true, mobileDataStateChangedContentObserver);
 
         //// this not starts for boot, because PPApplication.getApplicationStarted() == false,
         //// but it starts from EventsService

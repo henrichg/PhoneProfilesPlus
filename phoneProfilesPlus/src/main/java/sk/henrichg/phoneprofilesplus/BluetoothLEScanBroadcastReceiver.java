@@ -51,7 +51,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                 if (forceOneScan != PPApplication.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
                     // start service
-                    setAlarm(context);
+                    //setAlarm(context);
+                    Intent _intent = new Intent(context, StartEventsServiceBroadcastReceiver.class);
+                    context.sendBroadcast(_intent);
                 }
 
             }

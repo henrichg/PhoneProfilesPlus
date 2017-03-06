@@ -67,9 +67,13 @@ public class PPApplication extends Application {
                                          //+"|$$$ PhoneProfilesService.onCreate"
                                          //+"|PhoneProfilesService.onDestroy"
 
-                                         +"|BluetoothLEScanCallback21"
-                                         +"|@@@ BluetoothScanBroadcastReceiver.onReceive"
-                                         +"|@@@ BluetoothScanAlarmBroadcastReceiver.startScan"
+                                         +"|##### PackageReplacedReceiver.onReceive"
+                                         +"|ActivateProfileHelper.doExecuteForRadios"
+                                         +"|$$$B ScannerService.onHandleIntent"
+                                         +"|$$$BCL ScannerService.onHandleIntent"
+                                         +"|$$$BLE ScannerService.onHandleIntent"
+                                         +"|BluetoothScanBroadcastReceiver.finishScan"
+                                         +"|@@@ BluetoothStateChangedBroadcastReceiver.onReceive"
 
                                          //+"|PhoneProfilesService.onStartCommand"
                                          //+"|PhoneProfilesService.startSimulatingRingingCall"

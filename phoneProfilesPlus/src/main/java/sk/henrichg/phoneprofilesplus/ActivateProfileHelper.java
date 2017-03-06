@@ -133,7 +133,7 @@ public class ActivateProfileHelper {
         if (profile._deviceMobileData != 0) {
             if (PPApplication.isProfilePreferenceAllowed(PPApplication.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == PPApplication.PREFERENCE_ALLOWED) {
                 boolean _isMobileData = isMobileData(context);
-                PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
+                //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
                     case 1:
@@ -234,6 +234,9 @@ public class ActivateProfileHelper {
                                 setWifiState = true;
                                 break;
                         }
+                        if (isWifiEnabled)
+                            // when wifi is enabled from profile, no disable wifi after scan
+                            WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                         if (setWifiState) {
                             try {
                                 wifiManager.setWifiEnabled(isWifiEnabled);
@@ -243,9 +246,6 @@ public class ActivateProfileHelper {
                             //try { Thread.sleep(200); } catch (InterruptedException e) { }
                             //SystemClock.sleep(200);
                             PPApplication.sleep(200);
-                            if (isWifiEnabled)
-                                // when wifi is enabled from profile, no disable wifi after scan
-                                WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
                         }
                     }
                 }
@@ -303,6 +303,7 @@ public class ActivateProfileHelper {
         // nahodenie bluetooth
         if (profile._deviceBluetooth != 0) {
             if (PPApplication.isProfilePreferenceAllowed(PPApplication.PREF_PROFILE_DEVICE_BLUETOOTH, context) == PPApplication.PREFERENCE_ALLOWED) {
+                PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","setBluetooth");
                 BluetoothAdapter bluetoothAdapter = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
                     boolean isBluetoothEnabled = bluetoothAdapter.isEnabled();
@@ -325,14 +326,18 @@ public class ActivateProfileHelper {
                             setBluetoothState = true;
                             break;
                     }
+                    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "setBluetoothState="+setBluetoothState);
+                    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled="+isBluetoothEnabled);
+                    if (isBluetoothEnabled) {
+                        // when bluetooth is enabled from profile, no disable bluetooth after scan
+                        PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "isBluetoothEnabled=true; setBluetoothEnabledForScan=false");
+                        BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+                    }
                     if (setBluetoothState) {
                         if (isBluetoothEnabled)
                             bluetoothAdapter.enable();
                         else
                             bluetoothAdapter.disable();
-                        if (isBluetoothEnabled)
-                            // when bluetooth is enabled from profile, no disable bluetooth after scan
-                            BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
                     }
                 }
             }

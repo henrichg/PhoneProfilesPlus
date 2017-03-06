@@ -114,13 +114,13 @@ public class ScannerService extends IntentService
 
         if (scanType.equals(PPApplication.SCANNER_TYPE_WIFI))
         {
-            PPApplication.logE("@@@ ScannerService.onHandleIntent", "getStartScan=false");
+            PPApplication.logE("$$$W ScannerService.onHandleIntent", "start wifi scan");
 
             boolean canScan = PPApplication.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED;
             if (canScan) {
                 canScan = !WifiApManager.isWifiAPEnabled(context);
-                PPApplication.logE("$$$ ScannerService.onHandleIntent", "canScan=" + canScan);
-                PPApplication.logE("$$$ WifiAP", "ScannerService.onHandleIntent-isWifiAPEnabled="+!canScan);
+                PPApplication.logE("$$$W ScannerService.onHandleIntent", "canScan=" + canScan);
+                PPApplication.logE("$$$W WifiAP", "ScannerService.onHandleIntent-isWifiAPEnabled="+!canScan);
             }
 
             if (canScan) {
@@ -137,23 +137,23 @@ public class ScannerService extends IntentService
                     if (wifiEventsExists)
                         scan = isLocationEnabled(context, scanType);
                 }
-                PPApplication.logE("*** ScannerService.onHandleIntent", "wifiEventsExists=" + wifiEventsExists);
-                PPApplication.logE("*** ScannerService.onHandleIntent", "forceScan=" + forceScan);
+                PPApplication.logE("$$$W ScannerService.onHandleIntent", "wifiEventsExists=" + wifiEventsExists);
+                PPApplication.logE("$$$W ScannerService.onHandleIntent", "forceScan=" + forceScan);
                 if (!scan) {
                    // wifi scan events not exists
-                   PPApplication.logE("*** ScannerService.onHandleIntent","alarms removed");
+                   PPApplication.logE("$$$W ScannerService.onHandleIntent","alarms removed");
                    WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
                    //WifiScanAlarmBroadcastReceiver.removeAlarm(context/*, true*/);
                 }
                 else {
-                    PPApplication.logE("*** ScannerService.onHandleIntent","can scan");
+                    PPApplication.logE("$$$W ScannerService.onHandleIntent","can scan");
 
                     if (WifiScanAlarmBroadcastReceiver.wifi == null)
                         WifiScanAlarmBroadcastReceiver.wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
                     if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
                         // service restarted during scanning, disable wifi
-                        PPApplication.logE("$$$ ScannerService.onHandleIntent", "disable wifi - service restarted");
+                        PPApplication.logE("$$$W ScannerService.onHandleIntent", "disable wifi - service restarted");
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -170,7 +170,7 @@ public class ScannerService extends IntentService
 
                     if (true /*canScanWifi(dataWrapper)*/) { // scan even if wifi is connected
 
-                        PPApplication.logE("*** ScannerService.onHandleIntent","scan started");
+                        PPApplication.logE("$$$W ScannerService.onHandleIntent","scan started");
 
                         WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
                         WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
@@ -194,7 +194,7 @@ public class ScannerService extends IntentService
                         wifiState = enableWifi(dataWrapper, WifiScanAlarmBroadcastReceiver.wifi, wifiBluetoothChangeHandler);
 
                         if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                            PPApplication.logE("$$$ ScannerService.onHandleIntent", "startScan");
+                            PPApplication.logE("$$$W ScannerService.onHandleIntent", "startScan");
                             WifiScanAlarmBroadcastReceiver.startScan(context);
                         } else if (wifiState != WifiManager.WIFI_STATE_ENABLING) {
                             WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
@@ -205,57 +205,53 @@ public class ScannerService extends IntentService
 
                         if ((WifiScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                                 (WifiScanAlarmBroadcastReceiver.getWaitForResults(context))) {
-                            PPApplication.logE("$$$ ScannerService.onHandleIntent", "waiting for scan end");
+                            PPApplication.logE("$$$W ScannerService.onHandleIntent", "waiting for scan end");
 
                             // wait for scan end
                             waitForWifiScanEnd(context, null);
 
-                            PPApplication.logE("$$$ ScannerService.onHandleIntent", "scan ended");
+                            PPApplication.logE("$$$W ScannerService.onHandleIntent", "scan ended");
                         }
 
                         WifiScanAlarmBroadcastReceiver.unlock();
                         unlock();
 
                         unregisterReceiver(wifiScanReceiver);
-
-                        if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
-                            PPApplication.logE("$$$ ScannerService.onHandleIntent", "disable wifi");
-                            wifiBluetoothChangeHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
-                                }
-                            });
-                            //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(700);
-                            PPApplication.sleep(700);
-                        }
-
-                        //PPApplication.setForceOneWifiScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
-                        //WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-                        //WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-                        //WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
                     }
                 }
 
-                //WifiScanAlarmBroadcastReceiver.unlock();
-                //unlock();
+                wifiBluetoothChangeHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (WifiScanAlarmBroadcastReceiver.getWifiEnabledForScan(context)) {
+                            PPApplication.logE("$$$W ScannerService.onHandleIntent", "disable wifi");
+                            WifiScanAlarmBroadcastReceiver.wifi.setWifiEnabled(false);
+                            WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
+                        }
+                        else
+                            PPApplication.logE("$$$W ScannerService.onHandleIntent", "keep enabled wifi");
+                    }
+                }, 3000);
+                //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                //SystemClock.sleep(700);
+                //PPApplication.sleep(3000);
             }
-            //else {
-                PPApplication.setForceOneWifiScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
-                WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
-                WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-                WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
 
-                WifiScanAlarmBroadcastReceiver.unlock();
-                unlock();
+            PPApplication.setForceOneWifiScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
+            //WifiScanAlarmBroadcastReceiver.setWifiEnabledForScan(context, false);
+            WifiScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+            WifiScanAlarmBroadcastReceiver.setScanRequest(context, false);
 
-            //}
+            WifiScanAlarmBroadcastReceiver.unlock();
+            unlock();
+
         }
         else
         if (scanType.equals(PPApplication.SCANNER_TYPE_BLUETOOTH)) {
 
             if (PPApplication.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) {
+
+                PPApplication.logE("$$$B ScannerService.onHandleIntent", "start bt scan");
 
                 dataWrapper = new DataWrapper(context, false, false, 0);
 
@@ -279,17 +275,19 @@ public class ScannerService extends IntentService
                 }
                 if (!scan) {
                     // bluetooth scan events not exists
+                    PPApplication.logE("$$$B ScannerService.onHandleIntent", "no bt scan events");
                     BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, false*/);
                     //BluetoothScanAlarmBroadcastReceiver.removeAlarm(context/*, true*/);
                 }
                 else {
+                    PPApplication.logE("$$$B ScannerService.onHandleIntent", "scan=true");
 
                     if (BluetoothScanAlarmBroadcastReceiver.bluetooth == null)
                         BluetoothScanAlarmBroadcastReceiver.bluetooth = BluetoothScanAlarmBroadcastReceiver.getBluetoothAdapter(context);
 
                     if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
                         // service restarted during scanning, disable Bluetooth
-                        PPApplication.logE("$$$ ScannerService.onHandleIntent", "disable BT - service restarted");
+                        PPApplication.logE("$$$B ScannerService.onHandleIntent", "disable BT - service restarted");
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -322,8 +320,7 @@ public class ScannerService extends IntentService
                         if (classicDevicesScan) {
                             ///////// Classic BT scan
 
-                            PPApplication.logE("$$$ ScannerService","classic devices scan");
-                            PPApplication.logE("* ScannerService","classic devices scan");
+                            PPApplication.logE("$$$BCL ScannerService.onHandleIntent","classic devices scan");
 
                             lock();
 
@@ -338,12 +335,13 @@ public class ScannerService extends IntentService
                                     BluetoothScanAlarmBroadcastReceiver.bluetooth,
                                     wifiBluetoothChangeHandler,
                                     false);
+                            PPApplication.logE("$$$BCL ScannerService.onHandleIntent","bluetoothState="+bluetoothState);
 
                             if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                PPApplication.logE("$$$ ScannerService.onHandleIntent", "start classic scan");
+                                PPApplication.logE("$$$BCL ScannerService.onHandleIntent", "start classic scan");
                                 BluetoothScanAlarmBroadcastReceiver.startCLScan(context);
                             }
-                            else if (bluetoothState == BluetoothAdapter.STATE_TURNING_ON) {
+                            else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
                                 BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
                                 BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
                                 BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
@@ -352,12 +350,12 @@ public class ScannerService extends IntentService
 
                             if ((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                                     (BluetoothScanAlarmBroadcastReceiver.getWaitForResults(context))) {
-                                PPApplication.logE("$$$ ScannerService.onHandleIntent", "waiting for classic scan end");
+                                PPApplication.logE("$$$BCL ScannerService.onHandleIntent", "waiting for classic scan end");
 
                                 // wait for scan end
                                 waitForBluetoothScanEnd(context, null);
 
-                                PPApplication.logE("$$$ ScannerService.onHandleIntent", "classic scan ended");
+                                PPApplication.logE("$$$BCL ScannerService.onHandleIntent", "classic scan ended");
 
                             }
 
@@ -376,8 +374,7 @@ public class ScannerService extends IntentService
                         if (leDevicesScan) {
                             ///////// LE BT scan
 
-                            PPApplication.logE("$$$ ScannerService","LE devices scan");
-                            PPApplication.logE("* ScannerService","LE devices scan");
+                            PPApplication.logE("$$$BLE ScannerService","LE devices scan");
 
                             IntentFilter intentFilter7 = new IntentFilter();
                             registerReceiver(bluetoothLEScanReceiver, intentFilter7);
@@ -393,11 +390,10 @@ public class ScannerService extends IntentService
                                     true);
 
                             if (bluetoothState == BluetoothAdapter.STATE_ON) {
-                                PPApplication.logE("$$$ ScannerService.onHandleIntent", "start LE scan");
-                                PPApplication.logE("* ScannerService.onHandleIntent", "start LE scan");
+                                PPApplication.logE("$$$BLE ScannerService.onHandleIntent", "start LE scan");
                                 BluetoothScanAlarmBroadcastReceiver.startLEScan(context);
                             }
-                            else if (bluetoothState == BluetoothAdapter.STATE_TURNING_ON) {
+                            else if (bluetoothState != BluetoothAdapter.STATE_TURNING_ON) {
                                 BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
                                 BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
                                 BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
@@ -406,8 +402,7 @@ public class ScannerService extends IntentService
 
                             if ((BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
                                     (BluetoothScanAlarmBroadcastReceiver.getWaitForLEResults(context))) {
-                                PPApplication.logE("$$$ ScannerService.onHandleIntent", "waiting for LE scan end");
-                                PPApplication.logE("* ScannerService.onHandleIntent", "waiting for LE scan end");
+                                PPApplication.logE("$$$BLE ScannerService.onHandleIntent", "waiting for LE scan end");
 
                                 // wait for scan end
                                 waitForLEBluetoothScanEnd(context, null);
@@ -416,9 +411,7 @@ public class ScannerService extends IntentService
                                 Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
                                 sendBroadcast(btLEIntent);
 
-                                PPApplication.logE("$$$ ScannerService.onHandleIntent", "LE scan ended");
-                                PPApplication.logE("* ScannerService.onHandleIntent", "LE scan ended");
-
+                                PPApplication.logE("$$$BLE ScannerService.onHandleIntent", "LE scan ended");
                             }
 
                             BluetoothScanAlarmBroadcastReceiver.unlock();
@@ -432,56 +425,43 @@ public class ScannerService extends IntentService
 
                             ///////// LE BT scan - end
                         }
-
-                        if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
-                            PPApplication.logE("$$$ ScannerService.onHandleIntent", "disable bluetooth");
-                            wifiBluetoothChangeHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
-                                }
-                            });
-                            //try { Thread.sleep(700); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(700);
-                            PPApplication.sleep(700);
-                        }
-
-                        //PPApplication.setForceOneBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
-                        //PPApplication.setForceOneLEBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
-                        //BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-                        //BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-                        //BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
-                        //BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
-                        //BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
-
                     }
+
+                    wifiBluetoothChangeHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (BluetoothScanAlarmBroadcastReceiver.getBluetoothEnabledForScan(context)) {
+                                PPApplication.logE("$$$B ScannerService.onHandleIntent", "disable bluetooth");
+                                BluetoothScanAlarmBroadcastReceiver.bluetooth.disable();
+                                BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+                            }
+                            else
+                                PPApplication.logE("$$$B ScannerService.onHandleIntent", "keep enabled bluetooth");
+                        }
+                    }, 3000);
+                    //try { Thread.sleep(700); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(700);
+                    //PPApplication.sleep(3000);
                 }
-
-                //BluetoothScanAlarmBroadcastReceiver.unlock();
-                //unlock();
             }
-            //else {
-                PPApplication.setForceOneBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
-                PPApplication.setForceOneLEBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
-                BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
-                BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
-                BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
-                BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
-                BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
 
-                BluetoothScanAlarmBroadcastReceiver.unlock();
-                unlock();
+            PPApplication.setForceOneBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
+            PPApplication.setForceOneLEBluetoothScan(context, PPApplication.FORCE_ONE_SCAN_DISABLED);
+            //BluetoothScanAlarmBroadcastReceiver.setBluetoothEnabledForScan(context, false);
+            BluetoothScanAlarmBroadcastReceiver.setWaitForResults(context, false);
+            BluetoothScanAlarmBroadcastReceiver.setWaitForLEResults(context, false);
+            BluetoothScanAlarmBroadcastReceiver.setScanRequest(context, false);
+            BluetoothScanAlarmBroadcastReceiver.setLEScanRequest(context, false);
 
-            //}
+            BluetoothScanAlarmBroadcastReceiver.unlock();
+            unlock();
         }
 
-            PPApplication.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - end - scanType=" + scanType);
+        PPApplication.logE("$$$ ScannerService.onHandleIntent", "in synchronized block - end - scanType=" + scanType);
 
         }
 
-            PPApplication.logE("$$$ ScannerService.onHandleIntent", "after synchronized block - scanType=" + scanType);
-
-        //PPApplication.setRadioChangeState(context, false);
+        PPApplication.logE("$$$ ScannerService.onHandleIntent", "after synchronized block - scanType=" + scanType);
 
         PPApplication.logE("%%%% ScannerService.onHandleIntent", "-- END ------------");
 
