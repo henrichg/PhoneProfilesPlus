@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/icon_widget_icon"
-        android:shadowColor="#ff000000"
+        android:shadowColor="#ffffffff"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="3"

@@ -19,7 +19,7 @@
         android:id="@+id/widget_profiles_list_empty"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:shadowColor="#ff000000"
+        android:shadowColor="#ffffffff"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="3"

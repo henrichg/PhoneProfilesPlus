@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:shadowColor="#ff000000"
+        android:shadowColor="#ffffffff"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="3"
