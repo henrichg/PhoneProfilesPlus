@@ -1072,12 +1072,12 @@ class Event {
             PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
 
             if (mergedProfile == null)
-                dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false, true);
+                dataWrapper.activateProfileFromEvent(this._fkProfileStart, interactive, false, false);
             else {
                 mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper);
                 if (this._manualProfileActivation) {
                     dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                    dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true, true);
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, true, true);
                     mergedProfile._id = 0;
                 }
             }
@@ -1131,7 +1131,7 @@ class Event {
                 {
                     PPApplication.logE("Event.pauseEvent","activate end porfile");
                     if (mergedProfile == null)
-                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, false, /*"",*/ true);
+                        dataWrapper.activateProfileFromEvent(_fkProfileEnd, false, false, false);
                     else
                         mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper);
                     activatedProfileId = _fkProfileEnd;
@@ -1159,7 +1159,7 @@ class Event {
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
                         if (mergedProfile == null)
-                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, false, /*"",*/ true);
+                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, false, false, false);
                         else
                             mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper);
                         profileActivated = true;

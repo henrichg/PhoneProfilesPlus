@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EventsService extends IntentService
@@ -26,6 +27,8 @@ public class EventsService extends IntentService
     public static int oldSystemRingerMode;
     public static int oldZenMode;
     public static String oldRingtone;
+
+    public static ArrayList<Profile> mergedProfiles = null;
 
     //public static final String BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER = "noBroadcastReceiver";
 
@@ -242,6 +245,7 @@ public class EventsService extends IntentService
         //BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
 
         Profile mergedProfile = DataWrapper.getNoinitializedProfile("", "", 0);
+        mergedProfiles = new ArrayList<>();
 
         //Profile activatedProfile0 = null;
 
@@ -390,7 +394,7 @@ public class EventsService extends IntentService
                 PPApplication.logE("$$$ EventsService.onHandleIntent", "profile._deviceRunApplicationPackageName=" + mergedProfile._deviceRunApplicationPackageName);
                 PPApplication.logE("$$$ EventsService.onHandleIntent", "interactive=" + interactive);
                 dataWrapper.getDatabaseHandler().saveMergedProfile(mergedProfile);
-                dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true, false);
+                dataWrapper.activateProfileFromEvent(mergedProfile._id, interactive, false, true);
 
                 if (PhoneProfilesService.instance != null)
                     PhoneProfilesService.instance.playEventNotificationSound(eventNotificationSound);

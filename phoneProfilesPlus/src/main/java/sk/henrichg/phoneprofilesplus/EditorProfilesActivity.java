@@ -952,7 +952,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     Profile mappedProfile = PPApplication.getMappedProfile(profile, getApplicationContext());
                     Permissions.grantProfilePermissions(getApplicationContext(), mappedProfile, false, false,
-                            true, false, 0, PPApplication.STARTUP_SOURCE_EDITOR, true, this, true, false);
+                            true, false, 0, PPApplication.STARTUP_SOURCE_EDITOR, true, this, false);
                 }
                 else
                 if (profile_id == PPApplication.DEFAULT_PROFILE_ID)
@@ -962,7 +962,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     Profile defaultProfile = PPApplication.getDefaultProfile(getApplicationContext());
                     Permissions.grantProfilePermissions(getApplicationContext(), defaultProfile, false, false,
-                            true, false, 0, PPApplication.STARTUP_SOURCE_EDITOR, true, this, true, false);
+                            true, false, 0, PPApplication.STARTUP_SOURCE_EDITOR, true, this, false);
                 }
             }
         }

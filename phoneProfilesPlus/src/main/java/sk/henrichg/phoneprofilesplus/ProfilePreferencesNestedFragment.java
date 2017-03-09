@@ -1320,7 +1320,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 {
                     Profile defaultProfile = PPApplication.getDefaultProfile(context);
                     Permissions.grantProfilePermissions(context, defaultProfile, false, true,
-                            true, false, 0, PPApplication.STARTUP_SOURCE_EDITOR, true, null, true, false);
+                            true, false, 0, PPApplication.STARTUP_SOURCE_EDITOR, true, null, false);
                 }
             }
         }

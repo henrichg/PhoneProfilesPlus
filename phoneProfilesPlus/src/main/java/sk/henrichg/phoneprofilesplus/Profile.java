@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.Settings;
+import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -592,12 +593,14 @@ public class Profile {
             dataWrapper.getDatabaseHandler().activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
 
-            String profileIcon = withProfile._icon;
-
+            if (EventsService.mergedProfiles != null) {
+                EventsService.mergedProfiles.add(withProfile);
+                PPApplication.logE("Profile.mergeProfiles","EventsService.mergedProfiles="+withProfile._name);
+            }
+            /*String profileIcon = withProfile._icon;
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                                     dataWrapper.getProfileNameWithManualIndicator(withProfile, true, false, false),
-                                    profileIcon, 0);
-
+                                    profileIcon, 0, true);*/
         }
     }
 

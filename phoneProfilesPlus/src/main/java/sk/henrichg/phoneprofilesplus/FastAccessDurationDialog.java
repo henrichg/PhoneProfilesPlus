@@ -41,7 +41,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     //private int mColor = 0;
 
     FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper, int startupSource,
-                             boolean interactive, boolean log) {
+                             boolean interactive) {
 
         mMax = 86400;
         mMin = 0;
@@ -53,7 +53,6 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mDataWrapper = dataWrapper;
         mStartupSource = startupSource;
         mInteractive = interactive;
-        mLog = log;
 
         /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
@@ -81,7 +80,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         if (mAfterDo != -1)
                             mProfile._afterDurationDo = mAfterDo;
                         mDataWrapper.getDatabaseHandler().updateProfile(mProfile);
-                        mDataWrapper._activateProfile(mProfile, false, mStartupSource, mInteractive, mActivity, mLog);
+                        mDataWrapper._activateProfile(mProfile, false, mStartupSource, mInteractive, mActivity);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {

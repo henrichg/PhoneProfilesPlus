@@ -455,7 +455,7 @@ public class DataWrapper {
     }
 
     void activateProfileFromEvent(long profile_id, boolean interactive, boolean manual,
-                                         boolean merged, boolean log)
+                                         boolean merged)
     {
         int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
         if (manual)
@@ -463,9 +463,9 @@ public class DataWrapper {
         Profile profile = getProfileById(profile_id, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 forGUI, monochrome, monochromeValue,
-                startupSource, interactive, null, true, true)) {
+                startupSource, interactive, null, true)) {
             getActivateProfileHelper().initialize(this, context);
-            _activateProfile(profile, merged, startupSource, interactive, null, log);
+            _activateProfile(profile, merged, startupSource, interactive, null);
         }
     }
 
@@ -1133,7 +1133,7 @@ public class DataWrapper {
 //----- Activate profile ---------------------------------------------------------------------------------------------
 
     void _activateProfile(Profile _profile, boolean merged, int startupSource,
-                                    boolean _interactive, Activity _activity, boolean log)
+                                    boolean _interactive, Activity _activity)
     {
         // remove last configured profile duration alarm
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
@@ -1148,6 +1148,7 @@ public class DataWrapper {
             PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");
 
         PPApplication.logE("$$$ DataWrapper._activateProfile","startupSource="+startupSource);
+        PPApplication.logE("$$$ DataWrapper._activateProfile","merged="+merged);
 
         //boolean interactive = _interactive;
         //final Activity activity = _activity;
@@ -1215,10 +1216,20 @@ public class DataWrapper {
         activateProfileHelper.showNotification(activatedProfile);
         activateProfileHelper.updateWidget();
 
-        if (log && (profile != null)) {
-            addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false),
-                    profileIcon, profileDuration);
+        if (profile != null) {
+            if (merged && (EventsService.mergedProfiles != null)) {
+                //EventsService.mergedProfiles.add(profile); // is added in Profile.mergeProfiles()
+                //PPApplication.logE("$$$ DataWrapper._activateProfile","EventsService.mergedProfiles="+profile._name);
+                for (Profile __profile : EventsService.mergedProfiles) {
+                    addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
+                            getProfileNameWithManualIndicator(__profile, true, false, false),
+                            __profile._icon, 0);
+                }
+            }
+            else
+                addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
+                        getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false),
+                        profileIcon, profileDuration);
         }
 
         if (profile != null)
@@ -1296,14 +1307,14 @@ public class DataWrapper {
                 public void onClick(DialogInterface dialog, int which) {
                     if (Permissions.grantProfilePermissions(context, _profile, false, false,
                             forGUI, monochrome, monochromeValue,
-                            _startupSource, true, _activity, true, true)) {
+                            _startupSource, true, _activity, true)) {
                         if (_profile._askForDuration) {
                             FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper, _startupSource,
-                                    true, true);
+                                    true);
                             dlg.show();
                         }
                         else
-                            _activateProfile(_profile, false, _startupSource, true, _activity, true);
+                            _activateProfile(_profile, false, _startupSource, true, _activity);
                     }
                     else {
                         Intent returnIntent = new Intent();
@@ -1345,20 +1356,20 @@ public class DataWrapper {
 
                 granted = Permissions.grantProfilePermissions(context, profile, false, false,
                         forGUI, monochrome, monochromeValue,
-                        startupSource, true, activity, true, true);
+                        startupSource, true, activity, true);
             }
             else
                 granted = Permissions.grantProfilePermissions(context, profile, false, true,
                                         forGUI, monochrome, monochromeValue,
-                                        startupSource, false, null, true, true);
+                                        startupSource, false, null, true);
             if (granted) {
                 if (profile._askForDuration && interactive) {
                     FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this, startupSource,
-                                                            true, true);
+                                                            true);
                     dlg.show();
                 }
                 else
-                    _activateProfile(profile, false, startupSource, interactive, activity, true);
+                    _activateProfile(profile, false, startupSource, interactive, activity);
             }
         }
     }

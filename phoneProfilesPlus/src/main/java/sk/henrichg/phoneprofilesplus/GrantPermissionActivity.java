@@ -35,7 +35,6 @@ public class GrantPermissionActivity extends Activity {
     private int monochromeValue;
     private int startupSource;
     private boolean interactive;
-    private boolean log;
     private String applicationDataPath;
     private boolean activateProfile;
 
@@ -78,7 +77,6 @@ public class GrantPermissionActivity extends Activity {
         monochromeValue = intent.getIntExtra(Permissions.EXTRA_MONOCHROME_VALUE, 0xFF);
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
         interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
-        log = intent.getBooleanExtra(Permissions.EXTRA_LOG, false);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
         activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true) && (profile_id != PPApplication.DEFAULT_PROFILE_ID);
 
@@ -355,7 +353,6 @@ public class GrantPermissionActivity extends Activity {
                 intent.putExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
                 intent.putExtra(Permissions.EXTRA_INTERACTIVE, interactive);
-                intent.putExtra(Permissions.EXTRA_LOG, log);
 
                 PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
@@ -905,11 +902,11 @@ public class GrantPermissionActivity extends Activity {
             if (activateProfile) {
                 if ((Permissions.profileActivationActivity != null) && (profile._askForDuration)) {
                     FastAccessDurationDialog dlg = new FastAccessDurationDialog(Permissions.profileActivationActivity,
-                            profile, dataWrapper, startupSource, interactive, log);
+                            profile, dataWrapper, startupSource, interactive);
                     dlg.show();
                 } else
                     dataWrapper._activateProfile(profile, mergedProfile, startupSource, interactive,
-                            Permissions.profileActivationActivity, log);
+                            Permissions.profileActivationActivity);
             }
         }
         Permissions.releaseReferences();
