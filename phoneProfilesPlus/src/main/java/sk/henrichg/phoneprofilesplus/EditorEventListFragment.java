@@ -729,6 +729,9 @@ public class EditorEventListFragment extends Fragment {
     }
 
     void showTargetHelps() {
+        if (getActivity() == null)
+            return;
+
         if (((EditorProfilesActivity)getActivity()).targetHelpsSequenceStarted)
             return;
 
@@ -811,6 +814,9 @@ public class EditorEventListFragment extends Fragment {
     }
 
     private void showAdapterTargetHelps() {
+        if (getActivity() == null)
+            return;
+
         View itemView;
         if (listView.getChildCount() > 1)
             itemView = listView.getChildAt(1);
