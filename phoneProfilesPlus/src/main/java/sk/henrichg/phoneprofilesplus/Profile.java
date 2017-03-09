@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.Settings;
-import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
