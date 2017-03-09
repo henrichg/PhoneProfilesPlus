@@ -941,9 +941,9 @@
   <string name="array_pref_color_light">Светлая</string>
   <string name="altype_applicationStartOnBoot">запуск при загрузке</string>
   <string name="profile_preferences_hideStatusBarIcon">Скрыть значок строки состояния</string>
-  <string name="device_admin_description">Provides support for some PhoneProfilesPlus actions</string>
-  <string name="device_admin_disable_warning_ppp">Disabling this, may cause malfunction of some profiles and events parameters.</string>
-  <string name="device_admin_disable_warning_pp">Disabling this, may cause malfunction of some profiles parameters.</string>
+  <string name="device_admin_description">Обеспечивает поддержку для некоторых действий PhoneProfilesPlus</string>
+  <string name="device_admin_disable_warning_ppp">Отключение этого, может привести к неисправности некоторых параметров профилей и событий.</string>
+  <string name="device_admin_disable_warning_pp">Отключение этого, может привести к неисправности некоторых параметров профилей.</string>
   <string name="profile_preferences_lockDevice">Блокировка устройства</string>
   <string name="array_pref_lockDevice_deviceAdmin">(S) Использует администратор устройства (разблокировка через отпечатков пальцев может не работать)</string>
   <string name="array_pref_lockDevice_root">(R) Use root (устройство должны быть разблокировано)</string>
