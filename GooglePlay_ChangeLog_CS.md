@@ -4,7 +4,7 @@ PhoneProfiles Seznam změn
 Verze: 3.5
 ----------
 - Přidáno: "Pohledy na cíl kliknutí". Pomohou vám s používáním GUI komponentů.
-- Přidáno: "Zásady ochrany osobních údajů" to "O aplikaci".
+- Přidáno: "Zásady ochrany osobních údajů" do "O aplikaci".
 - Přidáno: "Skrýt ikonu ve stavovém řádku" do parametrů profilu. Můžete skrýt aplikační ikonu ve stavovém řádku pro aktivován profil. Přepíše parametr v nastavení aplikace.
 - Přidáno: "Zamknutí zařízení" do parametrů profilu. Můžete zamknout zařízení aktivací profilu.
 - Přidáno: "Připojit k SSID" do parametrů profilu. Můžete připojit zařízení do nakonfigurovaný Wi-Fi SSID aktivací profilu.
