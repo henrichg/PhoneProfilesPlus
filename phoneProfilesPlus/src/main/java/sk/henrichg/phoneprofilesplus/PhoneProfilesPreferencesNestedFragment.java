@@ -448,6 +448,16 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             //Log.d("PhoneProfilesPreferencesNestedFragment.setSummary","enabled="+enabled);
             _preference.setEnabled(enabled);
         }
+        if (key.equals(PPApplication.PREF_APPLICATION_WIDGET_ICON_COLOR)) {
+            Preference _preference = prefMng.findPreference(PPApplication.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
+            boolean colorful = preferences.getString(key, "0").equals("1");
+            _preference.setEnabled(colorful);
+        }
+        if (key.equals(PPApplication.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR)) {
+            Preference _preference = prefMng.findPreference(PPApplication.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
+            boolean colorful = preferences.getString(key, "0").equals("1");
+            _preference.setEnabled(colorful);
+        }
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
