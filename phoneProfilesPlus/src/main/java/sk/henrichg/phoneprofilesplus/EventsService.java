@@ -29,6 +29,7 @@ public class EventsService extends IntentService
     public static String oldRingtone;
 
     public static ArrayList<Profile> mergedProfiles = null;
+    public static Profile oldActivatedProfile = null;
 
     //public static final String BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER = "noBroadcastReceiver";
 
@@ -253,6 +254,8 @@ public class EventsService extends IntentService
         {
             PPApplication.logE("$$$ EventsService.onHandleIntent","restart events");
 
+            oldActivatedProfile = null;
+
             // 1. pause events
             dataWrapper.sortEventsByStartOrderDesc();
             for (Event _event : eventList)
@@ -283,6 +286,8 @@ public class EventsService extends IntentService
         else
         {
             PPApplication.logE("$$$ EventsService.onHandleIntent","NO restart events");
+
+            oldActivatedProfile = dataWrapper.getActivatedProfile();
 
             //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
