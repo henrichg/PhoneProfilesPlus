@@ -1217,39 +1217,25 @@ public class DataWrapper {
         activateProfileHelper.updateWidget();
 
         if (profile != null) {
-            if (merged && (EventsService.mergedProfiles != null)) {
-                if ((EventsService.oldActivatedProfile == null) || (EventsService.oldActivatedProfile._id != activatedProfile._id)) {
-                    //EventsService.mergedProfiles.add(profile); // is added in Profile.mergeProfiles()
-                    //PPApplication.logE("$$$ DataWrapper._activateProfile","EventsService.mergedProfiles="+profile._name);
-                    for (Profile __profile : EventsService.mergedProfiles) {
-                        addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                                getProfileNameWithManualIndicator(__profile, true, false, false),
-                                __profile._icon, 0);
-                    }
-                }
-            }
-            else
-                addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                        getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false),
-                        profileIcon, profileDuration);
+            addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
+                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false),
+                    profileIcon, profileDuration);
         }
 
         if (profile != null)
         {
             if (PPApplication.notificationsToast && (!ActivateProfileHelper.lockRefresh))
             {
-                if ((!merged) || (EventsService.oldActivatedProfile == null) || (EventsService.oldActivatedProfile._id != activatedProfile._id)) {
-                    // toast notification
-                    if (toastHandler != null) {
-                        final Profile __profile = profile;
-                        toastHandler.post(new Runnable() {
-                            public void run() {
-                                showToastAfterActivation(__profile);
-                            }
-                        });
-                    } else
-                        showToastAfterActivation(profile);
-                }
+                // toast notification
+                if (toastHandler != null) {
+                    final Profile __profile = profile;
+                    toastHandler.post(new Runnable() {
+                        public void run() {
+                            showToastAfterActivation(__profile);
+                        }
+                    });
+                } else
+                    showToastAfterActivation(profile);
             }
         }
 

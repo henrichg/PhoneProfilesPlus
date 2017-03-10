@@ -28,8 +28,8 @@ public class EventsService extends IntentService
     public static int oldZenMode;
     public static String oldRingtone;
 
-    public static ArrayList<Profile> mergedProfiles = null;
-    public static Profile oldActivatedProfile = null;
+    //public static ArrayList<Profile> mergedProfiles = null;
+    //public static Profile oldActivatedProfile = null;
 
     //public static final String BROADCAST_RECEIVER_TYPE_NO_BROADCAST_RECEIVER = "noBroadcastReceiver";
 
@@ -246,7 +246,7 @@ public class EventsService extends IntentService
         //BluetoothScanAlarmBroadcastReceiver.getScanResults(context);
 
         Profile mergedProfile = DataWrapper.getNoinitializedProfile("", "", 0);
-        mergedProfiles = new ArrayList<>();
+        //mergedProfiles = new ArrayList<>();
 
         //Profile activatedProfile0 = null;
 
@@ -254,7 +254,7 @@ public class EventsService extends IntentService
         {
             PPApplication.logE("$$$ EventsService.onHandleIntent","restart events");
 
-            oldActivatedProfile = null;
+            //oldActivatedProfile = null;
 
             // 1. pause events
             dataWrapper.sortEventsByStartOrderDesc();
@@ -267,7 +267,7 @@ public class EventsService extends IntentService
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len pauzuj eventy
                     // pauzuj aj ked uz je zapauznuty
-                    dataWrapper.doEventService(_event, true, true, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, broadcastReceiverType);
+                    dataWrapper.doEventService(_event, true, true, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
             }
             // 2. start events
             dataWrapper.sortEventsByStartOrderAsc();
@@ -287,7 +287,7 @@ public class EventsService extends IntentService
         {
             PPApplication.logE("$$$ EventsService.onHandleIntent","NO restart events");
 
-            oldActivatedProfile = dataWrapper.getActivatedProfile();
+            //oldActivatedProfile = dataWrapper.getActivatedProfile();
 
             //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
@@ -314,8 +314,9 @@ public class EventsService extends IntentService
 
                 if (_event.getStatus() != Event.ESTATUS_STOP)
                     // len spustaj eventy
-                    // spustaj vsetky, musia sa aktivovat vsetky profily v poradi podla poradia udalosti
-                    dataWrapper.doEventService(_event, false, true, interactive, forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, broadcastReceiverType);
+                    // spustaj len ak este nebezi - musi to takto byt, lebo inac to bude furt menit veci v mobile
+                    // napr. ked hlasitosti zmenene manualne tlacitkami.
+                    dataWrapper.doEventService(_event, false, false, interactive, forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, broadcastReceiverType);
             }
         }
 

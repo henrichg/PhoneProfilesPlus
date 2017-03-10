@@ -592,14 +592,10 @@ public class Profile {
             dataWrapper.getDatabaseHandler().activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
 
-            if (EventsService.mergedProfiles != null) {
-                EventsService.mergedProfiles.add(withProfile);
-                PPApplication.logE("Profile.mergeProfiles","EventsService.mergedProfiles="+withProfile._name);
-            }
-            /*String profileIcon = withProfile._icon;
+            String profileIcon = withProfile._icon;
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                                     dataWrapper.getProfileNameWithManualIndicator(withProfile, true, false, false),
-                                    profileIcon, 0, true);*/
+                                    profileIcon, 0);
         }
     }
 
