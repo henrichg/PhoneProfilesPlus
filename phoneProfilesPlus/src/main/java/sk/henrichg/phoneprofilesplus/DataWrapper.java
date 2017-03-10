@@ -1216,7 +1216,7 @@ public class DataWrapper {
         activateProfileHelper.showNotification(activatedProfile);
         activateProfileHelper.updateWidget();
 
-        if (profile != null) {
+        if ((profile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                     getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false),
                     profileIcon, profileDuration);
