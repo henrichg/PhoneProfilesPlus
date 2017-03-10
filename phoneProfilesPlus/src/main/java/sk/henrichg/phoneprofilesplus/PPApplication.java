@@ -1026,7 +1026,7 @@ public class PPApplication extends Application {
                 mappedProfile._vibrateWhenRinging = defaultProfile._vibrateWhenRinging;
             if (profile._lockDevice == 99)
                 mappedProfile._lockDevice = defaultProfile._lockDevice;
-            if (profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE))
+            if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_DEFAULTPROFILE)))
                 mappedProfile._deviceConnectToSSID = defaultProfile._deviceConnectToSSID;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
