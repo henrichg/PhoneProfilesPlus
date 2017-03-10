@@ -218,6 +218,7 @@
             android:name=".RestartEventsFromNotificationActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyActivity">
         </activity>
         <activity
@@ -231,6 +232,7 @@
         <activity
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
             android:theme="@style/EmptyActivity">
         </activity>
@@ -247,6 +249,7 @@
         <activity
             android:name=".LaunchShortcutActivity"
             android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
             android:theme="@style/EmptyActivity">
         </activity>
@@ -266,6 +269,7 @@
         <activity
             android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
             android:theme="@style/EmptyActivity">
             <intent-filter>
