@@ -16,13 +16,19 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
 
         PPApplication.logE("##### BluetoothStateChangedBroadcastReceiver.onReceive", "xxx");
 
+        int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
+
+        // remove connected devices list
+        if (bluetoothState == BluetoothAdapter.STATE_OFF) {
+            BluetoothConnectionBroadcastReceiver.clearConnectedDevices();
+            BluetoothConnectionBroadcastReceiver.saveConnectedDevices(context);
+        }
+
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
         PPApplication.loadPreferences(context);
-
-        int bluetoothState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
         if (PPApplication.getGlobalEventsRuning(context))
         {
@@ -53,10 +59,6 @@ public class BluetoothStateChangedBroadcastReceiver extends WakefulBroadcastRece
                             BluetoothScanAlarmBroadcastReceiver.fillBoundedDevicesList(context);
                         }
                     //}
-                }
-                else {
-                    BluetoothConnectionBroadcastReceiver.clearConnectedDevices();
-                    BluetoothConnectionBroadcastReceiver.saveConnectedDevices(context);
                 }
 
                 if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
