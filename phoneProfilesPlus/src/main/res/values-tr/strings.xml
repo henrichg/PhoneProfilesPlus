@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Wi-Fi Bağlantısı</string>
   <string name="array_event_pref_wifiConnectionType_connected">Wi-Fi bağlandı</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">Wi-Fi açık</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">Çevresinde</string>
   <string name="event_preferences_wifi_connection_type">Wi-Fi bağlantı türü</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi tarama aralığı (dakika)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Wi-Fi taraması tercihlerini aç</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">Bluetooth ismi</string>
   <string name="pref_event_bluetooth_connectionType">Bluetooth bağlantısı</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Bluetooth bağlandı</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">Bluetooth açık</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">Çevresinde</string>
   <string name="event_preferences_bluetooth_connection_type">Bluetooth bağlantı türü</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth tarama aralığı (dakika)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Bluetooth taramasına izin ver</string>
@@ -390,9 +390,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profil ismini gizle (widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Durumları tekrar başlat</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">Wi-Fi bağlanmadı</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Wi-Fi açık değil</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Değil çevresinde</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">Bluetooth bağlanmadı</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Bluetooth açık değil</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Değil çevresinde</string>
   <string name="event_preferences_call_contact_groups">Kişi çağrı grupları</string>
   <string name="event_preferences_sms_contact_groups">Kişi mesaj grupları</string>
   <string name="event_preferences_error">Kırmızı ile boyanmış şartların hepsi ayarlanmış değil!</string>

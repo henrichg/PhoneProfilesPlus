@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Connection</string>
   <string name="array_event_pref_wifiConnectionType_connected">Connected</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">Around</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">În jurul</string>
   <string name="event_preferences_wifi_connection_type">Connection type</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi scan interval (min)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Enable Wi-Fi scanning</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">Nume BT</string>
   <string name="pref_event_bluetooth_connectionType">Conexiune</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Conectat</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">În față</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">În jurul</string>
   <string name="event_preferences_bluetooth_connection_type">Tip conexiune</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Intervalul de scanare Bluetooth (min)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Activare scanare Bluetooth</string>

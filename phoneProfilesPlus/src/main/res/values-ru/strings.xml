@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Подключение</string>
   <string name="array_event_pref_wifiConnectionType_connected">Подключен</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">В зоне действия сети</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">Вокруг</string>
   <string name="event_preferences_wifi_connection_type">Тип соединения</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Интервал сканирования Wi-Fi (мин)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Включить сканирование Wi-Fi</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">Имя Bluetooth-устройства</string>
   <string name="pref_event_bluetooth_connectionType">Подключение</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Подключен</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">В зоне действия сети</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">Вокруг</string>
   <string name="event_preferences_bluetooth_connection_type">Тип соединения</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Интервал сканирования Bluetooth (мин)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Включить сканирование Bluetooth</string>
@@ -390,9 +390,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Скрыть имя профиля (виджет)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Перезапустить события</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">Не подключено</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Вне зоны доступа</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Не вокруг</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">Не подключено</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Вне зоны доступа</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Не вокруг</string>
   <string name="event_preferences_call_contact_groups">Группы контактов</string>
   <string name="event_preferences_sms_contact_groups">Группы контактов</string>
   <string name="event_preferences_error">Указаны не все параметры!</string>

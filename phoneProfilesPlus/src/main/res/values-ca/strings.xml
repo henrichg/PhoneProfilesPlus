@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Connexió</string>
   <string name="array_event_pref_wifiConnectionType_connected">Connectat</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">Per devant</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">Al voltant</string>
   <string name="event_preferences_wifi_connection_type">Tipus de connexió</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Interval d\'escaneig Wi-Fi (min)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Habilitar escaneig Wi-Fi</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">Nom de BT</string>
   <string name="pref_event_bluetooth_connectionType">Connexió</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Connectat</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">Per devant</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">Al voltant</string>
   <string name="event_preferences_bluetooth_connection_type">Tipus de connexió</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Interval d\'escannejament Bluetooth (min)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Permetre escannejament de Bluetooth</string>
@@ -390,9 +390,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Amaga el nom de perfil (widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Reiniciar esdeveniments</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">Sense connexió</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">No al davant</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">No al voltant</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">Sense connexió</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">No al davant</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">No al voltant</string>
   <string name="event_preferences_call_contact_groups">Grups de contactes</string>
   <string name="event_preferences_sms_contact_groups">Grups de contactes</string>
   <string name="event_preferences_error">Manca informar paràmetres!</string>

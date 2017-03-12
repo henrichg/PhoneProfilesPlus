@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Połączenie</string>
   <string name="array_event_pref_wifiConnectionType_connected">Połączony</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">Z przodu</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">Na około</string>
   <string name="event_preferences_wifi_connection_type">Typ połączenia</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Interwał skanowania Wi-Fi (min)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Włącz skanowanie Wi-Fi</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">Nazwa Bluetooth</string>
   <string name="pref_event_bluetooth_connectionType">Połączenie</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Połączony</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">Z przodu</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">Na około</string>
   <string name="event_preferences_bluetooth_connection_type">Typ połączenia</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Interwał skanowania Bluetooth (min)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Włącz skanowanie Bluetooth</string>
@@ -390,9 +390,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Ukryj nazwę profilu (widżet)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Zrestartuj zdarzenia</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">Nie połączono</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Nie w zasięgu</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Nie wokół</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">Nie połączono</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Nie w zasięgu</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Nie wokół</string>
   <string name="event_preferences_call_contact_groups">Grupy kontaktów</string>
   <string name="event_preferences_sms_contact_groups">Grupy kontaktów</string>
   <string name="event_preferences_error">Nie wszystkie podkreślone parametry są ustawione!</string>

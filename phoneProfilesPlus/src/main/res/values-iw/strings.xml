@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">חיבור</string>
   <string name="array_event_pref_wifiConnectionType_connected">מחובר</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">בחזית</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">מסביב</string>
   <string name="event_preferences_wifi_connection_type">סוג חיבור</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">מרווח זמן הסריקה Wi-Fi (דקות)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">הפעלת סריקת Wi-Fi</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">שם BT</string>
   <string name="pref_event_bluetooth_connectionType">חיבור</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">מחובר</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">בחזית</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">מסביב</string>
   <string name="event_preferences_bluetooth_connection_type">סוג חיבור</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">מרווח זמן הסריקה Bluetooth (דקות)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">הפעלת סריקת Bluetooth</string>
@@ -390,9 +390,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">הסתרת שם הפרופיל (Widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">הפעלת אירועים מחדש</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">לא מחובר</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">לא בחזית</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">לא בסביבה</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">לא מחובר</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">לא בחזית</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">לא בסביבה</string>
   <string name="event_preferences_call_contact_groups">קבוצות אנשי קשר</string>
   <string name="event_preferences_sms_contact_groups">קבוצות אנשי קשר</string>
   <string name="event_preferences_error">לא כל המאפיינים המסומנים בקו תחתון מוגדרים!</string>

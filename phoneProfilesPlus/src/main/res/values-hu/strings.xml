@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Kapcsolat</string>
   <string name="array_event_pref_wifiConnectionType_connected">Csatlakoztatva</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">Elöl</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">Körülbelül</string>
   <string name="event_preferences_wifi_connection_type">Kapcsolat típusa</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi keresési intervallum (perc)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Engedélyezi a Wi-Fi keresést</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">BT név</string>
   <string name="pref_event_bluetooth_connectionType">Kapcsolat</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Csatlakoztatva</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">Elöl</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">Körülbelül</string>
   <string name="event_preferences_bluetooth_connection_type">Kapcsolat típusa</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth-ellenőrzés-intervallum (perc)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Engedélyezi a Bluetooth-keresést</string>
@@ -390,9 +390,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profil név elrejtés (Widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Eseményt újra indít</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">Nincs csatlakozva</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Nincs elöl</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Nincs a közelben</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">Nincs csatlakozva</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Nincs elöl</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Nincs a közelben</string>
   <string name="event_preferences_call_contact_groups">Kapcsolattartó csoportok</string>
   <string name="event_preferences_sms_contact_groups">Névjegy csoportok</string>
   <string name="event_preferences_error">Nem minden aláhúzott paramétert!</string>

@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">連線</string>
   <string name="array_event_pref_wifiConnectionType_connected">已連接</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">在前面</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">周圍</string>
   <string name="event_preferences_wifi_connection_type">連線類型</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi 掃描間隔 (分鐘)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">啟用 Wi-Fi 掃描</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">BT 名字</string>
   <string name="pref_event_bluetooth_connectionType">連接</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">已連接</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">在前面</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">周圍</string>
   <string name="event_preferences_bluetooth_connection_type">連線類型</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">藍牙掃描間隔 (分鐘)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">啟用藍牙掃描</string>
@@ -390,9 +390,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">隱藏設定檔名稱 (小工具)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">重新啟動事件</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">未連接</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">不在前面</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">不在身邊</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">未連接</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">不在前面</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">不在身邊</string>
   <string name="event_preferences_call_contact_groups">連絡人群組</string>
   <string name="event_preferences_sms_contact_groups">連絡人群組</string>
   <string name="event_preferences_error">不是所有有劃底線的參數已經設置好!</string>

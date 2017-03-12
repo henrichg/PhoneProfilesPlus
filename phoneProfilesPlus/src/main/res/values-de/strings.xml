@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Verbindung</string>
   <string name="array_event_pref_wifiConnectionType_connected">Verbunden</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">Verfügbar</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">Um</string>
   <string name="event_preferences_wifi_connection_type">Verbindungstyp</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi-Scan-Intervall (Minuten)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Wi-Fi-Scan aktivieren</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">BT-Name</string>
   <string name="pref_event_bluetooth_connectionType">Verbindung</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Verbunden</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">Verfügbar</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">Um</string>
   <string name="event_preferences_bluetooth_connection_type">Verbindungstyp</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth-Scan-Intervall (Minuten)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Bluetooth-Scan aktivieren</string>
@@ -390,9 +390,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profilnamen verstecken (Widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Ereignisse neu starten</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">Nicht verbunden</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Nicht verfügbar</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Nicht um</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">Nicht verbunden</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Nicht verfügbar</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Nicht um</string>
   <string name="event_preferences_call_contact_groups">Kontaktgruppen</string>
   <string name="event_preferences_sms_contact_groups">Kontaktgruppen</string>
   <string name="event_preferences_error">Nicht alle unterstrichenen Parameter sind eingestellt!</string>

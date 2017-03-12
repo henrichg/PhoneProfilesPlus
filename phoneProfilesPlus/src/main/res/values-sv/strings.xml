@@ -326,7 +326,7 @@
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Anslutning</string>
   <string name="array_event_pref_wifiConnectionType_connected">Ansluten</string>
-  <string name="array_event_pref_wifiConnectionType_inFront">Främre</string>
+  <string name="array_event_pref_wifiConnectionType_inFront">Runt</string>
   <string name="event_preferences_wifi_connection_type">Anslutningstyp</string>
   <string name="phone_profiles_pref_applicationEventWifiScanInterval">Wi-Fi sökningsintervall (min)</string>
   <string name="phone_profiles_pref_applicationEventWifiEnableWifi">Aktivera Wi-Fi sökning</string>
@@ -356,7 +356,7 @@
   <string name="pref_event_bluetooth_adapterName">BT namn</string>
   <string name="pref_event_bluetooth_connectionType">Anslutning</string>
   <string name="array_event_pref_bluetoothConnectionType_connected">Ansluten</string>
-  <string name="array_event_pref_bluetoothConnectionType_inFront">Främre</string>
+  <string name="array_event_pref_bluetoothConnectionType_inFront">Runt</string>
   <string name="event_preferences_bluetooth_connection_type">Anslutningstyp</string>
   <string name="phone_profiles_pref_applicationEventBluetoothScanInterval">Bluetooth avsökningsintervall (min)</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableBluetooth">Aktivera Bluetooth avsökning</string>
@@ -390,9 +390,9 @@
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Dölj profilnamn (widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Starta om händelser</string>
   <string name="array_event_pref_wifiConnectionType_notConnected">Inte ansluten</string>
-  <string name="array_event_pref_wifiConnectionType_notInFront">Inte framför</string>
+  <string name="array_event_pref_wifiConnectionType_notInFront">Inte runt</string>
   <string name="array_event_pref_bluetoothConnectionType_notConnected">Inte ansluten</string>
-  <string name="array_event_pref_bluetoothConnectionType_notInFront">Inte framför</string>
+  <string name="array_event_pref_bluetoothConnectionType_notInFront">Inte runt</string>
   <string name="event_preferences_call_contact_groups">Kontaktgrupper</string>
   <string name="event_preferences_sms_contact_groups">Kontaktgrupper</string>
   <string name="event_preferences_error">Alla understrukna parametrar är inte inställda!</string>

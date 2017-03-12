@@ -54,7 +54,7 @@ public class PPApplication extends Application {
 
     public static final boolean exactAlarms = true;
 
-    private static boolean logIntoLogCat = false;
+    private static boolean logIntoLogCat = true;
     private static boolean logIntoFile = false;
     private static boolean rootToolsDebug = false;
     public static String logFilterTags =  "PhoneProfilesHelper.doUninstallPPHelper"
@@ -63,10 +63,6 @@ public class PPApplication extends Application {
                                          //+"|##### PPApplication.onCreate"
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
-
-                                         +"|Event.setDelayEndAlarm"
-                                         +"|Event.checkDelayEnd"
-                                         +"|[***] DataWrapper.doEventService"
 
                                          //+"|$$$ PhoneProfilesService.onCreate"
                                          //+"|PhoneProfilesService.onDestroy"
@@ -78,6 +74,7 @@ public class PPApplication extends Application {
                                          +"|$$$BLE ScannerService.onHandleIntent"
                                          +"|BluetoothScanBroadcastReceiver.finishScan"
                                          +"|@@@ BluetoothStateChangedBroadcastReceiver.onReceive"*/
+                                         +"|[BTScan] DataWrapper.doEventService"
 
                                          //+"|PhoneProfilesService.onStartCommand"
                                          //+"|PhoneProfilesService.startSimulatingRingingCall"
