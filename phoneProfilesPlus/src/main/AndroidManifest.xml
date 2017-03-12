@@ -128,7 +128,7 @@
             android:excludeFromRecents="true"
             android:label="@string/title_activity_phone_profiles"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyActivity">
+            android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -180,7 +180,7 @@
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
             android:label="@string/empty_string"
-            android:theme="@style/EmptyActivity">
+            android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -191,7 +191,7 @@
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:label="@string/empty_string"
-            android:theme="@style/EmptyActivity">
+            android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -203,7 +203,7 @@
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:label="@string/empty_string"
-            android:theme="@style/EmptyActivity">
+            android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE"/>
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS"/>
@@ -219,7 +219,7 @@
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyActivity">
+            android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
             android:name=".ActivityLogActivity"
@@ -234,7 +234,7 @@
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
-            android:theme="@style/EmptyActivity">
+            android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
             android:name=".LocationGeofenceEditorActivity"
@@ -243,6 +243,7 @@
         <activity
             android:name=".GeofenceScannerErrorActivity"
             android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -251,7 +252,7 @@
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
-            android:theme="@style/EmptyActivity">
+            android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
             android:name=".AboutApplicationActivity"
@@ -271,7 +272,7 @@
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:label="@string/empty_string"
-            android:theme="@style/EmptyActivity">
+            android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
 
