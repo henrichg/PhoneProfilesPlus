@@ -1,3 +1,4 @@
+![PhoneProfilesPlus icon](/art/ic_launcher_README.png)
 PhoneProfilesPlus
 =================
 
