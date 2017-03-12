@@ -77,7 +77,7 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
 
                 //if (lastState != currState)
                 //{
-                    PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","connected"+connected);
+                    PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive","connected="+connected);
 
                     if (!((BluetoothScanAlarmBroadcastReceiver.getScanRequest(context)) ||
                          (BluetoothScanAlarmBroadcastReceiver.getLEScanRequest(context)) ||
@@ -139,6 +139,8 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
                     connectedDevices.add(device);
                 }
             }
+
+            PPApplication.logE("BluetoothConnectionBroadcastReceiver.getConnectedDevices", "connectedDevices.size()=" + connectedDevices.size());
         }
     }
 
@@ -205,7 +207,8 @@ public class BluetoothConnectionBroadcastReceiver extends WakefulBroadcastReceiv
     static void clearConnectedDevices()
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            connectedDevices.clear();
+            if (connectedDevices != null)
+                connectedDevices.clear();
         }
     }
 

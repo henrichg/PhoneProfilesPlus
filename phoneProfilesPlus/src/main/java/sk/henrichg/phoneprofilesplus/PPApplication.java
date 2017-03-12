@@ -75,7 +75,7 @@ public class PPApplication extends Application {
                                          +"|BluetoothScanBroadcastReceiver.finishScan"
                                          +"|@@@ BluetoothStateChangedBroadcastReceiver.onReceive"*/
                                          +"|[BTScan] DataWrapper.doEventService"
-                                         +"|BluetoothConnectionBroadcastReceiver.onReceive"
+                                         +"|BluetoothConnectionBroadcastReceiver"
 
                                          //+"|PhoneProfilesService.onStartCommand"
                                          //+"|PhoneProfilesService.startSimulatingRingingCall"
