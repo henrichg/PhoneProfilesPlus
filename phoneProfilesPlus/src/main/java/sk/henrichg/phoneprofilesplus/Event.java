@@ -1528,9 +1528,10 @@ class Event {
         Calendar now = Calendar.getInstance();
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long nowTime = now.getTimeInMillis() - gmtOffset;
-        long delayTime = this._startStatusTime + this._delayStart;
+        now.add(Calendar.SECOND, this._delayStart);
+        long delayTime = now.getTimeInMillis() - gmtOffset;
 
-        if (delayTime > nowTime)
+        if (nowTime > delayTime)
             this._isInDelayStart = false;
     }
 
@@ -1636,6 +1637,10 @@ class Event {
     }
 
     void checkDelayEnd(/*DataWrapper dataWrapper*/) {
+        //PPApplication.logE("Event.checkDelayEnd","this._pauseStatusTime="+this._pauseStatusTime);
+        //PPApplication.logE("Event.checkDelayEnd","this._isInDelayEnd="+this._isInDelayEnd);
+        //PPApplication.logE("Event.checkDelayEnd","this._delayEnd="+this._delayEnd);
+
         if (this._pauseStatusTime == 0) {
             this._isInDelayEnd = false;
             return;
@@ -1644,10 +1649,26 @@ class Event {
         Calendar now = Calendar.getInstance();
         int gmtOffset = TimeZone.getDefault().getRawOffset();
         long nowTime = now.getTimeInMillis() - gmtOffset;
-        long delayTime = this._pauseStatusTime + this._delayEnd;
+        now.add(Calendar.SECOND, this._delayEnd);
+        long delayTime = now.getTimeInMillis() - gmtOffset;
 
-        if (delayTime > nowTime)
+        /*
+        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+
+        String result = sdf.format(nowTime);
+        PPApplication.logE("Event.checkDelayEnd","nowTime="+result);
+
+        result = sdf.format(this._pauseStatusTime);
+        PPApplication.logE("Event.checkDelayEnd","pauseStatusTime="+result);
+
+        result = sdf.format(delayTime);
+        PPApplication.logE("Event.checkDelayEnd","delayTime="+result);
+        */
+
+        if (nowTime > delayTime)
             this._isInDelayEnd = false;
+
+        //PPApplication.logE("Event.checkDelayEnd","this._isInDelayEnd="+this._isInDelayEnd);
     }
 
     void removeDelayEndAlarm(DataWrapper dataWrapper)

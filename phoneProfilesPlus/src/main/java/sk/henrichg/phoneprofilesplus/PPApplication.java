@@ -64,8 +64,9 @@ public class PPApplication extends Application {
                                          +"|PPApplication._isRooted"
                                          +"|PPApplication.isRootGranted"
 
-                                         +"|Profile.mergedProfiles"
-                                         +"|$$$ DataWrapper._activateProfile"
+                                         +"|Event.setDelayEndAlarm"
+                                         +"|Event.checkDelayEnd"
+                                         +"|[***] DataWrapper.doEventService"
 
                                          //+"|$$$ PhoneProfilesService.onCreate"
                                          //+"|PhoneProfilesService.onDestroy"
