@@ -130,7 +130,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             popupHeight = popupHeight + (85f * scale * profileCount); // item
             popupHeight = popupHeight + (1f * scale * (profileCount-1)); // divider
 
-            popupHeight = popupHeight + (20f * scale); // gridview padding
+            popupHeight = popupHeight + (24f * scale); // gridview margin
         }
 
         if (popupHeight > popupMaxHeight)

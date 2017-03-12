@@ -70,32 +70,28 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="9dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp">
+        android:layout_margin="12dp">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="2dp"
-        android:background="?android:attr/listDivider">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:background="?android:attr/listDivider"/>
 
-    <GridView
-        android:id="@+id/act_prof_profiles_grid"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnWidth="100dp"
-        android:gravity="center"
-        android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
-        android:verticalSpacing="1dp"
-        android:numColumns="3"
-        android:stretchMode="columnWidth"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"
-        android:drawSelectorOnTop="true" />
+        <GridView
+            android:id="@+id/act_prof_profiles_grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="100dp"
+            android:gravity="center"
+            android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
+            android:verticalSpacing="1dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:drawSelectorOnTop="true" />
 
-    </FrameLayout>
     </FrameLayout>
 
 </LinearLayout>
