@@ -66,8 +66,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         TextView text = (TextView) findViewById(R.id.about_application_application_version);
         try {
             PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            String packageVersion = pinfo.versionName;
-            text.setText(getString(R.string.about_application_version) + " " + packageVersion);
+            text.setText(getString(R.string.about_application_version) + " " + pinfo.versionName + " (" + pinfo.versionCode + ")");
         } catch (PackageManager.NameNotFoundException e) {
             text.setText("");
         }
@@ -94,7 +93,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 String packageVersion = "";
                 try {
                     PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                    packageVersion = " - v" + pinfo.versionName;
+                    packageVersion = " - v" + pinfo.versionName + " (" + pinfo.versionCode + ")";
                 } catch (Exception ignored) {
                 }
                 intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
